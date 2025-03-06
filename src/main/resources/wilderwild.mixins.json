@@ -16,7 +16,6 @@
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
     "block.frozen_vegetation.GrassBlockMixin",
-    "block.frozen_vegetation.ShearsItemMixin",
     "block.ice.EntityMixin",
     "block.ice.FrostedIceBlockMixin",
     "block.ice.HalfTransparentBlockMixin",

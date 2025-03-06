@@ -324,7 +324,7 @@ public final class WWModelHelper {
 	}
 
 	public static void createIcicle(@NotNull BlockModelGenerators generator) {
-		PropertyDispatch.C2<Direction, DripstoneThickness> c2 = PropertyDispatch.properties(
+		PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> c2 = PropertyDispatch.initial(
 			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
 		);
 
@@ -336,14 +336,13 @@ public final class WWModelHelper {
 			c2.select(Direction.DOWN, dripstoneThickness, createIcicleVariant(generator, Direction.DOWN, dripstoneThickness));
 		}
 
-		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(WWBlocks.ICICLE).with(c2));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(c2));
 	}
 
-	private static @NotNull Variant createIcicleVariant(@NotNull BlockModelGenerators generator, @NotNull Direction direction, @NotNull DripstoneThickness dripstoneThickness) {
+	private static @NotNull MultiVariant createIcicleVariant(@NotNull BlockModelGenerators generator, @NotNull Direction direction, @NotNull DripstoneThickness dripstoneThickness) {
 		String string = "_" + direction.getSerializedName() + "_" + dripstoneThickness.getSerializedName();
 		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE, string));
-		return Variant.variant()
-			.with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
+		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
 	}
 
 	public static void createFragileIce(@NotNull BlockModelGenerators generator) {
@@ -351,32 +350,20 @@ public final class WWModelHelper {
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.multiVariant(WWBlocks.FRAGILE_ICE)
+				MultiVariantGenerator.dispatch(WWBlocks.FRAGILE_ICE)
 					.with(
-						PropertyDispatch.property(BlockStateProperties.AGE_2)
+						PropertyDispatch.initial(BlockStateProperties.AGE_2)
 							.select(
 								0,
-								Variant.variant()
-									.with(
-										VariantProperties.MODEL,
-										leastCrackedModelId
-									)
+								BlockModelGenerators.plainVariant(leastCrackedModelId)
 							)
 							.select(
 								1,
-								Variant.variant()
-									.with(
-										VariantProperties.MODEL,
-										generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube)
-									)
+								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube))
 							)
 							.select(
 								2,
-								Variant.variant()
-									.with(
-										VariantProperties.MODEL,
-										generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube)
-									)
+								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube))
 							)
 					)
 			);

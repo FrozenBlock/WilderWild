@@ -44,17 +44,17 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -70,6 +70,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -154,7 +155,6 @@ public final class WWMiscConfigured {
 	// PALE GARDEN
 	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> PALE_MOSS_PILE = register("pale_moss_pile");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
-
 
 	// MANGROVE SWAMP
 	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> MUD_PILE = register("mud_pile");
@@ -1094,14 +1094,25 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> yellowLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				yellowLitterStates.add(
+					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
+				new BallBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
+						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
@@ -1112,14 +1123,25 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> orangeLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				orangeLitterStates.add(
+					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
+				new BallBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
+						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
@@ -1130,14 +1152,25 @@ public final class WWMiscConfigured {
 			)
 		);
 
+		WeightedList.Builder<BlockState> redLitterStates = WeightedList.builder();
+		for (int i = 1; i <= 4; i++) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				redLitterStates.add(
+					WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()
+						.setValue(WWBlocks.RED_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(LeafLitterBlock.FACING, direction),
+					1
+				);
+			}
+		}
 		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER))
+				new BallBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER))
+						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))

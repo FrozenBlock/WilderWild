@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class EntityMixin {
 
 	@Shadow
-	public float fallDistance;
+	public double fallDistance;
 
 	@WrapOperation(
 		method = "checkFallDamage",

@@ -130,10 +130,10 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float fallDistance) {
+	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, double fallDistance) {
 		super.fallOn(level, blockState, blockPos, entity, fallDistance);
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
-			if (fallDistance >= 4F) level.destroyBlock(blockPos, false);
+			if (fallDistance >= 4) level.destroyBlock(blockPos, false);
 		}
 	}
 

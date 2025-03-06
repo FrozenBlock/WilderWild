@@ -67,9 +67,9 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.loadAdditional(tag, provider);
 
-		if (tag.contains("listener", 10)) {
+		if (tag.contains("listener")) {
 			RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-			Data.CODEC.parse(new Dynamic<>(registryOps, tag.getCompound("listener")))
+			Data.CODEC.parse(new Dynamic<>(registryOps, tag.getCompound("listener").get()))
 				.resultOrPartial((string) -> LOGGER.error("Failed to parse vibration listener for Icicle: '{}'", string))
 				.ifPresent(data -> this.vibrationData = data);
 		}

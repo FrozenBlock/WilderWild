@@ -1338,10 +1338,12 @@ public final class WWTreeConfigured {
 					6,
 					2,
 					1,
-					0.225F,
-					UniformInt.of(1, 2),
-					UniformInt.of(0, 2),
-					ConstantInt.of(1)
+					new TrunkBranchPlacement.Builder()
+						.branchChance(0.225F)
+						.maxBranchCount(UniformInt.of(1, 2))
+						.branchCutoffFromTop(UniformInt.of(0, 2))
+						.branchLength(ConstantInt.of(1))
+						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
 				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
@@ -1390,10 +1392,12 @@ public final class WWTreeConfigured {
 					7,
 					2,
 					1,
-					0.235F,
-					UniformInt.of(2, 3),
-					UniformInt.of(0, 2),
-					UniformInt.of(1, 2)
+					new TrunkBranchPlacement.Builder()
+						.branchChance(0.235F)
+						.maxBranchCount(UniformInt.of(2, 3))
+						.branchCutoffFromTop(UniformInt.of(0, 2))
+						.branchLength(UniformInt.of(1, 2))
+						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
 				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
