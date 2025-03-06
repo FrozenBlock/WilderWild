@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -79,6 +80,11 @@ public final class WWBlockEntityTypes {
 		"geyser",
 		GeyserBlockEntity::new,
 		WWBlocks.GEYSER
+	);
+	public static final BlockEntityType<IcicleBlockEntity> ICICLE = register(
+		"icicle",
+		IcicleBlockEntity::new,
+		WWBlocks.ICICLE
 	);
 
 }

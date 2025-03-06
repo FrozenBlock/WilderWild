@@ -1,0 +1,22 @@
+{
+  "values": [
+    "minecraft:ladder",
+    "wilderwild:icicle",
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    },
+    {
+      "id": "#minecraft:walls",
+      "required": false
+    },
+    {
+      "id": "#minecraft:fence_gates",
+      "required": false
+    },
+    {
+      "id": "#minecraft:fences",
+      "required": false
+    }
+  ]
+}

@@ -30,20 +30,16 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
-import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
@@ -528,6 +524,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER));
 		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER));
 		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER));
+
+		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE);
+		this.dropWhenSilkTouch(WWBlocks.ICICLE);
 	}
 
 }

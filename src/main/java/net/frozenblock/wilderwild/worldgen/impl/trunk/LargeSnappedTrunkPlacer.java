@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.worldgen.impl.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
@@ -35,24 +34,20 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		largeSnappedTrunkCodec(instance).apply(instance, LargeSnappedTrunkPlacer::new));
+	public static final MapCodec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		trunkPlacerParts(instance)
+			.and(UniformInt.CODEC.fieldOf("additional_height").forGetter(trunkPlacer -> trunkPlacer.additionalHeight))
+			.apply(instance, LargeSnappedTrunkPlacer::new)
+	);
 
 	public final UniformInt additionalHeight;
 
 	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, UniformInt additionalHeight) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.additionalHeight = additionalHeight;
-	}
-
-	@Contract("_ -> new")
-	protected static <P extends LargeSnappedTrunkPlacer> Products.@NotNull P4<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, UniformInt> largeSnappedTrunkCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder)
-			.and(UniformInt.CODEC.fieldOf("additional_height").forGetter((trunkPlacer) -> trunkPlacer.additionalHeight));
 	}
 
 	@Override
@@ -63,7 +58,14 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> replacer,
+		@NotNull RandomSource random,
+		int height,
+		@NotNull BlockPos startPos,
+		@NotNull TreeConfiguration config
+	) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
@@ -81,14 +83,27 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 		return Lists.newArrayList();
 	}
 
-	private void placeQuarter(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos, int height) {
+	private void placeQuarter(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> replacer,
+		@NotNull RandomSource random,
+		@NotNull TreeConfiguration config,
+		@NotNull BlockPos.MutableBlockPos pos,
+		int height
+	) {
 		int newHeight = height + this.additionalHeight.sample(random);
 		for (int i = 0; i < newHeight; ++i) {
 			this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
 		}
 	}
 
-	private void placeLog(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, @NotNull TreeConfiguration config, @NotNull BlockPos.MutableBlockPos pos) {
+	private void placeLog(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
+		@NotNull RandomSource random,
+		@NotNull TreeConfiguration config,
+		@NotNull BlockPos.MutableBlockPos pos
+	) {
 		this.placeLogIfFree(level, blockSetter, random, pos, config);
 	}
 }

@@ -58,6 +58,7 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWModelHelper {
@@ -320,5 +321,66 @@ public final class WWModelHelper {
 		TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
 		MultiVariant pot = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput));
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
+	}
+
+	public static void createIcicle(@NotNull BlockModelGenerators generator) {
+		PropertyDispatch.C2<Direction, DripstoneThickness> c2 = PropertyDispatch.properties(
+			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
+		);
+
+		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
+			c2.select(Direction.UP, dripstoneThickness, createIcicleVariant(generator, Direction.UP, dripstoneThickness));
+		}
+
+		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
+			c2.select(Direction.DOWN, dripstoneThickness, createIcicleVariant(generator, Direction.DOWN, dripstoneThickness));
+		}
+
+		generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(WWBlocks.ICICLE).with(c2));
+	}
+
+	private static @NotNull Variant createIcicleVariant(@NotNull BlockModelGenerators generator, @NotNull Direction direction, @NotNull DripstoneThickness dripstoneThickness) {
+		String string = "_" + direction.getSerializedName() + "_" + dripstoneThickness.getSerializedName();
+		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE, string));
+		return Variant.variant()
+			.with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
+	}
+
+	public static void createFragileIce(@NotNull BlockModelGenerators generator) {
+		ResourceLocation leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.FRAGILE_ICE)
+					.with(
+						PropertyDispatch.property(BlockStateProperties.AGE_2)
+							.select(
+								0,
+								Variant.variant()
+									.with(
+										VariantProperties.MODEL,
+										leastCrackedModelId
+									)
+							)
+							.select(
+								1,
+								Variant.variant()
+									.with(
+										VariantProperties.MODEL,
+										generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube)
+									)
+							)
+							.select(
+								2,
+								Variant.variant()
+									.with(
+										VariantProperties.MODEL,
+										generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube)
+									)
+							)
+					)
+			);
+
+		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(WWBlocks.FRAGILE_ICE.asItem()), new DelegatedModel(leastCrackedModelId));
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:ice",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/cave_ice_replaceable",
+      "required": false
+    }
+  ]
+}

@@ -1,88 +1,92 @@
 {
-  "type": "frozenlib:combo_feature",
+  "type": "frozenlib:noise_path",
   "config": {
-    "features": [
-      {
-        "feature": {
-          "type": "frozenlib:noise_path_swap_under_fluid_feature",
-          "config": {
-            "is_3d": true,
-            "max_threshold": -0.15,
-            "min_threshold": -0.275,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "only_place_when_exposed": true,
-            "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
-            "scale_y": true,
+    "noise_band_placement": {
+      "block_placements": [
+        {
+          "maximum_noise_threshold": -0.15,
+          "minimum_noise_threshold": -0.275,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/magma_replaceable"
+          },
+          "schedule_tick_on_placement": true,
+          "searching_block_predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "frozenlib:touching",
+                "all_must_match": false,
+                "block_predicate": {
+                  "type": "minecraft:all_of",
+                  "predicates": [
+                    {
+                      "type": "minecraft:replaceable"
+                    },
+                    {
+                      "type": "minecraft:not",
+                      "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "minecraft:water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "minecraft:not",
+                "predicate": {
+                  "type": "frozenlib:search_in_direction",
+                  "all_must_match": false,
+                  "block_predicate": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "minecraft:water"
+                  },
+                  "search_direction": "up",
+                  "search_steps": 3
+                }
+              }
+            ]
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
             "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "minecraft:magma_block"
-              }
-            },
-            "under_water_state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:gabbro"
-              }
-            },
-            "use_y": true
+              "Name": "minecraft:magma_block"
+            }
           }
         },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:noise_path_feature",
-          "config": {
-            "is_3d": true,
-            "max_threshold": -0.275,
-            "min_threshold": -0.31,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "only_place_when_exposed": true,
-            "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
-            "scale_y": true,
-            "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:gabbro"
-              }
+        {
+          "maximum_noise_threshold": -0.115,
+          "minimum_noise_threshold": -0.31,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/magma_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water",
+                "minecraft:lava"
+              ]
             },
-            "use_y": true
-          }
-        },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:noise_path_feature",
-          "config": {
-            "is_3d": true,
-            "max_threshold": -0.115,
-            "min_threshold": -0.15,
-            "noise_scale": 0.0325,
-            "noise_type": "XORO",
-            "only_place_when_exposed": true,
-            "placement_chance": 1.0,
-            "radius": 14,
-            "replaceable_blocks": "#wilderwild:feature/magma_replaceable",
-            "scale_y": true,
+            "search_area": 2
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
             "state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "wilderwild:gabbro"
-              }
-            },
-            "use_y": true
+              "Name": "wilderwild:gabbro"
+            }
           }
-        },
-        "placement": []
-      }
-    ]
+        }
+      ],
+      "include_y_in_noise_calculation": true,
+      "noise_scale": 0.0325,
+      "noise_type": "XORO",
+      "scale_noise_y": true
+    },
+    "placement_radius": 8
   }
 }

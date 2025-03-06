@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -27,7 +28,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import java.util.Map;
 
 public class SnowyBlockUtils {
 	public static final Map<Block, Block> SNOWY_BLOCK_MAP = ImmutableMap.<Block, Block>builder()
@@ -40,17 +40,13 @@ public class SnowyBlockUtils {
 	@NotNull
 	public static BlockState getWorldgenSnowyEquivalent(@NotNull BlockState state) {
 		Block block = state.getBlock();
-		if (SNOWY_BLOCK_MAP.containsKey(block)) {
-			return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
-		}
+		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
 	public static @NotNull BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
 		BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
-		if (!state.equals(snowyEquivalent)) {
-			level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
-		}
+		if (!state.equals(snowyEquivalent)) level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
 		return snowyEquivalent;
 	}
 }

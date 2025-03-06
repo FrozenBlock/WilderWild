@@ -1260,6 +1260,21 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SURFACE_ICICLES)
+			.add(Biomes.ICE_SPIKES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)
+			.add(Biomes.SNOWY_PLAINS)
+			.add(Biomes.ICE_SPIKES)
+			.add(Biomes.SNOWY_TAIGA)
+			.add(Biomes.SNOWY_BEACH)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN)
+			.add(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)
@@ -2117,8 +2132,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_GRASS)
 			.add(Biomes.SNOWY_PLAINS)
 			.add(Biomes.ICE_SPIKES)
-			.add(Biomes.GROVE)
-			.addOptional(WWBiomes.FROZEN_CAVES);
+			.add(Biomes.GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_TAIGA_GRASS)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
@@ -2137,8 +2151,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_PLAIN_TALL_GRASS)
 			.add(Biomes.SNOWY_PLAINS)
-			.add(Biomes.ICE_SPIKES)
-			.addOptional(WWBiomes.FROZEN_CAVES);
+			.add(Biomes.ICE_SPIKES);
 	}
 
 	private void generateStructureTags() {

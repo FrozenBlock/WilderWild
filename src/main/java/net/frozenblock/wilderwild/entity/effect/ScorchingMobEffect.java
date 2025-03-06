@@ -37,7 +37,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -87,16 +86,17 @@ public class ScorchingMobEffect extends MobEffect {
 				blockPos = poses.next();
 				BlockPos blockPos2 = blockPos.below();
 				BlockState blockState = level.getBlockState(blockPos);
-				if (!set.contains(blockPos) && blockState.canBeReplaced() && blockState.getFluidState().isEmpty() && level.getBlockState(blockPos2).isFaceSturdy(level, blockPos2, Direction.UP)) {
+				if (!set.contains(blockPos)
+					&& blockState.canBeReplaced()
+					&& blockState.getFluidState().isEmpty()
+					&& level.getBlockState(blockPos2).isFaceSturdy(level, blockPos2, Direction.UP)
+				) {
 					set.add(blockPos.immutable());
-					if (set.size() >= i) {
-						break;
-					}
+					if (set.size() >= i) break;
 				}
 			}
 
 			poses = set.iterator();
-
 			while (poses.hasNext()) {
 				blockPos = poses.next();
 				BlockState fireState;
@@ -106,7 +106,7 @@ public class ScorchingMobEffect extends MobEffect {
 					fireState = Blocks.FIRE.defaultBlockState();
 				}
 				if (fireState.canSurvive(level, blockPos)) {
-					level.setBlock(blockPos, fireState, Block.UPDATE_ALL);
+					level.setBlockAndUpdate(blockPos, fireState);
 					WWScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
 				}
 			}

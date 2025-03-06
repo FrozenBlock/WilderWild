@@ -97,6 +97,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FROZEN_BUSH = bind("feature/has_frozen_bush");
 
 	public static final TagKey<Biome> HAS_LEAF_LITTER = bind("feature/has_leaf_litter");
+	public static final TagKey<Biome> HAS_SURFACE_ICICLES = bind("feature/has_surface_icicles");
+	public static final TagKey<Biome> HAS_SURFACE_FRAGILE_ICE = bind("feature/has_surface_fragile_ice");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> HAS_TREES_SNOWY = bind("has_trees_snowy");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");

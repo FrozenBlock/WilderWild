@@ -43,7 +43,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
-
 	public final TermiteManager termiteManager;
 	public final IntArrayList clientTermiteIDs = new IntArrayList();
 	public final IntArrayList prevClientTermiteIDs = new IntArrayList();

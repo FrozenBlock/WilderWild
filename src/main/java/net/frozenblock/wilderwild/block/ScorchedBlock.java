@@ -87,7 +87,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		state = stateWithoutDusting(state);
 		if (canScorch(state)) {
-			level.setBlock(pos, SCORCH_MAP.get(state), UPDATE_ALL);
+			level.setBlockAndUpdate(pos, SCORCH_MAP.get(state));
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 		}
 	}

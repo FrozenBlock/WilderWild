@@ -39,10 +39,12 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class PalmTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new));
+	public static final MapCodec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new)
+	);
 
-	public PalmTrunkPlacer(int i, int j, int k) {
-		super(i, j, k);
+	public PalmTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight);
 	}
 
 	@Override
@@ -53,8 +55,14 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, @NotNull BlockPos pos, @NotNull TreeConfiguration config) {
-		int n;
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
+		@NotNull RandomSource random,
+		int freeTreeHeight,
+		@NotNull BlockPos pos,
+		@NotNull TreeConfiguration config
+	) {
 		PalmTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
 		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
@@ -66,7 +74,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		double z = pos.getZ();
 		OptionalInt optionalInt = OptionalInt.empty();
 		for (int m = 0; m < freeTreeHeight; ++m) {
-			n = pos.getY() + m;
+			int n = pos.getY() + m;
 			if (m >= i && j > 0) {
 				x += offset.x();
 				z += offset.z();

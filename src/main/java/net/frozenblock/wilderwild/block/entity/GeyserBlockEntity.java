@@ -54,7 +54,6 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -334,7 +333,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	public void setStageAndCooldown(@NotNull Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
-		level.setBlock(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage), Block.UPDATE_ALL);
+		level.setBlockAndUpdate(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage));
 		if (geyserStage == GeyserStage.ACTIVE) {
 			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
 		} else if (geyserStage != GeyserStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly

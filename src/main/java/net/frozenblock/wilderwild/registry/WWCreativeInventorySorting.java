@@ -305,6 +305,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
 
+		// ICE
+		addAfterInNaturalBlocks(Items.ICE, WWBlocks.FRAGILE_ICE);
+		addAfterInNaturalBlocks(Items.BLUE_ICE, WWBlocks.ICICLE);
+
 		// MUD BRICKS
 		addAfterInBuildingBlocks(Items.MUD_BRICKS, WWBlocks.CRACKED_MUD_BRICKS);
 		addAfterInBuildingBlocks(Items.MUD_BRICK_WALL, WWBlocks.CHISELED_MUD_BRICKS);

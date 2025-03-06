@@ -132,7 +132,7 @@ public class SnowloggingUtils {
 		if (isSnowlogged(state)) {
 			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
 				Block.dropResources(getSnowEquivalent(state), level, pos);
-				level.setBlock(pos, state.setValue(SNOW_LAYERS, 0), Block.UPDATE_ALL);
+				level.setBlockAndUpdate(pos, state.setValue(SNOW_LAYERS, 0));
 			}
 		}
 	}

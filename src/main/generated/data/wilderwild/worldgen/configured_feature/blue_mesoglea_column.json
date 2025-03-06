@@ -1,21 +1,33 @@
 {
-  "type": "frozenlib:upwards_column",
+  "type": "frozenlib:column",
   "config": {
-    "height": {
+    "block_state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:blue_pearlescent_mesoglea",
+        "Properties": {
+          "bubble_direction": "none"
+        }
+      }
+    },
+    "direction": "up",
+    "length": {
       "type": "minecraft:uniform",
       "max_inclusive": 12,
       "min_inclusive": 4
     },
-    "replaceable_blocks": [
-      "wilderwild:blue_pearlescent_mesoglea",
-      "wilderwild:purple_pearlescent_mesoglea",
-      "minecraft:water"
-    ],
-    "state": {
-      "Name": "wilderwild:blue_pearlescent_mesoglea",
-      "Properties": {
-        "bubble_direction": "none"
-      }
-    }
+    "replacement_block_predicate": {
+      "type": "minecraft:any_of",
+      "predicates": [
+        {
+          "type": "minecraft:replaceable"
+        },
+        {
+          "type": "minecraft:matching_blocks",
+          "blocks": "wilderwild:blue_pearlescent_mesoglea"
+        }
+      ]
+    },
+    "stop_when_encountering_unreplaceable_block": true
   }
 }

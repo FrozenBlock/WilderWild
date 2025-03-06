@@ -34,9 +34,7 @@ public final class WWItemConfig {
 			MOD_ID,
 			WWItemConfig.class,
 			WWPreLoadConstants.configPath("item", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		)
 	);
 

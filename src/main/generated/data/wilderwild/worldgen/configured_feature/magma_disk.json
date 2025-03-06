@@ -1,30 +1,53 @@
 {
-  "type": "frozenlib:fading_disk_schedule_tick_feature",
+  "type": "frozenlib:ball",
   "config": {
-    "fade_start_distance_percent": 0.675,
-    "heightmap": "OCEAN_FLOOR_WG",
-    "inner_chance": 0.7,
-    "inner_percent": 0.325,
-    "inner_replaceable_blocks": "#wilderwild:feature/magma_replaceable",
-    "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:obsidian"
+    "block_placement": {
+      "fade_start_percentage": 0.675,
+      "outer_placement": {
+        "chance_to_choose_in_inner_ring": 0.7,
+        "outer_ring_start_percentage": 0.75,
+        "placement_chance": 0.7,
+        "replacement_block_predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "wilderwild:feature/magma_replaceable"
+        },
+        "searching_block_predicate": {
+          "type": "frozenlib:touching",
+          "all_must_match": false,
+          "block_predicate": {
+            "type": "minecraft:replaceable"
+          }
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:magma_block"
+          }
+        }
+      },
+      "placement_chance": 0.8,
+      "replacement_block_predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wilderwild:feature/magma_replaceable"
+      },
+      "searching_block_predicate": {
+        "type": "frozenlib:touching",
+        "all_must_match": false,
+        "block_predicate": {
+          "type": "minecraft:replaceable"
+        }
+      },
+      "state_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:obsidian"
+        }
       }
     },
-    "outer_replaceable_blocks": "#wilderwild:feature/magma_replaceable",
-    "outer_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:magma_block"
-      }
-    },
-    "placement_chance": 0.8,
-    "radius": {
+    "placement_radius": {
       "type": "minecraft:uniform",
       "max_inclusive": 6,
       "min_inclusive": 2
-    },
-    "use_heightmap_instead_of_circular_placement": false
+    }
   }
 }

@@ -13,29 +13,26 @@
       "entries": [
         {
           "data": {
-            "Name": "minecraft:ice"
-          },
-          "weight": 5
-        },
-        {
-          "data": {
-            "Name": "minecraft:packed_ice"
+            "Name": "wilderwild:fragile_ice",
+            "Properties": {
+              "age": "0"
+            }
           },
           "weight": 8
         },
         {
           "data": {
-            "Name": "minecraft:blue_ice"
+            "Name": "minecraft:packed_ice"
           },
           "weight": 3
         }
       ]
     },
-    "replaceable": "#wilderwild:feature/ice_feature_replaceable",
+    "replaceable": "#wilderwild:feature/cave_ice_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.035,
     "vegetation_feature": {
-      "feature": "wilderwild:small_downwards_ice_column",
+      "feature": "wilderwild:small_downwards_fragile_ice_column",
       "placement": []
     },
     "vertical_range": 4,

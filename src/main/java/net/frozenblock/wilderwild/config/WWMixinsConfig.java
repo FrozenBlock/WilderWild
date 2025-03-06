@@ -34,9 +34,7 @@ public final class WWMixinsConfig {
 			WWMixinsConfig.class,
 			WWPreLoadConstants.configPath("mixins", true),
 			JsonType.JSON5,
-			false,
-			null,
-			null
+			false
 		)
 	);
 

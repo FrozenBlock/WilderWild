@@ -26,7 +26,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import java.util.Optional;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;

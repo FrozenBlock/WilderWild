@@ -26,9 +26,9 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWCavePlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWMiscGeneration {
@@ -51,7 +51,7 @@ public final class WWMiscGeneration {
 					}
 				});
 
-		BiomeModifications.create(WWConstants.id("termite_transitions"))
+		BiomeModifications.create(WWConstants.id("termite_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
@@ -252,6 +252,15 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
 						}
 					}
 				});
