@@ -37,6 +37,16 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_SANDSTONE = bind("sound/sandstone");
 	public static final TagKey<Block> SOUND_LILY_PAD = bind("sound/lily_pad");
 	public static final TagKey<Block> SOUND_MELON = bind("sound/melon");
+	public static final TagKey<Block> SOUND_GRAVEL = bind("sound/gravel");
+	public static final TagKey<Block> SOUND_CLAY = bind("sound/clay");
+	public static final TagKey<Block> SOUND_DEAD_BUSH = bind("sound/dead_bush");
+	public static final TagKey<Block> SOUND_PODZOL = bind("sound/podzol");
+	public static final TagKey<Block> SOUND_REINFORCED_DEEPSLATE = bind("sound/reinforced_deepslate");
+	public static final TagKey<Block> SOUND_SUGAR_CANE = bind("sound/sugar_cane");
+	public static final TagKey<Block> SOUND_WITHER_ROSE = bind("sound/wither_rose");
+	public static final TagKey<Block> SOUND_MAGMA_BLOCK = bind("sound/magma_block");
+
+	public static final TagKey<Block> SNOW_GENERATION_CAN_SEARCH_THROUGH = bind("snow_generation_can_search_through");
 
 	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
 	public static final TagKey<Block> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
@@ -81,6 +91,9 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
+
+	public static final TagKey<Block> ICICLE_FALLS_FROM = bind("icicle_falls_from");
+	public static final TagKey<Block> ICICLE_GROWS_WHEN_UNDER = bind("icicle_grows_when_under");
 
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_SLAB_REPLACEABLE_WORLDGEN = bind("sculk_slab_replaceable_worldgen");
@@ -158,7 +171,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("feature/red_scorched_sand_feature_inner_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("feature/red_scorched_sand_feature_replaceable");
 	public static final TagKey<Block> DIORITE_ICE_REPLACEABLE = bind("feature/diorite_ice_replaceable");
-	public static final TagKey<Block> ICE_FEATURE_REPLACEABLE = bind("feature/ice_feature_replaceable");
+	public static final TagKey<Block> CAVE_ICE_REPLACEABLE = bind("feature/cave_ice_replaceable");
+	public static final TagKey<Block> CAVE_FRAGILE_ICE_REPLACEABLE = bind("feature/cave_fragile_ice_replaceable");
 	public static final TagKey<Block> MESOGLEA_PATH_REPLACEABLE = bind("feature/mesoglea_path_replaceable");
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("feature/magma_replaceable");
 	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("feature/nether_geyser_replaceable");

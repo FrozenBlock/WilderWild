@@ -38,9 +38,7 @@ public final class WWBlockConfig {
 			MOD_ID,
 			WWBlockConfig.class,
 			WWPreLoadConstants.configPath("block", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {

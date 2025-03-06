@@ -277,7 +277,14 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(
+		@NotNull Level level,
+		@NotNull Player player,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@Nullable BlockEntity blockEntity,
+		@NotNull ItemStack stack
+	) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			if (player.hasCorrectToolForDrops(snowEquivalent)) {
@@ -308,13 +315,13 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	public void removeTopHalfIfYoung(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		if (state.is(this) && !isLower(state) && !isFullyGrown(state)) {
-			level.setBlock(pos, level.getFluidState(pos).createLegacyBlock(), UPDATE_ALL);
+			level.setBlockAndUpdate(pos, level.getFluidState(pos).createLegacyBlock());
 			return;
 		}
 		BlockPos movedPos = pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this) && !isLower(secondState) && !isFullyGrown(secondState)) {
-			level.setBlock(movedPos, level.getFluidState(movedPos).createLegacyBlock(), UPDATE_ALL);
+			level.setBlockAndUpdate(movedPos, level.getFluidState(movedPos).createLegacyBlock());
 		}
 	}
 }

@@ -36,9 +36,7 @@ public final class WWWorldgenConfig {
 			MOD_ID,
 			WWWorldgenConfig.class,
 			WWPreLoadConstants.configPath("worldgen", true),
-			JsonType.JSON5,
-			null,
-			null
+			JsonType.JSON5
 		) {
 			@Override
 			public void onSave() throws Exception {
@@ -70,7 +68,7 @@ public final class WWWorldgenConfig {
 	public boolean betaBeaches = true;
 
 	@EntrySyncData("snowUnderMountains")
-	public boolean snowUnderMountains = true;
+	public boolean snowUnderMountains = false;
 
 	@EntrySyncData("fallenTrees")
 	public boolean fallenTrees = true;

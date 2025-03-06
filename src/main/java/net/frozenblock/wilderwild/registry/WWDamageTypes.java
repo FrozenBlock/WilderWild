@@ -30,6 +30,7 @@ public final class WWDamageTypes {
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
 	public static final ResourceKey<DamageType> TUMBLEWEED = bind("tumbleweed");
 	public static final ResourceKey<DamageType> OSTRICH = bind("ostrich");
+	public static final ResourceKey<DamageType> FALLING_ICICLE = bind("falling_icicle");
 
 	public static void init() {
 	}
@@ -38,6 +39,7 @@ public final class WWDamageTypes {
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
 		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
 		context.register(OSTRICH, new DamageType("ostrich", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F));
+		context.register(FALLING_ICICLE, new DamageType("fallingIcicle", 0.1F));
 	}
 
 	@NotNull

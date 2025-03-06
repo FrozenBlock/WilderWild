@@ -2,7 +2,7 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "wilderwild:ice_column",
+      "feature": "wilderwild:fragile_ice_column",
       "placement": []
     },
     "features": [
@@ -17,6 +17,13 @@
         "chance": 0.3,
         "feature": {
           "feature": "wilderwild:packed_ice_big_column",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.35,
+        "feature": {
+          "feature": "wilderwild:fragile_ice_big_column",
           "placement": []
         }
       }

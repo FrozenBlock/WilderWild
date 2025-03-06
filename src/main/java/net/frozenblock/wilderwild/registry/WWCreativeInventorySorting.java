@@ -264,7 +264,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
 
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
-		
+
 		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
 
 		// SHELF FUNGI
@@ -297,6 +297,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.PINK_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
+
+		// ICE
+		addAfterInNaturalBlocks(Items.ICE, WWBlocks.FRAGILE_ICE);
+		addAfterInNaturalBlocks(Items.BLUE_ICE, WWBlocks.ICICLE);
 
 		// MUD BRICKS
 		addAfterInBuildingBlocks(Items.MUD_BRICKS, WWBlocks.CRACKED_MUD_BRICKS);

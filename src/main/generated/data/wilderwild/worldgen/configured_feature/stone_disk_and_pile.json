@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:combo_feature",
+  "type": "frozenlib:combo",
   "config": {
     "features": [
       {
@@ -18,33 +18,48 @@
       },
       {
         "feature": {
-          "type": "frozenlib:fading_disk_feature",
+          "type": "frozenlib:ball",
           "config": {
-            "fade_start_distance_percent": 0.8,
-            "heightmap": "OCEAN_FLOOR_WG",
-            "inner_chance": 0.925,
-            "inner_percent": 0.65,
-            "inner_replaceable_blocks": "#wilderwild:feature/stone_transition_replaceable",
-            "inner_state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "minecraft:stone"
+            "block_placement": {
+              "fade_start_percentage": 0.8,
+              "outer_placement": {
+                "outer_ring_start_percentage": 0.7,
+                "placement_chance": 0.7,
+                "replacement_block_predicate": {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "wilderwild:feature/stone_transition_replaceable"
+                },
+                "searching_block_predicate": {
+                  "type": "minecraft:true"
+                },
+                "state_provider": {
+                  "type": "minecraft:simple_state_provider",
+                  "state": {
+                    "Name": "minecraft:stone"
+                  }
+                }
+              },
+              "placement_chance": 0.95,
+              "replacement_block_predicate": {
+                "type": "minecraft:matching_block_tag",
+                "tag": "wilderwild:feature/stone_transition_replaceable"
+              },
+              "searching_block_predicate": {
+                "type": "minecraft:true"
+              },
+              "state_provider": {
+                "type": "minecraft:simple_state_provider",
+                "state": {
+                  "Name": "minecraft:stone"
+                }
               }
             },
-            "outer_replaceable_blocks": "#wilderwild:feature/stone_transition_replaceable",
-            "outer_state": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "minecraft:stone"
-              }
-            },
-            "placement_chance": 0.95,
-            "radius": {
+            "heightmap": "OCEAN_FLOOR",
+            "placement_radius": {
               "type": "minecraft:uniform",
               "max_inclusive": 4,
               "min_inclusive": 2
-            },
-            "use_heightmap_instead_of_circular_placement": true
+            }
           }
         },
         "placement": []

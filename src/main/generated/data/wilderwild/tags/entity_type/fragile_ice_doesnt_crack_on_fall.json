@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:phantom",
+    "minecraft:breeze",
+    "minecraft:chicken",
+    "minecraft:cat",
+    "minecraft:ocelot",
+    "minecraft:rabbit",
+    "minecraft:item",
+    "minecraft:parrot",
+    "minecraft:bee",
+    "minecraft:bat",
+    "minecraft:allay",
+    "minecraft:experience_orb",
+    "wilderwild:firefly",
+    "wilderwild:butterfly",
+    "wilderwild:tumbleweed"
+  ]
+}

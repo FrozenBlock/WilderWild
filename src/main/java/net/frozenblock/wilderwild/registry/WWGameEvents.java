@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWGameEvents {
 	public static final Reference<GameEvent> SCULK_SENSOR_ACTIVATE = register("sculk_sensor_activate");
+	public static final Reference<GameEvent> BIG_FALL = register("big_fall");
 
 	private WWGameEvents() {
 		throw new UnsupportedOperationException("WWGameEvents contains only static declarations.");

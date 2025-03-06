@@ -78,6 +78,6 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 	@Override
 	@NotNull
 	public String toString() {
-		return "BiomeConditionSource[snowUnderMountain]";
+		return "BiomeConditionSource[SnowUnderMountain]";
 	}
 }

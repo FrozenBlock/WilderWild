@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:vegetation_patch",
+  "config": {
+    "depth": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 2
+    },
+    "extra_bottom_block_chance": 0.4,
+    "extra_edge_column_chance": 0.6,
+    "ground_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_ice"
+      }
+    },
+    "replaceable": "#wilderwild:feature/cave_ice_replaceable",
+    "surface": "ceiling",
+    "vegetation_chance": 0.15,
+    "vegetation_feature": {
+      "feature": "wilderwild:hanging_ice",
+      "placement": []
+    },
+    "vertical_range": 4,
+    "xz_radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 6,
+      "min_inclusive": 3
+    }
+  }
+}

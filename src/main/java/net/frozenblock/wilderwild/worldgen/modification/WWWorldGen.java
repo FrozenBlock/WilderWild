@@ -26,8 +26,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.WWTreeDecorators;
 import net.minecraft.core.Registry;
@@ -116,7 +116,7 @@ public final class WWWorldGen {
 		BiomeModifications.create(WWConstants.id("add_new_snow"))
 			.add(ModificationPhase.POST_PROCESSING,
 				BiomeSelectors.all(),
-				context -> {
+				(biomeSelectionContext, context) -> {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					if (generationSettings.removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);

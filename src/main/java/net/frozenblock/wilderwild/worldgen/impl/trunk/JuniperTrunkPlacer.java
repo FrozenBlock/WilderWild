@@ -18,7 +18,6 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.trunk;
 
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
@@ -38,34 +37,38 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		juniperCodec(instance).apply(instance, JuniperTrunkPlacer::new));
+	public static final MapCodec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		trunkPlacerParts(instance)
+			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(trunkPlacer -> trunkPlacer.branchCount))
+			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(trunkPlacer -> trunkPlacer.branchHorizontalLength))
+			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchStartOffsetFromTop))
+			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchEndOffsetFromTop))
+			.apply(instance, JuniperTrunkPlacer::new)
+	);
 	public final IntProvider branchCount;
 	public final IntProvider branchHorizontalLength;
 	public final UniformInt branchStartOffsetFromTop;
 	public final UniformInt secondBranchStartOffsetFromTop;
 	public final IntProvider branchEndOffsetFromTop;
 
-	public JuniperTrunkPlacer(int i, int j, int k, @NotNull IntProvider intProvider, @NotNull IntProvider intProvider2, @NotNull UniformInt uniformInt, @NotNull IntProvider intProvider3) {
-		super(i, j, k);
-		this.branchCount = intProvider;
-		this.branchHorizontalLength = intProvider2;
-		this.branchStartOffsetFromTop = uniformInt;
-		this.secondBranchStartOffsetFromTop = UniformInt.of(uniformInt.getMinValue(), uniformInt.getMaxValue() - 1);
-		this.branchEndOffsetFromTop = intProvider3;
-	}
-
-	@Contract("_ -> new")
-	protected static <P extends JuniperTrunkPlacer> Products.@NotNull P7<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, IntProvider, IntProvider, UniformInt, IntProvider> juniperCodec(RecordCodecBuilder.Instance<P> builder) {
-		return trunkPlacerParts(builder)
-			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(placer -> placer.branchCount))
-			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(placer -> placer.branchHorizontalLength))
-			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(placer -> placer.branchStartOffsetFromTop))
-			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(placer -> placer.branchEndOffsetFromTop));
+	public JuniperTrunkPlacer(
+		int baseHeight,
+		int firstRandomHeight,
+		int secondRandomHeight,
+		@NotNull IntProvider branchCount,
+		@NotNull IntProvider branchHorizontalLength,
+		@NotNull UniformInt branchStartOffsetFromTop,
+		@NotNull IntProvider branchEndOffsetFromTop
+	) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight);
+		this.branchCount = branchCount;
+		this.branchHorizontalLength = branchHorizontalLength;
+		this.branchStartOffsetFromTop = branchStartOffsetFromTop;
+		this.secondBranchStartOffsetFromTop = UniformInt.of(branchStartOffsetFromTop.getMinValue(), branchStartOffsetFromTop.getMaxValue() - 1);
+		this.branchEndOffsetFromTop = branchEndOffsetFromTop;
 	}
 
 	@Override

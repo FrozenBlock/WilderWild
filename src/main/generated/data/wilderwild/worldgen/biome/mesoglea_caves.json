@@ -36,8 +36,7 @@
       "wilderwild:large_mesoglea_blue",
       "wilderwild:mesoglea_cluster_purple",
       "wilderwild:mesoglea_cluster_blue",
-      "wilderwild:blue_mesoglea_path",
-      "wilderwild:purple_mesoglea_path"
+      "wilderwild:mesoglea_paths"
     ],
     [
       "minecraft:monster_room",
@@ -82,8 +81,8 @@
       "wilderwild:purple_mesoglea",
       "wilderwild:upside_down_blue_mesoglea",
       "wilderwild:upside_down_purple_mesoglea",
-      "wilderwild:blue_mesoglea_pillar",
-      "wilderwild:purple_mesoglea_pillar"
+      "wilderwild:blue_mesoglea_column",
+      "wilderwild:purple_mesoglea_column"
     ],
     [],
     [

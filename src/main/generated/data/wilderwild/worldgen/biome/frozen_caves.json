@@ -30,8 +30,7 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode",
-      "wilderwild:packed_ice_path"
+      "minecraft:amethyst_geode"
     ],
     [
       "minecraft:fossil_upper",
@@ -74,34 +73,26 @@
       "wilderwild:ore_diorite_extra"
     ],
     [
-      "wilderwild:snow_disk_upper",
-      "wilderwild:powder_snow_disk_upper",
-      "wilderwild:snow_disk_lower",
-      "wilderwild:powder_snow_disk_lower",
-      "wilderwild:packed_ice_disk",
-      "wilderwild:ice_pile",
-      "wilderwild:ice_disk",
-      "wilderwild:icicle_patch",
+      "wilderwild:ice_paths",
+      "wilderwild:fragile_ice_disk",
+      "wilderwild:fragile_ice_pile",
+      "wilderwild:hanging_packed_ice",
       "wilderwild:ice_patch_ceiling",
-      "wilderwild:ice_column_patch",
-      "wilderwild:ice_patch"
+      "wilderwild:fragile_ice_column_patch",
+      "wilderwild:fragile_ice_patch"
     ],
     [],
     [
       "minecraft:glow_lichen",
-      "minecraft:patch_tall_grass_2",
-      "minecraft:trees_plains",
-      "minecraft:flower_plains",
-      "minecraft:patch_grass_plain",
       "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
-      "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin"
+      "minecraft:red_mushroom_normal"
     ],
     [
       "minecraft:freeze_top_layer",
       "wilderwild:diorite_patch",
-      "wilderwild:diorite_patch_ceiling"
+      "wilderwild:diorite_patch_ceiling",
+      "wilderwild:icicle_cluster",
+      "wilderwild:cave_icicles"
     ]
   ],
   "has_precipitation": true,
