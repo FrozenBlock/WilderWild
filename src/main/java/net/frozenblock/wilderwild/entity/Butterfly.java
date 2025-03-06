@@ -85,7 +85,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable, VariantHolder<ButterflyVariant> {
 	public static final int TICKS_PER_FLAP = 3;
-	public static final int SPAWN_CHANCE = 50;
 	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
 	private static final TargetingConditions SPAWN_RADIUS_CHECK = TargetingConditions.forNonCombat()
 		.ignoreLineOfSight()
@@ -124,6 +123,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
 
+		if (!(level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON))) return false;
+
 		Holder<Biome> biome = level.getBiome(pos);
 		if (!biome.is(WWBiomeTags.HAS_COMMON_BUTTERFLY)) {
 			Vec3 spawnPos = Vec3.atCenterOf(pos);
@@ -136,12 +137,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 				spawnPos.z,
 				AABB.ofSize(spawnPos, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE)
 			);
-			if (nearestButterfly == null) {
-				return true;
-			}
+			return nearestButterfly == null;
 		}
 
-		return random.nextInt(0, SPAWN_CHANCE) == 0 && level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
+		return true;
 	}
 
 	@NotNull
