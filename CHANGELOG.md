@@ -116,6 +116,20 @@ hi
 - Added Frozen Short Grass, Frozen Tall Grass, Frozen Fern, and Frozen Large Fern blocks.
   - Shoutout to just_jose2006 for the textures!
 - Changed the Warm River's surface rules to likely reduce lag caused by Sand blocks falling.
+- Added the `wilderwild:snow_generation_can_search_through` block tag, listing non-air blocks that will be iterated through while searching for the lowest possible Snow layer generation position in worldgen.
+- Significantly updated how many of Wilder Wild's trees place branches.
+  - Related tree features now have a `trunk_branch_placement` array in them, containing the fields:
+    - `branch_cutoff_from_top`: How far below the top of the tree branches can start generating at.
+    - `branch_length`: An integer provider defining the minimum and maximum branch lengths.
+    - `branch_placement_chance`: The chance per-block for a branch to generate.
+    - `foliage_placement_chance`: The chance for foliage to be placed at the end of a branch.
+    - `foliage_radius_shrink`: How many blocks the radius of the placed foliage should be shrunk by.
+    - `max_branch_count`: The maximum number of branches allowed to generate per-tree.
+    - `offset_last_log_chance`: The chance for the last log on a branch to be offset upwards.
+    - `minimum_branch_length_for_offset`: The minimum length of a branch required to be able to offset a log upwards.
+  - Renamed `straight_with_logs_trunk_placer` to `straight_with_branches_trunk_placer.`
+  - Renamed `fallen_with_logs_trunk_placer` to `fallen_with_branches_trunk_placer.`
+- Optimized Wilder Wild's worldgen.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -226,3 +240,20 @@ hi
   - Can be crafted into bricks.
   - Mossy brick variants and stair, slab, and wall variants of the base stone require Trailier Tales to be installed.
   - Scorched can spawn on Gabbro.
+
+# Icicle Branch
+- Added Icicles.
+  - Grows naturally from the bottom of Fragile Ice.
+  - Grows in length if below a Fragile Ice block, or an ice block with water above.
+  - Occasionally spreads to other ice blocks if able to grow in length.
+  - Will occasionally fall if placed under an ice block.
+    - Game Events in the `wilderwild:makes_icicle_fall` game event tag will cause nearby Icicles to fall.
+- Added Fragile Ice.
+  - Will crack twice when stood on before shattering.
+  - Shatters when an entity falls onto the block.
+  - When shattered, all adjacent Fragile Ice blocks will shatter.
+  - Ice can be smelted into Fragile Ice.
+  - Mobs in the `wilderwild:fragile_ice_unwalkable_mobs` entity tag will crack, then shatter Fragile Ice when standing on it.
+  - Mobs not in the `wilderwild:fragile_ice_doesnt_crack_on_fall` entity tag will cause Fragile Ice to shatter when falling onto it.
+- Revamped the Frozen Caves biome, removing snow patches and utilizing Fragile Ice and Icicles.
+- The `Snow Under Mountains` config option has been set to off by default.

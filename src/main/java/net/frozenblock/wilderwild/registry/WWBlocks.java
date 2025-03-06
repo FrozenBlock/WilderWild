@@ -41,12 +41,14 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
+import net.frozenblock.wilderwild.block.FragileIceBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
+import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.block.LeafLitterBlock;
 import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -80,8 +82,9 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
-import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
-import net.frozenblock.wilderwild.worldgen.feature.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.worldgen.features.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -111,7 +114,6 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -127,7 +129,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
-import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
@@ -1674,6 +1675,28 @@ public final class WWBlocks {
 		RotatedPillarBlock::new,
 		Properties.ofFullCopy(Blocks.OAK_WOOD)
 			.mapColor(MAPLE_BARK_COLOR)
+	);
+
+	public static final FragileIceBlock FRAGILE_ICE = register("fragile_ice",
+		FragileIceBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
+			.strength(0.2F)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final IcicleBlock ICICLE = register("icicle",
+		IcicleBlock::new,
+		BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
+			.forceSolidOn()
+			.friction(0.98F)
+			.randomTicks()
+			.strength(0.2F)
+			.sound(SoundType.GLASS)
+			.noOcclusion()
+			.dynamicShape()
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.pushReaction(PushReaction.DESTROY)
+			.isRedstoneConductor(Blocks::never)
 	);
 
 	private WWBlocks() {

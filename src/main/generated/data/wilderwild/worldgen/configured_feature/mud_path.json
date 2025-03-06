@@ -1,22 +1,38 @@
 {
-  "type": "frozenlib:noise_path_feature",
+  "type": "frozenlib:noise_path",
   "config": {
-    "is_3d": false,
-    "max_threshold": 1.0,
-    "min_threshold": 0.23,
-    "noise_scale": 0.1,
-    "noise_type": "XORO",
-    "only_place_when_exposed": false,
-    "placement_chance": 0.75,
-    "radius": 11,
-    "replaceable_blocks": "#wilderwild:feature/mud_path_replaceable",
-    "scale_y": false,
-    "state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:mud"
-      }
+    "noise_band_placement": {
+      "block_placements": [
+        {
+          "minimum_noise_threshold": 0.23,
+          "placement_chance": 0.75,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/mud_path_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "frozenlib:search_in_area",
+            "block_predicate": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "search_area": 2
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:mud"
+            }
+          }
+        }
+      ],
+      "heightmap": "OCEAN_FLOOR",
+      "noise_scale": 0.1,
+      "noise_type": "XORO"
     },
-    "use_y": false
+    "placement_radius": 11
   }
 }

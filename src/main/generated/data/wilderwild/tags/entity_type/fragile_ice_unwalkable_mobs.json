@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:player",
+    "minecraft:iron_golem",
+    "minecraft:ravager",
+    "minecraft:sniffer",
+    "minecraft:hoglin",
+    "minecraft:zoglin",
+    "minecraft:blaze",
+    "minecraft:magma_cube",
+    "minecraft:giant"
+  ]
+}

@@ -20,6 +20,10 @@
       "use_y": false
     },
     {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
       "type": "minecraft:biome"
     }
   ]

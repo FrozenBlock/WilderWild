@@ -46,25 +46,30 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "wilderwild:straight_with_logs_trunk_placer",
+      "type": "wilderwild:straight_with_branches_trunk_placer",
       "base_height": 7,
-      "branch_chance": 0.235,
-      "branch_height_from_top": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 0
-      },
-      "extra_branch_length": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 1
-      },
       "height_rand_a": 2,
       "height_rand_b": 1,
-      "max_log_count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 3,
-        "min_inclusive": 2
+      "trunk_branch_placement": {
+        "branch_cutoff_from_top": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 2,
+          "min_inclusive": 0
+        },
+        "branch_length": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        },
+        "branch_placement_chance": 0.235,
+        "foliage_placement_chance": 0.0,
+        "max_branch_count": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 3,
+          "min_inclusive": 2
+        },
+        "minimum_branch_length_for_offset": 1,
+        "offset_last_log_chance": 0.0
       }
     },
     "trunk_provider": {

@@ -35,7 +35,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class SnappedTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<SnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> trunkPlacerParts(instance).apply(instance, SnappedTrunkPlacer::new));
+	public static final MapCodec<SnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
+		(instance) -> trunkPlacerParts(instance).apply(instance, SnappedTrunkPlacer::new)
+	);
 
 	public SnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
@@ -49,7 +51,14 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> replacer, @NotNull RandomSource random, int height, @NotNull BlockPos startPos, @NotNull TreeConfiguration config) {
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
+		@NotNull LevelSimulatedReader level,
+		@NotNull BiConsumer<BlockPos, BlockState> replacer,
+		@NotNull RandomSource random,
+		int height,
+		@NotNull BlockPos startPos,
+		@NotNull TreeConfiguration config
+	) {
 		setDirtAt(level, replacer, random, startPos.below(), config);
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < height; ++i) {

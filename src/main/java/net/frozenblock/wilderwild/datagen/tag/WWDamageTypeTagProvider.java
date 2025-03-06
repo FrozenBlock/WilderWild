@@ -53,6 +53,12 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 		this.getOrCreateTagBuilder(DamageTypeTags.PANIC_CAUSES)
 			.add(WWDamageTypes.TUMBLEWEED);
 
+		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_SHIELD)
+			.add(WWDamageTypes.FALLING_ICICLE);
+
+		this.getOrCreateTagBuilder(DamageTypeTags.NO_KNOCKBACK)
+			.add(WWDamageTypes.PRICKLY_PEAR);
+
 		this.getOrCreateTagBuilder(WWDamageTypeTags.EMPTY);
 	}
 }

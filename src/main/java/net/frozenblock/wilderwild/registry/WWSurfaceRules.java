@@ -477,22 +477,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
-	public static SurfaceRules.RuleSource frozenCavesSnow() {
-		return SurfaceRules.ifTrue(
-			FrozenSurfaceRules.isBiome(List.of(WWBiomes.FROZEN_CAVES)),
-			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
-				SurfaceRules.ifTrue(
-					SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
-					SurfaceRules.ifTrue(
-						SurfaceRules.waterBlockCheck(0, 0),
-						FrozenSurfaceRules.makeStateRule(Blocks.SNOW_BLOCK)
-					)
-				)
-			)
-		);
-	}
-
-	@NotNull
 	public static SurfaceRules.RuleSource snowUnderMountains() {
 		return SurfaceRules.ifTrue(
 			SnowUnderMountainConditionSource.snowUnderMountainConditionSource(),
@@ -514,10 +498,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
 		context.add(
-			SurfaceRules.sequence(
-				frozenCavesSnow(),
-				snowUnderMountains()
-			)
+			snowUnderMountains()
 		);
 		WWConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}

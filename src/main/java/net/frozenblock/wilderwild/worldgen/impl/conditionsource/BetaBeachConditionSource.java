@@ -78,6 +78,6 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 	@Override
 	@NotNull
 	public String toString() {
-		return "BiomeConditionSource[betaBeach]";
+		return "BiomeConditionSource[BetaBeach]";
 	}
 }

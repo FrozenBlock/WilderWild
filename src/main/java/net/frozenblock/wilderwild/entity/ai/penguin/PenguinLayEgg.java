@@ -48,7 +48,7 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 		BlockState belowState = level.getBlockState(belowPos);
 		if (blockState.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
 			BlockState placementState = block.defaultBlockState();
-			level.setBlock(placePos, placementState, Block.UPDATE_ALL);
+			level.setBlockAndUpdate(placePos, placementState);
 			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
 			level.playSound(null, entity, entity.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG : WWSounds.ENTITY_PENGUIN_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
 			return true;

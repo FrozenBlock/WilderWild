@@ -19,7 +19,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.features.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
