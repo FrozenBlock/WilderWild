@@ -61,7 +61,6 @@
     "entity.lightning.LightningBoltMixin",
     "entity.penguin.AbstractBoatMixin",
     "entity.penguin.BlocksMixin",
-    "entity.penguin.BoatMixin",
     "entity.penguin.SmoothSwimmingMoveControlMixin",
     "entity.slime.MobMixin",
     "entity.slime.SlimeMixin",
