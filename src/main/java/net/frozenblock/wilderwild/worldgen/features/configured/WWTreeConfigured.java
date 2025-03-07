@@ -3371,14 +3371,14 @@ public final class WWTreeConfigured {
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new FallenLargeTrunkPlacer(baseHeight, firstRHeight, secondRHeight, 0.8F),
+			new FallenLargeTrunkPlacer(baseHeight, firstRHeight, secondRHeight, 0.8F, 0.8F),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1)
 		);
 	}
 
-	@Contract("_, _, _ -> new")
+	@Contract("_, _, _, _ -> new")
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2, HolderGetter<Block> blocks) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(WWBlocks.WILLOW_LOG),

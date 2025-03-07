@@ -49,6 +49,7 @@
       "base_height": 5,
       "height_rand_a": 2,
       "height_rand_b": 3,
+      "stump_placement_chance": 0.8,
       "success_in_water_chance": 0.8
     },
     "trunk_provider": {
