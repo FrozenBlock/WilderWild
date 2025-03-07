@@ -323,6 +323,12 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
+	public static void createCattail(@NotNull BlockModelGenerators generator, BlockModelGenerators.PlantType plantType) {
+		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		generator.createDoubleBlock(WWBlocks.CATTAIL, topModel, bottomModel);
+	}
+
 	public static void createIcicle(@NotNull BlockModelGenerators generator) {
 		PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> c2 = PropertyDispatch.initial(
 			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
