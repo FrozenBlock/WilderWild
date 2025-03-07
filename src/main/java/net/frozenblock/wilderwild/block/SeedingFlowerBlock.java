@@ -193,7 +193,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 			if (shape.intersects(entity.getBoundingBox())) {
 				Vec3 movement = entity.getDeltaMovement();
 				double horizontalDistance = movement.horizontalDistance();
-				double horizontalVelocity = horizontalDistance * 1.5D;
+				double horizontalVelocity = horizontalDistance * 1.9D;
 
 				if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
 					int min = Math.min((int) (horizontalVelocity * 2.5D), 3);

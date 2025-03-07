@@ -3147,6 +3147,8 @@ public final class WWTreeConfigured {
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranchCount)
 					.branchLength(branchLength)
+					.foliagePlacementChance(1F)
+					.offsetLastLogChance(1F)
 					.build()
 			),
 			BlockStateProvider.simple(leaves),
