@@ -103,6 +103,9 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("algae")
 	public boolean algae = true;
 
+	@EntrySyncData("barnacle")
+	public boolean barnacle = true;
+
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
 

@@ -41,6 +41,7 @@ import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -671,6 +672,15 @@ public final class WWBlocks {
 			.noCollission()
 			.noOcclusion()
 			.sound(SoundType.SPONGE)
+	);
+	public static final BarnaclesBlock BARNACLES = new BarnaclesBlock(
+		BlockBehaviour.Properties.of()
+			.strength(0.5F)
+			.forceSolidOn()
+			.noCollission()
+			.noOcclusion()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
 	);
 
 	public static final OstrichEggBlock OSTRICH_EGG = new OstrichEggBlock(
@@ -1553,6 +1563,7 @@ public final class WWBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(SPONGE_BUD, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}

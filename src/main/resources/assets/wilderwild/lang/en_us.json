@@ -196,6 +196,7 @@
   "block.wilderwild.red_maple_leaf_litter": "Red Maple Leaf Litter",
 
   "block.wilderwild.algae": "Algae",
+  "block.wilderwild.barnacles": "Barnacles",
   "block.wilderwild.brown_shelf_fungi": "Brown Shelf Fungi",
   "block.wilderwild.cattail": "Cattail",
   "block.wilderwild.crimson_shelf_fungi": "Crimson Shelf Fungi",
@@ -777,6 +778,8 @@
   "option.wilderwild.worldgen": "Worldgen",
   "option.wilderwild.algae_generation": "Algae Generation",
   "tooltip.wilderwild.algae_generation": "Whether Algae is placed in worldgen.",
+  "option.wilderwild.barnacle_generation": "Barnacle Generation",
+  "tooltip.wilderwild.barnacle_generation": "Whether Barnacle is placed in worldgen.",
   "option.wilderwild.beta_beaches": "Beta Beaches",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta.",
   "option.wilderwild.bush_generation": "Bush Generation",

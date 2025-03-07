@@ -301,6 +301,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						)
 				)
 		);
+		this.add(WWBlocks.BARNACLES, block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
 
 		this.add(WWBlocks.BAOBAB_NUT,
 			LootTable.lootTable()

@@ -49,6 +49,7 @@ public final class WWWorldGen {
 		WWVegetationGeneration.generateBush();
 		WWVegetationGeneration.generateCacti();
 		WWVegetationGeneration.generateAlgae();
+		WWVegetationGeneration.generateBarnacles();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 

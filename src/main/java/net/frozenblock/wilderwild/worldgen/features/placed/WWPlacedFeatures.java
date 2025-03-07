@@ -306,6 +306,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("cattail_uncommon");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
+	public static final FrozenLibPlacedFeature BARNACLES_COMMON = register("barnacles_common");
+	public static final FrozenLibPlacedFeature BARNACLES = register("barnacles");
+	public static final FrozenLibPlacedFeature BARNACLES_SPARSE = register("barnacles_sparse");
+	public static final FrozenLibPlacedFeature BARNACLES_RARE = register("barnacles_rare");
 	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -1881,6 +1885,35 @@ public final class WWPlacedFeatures {
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		BARNACLES_COMMON.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES_DENSE.getHolder(),
+			CountPlacement.of(UniformInt.of(1, 2)),
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		BARNACLES.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
+			RarityFilter.onAverageOnceEvery(8),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		BARNACLES_SPARSE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
+			RarityFilter.onAverageOnceEvery(18),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		BARNACLES_RARE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
+			RarityFilter.onAverageOnceEvery(24),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 

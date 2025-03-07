@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:multiface_growth",
+        "config": {
+          "block": "wilderwild:barnacles",
+          "can_be_placed_on": "#wilderwild:feature/barnacles_feature_placeable",
+          "can_place_on_ceiling": false,
+          "can_place_on_floor": true,
+          "can_place_on_wall": true,
+          "chance_of_spreading": 1.0,
+          "search_range": 10
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
+          }
+        }
+      ]
+    },
+    "tries": 18,
+    "xz_spread": 6,
+    "y_spread": 3
+  }
+}

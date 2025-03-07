@@ -1104,6 +1104,21 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SWAMP)
 			.add(Biomes.MANGROVE_SWAMP);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_COMMON)
+			.add(Biomes.STONY_SHORE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES)
+			.add(Biomes.MANGROVE_SWAMP)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_SPARSE)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_RARE)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

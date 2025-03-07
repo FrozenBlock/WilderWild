@@ -367,6 +367,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
 	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
 	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
@@ -2982,6 +2984,54 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(12, 18),
 				false,
 				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
+			)
+		);
+
+		PATCH_BARNACLES_DENSE.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				30,
+				6,
+				3,
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.BARNACLES,
+						10,
+						true,
+						false,
+						true,
+						1F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+				)
+			)
+		);
+
+		PATCH_BARNACLES.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				18,
+				6,
+				3,
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.BARNACLES,
+						10,
+						true,
+						false,
+						true,
+						1F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+				)
 			)
 		);
 

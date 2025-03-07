@@ -635,6 +635,19 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
+		var barnacle = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("barnacle_generation"), modifiedConfig.barnacle)
+					.setDefaultValue(defaultConfig.barnacle)
+					.setSaveConsumer(newValue -> config.barnacle = newValue)
+					.setTooltip(tooltip("barnacle_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"barnacle",
+				configInstance
+			)
+		);
 		var tumbleweed = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedConfig.tumbleweed)

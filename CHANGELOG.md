@@ -130,6 +130,11 @@ hi
   - Renamed `straight_with_logs_trunk_placer` to `straight_with_branches_trunk_placer.`
   - Renamed `fallen_with_logs_trunk_placer` to `fallen_with_branches_trunk_placer.`
 - Optimized Wilder Wild's worldgen.
+- Added Barnacles.
+  - Barnacles can be placed on multiple block faces, similar to Sculk Veins and Glow Lichens.
+  - Generates naturally most frequently in Stony Shores, Mangrove Swamp, Warm Ocean, and Lukewarm Ocean biomes.
+  - The biome tags `wilderwild:has_barnacles_common,` `wilderwild:has_barnacles,` `wilderwild:has_barnacles_sparse,` and `wilderwild:has_barnacles_rare` control the generation of Barnacles.
+  - Drops without Silk Touch or Shears.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

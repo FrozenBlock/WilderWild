@@ -363,6 +363,33 @@ public final class WWVegetationGeneration {
 				});
 	}
 
+	public static void generateBarnacles() {
+		BiomeModifications.create(WWConstants.id("barnacle_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().barnacle) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_COMMON)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_COMMON.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_SPARSE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_RARE.getKey());
+						}
+					}
+				});
+	}
+
 	public static void generateGrass() {
 		BiomeModifications.create(WWConstants.id("tumbleweed_generation"))
 			.add(ModificationPhase.ADDITIONS,
