@@ -153,7 +153,7 @@ public final class WWMiscConfigured {
 
 	// PALE GARDEN
 	public static final FrozenLibConfiguredFeature<BlockPileConfiguration, ConfiguredFeature<BlockPileConfiguration, ?>> PALE_MOSS_PILE = register("pale_moss_pile");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 
 	// MANGROVE SWAMP
@@ -1002,46 +1002,27 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new NoisePathFeatureConfig(
-							new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-								.noiseScale(0.1D)
-								.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-								.noiseBandBlockPlacement(
-									new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
-										.within(-0.2D, 0.3D)
-										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
-										.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-										.placementChance(0.35F)
-										.build()
-								)
-								.build(),
-							9
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.NOISE_PATH_FEATURE,
-						new NoisePathFeatureConfig(
-							new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-								.noiseScale(0.1D)
-								.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-								.noiseBandBlockPlacement(
-									new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK))
-										.within(-0.21D, 0.31D)
-										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
-										.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-										.placementChance(0.25F)
-										.build()
-								)
-								.build(),
-							9
-						)
+		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
+			new NoisePathFeatureConfig(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
+					.noiseScale(0.1D)
+					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
+					.noiseBandBlockPlacements(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+							.within(-0.2D, 0.3D)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
+							.placementChance(0.35F)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK))
+							.within(-0.21D, 0.31D)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
+							.searchingBlockPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
+							.placementChance(0.25F)
+							.build()
 					)
-				)
+					.build(),
+				9
 			)
 		);
 

@@ -1,95 +1,69 @@
 {
-  "type": "frozenlib:combo",
+  "type": "frozenlib:noise_path",
   "config": {
-    "features": [
-      {
-        "feature": {
-          "type": "frozenlib:noise_path",
-          "config": {
-            "noise_band_placement": {
-              "block_placements": [
-                {
-                  "maximum_noise_threshold": 0.3,
-                  "minimum_noise_threshold": -0.2,
-                  "placement_chance": 0.35,
-                  "replacement_block_predicate": {
-                    "type": "minecraft:matching_block_tag",
-                    "tag": "wilderwild:feature/gravel_and_pale_moss_path_replaceable"
-                  },
-                  "searching_block_predicate": {
-                    "type": "minecraft:not",
-                    "predicate": {
-                      "type": "frozenlib:search_in_direction",
-                      "all_must_match": false,
-                      "block_predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:water"
-                      },
-                      "search_direction": "up",
-                      "search_steps": 1
-                    }
-                  },
-                  "state_provider": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                      "Name": "minecraft:gravel"
-                    }
-                  }
-                }
-              ],
-              "heightmap": "OCEAN_FLOOR",
-              "noise_scale": 0.1,
-              "noise_type": "XORO"
-            },
-            "placement_radius": 9
+    "noise_band_placement": {
+      "block_placements": [
+        {
+          "maximum_noise_threshold": 0.3,
+          "minimum_noise_threshold": -0.2,
+          "placement_chance": 0.35,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/gravel_and_pale_moss_path_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "frozenlib:search_in_direction",
+              "all_must_match": false,
+              "block_predicate": {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:water"
+              },
+              "search_direction": "up",
+              "search_steps": 1
+            }
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:gravel"
+            }
           }
         },
-        "placement": []
-      },
-      {
-        "feature": {
-          "type": "frozenlib:noise_path",
-          "config": {
-            "noise_band_placement": {
-              "block_placements": [
-                {
-                  "maximum_noise_threshold": 0.31,
-                  "minimum_noise_threshold": -0.21,
-                  "placement_chance": 0.25,
-                  "replacement_block_predicate": {
-                    "type": "minecraft:matching_block_tag",
-                    "tag": "wilderwild:feature/gravel_and_pale_moss_path_replaceable"
-                  },
-                  "searching_block_predicate": {
-                    "type": "minecraft:not",
-                    "predicate": {
-                      "type": "frozenlib:search_in_direction",
-                      "all_must_match": false,
-                      "block_predicate": {
-                        "type": "minecraft:matching_blocks",
-                        "blocks": "minecraft:water"
-                      },
-                      "search_direction": "up",
-                      "search_steps": 1
-                    }
-                  },
-                  "state_provider": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                      "Name": "minecraft:pale_moss_block"
-                    }
-                  }
-                }
-              ],
-              "heightmap": "OCEAN_FLOOR",
-              "noise_scale": 0.1,
-              "noise_type": "XORO"
-            },
-            "placement_radius": 9
+        {
+          "maximum_noise_threshold": 0.31,
+          "minimum_noise_threshold": -0.21,
+          "placement_chance": 0.25,
+          "replacement_block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "wilderwild:feature/gravel_and_pale_moss_path_replaceable"
+          },
+          "searching_block_predicate": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "frozenlib:search_in_direction",
+              "all_must_match": false,
+              "block_predicate": {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:water"
+              },
+              "search_direction": "up",
+              "search_steps": 1
+            }
+          },
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:pale_moss_block"
+            }
           }
-        },
-        "placement": []
-      }
-    ]
+        }
+      ],
+      "heightmap": "OCEAN_FLOOR",
+      "noise_scale": 0.1,
+      "noise_type": "XORO"
+    },
+    "placement_radius": 9
   }
 }
