@@ -1289,6 +1289,17 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.BROWN_MUSHROOM)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
+		this.getOrCreateTagBuilder(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON)
+			.add(Blocks.MOSS_BLOCK)
+			.add(Blocks.PALE_MOSS_BLOCK)
+			.add(Blocks.SANDSTONE)
+			.add(Blocks.RED_SANDSTONE)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRAVEL)
+			.add(Blocks.SNOW_BLOCK)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.DIRT);
+
 		this.getOrCreateTagBuilder(BlockTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES)
 			.add(WWBlocks.WILLOW_LEAVES)

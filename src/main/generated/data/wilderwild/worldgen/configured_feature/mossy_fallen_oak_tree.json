@@ -60,6 +60,7 @@
           }
         }
       },
+      "stump_placement_chance": 0.4,
       "success_in_water_chance": 0.8,
       "trunk_branch_placement": {
         "branch_length": 1,

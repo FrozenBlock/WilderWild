@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:moss_block",
+    "minecraft:pale_moss_block",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
+    "minecraft:clay",
+    "minecraft:gravel",
+    "minecraft:snow_block",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    }
+  ]
+}

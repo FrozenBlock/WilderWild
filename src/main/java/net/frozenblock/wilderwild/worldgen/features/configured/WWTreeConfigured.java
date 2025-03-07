@@ -455,7 +455,8 @@ public final class WWTreeConfigured {
 				2,
 				0.185F,
 				UniformInt.of(1, 2),
-				1F
+				1F,
+				0.7F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -645,7 +646,8 @@ public final class WWTreeConfigured {
 				2,
 				0.075F,
 				UniformInt.of(1, 2),
-				0.075F
+				0.075F,
+				0.5F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -1143,7 +1145,8 @@ public final class WWTreeConfigured {
 				2,
 				0.175F,
 				UniformInt.of(1, 2),
-				0.075F
+				0.075F,
+				0.4F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -1737,7 +1740,8 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 2),
 				UniformInt.of(1, 3),
 				1F,
-				0.075F
+				0.075F,
+				0.75F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -1883,7 +1887,8 @@ public final class WWTreeConfigured {
 				2,
 				0F,
 				UniformInt.of(1, 2),
-				0.075F
+				0.075F,
+				0.6F
 			).ignoreVines().decorators(
 				List.of(
 					VINES_08_UNDER_260_075,
@@ -2607,7 +2612,8 @@ public final class WWTreeConfigured {
 		int secondRHeight,
 		float branchPlacementChance,
 		IntProvider maxBranchCount,
-		float hollowedChance
+		float hollowedChance,
+		float stumpPlacementChance
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -2622,7 +2628,8 @@ public final class WWTreeConfigured {
 					.branchChance(branchPlacementChance)
 					.maxBranchCount(maxBranchCount)
 					.branchLength(ConstantInt.of(1))
-					.build()
+					.build(),
+				stumpPlacementChance
 			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
@@ -2640,7 +2647,8 @@ public final class WWTreeConfigured {
 		IntProvider maxBranchCount,
 		IntProvider branchLength,
 		float offsetLastLogChance,
-		float hollowedChance
+		float hollowedChance,
+		float stumpPlacementChance
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -2656,7 +2664,8 @@ public final class WWTreeConfigured {
 					.maxBranchCount(maxBranchCount)
 					.branchLength(branchLength)
 					.offsetLastLogChance(offsetLastLogChance)
-					.build()
+					.build(),
+				stumpPlacementChance
 			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
@@ -2870,7 +2879,8 @@ public final class WWTreeConfigured {
 			2,
 			0.15F,
 			UniformInt.of(1, 2),
-			0.075F
+			0.075F,
+			0.7F
 		).ignoreVines();
 	}
 
@@ -2884,13 +2894,23 @@ public final class WWTreeConfigured {
 			2,
 			0.05F,
 			UniformInt.of(1, 2),
-			0.075F
+			0.075F,
+			0.5F
 		).ignoreVines();
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
-		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, 3, 2, 2, 0F, ConstantInt.of(0), 0.075F).ignoreVines();
+		return fallenTrunkBuilder(
+			WWBlocks.MAPLE_LOG,
+			WWBlocks.HOLLOWED_MAPLE_LOG,
+			3,
+			2, 2,
+			0F,
+			ConstantInt.of(0),
+			0.075F,
+			0.7F
+		).ignoreVines();
 	}
 
 	@NotNull
@@ -3006,7 +3026,8 @@ public final class WWTreeConfigured {
 			2,
 			0.15F,
 			UniformInt.of(1, 2),
-			0.075F
+			0.075F,
+			0.4F
 		).ignoreVines();
 	}
 
@@ -3020,7 +3041,8 @@ public final class WWTreeConfigured {
 			2,
 			0F,
 			UniformInt.of(1, 2),
-			0.125F
+			0.125F,
+			0.7F
 		).ignoreVines();
 	}
 
@@ -3248,7 +3270,8 @@ public final class WWTreeConfigured {
 			2,
 			0F,
 			UniformInt.of(1, 2),
-			0.075F
+			0.075F,
+			0.6F
 		).ignoreVines();
 	}
 
@@ -3262,7 +3285,8 @@ public final class WWTreeConfigured {
 			2,
 			0F,
 			UniformInt.of(1, 2),
-			0.045F
+			0.045F,
+			0.6F
 		).ignoreVines();
 	}
 
@@ -3276,7 +3300,8 @@ public final class WWTreeConfigured {
 			1,
 			0F,
 			ConstantInt.of(1),
-			0.055F
+			0.055F,
+			0.4F
 		).ignoreVines();
 	}
 
@@ -3290,7 +3315,8 @@ public final class WWTreeConfigured {
 			1,
 			0F,
 			UniformInt.of(1, 2),
-			0F
+			0F,
+			0.5F
 		).ignoreVines();
 	}
 
@@ -3304,7 +3330,8 @@ public final class WWTreeConfigured {
 			1,
 			0F,
 			ConstantInt.of(1),
-			0.1F
+			0.1F,
+			0.4F
 		).ignoreVines();
 	}
 
@@ -3318,7 +3345,8 @@ public final class WWTreeConfigured {
 			1,
 			0F,
 			ConstantInt.of(1),
-			0.1F
+			0.1F,
+			0.6F
 		).ignoreVines();
 	}
 
@@ -3332,7 +3360,8 @@ public final class WWTreeConfigured {
 			1,
 			0F,
 			ConstantInt.of(1),
-			0.1F
+			0.1F,
+			0.6F
 		).ignoreVines();
 	}
 
