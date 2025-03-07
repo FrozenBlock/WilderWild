@@ -151,6 +151,13 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.TUMBLEWEED);
 
+		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
+			.add(EntityType.EGG)
+			.add(EntityType.POTION)
+			.add(EntityType.SNOWBALL)
+			.add(EntityType.EXPERIENCE_BOTTLE)
+			.add(EntityType.WIND_CHARGE);
+
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypes.PENGUIN);
 
