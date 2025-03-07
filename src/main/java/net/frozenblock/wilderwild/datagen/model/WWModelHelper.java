@@ -324,8 +324,8 @@ public final class WWModelHelper {
 	}
 
 	public static void createCattail(@NotNull BlockModelGenerators generator) {
-		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		MultiVariant topModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture));
+		MultiVariant bottomModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture));
 		generator.createDoubleBlock(WWBlocks.CATTAIL, topModel, bottomModel);
 	}
 
