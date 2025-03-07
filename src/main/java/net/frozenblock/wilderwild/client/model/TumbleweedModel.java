@@ -28,24 +28,38 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
+	private final ModelPart body;
 	private final ModelPart tumbleweed;
 
 	public TumbleweedModel(@NotNull ModelPart root) {
 		super(root, RenderType::entityCutoutNoCull);
-		this.tumbleweed = root.getChild("tumbleweed");
+		this.body = root.getChild("body");
+		this.tumbleweed = this.body.getChild("tumbleweed");
 	}
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
-		meshdefinition.getRoot().addOrReplaceChild("tumbleweed", CubeListBuilder.create()
-			.texOffs(0, 28).addBox(-6F, -6F, -6F, 12F, 12F, 12F)
-			.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F), PartPose.ZERO);
+
+		PartDefinition body = meshdefinition.getRoot().addOrReplaceChild(
+			"body",
+			CubeListBuilder.create(),
+			PartPose.offset(0F, -3.8F, 0F)
+		);
+
+		body.addOrReplaceChild(
+			"tumbleweed",
+			CubeListBuilder.create()
+				.texOffs(0, 28).addBox(-6F, -6F, -6F, 12F, 12F, 12F)
+				.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),
+			PartPose.ZERO
+		);
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -53,10 +67,10 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	@Override
 	public void setupAnim(TumbleweedRenderState renderState) {
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
-			this.root.xRot = renderState.tumbleRot;
+			this.tumbleweed.xRot = renderState.tumbleRot;
 		} else {
-			this.root.xRot = renderState.pitch;
-			this.root.zRot = renderState.roll;
+			this.tumbleweed.xRot = -renderState.pitch;
+			this.tumbleweed.zRot = renderState.roll;
 		}
 	}
 }

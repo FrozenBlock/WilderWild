@@ -38,7 +38,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
@@ -49,12 +48,6 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	public TumbleweedRenderer(@NotNull Context context) {
 		super(context, new TumbleweedModel(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
 		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
-	}
-
-	@Override
-	@NotNull
-	public Vec3 getRenderOffset(TumbleweedRenderState entityRenderState) {
-		return new Vec3(0D, 0.2375D, 0D);
 	}
 
 	@Override
