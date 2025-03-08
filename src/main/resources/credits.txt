@@ -72,6 +72,12 @@ voxelotl:
  - Retextured Chiseled Mud Bricks in 3.1.
  - Mesoglea Bubble, Bubble Pop, and Splash particle textures.
  - Barnacles texture.
+ - Frozen Vegetation texture cleanup.
+
+Contributors:
+
+DaDolphin:
+ - Original Penguin walking, laying down, sliding, wading, standing up, and calling animations.
 
 LudoCrypt:
  - Composer.
@@ -85,14 +91,6 @@ Willow/pictochats_:
     - Unnamed Maple Forest Song
     - Dahlia
  - Penguin step sounds.
-
-Contributors:
-
-DaDolphin:
- - Original Penguin walking, laying down, sliding, wading, standing up, and calling animations.
-
-LiukRast:
- - Baobab Tree generation.
 
 wet.noodle/Kluski42:
  - Thick Big Fungus growing from Fungi.
@@ -159,6 +157,9 @@ Xfrtrex:
 
 Lufurrius
  - Fixed Hollowed Log UV/rotations in 3.1.
+
+LiukRast:
+ - Baobab Tree generation.
 
 Osmiooo:
  - French translation.
