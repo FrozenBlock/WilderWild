@@ -156,7 +156,10 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.POTION)
 			.add(EntityType.SNOWBALL)
 			.add(EntityType.EXPERIENCE_BOTTLE)
-			.add(EntityType.WIND_CHARGE);
+			.add(EntityType.WIND_CHARGE)
+			.add(EntityType.LLAMA_SPIT)
+			.add(EntityType.ENDER_PEARL)
+			.add(EntityType.FIREWORK_ROCKET);
 
 		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypes.PENGUIN);

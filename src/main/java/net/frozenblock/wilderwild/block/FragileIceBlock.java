@@ -129,9 +129,12 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
+	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
 		if (!projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) {
-			level.destroyBlock(blockHitResult.getBlockPos(), false);
+			double velocity = projectile.getDeltaMovement().length();
+			if (velocity >= 1.6D) {
+				level.destroyBlock(blockHitResult.getBlockPos(), false);
+			}
 		}
 	}
 
