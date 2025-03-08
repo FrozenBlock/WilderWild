@@ -375,6 +375,10 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_COMMON.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_STRUCTURE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_STRUCTURE.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES.getKey());
 						}

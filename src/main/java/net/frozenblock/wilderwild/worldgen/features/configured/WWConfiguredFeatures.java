@@ -368,6 +368,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
 	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
@@ -3000,10 +3001,34 @@ public final class WWConfiguredFeatures {
 						true,
 						false,
 						true,
-						1F,
+						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK.holderOwner(),
 							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+				)
+			)
+		);
+
+		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				42,
+				8,
+				8,
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.BARNACLES,
+						6,
+						true,
+						true,
+						true,
+						0.7F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE
 						)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
@@ -3024,7 +3049,7 @@ public final class WWConfiguredFeatures {
 						true,
 						false,
 						true,
-						1F,
+						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK.holderOwner(),
 							WWBlockTags.BARNACLES_FEATURE_PLACEABLE

@@ -307,6 +307,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
 	public static final FrozenLibPlacedFeature BARNACLES_COMMON = register("barnacles_common");
+	public static final FrozenLibPlacedFeature BARNACLES_STRUCTURE = register("barnacles_structure");
 	public static final FrozenLibPlacedFeature BARNACLES = register("barnacles");
 	public static final FrozenLibPlacedFeature BARNACLES_SPARSE = register("barnacles_sparse");
 	public static final FrozenLibPlacedFeature BARNACLES_RARE = register("barnacles_rare");
@@ -1891,6 +1892,12 @@ public final class WWPlacedFeatures {
 		BARNACLES_COMMON.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES_DENSE.getHolder(),
 			CountPlacement.of(UniformInt.of(1, 2)),
 			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		BARNACLES_STRUCTURE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES_STRUCTURE.getHolder(),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()

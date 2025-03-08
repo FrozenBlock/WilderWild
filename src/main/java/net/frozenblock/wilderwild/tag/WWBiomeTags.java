@@ -160,6 +160,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("feature/has_cattail_common");
 	public static final TagKey<Biome> HAS_CATTAIL_MUD = bind("feature/has_cattail_mud");
 	public static final TagKey<Biome> HAS_BARNACLES_COMMON = bind("feature/has_barnacles_common");
+	public static final TagKey<Biome> HAS_BARNACLES_STRUCTURE = bind("feature/has_barnacles_structure");
 	public static final TagKey<Biome> HAS_BARNACLES = bind("feature/has_barnacles");
 	public static final TagKey<Biome> HAS_BARNACLES_SPARSE = bind("feature/has_barnacles_sparse");
 	public static final TagKey<Biome> HAS_BARNACLES_RARE = bind("feature/has_barnacles_rare");

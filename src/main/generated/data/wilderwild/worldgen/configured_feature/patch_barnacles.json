@@ -10,7 +10,7 @@
           "can_place_on_ceiling": false,
           "can_place_on_floor": true,
           "can_place_on_wall": true,
-          "chance_of_spreading": 1.0,
+          "chance_of_spreading": 0.7,
           "search_range": 10
         }
       },

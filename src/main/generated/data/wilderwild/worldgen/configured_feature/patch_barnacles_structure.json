@@ -6,12 +6,12 @@
         "type": "minecraft:multiface_growth",
         "config": {
           "block": "wilderwild:barnacles",
-          "can_be_placed_on": "#wilderwild:feature/barnacles_feature_placeable",
-          "can_place_on_ceiling": false,
+          "can_be_placed_on": "#wilderwild:feature/barnacles_feature_placeable_structure",
+          "can_place_on_ceiling": true,
           "can_place_on_floor": true,
           "can_place_on_wall": true,
           "chance_of_spreading": 0.7,
-          "search_range": 10
+          "search_range": 6
         }
       },
       "placement": [
@@ -24,8 +24,8 @@
         }
       ]
     },
-    "tries": 30,
-    "xz_spread": 6,
-    "y_spread": 3
+    "tries": 42,
+    "xz_spread": 8,
+    "y_spread": 8
   }
 }

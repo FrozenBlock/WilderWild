@@ -4,12 +4,6 @@
     "minecraft:prismarine_bricks",
     "minecraft:dark_prismarine",
     "minecraft:sea_lantern",
-    "minecraft:clay",
-    "minecraft:gravel",
-    {
-      "id": "#minecraft:dirt",
-      "required": false
-    },
     {
       "id": "#minecraft:stone_bricks",
       "required": false
@@ -36,10 +30,6 @@
     },
     {
       "id": "#minecraft:trapdoors",
-      "required": false
-    },
-    {
-      "id": "#minecraft:base_stone_overworld",
       "required": false
     }
   ]
