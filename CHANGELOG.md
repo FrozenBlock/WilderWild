@@ -134,6 +134,9 @@ hi
   - Barnacles can be placed on multiple block faces, similar to Sculk Veins and Glow Lichens.
   - Generates naturally most frequently in Stony Shores, Mangrove Swamp, Warm Ocean, and Lukewarm Ocean biomes.
   - The biome tags `wilderwild:has_barnacles_common,` `wilderwild:has_barnacles,` `wilderwild:has_barnacles_sparse,` and `wilderwild:has_barnacles_rare` control the generation of Barnacles.
+    - The block tag `wilderwild:barnacles_feature_placeable` contains this the of blocks Barnacles can be placed on.
+  - The biome tags `wilderwild:has_barnacles_structure` dictate which biomes a special feature for placing Barnacles on structure-related blocks will generate in.
+    - The block tag `wilderwild:barnacles_feature_placeable_structure` contains this list of blocks.
   - Drops without Silk Touch or Shears.
 
 # Music
