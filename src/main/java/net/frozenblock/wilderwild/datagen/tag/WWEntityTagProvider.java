@@ -157,6 +157,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.SNOWBALL)
 			.add(EntityType.EXPERIENCE_BOTTLE)
 			.add(EntityType.WIND_CHARGE)
+			.add(EntityType.BREEZE_WIND_CHARGE)
 			.add(EntityType.LLAMA_SPIT)
 			.add(EntityType.ENDER_PEARL)
 			.add(EntityType.FIREWORK_ROCKET);
