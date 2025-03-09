@@ -57,8 +57,7 @@ import org.jetbrains.annotations.Nullable;
 public class TermiteManager {
 	public static final int TERMITE_COUNT_ASLEEP = 1;
 	public static final int TERMITE_COUNT_ASLEEP_NATURAL = 0;
-	public static final int TERMITE_COUNT = 5;
-	public static final int TERMITE_COUNT_NATURAL = 3;
+	public static final int TERMITE_COUNT = 3;
 	public static final int PARTICLE_COUNT_WHILE_EATING = 4;
 	public static final int PARTICLE_COUNT = 6;
 	public static final float BLOCK_SOUND_VOLUME = 0.6F;
@@ -72,7 +71,7 @@ public class TermiteManager {
 	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
 		if (!canSpawn) return 0;
 		if (!awake) return natural ? TERMITE_COUNT_ASLEEP_NATURAL : TERMITE_COUNT_ASLEEP;
-		return natural ? TERMITE_COUNT_NATURAL : TERMITE_COUNT;
+		return TERMITE_COUNT;
 	}
 
 	public static boolean areTermitesSafe(@NotNull Level level, @NotNull BlockPos pos) {
