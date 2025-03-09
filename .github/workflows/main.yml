@@ -45,6 +45,6 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: Build FrozenLib
-        run: FrozenLib/gradlew build -PuseThirdPartyMods=false
+        run: ../FrozenLib/gradlew build -PuseThirdPartyMods=false
       - name: Build
         run: ./gradlew build publish -PuseThirdPartyMods=false
