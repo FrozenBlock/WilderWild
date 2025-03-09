@@ -3221,6 +3221,15 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
+  "music.menu.wilder_menu": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
   "music.overworld.wilder_forests": {
     "sounds": [
       {
@@ -3229,16 +3238,31 @@
         "weight": 20
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
-        "weight": 5
+        "weight": 3
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      }
+    ]
+  },
+  "music.overworld.wilder_flower_forests": {
+    "sounds": [
+      {
+        "name": "music.overworld.flower_forest",
+        "type": "event",
+        "weight": 11
+      },
+      {
+        "name": "wilderwild:music/ludocrypt/horizon_afoot",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 3
       }
     ]
   },
@@ -3250,16 +3274,224 @@
         "weight": 25
       },
       {
-        "name": "wilderwild:music/pictochats/cave1",
+        "name": "wilderwild:music/pictochats/amber",
         "stream": true,
-        "volume": 0.4,
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_dripstone_caves": {
+    "sounds": [
+      {
+        "name": "music.overworld.dripstone_caves",
+        "type": "event",
+        "weight": 15
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "music.overworld.wilder_cherry_grove": {
+    "sounds": [
+      {
+        "name": "music.overworld.cherry_grove",
+        "type": "event",
+        "weight": 13
+      },
+      {
+        "name": "wilderwild:music/pictochats/amber",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_grove": {
+    "sounds": [
+      {
+        "name": "music.overworld.grove",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/amber",
+        "stream": true,
+        "volume": 0.7
+      }
+    ]
+  },
+  "music.overworld.wilder_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.jungle",
+        "type": "event",
+        "weight": 13
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_sparse_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.sparse_jungle",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
+  "music.overworld.wilder_bamboo_jungle": {
+    "sounds": [
+      {
+        "name": "music.overworld.bamboo_jungle",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/dahlia",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
+  "music.overworld.wilder_snowy": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/c418/flake",
+        "stream": true,
         "weight": 3
       },
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
-        "weight": 3
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave",
+        "stream": true,
+        "volume": 0.5
+      },
+      {
+        "name": "music/game/stand_tall",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/left_to_bloom",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/wending",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/infinite_amethyst",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/an_ordinary_day",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/watcher",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/puzzlebox",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/komorebi",
+        "stream": true,
+        "volume": 0.8
+      },
+      {
+        "name": "music/game/yakusoku",
+        "stream": true,
+        "volume": 0.8
+      },
+      {
+        "name": "music/game/minecraft",
+        "stream": true
+      },
+      {
+        "name": "music/game/clark",
+        "stream": true
+      },
+      {
+        "name": "music/game/sweden",
+        "stream": true
+      },
+      {
+        "name": "music/game/subwoofer_lullaby",
+        "stream": true
+      },
+      {
+        "name": "music/game/living_mice",
+        "stream": true
+      },
+      {
+        "name": "music/game/haggstrom",
+        "stream": true
+      },
+      {
+        "name": "music/game/danny",
+        "stream": true
+      },
+      {
+        "name": "music/game/key",
+        "stream": true
+      },
+      {
+        "name": "music/game/oxygene",
+        "stream": true
+      },
+      {
+        "name": "music/game/dry_hands",
+        "stream": true
+      },
+      {
+        "name": "music/game/wet_hands",
+        "stream": true
+      },
+      {
+        "name": "music/game/mice_on_venus",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.wilder_under_water": {
+    "sounds": [
+      {
+        "name": "wilderwild:music/ludocrypt/dove",
+        "stream": true,
+        "volume": 0.8
       }
     ]
   },
@@ -3286,15 +3518,10 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/mesoglea_caves/dove",
+        "name": "wilderwild:music/ludocrypt/dove",
         "stream": true,
         "volume": 0.8,
         "weight": 5
-      },
-      {
-        "name": "wilderwild:music/pictochats/cave1",
-        "stream": true,
-        "weight": 2
       }
     ]
   },
@@ -3327,12 +3554,6 @@
       {
         "name": "music/game/living_mice",
         "stream": true
-      },
-      {
-        "name": "wilderwild:music/pictochats/cave1",
-        "stream": true,
-        "volume": 0.5,
-        "weight": 2
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3381,7 +3602,12 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/pictochats/cave1",
+        "name": "wilderwild:music/c418/flake",
+        "stream": true,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/pictochats/cave",
         "stream": true,
         "weight": 3
       }
@@ -3401,8 +3627,7 @@
       },
       {
         "name": "music/game/key",
-        "stream": true,
-        "weight": 2
+        "stream": true
       },
       {
         "name": "music/game/echo_in_the_wind",
@@ -3452,22 +3677,60 @@
         "volume": 0.4
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/serene_sonder",
+        "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
         "weight": 2
       },
       {
-        "name": "wilderwild:music/ludocrypt/wild_forests/horizon_afoot",
-        "stream": true,
-        "volume": 0.8,
-        "weight": 2
-      },
-      {
-        "name": "wilderwild:music/pictochats/maple_forest1",
+        "name": "wilderwild:music/pictochats/amber",
         "stream": true,
         "volume": 0.7,
-        "weight": 6
+        "weight": 5
+      }
+    ]
+  },
+  "music.overworld.dying_forest": {
+    "sounds": [
+      {
+        "name": "music.overworld.forest",
+        "type": "event",
+        "pitch": 1.033,
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "music.overworld.forest",
+        "type": "event",
+        "pitch": 0.967,
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/c418/excuse",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.snowy_dying_forest": {
+    "sounds": [
+      {
+        "name": "wilderwild:music.overworld.wilder_snowy",
+        "type": "event",
+        "pitch": 1.033,
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music.overworld.wilder_snowy",
+        "type": "event",
+        "pitch": 0.967,
+        "volume": 0.2,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/c418/excuse",
+        "stream": true
       }
     ]
   },

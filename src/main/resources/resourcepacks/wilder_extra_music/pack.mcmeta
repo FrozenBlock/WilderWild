@@ -1,0 +1,7 @@
+{
+   "pack": {
+     "pack_format": 34,
+     "supported_formats": {"min_inclusive": 34, "max_inclusive": 60},
+     "description": "Wilder Wild menu and under_water music additions."
+   }
+}
