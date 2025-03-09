@@ -44,9 +44,5 @@ jobs:
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-      - name: Build FrozenLib
-        run: ./gradlew build -PuseThirdPartyMods=false
-        with:
-          path: FrozenLib
       - name: Build
         run: ./gradlew build publish -PuseThirdPartyMods=false
