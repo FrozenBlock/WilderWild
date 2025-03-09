@@ -46,5 +46,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build FrozenLib
         run: ../FrozenLib/gradlew build -PuseThirdPartyMods=false
+        with:
+          path: FrozenLib
       - name: Build
         run: ./gradlew build publish -PuseThirdPartyMods=false
