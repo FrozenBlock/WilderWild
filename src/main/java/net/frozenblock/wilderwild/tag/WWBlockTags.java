@@ -154,6 +154,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> STONE_PATH_REPLACEABLE = bind("feature/stone_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_REPLACEABLE = bind("feature/packed_mud_path_replaceable");
 	public static final TagKey<Block> MOSS_PATH_REPLACEABLE = bind("feature/moss_path_replaceable");
+	public static final TagKey<Block> OCEAN_MOSS_REPLACEABLE = bind("feature/ocean_moss_replaceable");
 	public static final TagKey<Block> SANDSTONE_PATH_REPLACEABLE = bind("feature/sandstone_path_replaceable");
 	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("feature/small_coarse_dirt_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("feature/packed_mud_path_badlands_replaceable");

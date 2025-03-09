@@ -98,6 +98,10 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MOSS_PATH.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWMiscPlaced.OCEAN_MOSS.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH.getKey());
 						}

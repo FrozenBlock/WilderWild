@@ -304,6 +304,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
 	public static final TagKey<Biome> HAS_ALGAE_SMALL = bind("feature/has_algae_small");
 	public static final TagKey<Biome> HAS_ALGAE = bind("feature/has_algae");
+	public static final TagKey<Biome> HAS_MEADOW_SEAGRASS = bind("feature/has_meadow_seagrass");
+	public static final TagKey<Biome> HAS_OCEAN_MOSS = bind("feature/has_ocean_moss");
 	public static final TagKey<Biome> HAS_WATER_POOLS = bind("feature/has_water_pools");
 	public static final TagKey<Biome> HAS_WATER_SHRUBS = bind("feature/has_water_shrubs");
 	public static final TagKey<Biome> HAS_WATER_GRASS = bind("feature/has_water_grass");

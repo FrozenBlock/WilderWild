@@ -285,6 +285,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.PODZOL);
 
+		this.getOrCreateTagBuilder(WWBlockTags.OCEAN_MOSS_REPLACEABLE)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.SAND);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SANDSTONE_PATH_REPLACEABLE)
 			.add(Blocks.SAND);
 

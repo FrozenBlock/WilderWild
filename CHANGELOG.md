@@ -162,6 +162,8 @@ hi
 - Cypress Wetlands now generate Lily Pads and Seagrass.
 - Cypress Wetlands now take up less space from Swamps.
 - Renamed the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
+- Seagrass now generates much more frequently in Deep Lukewarm Oceans.
+- Moss paths now generate in Deep Lukewarm Oceans.
 
 # Penguins
 - Added the Penguin.

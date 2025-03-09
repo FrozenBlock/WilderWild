@@ -314,6 +314,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
+	public static final FrozenLibPlacedFeature SEAGRASS_MEADOW = register("seagrass_meadow");
 	public static final FrozenLibPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
 	public static final FrozenLibPlacedFeature TERMITE_MOUND = register("termite_mound");
 	public static final FrozenLibPlacedFeature TUMBLEWEED = register("tumbleweed");
@@ -1941,6 +1942,13 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		SEAGRASS_MEADOW.makeAndSetHolder(WWConfiguredFeatures.SEAGRASS_MEADOW.getHolder(),
+			CountPlacement.of(90),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 

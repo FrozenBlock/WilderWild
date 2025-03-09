@@ -996,11 +996,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SWAMP);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPONGE_BUD)
-			.add(Biomes.WARM_OCEAN);
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPONGE_BUD_RARE)
 			.add(Biomes.LUKEWARM_OCEAN)
-			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.LUSH_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CARNATION)
@@ -1908,6 +1908,12 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ALGAE)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MEADOW_SEAGRASS)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_OCEAN_MOSS)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WATER_POOLS)
 			.add(Biomes.RIVER)
