@@ -659,6 +659,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.BADLANDS)
 			.add(Biomes.ERODED_BADLANDS);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_BARNACLES_FROM_BONEMEAL)
+			.add(Biomes.STONY_SHORE)
+			.add(Biomes.MANGROVE_SWAMP)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
 		this.getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)

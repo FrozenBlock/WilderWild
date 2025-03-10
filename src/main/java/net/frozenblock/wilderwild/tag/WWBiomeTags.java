@@ -66,6 +66,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MOOBLOOM_MARIGOLD = bind("entity/variant/moobloom_marigold");
 	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");
 
+	public static final TagKey<Biome> PRODUCES_BARNACLES_FROM_BONEMEAL = bind("produces_barnacles_from_bonemeal");
+
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
 	public static final TagKey<Biome> WINDSWEPT_SAVANNA = bind("windswept_savanna");

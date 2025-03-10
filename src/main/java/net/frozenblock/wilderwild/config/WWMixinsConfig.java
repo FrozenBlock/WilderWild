@@ -87,9 +87,9 @@ public final class WWMixinsConfig {
 
 	public boolean block_mycelium = true;
 
-	public boolean block_reinforced_deepslate = true;
+	public boolean block_ocean = true;
 
-	public boolean block_sea_anemone = true;
+	public boolean block_reinforced_deepslate = true;
 
 	public boolean block_spawner = true;
 

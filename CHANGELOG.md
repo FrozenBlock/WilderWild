@@ -138,6 +138,7 @@ hi
   - The biome tags `wilderwild:has_barnacles_structure` dictate which biomes a special feature for placing Barnacles on structure-related blocks will generate in.
     - The block tag `wilderwild:barnacles_feature_placeable_structure` contains this list of blocks.
   - Drops without Silk Touch or Shears.
+  - Using bone meal underwater in biomes Barnacles can generate in has a chance to place Barnacles.
 - Player-placed Termite Mounds now only support a max of 3 Termite instances, much like naturally-generated Termite Mounds.
 - Moss now generates on the floor of Deep Lukewarm Oceans.
 - Seagrass now covers more of Deep Lukewarm Oceans, bringing them closer to real-world seagrass meadows.

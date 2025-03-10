@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
-	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
 	public BarnaclesBlock(@NotNull Properties settings) {
