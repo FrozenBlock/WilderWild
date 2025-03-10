@@ -604,19 +604,13 @@ public final class WWMiscConfigured {
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR_WG)
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-							.within(0.4D, 0.85D)
+							.within(0.4D, 0.9D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
 							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
 							.placementChance(0.915F)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-							.within(-0.1D, 0.1D)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
-							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
-							.placementChance(0.915F)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-							.within(-0.85D, -0.4D)
+							.within(-0.9D, -0.4D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
 							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
 							.placementChance(0.915F)
