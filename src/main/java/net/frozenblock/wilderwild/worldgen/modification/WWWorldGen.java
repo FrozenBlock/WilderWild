@@ -50,6 +50,7 @@ public final class WWWorldGen {
 		WWVegetationGeneration.generateCacti();
 		WWVegetationGeneration.generateAlgae();
 		WWVegetationGeneration.generateBarnacles();
+		WWVegetationGeneration.generateSeaAnemone();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 

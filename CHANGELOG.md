@@ -139,6 +139,12 @@ hi
     - The block tag `wilderwild:barnacles_feature_placeable_structure` contains this list of blocks.
   - Drops without Silk Touch or Shears.
 - Player-placed Termite Mounds now only support a max of 3 Termite instances, much like naturally-generated Termite Mounds.
+- Moss now generates on the floor of Deep Lukewarm Oceans.
+- Seagrass now covers more of Deep Lukewarm Oceans, bringing them closer to real-world seagrass meadows.
+- Added Sea Anemone.
+  - Glows softly during daytime, giving the bottom of the oceans some light.
+  - Will stop glowing after becoming nighttime.
+  - Generates most frequently in Deep Lukewarm Oceans, but can sparsely be found in other Ocean Biomes.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

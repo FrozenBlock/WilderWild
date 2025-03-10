@@ -1124,6 +1124,16 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DEEP_OCEAN)
 			.add(Biomes.DEEP_COLD_OCEAN);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)
+			.add(Biomes.DEEP_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE_RARE)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)

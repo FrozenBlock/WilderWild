@@ -59,6 +59,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
@@ -386,6 +387,7 @@ public final class WWConfiguredFeatures {
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WWFeatureUtils.register("tumbleweed");
 	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
 
 	private WWConfiguredFeatures() {
 		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
@@ -3083,7 +3085,7 @@ public final class WWConfiguredFeatures {
 		);
 
 		SEAGRASS_MEADOW.makeAndSetHolder(Feature.SEAGRASS,
-			new ProbabilityFeatureConfiguration(0.05F)
+			new ProbabilityFeatureConfiguration(0.025F)
 		);
 
 		TERMITE_MOUND.makeAndSetHolder(FrozenLibFeatures.COLUMN_WITH_DISK_FEATURE,
@@ -3120,6 +3122,18 @@ public final class WWConfiguredFeatures {
 				true,
 				true,
 				WWBlockTags.SMALL_SPONGE_GROWS_ON
+			)
+		);
+
+		PATCH_SEA_ANEMONE.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				12,
+				6,
+				3,
+				PlacementUtils.inlinePlaced(
+					WWFeatures.SEA_ANEMONE_FEATURE,
+					new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
+				)
 			)
 		);
 	}

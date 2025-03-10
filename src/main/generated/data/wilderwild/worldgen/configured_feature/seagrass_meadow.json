@@ -1,6 +1,6 @@
 {
   "type": "minecraft:seagrass",
   "config": {
-    "probability": 0.05
+    "probability": 0.025
   }
 }

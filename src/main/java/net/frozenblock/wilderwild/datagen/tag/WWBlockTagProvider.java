@@ -335,6 +335,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.DOORS)
 			.addOptionalTag(BlockTags.TRAPDOORS);
 
+		this.getOrCreateTagBuilder(WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE)
+			.add(Blocks.MOSS_BLOCK);
+
 		this.getOrCreateTagBuilder(WWBlockTags.TERMITE_DISK_REPLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)
@@ -1046,6 +1049,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.ICE)
 			.add(WWBlocks.FRAGILE_ICE);
 
+		this.getOrCreateTagBuilder(BlockTags.UNDERWATER_BONEMEALS)
+			.add(WWBlocks.SEA_ANEMONE);
+
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlocks.MYCELIUM_GROWTH)
 			.add(WWBlocks.DATURA)
@@ -1062,6 +1068,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_TALL_GRASS)
 			.add(WWBlocks.FROZEN_FERN)
 			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.SEA_ANEMONE)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)

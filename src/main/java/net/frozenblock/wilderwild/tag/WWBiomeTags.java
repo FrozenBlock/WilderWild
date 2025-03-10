@@ -164,6 +164,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_BARNACLES = bind("feature/has_barnacles");
 	public static final TagKey<Biome> HAS_BARNACLES_SPARSE = bind("feature/has_barnacles_sparse");
 	public static final TagKey<Biome> HAS_BARNACLES_RARE = bind("feature/has_barnacles_rare");
+	public static final TagKey<Biome> HAS_SEA_ANEMONE = bind("feature/has_sea_anemone");
+	public static final TagKey<Biome> HAS_SEA_ANEMONE_SPARSE = bind("feature/has_sea_anemone_sparse");
+	public static final TagKey<Biome> HAS_SEA_ANEMONE_RARE = bind("feature/has_sea_anemone_rare");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("feature/has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("feature/has_common_seeding_dandelion");
 	public static final TagKey<Biome> HAS_RARE_SEEDING_DANDELION = bind("feature/has_rare_seeding_dandelion");

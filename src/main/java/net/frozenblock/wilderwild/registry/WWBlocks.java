@@ -70,6 +70,7 @@ import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
+import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
@@ -675,10 +676,20 @@ public final class WWBlocks {
 	);
 	public static final BarnaclesBlock BARNACLES = new BarnaclesBlock(
 		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
 			.forceSolidOn()
 			.noCollission()
-			.noOcclusion()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final SeaAnemoneBlock SEA_ANEMONE = new SeaAnemoneBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WATER)
+			.instabreak()
+			.noCollission()
+			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
+			.randomTicks()
 			.sound(SoundType.CORAL_BLOCK)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1564,6 +1575,7 @@ public final class WWBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(SPONGE_BUD, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BARNACLES, "sea_anemone", SEA_ANEMONE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}

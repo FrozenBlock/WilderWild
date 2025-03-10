@@ -38,6 +38,7 @@
     "block.mesoglea.SoulSandBlockMixin",
     "block.mycelium.SpreadingSnowyDirtBlockMixin",
     "block.reinforced_deepslate.BlocksMixin",
+    "block.sea_anemone.SpongeBlockMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
     "datafix.DataFixersMixin",

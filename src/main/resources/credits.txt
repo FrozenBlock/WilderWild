@@ -73,6 +73,7 @@ voxelotl:
  - Mesoglea Bubble, Bubble Pop, and Splash particle textures.
  - Barnacles texture.
  - Frozen Vegetation texture cleanup.
+ - Sea Anemone textures and model.
 
 Contributors:
 

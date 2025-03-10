@@ -59,6 +59,9 @@ public final class WWBlockStateProperties {
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
 
+	// Sea Anenome
+	public static final BooleanProperty GLOWING = BooleanProperty.create("glowing");
+
 	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);

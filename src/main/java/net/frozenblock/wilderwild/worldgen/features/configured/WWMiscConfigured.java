@@ -610,6 +610,12 @@ public final class WWMiscConfigured {
 							.placementChance(0.915F)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
+							.within(-0.1D, 0.1D)
+							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
+							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
+							.placementChance(0.915F)
+							.build(),
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
 							.within(-0.85D, -0.4D)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
 							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))

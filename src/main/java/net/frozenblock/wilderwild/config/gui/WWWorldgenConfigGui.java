@@ -648,6 +648,19 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
+		var seaAnemone = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("sea_anemone_generation"), modifiedConfig.seaAnemone)
+					.setDefaultValue(defaultConfig.seaAnemone)
+					.setSaveConsumer(newValue -> config.seaAnemone = newValue)
+					.setTooltip(tooltip("sea_anemone_generation"))
+					.requireRestart()
+					.build(),
+				clazz,
+				"seaAnemone",
+				configInstance
+			)
+		);
 		var tumbleweed = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedConfig.tumbleweed)

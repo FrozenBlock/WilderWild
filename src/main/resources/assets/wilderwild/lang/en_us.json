@@ -335,6 +335,8 @@
   "block.wilderwild.seeding_dandelion": "Seeding Dandelion",
   "block.wilderwild.potted_seeding_dandelion": "Potted Seeding Dandelion",
 
+  "block.wilderwild.sea_anemone": "Sea Anemone",
+
   "block.wilderwild.stone_chest": "Stone Chest",
   "container.double_stone_chest": "Large Stone Chest",
   "container.stone_chest": "Stone Chest",
@@ -779,7 +781,7 @@
   "option.wilderwild.algae_generation": "Algae Generation",
   "tooltip.wilderwild.algae_generation": "Whether Algae is placed in worldgen.",
   "option.wilderwild.barnacle_generation": "Barnacle Generation",
-  "tooltip.wilderwild.barnacle_generation": "Whether Barnacle is placed in worldgen.",
+  "tooltip.wilderwild.barnacle_generation": "Whether Barnacles are placed in worldgen.",
   "option.wilderwild.beta_beaches": "Beta Beaches",
   "tooltip.wilderwild.beta_beaches": "Enables Beaches near water that generate independent of the biome,\nmirroring the beaches that existed in Minecraft Beta.",
   "option.wilderwild.bush_generation": "Bush Generation",
@@ -806,6 +808,8 @@
   "tooltip.wilderwild.new_desert_villages": "Whether Desert Villages will generate with the Palm wood set.",
   "option.wilderwild.new_witch_huts": "New Witch Huts",
   "tooltip.wilderwild.new_witch_huts": "Whether Witch Huts should use a Cypress and Oak wood set.",
+  "option.wilderwild.sea_anemone_generation": "Sea Anemone Generation",
+  "tooltip.wilderwild.sea_anemone_generation": "Whether Sea Anemones are placed in worldgen.",
   "option.wilderwild.snapped_trees": "Snapped Trees",
   "tooltip.wilderwild.snapped_trees": "Whether Snapped Trees will generate naturally.",
   "option.wilderwild.snow_below_trees": "Snow and Ice Below Leaves",

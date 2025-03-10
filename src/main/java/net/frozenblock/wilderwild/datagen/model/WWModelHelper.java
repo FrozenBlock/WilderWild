@@ -122,6 +122,12 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
+	private static final ModelTemplate SEA_ANEMONE_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_sea_anemone")),
+		Optional.empty(),
+		TextureSlot.STEM,
+		TextureSlot.TOP
+	);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
 		createLeafLitter(generator, litter, litter);
@@ -320,5 +326,15 @@ public final class WWModelHelper {
 			);
 
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(WWBlocks.FRAGILE_ICE.asItem()), new DelegatedModel(leastCrackedModelId));
+	}
+
+	public static void createSeaAnemone(@NotNull BlockModelGenerators generator, Block seaAnemoneBlock) {
+		TextureMapping seaAnemoneTextureMapping = new TextureMapping();
+		seaAnemoneTextureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemoneBlock, "_stem"));
+		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
+		ResourceLocation modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
+
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, modelId));
+		generator.createSimpleFlatItemModel(seaAnemoneBlock.asItem());
 	}
 }

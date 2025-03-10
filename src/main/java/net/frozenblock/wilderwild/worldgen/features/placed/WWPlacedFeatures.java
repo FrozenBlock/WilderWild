@@ -322,6 +322,9 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PRICKLY_PEAR_RARE = register("prickly_pear_rare");
 	public static final FrozenLibPlacedFeature SPONGE_BUDS = register("sponge_buds");
 	public static final FrozenLibPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
+	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE = register("patch_sea_anemone");
+	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_SPARSE = register("patch_sea_anemone_sparse");
+	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_RARE = register("patch_sea_anemone_rare");
 	public static final FrozenLibPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
 
@@ -1946,7 +1949,7 @@ public final class WWPlacedFeatures {
 		);
 
 		SEAGRASS_MEADOW.makeAndSetHolder(WWConfiguredFeatures.SEAGRASS_MEADOW.getHolder(),
-			CountPlacement.of(90),
+			CountPlacement.of(98),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
@@ -1992,6 +1995,27 @@ public final class WWPlacedFeatures {
 		SPONGE_BUDS_RARE.makeAndSetHolder(WWConfiguredFeatures.SPONGE_BUD.getHolder(),
 			CountPlacement.of(UniformInt.of(0, 1)),
 			RarityFilter.onAverageOnceEvery(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_ANEMONE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
+			RarityFilter.onAverageOnceEvery(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
+			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()

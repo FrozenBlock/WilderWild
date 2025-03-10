@@ -115,7 +115,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
 		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
-
+		WWModelHelper.createSeaAnemone(generator, WWBlocks.SEA_ANEMONE);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BARNACLES);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 

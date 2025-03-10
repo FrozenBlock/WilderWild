@@ -394,6 +394,29 @@ public final class WWVegetationGeneration {
 				});
 	}
 
+	public static void generateSeaAnemone() {
+		BiomeModifications.create(WWConstants.id("sea_anemone_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().seaAnemone) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE_SPARSE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE_RARE.getKey());
+						}
+					}
+				});
+	}
+
 	public static void generateGrass() {
 		BiomeModifications.create(WWConstants.id("tumbleweed_generation"))
 			.add(ModificationPhase.ADDITIONS,
