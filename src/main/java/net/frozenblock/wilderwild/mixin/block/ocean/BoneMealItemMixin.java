@@ -73,7 +73,7 @@ public class BoneMealItemMixin {
 						.setValue(BarnaclesBlock.WATERLOGGED, true);
 				}
 
-				if (barnaclesState.canSurvive(level, offsetPos) ) {
+				if (barnaclesState.canSurvive(level, offsetPos)) {
 					state.set(barnaclesState);
 					return false;
 				}
