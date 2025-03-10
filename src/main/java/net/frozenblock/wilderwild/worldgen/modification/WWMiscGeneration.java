@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
@@ -99,7 +100,7 @@ public final class WWMiscGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWMiscPlaced.OCEAN_MOSS.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWAquaticPlaced.OCEAN_MOSS.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
@@ -143,11 +144,11 @@ public final class WWMiscGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPONGE_BUDS.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPONGE_BUDS_RARE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_LAKE)) {

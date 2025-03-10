@@ -302,41 +302,23 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature TALL_FLOWER_FIELD_FLOWERS = register("tall_flower_field_flowers");
 	//VEGETATION
 	public static final FrozenLibPlacedFeature POLLEN_PLACED = register("pollen");
-	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("cattail");
-	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("cattail_uncommon");
-	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
-	public static final FrozenLibPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
-	public static final FrozenLibPlacedFeature BARNACLES_COMMON = register("barnacles_common");
-	public static final FrozenLibPlacedFeature BARNACLES_STRUCTURE = register("barnacles_structure");
-	public static final FrozenLibPlacedFeature BARNACLES = register("barnacles");
-	public static final FrozenLibPlacedFeature BARNACLES_SPARSE = register("barnacles_sparse");
-	public static final FrozenLibPlacedFeature BARNACLES_RARE = register("barnacles_rare");
-	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
-	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
-	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
-	public static final FrozenLibPlacedFeature SEAGRASS_MEADOW = register("seagrass_meadow");
 	public static final FrozenLibPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
 	public static final FrozenLibPlacedFeature TERMITE_MOUND = register("termite_mound");
 	public static final FrozenLibPlacedFeature TUMBLEWEED = register("tumbleweed");
 	public static final FrozenLibPlacedFeature PRICKLY_PEAR = register("prickly_pear");
 	public static final FrozenLibPlacedFeature PRICKLY_PEAR_RARE = register("prickly_pear_rare");
-	public static final FrozenLibPlacedFeature SPONGE_BUDS = register("sponge_buds");
-	public static final FrozenLibPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
-	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE = register("patch_sea_anemone");
-	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_SPARSE = register("patch_sea_anemone_sparse");
-	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_RARE = register("patch_sea_anemone_rare");
 	public static final FrozenLibPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
 
 	private WWPlacedFeatures() {
-		throw new UnsupportedOperationException("WilderPlacedFeatures contains only static declarations.");
+		throw new UnsupportedOperationException("WWPlacedFeatures contains only static declarations.");
 	}
 
 	public static void registerPlacedFeatures(@NotNull BootstrapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 
-		WWConstants.logWithModId("Registering WilderPlacedFeatures for ", true);
+		WWConstants.logWithModId("Registering WWPlacedFeatures for ", true);
 
 		// FALLEN TREES
 
@@ -1866,95 +1848,6 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL.makeAndSetHolder(WWConfiguredFeatures.CATTAIL.getHolder(),
-			RarityFilter.onAverageOnceEvery(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_SMALL.getHolder(),
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_SMALL.getHolder(),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_MUD.makeAndSetHolder(WWConfiguredFeatures.CATTAIL_MUD.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		BARNACLES_COMMON.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES_DENSE.getHolder(),
-			CountPlacement.of(UniformInt.of(1, 2)),
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		BARNACLES_STRUCTURE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES_STRUCTURE.getHolder(),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		BARNACLES.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
-			RarityFilter.onAverageOnceEvery(8),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		BARNACLES_SPARSE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
-			RarityFilter.onAverageOnceEvery(18),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		BARNACLES_RARE.makeAndSetHolder(WWConfiguredFeatures.PATCH_BARNACLES.getHolder(),
-			RarityFilter.onAverageOnceEvery(24),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWConfiguredFeatures.PATCH_FLOWERING_WATERLILY.getHolder(),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		PATCH_ALGAE.makeAndSetHolder(WWConfiguredFeatures.PATCH_ALGAE.getHolder(),
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WWConfiguredFeatures.PATCH_ALGAE_SMALL.getHolder(),
-			RarityFilter.onAverageOnceEvery(5),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		SEAGRASS_MEADOW.makeAndSetHolder(WWConfiguredFeatures.SEAGRASS_MEADOW.getHolder(),
-			CountPlacement.of(98),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
-		);
-
 		PATCH_BERRY_FOREST.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_BERRY_BUSH),
 			RarityFilter.onAverageOnceEvery(28),
 			InSquarePlacement.spread(),
@@ -1983,42 +1876,6 @@ public final class WWPlacedFeatures {
 		PRICKLY_PEAR_RARE.makeAndSetHolder(WWConfiguredFeatures.PRICKLY_PEAR.getHolder(),
 			RarityFilter.onAverageOnceEvery(9),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
-		SPONGE_BUDS.makeAndSetHolder(WWConfiguredFeatures.SPONGE_BUD.getHolder(),
-			CountPlacement.of(UniformInt.of(0, 3)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		SPONGE_BUDS_RARE.makeAndSetHolder(WWConfiguredFeatures.SPONGE_BUD.getHolder(),
-			CountPlacement.of(UniformInt.of(0, 1)),
-			RarityFilter.onAverageOnceEvery(2),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATCH_SEA_ANEMONE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
-			RarityFilter.onAverageOnceEvery(2),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
-			RarityFilter.onAverageOnceEvery(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWConfiguredFeatures.PATCH_SEA_ANEMONE.getHolder(),
-			RarityFilter.onAverageOnceEvery(15),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
 		);
 
 		PATCH_MELON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_MELON),

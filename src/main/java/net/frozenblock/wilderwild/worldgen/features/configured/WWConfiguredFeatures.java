@@ -30,10 +30,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWTreePlaced;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.AlgaeFeatureConfig;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.ShelfFungiFeatureConfig;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -59,9 +56,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -366,16 +361,6 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN = WWFeatureUtils.register("pollen");
 	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> CRIMSON_SHELF_FUNGI = WWFeatureUtils.register("crimson_shelf_fungi");
 	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> WARPED_SHELF_FUNGI = WWFeatureUtils.register("warped_shelf_fungi");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
-	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
-	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
-	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
 	public static final FrozenLibConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_MOUND = WWFeatureUtils.register("termite_mound_baobab");
 
 	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -386,18 +371,16 @@ public final class WWConfiguredFeatures {
 		.build();
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WWFeatureUtils.register("tumbleweed");
-	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
 
 	private WWConfiguredFeatures() {
-		throw new UnsupportedOperationException("WilderConfiguredFeatures contains only static declarations.");
+		throw new UnsupportedOperationException("WWConfiguredFeatures contains only static declarations.");
 	}
 
 	public static void registerConfiguredFeatures(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WWConstants.logWithModId("Registering WilderConfiguredFeatures for", true);
+		WWConstants.logWithModId("Registering WWConfiguredFeatures for", true);
 
 		FALLEN_TREES_MIXED.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
@@ -2965,129 +2948,6 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(
-				UniformInt.of(-7, 7),
-				UniformInt.of(12, 18),
-				true,
-				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
-			)
-		);
-
-		CATTAIL_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(
-				UniformInt.of(-5, 5),
-				UniformInt.of(6, 12),
-				true,
-				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
-			)
-		);
-
-		CATTAIL_MUD.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(
-				UniformInt.of(-7, 7),
-				UniformInt.of(12, 18),
-				false,
-				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
-			)
-		);
-
-		PATCH_BARNACLES_DENSE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				30,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						10,
-						true,
-						false,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK.holderOwner(),
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
-				)
-			)
-		);
-
-		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				42,
-				8,
-				8,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						6,
-						true,
-						true,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK.holderOwner(),
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
-				)
-			)
-		);
-
-		PATCH_BARNACLES.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				18,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						10,
-						true,
-						false,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK.holderOwner(),
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
-				)
-			)
-		);
-
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				10,
-				7,
-				3,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
-				)
-			)
-		);
-
-		PATCH_ALGAE.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
-			new AlgaeFeatureConfig(UniformInt.of(4, 10))
-		);
-
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
-			new AlgaeFeatureConfig(UniformInt.of(2, 6))
-		);
-
-		SEAGRASS_MEADOW.makeAndSetHolder(Feature.SEAGRASS,
-			new ProbabilityFeatureConfiguration(0.025F)
-		);
-
 		TERMITE_MOUND.makeAndSetHolder(FrozenLibFeatures.COLUMN_WITH_DISK_FEATURE,
 			new ColumnWithDiskFeatureConfig(
 				WWBlocks.TERMITE_MOUND.defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true),
@@ -3111,28 +2971,6 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(TUMBLEWEED_PLANT_POOL))
-				)
-			)
-		);
-
-		SPONGE_BUD.makeAndSetHolder(WWFeatures.SPONGE_BUD_FEATURE,
-			new SpongeBudFeatureConfig(
-				20,
-				true,
-				true,
-				true,
-				WWBlockTags.SMALL_SPONGE_GROWS_ON
-			)
-		);
-
-		PATCH_SEA_ANEMONE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				12,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					WWFeatures.SEA_ANEMONE_FEATURE,
-					new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
 				)
 			)
 		);

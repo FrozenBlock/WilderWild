@@ -306,11 +306,11 @@ public final class WWTreeConfigured {
 	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
 
 	private WWTreeConfigured() {
-		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
+		throw new UnsupportedOperationException("WWTreeConfigured contains only static declarations.");
 	}
 
 	public static void registerTreeConfigured() {
-		WWConstants.logWithModId("Registering WilderTreeConfigured for", true);
+		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
 
 		// BIRCH
 

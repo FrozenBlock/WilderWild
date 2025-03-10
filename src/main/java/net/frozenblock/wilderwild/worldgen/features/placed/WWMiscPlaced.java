@@ -86,7 +86,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = WWPlacementUtils.register("small_gravel_transition");
 	public static final FrozenLibPlacedFeature RIVER_POOL = WWPlacementUtils.register("river_pool");
 	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = WWPlacementUtils.register("small_river_pool");
-	public static final FrozenLibPlacedFeature OCEAN_MOSS = WWPlacementUtils.register("ocean_moss");
 
 	// SAVANNA
 	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = WWPlacementUtils.register("packed_mud_path");
@@ -149,14 +148,14 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = WWPlacementUtils.register("fragile_ice_disk_surface");
 
 	private WWMiscPlaced() {
-		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
+		throw new UnsupportedOperationException("WWMiscPlaced contains only static declarations.");
 	}
 
 	public static void registerMiscPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WWConstants.logWithModId("Registering WilderMiscPlaced for", true);
+		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
 
 		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH.getHolder(),
 			PlacementUtils.isEmpty()
@@ -348,12 +347,6 @@ public final class WWMiscPlaced {
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		OCEAN_MOSS.makeAndSetHolder(WWMiscConfigured.OCEAN_MOSS.getHolder(),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 

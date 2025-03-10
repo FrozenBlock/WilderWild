@@ -50,7 +50,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
@@ -117,7 +116,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
 
 	private WWCavePlaced() {
-		throw new UnsupportedOperationException("WilderCavePlaced contains only static declarations.");
+		throw new UnsupportedOperationException("WWCavePlaced contains only static declarations.");
 	}
 
 	public static void registerCavePlaced(@NotNull BootstrapContext<PlacedFeature> entries) {

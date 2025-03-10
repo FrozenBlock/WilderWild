@@ -108,7 +108,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RIVER_POOL = register("river_pool");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> SMALL_RIVER_POOL = register("small_river_pool");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> OCEAN_MOSS = register("ocean_moss");
 
 	// SAVANNA
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> PACKED_MUD_PATH = register("packed_mud_path");
@@ -172,11 +171,11 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
 	private WWMiscConfigured() {
-		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
+		throw new UnsupportedOperationException("WWMiscConfigured contains only static declarations.");
 	}
 
 	public static void registerMiscConfigured() {
-		WWConstants.logWithModId("Registering WilderMiscConfigured for", true);
+		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
 
 		EMPTY.makeAndSetHolder(Feature.NO_OP,
 			NoneFeatureConfiguration.INSTANCE
@@ -592,31 +591,6 @@ public final class WWMiscConfigured {
 				0.000F,
 				UniformInt.of(1, 2),
 				0.7F
-			)
-		);
-
-		OCEAN_MOSS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
-			new NoisePathFeatureConfig(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.1D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR_WG)
-					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-							.within(0.4D, 0.9D)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
-							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
-							.placementChance(0.915F)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-							.within(-0.9D, -0.4D)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
-							.searchingBlockPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
-							.placementChance(0.915F)
-							.build()
-					).build(),
-				12
 			)
 		);
 

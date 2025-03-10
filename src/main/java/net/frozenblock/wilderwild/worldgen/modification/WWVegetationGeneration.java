@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -98,23 +99,23 @@ public final class WWVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWERING_WATER_LILY)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FLOWERING_WATERLILY.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_FLOWERING_WATERLILY.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_UNCOMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_UNCOMMON.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_UNCOMMON.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_COMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_COMMON.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_COMMON.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_MUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_MUD.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_MUD.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEEDING_DANDELION)) {
@@ -353,11 +354,11 @@ public final class WWVegetationGeneration {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE_SMALL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_ALGAE_SMALL.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_ALGAE_SMALL.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_ALGAE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_ALGAE.getKey());
 						}
 					}
 				});
@@ -372,23 +373,23 @@ public final class WWVegetationGeneration {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_COMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_COMMON.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_COMMON.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_STRUCTURE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_STRUCTURE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_STRUCTURE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_SPARSE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_SPARSE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_SPARSE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BARNACLES_RARE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_RARE.getKey());
 						}
 					}
 				});
@@ -403,15 +404,15 @@ public final class WWVegetationGeneration {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE_SPARSE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_SPARSE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEA_ANEMONE_RARE.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_RARE.getKey());
 						}
 					}
 				});
@@ -475,7 +476,7 @@ public final class WWVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MEADOW_SEAGRASS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SEAGRASS_MEADOW.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SEAGRASS_MEADOW.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MYCELIUM_GROWTH)) {
