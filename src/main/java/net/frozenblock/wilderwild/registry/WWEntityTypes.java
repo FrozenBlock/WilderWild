@@ -78,7 +78,7 @@ public final class WWEntityTypes {
 
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
-		EntityType.Builder.of(Crab::new, MobCategory.WATER_CREATURE)
+		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
 			.build(WWConstants.string("crab"))
