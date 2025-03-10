@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "minecraft:flower_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:flower_field",
+      "required": false
+    }
+  ]
+}
