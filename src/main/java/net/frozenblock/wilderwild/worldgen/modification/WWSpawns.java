@@ -50,7 +50,7 @@ public final class WWSpawns {
 
 	public static void addCrabs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_CRAB),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB, 1, 2, 4);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB, 1, 1, 3);
 	}
 
 	public static void addOstriches() {
