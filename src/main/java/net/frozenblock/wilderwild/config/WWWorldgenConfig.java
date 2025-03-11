@@ -64,6 +64,9 @@ public final class WWWorldgenConfig {
 	@CollapsibleObject
 	public final BiomePlacement biomePlacement = new BiomePlacement();
 
+	@CollapsibleObject
+	public final AquaticGeneration aquaticGeneration = new AquaticGeneration();
+
 	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
@@ -100,15 +103,6 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("tumbleweed")
 	public boolean tumbleweed = true;
 
-	@EntrySyncData("algae")
-	public boolean algae = true;
-
-	@EntrySyncData("barnacle")
-	public boolean barnacle = true;
-
-	@EntrySyncData("seaAnemone")
-	public boolean seaAnemone = true;
-
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
 
@@ -117,9 +111,6 @@ public final class WWWorldgenConfig {
 
 	@EntrySyncData("surfaceDecoration")
 	public boolean surfaceDecoration = true;
-
-	@EntrySyncData("riverPool")
-	public boolean riverPool = false;
 
 	@EntrySyncData("snowBelowTrees")
 	public boolean snowBelowTrees = true;
@@ -148,6 +139,26 @@ public final class WWWorldgenConfig {
 
 	public static WWWorldgenConfig getWithSync() {
 		return INSTANCE.configWithSync();
+	}
+
+	public static class AquaticGeneration {
+		@EntrySyncData("riverPool")
+		public boolean riverPool = false;
+
+		@EntrySyncData("cattail")
+		public boolean cattail = true;
+
+		@EntrySyncData("algae")
+		public boolean algae = true;
+
+		@EntrySyncData("barnacle")
+		public boolean barnacle = true;
+
+		@EntrySyncData("seaAnemone")
+		public boolean seaAnemone = true;
+
+		@EntrySyncData("tubeWorm")
+		public boolean tubeWorm = true;
 	}
 
 	public static class BiomePlacement {

@@ -48,9 +48,10 @@ public final class WWWorldGen {
 		WWVegetationGeneration.generateFlower();
 		WWVegetationGeneration.generateBush();
 		WWVegetationGeneration.generateCacti();
-		WWVegetationGeneration.generateAlgae();
-		WWVegetationGeneration.generateBarnacles();
-		WWVegetationGeneration.generateSeaAnemone();
+		WWAquaticGeneration.generateAlgae();
+		WWAquaticGeneration.generateBarnacles();
+		WWAquaticGeneration.generateCattails();
+		WWAquaticGeneration.generateSeaAnemone();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 

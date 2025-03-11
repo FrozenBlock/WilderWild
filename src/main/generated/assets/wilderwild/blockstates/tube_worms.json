@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "wilderwild:block/tube_worms_bottom"
+    },
+    "half=upper": {
+      "model": "wilderwild:block/tube_worms_top"
+    }
+  }
+}

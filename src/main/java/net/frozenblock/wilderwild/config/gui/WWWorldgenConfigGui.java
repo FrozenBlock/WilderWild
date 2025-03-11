@@ -622,45 +622,6 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-		var algae = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("algae_generation"), modifiedConfig.algae)
-					.setDefaultValue(defaultConfig.algae)
-					.setSaveConsumer(newValue -> config.algae = newValue)
-					.setTooltip(tooltip("algae_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"algae",
-				configInstance
-			)
-		);
-		var barnacle = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("barnacle_generation"), modifiedConfig.barnacle)
-					.setDefaultValue(defaultConfig.barnacle)
-					.setSaveConsumer(newValue -> config.barnacle = newValue)
-					.setTooltip(tooltip("barnacle_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"barnacle",
-				configInstance
-			)
-		);
-		var seaAnemone = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("sea_anemone_generation"), modifiedConfig.seaAnemone)
-					.setDefaultValue(defaultConfig.seaAnemone)
-					.setSaveConsumer(newValue -> config.seaAnemone = newValue)
-					.setTooltip(tooltip("sea_anemone_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"seaAnemone",
-				configInstance
-			)
-		);
 		var tumbleweed = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedConfig.tumbleweed)
@@ -739,19 +700,83 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-		var riverPool = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("river_pool"), modifiedConfig.riverPool)
-					.setDefaultValue(defaultConfig.riverPool)
-					.setSaveConsumer(newValue -> config.riverPool = newValue)
-					.setTooltip(tooltip("river_pool"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"riverPool",
-				configInstance
-			)
+
+		var aquatic = config.aquaticGeneration;
+		var modifiedAquatic = modifiedConfig.aquaticGeneration;
+		var defaultAquatic = defaultConfig.aquaticGeneration;
+
+		var riverPool = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("river_pool"), modifiedAquatic.riverPool)
+				.setDefaultValue(defaultAquatic.riverPool)
+				.setSaveConsumer(newValue -> aquatic.riverPool = newValue)
+				.setTooltip(tooltip("river_pool"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"riverPool",
+			configInstance
 		);
+		var algae = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("algae_generation"), modifiedAquatic.algae)
+				.setDefaultValue(defaultAquatic.algae)
+				.setSaveConsumer(newValue -> aquatic.algae = newValue)
+				.setTooltip(tooltip("algae_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"algae",
+			configInstance
+		);
+		var barnacle = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("barnacle_generation"), modifiedAquatic.barnacle)
+				.setDefaultValue(defaultAquatic.barnacle)
+				.setSaveConsumer(newValue -> aquatic.barnacle = newValue)
+				.setTooltip(tooltip("barnacle_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"barnacle",
+			configInstance
+		);
+		var cattail = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cattail_generation"), modifiedAquatic.cattail)
+				.setDefaultValue(defaultAquatic.cattail)
+				.setSaveConsumer(newValue -> aquatic.cattail = newValue)
+				.setTooltip(tooltip("cattail_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"cattail",
+			configInstance
+		);
+		var seaAnemone = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sea_anemone_generation"), modifiedAquatic.seaAnemone)
+				.setDefaultValue(defaultAquatic.seaAnemone)
+				.setSaveConsumer(newValue -> aquatic.seaAnemone = newValue)
+				.setTooltip(tooltip("sea_anemone_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"seaAnemone",
+			configInstance
+		);
+		var tubeWorm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tube_worm_generation"), modifiedAquatic.tubeWorm)
+				.setDefaultValue(defaultAquatic.tubeWorm)
+				.setSaveConsumer(newValue -> aquatic.tubeWorm = newValue)
+				.setTooltip(tooltip("tube_worm_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"tubeWorm",
+			configInstance
+		);
+		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
+			false,
+			tooltip("aquatic_generation"),
+			riverPool, algae, barnacle, cattail, seaAnemone, tubeWorm
+		);
+
 		var decayTrailRuins = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedConfig.decayTrailRuins)

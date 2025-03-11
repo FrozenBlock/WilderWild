@@ -117,6 +117,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
 		WWModelHelper.createSeaAnemone(generator, WWBlocks.SEA_ANEMONE);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BARNACLES);
+		WWModelHelper.createTubeWorms(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);

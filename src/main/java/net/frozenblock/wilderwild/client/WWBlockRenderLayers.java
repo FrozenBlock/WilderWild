@@ -65,6 +65,7 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.ALGAE, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.BARNACLES, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.SEA_ANEMONE, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.TUBE_WORMS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MILKWEED, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.MARIGOLD, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_MARIGOLD, RenderType.cutout());

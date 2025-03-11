@@ -307,7 +307,7 @@ public final class WWMiscGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().riverPool) {
+					if (WWWorldgenConfig.get().aquaticGeneration.riverPool) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {

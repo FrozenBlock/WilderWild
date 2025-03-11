@@ -74,6 +74,7 @@ voxelotl:
  - Barnacles texture.
  - Frozen Vegetation texture cleanup.
  - Sea Anemone textures and model.
+ - Tube Worms textures.
 
 Contributors:
 
