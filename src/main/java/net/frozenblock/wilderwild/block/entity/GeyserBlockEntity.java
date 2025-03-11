@@ -71,7 +71,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final double ERUPTION_DISTANCE = 6D;
-	public static final double VENT_DISTANCE = 2D;
+	public static final double VENT_DISTANCE = 3D;
 	public static final int ERUPTION_DISTANCE_IN_BLOCKS = 5;
 	public static final int VENT_DISTANCE_IN_BLOCKS = 2;
 	public static final int MIN_ACTIVE_TICKS = 100;
