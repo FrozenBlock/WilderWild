@@ -43,6 +43,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -149,18 +150,13 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (direction.equals(state.getValue(FACING))) {
+		if (direction.getAxis() == state.getValue(FACING).getAxis()) {
 			GeyserType geyserType = getGeyserTypeForPos(level, state, currentPos);
 			if (geyserType != state.getValue(GEYSER_TYPE)) {
 				state = state.setValue(GEYSER_TYPE, geyserType);
 			}
 		}
 		return state;
-	}
-
-	@Override
-	public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
-		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -173,6 +169,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		if (GeyserBlockEntity.canEruptionPassThrough(level, checkPos, checkState, direction)) {
 			FluidState fluidState = checkState.getFluidState();
 			if (fluidState.is(FluidTags.WATER)) {
+				if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
 				return GeyserType.WATER;
 			} else if (fluidState.is(FluidTags.LAVA)) {
 				return GeyserType.LAVA;
@@ -198,7 +195,7 @@ public class GeyserBlock extends BaseEntityBlock {
 			Direction direction = blockState.getValue(FACING);
 			boolean natural = blockState.getValue(NATURAL);
 			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
-			spawnBaseGeyserParticles(blockPos, direction, random);
+			spawnBaseGeyserParticles(blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
 			if (stage == GeyserStage.DORMANT) {
 				GeyserBlockEntity.spawnDormantParticles(level, blockPos, geyserType, direction, random);
 			} else if (stage == GeyserStage.ACTIVE) {
@@ -289,22 +286,20 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, RandomSource random) {
+	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, RandomSource random, boolean vent) {
 		Minecraft client = Minecraft.getInstance();
 		ParticleStatus particleStatus = client.options.particles().get();
-		if (particleStatus == ParticleStatus.MINIMAL) {
-			return;
-		}
+		if (particleStatus == ParticleStatus.MINIMAL) return;
 		ParticleEngine particleEngine = client.particleEngine;
 		float chance = particleStatus == ParticleStatus.DECREASED ? 0.3F : 1F;
 
-		int count = random.nextInt(0, 3);
+		int count = vent ? random.nextInt(2, 5) : random.nextInt(0, 3);
 		for (int i = 0; i < count; i++) {
 			if (random.nextFloat() <= chance) {
 				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.003D, 0.01D);
+				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.001D, 0.005D);
 				Particle particle = particleEngine.createParticle(
-					ParticleTypes.WHITE_SMOKE,
+					vent ? ParticleTypes.LARGE_SMOKE : ParticleTypes.WHITE_SMOKE,
 					particlePos.x,
 					particlePos.y,
 					particlePos.z,

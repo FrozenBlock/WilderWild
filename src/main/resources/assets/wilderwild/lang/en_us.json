@@ -835,6 +835,8 @@
   "tooltip.wilderwild.barnacle_generation": "Whether Barnacles are placed in worldgen.",
   "option.wilderwild.cattail_generation": "Cattail Generation",
   "tooltip.wilderwild.cattail_generation": "Whether Cattails are placed in worldgen.",
+  "option.wilderwild.hydrothermal_vent_generation": "Hydrothermal Vent Generation",
+  "tooltip.wilderwild.hydrothermal_vent_generation": "Whether Hydrothermal Vents are placed in worldgen.",
   "option.wilderwild.sea_anemone_generation": "Sea Anemone Generation",
   "tooltip.wilderwild.sea_anemone_generation": "Whether Sea Anemones are placed in worldgen.",
   "option.wilderwild.tube_worm_generation": "Tube Worm Generation",

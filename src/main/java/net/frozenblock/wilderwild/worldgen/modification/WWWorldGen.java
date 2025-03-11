@@ -51,7 +51,9 @@ public final class WWWorldGen {
 		WWAquaticGeneration.generateAlgae();
 		WWAquaticGeneration.generateBarnacles();
 		WWAquaticGeneration.generateCattails();
+		WWAquaticGeneration.generateHydrothermalVent();
 		WWAquaticGeneration.generateSeaAnemone();
+		WWAquaticGeneration.generateTubeWorms();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 

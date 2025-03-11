@@ -71,6 +71,9 @@ public class GeyserBlockEntity extends BlockEntity {
 	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final double ERUPTION_DISTANCE = 6D;
+	public static final double VENT_DISTANCE = 2D;
+	public static final int ERUPTION_DISTANCE_IN_BLOCKS = 5;
+	public static final int VENT_DISTANCE_IN_BLOCKS = 2;
 	public static final int MIN_ACTIVE_TICKS = 100;
 	public static final int MAX_ACTIVE_TICKS = 200;
 	public static final int MIN_DORMANT_TICKS = 400;
@@ -114,7 +117,11 @@ public class GeyserBlockEntity extends BlockEntity {
 			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(TICK_DELAY_START_MIN, TICK_DELAY_START_MAX));
 			this.hasRunFirstCheck = true;
 		} else if (GeyserBlock.isActive(geyserType)) {
-			if (geyserStage == GeyserStage.ERUPTING) {
+			if (geyserType == GeyserType.HYDROTHERMAL_VENT) {
+				this.eruptionProgress = 1F;
+				this.handleEruption(level, pos, geyserType, direction);
+				this.setActive(level, pos, state, random);
+			} else if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
 					this.ticksUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
@@ -155,14 +162,15 @@ public class GeyserBlockEntity extends BlockEntity {
 		Optional<BlockPos> cutoffPos = Optional.empty();
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
-		for (int i = 0; i < 5; i++) {
+		boolean vent = geyserType == GeyserType.HYDROTHERMAL_VENT;
+		for (int i = 0; i < (vent ? VENT_DISTANCE_IN_BLOCKS : ERUPTION_DISTANCE_IN_BLOCKS); i++) {
 			if (level.hasChunkAt(mutablePos.move(direction))) {
 				BlockState state = level.getBlockState(mutablePos);
 				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
 					break;
 				}
 				boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
-				boolean mismatchesWater = geyserType == GeyserType.WATER && !state.getFluidState().is(Fluids.WATER);
+				boolean mismatchesWater = geyserType.isWater() && !state.getFluidState().is(Fluids.WATER);
 				boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
 				if (mismatchesAir || mismatchesWater || mismatchesLava) {
 					if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
@@ -203,13 +211,15 @@ public class GeyserBlockEntity extends BlockEntity {
 			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 
-		if (level instanceof ServerLevel serverLevel) {
-			WindManager windManager = WindManager.getWindManager(serverLevel);
-			windManager.addWindDisturbance(effectiveWindDisturbance);
-			windManager.addWindDisturbance(baseWindDisturbance);
-		} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			addWindDisturbanceToClient(effectiveWindDisturbance);
-			addWindDisturbanceToClient(baseWindDisturbance);
+		if (!vent) {
+			if (level instanceof ServerLevel serverLevel) {
+				WindManager windManager = WindManager.getWindManager(serverLevel);
+				windManager.addWindDisturbance(effectiveWindDisturbance);
+				windManager.addWindDisturbance(baseWindDisturbance);
+			} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+				addWindDisturbanceToClient(effectiveWindDisturbance);
+				addWindDisturbanceToClient(baseWindDisturbance);
+			}
 		}
 
 		Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
@@ -233,15 +243,17 @@ public class GeyserBlockEntity extends BlockEntity {
 						applyMovement = false;
 					}
 				}
+				double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
+
 				if (applyMovement) {
-					double intensity = (ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE;
-					double pushIntensity = (effectiveEruption.intersects(boundingBox) ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
+					double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance;
+					double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 					double overallIntensity = intensity * pushIntensity;
 					Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
 					entity.setDeltaMovement(deltaMovement);
 				}
 				if (damagingEruption.intersects(boundingBox)) {
-					double damageIntensity = Math.max((ERUPTION_DISTANCE - Math.min(entity.position().distanceTo(geyserStartPos), ERUPTION_DISTANCE)) / ERUPTION_DISTANCE, ERUPTION_DISTANCE * 0.1D);
+					double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
 					if (geyserType == GeyserType.LAVA) {
 						if (!entity.fireImmune()) {
 							entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
@@ -334,6 +346,10 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
 	}
 
+	public void setActive(Level level, BlockPos pos, BlockState state, RandomSource random) {
+		this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
+	}
+
 	public void setStageAndCooldown(@NotNull Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage));
 		if (geyserStage == GeyserStage.ACTIVE) {
@@ -349,7 +365,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
 		if (GeyserBlock.isActive(geyserType)) {
-			if (geyserStage == GeyserStage.ERUPTING) {
+			if (geyserStage == GeyserStage.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction);
 				spawnEruptionParticles(level, pos, geyserType, direction, random);
@@ -404,8 +420,8 @@ public class GeyserBlockEntity extends BlockEntity {
 	public static final double ACTIVE_DUST_MAX_VELOCITY = 0.4D;
 	public static final double ACTIVE_DUST_RANDOM_VELOCITY = 0.4D;
 
-	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
+	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+		if (geyserType.isWater() && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, DORMANT_BUBBLE_MIN_VELOCITY, DORMANT_BUBBLE_MAX_VELOCITY);
 			level.addParticle(
@@ -421,8 +437,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 	}
 
-	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER) {
+	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+		if (geyserType.isWater()) {
 			if (random.nextFloat() <= ACTIVE_BUBBLE_CHANCE) {
 				int count = random.nextInt(MIN_ACTIVE_BUBBLES, MAX_ACTIVE_BUBBLES);
 				for (int i = 0; i < count; i++) {
@@ -499,12 +515,13 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
+	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
 		Minecraft client = Minecraft.getInstance();
 		ParticleStatus particleStatus = client.options.particles().get();
 		ParticleEngine particleEngine = client.particleEngine;
-		if (geyserType == GeyserType.WATER) {
-			if (random.nextFloat() <= 0.4F) { // Bubble
+		boolean vent = geyserType == GeyserType.HYDROTHERMAL_VENT;
+		if (geyserType.isWater()) {
+			if (random.nextFloat() <= 0.4F && (!vent || random.nextBoolean())) { // Bubble
 				int count = random.nextInt(1, 4);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
@@ -512,7 +529,25 @@ public class GeyserBlockEntity extends BlockEntity {
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
 					level.addParticle(
 						ParticleTypes.BUBBLE,
-						random.nextBoolean(),
+						!vent && random.nextBoolean(),
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+			if (vent && random.nextFloat() <= 0.3F) { // Smoke
+				int count = random.nextInt(1, 2);
+				for (int i = 0; i < count; i++) {
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.05D, 0.15D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.055D));
+					level.addParticle(
+						ParticleTypes.LARGE_SMOKE,
+						false,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -581,7 +616,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			}
 			int lavaCount = random.nextInt(1, 3);
 			for (int i = 0; i < lavaCount; i++) { // Lava
-				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+				if (particleStatus == ParticleStatus.DECREASED && random.nextBoolean()) {
 					break;
 				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
 					break;
@@ -604,10 +639,10 @@ public class GeyserBlockEntity extends BlockEntity {
 					lavaParticle.zd = particleVelocity.z;
 				}
 			}
-		} else {
+		} else if (!vent) {
 			int windCount = random.nextInt(0, 2);
 			for (int i = 0; i < windCount; i++) { // WIND
-				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+				if (particleStatus == ParticleStatus.DECREASED && random.nextBoolean()) {
 					break;
 				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
 					break;

@@ -126,6 +126,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SMALL_SPONGE_GROWS_ON = bind("feature/small_sponge_grows_on");
 	public static final TagKey<Block> FALLEN_TREE_PLACEABLE = bind("feature/fallen_tree_placeable");
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("feature/basin_replaceable");
+	public static final TagKey<Block> HYDROTHERMAL_VENT_REPLACEABLE = bind("feature/hydrothermal_vent_replaceable");
 	public static final TagKey<Block> CATTAIL_FEATURE_PLACEABLE = bind("feature/cattail_placeable");
 	public static final TagKey<Block> CATTAIL_FEATURE_MUD_PLACEABLE = bind("feature/cattail_mud_placeable");
 	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("feature/stone_transition_replaceable");

@@ -20,27 +20,26 @@ package net.frozenblock.wilderwild.mixin.block.ocean;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
-import net.frozenblock.wilderwild.block.TubeWormsBlock;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SpongeBlock;
+import net.minecraft.world.level.block.SeagrassBlock;
+import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(SpongeBlock.class)
-public class SpongeBlockMixin {
+@Mixin(TallSeagrassBlock.class)
+public class TallSeagrassBlockMixin {
 
 	@WrapOperation(
-		method = "method_49829",
+		method = "mayPlaceOn",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
-			ordinal = 2
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
 		)
 	)
-	private static boolean wilderWild$addCheckForSeaAnemone(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || instance.getBlock() instanceof SeaAnemoneBlock || instance.getBlock() instanceof TubeWormsBlock;
+	public boolean wilderWild$preventPlacementOnGeyser(BlockState instance, Block block, Operation<Boolean> original) {
+		return original.call(instance, block) || instance.is(WWBlocks.GEYSER);
 	}
 
 }

@@ -28,12 +28,17 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
@@ -57,7 +62,13 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE = register("patch_sea_anemone");
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_SPARSE = register("patch_sea_anemone_sparse");
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_RARE = register("patch_sea_anemone_rare");
+	public static final FrozenLibPlacedFeature PATCH_TUBE_WORMS = register("patch_tube_worms");
+	public static final FrozenLibPlacedFeature PATCH_TUBE_WORMS_RARE = register("patch_tube_worms_rare");
 
+	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT = register("hydrothermal_vent");
+	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_RARE = register("hydrothermal_vent_rare");
+	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS = register("hydrothermal_vent_tube_worms");
+	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS_RARE = register("hydrothermal_vent_tube_worms_rare");
 	public static final FrozenLibPlacedFeature OCEAN_MOSS = WWPlacementUtils.register("ocean_moss");
 
 	private WWAquaticPlaced() {
@@ -192,6 +203,56 @@ public final class WWAquaticPlaced {
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
+			RarityFilter.onAverageOnceEvery(18),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
+			RarityFilter.onAverageOnceEvery(38),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		HYDROTHERMAL_VENT.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT.getHolder(),
+			RarityFilter.onAverageOnceEvery(48),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9),
+			BiomeFilter.biome()
+		);
+
+		HYDROTHERMAL_VENT_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT.getHolder(),
+			RarityFilter.onAverageOnceEvery(72),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9),
+			BiomeFilter.biome()
+		);
+
+		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS.getHolder(),
+			RarityFilter.onAverageOnceEvery(40),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9),
+			BiomeFilter.biome()
+		);
+
+		HYDROTHERMAL_VENT_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS.getHolder(),
+			RarityFilter.onAverageOnceEvery(65),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
+			SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9),
 			BiomeFilter.biome()
 		);
 

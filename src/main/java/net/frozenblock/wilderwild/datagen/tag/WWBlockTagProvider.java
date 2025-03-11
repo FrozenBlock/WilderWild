@@ -465,6 +465,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.PODZOL)
 			.add(Blocks.MOSS_BLOCK);
 
+		this.getOrCreateTagBuilder(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
 		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			.addOptionalTag(BlockTags.DIRT)
 			.addOptionalTag(BlockTags.SAND)

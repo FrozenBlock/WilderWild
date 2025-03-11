@@ -22,6 +22,7 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
@@ -37,6 +38,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureC
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -45,11 +47,15 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import java.util.List;
 
 public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
@@ -64,7 +70,10 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
 	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TUBE_WORMS = WWFeatureUtils.register("patch_tube_worms");
 
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> OCEAN_MOSS = register("ocean_moss");
 
 	private WWAquaticConfigured() {
@@ -215,6 +224,56 @@ public final class WWAquaticConfigured {
 				PlacementUtils.inlinePlaced(
 					WWFeatures.SEA_ANEMONE_FEATURE,
 					new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
+				)
+			)
+		);
+
+		PATCH_TUBE_WORMS.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				12,
+				3,
+				4,
+				PlacementUtils.inlinePlaced(
+					WWFeatures.TUBE_WORMS_FEATURE,
+					NoneFeatureConfiguration.INSTANCE
+				)
+			)
+		);
+
+		HYDROTHERMAL_VENT.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE,
+				BlockStateProvider.simple(WWBlocks.GABBRO),
+				PlacementUtils.inlinePlaced(
+					WWFeatures.HYDROTHERMAL_VENT_FEATURE,
+					NoneFeatureConfiguration.INSTANCE
+				),
+				CaveSurface.FLOOR,
+				ConstantInt.of(2),
+				0.375F,
+				6,
+				0.25F,
+				UniformInt.of(1, 2),
+				0.5F
+			)
+		);
+
+		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
+			new ComboFeatureConfig(
+				List.of(
+					PlacementUtils.inlinePlaced(HYDROTHERMAL_VENT.getHolder()),
+					PlacementUtils.inlinePlaced(
+						Feature.RANDOM_PATCH,
+						new RandomPatchConfiguration(
+							27,
+							5,
+							4,
+							PlacementUtils.inlinePlaced(
+								WWFeatures.TUBE_WORMS_FEATURE,
+								NoneFeatureConfiguration.INSTANCE
+							)
+						)
+					)
 				)
 			)
 		);

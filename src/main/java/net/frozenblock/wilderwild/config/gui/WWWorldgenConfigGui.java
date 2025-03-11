@@ -771,10 +771,21 @@ public final class WWWorldgenConfigGui {
 			"tubeWorm",
 			configInstance
 		);
+		var hydrothermalVent = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("hydrothermal_vent_generation"), modifiedAquatic.hydrothermalVent)
+				.setDefaultValue(defaultAquatic.hydrothermalVent)
+				.setSaveConsumer(newValue -> aquatic.hydrothermalVent = newValue)
+				.setTooltip(tooltip("hydrothermal_vent_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"hydrothermalVent",
+			configInstance
+		);
 		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
 			false,
 			tooltip("aquatic_generation"),
-			riverPool, algae, barnacle, cattail, seaAnemone, tubeWorm
+			riverPool, algae, barnacle, cattail, hydrothermalVent, seaAnemone, tubeWorm
 		);
 
 		var decayTrailRuins = category.addEntry(

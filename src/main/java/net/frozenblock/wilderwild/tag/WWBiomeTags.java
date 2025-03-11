@@ -169,6 +169,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SEA_ANEMONE = bind("feature/has_sea_anemone");
 	public static final TagKey<Biome> HAS_SEA_ANEMONE_SPARSE = bind("feature/has_sea_anemone_sparse");
 	public static final TagKey<Biome> HAS_SEA_ANEMONE_RARE = bind("feature/has_sea_anemone_rare");
+	public static final TagKey<Biome> HAS_TUBE_WORMS = bind("feature/has_tube_worms");
+	public static final TagKey<Biome> HAS_TUBE_WORMS_RARE = bind("feature/has_tube_worms_rare");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("feature/has_seeding_dandelion");
 	public static final TagKey<Biome> HAS_COMMON_SEEDING_DANDELION = bind("feature/has_common_seeding_dandelion");
 	public static final TagKey<Biome> HAS_RARE_SEEDING_DANDELION = bind("feature/has_rare_seeding_dandelion");
@@ -296,6 +298,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("feature/has_termite_mound");
 	public static final TagKey<Biome> HAS_NETHER_GEYSER = bind("feature/has_nether_geyser");
 	public static final TagKey<Biome> HAS_NETHER_LAVA_GEYSER = bind("feature/has_nether_lava_geyser");
+	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT = bind("feature/has_hydrothermal_vent");
+	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT_RARE = bind("feature/has_hydrothermal_vent_rare");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("feature/has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("feature/has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("feature/has_moss_lake");

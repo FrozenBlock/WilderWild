@@ -1142,6 +1142,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DEEP_COLD_OCEAN)
 			.add(Biomes.DEEP_FROZEN_OCEAN);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUBE_WORMS)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUBE_WORMS_RARE)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1890,6 +1898,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_NETHER_LAVA_GEYSER)
 			.add(Biomes.NETHER_WASTES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HYDROTHERMAL_VENT)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HYDROTHERMAL_VENT_RARE)
+			.add(Biomes.DEEP_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)
 			.add(Biomes.TAIGA)

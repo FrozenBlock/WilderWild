@@ -159,6 +159,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("tubeWorm")
 		public boolean tubeWorm = true;
+
+		@EntrySyncData("hydrothermalVent")
+		public boolean hydrothermalVent = true;
 	}
 
 	public static class BiomePlacement {

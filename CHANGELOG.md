@@ -145,6 +145,13 @@ hi
   - Glows softly during daytime, giving the bottom of the oceans some light.
   - Will stop glowing after becoming nighttime.
   - Generates most frequently in Deep Lukewarm Oceans, but can sparsely be found in other Ocean Biomes.
+- Added Tube Worms.
+  - Generates rarely in most deep ocean biomes.
+- Added hydrothermal vents to oceans.
+  - Generates rarely in non-cold deep ocean biomes.
+  - Generates with Tube Worms surrounding itself.
+- Geysers facing into Water with Magma behind themselves with now act as a hydrothermal vent.
+- Aquatic vegetation can no longer be placed on Geysers.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
