@@ -31,7 +31,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -59,7 +58,7 @@ import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public final class AutumnalPlains extends FrozenBiome {
+public final class Tundra extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.495F, -0.295F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
@@ -116,9 +115,9 @@ public final class AutumnalPlains extends FrozenBiome {
 	public static final int GRASS_COLOR_RED = 14909535;
 	public static final int FOLIAGE_COLOR = 14995819;
 		//15648619;
-	public static final AutumnalPlains INSTANCE = new AutumnalPlains();
+	public static final Tundra INSTANCE = new Tundra();
 
-	public AutumnalPlains() {
+	public Tundra() {
 		super();
 		FrozenGrassColorModifiers.addGrassColorModifier(
 			this.getKey().location(),
@@ -147,7 +146,7 @@ public final class AutumnalPlains extends FrozenBiome {
 
 	@Override
 	public String biomeID() {
-		return "autumnal_plains";
+		return "tundra";
 	}
 
 	@Override
@@ -242,7 +241,7 @@ public final class AutumnalPlains extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
 				this.addSurfaceBiome(
 					parameters,
@@ -282,7 +281,7 @@ public final class AutumnalPlains extends FrozenBiome {
 				);
 			}
 
-			if (WWWorldgenConfig.get().biomePlacement.modifyAutumnalPlainsPlacement) {
+			if (WWWorldgenConfig.get().biomePlacement.modifyTundraPlacement) {
 				List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
 					OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
 					OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES),

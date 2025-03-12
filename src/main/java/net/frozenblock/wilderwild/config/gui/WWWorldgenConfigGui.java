@@ -393,24 +393,24 @@ public final class WWWorldgenConfigGui {
 			"generateMapleForest",
 			configInstance
 		);
-		var generateAutumnalPlains = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_autumnal_plains"), modifiedBiomes.generateAutumnalPlains)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateAutumnalPlains)
-				.setSaveConsumer(newValue -> biomes.generateAutumnalPlains = newValue)
-				.setTooltip(tooltip("generate_autumnal_plains"))
+		var tundra = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_tundra"), modifiedBiomes.generateTundra)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateTundra)
+				.setSaveConsumer(newValue -> biomes.generateTundra = newValue)
+				.setTooltip(tooltip("generate_tundra"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateAutumnalPlains",
+			"generateTundra",
 			configInstance
 		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, generateAutumnalPlains, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
-			frozenCaves, magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
-			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, warmBeach, warmRiver
+			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
+			frozenCaves, magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest,
+			rainforest, semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, tundra, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(
@@ -461,17 +461,17 @@ public final class WWWorldgenConfigGui {
 			"modifyStonyShorePlacement",
 			configInstance
 		);
-		var modifyAutumnalPlainsPlacement = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("modify_autumnal_plains_placement"), modifiedBiomePlacement.modifyAutumnalPlainsPlacement)
-				.setDefaultValue(defaultConfig.biomePlacement.modifyAutumnalPlainsPlacement)
-				.setSaveConsumer(newValue -> biomePlacement.modifyAutumnalPlainsPlacement = newValue)
-				.setYesNoTextSupplier(bool -> text("biome_placement.autumnal_plains." + bool))
-				.setTooltip(tooltip("modify_autumnal_plains_placement"))
-				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains))
+		var modifyTundraPlacement = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("modify_tundra_placement"), modifiedBiomePlacement.modifyTundraPlacement)
+				.setDefaultValue(defaultConfig.biomePlacement.modifyTundraPlacement)
+				.setSaveConsumer(newValue -> biomePlacement.modifyTundraPlacement = newValue)
+				.setYesNoTextSupplier(bool -> text("biome_placement.tundra." + bool))
+				.setTooltip(tooltip("modify_tundra_placement"))
+				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateTundra))
 				.requireRestart()
 				.build(),
 			biomePlacement.getClass(),
-			"modifyAutumnalPlainsPlacement",
+			"modifyTundraPlacement",
 			configInstance
 		);
 		var swamp = FrozenClothConfig.syncedEntry(
@@ -502,7 +502,7 @@ public final class WWWorldgenConfigGui {
 		var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
 			false,
 			tooltip("biome_placement"),
-			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyAutumnalPlainsPlacement
+			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyTundraPlacement
 		);
 
 		var fallenTrees = category.addEntry(

@@ -4,7 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Bumped Wilder Wild's protocol version to 12.
-- Added the Autumnal Plains biome.
+- Added the Tundra biome.
   - This biome generates near the colder regions of the world where Plains would be, before the snow takes over.
 - Revamped flower distribution and generation.
 - Added a new config option to disable Pollen generation.
