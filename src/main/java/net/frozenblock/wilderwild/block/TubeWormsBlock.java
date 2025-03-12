@@ -20,9 +20,12 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -46,6 +49,11 @@ import org.jetbrains.annotations.Nullable;
 // - AViewFromTheTop
 public class TubeWormsBlock extends DoublePlantBlock implements LiquidBlockContainer {
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
+	public static final int MIN_PARTICLE_SPAWN_WIDTH = -5;
+	public static final int MAX_PARTICLE_SPAWN_WIDTH = 5;
+	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -3;
+	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 7;
+	public static final int PARTICLE_SPAWN_ATTEMPTS = 2;
 	public static final MapCodec<TubeWormsBlock> CODEC = simpleCodec(TubeWormsBlock::new);
 
 	public TubeWormsBlock(@NotNull Properties properties) {
@@ -87,6 +95,32 @@ public class TubeWormsBlock extends DoublePlantBlock implements LiquidBlockConta
 			return belowState.is(this) && belowState.getValue(HALF) == DoubleBlockHalf.LOWER;
 		} else {
 			return super.canSurvive(blockState, levelReader, blockPos) && this.isValidWaterToSurvive(levelReader, blockPos);
+		}
+	}
+
+	@Override
+	public void animateTick(BlockState state, Level level, @NotNull BlockPos pos, RandomSource random) {
+		int i = pos.getX();
+		int j = pos.getY();
+		int k = pos.getZ();
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
+			mutable.set(
+				i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
+				j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
+				k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+			);
+			if (level.getBlockState(mutable).is(Blocks.WATER)) {
+				level.addParticle(
+					WWParticleTypes.UNDERWATER_ASH,
+					mutable.getX() + random.nextDouble(),
+					mutable.getY() + random.nextDouble(),
+					mutable.getZ() + random.nextDouble(),
+					0D,
+					0D,
+					0D
+				);
+			}
 		}
 	}
 

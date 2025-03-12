@@ -74,6 +74,7 @@ public final class WWParticleEngine {
 		particleRegistry.register(WWParticleTypes.TERMITE, TermiteParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.COCONUT_SPLASH, FallingParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.SCORCHING_FLAME, WilderParticleFactories.ScorchingEffectFlameFactory::new);
+		particleRegistry.register(WWParticleTypes.UNDERWATER_ASH, WilderParticleFactories.UnderwaterAshProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
