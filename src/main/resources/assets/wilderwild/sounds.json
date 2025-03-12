@@ -3292,7 +3292,7 @@
       }
     ]
   },
-  "music.overworld.wilder_cherry_grove": {
+  "music.overworld.wilder_cherry_groves": {
     "sounds": [
       {
         "name": "music.overworld.cherry_grove",
@@ -3307,7 +3307,7 @@
       }
     ]
   },
-  "music.overworld.wilder_grove": {
+  "music.overworld.wilder_groves": {
     "sounds": [
       {
         "name": "music.overworld.grove",
@@ -3321,7 +3321,7 @@
       }
     ]
   },
-  "music.overworld.wilder_jungle": {
+  "music.overworld.wilder_jungles": {
     "sounds": [
       {
         "name": "music.overworld.jungle",
@@ -3335,7 +3335,7 @@
       }
     ]
   },
-  "music.overworld.wilder_sparse_jungle": {
+  "music.overworld.wilder_sparse_jungles": {
     "sounds": [
       {
         "name": "music.overworld.sparse_jungle",
@@ -3349,7 +3349,7 @@
       }
     ]
   },
-  "music.overworld.wilder_bamboo_jungle": {
+  "music.overworld.wilder_bamboo_jungles": {
     "sounds": [
       {
         "name": "music.overworld.bamboo_jungle",
