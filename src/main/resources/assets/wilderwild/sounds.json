@@ -3221,15 +3221,6 @@
     ],
     "subtitle": "subtitles.block.stem_hollowed"
   },
-  "music.menu.wilder_menu": {
-    "sounds": [
-      {
-        "name": "wilderwild:music/ludocrypt/horizon_afoot",
-        "stream": true,
-        "volume": 0.8
-      }
-    ]
-  },
   "music.overworld.wilder_forests": {
     "sounds": [
       {
@@ -3335,13 +3326,12 @@
       {
         "name": "music.overworld.jungle",
         "type": "event",
-        "weight": 13
+        "weight": 20
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
         "stream": true,
-        "volume": 0.8,
-        "weight": 2
+        "volume": 0.8
       }
     ]
   },
@@ -3350,7 +3340,7 @@
       {
         "name": "music.overworld.sparse_jungle",
         "type": "event",
-        "weight": 12
+        "weight": 24
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3364,7 +3354,7 @@
       {
         "name": "music.overworld.bamboo_jungle",
         "type": "event",
-        "weight": 12
+        "weight": 18
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3385,6 +3375,10 @@
         "stream": true,
         "volume": 0.8,
         "weight": 2
+      },
+      {
+        "name": "wilderwild:music/c418/excuse",
+        "stream": true
       },
       {
         "name": "wilderwild:music/pictochats/cave",
@@ -3483,15 +3477,6 @@
       {
         "name": "music/game/mice_on_venus",
         "stream": true
-      }
-    ]
-  },
-  "music.overworld.wilder_under_water": {
-    "sounds": [
-      {
-        "name": "wilderwild:music/ludocrypt/dove",
-        "stream": true,
-        "volume": 0.8
       }
     ]
   },

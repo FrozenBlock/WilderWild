@@ -155,13 +155,17 @@ hi
 
 # Music
 - Added three new tracks by Willow/pictochats_.
-  - Dahlia.
-    - Plays in Magmatic Caves biomes.
-  - Caves Temp
-    - Plays in Frozen Caves, Magmatic Caves, Mesoglea Caves, and Lush Caves biomes.
-  - Maple Temp
-    - Plays in Maple Forest and Autumnal Plains biomes.
-- Ludocrypt's `Dove` now also plays in Lush Caves.
+  - Dahlia
+  - Amber
+  - CAVE TEMP
+- Added two tracks by C418.
+  - Excuse
+  - Flake
+- Completely reworked Wilder Wild's music distribution, thanks to Rebel459! ([#450](https://github.com/FrozenBlock/WilderWild/pull/450))
+  - Added multiple new config options to control where new music can play.
+  - Fixed a bug with Wilder Wild's music playing too frequently and in biomes it isn't meant to.
+  - Added more tags to control which biomes contain what music.
+  - Music that plays in dying forest biomes will now play slightly out of tune.
 
 # Swamp Overhaul
 - Added the Willow tree.
