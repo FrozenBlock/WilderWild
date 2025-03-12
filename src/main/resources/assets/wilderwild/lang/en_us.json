@@ -737,7 +737,7 @@
   "option.wilderwild.leashed_tumbleweed.false": "§cDisabled",
   "option.wilderwild.leashed_tumbleweed.true": "§aEnabled",
   "option.wilderwild.unpassable_rail": "Unpassable Rail",
-  "tooltip.wilderwild.unpassable_rail": "Allows all mob entities to walk over rails instead of being unable to pass it.",
+  "tooltip.wilderwild.unpassable_rail": "Allows all mob entities to walk over rails instead of being unable to pass them.",
   "option.wilderwild.warden": "Warden",
   "tooltip.wilderwild.warden": "Contains options for the Warden.",
   "option.wilderwild.warden_attacks_immediately": "Warden Attacks Immediately",
