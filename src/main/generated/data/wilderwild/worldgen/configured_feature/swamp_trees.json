@@ -1,6 +1,6 @@
 {
   "type": "minecraft:simple_random_selector",
   "config": {
-    "features": "wilderwild:mossy_fallen_oak_checked"
+    "features": "wilderwild:swamp_oak_checked"
   }
 }

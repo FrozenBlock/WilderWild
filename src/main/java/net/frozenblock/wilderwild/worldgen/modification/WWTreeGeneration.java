@@ -38,7 +38,7 @@ public final class WWTreeGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().snappedTrees) {
+					if (WWWorldgenConfig.get().treeGeneration.snappedTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_OAK)) {
@@ -142,7 +142,8 @@ public final class WWTreeGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().fallenTrees) {
+					WWWorldgenConfig.TreeGeneration treeGeneration = WWWorldgenConfig.get().treeGeneration;
+					if (treeGeneration.fallenTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_BIRCH_TREES)) {
@@ -197,16 +198,22 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_ACACIA_AND_OAK_PLACED.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_PLACED.getKey());
-						}
+						if (treeGeneration.palm) {
+							if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM)) {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_PLACED.getKey());
+							}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_PLACED_RARE.getKey());
-						}
+							if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM_RARE)) {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_PLACED_RARE.getKey());
+							}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.getKey());
+							if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)) {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_PALM_AND_JUNGLE_AND_OAK_PLACED.getKey());
+							}
+						} else {
+							if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_PALM_AND_JUNGLE_AND_OAK)) {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_JUNGLE_AND_OAK_PLACED.getKey());
+							}
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_LARGE_JUNGLE)) {
@@ -230,7 +237,11 @@ public final class WWTreeGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_SWAMP_TREES)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_SWAMP_TREES.getKey());
+							if (treeGeneration.willow) {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_SWAMP_TREES_WILLOW.getKey());
+							} else {
+								generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_SWAMP_TREES.getKey());
+							}
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_MANGROVE_TREES)) {
@@ -275,7 +286,7 @@ public final class WWTreeGeneration {
 			ModificationPhase.POST_PROCESSING,
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.palm) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					if (biomeSelectionContext.getBiomeKey().equals(Biomes.SPARSE_JUNGLE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALM.getKey());
@@ -292,6 +303,15 @@ public final class WWTreeGeneration {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARM_BEACH_PALMS)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_WARM_BEACH.getKey());
 					}
+
+					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.OASIS)) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_OASIS.getKey());
+					}
+
+					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.ARID_SAVANNA)) {
+						generationSettings.removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ARID_SAVANNA_TREES.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ARID_SAVANNA_TREES_PALM.getKey());
+					}
 				}
 			});
 
@@ -299,7 +319,7 @@ public final class WWTreeGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE)) {

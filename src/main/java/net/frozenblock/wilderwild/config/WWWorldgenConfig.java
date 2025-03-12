@@ -50,12 +50,18 @@ public final class WWWorldgenConfig {
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
 				GENERATE_POLLEN = config.pollen;
+				BIRCH_BRANCHES = config.treeGeneration.birchBranches;
+				OAK_BRANCHES = config.treeGeneration.oakBranches;
+				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
 				NEW_WITCH_HUTS = config.newWitchHuts;
 			}
 		}
 	);
 
 	public static volatile boolean GENERATE_POLLEN = true;
+	public static volatile boolean BIRCH_BRANCHES = true;
+	public static volatile boolean OAK_BRANCHES = true;
+	public static volatile boolean DARK_OAK_BRANCHES = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -65,6 +71,9 @@ public final class WWWorldgenConfig {
 	public final BiomePlacement biomePlacement = new BiomePlacement();
 
 	@CollapsibleObject
+	public final TreeGeneration treeGeneration = new TreeGeneration();
+
+	@CollapsibleObject
 	public final AquaticGeneration aquaticGeneration = new AquaticGeneration();
 
 	@EntrySyncData("betaBeaches")
@@ -72,15 +81,6 @@ public final class WWWorldgenConfig {
 
 	@EntrySyncData("snowUnderMountains")
 	public boolean snowUnderMountains = false;
-
-	@EntrySyncData("fallenTrees")
-	public boolean fallenTrees = true;
-
-	@EntrySyncData("snappedTrees")
-	public boolean snappedTrees = true;
-
-	@EntrySyncData("treeGeneration")
-	public boolean treeGeneration = true;
 
 	@EntrySyncData("grassGeneration")
 	public boolean grassGeneration = true;
@@ -139,6 +139,35 @@ public final class WWWorldgenConfig {
 
 	public static WWWorldgenConfig getWithSync() {
 		return INSTANCE.configWithSync();
+	}
+
+	public static class TreeGeneration {
+		@EntrySyncData("treeGeneration")
+		public boolean treeGeneration = true;
+
+		@EntrySyncData("fallenTrees")
+		public boolean fallenTrees = true;
+
+		@EntrySyncData("snappedTrees")
+		public boolean snappedTrees = true;
+
+		@EntrySyncData("baobab")
+		public boolean baobab = true;
+
+		@EntrySyncData("palm")
+		public boolean palm = true;
+
+		@EntrySyncData("willow")
+		public boolean willow = true;
+
+		@EntrySyncData("birchBranches")
+		public boolean birchBranches = true;
+
+		@EntrySyncData("oakBranches")
+		public boolean oakBranches = true;
+
+		@EntrySyncData("darkOakBranches")
+		public boolean darkOakBranches = true;
 	}
 
 	public static class AquaticGeneration {

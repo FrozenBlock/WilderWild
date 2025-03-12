@@ -152,6 +152,13 @@ hi
   - Generates with Tube Worms surrounding itself.
 - Geysers facing into Water with Magma behind themselves with now act as a hydrothermal vent.
 - Aquatic vegetation can no longer be placed on Geysers.
+- Revamped config options related to tree generation.
+  - Grouped all existing tree-related options into one category.
+  - Added options to individually disable Birch, Oak, Dark Oak, and Pale Oak branch generation.
+  - Added an option to disable Baobab generation.
+    - This requires the `Tree Generation` option to be enabled.
+  - Added an option to disable Palm generation.
+  - Added an option to disable Willow generation.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:swamp_trees_surface",
+  "feature": "wilderwild:swamp_trees",
   "placement": [
     {
       "type": "minecraft:count",
@@ -22,7 +22,7 @@
     },
     {
       "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 1
+      "max_water_depth": 2
     },
     {
       "type": "minecraft:heightmap",
@@ -36,10 +36,9 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "wilderwild:willow_sapling",
+          "Name": "minecraft:oak_sapling",
           "Properties": {
-            "stage": "0",
-            "waterlogged": "false"
+            "stage": "0"
           }
         }
       }

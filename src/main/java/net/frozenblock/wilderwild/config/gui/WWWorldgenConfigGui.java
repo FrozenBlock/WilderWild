@@ -505,31 +505,116 @@ public final class WWWorldgenConfigGui {
 			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyTundraPlacement
 		);
 
-		var fallenTrees = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("fallen_trees"), modifiedConfig.fallenTrees)
-					.setDefaultValue(defaultConfig.fallenTrees)
-					.setSaveConsumer(newValue -> config.fallenTrees = newValue)
-					.setTooltip(tooltip("fallen_trees"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"fallenTrees",
-				configInstance
-			)
+		var tree = config.treeGeneration;
+		var modifiedTree = modifiedConfig.treeGeneration;
+		var defaultTree = defaultConfig.treeGeneration;
+		var treeClazz = tree.getClass();
+
+		var treeGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tree_generation"), modifiedTree.treeGeneration)
+				.setDefaultValue(defaultTree.treeGeneration)
+				.setSaveConsumer(newValue -> tree.treeGeneration = newValue)
+				.setTooltip(tooltip("tree_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"treeGeneration",
+			configInstance
 		);
-		var snappedTrees = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedConfig.snappedTrees)
-					.setDefaultValue(defaultConfig.snappedTrees)
-					.setSaveConsumer(newValue -> config.snappedTrees = newValue)
-					.setTooltip(tooltip("snapped_trees"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"snappedTrees",
-				configInstance
-			));
+		var fallenTrees = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("fallen_trees"), modifiedTree.fallenTrees)
+				.setDefaultValue(defaultTree.fallenTrees)
+				.setSaveConsumer(newValue -> tree.fallenTrees = newValue)
+				.setTooltip(tooltip("fallen_trees"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"fallenTrees",
+			configInstance
+		);
+		var snappedTrees = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedTree.snappedTrees)
+				.setDefaultValue(defaultTree.snappedTrees)
+				.setSaveConsumer(newValue -> tree.snappedTrees = newValue)
+				.setTooltip(tooltip("snapped_trees"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"snappedTrees",
+			configInstance
+		);
+		var baobab = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("baobab_generation"), modifiedTree.baobab)
+				.setDefaultValue(defaultTree.baobab)
+				.setSaveConsumer(newValue -> tree.baobab = newValue)
+				.setTooltip(tooltip("baobab_generation"))
+				.setRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().treeGeneration.treeGeneration))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"baobab",
+			configInstance
+		);
+		var palm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("palm_generation"), modifiedTree.palm)
+				.setDefaultValue(defaultTree.palm)
+				.setSaveConsumer(newValue -> tree.palm = newValue)
+				.setTooltip(tooltip("palm_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"palm",
+			configInstance
+		);
+		var willow = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("willow_generation"), modifiedTree.willow)
+				.setDefaultValue(defaultTree.willow)
+				.setSaveConsumer(newValue -> tree.willow = newValue)
+				.setTooltip(tooltip("willow_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"willow",
+			configInstance
+		);
+		var birchBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("birch_branches"), modifiedTree.birchBranches)
+				.setDefaultValue(defaultTree.birchBranches)
+				.setSaveConsumer(newValue -> tree.birchBranches = newValue)
+				.setTooltip(tooltip("birch_branches"))
+				.build(),
+			treeClazz,
+			"birchBranches",
+			configInstance
+		);
+		var oakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("oak_branches"), modifiedTree.oakBranches)
+				.setDefaultValue(defaultTree.oakBranches)
+				.setSaveConsumer(newValue -> tree.oakBranches = newValue)
+				.setTooltip(tooltip("oak_branches"))
+				.build(),
+			treeClazz,
+			"oakBranches",
+			configInstance
+		);
+		var darkOakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("dark_oak_branches"), modifiedTree.darkOakBranches)
+				.setDefaultValue(defaultTree.darkOakBranches)
+				.setSaveConsumer(newValue -> tree.darkOakBranches = newValue)
+				.setTooltip(tooltip("dark_oak_branches"))
+				.build(),
+			treeClazz,
+			"darkOakBranches",
+			configInstance
+		);
+
+		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation"),
+			false,
+			tooltip("tree_generation"),
+			treeGeneration, fallenTrees, snappedTrees,
+			baobab, palm, willow,
+			birchBranches, oakBranches, darkOakBranches
+		);
 
 		var bushGeneration = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -593,19 +678,6 @@ public final class WWWorldgenConfigGui {
 					.build(),
 				clazz,
 				"mushroomGeneration",
-				configInstance
-			)
-		);
-		var treeGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("tree_generation"), modifiedConfig.treeGeneration)
-					.setDefaultValue(defaultConfig.treeGeneration)
-					.setSaveConsumer(newValue -> config.treeGeneration = newValue)
-					.setTooltip(tooltip("tree_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"treeGeneration",
 				configInstance
 			)
 		);
@@ -704,6 +776,7 @@ public final class WWWorldgenConfigGui {
 		var aquatic = config.aquaticGeneration;
 		var modifiedAquatic = modifiedConfig.aquaticGeneration;
 		var defaultAquatic = defaultConfig.aquaticGeneration;
+		var aquaticClazz = aquatic.getClass();
 
 		var riverPool = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("river_pool"), modifiedAquatic.riverPool)
@@ -712,7 +785,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("river_pool"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"riverPool",
 			configInstance
 		);
@@ -723,7 +796,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("algae_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"algae",
 			configInstance
 		);
@@ -734,7 +807,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("barnacle_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"barnacle",
 			configInstance
 		);
@@ -745,7 +818,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("cattail_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"cattail",
 			configInstance
 		);
@@ -756,7 +829,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("sea_anemone_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"seaAnemone",
 			configInstance
 		);
@@ -767,7 +840,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("tube_worm_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"tubeWorm",
 			configInstance
 		);
@@ -778,7 +851,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("hydrothermal_vent_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			aquaticClazz,
 			"hydrothermalVent",
 			configInstance
 		);

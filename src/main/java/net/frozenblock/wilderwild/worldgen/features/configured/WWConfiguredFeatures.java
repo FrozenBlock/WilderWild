@@ -79,7 +79,8 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_CHERRY = WWFeatureUtils.register("fallen_cherry");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_SPRUCE = WWFeatureUtils.register("fallen_spruce");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CLEAN_FALLEN_SPRUCE = WWFeatureUtils.register("clean_fallen_spruce");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SWAMP_TREES = WWFeatureUtils.register("fallen_swamp_trees");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_SWAMP_TREES = WWFeatureUtils.register("fallen_swamp_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SWAMP_TREES_WILLOW = WWFeatureUtils.register("fallen_swamp_trees_willow");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> DECORATED_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("decorated_large_fallen_spruce");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CLEAN_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("clean_large_fallen_spruce");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = WWFeatureUtils.register("fallen_spruce_and_oak");
@@ -88,6 +89,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_ACACIA_AND_OAK = WWFeatureUtils.register("fallen_acacia_and_oak");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_LARGE_JUNGLE = WWFeatureUtils.register("fallen_large_jungle");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_PALM_AND_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_palm_and_jungle_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_jungle_and_oak");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_AND_BIRCH_DARK_FOREST = WWFeatureUtils.register("fallen_oak_and_birch_dark_forest");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_MANGROVE = WWFeatureUtils.register("fallen_mangrove");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_DARK_OAKS = WWFeatureUtils.register("fallen_dark_oaks");
@@ -128,15 +130,18 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_WINDSWEPT_HILLS = WWFeatureUtils.register("trees_windswept_hills");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MEADOW_TREES = WWFeatureUtils.register("meadow_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES = WWFeatureUtils.register("savanna_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES_BAOBAB = WWFeatureUtils.register("savanna_trees_baobab");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WINDSWEPT_SAVANNA_TREES = WWFeatureUtils.register("windswept_savanna_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES = WWFeatureUtils.register("arid_savanna_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES_PALM = WWFeatureUtils.register("arid_savanna_trees_palm");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES = WWFeatureUtils.register("parched_forest_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES = WWFeatureUtils.register("arid_forest_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES = WWFeatureUtils.register("cypress_wetlands_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_SAPLING = WWFeatureUtils.register("cypress_wetlands_trees_sapling");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_WATER = WWFeatureUtils.register("cypress_wetlands_trees_water");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WOODED_BADLANDS_TREES = WWFeatureUtils.register("wooded_badlands_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_SURFACE = WWFeatureUtils.register("swamp_trees_surface");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_TREES = WWFeatureUtils.register("swamp_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_SURFACE_WILLOW = WWFeatureUtils.register("swamp_trees_surface_willow");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_WATER_SHALLOW = WWFeatureUtils.register("swamp_trees_water_shallow");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_TREES_WATER = WWFeatureUtils.register("swamp_trees_water");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_COARSE_SHRUBS = WWFeatureUtils.register("big_coarse_shrubs");
@@ -361,7 +366,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN = WWFeatureUtils.register("pollen");
 	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> CRIMSON_SHELF_FUNGI = WWFeatureUtils.register("crimson_shelf_fungi");
 	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> WARPED_SHELF_FUNGI = WWFeatureUtils.register("warped_shelf_fungi");
-	public static final FrozenLibConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_MOUND = WWFeatureUtils.register("termite_mound_baobab");
+	public static final FrozenLibConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_MOUND = WWFeatureUtils.register("termite_mound");
 
 	public static final SimpleWeightedRandomList<BlockState> TUMBLEWEED_PLANT_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
@@ -444,7 +449,11 @@ public final class WWConfiguredFeatures {
 			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.CLEAN_FALLEN_SPRUCE_CHECKED.getHolder()))
 		);
 
-		FALLEN_SWAMP_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+		FALLEN_SWAMP_TREES.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
+			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.MOSSY_FALLEN_OAK_CHECKED.getHolder()))
+		);
+
+		FALLEN_SWAMP_TREES_WILLOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_WILLOW_CHECKED.getHolder(), 0.75F),
@@ -500,6 +509,13 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.FALLEN_PALM_CHECKED.getHolder(), 0.135F),
 					new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_OAK_CHECKED.getHolder(), 0.25F)
 				),
+				WWTreePlaced.FALLEN_JUNGLE_CHECKED.getHolder()
+			)
+		);
+
+		FALLEN_JUNGLE_AND_OAK.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(WWTreePlaced.MOSSY_FALLEN_OAK_CHECKED.getHolder(), 0.25F)),
 				WWTreePlaced.FALLEN_JUNGLE_CHECKED.getHolder()
 			)
 		);
@@ -1033,6 +1049,13 @@ public final class WWConfiguredFeatures {
 
 		SAVANNA_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
+				List.of(new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F)),
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder()
+			)
+		);
+
+		SAVANNA_TREES_BAOBAB.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.062F),
@@ -1053,10 +1076,18 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder(), 0.08F)
+				),
+				placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED)
+			)
+		);
+
+		ARID_SAVANNA_TREES_PALM.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
 					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder(), 0.08F),
-					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.065F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.052F),
-					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.02F)
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.052F)
 				),
 				placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED)
 			)
@@ -1132,7 +1163,11 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		SWAMP_TREES_SURFACE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+		SWAMP_TREES.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
+			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.SWAMP_OAK_CHECKED.getHolder()))
+		);
+
+		SWAMP_TREES_SURFACE_WILLOW.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.WILLOW_CHECKED.getHolder(), 0.75F),
