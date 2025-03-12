@@ -817,6 +817,8 @@
   "option.wilderwild.tumbleweed_generation": "Tumbleweed Generation",
   "tooltip.wilderwild.tumbleweed_generation": "Whether Tumbleweed are placed in worldgen.",
 
+  "option.wilderwild.tree_generation_category": "Tree Generation",
+  "tooltip.wilderwild.tree_generation_category": "Contains options related to tree generation.",
   "option.wilderwild.tree_generation": "Tree Generation",
   "tooltip.wilderwild.tree_generation": "Whether to use Wilder Wild's or the Vanilla's tree generation.",
   "option.wilderwild.snapped_trees": "Snapped Trees",
@@ -836,8 +838,8 @@
   "option.wilderwild.dark_oak_branches": "Dark Oak Branches",
   "tooltip.wilderwild.dark_oak_branches": "Whether Dark Oak Trees can generate small branches.",
 
-  "option.wilderwild.aquatic_generation": "Aquatic Worldgen",
-  "tooltip.wilderwild.aquatic_generation": "Contains options related to aquatic worldgen.",
+  "option.wilderwild.aquatic_generation": "Aquatic Generation",
+  "tooltip.wilderwild.aquatic_generation": "Contains options related to aquatic generation.",
   "option.wilderwild.river_pool": "River Pools",
   "tooltip.wilderwild.river_pool": "Whether pools of water generate in River biomes to lessen areas of Grass generating.",
   "option.wilderwild.algae_generation": "Algae Generation",

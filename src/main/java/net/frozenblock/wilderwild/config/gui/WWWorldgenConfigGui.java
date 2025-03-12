@@ -608,9 +608,9 @@ public final class WWWorldgenConfigGui {
 			configInstance
 		);
 
-		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation"),
+		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
-			tooltip("tree_generation"),
+			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, snappedTrees,
 			baobab, palm, willow,
 			birchBranches, oakBranches, darkOakBranches
