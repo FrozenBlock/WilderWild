@@ -1,0 +1,18 @@
+{
+  "music.menu": {
+    "sounds": [
+      {
+        "name": "wilderwild:music.menu.wilder_menu",
+        "type": "event"
+      }
+    ]
+  },
+  "music.under_water": {
+    "sounds": [
+      {
+        "name": "wilderwild:music.overworld.wilder_under_water",
+        "type": "event"
+      }
+    ]
+  }
+}
