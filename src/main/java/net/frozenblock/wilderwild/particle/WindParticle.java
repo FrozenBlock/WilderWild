@@ -71,18 +71,19 @@ public class WindParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		double multXZ = 0.007D;
-		double multY = 0.0015D * 0.695;
-		Vec3 pos = new Vec3(this.x, this.y, this.z);
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-		this.xd += wind.x() * multXZ;
-		this.yd += wind.y() * multY;
-		this.zd += wind.z() * multXZ;
 
 		this.prevYRot = this.yRot;
 		this.prevXRot = this.xRot;
 
 		if (!this.shouldDissipate) {
+			double multXZ = 0.007D;
+			double multY = 0.0015D * 0.695;
+			Vec3 pos = new Vec3(this.x, this.y, this.z);
+			Vec3 wind = ClientWindManager.getWindMovement(this.level, pos, 1D, 7D, 5D).scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+			this.xd += wind.x() * multXZ;
+			this.yd += wind.y() * multY;
+			this.zd += wind.z() * multXZ;
+
 			double horizontalDistance = Math.sqrt((this.xd * this.xd) + (this.zd * this.zd));
 
 			double newYRot = (Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG;
@@ -117,6 +118,8 @@ public class WindParticle extends TextureSheetParticle {
 				this.xRot += 360F;
 				this.prevXRot += 360F;
 			}
+		} else {
+			this.friction = 0.2F;
 		}
 
 		this.prevRotMultiplier = this.rotMultiplier;

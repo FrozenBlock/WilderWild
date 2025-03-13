@@ -143,7 +143,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			WWConstants.id("stella"),
 			entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella")
 		);
-		
+
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
