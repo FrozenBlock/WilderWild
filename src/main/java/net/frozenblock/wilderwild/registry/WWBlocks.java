@@ -229,7 +229,7 @@ public final class WWBlocks {
 
 	public static final CoconutBlock COCONUT = new CoconutBlock(
 		WWTreeGrowers.PALM,
-		BlockBehaviour.Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
+		BlockBehaviour.Properties.of().instabreak().randomTicks().sound(SoundType.STONE)
 	);
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 

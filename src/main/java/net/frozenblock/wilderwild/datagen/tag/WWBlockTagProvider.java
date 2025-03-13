@@ -1393,6 +1393,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COCONUT)
+			.add(WWBlocks.COCONUT)
+
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit", "coconut"))
+			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit", "young_coconut"));
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MAGMA_BLOCK)
 			.add(Blocks.MAGMA_BLOCK);
 

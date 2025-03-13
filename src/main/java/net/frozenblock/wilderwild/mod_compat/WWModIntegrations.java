@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
-	public static final ModIntegration NATURES_SPIRIT_INTEGRATION = registerAndGet(NaturesSpiritIntegration::new, "natures_spirit");
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "simple_copper_pipes");
 
 	private WWModIntegrations() {
