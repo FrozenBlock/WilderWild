@@ -19,21 +19,15 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
+import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.ParticleStatus;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -195,11 +189,11 @@ public class GeyserBlock extends BaseEntityBlock {
 			Direction direction = blockState.getValue(FACING);
 			boolean natural = blockState.getValue(NATURAL);
 			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
-			spawnBaseGeyserParticles(blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
+			GeyserParticleHandler.spawnBaseGeyserParticles(level, blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
 			if (stage == GeyserStage.DORMANT) {
-				GeyserBlockEntity.spawnDormantParticles(level, blockPos, geyserType, direction, random);
+				GeyserParticleHandler.spawnDormantParticles(level, blockPos, geyserType, direction, random);
 			} else if (stage == GeyserStage.ACTIVE) {
-				GeyserBlockEntity.spawnActiveParticles(level, blockPos, geyserType, direction, random);
+				GeyserParticleHandler.spawnActiveParticles(level, blockPos, geyserType, direction, random);
 			}
 			if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
 				level.playLocalSound(blockPos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
@@ -283,36 +277,5 @@ public class GeyserBlock extends BaseEntityBlock {
 			case NORTH -> -0.05D;
 			case SOUTH -> 1.05D;
 		};
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void spawnBaseGeyserParticles(BlockPos blockPos, Direction direction, RandomSource random, boolean vent) {
-		Minecraft client = Minecraft.getInstance();
-		ParticleStatus particleStatus = client.options.particles().get();
-		if (particleStatus == ParticleStatus.MINIMAL) return;
-		ParticleEngine particleEngine = client.particleEngine;
-		float chance = particleStatus == ParticleStatus.DECREASED ? 0.3F : 1F;
-
-		int count = vent ? random.nextInt(2, 5) : random.nextInt(0, 3);
-		for (int i = 0; i < count; i++) {
-			if (random.nextFloat() <= chance) {
-				Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
-				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.001D, 0.005D);
-				Particle particle = particleEngine.createParticle(
-					vent ? ParticleTypes.LARGE_SMOKE : ParticleTypes.WHITE_SMOKE,
-					particlePos.x,
-					particlePos.y,
-					particlePos.z,
-					particleVelocity.x,
-					particleVelocity.y,
-					particleVelocity.z
-				);
-				if (particle != null) {
-					particle.xd = particleVelocity.x;
-					particle.yd = particleVelocity.y;
-					particle.zd = particleVelocity.z;
-				}
-			}
-		}
 	}
 }

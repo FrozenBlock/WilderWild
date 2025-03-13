@@ -147,12 +147,12 @@ hi
   - Generates most frequently in Deep Lukewarm Oceans, but can sparsely be found in other Ocean Biomes.
 - Added Tube Worms.
   - Generates rarely in most deep ocean biomes.
-  - Spawn "ash" particles in water, useful for decoration and ambience.
 - Added hydrothermal vents to oceans.
   - Generates rarely in non-cold deep ocean biomes.
   - Generates with Tube Worms surrounding itself.
-- Geysers facing into Water with Magma behind themselves with now act as a hydrothermal vent.
-- Aquatic vegetation can no longer be placed on Geysers.
+  - Geysers facing into Water with Magma behind themselves with now act as a hydrothermal vent.
+  - Geysers acting as hydrothermal vents will now spawn falling ash particles in surrounding water.
+  - Aquatic vegetation can no longer be placed on Geysers.
 - Revamped config options related to tree generation.
   - Grouped all existing tree-related options into one category.
   - Added options to individually disable Birch, Oak, Dark Oak, and Pale Oak branch generation.
