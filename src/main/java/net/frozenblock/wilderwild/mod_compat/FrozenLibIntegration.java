@@ -139,7 +139,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	@Override
 	public void initPreFreeze() {
 		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WWConstants.id("stella"), entity ->entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		SpottingIconPredicate.register(
+			WWConstants.id("stella"),
+			entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella")
+		);
+		
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
