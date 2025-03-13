@@ -50,7 +50,7 @@ public class GeyserParticleHandler {
 	public static final int VENT_MAX_PARTICLE_SPAWN_WIDTH = 5;
 	public static final int VENT_MIN_PARTICLE_SPAWN_HEIGHT = -3;
 	public static final int VENT_MAX_PARTICLE_SPAWN_HEIGHT = 7;
-	public static final int VENT_PARTICLE_SPAWN_ATTEMPTS = 5;
+	public static final int VENT_PARTICLE_SPAWN_ATTEMPTS = 6;
 
 	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
 		if (geyserType.isWater() && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
