@@ -161,6 +161,7 @@ hi
   - Added an option to disable Palm generation.
   - Added an option to disable Willow generation.
 - Fixed Ostriches not being required for the `Two by Two` advancement.
+- Fixed the client tracking ranges and update intervals of Wilder Wild's entities to be consistent with Vanilla's.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -187,7 +188,7 @@ hi
     - Both of these features contain only the `minecraft:swamp` biome by default.
 - Cypress Wetlands now generate Lily Pads and Seagrass.
 - Cypress Wetlands now take up less space from Swamps.
-- Renamed the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
+- Replaced the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
 - Seagrass now generates much more frequently in Deep Lukewarm Oceans.
 - Moss paths now generate in Deep Lukewarm Oceans.
 

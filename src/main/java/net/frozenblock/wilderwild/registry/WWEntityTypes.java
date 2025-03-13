@@ -49,6 +49,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.clientTrackingRange(5)
 			.build(WWConstants.string("firefly"))
 	);
 
@@ -57,6 +58,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.clientTrackingRange(5)
 			.build(WWConstants.string("butterfly"))
 	);
 
@@ -65,6 +67,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
+			.clientTrackingRange(10)
 			.build(WWConstants.string("jellyfish"))
 	);
 
@@ -89,6 +92,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
+			.clientTrackingRange(10)
 			.build(WWConstants.string("ostrich"))
 	);
 
@@ -117,6 +121,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
+			.clientTrackingRange(10)
 			.immuneTo(Blocks.POWDER_SNOW)
 			.build(WWConstants.string("penguin"))
 	);
@@ -125,8 +130,8 @@ public final class WWEntityTypes {
 		"coconut",
 		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
-			.clientTrackingRange(64)
-			.updateInterval(10)
+			.clientTrackingRange(4)
+			.updateInterval(20)
 			.build(WWConstants.string("coconut"))
 	);
 
