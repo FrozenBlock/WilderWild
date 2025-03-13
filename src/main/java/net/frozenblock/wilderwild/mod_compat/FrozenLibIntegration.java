@@ -435,67 +435,31 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(WWItems.SCORCHED_EYE).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:baobab_nut"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:split_coconut"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab_claw"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:cooked_crab_claw"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:prickly_pear"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:peeled_prickly_pear"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched_eye"
-								)
-							))
-						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:baobab_nut"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:split_coconut"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab_claw"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:cooked_crab_claw"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:prickly_pear"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:peeled_prickly_pear"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched_eye"))));
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntityTypes.CRAB)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement, new
-								AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab"
-								)
-							))
+						AdvancementAPI.addCriteria(advancement, "wilderwild:ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntityTypes.OSTRICH)).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:moobloom", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntityTypes.MOOBLOOM)).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:penguin", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(WWEntityTypes.PENGUIN)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:ostrich"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:moobloom"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:penguin"))));
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
@@ -504,12 +468,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"wilderwild:crab_bucket",
-								"wilderwild:jellyfish_bucket"
-							)
-						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:crab_bucket", "wilderwild:jellyfish_bucket"));
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
@@ -525,23 +484,13 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntityTypes.SCORCHED)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"wilderwild:scorched"
-							)
-						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:scorched"));
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(WWEntityTypes.SCORCHED)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched"
-								)
-							))
-						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched"))));
 					}
 					default -> {
 					}

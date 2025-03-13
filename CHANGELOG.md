@@ -160,6 +160,7 @@ hi
     - This requires the `Tree Generation` option to be enabled.
   - Added an option to disable Palm generation.
   - Added an option to disable Willow generation.
+- Fixed Ostriches not being required for the `Two by Two` advancement.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
