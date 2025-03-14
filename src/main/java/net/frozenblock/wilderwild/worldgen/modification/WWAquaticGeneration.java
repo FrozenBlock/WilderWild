@@ -36,12 +36,12 @@ public final class WWAquaticGeneration {
 	public static void generateAquaticFeatures() {
 		generateAlgae();
 		generatePlankton();
+		generateSeaWhips();
 		generateSeagrass();
 		generateSpongeBuds();
 		generateBarnacles();
 		generateCattails();
 		generateSeaAnemones();
-		generateSeaWhips();
 		generateTubeWorms();
 		generateHydrothermalVent();
 		generateMoss();
