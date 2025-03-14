@@ -651,10 +651,14 @@
   "tooltip.wilderwild.sandstone_sounds": "Whether Sandstone sounds should be overridden.",
 
   "option.wilderwild.entity": "Entity",
+  "option.wilderwild.unpassable_rail": "Unpassable Rail",
+  "tooltip.wilderwild.unpassable_rail": "Allows all mob entities to walk over rails instead of being unable to pass them.",
+
   "option.wilderwild.allay": "Allay",
   "tooltip.wilderwild.allay": "Contains options for the Allay.",
   "option.wilderwild.keyframe_allay_dance": "Keyframe Allay Dancing",
   "tooltip.wilderwild.keyframe_allay_dance": "Whether the Allay's dancing animation should\nbe replaced with a keyframe-based version.",
+
   "option.wilderwild.crab": "Crab",
   "tooltip.wilderwild.crab": "Contains options for the Crab.",
   "option.wilderwild.spawn_crabs": "Spawn Crabs",
@@ -663,12 +667,14 @@
   "tooltip.wilderwild.crab_spawn_cap": "Controls the Crab's spawn cap.",
   "option.wilderwild.reach_affects_attack": "Reach Boost Affects Attack Range",
   "tooltip.wilderwild.reach_affects_attack": "Whether the Reach Boost effect will\nimpact the Player's attack range.",
+
   "option.wilderwild.enderman": "Enderman",
   "tooltip.wilderwild.enderman": "Contains options for the Enderman.",
   "option.wilderwild.anger_loop_sound": "Anger Loop Sound",
   "tooltip.wilderwild.anger_loop_sound": "Whether Endermen will start an anger sound loop when their target is set.",
   "option.wilderwild.moving_stare_sound": "Moving Stare Sound",
   "tooltip.wilderwild.moving_stare_sound": "Whether Enderman stare sounds will move\nwith the Enderman and able to be stopped early.",
+
   "option.wilderwild.firefly": "Firefly",
   "tooltip.wilderwild.firefly": "Contains options for the Firefly.",
   "option.wilderwild.spawn_fireflies": "Spawn Fireflies",
@@ -677,12 +683,14 @@
   "tooltip.wilderwild.firefly_spawn_cap": "Controls the Firefly's spawn cap.",
   "option.wilderwild.firefly_swarm": "Firefly Swarms",
   "tooltip.wilderwild.firefly_swarm": "Whether Fireflies will move in swarms.",
+
   "option.wilderwild.butterfly": "Butterfly",
   "tooltip.wilderwild.butterfly": "Contains options for the Butterfly.",
   "option.wilderwild.spawn_butterflies": "Spawn Butterflies",
   "tooltip.wilderwild.spawn_butterflies": "Whether Butterflies can spawn.",
   "option.wilderwild.butterfly_spawn_cap": "Butterfly Spawn Cap",
   "tooltip.wilderwild.butterfly_spawn_cap": "Controls the Butterfly's spawn cap.",
+
   "option.wilderwild.jellyfish": "Jellyfish",
   "tooltip.wilderwild.jellyfish": "Contains options for the Jellyfish.",
   "option.wilderwild.spawn_jellyfish": "Spawn Jellyfish",
@@ -695,6 +703,7 @@
   "tooltip.wilderwild.jellyfish_tentacles": "Controls the amount of tentacles Jellyfish have.",
   "option.wilderwild.plane_tentacles": "2D Tentacles",
   "tooltip.wilderwild.plane_tentacles": "Whether Jellyfish should have 2D tentacles.",
+
   "option.wilderwild.lightning": "Lightning Bolt",
   "tooltip.wilderwild.lightning": "Contains options for Lightning Bolts.",
   "option.wilderwild.lightning_scorches_sand": "Lightning Scorches Sand",
@@ -703,26 +712,31 @@
   "tooltip.wilderwild.lightning_block_particles": "Whether Lightning Bolts should spawn a stream of block particles upon striking.",
   "option.wilderwild.lightning_smoke_particles": "Lightning Smoke Particles",
   "tooltip.wilderwild.lightning_smoke_particles": "Whether Lightning Bolts should spawn smoke particles upon striking.",
+
   "option.wilderwild.ostrich": "Ostrich",
   "tooltip.wilderwild.ostrich": "Contains options for the Ostrich.",
   "option.wilderwild.spawn_ostriches": "Spawn Ostriches",
   "tooltip.wilderwild.spawn_ostriches": "Whether Ostriches can spawn.",
   "option.wilderwild.allow_ostrich_attack": "Ostrich Peck Attack",
   "tooltip.wilderwild.allow_ostrich_attack": "Whether the Ostrich's peck attack can be used.",
+
   "option.wilderwild.penguin": "Penguin",
   "tooltip.wilderwild.penguin": "Contains options for the Penguin.",
   "option.wilderwild.spawn_penguins": "Spawn Penguins",
   "tooltip.wilderwild.spawn_penguins": "Whether Penguins can spawn.",
+
   "option.wilderwild.scorched": "Scorched",
   "tooltip.wilderwild.scorched": "Contains options for the Scorched.",
   "option.wilderwild.spawn_scorched": "Spawn Scorched",
   "tooltip.wilderwild.spawn_scorched": "Whether Scorched can spawn.",
   "option.wilderwild.scorched_in_trial_chambers": "Scorched In Trial Chambers",
   "tooltip.wilderwild.scorched_in_trial_chambers": "Whether Scorched will have spawners in Trial Chambers.",
+
   "option.wilderwild.moobloom": "Moobloom",
   "tooltip.wilderwild.moobloom": "Contains options for the Moobloom.",
   "option.wilderwild.spawn_mooblooms": "Spawn Mooblooms",
   "tooltip.wilderwild.spawn_mooblooms": "Whether Mooblooms can spawn.",
+
   "option.wilderwild.tumbleweed": "Tumbleweed",
   "option.wilderwild.spawn_tumbleweed": "Spawn Tumbleweed",
   "option.wilderwild.tumbleweed_spawn_cap": "Tumbleweed Spawn Cap",
@@ -736,8 +750,7 @@
   "tooltip.wilderwild.tumbleweed_rotates_to_look_direction": "When enabled, Tumbleweed will rotate in the direction\nit's moving instead of spinning towards it.",
   "option.wilderwild.leashed_tumbleweed.false": "§cDisabled",
   "option.wilderwild.leashed_tumbleweed.true": "§aEnabled",
-  "option.wilderwild.unpassable_rail": "Unpassable Rail",
-  "tooltip.wilderwild.unpassable_rail": "Allows all mob entities to walk over rails instead of being unable to pass them.",
+
   "option.wilderwild.warden": "Warden",
   "tooltip.wilderwild.warden": "Contains options for the Warden.",
   "option.wilderwild.warden_attacks_immediately": "Warden Attacks Immediately",
@@ -768,6 +781,7 @@
   "option.wilderwild.item": "Item",
   "option.wilderwild.projectile_break_particles": "Landing Projectiles Emit Block Particles",
   "tooltip.wilderwild.projectile_break_particles": "Whether projectiles like Arrows or Tridents\nshould emit block breaking particles when colliding.",
+
   "option.wilderwild.projectile_landing_sounds": "Projectile Landing Sounds",
   "tooltip.wilderwild.projectile_landing_sounds": "Contains toggles for thrown projectile landing sounds.",
   "option.wilderwild.snowball_landing_sounds": "Snowball Landing Sounds",
@@ -778,6 +792,7 @@
   "tooltip.wilderwild.ender_pearl_landing_sounds": "Whether Ender Pearls should make a unique sound upon landing.",
   "option.wilderwild.potion_landing_sounds": "Potion Effect Sounds",
   "tooltip.wilderwild.potion_landing_sounds": "Whether Potions should make unique sounds upon landing.\n(Sounds vary based on potion type and effect.)",
+  
   "option.wilderwild.restrict_instrument_sound": "Restrict Instrument Sounds",
   "tooltip.wilderwild.restrict_instrument_sound": "Whether instruments, such as the Goat Horn, should stop their sound when the user releases the mouse button",
 
