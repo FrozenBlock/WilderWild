@@ -172,6 +172,7 @@ hi
   - Increased the average amount of Baobab Nuts each Baobab tree generates.
   - Fixed an unstable implementation to check if blocks are replaceable, now replying on the `minecraft:replaceable_by_trees` block tag.
   - Fixed an issue that led to mutable block positions being added to a list instead of immutable block positions.
+- The surface transition generation config option has now been split into multiple options per-block type.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

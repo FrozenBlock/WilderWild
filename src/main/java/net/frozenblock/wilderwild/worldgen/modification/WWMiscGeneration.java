@@ -266,9 +266,10 @@ public final class WWMiscGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().surfaceTransitions) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					WWWorldgenConfig.TransitionGeneration transitionGeneration = WWWorldgenConfig.get().transitionGeneration;
 
+					if (transitionGeneration.sandTransitions) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SMALL_SAND_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.SMALL_SAND_TRANSITION.getKey());
 						}
@@ -277,31 +278,39 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.SAND_TRANSITION.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+						}
+					}
+
+					if (transitionGeneration.redSandTransitions) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_SAND_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.RED_SAND_TRANSITION.getKey());
 						}
+					}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_TRANSITION)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_TRANSITION.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.BETA_BEACH_SAND_TRANSITION.getKey());
+					if (transitionGeneration.gravelTransitions) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_TRANSITION)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.BETA_BEACH_GRAVEL_TRANSITION.getKey());
 						}
+					}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_TRANSITION)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.SMALL_GRAVEL_TRANSITION.getKey());
-						}
-
+					if (transitionGeneration.mudTransitions) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.MUD_TRANSITION.getKey());
 						}
 					}
-				});
+
+					if (transitionGeneration.stoneTransitions) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_TRANSITION)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_TRANSITION.getKey());
+						}
+					}
+			});
 
 		BiomeModifications.create(WWConstants.id("river_pools"))
 			.add(ModificationPhase.ADDITIONS,

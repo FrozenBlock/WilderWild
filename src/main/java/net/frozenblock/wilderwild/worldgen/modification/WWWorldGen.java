@@ -128,7 +128,7 @@ public final class WWWorldGen {
 						if (WWWorldgenConfig.get().snowBelowTrees) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_BLANKET.getKey());
 						}
-						if (WWWorldgenConfig.get().surfaceTransitions) {
+						if (WWWorldgenConfig.get().transitionGeneration.snowTransitions) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 						}
 					}

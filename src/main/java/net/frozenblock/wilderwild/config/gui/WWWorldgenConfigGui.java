@@ -759,19 +759,6 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-		var surfaceTransitions = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("surface_transitions"), modifiedConfig.surfaceTransitions)
-					.setDefaultValue(defaultConfig.surfaceTransitions)
-					.setSaveConsumer(newValue -> config.surfaceTransitions = newValue)
-					.setTooltip(tooltip("surface_transitions"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"surfaceTransitions",
-				configInstance
-			)
-		);
 
 		var aquatic = config.aquaticGeneration;
 		var modifiedAquatic = modifiedConfig.aquaticGeneration;
@@ -859,6 +846,84 @@ public final class WWWorldgenConfigGui {
 			false,
 			tooltip("aquatic_generation"),
 			riverPool, algae, barnacle, cattail, hydrothermalVent, seaAnemone, tubeWorm
+		);
+
+		var transition = config.transitionGeneration;
+		var modifiedTransition = modifiedConfig.transitionGeneration;
+		var defaultTransition = defaultConfig.transitionGeneration;
+		var transitionClazz = transition.getClass();
+
+		var sandTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sand_transitions"), modifiedTransition.sandTransitions)
+				.setDefaultValue(defaultTransition.sandTransitions)
+				.setSaveConsumer(newValue -> transition.sandTransitions = newValue)
+				.setTooltip(tooltip("sand_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"sandTransitions",
+			configInstance
+		);
+		var redSandTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("red_sand_transitions"), modifiedTransition.redSandTransitions)
+				.setDefaultValue(defaultTransition.redSandTransitions)
+				.setSaveConsumer(newValue -> transition.redSandTransitions = newValue)
+				.setTooltip(tooltip("red_sand_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"redSandTransitions",
+			configInstance
+		);
+		var gravelTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("gravel_transitions"), modifiedTransition.gravelTransitions)
+				.setDefaultValue(defaultTransition.gravelTransitions)
+				.setSaveConsumer(newValue -> transition.gravelTransitions = newValue)
+				.setTooltip(tooltip("gravel_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"gravelTransitions",
+			configInstance
+		);
+		var mudTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mud_transitions"), modifiedTransition.mudTransitions)
+				.setDefaultValue(defaultTransition.mudTransitions)
+				.setSaveConsumer(newValue -> transition.mudTransitions = newValue)
+				.setTooltip(tooltip("mud_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"mudTransitions",
+			configInstance
+		);
+		var stoneTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("stone_transitions"), modifiedTransition.stoneTransitions)
+				.setDefaultValue(defaultTransition.stoneTransitions)
+				.setSaveConsumer(newValue -> transition.stoneTransitions = newValue)
+				.setTooltip(tooltip("stone_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"stoneTransitions",
+			configInstance
+		);
+		var snowTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snow_transitions"), modifiedTransition.snowTransitions)
+				.setDefaultValue(defaultTransition.snowTransitions)
+				.setSaveConsumer(newValue -> transition.snowTransitions = newValue)
+				.setTooltip(tooltip("snow_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"snowTransitions",
+			configInstance
+		);
+
+		var transitionGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("transition_generation"),
+			false,
+			tooltip("transition_generation"),
+			sandTransitions, redSandTransitions, gravelTransitions, mudTransitions, stoneTransitions, snowTransitions
 		);
 
 		var decayTrailRuins = category.addEntry(

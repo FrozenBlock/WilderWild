@@ -76,6 +76,9 @@ public final class WWWorldgenConfig {
 	@CollapsibleObject
 	public final AquaticGeneration aquaticGeneration = new AquaticGeneration();
 
+	@CollapsibleObject
+	public final TransitionGeneration transitionGeneration = new TransitionGeneration();
+
 	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
@@ -115,9 +118,6 @@ public final class WWWorldgenConfig {
 	@EntrySyncData("snowBelowTrees")
 	public boolean snowBelowTrees = true;
 
-	@EntrySyncData("surfaceTransitions")
-	public boolean surfaceTransitions = true;
-
 	@EntrySyncData("newWitchHuts")
 	public boolean newWitchHuts = true;
 
@@ -139,6 +139,26 @@ public final class WWWorldgenConfig {
 
 	public static WWWorldgenConfig getWithSync() {
 		return INSTANCE.configWithSync();
+	}
+
+	public static class TransitionGeneration {
+		@EntrySyncData("sandTransitions")
+		public boolean sandTransitions = true;
+
+		@EntrySyncData("redSandTransitions")
+		public boolean redSandTransitions = true;
+
+		@EntrySyncData("gravelTransitions")
+		public boolean gravelTransitions = true;
+
+		@EntrySyncData("mudTransitions")
+		public boolean mudTransitions = true;
+
+		@EntrySyncData("stoneTransitions")
+		public boolean stoneTransitions = true;
+
+		@EntrySyncData("snowTransitions")
+		public boolean snowTransitions = true;
 	}
 
 	public static class TreeGeneration {
