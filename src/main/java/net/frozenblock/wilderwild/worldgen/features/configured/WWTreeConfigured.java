@@ -1535,7 +1535,7 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					new AttachedToLeavesDecorator(
-						0.065F,
+						0.0875F,
 						1,
 						0,
 						new RandomizedIntStateProvider(
@@ -1543,10 +1543,8 @@ public final class WWTreeConfigured {
 							BaobabNutBlock.AGE,
 							UniformInt.of(0, 2)
 						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+						2,
+						List.of(Direction.DOWN)
 					)
 				)
 			).ignoreVines().build()
@@ -1562,19 +1560,16 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					new AttachedToLeavesDecorator(
-						0.065F,
+						0.0875F,
 						1,
 						0,
 						new RandomizedIntStateProvider(
-							BlockStateProvider.simple(
-								WWBlocks.BAOBAB_NUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
+							BlockStateProvider.simple(WWBlocks.BAOBAB_NUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
 							BaobabNutBlock.AGE,
 							UniformInt.of(0, 2)
 						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+						2,
+						List.of(Direction.DOWN)
 					)
 				)
 			).ignoreVines().build()
