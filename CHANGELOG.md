@@ -164,6 +164,7 @@ hi
 - Fixed the client tracking ranges and update intervals of Wilder Wild's entities to be consistent with Vanilla's.
 - Updated Particle Rain compatibility.
 - Updated Sodium compatibility.
+- Fixed Wind particle rendering, now properly rotating to face the camera with sideways and always visible to the player.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

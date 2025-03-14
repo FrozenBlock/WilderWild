@@ -194,36 +194,44 @@ public class WindParticle extends TextureSheetParticle {
 		float xRot = Mth.lerp(partialTicks, this.prevXRot, this.xRot) * -Mth.DEG_TO_RAD;
 		float cameraRotWhileVertical = ((-renderInfo.getYRot()) * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
 		float cameraXRot = renderInfo.getXRot();
+		float rotationOffset = 90F;
 
 		float x = (float)(Mth.lerp(partialTicks, this.xo, this.x));
 		float y = (float)(Mth.lerp(partialTicks, this.yo, this.y));
 		float z = (float)(Mth.lerp(partialTicks, this.zo, this.z));
 		Vec3 particlePos = new Vec3(x, y, z);
+		Vec3 cameraPos = renderInfo.getPosition();
+		double normalizedRelativeY = particlePos.subtract(cameraPos).normalize().subtract(new Vec3(this.xd, this.yd, this.zd).normalize()).normalize().y;
 
 		double particleRotation = AdvancedMath.getAngleFromOriginXZ(new Vec3(this.xd, 0D, this.zd));
-		double angleToParticle = AdvancedMath.getAngleBetweenXZ(particlePos, renderInfo.getPosition());
+		double angleToParticle = AdvancedMath.getAngleBetweenXZ(particlePos, cameraPos);
 		double relativeParticleAngle = (360D + (angleToParticle - particleRotation)) % 360D;
 
-		float fixedRotation = 90F + cameraXRot;
+		if (normalizedRelativeY > 0D) {
+			cameraXRot = Mth.lerp(Mth.square((float)normalizedRelativeY), cameraXRot, -90F);
+		} else if (normalizedRelativeY < 0D) {
+			cameraXRot = Mth.lerp(Mth.square((float)Math.abs(normalizedRelativeY)), cameraXRot, 90F);
+		}
+
+		float fixedRotation = rotationOffset + cameraXRot;
 		if (relativeParticleAngle > 0D && relativeParticleAngle < 180D) fixedRotation *= -1F;
 
 		float cameraRotWhileSideways = ((fixedRotation) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
-		this.renderParticle(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot)
+		this.renderParticle(buffer, cameraPos, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot)
 			.rotateX(-xRot)
 			.rotateY(cameraRotWhileSideways)
 			.rotateY(cameraRotWhileVertical)
 		);
-		this.renderParticle(buffer, renderInfo, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot)
+		this.renderParticle(buffer, cameraPos, partialTicks, !this.flipped, transforms -> transforms.rotateY((float) -Math.PI + yRot)
 			.rotateX(xRot)
 			.rotateY(cameraRotWhileSideways)
 			.rotateY(cameraRotWhileVertical));
 	}
 
-	private void renderParticle(VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks, boolean flipped, @NotNull Consumer<Quaternionf> quaternionConsumer) {
-		Vec3 vec3 = renderInfo.getPosition();
-		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+	private void renderParticle(VertexConsumer buffer, @NotNull Vec3 cameraPos, float partialTicks, boolean flipped, @NotNull Consumer<Quaternionf> quaternionConsumer) {
+		float f = (float)(Mth.lerp(partialTicks, this.xo, this.x) - cameraPos.x());
+		float g = (float)(Mth.lerp(partialTicks, this.yo, this.y) - cameraPos.y());
+		float h = (float)(Mth.lerp(partialTicks, this.zo, this.z) - cameraPos.z());
 		Quaternionf quaternionf = new Quaternionf().setAngleAxis(0F, NORMALIZED_QUAT_VECTOR.x(), NORMALIZED_QUAT_VECTOR.y(), NORMALIZED_QUAT_VECTOR.z());
 		quaternionConsumer.accept(quaternionf);
 		Vector3f[] vector3fs = new Vector3f[]{
