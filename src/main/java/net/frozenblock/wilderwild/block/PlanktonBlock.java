@@ -50,7 +50,8 @@ public class PlanktonBlock extends AlgaeBlock {
 	public static final int MAX_PARTICLE_SPAWN_WIDTH = 5;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -7;
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = -1;
-	public static final int PARTICLE_SPAWN_ATTEMPTS = 1;
+	public static final float PARTICLE_SPAWN_CHANCE = 0.5F;
+	public static final float PARTICLE_SPAWN_CHANCE_GLOWING = 0.75F;
 
 	public PlanktonBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
@@ -86,13 +87,17 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState blockState, Level level, @NotNull BlockPos blockPos, RandomSource random) {
+	public void animateTick(BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
 		int i = blockPos.getX();
 		int j = blockPos.getY();
 		int k = blockPos.getZ();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		ParticleOptions particle = isGlowing(blockState) ? WWParticleTypes.GLOWING_PLANKTON : WWParticleTypes.PLANKTON;
-		for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
+
+		boolean glowing = isGlowing(blockState);
+		ParticleOptions particle = glowing ? WWParticleTypes.GLOWING_PLANKTON : WWParticleTypes.PLANKTON;
+		float particleChance = glowing ? PARTICLE_SPAWN_CHANCE_GLOWING : PARTICLE_SPAWN_CHANCE;
+
+		if (random.nextFloat() <= particleChance) {
 			mutable.set(
 					i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
 					j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
