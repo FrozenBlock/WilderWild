@@ -74,6 +74,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		BlockGetter bgLevel = (BlockGetter) level;
 		BlockPos.MutableBlockPos pos = startPos.mutable();
 		for (int y = 0; y < 4; y++) {
+			if (y == 3 && random.nextFloat() <= 0.35F) return;
 			pos.setWithOffset(startPos, 0, -y, 0);
 			if ((!isSolid(bgLevel, pos)) || bgLevel.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK) {
 				setDirtAt(level, replacer, random, pos, config, logPoses);
@@ -93,7 +94,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	) {
 		if (config.forceDirt || !isDirt(level, pos)) {
 			blockSetter.accept(pos, config.dirtProvider.getState(random, pos));
-			logPoses.add(pos);
+			logPoses.add(pos.immutable());
 		}
 	}
 
@@ -209,9 +210,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 							z,
 							placedLogs
 						);
-						if (attachment != null) {
-							list.add(attachment);
-						}
+						if (attachment != null) list.add(attachment);
 					}
 
 					if (random.nextFloat() <= BRANCH_CHANCE) {
@@ -234,9 +233,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 							z,
 							placedLogs
 						);
-						if (attachment != null) {
-							list.add(attachment);
-						}
+						if (attachment != null) list.add(attachment);
 					}
 				}
 			}
@@ -246,13 +243,13 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		for (BlockPos pos : placedLogs) {
 			boolean isSurrounded = true;
 			for (Direction dir : Direction.values()) {
-				placedLogPos.set(pos).move(dir);
+				placedLogPos.setWithOffset(pos, dir);
 				if (!placedLogs.contains(placedLogPos)) {
 					isSurrounded = false;
 				}
 			}
-			if (isSurrounded) {
-				replacer.accept(pos, (BlockState) Function.identity().apply(this.insideState.getState(random, pos)));
+			if (isSurrounded && !level.isStateAtPosition(pos, state -> state.is(Blocks.DIRT))) {
+				replacer.accept(pos, this.insideState.getState(random, pos));
 			}
 		}
 
