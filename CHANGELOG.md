@@ -162,6 +162,8 @@ hi
   - Added an option to disable Willow generation.
 - Fixed Ostriches not being required for the `Two by Two` advancement.
 - Fixed the client tracking ranges and update intervals of Wilder Wild's entities to be consistent with Vanilla's.
+- Updated Particle Rain compatibility.
+- Updated Sodium compatibility.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

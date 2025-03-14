@@ -168,8 +168,8 @@
     "client.wind.fallingleaves.ConfigDefaultsMixin",
     "client.wind.fallingleaves.FallingLeafParticleMixin",
     "client.wind.particlerain.DustMoteParticleMixin",
-    "client.wind.particlerain.RainDropParticleMixin",
-    "client.wind.particlerain.SnowFlakeParticleMixin",
+    "client.wind.particlerain.RainParticleMixin",
+    "client.wind.particlerain.SnowParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
     "snowlogging.client.TerrainRenderContextMixin"

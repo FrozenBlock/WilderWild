@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
@@ -192,33 +193,21 @@ public class WindParticle extends TextureSheetParticle {
 		float yRot = Mth.lerp(partialTicks, this.prevYRot, this.yRot) * Mth.DEG_TO_RAD;
 		float xRot = Mth.lerp(partialTicks, this.prevXRot, this.xRot) * -Mth.DEG_TO_RAD;
 		float cameraRotWhileVertical = ((-renderInfo.getYRot()) * (1F - Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
+		float cameraXRot = renderInfo.getXRot();
 
 		float x = (float)(Mth.lerp(partialTicks, this.xo, this.x));
 		float y = (float)(Mth.lerp(partialTicks, this.yo, this.y));
 		float z = (float)(Mth.lerp(partialTicks, this.zo, this.z));
-		Vec3 relativePos = new Vec3(x, y, z).subtract(renderInfo.getPosition());
-		relativePos = new Vec3(
-			relativePos.x > 0 ? 1D : -1D,
-			relativePos.y > 0 ? 1D : -1D,
-			relativePos.z > 0 ? 1D : -1D
-		);
-		Vec3 particleMovement = new Vec3(this.xd, 0D, this.zd).normalize();
-		float xDifference = (float) Math.abs(particleMovement.x + relativePos.z);
-		xDifference = xDifference >= 1F ? 0 : (Math.abs(xDifference - 1F));
-		boolean shouldDoubleClampXRot = xDifference == 0D;
-		float cameraXRot = renderInfo.getXRot();
-		xDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * xDifference;
+		Vec3 particlePos = new Vec3(x, y, z);
 
-		float zDifference = (float) Math.abs(particleMovement.z - relativePos.x);
-		zDifference = zDifference >= 1F ? 0 : (Math.abs(zDifference - 1F));
-		shouldDoubleClampXRot = shouldDoubleClampXRot || zDifference == 0D;
-		zDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * zDifference;
+		double particleRotation = AdvancedMath.getAngleFromOriginXZ(new Vec3(this.xd, 0D, this.zd));
+		double angleToParticle = AdvancedMath.getAngleBetweenXZ(particlePos, renderInfo.getPosition());
+		double relativeParticleAngle = (360D + (angleToParticle - particleRotation)) % 360D;
 
-		if (shouldDoubleClampXRot) {
-			cameraXRot = Math.clamp(cameraXRot * 1.5F, -90, 90);
-		}
+		float fixedRotation = 90F + cameraXRot;
+		if (relativeParticleAngle > 0D && relativeParticleAngle < 180D) fixedRotation *= -1F;
 
-		float cameraRotWhileSideways = ((90F + cameraXRot) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD + xDifference + zDifference;
+		float cameraRotWhileSideways = ((fixedRotation) * (Mth.lerp(partialTicks, this.prevRotMultiplier, this.rotMultiplier))) * Mth.DEG_TO_RAD;
 		this.renderParticle(buffer, renderInfo, partialTicks, this.flipped, transforms -> transforms.rotateY(yRot)
 			.rotateX(-xRot)
 			.rotateY(cameraRotWhileSideways)

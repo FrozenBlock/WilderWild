@@ -19,15 +19,12 @@
 package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -35,80 +32,54 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pigcart.particlerain.ParticleRainClient;
-import pigcart.particlerain.particle.SnowFlakeParticle;
+import pigcart.particlerain.particle.SnowParticle;
 import pigcart.particlerain.particle.WeatherParticle;
 
 @Pseudo
 @Environment(EnvType.CLIENT)
-@Mixin(SnowFlakeParticle.class)
-public abstract class SnowFlakeParticleMixin extends WeatherParticle {
+@Mixin(SnowParticle.class)
+public abstract class SnowParticleMixin extends WeatherParticle {
 
-	protected SnowFlakeParticleMixin(ClientLevel level, double x, double y, double z, float gravity, SpriteSet provider) {
-		super(level, x, y, z, gravity, provider);
+	protected SnowParticleMixin(ClientLevel level, double x, double y, double z) {
+		super(level, x, y, z);
 	}
 
 	@ModifyExpressionValue(
 		method = "<init>",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/RandomSource;nextFloat()F",
-			ordinal = 0
+			value = "FIELD",
+			target = "Lpigcart/particlerain/ModConfig$SnowOptions;stormWindStrength:F"
 		),
 		require = 0
 	)
-	public float wilderWild$windXInit(float original, ClientLevel level) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return (float) (ClientWindManager.windX * level.random.nextDouble() / ParticleRainClient.config.snowWindDampening);
-		}
+	public float wilderWild$modifyStormWindStrength(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
 		return original;
 	}
 
 	@ModifyExpressionValue(
 		method = "<init>",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/RandomSource;nextFloat()F",
-			ordinal = 1
+			value = "FIELD",
+			target = "Lpigcart/particlerain/ModConfig$SnowOptions;windStrength:F"
 		),
 		require = 0
 	)
-	public float wilderWild$windZInit(float original, ClientLevel level) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return (float) (ClientWindManager.windZ * level.random.nextDouble() / ParticleRainClient.config.snowWindDampening);
-		}
+	public float wilderWild$modifyWindStrength(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
 		return original;
 	}
 
-	@WrapOperation(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/Mth;clamp(DDD)D",
-			ordinal = 0
-		),
+	@Inject(
+		method = "<init>",
+		at = @At(value = "TAIL"),
 		require = 0
 	)
-	public double wilderWild$windX(double value, double min, double max, Operation<Double> original) {
-		if (WWClientWindManager.shouldUseWind()) {
-			min = -100D;
+	public void wilderWild$modifyWindZ(ClientLevel level, double x, double y, double z, CallbackInfo info) {
+		if (WWClientWindManager.shouldUseWind()) this.zd = this.gravity * (float) ClientWindManager.windZ;
+		if (ParticleRainClient.config.yLevelWindAdjustment) {
+			this.zd *= ParticleRainClient.yLevelWindAdjustment(y);
 		}
-		return original.call(value, min, max);
-	}
-
-	@WrapOperation(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/Mth;clamp(DDD)D",
-			ordinal = 0
-		),
-		require = 0
-	)
-	public double wilderWild$windZ(double value, double min, double max, Operation<Double> original) {
-		if (WWClientWindManager.shouldUseWind()) {
-			min = -100D;
-		}
-		return original.call(value, min, max);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"), require = 0)

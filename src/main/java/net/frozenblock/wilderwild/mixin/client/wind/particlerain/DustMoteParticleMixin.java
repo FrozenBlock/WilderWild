@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import net.fabricmc.api.EnvType;
@@ -26,10 +27,10 @@ import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import pigcart.particlerain.particle.DustMoteParticle;
@@ -40,8 +41,8 @@ import pigcart.particlerain.particle.WeatherParticle;
 @Mixin(DustMoteParticle.class)
 public abstract class DustMoteParticleMixin extends WeatherParticle {
 
-	protected DustMoteParticleMixin(ClientLevel level, double x, double y, double z, float gravity, SpriteSet provider) {
-		super(level, x, y, z, gravity, provider);
+	protected DustMoteParticleMixin(ClientLevel level, double x, double y, double z) {
+		super(level, x, y, z);
 	}
 
 	@ModifyConstant(
@@ -62,16 +63,18 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		return constant;
 	}
 
-	@ModifyConstant(
+	@ModifyExpressionValue(
 		method = "<init>",
-		constant = @Constant(doubleValue = 0.20000000298023224, ordinal = 0),
+		at = @At(
+			value = "FIELD",
+			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
+			ordinal = 0
+		),
 		require = 0
 	)
-	private double wilderWild$modifyXInit(double constant) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return ClientWindManager.windX * constant * constant;
-		}
-		return constant;
+	private float wilderWild$modifyXInit(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) (ClientWindManager.windX * original * original);
+		return original;
 	}
 
 	@ModifyConstant(
@@ -83,22 +86,22 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		double constant,
 		@Share("wilderWild$windZ")LocalDoubleRef windZ
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return this.zd + (windZ.get() * 0.005D);
-		}
+		if (WWClientWindManager.shouldUseWind()) return this.zd + (windZ.get() * 0.005D);
 		return constant;
 	}
 
-	@ModifyConstant(
+	@ModifyExpressionValue(
 		method = "<init>",
-		constant = @Constant(doubleValue = 0.20000000298023224, ordinal = 1),
+		at = @At(
+			value = "FIELD",
+			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
+			ordinal = 1
+		),
 		require = 0
 	)
-	private double wilderWild$modifyZInit(double constant) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return ClientWindManager.windZ * constant * constant;
-		}
-		return constant;
+	private float wilderWild$modifyZInit(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) (ClientWindManager.windZ * original * original);
+		return original;
 	}
 
 }

@@ -23,11 +23,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -38,17 +38,15 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import pigcart.particlerain.ParticleRainClient;
-import pigcart.particlerain.particle.RainDropParticle;
+import pigcart.particlerain.particle.RainParticle;
 import pigcart.particlerain.particle.WeatherParticle;
 
 @Pseudo
 @Environment(EnvType.CLIENT)
-@Mixin(RainDropParticle.class)
-public abstract class RainDropParticleMixin extends WeatherParticle {
+@Mixin(RainParticle.class)
+public abstract class RainParticleMixin extends WeatherParticle {
 	@Unique
 	private static final Vector3f WILDER_WILD$NORMALIZED_QUAT_VECTOR = new Vector3f(0.5F, 0.5F, 0.5F).normalize();
 	@Unique
@@ -64,40 +62,46 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 	@Unique
 	private float wilderWild$rotMultiplier;
 
-	protected RainDropParticleMixin(ClientLevel level, double x, double y, double z, float gravity, SpriteSet provider) {
-		super(level, x, y, z, gravity, provider);
+	protected RainParticleMixin(ClientLevel level, double x, double y, double z) {
+		super(level, x, y, z);
 	}
 
 	@ModifyExpressionValue(
-		method = {"tick", "<init>"},
+		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lpigcart/particlerain/particle/RainDropParticle;gravity:F",
-			ordinal = 0
+			target = "Lpigcart/particlerain/ModConfig$RainOptions;stormWindStrength:F"
 		),
 		require = 0
 	)
-	public float wilderWild$windX(float original) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return (float) (ClientWindManager.windX * ParticleRainClient.config.rainDropGravity);
-		}
+	public float wilderWild$modifyStormWindStrength(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
 		return original;
 	}
 
 	@ModifyExpressionValue(
-		method = {"tick", "<init>"},
+		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lpigcart/particlerain/particle/RainDropParticle;gravity:F",
-			ordinal = 1
+			target = "Lpigcart/particlerain/ModConfig$RainOptions;windStrength:F"
 		),
 		require = 0
 	)
-	public float wilderWild$windZ(float original) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return (float) (ClientWindManager.windZ * ParticleRainClient.config.rainDropGravity);
-		}
+	public float wilderWild$modifyWindStrength(float original) {
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
 		return original;
+	}
+
+	@Inject(
+		method = "<init>",
+		at = @At(value = "TAIL"),
+		require = 0
+	)
+	public void wilderWild$modifyWindZ(ClientLevel level, double x, double y, double z, CallbackInfo info) {
+		if (WWClientWindManager.shouldUseWind()) this.zd = this.gravity * (float) ClientWindManager.windZ;
+		if (ParticleRainClient.config.yLevelWindAdjustment) {
+			this.zd *= ParticleRainClient.yLevelWindAdjustment(y);
+		}
 	}
 
 	@Inject(
@@ -105,7 +109,7 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 		at = @At("TAIL"),
 		require = 0
 	)
-	public void wilderWild$windZ(CallbackInfo info) {
+	public void wilderWild$captureRotationData(CallbackInfo info) {
 		this.wilderWild$prevYRot = this.wilderWild$yRot;
 		this.wilderWild$prevXRot = this.wilderWild$xRot;
 
@@ -148,58 +152,28 @@ public abstract class RainDropParticleMixin extends WeatherParticle {
 		this.wilderWild$rotMultiplier = (float) Math.sin((this.wilderWild$xRot * Mth.PI) / 180F);
 	}
 
-	@ModifyArgs(
-		method = "render",
-		at = @At(
-			value = "INVOKE",
-			target = "Lorg/joml/AxisAngle4f;<init>(FFFF)V",
-			remap = false
-		),
-		require = 0
-	)
-	public void wilderWild$applyCorrectRotation(
-		Args args,
-		VertexConsumer vertexConsumer, Camera camera, float tickPercentage
-	) {
-		float xMovement = (float) Mth.lerp(tickPercentage, this.xo, this.x);
-		float zMovement = (float) Mth.lerp(tickPercentage, this.zo, this.z);
-		float newWRot = (xMovement * 0.5F + zMovement * 0.5F);
-		args.set(3, newWRot);
-	}
-
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true, require = 0)
-	public void wilderWild$render(VertexConsumer buffer, Camera renderInfo, float partialTicks, CallbackInfo info) {
+	public void wilderWild$renderWithNewRotation(VertexConsumer buffer, Camera renderInfo, float partialTicks, CallbackInfo info) {
 		info.cancel();
 		float yRot = Mth.lerp(partialTicks, this.wilderWild$prevYRot, this.wilderWild$yRot) * Mth.DEG_TO_RAD;
 		float xRot = Mth.lerp(partialTicks, this.wilderWild$prevXRot, this.wilderWild$xRot) * -Mth.DEG_TO_RAD;
 		float cameraRotWhileVertical = ((-renderInfo.getYRot()) * (1F - Mth.lerp(partialTicks, this.wilderWild$prevRotMultiplier, this.wilderWild$rotMultiplier))) * Mth.DEG_TO_RAD;
+		float cameraXRot = renderInfo.getXRot();
 
 		float x = (float)(Mth.lerp(partialTicks, this.xo, this.x));
 		float y = (float)(Mth.lerp(partialTicks, this.yo, this.y));
 		float z = (float)(Mth.lerp(partialTicks, this.zo, this.z));
-		Vec3 relativePos = new Vec3(x, y, z).subtract(renderInfo.getPosition());
-		relativePos = new Vec3(
-			relativePos.x > 0 ? 1D : -1D,
-			relativePos.y > 0 ? 1D : -1D,
-			relativePos.z > 0 ? 1D : -1D
-		);
-		Vec3 particleMovement = new Vec3(this.xd, 0D, this.zd).normalize();
-		float xDifference = (float) Math.abs(particleMovement.x + relativePos.z);
-		xDifference = xDifference >= 1F ? 0 : (Math.abs(xDifference - 1F));
-		boolean shouldDoubleClampXRot = xDifference == 0D;
-		float cameraXRot = renderInfo.getXRot();
-		xDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * xDifference;
+		Vec3 particlePos = new Vec3(x, y, z);
 
-		float zDifference = (float) Math.abs(particleMovement.z - relativePos.x);
-		zDifference = zDifference >= 1F ? 0 : (Math.abs(zDifference - 1F));
-		shouldDoubleClampXRot = shouldDoubleClampXRot || zDifference == 0D;
-		zDifference = Mth.sin((-cameraXRot * Mth.PI) / 180F) * Mth.PI * zDifference;
+		double particleRotation = AdvancedMath.getAngleFromOriginXZ(new Vec3(this.xd, 0D, this.zd));
+		double angleToParticle = AdvancedMath.getAngleBetweenXZ(particlePos, renderInfo.getPosition());
+		double relativeParticleAngle = (360D + (angleToParticle - particleRotation)) % 360D;
 
-		if (shouldDoubleClampXRot) {
-			cameraXRot = Math.clamp(cameraXRot * 1.5F, -90, 90);
-		}
+		float fixedRotation = 90F + cameraXRot;
+		if (relativeParticleAngle > 0D && relativeParticleAngle < 180D) fixedRotation *= -1F;
 
-		float cameraRotWhileSideways = ((90F + cameraXRot) * (Mth.lerp(partialTicks, this.wilderWild$prevRotMultiplier, this.wilderWild$rotMultiplier))) * Mth.DEG_TO_RAD + xDifference + zDifference;
+		float cameraRotWhileSideways = ((fixedRotation) * (Mth.lerp(partialTicks, this.wilderWild$prevRotMultiplier, this.wilderWild$rotMultiplier))) * Mth.DEG_TO_RAD;
+
 		this.wilderWild$renderParticle(buffer, renderInfo, partialTicks, false, transforms -> transforms.rotateY(yRot)
 			.rotateX(-xRot)
 			.rotateY(cameraRotWhileSideways)
