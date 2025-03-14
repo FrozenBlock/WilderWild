@@ -1,9 +1,8 @@
 {
 	"ambientocclusion": false,
-	"textures": {
-		"particle": "wilderwild:block/algae",
-		"texture": "wilderwild:block/algae"
-	},
+  "textures": {
+    "particle": "#texture"
+  },
 	"elements": [
 		{
 			"from": [0, 0.25, 0],

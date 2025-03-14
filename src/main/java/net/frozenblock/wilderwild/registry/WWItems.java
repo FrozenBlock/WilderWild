@@ -242,6 +242,7 @@ public final class WWItems {
 		registerItem(BUTTERFLY_BOTTLE, "butterfly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
+		registerItemAfter(WWBlocks.ALGAE, new PlaceOnWaterBlockItem(WWBlocks.PLANKTON, new Item.Properties()), "plankton", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.FLOWERING_LILY_PAD, new Item.Properties()), "flowering_lily_pad", CreativeModeTabs.NATURAL_BLOCKS);
 
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);

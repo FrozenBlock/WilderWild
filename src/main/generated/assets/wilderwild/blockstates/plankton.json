@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "glowing=false": {
+      "model": "wilderwild:block/plankton"
+    },
+    "glowing=true": {
+      "model": "wilderwild:block/plankton_glowing"
+    }
+  }
+}

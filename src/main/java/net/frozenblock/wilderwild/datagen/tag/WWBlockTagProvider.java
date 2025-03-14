@@ -942,10 +942,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.BARNACLES);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
-			.addOptionalTag(WWBlockTags.MESOGLEA)
 			.add(WWBlocks.SCORCHED_SAND)
 			.add(WWBlocks.SCORCHED_RED_SAND)
-			.add(WWBlocks.TERMITE_MOUND);
+			.add(WWBlocks.TERMITE_MOUND)
+			.add(WWBlocks.PLANKTON)
+			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
 			.add(WWBlocks.BUSH)
@@ -956,6 +957,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CATTAIL)
 			.add(WWBlocks.FLOWERING_LILY_PAD)
 			.add(WWBlocks.ALGAE)
+			.add(WWBlocks.PLANKTON)
 			.add(WWBlocks.BROWN_SHELF_FUNGI)
 			.add(WWBlocks.RED_SHELF_FUNGI)
 			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
@@ -1034,6 +1036,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.LILY_PAD)
 			.add(WWBlocks.FLOWERING_LILY_PAD)
 			.add(WWBlocks.ALGAE)
+			.add(WWBlocks.PLANKTON)
 			.add(WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.SPONGE_BUD)
 			.add(WWBlocks.BARNACLES)
@@ -1148,7 +1151,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH)
-			.add(WWBlocks.ALGAE);
+			.add(WWBlocks.ALGAE)
+			.add(WWBlocks.PLANKTON);
 
 		this.getOrCreateTagBuilder(BlockTags.GUARDED_BY_PIGLINS)
 			.add(WWBlocks.STONE_CHEST);
@@ -1278,6 +1282,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SNOW)
 			.add(Blocks.RED_MUSHROOM)
 			.add(Blocks.BROWN_MUSHROOM)
+			.add(WWBlocks.ALGAE)
+			.add(WWBlocks.PLANKTON)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.LEAVES)

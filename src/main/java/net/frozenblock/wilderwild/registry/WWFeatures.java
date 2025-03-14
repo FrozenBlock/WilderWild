@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.worldgen.impl.feature.AlgaeFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.CattailFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.HydrothermalVentFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.IcicleClusterFeature;
@@ -35,7 +35,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.SnowAndFreezeDiskFeature
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.TubeWormsFeature;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.AlgaeFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleClusterConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleConfig;
@@ -102,7 +102,7 @@ public class WWFeatures {
 	public static final Feature<ShelfFungiFeatureConfig> SHELF_FUNGI_FEATURE = register("shelf_fungi_feature", new ShelfFungiFeature(ShelfFungiFeatureConfig.CODEC));
 	public static final Feature<SpongeBudFeatureConfig> SPONGE_BUD_FEATURE = register("sponge_bud_feature", new SpongeBudFeature(SpongeBudFeatureConfig.CODEC));
 	public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(CattailFeatureConfig.CODEC));
-	public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(AlgaeFeatureConfig.CODEC));
+	public static final WaterCoverFeature WATER_COVER_FEATURE = register("water_cover_feature", new WaterCoverFeature(WaterCoverFeatureConfig.CODEC));
 	public static final Feature<BlockStateConfiguration> SEA_ANEMONE_FEATURE = register("sea_anemone_feature", new SeaAnemoneFeature(BlockStateConfiguration.CODEC));
 	public static final SeaWhipFeature SEA_WHIP_FEATURE = register("sea_whip_feature", new SeaWhipFeature(NoneFeatureConfiguration.CODEC));
 	public static final Feature<NoneFeatureConfiguration> TUBE_WORMS_FEATURE = register("tube_worms_feature", new TubeWormsFeature(NoneFeatureConfiguration.CODEC));

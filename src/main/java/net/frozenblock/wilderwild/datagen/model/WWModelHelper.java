@@ -124,6 +124,11 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
+	private static final ModelTemplate ALGAE_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_algae")),
+		Optional.empty(),
+		TextureSlot.TEXTURE
+	);
 	private static final ModelTemplate SEA_ANEMONE_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_sea_anemone")),
 		Optional.empty(),
@@ -343,6 +348,28 @@ public final class WWModelHelper {
 	public static void createSeaWhip(@NotNull BlockModelGenerators generator) {
 		generator.createSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
 		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.TintState.NOT_TINTED);
+	}
+
+	public static void createAlgae(@NotNull BlockModelGenerators generator) {
+		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
+		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, model));
+	}
+
+	public static void createPlankton(@NotNull BlockModelGenerators generator) {
+		generator.createSimpleFlatItemModel(WWBlocks.PLANKTON);
+		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", ALGAE_MODEL, TextureMapping::defaultTexture);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.PLANKTON)
+					.with(
+						PropertyDispatch.property(WWBlockStateProperties.GLOWING)
+							.select(false, Variant.variant().with(VariantProperties.MODEL, model))
+							.select(true, Variant.variant().with(VariantProperties.MODEL, glowingModel))
+					)
+			);
 	}
 
 	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {

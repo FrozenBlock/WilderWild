@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.AlgaeFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
 import net.minecraft.core.HolderSet;
@@ -62,8 +62,9 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
-	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
-	public static final FrozenLibConfiguredFeature<AlgaeFeatureConfig, ConfiguredFeature<AlgaeFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_PLANKTON = WWFeatureUtils.register("patch_plankton");
 	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
@@ -124,12 +125,16 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		PATCH_ALGAE.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
-			new AlgaeFeatureConfig(UniformInt.of(4, 10))
+		PATCH_ALGAE.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+			new WaterCoverFeatureConfig(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(4, 10))
 		);
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.ALGAE_FEATURE,
-			new AlgaeFeatureConfig(UniformInt.of(2, 6))
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+			new WaterCoverFeatureConfig(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(2, 6))
+		);
+
+		PATCH_PLANKTON.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+			new WaterCoverFeatureConfig(BlockStateProvider.simple(WWBlocks.PLANKTON), UniformInt.of(2, 4))
 		);
 
 		SEAGRASS_MEADOW.makeAndSetHolder(Feature.SEAGRASS,

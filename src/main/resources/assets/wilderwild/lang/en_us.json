@@ -320,6 +320,8 @@
   "block.wilderwild.phlox": "Phlox",
   "block.wilderwild.potted_phlox": "Potted Phlox",
 
+  "block.wilderwild.plankton": "Plankton",
+
   "block.wilderwild.prickly_pear": "Prickly Pear",
   "block.wilderwild.potted_prickly_pear": "Potted Prickly Pear",
   "subtitles.block.prickly_pear.pick": "Prickly Pear picked",
@@ -892,6 +894,8 @@
   "tooltip.wilderwild.river_pool": "Whether pools of water can generate in River biomes to replace flat areas of Grass.",
   "option.wilderwild.algae_generation": "Algae Generation",
   "tooltip.wilderwild.algae_generation": "Whether Algae can generate.",
+  "option.wilderwild.plankton_generation": "Plankton Generation",
+  "tooltip.wilderwild.plankton_generation": "Whether Plankton can generate.",
   "option.wilderwild.seagrass_generation": "Seagrass Generation",
   "tooltip.wilderwild.seagrass_generation": "Whether to use Wilder Wild's or Vanilla's Seagrass generation.\nThis will place additional Seagrass in Deep Lukewarm Oceans.",
   "option.wilderwild.sponge_bud_generation": "Sponge Bud Generation",

@@ -35,6 +35,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -354,7 +355,8 @@ public class GeyserParticleHandler {
 					j + Mth.nextInt(random, VENT_MIN_PARTICLE_SPAWN_HEIGHT, VENT_MAX_PARTICLE_SPAWN_HEIGHT),
 					k + Mth.nextInt(random, VENT_MIN_PARTICLE_SPAWN_WIDTH, VENT_MAX_PARTICLE_SPAWN_WIDTH)
 				);
-				if (level.getBlockState(mutable).is(Blocks.WATER)) {
+				BlockState blockState = level.getBlockState(mutable);
+				if (blockState.is(Blocks.WATER) && blockState.getFluidState().getAmount() == 8) {
 					level.addParticle(
 						WWParticleTypes.UNDERWATER_ASH,
 						mutable.getX() + random.nextDouble(),

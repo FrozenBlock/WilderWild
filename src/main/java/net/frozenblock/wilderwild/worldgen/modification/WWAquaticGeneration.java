@@ -35,6 +35,7 @@ public final class WWAquaticGeneration {
 
 	public static void generateAquaticFeatures() {
 		generateAlgae();
+		generatePlankton();
 		generateSeagrass();
 		generateSpongeBuds();
 		generateBarnacles();
@@ -60,6 +61,21 @@ public final class WWAquaticGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_ALGAE.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generatePlankton() {
+		BiomeModifications.create(WWConstants.id("plankton_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.plankton) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PLANKTON)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_PLANKTON.getKey());
 						}
 					}
 				});

@@ -2022,6 +2022,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ALGAE)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLANKTON)
+			.add(Biomes.WARM_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MEADOW_SEAGRASS)
 			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 

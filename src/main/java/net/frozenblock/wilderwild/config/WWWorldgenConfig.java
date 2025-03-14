@@ -269,6 +269,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("algae")
 		public boolean algae = true;
 
+		@EntrySyncData("plankton")
+		public boolean plankton = true;
+
 		@EntrySyncData("seagrass")
 		public boolean seagrass = true;
 

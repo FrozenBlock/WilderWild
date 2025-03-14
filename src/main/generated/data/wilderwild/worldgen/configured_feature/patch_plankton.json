@@ -3,13 +3,16 @@
   "config": {
     "radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 10,
-      "min_inclusive": 4
+      "max_inclusive": 4,
+      "min_inclusive": 2
     },
     "state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:algae"
+        "Name": "wilderwild:plankton",
+        "Properties": {
+          "glowing": "false"
+        }
       }
     }
   }

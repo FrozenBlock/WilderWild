@@ -64,6 +64,7 @@ import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PenguinEggBlock;
+import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -564,6 +565,16 @@ public final class WWBlocks {
 	public static final AlgaeBlock ALGAE = new AlgaeBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.FROGSPAWN)
 			.mapColor(MapColor.PLANT)
+			.sound(WWSoundTypes.ALGAE)
+	);
+
+	public static final PlanktonBlock PLANKTON = new PlanktonBlock(
+		BlockBehaviour.Properties.ofFullCopy(Blocks.FROGSPAWN)
+			.mapColor(MapColor.COLOR_LIGHT_BLUE)
+			.randomTicks()
+			.requiresCorrectToolForDrops()
+			.lightLevel(state -> PlanktonBlock.isGlowing(state) ? PlanktonBlock.LIGHT_LEVEL : 0)
+			.emissiveRendering((state, level, pos) -> PlanktonBlock.isGlowing(state))
 			.sound(WWSoundTypes.ALGAE)
 	);
 
@@ -1591,6 +1602,7 @@ public final class WWBlocks {
 		registerBlockAfter(Items.WARPED_FUNGUS, "crimson_shelf_fungi", CRIMSON_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CRIMSON_SHELF_FUNGI, "warped_shelf_fungi", WARPED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("algae"), ALGAE);
+		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("plankton"), PLANKTON);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(SPONGE_BUD, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
@@ -1989,6 +2001,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PLANKTON, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);

@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.particle.MesogleaBubblePopParticle;
 import net.frozenblock.wilderwild.particle.MesogleaCurrentDownParticle;
 import net.frozenblock.wilderwild.particle.MesogleaDripParticle;
 import net.frozenblock.wilderwild.particle.MesogleaSplashParticle;
+import net.frozenblock.wilderwild.particle.PlanktonParticle;
 import net.frozenblock.wilderwild.particle.PollenParticle;
 import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.ShriekerBubbleSeedParticle;
@@ -75,6 +76,8 @@ public final class WWParticleEngine {
 		particleRegistry.register(WWParticleTypes.COCONUT_SPLASH, FallingParticle.Factory::new);
 		particleRegistry.register(WWParticleTypes.SCORCHING_FLAME, WilderParticleFactories.ScorchingEffectFlameFactory::new);
 		particleRegistry.register(WWParticleTypes.UNDERWATER_ASH, WilderParticleFactories.UnderwaterAshProvider::new);
+		particleRegistry.register(WWParticleTypes.PLANKTON, PlanktonParticle.PlanktonProvider::new);
+		particleRegistry.register(WWParticleTypes.GLOWING_PLANKTON, PlanktonParticle.GlowingProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
 		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);

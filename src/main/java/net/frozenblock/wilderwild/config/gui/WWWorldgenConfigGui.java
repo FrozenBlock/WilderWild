@@ -985,6 +985,17 @@ public final class WWWorldgenConfigGui {
 			"algae",
 			configInstance
 		);
+		var plankton = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("plankton_generation"), modifiedAquatic.plankton)
+				.setDefaultValue(defaultAquatic.plankton)
+				.setSaveConsumer(newValue -> aquatic.plankton = newValue)
+				.setTooltip(tooltip("plankton_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"plankton",
+			configInstance
+		);
 		var seagrass = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("seagrass_generation"), modifiedAquatic.seagrass)
 				.setDefaultValue(defaultAquatic.seagrass)
@@ -1088,7 +1099,7 @@ public final class WWWorldgenConfigGui {
 		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
 			false,
 			tooltip("aquatic_generation"),
-			riverPool, algae, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration
+			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration
 		);
 
 		var transition = config.transitionGeneration;

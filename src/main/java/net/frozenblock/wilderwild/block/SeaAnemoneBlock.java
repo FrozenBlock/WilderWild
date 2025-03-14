@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.SeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,10 +53,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer {
+	public static final MapCodec<SeaAnemoneBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
 	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
-	public static final MapCodec<SeaAnemoneBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
 
 	public SeaAnemoneBlock(@NotNull Properties properties) {
 		super(properties);
@@ -181,7 +182,8 @@ public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, Liq
 		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(randomSource)) {
 			mutableBlockPos.setWithOffset(blockPos, direction);
 			if (this.isValidWaterToReplace(serverLevel, mutableBlockPos) && this.canSurvive(blockState, serverLevel, mutableBlockPos)) {
-				serverLevel.setBlock(mutableBlockPos, blockState, UPDATE_CLIENTS);
+				serverLevel.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutableBlockPos, 0);
+				serverLevel.setBlockAndUpdate(mutableBlockPos, blockState);
 				return;
 			}
 		}

@@ -60,7 +60,7 @@ public final class WWBlockStateProperties {
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
 	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
 
-	// Sea Anenome
+	// Sea Anenome & Plankton
 	public static final BooleanProperty GLOWING = BooleanProperty.create("glowing");
 
 	// Tube Worms

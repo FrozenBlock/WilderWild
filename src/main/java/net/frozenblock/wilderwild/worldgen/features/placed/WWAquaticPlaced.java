@@ -56,6 +56,7 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
+	public static final FrozenLibPlacedFeature PATCH_PLANKTON = register("patch_plankton");
 	public static final FrozenLibPlacedFeature SEAGRASS_MEADOW = register("seagrass_meadow");
 	public static final FrozenLibPlacedFeature SPONGE_BUDS = register("sponge_buds");
 	public static final FrozenLibPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
@@ -161,6 +162,13 @@ public final class WWAquaticPlaced {
 
 		PATCH_ALGAE_SMALL.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE_SMALL.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		PATCH_PLANKTON.makeAndSetHolder(WWAquaticConfigured.PATCH_PLANKTON.getHolder(),
+			RarityFilter.onAverageOnceEvery(30),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
