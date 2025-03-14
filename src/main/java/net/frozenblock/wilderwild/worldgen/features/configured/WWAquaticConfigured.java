@@ -265,7 +265,7 @@ public final class WWAquaticConfigured {
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_PATCH,
 						new RandomPatchConfiguration(
-							27,
+							33,
 							5,
 							4,
 							PlacementUtils.inlinePlaced(

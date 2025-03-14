@@ -303,7 +303,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		);
 		this.add(WWBlocks.BARNACLES, block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
 		this.dropSelf(WWBlocks.SEA_ANEMONE);
-		this.add(WWBlocks.TUBE_WORMS, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+		this.dropSelf(WWBlocks.TUBE_WORMS);
 
 		this.add(WWBlocks.BAOBAB_NUT,
 			LootTable.lootTable()

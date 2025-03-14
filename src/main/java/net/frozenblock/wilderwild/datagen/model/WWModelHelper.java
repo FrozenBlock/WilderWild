@@ -24,6 +24,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
@@ -339,9 +341,21 @@ public final class WWModelHelper {
 	}
 
 	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
-		generator.createSimpleFlatItemModel(WWBlocks.TUBE_WORMS, "_top");
+		generator.createSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
+		ResourceLocation singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		generator.createDoubleBlock(WWBlocks.TUBE_WORMS, topModel, bottomModel);
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.TUBE_WORMS)
+					.with(
+						PropertyDispatch.property(WWBlockStateProperties.TUBE_WORMS_PART)
+							.select(TubeWormsPart.SINGLE, Variant.variant().with(VariantProperties.MODEL, singleModel))
+							.select(TubeWormsPart.TOP, Variant.variant().with(VariantProperties.MODEL, topModel))
+							.select(TubeWormsPart.MIDDLE, Variant.variant().with(VariantProperties.MODEL, middleModel))
+							.select(TubeWormsPart.BOTTOM, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+					)
+			);
 	}
 }

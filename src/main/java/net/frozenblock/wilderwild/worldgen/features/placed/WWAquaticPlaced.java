@@ -207,14 +207,14 @@ public final class WWAquaticPlaced {
 		);
 
 		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
-			RarityFilter.onAverageOnceEvery(18),
+			RarityFilter.onAverageOnceEvery(22),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
 		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
-			RarityFilter.onAverageOnceEvery(38),
+			RarityFilter.onAverageOnceEvery(42),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()

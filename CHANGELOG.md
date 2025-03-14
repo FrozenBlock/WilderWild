@@ -147,6 +147,7 @@ hi
   - Generates most frequently in Deep Lukewarm Oceans, but can sparsely be found in other Ocean Biomes.
 - Added Tube Worms.
   - Generates rarely in most deep ocean biomes.
+  - Can be placed on top itself, similar to Kelp and Sugar Cane.
 - Added hydrothermal vents to oceans.
   - Generates rarely in non-cold deep ocean biomes.
   - Generates with Tube Worms surrounding itself.

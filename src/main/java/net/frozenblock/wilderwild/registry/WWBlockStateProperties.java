@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
+import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -61,6 +62,9 @@ public final class WWBlockStateProperties {
 
 	// Sea Anenome
 	public static final BooleanProperty GLOWING = BooleanProperty.create("glowing");
+
+	// Tube Worms
+	public static final EnumProperty<TubeWormsPart> TUBE_WORMS_PART = EnumProperty.create("part", TubeWormsPart.class);
 
 	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
