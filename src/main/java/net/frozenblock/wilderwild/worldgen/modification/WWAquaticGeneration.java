@@ -39,7 +39,8 @@ public final class WWAquaticGeneration {
 		generateSpongeBuds();
 		generateBarnacles();
 		generateCattails();
-		generateSeaAnemone();
+		generateSeaAnemones();
+		generateSeaWhips();
 		generateTubeWorms();
 		generateHydrothermalVent();
 		generateMoss();
@@ -156,7 +157,7 @@ public final class WWAquaticGeneration {
 				});
 	}
 
-	private static void generateSeaAnemone() {
+	private static void generateSeaAnemones() {
 		BiomeModifications.create(WWConstants.id("sea_anemone_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -174,6 +175,29 @@ public final class WWAquaticGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_RARE.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generateSeaWhips() {
+		BiomeModifications.create(WWConstants.id("sea_whip_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.seaWhip) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP_SPARSE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP_RARE.getKey());
 						}
 					}
 				});

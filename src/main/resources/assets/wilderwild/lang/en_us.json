@@ -327,6 +327,9 @@
   "item.wilderwild.prickly_pear": "Prickly Pear",
   "death.attack.prickly_pear": "%1$s shoved spikes in their mouth",
 
+  "block.wilderwild.sea_anemone": "Sea Anemone",
+  "block.wilderwild.sea_whip": "Sea Whip",
+
   "subtitles.block.sculk_shrieker.gargle": "Sculk Shrieker gargles",
   "block.wilderwild.sculk_slab": "Sculk Slab",
   "block.wilderwild.sculk_stairs": "Sculk Stairs",
@@ -334,8 +337,6 @@
 
   "block.wilderwild.seeding_dandelion": "Seeding Dandelion",
   "block.wilderwild.potted_seeding_dandelion": "Potted Seeding Dandelion",
-
-  "block.wilderwild.sea_anemone": "Sea Anemone",
 
   "block.wilderwild.stone_chest": "Stone Chest",
   "container.double_stone_chest": "Large Stone Chest",
@@ -901,6 +902,8 @@
   "tooltip.wilderwild.cattail_generation": "Whether Cattails can generate.",
   "option.wilderwild.sea_anemone_generation": "Sea Anemone Generation",
   "tooltip.wilderwild.sea_anemone_generation": "Whether Sea Anemones can generate.",
+  "option.wilderwild.sea_whip_generation": "Sea Whip Generation",
+  "tooltip.wilderwild.sea_whip_generation": "Whether Sea Whips can generate.",
   "option.wilderwild.tube_worm_generation": "Tube Worm Generation",
   "tooltip.wilderwild.tube_worm_generation": "Whether Tube Worms can generate.",
   "option.wilderwild.hydrothermal_vent_generation": "Hydrothermal Vent Generation",

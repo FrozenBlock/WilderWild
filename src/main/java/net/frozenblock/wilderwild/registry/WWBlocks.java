@@ -71,6 +71,7 @@ import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
+import net.frozenblock.wilderwild.block.SeaWhipBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
@@ -691,6 +692,14 @@ public final class WWBlocks {
 			.noCollission()
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final SeaWhipBlock SEA_WHIP = new SeaWhipBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WATER)
+			.instabreak()
+			.noCollission()
 			.sound(SoundType.CORAL_BLOCK)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1586,7 +1595,8 @@ public final class WWBlocks {
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(SPONGE_BUD, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(BARNACLES, "sea_anemone", SEA_ANEMONE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(SEA_ANEMONE, "tube_worms", TUBE_WORMS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(SEA_ANEMONE, "sea_whip", SEA_WHIP, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(SEA_WHIP, "tube_worms", TUBE_WORMS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 	}

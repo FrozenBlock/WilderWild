@@ -175,6 +175,8 @@ hi
   - Fixed an issue that led to mutable block positions being added to a list instead of immutable block positions.
 - The surface transition generation config option has now been split into multiple options per-block type.
 - The surface decoration generation config option has now been split into multiple options per-feature type.
+- Added Sea Whips.
+  - Generates in all non-frozen oceans, most commonly in temperate and lukewarm oceans.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

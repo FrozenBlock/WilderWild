@@ -1076,6 +1076,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_FERN)
 			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.SEA_ANEMONE)
+			.add(WWBlocks.SEA_WHIP)
 			.add(WWBlocks.TUBE_WORMS)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 

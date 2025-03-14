@@ -169,6 +169,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SEA_ANEMONE = bind("feature/has_sea_anemone");
 	public static final TagKey<Biome> HAS_SEA_ANEMONE_SPARSE = bind("feature/has_sea_anemone_sparse");
 	public static final TagKey<Biome> HAS_SEA_ANEMONE_RARE = bind("feature/has_sea_anemone_rare");
+	public static final TagKey<Biome> HAS_SEA_WHIP = bind("feature/has_sea_whip");
+	public static final TagKey<Biome> HAS_SEA_WHIP_SPARSE = bind("feature/has_sea_whip_sparse");
+	public static final TagKey<Biome> HAS_SEA_WHIP_RARE = bind("feature/has_sea_whip_rare");
 	public static final TagKey<Biome> HAS_TUBE_WORMS = bind("feature/has_tube_worms");
 	public static final TagKey<Biome> HAS_TUBE_WORMS_RARE = bind("feature/has_tube_worms_rare");
 	public static final TagKey<Biome> HAS_SEEDING_DANDELION = bind("feature/has_seeding_dandelion");

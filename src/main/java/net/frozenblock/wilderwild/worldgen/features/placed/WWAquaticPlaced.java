@@ -62,6 +62,9 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE = register("patch_sea_anemone");
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_SPARSE = register("patch_sea_anemone_sparse");
 	public static final FrozenLibPlacedFeature PATCH_SEA_ANEMONE_RARE = register("patch_sea_anemone_rare");
+	public static final FrozenLibPlacedFeature PATCH_SEA_WHIP = register("patch_sea_whip");
+	public static final FrozenLibPlacedFeature PATCH_SEA_WHIP_SPARSE = register("patch_sea_whip_sparse");
+	public static final FrozenLibPlacedFeature PATCH_SEA_WHIP_RARE = register("patch_sea_whip_rare");
 	public static final FrozenLibPlacedFeature PATCH_TUBE_WORMS = register("patch_tube_worms");
 	public static final FrozenLibPlacedFeature PATCH_TUBE_WORMS_RARE = register("patch_tube_worms_rare");
 
@@ -200,6 +203,27 @@ public final class WWAquaticPlaced {
 		);
 
 		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE.getHolder(),
+			RarityFilter.onAverageOnceEvery(15),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP.getHolder(),
+			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE.getHolder(),
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE.getHolder(),
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

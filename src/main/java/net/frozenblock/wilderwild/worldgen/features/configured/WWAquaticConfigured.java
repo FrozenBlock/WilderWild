@@ -70,6 +70,8 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
 	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_WHIP = WWFeatureUtils.register("patch_sea_whip");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_WHIP_SPARSE = WWFeatureUtils.register("patch_sea_whip_sparse");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TUBE_WORMS = WWFeatureUtils.register("patch_tube_worms");
 
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
@@ -224,6 +226,30 @@ public final class WWAquaticConfigured {
 				PlacementUtils.inlinePlaced(
 					WWFeatures.SEA_ANEMONE_FEATURE,
 					new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
+				)
+			)
+		);
+
+		PATCH_SEA_WHIP.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				7,
+				4,
+				3,
+				PlacementUtils.inlinePlaced(
+					WWFeatures.SEA_WHIP_FEATURE,
+					NoneFeatureConfiguration.INSTANCE
+				)
+			)
+		);
+
+		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				4,
+				6,
+				3,
+				PlacementUtils.inlinePlaced(
+					WWFeatures.SEA_WHIP_FEATURE,
+					NoneFeatureConfiguration.INSTANCE
 				)
 			)
 		);

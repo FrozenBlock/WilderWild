@@ -51,19 +51,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer {
-	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
-	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
-	public static final int LIGHT_LEVEL = 4;
-	public static final MapCodec<SeaAnemoneBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
+public class SeaWhipBlock extends BushBlock implements LiquidBlockContainer {
+	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
+	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
 
-	public SeaAnemoneBlock(@NotNull Properties properties) {
+	public SeaWhipBlock(@NotNull Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(GLOWING, false));
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends SeaAnemoneBlock> codec() {
+	public @NotNull MapCodec<? extends SeaWhipBlock> codec() {
 		return CODEC;
 	}
 
@@ -90,101 +87,6 @@ public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, Liq
 		BlockState updatedShape = super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
 		if (!updatedShape.isAir()) levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 		return updatedShape;
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(GLOWING);
-	}
-
-	@Override
-	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (this.tryChangingState(blockState, serverLevel, blockPos, randomSource)) {
-			serverLevel.sendParticles(
-				ParticleTypes.BUBBLE,
-				blockPos.getX() + 0.5D,
-				blockPos.getY() + 0.5125D,
-				blockPos.getZ() + 0.5D,
-				randomSource.nextInt(1, 3),
-				0D,
-				0D,
-				0D,
-				0.05D
-			);
-			// TODO: Particles
-		}
-
-		super.randomTick(blockState, serverLevel, blockPos, randomSource);
-	}
-
-	@Override
-	protected void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (this.tryChangingState(blockState, serverLevel, blockPos, randomSource)) {
-			serverLevel.sendParticles(
-				ParticleTypes.BUBBLE,
-				blockPos.getX() + 0.5D,
-				blockPos.getY() + 0.5125D,
-				blockPos.getZ() + 0.5D,
-				randomSource.nextInt(1, 3),
-				0D,
-				0D,
-				0D,
-				0.05D
-			);
-			// TODO: Particles
-		}
-
-		super.tick(blockState, serverLevel, blockPos, randomSource);
-	}
-
-	public static boolean isGlowing(@NotNull BlockState blockState) {
-		return blockState.getValue(GLOWING);
-	}
-
-	private boolean tryChangingState(BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (!serverLevel.dimensionType().natural()) return false;
-		if (serverLevel.isDay() == isGlowing(blockState)) return false;
-		boolean setGlowing = !isGlowing(blockState);
-		serverLevel.setBlock(blockPos, blockState.setValue(GLOWING, setGlowing), UPDATE_ALL);
-		serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState));
-		BlockPos.betweenClosed(blockPos.offset(-3, -2, -3), blockPos.offset(3, 2, 3)).forEach((blockPos2) -> {
-			BlockState foundState = serverLevel.getBlockState(blockPos2);
-			if (foundState == blockState) {
-				double distance = Math.sqrt(blockPos.distSqr(blockPos2));
-				int delay = randomSource.nextIntBetweenInclusive((int) (distance * 40D), (int) (distance * 60D));
-				serverLevel.scheduleTick(blockPos2, blockState.getBlock(), delay);
-			}
-		});
-		return true;
-	}
-
-	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader levelReader, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			mutableBlockPos.setWithOffset(blockPos, direction);
-			if (this.isValidWaterToReplace(levelReader, mutableBlockPos) && this.canSurvive(blockState, levelReader, mutableBlockPos)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-		return true;
-	}
-
-	@Override
-	public void performBonemeal(@NotNull ServerLevel serverLevel, @NotNull RandomSource randomSource, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(randomSource)) {
-			mutableBlockPos.setWithOffset(blockPos, direction);
-			if (this.isValidWaterToReplace(serverLevel, mutableBlockPos) && this.canSurvive(blockState, serverLevel, mutableBlockPos)) {
-				serverLevel.setBlock(mutableBlockPos, blockState, UPDATE_CLIENTS);
-				return;
-			}
-		}
 	}
 
 	@Override

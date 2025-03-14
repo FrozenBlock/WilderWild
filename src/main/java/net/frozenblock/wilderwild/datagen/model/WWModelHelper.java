@@ -340,6 +340,11 @@ public final class WWModelHelper {
 		generator.createSimpleFlatItemModel(seaAnemoneBlock.asItem());
 	}
 
+	public static void createSeaWhip(@NotNull BlockModelGenerators generator) {
+		generator.createSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
+		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.TintState.NOT_TINTED);
+	}
+
 	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
 		generator.createSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
 		ResourceLocation singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);

@@ -281,6 +281,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("seaAnemone")
 		public boolean seaAnemone = true;
 
+		@EntrySyncData("seaWhip")
+		public boolean seaWhip = true;
+
 		@EntrySyncData("tubeWorm")
 		public boolean tubeWorm = true;
 

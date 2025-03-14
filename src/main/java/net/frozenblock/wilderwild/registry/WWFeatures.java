@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.NematocystFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.PalmTreeFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SeaAnemoneFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.SeaWhipFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.ShelfFungiFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowBlanketFeature;
@@ -103,6 +104,7 @@ public class WWFeatures {
 	public static final CattailFeature CATTAIL_FEATURE = register("cattail_feature", new CattailFeature(CattailFeatureConfig.CODEC));
 	public static final AlgaeFeature ALGAE_FEATURE = register("algae_feature", new AlgaeFeature(AlgaeFeatureConfig.CODEC));
 	public static final Feature<BlockStateConfiguration> SEA_ANEMONE_FEATURE = register("sea_anemone_feature", new SeaAnemoneFeature(BlockStateConfiguration.CODEC));
+	public static final SeaWhipFeature SEA_WHIP_FEATURE = register("sea_whip_feature", new SeaWhipFeature(NoneFeatureConfiguration.CODEC));
 	public static final Feature<NoneFeatureConfiguration> TUBE_WORMS_FEATURE = register("tube_worms_feature", new TubeWormsFeature(NoneFeatureConfiguration.CODEC));
 	public static final HydrothermalVentFeature HYDROTHERMAL_VENT_FEATURE = register("hydrothermal_vent", new HydrothermalVentFeature(NoneFeatureConfiguration.CODEC));
 	public static final NematocystFeature NEMATOCYST_FEATURE = register("nematocyst_feature", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));
