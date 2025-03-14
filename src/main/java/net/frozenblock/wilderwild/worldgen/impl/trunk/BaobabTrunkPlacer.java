@@ -74,6 +74,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		BlockGetter bgLevel = (BlockGetter) level;
 		BlockPos.MutableBlockPos pos = startPos.mutable();
 		for (int y = 0; y < 4; y++) {
+			if (y == 2 && random.nextFloat() <= 0.175F) return;
 			if (y == 3 && random.nextFloat() <= 0.45F) return;
 			pos.setWithOffset(startPos, 0, -y, 0);
 			if ((!isSolid(bgLevel, pos)) || bgLevel.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK) {
