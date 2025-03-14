@@ -1975,6 +1975,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOW_PILE)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOSS_PATH)
 			.add(Biomes.JUNGLE)
 			.add(Biomes.SPARSE_JUNGLE)

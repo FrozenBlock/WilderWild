@@ -301,6 +301,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT = bind("feature/has_hydrothermal_vent");
 	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT_RARE = bind("feature/has_hydrothermal_vent_rare");
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("feature/has_taiga_forest_rock");
+	public static final TagKey<Biome> HAS_SNOW_PILE = bind("feature/has_snow_pile");
 	public static final TagKey<Biome> HAS_MOSS_PATH = bind("feature/has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("feature/has_moss_lake");
 	public static final TagKey<Biome> HAS_MOSS_LAKE_RARE = bind("feature/has_moss_lake_rare");

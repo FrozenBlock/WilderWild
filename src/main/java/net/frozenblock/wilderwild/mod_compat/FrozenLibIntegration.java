@@ -322,7 +322,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWWorldgenConfig.get().decayTrailRuins) {
+		if (WWWorldgenConfig.get().structure.decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.TRAIL_RUINS.location(),
 				new RuleProcessor(
@@ -344,7 +344,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (WWWorldgenConfig.get().newDesertVillages) {
+		if (WWWorldgenConfig.get().structure.newDesertVillages) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.VILLAGE_DESERT.location(),
 				new BlockStateRespectingRuleProcessor(

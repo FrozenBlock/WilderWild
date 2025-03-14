@@ -48,18 +48,14 @@ public final class WWWorldGen {
 		WWVegetationGeneration.generateFlower();
 		WWVegetationGeneration.generateBush();
 		WWVegetationGeneration.generateCacti();
-		WWAquaticGeneration.generateAlgae();
-		WWAquaticGeneration.generateBarnacles();
-		WWAquaticGeneration.generateCattails();
-		WWAquaticGeneration.generateHydrothermalVent();
-		WWAquaticGeneration.generateSeaAnemone();
-		WWAquaticGeneration.generateTubeWorms();
+		WWAquaticGeneration.generateAquaticFeatures();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 
 		WWTreeDecorators.generateTreeDecorators();
 		WWTreeGeneration.generateTrees();
 		WWVegetationGeneration.generateMushroom();
+		WWVegetationGeneration.generatePumpkin();
 
 		WWBiomeSettings.init();
 
@@ -94,7 +90,7 @@ public final class WWWorldGen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.RAINFOREST),
 			context -> {
-				if (WWWorldgenConfig.get().flowerGeneration) {
+				if (WWWorldgenConfig.get().vegetation.flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey());
@@ -107,7 +103,7 @@ public final class WWWorldGen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.TEMPERATE_RAINFOREST),
 			context -> {
-				if (WWWorldgenConfig.get().flowerGeneration) {
+				if (WWWorldgenConfig.get().vegetation.flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
@@ -138,7 +134,7 @@ public final class WWWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.FOREST_GRASS),
 				context -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLACED.getKey());
@@ -150,7 +146,7 @@ public final class WWWorldGen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.PLAINS_GRASS),
 				context -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
@@ -439,10 +435,11 @@ public final class WWWorldGen {
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
 					if (WWWorldgenConfig.GENERATE_POLLEN && biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN_PLACED.getKey());
 					}
-				});
+			});
 	}
 
 }

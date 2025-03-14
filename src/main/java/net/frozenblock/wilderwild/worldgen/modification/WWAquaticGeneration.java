@@ -33,7 +33,19 @@ public final class WWAquaticGeneration {
 		throw new UnsupportedOperationException("WWAquaticGeneration contains only static declarations.");
 	}
 
-	public static void generateAlgae() {
+	public static void generateAquaticFeatures() {
+		generateAlgae();
+		generateSeagrass();
+		generateSpongeBuds();
+		generateBarnacles();
+		generateCattails();
+		generateSeaAnemone();
+		generateTubeWorms();
+		generateHydrothermalVent();
+		generateMoss();
+	}
+
+	private static void generateAlgae() {
 		BiomeModifications.create(WWConstants.id("algae_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -52,7 +64,41 @@ public final class WWAquaticGeneration {
 				});
 	}
 
-	public static void generateBarnacles() {
+	private static void generateSeagrass() {
+		BiomeModifications.create(WWConstants.id("seagrass_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.seagrass) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MEADOW_SEAGRASS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SEAGRASS_MEADOW.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generateSpongeBuds() {
+		BiomeModifications.create(WWConstants.id("sponge_bud_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.spongeBud) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS_RARE.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generateBarnacles() {
 		BiomeModifications.create(WWConstants.id("barnacle_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -83,7 +129,7 @@ public final class WWAquaticGeneration {
 				});
 	}
 
-	public static void generateCattails() {
+	private static void generateCattails() {
 		BiomeModifications.create(WWConstants.id("cattail_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -110,7 +156,49 @@ public final class WWAquaticGeneration {
 				});
 	}
 
-	public static void generateHydrothermalVent() {
+	private static void generateSeaAnemone() {
+		BiomeModifications.create(WWConstants.id("sea_anemone_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.seaAnemone) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_SPARSE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_RARE.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generateTubeWorms() {
+		BiomeModifications.create(WWConstants.id("tube_worm_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().aquaticGeneration.tubeWorm) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS_RARE.getKey());
+						}
+					}
+				});
+	}
+
+	private static void generateHydrothermalVent() {
 		BiomeModifications.create(WWConstants.id("hydrothermal_vent_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
@@ -136,46 +224,19 @@ public final class WWAquaticGeneration {
 				});
 	}
 
-	public static void generateSeaAnemone() {
-		BiomeModifications.create(WWConstants.id("sea_anemone_generation"))
+	private static void generateMoss() {
+		BiomeModifications.create(WWConstants.id("ocean_moss_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().aquaticGeneration.seaAnemone) {
+					if (WWWorldgenConfig.get().aquaticGeneration.oceanMossGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_SPARSE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_RARE.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWAquaticPlaced.OCEAN_MOSS.getKey());
 						}
 					}
-				});
-	}
-
-	public static void generateTubeWorms() {
-		BiomeModifications.create(WWConstants.id("tube_worm_generation"))
-			.add(ModificationPhase.ADDITIONS,
-				BiomeSelectors.all(),
-				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().aquaticGeneration.tubeWorm) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS_RARE.getKey());
-						}
-					}
-				});
+			});
 	}
 
 }

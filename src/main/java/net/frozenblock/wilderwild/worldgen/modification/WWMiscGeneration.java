@@ -68,123 +68,16 @@ public final class WWMiscGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().surfaceDecoration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					WWWorldgenConfig.SurfaceDecoration surfaceDecoration = WWWorldgenConfig.get().surfaceDecoration;
+
+					if (surfaceDecoration.coarseDecoration) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_COARSE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_RARE.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_GRAVEL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_RARE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_STONE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_PATH_RARE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FOREST_ROCK_TAIGA.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PATH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MOSS_PATH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWAquaticPlaced.OCEAN_MOSS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ORE_PACKED_MUD.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLAY_PATH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_SAND)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_SAND)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND_HUGE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_RED_SAND)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_RED_SAND)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND_HUGE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SANDSTONE_PATH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SANDSTONE_PATH.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS_RARE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_LAKE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MOSS_LAKE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_LAKE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MOSS_LAKE_RARE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_BASIN)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_MOSS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PODZOL_BASIN)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_PODZOL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_CARPET)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MOSS_CARPET.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PILE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MOSS_PILE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_BASIN)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_MUD.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_LAKE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MUD_LAKE.getKey());
 						}
 
 						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.MIXED_FOREST)) {
@@ -207,28 +100,53 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_10.getKey());
 						}
 
-						if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.SNOW_PILE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH_CLEARING.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_CLEARING)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)) {
-							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE_RARE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
+						}
+					}
+
+					if (surfaceDecoration.mudDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.packedMudDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ORE_PACKED_MUD.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
+						}
+					}
+
+					if (surfaceDecoration.gravelDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_GRAVEL)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_RARE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.stoneDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_STONE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_PATH_RARE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_COMMON)) {
@@ -242,25 +160,111 @@ public final class WWMiscGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_RARE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 						}
+					}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_TRANSITION_DISK.getKey());
+					if (surfaceDecoration.mossDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PATH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MOSS_PATH.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_CARPET)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MOSS_CARPET.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MOSS_PILE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.scorchedSandDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_SAND)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND_HUGE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.scorchedRedSandDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_RED_SAND)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND_HUGE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.sandstoneDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SANDSTONE_PATH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SANDSTONE_PATH.getKey());
+						}
+					}
+
+					if (surfaceDecoration.clayDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLAY_PATH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());
+						}
+					}
+
+					if (surfaceDecoration.clearingDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH_CLEARING.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_CLEARING)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)) {
+							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
+						}
+					}
+
+					if (surfaceDecoration.taigaBoulders) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FOREST_ROCK_TAIGA.getKey());
+						}
+					}
+
+					if (surfaceDecoration.snowPiles) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNOW_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.SNOW_PILE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.fragileIceDecoration) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
 						}
 					}
-				});
+
+					if (surfaceDecoration.icicleDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE_WG.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ICICLES_SURFACE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.lakes) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_LAKE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MUD_LAKE.getKey());
+						}
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_LAKE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MOSS_LAKE.getKey());
+						}
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_LAKE_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.MOSS_LAKE_RARE.getKey());
+						}
+					}
+
+					if (surfaceDecoration.basins) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_BASIN)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_MOSS.getKey());
+						}
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PODZOL_BASIN)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_PODZOL.getKey());
+						}
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_BASIN)) {
+							generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_MUD.getKey());
+						}
+					}
+			});
 
 		BiomeModifications.create(WWConstants.id("surface_transitions"))
 			.add(ModificationPhase.ADDITIONS,
@@ -286,6 +290,12 @@ public final class WWMiscGeneration {
 					if (transitionGeneration.redSandTransitions) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_SAND_TRANSITION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.RED_SAND_TRANSITION.getKey());
+						}
+					}
+
+					if (transitionGeneration.coarseTransitions) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_TRANSITION_DISK.getKey());
 						}
 					}
 
