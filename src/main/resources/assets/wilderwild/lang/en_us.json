@@ -329,6 +329,10 @@
   "item.wilderwild.prickly_pear": "Prickly Pear",
   "death.attack.prickly_pear": "%1$s shoved spikes in their mouth",
 
+  "block.wilderwild.red_moss_block": "Red Moss Block",
+  "block.wilderwild.red_moss_carpet": "Red Moss Carpet",
+  "block.wilderwild.creeping_red_moss": "Creeping Red Moss",
+
   "block.wilderwild.sea_anemone": "Sea Anemone",
   "block.wilderwild.sea_whip": "Sea Whip",
 

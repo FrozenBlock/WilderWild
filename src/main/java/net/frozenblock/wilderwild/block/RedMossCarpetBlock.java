@@ -24,10 +24,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.MultifaceSpreader;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,26 +32,21 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
+public class RedMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<RedMossCarpetBlock> CODEC = simpleCodec(RedMossCarpetBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public BarnaclesBlock(@NotNull Properties settings) {
+	public RedMossCarpetBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends BarnaclesBlock> codec() {
+	public MapCodec<? extends RedMossCarpetBlock> codec() {
 		return CODEC;
-	}
-
-	@Override
-	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-		return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
 	}
 
 	@Override
@@ -63,6 +55,13 @@ public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedB
 	) {
 		if (blockState.getValue(WATERLOGGED)) levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 		return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
+	}
+
+	@Override
+	public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+		BlockState state = super.getStateForPlacement(blockPlaceContext);
+		if (state != null) return state.setValue(WATERLOGGED, blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos()).getType() == Fluids.WATER);
+		return state;
 	}
 
 	@Override
@@ -76,15 +75,7 @@ public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedB
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED);
 	}
-
-	@Override
-	@NotNull
-	public MultifaceSpreader getSpreader() {
-		return this.spreader;
-	}
-
 }

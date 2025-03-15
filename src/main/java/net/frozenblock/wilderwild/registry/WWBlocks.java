@@ -44,6 +44,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
+import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
@@ -67,6 +68,8 @@ import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
+import net.frozenblock.wilderwild.block.RedMossBlock;
+import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
@@ -721,6 +724,30 @@ public final class WWBlocks {
 			.noCollission()
 			.randomTicks()
 			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final RedMossBlock RED_MOSS_BLOCK = new RedMossBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.strength(0.1F)
+			.sound(SoundType.MOSS)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final RedMossCarpetBlock RED_MOSS_CARPET = new RedMossCarpetBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.strength(0.1F)
+			.sound(SoundType.MOSS_CARPET)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final CreepingRedMossBlock CREEPING_RED_MOSS = new CreepingRedMossBlock(
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.forceSolidOn()
+			.noCollission()
+			.strength(0.1F)
+			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1611,6 +1638,10 @@ public final class WWBlocks {
 		registerBlockAfter(SEA_WHIP, "tube_worms", TUBE_WORMS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
+
+		registerBlockAfter(Blocks.MOSS_CARPET, "red_moss_block", RED_MOSS_BLOCK, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(RED_MOSS_BLOCK, "red_moss_carpet", RED_MOSS_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(RED_MOSS_CARPET, "creeping_red_moss", CREEPING_RED_MOSS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
