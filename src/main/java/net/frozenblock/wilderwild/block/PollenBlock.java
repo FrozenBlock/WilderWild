@@ -43,7 +43,7 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -10;
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 7;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 7;
-	private final MultifaceSpreader spreader = new MultifaceSpreader(new FlowerLichenSpreaderConfig());
+	private final MultifaceSpreader spreader = new MultifaceSpreader(new PollenSpreaderConfig());
 
 	public PollenBlock(@NotNull Properties settings) {
 		super(settings);
@@ -125,8 +125,8 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 		return this.spreader;
 	}
 
-	public class FlowerLichenSpreaderConfig extends MultifaceSpreader.DefaultSpreaderConfig {
-		public FlowerLichenSpreaderConfig() {
+	public class PollenSpreaderConfig extends MultifaceSpreader.DefaultSpreaderConfig {
+		public PollenSpreaderConfig() {
 			super(PollenBlock.this);
 		}
 

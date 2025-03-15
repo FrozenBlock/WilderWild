@@ -51,7 +51,7 @@ val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
 val fallingleaves_version: String by project
-val naturesspirit_version: String by project
+val particlerain_version: String by project
 
 val sodium_version: String by project
 val run_sodium: String by project
@@ -213,10 +213,7 @@ dependencies {
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
-    modCompileOnly("maven.modrinth:particle-rain:2.1.4")
-
-    // Nature's Spirit
-    modCompileOnly("maven.modrinth:natures-spirit:${naturesspirit_version}")
+    modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
 
     // Sodium
     if (shouldRunSodium)

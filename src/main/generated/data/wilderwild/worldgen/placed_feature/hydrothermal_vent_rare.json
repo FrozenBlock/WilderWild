@@ -1,0 +1,32 @@
+{
+  "feature": "wilderwild:hydrothermal_vent",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 72
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR_WG"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:water"
+      }
+    },
+    {
+      "type": "minecraft:surface_relative_threshold_filter",
+      "heightmap": "MOTION_BLOCKING_NO_LEAVES",
+      "max_inclusive": -9,
+      "min_inclusive": -256
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

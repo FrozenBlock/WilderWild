@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:stony_shore",
+    "minecraft:mangrove_swamp",
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean"
+  ]
+}

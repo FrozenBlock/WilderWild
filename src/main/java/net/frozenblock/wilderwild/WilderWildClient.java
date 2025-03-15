@@ -23,7 +23,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
@@ -36,17 +39,22 @@ import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.WilderEasterEggs;
 import net.frozenblock.wilderwild.client.renderer.debug.OstrichDebugRenderer;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer("wilderwild");
+
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
 		WWBlockRenderLayers.init();
@@ -58,6 +66,14 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		WWClientNetworking.registerPacketReceivers();
 		WilderEasterEggs.hatchEasterEggs();
+
+		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
+			ResourceManagerHelper.registerBuiltinResourcePack(
+				WWConstants.id("wilder_extra_music"), modContainer.get(),
+				Component.translatable("pack.wilderwild.wilder_extra_music"),
+				ResourcePackActivationType.ALWAYS_ENABLED
+			);
+		}
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "wilderwild:sea_whip_feature",
+        "config": {}
+      },
+      "placement": []
+    },
+    "tries": 4,
+    "xz_spread": 6,
+    "y_spread": 3
+  }
+}

@@ -30,6 +30,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -134,6 +136,16 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		super.fallOn(level, blockState, blockPos, entity, fallDistance);
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
 			if (fallDistance >= 4F) level.destroyBlock(blockPos, false);
+		}
+	}
+
+	@Override
+	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
+		if (!projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) {
+			double velocity = projectile.getDeltaMovement().length();
+			if (velocity >= 1.6D) {
+				level.destroyBlock(blockHitResult.getBlockPos(), false);
+			}
 		}
 	}
 

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "wilderwild:sea_anemone_feature",
+        "config": {
+          "state": {
+            "Name": "wilderwild:sea_anemone",
+            "Properties": {
+              "glowing": "false"
+            }
+          }
+        }
+      },
+      "placement": []
+    },
+    "tries": 12,
+    "xz_spread": 6,
+    "y_spread": 3
+  }
+}

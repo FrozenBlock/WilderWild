@@ -34,11 +34,40 @@ public final class WWLootTables {
 
 	public static void init() {
 		WWConstants.logWithModId("Registering Loot Table Modifications for", WWConstants.UNSTABLE_LOGGING);
-		//ALGAE
+		//SHIPWRECK
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.ALGAE.asItem()).setWeight(5).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(
+						LootItem.lootTableItem(WWBlocks.ALGAE.asItem())
+						.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
+						.setWeight(4)
+						.setQuality(Rarity.COMMON.ordinal() + 1)
+					).add(
+						LootItem.lootTableItem(WWBlocks.PLANKTON.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+							.setWeight(1)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+					)
+					.add(
+						LootItem.lootTableItem(WWBlocks.BARNACLES.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+							.setWeight(3)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+					)
+					.add(
+						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.setWeight(1)
+							.setQuality(Rarity.UNCOMMON.ordinal() + 1)
+					)
+					.add(
+						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 6F)))
+							.setWeight(2)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+					)
+					.setRolls(UniformGenerator.between(2, 5));
 
 				tableBuilder.withPool(pool);
 			}
@@ -47,7 +76,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -56,7 +86,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -65,7 +96,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -74,7 +106,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -83,7 +116,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 5.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)));
 
 				tableBuilder.withPool(pool);
 			}
@@ -92,7 +126,8 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)));
+					.add(LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)));
 
 				tableBuilder.withPool(pool);
 			}

@@ -3,7 +3,7 @@
     "minecraft:plains",
     "minecraft:meadow",
     {
-      "id": "wilderwild:autumnal_plains",
+      "id": "wilderwild:tundra",
       "required": false
     }
   ]

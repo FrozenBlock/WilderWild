@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "wilderwild:dying_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:dying_mixed_forest",
+      "required": false
+    }
+  ]
+}

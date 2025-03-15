@@ -35,7 +35,6 @@ public class WWOverworldRegion extends Region {
 
 	@Override
 	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
-		});
+		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
 	}
 }

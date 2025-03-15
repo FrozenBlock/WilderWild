@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:combo",
+  "config": {
+    "features": [
+      {
+        "feature": "wilderwild:hydrothermal_vent",
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "minecraft:random_patch",
+          "config": {
+            "feature": {
+              "feature": {
+                "type": "wilderwild:tube_worms_feature",
+                "config": {}
+              },
+              "placement": []
+            },
+            "tries": 33,
+            "xz_spread": 5,
+            "y_spread": 4
+          }
+        },
+        "placement": []
+      }
+    ]
+  }
+}

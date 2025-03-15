@@ -36,7 +36,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -73,23 +72,21 @@ public class FluidRendererMixin {
 		method = "render",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/DefaultFluidRenderer;isFluidOccluded(Lnet/minecraft/world/level/BlockAndTintGetter;IIILnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/Fluid;)Z"
+			target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/compile/pipeline/DefaultFluidRenderer;isFullBlockFluidOccluded(Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Z"
 		),
 		require = 0
 	)
 	private boolean wilderWild$isMesoglea(
 		DefaultFluidRenderer instance,
-		BlockAndTintGetter world,
-		int x,
-		int y,
-		int z,
-		Direction dir,
+		BlockAndTintGetter level,
+		BlockPos blockPos,
+		Direction direction,
 		BlockState blockState,
-		Fluid fluid,
+		FluidState fluidState,
 		Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
 		if (isMesoglea.get()) return true;
-		return original.call(instance, world, x, y, z, dir, blockState, fluid);
+		return original.call(instance, level, blockPos, direction, blockState, fluidState);
 	}
 }

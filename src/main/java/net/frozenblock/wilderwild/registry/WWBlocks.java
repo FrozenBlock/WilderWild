@@ -36,6 +36,7 @@ import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
 import net.frozenblock.wilderwild.block.BaobabLeavesBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -61,17 +62,21 @@ import net.frozenblock.wilderwild.block.PaleMushroomBlock;
 import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PenguinEggBlock;
+import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
+import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
+import net.frozenblock.wilderwild.block.SeaWhipBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
+import net.frozenblock.wilderwild.block.TubeWormsBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
@@ -267,7 +272,7 @@ public final class WWBlocks {
 
 	public static final CoconutBlock COCONUT = registerWithoutItem("coconut",
 		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
-		Properties.of().instabreak().randomTicks().sound(WWSoundTypes.COCONUT)
+		Properties.of().instabreak().randomTicks().sound(SoundType.STONE)
 	);
 	public static final Block POTTED_COCONUT = registerWithoutItem("potted_coconut",
 		properties -> new FlowerPotBlock(COCONUT, properties),
@@ -801,6 +806,17 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.ALGAE)
 	);
 
+	public static final PlanktonBlock PLANKTON = registerWithoutItem("plankton",
+		PlanktonBlock::new,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.FROGSPAWN)
+			.mapColor(MapColor.COLOR_LIGHT_BLUE)
+			.randomTicks()
+			.requiresCorrectToolForDrops()
+			.lightLevel(state -> PlanktonBlock.isGlowing(state) ? PlanktonBlock.LIGHT_LEVEL : 0)
+			.emissiveRendering((state, level, pos) -> PlanktonBlock.isGlowing(state))
+			.sound(WWSoundTypes.ALGAE)
+	);
+
 	public static final WilderBushBlock BUSH = register("bush",
 		WilderBushBlock::new,
 		Properties.ofFullCopy(Blocks.DEAD_BUSH)
@@ -989,6 +1005,49 @@ public final class WWBlocks {
 			.noCollission()
 			.noOcclusion()
 			.sound(SoundType.SPONGE)
+	);
+	public static final BarnaclesBlock BARNACLES = register("barnacles",
+		BarnaclesBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.TERRACOTTA_WHITE)
+			.strength(0.5F)
+			.forceSolidOn()
+			.noCollission()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final SeaAnemoneBlock SEA_ANEMONE = register("sea_anemone",
+		SeaAnemoneBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WATER)
+			.instabreak()
+			.noCollission()
+			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
+			.randomTicks()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final SeaWhipBlock SEA_WHIP = register("sea_whip",
+		SeaWhipBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WATER)
+			.instabreak()
+			.noCollission()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final TubeWormsBlock TUBE_WORMS = register("tube_worms",
+		TubeWormsBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WATER)
+			.strength(0.2F)
+			.noCollission()
+			.randomTicks()
+			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
 	);
 
 	public static final OstrichEggBlock OSTRICH_EGG = register("ostrich_egg",
@@ -2001,6 +2060,7 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PLANKTON, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BUSH, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);

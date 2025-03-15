@@ -54,7 +54,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class SnowyDyingMixedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
-	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.505F, -0.495F);
+	public static final Climate.Parameter TEMPERATURE_TUNDRA = Climate.Parameter.span(-0.505F, -0.495F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.155F);
 	public static final Climate.Parameter HUMIDITY_MAPLE = Climate.Parameter.span(-1F, 0.105F);
@@ -176,13 +176,13 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
-			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				boolean weird = FrozenBiomeParameters.isWeird(point);
 				this.addSurfaceBiome(
 					parameters,
-					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
+					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
 					weird ? HUMIDITY_WEIRD : HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
@@ -190,10 +190,10 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 					point.offset()
 				);
 			}
-			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest || generateAutumnalPlains) {
+			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest || generateTundra) {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE_AUTUMNAL_PLAINS,
+					TEMPERATURE_TUNDRA,
 					HUMIDITY_MAPLE,
 					CONTINENTALNESS_MAPLE,
 					EROSION_MAPLE,

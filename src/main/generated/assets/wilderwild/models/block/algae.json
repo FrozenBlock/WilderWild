@@ -1,0 +1,6 @@
+{
+  "parent": "wilderwild:block/template_algae",
+  "textures": {
+    "texture": "wilderwild:block/algae"
+  }
+}

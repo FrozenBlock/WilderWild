@@ -1,0 +1,7 @@
+{
+  "parent": "wilderwild:block/template_sea_anemone",
+  "textures": {
+    "stem": "wilderwild:block/sea_anemone_stem",
+    "top": "wilderwild:block/sea_anemone_top"
+  }
+}

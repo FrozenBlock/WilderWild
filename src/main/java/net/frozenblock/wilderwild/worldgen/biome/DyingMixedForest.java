@@ -51,10 +51,10 @@ import org.jetbrains.annotations.Nullable;
 
 public final class DyingMixedForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.255F);
-	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.255F);
+	public static final Climate.Parameter TEMPERATURE_TUNDRA = Climate.Parameter.span(-0.495F, -0.255F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
 	public static final Climate.Parameter TEMPERATURE_WEIRD = Climate.Parameter.span(-0.465F, -0.425F);
-	public static final Climate.Parameter TEMPERATURE_WEIRD_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.425F);
+	public static final Climate.Parameter TEMPERATURE_WEIRD_TUNDRA = Climate.Parameter.span(-0.495F, -0.425F);
 	public static final Climate.Parameter HUMIDITY_WEIRD = Climate.Parameter.span(-0.105F, 0.100F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.55F;
@@ -168,13 +168,13 @@ public final class DyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
-			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				boolean weird = point.weirdness().max() < 0L;
 				this.addSurfaceBiome(
 					parameters,
-					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
+					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
 					HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
@@ -184,7 +184,7 @@ public final class DyingMixedForest extends FrozenBiome {
 				if (weird) {
 					this.addSurfaceBiome(
 						parameters,
-						generateAutumnalPlains ? TEMPERATURE_WEIRD_AUTUMNAL_PLAINS : TEMPERATURE_WEIRD,
+						generateTundra ? TEMPERATURE_WEIRD_TUNDRA : TEMPERATURE_WEIRD,
 						HUMIDITY_WEIRD,
 						point.continentalness(),
 						point.erosion(),
