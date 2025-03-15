@@ -74,6 +74,9 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS = register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS_RARE = register("hydrothermal_vent_tube_worms_rare");
 	public static final FrozenLibPlacedFeature OCEAN_MOSS = WWPlacementUtils.register("ocean_moss");
+	public static final FrozenLibPlacedFeature RED_MOSS_UNDERWATER = WWPlacementUtils.register("red_moss_underwater");
+	public static final FrozenLibPlacedFeature RED_MOSS_UNDERWATER_RARE = WWPlacementUtils.register("red_moss_underwater_rare");
+	public static final FrozenLibPlacedFeature CREEPING_RED_MOSS_UNDERWATER = WWPlacementUtils.register("creeping_red_moss_underwater");
 
 	private WWAquaticPlaced() {
 		throw new UnsupportedOperationException("WWAquaticPlaced contains only static declarations.");
@@ -289,6 +292,27 @@ public final class WWAquaticPlaced {
 		);
 
 		OCEAN_MOSS.makeAndSetHolder(WWAquaticConfigured.OCEAN_MOSS.getHolder(),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		RED_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.RED_MOSS_UNDERWATER.getHolder(),
+			RarityFilter.onAverageOnceEvery(22),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		RED_MOSS_UNDERWATER_RARE.makeAndSetHolder(WWAquaticConfigured.RED_MOSS_UNDERWATER.getHolder(),
+			RarityFilter.onAverageOnceEvery(52),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		CREEPING_RED_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.CREEPING_RED_MOSS_PATCH_UNDERWATER.getHolder(),
+			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()

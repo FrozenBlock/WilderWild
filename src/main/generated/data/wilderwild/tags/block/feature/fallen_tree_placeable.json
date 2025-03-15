@@ -16,6 +16,7 @@
     "minecraft:clay",
     "minecraft:moss_block",
     "minecraft:packed_mud",
-    "minecraft:snow"
+    "minecraft:snow",
+    "wilderwild:red_moss_block"
   ]
 }

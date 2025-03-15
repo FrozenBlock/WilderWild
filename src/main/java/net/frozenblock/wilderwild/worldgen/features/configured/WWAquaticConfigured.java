@@ -27,6 +27,8 @@ import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
+import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -35,24 +37,31 @@ import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.regist
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import java.util.List;
@@ -78,6 +87,11 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> OCEAN_MOSS = register("ocean_moss");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION_UNDERWATER = register("red_moss_vegetation_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_UNDERWATER = register("red_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS_UNDERWATER = register("red_moss_underwater");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CREEPING_RED_MOSS_PATCH_UNDERWATER = register("creeping_red_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL_UNDERWATER = register("red_moss_patch_bonemeal_underwater");
 
 	private WWAquaticConfigured() {
 		throw new UnsupportedOperationException("WWAquaticConfigured contains only static declarations.");
@@ -331,6 +345,119 @@ public final class WWAquaticConfigured {
 							.build()
 					).build(),
 				12
+			)
+		);
+
+		RED_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				new WeightedStateProvider(
+					SimpleWeightedRandomList.<BlockState>builder()
+						.add(WWBlocks.CREEPING_RED_MOSS.defaultBlockState()
+								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
+								.setValue(CreepingRedMossBlock.WATERLOGGED, true),
+							3
+						)
+						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState().setValue(RedMossCarpetBlock.WATERLOGGED, true), 1)
+						.add(WWBlocks.SEA_WHIP.defaultBlockState(), 1)
+				)
+			)
+		);
+
+		RED_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
+			new VegetationPatchConfiguration(
+				WWBlockTags.RED_MOSS_REPLACEABLE,
+				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.55F
+			)
+		);
+
+		RED_MOSS_UNDERWATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								4,
+								6,
+								3,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+							)
+						),
+						0.5F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								5,
+								6,
+								4,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+							)
+						),
+						0.35F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								3,
+								3,
+								2,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+							)
+						),
+						0.5F
+					)
+				),
+				PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+			)
+		);
+
+		CREEPING_RED_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				38,
+				6,
+				4,
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.CREEPING_RED_MOSS,
+						10,
+						true,
+						true,
+						true,
+						0.7F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK.holderOwner(),
+							WWBlockTags.CREEPING_RED_MOSS_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+				)
+			)
+		);
+
+		RED_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
+			new VegetationPatchConfiguration(
+				WWBlockTags.RED_MOSS_REPLACEABLE,
+				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.75F
 			)
 		);
 	}

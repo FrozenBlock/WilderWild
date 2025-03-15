@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:vegetation_patch_with_edge_decoration",
+  "type": "frozenlib:underwater_vegetation_patch_with_edge_decoration",
   "config": {
     "depth": 1,
     "extra_bottom_block_chance": 0.0,
@@ -14,7 +14,7 @@
     "surface": "floor",
     "vegetation_chance": 0.475,
     "vegetation_feature": {
-      "feature": "wilderwild:red_moss_vegetation",
+      "feature": "wilderwild:red_moss_vegetation_underwater",
       "placement": []
     },
     "vertical_range": 5,

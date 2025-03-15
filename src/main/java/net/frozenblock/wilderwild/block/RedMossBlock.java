@@ -19,17 +19,21 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.worldgen.features.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
 public class RedMossBlock extends Block implements BonemealableBlock {
@@ -46,7 +50,8 @@ public class RedMossBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader levelReader, @NotNull BlockPos blockPos, BlockState blockState) {
-		return levelReader.getBlockState(blockPos.above()).isAir();
+		BlockState aboveState = levelReader.getBlockState(blockPos.above());
+		return aboveState.isAir() || aboveState.is(Blocks.WATER);
 	}
 
 	@Override
@@ -55,13 +60,15 @@ public class RedMossBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public void performBonemeal(@NotNull ServerLevel serverLevel, RandomSource randomSource, @NotNull BlockPos blockPos, BlockState blockState) {
+		BlockPos abovePos = blockPos.above();
+		ResourceKey<ConfiguredFeature<?, ?>> featureKey = serverLevel.getBlockState(abovePos).is(Blocks.WATER)
+			? WWAquaticConfigured.RED_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.RED_MOSS_PATCH_BONEMEAL.getKey();
+
 		serverLevel.registryAccess()
 			.registry(Registries.CONFIGURED_FEATURE)
-			.flatMap(registry -> registry.getHolder(WWMiscConfigured.RED_MOSS_PATCH_BONEMEAL.getKey()))
-			.ifPresent(
-				reference -> reference.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), randomSource, blockPos.above())
-			);
+			.flatMap(registry -> registry.getHolder(featureKey))
+			.ifPresent(reference -> reference.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), randomSource, abovePos));
 	}
 
 	@Override

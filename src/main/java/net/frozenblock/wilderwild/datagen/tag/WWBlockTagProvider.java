@@ -305,6 +305,23 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
+		this.getOrCreateTagBuilder(WWBlockTags.CREEPING_RED_MOSS_FEATURE_PLACEABLE)
+			.add(Blocks.PRISMARINE)
+			.add(Blocks.PRISMARINE_BRICKS)
+			.add(Blocks.DARK_PRISMARINE)
+			.add(Blocks.SEA_LANTERN)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.STONE_BRICKS)
+			.addOptionalTag(BlockTags.LOGS)
+			.addOptionalTag(BlockTags.PLANKS)
+			.addOptionalTag(BlockTags.SLABS)
+			.addOptionalTag(BlockTags.STAIRS)
+			.addOptionalTag(BlockTags.DOORS)
+			.addOptionalTag(BlockTags.TRAPDOORS)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
 		this.getOrCreateTagBuilder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE)
 			.add(Blocks.PRISMARINE)
 			.add(Blocks.PRISMARINE_BRICKS)
@@ -443,7 +460,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.CLAY)
 			.add(Blocks.MOSS_BLOCK)
 			.add(Blocks.PACKED_MUD)
-			.add(Blocks.SNOW);
+			.add(Blocks.SNOW)
+			.add(WWBlocks.RED_MOSS_BLOCK);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PACKED_MUD_REPLACEABLE)
 			.add(Blocks.STONE)
@@ -457,13 +475,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SPONGE)
 			.add(Blocks.CLAY)
 			.add(Blocks.MOSS_BLOCK)
+			.add(WWBlocks.RED_MOSS_BLOCK)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BASIN_REPLACEABLE)
 			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.COARSE_DIRT)
 			.add(Blocks.PODZOL)
-			.add(Blocks.MOSS_BLOCK);
+			.add(Blocks.MOSS_BLOCK)
+			.add(WWBlocks.RED_MOSS_BLOCK);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
 			.add(Blocks.CLAY)
@@ -1077,7 +1097,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FRAGILE_ICE);
 
 		this.getOrCreateTagBuilder(BlockTags.UNDERWATER_BONEMEALS)
-			.add(WWBlocks.SEA_ANEMONE);
+			.add(WWBlocks.SEA_ANEMONE)
+			.add(WWBlocks.RED_MOSS_BLOCK)
+			.add(WWBlocks.CREEPING_RED_MOSS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlocks.MYCELIUM_GROWTH)

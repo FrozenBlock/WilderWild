@@ -21,9 +21,11 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -55,6 +57,15 @@ public class RedMossCarpetBlock extends CarpetBlock implements SimpleWaterlogged
 	) {
 		if (blockState.getValue(WATERLOGGED)) levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 		return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
+	}
+
+	@Override
+	public boolean canSurvive(BlockState blockState, @NotNull LevelReader levelReader, @NotNull BlockPos blockPos) {
+		boolean canSurvive = super.canSurvive(blockState, levelReader, blockPos);
+		if (blockState.getValue(WATERLOGGED)) {
+			return canSurvive && !levelReader.getFluidState(blockPos.below()).is(FluidTags.WATER);
+		}
+		return canSurvive;
 	}
 
 	@Override

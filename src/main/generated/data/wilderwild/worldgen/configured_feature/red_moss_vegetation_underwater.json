@@ -13,7 +13,7 @@
               "north": "false",
               "south": "false",
               "up": "false",
-              "waterlogged": "false",
+              "waterlogged": "true",
               "west": "false"
             }
           },
@@ -23,8 +23,14 @@
           "data": {
             "Name": "wilderwild:red_moss_carpet",
             "Properties": {
-              "waterlogged": "false"
+              "waterlogged": "true"
             }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:sea_whip"
           },
           "weight": 1
         }

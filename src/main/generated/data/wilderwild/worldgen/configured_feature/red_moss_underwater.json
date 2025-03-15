@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "wilderwild:red_moss_patch_underwater",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": {
+            "type": "minecraft:random_patch",
+            "config": {
+              "feature": {
+                "feature": "wilderwild:red_moss_patch_underwater",
+                "placement": []
+              },
+              "tries": 4,
+              "xz_spread": 6,
+              "y_spread": 3
+            }
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.35,
+        "feature": {
+          "feature": {
+            "type": "minecraft:random_patch",
+            "config": {
+              "feature": {
+                "feature": "wilderwild:red_moss_patch_underwater",
+                "placement": []
+              },
+              "tries": 5,
+              "xz_spread": 6,
+              "y_spread": 4
+            }
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": {
+            "type": "minecraft:random_patch",
+            "config": {
+              "feature": {
+                "feature": "wilderwild:red_moss_patch_underwater",
+                "placement": []
+              },
+              "tries": 3,
+              "xz_spread": 3,
+              "y_spread": 2
+            }
+          },
+          "placement": []
+        }
+      }
+    ]
+  }
+}

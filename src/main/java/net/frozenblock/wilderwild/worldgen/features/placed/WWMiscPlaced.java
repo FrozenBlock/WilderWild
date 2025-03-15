@@ -142,6 +142,10 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE_RARE = WWPlacementUtils.register("stone_disk_and_pile_rare");
 	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = WWPlacementUtils.register("coarse_dirt_transition_disk");
 
+	// RED MOSS
+	public static final FrozenLibPlacedFeature RED_MOSS = WWPlacementUtils.register("red_moss");
+	public static final FrozenLibPlacedFeature CREEPING_RED_MOSS = WWPlacementUtils.register("creeping_red_moss");
+
 	// SNOW
 	public static final FrozenLibPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
 	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
@@ -612,6 +616,22 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		// RED MOSS
+
+		RED_MOSS.makeAndSetHolder(WWMiscConfigured.RED_MOSS.getHolder(),
+			RarityFilter.onAverageOnceEvery(24),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		CREEPING_RED_MOSS.makeAndSetHolder(WWMiscConfigured.CREEPING_RED_MOSS_PATCH.getHolder(),
+			RarityFilter.onAverageOnceEvery(17),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
