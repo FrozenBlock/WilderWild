@@ -21,7 +21,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.biome.AridForest;
 import net.frozenblock.wilderwild.worldgen.biome.AridSavanna;
-import net.frozenblock.wilderwild.worldgen.biome.AutumnalPlains;
+import net.frozenblock.wilderwild.worldgen.biome.Tundra;
 import net.frozenblock.wilderwild.worldgen.biome.BirchJungle;
 import net.frozenblock.wilderwild.worldgen.biome.BirchTaiga;
 import net.frozenblock.wilderwild.worldgen.biome.CypressWetlands;
@@ -83,8 +83,8 @@ public final class WWBiomes {
 	public static final ResourceKey<Biome> DARK_TAIGA = DarkTaiga.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MIXED_FOREST = MixedForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SPARSE_FOREST = SparseForest.INSTANCE.getKey();
-	public static final ResourceKey<Biome> AUTUMNAL_PLAINS = AutumnalPlains.INSTANCE.getKey();
 	// COLD
+	public static final ResourceKey<Biome> TUNDRA = Tundra.INSTANCE.getKey();
 	public static final ResourceKey<Biome> DYING_FOREST = DyingForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_DYING_FOREST = SnowyDyingForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> DYING_MIXED_FOREST = DyingMixedForest.INSTANCE.getKey();
@@ -132,8 +132,8 @@ public final class WWBiomes {
 		register(context, DARK_TAIGA, DarkTaiga.INSTANCE.create(context));
 		register(context, MIXED_FOREST, MixedForest.INSTANCE.create(context));
 		register(context, SPARSE_FOREST, SparseForest.INSTANCE.create(context));
-		register(context, AUTUMNAL_PLAINS, AutumnalPlains.INSTANCE.create(context));
 		// COLD
+		register(context, TUNDRA, Tundra.INSTANCE.create(context));
 		register(context, DYING_FOREST, DyingForest.INSTANCE.create(context));
 		register(context, SNOWY_DYING_FOREST, SnowyDyingForest.INSTANCE.create(context));
 		register(context, DYING_MIXED_FOREST, DyingMixedForest.INSTANCE.create(context));

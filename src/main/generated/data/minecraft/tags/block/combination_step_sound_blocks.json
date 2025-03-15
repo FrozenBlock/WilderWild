@@ -4,6 +4,7 @@
       "id": "#wilderwild:leaf_litters",
       "required": false
     },
-    "wilderwild:pollen"
+    "wilderwild:pollen",
+    "wilderwild:barnacles"
   ]
 }

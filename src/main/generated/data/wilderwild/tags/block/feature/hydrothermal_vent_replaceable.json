@@ -1,0 +1,18 @@
+{
+  "values": [
+    "minecraft:clay",
+    "minecraft:gravel",
+    {
+      "id": "#minecraft:dirt",
+      "required": false
+    },
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    }
+  ]
+}

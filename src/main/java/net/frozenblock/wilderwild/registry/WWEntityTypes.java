@@ -53,6 +53,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.clientTrackingRange(5)
 	);
 
 	public static final EntityType<Butterfly> BUTTERFLY = register(
@@ -60,6 +61,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
+			.clientTrackingRange(5)
 	);
 
 	public static final EntityType<Jellyfish> JELLYFISH = register(
@@ -67,6 +69,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
+			.clientTrackingRange(10)
 	);
 
 	public static final EntityType<Tumbleweed> TUMBLEWEED = register(
@@ -78,7 +81,7 @@ public final class WWEntityTypes {
 
 	public static final EntityType<Crab> CRAB = register(
 		"crab",
-		EntityType.Builder.of(Crab::new, MobCategory.WATER_CREATURE)
+		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
 	);
@@ -88,6 +91,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
+			.clientTrackingRange(10)
 	);
 
 	public static final EntityType<Scorched> SCORCHED = register(
@@ -113,6 +117,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
+			.clientTrackingRange(10)
 			.immuneTo(Blocks.POWDER_SNOW)
 	);
 
@@ -120,8 +125,8 @@ public final class WWEntityTypes {
 		"coconut",
 		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
-			.clientTrackingRange(64)
-			.updateInterval(10)
+			.clientTrackingRange(4)
+			.updateInterval(20)
 	);
 
 	public static final EntityType<FallingLeafTicker> FALLING_LEAVES = register(

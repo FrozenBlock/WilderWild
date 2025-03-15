@@ -256,6 +256,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
+		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);

@@ -23,9 +23,11 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.impl.util.TrunkPlacerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -118,6 +120,8 @@ public class TrunkBranchPlacement {
 	) {
 		BlockPos.MutableBlockPos branchPos = startPos.mutable();
 		int totalLength = this.getBranchLength(random);
+		boolean hasPassedConfigCheck = false;
+
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(startPos, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
 
@@ -125,10 +129,13 @@ public class TrunkBranchPlacement {
 			if (canOffsetLog) branchPos.move(trunkDirection);
 
 			if (TreeFeature.validTreePos(level, branchPos)) {
-				replacer.accept(
-					branchPos,
-					TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random)
-				);
+				BlockState logState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
+				if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+					hasPassedConfigCheck = true;
+					replacer.accept(branchPos, logState);
+				} else {
+					return;
+				}
 			}
 		}
 	}
@@ -144,6 +151,8 @@ public class TrunkBranchPlacement {
 	) {
 		BlockPos.MutableBlockPos branchPos = startPos.mutable();
 		int totalLength = this.getBranchLength(random);
+		boolean hasPassedConfigCheck = false;
+
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(startPos, direction.getStepX() * length, 0, direction.getStepZ() * length);
 
@@ -152,15 +161,25 @@ public class TrunkBranchPlacement {
 			if (placeUpwards) branchPos.move(Direction.UP);
 
 			if (TreeFeature.validTreePos(level, branchPos)) {
-				replacer.accept(
-					branchPos,
-					TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, placeUpwards ? Direction.UP : direction, random)
-				);
-				if (isLastLog && this.canPlaceFoliage(random)) {
-					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), -this.getFoliageRadiusShrink(), false));
+				BlockState logState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
+				if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+					hasPassedConfigCheck = true;
+					replacer.accept(branchPos, logState);
+					if (isLastLog && this.canPlaceFoliage(random)) {
+						foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), -this.getFoliageRadiusShrink(), false));
+					}
+				} else {
+					return;
 				}
 			}
 		}
+	}
+
+	private static boolean verifyBranchMatchesConfig(BlockState logState) {
+		if (!WWWorldgenConfig.BIRCH_BRANCHES && logState.is(BlockTags.BIRCH_LOGS)) return false;
+		if (!WWWorldgenConfig.OAK_BRANCHES && logState.is(BlockTags.OAK_LOGS)) return false;
+		if (!WWWorldgenConfig.DARK_OAK_BRANCHES && logState.is(BlockTags.DARK_OAK_LOGS)) return false;
+		return true;
 	}
 
 	public static class Builder {

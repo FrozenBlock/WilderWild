@@ -48,6 +48,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.generateUtilityTags();
 		this.generateFeatureTags();
 		this.generateStructureTags();
+		this.generateMusicPoolTags();
 	}
 
 	@NotNull
@@ -106,7 +107,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
 			.addOptionalTag(WWBiomeTags.WILDER_WILD_BIOMES);
@@ -185,6 +186,68 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 	}
 
+	private void generateMusicPoolTags() {
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FOREST_MUSIC)
+			.addOptional(Biomes.FOREST)
+			.addOptional(Biomes.BIRCH_FOREST)
+			.addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC)
+			.addOptional(Biomes.FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LUSH_MUSIC)
+			.addOptional(Biomes.LUSH_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DRIPSTONE_MUSIC)
+			.addOptional(Biomes.DRIPSTONE_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CHERRY_MUSIC)
+			.addOptional(Biomes.CHERRY_GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GROVE_MUSIC)
+			.addOptional(Biomes.GROVE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JUNGLE_MUSIC)
+			.addOptional(Biomes.JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC)
+			.addOptional(Biomes.BAMBOO_JUNGLE);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC)
+			.addOptional(Biomes.SPARSE_JUNGLE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_MUSIC)
+			.addOptional(Biomes.SNOWY_TAIGA)
+			.addOptional(Biomes.SNOWY_PLAINS)
+			.addOptional(Biomes.SNOWY_BEACH)
+			.addOptional(Biomes.ICE_SPIKES)
+			.addOptional(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAPLE_MUSIC)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DYING_MUSIC)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_DYING_MUSIC)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MAGMATIC_MUSIC)
+			.addOptional(WWBiomes.MAGMATIC_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_MUSIC)
+			.addOptional(WWBiomes.FROZEN_CAVES);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MESOGLEA_MUSIC)
+			.addOptional(WWBiomes.MESOGLEA_CAVES);
+	}
+
 	private void generateClimateAndVegetationTags() {
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_HOT_OVERWORLD)
 			.addOptional(WWBiomes.OASIS)
@@ -217,7 +280,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_WET_OVERWORLD)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
@@ -416,7 +479,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COMMON_BUTTERFLY)
 			.add(Biomes.FLOWER_FOREST)
@@ -428,13 +491,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_RED_LACEWING)
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MARBLED)
 			.add(Biomes.MEADOW)
@@ -456,10 +519,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_DUSKWING)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_JELLYFISH)
 			.add(Biomes.WARM_OCEAN)
@@ -603,7 +666,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_BLUE_ORCHID)
 			.add(Biomes.FLOWER_FOREST)
@@ -623,7 +686,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_PASQUEFLOWER)
 			.add(Biomes.MEADOW)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CRAB)
 			.addOptional(WWBiomes.WARM_BEACH)
@@ -659,6 +722,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DESERT)
 			.add(Biomes.BADLANDS)
 			.add(Biomes.ERODED_BADLANDS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_BARNACLES_FROM_BONEMEAL)
+			.add(Biomes.STONY_SHORE)
+			.add(Biomes.MANGROVE_SWAMP)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
 
 		this.getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
@@ -950,7 +1021,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.PLAINS_GRASS)
 			.add(Biomes.PLAINS)
 			.add(Biomes.MEADOW)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HUGE_RED_MUSHROOM)
 			.add(Biomes.FOREST)
@@ -1003,11 +1074,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SWAMP);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPONGE_BUD)
-			.add(Biomes.WARM_OCEAN);
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPONGE_BUD_RARE)
 			.add(Biomes.LUKEWARM_OCEAN)
-			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.LUSH_CAVES);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CARNATION)
@@ -1033,7 +1104,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MARIGOLD_SPARSE)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PINK_TULIP_UNCOMMON)
 			.addOptional(WWBiomes.MAPLE_FOREST);
@@ -1111,6 +1182,57 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.SWAMP)
 			.add(Biomes.MANGROVE_SWAMP);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_COMMON)
+			.add(Biomes.STONY_SHORE);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_STRUCTURE)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES)
+			.add(Biomes.MANGROVE_SWAMP);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_SPARSE)
+			.add(Biomes.COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_RARE)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)
+			.add(Biomes.DEEP_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_ANEMONE_RARE)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_WHIP)
+			.add(Biomes.OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_WHIP_SPARSE)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEA_WHIP_RARE)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUBE_WORMS)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUBE_WORMS_RARE)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SEEDING_DANDELION)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1140,7 +1262,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FOREST)
 			.add(Biomes.DARK_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)
 			.add(Biomes.PLAINS);
@@ -1514,7 +1636,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_GENERIC_FLOWERS)
 			.add(Biomes.FOREST);
@@ -1526,8 +1648,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.PLAINS)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_AUTUMNAL_PLAINS_FLOWERS)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TUNDRA_FLOWERS)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BIRCH_FLOWERS)
 			.add(Biomes.BIRCH_FOREST)
@@ -1554,7 +1676,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_NEW_RARE_GRASS)
 			.add(Biomes.WINDSWEPT_FOREST)
@@ -1709,7 +1831,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FLOWER_FOREST)
 			.addOptional(WinterDropBiomes.PALE_GARDEN)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
 			.addOptional(WWBiomes.DYING_FOREST)
@@ -1870,11 +1992,22 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_NETHER_LAVA_GEYSER)
 			.add(Biomes.NETHER_WASTES);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HYDROTHERMAL_VENT)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_HYDROTHERMAL_VENT_RARE)
+			.add(Biomes.DEEP_OCEAN);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)
 			.add(Biomes.TAIGA)
 			.add(Biomes.SNOWY_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOW_PILE)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MOSS_PATH)
 			.add(Biomes.JUNGLE)
@@ -1905,6 +2038,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ALGAE)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PLANKTON)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MEADOW_SEAGRASS)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_OCEAN_MOSS)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_WATER_POOLS)
 			.add(Biomes.RIVER)
@@ -2003,7 +2145,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS);
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FROZEN_FOREST_GRASS)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)

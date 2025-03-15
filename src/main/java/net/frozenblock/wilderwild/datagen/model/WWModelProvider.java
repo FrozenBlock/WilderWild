@@ -114,8 +114,12 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
 
-		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
-
+		WWModelHelper.createAlgae(generator);
+		WWModelHelper.createPlankton(generator);
+		WWModelHelper.createSeaAnemone(generator, WWBlocks.SEA_ANEMONE);
+		WWModelHelper.createSeaWhip(generator);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BARNACLES);
+		WWModelHelper.createTubeWorms(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);

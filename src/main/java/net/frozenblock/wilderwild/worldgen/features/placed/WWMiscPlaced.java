@@ -152,14 +152,14 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = WWPlacementUtils.register("fragile_ice_disk_surface");
 
 	private WWMiscPlaced() {
-		throw new UnsupportedOperationException("WilderMiscPlaced contains only static declarations.");
+		throw new UnsupportedOperationException("WWMiscPlaced contains only static declarations.");
 	}
 
 	public static void registerMiscPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WWConstants.logWithModId("Registering WilderMiscPlaced for", true);
+		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
 
 		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH.getHolder(),
 			PlacementUtils.isEmpty()

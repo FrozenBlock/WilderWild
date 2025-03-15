@@ -6,6 +6,7 @@
     "wilderwild:milkweed",
     "wilderwild:bush",
     "wilderwild:pollen",
+    "wilderwild:barnacles",
     "wilderwild:wildflowers",
     "wilderwild:phlox",
     "wilderwild:lantanas",
@@ -14,6 +15,9 @@
     "wilderwild:frozen_tall_grass",
     "wilderwild:frozen_fern",
     "wilderwild:frozen_large_fern",
+    "wilderwild:sea_anemone",
+    "wilderwild:sea_whip",
+    "wilderwild:tube_worms",
     {
       "id": "#wilderwild:leaf_litters",
       "required": false

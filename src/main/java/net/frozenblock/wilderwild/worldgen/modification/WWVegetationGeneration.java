@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -36,7 +37,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().flowerGeneration) {
+					if (WWWorldgenConfig.get().vegetation.flowerGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CARNATION)) {
@@ -98,23 +99,7 @@ public final class WWVegetationGeneration {
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWERING_WATER_LILY)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FLOWERING_WATERLILY.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_UNCOMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_UNCOMMON.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_COMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_COMMON.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_MUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CATTAIL_MUD.getKey());
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_FLOWERING_WATERLILY.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEEDING_DANDELION)) {
@@ -131,14 +116,6 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.VERY_RARE_SEEDING_DANDELION.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS_SPARSE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS_SPARSE.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS)) {
@@ -194,7 +171,7 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_PLAINS.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUTUMNAL_PLAINS_FLOWERS)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUNDRA_FLOWERS)) {
 							generationSettings.removeFeature(VegetationPlacements.FOREST_FLOWERS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TUNDRA.getKey());
 						}
@@ -262,7 +239,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().bushGeneration) {
+					if (WWWorldgenConfig.get().vegetation.bushGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BUSH)) {
@@ -322,7 +299,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().cactusGeneration) {
+					if (WWWorldgenConfig.get().vegetation.cactusGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TALL_CACTUS)) {
@@ -344,31 +321,12 @@ public final class WWVegetationGeneration {
 				});
 	}
 
-	public static void generateAlgae() {
-		BiomeModifications.create(WWConstants.id("algae_generation"))
-			.add(ModificationPhase.ADDITIONS,
-				BiomeSelectors.all(),
-				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().algae) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE_SMALL)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_ALGAE_SMALL.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_ALGAE.getKey());
-						}
-					}
-				});
-	}
-
 	public static void generateGrass() {
 		BiomeModifications.create(WWConstants.id("tumbleweed_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().tumbleweed) {
+					if (WWWorldgenConfig.get().vegetation.tumbleweed) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUMBLEWEED_PLANT)) {
@@ -381,8 +339,16 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS_SPARSE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS_SPARSE.getKey());
+						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NEW_RARE_GRASS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.RARE_GRASS_PLACED.getKey());
@@ -428,7 +394,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FROZEN_FOREST_GRASS)) {
@@ -475,7 +441,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().mushroomGeneration) {
+					if (WWWorldgenConfig.get().vegetation.mushroomGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_RED_MUSHROOM)) {
@@ -528,6 +494,21 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MIXED_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MIXED_MUSHROOMS_PLACED.getKey());
+						}
+					}
+				});
+	}
+
+	public static void generatePumpkin() {
+		BiomeModifications.create(WWConstants.id("pumpkin_generation"))
+			.add(ModificationPhase.ADDITIONS,
+				BiomeSelectors.all(),
+				(biomeSelectionContext, context) -> {
+					if (WWWorldgenConfig.get().vegetation.pumpkin) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
 						}
 					}
 				});

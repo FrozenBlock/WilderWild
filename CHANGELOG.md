@@ -4,7 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Bumped Wilder Wild's protocol version to 12.
-- Added the Autumnal Plains biome.
+- Added the Tundra biome.
   - This biome generates near the colder regions of the world where Plains would be, before the snow takes over.
 - Revamped flower distribution and generation.
 - Added a new config option to disable Pollen generation.
@@ -86,7 +86,6 @@ hi
 - Mesoglea features no longer carve "fake caves," instead only generating in areas with Water or Air nearby.
 - Ostriches now drop up to 4 feathers on death.
 - Maple Forests can no longer generate Beta Beaches.
-- Removed the unique Crab spawn cap, using `water_creature` instead.
 - Jellyfish can now only track their attackers within a 4 block range, and forget them after 60 ticks.
   - This change was made to make Jellyfish more peaceful and realistic.
 - Mesoglea is now always "waterlogged," maaking it much easier for players to utilize it properly.
@@ -130,16 +129,72 @@ hi
   - Renamed `straight_with_logs_trunk_placer` to `straight_with_branches_trunk_placer.`
   - Renamed `fallen_with_logs_trunk_placer` to `fallen_with_branches_trunk_placer.`
 - Optimized Wilder Wild's worldgen.
+- Added Barnacles.
+  - Barnacles can be placed on multiple block faces, similar to Sculk Veins and Glow Lichens.
+  - Generates naturally most frequently in Stony Shores, Mangrove Swamp, Warm Ocean, and Lukewarm Ocean biomes.
+  - The biome tags `wilderwild:has_barnacles_common,` `wilderwild:has_barnacles,` `wilderwild:has_barnacles_sparse,` and `wilderwild:has_barnacles_rare` control the generation of Barnacles.
+    - The block tag `wilderwild:barnacles_feature_placeable` contains this the of blocks Barnacles can be placed on.
+  - The biome tags `wilderwild:has_barnacles_structure` dictate which biomes a special feature for placing Barnacles on structure-related blocks will generate in.
+    - The block tag `wilderwild:barnacles_feature_placeable_structure` contains this list of blocks.
+  - Drops without Silk Touch or Shears.
+  - Using bone meal underwater in biomes Barnacles can generate in has a chance to place Barnacles.
+- Player-placed Termite Mounds now only support a max of 3 Termite instances, much like naturally-generated Termite Mounds.
+- Moss now generates on the floor of Deep Lukewarm Oceans.
+- Seagrass now covers more of Deep Lukewarm Oceans, bringing them closer to real-world seagrass meadows.
+- Added Sea Anemone.
+  - Glows softly during daytime, giving the bottom of the oceans some light.
+  - Will stop glowing after becoming nighttime.
+  - Generates most frequently in Deep Lukewarm Oceans, but can sparsely be found in other Ocean Biomes.
+- Added Tube Worms.
+  - Generates rarely in most deep ocean biomes.
+  - Can be placed on top itself, similar to Kelp and Sugar Cane.
+- Added hydrothermal vents to oceans.
+  - Generates rarely in non-cold deep ocean biomes.
+  - Generates with Tube Worms surrounding itself.
+  - Geysers facing into Water with Magma behind themselves with now act as a hydrothermal vent.
+  - Geysers acting as hydrothermal vents will now spawn falling ash particles in surrounding water.
+  - Aquatic vegetation can no longer be placed on Geysers.
+- Revamped config options related to tree generation.
+  - Grouped all existing tree-related options into one category.
+  - Added options to individually disable Birch, Oak, Dark Oak, and Pale Oak branch generation.
+  - Added an option to disable Baobab generation.
+    - This requires the `Tree Generation` option to be enabled.
+  - Added an option to disable Palm generation.
+  - Added an option to disable Willow generation.
+- Fixed Ostriches not being required for the `Two by Two` advancement.
+- Fixed the client tracking ranges and update intervals of Wilder Wild's entities to be consistent with Vanilla's.
+- Updated Particle Rain compatibility.
+- Updated Sodium compatibility.
+- Fixed Wind particle rendering, now properly rotating to face the camera with sideways and always visible to the player.
+- Fixed a few issues with Baobab generation.
+  - Long pillars of dirt are no longer placed.
+    - Instead, up to a max of four blocks of dirt are placed below the tree.
+    - Logs are now placed instead of dirt below the "root" sections of the tree.
+  - Increased the average amount of Baobab Nuts each Baobab tree generates.
+  - Fixed an unstable implementation to check if blocks are replaceable, now replying on the `minecraft:replaceable_by_trees` block tag.
+  - Fixed an issue that led to mutable block positions being added to a list instead of immutable block positions.
+- The surface transition generation config option has now been split into multiple options per-block type.
+- The surface decoration generation config option has now been split into multiple options per-feature type.
+- Added Sea Whips.
+  - Generates in all non-frozen oceans, most commonly in temperate and lukewarm oceans.
+- Added the Plankton block.
+  - Is placed on top of water.
+  - Spawns Plankton particles underwater.
+  - During the night, starts glowing.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
-  - Dahlia.
-    - Plays in Magmatic Caves biomes.
-  - Caves Temp
-    - Plays in Frozen Caves, Magmatic Caves, Mesoglea Caves, and Lush Caves biomes.
-  - Maple Temp
-    - Plays in Maple Forest and Autumnal Plains biomes.
-- Ludocrypt's `Dove` now also plays in Lush Caves.
+  - Dahlia
+  - Amber
+  - CAVE TEMP
+- Added two tracks by C418.
+  - Excuse
+  - Flake
+- Completely reworked Wilder Wild's music distribution, thanks to Rebel459! ([#450](https://github.com/FrozenBlock/WilderWild/pull/450))
+  - Added multiple new config options to control where new music can play.
+  - Fixed a bug with Wilder Wild's music playing too frequently and in biomes it isn't meant to.
+  - Added more tags to control which biomes contain what music.
+  - Music that plays in dying forest biomes will now play slightly out of tune.
 
 # Swamp Overhaul
 - Added the Willow tree.
@@ -152,7 +207,9 @@ hi
     - Both of these features contain only the `minecraft:swamp` biome by default.
 - Cypress Wetlands now generate Lily Pads and Seagrass.
 - Cypress Wetlands now take up less space from Swamps.
-- Renamed the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
+- Replaced the `wilderwild:feature/has_fallen_swamp_oak_trees` biome tag with the `wilderwild:feature/has_fallen_swamp_trees` biome tag.
+- Seagrass now generates much more frequently in Deep Lukewarm Oceans.
+- Moss paths now generate in Deep Lukewarm Oceans.
 
 # Penguins
 - Added the Penguin.

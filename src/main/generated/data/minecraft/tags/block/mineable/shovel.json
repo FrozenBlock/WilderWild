@@ -1,11 +1,12 @@
 {
   "values": [
+    "wilderwild:scorched_sand",
+    "wilderwild:scorched_red_sand",
+    "wilderwild:termite_mound",
+    "wilderwild:plankton",
     {
       "id": "#wilderwild:mesoglea",
       "required": false
-    },
-    "wilderwild:scorched_sand",
-    "wilderwild:scorched_red_sand",
-    "wilderwild:termite_mound"
+    }
   ]
 }

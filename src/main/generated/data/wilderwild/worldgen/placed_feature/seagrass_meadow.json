@@ -1,0 +1,19 @@
+{
+  "feature": "wilderwild:seagrass_meadow",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 98
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

@@ -45,6 +45,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_SUGAR_CANE = bind("sound/sugar_cane");
 	public static final TagKey<Block> SOUND_WITHER_ROSE = bind("sound/wither_rose");
 	public static final TagKey<Block> SOUND_MAGMA_BLOCK = bind("sound/magma_block");
+	public static final TagKey<Block> SOUND_COCONUT = bind("sound/coconut");
 
 	public static final TagKey<Block> SNOW_GENERATION_CAN_SEARCH_THROUGH = bind("snow_generation_can_search_through");
 
@@ -127,6 +128,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SMALL_SPONGE_GROWS_ON = bind("feature/small_sponge_grows_on");
 	public static final TagKey<Block> FALLEN_TREE_PLACEABLE = bind("feature/fallen_tree_placeable");
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("feature/basin_replaceable");
+	public static final TagKey<Block> HYDROTHERMAL_VENT_REPLACEABLE = bind("feature/hydrothermal_vent_replaceable");
 	public static final TagKey<Block> CATTAIL_FEATURE_PLACEABLE = bind("feature/cattail_placeable");
 	public static final TagKey<Block> CATTAIL_FEATURE_MUD_PLACEABLE = bind("feature/cattail_mud_placeable");
 	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("feature/stone_transition_replaceable");
@@ -156,10 +158,14 @@ public final class WWBlockTags {
 	public static final TagKey<Block> STONE_PATH_REPLACEABLE = bind("feature/stone_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_REPLACEABLE = bind("feature/packed_mud_path_replaceable");
 	public static final TagKey<Block> MOSS_PATH_REPLACEABLE = bind("feature/moss_path_replaceable");
+	public static final TagKey<Block> OCEAN_MOSS_REPLACEABLE = bind("feature/ocean_moss_replaceable");
 	public static final TagKey<Block> SANDSTONE_PATH_REPLACEABLE = bind("feature/sandstone_path_replaceable");
 	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("feature/small_coarse_dirt_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("feature/packed_mud_path_badlands_replaceable");
 	public static final TagKey<Block> POLLEN_FEATURE_PLACEABLE = bind("feature/pollen_feature_placeable");
+	public static final TagKey<Block> BARNACLES_FEATURE_PLACEABLE = bind("feature/barnacles_feature_placeable");
+	public static final TagKey<Block> BARNACLES_FEATURE_PLACEABLE_STRUCTURE = bind("feature/barnacles_feature_placeable_structure");
+	public static final TagKey<Block> SEA_ANEMONE_FEATURE_CANNOT_PLACE = bind("feature/sea_anemone_feature_cannot_place");
 	public static final TagKey<Block> TERMITE_DISK_REPLACEABLE = bind("feature/termite_disk_replaceable");
 	public static final TagKey<Block> TERMITE_DISK_BLOCKS = bind("feature/termite_disk_blocks");
 	public static final TagKey<Block> BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/blue_nematocyst_feature_placeable");

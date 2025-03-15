@@ -1,0 +1,13 @@
+{
+  "values": [
+    "wilderwild:coconut",
+    {
+      "id": "natures_spirit:coconut",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:young_coconut",
+      "required": false
+    }
+  ]
+}

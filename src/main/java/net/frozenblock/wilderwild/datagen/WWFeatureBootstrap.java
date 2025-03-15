@@ -23,10 +23,12 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacementUtils;
+import net.frozenblock.wilderwild.worldgen.features.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
@@ -50,6 +52,7 @@ public final class WWFeatureBootstrap {
 		WWTreeConfigured.registerTreeConfigured(entries);
 		WWMiscConfigured.registerMiscConfigured();
 		WWCaveConfigured.registerCaveConfigured(entries);
+		WWAquaticConfigured.registerAquaticConfigured();
 		WWConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
@@ -59,6 +62,7 @@ public final class WWFeatureBootstrap {
 		WWTreePlaced.registerTreePlaced();
 		WWMiscPlaced.registerMiscPlaced(entries);
 		WWCavePlaced.registerCavePlaced(entries);
+		WWAquaticPlaced.registerAquaticPlaced(entries);
 		WWPlacedFeatures.registerPlacedFeatures(entries);
 	}
 

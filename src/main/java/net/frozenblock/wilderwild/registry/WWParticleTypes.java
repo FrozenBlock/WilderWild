@@ -55,6 +55,9 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
+	public static final SimpleParticleType UNDERWATER_ASH = register("underwater_ash");
+	public static final SimpleParticleType PLANKTON = register("plankton");
+	public static final SimpleParticleType GLOWING_PLANKTON = register("glowing_plankton");
 	public static final SimpleParticleType LEAF_CLUSTER_SPAWNER = register("leaf_cluster");
 	public static final SimpleParticleType CHEST_BUBBLE_SPAWNER = register("chest_bubbles");
 	public static final SimpleParticleType SHRIEKER_BUBBLE_SPAWNER = register("shrieker_bubbles");

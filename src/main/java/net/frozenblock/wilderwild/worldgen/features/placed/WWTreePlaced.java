@@ -242,11 +242,11 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = WWPlacementUtils.register("small_wine_palm_checked_dirt");
 
 	private WWTreePlaced() {
-		throw new UnsupportedOperationException("WilderTreePlaced contains only static declarations.");
+		throw new UnsupportedOperationException("WWTreePlaced contains only static declarations.");
 	}
 
 	public static void registerTreePlaced() {
-		WWConstants.logWithModId("Registering WilderTreePlaced for", true);
+		WWConstants.logWithModId("Registering WWTreePlaced for", true);
 
 		// BIRCH
 

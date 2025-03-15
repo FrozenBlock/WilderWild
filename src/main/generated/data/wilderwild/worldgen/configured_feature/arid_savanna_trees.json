@@ -10,18 +10,6 @@
       {
         "chance": 0.08,
         "feature": "wilderwild:oak_no_fungi_checked"
-      },
-      {
-        "chance": 0.065,
-        "feature": "wilderwild:baobab"
-      },
-      {
-        "chance": 0.052,
-        "feature": "wilderwild:small_windmill_palm_checked"
-      },
-      {
-        "chance": 0.02,
-        "feature": "wilderwild:baobab_tall"
       }
     ]
   }

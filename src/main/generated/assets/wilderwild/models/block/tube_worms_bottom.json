@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_seagrass",
+  "textures": {
+    "texture": "wilderwild:block/tube_worms_bottom"
+  }
+}
