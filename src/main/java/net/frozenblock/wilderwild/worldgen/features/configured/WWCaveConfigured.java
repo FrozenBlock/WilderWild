@@ -157,11 +157,11 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
 
 	private WWCaveConfigured() {
-		throw new UnsupportedOperationException("WilderCaveConfigured contains only static declarations.");
+		throw new UnsupportedOperationException("WWCaveConfigured contains only static declarations.");
 	}
 
 	public static void registerCaveConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
-		WWConstants.logWithModId("Registering WilderCaveConfigured for", true);
+		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 

@@ -141,7 +141,11 @@ public class FrozenLibIntegration extends ModIntegration {
 	@Override
 	public void initPreFreeze() {
 		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(WWConstants.id("stella"), entity ->entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella"));
+		SpottingIconPredicate.register(
+			WWConstants.id("stella"),
+			entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella")
+		);
+
 		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
 
 			private boolean firstCheck = true;
@@ -295,6 +299,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SUGAR_CANE, WWSoundTypes.SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COCONUT, WWSoundTypes.COCONUT, () -> true);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);
@@ -317,7 +322,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWWorldgenConfig.get().decayTrailRuins) {
+		if (WWWorldgenConfig.get().structure.decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.TRAIL_RUINS.location(),
 				new RuleProcessor(
@@ -339,7 +344,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (WWWorldgenConfig.get().newDesertVillages) {
+		if (WWWorldgenConfig.get().structure.newDesertVillages) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.VILLAGE_DESERT.location(),
 				new BlockStateRespectingRuleProcessor(
@@ -413,7 +418,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
 						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.AUTUMNAL_PLAINS, registries);
+						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
 					}
 					case "minecraft:husbandry/balanced_diet" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
@@ -437,67 +442,31 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SCORCHED_EYE)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:baobab_nut"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:split_coconut"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab_claw"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:cooked_crab_claw"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:prickly_pear"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:peeled_prickly_pear"
-								)
-							))
-						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched_eye"
-								)
-							))
-						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:baobab_nut"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:split_coconut"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab_claw"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:cooked_crab_claw"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:prickly_pear"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:peeled_prickly_pear"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched_eye"))));
 					}
 					case "minecraft:husbandry/bred_all_animals" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.CRAB)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement, new
-								AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:crab"
-								)
-							))
+						AdvancementAPI.addCriteria(advancement, "wilderwild:ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.OSTRICH)).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:moobloom", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.MOOBLOOM)).triggerInstance())
+						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:penguin", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.PENGUIN)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:ostrich"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:moobloom"))));
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:penguin"))));
 					}
 					case "minecraft:husbandry/tactical_fishing" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
@@ -506,12 +475,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"wilderwild:crab_bucket",
-								"wilderwild:jellyfish_bucket"
-							)
-						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:crab_bucket", "wilderwild:jellyfish_bucket"));
 					}
 					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
 						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
@@ -527,23 +491,13 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsToList(advancement,
-							List.of(
-								"wilderwild:scorched"
-							)
-						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:scorched"));
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement,
-							new AdvancementRequirements(List.of(
-								List.of(
-									"wilderwild:scorched"
-								)
-							))
-						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched"))));
 					}
 					default -> {
 					}

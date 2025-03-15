@@ -40,10 +40,8 @@ public class ConfigDefaultsMixin {
 		cancellable = true
 	)
 	private static void wilderWild$forceAddCompatBecauseTheyDidnt(ResourceLocation blockId, CallbackInfoReturnable<Boolean> info) {
-		if (
-			blockId.toString().equals(WWConstants.string("cypress_leaves"))
-			|| blockId.toString().equals(WWConstants.string("palm_fronds"))
-		) {
+		if (blockId.toString().equals(WWConstants.string("cypress_leaves"))
+			|| blockId.toString().equals(WWConstants.string("palm_fronds"))) {
 			info.setReturnValue(true);
 		}
 	}

@@ -303,6 +303,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 						)
 				)
 		);
+		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE);
+		this.dropSelf(WWBlocks.PLANKTON);
+		this.add(WWBlocks.BARNACLES, block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
+		this.dropSelf(WWBlocks.SEA_ANEMONE);
+		this.dropSelf(WWBlocks.SEA_WHIP);
+		this.dropSelf(WWBlocks.TUBE_WORMS);
 
 		this.add(WWBlocks.BAOBAB_NUT,
 			LootTable.lootTable()
@@ -519,7 +525,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MOSSY_MUD_BRICK_SLAB, this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL);
 
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH);
 		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER));
 		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER));

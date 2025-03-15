@@ -393,24 +393,24 @@ public final class WWWorldgenConfigGui {
 			"generateMapleForest",
 			configInstance
 		);
-		var generateAutumnalPlains = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("generate_autumnal_plains"), modifiedBiomes.generateAutumnalPlains)
-				.setDefaultValue(defaultConfig.biomeGeneration.generateAutumnalPlains)
-				.setSaveConsumer(newValue -> biomes.generateAutumnalPlains = newValue)
-				.setTooltip(tooltip("generate_autumnal_plains"))
+		var tundra = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("generate_tundra"), modifiedBiomes.generateTundra)
+				.setDefaultValue(defaultConfig.biomeGeneration.generateTundra)
+				.setSaveConsumer(newValue -> biomes.generateTundra = newValue)
+				.setTooltip(tooltip("generate_tundra"))
 				.requireRestart()
 				.build(),
 			biomes.getClass(),
-			"generateAutumnalPlains",
+			"generateTundra",
 			configInstance
 		);
 
 		var biomeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_generation"),
 			false,
 			tooltip("biome_generation"),
-			aridForest, aridSavanna, generateAutumnalPlains, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
-			frozenCaves, magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest, rainforest,
-			semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, warmBeach, warmRiver
+			aridForest, aridSavanna, birchJungle, birchTaiga, cypressWetlands, darkBirchForest, darkTaiga, dyingForest, dyingMixedForest, flowerField,
+			frozenCaves, magmaticCaves, mapleForest, mesogleaCaves, mixedForest, oasis, oldGrowthBirchTaiga, oldGrowthDarkForest, oldGrowthSnowyTaiga, parchedForest,
+			rainforest, semiBirchForest, snowyDyingForest, snowyDyingMixedForest, sparseBirchJungle, sparseForest, temperateRainforest, tundra, warmBeach, warmRiver
 		);
 
 		var cherryGrove = FrozenClothConfig.syncedEntry(
@@ -461,17 +461,17 @@ public final class WWWorldgenConfigGui {
 			"modifyStonyShorePlacement",
 			configInstance
 		);
-		var modifyAutumnalPlainsPlacement = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("modify_autumnal_plains_placement"), modifiedBiomePlacement.modifyAutumnalPlainsPlacement)
-				.setDefaultValue(defaultConfig.biomePlacement.modifyAutumnalPlainsPlacement)
-				.setSaveConsumer(newValue -> biomePlacement.modifyAutumnalPlainsPlacement = newValue)
-				.setYesNoTextSupplier(bool -> text("biome_placement.autumnal_plains." + bool))
-				.setTooltip(tooltip("modify_autumnal_plains_placement"))
-				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains))
+		var modifyTundraPlacement = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("modify_tundra_placement"), modifiedBiomePlacement.modifyTundraPlacement)
+				.setDefaultValue(defaultConfig.biomePlacement.modifyTundraPlacement)
+				.setSaveConsumer(newValue -> biomePlacement.modifyTundraPlacement = newValue)
+				.setYesNoTextSupplier(bool -> text("biome_placement.tundra." + bool))
+				.setTooltip(tooltip("modify_tundra_placement"))
+				.setDisplayRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().biomeGeneration.generateTundra))
 				.requireRestart()
 				.build(),
 			biomePlacement.getClass(),
-			"modifyAutumnalPlainsPlacement",
+			"modifyTundraPlacement",
 			configInstance
 		);
 		var swamp = FrozenClothConfig.syncedEntry(
@@ -502,152 +502,422 @@ public final class WWWorldgenConfigGui {
 		var biomePlacementCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("biome_placement"),
 			false,
 			tooltip("biome_placement"),
-			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyAutumnalPlainsPlacement
+			cherryGrove, jungle, mangroveSwamp, stonyShore, swamp, windsweptSavanna, modifyTundraPlacement
 		);
 
-		var fallenTrees = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("fallen_trees"), modifiedConfig.fallenTrees)
-					.setDefaultValue(defaultConfig.fallenTrees)
-					.setSaveConsumer(newValue -> config.fallenTrees = newValue)
-					.setTooltip(tooltip("fallen_trees"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"fallenTrees",
-				configInstance
-			)
-		);
-		var snappedTrees = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedConfig.snappedTrees)
-					.setDefaultValue(defaultConfig.snappedTrees)
-					.setSaveConsumer(newValue -> config.snappedTrees = newValue)
-					.setTooltip(tooltip("snapped_trees"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"snappedTrees",
-				configInstance
-			));
+		var tree = config.treeGeneration;
+		var modifiedTree = modifiedConfig.treeGeneration;
+		var defaultTree = defaultConfig.treeGeneration;
+		var treeClazz = tree.getClass();
 
-		var shrubGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("shrub_generation"), modifiedConfig.shrubGeneration)
-					.setDefaultValue(defaultConfig.shrubGeneration)
-					.setSaveConsumer(newValue -> config.shrubGeneration = newValue)
-					.setTooltip(tooltip("shrub_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"shrubGeneration",
-				configInstance
-			)
+		var treeGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tree_generation"), modifiedTree.treeGeneration)
+				.setDefaultValue(defaultTree.treeGeneration)
+				.setSaveConsumer(newValue -> tree.treeGeneration = newValue)
+				.setTooltip(tooltip("tree_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"treeGeneration",
+			configInstance
 		);
-		var cactusGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("cactus_generation"), modifiedConfig.cactusGeneration)
-					.setDefaultValue(defaultConfig.cactusGeneration)
-					.setSaveConsumer(newValue -> config.cactusGeneration = newValue)
-					.setTooltip(tooltip("cactus_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"cactusGeneration",
-				configInstance
-			)
+		var fallenTrees = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("fallen_trees"), modifiedTree.fallenTrees)
+				.setDefaultValue(defaultTree.fallenTrees)
+				.setSaveConsumer(newValue -> tree.fallenTrees = newValue)
+				.setTooltip(tooltip("fallen_trees"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"fallenTrees",
+			configInstance
 		);
-		var flowerGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("flower_generation"), modifiedConfig.flowerGeneration)
-					.setDefaultValue(defaultConfig.flowerGeneration)
-					.setSaveConsumer(newValue -> config.flowerGeneration = newValue)
-					.setTooltip(tooltip("flower_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"flowerGeneration",
-				configInstance
-			)
+		var snappedTrees = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedTree.snappedTrees)
+				.setDefaultValue(defaultTree.snappedTrees)
+				.setSaveConsumer(newValue -> tree.snappedTrees = newValue)
+				.setTooltip(tooltip("snapped_trees"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"snappedTrees",
+			configInstance
 		);
-		var grassGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("grass_generation"), modifiedConfig.grassGeneration)
-					.setDefaultValue(defaultConfig.grassGeneration)
-					.setSaveConsumer(newValue -> config.grassGeneration = newValue)
-					.setTooltip(tooltip("grass_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"grassGeneration",
-				configInstance
-			)
+		var baobab = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("baobab_generation"), modifiedTree.baobab)
+				.setDefaultValue(defaultTree.baobab)
+				.setSaveConsumer(newValue -> tree.baobab = newValue)
+				.setTooltip(tooltip("baobab_generation"))
+				.setRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().treeGeneration.treeGeneration))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"baobab",
+			configInstance
 		);
-		var mushroomGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("mushroom_generation"), modifiedConfig.mushroomGeneration)
-					.setDefaultValue(defaultConfig.mushroomGeneration)
-					.setSaveConsumer(newValue -> config.mushroomGeneration = newValue)
-					.setTooltip(tooltip("mushroom_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"mushroomGeneration",
-				configInstance
-			)
+		var palm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("palm_generation"), modifiedTree.palm)
+				.setDefaultValue(defaultTree.palm)
+				.setSaveConsumer(newValue -> tree.palm = newValue)
+				.setTooltip(tooltip("palm_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"palm",
+			configInstance
 		);
-		var treeGeneration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("tree_generation"), modifiedConfig.treeGeneration)
-					.setDefaultValue(defaultConfig.treeGeneration)
-					.setSaveConsumer(newValue -> config.treeGeneration = newValue)
-					.setTooltip(tooltip("tree_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"treeGeneration",
-				configInstance
-			)
+		var willow = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("willow_generation"), modifiedTree.willow)
+				.setDefaultValue(defaultTree.willow)
+				.setSaveConsumer(newValue -> tree.willow = newValue)
+				.setTooltip(tooltip("willow_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"willow",
+			configInstance
 		);
-		var pollen = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("pollen_generation"), modifiedConfig.pollen)
-					.setDefaultValue(defaultConfig.pollen)
-					.setSaveConsumer(newValue -> config.pollen = newValue)
-					.setTooltip(tooltip("pollen_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"pollen",
-				configInstance
-			)
+		var birchBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("birch_branches"), modifiedTree.birchBranches)
+				.setDefaultValue(defaultTree.birchBranches)
+				.setSaveConsumer(newValue -> tree.birchBranches = newValue)
+				.setTooltip(tooltip("birch_branches"))
+				.build(),
+			treeClazz,
+			"birchBranches",
+			configInstance
 		);
-		var algae = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("algae_generation"), modifiedConfig.algae)
-					.setDefaultValue(defaultConfig.algae)
-					.setSaveConsumer(newValue -> config.algae = newValue)
-					.setTooltip(tooltip("algae_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"algae",
-				configInstance
-			)
+		var oakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("oak_branches"), modifiedTree.oakBranches)
+				.setDefaultValue(defaultTree.oakBranches)
+				.setSaveConsumer(newValue -> tree.oakBranches = newValue)
+				.setTooltip(tooltip("oak_branches"))
+				.build(),
+			treeClazz,
+			"oakBranches",
+			configInstance
 		);
-		var tumbleweed = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedConfig.tumbleweed)
-					.setDefaultValue(defaultConfig.tumbleweed)
-					.setSaveConsumer(newValue -> config.tumbleweed = newValue)
-					.setTooltip(tooltip("tumbleweed_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"tumbleweed",
-				configInstance
-			)
+		var darkOakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("dark_oak_branches"), modifiedTree.darkOakBranches)
+				.setDefaultValue(defaultTree.darkOakBranches)
+				.setSaveConsumer(newValue -> tree.darkOakBranches = newValue)
+				.setTooltip(tooltip("dark_oak_branches"))
+				.build(),
+			treeClazz,
+			"darkOakBranches",
+			configInstance
 		);
+
+		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
+			false,
+			tooltip("tree_generation_category"),
+			treeGeneration, fallenTrees, snappedTrees,
+			baobab, palm, willow,
+			birchBranches, oakBranches, darkOakBranches
+		);
+
+		var vegetation = config.vegetation;
+		var modifiedVegetation = modifiedConfig.vegetation;
+		var defaultVegetation = defaultConfig.vegetation;
+		var vegetationClazz = vegetation.getClass();
+
+		var shrubGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shrub_generation"), modifiedVegetation.shrubGeneration)
+				.setDefaultValue(defaultVegetation.shrubGeneration)
+				.setSaveConsumer(newValue -> vegetation.shrubGeneration = newValue)
+				.setTooltip(tooltip("shrub_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"shrubGeneration",
+			configInstance
+		);
+		var cactusGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cactus_generation"), modifiedVegetation.cactusGeneration)
+				.setDefaultValue(defaultVegetation.cactusGeneration)
+				.setSaveConsumer(newValue -> vegetation.cactusGeneration = newValue)
+				.setTooltip(tooltip("cactus_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"cactusGeneration",
+			configInstance
+		);
+		var flowerGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("flower_generation"), modifiedVegetation.flowerGeneration)
+				.setDefaultValue(defaultVegetation.flowerGeneration)
+				.setSaveConsumer(newValue -> vegetation.flowerGeneration = newValue)
+				.setTooltip(tooltip("flower_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"flowerGeneration",
+			configInstance
+		);
+		var grassGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("grass_generation"), modifiedVegetation.grassGeneration)
+				.setDefaultValue(defaultVegetation.grassGeneration)
+				.setSaveConsumer(newValue -> vegetation.grassGeneration = newValue)
+				.setTooltip(tooltip("grass_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"grassGeneration",
+			configInstance
+		);
+		var mushroomGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mushroom_generation"), modifiedVegetation.mushroomGeneration)
+				.setDefaultValue(defaultVegetation.mushroomGeneration)
+				.setSaveConsumer(newValue -> vegetation.mushroomGeneration = newValue)
+				.setTooltip(tooltip("mushroom_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"mushroomGeneration",
+			configInstance
+		);
+		var pollen = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pollen_generation"), modifiedVegetation.pollen)
+				.setDefaultValue(defaultVegetation.pollen)
+				.setSaveConsumer(newValue -> vegetation.pollen = newValue)
+				.setTooltip(tooltip("pollen_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"pollen",
+			configInstance
+		);
+		var tumbleweed = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tumbleweed_generation"), modifiedVegetation.tumbleweed)
+				.setDefaultValue(defaultVegetation.tumbleweed)
+				.setSaveConsumer(newValue -> vegetation.tumbleweed = newValue)
+				.setTooltip(tooltip("tumbleweed_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"tumbleweed",
+			configInstance
+		);
+		var pumpkin = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pumpkin_generation"), modifiedVegetation.pumpkin)
+				.setDefaultValue(defaultVegetation.pumpkin)
+				.setSaveConsumer(newValue -> vegetation.pumpkin = newValue)
+				.setTooltip(tooltip("pumpkin_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"pumpkin",
+			configInstance
+		);
+
+		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("vegetation"),
+			false,
+			tooltip("vegetation"),
+			grassGeneration, flowerGeneration, bushGeneration, cactusGeneration, mushroomGeneration, pollen, pumpkin, tumbleweed
+		);
+
+		var surfaceDecoration = config.surfaceDecoration;
+		var modifiedSurfaceDecoration = modifiedConfig.surfaceDecoration;
+		var defaultSurfaceDecoration = defaultConfig.surfaceDecoration;
+		var surfaceDecorationClazz = surfaceDecoration.getClass();
+
+		var coarseDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("coarse_decoration"), modifiedSurfaceDecoration.coarseDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.coarseDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.coarseDecoration = newValue)
+				.setTooltip(tooltip("coarse_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"coarseDecoration",
+			configInstance
+		);
+		var gravelDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("gravel_decoration"), modifiedSurfaceDecoration.gravelDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.gravelDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.gravelDecoration = newValue)
+				.setTooltip(tooltip("gravel_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"gravelDecoration",
+			configInstance
+		);
+		var mudDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mud_decoration"), modifiedSurfaceDecoration.mudDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.mudDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.mudDecoration = newValue)
+				.setTooltip(tooltip("mud_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"mudDecoration",
+			configInstance
+		);
+		var packedMudDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("packed_mud_decoration"), modifiedSurfaceDecoration.packedMudDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.packedMudDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.packedMudDecoration = newValue)
+				.setTooltip(tooltip("packed_mud_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"packedMudDecoration",
+			configInstance
+		);
+		var stoneDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("stone_decoration"), modifiedSurfaceDecoration.stoneDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.stoneDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.stoneDecoration = newValue)
+				.setTooltip(tooltip("stone_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"stoneDecoration",
+			configInstance
+		);
+		var mossDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("moss_decoration"), modifiedSurfaceDecoration.mossDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.mossDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.mossDecoration = newValue)
+				.setTooltip(tooltip("moss_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"mossDecoration",
+			configInstance
+		);
+		var scorchedSandDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("scorched_sand_decoration"), modifiedSurfaceDecoration.scorchedSandDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.scorchedSandDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.scorchedSandDecoration = newValue)
+				.setTooltip(tooltip("scorched_sand_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"scorchedSandDecoration",
+			configInstance
+		);
+		var scorchedRedSandDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("scorched_red_sand_decoration"), modifiedSurfaceDecoration.scorchedRedSandDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.scorchedRedSandDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.scorchedRedSandDecoration = newValue)
+				.setTooltip(tooltip("scorched_red_sand_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"scorchedRedSandDecoration",
+			configInstance
+		);
+		var sandstoneDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sandstone_decoration"), modifiedSurfaceDecoration.sandstoneDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.sandstoneDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.sandstoneDecoration = newValue)
+				.setTooltip(tooltip("sandstone_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"sandstoneDecoration",
+			configInstance
+		);
+		var clayDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("clay_decoration"), modifiedSurfaceDecoration.clayDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.clayDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.clayDecoration = newValue)
+				.setTooltip(tooltip("clay_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"clayDecoration",
+			configInstance
+		);
+		var clearingDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("clearing_decoration"), modifiedSurfaceDecoration.clearingDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.clearingDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.clearingDecoration = newValue)
+				.setTooltip(tooltip("clearing_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"clearingDecoration",
+			configInstance
+		);
+		var snowPiles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snow_piles"), modifiedSurfaceDecoration.snowPiles)
+				.setDefaultValue(defaultSurfaceDecoration.snowPiles)
+				.setSaveConsumer(newValue -> surfaceDecoration.snowPiles = newValue)
+				.setTooltip(tooltip("snow_piles"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"snowPiles",
+			configInstance
+		);
+		var fragileIceDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("fragile_ice_decoration"), modifiedSurfaceDecoration.fragileIceDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.fragileIceDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.fragileIceDecoration = newValue)
+				.setTooltip(tooltip("fragile_ice_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"fragileIceDecoration",
+			configInstance
+		);
+		var icicleDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("icicle_decoration"), modifiedSurfaceDecoration.icicleDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.icicleDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.icicleDecoration = newValue)
+				.setTooltip(tooltip("icicle_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"icicleDecoration",
+			configInstance
+		);
+		var taigaBoulders = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("taiga_boulders"), modifiedSurfaceDecoration.taigaBoulders)
+				.setDefaultValue(defaultSurfaceDecoration.taigaBoulders)
+				.setSaveConsumer(newValue -> surfaceDecoration.taigaBoulders = newValue)
+				.setTooltip(tooltip("taiga_boulders"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"taigaBoulders",
+			configInstance
+		);
+		var lakes = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("lake_generation"), modifiedSurfaceDecoration.lakes)
+				.setDefaultValue(defaultSurfaceDecoration.lakes)
+				.setSaveConsumer(newValue -> surfaceDecoration.lakes = newValue)
+				.setTooltip(tooltip("lake_generation"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"lakes",
+			configInstance
+		);
+		var basins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("basin_generation"), modifiedSurfaceDecoration.basins)
+				.setDefaultValue(defaultSurfaceDecoration.basins)
+				.setSaveConsumer(newValue -> surfaceDecoration.basins = newValue)
+				.setTooltip(tooltip("basin_generation"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"basins",
+			configInstance
+		);
+
+		var surfaceDecorationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("surface_decoration"),
+			false,
+			tooltip("surface_decoration"),
+			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration,
+			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration,
+			clearingDecoration, taigaBoulders, snowPiles, fragileIceDecoration, icicleDecoration,
+			lakes, basins
+		);
+
 		var termite = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("termite_generation"), modifiedConfig.termiteGen)
@@ -700,19 +970,6 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-		var surfaceDecoration = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("surface_decoration"), modifiedConfig.surfaceDecoration)
-					.setDefaultValue(defaultConfig.surfaceDecoration)
-					.setSaveConsumer(newValue -> config.surfaceDecoration = newValue)
-					.setTooltip(tooltip("surface_decoration"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"surfaceDecoration",
-				configInstance
-			)
-		);
 		var snowBelowTrees = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("snow_below_trees"), modifiedConfig.snowBelowTrees)
@@ -726,69 +983,282 @@ public final class WWWorldgenConfigGui {
 				configInstance
 			)
 		);
-		var surfaceTransitions = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("surface_transitions"), modifiedConfig.surfaceTransitions)
-					.setDefaultValue(defaultConfig.surfaceTransitions)
-					.setSaveConsumer(newValue -> config.surfaceTransitions = newValue)
-					.setTooltip(tooltip("surface_transitions"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"surfaceTransitions",
-				configInstance
-			)
+
+		var aquatic = config.aquaticGeneration;
+		var modifiedAquatic = modifiedConfig.aquaticGeneration;
+		var defaultAquatic = defaultConfig.aquaticGeneration;
+		var aquaticClazz = aquatic.getClass();
+
+		var riverPool = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("river_pool"), modifiedAquatic.riverPool)
+				.setDefaultValue(defaultAquatic.riverPool)
+				.setSaveConsumer(newValue -> aquatic.riverPool = newValue)
+				.setTooltip(tooltip("river_pool"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"riverPool",
+			configInstance
 		);
-		var riverPool = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("river_pool"), modifiedConfig.riverPool)
-					.setDefaultValue(defaultConfig.riverPool)
-					.setSaveConsumer(newValue -> config.riverPool = newValue)
-					.setTooltip(tooltip("river_pool"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"riverPool",
-				configInstance
-			)
+		var algae = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("algae_generation"), modifiedAquatic.algae)
+				.setDefaultValue(defaultAquatic.algae)
+				.setSaveConsumer(newValue -> aquatic.algae = newValue)
+				.setTooltip(tooltip("algae_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"algae",
+			configInstance
 		);
-		var decayTrailRuins = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedConfig.decayTrailRuins)
-					.setDefaultValue(defaultConfig.decayTrailRuins)
-					.setSaveConsumer(newValue -> config.decayTrailRuins = newValue)
-					.setTooltip(tooltip("decay_trail_ruins"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"decayTrailRuins",
-				configInstance
-			)
+		var plankton = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("plankton_generation"), modifiedAquatic.plankton)
+				.setDefaultValue(defaultAquatic.plankton)
+				.setSaveConsumer(newValue -> aquatic.plankton = newValue)
+				.setTooltip(tooltip("plankton_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"plankton",
+			configInstance
 		);
-		var newDesertVillages = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("new_desert_villages"), modifiedConfig.newDesertVillages)
-					.setDefaultValue(defaultConfig.newDesertVillages)
-					.setSaveConsumer(newValue -> config.newDesertVillages = newValue)
-					.setTooltip(tooltip("new_desert_villages"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"newDesertVillages",
-				configInstance
-			)
+		var seagrass = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("seagrass_generation"), modifiedAquatic.seagrass)
+				.setDefaultValue(defaultAquatic.seagrass)
+				.setSaveConsumer(newValue -> aquatic.seagrass = newValue)
+				.setTooltip(tooltip("seagrass_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"seagrass",
+			configInstance
 		);
-		var newWitchHuts = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("new_witch_huts"), modifiedConfig.newWitchHuts)
-					.setDefaultValue(defaultConfig.newWitchHuts)
-					.setSaveConsumer(newValue -> config.newWitchHuts = newValue)
-					.setTooltip(tooltip("new_witch_huts"))
-					.build(),
-				clazz,
-				"newWitchHuts",
-				configInstance
-			)
+		var spongeBud = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sponge_bud_generation"), modifiedAquatic.spongeBud)
+				.setDefaultValue(defaultAquatic.spongeBud)
+				.setSaveConsumer(newValue -> aquatic.spongeBud = newValue)
+				.setTooltip(tooltip("sponge_bud_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"spongeBud",
+			configInstance
+		);
+		var barnacle = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("barnacle_generation"), modifiedAquatic.barnacle)
+				.setDefaultValue(defaultAquatic.barnacle)
+				.setSaveConsumer(newValue -> aquatic.barnacle = newValue)
+				.setTooltip(tooltip("barnacle_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"barnacle",
+			configInstance
+		);
+		var cattail = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cattail_generation"), modifiedAquatic.cattail)
+				.setDefaultValue(defaultAquatic.cattail)
+				.setSaveConsumer(newValue -> aquatic.cattail = newValue)
+				.setTooltip(tooltip("cattail_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"cattail",
+			configInstance
+		);
+		var seaAnemone = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sea_anemone_generation"), modifiedAquatic.seaAnemone)
+				.setDefaultValue(defaultAquatic.seaAnemone)
+				.setSaveConsumer(newValue -> aquatic.seaAnemone = newValue)
+				.setTooltip(tooltip("sea_anemone_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"seaAnemone",
+			configInstance
+		);
+		var seaWhip = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sea_whip_generation"), modifiedAquatic.seaWhip)
+				.setDefaultValue(defaultAquatic.seaWhip)
+				.setSaveConsumer(newValue -> aquatic.seaWhip = newValue)
+				.setTooltip(tooltip("sea_whip_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"seaWhip",
+			configInstance
+		);
+		var tubeWorm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tube_worm_generation"), modifiedAquatic.tubeWorm)
+				.setDefaultValue(defaultAquatic.tubeWorm)
+				.setSaveConsumer(newValue -> aquatic.tubeWorm = newValue)
+				.setTooltip(tooltip("tube_worm_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"tubeWorm",
+			configInstance
+		);
+		var hydrothermalVent = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("hydrothermal_vent_generation"), modifiedAquatic.hydrothermalVent)
+				.setDefaultValue(defaultAquatic.hydrothermalVent)
+				.setSaveConsumer(newValue -> aquatic.hydrothermalVent = newValue)
+				.setTooltip(tooltip("hydrothermal_vent_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"hydrothermalVent",
+			configInstance
+		);
+		var oceanMossGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("ocean_moss_generation"), modifiedAquatic.oceanMossGeneration)
+				.setDefaultValue(defaultAquatic.oceanMossGeneration)
+				.setSaveConsumer(newValue -> aquatic.oceanMossGeneration = newValue)
+				.setTooltip(tooltip("ocean_moss_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"oceanMossGeneration",
+			configInstance
+		);
+
+		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
+			false,
+			tooltip("aquatic_generation"),
+			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration
+		);
+
+		var transition = config.transitionGeneration;
+		var modifiedTransition = modifiedConfig.transitionGeneration;
+		var defaultTransition = defaultConfig.transitionGeneration;
+		var transitionClazz = transition.getClass();
+
+		var sandTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sand_transitions"), modifiedTransition.sandTransitions)
+				.setDefaultValue(defaultTransition.sandTransitions)
+				.setSaveConsumer(newValue -> transition.sandTransitions = newValue)
+				.setTooltip(tooltip("sand_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"sandTransitions",
+			configInstance
+		);
+		var redSandTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("red_sand_transitions"), modifiedTransition.redSandTransitions)
+				.setDefaultValue(defaultTransition.redSandTransitions)
+				.setSaveConsumer(newValue -> transition.redSandTransitions = newValue)
+				.setTooltip(tooltip("red_sand_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"redSandTransitions",
+			configInstance
+		);
+		var coarseTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("coarse_dirt_transitions"), modifiedTransition.coarseTransitions)
+				.setDefaultValue(defaultTransition.coarseTransitions)
+				.setSaveConsumer(newValue -> transition.coarseTransitions = newValue)
+				.setTooltip(tooltip("coarse_dirt_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"coarseTransitions",
+			configInstance
+		);
+		var gravelTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("gravel_transitions"), modifiedTransition.gravelTransitions)
+				.setDefaultValue(defaultTransition.gravelTransitions)
+				.setSaveConsumer(newValue -> transition.gravelTransitions = newValue)
+				.setTooltip(tooltip("gravel_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"gravelTransitions",
+			configInstance
+		);
+		var mudTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mud_transitions"), modifiedTransition.mudTransitions)
+				.setDefaultValue(defaultTransition.mudTransitions)
+				.setSaveConsumer(newValue -> transition.mudTransitions = newValue)
+				.setTooltip(tooltip("mud_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"mudTransitions",
+			configInstance
+		);
+		var stoneTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("stone_transitions"), modifiedTransition.stoneTransitions)
+				.setDefaultValue(defaultTransition.stoneTransitions)
+				.setSaveConsumer(newValue -> transition.stoneTransitions = newValue)
+				.setTooltip(tooltip("stone_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"stoneTransitions",
+			configInstance
+		);
+		var snowTransitions = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("snow_transitions"), modifiedTransition.snowTransitions)
+				.setDefaultValue(defaultTransition.snowTransitions)
+				.setSaveConsumer(newValue -> transition.snowTransitions = newValue)
+				.setTooltip(tooltip("snow_transitions"))
+				.requireRestart()
+				.build(),
+			transitionClazz,
+			"snowTransitions",
+			configInstance
+		);
+
+		var transitionGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("transition_generation"),
+			false,
+			tooltip("transition_generation"),
+			sandTransitions, redSandTransitions, coarseTransitions, gravelTransitions, mudTransitions, stoneTransitions, snowTransitions
+		);
+
+		var structure = config.structure;
+		var modifiedStructure = modifiedConfig.structure;
+		var defaultStructure = defaultConfig.structure;
+		var structureClazz = transition.getClass();
+
+		var decayTrailRuins = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedStructure.decayTrailRuins)
+				.setDefaultValue(defaultStructure.decayTrailRuins)
+				.setSaveConsumer(newValue -> structure.decayTrailRuins = newValue)
+				.setTooltip(tooltip("decay_trail_ruins"))
+				.requireRestart()
+				.build(),
+			structureClazz,
+			"decayTrailRuins",
+			configInstance
+		);
+		var newDesertVillages = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("new_desert_villages"), modifiedStructure.newDesertVillages)
+				.setDefaultValue(defaultStructure.newDesertVillages)
+				.setSaveConsumer(newValue -> structure.newDesertVillages = newValue)
+				.setTooltip(tooltip("new_desert_villages"))
+				.requireRestart()
+				.build(),
+			structureClazz,
+			"newDesertVillages",
+			configInstance
+		);
+		var newWitchHuts = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("new_witch_huts"), modifiedStructure.newWitchHuts)
+				.setDefaultValue(defaultStructure.newWitchHuts)
+				.setSaveConsumer(newValue -> structure.newWitchHuts = newValue)
+				.setTooltip(tooltip("new_witch_huts"))
+				.build(),
+			structureClazz,
+			"newWitchHuts",
+			configInstance
+		);
+
+		var structureCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("structure_generation"),
+			false,
+			tooltip("structure_generation"),
+			decayTrailRuins, newDesertVillages, newWitchHuts
 		);
 	}
 }

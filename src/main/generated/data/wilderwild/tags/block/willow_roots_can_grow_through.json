@@ -7,6 +7,8 @@
     "minecraft:snow",
     "minecraft:red_mushroom",
     "minecraft:brown_mushroom",
+    "wilderwild:algae",
+    "wilderwild:plankton",
     {
       "id": "#minecraft:small_flowers",
       "required": false

@@ -29,8 +29,8 @@
         ],
         "exclusion_radius_xz": 1,
         "exclusion_radius_y": 0,
-        "probability": 0.065,
-        "required_empty_blocks": 4
+        "probability": 0.0875,
+        "required_empty_blocks": 2
       }
     ],
     "dirt_provider": {
@@ -68,7 +68,7 @@
       "base_height": 13,
       "height_rand_a": 3,
       "height_rand_b": 2,
-      "inside_state": {
+      "inner_trunk_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
           "Name": "wilderwild:stripped_baobab_log",

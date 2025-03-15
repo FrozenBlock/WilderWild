@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleC
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -106,6 +107,17 @@ public final class WWModelHelper {
 		Optional.of(WWConstants.id("block/template_multiface_block")),
 		Optional.empty(),
 		TextureSlot.TEXTURE
+	);
+	private static final ModelTemplate ALGAE_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_algae")),
+		Optional.empty(),
+		TextureSlot.TEXTURE
+	);
+	private static final ModelTemplate SEA_ANEMONE_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_sea_anemone")),
+		Optional.empty(),
+		TextureSlot.STEM,
+		TextureSlot.TOP
 	);
 
 	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideAndEndSource, Block insideSource) {
@@ -375,5 +387,61 @@ public final class WWModelHelper {
 			);
 
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(WWBlocks.FRAGILE_ICE.asItem()), new DelegatedModel(leastCrackedModelId));
+	}
+
+	public static void createSeaAnemone(@NotNull BlockModelGenerators generator, Block seaAnemoneBlock) {
+		TextureMapping seaAnemoneTextureMapping = new TextureMapping();
+		seaAnemoneTextureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemoneBlock, "_stem"));
+		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
+		ResourceLocation modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
+
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, modelId));
+		generator.registerSimpleFlatItemModel(seaAnemoneBlock.asItem());
+	}
+
+	public static void createSeaWhip(@NotNull BlockModelGenerators generator) {
+		generator.registerSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
+		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.PlantType.NOT_TINTED);
+	}
+
+	public static void createAlgae(@NotNull BlockModelGenerators generator) {
+		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
+		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, model));
+	}
+
+	public static void createPlankton(@NotNull BlockModelGenerators generator) {
+		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
+		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", ALGAE_MODEL, TextureMapping::defaultTexture);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.PLANKTON)
+					.with(
+						PropertyDispatch.property(WWBlockStateProperties.GLOWING)
+							.select(false, Variant.variant().with(VariantProperties.MODEL, model))
+							.select(true, Variant.variant().with(VariantProperties.MODEL, glowingModel))
+					)
+			);
+	}
+
+	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
+		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
+		ResourceLocation singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.TUBE_WORMS)
+					.with(
+						PropertyDispatch.property(WWBlockStateProperties.TUBE_WORMS_PART)
+							.select(TubeWormsPart.SINGLE, Variant.variant().with(VariantProperties.MODEL, singleModel))
+							.select(TubeWormsPart.TOP, Variant.variant().with(VariantProperties.MODEL, topModel))
+							.select(TubeWormsPart.MIDDLE, Variant.variant().with(VariantProperties.MODEL, middleModel))
+							.select(TubeWormsPart.BOTTOM, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+					)
+			);
 	}
 }

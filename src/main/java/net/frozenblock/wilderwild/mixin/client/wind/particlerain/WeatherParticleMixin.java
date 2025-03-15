@@ -50,12 +50,8 @@ public abstract class WeatherParticleMixin extends TextureSheetParticle {
 		require = 0
 	)
 	public void wilderWild$cancelIncorrectRemoval(CallbackInfoReturnable<Boolean> info) {
-		if (this.x == this.xo && Math.abs(ClientWindManager.windX) < 0.075) {
-			info.setReturnValue(false);
-		}
-		if (this.z == this.zo && Math.abs(ClientWindManager.windZ) < 0.075) {
-			info.setReturnValue(false);
-		}
+		if (this.x == this.xo && Math.abs(ClientWindManager.windX) < 0.075D) info.setReturnValue(false);
+		if (this.z == this.zo && Math.abs(ClientWindManager.windZ) < 0.075D) info.setReturnValue(false);
 	}
 
 }

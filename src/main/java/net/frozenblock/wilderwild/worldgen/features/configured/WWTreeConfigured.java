@@ -372,13 +372,13 @@ public final class WWTreeConfigured {
 	);
 
 	private WWTreeConfigured() {
-		throw new UnsupportedOperationException("WilderTreeConfigured contains only static declarations.");
+		throw new UnsupportedOperationException("WWTreeConfigured contains only static declarations.");
 	}
 
 	public static void registerTreeConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
-		WWConstants.logWithModId("Registering WilderTreeConfigured for", true);
+		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
 
 		// BIRCH
 
@@ -2026,7 +2026,7 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					new AttachedToLeavesDecorator(
-						0.065F,
+						0.0875F,
 						1,
 						0,
 						new RandomizedIntStateProvider(
@@ -2034,10 +2034,8 @@ public final class WWTreeConfigured {
 							BaobabNutBlock.AGE,
 							UniformInt.of(0, 2)
 						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+						2,
+						List.of(Direction.DOWN)
 					)
 				)
 			).ignoreVines().build()
@@ -2053,19 +2051,16 @@ public final class WWTreeConfigured {
 			).decorators(
 				List.of(
 					new AttachedToLeavesDecorator(
-						0.065F,
+						0.0875F,
 						1,
 						0,
 						new RandomizedIntStateProvider(
-							BlockStateProvider.simple(
-								WWBlocks.BAOBAB_NUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
+							BlockStateProvider.simple(WWBlocks.BAOBAB_NUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
 							BaobabNutBlock.AGE,
 							UniformInt.of(0, 2)
 						),
-						4,
-						List.of(
-							Direction.DOWN
-						)
+						2,
+						List.of(Direction.DOWN)
 					)
 				)
 			).ignoreVines().build()

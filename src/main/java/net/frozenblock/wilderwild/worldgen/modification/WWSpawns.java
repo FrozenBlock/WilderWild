@@ -40,7 +40,7 @@ public final class WWSpawns {
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_COMMON_BUTTERFLY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 2, 1, 3);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 2, 1, 1);
 	}
 
 	public static void addJellyfish() {
@@ -50,7 +50,7 @@ public final class WWSpawns {
 
 	public static void addCrabs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_CRAB),
-			MobCategory.WATER_CREATURE, WWEntityTypes.CRAB, 1, 1, 3);
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB, 1, 1, 3);
 	}
 
 	public static void addOstriches() {

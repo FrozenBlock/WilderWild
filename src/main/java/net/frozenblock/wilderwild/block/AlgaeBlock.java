@@ -20,8 +20,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
-import java.util.List;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
@@ -48,23 +46,14 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
-	@SuppressWarnings("SpellCheckingInspection")
-	@Nullable
-	private BlockPos bonemealPos = null;
 
 	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
 		super(settings);
-	}
-
-	@NotNull
-	public static List<Direction> shuffleOffsets(@NotNull RandomSource random) {
-		return Direction.Plane.HORIZONTAL.shuffledCopy(random);
 	}
 
 	@NotNull
@@ -81,9 +70,9 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		FluidState fluidState = level.getFluidState(pos.below());
-		FluidState fluidState2 = level.getFluidState(pos);
-		return fluidState.getType() == Fluids.WATER && fluidState2.getType() == Fluids.EMPTY;
+		FluidState belowFluidState = level.getFluidState(pos.below());
+		FluidState thisFluidState = level.getFluidState(pos);
+		return belowFluidState.getType() == Fluids.WATER && thisFluidState.getType() == Fluids.EMPTY;
 	}
 
 	@Override
@@ -131,10 +120,10 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		for (Direction offset : AlgaeBlock.shuffleOffsets(AdvancedMath.random())) {
-			BlockPos blockPos = pos.relative(offset);
-			if (level.getBlockState(blockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, blockPos)) {
-				this.bonemealPos = blockPos;
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.Plane.HORIZONTAL) {
+			mutableBlockPos.setWithOffset(pos, direction);
+			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) {
 				return true;
 			}
 		}
@@ -148,11 +137,15 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if (this.bonemealPos != null) {
-			level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, this.bonemealPos, 0);
-			level.setBlockAndUpdate(this.bonemealPos, this.defaultBlockState());
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
+			mutableBlockPos.setWithOffset(pos, direction);
+			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) {
+				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutableBlockPos, 0);
+				level.setBlockAndUpdate(mutableBlockPos, this.defaultBlockState());
+				return;
+			}
 		}
-		this.bonemealPos = null;
 	}
 
 	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
@@ -160,9 +153,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		int count = 0;
 		do {
 			if (!posesToCheck.hasNext()) return false;
-			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE)) {
-				count = count + 1;
-			}
+			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE)) count = count + 1;
 		} while (count < threshold);
 		return true;
 	}

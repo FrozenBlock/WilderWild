@@ -90,8 +90,7 @@
       "minecraft:patch_firefly_bush_near_water",
       "minecraft:seagrass_river",
       "wilderwild:oasis_grass_placed",
-      "wilderwild:oasis_cactus_placed",
-      "wilderwild:palms_oasis"
+      "wilderwild:oasis_cactus_placed"
     ],
     [
       "minecraft:freeze_top_layer"
@@ -191,6 +190,7 @@
     "water_ambient": [],
     "water_creature": [],
     "wilderwildbutterfly": [],
+    "wilderwildcrab": [],
     "wilderwildfirefly": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []

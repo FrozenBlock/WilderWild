@@ -172,7 +172,6 @@ public final class Oasis extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRASS_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_GRASS_PLACED.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_CACTUS_PLACED.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PALMS_OASIS.getKey());
 		features.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, WWMiscPlaced.DESERT_WELL.getKey());
 	}
 

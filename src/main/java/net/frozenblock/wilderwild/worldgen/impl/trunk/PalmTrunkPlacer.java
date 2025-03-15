@@ -40,7 +40,7 @@ import org.joml.Vector3f;
 
 public class PalmTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<PalmTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> PalmTrunkPlacer.trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new)
+		instance -> trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new)
 	);
 
 	public PalmTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {

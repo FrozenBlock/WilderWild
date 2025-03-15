@@ -36,6 +36,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
@@ -150,7 +151,7 @@ public final class MapleForest extends FrozenBiome {
 
 	@Override
 	public @Nullable Music backgroundMusic() {
-		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST);
+		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST);
 	}
 
 	@Override

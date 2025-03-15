@@ -37,6 +37,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
@@ -145,7 +146,7 @@ public final class MesogleaCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES);
+		return Musics.createGameMusic(SoundEvents.MUSIC_GAME);
 	}
 
 	@Override

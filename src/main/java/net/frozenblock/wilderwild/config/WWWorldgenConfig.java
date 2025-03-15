@@ -49,13 +49,19 @@ public final class WWWorldgenConfig {
 				var config = this.config();
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
-				GENERATE_POLLEN = config.pollen;
-				NEW_WITCH_HUTS = config.newWitchHuts;
+				GENERATE_POLLEN = config.vegetation.pollen;
+				BIRCH_BRANCHES = config.treeGeneration.birchBranches;
+				OAK_BRANCHES = config.treeGeneration.oakBranches;
+				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
+				NEW_WITCH_HUTS = config.structure.newWitchHuts;
 			}
 		}
 	);
 
 	public static volatile boolean GENERATE_POLLEN = true;
+	public static volatile boolean BIRCH_BRANCHES = true;
+	public static volatile boolean OAK_BRANCHES = true;
+	public static volatile boolean DARK_OAK_BRANCHES = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -64,77 +70,38 @@ public final class WWWorldgenConfig {
 	@CollapsibleObject
 	public final BiomePlacement biomePlacement = new BiomePlacement();
 
+	@CollapsibleObject
+	public final TreeGeneration treeGeneration = new TreeGeneration();
+
+	@CollapsibleObject
+	public final Vegetation vegetation = new Vegetation();
+
+	@CollapsibleObject
+	public final AquaticGeneration aquaticGeneration = new AquaticGeneration();
+
+	@CollapsibleObject
+	public final TransitionGeneration transitionGeneration = new TransitionGeneration();
+
+	@CollapsibleObject
+	public final Structure structure = new Structure();
+
+	@CollapsibleObject
+	public final SurfaceDecoration surfaceDecoration = new SurfaceDecoration();
+
 	@EntrySyncData("betaBeaches")
 	public boolean betaBeaches = true;
 
 	@EntrySyncData("snowUnderMountains")
 	public boolean snowUnderMountains = false;
 
-	@EntrySyncData("fallenTrees")
-	public boolean fallenTrees = true;
-
-	@EntrySyncData("snappedTrees")
-	public boolean snappedTrees = true;
-
-	@EntrySyncData("treeGeneration")
-	public boolean treeGeneration = true;
-
-	@EntrySyncData("grassGeneration")
-	public boolean grassGeneration = true;
-
-	@EntrySyncData("flowerGeneration")
-	public boolean flowerGeneration = true;
-
-	@EntrySyncData("shrubGeneration")
-	public boolean shrubGeneration = true;
-
-	@EntrySyncData("cactusGeneration")
-	public boolean cactusGeneration = true;
-
-	@EntrySyncData("mushroomGeneration")
-	public boolean mushroomGeneration = true;
-
-	@EntrySyncData("pollen")
-	public boolean pollen = true;
-
-	@EntrySyncData("tumbleweed")
-	public boolean tumbleweed = true;
-
-	@EntrySyncData("algae")
-	public boolean algae = true;
-
 	@EntrySyncData("termiteGen")
 	public boolean termiteGen = true;
-
-	@EntrySyncData("fireflyBushGen")
-	public boolean fireflyBushGen = true;
-
-	@EntrySyncData("leafLitterGen")
-	public boolean leafLitterGen = true;
 
 	@EntrySyncData("netherGeyserGen")
 	public boolean netherGeyserGen = true;
 
-	@EntrySyncData("surfaceDecoration")
-	public boolean surfaceDecoration = true;
-
-	@EntrySyncData("riverPool")
-	public boolean riverPool = false;
-
 	@EntrySyncData("snowBelowTrees")
 	public boolean snowBelowTrees = true;
-
-	@EntrySyncData("surfaceTransitions")
-	public boolean surfaceTransitions = true;
-
-	@EntrySyncData("newWitchHuts")
-	public boolean newWitchHuts = true;
-
-	@EntrySyncData("decayTrailRuins")
-	public boolean decayTrailRuins = true;
-
-	@EntrySyncData("newDesertVillages")
-	public boolean newDesertVillages = true;
 
 	public static WWWorldgenConfig get() {
 		return get(false);
@@ -148,6 +115,192 @@ public final class WWWorldgenConfig {
 
 	public static WWWorldgenConfig getWithSync() {
 		return INSTANCE.configWithSync();
+	}
+
+	public static class Vegetation {
+		@EntrySyncData("grassGeneration")
+		public boolean grassGeneration = true;
+
+		@EntrySyncData("flowerGeneration")
+		public boolean flowerGeneration = true;
+
+		@EntrySyncData("shrubGeneration")
+		public boolean shrubGeneration = true;
+
+		@EntrySyncData("cactusGeneration")
+		public boolean cactusGeneration = true;
+
+		@EntrySyncData("mushroomGeneration")
+		public boolean mushroomGeneration = true;
+
+		@EntrySyncData("pollen")
+		public boolean pollen = true;
+
+		@EntrySyncData("tumbleweed")
+		public boolean tumbleweed = true;
+
+		@EntrySyncData("fireflyBushGen")
+		public boolean fireflyBushGen = true;
+
+		@EntrySyncData("leafLitterGen")
+		public boolean leafLitterGen = true;
+
+		@EntrySyncData("pumpkin")
+		public boolean pumpkin = true;
+	}
+
+	public static class SurfaceDecoration {
+		@EntrySyncData("coarseDecoration")
+		public boolean coarseDecoration = true;
+
+		@EntrySyncData("gravelDecoration")
+		public boolean gravelDecoration = true;
+
+		@EntrySyncData("mudDecoration")
+		public boolean mudDecoration = true;
+
+		@EntrySyncData("packedMudDecoration")
+		public boolean packedMudDecoration = true;
+
+		@EntrySyncData("stoneDecoration")
+		public boolean stoneDecoration = true;
+
+		@EntrySyncData("mossDecoration")
+		public boolean mossDecoration = true;
+
+		@EntrySyncData("scorchedSandDecoration")
+		public boolean scorchedSandDecoration = true;
+
+		@EntrySyncData("scorchedRedSandDecoration")
+		public boolean scorchedRedSandDecoration = true;
+
+		@EntrySyncData("sandstoneDecoration")
+		public boolean sandstoneDecoration = true;
+
+		@EntrySyncData("clayDecoration")
+		public boolean clayDecoration = true;
+
+		@EntrySyncData("clearingDecoration")
+		public boolean clearingDecoration = true;
+
+		@EntrySyncData("snowPiles")
+		public boolean snowPiles = true;
+
+		@EntrySyncData("fragileIceDecoration")
+		public boolean fragileIceDecoration = true;
+
+		@EntrySyncData("icicleDecoration")
+		public boolean icicleDecoration = true;
+
+		@EntrySyncData("taigaBoulders")
+		public boolean taigaBoulders = true;
+
+		@EntrySyncData("lakes")
+		public boolean lakes = true;
+
+		@EntrySyncData("basins")
+		public boolean basins = true;
+	}
+
+	public static class Structure {
+		@EntrySyncData("newWitchHuts")
+		public boolean newWitchHuts = true;
+
+		@EntrySyncData("decayTrailRuins")
+		public boolean decayTrailRuins = true;
+
+		@EntrySyncData("newDesertVillages")
+		public boolean newDesertVillages = true;
+	}
+
+	public static class TransitionGeneration {
+		@EntrySyncData("sandTransitions")
+		public boolean sandTransitions = true;
+
+		@EntrySyncData("redSandTransitions")
+		public boolean redSandTransitions = true;
+
+		@EntrySyncData("coarseTransitions")
+		public boolean coarseTransitions = true;
+
+		@EntrySyncData("gravelTransitions")
+		public boolean gravelTransitions = true;
+
+		@EntrySyncData("mudTransitions")
+		public boolean mudTransitions = true;
+
+		@EntrySyncData("stoneTransitions")
+		public boolean stoneTransitions = true;
+
+		@EntrySyncData("snowTransitions")
+		public boolean snowTransitions = true;
+	}
+
+	public static class TreeGeneration {
+		@EntrySyncData("treeGeneration")
+		public boolean treeGeneration = true;
+
+		@EntrySyncData("fallenTrees")
+		public boolean fallenTrees = true;
+
+		@EntrySyncData("snappedTrees")
+		public boolean snappedTrees = true;
+
+		@EntrySyncData("baobab")
+		public boolean baobab = true;
+
+		@EntrySyncData("palm")
+		public boolean palm = true;
+
+		@EntrySyncData("willow")
+		public boolean willow = true;
+
+		@EntrySyncData("birchBranches")
+		public boolean birchBranches = true;
+
+		@EntrySyncData("oakBranches")
+		public boolean oakBranches = true;
+
+		@EntrySyncData("darkOakBranches")
+		public boolean darkOakBranches = true;
+	}
+
+	public static class AquaticGeneration {
+		@EntrySyncData("riverPool")
+		public boolean riverPool = false;
+
+		@EntrySyncData("cattail")
+		public boolean cattail = true;
+
+		@EntrySyncData("algae")
+		public boolean algae = true;
+
+		@EntrySyncData("plankton")
+		public boolean plankton = true;
+
+		@EntrySyncData("seagrass")
+		public boolean seagrass = true;
+
+		@EntrySyncData("spongeBud")
+		public boolean spongeBud = true;
+
+		@EntrySyncData("barnacle")
+		public boolean barnacle = true;
+
+		@EntrySyncData("seaAnemone")
+		public boolean seaAnemone = true;
+
+		@EntrySyncData("seaWhip")
+		public boolean seaWhip = true;
+
+		@EntrySyncData("tubeWorm")
+		public boolean tubeWorm = true;
+
+		@EntrySyncData("hydrothermalVent")
+		public boolean hydrothermalVent = true;
+
+		@EntrySyncData("oceanMossGeneration")
+		public boolean oceanMossGeneration = true;
 	}
 
 	public static class BiomePlacement {
@@ -169,8 +322,8 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("modifyStonyShorePlacement")
 		public boolean modifyStonyShorePlacement = true;
 
-		@EntrySyncData("modifyAutumnalPlainsPlacement")
-		public boolean modifyAutumnalPlainsPlacement = false;
+		@EntrySyncData("modifyTundraPlacement")
+		public boolean modifyTundraPlacement = false;
 	}
 
 	public static class BiomeGeneration {
@@ -261,7 +414,7 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("generateSparseForest")
 		public boolean generateSparseForest = true;
 
-		@EntrySyncData("generateAutumnalPlains")
-		public boolean generateAutumnalPlains = true;
+		@EntrySyncData("generateTundra")
+		public boolean generateTundra = true;
 	}
 }

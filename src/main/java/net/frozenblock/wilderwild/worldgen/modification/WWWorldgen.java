@@ -48,13 +48,14 @@ public final class WWWorldgen {
 		WWVegetationGeneration.generateFlower();
 		WWVegetationGeneration.generateBush();
 		WWVegetationGeneration.generateCacti();
-		WWVegetationGeneration.generateAlgae();
+		WWAquaticGeneration.generateAquaticFeatures();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 
 		WWTreeDecorators.generateTreeDecorators();
 		WWTreeGeneration.generateTrees();
 		WWVegetationGeneration.generateMushroom();
+		WWVegetationGeneration.generatePumpkin();
 
 		WWBiomeSettings.init();
 
@@ -68,7 +69,7 @@ public final class WWWorldgen {
 				ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(WWBiomes.CYPRESS_WETLANDS),
 				(context) -> {
-					if (!WWWorldgenConfig.get().fallenTrees) {
+					if (!WWWorldgenConfig.get().treeGeneration.fallenTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(WWPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 					}
@@ -78,7 +79,7 @@ public final class WWWorldgen {
 				ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(WWBiomes.MIXED_FOREST),
 				(context) -> {
-					if (!WWWorldgenConfig.get().fallenTrees) {
+					if (!WWWorldgenConfig.get().treeGeneration.fallenTrees) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(WWPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 					}
@@ -89,7 +90,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.RAINFOREST),
 			context -> {
-				if (WWWorldgenConfig.get().flowerGeneration) {
+				if (WWWorldgenConfig.get().vegetation.flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
 					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey());
@@ -102,7 +103,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.TEMPERATE_RAINFOREST),
 			context -> {
-				if (WWWorldgenConfig.get().flowerGeneration) {
+				if (WWWorldgenConfig.get().vegetation.flowerGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
 					generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
@@ -123,7 +124,7 @@ public final class WWWorldgen {
 						if (WWWorldgenConfig.get().snowBelowTrees) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_BLANKET.getKey());
 						}
-						if (WWWorldgenConfig.get().surfaceTransitions) {
+						if (WWWorldgenConfig.get().transitionGeneration.snowTransitions) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 						}
 					}
@@ -133,7 +134,7 @@ public final class WWWorldgen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.FOREST_GRASS),
 				context -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLACED.getKey());
@@ -145,7 +146,7 @@ public final class WWWorldgen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.PLAINS_GRASS),
 				context -> {
-					if (WWWorldgenConfig.get().grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
@@ -157,7 +158,7 @@ public final class WWWorldgen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.CHERRY_TREES),
 				(context) -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_CHERRY);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CHERRY_TREES.getKey());
@@ -168,7 +169,7 @@ public final class WWWorldgen {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.FOREST),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_BIRCH_AND_OAK_ORIGINAL.getKey());
@@ -181,7 +182,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_BIRCH);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_BIRCH.getKey());
@@ -191,7 +192,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_BIRCH_FOREST),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.BIRCH_TALL);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_BIRCH_TALL.getKey());
@@ -201,7 +202,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
 						// TODO 1.21.5: Adjust for vanilla leaf litter
@@ -214,7 +215,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.NON_FROZEN_PLAINS),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_PLAINS);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_PLAINS.getKey());
@@ -225,7 +226,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.WOODED_BADLANDS),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_BADLANDS);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_TREES.getKey());
@@ -236,12 +237,17 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.SWAMP_TREES),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
-					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				WWWorldgenConfig.TreeGeneration treeGeneration = WWWorldgenConfig.get().treeGeneration;
+				BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+				if (treeGeneration.willow) {
 					generationSettings.removeFeature(VegetationPlacements.TREES_SWAMP);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_SURFACE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_SURFACE_WILLOW.getKey());
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_WATER_SHALLOW.getKey());
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP_WATER.getKey());
+				} else if (treeGeneration.treeGeneration) {
+					generationSettings.removeFeature(VegetationPlacements.TREES_SWAMP);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SWAMP.getKey());
 				}
 			});
 
@@ -249,7 +255,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.SHORT_TAIGA),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_TAIGA);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPRUCE_PLACED.getKey());
@@ -259,7 +265,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.TALL_PINE_TAIGA),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_OLD_GROWTH_PINE_TAIGA.getKey());
@@ -269,7 +275,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.TALL_SPRUCE_TAIGA),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_OLD_GROWTH_SPRUCE_TAIGA1.getKey());
@@ -280,7 +286,7 @@ public final class WWWorldgen {
 			(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.GROVE),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_GROVE);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_GROVE.getKey());
@@ -291,17 +297,22 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.NORMAL_SAVANNA),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					WWWorldgenConfig.TreeGeneration treeGeneration = WWWorldgenConfig.get().treeGeneration;
+					if (treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES.getKey());
+						if (treeGeneration.baobab) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES_BAOBAB.getKey());
+						} else {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES.getKey());
+						}
 					}
 				})
 			.add(
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.WINDSWEPT_SAVANNA),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_WINDSWEPT_SAVANNA);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WINDSWEPT_SAVANNA_TREES.getKey());
@@ -312,7 +323,7 @@ public final class WWWorldgen {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.BAMBOO_JUNGLE_TREES),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.BAMBOO_VEGETATION);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BAMBOO_VEGETATION.getKey());
@@ -323,7 +334,7 @@ public final class WWWorldgen {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.SPARSE_JUNGLE_TREES),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_SPARSE_JUNGLE);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SPARSE_JUNGLE.getKey());
@@ -334,7 +345,7 @@ public final class WWWorldgen {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.JUNGLE_TREES),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_JUNGLE);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_JUNGLE.getKey());
@@ -345,7 +356,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.MANGROVE_TREES),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_MANGROVE);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_MANGROVE.getKey());
@@ -356,7 +367,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_TREES_SNOWY),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_SNOWY);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_SNOWY.getKey());
@@ -367,7 +378,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.WINDSWEPT_HILLS),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_WINDSWEPT_HILLS);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_WINDSWEPT_HILLS.getKey());
@@ -377,7 +388,7 @@ public final class WWWorldgen {
 				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.WINDSWEPT_FOREST),
 				context -> {
-					if (WWWorldgenConfig.get().treeGeneration) {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_WINDSWEPT_FOREST);
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_WINDSWEPT_FOREST.getKey());
@@ -388,7 +399,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.DARK_FOREST),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.DARK_FOREST_VEGETATION);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DARK_FOREST_VEGETATION.getKey());
@@ -399,7 +410,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.PALE_GARDEN),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.PALE_GARDEN_VEGETATION);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_PALE_GARDEN.getKey());
@@ -410,7 +421,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.MEADOW),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_MEADOW);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_MEADOW.getKey());
@@ -421,7 +432,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_WATER_SHRUBS),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_WATER);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BUSHES_WATER.getKey());
@@ -436,10 +447,11 @@ public final class WWWorldgen {
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
 					if (WWWorldgenConfig.GENERATE_POLLEN && biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN_PLACED.getKey());
 					}
-				});
+			});
 	}
 
 }

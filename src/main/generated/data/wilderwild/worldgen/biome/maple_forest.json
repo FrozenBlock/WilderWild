@@ -21,7 +21,7 @@
           "max_delay": 24000,
           "min_delay": 12000,
           "replace_current_music": false,
-          "sound": "wilderwild:music.overworld.maple_forest"
+          "sound": "minecraft:music.overworld.forest"
         },
         "weight": 1
       }
@@ -216,6 +216,7 @@
     "water_ambient": [],
     "water_creature": [],
     "wilderwildbutterfly": [],
+    "wilderwildcrab": [],
     "wilderwildfirefly": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []

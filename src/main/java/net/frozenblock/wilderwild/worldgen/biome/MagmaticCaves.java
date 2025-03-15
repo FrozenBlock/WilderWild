@@ -38,6 +38,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
@@ -147,7 +148,7 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES);
+		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DRIPSTONE_CAVES);
 	}
 
 	@Override

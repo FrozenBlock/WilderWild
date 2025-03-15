@@ -65,7 +65,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
 	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (!WWWorldgenConfig.get().treeGeneration) return;
+		if (!WWWorldgenConfig.get().treeGeneration.treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
@@ -117,7 +117,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
 	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
-		if (!WWWorldgenConfig.get().treeGeneration) return;
+		if (!WWWorldgenConfig.get().treeGeneration.treeGeneration) return;
 		TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.SPRUCE) {

@@ -179,11 +179,11 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
 	private WWMiscConfigured() {
-		throw new UnsupportedOperationException("WilderMiscConfigured contains only static declarations.");
+		throw new UnsupportedOperationException("WWMiscConfigured contains only static declarations.");
 	}
 
 	public static void registerMiscConfigured() {
-		WWConstants.logWithModId("Registering WilderMiscConfigured for", true);
+		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
 
 		EMPTY.makeAndSetHolder(Feature.NO_OP,
 			NoneFeatureConfiguration.INSTANCE

@@ -51,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class DyingForest extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.465F, -0.300F);
-	public static final Climate.Parameter TEMPERATURE_AUTUMNAL_PLAINS = Climate.Parameter.span(-0.495F, -0.300F);
+	public static final Climate.Parameter TEMPERATURE_TUNDRA = Climate.Parameter.span(-0.495F, -0.300F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-0.105F, 0.050F);
 	public static final float TEMP = 0.35F;
 	public static final float DOWNFALL = 0.65F;
@@ -171,12 +171,12 @@ public final class DyingForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWWorldgenConfig.get().biomeGeneration.generateDyingForest) {
-			boolean generateAutumnalPlains = WWWorldgenConfig.get().biomeGeneration.generateAutumnalPlains;
+			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				this.addSurfaceBiome(
 					parameters,
-					generateAutumnalPlains ? TEMPERATURE_AUTUMNAL_PLAINS : TEMPERATURE,
+					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
 					HUMIDITY,
 					point.continentalness(),
 					point.erosion(),
