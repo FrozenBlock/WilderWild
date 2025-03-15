@@ -28,6 +28,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,19 +39,18 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
+public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
 	public BarnaclesBlock(@NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends BarnaclesBlock> codec() {
+	public MapCodec<? extends BarnaclesBlock> codec() {
 		return CODEC;
 	}
 
@@ -69,12 +69,6 @@ public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedB
 	@Override
 	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
 		return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		builder.add(WATERLOGGED);
 	}
 
 	@Override

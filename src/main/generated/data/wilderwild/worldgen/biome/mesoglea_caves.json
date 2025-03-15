@@ -19,7 +19,7 @@
           "max_delay": 24000,
           "min_delay": 12000,
           "replace_current_music": false,
-          "sound": "wilderwild:music.overworld.mesoglea_caves"
+          "sound": "minecraft:music.game"
         },
         "weight": 1
       }
@@ -183,6 +183,7 @@
     "water_ambient": [],
     "water_creature": [],
     "wilderwildbutterfly": [],
+    "wilderwildcrab": [],
     "wilderwildfirefly": [],
     "wilderwildjellyfish": [],
     "wilderwildtumbleweed": []

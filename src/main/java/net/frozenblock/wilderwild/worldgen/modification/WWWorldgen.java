@@ -409,7 +409,7 @@ public final class WWWorldgen {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.PALE_GARDEN),
 			context -> {
-				if (WWWorldgenConfig.get().treeGeneration) {
+				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.PALE_GARDEN_VEGETATION);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_PALE_GARDEN.getKey());

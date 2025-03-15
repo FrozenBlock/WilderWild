@@ -472,22 +472,22 @@ public final class WWModelHelper {
 		ResourceLocation modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, modelId));
-		generator.createSimpleFlatItemModel(seaAnemoneBlock.asItem());
+		generator.registerSimpleFlatItemModel(seaAnemoneBlock.asItem());
 	}
 
 	public static void createSeaWhip(@NotNull BlockModelGenerators generator) {
-		generator.createSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
-		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.registerSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
+		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.PlantType.NOT_TINTED);
 	}
 
 	public static void createAlgae(@NotNull BlockModelGenerators generator) {
-		generator.createSimpleFlatItemModel(WWBlocks.ALGAE);
+		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
 		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, model));
 	}
 
 	public static void createPlankton(@NotNull BlockModelGenerators generator) {
-		generator.createSimpleFlatItemModel(WWBlocks.PLANKTON);
+		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
 		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", ALGAE_MODEL, TextureMapping::defaultTexture);
 
@@ -503,7 +503,7 @@ public final class WWModelHelper {
 	}
 
 	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
-		generator.createSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
+		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
 		ResourceLocation singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		ResourceLocation middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
