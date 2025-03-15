@@ -19,9 +19,9 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
 public class RedMossBlock extends Block implements BonemealableBlock {
@@ -46,7 +45,7 @@ public class RedMossBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader levelReader, @NotNull BlockPos blockPos, BlockState blockState) {
 		return levelReader.getBlockState(blockPos.above()).isAir();
 	}
 
@@ -55,14 +54,13 @@ public class RedMossBlock extends Block implements BonemealableBlock {
 		return true;
 	}
 
-	// TODO: BONEMEAL FEATURE
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public void performBonemeal(@NotNull ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
 		serverLevel.registryAccess()
 			.registry(Registries.CONFIGURED_FEATURE)
-			.flatMap(registry -> registry.getHolder(CaveFeatures.MOSS_PATCH_BONEMEAL))
+			.flatMap(registry -> registry.getHolder(WWMiscConfigured.RED_MOSS_PATCH_BONEMEAL.getKey()))
 			.ifPresent(
-				reference -> ((ConfiguredFeature)reference.value()).place(serverLevel, serverLevel.getChunkSource().getGenerator(), randomSource, blockPos.above())
+				reference -> reference.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), randomSource, blockPos.above())
 			);
 	}
 

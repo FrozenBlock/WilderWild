@@ -117,6 +117,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = bind("penguins_spawnable_on");
 
 	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
+	public static final TagKey<Block> RED_MOSS_REPLACEABLE = bind("red_moss_replaceable");
 
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 

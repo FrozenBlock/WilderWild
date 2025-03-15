@@ -600,6 +600,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.FERN);
 
+		this.getOrCreateTagBuilder(WWBlockTags.RED_MOSS_REPLACEABLE)
+			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
+			.addOptionalTag(BlockTags.SAND)
+			.add(Blocks.CLAY)
+			.add(Blocks.GRAVEL);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(Blocks.LADDER)
 			.add(WWBlocks.ICICLE)
