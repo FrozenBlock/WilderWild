@@ -32,17 +32,17 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PlanktonParticle extends TextureSheetParticle {
-	private static final float MAX_R = 224F;
-	private static final float MIN_R = 197F;
-	private static final float MAX_B = 243F;
-	private static final float MIN_B = 219F;
-	private static final float MAX_G = 241F;
-	private static final float MIN_G = 219F;
+	private static final float MAX_R = 216F;
+	private static final float MIN_R = 160F;
+	private static final float MAX_G = 247F;
+	private static final float MIN_G = 217F;
+	private static final float MAX_B = 255F;
+	private static final float MIN_B = 249F;
 	private static final float MAX_R_GLOWING = 136F;
 	private static final float MIN_R_GLOWING = 28F;
+	private static final float MAX_G_GLOWING = 213F;
+	private static final float MIN_G_GLOWING = 111F;
 	private static final float B_GLOWING = 255F;
-	private static final float MAX_G_GLOWING = 195F;
-	private static final float MIN_G_GLOWING = 77F;
 
 	private float prevScale = 0F;
 	private float scale = 0F;

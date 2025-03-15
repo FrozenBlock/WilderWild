@@ -177,6 +177,10 @@ hi
 - The surface decoration generation config option has now been split into multiple options per-feature type.
 - Added Sea Whips.
   - Generates in all non-frozen oceans, most commonly in temperate and lukewarm oceans.
+- Added the Plankton block.
+  - Is placed on top of water.
+  - Spawns Plankton particles underwater.
+  - During the night, starts glowing.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

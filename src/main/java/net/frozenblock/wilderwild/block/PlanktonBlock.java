@@ -45,7 +45,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	public static final MapCodec<PlanktonBlock> CODEC = simpleCodec(PlanktonBlock::new);
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
-	public static final int LIGHT_LEVEL = 2;
+	public static final int LIGHT_LEVEL = 3;
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -5;
 	public static final int MAX_PARTICLE_SPAWN_WIDTH = 5;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -7;
