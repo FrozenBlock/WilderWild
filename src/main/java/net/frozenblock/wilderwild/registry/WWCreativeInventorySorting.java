@@ -233,7 +233,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
 		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
 		addAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
-		addAfterInNaturalBlocks(Items.WITHER_ROSE, WWBlocks.RED_HIBISCUS);
+		addBeforeInNaturalBlocks(Items.TORCH, WWBlocks.RED_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
