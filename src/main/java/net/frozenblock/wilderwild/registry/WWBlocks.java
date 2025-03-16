@@ -816,7 +816,6 @@ public final class WWBlocks {
 			.randomTicks()
 			.requiresCorrectToolForDrops()
 			.lightLevel(state -> PlanktonBlock.isGlowing(state) ? PlanktonBlock.LIGHT_LEVEL : 0)
-			.emissiveRendering((state, level, pos) -> PlanktonBlock.isGlowing(state))
 			.sound(WWSoundTypes.ALGAE)
 	);
 
@@ -1951,7 +1950,6 @@ public final class WWBlocks {
 				.noOcclusion()
 				.strength(0.2F)
 				.friction(0.8F)
-				.emissiveRendering(Blocks::always)
 				.lightLevel(state -> 7)
 				.sound(WWSoundTypes.MESOGLEA)
 				.isSuffocating(Blocks::never)
