@@ -39,7 +39,6 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
-import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
@@ -63,6 +62,7 @@ import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
+import net.frozenblock.wilderwild.block.RedCreepingMossBlock;
 import net.frozenblock.wilderwild.block.RedMossBlock;
 import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
@@ -1030,8 +1030,8 @@ public final class WWBlocks {
 			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final CreepingRedMossBlock CREEPING_RED_MOSS = register("creeping_red_moss",
-		CreepingRedMossBlock::new,
+	public static final RedCreepingMossBlock RED_CREEPING_MOSS = register("red_creeping_moss",
+		RedCreepingMossBlock::new,
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_RED)
 			.forceSolidOn()

@@ -263,18 +263,17 @@ public class WWCreativeInventorySorting {
 		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);
+		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
+		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.FROZEN_SHORT_GRASS);
 		addAfterInNaturalBlocks(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_FERN);
 		addAfterInNaturalBlocks(Items.LARGE_FERN, WWBlocks.FROZEN_TALL_GRASS);
 		addAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
-
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
 
 		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
 
 		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.RED_MOSS_BLOCK);
 		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
-		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_CARPET, WWBlocks.CREEPING_RED_MOSS);
+		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_CARPET, WWBlocks.RED_CREEPING_MOSS);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);

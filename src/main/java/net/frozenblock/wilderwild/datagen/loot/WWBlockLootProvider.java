@@ -312,7 +312,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 
 		this.dropSelf(WWBlocks.RED_MOSS_BLOCK);
 		this.dropSelf(WWBlocks.RED_MOSS_CARPET);
-		this.add(WWBlocks.CREEPING_RED_MOSS, block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
+		this.add(WWBlocks.RED_CREEPING_MOSS, block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
 
 		this.add(WWBlocks.BAOBAB_NUT,
 			LootTable.lootTable()

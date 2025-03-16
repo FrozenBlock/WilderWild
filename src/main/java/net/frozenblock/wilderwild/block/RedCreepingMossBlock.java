@@ -40,19 +40,19 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class CreepingRedMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
-	public static final MapCodec<CreepingRedMossBlock> CODEC = simpleCodec(CreepingRedMossBlock::new);
+public class RedCreepingMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+	public static final MapCodec<RedCreepingMossBlock> CODEC = simpleCodec(RedCreepingMossBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public CreepingRedMossBlock(@NotNull Properties settings) {
+	public RedCreepingMossBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends CreepingRedMossBlock> codec() {
+	protected MapCodec<? extends RedCreepingMossBlock> codec() {
 		return CODEC;
 	}
 

@@ -649,7 +649,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		CREEPING_RED_MOSS.makeAndSetHolder(WWMiscConfigured.CREEPING_RED_MOSS_PATCH.getHolder(),
+		CREEPING_RED_MOSS.makeAndSetHolder(WWMiscConfigured.RED_CREEPING_MOSS_PATCH.getHolder(),
 			RarityFilter.onAverageOnceEvery(17),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
