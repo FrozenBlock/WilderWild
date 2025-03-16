@@ -876,6 +876,8 @@
   "tooltip.wilderwild.flower_generation": "Whether to use Wilder Wild's or Vanilla's Flower generation.",
   "option.wilderwild.grass_generation": "Grass Generation",
   "tooltip.wilderwild.grass_generation": "Whether to use Wilder Wild's or Vanilla's Grass generation.",
+  "option.wilderwild.dry_grass_generation": "Dry Grass Generation",
+  "tooltip.wilderwild.dry_grass_generation": "Whether to use Wilder Wild's or Vanilla's Dry Grass generation.",
   "option.wilderwild.shelf_fungi_generation": "Shelf Fungi Generation",
   "tooltip.wilderwild.shelf_fungi_generation": "Whether Shelf Fungi can generate.",
   "option.wilderwild.mushroom_generation": "Mushroom Generation",
