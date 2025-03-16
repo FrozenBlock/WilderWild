@@ -320,6 +320,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.STAIRS)
 			.addOptionalTag(BlockTags.DOORS)
 			.addOptionalTag(BlockTags.TRAPDOORS)
+			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE)

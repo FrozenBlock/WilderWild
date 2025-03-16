@@ -34,10 +34,10 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedVineTreeDecorator extends TreeDecorator {
-	public static final MapCodec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-		Codec.intRange(-63, 319).fieldOf("max_height").forGetter((treeDecorator) -> treeDecorator.maxHeight),
-		Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
+	public static final MapCodec<HeightBasedVineTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(treeDecorator -> treeDecorator.probability),
+		Codec.intRange(-63, 319).fieldOf("max_height").forGetter(treeDecorator -> treeDecorator.maxHeight),
+		Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter(treeDecorator -> treeDecorator.placementChance)
 	).apply(instance, HeightBasedVineTreeDecorator::new));
 
 	private final float probability;
@@ -57,11 +57,11 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(@NotNull Context generator) {
-		RandomSource random = generator.random();
+	public void place(@NotNull Context context) {
+		RandomSource random = context.random();
 		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
-			poses.addAll(generator.roots());
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+			poses.addAll(context.roots());
 			Util.shuffle(poses, random);
 			BlockState vineState = Blocks.VINE.defaultBlockState();
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
@@ -70,8 +70,8 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
 						if (random.nextFloat() <= this.placementChance) {
 							mutableBlockPos.setWithOffset(pos, direction);
-							if (generator.isAir(mutableBlockPos)) {
-								generator.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
+							if (context.isAir(mutableBlockPos)) {
+								context.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
 							}
 						}
 					}

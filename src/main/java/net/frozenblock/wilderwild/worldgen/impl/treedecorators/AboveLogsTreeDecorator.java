@@ -26,46 +26,47 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
 
-public class MossCarpetTreeDecorator extends TreeDecorator {
-	public static final MapCodec<MossCarpetTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
-		).apply(instance, MossCarpetTreeDecorator::new));
+public class AboveLogsTreeDecorator extends TreeDecorator {
+	public static final MapCodec<AboveLogsTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(treeDecorator -> treeDecorator.probability),
+		Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter(treeDecorator -> treeDecorator.placementChance),
+		BlockStateProvider.CODEC.fieldOf("state").forGetter(treeDecorator -> treeDecorator.blockStateProvider)
+	).apply(instance, AboveLogsTreeDecorator::new));
 
 	private final float probability;
 	private final float placementChance;
+	private final BlockStateProvider blockStateProvider;
 
-	public MossCarpetTreeDecorator(float probability, float placementChance) {
+	public AboveLogsTreeDecorator(float probability, float placementChance, BlockStateProvider blockStateProvider) {
 		this.probability = probability;
 		this.placementChance = placementChance;
+		this.blockStateProvider = blockStateProvider;
 	}
 
 	@Override
 	@NotNull
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.MOSS_CARPET_TREE_DECORATOR;
+		return WWTreeDecorators.ABOVE_LOGS_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context generator) {
-		RandomSource random = generator.random();
+	public void place(@NotNull Context context) {
+		RandomSource random = context.random();
 		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
-			poses.addAll(generator.leaves());
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+			poses.addAll(context.leaves());
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState mossState = Blocks.MOSS_CARPET.defaultBlockState();
 			for (BlockPos pos : poses) {
 				mutableBlockPos.set(pos).move(Direction.UP);
-				if (generator.isAir(mutableBlockPos)) {
+				if (context.isAir(mutableBlockPos)) {
 					if (random.nextFloat() <= this.placementChance) {
-						generator.setBlock(mutableBlockPos, mossState);
+						context.setBlock(mutableBlockPos, this.blockStateProvider.getState(random, mutableBlockPos));
 					}
 				}
 			}

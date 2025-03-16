@@ -532,6 +532,16 @@ public final class WWWorldgenConfigGui {
 			"fallenTrees",
 			configInstance
 		);
+		var hollowedFallenTrees = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("hollowed_fallen_trees"), modifiedTree.hollowedFallenTrees)
+				.setDefaultValue(defaultTree.hollowedFallenTrees)
+				.setSaveConsumer(newValue -> tree.hollowedFallenTrees = newValue)
+				.setTooltip(tooltip("hollowed_fallen_trees"))
+				.build(),
+			treeClazz,
+			"hollowedFallenTrees",
+			configInstance
+		);
 		var snappedTrees = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("snapped_trees"), modifiedTree.snappedTrees)
 				.setDefaultValue(defaultTree.snappedTrees)
@@ -610,7 +620,7 @@ public final class WWWorldgenConfigGui {
 		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
 			tooltip("tree_generation_category"),
-			treeGeneration, fallenTrees, snappedTrees,
+			treeGeneration, fallenTrees, hollowedFallenTrees, snappedTrees,
 			baobab, palm, willow,
 			birchBranches, oakBranches, darkOakBranches
 		);
@@ -664,6 +674,17 @@ public final class WWWorldgenConfigGui {
 			"grassGeneration",
 			configInstance
 		);
+		var shelfFungiGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("shelf_fungi_generation"), modifiedVegetation.shelfFungiGeneration)
+				.setDefaultValue(defaultVegetation.shelfFungiGeneration)
+				.setSaveConsumer(newValue -> vegetation.shelfFungiGeneration = newValue)
+				.setTooltip(tooltip("shelf_fungi_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"shelfFungiGeneration",
+			configInstance
+		);
 		var mushroomGeneration = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mushroom_generation"), modifiedVegetation.mushroomGeneration)
 				.setDefaultValue(defaultVegetation.mushroomGeneration)
@@ -712,7 +733,7 @@ public final class WWWorldgenConfigGui {
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("vegetation"),
 			false,
 			tooltip("vegetation"),
-			grassGeneration, flowerGeneration, bushGeneration, cactusGeneration, mushroomGeneration, pollen, pumpkin, tumbleweed
+			grassGeneration, flowerGeneration, bushGeneration, cactusGeneration, shelfFungiGeneration, mushroomGeneration, pollen, pumpkin, tumbleweed
 		);
 
 		var surfaceDecoration = config.surfaceDecoration;
