@@ -67,6 +67,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");
 
 	public static final TagKey<Biome> PRODUCES_BARNACLES_FROM_BONEMEAL = bind("produces_barnacles_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SPONGE_BUDS_FROM_BONEMEAL = bind("produces_sponge_buds_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SEA_ANEMONE_FROM_BONEMEAL = bind("produces_sea_anemone_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SEA_WHIPS_FROM_BONEMEAL = bind("produces_sea_whips_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_TUBE_WORMS_FROM_BONEMEAL = bind("produces_tube_worms_from_bonemeal");
 
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");

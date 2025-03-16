@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -37,9 +38,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,8 +56,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
-	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
+public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	public static final int MAX_AGE = 2;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -186,21 +184,6 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return state.getValue(AGE) < MAX_AGE;
-	}
-
-	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return random.nextFloat() < BONEMEAL_SUCCESS_CHANCE;
-	}
-
-	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-	}
-
-	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
 		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
@@ -210,6 +193,13 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		if (random.nextInt(20) == 0 && state.getValue(AGE) < MAX_AGE && state.getValue(WATERLOGGED)) {
 			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		}
+	}
+
+	public BlockState randomBlockState(@NotNull RandomSource random) {
+		return this.defaultBlockState()
+			.setValue(AGE, random.nextInt(MAX_AGE))
+			.setValue(FACE, Util.getRandom(AttachFace.values(), random))
+			.setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
 	}
 
 }

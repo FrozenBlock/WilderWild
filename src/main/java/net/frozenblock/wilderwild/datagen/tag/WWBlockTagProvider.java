@@ -1096,11 +1096,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.ICE)
 			.add(WWBlocks.FRAGILE_ICE);
 
-		this.getOrCreateTagBuilder(BlockTags.UNDERWATER_BONEMEALS)
-			.add(WWBlocks.SEA_ANEMONE)
-			.add(WWBlocks.RED_MOSS_BLOCK)
-			.add(WWBlocks.CREEPING_RED_MOSS);
-
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlocks.MYCELIUM_GROWTH)
 			.add(WWBlocks.DATURA)

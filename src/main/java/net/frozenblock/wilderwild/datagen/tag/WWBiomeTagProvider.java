@@ -730,6 +730,36 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.COLD_OCEAN)
 			.add(Biomes.DEEP_COLD_OCEAN);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SPONGE_BUDS_FROM_BONEMEAL)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SEA_ANEMONE_FROM_BONEMEAL)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SEA_WHIPS_FROM_BONEMEAL)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_TUBE_WORMS_FROM_BONEMEAL)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
 		this.getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
