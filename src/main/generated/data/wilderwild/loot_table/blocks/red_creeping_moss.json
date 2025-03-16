@@ -16,7 +16,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "down": "true"
@@ -30,7 +30,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "up": "true"
@@ -44,7 +44,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "north": "true"
@@ -58,7 +58,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "south": "true"
@@ -72,7 +72,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "west": "true"
@@ -86,7 +86,7 @@
               "add": true,
               "conditions": [
                 {
-                  "block": "wilderwild:creeping_red_moss",
+                  "block": "wilderwild:red_creeping_moss",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "east": "true"
@@ -105,7 +105,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "wilderwild:creeping_red_moss"
+          "name": "wilderwild:red_creeping_moss"
         }
       ],
       "rolls": 1.0

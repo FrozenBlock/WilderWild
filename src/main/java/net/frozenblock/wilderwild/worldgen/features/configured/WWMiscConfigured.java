@@ -176,7 +176,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION = register("red_moss_vegetation");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH = register("red_moss_patch");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS = register("red_moss");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CREEPING_RED_MOSS_PATCH = register("creeping_red_moss_patch");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> RED_CREEPING_MOSS_PATCH = register("red_creeping_moss_patch");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL = register("red_moss_patch_bonemeal");
 
 	// SNOW
@@ -1112,7 +1112,7 @@ public final class WWMiscConfigured {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					SimpleWeightedRandomList.<BlockState>builder()
-						.add(WWBlocks.CREEPING_RED_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
+						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
 						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState(), 1)
 				)
 			)
@@ -1177,7 +1177,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		CREEPING_RED_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		RED_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			new RandomPatchConfiguration(
 				38,
 				6,
@@ -1185,7 +1185,7 @@ public final class WWMiscConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.CREEPING_RED_MOSS,
+						WWBlocks.RED_CREEPING_MOSS,
 						10,
 						true,
 						true,
@@ -1193,7 +1193,7 @@ public final class WWMiscConfigured {
 						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK.holderOwner(),
-							WWBlockTags.CREEPING_RED_MOSS_FEATURE_PLACEABLE
+							WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE
 						)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)

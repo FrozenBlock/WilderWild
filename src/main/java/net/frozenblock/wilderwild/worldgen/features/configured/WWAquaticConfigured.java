@@ -27,7 +27,7 @@ import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
+import net.frozenblock.wilderwild.block.RedCreepingMossBlock;
 import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -90,7 +90,7 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION_UNDERWATER = register("red_moss_vegetation_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_UNDERWATER = register("red_moss_patch_underwater");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS_UNDERWATER = register("red_moss_underwater");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CREEPING_RED_MOSS_PATCH_UNDERWATER = register("creeping_red_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> RED_CREEPING_MOSS_PATCH_UNDERWATER = register("red_creeping_moss_patch_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL_UNDERWATER = register("red_moss_patch_bonemeal_underwater");
 
 	private WWAquaticConfigured() {
@@ -352,9 +352,9 @@ public final class WWAquaticConfigured {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					SimpleWeightedRandomList.<BlockState>builder()
-						.add(WWBlocks.CREEPING_RED_MOSS.defaultBlockState()
+						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState()
 								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
-								.setValue(CreepingRedMossBlock.WATERLOGGED, true),
+								.setValue(RedCreepingMossBlock.WATERLOGGED, true),
 							3
 						)
 						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState().setValue(RedMossCarpetBlock.WATERLOGGED, true), 1)
@@ -422,7 +422,7 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		CREEPING_RED_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
+		RED_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
 			new RandomPatchConfiguration(
 				38,
 				6,
@@ -430,7 +430,7 @@ public final class WWAquaticConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.CREEPING_RED_MOSS,
+						WWBlocks.RED_CREEPING_MOSS,
 						10,
 						true,
 						true,
@@ -438,7 +438,7 @@ public final class WWAquaticConfigured {
 						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK.holderOwner(),
-							WWBlockTags.CREEPING_RED_MOSS_FEATURE_PLACEABLE
+							WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE
 						)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)

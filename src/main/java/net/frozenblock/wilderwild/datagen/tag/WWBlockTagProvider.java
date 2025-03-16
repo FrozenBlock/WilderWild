@@ -305,7 +305,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CREEPING_RED_MOSS_FEATURE_PLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE)
 			.add(Blocks.PRISMARINE)
 			.add(Blocks.PRISMARINE_BRICKS)
 			.add(Blocks.DARK_PRISMARINE)
@@ -930,7 +930,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.RED_MOSS_BLOCK)
 			.add(WWBlocks.RED_MOSS_CARPET)
-			.add(WWBlocks.CREEPING_RED_MOSS);
+			.add(WWBlocks.RED_CREEPING_MOSS);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(WWBlocks.STONE_CHEST)
@@ -1004,7 +1004,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_FERN)
 			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.RED_MOSS_CARPET)
-			.add(WWBlocks.CREEPING_RED_MOSS)
+			.add(WWBlocks.RED_CREEPING_MOSS)
 			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
@@ -1122,7 +1122,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POLLEN)
 			.add(WWBlocks.BARNACLES)
 			.add(WWBlocks.RED_MOSS_CARPET)
-			.add(WWBlocks.CREEPING_RED_MOSS);
+			.add(WWBlocks.RED_CREEPING_MOSS);
 
 		this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
 			.add(WWBlocks.POTTED_BAOBAB_NUT)
@@ -1190,7 +1190,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ALGAE)
 			.add(WWBlocks.PLANKTON)
 			.add(WWBlocks.RED_MOSS_CARPET)
-			.add(WWBlocks.CREEPING_RED_MOSS);
+			.add(WWBlocks.RED_CREEPING_MOSS);
 
 		this.getOrCreateTagBuilder(BlockTags.GUARDED_BY_PIGLINS)
 			.add(WWBlocks.STONE_CHEST);
@@ -1323,7 +1323,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.ALGAE)
 			.add(WWBlocks.PLANKTON)
 			.add(WWBlocks.RED_MOSS_CARPET)
-			.add(WWBlocks.CREEPING_RED_MOSS)
+			.add(WWBlocks.RED_CREEPING_MOSS)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.getOrCreateTagBuilder(BlockTags.LEAVES)

@@ -311,7 +311,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		CREEPING_RED_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.CREEPING_RED_MOSS_PATCH_UNDERWATER.getHolder(),
+		CREEPING_RED_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.RED_CREEPING_MOSS_PATCH_UNDERWATER.getHolder(),
 			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

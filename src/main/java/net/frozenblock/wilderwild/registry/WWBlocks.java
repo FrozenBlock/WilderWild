@@ -44,7 +44,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
-import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
+import net.frozenblock.wilderwild.block.RedCreepingMossBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
@@ -741,7 +741,7 @@ public final class WWBlocks {
 			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final CreepingRedMossBlock CREEPING_RED_MOSS = new CreepingRedMossBlock(
+	public static final RedCreepingMossBlock RED_CREEPING_MOSS = new RedCreepingMossBlock(
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_RED)
 			.forceSolidOn()
@@ -1579,7 +1579,7 @@ public final class WWBlocks {
 		registerBlock("potted_pasqueflower", POTTED_PASQUEFLOWER);
 		registerBlockAfter(Blocks.DEAD_BUSH, "mycelium_growth", MYCELIUM_GROWTH, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_mycelium_growth", POTTED_MYCELIUM_GROWTH);
-		registerBlockAfter(Items.PINK_TULIP, "red_hibiscus", RED_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.TORCHFLOWER, "red_hibiscus", RED_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_red_hibiscus", POTTED_RED_HIBISCUS);
 		registerBlockAfter(RED_HIBISCUS, "yellow_hibiscus", YELLOW_HIBISCUS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("potted_yellow_hibiscus", POTTED_YELLOW_HIBISCUS);
@@ -1632,16 +1632,16 @@ public final class WWBlocks {
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("plankton"), PLANKTON);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("flowering_lily_pad"), FLOWERING_LILY_PAD);
 		registerBlockAfter(Items.WET_SPONGE, "sponge_bud", SPONGE_BUD, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(SPONGE_BUD, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BARNACLES, "sea_anemone", SEA_ANEMONE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(SEA_ANEMONE, "sea_whip", SEA_WHIP, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SEAGRASS, "barnacles", BARNACLES, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.SEAGRASS, "sea_whip", SEA_WHIP, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(SEA_WHIP, "tube_worms", TUBE_WORMS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockBefore(Items.SEA_PICKLE, "sea_anemone", SEA_ANEMONE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockAfter(Blocks.MOSS_CARPET, "red_moss_block", RED_MOSS_BLOCK, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(RED_MOSS_BLOCK, "red_moss_carpet", RED_MOSS_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_MOSS_CARPET, "creeping_red_moss", CREEPING_RED_MOSS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(RED_MOSS_CARPET, "red_creeping_moss", RED_CREEPING_MOSS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {
