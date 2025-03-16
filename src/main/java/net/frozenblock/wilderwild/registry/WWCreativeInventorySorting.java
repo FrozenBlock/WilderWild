@@ -257,10 +257,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
+		addBeforeInNaturalBlocks(Items.SEAGRASS, WWBlocks.BARNACLES);
 		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
 		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
-		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.BARNACLES);
-		addAfterInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
+		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);
