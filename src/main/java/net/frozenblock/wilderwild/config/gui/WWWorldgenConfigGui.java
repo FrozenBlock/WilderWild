@@ -548,7 +548,6 @@ public final class WWWorldgenConfigGui {
 				.setDefaultValue(defaultTree.baobab)
 				.setSaveConsumer(newValue -> tree.baobab = newValue)
 				.setTooltip(tooltip("baobab_generation"))
-				.setRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().treeGeneration.treeGeneration))
 				.requireRestart()
 				.build(),
 			treeClazz,

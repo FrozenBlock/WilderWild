@@ -131,6 +131,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MEADOW_TREES = WWFeatureUtils.register("meadow_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES = WWFeatureUtils.register("savanna_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES_BAOBAB = WWFeatureUtils.register("savanna_trees_baobab");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES_BAOBAB_VANILLA = WWFeatureUtils.register("savanna_trees_baobab_vanilla");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WINDSWEPT_SAVANNA_TREES = WWFeatureUtils.register("windswept_savanna_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES = WWFeatureUtils.register("arid_savanna_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES_PALM = WWFeatureUtils.register("arid_savanna_trees_palm");
@@ -1062,6 +1063,17 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.035F)
 				),
 				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getHolder()
+			)
+		);
+
+		SAVANNA_TREES_BAOBAB_VANILLA.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
+					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getHolder(), 0.062F),
+					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getHolder(), 0.035F)
+				),
+				placedFeatures.getOrThrow(TreePlacements.OAK_CHECKED)
 			)
 		);
 
