@@ -50,6 +50,8 @@ public final class WWWorldgenConfig {
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
 				GENERATE_POLLEN = config.vegetation.pollen;
+				GENERATE_SHELF_FUNGI = config.vegetation.shelfFungiGeneration;
+				GENERATED_HOLLOWED_FALLEN_TREES = config.treeGeneration.hollowedFallenTrees;
 				BIRCH_BRANCHES = config.treeGeneration.birchBranches;
 				OAK_BRANCHES = config.treeGeneration.oakBranches;
 				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
@@ -60,6 +62,8 @@ public final class WWWorldgenConfig {
 	);
 
 	public static volatile boolean GENERATE_POLLEN = true;
+	public static volatile boolean GENERATE_SHELF_FUNGI = true;
+	public static volatile boolean GENERATED_HOLLOWED_FALLEN_TREES = true;
 	public static volatile boolean BIRCH_BRANCHES = true;
 	public static volatile boolean OAK_BRANCHES = true;
 	public static volatile boolean DARK_OAK_BRANCHES = true;
@@ -131,6 +135,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("cactusGeneration")
 		public boolean cactusGeneration = true;
+
+		@EntrySyncData("shelfFungiGeneration")
+		public boolean shelfFungiGeneration = true;
 
 		@EntrySyncData("mushroomGeneration")
 		public boolean mushroomGeneration = true;
@@ -241,6 +248,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("fallenTrees")
 		public boolean fallenTrees = true;
+
+		@EntrySyncData("hollowedFallenTrees")
+		public boolean hollowedFallenTrees = true;
 
 		@EntrySyncData("snappedTrees")
 		public boolean snappedTrees = true;

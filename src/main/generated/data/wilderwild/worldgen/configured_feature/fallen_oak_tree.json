@@ -9,10 +9,15 @@
         "probability": 0.8
       },
       {
-        "type": "wilderwild:moss_carpet_tree_decorator",
-        "pale": false,
+        "type": "wilderwild:above_logs_tree_decorator",
         "placement_chance": 0.2,
-        "probability": 0.4
+        "probability": 0.4,
+        "state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:moss_carpet"
+          }
+        }
       }
     ],
     "dirt_provider": {

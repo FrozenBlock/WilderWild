@@ -33,12 +33,12 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
-	public static final MapCodec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(
-			Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.intRange(-63, 319).fieldOf("max_height").forGetter((treeDecorator) -> treeDecorator.maxHeight),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance)
-		).apply(instance, HeightBasedCobwebTreeDecorator::new));
+	public static final MapCodec<HeightBasedCobwebTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(treeDecorator -> treeDecorator.probability),
+		Codec.intRange(-63, 319).fieldOf("max_height").forGetter(treeDecorator -> treeDecorator.maxHeight),
+		Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter(treeDecorator -> treeDecorator.placementChance)
+	).apply(instance, HeightBasedCobwebTreeDecorator::new));
+
 	private final float probability;
 	private final int maxHeight;
 	private final float placementChance;
@@ -56,19 +56,19 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(@NotNull Context generator) {
-		RandomSource random = generator.random();
+	public void place(@NotNull Context context) {
+		RandomSource random = context.random();
 		if (random.nextFloat() <= this.probability) {
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			BlockState blockState = Blocks.COBWEB.defaultBlockState();
-			List<BlockPos> logs = Util.shuffledCopy(generator.logs(), random);
+			List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
 			for (BlockPos pos : logs) {
 				if (pos.getY() <= this.maxHeight) {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
 						if (random.nextFloat() <= this.placementChance) {
 							mutableBlockPos.setWithOffset(pos, direction);
-							if (generator.isAir(mutableBlockPos)) {
-								generator.setBlock(mutableBlockPos, blockState);
+							if (context.isAir(mutableBlockPos)) {
+								context.setBlock(mutableBlockPos, blockState);
 							}
 						}
 					}
