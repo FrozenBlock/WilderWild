@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
+import net.frozenblock.wilderwild.block.CreepingRedMossBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
@@ -62,6 +63,8 @@ import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
+import net.frozenblock.wilderwild.block.RedMossBlock;
+import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
@@ -1008,6 +1011,33 @@ public final class WWBlocks {
 			.noCollission()
 			.randomTicks()
 			.sound(SoundType.CORAL_BLOCK)
+			.pushReaction(PushReaction.DESTROY)
+	);
+
+	public static final RedMossBlock RED_MOSS_BLOCK = register("red_moss_block",
+		RedMossBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.strength(0.1F)
+			.sound(SoundType.MOSS)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final RedMossCarpetBlock RED_MOSS_CARPET = register("red_moss_carpet",
+		RedMossCarpetBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.strength(0.1F)
+			.sound(SoundType.MOSS_CARPET)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final CreepingRedMossBlock CREEPING_RED_MOSS = register("creeping_red_moss",
+		CreepingRedMossBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.COLOR_RED)
+			.forceSolidOn()
+			.noCollission()
+			.strength(0.1F)
+			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
 	);
 

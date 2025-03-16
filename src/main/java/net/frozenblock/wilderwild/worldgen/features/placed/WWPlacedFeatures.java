@@ -127,6 +127,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature WINDSWEPT_SAVANNA_TREES = register("windswept_savanna_trees");
 	public static final FrozenLibPlacedFeature SAVANNA_TREES = register("savanna_trees");
 	public static final FrozenLibPlacedFeature SAVANNA_TREES_BAOBAB = register("savanna_trees_baobab");
+	public static final FrozenLibPlacedFeature SAVANNA_TREES_BAOBAB_VANILLA = register("savanna_trees_baobab_vanilla");
 	public static final FrozenLibPlacedFeature ARID_SAVANNA_TREES = register("arid_savanna_trees");
 	public static final FrozenLibPlacedFeature ARID_SAVANNA_TREES_PALM = register("arid_savanna_trees_palm");
 	public static final FrozenLibPlacedFeature WOODED_BADLANDS_TREES = register("wooded_badlands_trees");
@@ -753,6 +754,10 @@ public final class WWPlacedFeatures {
 		);
 
 		SAVANNA_TREES_BAOBAB.makeAndSetHolder(WWConfiguredFeatures.SAVANNA_TREES_BAOBAB.getHolder(),
+			treePlacement(PlacementUtils.countExtra(1, 0.1F, 1))
+		);
+
+		SAVANNA_TREES_BAOBAB_VANILLA.makeAndSetHolder(WWConfiguredFeatures.SAVANNA_TREES_BAOBAB_VANILLA.getHolder(),
 			treePlacement(PlacementUtils.countExtra(1, 0.1F, 1))
 		);
 

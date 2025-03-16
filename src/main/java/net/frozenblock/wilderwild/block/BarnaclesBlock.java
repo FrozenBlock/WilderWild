@@ -23,7 +23,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
@@ -60,15 +59,28 @@ public class BarnaclesBlock extends MultifaceBlock implements SimpleWaterloggedB
 	}
 
 	@Override
-	protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
-		if (blockState.getValue(WATERLOGGED))
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState blockState,
+		LevelReader levelReader,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos blockPos,
+		@NotNull Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource randomSource
+	) {
+		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
 
 	@Override
 	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
 		return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
+	}
+
+	@Override
+	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
+		return blockState.getFluidState().isEmpty();
 	}
 
 	@Override

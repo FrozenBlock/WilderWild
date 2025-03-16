@@ -23,6 +23,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
+import net.frozenblock.wilderwild.block.SpongeBudBlock;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -58,27 +61,105 @@ public class BoneMealItemMixin {
 		@Local(ordinal  = 1) BlockPos offsetPos,
 		@Local LocalRef<BlockState> state
 	) {
-		if (instance.is(WWBiomeTags.PRODUCES_BARNACLES_FROM_BONEMEAL)) {
-			if (randomSource.nextInt(22) == 0) {
-				BlockState barnaclesState = WWBlocks.BARNACLES.defaultBlockState();
-				if (direction != null) {
-					barnaclesState = barnaclesState
-						.setValue(MultifaceBlock.getFaceProperty(direction), true)
-						.setValue(BarnaclesBlock.WATERLOGGED, true);
-				}
+		WWWorldgenConfig.AquaticGeneration aquaticGeneration = WWWorldgenConfig.get().aquaticGeneration;
 
-				for (int k = 0; !barnaclesState.canSurvive(level, offsetPos) && k < 8; k++) {
-					barnaclesState = WWBlocks.BARNACLES.defaultBlockState()
-						.setValue(MultifaceBlock.getFaceProperty(Direction.getRandom(randomSource)), true)
-						.setValue(BarnaclesBlock.WATERLOGGED, true);
-				}
+		if (aquaticGeneration.barnacle) {
+			if (instance.is(WWBiomeTags.PRODUCES_BARNACLES_FROM_BONEMEAL)) {
+				if (randomSource.nextInt(22) == 0) {
+					BlockState barnaclesState = WWBlocks.BARNACLES.defaultBlockState();
+					if (direction != null) {
+						barnaclesState = barnaclesState
+							.setValue(MultifaceBlock.getFaceProperty(direction), true)
+							.setValue(BarnaclesBlock.WATERLOGGED, true);
+					}
 
-				if (barnaclesState.canSurvive(level, offsetPos)) {
-					state.set(barnaclesState);
-					return false;
+					for (int k = 0; !barnaclesState.canSurvive(level, offsetPos) && k < 8; k++) {
+						barnaclesState = WWBlocks.BARNACLES.defaultBlockState()
+							.setValue(MultifaceBlock.getFaceProperty(Direction.getRandom(randomSource)), true)
+							.setValue(BarnaclesBlock.WATERLOGGED, true);
+					}
+
+					if (barnaclesState.canSurvive(level, offsetPos)) {
+						state.set(barnaclesState);
+						return false;
+					}
 				}
 			}
 		}
+
+		if (aquaticGeneration.spongeBud) {
+			if (instance.is(WWBiomeTags.PRODUCES_SPONGE_BUDS_FROM_BONEMEAL)) {
+				if (randomSource.nextInt(22) == 0) {
+					BlockState spongeBudState = WWBlocks.SPONGE_BUD.defaultBlockState();
+					if (direction != null) {
+						if (direction.getAxis() == Direction.Axis.Y) {
+							spongeBudState = spongeBudState
+								.setValue(SpongeBudBlock.AGE, randomSource.nextInt(SpongeBudBlock.MAX_AGE))
+								.setValue(SpongeBudBlock.FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+								.setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(randomSource));
+						} else {
+							spongeBudState = spongeBudState
+								.setValue(SpongeBudBlock.AGE, randomSource.nextInt(SpongeBudBlock.MAX_AGE))
+								.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
+								.setValue(SpongeBudBlock.FACING, direction.getOpposite());
+						}
+					} else {
+						spongeBudState = WWBlocks.SPONGE_BUD.randomBlockState(randomSource)
+							.setValue(SpongeBudBlock.WATERLOGGED, true);
+					}
+
+					for (int k = 0; !spongeBudState.canSurvive(level, offsetPos) && k < 8; k++) {
+						spongeBudState = WWBlocks.SPONGE_BUD.randomBlockState(randomSource)
+							.setValue(SpongeBudBlock.WATERLOGGED, true);
+					}
+
+					if (spongeBudState.canSurvive(level, offsetPos)) {
+						state.set(spongeBudState);
+						return false;
+					}
+				}
+			}
+		}
+
+		if (aquaticGeneration.seaAnemone) {
+			if (instance.is(WWBiomeTags.PRODUCES_SEA_ANEMONE_FROM_BONEMEAL)) {
+				if (randomSource.nextInt(15) == 0) {
+					BlockState seaAnemoneState = WWBlocks.SEA_ANEMONE.defaultBlockState();
+
+					if (seaAnemoneState.canSurvive(level, offsetPos)) {
+						state.set(seaAnemoneState);
+						return false;
+					}
+				}
+			}
+		}
+
+		if (aquaticGeneration.seaWhip) {
+			if (instance.is(WWBiomeTags.PRODUCES_SEA_WHIPS_FROM_BONEMEAL)) {
+				if (randomSource.nextInt(15) == 0) {
+					BlockState seaWhipSate = WWBlocks.SEA_WHIP.defaultBlockState();
+
+					if (seaWhipSate.canSurvive(level, offsetPos)) {
+						state.set(seaWhipSate);
+						return false;
+					}
+				}
+			}
+		}
+
+		if (aquaticGeneration.tubeWorm) {
+			if (instance.is(WWBiomeTags.PRODUCES_TUBE_WORMS_FROM_BONEMEAL)) {
+				if (randomSource.nextInt(30) == 0) {
+					BlockState tubeWormsState = WWBlocks.TUBE_WORMS.defaultBlockState();
+
+					if (tubeWormsState.canSurvive(level, offsetPos)) {
+						state.set(tubeWormsState);
+						return false;
+					}
+				}
+			}
+		}
+
 		return original.call(instance, tagKey);
 	}
 

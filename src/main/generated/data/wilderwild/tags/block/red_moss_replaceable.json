@@ -1,0 +1,14 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:moss_replaceable",
+      "required": false
+    },
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    "minecraft:clay",
+    "minecraft:gravel"
+  ]
+}

@@ -257,6 +257,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
+		addAfterInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.BARNACLES);
+		addAfterInNaturalBlocks(WWBlocks.BARNACLES, WWBlocks.SEA_ANEMONE);
+		addAfterInNaturalBlocks(WWBlocks.SEA_ANEMONE, WWBlocks.SEA_WHIP);
+		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);
@@ -267,6 +271,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
 
 		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
+
+		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.RED_MOSS_BLOCK);
+		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
+		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_CARPET, WWBlocks.CREEPING_RED_MOSS);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);

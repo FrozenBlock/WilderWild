@@ -162,6 +162,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("mossDecoration")
 		public boolean mossDecoration = true;
 
+		@EntrySyncData("redMossDecoration")
+		public boolean redMossDecoration = true;
+
 		@EntrySyncData("scorchedSandDecoration")
 		public boolean scorchedSandDecoration = true;
 
@@ -295,6 +298,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("oceanMossGeneration")
 		public boolean oceanMossGeneration = true;
+
+		@EntrySyncData("oceanRedMossGeneration")
+		public boolean oceanRedMossGeneration = true;
 	}
 
 	public static class BiomePlacement {
