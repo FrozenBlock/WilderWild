@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:multiface_growth",
+        "config": {
+          "block": "wilderwild:red_creeping_moss",
+          "can_be_placed_on": "#wilderwild:feature/red_creeping_moss_feature_placeable",
+          "can_place_on_ceiling": true,
+          "can_place_on_floor": true,
+          "can_place_on_wall": true,
+          "chance_of_spreading": 0.7,
+          "search_range": 10
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+              "minecraft:air",
+              "minecraft:water"
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 38,
+    "xz_spread": 6,
+    "y_spread": 3
+  }
+}

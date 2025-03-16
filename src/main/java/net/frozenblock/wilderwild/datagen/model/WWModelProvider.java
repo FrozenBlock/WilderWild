@@ -118,6 +118,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createTubeWorms(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
+		generator.createFullAndCarpetBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.RED_CREEPING_MOSS);
+
 		WWModelHelper.generatePaleMushroomBlock(generator);
 		generator.createPlantWithDefaultItem(WWBlocks.PALE_MUSHROOM, WWBlocks.POTTED_PALE_MUSHROOM, BlockModelGenerators.PlantType.NOT_TINTED);
 

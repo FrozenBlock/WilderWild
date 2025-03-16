@@ -548,7 +548,6 @@ public final class WWWorldgenConfigGui {
 				.setDefaultValue(defaultTree.baobab)
 				.setSaveConsumer(newValue -> tree.baobab = newValue)
 				.setTooltip(tooltip("baobab_generation"))
-				.setRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().treeGeneration.treeGeneration))
 				.requireRestart()
 				.build(),
 			treeClazz,
@@ -607,13 +606,23 @@ public final class WWWorldgenConfigGui {
 			"darkOakBranches",
 			configInstance
 		);
+		var paleOakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_oak_branches"), modifiedTree.paleOakBranches)
+				.setDefaultValue(defaultTree.paleOakBranches)
+				.setSaveConsumer(newValue -> tree.paleOakBranches = newValue)
+				.setTooltip(tooltip("pale_oak_branches"))
+				.build(),
+			treeClazz,
+			"paleOakBranches",
+			configInstance
+		);
 
 		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
 			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, snappedTrees,
 			baobab, palm, willow,
-			birchBranches, oakBranches, darkOakBranches
+			birchBranches, oakBranches, darkOakBranches, paleOakBranches
 		);
 
 		var vegetation = config.vegetation;
@@ -665,6 +674,17 @@ public final class WWWorldgenConfigGui {
 			"grassGeneration",
 			configInstance
 		);
+		var dryGrassGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("dry_grass_generation"), modifiedVegetation.dryGrassGeneration)
+				.setDefaultValue(defaultVegetation.dryGrassGeneration)
+				.setSaveConsumer(newValue -> vegetation.dryGrassGeneration = newValue)
+				.setTooltip(tooltip("dry_grass_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"dryGrassGeneration",
+			configInstance
+		);
 		var mushroomGeneration = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mushroom_generation"), modifiedVegetation.mushroomGeneration)
 				.setDefaultValue(defaultVegetation.mushroomGeneration)
@@ -674,6 +694,17 @@ public final class WWWorldgenConfigGui {
 				.build(),
 			vegetationClazz,
 			"mushroomGeneration",
+			configInstance
+		);
+		var paleMushroomGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_mushroom_generation"), modifiedVegetation.paleMushroomGeneration)
+				.setDefaultValue(defaultVegetation.paleMushroomGeneration)
+				.setSaveConsumer(newValue -> vegetation.paleMushroomGeneration = newValue)
+				.setTooltip(tooltip("pale_mushroom_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"paleMushroomGeneration",
 			configInstance
 		);
 		var pollen = FrozenClothConfig.syncedEntry(
@@ -698,6 +729,28 @@ public final class WWWorldgenConfigGui {
 			"tumbleweed",
 			configInstance
 		);
+		var fireflyBushGen = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("firefly_bush_generation"), modifiedConfig.vegetation.fireflyBushGen)
+				.setDefaultValue(defaultConfig.vegetation.fireflyBushGen)
+				.setSaveConsumer(newValue -> config.vegetation.fireflyBushGen = newValue)
+				.setTooltip(tooltip("firefly_bush_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"fireflyBushGen",
+			configInstance
+		);
+		var leafLitterGen = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leaf_litter_generation"), modifiedConfig.vegetation.leafLitterGen)
+				.setDefaultValue(defaultConfig.vegetation.leafLitterGen)
+				.setSaveConsumer(newValue -> config.vegetation.leafLitterGen = newValue)
+				.setTooltip(tooltip("leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			clazz,
+			"leafLitterGen",
+			configInstance
+		);
 		var pumpkin = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("pumpkin_generation"), modifiedVegetation.pumpkin)
 				.setDefaultValue(defaultVegetation.pumpkin)
@@ -713,7 +766,8 @@ public final class WWWorldgenConfigGui {
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("vegetation"),
 			false,
 			tooltip("vegetation"),
-			grassGeneration, flowerGeneration, shrubGeneration, cactusGeneration, mushroomGeneration, pollen, pumpkin, tumbleweed
+			grassGeneration, dryGrassGeneration, flowerGeneration, shrubGeneration, cactusGeneration, mushroomGeneration, paleMushroomGeneration,
+			fireflyBushGen, leafLitterGen, pollen, pumpkin, tumbleweed
 		);
 
 		var surfaceDecoration = config.surfaceDecoration;
@@ -785,6 +839,28 @@ public final class WWWorldgenConfigGui {
 				.build(),
 			surfaceDecorationClazz,
 			"mossDecoration",
+			configInstance
+		);
+		var redMossDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("red_moss_decoration"), modifiedSurfaceDecoration.redMossDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.redMossDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.redMossDecoration = newValue)
+				.setTooltip(tooltip("red_moss_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"redMossDecoration",
+			configInstance
+		);
+		var paleMossDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_moss_decoration"), modifiedSurfaceDecoration.paleMossDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.paleMossDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.paleMossDecoration = newValue)
+				.setTooltip(tooltip("pale_moss_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"paleMossDecoration",
 			configInstance
 		);
 		var scorchedSandDecoration = FrozenClothConfig.syncedEntry(
@@ -912,10 +988,9 @@ public final class WWWorldgenConfigGui {
 		var surfaceDecorationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("surface_decoration"),
 			false,
 			tooltip("surface_decoration"),
-			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration,
-			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration,
-			clearingDecoration, taigaBoulders, snowPiles, fragileIceDecoration, icicleDecoration,
-			lakes, basins
+			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, redMossDecoration, paleMossDecoration,
+			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration, clearingDecoration, taigaBoulders,
+			snowPiles, fragileIceDecoration, icicleDecoration, lakes, basins
 		);
 
 		var termite = category.addEntry(
@@ -928,32 +1003,6 @@ public final class WWWorldgenConfigGui {
 					.build(),
 				clazz,
 				"termiteGen",
-				configInstance
-			)
-		);
-		var fireflyBushGen = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("firefly_bush_generation"), modifiedConfig.vegetation.fireflyBushGen)
-					.setDefaultValue(defaultConfig.vegetation.fireflyBushGen)
-					.setSaveConsumer(newValue -> config.vegetation.fireflyBushGen = newValue)
-					.setTooltip(tooltip("firefly_bush_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"fireflyBushGen",
-				configInstance
-			)
-		);
-		var leafLitterGen = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("leaf_litter_generation"), modifiedConfig.vegetation.leafLitterGen)
-					.setDefaultValue(defaultConfig.vegetation.leafLitterGen)
-					.setSaveConsumer(newValue -> config.vegetation.leafLitterGen = newValue)
-					.setTooltip(tooltip("leaf_litter_generation"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"leafLitterGen",
 				configInstance
 			)
 		);
@@ -1121,11 +1170,22 @@ public final class WWWorldgenConfigGui {
 			"oceanMossGeneration",
 			configInstance
 		);
+		var oceanRedMossGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("ocean_red_moss_generation"), modifiedAquatic.oceanRedMossGeneration)
+				.setDefaultValue(defaultAquatic.oceanRedMossGeneration)
+				.setSaveConsumer(newValue -> aquatic.oceanRedMossGeneration = newValue)
+				.setTooltip(tooltip("ocean_red_moss_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"oceanRedMossGeneration",
+			configInstance
+		);
 
 		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
 			false,
 			tooltip("aquatic_generation"),
-			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration
+			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration, oceanRedMossGeneration
 		);
 
 		var transition = config.transitionGeneration;

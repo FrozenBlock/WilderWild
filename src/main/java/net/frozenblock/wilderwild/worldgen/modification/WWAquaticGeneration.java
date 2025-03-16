@@ -269,14 +269,28 @@ public final class WWAquaticGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().aquaticGeneration.oceanMossGeneration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
+					if (WWWorldgenConfig.get().aquaticGeneration.oceanMossGeneration) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWAquaticPlaced.OCEAN_MOSS.getKey());
 						}
 					}
-			});
+
+					if (WWWorldgenConfig.get().aquaticGeneration.oceanRedMossGeneration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_RED_MOSS_UNDERWATER)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.CREEPING_RED_MOSS_UNDERWATER.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS_UNDERWATER)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.RED_MOSS_UNDERWATER.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS_UNDERWATER_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.RED_MOSS_UNDERWATER_RARE.getKey());
+						}
+					}
+				});
 	}
 
 }

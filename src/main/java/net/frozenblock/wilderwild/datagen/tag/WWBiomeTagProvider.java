@@ -745,6 +745,36 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.COLD_OCEAN)
 			.add(Biomes.DEEP_COLD_OCEAN);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SPONGE_BUDS_FROM_BONEMEAL)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SEA_ANEMONE_FROM_BONEMEAL)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_SEA_WHIPS_FROM_BONEMEAL)
+			.add(Biomes.WARM_OCEAN)
+			.add(Biomes.LUKEWARM_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.PRODUCES_TUBE_WORMS_FROM_BONEMEAL)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
 		this.getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
@@ -2150,6 +2180,31 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MUD_LAKE)
 			.add(Biomes.MANGROVE_SWAMP);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_RED_MOSS)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_RED_MOSS_UNDERWATER)
+			.add(Biomes.OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS_UNDERWATER)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS_UNDERWATER_RARE)
+			.add(Biomes.OCEAN)
+			.add(Biomes.COLD_OCEAN)
+			.add(Biomes.FROZEN_OCEAN)
+			.add(Biomes.DEEP_FROZEN_OCEAN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_ALGAE_SMALL)
 			.addOptionalTag(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS);

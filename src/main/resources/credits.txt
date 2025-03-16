@@ -57,6 +57,7 @@ Zhen:
  - Lantanas textures and idea.
  - Sea Whip textures.
  - Plankton block textures.
+ - Red Moss & Creeping Red Moss textures.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

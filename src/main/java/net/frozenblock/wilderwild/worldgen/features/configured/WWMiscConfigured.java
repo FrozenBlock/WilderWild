@@ -44,7 +44,9 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -54,23 +56,28 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -165,10 +172,17 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
-	// MAPLE GROVE
+	// MAPLE FOREST
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+
+	// RED MOSS
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION = register("red_moss_vegetation");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH = register("red_moss_patch");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS = register("red_moss");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> RED_CREEPING_MOSS_PATCH = register("red_creeping_moss_patch");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL = register("red_moss_patch_bonemeal");
 
 	// SNOW
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -1159,6 +1173,114 @@ public final class WWMiscConfigured {
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
 				UniformInt.of(2, 4)
+			)
+		);
+
+		RED_MOSS_VEGETATION.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				new WeightedStateProvider(
+					WeightedList.<BlockState>builder()
+						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
+						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState(), 1)
+				)
+			)
+		);
+
+		RED_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
+			new VegetationPatchConfiguration(
+				WWBlockTags.RED_MOSS_REPLACEABLE,
+				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.45F
+			)
+		);
+
+		RED_MOSS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								8,
+								6,
+								3,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+							)
+						),
+						0.25F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								8,
+								6,
+								4,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+							)
+						),
+						0.15F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_PATCH,
+							new RandomPatchConfiguration(
+								7,
+								3,
+								2,
+								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+							)
+						),
+						0.25F
+					)
+				),
+				PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+			)
+		);
+
+		RED_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
+			new RandomPatchConfiguration(
+				38,
+				6,
+				3,
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.RED_CREEPING_MOSS,
+						10,
+						true,
+						true,
+						true,
+						0.7F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK,
+							WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+				)
+			)
+		);
+
+		RED_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
+			new VegetationPatchConfiguration(
+				WWBlockTags.RED_MOSS_REPLACEABLE,
+				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.75F
 			)
 		);
 

@@ -131,9 +131,12 @@ public final class Tundra extends FrozenBiome {
 					return GRASS_COLOR_BLUE_GREENISH;
 				} else if (noise > 0.5D) {
 					return GRASS_COLOR_LIGHTER_GREEN;
-				} else if (noise > 0.34222D) {
+				}
+				/*
+				else if (noise > 0.34222D) {
 					return GRASS_COLOR_RED;
 				}
+				 */
 				return grassColor;
 			}
 		);

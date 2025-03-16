@@ -21,6 +21,7 @@ package net.frozenblock.wilderwild.mixin.block.ocean;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
+import net.frozenblock.wilderwild.block.SeaWhipBlock;
 import net.frozenblock.wilderwild.block.TubeWormsBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SpongeBlock;
@@ -39,8 +40,11 @@ public class SpongeBlockMixin {
 			ordinal = 2
 		)
 	)
-	private static boolean wilderWild$addCheckForSeaAnemone(BlockState instance, Block block, Operation<Boolean> original) {
-		return original.call(instance, block) || instance.getBlock() instanceof SeaAnemoneBlock || instance.getBlock() instanceof TubeWormsBlock;
+	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Block block, Operation<Boolean> original) {
+		return original.call(instance, block)
+			|| instance.getBlock() instanceof SeaAnemoneBlock
+			|| instance.getBlock() instanceof TubeWormsBlock
+			|| instance.getBlock() instanceof SeaWhipBlock;
 	}
 
 }

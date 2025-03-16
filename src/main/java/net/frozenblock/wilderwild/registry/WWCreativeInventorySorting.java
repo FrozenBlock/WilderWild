@@ -235,8 +235,8 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
 		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
 		addAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
-		addBeforeInNaturalBlocks(Items.PINK_TULIP, WWBlocks.RED_HIBISCUS);
-		addBeforeInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
+		addBeforeInNaturalBlocks(Items.TORCHFLOWER, WWBlocks.RED_HIBISCUS);
+		addAfterInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.PINK_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
@@ -258,17 +258,24 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.SHRUB);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
+		addBeforeInNaturalBlocks(Items.SEAGRASS, WWBlocks.BARNACLES);
+		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
+		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
+		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);
+		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
+		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.FROZEN_SHORT_GRASS);
 		addAfterInNaturalBlocks(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_FERN);
 		addAfterInNaturalBlocks(Items.BUSH, WWBlocks.FROZEN_BUSH);
 		addAfterInNaturalBlocks(Items.LARGE_FERN, WWBlocks.FROZEN_TALL_GRASS);
 		addAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
 
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
-
 		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
+
+		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.RED_MOSS_BLOCK);
+		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
+		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_CARPET, WWBlocks.RED_CREEPING_MOSS);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);

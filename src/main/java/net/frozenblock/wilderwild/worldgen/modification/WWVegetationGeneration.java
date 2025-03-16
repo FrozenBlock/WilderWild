@@ -556,19 +556,15 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().vegetation.mushroomGeneration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
+					if (WWWorldgenConfig.get().vegetation.mushroomGeneration) {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_RED_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_BROWN_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_BROWN_MUSHROOM_PLACED.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_PALE_MUSHROOM)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_PALE_MUSHROOM_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_MUSHROOMS)) {
@@ -581,10 +577,6 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_RED_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RED_MUSHROOM_PLACED.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MUSHROOM)) {
-							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.PALE_MUSHROOM_PLACED.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_MUSHROOM)) {
@@ -617,6 +609,16 @@ public final class WWVegetationGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MIXED_MUSHROOM)) {
 							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MIXED_MUSHROOMS_PLACED.getKey());
+						}
+					}
+
+					if (WWWorldgenConfig.get().vegetation.paleMushroomGeneration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_PALE_MUSHROOM)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_PALE_MUSHROOM_PLACED.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MUSHROOM)) {
+							generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.PALE_MUSHROOM_PLACED.getKey());
 						}
 					}
 				});

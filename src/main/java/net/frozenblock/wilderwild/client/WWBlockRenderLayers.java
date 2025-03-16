@@ -67,6 +67,8 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.FROZEN_BUSH, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_FROZEN_BUSH, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(WWBlocks.RED_CREEPING_MOSS, RenderType.cutout());
+
 		renderLayerRegistry.putBlock(WWBlocks.DATURA, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CATTAIL, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ALGAE, RenderType.cutout());

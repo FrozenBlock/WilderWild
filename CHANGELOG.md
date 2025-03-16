@@ -181,6 +181,10 @@ hi
   - Is placed on top of water.
   - Spawns Plankton particles underwater.
   - During the night, starts glowing.
+- Added Red Moss and Creeping Red Moss.
+  - Generates in most ocean biomes, Maple Forests, and Tundras.
+  - Creeping Red Moss can be placed on all block faces, like Glow Lichen.
+  - Red Moss Carpets and Creeping Red Moss can be waterlogged.
 
 # Music
 - Added three new tracks by Willow/pictochats_.

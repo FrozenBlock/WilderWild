@@ -298,14 +298,18 @@ public final class WWWorldgen {
 				BiomeSelectors.tag(WWBiomeTags.NORMAL_SAVANNA),
 				context -> {
 					WWWorldgenConfig.TreeGeneration treeGeneration = WWWorldgenConfig.get().treeGeneration;
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
 					if (treeGeneration.treeGeneration) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 						generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
 						if (treeGeneration.baobab) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES_BAOBAB.getKey());
 						} else {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES.getKey());
 						}
+					} else if (treeGeneration.baobab) {
+						generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES_BAOBAB_VANILLA.getKey());
 					}
 				})
 			.add(
