@@ -395,7 +395,8 @@ public final class WWModelHelper {
 		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
 		ResourceLocation modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
 
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, modelId));
+		MultiVariant variant = BlockModelGenerators.plainVariant(modelId);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, variant));
 		generator.registerSimpleFlatItemModel(seaAnemoneBlock.asItem());
 	}
 
@@ -407,7 +408,8 @@ public final class WWModelHelper {
 	public static void createAlgae(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
 		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, model));
+		MultiVariant variant = BlockModelGenerators.plainVariant(model);
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, variant));
 	}
 
 	public static void createPlankton(@NotNull BlockModelGenerators generator) {
@@ -417,11 +419,17 @@ public final class WWModelHelper {
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.multiVariant(WWBlocks.PLANKTON)
+				MultiVariantGenerator.dispatch(WWBlocks.PLANKTON)
 					.with(
-						PropertyDispatch.property(WWBlockStateProperties.GLOWING)
-							.select(false, Variant.variant().with(VariantProperties.MODEL, model))
-							.select(true, Variant.variant().with(VariantProperties.MODEL, glowingModel))
+						PropertyDispatch.initial(WWBlockStateProperties.GLOWING)
+							.select(
+								false,
+								BlockModelGenerators.plainVariant(model)
+							)
+							.select(
+								true,
+								BlockModelGenerators.plainVariant(glowingModel)
+							)
 					)
 			);
 	}
@@ -434,13 +442,13 @@ public final class WWModelHelper {
 		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.multiVariant(WWBlocks.TUBE_WORMS)
+				MultiVariantGenerator.dispatch(WWBlocks.TUBE_WORMS)
 					.with(
-						PropertyDispatch.property(WWBlockStateProperties.TUBE_WORMS_PART)
-							.select(TubeWormsPart.SINGLE, Variant.variant().with(VariantProperties.MODEL, singleModel))
-							.select(TubeWormsPart.TOP, Variant.variant().with(VariantProperties.MODEL, topModel))
-							.select(TubeWormsPart.MIDDLE, Variant.variant().with(VariantProperties.MODEL, middleModel))
-							.select(TubeWormsPart.BOTTOM, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+						PropertyDispatch.initial(WWBlockStateProperties.TUBE_WORMS_PART)
+							.select(TubeWormsPart.SINGLE, BlockModelGenerators.plainVariant(singleModel))
+							.select(TubeWormsPart.TOP, BlockModelGenerators.plainVariant(topModel))
+							.select(TubeWormsPart.MIDDLE, BlockModelGenerators.plainVariant(middleModel))
+							.select(TubeWormsPart.BOTTOM, BlockModelGenerators.plainVariant(bottomModel))
 					)
 			);
 	}

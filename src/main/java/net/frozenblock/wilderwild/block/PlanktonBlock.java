@@ -28,6 +28,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -119,7 +120,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity, InsideBlockEffectApplier applier) {
 		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
 			if (!isGlowing(state) && level instanceof ServerLevel serverLevel) {
 				this.tryChangingState(state, serverLevel, pos);
@@ -133,7 +134,7 @@ public class PlanktonBlock extends AlgaeBlock {
 
 	private void tryChangingState(BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos) {
 		if (!serverLevel.dimensionType().natural()) return;
-		if (serverLevel.isDay() != isGlowing(blockState)) return;
+		if (serverLevel.isBrightOutside() != isGlowing(blockState)) return;
 		boolean setGlowing = !isGlowing(blockState);
 		serverLevel.setBlock(blockPos, blockState.setValue(GLOWING, setGlowing), UPDATE_ALL);
 		serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState));

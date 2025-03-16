@@ -27,6 +27,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -40,7 +41,6 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlockContainer;
-import net.minecraft.world.level.block.SeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -54,7 +54,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, LiquidBlockContainer {
-	public static final MapCodec<SeaAnemoneBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
 	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
@@ -65,7 +65,7 @@ public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends SeaAnemoneBlock> codec() {
+	public MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -143,7 +143,7 @@ public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, Liq
 
 	private boolean tryChangingState(BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
 		if (!serverLevel.dimensionType().natural()) return false;
-		if (serverLevel.isDay() == isGlowing(blockState)) return false;
+		if (serverLevel.isBrightOutside() == isGlowing(blockState)) return false;
 		boolean setGlowing = !isGlowing(blockState);
 		serverLevel.setBlock(blockPos, blockState.setValue(GLOWING, setGlowing), UPDATE_ALL);
 		serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState));
@@ -189,7 +189,7 @@ public class SeaAnemoneBlock extends BushBlock implements BonemealableBlock, Liq
 	}
 
 	@Override
-	public boolean canPlaceLiquid(Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
 		return false;
 	}
 

@@ -153,7 +153,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
 			.add(EntityType.EGG)
-			.add(EntityType.POTION)
+			.add(EntityType.SPLASH_POTION)
+			.add(EntityType.LINGERING_POTION)
 			.add(EntityType.SNOWBALL)
 			.add(EntityType.EXPERIENCE_BOTTLE)
 			.add(EntityType.WIND_CHARGE)

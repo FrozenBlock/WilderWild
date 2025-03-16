@@ -1,7 +1,8 @@
 {
   "values": [
     "minecraft:egg",
-    "minecraft:potion",
+    "minecraft:splash_potion",
+    "minecraft:lingering_potion",
     "minecraft:snowball",
     "minecraft:experience_bottle",
     "minecraft:wind_charge",

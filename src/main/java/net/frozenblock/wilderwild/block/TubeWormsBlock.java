@@ -27,6 +27,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -49,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 	public static final EnumProperty<TubeWormsPart> TUBE_WORMS_PART = WWBlockStateProperties.TUBE_WORMS_PART;
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
-	public static final MapCodec<TubeWormsBlock> CODEC = simpleCodec(TubeWormsBlock::new);
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(TubeWormsBlock::new);
 
 	public TubeWormsBlock(@NotNull Properties properties) {
 		super(properties);
@@ -57,7 +58,7 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends TubeWormsBlock> codec() {
+	public MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -144,7 +145,7 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 	}
 
 	@Override
-	public boolean canPlaceLiquid(Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
 		return false;
 	}
 

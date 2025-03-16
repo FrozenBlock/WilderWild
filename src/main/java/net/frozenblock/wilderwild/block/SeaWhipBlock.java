@@ -27,6 +27,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -53,7 +54,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaWhipBlock extends BushBlock implements LiquidBlockContainer {
-	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(SeaWhipBlock::new);
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
 
 	public SeaWhipBlock(@NotNull Properties properties) {
@@ -61,7 +62,7 @@ public class SeaWhipBlock extends BushBlock implements LiquidBlockContainer {
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends SeaWhipBlock> codec() {
+	public @NotNull MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -89,7 +90,7 @@ public class SeaWhipBlock extends BushBlock implements LiquidBlockContainer {
 	}
 
 	@Override
-	public boolean canPlaceLiquid(Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
 		return false;
 	}
 

@@ -709,7 +709,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS)
+			.addOptional(WWBiomes.TUNDRA)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
@@ -1884,7 +1884,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.AUTUMNAL_PLAINS)
+			.addOptional(WWBiomes.TUNDRA)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
