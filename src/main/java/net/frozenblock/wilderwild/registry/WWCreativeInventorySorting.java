@@ -233,7 +233,7 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
 		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
 		addAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
-		addBeforeInNaturalBlocks(Items.PINK_TULIP, WWBlocks.RED_HIBISCUS);
+		addBeforeInNaturalBlocks(Items.WITHER_ROSE, WWBlocks.RED_HIBISCUS);
 		addBeforeInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
 		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
@@ -257,10 +257,10 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
 		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
-		addAfterInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.BARNACLES);
-		addAfterInNaturalBlocks(WWBlocks.BARNACLES, WWBlocks.SEA_ANEMONE);
-		addAfterInNaturalBlocks(WWBlocks.SEA_ANEMONE, WWBlocks.SEA_WHIP);
+		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
 		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
+		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.BARNACLES);
+		addAfterInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
 		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
 		addAfterInNaturalBlocks(Items.FERN, WWBlocks.FROZEN_SHORT_GRASS);

@@ -845,6 +845,8 @@
   "tooltip.wilderwild.oak_branches": "Whether Oak Trees can generate small branches.",
   "option.wilderwild.dark_oak_branches": "Dark Oak Branches",
   "tooltip.wilderwild.dark_oak_branches": "Whether Dark Oak Trees can generate small branches.",
+  "option.wilderwild.pale_oak_branches": "Pale Oak Branches",
+  "tooltip.wilderwild.pale_oak_branches": "Whether Pale Oak Trees can generate small branches.",
 
   "option.wilderwild.vegetation": "Vegetation Generation",
   "tooltip.wilderwild.vegetation": "Contains options for vegetation generation.",

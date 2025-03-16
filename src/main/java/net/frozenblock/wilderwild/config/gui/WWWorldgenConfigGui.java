@@ -606,13 +606,23 @@ public final class WWWorldgenConfigGui {
 			"darkOakBranches",
 			configInstance
 		);
+		var paleOakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_oak_branches"), modifiedTree.paleOakBranches)
+				.setDefaultValue(defaultTree.paleOakBranches)
+				.setSaveConsumer(newValue -> tree.paleOakBranches = newValue)
+				.setTooltip(tooltip("pale_oak_branches"))
+				.build(),
+			treeClazz,
+			"paleOakBranches",
+			configInstance
+		);
 
 		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
 			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, snappedTrees,
 			baobab, palm, willow,
-			birchBranches, oakBranches, darkOakBranches
+			birchBranches, oakBranches, darkOakBranches, paleOakBranches
 		);
 
 		var vegetation = config.vegetation;
