@@ -35,11 +35,11 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
-	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0.0F, 1.0F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
-			Codec.INT.fieldOf("max_count").forGetter((treeDecorator) -> treeDecorator.maxCount)
-		).apply(instance, PollenTreeDecorator::new));
+	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(treeDecorator -> treeDecorator.probability),
+		Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter(treeDecorator -> treeDecorator.placementChance),
+		Codec.INT.fieldOf("max_count").forGetter(treeDecorator -> treeDecorator.maxCount)
+	).apply(instance, PollenTreeDecorator::new));
 
 	private final float probability;
 	private final float placementChance;
@@ -58,26 +58,25 @@ public class PollenTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(@NotNull Context generator) {
+	public void place(@NotNull Context context) {
 		if (!WWWorldgenConfig.GENERATE_POLLEN) return;
 
-		RandomSource random = generator.random();
+		RandomSource random = context.random();
 		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(generator.logs());
-			poses.addAll(generator.leaves());
+			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+			poses.addAll(context.leaves());
 			Util.shuffle(poses, random);
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			int placedPollen = 0;
 			BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
 			for (BlockPos pos : poses) {
-				if (placedPollen >= this.maxCount) {
-					return;
-				}
+				if (placedPollen >= this.maxCount) return;
+
 				for (Direction direction : Direction.values()) {
 					mutableBlockPos.setWithOffset(pos, direction);
-					if (generator.isAir(mutableBlockPos)) {
+					if (context.isAir(mutableBlockPos)) {
 						if (random.nextFloat() <= this.placementChance) {
-							generator.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
+							context.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
 							placedPollen += 1;
 						}
 					}

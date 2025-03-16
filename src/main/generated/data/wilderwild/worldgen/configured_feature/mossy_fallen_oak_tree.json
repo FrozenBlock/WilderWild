@@ -9,16 +9,60 @@
         "probability": 0.8
       },
       {
-        "type": "wilderwild:moss_carpet_tree_decorator",
-        "pale": false,
+        "type": "wilderwild:above_logs_tree_decorator",
         "placement_chance": 0.3,
-        "probability": 1.0
+        "probability": 1.0,
+        "state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:moss_carpet"
+          }
+        }
       },
       {
         "type": "wilderwild:shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
         "probability": 0.074,
-        "red_shelf_fungi_chance": 0.15
+        "shelf_fungi_provider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "shelf_fungus_stage",
+          "source": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "wilderwild:brown_shelf_fungi",
+                  "Properties": {
+                    "age": "0",
+                    "face": "wall",
+                    "facing": "north",
+                    "shelf_fungus_stage": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 17
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:red_shelf_fungi",
+                  "Properties": {
+                    "age": "0",
+                    "face": "wall",
+                    "facing": "north",
+                    "shelf_fungus_stage": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 3
+              }
+            ]
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 1
+          }
+        }
       }
     ],
     "dirt_provider": {

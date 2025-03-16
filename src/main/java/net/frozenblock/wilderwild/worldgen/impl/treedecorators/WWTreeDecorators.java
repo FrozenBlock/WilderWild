@@ -28,12 +28,10 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWTreeDecorators {
 	public static final TreeDecoratorType<ShelfFungiTreeDecorator> SHELF_FUNGI_TREE_DECORATOR = register("shelf_fungi_tree_decorator", ShelfFungiTreeDecorator.CODEC);
-	public static final TreeDecoratorType<PaleShelfFungiTreeDecorator> PALE_SHELF_FUNGI_TREE_DECORATOR = register("pale_shelf_fungi_tree_decorator", PaleShelfFungiTreeDecorator.CODEC);
-	public static final TreeDecoratorType<NetherShelfFungiTreeDecorator> NETHER_SHELF_FUNGI_TREE_DECORATOR = register("nether_shelf_fungi_tree_decorator", NetherShelfFungiTreeDecorator.CODEC);
 	public static final TreeDecoratorType<HeightBasedVineTreeDecorator> HEIGHT_BASED_VINE_TREE_DECORATOR = register("height_based_vine_tree_decorator", HeightBasedVineTreeDecorator.CODEC);
 	public static final TreeDecoratorType<HeightBasedCobwebTreeDecorator> HEIGHT_BASED_COBWEB_TREE_DECORATOR = register("height_based_cobweb_tree_decorator", HeightBasedCobwebTreeDecorator.CODEC);
 	public static final TreeDecoratorType<PollenTreeDecorator> POLLEN_TREE_DECORATOR = register("pollen_tree_decorator", PollenTreeDecorator.CODEC);
-	public static final TreeDecoratorType<MossCarpetTreeDecorator> MOSS_CARPET_TREE_DECORATOR = register("moss_carpet_tree_decorator", MossCarpetTreeDecorator.CODEC);
+	public static final TreeDecoratorType<AboveLogsTreeDecorator> ABOVE_LOGS_TREE_DECORATOR = register("above_logs_tree_decorator", AboveLogsTreeDecorator.CODEC);
 
 	public static void generateTreeDecorators() {
 		//Just to ensure the class is loaded.

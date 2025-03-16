@@ -3,15 +3,49 @@
   "config": {
     "decorators": [
       {
-        "type": "wilderwild:moss_carpet_tree_decorator",
-        "pale": true,
+        "type": "wilderwild:above_logs_tree_decorator",
         "placement_chance": 0.35,
-        "probability": 1.0
+        "probability": 0.6,
+        "state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:pale_moss_carpet",
+            "Properties": {
+              "bottom": "true",
+              "east": "none",
+              "north": "none",
+              "south": "none",
+              "west": "none"
+            }
+          }
+        }
       },
       {
-        "type": "wilderwild:pale_shelf_fungi_tree_decorator",
+        "type": "wilderwild:shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
-        "probability": 0.0875
+        "probability": 0.0875,
+        "shelf_fungi_provider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "shelf_fungus_stage",
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "wilderwild:pale_shelf_fungi",
+              "Properties": {
+                "age": "0",
+                "face": "wall",
+                "facing": "north",
+                "shelf_fungus_stage": "1",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 1
+          }
+        }
       }
     ],
     "dirt_provider": {
