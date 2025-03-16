@@ -57,7 +57,7 @@ Zhen:
  - Lantanas textures and idea.
  - Sea Whip textures.
  - Plankton block textures.
- - Red Moss & Creeping Red Moss textures.
+ - Auburn Moss & Auburn Creeping Moss textures.
  - Retextured Datura in 4.0.
 
 voxelotl:
