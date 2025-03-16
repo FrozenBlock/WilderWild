@@ -119,7 +119,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				AdvancementType.TASK,
 				true,
 				true,
-				false
+				true
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK))
 			.save(writer, WWConstants.string("adventure/obtain_null_block"));

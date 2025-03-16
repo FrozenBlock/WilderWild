@@ -407,13 +407,12 @@ public class WWCreativeInventorySorting {
 		addBeforeInNaturalBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO);
 
 		addBeforeInBuildingBlocks(Items.BRICKS, WWBlocks.GABBRO);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO, WWBlocks.GEYSER);
 		// TT
-		addAfterInBuildingBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO_STAIRS);
+		addAfterInBuildingBlocks(WWBlocks.GABBRO, WWBlocks.GABBRO_STAIRS);
 		addAfterInBuildingBlocks(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB);
 		addAfterInBuildingBlocks(WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL);
 		// BACK TO WW
-		addAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWBlocks.GABBRO_WALL : WWBlocks.GEYSER, WWBlocks.POLISHED_GABBRO);
+		addAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWBlocks.GABBRO_WALL : WWBlocks.GABBRO, WWBlocks.POLISHED_GABBRO);
 		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS);
 		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB);
 		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL);

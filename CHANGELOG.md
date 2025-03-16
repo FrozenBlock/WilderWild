@@ -157,10 +157,12 @@ hi
 - Revamped config options related to tree generation.
   - Grouped all existing tree-related options into one category.
   - Added options to individually disable Birch, Oak, Dark Oak, and Pale Oak branch generation.
+  - Added an option to prevent Fallen Trees from generating with Hollowed Logs.
   - Added an option to disable Baobab generation.
     - This requires the `Tree Generation` option to be enabled.
   - Added an option to disable Palm generation.
   - Added an option to disable Willow generation.
+  - Added an option to disable Shelf Fungi generation.
 - Fixed Ostriches not being required for the `Two by Two` advancement.
 - Fixed the client tracking ranges and update intervals of Wilder Wild's entities to be consistent with Vanilla's.
 - Updated Particle Rain compatibility.

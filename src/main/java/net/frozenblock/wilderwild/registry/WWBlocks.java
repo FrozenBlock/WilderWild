@@ -90,8 +90,6 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
-import net.frozenblock.wilderwild.worldgen.features.configured.WWTreeConfigured;
-import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -998,7 +996,7 @@ public final class WWBlocks {
 			.ignitedByLava()
 	);
 	public static final PaleMushroomBlock PALE_MUSHROOM = register("pale_mushroom",
-		properties -> new PaleMushroomBlock(WWTreeConfigured.HUGE_PALE_MUSHROOM.getKey(), properties),
+	properties -> new PaleMushroomBlock(ResourceKey.create(Registries.CONFIGURED_FEATURE, WWConstants.id("huge_pale_mushroom")), properties),
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_GRAY)
 			.noCollission()
@@ -1008,7 +1006,7 @@ public final class WWBlocks {
 			.hasPostProcess(Blocks::always)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final Block POTTED_PALE_MUSHROOM = register("potted_pale_mushroom",
+	public static final Block POTTED_PALE_MUSHROOM = registerWithoutItem("potted_pale_mushroom",
 		properties -> new FlowerPotBlock(PALE_MUSHROOM, properties),
 		Blocks.flowerPotProperties()
 	);
@@ -1068,7 +1066,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.WATER)
 			.instabreak()
 			.noCollission()
-			.sound(SoundType.CORAL_BLOCK)
+			.sound(SoundType.WET_GRASS)
 			.pushReaction(PushReaction.DESTROY)
 	);
 

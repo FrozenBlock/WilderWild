@@ -23,31 +23,32 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungiTreeDecorator extends TreeDecorator {
-	public static final MapCodec<ShelfFungiTreeDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(
-			Codec.floatRange(0F, 1F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
-			Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter((treeDecorator) -> treeDecorator.placementChance),
-			Codec.floatRange(0F, 1F).fieldOf("red_shelf_fungi_chance").forGetter((treeDecorator) -> treeDecorator.redShelfFungiChance)
-		).apply(instance, ShelfFungiTreeDecorator::new));
+	public static final MapCodec<ShelfFungiTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(treeDecorator -> treeDecorator.probability),
+		Codec.floatRange(0F, 1F).fieldOf("placement_chance").forGetter(treeDecorator -> treeDecorator.placementChance),
+		BlockStateProvider.CODEC.fieldOf("shelf_fungi_provider").forGetter(treeDecorator -> treeDecorator.blockStateProvider)
+	).apply(instance, ShelfFungiTreeDecorator::new));
+
 	private final float probability;
 	private final float placementChance;
-	private final float redShelfFungiChance;
+	private final BlockStateProvider blockStateProvider;
 
-	public ShelfFungiTreeDecorator(float probability, float placementChance, float redShelfFungusChance) {
+	public ShelfFungiTreeDecorator(float probability, float placementChance, BlockStateProvider blockStateProvider) {
 		this.probability = probability;
 		this.placementChance = placementChance;
-		this.redShelfFungiChance = redShelfFungusChance;
+		this.blockStateProvider = blockStateProvider;
 	}
 
 	@Override
@@ -57,23 +58,23 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public void place(@NotNull Context generator) {
-		RandomSource abstractRandom = generator.random();
-		if (abstractRandom.nextFloat() <= this.probability) {
-			List<BlockPos> poses = generator.logs();
+	public void place(@NotNull Context context) {
+		if (!WWWorldgenConfig.GENERATE_SHELF_FUNGI) return;
+
+		RandomSource random = context.random();
+		if (random.nextFloat() <= this.probability) {
+			List<BlockPos> poses = context.logs();
 			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState redState = WWBlocks.RED_SHELF_FUNGI.defaultBlockState();
-			BlockState brownState = WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState();
 			for (BlockPos pos : poses) {
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					if (abstractRandom.nextFloat() <= this.placementChance) {
+					if (random.nextFloat() <= this.placementChance) {
 						mutableBlockPos.setWithOffset(pos, direction);
-						if (generator.isAir(mutableBlockPos)) {
-							if (generator.random().nextFloat() < redShelfFungiChance) {
-								generator.setBlock(mutableBlockPos, redState.setValue(ShelfFungiBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungiBlock.FACE, AttachFace.WALL).setValue(ShelfFungiBlock.FACING, direction));
-							} else {
-								generator.setBlock(mutableBlockPos, brownState.setValue(ShelfFungiBlock.STAGE, abstractRandom.nextInt(3) + 1).setValue(ShelfFungiBlock.FACE, AttachFace.WALL).setValue(ShelfFungiBlock.FACING, direction));
-							}
+						if (context.isAir(mutableBlockPos)) {
+							BlockState state = this.blockStateProvider.getState(random, mutableBlockPos)
+								.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
+								.setValue(ShelfFungiBlock.FACING, direction);
+
+							context.setBlock(mutableBlockPos, state);
 						}
 					}
 				}

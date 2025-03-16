@@ -26,10 +26,10 @@ import java.util.OptionalInt;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.NoOpFoliagePlacer;
@@ -42,9 +42,7 @@ import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacement;
 import net.frozenblock.wilderwild.worldgen.impl.rootplacers.WillowRootPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.HeightBasedVineTreeDecorator;
-import net.frozenblock.wilderwild.worldgen.impl.treedecorators.MossCarpetTreeDecorator;
-import net.frozenblock.wilderwild.worldgen.impl.treedecorators.NetherShelfFungiTreeDecorator;
-import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PaleShelfFungiTreeDecorator;
+import net.frozenblock.wilderwild.worldgen.impl.treedecorators.AboveLogsTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.PollenTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.ShelfFungiTreeDecorator;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.BaobabTrunkPlacer;
@@ -65,6 +63,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -73,6 +72,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -258,7 +258,7 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> COBWEB_FANCY_PALE_OAK_CREAKING = register("cobweb_fancy_pale_oak_creaking");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak_tree");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak_tree");
-	public static final FrozenLibConfiguredFeature<HugeMushroomFeatureConfiguration, ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PALE_MUSHROOM = WWFeatureUtils.register("huge_pale_mushroom");
+	public static final FrozenLibConfiguredFeature<HugeMushroomFeatureConfiguration, ConfiguredFeature<HugeMushroomFeatureConfiguration, ?>> HUGE_PALE_MUSHROOM = register("huge_pale_mushroom");
 	//SWAMP TREE
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> WILLOW = register("willow");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> WILLOW_TALL = register("willow_tall");
@@ -329,16 +329,111 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> FALLEN_WARPED_FUNGI = register("fallen_warped_fungi");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration, ConfiguredFeature<TreeConfiguration, ?>> SNAPPED_WARPED_FUNGI = register("snapped_warped_fungi");
 	//DECORATOR
-
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(0.09F, 0.25F, 0.3F);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(0.074F, 0.25F, 0.15F);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(0.054F, 0.25F, 0.15F);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(0.03F, 0.25F, 0.4F);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074_ONLY_BROWN = new ShelfFungiTreeDecorator(0.074F, 0.25F, 0F);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_00975_ONLY_RED = new ShelfFungiTreeDecorator(0.0975F, 0.25F, 1F);
-	private static final PaleShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new PaleShelfFungiTreeDecorator(0.0875F, 0.25F);
-	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.1F);
-	private static final NetherShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new NetherShelfFungiTreeDecorator(0.0875F, 0.25F, 0.9F);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(
+		0.09F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 2)
+					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 1)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(
+		0.074F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
+					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(
+		0.054F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
+					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(
+		0.03F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 3)
+					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 2)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074_ONLY_BROWN = new ShelfFungiTreeDecorator(
+		0.074F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			BlockStateProvider.simple(WWBlocks.BROWN_SHELF_FUNGI),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_00975_ONLY_RED = new ShelfFungiTreeDecorator(
+		0.0975F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			BlockStateProvider.simple(WWBlocks.RED_SHELF_FUNGI),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new ShelfFungiTreeDecorator(
+		0.0875F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			BlockStateProvider.simple(WWBlocks.PALE_SHELF_FUNGI),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new ShelfFungiTreeDecorator(
+		0.0875F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 9)
+					.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 1)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
+	private static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new ShelfFungiTreeDecorator(
+		0.0875F,
+		0.25F,
+		new RandomizedIntStateProvider(
+			new WeightedStateProvider(
+				new WeightedList.Builder<BlockState>()
+					.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 9)
+					.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 1)
+			),
+			ShelfFungiBlock.STAGE,
+			UniformInt.of(1, 4)
+		)
+	);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
 	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
 	private static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
@@ -349,14 +444,14 @@ public final class WWTreeConfigured {
 	public static final PaleMossDecorator PALE_MOSS_DECORATOR = new PaleMossDecorator(0.15F, 0.4F, 0.8F);
 	public static final CreakingHeartDecorator CREAKING_HEARTS = new CreakingHeartDecorator(1F);
 	private static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
-	private static final MossCarpetTreeDecorator MOSS_CYPRESS = new MossCarpetTreeDecorator(0.6F, 0.24F, false);
-	private static final MossCarpetTreeDecorator MOSS_SPRUCE_PALM = new MossCarpetTreeDecorator(0.5F, 0.2F, false);
-	private static final MossCarpetTreeDecorator MOSS_BIRCH = new MossCarpetTreeDecorator(0.6F, 0.2F, false);
-	private static final MossCarpetTreeDecorator MOSS_OAK = new MossCarpetTreeDecorator(0.4F, 0.2F, false);
-	private static final MossCarpetTreeDecorator MOSS_JUNGLE_DARK_OAK = new MossCarpetTreeDecorator(0.6F, 0.35F, false);
-	private static final MossCarpetTreeDecorator MOSS_PALE_OAK = new MossCarpetTreeDecorator(1F, 0.35F, true);
-	private static final MossCarpetTreeDecorator MOSS_CHERRY = new MossCarpetTreeDecorator(0.47F, 0.28F, false);
-	private static final MossCarpetTreeDecorator MOSS_MOSSY = new MossCarpetTreeDecorator(1F, 0.3F, false);
+	private static final AboveLogsTreeDecorator MOSS_CYPRESS = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_SPRUCE_PALM = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_BIRCH = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_OAK = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_JUNGLE_DARK_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_PALE_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.PALE_MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_CHERRY = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	private static final AboveLogsTreeDecorator MOSS_MOSSY = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);

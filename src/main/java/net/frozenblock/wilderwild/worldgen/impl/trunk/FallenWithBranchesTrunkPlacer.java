@@ -25,6 +25,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.branch.TrunkBranchPlacement;
@@ -100,7 +101,9 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	) {
 		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		BlockStateProvider blockStateProvider = random.nextFloat() <= this.hollowedLogChance ? this.hollowedTrunkProvider : config.trunkProvider;
+		BlockStateProvider blockStateProvider = (WWWorldgenConfig.GENERATED_HOLLOWED_FALLEN_TREES && random.nextFloat() <= this.hollowedLogChance)
+			? this.hollowedTrunkProvider
+			: config.trunkProvider;
 		int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
 		Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
