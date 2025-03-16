@@ -2,7 +2,7 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "wilderwild:red_moss_patch_underwater",
+      "feature": "wilderwild:auburn_moss_patch_underwater",
       "placement": []
     },
     "features": [
@@ -13,7 +13,7 @@
             "type": "minecraft:random_patch",
             "config": {
               "feature": {
-                "feature": "wilderwild:red_moss_patch_underwater",
+                "feature": "wilderwild:auburn_moss_patch_underwater",
                 "placement": []
               },
               "tries": 4,
@@ -31,7 +31,7 @@
             "type": "minecraft:random_patch",
             "config": {
               "feature": {
-                "feature": "wilderwild:red_moss_patch_underwater",
+                "feature": "wilderwild:auburn_moss_patch_underwater",
                 "placement": []
               },
               "tries": 5,
@@ -49,7 +49,7 @@
             "type": "minecraft:random_patch",
             "config": {
               "feature": {
-                "feature": "wilderwild:red_moss_patch_underwater",
+                "feature": "wilderwild:auburn_moss_patch_underwater",
                 "placement": []
               },
               "tries": 3,

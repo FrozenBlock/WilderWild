@@ -140,9 +140,9 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = WWPlacementUtils.register("stone_disk_and_pile");
 	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = WWPlacementUtils.register("coarse_dirt_transition_disk");
 
-	// RED MOSS
-	public static final FrozenLibPlacedFeature RED_MOSS = WWPlacementUtils.register("red_moss");
-	public static final FrozenLibPlacedFeature CREEPING_RED_MOSS = WWPlacementUtils.register("creeping_red_moss");
+	// AUBURN MOSS
+	public static final FrozenLibPlacedFeature AUBURN_MOSS = WWPlacementUtils.register("auburn_moss");
+	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = WWPlacementUtils.register("auburn_creeping_moss");
 
 	// SNOW
 	public static final FrozenLibPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
@@ -603,16 +603,16 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		// RED MOSS
+		// AUBURN MOSS
 
-		RED_MOSS.makeAndSetHolder(WWMiscConfigured.RED_MOSS.getHolder(),
+		AUBURN_MOSS.makeAndSetHolder(WWMiscConfigured.AUBURN_MOSS.getHolder(),
 			RarityFilter.onAverageOnceEvery(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		CREEPING_RED_MOSS.makeAndSetHolder(WWMiscConfigured.RED_CREEPING_MOSS_PATCH.getHolder(),
+		AUBURN_CREEPING_MOSS.makeAndSetHolder(WWMiscConfigured.AUBURN_CREEPING_MOSS_PATCH.getHolder(),
 			RarityFilter.onAverageOnceEvery(17),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

@@ -27,8 +27,8 @@ import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.RedCreepingMossBlock;
-import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
+import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
+import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -87,11 +87,11 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> OCEAN_MOSS = register("ocean_moss");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION_UNDERWATER = register("red_moss_vegetation_underwater");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_UNDERWATER = register("red_moss_patch_underwater");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS_UNDERWATER = register("red_moss_underwater");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> RED_CREEPING_MOSS_PATCH_UNDERWATER = register("red_creeping_moss_patch_underwater");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL_UNDERWATER = register("red_moss_patch_bonemeal_underwater");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
 
 	private WWAquaticConfigured() {
 		throw new UnsupportedOperationException("WWAquaticConfigured contains only static declarations.");
@@ -348,26 +348,26 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		RED_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		AUBURN_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					SimpleWeightedRandomList.<BlockState>builder()
-						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState()
+						.add(WWBlocks.AUBURN_CREEPING_MOSS.defaultBlockState()
 								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
-								.setValue(RedCreepingMossBlock.WATERLOGGED, true),
+								.setValue(AuburnCreepingMossBlock.WATERLOGGED, true),
 							3
 						)
-						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState().setValue(RedMossCarpetBlock.WATERLOGGED, true), 1)
+						.add(WWBlocks.AUBURN_MOSS_CARPET.defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
 						.add(WWBlocks.SEA_WHIP.defaultBlockState(), 1)
 				)
 			)
 		);
 
-		RED_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
+		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RED_MOSS_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,
@@ -378,7 +378,7 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		RED_MOSS_UNDERWATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(
@@ -388,7 +388,7 @@ public final class WWAquaticConfigured {
 								4,
 								6,
 								3,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
 							)
 						),
 						0.5F
@@ -400,7 +400,7 @@ public final class WWAquaticConfigured {
 								5,
 								6,
 								4,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
 							)
 						),
 						0.35F
@@ -412,17 +412,17 @@ public final class WWAquaticConfigured {
 								3,
 								3,
 								2,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
 							)
 						),
 						0.5F
 					)
 				),
-				PlacementUtils.inlinePlaced(RED_MOSS_PATCH_UNDERWATER.getHolder())
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
 			)
 		);
 
-		RED_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
+		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
 			new RandomPatchConfiguration(
 				38,
 				6,
@@ -430,7 +430,7 @@ public final class WWAquaticConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.RED_CREEPING_MOSS,
+						WWBlocks.AUBURN_CREEPING_MOSS,
 						10,
 						true,
 						true,
@@ -446,11 +446,11 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		RED_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
+		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RED_MOSS_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,

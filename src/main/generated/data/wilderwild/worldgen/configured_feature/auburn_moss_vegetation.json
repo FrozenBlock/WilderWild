@@ -6,14 +6,14 @@
       "entries": [
         {
           "data": {
-            "Name": "wilderwild:red_creeping_moss",
+            "Name": "wilderwild:auburn_creeping_moss",
             "Properties": {
               "down": "true",
               "east": "false",
               "north": "false",
               "south": "false",
               "up": "false",
-              "waterlogged": "true",
+              "waterlogged": "false",
               "west": "false"
             }
           },
@@ -21,16 +21,10 @@
         },
         {
           "data": {
-            "Name": "wilderwild:red_moss_carpet",
+            "Name": "wilderwild:auburn_moss_carpet",
             "Properties": {
-              "waterlogged": "true"
+              "waterlogged": "false"
             }
-          },
-          "weight": 1
-        },
-        {
-          "data": {
-            "Name": "wilderwild:sea_whip"
           },
           "weight": 1
         }

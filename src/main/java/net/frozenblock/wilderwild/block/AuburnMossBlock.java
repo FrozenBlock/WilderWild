@@ -36,15 +36,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 
-public class RedMossBlock extends Block implements BonemealableBlock {
-	public static final MapCodec<RedMossBlock> CODEC = simpleCodec(RedMossBlock::new);
+public class AuburnMossBlock extends Block implements BonemealableBlock {
+	public static final MapCodec<AuburnMossBlock> CODEC = simpleCodec(AuburnMossBlock::new);
 
 	@Override
-	public @NotNull MapCodec<RedMossBlock> codec() {
+	public @NotNull MapCodec<AuburnMossBlock> codec() {
 		return CODEC;
 	}
 
-	public RedMossBlock(BlockBehaviour.Properties properties) {
+	public AuburnMossBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
@@ -63,7 +63,7 @@ public class RedMossBlock extends Block implements BonemealableBlock {
 	public void performBonemeal(@NotNull ServerLevel serverLevel, RandomSource randomSource, @NotNull BlockPos blockPos, BlockState blockState) {
 		BlockPos abovePos = blockPos.above();
 		ResourceKey<ConfiguredFeature<?, ?>> featureKey = serverLevel.getBlockState(abovePos).is(Blocks.WATER)
-			? WWAquaticConfigured.RED_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.RED_MOSS_PATCH_BONEMEAL.getKey();
+			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
 
 		serverLevel.registryAccess()
 			.registry(Registries.CONFIGURED_FEATURE)

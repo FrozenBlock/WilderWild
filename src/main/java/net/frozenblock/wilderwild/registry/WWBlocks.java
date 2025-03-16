@@ -44,7 +44,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
-import net.frozenblock.wilderwild.block.RedCreepingMossBlock;
+import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
@@ -68,8 +68,8 @@ import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PlanktonBlock;
 import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
-import net.frozenblock.wilderwild.block.RedMossBlock;
-import net.frozenblock.wilderwild.block.RedMossCarpetBlock;
+import net.frozenblock.wilderwild.block.AuburnMossBlock;
+import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
@@ -706,7 +706,7 @@ public final class WWBlocks {
 			.noCollission()
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
-			.sound(SoundType.CORAL_BLOCK)
+			.sound(SoundType.WET_GRASS)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final SeaWhipBlock SEA_WHIP = new SeaWhipBlock(
@@ -727,23 +727,23 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY)
 	);
 
-	public static final RedMossBlock RED_MOSS_BLOCK = new RedMossBlock(
+	public static final AuburnMossBlock AUBURN_MOSS_BLOCK = new AuburnMossBlock(
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_RED)
+			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
 			.sound(SoundType.MOSS)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final RedMossCarpetBlock RED_MOSS_CARPET = new RedMossCarpetBlock(
+	public static final AuburnMossCarpetBlock AUBURN_MOSS_CARPET = new AuburnMossCarpetBlock(
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_RED)
+			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
 			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
 	);
-	public static final RedCreepingMossBlock RED_CREEPING_MOSS = new RedCreepingMossBlock(
+	public static final AuburnCreepingMossBlock AUBURN_CREEPING_MOSS = new AuburnCreepingMossBlock(
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.COLOR_RED)
+			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.forceSolidOn()
 			.noCollission()
 			.strength(0.1F)
@@ -1639,9 +1639,9 @@ public final class WWBlocks {
 		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 
-		registerBlockAfter(Blocks.MOSS_CARPET, "red_moss_block", RED_MOSS_BLOCK, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_MOSS_BLOCK, "red_moss_carpet", RED_MOSS_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_MOSS_CARPET, "red_creeping_moss", RED_CREEPING_MOSS, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Blocks.MOSS_CARPET, "auburn_moss_block", AUBURN_MOSS_BLOCK, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(AUBURN_MOSS_BLOCK, "auburn_moss_carpet", AUBURN_MOSS_CARPET, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(AUBURN_MOSS_CARPET, "auburn_creeping_moss", AUBURN_CREEPING_MOSS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
 	public static void registerMisc() {

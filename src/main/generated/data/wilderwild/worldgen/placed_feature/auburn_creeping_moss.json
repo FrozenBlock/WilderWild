@@ -1,16 +1,16 @@
 {
-  "feature": "wilderwild:red_moss_underwater",
+  "feature": "wilderwild:auburn_creeping_moss_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 52
+      "chance": 17
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

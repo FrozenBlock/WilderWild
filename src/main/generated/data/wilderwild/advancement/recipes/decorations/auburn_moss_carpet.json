@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_red_moss_block": {
+    "has_auburn_moss_block": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:red_moss_block"
+            "items": "wilderwild:auburn_moss_block"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:red_moss_carpet"
+        "recipe": "wilderwild:auburn_moss_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_red_moss_block"
+      "has_auburn_moss_block"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:red_moss_carpet"
+      "wilderwild:auburn_moss_carpet"
     ]
   }
 }
