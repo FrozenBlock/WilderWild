@@ -282,7 +282,17 @@ public final class WWModelHelper {
 		MultiVariant multiVariant3 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_3.create(block, generator.modelOutput));
 		MultiVariant multiVariant4 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_4.create(block, generator.modelOutput));
 		generator.registerSimpleFlatItemModel(block);
-		generator.createSegmentedBlock(block, BlockStateProperties.SEGMENT_AMOUNT, multiVariant, multiVariant2, multiVariant3, multiVariant4);
+		generator.createSegmentedBlock(
+			block,
+			multiVariant,
+			BlockModelGenerators.LEAF_LITTER_MODEL_1_SEGMENT_CONDITION,
+			multiVariant2,
+			BlockModelGenerators.LEAF_LITTER_MODEL_2_SEGMENT_CONDITION,
+			multiVariant3,
+			BlockModelGenerators.LEAF_LITTER_MODEL_3_SEGMENT_CONDITION,
+			multiVariant4,
+			BlockModelGenerators.LEAF_LITTER_MODEL_4_SEGMENT_CONDITION
+		);
 	}
 
 	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
