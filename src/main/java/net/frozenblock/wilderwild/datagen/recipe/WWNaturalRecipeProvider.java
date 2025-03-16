@@ -85,6 +85,8 @@ public final class WWNaturalRecipeProvider {
 			.pattern("##")
 			.unlockedBy(RecipeProvider.getHasName(WWBlocks.CATTAIL), provider.has(WWBlocks.CATTAIL))
 			.save(exporter, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
+
+		provider.carpet(WWBlocks.RED_MOSS_CARPET, WWBlocks.RED_MOSS_BLOCK);
 	}
 
 	private static void oneToOneConversionRecipe(RecipeProvider provider, RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {

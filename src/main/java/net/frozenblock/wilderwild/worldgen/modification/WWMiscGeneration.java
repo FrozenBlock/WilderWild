@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
@@ -181,6 +180,16 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
+						}
+					}
+
+					if (surfaceDecoration.redMossDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_RED_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.CREEPING_RED_MOSS.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.RED_MOSS.getKey());
 						}
 					}
 

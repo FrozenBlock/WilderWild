@@ -548,7 +548,6 @@ public final class WWWorldgenConfigGui {
 				.setDefaultValue(defaultTree.baobab)
 				.setSaveConsumer(newValue -> tree.baobab = newValue)
 				.setTooltip(tooltip("baobab_generation"))
-				.setRequirement(Requirement.isTrue(() -> WWWorldgenConfig.get().treeGeneration.treeGeneration))
 				.requireRestart()
 				.build(),
 			treeClazz,
@@ -607,13 +606,23 @@ public final class WWWorldgenConfigGui {
 			"darkOakBranches",
 			configInstance
 		);
+		var paleOakBranches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_oak_branches"), modifiedTree.paleOakBranches)
+				.setDefaultValue(defaultTree.paleOakBranches)
+				.setSaveConsumer(newValue -> tree.paleOakBranches = newValue)
+				.setTooltip(tooltip("pale_oak_branches"))
+				.build(),
+			treeClazz,
+			"paleOakBranches",
+			configInstance
+		);
 
 		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
 			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, snappedTrees,
 			baobab, palm, willow,
-			birchBranches, oakBranches, darkOakBranches
+			birchBranches, oakBranches, darkOakBranches, paleOakBranches
 		);
 
 		var vegetation = config.vegetation;
@@ -787,6 +796,17 @@ public final class WWWorldgenConfigGui {
 			"mossDecoration",
 			configInstance
 		);
+		var redMossDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("red_moss_decoration"), modifiedSurfaceDecoration.redMossDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.redMossDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.redMossDecoration = newValue)
+				.setTooltip(tooltip("red_moss_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"redMossDecoration",
+			configInstance
+		);
 		var scorchedSandDecoration = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("scorched_sand_decoration"), modifiedSurfaceDecoration.scorchedSandDecoration)
 				.setDefaultValue(defaultSurfaceDecoration.scorchedSandDecoration)
@@ -912,10 +932,9 @@ public final class WWWorldgenConfigGui {
 		var surfaceDecorationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("surface_decoration"),
 			false,
 			tooltip("surface_decoration"),
-			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration,
-			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration,
-			clearingDecoration, taigaBoulders, snowPiles, fragileIceDecoration, icicleDecoration,
-			lakes, basins
+			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, redMossDecoration,
+			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration, clearingDecoration, taigaBoulders,
+			snowPiles, fragileIceDecoration, icicleDecoration, lakes, basins
 		);
 
 		var termite = category.addEntry(
@@ -1095,11 +1114,22 @@ public final class WWWorldgenConfigGui {
 			"oceanMossGeneration",
 			configInstance
 		);
+		var oceanRedMossGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("ocean_red_moss_generation"), modifiedAquatic.oceanRedMossGeneration)
+				.setDefaultValue(defaultAquatic.oceanRedMossGeneration)
+				.setSaveConsumer(newValue -> aquatic.oceanRedMossGeneration = newValue)
+				.setTooltip(tooltip("ocean_red_moss_generation"))
+				.requireRestart()
+				.build(),
+			aquaticClazz,
+			"oceanRedMossGeneration",
+			configInstance
+		);
 
 		var aquaticGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("aquatic_generation"),
 			false,
 			tooltip("aquatic_generation"),
-			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration
+			riverPool, algae, plankton, seagrass, spongeBud, barnacle, cattail, seaAnemone, seaWhip, tubeWorm, hydrothermalVent, oceanMossGeneration, oceanRedMossGeneration
 		);
 
 		var transition = config.transitionGeneration;

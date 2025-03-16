@@ -67,6 +67,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");
 
 	public static final TagKey<Biome> PRODUCES_BARNACLES_FROM_BONEMEAL = bind("produces_barnacles_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SPONGE_BUDS_FROM_BONEMEAL = bind("produces_sponge_buds_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SEA_ANEMONE_FROM_BONEMEAL = bind("produces_sea_anemone_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_SEA_WHIPS_FROM_BONEMEAL = bind("produces_sea_whips_from_bonemeal");
+	public static final TagKey<Biome> PRODUCES_TUBE_WORMS_FROM_BONEMEAL = bind("produces_tube_worms_from_bonemeal");
 
 	public static final TagKey<Biome> GROVE = bind("grove");
 	public static final TagKey<Biome> NORMAL_SAVANNA = bind("normal_savanna");
@@ -324,6 +328,11 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_BASIN = bind("feature/has_mud_basin");
 	public static final TagKey<Biome> HAS_MUD_PILE = bind("feature/has_mud_pile");
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
+	public static final TagKey<Biome> HAS_CREEPING_RED_MOSS = bind("feature/has_creeping_red_moss");
+	public static final TagKey<Biome> HAS_RED_MOSS = bind("feature/has_red_moss");
+	public static final TagKey<Biome> HAS_CREEPING_RED_MOSS_UNDERWATER = bind("feature/has_creeping_red_moss_underwater");
+	public static final TagKey<Biome> HAS_RED_MOSS_UNDERWATER = bind("feature/has_red_moss_underwater");
+	public static final TagKey<Biome> HAS_RED_MOSS_UNDERWATER_RARE = bind("feature/has_red_moss_underwater_rare");
 	public static final TagKey<Biome> HAS_ALGAE_SMALL = bind("feature/has_algae_small");
 	public static final TagKey<Biome> HAS_ALGAE = bind("feature/has_algae");
 	public static final TagKey<Biome> HAS_PLANKTON = bind("feature/has_plankton");

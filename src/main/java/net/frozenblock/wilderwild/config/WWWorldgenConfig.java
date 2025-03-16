@@ -53,6 +53,7 @@ public final class WWWorldgenConfig {
 				BIRCH_BRANCHES = config.treeGeneration.birchBranches;
 				OAK_BRANCHES = config.treeGeneration.oakBranches;
 				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
+				PALE_OAK_BRANCHES = config.treeGeneration.paleOakBranches;
 				NEW_WITCH_HUTS = config.structure.newWitchHuts;
 			}
 		}
@@ -62,6 +63,7 @@ public final class WWWorldgenConfig {
 	public static volatile boolean BIRCH_BRANCHES = true;
 	public static volatile boolean OAK_BRANCHES = true;
 	public static volatile boolean DARK_OAK_BRANCHES = true;
+	public static volatile boolean PALE_OAK_BRANCHES = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -162,6 +164,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("mossDecoration")
 		public boolean mossDecoration = true;
 
+		@EntrySyncData("redMossDecoration")
+		public boolean redMossDecoration = true;
+
 		@EntrySyncData("scorchedSandDecoration")
 		public boolean scorchedSandDecoration = true;
 
@@ -257,6 +262,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("darkOakBranches")
 		public boolean darkOakBranches = true;
+
+		@EntrySyncData("paleOakBranches")
+		public boolean paleOakBranches = true;
 	}
 
 	public static class AquaticGeneration {
@@ -295,6 +303,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("oceanMossGeneration")
 		public boolean oceanMossGeneration = true;
+
+		@EntrySyncData("oceanRedMossGeneration")
+		public boolean oceanRedMossGeneration = true;
 	}
 
 	public static class BiomePlacement {

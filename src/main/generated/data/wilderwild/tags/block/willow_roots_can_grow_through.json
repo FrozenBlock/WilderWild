@@ -9,6 +9,8 @@
     "minecraft:brown_mushroom",
     "wilderwild:algae",
     "wilderwild:plankton",
+    "wilderwild:red_moss_carpet",
+    "wilderwild:red_creeping_moss",
     {
       "id": "#minecraft:small_flowers",
       "required": false

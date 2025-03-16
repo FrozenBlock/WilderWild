@@ -343,6 +343,10 @@
   "item.wilderwild.prickly_pear": "Prickly Pear",
   "death.attack.prickly_pear": "%1$s shoved spikes in their mouth",
 
+  "block.wilderwild.red_moss_block": "Red Moss Block",
+  "block.wilderwild.red_moss_carpet": "Red Moss Carpet",
+  "block.wilderwild.red_creeping_moss": "Red Creeping Moss",
+
   "block.wilderwild.sea_anemone": "Sea Anemone",
   "block.wilderwild.sea_whip": "Sea Whip",
 
@@ -845,6 +849,8 @@
   "tooltip.wilderwild.oak_branches": "Whether Oak Trees can generate small branches.",
   "option.wilderwild.dark_oak_branches": "Dark Oak Branches",
   "tooltip.wilderwild.dark_oak_branches": "Whether Dark Oak Trees can generate small branches.",
+  "option.wilderwild.pale_oak_branches": "Pale Oak Branches",
+  "tooltip.wilderwild.pale_oak_branches": "Whether Pale Oak Trees can generate small branches.",
 
   "option.wilderwild.vegetation": "Vegetation Generation",
   "tooltip.wilderwild.vegetation": "Contains options for vegetation generation.",
@@ -879,6 +885,8 @@
   "tooltip.wilderwild.stone_decoration": "Whether decorative Stone can generate.",
   "option.wilderwild.moss_decoration": "Moss Decoration",
   "tooltip.wilderwild.moss_decoration": "Whether decorative Moss can generate.",
+  "option.wilderwild.red_moss_decoration": "Red Moss",
+  "tooltip.wilderwild.red_moss_decoration": "Whether Red Moss can generate.",
   "option.wilderwild.scorched_sand_decoration": "Scorched Sand Generation",
   "tooltip.wilderwild.scorched_sand_decoration": "Whether Scorched Sand can generate.",
   "option.wilderwild.scorched_red_sand_decoration": "Scorched Red Sand Generation",
@@ -928,6 +936,8 @@
   "tooltip.wilderwild.hydrothermal_vent_generation": "Whether Hydrothermal Vents can generate.",
   "option.wilderwild.ocean_moss_generation": "Moss Generation",
   "tooltip.wilderwild.ocean_moss_generation": "Whether Moss can generate on the ocean floor.\nThis will place Moss paths in Deep Lukewarm Oceans.",
+  "option.wilderwild.ocean_red_moss_generation": "Red Moss Generation",
+  "tooltip.wilderwild.ocean_red_moss_generation": "Whether Red Moss can generate on the ocean floor.",
 
   "option.wilderwild.transition_generation": "Surface Transition Generation",
   "tooltip.wilderwild.transition_generation": "Contains options for surface transitions.\nSurface transitions help ease borders between different ground types.",
