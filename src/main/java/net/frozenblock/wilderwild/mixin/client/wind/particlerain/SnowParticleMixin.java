@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import pigcart.particlerain.ParticleRainClient;
+import pigcart.particlerain.config.ModConfig;
 import pigcart.particlerain.particle.SnowParticle;
 import pigcart.particlerain.particle.WeatherParticle;
 
@@ -48,7 +48,7 @@ public abstract class SnowParticleMixin extends WeatherParticle {
 		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lpigcart/particlerain/ModConfig$SnowOptions;stormWindStrength:F"
+			target = "Lpigcart/particlerain/config/ModConfig$SnowOptions;stormWindStrength:F"
 		),
 		require = 0
 	)
@@ -61,7 +61,7 @@ public abstract class SnowParticleMixin extends WeatherParticle {
 		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lpigcart/particlerain/ModConfig$SnowOptions;windStrength:F"
+			target = "Lpigcart/particlerain/config/ModConfig$SnowOptions;windStrength:F"
 		),
 		require = 0
 	)
@@ -77,8 +77,8 @@ public abstract class SnowParticleMixin extends WeatherParticle {
 	)
 	public void wilderWild$modifyWindZ(ClientLevel level, double x, double y, double z, CallbackInfo info) {
 		if (WWClientWindManager.shouldUseWind()) this.zd = this.gravity * (float) ClientWindManager.windZ;
-		if (ParticleRainClient.config.yLevelWindAdjustment) {
-			this.zd *= ParticleRainClient.yLevelWindAdjustment(y);
+		if (ModConfig.CONFIG.compat.yLevelWindAdjustment) {
+			this.zd *= yLevelWindAdjustment(y);
 		}
 	}
 
