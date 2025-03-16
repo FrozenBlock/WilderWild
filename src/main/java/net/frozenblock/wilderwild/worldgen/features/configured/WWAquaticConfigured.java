@@ -41,7 +41,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -351,7 +351,7 @@ public final class WWAquaticConfigured {
 		RED_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
-					SimpleWeightedRandomList.<BlockState>builder()
+					WeightedList.<BlockState>builder()
 						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState()
 								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
 								.setValue(RedCreepingMossBlock.WATERLOGGED, true),

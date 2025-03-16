@@ -123,6 +123,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("grassGeneration")
 		public boolean grassGeneration = true;
 
+		@EntrySyncData("dryGrassGeneration")
+		public boolean dryGrassGeneration = true;
+
 		@EntrySyncData("flowerGeneration")
 		public boolean flowerGeneration = true;
 

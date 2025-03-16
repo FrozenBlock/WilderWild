@@ -512,7 +512,7 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().vegetation.grassGeneration) {
+					if (WWWorldgenConfig.get().vegetation.dryGrassGeneration) {
 						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DRY_GRASS_BADLANDS)) {
