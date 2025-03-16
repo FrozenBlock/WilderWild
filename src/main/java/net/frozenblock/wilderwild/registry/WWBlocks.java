@@ -999,7 +999,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.WATER)
 			.instabreak()
 			.noCollission()
-			.sound(SoundType.CORAL_BLOCK)
+			.sound(SoundType.WET_GRASS)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
