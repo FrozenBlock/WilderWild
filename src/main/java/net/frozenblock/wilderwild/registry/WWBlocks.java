@@ -1670,10 +1670,10 @@ public final class WWBlocks {
 		registerBlockAfter(Items.BLUE_ICE, "icicle", ICICLE, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockAfter(Items.MAGMA_BLOCK, "geyser", GEYSER, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlockBefore(GEYSER, "gabbro", GABBRO, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SCULK_SENSOR, "geyser", GEYSER, CreativeModeTabs.REDSTONE_BLOCKS);
 
 		registerBlockBefore(Items.BRICKS, "gabbro", GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(GABBRO, "geyser", GEYSER, CreativeModeTabs.BUILDING_BLOCKS);
 
 		// TRAILIER TALES
 		registerBlockAfter(GEYSER, "gabbro_stairs", GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
