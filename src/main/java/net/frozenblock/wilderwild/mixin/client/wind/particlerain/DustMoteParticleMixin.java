@@ -18,21 +18,18 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind.particlerain;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.particle.SpriteSet;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import pigcart.particlerain.config.ModConfig;
 import pigcart.particlerain.particle.DustMoteParticle;
 import pigcart.particlerain.particle.WeatherParticle;
 
@@ -45,63 +42,32 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 		super(level, x, y, z);
 	}
 
-	@ModifyConstant(
-		method = "tick",
-		constant = @Constant(doubleValue = 0.2, ordinal = 0),
+	@Inject(
+		method = "<init>",
+		at = @At("TAIL"),
 		require = 0
 	)
-	private double wilderWild$modifyX(
-		double constant,
-		@Share("wilderWild$windZ")LocalDoubleRef windZ
-	) {
+	private void wilderWild$modifyXInit(ClientLevel level, double x, double y, double z, SpriteSet provider, CallbackInfo info) {
 		if (WWClientWindManager.shouldUseWind()) {
-			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-			windZ.set(wind.z);
-			return this.xd + (wind.x * 0.005D);
+			this.xd = ClientWindManager.windX * ModConfig.CONFIG.dust.windStrength;
+			this.zd = ClientWindManager.windZ * ModConfig.CONFIG.dust.windStrength;
 		}
-		return constant;
 	}
 
-	@ModifyExpressionValue(
-		method = "<init>",
-		at = @At(
-			value = "FIELD",
-			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
-			ordinal = 0
-		),
-		require = 0
-	)
-	private float wilderWild$modifyXInit(float original) {
-		if (WWClientWindManager.shouldUseWind()) return (float) (ClientWindManager.windX * original * original);
-		return original;
-	}
-
-	@ModifyConstant(
+	@Inject(
 		method = "tick",
-		constant = @Constant(doubleValue = 0.2, ordinal = 1),
-		require = 0
-	)
-	private double wilderWild$modifyZ(
-		double constant,
-		@Share("wilderWild$windZ")LocalDoubleRef windZ
-	) {
-		if (WWClientWindManager.shouldUseWind()) return this.zd + (windZ.get() * 0.005D);
-		return constant;
-	}
-
-	@ModifyExpressionValue(
-		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
-			ordinal = 1
+			target = "Lpigcart/particlerain/particle/DustMoteParticle;zd:D",
+			shift = At.Shift.AFTER
 		),
 		require = 0
 	)
-	private float wilderWild$modifyZInit(float original) {
-		if (WWClientWindManager.shouldUseWind()) return (float) (ClientWindManager.windZ * original * original);
-		return original;
+	private void wilderWild$modifyMovementWithWind(CallbackInfo info) {
+		if (WWClientWindManager.shouldUseWind()) {
+			this.xd = ClientWindManager.windX * ModConfig.CONFIG.dust.windStrength;
+			this.zd = ClientWindManager.windZ * ModConfig.CONFIG.dust.windStrength;
+		}
 	}
 
 }

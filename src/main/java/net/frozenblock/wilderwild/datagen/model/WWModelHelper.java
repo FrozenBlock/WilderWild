@@ -113,6 +113,11 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
+	private static final ModelTemplate PLANKTON_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_plankton")),
+		Optional.empty(),
+		TextureSlot.TEXTURE
+	);
 	private static final ModelTemplate SEA_ANEMONE_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_sea_anemone")),
 		Optional.empty(),
@@ -415,7 +420,7 @@ public final class WWModelHelper {
 	public static void createPlankton(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
 		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
-		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", ALGAE_MODEL, TextureMapping::defaultTexture);
+		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(
