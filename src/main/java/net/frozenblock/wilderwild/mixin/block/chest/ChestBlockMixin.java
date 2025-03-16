@@ -116,7 +116,7 @@ public class ChestBlockMixin {
 		)
 	)
 	public void wilderWild$onRemove(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, boolean isMoving, CallbackInfo info) {
-		if (!level.isClientSide && level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
+		if (level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}
 	}
