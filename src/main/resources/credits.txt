@@ -58,6 +58,7 @@ Zhen:
  - Sea Whip textures.
  - Plankton block textures.
  - Red Moss & Creeping Red Moss textures.
+ - Retextured Datura in 4.0.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.

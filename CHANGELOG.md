@@ -187,6 +187,7 @@ hi
   - Generates in most ocean biomes, Maple Forests, and Tundras.
   - Creeping Red Moss can be placed on all block faces, like Glow Lichen.
   - Red Moss Carpets and Creeping Red Moss can be waterlogged.
+- Retextured the Datura, thanks to Zhen!
 
 # Music
 - Added three new tracks by Willow/pictochats_.
