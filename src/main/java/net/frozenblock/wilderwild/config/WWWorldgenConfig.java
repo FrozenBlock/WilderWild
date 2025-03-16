@@ -135,6 +135,9 @@ public final class WWWorldgenConfig {
 		@EntrySyncData("mushroomGeneration")
 		public boolean mushroomGeneration = true;
 
+		@EntrySyncData("paleMushroomGeneration")
+		public boolean paleMushroomGeneration = true;
+
 		@EntrySyncData("pollen")
 		public boolean pollen = true;
 
@@ -166,6 +169,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("redMossDecoration")
 		public boolean redMossDecoration = true;
+
+		@EntrySyncData("paleMossDecoration")
+		public boolean paleMossDecoration = true;
 
 		@EntrySyncData("scorchedSandDecoration")
 		public boolean scorchedSandDecoration = true;

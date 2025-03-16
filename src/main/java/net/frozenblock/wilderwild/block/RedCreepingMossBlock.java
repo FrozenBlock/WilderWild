@@ -26,23 +26,15 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class RedCreepingMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+public class RedCreepingMossBlock extends MultifaceSpreadeableBlock implements BonemealableBlock, SimpleWaterloggedBlock {
 	public static final MapCodec<RedCreepingMossBlock> CODEC = simpleCodec(RedCreepingMossBlock::new);
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
 	public RedCreepingMossBlock(@NotNull Properties settings) {
@@ -52,7 +44,7 @@ public class RedCreepingMossBlock extends MultifaceBlock implements Bonemealable
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends RedCreepingMossBlock> codec() {
+	public MapCodec<? extends RedCreepingMossBlock> codec() {
 		return CODEC;
 	}
 
@@ -62,34 +54,8 @@ public class RedCreepingMossBlock extends MultifaceBlock implements Bonemealable
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
-		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
-		@NotNull Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
-		RandomSource randomSource
-	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
-	}
-
-	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
-		return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
-	}
-
-	@Override
 	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
 		return blockState.getFluidState().isEmpty();
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		builder.add(WATERLOGGED);
 	}
 
 	@Override

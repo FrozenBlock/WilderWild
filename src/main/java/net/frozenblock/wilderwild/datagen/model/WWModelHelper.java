@@ -462,7 +462,7 @@ public final class WWModelHelper {
 					)
 			);
 
-		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(WWBlocks.FRAGILE_ICE.asItem()), new DelegatedModel(leastCrackedModelId));
+		generator.itemModelOutput.accept(WWBlocks.FRAGILE_ICE.asItem(), ItemModelUtils.plainModel(leastCrackedModelId));
 	}
 
 	public static void createSeaAnemone(@NotNull BlockModelGenerators generator, Block seaAnemoneBlock) {

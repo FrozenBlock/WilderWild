@@ -173,14 +173,6 @@ public final class WWMiscGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PILE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MOSS_PILE.getKey());
 						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MOSS_PILE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PALE_MOSS_PILE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
-						}
 					}
 
 					if (surfaceDecoration.redMossDecoration) {
@@ -190,6 +182,16 @@ public final class WWMiscGeneration {
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.RED_MOSS.getKey());
+						}
+					}
+
+					if (surfaceDecoration.paleMossDecoration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MOSS_PILE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PALE_MOSS_PILE.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
 						}
 					}
 

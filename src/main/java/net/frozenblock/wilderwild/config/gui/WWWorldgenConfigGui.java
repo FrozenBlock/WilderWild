@@ -685,6 +685,17 @@ public final class WWWorldgenConfigGui {
 			"mushroomGeneration",
 			configInstance
 		);
+		var paleMushroomGeneration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_mushroom_generation"), modifiedVegetation.paleMushroomGeneration)
+				.setDefaultValue(defaultVegetation.paleMushroomGeneration)
+				.setSaveConsumer(newValue -> vegetation.paleMushroomGeneration = newValue)
+				.setTooltip(tooltip("pale_mushroom_generation"))
+				.requireRestart()
+				.build(),
+			vegetationClazz,
+			"paleMushroomGeneration",
+			configInstance
+		);
 		var pollen = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("pollen_generation"), modifiedVegetation.pollen)
 				.setDefaultValue(defaultVegetation.pollen)
@@ -722,7 +733,7 @@ public final class WWWorldgenConfigGui {
 		var vegetationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("vegetation"),
 			false,
 			tooltip("vegetation"),
-			grassGeneration, flowerGeneration, bushGeneration, cactusGeneration, mushroomGeneration, pollen, pumpkin, tumbleweed
+			grassGeneration, flowerGeneration, bushGeneration, cactusGeneration, mushroomGeneration, paleMushroomGeneration, pollen, pumpkin, tumbleweed
 		);
 
 		var surfaceDecoration = config.surfaceDecoration;
@@ -805,6 +816,17 @@ public final class WWWorldgenConfigGui {
 				.build(),
 			surfaceDecorationClazz,
 			"redMossDecoration",
+			configInstance
+		);
+		var paleMossDecoration = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_moss_decoration"), modifiedSurfaceDecoration.paleMossDecoration)
+				.setDefaultValue(defaultSurfaceDecoration.paleMossDecoration)
+				.setSaveConsumer(newValue -> surfaceDecoration.paleMossDecoration = newValue)
+				.setTooltip(tooltip("pale_moss_decoration"))
+				.requireRestart()
+				.build(),
+			surfaceDecorationClazz,
+			"paleMossDecoration",
 			configInstance
 		);
 		var scorchedSandDecoration = FrozenClothConfig.syncedEntry(
@@ -932,7 +954,7 @@ public final class WWWorldgenConfigGui {
 		var surfaceDecorationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("surface_decoration"),
 			false,
 			tooltip("surface_decoration"),
-			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, redMossDecoration,
+			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, redMossDecoration, paleMossDecoration,
 			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration, clearingDecoration, taigaBoulders,
 			snowPiles, fragileIceDecoration, icicleDecoration, lakes, basins
 		);
