@@ -20,10 +20,12 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
+import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
 public final class WWCriteria {
 	public static final MobBottleTrigger MOB_BOTTLE = CriteriaTriggers.register(WWConstants.string("mob_bottle"), new MobBottleTrigger());
+	public static final TermiteEatTrigger TERMITE_EAT = CriteriaTriggers.register(WWConstants.string("termite_eat"), new TermiteEatTrigger());
 
 	private WWCriteria() {
 		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");

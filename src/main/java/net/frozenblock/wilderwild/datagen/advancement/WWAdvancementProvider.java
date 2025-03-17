@@ -24,16 +24,19 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
+import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.critereon.BlockPredicate;
 import net.minecraft.advancements.critereon.FilledBucketTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
 
 public final class WWAdvancementProvider extends FabricAdvancementProvider {
 	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -104,6 +107,21 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 			)
 			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(WWItems.JELLYFISH_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/jellyfish_in_a_bucket"));
+
+		Advancement.Builder.advancement()
+			.parent(adventure)
+			.display(
+				WWBlocks.TERMITE_MOUND,
+				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.title"),
+				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.description"),
+				null,
+				AdvancementType.TASK,
+				true,
+				true,
+				false
+			)
+			.addCriterion("termite_ate_block", TermiteEatTrigger.TriggerInstance.termiteEat(BlockPredicate.Builder.block().of(BlockTags.OVERWORLD_NATURAL_LOGS), true))
+			.save(writer, WWConstants.string("adventure/use_termite_on_tree"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)

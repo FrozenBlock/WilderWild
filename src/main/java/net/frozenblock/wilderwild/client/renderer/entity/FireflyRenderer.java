@@ -28,7 +28,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -135,16 +135,12 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		poseStack.popPose();
 	}
 
-	public static int getOverlay(@NotNull Firefly entity, float whiteOverlayProgress) {
-		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(entity.hurtTime > 0 || entity.deathTime > 0));
-	}
-
 	@Override
 	public void render(@NotNull Firefly entity, float yaw, float tickDelta, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light) {
 		float prevScale = entity.getPrevAnimScale();
 		float scale = prevScale + (tickDelta * (entity.getAnimScale() - prevScale));
 
-		int overlay = getOverlay(entity, 0);
+		int overlay = LivingEntityRenderer.getOverlayCoords(entity, 0);
 
 		int age = entity.getFlickerAge();
 

@@ -358,6 +358,8 @@
   "subtitles.block.termite_mound.termite_gnaw_finish": "Termites eat",
   "subtitles.block.termite_mound.enter": "Termites enter mound",
   "subtitles.block.termite_mound.exit": "Termites exit mound",
+  "wilderwild.advancements.adventure.use_termite_on_tree.title": "The Pest Helper",
+  "wilderwild.advancements.adventure.use_termite_on_tree.description": "Use Termites to eat a tree",
 
   "block.wilderwild.tube_worms": "Tube Worms",
 
