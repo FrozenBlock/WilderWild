@@ -27,12 +27,14 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import net.frozenblock.wilderwild.advancement.GeyserPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.BlockPos;
@@ -40,6 +42,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -114,7 +117,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		} else if (GeyserBlock.isActive(geyserType)) {
 			if (geyserType == GeyserType.HYDROTHERMAL_VENT) {
 				this.eruptionProgress = 1F;
-				this.handleEruption(level, pos, geyserType, direction);
+				this.handleEruption(level, pos, geyserType, direction, natural);
 				this.setActive(level, pos, state, random);
 			} else if (geyserStage == GeyserStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
@@ -123,7 +126,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					this.level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-				this.handleEruption(level, pos, geyserType, direction);
+				this.handleEruption(level, pos, geyserType, direction, natural);
 			}
 			this.ticksUntilNextEvent -= 1;
 			if (this.ticksUntilNextEvent <= 0) {
@@ -135,8 +138,9 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	public static boolean canEruptionPassThrough(LevelAccessor level, BlockPos pos, @NotNull BlockState state, @NotNull Direction direction) {
-		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER) && !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
-				|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
+		return !((state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.CENTER)
+			&& !state.is(WWBlockTags.GEYSER_CAN_PASS_THROUGH))
+			|| state.is(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH));
 	}
 
 	@NotNull
@@ -152,7 +156,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction) {
+	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction, boolean natural) {
 		BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		Optional<BlockPos> cutoffPos = Optional.empty();
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
@@ -248,6 +252,12 @@ public class GeyserBlockEntity extends BlockEntity {
 					entity.setDeltaMovement(deltaMovement);
 				}
 				if (damagingEruption.intersects(boundingBox)) {
+					if (level instanceof ServerLevel serverLevel) {
+						for (ServerPlayer serverPlayer :serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(geyserStartPos) < GeyserPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+							WWCriteria.GEYSER_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geyserType);
+						}
+					}
+
 					double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
 					if (geyserType == GeyserType.LAVA) {
 						if (!entity.fireImmune()) {
@@ -359,10 +369,11 @@ public class GeyserBlockEntity extends BlockEntity {
 		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		Direction direction = state.getValue(GeyserBlock.FACING);
+		boolean natural = state.getValue(GeyserBlock.NATURAL);
 		if (GeyserBlock.isActive(geyserType)) {
 			if (geyserStage == GeyserStage.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-				this.handleEruption(level, pos, geyserType, direction);
+				this.handleEruption(level, pos, geyserType, direction, natural);
 				GeyserParticleHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
 			}
 		}

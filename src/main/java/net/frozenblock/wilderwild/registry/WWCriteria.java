@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.FragileIceFallOntoAndBreakTrigger;
+import net.frozenblock.wilderwild.advancement.GeyserPushMobTrigger;
 import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -28,6 +29,7 @@ public final class WWCriteria {
 	public static final MobBottleTrigger MOB_BOTTLE = CriteriaTriggers.register(WWConstants.string("mob_bottle"), new MobBottleTrigger());
 	public static final TermiteEatTrigger TERMITE_EAT = CriteriaTriggers.register(WWConstants.string("termite_eat"), new TermiteEatTrigger());
 	public static final FragileIceFallOntoAndBreakTrigger FRAGILE_ICE_FAL_ONTO_AND_BREAK = CriteriaTriggers.register(WWConstants.string("fragile_ice_fall_onto_and_break"), new FragileIceFallOntoAndBreakTrigger());
+	public static final GeyserPushMobTrigger GEYSER_PUSH_MOB_TRIGGER = CriteriaTriggers.register(WWConstants.string("geyser_push_mob"), new GeyserPushMobTrigger());
 
 	private WWCriteria() {
 		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");

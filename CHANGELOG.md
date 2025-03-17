@@ -4,6 +4,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Added the `The Pest Helper` advancement for using Termites to eat a tree.
+- Added the `Flightless Flight` advancement for launching a Chicken or Ostrich with a Geyser.
+- Added the `Flame Broiled` advancement for setting a Cow, Mooshroom, or Moonloom on fire with a Geyser.
 - Added the `On Thin Ice` advancement for falling onto Fragile Ice and causing it to shatter.
 - Clovers now generate in Cherry Groves.
 - Fixed the item tint of Willow Leaves on 1.21.4+.

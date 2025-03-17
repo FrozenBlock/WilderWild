@@ -254,6 +254,10 @@
   "block.wilderwild.geyser": "Geyser",
   "subtitles.block.geyser.boil": "Geyser boils",
   "subtitles.block.geyser.erupt": "Geyser erupts",
+  "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.title": "Flightless Flight",
+  "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.description": "Launch a flightless bird using a Geyser",
+  "wilderwild.advancements.adventure.geyser_sets_cow_on_fire.title": "Flame Broiled",
+  "wilderwild.advancements.adventure.geyser_sets_cow_on_fire.description": "Use a Geyser to set a Cow on fire",
 
   "block.wilderwild.gabbro": "Gabbro",
   "block.wilderwild.gabbro_stairs": "Gabbro Stairs",

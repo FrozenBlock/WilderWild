@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.block.state.properties;
 
+import com.mojang.serialization.Codec;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -30,6 +31,8 @@ public enum GeyserType implements StringRepresentable {
 	WATER("water", WWSounds.BLOCK_GEYSER_ERUPT_WATER),
 	LAVA("lava", WWSounds.BLOCK_GEYSER_ERUPT_LAVA),
 	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEYSER_ERUPT_WATER);
+
+	public static final Codec<GeyserType> CODEC = StringRepresentable.fromEnum(GeyserType::values);
 
 	private final String name;
 	private final SoundEvent eruptionSound;

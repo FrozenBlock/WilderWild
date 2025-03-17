@@ -28,7 +28,7 @@ public final class WWDamageTypeTags {
 	public static final TagKey<DamageType> EMPTY = bind("empty");
 
 	private WWDamageTypeTags() {
-		throw new UnsupportedOperationException("WilderDamageTypeTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWDamageTypeTags contains only static declarations.");
 	}
 
 	@NotNull
