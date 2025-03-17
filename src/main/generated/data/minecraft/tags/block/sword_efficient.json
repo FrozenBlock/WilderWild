@@ -1,6 +1,6 @@
 {
   "values": [
-    "wilderwild:bush",
+    "wilderwild:shrub",
     "wilderwild:tumbleweed",
     "wilderwild:tumbleweed_plant",
     "wilderwild:milkweed",
@@ -19,7 +19,6 @@
     "wilderwild:prickly_pear",
     "wilderwild:mycelium_growth",
     "wilderwild:pale_mushroom",
-    "wilderwild:wildflowers",
     "wilderwild:phlox",
     "wilderwild:lantanas",
     "wilderwild:clovers",
@@ -27,6 +26,7 @@
     "wilderwild:frozen_tall_grass",
     "wilderwild:frozen_fern",
     "wilderwild:frozen_large_fern",
+    "wilderwild:frozen_bush",
     "wilderwild:auburn_moss_carpet",
     "wilderwild:auburn_creeping_moss",
     {
