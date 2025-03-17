@@ -16,7 +16,7 @@ hi
   - Spreads tallgrass grass, and related foliage.
 - Added Auburn Moss Carpet.
     - Can be waterlogged.
-- Added Auburn Moss Lichen.
+- Added Auburn Creeping Moss.
   - Can be placed on all sides of a block.
   - Can be waterlogged.
 - Primarily generates as patches in Tundras, Maple Forests, and Oceans.
