@@ -141,16 +141,16 @@ hi
 - Added Butterflies
   - A new ambient entity that sporadically flutters around, ocassionally stopping to rest.
   - Can be bottled, storing all entity data.
-- 7 Variants
-  - Clouded Yellow, spawns in Meadows, Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
-  - Duskwing, spawns in Tundras.
-  - Grean Hairstreak, spawns in Flower Forests and Flower Fields.
-  - Marbled, spawns in Meadows, Flower Forests and Flower Fields.
-  - Monarch, spawns in Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
-  - Morpho Blue, spawns in Meadows, Flower Forests and Flower Fields.
-  - Red Lacewing, spawns in Flower Forests, Flower Fields, Maple Forests, and Tundras.
+- Butteflies Have 7 Variants:
+  - Clouded Yellow: Spawns in Meadows, Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
+  - Duskwing: Spawns in Tundras.
+  - Grean Hairstreak: Spawns in Flower Forests and Flower Fields.
+  - Marbled: Spawns in Meadows, Flower Forests and Flower Fields.
+  - Monarch: Spawns in Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
+  - Morpho Blue: Spawns in Meadows, Flower Forests and Flower Fields.
+  - Red Lacewing,: Spawns in Flower Forests, Flower Fields, Maple Forests, and Tundras.
 - Added Butterfly Bottles
-  - Used to release Butterflies.
+  - Used to capture and release Butterflies.
 
 # Mooblooms
 - Added Mooblooms
