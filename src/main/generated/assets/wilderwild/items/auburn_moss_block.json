@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "wilderwild:item/red_creeping_moss"
+    "model": "wilderwild:block/auburn_moss_block"
   }
 }
