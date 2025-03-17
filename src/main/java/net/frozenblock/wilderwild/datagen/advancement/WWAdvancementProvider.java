@@ -32,7 +32,6 @@ import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -51,6 +50,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
 
 public final class WWAdvancementProvider extends FabricAdvancementProvider {
 
@@ -185,7 +185,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(geyserPushedFlightlessBird)
 			.display(
-				WWBlocks.GEYSER,
+				Items.COOKED_BEEF,
 				Component.translatable("wilderwild.advancements.adventure.geyser_sets_cow_on_fire.title"),
 				Component.translatable("wilderwild.advancements.adventure.geyser_sets_cow_on_fire.description"),
 				null,
