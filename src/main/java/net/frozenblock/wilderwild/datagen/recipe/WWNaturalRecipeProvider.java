@@ -29,6 +29,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWNaturalRecipeProvider {
@@ -88,6 +89,8 @@ public final class WWNaturalRecipeProvider {
 			.save(exporter, WWConstants.id(RecipeProvider.getConversionRecipeName(Items.STRING, WWBlocks.CATTAIL)));
 
 		RecipeProvider.carpet(exporter, WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_MOSS_BLOCK);
+
+		RecipeProvider.twoByTwoPacker(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWBlocks.ICICLE);
 	}
 
 	private static void oneToOneConversionRecipe(RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {
