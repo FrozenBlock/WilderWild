@@ -124,12 +124,14 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				this.shaped(RecipeCategory.REDSTONE, WWBlocks.GEYSER, 2)
 					.define('#', Items.MAGMA_BLOCK)
-					.define('X', Items.BASALT)
+					.define('X', WWBlocks.GABBRO)
 					.define('U', Items.LAVA_BUCKET)
 					.pattern("#X#")
 					.pattern("XUX")
 					.pattern("#X#")
 					.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
+					.unlockedBy(getHasName(WWBlocks.GABBRO), has(WWBlocks.GABBRO))
+					.unlockedBy(getHasName(WWBlocks.GEYSER), has(WWBlocks.GEYSER))
 					.save(exporter);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.FERMENTED_SCORCHED_EYE)

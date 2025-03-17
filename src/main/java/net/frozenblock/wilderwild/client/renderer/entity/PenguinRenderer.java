@@ -31,7 +31,7 @@ import org.joml.Math;
 
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel<PenguinRenderState>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
-	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/linux.png");
+	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");
 
 	public PenguinRenderer(EntityRendererProvider.Context context) {
 		super(

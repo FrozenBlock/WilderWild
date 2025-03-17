@@ -1,6 +1,26 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
+    "has_gabbro": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:gabbro"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_geyser": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:geyser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_magma_block": {
       "conditions": {
         "items": [
@@ -21,7 +41,9 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_magma_block"
+      "has_magma_block",
+      "has_gabbro",
+      "has_geyser"
     ]
   ],
   "rewards": {
