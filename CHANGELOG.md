@@ -183,10 +183,11 @@ hi
   - Is placed on top of water.
   - Spawns Plankton particles underwater.
   - During the night, starts glowing.
-- Added Red Moss and Creeping Red Moss.
+- Added Auburn Moss and Creeping Auburn Moss.
   - Generates in most ocean biomes, Maple Forests, and Tundras.
-  - Creeping Red Moss can be placed on all block faces, like Glow Lichen.
-  - Red Moss Carpets and Creeping Red Moss can be waterlogged.
+  - Auburn Creeping Moss can be placed on all block faces, like Glow Lichen.
+  - Auburn Moss Carpets and Auburn Creeping Moss can be waterlogged.
+- Retextured the Datura, thanks to Zhen!
 
 # Music
 - Added three new tracks by Willow/pictochats_.

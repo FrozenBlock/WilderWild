@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:auburn_creeping_moss",
+            "Properties": {
+              "down": "true",
+              "east": "false",
+              "north": "false",
+              "south": "false",
+              "up": "false",
+              "waterlogged": "false",
+              "west": "false"
+            }
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "wilderwild:auburn_moss_carpet",
+            "Properties": {
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

@@ -277,17 +277,17 @@ public final class WWAquaticGeneration {
 						}
 					}
 
-					if (WWWorldgenConfig.get().aquaticGeneration.oceanRedMossGeneration) {
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_RED_MOSS_UNDERWATER)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.CREEPING_RED_MOSS_UNDERWATER.getKey());
+					if (WWWorldgenConfig.get().aquaticGeneration.oceanAuburnMossGeneration) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS_UNDERWATER)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_CREEPING_MOSS_UNDERWATER.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS_UNDERWATER)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.RED_MOSS_UNDERWATER.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_MOSS_UNDERWATER.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS_UNDERWATER_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.RED_MOSS_UNDERWATER_RARE.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER_RARE)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_MOSS_UNDERWATER_RARE.getKey());
 						}
 					}
 				});

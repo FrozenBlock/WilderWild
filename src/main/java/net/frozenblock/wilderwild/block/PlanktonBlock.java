@@ -49,8 +49,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	public static final int LIGHT_LEVEL = 3;
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -5;
 	public static final int MAX_PARTICLE_SPAWN_WIDTH = 5;
-	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -7;
-	public static final int MAX_PARTICLE_SPAWN_HEIGHT = -1;
+	public static final int PARTICLE_SPAWN_SEARCH_DISTANCE = 24;
 	public static final float PARTICLE_SPAWN_CHANCE = 0.5F;
 	public static final float PARTICLE_SPAWN_CHANCE_GLOWING = 0.75F;
 
@@ -89,9 +88,6 @@ public class PlanktonBlock extends AlgaeBlock {
 
 	@Override
 	public void animateTick(BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
-		int i = blockPos.getX();
-		int j = blockPos.getY();
-		int k = blockPos.getZ();
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		boolean glowing = isGlowing(blockState);
@@ -99,21 +95,35 @@ public class PlanktonBlock extends AlgaeBlock {
 		float particleChance = glowing ? PARTICLE_SPAWN_CHANCE_GLOWING : PARTICLE_SPAWN_CHANCE;
 
 		if (random.nextFloat() <= particleChance) {
-			mutable.set(
-					i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
-					j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
-					k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+			BlockPos randomPos = new BlockPos(
+				blockPos.getX() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
+				blockPos.getY(),
+				blockPos.getZ() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
 			);
-			BlockState particlePosState = level.getBlockState(mutable);
-			if (particlePosState.is(Blocks.WATER) && particlePosState.getFluidState().getAmount() == 8) {
+			mutable.set(randomPos);
+			int maxPossibleDepth = 0;
+
+			for (int steps = 1; steps <= PARTICLE_SPAWN_SEARCH_DISTANCE; steps++) {
+				mutable.move(Direction.DOWN);
+				BlockState particlePosState = level.getBlockState(mutable);
+				if (particlePosState.is(Blocks.WATER) && particlePosState.getFluidState().getAmount() == 8) {
+					maxPossibleDepth += 1;
+				} else {
+					break;
+				}
+			}
+
+			mutable.set(randomPos);
+			if (maxPossibleDepth > 0) {
+				mutable.move(Direction.DOWN, random.nextIntBetweenInclusive(1, maxPossibleDepth));
 				level.addParticle(
-						particle,
-						mutable.getX() + random.nextDouble(),
-						mutable.getY() + random.nextDouble(),
-						mutable.getZ() + random.nextDouble(),
-						0D,
-						0D,
-						0D
+					particle,
+					mutable.getX() + random.nextDouble(),
+					mutable.getY() + random.nextDouble(),
+					mutable.getZ() + random.nextDouble(),
+					0D,
+					0D,
+					0D
 				);
 			}
 		}
