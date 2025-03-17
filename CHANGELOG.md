@@ -5,3 +5,5 @@ hi
 -----------------
 - Fixed the item tint of Willow Leaves on 1.21.4+.
 - Fixed Polished Gabbro being uncraftable.
+- Slightly decreased the spawning of Sea Anemone and Sea Whips when using Bone Meal underwater.
+- Slightly decreased the average amount of Pollen particles that spawn.

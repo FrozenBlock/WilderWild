@@ -42,7 +42,7 @@ public class PollenBlock extends MultifaceBlock {
 	public static final int MAX_PARTICLE_SPAWN_WIDTH = 10;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -10;
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 7;
-	public static final int PARTICLE_SPAWN_ATTEMPTS = 7;
+	public static final int PARTICLE_SPAWN_ATTEMPTS = 6;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new PollenSpreaderConfig());
 
 	public PollenBlock(@NotNull Properties settings) {
