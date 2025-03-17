@@ -19,12 +19,14 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -135,7 +137,12 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float fallDistance) {
 		super.fallOn(level, blockState, blockPos, entity, fallDistance);
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
-			if (fallDistance >= 4F) level.destroyBlock(blockPos, false);
+			if (fallDistance >= 4F) {
+				level.destroyBlock(blockPos, false);
+				if (entity instanceof ServerPlayer serverPlayer) {
+					WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
+				}
+			}
 		}
 	}
 

@@ -18,39 +18,23 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 
 public final class SnowUnderMountainConditionSource implements SurfaceRules.ConditionSource {
-	public static final KeyDispatchDataCodec<SnowUnderMountainConditionSource> CODEC = KeyDispatchDataCodec.of(
-		RecordCodecBuilder.mapCodec(instance ->
-			instance.group(
-					Codec.INT
-						.fieldOf("useless")
-						.forGetter(SnowUnderMountainConditionSource::useless)
-				)
-				.apply(instance, SnowUnderMountainConditionSource::new)
-		)
-	);
+	public static final SnowUnderMountainConditionSource INSTANCE = new SnowUnderMountainConditionSource();
+	public static final KeyDispatchDataCodec<SnowUnderMountainConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
 
 	public static volatile boolean GENERATE = false;
 
-	public int useless;
-
-	SnowUnderMountainConditionSource(int useless) {
-		this.useless = useless;
+	SnowUnderMountainConditionSource() {
 	}
 
 	@NotNull
 	public static SnowUnderMountainConditionSource snowUnderMountainConditionSource() {
-		return new SnowUnderMountainConditionSource(1); // 1 is useless
-	}
-
-	public static int useless(Object o) {
-		return 0;
+		return INSTANCE;
 	}
 
 	@Override

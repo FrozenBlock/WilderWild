@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:cherry_grove",
     {
       "id": "#wilderwild:meadow",
       "required": false

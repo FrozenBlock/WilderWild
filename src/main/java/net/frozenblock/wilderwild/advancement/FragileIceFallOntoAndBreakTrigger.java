@@ -25,14 +25,11 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.TriggerInstance> {
+public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<FragileIceFallOntoAndBreakTrigger.TriggerInstance> {
 
 	@Override
 	@NotNull
@@ -40,35 +37,24 @@ public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.Tr
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
-		this.trigger(player, conditions -> conditions.matches(stack));
+	public void trigger(@NotNull ServerPlayer player) {
+		this.trigger(player, TriggerInstance::matches);
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item) implements SimpleInstance {
+	public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
 			).apply(instance, TriggerInstance::new)
 		);
 
 		@NotNull
-		public static Criterion<TriggerInstance> mobBottle() {
-			return mobBottle((ItemPredicate) null);
+		public static Criterion<TriggerInstance> fragileIceBreak() {
+			return WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.createCriterion(new TriggerInstance(Optional.empty()));
 		}
 
-		@NotNull
-		public static Criterion<TriggerInstance> mobBottle(@NotNull ItemPredicate.Builder builder) {
-			return mobBottle(builder.build());
-		}
-
-		@NotNull
-		public static Criterion<TriggerInstance> mobBottle(@Nullable ItemPredicate item) {
-			return WWCriteria.MOB_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
-		}
-
-		public boolean matches(ItemStack item) {
-			return this.item.isEmpty() || this.item.get().test(item);
+		public boolean matches() {
+			return true;
 		}
 	}
 }
