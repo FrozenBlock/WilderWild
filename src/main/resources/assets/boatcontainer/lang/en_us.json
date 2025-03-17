@@ -4,5 +4,9 @@
   "item.boatcontainer.cypress_ender_chest_boat": "Cypress Boat with Ender Chest",
   "item.boatcontainer.cypress_furnace_boat": "Cypress Boat with Furnace",
   "item.boatcontainer.palm_ender_chest_boat": "Palm Boat with Ender Chest",
-  "item.boatcontainer.palm_furnace_boat": "Palm Boat with Furnace"
+  "item.boatcontainer.palm_furnace_boat": "Palm Boat with Furnace",
+  "item.boatcontainer.maple_ender_chest_boat": "Maple Boat with Ender Chest",
+  "item.boatcontainer.maple_furnace_boat": "Maple Boat with Furnace",
+  "item.boatcontainer.willow_ender_chest_boat": "Willow Boat with Ender Chest",
+  "item.boatcontainer.willow_furnace_boat": "Willow Boat with Furnace"
 }

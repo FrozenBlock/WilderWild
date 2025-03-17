@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
 - Added the `The Pest Helper` advancement for using Termites to eat a tree.
+- Added the `On Thin Ice` advancement for falling onto Fragile Ice and causing it to shatter.
 - Fixed the item tint of Willow Leaves on 1.21.4+.
 - Fixed Polished Gabbro being uncraftable.
 - Slightly decreased the spawning of Sea Anemone and Sea Whips when using Bone Meal underwater.

@@ -48,7 +48,6 @@ public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.
 	}
 
 	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<BlockPredicate> block, boolean playerPlaced) implements SimpleInstance {
-
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),

@@ -296,6 +296,8 @@
   "death.attack.fallingIcicle": "%1$s was picked by a falling icicle",
   "death.attack.fallingIcicle.player": "%1$s was picked by a falling icicle while fighting %2$s",
   "block.wilderwild.fragile_ice": "Fragile Ice",
+  "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title": "On Thin Ice",
+  "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description": "Fall onto Fragile Ice and cause it to shatter",
 
   "block.wilderwild.lantanas": "Lantanas",
   "block.wilderwild.potted_lantanas": "Potted Lantanas",
