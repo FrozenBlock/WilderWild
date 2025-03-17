@@ -3286,7 +3286,7 @@
         "weight": 2
       },
       {
-        "name": "wilderwild:music/pictochats/cave",
+        "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "volume": 0.5
       }
@@ -3381,7 +3381,7 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/pictochats/cave",
+        "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "volume": 0.5
       },
@@ -3592,7 +3592,7 @@
         "weight": 2
       },
       {
-        "name": "wilderwild:music/pictochats/cave",
+        "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "weight": 3
       }
