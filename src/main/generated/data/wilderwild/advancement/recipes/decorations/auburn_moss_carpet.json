@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_auburn_moss_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:auburn_moss_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:auburn_moss_carpet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_auburn_moss_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:auburn_moss_carpet"
+    ]
+  }
+}

@@ -1851,17 +1851,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.ARID_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE);
-
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_COMMON)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE)
 			.add(Biomes.STONY_SHORE);
-
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_STONE_PILE_RARE)
-			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.FLOWER_FOREST)
-			.addOptional(WinterDropBiomes.PALE_GARDEN)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
 			.addOptional(WWBiomes.DYING_FOREST)
@@ -2063,14 +2054,14 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MUD_LAKE)
 			.add(Biomes.MANGROVE_SWAMP);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_RED_MOSS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_AUBURN_MOSS)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_RED_MOSS_UNDERWATER)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS_UNDERWATER)
 			.add(Biomes.OCEAN)
 			.add(Biomes.DEEP_OCEAN)
 			.add(Biomes.COLD_OCEAN)
@@ -2078,11 +2069,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.DEEP_FROZEN_OCEAN);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS_UNDERWATER)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER)
 			.add(Biomes.DEEP_OCEAN)
 			.add(Biomes.DEEP_COLD_OCEAN);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_RED_MOSS_UNDERWATER_RARE)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER_RARE)
 			.add(Biomes.OCEAN)
 			.add(Biomes.COLD_OCEAN)
 			.add(Biomes.FROZEN_OCEAN)

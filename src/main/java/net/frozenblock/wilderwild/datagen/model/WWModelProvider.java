@@ -122,8 +122,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createTubeWorms(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
-		generator.createFullAndCarpetBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
-		WWModelHelper.createMultifaceBlock(generator, WWBlocks.RED_CREEPING_MOSS);
+		generator.createFullAndCarpetBlocks(WWBlocks.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_CARPET);
+		WWModelHelper.createMultifaceBlock(generator, WWBlocks.AUBURN_CREEPING_MOSS);
 
 		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI);

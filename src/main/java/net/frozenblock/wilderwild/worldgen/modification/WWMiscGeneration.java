@@ -148,16 +148,8 @@ public final class WWMiscGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_PATH_RARE.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_COMMON)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_COMMON.getKey());
-						}
-
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE)) {
 							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE.getKey());
-						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE_RARE)) {
-							generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE_RARE.getKey());
 						}
 					}
 
@@ -183,13 +175,13 @@ public final class WWMiscGeneration {
 						}
 					}
 
-					if (surfaceDecoration.redMossDecoration) {
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_RED_MOSS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.CREEPING_RED_MOSS.getKey());
+					if (surfaceDecoration.auburnMoss) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.AUBURN_CREEPING_MOSS.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RED_MOSS)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.RED_MOSS.getKey());
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.AUBURN_MOSS.getKey());
 						}
 					}
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "wilderwild:block/auburn_moss_block"
+  }
+}
