@@ -363,7 +363,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNOWY_DYING_MUSIC = bind("music_pool/has_snowy_dying_music");
 
 	private WWBiomeTags() {
-		throw new UnsupportedOperationException("WilderBiomeTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWBiomeTags contains only static declarations.");
 	}
 
 	@NotNull

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "wilderwild:polished_gabbro"
+    "#": "wilderwild:gabbro"
   },
   "pattern": [
     "##",
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 4,
-    "id": "wilderwild:gabbro_bricks"
+    "id": "wilderwild:polished_gabbro"
   }
 }

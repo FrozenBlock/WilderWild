@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.frozenblock.wilderwild.block.CoconutBlock;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.feature.PalmTreeFeature;
 import net.minecraft.Util;
@@ -34,12 +34,18 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(TreeFeature.class)
 public class TreeFeatureMixin {
+
+	@Shadow
+	@Final
+	private static int BLOCK_UPDATE_FLAGS;
 
 	@ModifyExpressionValue(
 		method = "place",
@@ -64,7 +70,7 @@ public class TreeFeatureMixin {
 						if (!blockState.hasProperty(BlockStateProperties.DISTANCE) || blockState.getValue(BlockStateProperties.DISTANCE) <= CoconutBlock.VALID_FROND_DISTANCE) {
 							BlockPos coconutPos = mutablePos.setWithOffset(pos, 0, -1, 0);
 							if (level.getBlockState(coconutPos).isAir()) {
-								level.setBlock(coconutPos, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), 19);
+								level.setBlock(coconutPos, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
 								hasPlacedCoconut.set(true);
 							}
 						}
@@ -77,26 +83,17 @@ public class TreeFeatureMixin {
 
 	@ModifyVariable(method = "method_49238", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleA(BlockState state) {
-		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
-			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
-		}
-		return state;
+		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
 
 	@ModifyVariable(method = "method_35364", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleB(BlockState state) {
-		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
-			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
-		}
-		return state;
+		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
 
 	@ModifyVariable(method = "method_43162", at = @At("HEAD"), ordinal = 0, argsOnly = true)
 	private static BlockState wilderWild$setTermiteEdibleC(BlockState state) {
-		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
-			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
-		}
-		return state;
+		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
 
 }

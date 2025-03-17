@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "geyser_pushed_mob": {
+      "conditions": {
+        "geyser_type": "air",
+        "pushed_mob": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": [
+                "minecraft:chicken",
+                "wilderwild:ostrich"
+              ],
+              "movement": {
+                "y": {
+                  "min": 0.5
+                }
+              }
+            }
+          }
+        ],
+        "requires_player_placed_geyser": true
+      },
+      "trigger": "wilderwild:geyser_push_mob"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "wilderwild:geyser"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.title"
+    }
+  },
+  "requirements": [
+    [
+      "geyser_pushed_mob"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

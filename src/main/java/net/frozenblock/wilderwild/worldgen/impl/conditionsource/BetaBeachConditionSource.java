@@ -18,39 +18,23 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.jetbrains.annotations.NotNull;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
-	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(
-		RecordCodecBuilder.mapCodec(instance ->
-			instance.group(
-					Codec.INT
-						.fieldOf("useless")
-						.forGetter(BetaBeachConditionSource::useless)
-				)
-				.apply(instance, BetaBeachConditionSource::new)
-		)
-	);
+	public static final BetaBeachConditionSource INSTANCE = new BetaBeachConditionSource();
+	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
 
 	public static volatile boolean GENERATE = false;
 
-	public int useless;
-
-	BetaBeachConditionSource(int useless) {
-		this.useless = useless;
+	BetaBeachConditionSource() {
 	}
 
 	@NotNull
 	public static BetaBeachConditionSource betaBeachConditionSource() {
-		return new BetaBeachConditionSource(1); // 1 is useless
-	}
-
-	public static int useless(Object o) {
-		return 0;
+		return INSTANCE;
 	}
 
 	@Override

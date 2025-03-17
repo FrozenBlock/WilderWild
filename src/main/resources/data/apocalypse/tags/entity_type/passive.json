@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "wilderwild:firefly"
+    "wilderwild:firefly",
+    "wilderwild:butterfly",
+    "wilderwild:moobloom",
+    "wilderwild:penguin"
   ]
 }

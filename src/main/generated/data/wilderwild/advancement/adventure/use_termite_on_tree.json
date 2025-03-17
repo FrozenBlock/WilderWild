@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "termite_ate_block": {
+      "conditions": {
+        "block": {
+          "blocks": "#minecraft:overworld_natural_logs"
+        },
+        "requires_player_placed_mound": true
+      },
+      "trigger": "wilderwild:termite_eat"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.use_termite_on_tree.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "wilderwild:termite_mound"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.use_termite_on_tree.title"
+    }
+  },
+  "requirements": [
+    [
+      "termite_ate_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

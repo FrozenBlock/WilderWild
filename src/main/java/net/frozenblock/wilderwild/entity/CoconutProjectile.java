@@ -24,9 +24,6 @@ import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -66,32 +63,22 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	public void handleEntityEvent(byte id) {
-		if (id == (byte) 3) {
-			ParticleOptions particleOptions = new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(this.getDefaultItem()));
-			for (int i = 0; i < 8; ++i) {
-				this.level().addParticle(particleOptions, this.getX(), this.getY(), this.getZ(), 0D, 0D, 0D);
-			}
-		} else {
-			super.handleEntityEvent(id);
-		}
-	}
-
-	@Override
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
-		SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND;
 		Entity entity = result.getEntity();
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
-		if (this.getY() > entity.getEyeY() && !entity.getType().is(WWEntityTags.COCONUT_CANT_BONK)) {
-			hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
-		}
+
 		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT)
 			&& entity.getBoundingBox().getSize() > this.getBoundingBox().getSize()
 			&& this.random.nextFloat() < ENTITY_SPLIT_CHANCE
 		) {
 			this.splitAndDiscard();
 		} else {
+			SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND;
+			if (this.getY() > entity.getEyeY() && !entity.getType().is(WWEntityTags.COCONUT_CANT_BONK)) {
+				hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
+			}
+
 			this.level().playSound(
 				null,
 				this.getX(),

@@ -268,6 +268,10 @@
   "block.wilderwild.geyser": "Geyser",
   "subtitles.block.geyser.boil": "Geyser boils",
   "subtitles.block.geyser.erupt": "Geyser erupts",
+  "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.title": "Flightless Flight",
+  "wilderwild.advancements.adventure.geyser_pushed_flightless_bird.description": "Launch a flightless bird using a Geyser",
+  "wilderwild.advancements.adventure.geyser_sets_cow_on_fire.title": "Flame Broiled",
+  "wilderwild.advancements.adventure.geyser_sets_cow_on_fire.description": "Use a Geyser to set a Cow on fire",
 
   "block.wilderwild.gabbro": "Gabbro",
   "block.wilderwild.gabbro_stairs": "Gabbro Stairs",
@@ -310,6 +314,8 @@
   "death.attack.fallingIcicle": "%1$s was picked by a falling icicle",
   "death.attack.fallingIcicle.player": "%1$s was picked by a falling icicle while fighting %2$s",
   "block.wilderwild.fragile_ice": "Fragile Ice",
+  "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title": "On Thin Ice",
+  "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description": "Fall onto Fragile Ice and cause it to shatter",
 
   "block.wilderwild.lantanas": "Lantanas",
   "block.wilderwild.potted_lantanas": "Potted Lantanas",
@@ -372,6 +378,8 @@
   "subtitles.block.termite_mound.termite_gnaw_finish": "Termites eat",
   "subtitles.block.termite_mound.enter": "Termites enter mound",
   "subtitles.block.termite_mound.exit": "Termites exit mound",
+  "wilderwild.advancements.adventure.use_termite_on_tree.title": "The Pest Helper",
+  "wilderwild.advancements.adventure.use_termite_on_tree.description": "Use Termites to eat a tree",
 
   "block.wilderwild.tube_worms": "Tube Worms",
 

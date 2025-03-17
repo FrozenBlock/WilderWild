@@ -67,7 +67,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
 
 	private WWItemTags() {
-		throw new UnsupportedOperationException("WilderItemTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWItemTags contains only static declarations.");
 	}
 
 	@NotNull

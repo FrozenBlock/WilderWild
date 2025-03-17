@@ -40,7 +40,7 @@ public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_PROJECTILE = bind("fragile_ice_doesnt_crack_projectile");
 
 	private WWEntityTags() {
-		throw new UnsupportedOperationException("WilderEntityTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWEntityTags contains only static declarations.");
 	}
 
 	@NotNull

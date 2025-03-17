@@ -1134,12 +1134,6 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.ofFullCopy(WWBlocks.GABBRO)
 			.requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 	);
-	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
-		.stairs(GABBRO_STAIRS)
-		.slab(GABBRO_SLAB)
-		.wall(GABBRO_WALL)
-		.dontGenerateModel()
-		.getFamily();
 
 	public static final GeyserBlock GEYSER = register("geyser",
 		GeyserBlock::new,
@@ -1167,6 +1161,13 @@ public final class WWBlocks {
 		WallBlock::new,
 		BlockBehaviour.Properties.ofFullCopy(WWBlocks.POLISHED_GABBRO)
 	);
+	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
+		.stairs(GABBRO_STAIRS)
+		.slab(GABBRO_SLAB)
+		.wall(GABBRO_WALL)
+		.polished(POLISHED_GABBRO)
+		.dontGenerateModel()
+		.getFamily();
 	public static final BlockFamily FAMILY_POLISHED_GABBRO = BlockFamilies.familyBuilder(POLISHED_GABBRO)
 		.stairs(POLISHED_GABBRO_STAIRS)
 		.slab(POLISHED_GABBRO_SLAB)

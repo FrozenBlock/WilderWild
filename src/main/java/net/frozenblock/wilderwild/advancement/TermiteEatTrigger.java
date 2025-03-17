@@ -23,16 +23,19 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.BlockPredicate;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.TriggerInstance> {
+public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.TriggerInstance> {
+	public static final double TRIGGER_DISTANCE_FROM_PLAYER = Mth.square(10D);
 
 	@Override
 	@NotNull
@@ -40,35 +43,37 @@ public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.Tr
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
-		this.trigger(player, conditions -> conditions.matches(stack));
+	public void trigger(@NotNull ServerPlayer player, ServerLevel level, @NotNull BlockPos pos, boolean playerPlaced) {
+		this.trigger(player, conditions -> conditions.matches(level, pos, playerPlaced));
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item) implements SimpleInstance {
+	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<BlockPredicate> block, boolean playerPlaced) implements SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
 				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)
+				BlockPredicate.CODEC.optionalFieldOf("block").forGetter(TriggerInstance::block),
+				Codec.BOOL.fieldOf("requires_player_placed_mound").forGetter(TriggerInstance::playerPlaced)
 			).apply(instance, TriggerInstance::new)
 		);
 
 		@NotNull
-		public static Criterion<TriggerInstance> mobBottle() {
-			return mobBottle((ItemPredicate) null);
+		public static Criterion<TriggerInstance> termiteEat(boolean playerPlaced) {
+			return termiteEat((BlockPredicate) null, playerPlaced);
 		}
 
 		@NotNull
-		public static Criterion<TriggerInstance> mobBottle(@NotNull ItemPredicate.Builder builder) {
-			return mobBottle(builder.build());
+		public static Criterion<TriggerInstance> termiteEat(@NotNull BlockPredicate.Builder builder, boolean playerPlaced) {
+			return termiteEat(builder.build(), playerPlaced);
 		}
 
 		@NotNull
-		public static Criterion<TriggerInstance> mobBottle(@Nullable ItemPredicate item) {
-			return WWCriteria.MOB_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
+		public static Criterion<TriggerInstance> termiteEat(@Nullable BlockPredicate block, boolean playerPlaced) {
+			return WWCriteria.TERMITE_EAT.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(block), playerPlaced));
 		}
 
-		public boolean matches(ItemStack item) {
-			return this.item.isEmpty() || this.item.get().test(item);
+		public boolean matches(ServerLevel level, BlockPos pos, boolean playerPlaced) {
+			if (this.playerPlaced && !playerPlaced) return false;
+			return this.block.isEmpty() || this.block.get().matches(level, pos);
 		}
 	}
 }

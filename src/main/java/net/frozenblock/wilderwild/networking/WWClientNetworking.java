@@ -146,9 +146,8 @@ public final class WWClientNetworking {
 	}
 
 	private static void lightningBlockParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
-		if (blockState.is(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)) {
-			return;
-		}
+		if (blockState.is(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)) return;
+
 		boolean first = tickCount == 0;
 		double calmDownAge = Math.max(1, tickCount - 6D);
 		Vec3 origin = new Vec3(x, y, z);
@@ -165,7 +164,11 @@ public final class WWClientNetworking {
 		double speedMultiplierY = first ? 1.13D : 1D;
 
 		for (int a = 0; a < particles; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.4D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(
+				origin,
+				0.4D,
+				angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D))
+			);
 			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
 			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
 
@@ -189,10 +192,17 @@ public final class WWClientNetworking {
 		}
 	}
 
-	private static void lightningSmokeParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
-		if (blockState.is(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)) {
-			return;
-		}
+	private static void lightningSmokeParticles(
+		int tickCount,
+		double x,
+		double y,
+		double z,
+		@NotNull BlockState blockState,
+		@NotNull RandomSource random,
+		@NotNull ParticleEngine particleEngine
+	) {
+		if (blockState.is(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)) return;
+
 		boolean first = tickCount == 0;
 		Vec3 origin = new Vec3(x, y, z);
 		int particles = random.nextInt(2, 15);
@@ -202,7 +212,11 @@ public final class WWClientNetworking {
 		double speedMultiplierY = first ? 1.13D : 1D;
 
 		for (int a = 0; a < particles; a++) {
-			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(origin, 0.4D, angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D)));
+			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(
+				origin,
+				0.4D,
+				angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D))
+			);
 			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
 			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
 

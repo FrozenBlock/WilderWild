@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:adventure/walk_on_powder_snow_with_leather_boots",
+  "criteria": {
+    "fall_onto_and_break_fragile_ice": {
+      "trigger": "wilderwild:fragile_ice_fall_onto_and_break"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "wilderwild:fragile_ice"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title"
+    }
+  },
+  "requirements": [
+    [
+      "fall_onto_and_break_fragile_ice"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

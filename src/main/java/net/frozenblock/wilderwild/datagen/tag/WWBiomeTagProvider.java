@@ -1347,6 +1347,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLOVERS)
+			.add(Biomes.CHERRY_GROVE)
 			.addOptionalTag(WWBiomeTags.MEADOW);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CLOVERS_SPARSE)

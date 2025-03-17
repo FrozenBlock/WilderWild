@@ -33,10 +33,6 @@ public enum TubeWormsPart implements StringRepresentable {
 		this.name = name;
 	}
 
-	public boolean requiresPartBelow() {
-		return this == TOP || this == MIDDLE;
-	}
-
 	@Override
 	public String toString() {
 		return this.name;

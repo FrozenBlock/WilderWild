@@ -30,7 +30,7 @@ public final class WWGameEventTags {
 	public static final TagKey<GameEvent> MAKES_ICICLE_FALL = bind("makes_icicle_fall");
 
 	private WWGameEventTags() {
-		throw new UnsupportedOperationException("WilderGameEventTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWGameEventTags contains only static declarations.");
 	}
 
 	@NotNull
