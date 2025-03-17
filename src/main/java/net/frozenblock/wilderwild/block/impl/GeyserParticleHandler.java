@@ -71,8 +71,8 @@ public class GeyserParticleHandler {
 	public static final int VENT_MAX_PARTICLE_SPAWN_HEIGHT = 7;
 	public static final int VENT_PARTICLE_SPAWN_ATTEMPTS = 6;
 
-	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
+	public static void spawnDormantParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+		if (geyserType.isWater() && random.nextFloat() <= DORMANT_BUBBLE_CHANCE) {
 			Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 			Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, DORMANT_BUBBLE_MIN_VELOCITY, DORMANT_BUBBLE_MAX_VELOCITY);
 			level.addParticle(
@@ -87,8 +87,8 @@ public class GeyserParticleHandler {
 		}
 	}
 
-	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
-		if (geyserType == GeyserType.WATER) {
+	public static void spawnActiveParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+		if (geyserType.isWater()) {
 			if (random.nextFloat() <= ACTIVE_BUBBLE_CHANCE) {
 				int count = random.nextInt(MIN_ACTIVE_BUBBLES, MAX_ACTIVE_BUBBLES);
 				for (int i = 0; i < count; i++) {
@@ -129,8 +129,9 @@ public class GeyserParticleHandler {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, ACTIVE_FLAME_MIN_VELOCITY, ACTIVE_FLAME_MAX_VELOCITY);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, ACTIVE_FLAME_RANDOM_VELOCITY));
-					level.addParticle(
+					level.addAlwaysVisibleParticle(
 						ParticleTypes.FLAME,
+						true,
 						particlePos.x,
 						particlePos.y,
 						particlePos.z,
@@ -161,38 +162,45 @@ public class GeyserParticleHandler {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, GeyserType geyserType, Direction direction, RandomSource random) {
+	public static void spawnEruptionParticles(@NotNull Level level, BlockPos blockPos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
 		Minecraft client = Minecraft.getInstance();
 		ParticleStatus particleStatus = client.options.particles().get();
 		ParticleEngine particleEngine = client.particleEngine;
-		if (geyserType == GeyserType.WATER) {
-			if (random.nextFloat() <= 0.4F) { // Bubble
+		boolean vent = geyserType == GeyserType.HYDROTHERMAL_VENT;
+		if (geyserType.isWater()) {
+			if (random.nextFloat() <= 0.4F && (!vent || random.nextBoolean())) { // Bubble
 				int count = random.nextInt(1, 4);
 				for (int i = 0; i < count; i++) {
 					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
 					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 1.7D, 4D);
 					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.15D));
-					if (random.nextBoolean()) {
-						level.addAlwaysVisibleParticle(
-							ParticleTypes.BUBBLE,
-							particlePos.x,
-							particlePos.y,
-							particlePos.z,
-							particleVelocity.x,
-							particleVelocity.y,
-							particleVelocity.z
-						);
-					} else {
-						level.addAlwaysVisibleParticle(
-							ParticleTypes.BUBBLE,
-							particlePos.x,
-							particlePos.y,
-							particlePos.z,
-							particleVelocity.x,
-							particleVelocity.y,
-							particleVelocity.z
-						);
-					}
+					level.addAlwaysVisibleParticle(
+						ParticleTypes.BUBBLE,
+						!vent && random.nextBoolean(),
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
+				}
+			}
+			if (vent && random.nextFloat() <= 0.3F) { // Smoke
+				int count = random.nextInt(1, 2);
+				for (int i = 0; i < count; i++) {
+					Vec3 particlePos = GeyserBlock.getParticlePos(blockPos, direction, random);
+					Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.05D, 0.15D);
+					particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.055D));
+					level.addParticle(
+						ParticleTypes.LARGE_SMOKE,
+						particlePos.x,
+						particlePos.y,
+						particlePos.z,
+						particleVelocity.x,
+						particleVelocity.y,
+						particleVelocity.z
+					);
 				}
 			}
 		} else {
@@ -252,7 +260,7 @@ public class GeyserParticleHandler {
 			}
 			int lavaCount = random.nextInt(1, 3);
 			for (int i = 0; i < lavaCount; i++) { // Lava
-				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+				if (particleStatus == ParticleStatus.DECREASED && random.nextBoolean()) {
 					break;
 				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
 					break;
@@ -275,10 +283,10 @@ public class GeyserParticleHandler {
 					lavaParticle.zd = particleVelocity.z;
 				}
 			}
-		} else {
+		} else if (!vent) {
 			int windCount = random.nextInt(0, 2);
 			for (int i = 0; i < windCount; i++) { // WIND
-				if (particleStatus == ParticleStatus.DECREASED & random.nextBoolean()) {
+				if (particleStatus == ParticleStatus.DECREASED && random.nextBoolean()) {
 					break;
 				} else if (particleStatus == ParticleStatus.MINIMAL && random.nextFloat() <= 0.675F) {
 					break;
