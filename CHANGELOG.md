@@ -188,6 +188,19 @@ hi
   - Auburn Creeping Moss can be placed on all block faces, like Glow Lichen.
   - Auburn Moss Carpets and Auburn Creeping Moss can be waterlogged.
 - Retextured the Datura, thanks to Zhen!
+- Removed an unused sound event for caves
+- Removed Abandoned Cabins as they conflicted with Vanilla's modern structure design.
+- Converted all of Wilder Wild's mob variants to now be data-driven!
+    - As such, `FireflyBiomeColorRegistry` has been removed and is replaced with a `biomes` field in each .json file.
+- Optimized Firefly rendering.
+- Fireflies now only have one flicker pattern.
+- Merged all 17 Firefly Bottle items into 1 item, now relying on components to save the Firefly's color.
+- Jellyfish textures are now prefixed with `jellyfish_`.
+- Optimized Jellyfish rendering.
+- Biome tags relating to entities are now placed in the `entity/spawn` path, being only `spawn` prior.
+- Biome tags relating to entity variants are now placed in the `entity/variant` path, being in the `spawn` path prior.
+- Cleaned up code related to Termite handling.
+- Termite eating behaviors are now entirely data-generated, offering a simple way to achieve mod compatibility.
 
 # Music
 - Added three new tracks by Willow/pictochats_.
@@ -230,24 +243,12 @@ hi
   - Penguins will ignore unique friction from any blocks within the `wilderwild:penguin_ignore_friction` block tag.
 - Added the Penguin Egg block.
 
-# Butterfly Branch
+# Butterflies
 - Added Butterflies
 - Added Butterfly Bottles
-- Removed an unused sound event for caves
-- Removed Abandoned Cabins as they conflicted with Vanilla's modern structure design.
-- Converted all of Wilder Wild's mob variants to now be data-driven!
-  - As such, `FireflyBiomeColorRegistry` has been removed and is replaced with a `biomes` field in each .json file.
-- Optimized Firefly rendering.
-- Fireflies now only have one flicker pattern.
-- Merged all 17 Firefly Bottle items into 1 item, now relying on components to save the Firefly's color.
-- Jellyfish textures are now prefixed with `jellyfish_`.
-- Optimized Jellyfish rendering.
-- Biome tags relating to entities are now placed in the `entity/spawn` path, being only `spawn` prior.
-- Biome tags relating to entity variants are now placed in the `entity/variant` path, being in the `spawn` path prior.
-- Cleaned up code related to Termite handling.
-- Termite eating behaviors are now entirely data-generated, offering a simple way to achieve mod compatibility.
 
-# Moobloom Branch
+
+# Mooblooms
 - Added Mooblooms
   - When bred, spawn a baby with a flower of a mixed color if possible.
   - Cannot be converted into regular Cows, unlike Mooshrooms.
@@ -257,7 +258,7 @@ hi
   - Spawn in the Flower Forest, Flower Fields, and Sunflower Plains biomes by default.
   - Butterflies will follow Mooblooms.
 
-# Firefly Branch
+# Fireflies
 - Fireflies now move faster.
 - Fireflies now spawn and move in swarms.
   - When the leader of a swarm is killed or captured in a bottle, the nearest Firefly will become the new swarm leader.
@@ -270,7 +271,7 @@ hi
 - Renamed the `wilderwildfireflies` mob category to `wilderwildfirefly`.
 - Removed the `wilderwild:spawn/firefly_spawnable_cave` and `wilderwild:spawn/firefly_spawnable_during_day` tags as these spawning behaviors have been removed.
 
-# Feature Optimization Branch
+# Worldgen Feature Optimization
 - Removed Mud-specific Cattail features from biomes that do not generate Mud.
   - The `wilderwild:feature/has_cattail_mud` biome tag has been added as a result of this change.
 - Removed Shelf Fungi-only features, now relying solely on trunk decorators to place Shelf Fungi.
@@ -286,7 +287,7 @@ hi
 - Jungle trees can now generate with Shelf Fungi.
 - Mangrove trees can now generate with Shelf Fungi.
 
-# Pale Mushroom Branch
+# Pale Mushrooms
 - All Shelf Fungi can now be mined faster with an Axe.
 - Added the Pale Mushroom and Pale Shelf Fungi blocks.
   - At night, these will emit gray spore-like particles.
@@ -297,7 +298,7 @@ hi
 - Termites can now eat Pale Oak blocks.
 - Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.
 
-# Gabbro Branch
+# Gabbro
 - Added the Gabbro stone type.
   - Generates naturally in Magmatic Caves.
   - Can be polished.
@@ -305,7 +306,7 @@ hi
   - Mossy brick variants and stair, slab, and wall variants of the base stone require Trailier Tales to be installed.
   - Scorched can spawn on Gabbro.
 
-# Icicle Branch
+# Icicles
 - Added Icicles.
   - Grows naturally from the bottom of Fragile Ice.
   - Grows in length if below a Fragile Ice block, or an ice block with water above.
