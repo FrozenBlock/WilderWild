@@ -189,7 +189,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("feature/coarse_dirt_disk_replaceable");
 
 	private WWBlockTags() {
-		throw new UnsupportedOperationException("WilderBlockTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWBlockTags contains only static declarations.");
 	}
 
 	@NotNull

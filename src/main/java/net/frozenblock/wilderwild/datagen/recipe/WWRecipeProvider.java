@@ -236,11 +236,18 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.POLISHED_GABBRO);
 
-				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, 4)
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO, 4)
 					.define('#', WWBlocks.GABBRO)
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_gabbro", has(WWBlocks.GABBRO))
+					.save(exporter);
+
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, 4)
+					.define('#', WWBlocks.POLISHED_GABBRO)
+					.pattern("##")
+					.pattern("##")
+					.unlockedBy("has_polished_gabbro", has(WWBlocks.POLISHED_GABBRO))
 					.save(exporter);
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO);

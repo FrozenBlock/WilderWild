@@ -26,12 +26,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -40,6 +43,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -250,6 +254,14 @@ public class TermiteManager {
 						if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
 							this.blockDestroyPower = 0;
 							this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
+
+							// Must trigger criteria before destroying block in order to validate criteria properly.
+							if (level instanceof ServerLevel serverLevel) {
+								for (ServerPlayer serverPlayer :serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(this.getCenterOfPos()) < TermiteEatTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+									WWCriteria.TERMITE_EAT.trigger(serverPlayer, serverLevel, this.pos, !natural);
+								}
+							}
+
 							if (destroysBlock) {
 								level.destroyBlock(this.pos, true);
 							} else {
@@ -460,6 +472,11 @@ public class TermiteManager {
 		@NotNull
 		public BlockPos getPos() {
 			return this.pos;
+		}
+
+		@NotNull
+		public Vec3 getCenterOfPos() {
+			return Vec3.atCenterOf(this.pos);
 		}
 
 		public int getBlockDestroyPower() {

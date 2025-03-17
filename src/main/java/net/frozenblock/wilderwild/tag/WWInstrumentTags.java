@@ -28,7 +28,7 @@ public final class WWInstrumentTags {
 	public static final TagKey<Instrument> COPPER_HORNS = bind("copper_horns");
 
 	private WWInstrumentTags() {
-		throw new UnsupportedOperationException("WilderInstrumentTags contains only static declarations.");
+		throw new UnsupportedOperationException("WWInstrumentTags contains only static declarations.");
 	}
 
 	@NotNull

@@ -169,4 +169,11 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			)
 			: createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
 	}
+
+	public static @NotNull BlockState setTermiteEdibleIfPossible(@NotNull BlockState state) {
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
+			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
+		}
+		return state;
+	}
 }

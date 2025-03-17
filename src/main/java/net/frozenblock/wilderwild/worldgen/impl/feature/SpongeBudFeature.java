@@ -29,10 +29,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
@@ -110,11 +110,8 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 	}
 
 	private static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite()) || Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
-	}
-
-	public static boolean isAirOrWater(@NotNull BlockState state) {
-		return state.isAir() || state.is(Blocks.WATER);
+		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite())
+			|| Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
 	@Override
@@ -124,19 +121,19 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 		RandomSource randomSource = context.random();
 		SpongeBudFeatureConfig config = context.config();
 
-		if (!isAirOrWater(worldGenLevel.getBlockState(blockPos))) return false;
-		List<Direction> list = config.shuffleDirections(randomSource);
-		if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, list)) return true;
+		if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(worldGenLevel, blockPos)) return false;
+		List<Direction> directions = config.shuffleDirections(randomSource);
+		if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, directions)) return true;
 
 		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-		for (Direction direction : list) {
+		for (Direction direction : directions) {
 			mutableBlockPos.set(blockPos);
-			List<Direction> list2 = config.shuffleDirections(randomSource, direction.getOpposite());
+			List<Direction> directions2 = config.shuffleDirections(randomSource, direction.getOpposite());
 			for (int i = 0; i < config.searchRange; ++i) {
 				mutableBlockPos.setWithOffset(blockPos, direction);
 				BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-				if (!isAirOrWater(blockState) && !blockState.is(WWBlocks.SPONGE_BUD)) break;
-				if (generate(worldGenLevel, mutableBlockPos, blockState, config, list2)) return true;
+				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(worldGenLevel, mutableBlockPos) && !blockState.is(WWBlocks.SPONGE_BUD)) break;
+				if (generate(worldGenLevel, mutableBlockPos, blockState, config, directions2)) return true;
 			}
 		}
 		return false;

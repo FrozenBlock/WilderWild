@@ -123,7 +123,7 @@ public class BoneMealItemMixin {
 
 		if (aquaticGeneration.seaAnemone) {
 			if (instance.is(WWBiomeTags.PRODUCES_SEA_ANEMONE_FROM_BONEMEAL)) {
-				if (randomSource.nextInt(15) == 0) {
+				if (randomSource.nextInt(19) == 0) {
 					BlockState seaAnemoneState = WWBlocks.SEA_ANEMONE.defaultBlockState();
 
 					if (seaAnemoneState.canSurvive(level, offsetPos)) {
@@ -136,7 +136,7 @@ public class BoneMealItemMixin {
 
 		if (aquaticGeneration.seaWhip) {
 			if (instance.is(WWBiomeTags.PRODUCES_SEA_WHIPS_FROM_BONEMEAL)) {
-				if (randomSource.nextInt(15) == 0) {
+				if (randomSource.nextInt(19) == 0) {
 					BlockState seaWhipSate = WWBlocks.SEA_WHIP.defaultBlockState();
 
 					if (seaWhipSate.canSurvive(level, offsetPos)) {

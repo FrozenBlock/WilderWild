@@ -29,7 +29,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -133,15 +133,8 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 		poseStack.popPose();
 	}
 
-	public static int getOverlay(@NotNull Firefly entity, float whiteOverlayProgress) {
-		return OverlayTexture.pack(OverlayTexture.u(whiteOverlayProgress), OverlayTexture.v(entity.hurtTime > 0 || entity.deathTime > 0));
-	}
-
 	@Override
 	public void render(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, MultiBufferSource buffer, int light) {
-		float scale = renderState.animScale;
-		int overlay = renderState.overlay;
-
 		poseStack.pushPose();
 		float f = renderState.scale;
 		poseStack.scale(f, f, f);
@@ -149,17 +142,15 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 			poseStack,
 			buffer,
 			light,
-			overlay,
+			LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 			renderState.calcColor,
 			renderState.color,
-			scale,
+			renderState.animScale,
 			0F,
 			Y_OFFSET,
 			0F,
 			this.entityRenderDispatcher.cameraOrientation()
 		);
-
-
 		if (renderState.shouldShowName) {
 			this.renderNameTag(renderState, renderState.nameTag, poseStack, buffer, light);
 		}
@@ -175,7 +166,6 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 	@Override
 	public void extractRenderState(Firefly entity, FireflyRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
-		renderState.overlay = getOverlay(entity, 0);
 		renderState.flickerAge = entity.getFlickerAge();
 
 		renderState.animScale = Mth.lerp(partialTick, entity.getPrevAnimScale(), entity.getAnimScale());

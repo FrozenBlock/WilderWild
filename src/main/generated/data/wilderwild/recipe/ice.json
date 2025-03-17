@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "wilderwild:polished_gabbro"
+    "#": "wilderwild:icicle"
   },
   "pattern": [
     "##",
     "##"
   ],
   "result": {
-    "count": 4,
-    "id": "wilderwild:gabbro_bricks"
+    "count": 1,
+    "id": "minecraft:ice"
   }
 }
