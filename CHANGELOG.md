@@ -284,6 +284,9 @@ hi
 - Ostriches now drop up to 4 feathers on death.
 - Maple Forests can no longer generate Beta Beaches.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
+- Added the Pasqueflower.
+  - Generates in Meadows and Tundras.
+  - Can be crafted into Purple Dye.
 - Added the Phlox flower.
   - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
   - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Autumnal Plains biomes.
