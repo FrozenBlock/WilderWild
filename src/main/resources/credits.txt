@@ -88,7 +88,7 @@ LudoCrypt:
 
 Willow/pictochats_:
  - Composer.
-    - CAVE TEMP
+    - Molt
     - Amber
     - Dahlia
  - Penguin step sounds.
@@ -168,9 +168,6 @@ Xfrtrex:
 
 Lufurrius
  - Fixed Hollowed Log UV/rotations in 3.1.
-
-LiukRast:
- - Baobab Tree generation.
 
 Osmiooo:
  - French translation.
