@@ -271,9 +271,9 @@ public class WWCreativeInventorySorting {
 
 		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
 
-		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.RED_MOSS_BLOCK);
-		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_BLOCK, WWBlocks.RED_MOSS_CARPET);
-		addAfterInNaturalBlocks(WWBlocks.RED_MOSS_CARPET, WWBlocks.RED_CREEPING_MOSS);
+		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.AUBURN_MOSS_BLOCK);
+		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_CARPET);
+		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
 
 		// SHELF FUNGI
 		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
