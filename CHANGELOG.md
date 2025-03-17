@@ -146,6 +146,29 @@ hi
   - Penguins will ignore unique friction from any blocks within the `wilderwild:penguin_ignore_friction` block tag.
 - Added the Penguin Egg block.
 
+# New Plants
+- Backported Wildflowers.
+  - Generates in Birch Forest, Meadow, and Sunflower Plains biomes.
+  - Can be crafted into Yellow Dye.
+- Added Clovers.
+  - Generates most commonly in Meadow biomes.
+- Added the Phlox flower.
+  - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
+  - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Autumnal Plains biomes.
+  - Can be crafted into Purple Dye.
+- Added the Lantanas flower.
+  - Generates in Old Growth Birch Forest, Savanna, Dark Forest, and Sunflower Plains biomes.
+  - Can be crafted into Orange Dye.
+- Glories of the Snow have been removed.
+  - They are now replaced with five Hibiscus Blocks:
+    - Red Hibiscus
+    - Yellow Hibiscus.
+    - White Hibiscus.
+    - Pink Hibiscus.
+    - Purple Hibiscus.
+  - Glory of the Snows will be datafixed into random Hibiscuses.
+  - Glory of the Snow Petals will be datafixed into Pollen.
+
 # Butterflies
 - Added Butterflies
   - A new ambient entity that sporadically flutters around, ocassionally stopping to rest.
