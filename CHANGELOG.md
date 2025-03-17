@@ -21,7 +21,7 @@ hi
     - Can be waterlogged.
 - Primarily generates as patches in Tundras, Maple Forests, and Oceans.
 
-  # Pale Gardens Additions (1.21.4+)
+# Pale Gardens Additions (1.21.4+)
 - Added the Pale Mushroom and Pale Shelf Fungi blocks.
   - At night, these will emit gray spore-like particles.
 - Added the Pale Mushroom Block.
@@ -31,6 +31,14 @@ hi
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
 - Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.
+
+# 1.21.5+ Changes
+- Fireflies now spawn near Firefly Bushes in dim lighting.
+- Renamed Wilder Wild's `Bush` to `Shrub.`
+- Added the `wilderwild:non_overriden_falling_leaves` block tag, controlling which leaves blocks won't have their particles entirely replaced by Wilder WIld.
+- Increased the frequency of Wilder Wild's falling leaves.
+- Updated all Maple Leaf Litters to be consistent with Vanilla's new Leaf Litter block.
+- Dry Grass now generates in Beaches.
 
 # Swamp Overhaul
 - Added the Willow tree.
