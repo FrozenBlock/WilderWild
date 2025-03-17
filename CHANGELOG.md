@@ -8,6 +8,7 @@ hi
 # Tundras
 - Added the Tundra biome.
 - Generates near the colder regions of the world where Plains would be, before the snow takes over.
+- Grass color uses special noise to vary between dryer greens and lush reds.
 
 # Auburn Moss
 - A new moss family with a distinct red hue.
