@@ -88,7 +88,7 @@ LudoCrypt:
 
 Willow/pictochats_:
  - Composer.
-    - CAVE TEMP
+    - Molt
     - Amber
     - Dahlia
  - Penguin step sounds.
