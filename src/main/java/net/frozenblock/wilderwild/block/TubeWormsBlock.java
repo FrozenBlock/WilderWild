@@ -28,7 +28,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -47,10 +46,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
+public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContainer {
 	public static final EnumProperty<TubeWormsPart> TUBE_WORMS_PART = WWBlockStateProperties.TUBE_WORMS_PART;
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
-	public static final MapCodec<BushBlock> CODEC = simpleCodec(TubeWormsBlock::new);
+	public static final MapCodec<TubeWormsBlock> CODEC = simpleCodec(TubeWormsBlock::new);
 
 	public TubeWormsBlock(@NotNull Properties properties) {
 		super(properties);
@@ -58,7 +57,7 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 	}
 
 	@Override
-	public MapCodec<BushBlock> codec() {
+	public MapCodec<TubeWormsBlock> codec() {
 		return CODEC;
 	}
 

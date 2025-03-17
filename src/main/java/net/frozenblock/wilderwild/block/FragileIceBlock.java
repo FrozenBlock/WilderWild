@@ -99,17 +99,17 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, boolean bl) {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : UPDATE_SHAPE_ORDER) {
 			mutableBlockPos.setWithOffset(blockPos, direction);
-			if (level.getBlockState(mutableBlockPos).is(this)) {
-				if (level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
-					this.scheduleShatter(level, mutableBlockPos, blockState, level.getRandom());
+			if (serverLevel.getBlockState(mutableBlockPos).is(this)) {
+				if (serverLevel.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
+					this.scheduleShatter(serverLevel, mutableBlockPos, blockState, serverLevel.getRandom());
 				}
 			}
 		}
-		super.onRemove(blockState, level, blockPos, newState, bl);
+		super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, bl);
 	}
 
 	@Override
