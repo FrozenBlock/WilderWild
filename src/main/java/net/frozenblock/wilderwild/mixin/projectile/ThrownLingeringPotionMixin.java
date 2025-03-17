@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.ThrownLingeringPotion;
-import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +37,7 @@ public class ThrownLingeringPotionMixin {
 		ServerLevel serverLevel, ItemStack itemStack, Entity entity, CallbackInfo info
 	) {
 		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
-			ThrownSplashPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (serverLevel.getRandom().nextFloat() * 0.2F));
+			ThrownLingeringPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (serverLevel.getRandom().nextFloat() * 0.2F));
 		}
 	}
 

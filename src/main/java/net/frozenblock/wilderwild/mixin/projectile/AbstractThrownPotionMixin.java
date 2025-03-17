@@ -22,7 +22,6 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.world.entity.projectile.AbstractThrownPotion;
-import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +44,7 @@ public class AbstractThrownPotionMixin {
 		@Local PotionContents potionContents
 	) {
 		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
-			ThrownSplashPotion potion = ThrownSplashPotion.class.cast(this);
+			AbstractThrownPotion potion = AbstractThrownPotion.class.cast(this);
 
 			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
 
