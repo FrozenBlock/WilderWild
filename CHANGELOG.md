@@ -15,7 +15,7 @@ hi
     - Can be Bone-Mealed to spread itself to nearby natural blocks under the `wilderwild:red_moss_replaceable` block tag.
     - Spreads tallgrass grass, and related foliage.
 - Added Auburn Moss Carpet.
-    - CAn be waterlogged.
+    - Can be waterlogged.
 - Added Auburn Moss Lichen.
     - A glow-lichen like block that can be placed up to 6 times in a blockspace, once on each respective face.
     - Can be waterlogged.
