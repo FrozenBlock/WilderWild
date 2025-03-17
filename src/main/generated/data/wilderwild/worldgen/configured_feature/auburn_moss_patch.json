@@ -7,14 +7,14 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:red_moss_block"
+        "Name": "wilderwild:auburn_moss_block"
       }
     },
     "replaceable": "#wilderwild:red_moss_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.475,
     "vegetation_feature": {
-      "feature": "wilderwild:red_moss_vegetation",
+      "feature": "wilderwild:auburn_moss_vegetation",
       "placement": []
     },
     "vertical_range": 5,

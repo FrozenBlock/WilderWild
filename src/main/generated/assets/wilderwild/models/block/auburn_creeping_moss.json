@@ -1,6 +1,6 @@
 {
   "parent": "wilderwild:block/template_multiface_block",
   "textures": {
-    "texture": "wilderwild:block/red_creeping_moss"
+    "texture": "wilderwild:block/auburn_creeping_moss"
   }
 }

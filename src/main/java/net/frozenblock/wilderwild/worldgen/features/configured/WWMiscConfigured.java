@@ -178,12 +178,12 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig, ConfiguredFeature<BallFeatureConfig, ?>> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
 
-	// RED MOSS
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> RED_MOSS_VEGETATION = register("red_moss_vegetation");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH = register("red_moss_patch");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MOSS = register("red_moss");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> RED_CREEPING_MOSS_PATCH = register("red_creeping_moss_patch");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> RED_MOSS_PATCH_BONEMEAL = register("red_moss_patch_bonemeal");
+	// AUBURN MOSS
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH = register("auburn_moss_patch");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> AUBURN_MOSS = register("red_moss");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
 
 	// SNOW
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> SNOW_BLANKET = register("snow_blanket");
@@ -1144,21 +1144,21 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_MOSS_VEGETATION.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		AUBURN_MOSS_VEGETATION.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					SimpleWeightedRandomList.<BlockState>builder()
-						.add(WWBlocks.RED_CREEPING_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
-						.add(WWBlocks.RED_MOSS_CARPET.defaultBlockState(), 1)
+						.add(WWBlocks.AUBURN_CREEPING_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
+						.add(WWBlocks.AUBURN_MOSS_CARPET.defaultBlockState(), 1)
 				)
 			)
 		);
 
-		RED_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
+		AUBURN_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RED_MOSS_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION.getHolder()),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,
@@ -1169,7 +1169,7 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_MOSS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+		AUBURN_MOSS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(
@@ -1179,7 +1179,7 @@ public final class WWMiscConfigured {
 								8,
 								6,
 								3,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
 							)
 						),
 						0.25F
@@ -1191,7 +1191,7 @@ public final class WWMiscConfigured {
 								8,
 								6,
 								4,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
 							)
 						),
 						0.15F
@@ -1203,17 +1203,17 @@ public final class WWMiscConfigured {
 								7,
 								3,
 								2,
-								PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
 							)
 						),
 						0.25F
 					)
 				),
-				PlacementUtils.inlinePlaced(RED_MOSS_PATCH.getHolder())
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
 			)
 		);
 
-		RED_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
+		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
 			new RandomPatchConfiguration(
 				38,
 				6,
@@ -1221,7 +1221,7 @@ public final class WWMiscConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.RED_CREEPING_MOSS,
+						WWBlocks.AUBURN_CREEPING_MOSS,
 						10,
 						true,
 						true,
@@ -1237,11 +1237,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
+		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				WWBlockTags.RED_MOSS_REPLACEABLE,
-				BlockStateProvider.simple(WWBlocks.RED_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(RED_MOSS_VEGETATION.getHolder()),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,

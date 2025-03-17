@@ -3,13 +3,13 @@
   "category": "misc",
   "group": "carpet",
   "key": {
-    "#": "wilderwild:red_moss_block"
+    "#": "wilderwild:auburn_moss_block"
   },
   "pattern": [
     "##"
   ],
   "result": {
     "count": 3,
-    "id": "wilderwild:red_moss_carpet"
+    "id": "wilderwild:auburn_moss_carpet"
   }
 }

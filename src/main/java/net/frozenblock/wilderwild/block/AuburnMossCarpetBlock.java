@@ -36,18 +36,18 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class RedMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<RedMossCarpetBlock> CODEC = simpleCodec(RedMossCarpetBlock::new);
+public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public RedMossCarpetBlock(@NotNull Properties settings) {
+	public AuburnMossCarpetBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@NotNull
 	@Override
-	public MapCodec<? extends RedMossCarpetBlock> codec() {
+	public MapCodec<? extends AuburnMossCarpetBlock> codec() {
 		return CODEC;
 	}
 

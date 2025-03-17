@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "wilderwild:block/red_moss_block"
+    "all": "wilderwild:block/auburn_moss_block"
   }
 }

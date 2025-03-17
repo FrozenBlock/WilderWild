@@ -1,16 +1,16 @@
 {
-  "feature": "wilderwild:stone_disk_and_pile",
+  "feature": "wilderwild:auburn_creeping_moss_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 7
+      "chance": 17
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

@@ -5,7 +5,7 @@
       "feature": {
         "type": "minecraft:multiface_growth",
         "config": {
-          "block": "wilderwild:red_creeping_moss",
+          "block": "wilderwild:auburn_creeping_moss",
           "can_be_placed_on": "#wilderwild:feature/red_creeping_moss_feature_placeable",
           "can_place_on_ceiling": true,
           "can_place_on_floor": true,
@@ -29,6 +29,6 @@
     },
     "tries": 38,
     "xz_spread": 6,
-    "y_spread": 3
+    "y_spread": 4
   }
 }

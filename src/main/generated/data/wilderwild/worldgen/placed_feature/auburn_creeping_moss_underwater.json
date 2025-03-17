@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:stone_disk_and_pile",
+  "feature": "wilderwild:auburn_creeping_moss_patch_underwater",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 18
+      "chance": 14
     },
     {
       "type": "minecraft:in_square"
