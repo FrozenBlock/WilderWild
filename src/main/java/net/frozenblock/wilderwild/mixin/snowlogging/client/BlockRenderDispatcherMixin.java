@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +32,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(BlockRenderDispatcher.class)
@@ -47,31 +45,8 @@ public abstract class BlockRenderDispatcherMixin {
 		}
 	}
 
-	@Inject(method = "renderBatched", at = @At("HEAD"))
-	public void wilderWild$renderBatched(
-		BlockState state,
-		BlockPos pos,
-		BlockAndTintGetter level,
-		PoseStack poseStack,
-		VertexConsumer consumer,
-		boolean checkSides,
-		List<BlockModelPart> list,
-		CallbackInfo info
-	) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			this.renderBatched(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer, checkSides, list);
-		}
-	}
-
 	@Shadow
 	public void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
-	}
-
-	@Shadow
-	public void renderBatched(
-		BlockState blockState, BlockPos blockPos, BlockAndTintGetter blockAndTintGetter, PoseStack poseStack, VertexConsumer vertexConsumer, boolean bl, List<BlockModelPart> list
-	) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
 	}
 }
