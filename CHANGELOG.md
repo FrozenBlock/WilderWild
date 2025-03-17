@@ -12,16 +12,16 @@ hi
 # Auburn Moss
 - A new moss family with a distinct red hue.
 - Added Aurburn Moss.
-    - Can be Bone-Mealed to spread itself to nearby natural blocks under the `wilderwild:red_moss_replaceable` block tag.
-    - Spreads tallgrass grass, and related foliage.
+  - Can be Bone-Mealed to spread itself to nearby natural blocks under the `wilderwild:red_moss_replaceable` block tag.
+  - Spreads tallgrass grass, and related foliage.
 - Added Auburn Moss Carpet.
-    - CAn be waterlogged.
-- Added Auburn Moss Lichen.
-    - A glow-lichen like block that can be placed up to 6 times in a blockspace, once on each respective face.
     - Can be waterlogged.
+- Added Auburn Creeping Moss.
+  - Can be placed on all sides of a block.
+  - Can be waterlogged.
 - Primarily generates as patches in Tundras, Maple Forests, and Oceans.
 
-  # Pale Gardens Additions (1.21.4+)
+# Pale Gardens Additions (1.21.4+)
 - Added the Pale Mushroom and Pale Shelf Fungi blocks.
   - At night, these will emit gray spore-like particles.
 - Added the Pale Mushroom Block.
@@ -31,6 +31,14 @@ hi
 - Properly updated the sound type for Eyeblossoms to match other flowers.
 - Termites can now eat Pale Oak blocks.
 - Resin Clumps, Creaking Hearts, Eyeblossoms, and Pale Mushrooms now kill Termites on contact.
+
+# 1.21.5+ Changes
+- Fireflies now spawn near Firefly Bushes in dim lighting.
+- Renamed Wilder Wild's `Bush` to `Shrub.`
+- Added the `wilderwild:non_overriden_falling_leaves` block tag, controlling which leaves blocks won't have their particles entirely replaced by Wilder WIld.
+- Increased the frequency of Wilder Wild's falling leaves.
+- Updated all Maple Leaf Litters to be consistent with Vanilla's new Leaf Litter block.
+- Dry Grass now generates in Beaches.
 
 # Swamp Overhaul
 - Added the Willow tree.
@@ -141,16 +149,16 @@ hi
 - Added Butterflies
   - A new ambient entity that sporadically flutters around, ocassionally stopping to rest.
   - Can be bottled, storing all entity data.
-- 7 Variants
-  - Clouded Yellow, spawns in Meadows, Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
-  - Duskwing, spawns in Tundras.
-  - Grean Hairstreak, spawns in Flower Forests and Flower Fields.
-  - Marbled, spawns in Meadows, Flower Forests and Flower Fields.
-  - Monarch, spawns in Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
-  - Morpho Blue, spawns in Meadows, Flower Forests and Flower Fields.
-  - Red Lacewing, spawns in Flower Forests, Flower Fields, Maple Forests, and Tundras.
+- Butteflies Have 7 Variants:
+  - Clouded Yellow: Spawns in Meadows, Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
+  - Duskwing: Spawns in Tundras.
+  - Grean Hairstreak: Spawns in Flower Forests and Flower Fields.
+  - Marbled: Spawns in Meadows, Flower Forests and Flower Fields.
+  - Monarch: Spawns in Flower Forests, Sunflower Plains, Flower Fields, Maple Forests, and Tundras.
+  - Morpho Blue: Spawns in Meadows, Flower Forests and Flower Fields.
+  - Red Lacewing,: Spawns in Flower Forests, Flower Fields, Maple Forests, and Tundras.
 - Added Butterfly Bottles
-  - Used to release Butterflies.
+  - Used to capture and release Butterflies.
 
 # Mooblooms
 - Added Mooblooms
@@ -252,37 +260,16 @@ hi
 - Hanging Tendrils now play animations in sync with each other while being rendered as billboards.
 - Particles created by gargling Sculk Shriekers are now handled by the client, using the new `wilderwild:shrieker_bubbles` particle.
 - Particles created by entities touching Seeding Dandelions are now dependent on how the entity was moving.
-- Glories of the Snow have been removed.
-  - They are now replaced with five Hibiscus Blocks:
-    - Red Hibiscus
-    - Yellow Hibiscus.
-    - White Hibiscus.
-    - Pink Hibiscus.
-    - Purple Hibiscus.
-  - Glory of the Snows will be datafixed into random Hibiscuses.
-  - Glory of the Snow Petals will be datafixed into Pollen.
 - Scorched now set entities on fire upon attacking.
 - Removed the `wilderwild:sculk_spreader` entity, and updated the `spreadsculk` command to place all Sculk at once.
 - Updated the Chiseled Mud Bricks texture.
 - Wilder Wild's custom flower, leaves, sapling, cactus, coarse dirt, ice, frosted ice, mushroom, mushroom block, sandstone, lily pad, and melon block sounds now all rely on tags.
   - These tags can be found in the `/sound` folder for block tags.
 - Pink Petals can now be placed into Flower Pots.
-- Backported Wildflowers.
-  - Generates in Birch Forest, Meadow, and Sunflower Plains biomes..
-  - Can be crafted into Yellow Dye.
-- Added Clovers.
-  - Generates most commonly in Meadow biomes.
 - Removed shallow pools from the Oasis biome as they weren't visually pleasing.
 - Ostriches now drop up to 4 feathers on death.
 - Maple Forests can no longer generate Beta Beaches.
 - Rattling sounds are now used as a footstep sound instead of idle sound for Crabs.
-- Added the Phlox flower.
-  - Generates in Birch Forest, Old Growth Birch Forest, and Meadow biomes.
-  - Generates occasionally in Dark Forest, Swamp, Dying Forest, Maple Forest, and Autumnal Plains biomes.
-  - Can be crafted into Purple Dye.
-- Added the Lantanas flower.
-  - Generates in Old Growth Birch Forest, Savanna, Dark Forest, and Sunflower Plains biomes.
-  - Can be crafted into Orange Dye.
 - Lowered the average amount of Bushes that generate.
 - Increased the average amount of Tumbleweed that generate.
 - Sand and Red Sand can no longer be scorched by Lava falling from Pointed Dripstone.
