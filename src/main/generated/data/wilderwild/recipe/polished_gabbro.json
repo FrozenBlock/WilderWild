@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "wilderwild:gabbro"
-    }
+    "#": "wilderwild:gabbro"
   },
   "pattern": [
     "##",

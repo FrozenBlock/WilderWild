@@ -142,7 +142,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 			poseStack,
 			buffer,
 			light,
-			LivingEntityRenderer.getOverlayCoords(renderState, 0),
+			LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 			renderState.calcColor,
 			renderState.color,
 			renderState.animScale,

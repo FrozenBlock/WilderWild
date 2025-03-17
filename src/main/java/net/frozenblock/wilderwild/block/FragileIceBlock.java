@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -42,10 +43,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class FragileIceBlock extends HalfTransparentBlock {
 	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
@@ -99,23 +98,19 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		this.crackOrDestroy(blockState, serverLevel, blockPos);
 	}
 
-	// TODO: Fix this
-	/*@Override
-	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean bl) {
-		if (block.defaultBlockState().is(this) && blockState.isAir() && level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
-			this.scheduleShatter(level, blockPos, blockState, level.getRandom());
-		}
-		super.neighborChanged(blockState, level, blockPos, block, orientation, bl);
-	}
-
 	@Override
-	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, @NotNull Block block, BlockPos blockPos2, boolean bl) {
-		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir() && level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
-			this.scheduleShatter(level, blockPos, blockState, level.getRandom());
+	protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (Direction direction : UPDATE_SHAPE_ORDER) {
+			mutableBlockPos.setWithOffset(blockPos, direction);
+			if (level.getBlockState(mutableBlockPos).is(this)) {
+				if (level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
+					this.scheduleShatter(level, mutableBlockPos, blockState, level.getRandom());
+				}
+			}
 		}
-
-		super.neighborChanged(blockState, level, blockPos, block, blockPos2, bl);
-	}*/
+		super.onRemove(blockState, level, blockPos, newState, bl);
+	}
 
 	@Override
 	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
