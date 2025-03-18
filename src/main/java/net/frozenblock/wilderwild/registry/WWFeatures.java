@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.CattailFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.HydrothermalVentFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.IcicleClusterFeature;
@@ -35,7 +34,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.SnowAndFreezeDiskFeature
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.TubeWormsFeature;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleClusterConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleConfig;
@@ -43,6 +42,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.config.LargeMesogleaConf
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.NoOpFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;

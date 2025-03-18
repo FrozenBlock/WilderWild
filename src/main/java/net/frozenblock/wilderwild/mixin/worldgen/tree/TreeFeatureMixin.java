@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.feature.PalmTreeFeature;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -39,6 +38,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import net.minecraft.Util;
 
 @Mixin(TreeFeature.class)
 public class TreeFeatureMixin {

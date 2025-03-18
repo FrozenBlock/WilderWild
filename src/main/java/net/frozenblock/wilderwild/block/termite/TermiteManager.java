@@ -33,8 +33,6 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.Util;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -57,6 +55,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.Util;
 
 public class TermiteManager {
 	public static final int TERMITE_COUNT_ASLEEP = 1;
