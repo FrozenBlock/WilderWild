@@ -12,6 +12,7 @@ hi
 - Slightly decreased the spawning of Sea Anemone and Sea Whips when using Bone Meal underwater.
 - Sea Anemones can no longer be Bone Mealed directly, instead only being renewable by using Bone Meal underwater.
 - Slightly decreased the average amount of Pollen particles that spawn.
+- Music will now have a subtle, slowly morphing pitch shift while in the Dying Forest, Dying Mixed Forest, Snowy Dying Forest, and Snowy Dying Mixed Forest biomes.
 - `BetaBeachConditionSource` and `SnowUnderMountainConditionSource` no longer take any parameters and are now a single static instance.
 - Fixed the item tint of Willow Leaves on 1.21.4+.
 - Fixed Polished Gabbro being uncraftable.

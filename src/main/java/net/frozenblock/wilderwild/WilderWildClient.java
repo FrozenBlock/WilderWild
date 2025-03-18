@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild;
 
 import java.util.Optional;
+import java.util.function.Function;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,6 +33,7 @@ import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
+import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWItemProperties;
@@ -42,10 +44,12 @@ import net.frozenblock.wilderwild.client.WilderEasterEggs;
 import net.frozenblock.wilderwild.client.renderer.debug.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
+import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -67,6 +71,13 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWTints.initItems();
 
 		WWClientNetworking.registerPacketReceivers();
+
+		Function<Long, Float> dyingPitchShifting = (l) -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
+			(0.98F + Mth.sin((float)l * (float)Math.PI / 1200F) * 0.025F) : 1F;
+		MusicPitchApi.registerForBiome(WWBiomes.DYING_FOREST.location(), dyingPitchShifting);
+		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.location(), dyingPitchShifting);
+		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_FOREST.location(), dyingPitchShifting);
+		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.location(), dyingPitchShifting);
 
 		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
 			ResourceManagerHelper.registerBuiltinResourcePack(

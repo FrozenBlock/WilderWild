@@ -71,6 +71,8 @@ public final class WWAmbienceAndMiscConfig {
 				Client.PALM_FROND_FREQUENCY = config.leafParticles.palmFrequency / 100D;
 				Client.MAPLE_LEAF_FREQUENCY = config.leafParticles.mapleFrequency / 100D;
 				Client.WILLOW_LEAF_FREQUENCY = config.leafParticles.willowFrequency / 100D;
+
+				Client.DISTORTED_DYING_FOREST_MUSIC = config.music.distortedDyingForestMusic;
 			}
 		}
 	);
@@ -117,6 +119,8 @@ public final class WWAmbienceAndMiscConfig {
 		public static volatile double PALM_FROND_FREQUENCY = 1D;
 		public static volatile double MAPLE_LEAF_FREQUENCY = 1D;
 		public static volatile double WILLOW_LEAF_FREQUENCY = 1D;
+
+		public static volatile boolean DISTORTED_DYING_FOREST_MUSIC = true;
 	}
 
 	@CollapsibleObject
