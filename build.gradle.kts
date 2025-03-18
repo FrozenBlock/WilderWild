@@ -50,6 +50,7 @@ val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
+val biolith_version: String by project
 val fallingleaves_version: String by project
 val particlerain_version: String by project
 
@@ -211,6 +212,9 @@ dependencies {
 
     // TerraBlender
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
+
+    // Biolith
+    modCompileOnly("maven.modrinth:biolith:${biolith_version}")
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
