@@ -814,7 +814,7 @@ public class BiolithIntegration extends ModIntegration {
 						0L
 					));
 			}
-			BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST))),(allOf(CriterionBuilder.neighbor(WWBiomes.TUNDRA)))));
+			//BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST))),(allOf(CriterionBuilder.neighbor(WWBiomes.TUNDRA)))));
 		}
 
 		// Regular Biomes
