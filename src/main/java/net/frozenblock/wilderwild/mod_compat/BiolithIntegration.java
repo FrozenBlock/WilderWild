@@ -1055,6 +1055,11 @@ public class BiolithIntegration extends ModIntegration {
 					0L
 				));
 		}
+		if (WWWorldgenConfig.get().biomeGeneration.generateAridSavanna) {
+			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.ARID_SAVANNA, CriterionBuilder.neighbor(Biomes.DESERT));
+			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.ARID_SAVANNA, CriterionBuilder.neighbor(Biomes.FOREST));
+		}
+
 		if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
 			BiomePlacement.addOverworld(WWBiomes.MAPLE_FOREST,
 				new Climate.ParameterPoint(
