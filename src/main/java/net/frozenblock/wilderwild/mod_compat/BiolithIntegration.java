@@ -25,6 +25,7 @@ import com.terraformersmc.biolith.api.biome.sub.RatioTargets;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -41,7 +42,6 @@ import net.frozenblock.wilderwild.worldgen.biome.Oasis;
 import net.frozenblock.wilderwild.worldgen.biome.OldGrowthDarkForest;
 import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingForest;
 import net.frozenblock.wilderwild.worldgen.biome.SnowyDyingMixedForest;
-import net.frozenblock.wilderwild.worldgen.biome.SnowyOldGrowthPineTaiga;
 import net.frozenblock.wilderwild.worldgen.biome.TemperateRainforest;
 import net.frozenblock.wilderwild.worldgen.biome.Tundra;
 import net.minecraft.world.level.biome.Biomes;
@@ -96,8 +96,16 @@ public class BiolithIntegration extends ModIntegration {
 			BiomePlacement.addSubOverworld(Biomes.SAVANNA, WWBiomes.PARCHED_FOREST, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.FOREST)))));
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateRainforest) {
-			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.JUNGLE))),(allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.BAMBOO_JUNGLE))),(allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.SPARSE_JUNGLE)))));
-			BiomePlacement.addSubOverworld(Biomes.JUNGLE, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.FOREST)))));
+			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.15F, 0.55F), CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.1F), CriterionBuilder.value(BiomeParameterTargets.CONTINENTALNESS, -0.11F, 1F), CriterionBuilder.value(BiomeParameterTargets.EROSION, -1F, 0.05F), CriterionBuilder.value(BiomeParameterTargets.WEIRDNESS, -1F, 0.05F)))));
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+				if (point.temperature().equals(Temperature.WARM)) {
+					BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.neighbor(Biomes.JUNGLE), CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.075F, 0.225F), CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.1F)))));
+				}
+				if (point.temperature().equals(Temperature.NEUTRAL)) {
+					BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.neighbor(Biomes.JUNGLE), CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.175F, 0.25F), CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.075F, 0.225F)))));
+				}
+			}
+			BiomePlacement.addSubOverworld(Biomes.JUNGLE, WWBiomes.RAINFOREST, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.1F),CriterionBuilder.neighbor(WWBiomes.RAINFOREST)))));
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateSemiBirchForest) {
 			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.SEMI_BIRCH_FOREST, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.BIRCH_FOREST)))));
@@ -271,7 +279,7 @@ public class BiolithIntegration extends ModIntegration {
 			}
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateOasis) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
+/*			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
 				BiomePlacement.addOverworld(WWBiomes.OASIS,
 					new Climate.ParameterPoint(
 						Oasis.TEMPERATURE,
@@ -292,6 +300,11 @@ public class BiolithIntegration extends ModIntegration {
 						point.weirdness(),
 						0L
 					));
+			}*/
+			if (WWWorldgenConfig.get().biomeGeneration.generateOasis) {
+				BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(CriterionBuilder.neighbor(Biomes.RIVER), CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1.0F, 0.2F)))));
+				BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(CriterionBuilder.neighbor(Biomes.JUNGLE), CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1.0F, 0.7F)))));
+				BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1.0F, -0.6F)))));
 			}
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
@@ -370,7 +383,7 @@ public class BiolithIntegration extends ModIntegration {
 			}
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateOldGrowthSnowyTaiga) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+/*			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				BiomePlacement.addOverworld(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA,
 					new Climate.ParameterPoint(
 						SnowyOldGrowthPineTaiga.TEMPERATURE,
@@ -391,7 +404,8 @@ public class BiolithIntegration extends ModIntegration {
 						point.weirdness(),
 						0L
 					));
-			}
+			}*/
+			BiomePlacement.addSubOverworld(Biomes.TAIGA, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, allOf(CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -1F, -0.45F),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.3F, 1F)));
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateTemperateRainforest) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
@@ -481,7 +495,7 @@ public class BiolithIntegration extends ModIntegration {
 					));
 			}
 			if (WWWorldgenConfig.get().biomePlacement.modifyTundraPlacement) {
-				List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
+				/*List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
 					OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
 					OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES),
 					0.15F
@@ -567,10 +581,12 @@ public class BiolithIntegration extends ModIntegration {
 							Tundra.WEIRDNESS_SLOPE_D,
 							0L
 						));
-				});
+				});*/
+				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.2F),CriterionBuilder.neighbor(Biomes.SNOWY_SLOPES)))));
+				BiomePlacement.addSubOverworld(Biomes.SNOWY_SLOPES, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.1F),CriterionBuilder.neighbor(Biomes.PLAINS)))));
 			}
 			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
-				BiomePlacement.addOverworld(WWBiomes.TUNDRA,
+/*				BiomePlacement.addOverworld(WWBiomes.TUNDRA,
 					new Climate.ParameterPoint(
 						Tundra.TEMPERATURE_MAPLE,
 						Tundra.HUMIDITY_MAPLE,
@@ -813,8 +829,9 @@ public class BiolithIntegration extends ModIntegration {
 						Tundra.WEIRDNESS_B_MAPLE,
 						0L
 					));
+				*/
+				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST))),(allOf(CriterionBuilder.neighbor(WWBiomes.TUNDRA)))));
 			}
-			//BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, anyOf((allOf(CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST))),(allOf(CriterionBuilder.neighbor(WWBiomes.TUNDRA)))));
 		}
 
 		// Regular Biomes
@@ -1055,11 +1072,6 @@ public class BiolithIntegration extends ModIntegration {
 					0L
 				));
 		}
-		if (WWWorldgenConfig.get().biomeGeneration.generateAridSavanna) {
-			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.ARID_SAVANNA, CriterionBuilder.neighbor(Biomes.DESERT));
-			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.ARID_SAVANNA, CriterionBuilder.neighbor(Biomes.FOREST));
-		}
-
 		if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
 			BiomePlacement.addOverworld(WWBiomes.MAPLE_FOREST,
 				new Climate.ParameterPoint(
