@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.datagen.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.frozenblock.lib.datagen.api.client.FrozenLibModelHelper;
@@ -32,6 +34,7 @@ import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public final class WWModelProvider extends FabricModelProvider {
 
 	public WWModelProvider(FabricDataOutput output) {
