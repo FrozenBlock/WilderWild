@@ -14,6 +14,11 @@
         "name": "wilderwild:music/ludocrypt/dove",
         "stream": true,
         "volume": 0.8
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.8
       }
     ]
   }

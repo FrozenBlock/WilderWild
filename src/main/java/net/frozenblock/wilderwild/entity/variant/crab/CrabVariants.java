@@ -21,7 +21,6 @@ package net.frozenblock.wilderwild.entity.variant.crab;
 import java.util.List;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -34,6 +33,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public final class CrabVariants {
 	public static final ResourceKey<CrabVariant> CRAB = createKey("crab");

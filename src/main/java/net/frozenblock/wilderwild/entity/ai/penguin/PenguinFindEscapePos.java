@@ -23,7 +23,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -39,6 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.apache.commons.lang3.mutable.MutableLong;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public class PenguinFindEscapePos {
 	public static @NotNull BehaviorControl<PathfinderMob> create(int searchRange, float speedModifier) {

@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -36,6 +35,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public final class JellyfishVariants {
 	public static final ResourceKey<JellyfishVariant> BLUE = createKey("blue");

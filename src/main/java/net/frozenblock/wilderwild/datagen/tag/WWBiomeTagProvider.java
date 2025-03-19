@@ -234,6 +234,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DYING_MUSIC)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SNOWY_DYING_MUSIC)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
