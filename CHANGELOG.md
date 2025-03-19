@@ -12,6 +12,8 @@ hi
 - Slightly decreased the spawning of Sea Anemone and Sea Whips when using Bone Meal underwater.
 - Sea Anemones can no longer be Bone Mealed directly, instead only being renewable by using Bone Meal underwater.
 - Slightly decreased the average amount of Pollen particles that spawn.
+- Added the song `Espial` by Willow/pictochats_!
+  - This song plays in Mesoglea Caves, and while underwater.
 - Deep Dark biome music will now play in Ancient City structures.
   - This change was made to help with edge-cases, such as when an Ancient City partially generates into another biome.
   - This change can be disabled in the config.
