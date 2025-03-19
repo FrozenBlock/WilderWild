@@ -23,3 +23,4 @@ hi
 - Fixed Polished Gabbro being uncraftable.
 - Fixed Fragile Ice not working properly on 1.21.2+.
 - Fixed Termites getting stuck on player-placed Logs indefinitely.
+- Fixed a server crash on 1.21.4+.
