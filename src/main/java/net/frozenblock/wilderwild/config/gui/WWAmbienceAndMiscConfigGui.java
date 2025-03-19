@@ -436,7 +436,6 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setDefaultValue(defaultConfig.music.distortedDyingForestMusic)
 			.setSaveConsumer(newValue -> music.distortedDyingForestMusic = newValue)
 			.setTooltip(tooltip("distorted_dying_forest_music"))
-			.requireRestart()
 			.build();
 
 		var musicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("music"),
