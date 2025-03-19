@@ -32,7 +32,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WWSpawnTypes {
+public final class WWSpawnTypes {
 	public static final SpawnPlacementType ON_GROUND_OR_IN_ALGAE = new SpawnPlacementType() {
 		@Override
 		public boolean isSpawnPositionOk(LevelReader levelReader, BlockPos blockPos, @Nullable EntityType<?> entityType) {
