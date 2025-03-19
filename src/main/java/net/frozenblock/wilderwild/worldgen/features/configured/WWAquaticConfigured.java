@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.worldgen.features.configured;
 
+import java.util.List;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
@@ -34,9 +35,9 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -64,7 +65,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import java.util.List;
 
 public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");

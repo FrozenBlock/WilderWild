@@ -18,13 +18,13 @@
 
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.animal.goat.Goat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import net.minecraft.ChatFormatting;
 
 @Mixin(Goat.class)
 public class GoatMixin {

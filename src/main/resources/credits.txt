@@ -82,18 +82,19 @@ voxelotl:
  - Tube Worms textures.
  - Spawn egg textures in 1.21.5+.
 
-LudoCrypt:
- - Composer.
-    - Horizon Afoot (https://ludocrypt.bandcamp.com/track/horizon-afoot)
-    - Serene Sonder (https://ludocrypt.bandcamp.com/track/serene-sonder)
-    - Dove (https://ludocrypt.bandcamp.com/track/dove)
-
 Willow/pictochats_:
  - Composer.
     - Molt
     - Amber
     - Dahlia
+    - Espial
  - Penguin step sounds.
+
+LudoCrypt:
+ - Composer.
+    - Horizon Afoot (https://ludocrypt.bandcamp.com/track/horizon-afoot)
+    - Serene Sonder (https://ludocrypt.bandcamp.com/track/serene-sonder)
+    - Dove (https://ludocrypt.bandcamp.com/track/dove)
 
 Contributors:
 

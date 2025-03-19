@@ -25,11 +25,11 @@ import java.util.Optional;
 import net.frozenblock.lib.datagen.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -61,6 +61,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.Util;
 
 public final class WWModelHelper {
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(

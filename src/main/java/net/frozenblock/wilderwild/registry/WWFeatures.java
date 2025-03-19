@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.CattailFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.HugePaleMushroomFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.HydrothermalVentFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.IcicleClusterFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.IcicleFeature;
@@ -35,7 +35,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.SnowAndFreezeDiskFeature
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.TubeWormsFeature;
-import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleClusterConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.IcicleConfig;
@@ -43,7 +43,7 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.config.LargeMesogleaConf
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
-import net.frozenblock.wilderwild.worldgen.impl.feature.HugePaleMushroomFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.NoOpFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
@@ -79,7 +79,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
-public class WWFeatures {
+public final class WWFeatures {
 	public static final TrunkPlacerType<StraightWithBranchesTrunkPlacer> STRAIGHT_WITH_BRANCHES_TRUNK_PLACER = registerTrunk("straight_with_branches_trunk_placer", StraightWithBranchesTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<FallenWithBranchesTrunkPlacer> FALLEN_WITH_BRANCHES_TRUNK_PLACER = registerTrunk("fallen_with_branches_trunk_placer", FallenWithBranchesTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<FallenLargeTrunkPlacer> FALLEN_LARGE_TRUNK_PLACER = registerTrunk("fallen_large_trunk_placer", FallenLargeTrunkPlacer.CODEC);

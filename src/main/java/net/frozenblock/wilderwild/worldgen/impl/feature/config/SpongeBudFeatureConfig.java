@@ -23,13 +23,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import java.util.Objects;
-import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.Util;
 
 public class SpongeBudFeatureConfig implements FeatureConfiguration {
 	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->

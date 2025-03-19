@@ -34,7 +34,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -57,7 +60,7 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	public MapCodec<TubeWormsBlock> codec() {
+	public @NotNull MapCodec<TubeWormsBlock> codec() {
 		return CODEC;
 	}
 
