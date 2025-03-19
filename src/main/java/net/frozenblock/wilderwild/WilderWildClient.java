@@ -34,6 +34,8 @@ import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
+import net.frozenblock.lib.music.api.client.structure.StructureMusic;
+import net.frozenblock.lib.music.api.client.structure.StructureMusicApi;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWItemProperties;
@@ -49,7 +51,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.sounds.Music;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -73,11 +78,21 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWClientNetworking.registerPacketReceivers();
 
 		Function<Long, Float> dyingPitchShifting = (l) -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
-			(0.98F + Mth.sin((float)l * (float)Math.PI / 1200F) * 0.025F) : 1F;
+			(0.98F + Mth.sin((float) ((l * Math.PI) / 1200F)) * 0.025F) : 1F;
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_FOREST.location(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.location(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_FOREST.location(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.location(), dyingPitchShifting);
+
+		if (WWAmbienceAndMiscConfig.get().music.ancientCityMusic) {
+			StructureMusicApi.registerMusicForStructure(
+				BuiltinStructures.ANCIENT_CITY,
+				new StructureMusic(
+					new Music(SoundEvents.MUSIC_BIOME_DEEP_DARK, 6000, 12000, false),
+					false
+				)
+			);
+		}
 
 		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
 			ResourceManagerHelper.registerBuiltinResourcePack(
