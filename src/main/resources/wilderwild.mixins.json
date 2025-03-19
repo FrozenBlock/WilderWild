@@ -50,7 +50,6 @@
     "datafix.V3438Mixin",
     "datafix.boat.BoatSplitFixMixin",
     "datafix.boat.V4067Mixin",
-    "datagen.client.BlockModelGeneratorsMixin",
     "datagen.RecipeBuilderMixin",
     "entity.ai.MobMixin",
     "entity.allay.AllayMixin",
@@ -174,7 +173,8 @@
     "client.wind.particlerain.SnowParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
-    "snowlogging.client.TerrainRenderContextMixin"
+    "snowlogging.client.TerrainRenderContextMixin",
+    "datagen.client.BlockModelGeneratorsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
