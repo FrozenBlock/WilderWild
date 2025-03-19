@@ -457,7 +457,7 @@ modrinth {
     changelog.set(changelog_text)
     uploadFile.set(remapJar)
     gameVersions.set(listOf(minecraft_version))
-    loaders.set(listOf("fabric"))
+    loaders.set(listOf("fabric", "quilt"))
     additionalFiles.set(
         listOf(
             //tasks.remapSourcesJar.get(),
@@ -466,10 +466,11 @@ modrinth {
     )
     dependencies {
         required.project("fabric-api")
+        required.project("frozenlib")
         optional.project("cloth-config")
         optional.project("modmenu")
+        optional.project("trailiertales")
         optional.project("simple-copper-pipes")
-        embedded.project("frozenlib")
     }
 }
 

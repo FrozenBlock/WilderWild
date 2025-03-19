@@ -1067,6 +1067,7 @@
   "option.wilderwild.biome.true": "§aEnabled",
 
   "option.wilderwild.misc": "Ambience & Misc",
+
   "option.wilderwild.biome_ambience": "Biome Ambience",
   "tooltip.wilderwild.biome_ambience": "Contains options for biome ambience.",
   "option.wilderwild.deep_dark_ambience": "Deep Dark Ambience",
@@ -1091,11 +1092,7 @@
   "tooltip.wilderwild.magmatic_caves_fog": "Whether fog in the Magmatic Caves biome will be pitch black.",
   "option.wilderwild.magmatic_caves_particles": "Magmatic Caves Particles",
   "tooltip.wilderwild.magmatic_caves_particles": "Whether Smoke particles will spawn in the Magmatic Caves biome.",
-  "option.wilderwild.music": "Music",
-  "tooltip.wilderwild.music": "Contains options for Wilder Wild music.",
-  "pack.wilderwild.wilder_extra_music": "Wilder Extra Music",
-  "option.wilderwild.item_cooldowns_save": "Item Cooldowns Save",
-  "tooltip.wilderwild.item_cooldowns_save": "Whether item cooldowns will save instead of being\ncleared upon switching dimensions or rejoining a world.",
+
   "option.wilderwild.modify_advancements": "Modify Advancements",
   "tooltip.wilderwild.modify_advancements": "Whether advancements should contain Wilder Wild's criteria.\nDisable this if it causes compatability issues.",
   "option.wilderwild.vegetation_colors": "Vegetation Colors",
@@ -1116,6 +1113,9 @@
   "tooltip.wilderwild.hot_water": "Whether Hot biomes should use Wilder Wild's or Vanilla's water colors.",
   "option.wilderwild.water_colors.false": "§cVanilla",
   "option.wilderwild.water_colors.true": "§aNew",
+
+  "option.wilderwild.music": "Music",
+  "tooltip.wilderwild.music": "Contains options for Wilder Wild music.",
   "option.wilderwild.wilder_forest_music": "Forest Music",
   "tooltip.wilderwild.wilder_forest_music": "Whether to use new music in some Forest-like biomes.",
   "option.wilderwild.wilder_lush_caves_music": "Lush Caves Music",
@@ -1132,8 +1132,11 @@
   "tooltip.wilderwild.wilder_snowy_music": "Whether to use new music in Snowy biomes.",
   "option.wilderwild.wilder_extra_music": "Extra Music",
   "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus and whilst Under Water.",
+  "option.wilderwild.ancient_city_music": "Ancient City Music",
+  "tooltip.wilderwild.ancient_city_music": "Whether Deep Dark music can play while in an Ancient City.\nThis fixes edge-cases such as when an Ancient City is partially in another biome.",
   "option.wilderwild.distorted_dying_forest_music": "Distorted Dying Forest Music",
-  "tooltip.wilderwild.distorted_dying_forest_music": "Whether Dying Forests should play slightly distorted versions of vanilla music.",
+  "tooltip.wilderwild.distorted_dying_forest_music": "Whether music will become slightly distorted while in Dying Forest biomes.",
+
   "option.wilderwild.wind": "Wind",
   "tooltip.wilderwild.wind": "Contains options for Wind.",
   "option.wilderwild.cloud_movement": "Cloud Movement",
@@ -1154,6 +1157,7 @@
   "tooltip.wilderwild.wind_disturbance_particle_frequency": "The frequency at which Wind Disturbance particles should spawn.\nMore intense Wind Disturbances lead to more particles.\nThis is a percentage.",
   "option.wilderwild.wind_disturbance_particle_spawn_attempts": "Wind Disturbance Particle Spawn Attempts",
   "tooltip.wilderwild.wind_disturbance_particle_spawn_attempts": "The number of times per tick a Wind Disturbance Particle will attempt to spawn.",
+
   "option.wilderwild.leaf_particles": "Leaf Particles",
   "tooltip.wilderwild.leaf_particles": "Contains options for Leaf Particles.",
   "option.wilderwild.oak_leaf_particles": "Oak Leaf Frequency",
@@ -1191,6 +1195,9 @@
 
   "option.wilderwild.simple_bool.false": "§cOFF",
   "option.wilderwild.simple_bool.true": "§aON",
+
+  "pack.wilderwild.wilder_extra_music": "Wilder Extra Music",
+  "pack.wilderwild.minecraft_live_tendrils": "Minecraft Live Tendrils",
 
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",

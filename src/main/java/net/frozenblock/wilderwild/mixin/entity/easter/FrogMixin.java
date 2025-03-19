@@ -19,13 +19,13 @@
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.animal.frog.Frog;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import net.minecraft.ChatFormatting;
 
 @Mixin(Frog.class)
 public final class FrogMixin {

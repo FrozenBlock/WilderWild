@@ -127,29 +127,26 @@ public final class WWMusic {
 				}
 			});
 
-		BiomeModifications.create(WWConstants.id("modify_music_dying")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.HAS_DYING_MUSIC),
-			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().music.distortedDyingForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_DYING_FOREST));
-				}
-			});
-		BiomeModifications.create(WWConstants.id("modify_music_snowy_dying")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_DYING_MUSIC),
-			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().music.distortedDyingForestMusic) {
-					modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST));
-				}
-			});
-
 		// Normal Music
 		BiomeModifications.create(WWConstants.id("modify_music_maple")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MAPLE_MUSIC),
 			(selectionContext, modificationContext) -> {
 				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_dying")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_DYING_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_DYING_FOREST));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_snowy_dying")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_DYING_MUSIC),
+			(selectionContext, modificationContext) -> {
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST));
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_frozen")).add(

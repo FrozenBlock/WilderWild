@@ -32,7 +32,8 @@ public final class WWResources {
 	public static void register(ModContainer container) {
 		ResourceManagerHelper.registerBuiltinResourcePack(
 			WWConstants.id("mc_live_tendrils"),
-			container, Component.literal("Minecraft Live Tendrils"),
+			container,
+			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
 			ResourcePackActivationType.NORMAL
 		);
 	}

@@ -33,8 +33,6 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.Util;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -58,6 +56,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.Util;
 
 public class TermiteManager {
 	public static final int TERMITE_COUNT_ASLEEP = 1;
@@ -251,39 +250,37 @@ public class TermiteManager {
 					natural
 				);
 
-				if (optionalBlockBehavior.isPresent()) {
+				if (optionalBlockBehavior.isPresent() && isEdibleProperty(blockState)) {
 					TermiteBlockBehavior termiteBlockBehavior = optionalBlockBehavior.get().value();
 					boolean destroysBlock = termiteBlockBehavior.destroysBlock();
-					if (isEdibleProperty(blockState)) {
-						this.eating = true;
-						exit = true;
-						int additionalPower = destroysBlock ? blockState.is(BlockTags.LEAVES) ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
-						this.blockDestroyPower += additionalPower;
-						spawnGnawParticles(level, blockState, this.pos, random);
-						if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
-							this.blockDestroyPower = 0;
-							this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
+					this.eating = true;
+					exit = true;
+					int additionalPower = destroysBlock ? blockState.is(BlockTags.LEAVES) ? DESTROY_POWER_LEAVES : DESTROY_POWER_BREAKABLE : DESTROY_POWER;
+					this.blockDestroyPower += additionalPower;
+					spawnGnawParticles(level, blockState, this.pos, random);
+					if (this.blockDestroyPower > DESTROY_POWER_BEFORE_BLOCK_BREAKS) {
+						this.blockDestroyPower = 0;
+						this.idleTicks = natural ? Math.max(0, this.idleTicks - (DESTROY_POWER_BEFORE_BLOCK_BREAKS / additionalPower)) : 0;
 
-							// Must trigger criteria before destroying block in order to validate criteria properly.
-							if (level instanceof ServerLevel serverLevel) {
-								for (ServerPlayer serverPlayer :serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(this.getCenterOfPos()) < TermiteEatTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
-									WWCriteria.TERMITE_EAT.trigger(serverPlayer, serverLevel, this.pos, !natural);
-								}
+						// Must trigger criteria before destroying block in order to validate criteria properly.
+						if (level instanceof ServerLevel serverLevel) {
+							for (ServerPlayer serverPlayer :serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(this.getCenterOfPos()) < TermiteEatTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+								WWCriteria.TERMITE_EAT.trigger(serverPlayer, serverLevel, this.pos, !natural);
 							}
-
-							if (destroysBlock) {
-								level.destroyBlock(this.pos, true);
-							} else {
-								level.addDestroyBlockEffect(this.pos, blockState);
-								Block setBlock = termiteBlockBehavior.getOutputBlock().get();
-								BlockState setState = termiteBlockBehavior.copyProperties() ? setBlock.withPropertiesOf(blockState) : setBlock.defaultBlockState();
-								level.setBlockAndUpdate(this.pos, setState);
-							}
-							spawnEatParticles(level, blockState, this.pos, random);
-							termiteBlockBehavior.getEatSound()
-								.ifPresent(sound -> level.playSound(null, this.pos, sound, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F)));
-							level.playSound(null, this.pos, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
 						}
+
+						if (destroysBlock) {
+							level.destroyBlock(this.pos, true);
+						} else {
+							level.addDestroyBlockEffect(this.pos, blockState);
+							Block setBlock = termiteBlockBehavior.getOutputBlock().get();
+							BlockState setState = termiteBlockBehavior.copyProperties() ? setBlock.withPropertiesOf(blockState) : setBlock.defaultBlockState();
+							level.setBlockAndUpdate(this.pos, setState);
+						}
+						spawnEatParticles(level, blockState, this.pos, random);
+						termiteBlockBehavior.getEatSound()
+							.ifPresent(sound -> level.playSound(null, this.pos, sound, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F)));
+						level.playSound(null, this.pos, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
 					}
 				} else {
 					this.eating = false;

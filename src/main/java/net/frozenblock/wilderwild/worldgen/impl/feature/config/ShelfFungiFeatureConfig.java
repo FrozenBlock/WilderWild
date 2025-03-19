@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -35,6 +34,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.Util;
 
 public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
