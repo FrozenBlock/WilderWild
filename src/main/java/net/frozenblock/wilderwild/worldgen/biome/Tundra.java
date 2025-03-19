@@ -337,6 +337,15 @@ public final class Tundra extends FrozenBiome {
 					parameters,
 					TEMPERATURE_MAPLE,
 					HUMIDITY_MAPLE,
+					CONTINENTALNESS_MAPLE,
+					EROSION_MAPLE,
+					WEIRDNESS_A_MAPLE,
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_MAPLE,
+					HUMIDITY_MAPLE,
 					CONTINENTALNESS,
 					EROSION_MAPLE,
 					WEIRDNESS_B_MAPLE,
