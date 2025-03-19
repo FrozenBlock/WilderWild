@@ -457,7 +457,7 @@ modrinth {
     changelog.set(changelog_text)
     uploadFile.set(remapJar)
     gameVersions.set(listOf(minecraft_version))
-    loaders.set(listOf("fabric"))
+    loaders.set(listOf("fabric", "quilt"))
     additionalFiles.set(
         listOf(
             //tasks.remapSourcesJar.get(),
