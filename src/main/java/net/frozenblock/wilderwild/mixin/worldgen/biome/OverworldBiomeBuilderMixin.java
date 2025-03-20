@@ -175,12 +175,26 @@ public final class OverworldBiomeBuilderMixin {
 		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
 
-	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT", args = "intValue=1"), require = 0)
+	@ModifyExpressionValue(
+		method = "maybePickWindsweptSavannaBiome",
+		at = @At(
+			value = "CONSTANT",
+			args = "intValue=1"
+		),
+		require = 0
+	)
 	private int wilderWild$fixWindsweptSavannaTemperature(int original) {
 		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
 
-	@ModifyExpressionValue(method = "maybePickWindsweptSavannaBiome", at = @At(value = "CONSTANT", args = "intValue=4"), require = 0)
+	@ModifyExpressionValue(
+		method = "maybePickWindsweptSavannaBiome",
+		at = @At(
+			value = "CONSTANT",
+			args = "intValue=4"
+		),
+		require = 0
+	)
 	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
 		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
