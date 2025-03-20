@@ -53,6 +53,8 @@ public class BiolithIntegration extends ModIntegration {
 		super("biolith");
 	}
 
+	// TODO: Please move all the mixin-based biome generation to biolith as well. We want those changes working with other mods/packs!
+
 	@Override
 	public void init() {
 		WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
