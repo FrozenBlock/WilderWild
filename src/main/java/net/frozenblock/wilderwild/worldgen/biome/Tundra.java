@@ -258,6 +258,15 @@ public final class Tundra extends FrozenBiome {
 				);
 				this.addSurfaceBiome(
 					parameters,
+					TEMPERATURE,
+					HUMIDITY,
+					CONTINENTALNESS,
+					EROSION_A,
+					point.weirdness(),
+					0F
+				);
+				this.addSurfaceBiome(
+					parameters,
 					TEMPERATURE_B,
 					HUMIDITY_C,
 					CONTINENTALNESS_B,
@@ -324,15 +333,6 @@ public final class Tundra extends FrozenBiome {
 			}
 
 			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_MAPLE,
-					HUMIDITY_MAPLE,
-					CONTINENTALNESS_MAPLE,
-					EROSION_MAPLE,
-					WEIRDNESS_A_MAPLE,
-					0F
-				);
 				this.addSurfaceBiome(
 					parameters,
 					TEMPERATURE_MAPLE,
@@ -452,4 +452,3 @@ public final class Tundra extends FrozenBiome {
 		}
 	}
 }
-
