@@ -42,6 +42,9 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_ADDITIONS = registerForHolder("ambient.frozen_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_LOOP = registerForHolder("ambient.frozen_caves.loop");
 
+	//AMBIENT BLOCK
+	public static final SoundEvent AMBIENT_OVERWORLD_CREAK = register("ambient.overworld.creak");
+
 	//BLOCK
 	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");
 	public static final SoundEvent BLOCK_ALGAE_HIT = register("block.algae.hit");

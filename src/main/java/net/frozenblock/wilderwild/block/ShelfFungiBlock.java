@@ -21,11 +21,13 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -210,6 +212,26 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			} else if (!isFullyGrown(state)) {
 				level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
+			}
+		}
+	}
+
+	@Override
+	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, @NotNull RandomSource randomSource) {
+		if (randomSource.nextFloat() <= 0.004F) {
+			Direction oppositeDirection = getConnectedDirection(blockState).getOpposite();
+			BlockPos connectedPos = blockPos.relative(oppositeDirection);
+			if (level.getBlockState(connectedPos).is(BlockTags.OVERWORLD_NATURAL_LOGS)) {
+				level.playLocalSound(
+					connectedPos.getX() + 0.5D,
+					connectedPos.getY() + 0.5D,
+					connectedPos.getZ() + 0.5D,
+					WWSounds.AMBIENT_OVERWORLD_CREAK,
+					SoundSource.AMBIENT,
+					0.1F + (randomSource.nextFloat() * 0.2F),
+					0.85F + (randomSource.nextFloat() * 0.25F),
+					false
+				);
 			}
 		}
 	}
