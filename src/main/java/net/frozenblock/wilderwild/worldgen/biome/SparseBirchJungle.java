@@ -160,7 +160,8 @@ public final class SparseBirchJungle extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateSparseBirchJungle && !WWModIntegrations.biolithLoaded) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWWorldgenConfig.get().biomeGeneration.generateSparseBirchJungle) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SPARSE_JUNGLE)) {
 				this.addSurfaceBiome(
 					parameters,

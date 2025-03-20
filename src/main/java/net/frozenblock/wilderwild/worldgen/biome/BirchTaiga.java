@@ -164,7 +164,8 @@ public final class BirchTaiga extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateBirchTaiga && !WWModIntegrations.biolithLoaded) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWWorldgenConfig.get().biomeGeneration.generateBirchTaiga) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
 				this.addSurfaceBiome(
 					parameters,

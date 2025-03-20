@@ -111,7 +111,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3  && !WWModIntegrations.biolithLoaded) {
+		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3  && !WWModIntegrations.IS_BIOLITH_INSTALLED) {
 			info.setReturnValue(WWBiomes.WARM_BEACH);
 		}
 	}
@@ -135,7 +135,7 @@ public final class OverworldBiomeBuilderMixin {
 		ResourceKey<Biome> biomeKey,
 		Operation<Void> operation
 	) {
-		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver && !WWModIntegrations.biolithLoaded) {
+		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver && !WWModIntegrations.IS_BIOLITH_INSTALLED) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
 			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 			Climate.Parameter jungleHumidity = WWWorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
