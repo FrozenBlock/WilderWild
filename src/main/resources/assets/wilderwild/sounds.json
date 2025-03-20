@@ -3507,6 +3507,12 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 5
       }
     ]
   },
@@ -3680,16 +3686,8 @@
       {
         "name": "music.overworld.forest",
         "type": "event",
-        "pitch": 1.033,
         "volume": 0.2,
-        "weight": 3
-      },
-      {
-        "name": "music.overworld.forest",
-        "type": "event",
-        "pitch": 0.967,
-        "volume": 0.2,
-        "weight": 3
+        "weight": 6
       },
       {
         "name": "wilderwild:music/c418/excuse",
@@ -3702,16 +3700,8 @@
       {
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
-        "pitch": 1.033,
         "volume": 0.2,
-        "weight": 3
-      },
-      {
-        "name": "wilderwild:music.overworld.wilder_snowy",
-        "type": "event",
-        "pitch": 0.967,
-        "volume": 0.2,
-        "weight": 3
+        "weight": 6
       },
       {
         "name": "wilderwild:music/c418/excuse",

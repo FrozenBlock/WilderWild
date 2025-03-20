@@ -425,17 +425,26 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var ancientCityMusic = entryBuilder.startBooleanToggle(text("ancient_city_music"), music.ancientCityMusic)
+			.setDefaultValue(defaultConfig.music.ancientCityMusic)
+			.setSaveConsumer(newValue -> music.ancientCityMusic = newValue)
+			.setTooltip(tooltip("ancient_city_music"))
+			.requireRestart()
+			.build();
+
 		var distortedDyingForestMusic = entryBuilder.startBooleanToggle(text("distorted_dying_forest_music"), music.distortedDyingForestMusic)
 			.setDefaultValue(defaultConfig.music.distortedDyingForestMusic)
 			.setSaveConsumer(newValue -> music.distortedDyingForestMusic = newValue)
 			.setTooltip(tooltip("distorted_dying_forest_music"))
-			.requireRestart()
 			.build();
 
 		var musicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("music"),
 			false,
-			tooltip("biome_music"),
-			wilderForestMusic, wilderLushCavesMusic, wilderDripstoneCavesMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic, wilderExtraMusic, distortedDyingForestMusic
+			tooltip("music"),
+			wilderForestMusic, wilderLushCavesMusic, wilderDripstoneCavesMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic,
+			wilderExtraMusic,
+			ancientCityMusic,
+			distortedDyingForestMusic
 		);
 	}
 }
