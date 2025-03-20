@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden
 import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
-public class WilderEasterEggs {
+public final class WilderEasterEggs {
 
 	public static void hatchEasterEggs() {
 		EntityTextureOverride.register(WWConstants.id("stella_warden"), EntityType.WARDEN, WWConstants.id("textures/entity/warden/stella_warden.png"),

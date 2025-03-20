@@ -66,14 +66,14 @@ import org.jetbrains.annotations.NotNull;
 public class DisplayLanternBlockEntity extends BlockEntity {
 	public static final int MAX_FIREFLY_AGE = 20;
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
-
+	private final boolean hanging;
 	public NonNullList<ItemStack> inventory;
 	public int age;
-	public boolean clientHanging;
 	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, blockState);
+		this.hanging = blockState.getValue(BlockStateProperties.HANGING);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
@@ -95,12 +95,15 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public void clientTick(Level level) {
 		this.age += 1;
-		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
 			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level);
 			}
 		}
+	}
+
+	public boolean isHanging() {
+		return this.hanging;
 	}
 
 	public void updateSync() {
@@ -248,7 +251,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
-
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
 			FrozenByteBufCodecs.VEC3,
