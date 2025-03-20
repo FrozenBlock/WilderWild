@@ -53,8 +53,6 @@ public class BiolithIntegration extends ModIntegration {
 		super("biolith");
 	}
 
-	// TODO: Please move all the mixin-based biome generation to biolith as well. We want those changes working with other mods/packs!
-
 	@Override
 	public void init() {
 		WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
@@ -115,7 +113,7 @@ public class BiolithIntegration extends ModIntegration {
 		}
 
 		if (biomeGeneration.generateParchedForest) {
-			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.PARCHED_FOREST, atEdgeOf(Biomes.SAVANNA, 0.2F));
+			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.PARCHED_FOREST, atEdgeOf(Biomes.SAVANNA, 0.1F));
 			BiomePlacement.addSubOverworld(Biomes.SAVANNA, WWBiomes.PARCHED_FOREST, atEdgeOf(Biomes.FOREST, 0.2F));
 		}
 
@@ -196,8 +194,6 @@ public class BiolithIntegration extends ModIntegration {
 			);
 		}
 
-		// IMPLEMENTED VIA MIXIN
-		/*
 		if (biomeGeneration.generateWarmBeach) {
 			BiomePlacement.addSubOverworld(
 				Biomes.BEACH,
@@ -205,10 +201,7 @@ public class BiolithIntegration extends ModIntegration {
 				CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.2F, 0.55F)
 			);
 		}
-		 */
 
-		// IMPLEMENTED VIA MIXIN
-		/*
 		if (biomeGeneration.generateWarmRiver) {
 			BiomePlacement.addSubOverworld(
 				Biomes.RIVER,
@@ -233,8 +226,6 @@ public class BiolithIntegration extends ModIntegration {
 				BiomePlacement.addSubOverworld(Biomes.RIVER, WWBiomes.WARM_RIVER, temperature);
 			}
 		}
-		 */
-
 
 		// VARIANT BIOMES
 
@@ -424,13 +415,9 @@ public class BiolithIntegration extends ModIntegration {
 
 		if (biomeGeneration.generateOldGrowthDarkForest) {
 			BiomePlacement.replaceOverworld(Biomes.DARK_FOREST, WWBiomes.OLD_GROWTH_DARK_FOREST, 0.5F);
-			BiomePlacement.addSubOverworld(Biomes.DARK_FOREST, WWBiomes.OLD_GROWTH_DARK_FOREST, CriterionBuilder.NEAR_BORDER);
 			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -1F, -0.2F));
 			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.2F, 1F));
-			// TODO: Why duplicates?
-			Criterion humidity = CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -1F, 0.35F);
-			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, humidity);
-			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, humidity);
+			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -1F, 0.35F));
 
 			/*
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
@@ -778,23 +765,12 @@ public class BiolithIntegration extends ModIntegration {
 		// Regular Biomes
 
 		if (biomeGeneration.generateCypressWetlands) {
-			// TODO: Why 3 duplicates and a different final one?
-			Criterion criterionA = allOf(
-				CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.2F, 0.55F),
-				CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.3F),
-				CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -0.6F, 0.2F)
-			);
-
-			BiomePlacement.addSubOverworld(Biomes.SWAMP, WWBiomes.CYPRESS_WETLANDS, criterionA);
-			BiomePlacement.addSubOverworld(Biomes.SWAMP, WWBiomes.CYPRESS_WETLANDS, criterionA);
-			BiomePlacement.addSubOverworld(Biomes.SWAMP, WWBiomes.CYPRESS_WETLANDS, criterionA);
 			BiomePlacement.addSubOverworld(
 				Biomes.SWAMP,
 				WWBiomes.CYPRESS_WETLANDS,
 				allOf(
 					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.2F, 0.55F),
-					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.1F, 0.3F),
-					CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -0.6F, 0.2F)
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.3F)
 				)
 			);
 
