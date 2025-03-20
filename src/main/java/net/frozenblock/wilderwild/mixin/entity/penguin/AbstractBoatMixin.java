@@ -28,7 +28,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractBoat;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -43,7 +42,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	private int wilderWild$boatBoostTicks;
 	@Unique
-	private static final EntityDataAccessor<Boolean> WILDER_WILD$BOOSTED = SynchedEntityData.defineId(Boat.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> WILDER_WILD$BOOSTED = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.BOOLEAN);
 
 	public AbstractBoatMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
