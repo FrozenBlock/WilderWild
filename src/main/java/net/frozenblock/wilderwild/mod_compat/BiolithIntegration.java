@@ -144,13 +144,13 @@ public class BiolithIntegration extends ModIntegration {
 		// Variant Biomes
 
 		if (WWWorldgenConfig.get().biomeGeneration.generateDyingForest) {
-			if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
+/*			if (WWWorldgenConfig.get().biomeGeneration.generateTundra) {
 				BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.DYING_FOREST, anyOf(allOf(CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.495F, -0.300F),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.105F, 0.050F),CriterionBuilder.value(BiomeParameterTargets.EROSION, 0.05F, 0.45F))));
 			}
 			else {
 				BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.DYING_FOREST, anyOf(allOf(CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.465F, -0.300F),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.105F, 0.050F),CriterionBuilder.value(BiomeParameterTargets.EROSION, 0.05F, 0.45F))));
-			}
-			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.DYING_FOREST, anyOf(allOf(anyOf(CriterionBuilder.neighbor(Biomes.SNOWY_PLAINS),CriterionBuilder.neighbor(Biomes.SNOWY_TAIGA)), CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.45F, 0.15F),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.1F),CriterionBuilder.value(BiomeParameterTargets.EROSION, 0.05F, 0.55F))));
+			}*/
+			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.DYING_FOREST, anyOf(allOf(anyOf(CriterionBuilder.neighbor(Biomes.SNOWY_PLAINS),CriterionBuilder.neighbor(Biomes.SNOWY_TAIGA),CriterionBuilder.neighbor(Biomes.FROZEN_RIVER),CriterionBuilder.neighbor(Biomes.GROVE)), CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.45F, 0.15F))));
 /*			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 				boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 				BiomePlacement.addOverworld(WWBiomes.DYING_FOREST,
@@ -325,7 +325,8 @@ public class BiolithIntegration extends ModIntegration {
 					));
 			}*/
 			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(CriterionBuilder.neighbor(BiomeTags.IS_RIVER), CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1.0F, 0.2F), CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.1F, 0.3F)))));
-			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(CriterionBuilder.neighbor(Biomes.JUNGLE),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.1F, 0.3F)))));
+			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(anyOf(CriterionBuilder.neighbor(Biomes.JUNGLE),CriterionBuilder.neighbor(Biomes.BAMBOO_JUNGLE),CriterionBuilder.neighbor(Biomes.SPARSE_JUNGLE)),CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.1F, 0.3F)))));
+			BiomePlacement.addSubOverworld(Biomes.DESERT, WWBiomes.OASIS, anyOf((allOf(anyOf(CriterionBuilder.neighbor(Biomes.JUNGLE),CriterionBuilder.neighbor(Biomes.BAMBOO_JUNGLE),CriterionBuilder.neighbor(Biomes.SPARSE_JUNGLE)),CriterionBuilder.ratioMax(RatioTargets.EDGE, 0.3F)))));
 		}
 		if (WWWorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
 			BiomePlacement.replaceOverworld(Biomes.DARK_FOREST, WWBiomes.OLD_GROWTH_DARK_FOREST, 0.5);
