@@ -219,8 +219,8 @@ dependencies {
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
 
-    // Sodium
-    if (shouldRunSodium)
+    // Biolith
+    if (shouldRunBiolith)
         modImplementation("maven.modrinth:biolith:${biolith_version}")
     else
         modCompileOnly("maven.modrinth:biolith:${biolith_version}")
