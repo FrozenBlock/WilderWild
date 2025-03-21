@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
+import net.frozenblock.wilderwild.block.impl.BlockAmbienceUtil;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -33,8 +34,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LeavesBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
-	public void wilderWild$fallingLeafParticles(BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info) {
-		FallingLeafUtil.addFallingLeafParticles(state, world, pos, random);
+	public void wilderWild$leavesAmbience(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		FallingLeafUtil.addFallingLeafParticles(state, level, pos, random);
+		BlockAmbienceUtil.playLeavesAmbience(state, level, pos, random);
 	}
 
 }

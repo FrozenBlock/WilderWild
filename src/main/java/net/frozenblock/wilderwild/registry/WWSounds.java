@@ -45,6 +45,8 @@ public final class WWSounds {
 	//AMBIENT BLOCK
 	public static final SoundEvent AMBIENT_OVERWORLD_CREAK = register("ambient.overworld.creak");
 	public static final SoundEvent AMBIENT_OVERWORLD_WIND_LEAVES = register("ambient.overworld.wind_leaves");
+	public static final SoundEvent AMBIENT_OVERWORLD_WIND_FALLING_LEAVES = register("ambient.overworld.wind_falling_leaves");
+	public static final SoundEvent AMBIENT_OVERWORLD_WIND_CATTAIL = register("ambient.overworld.wind_cattail");
 
 	//BLOCK
 	public static final SoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");

@@ -41,6 +41,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		this.generateSounds();
+		this.generateAmbience();
 		this.generateCompat();
 		this.generateLib();
 		this.generateFeatures();
@@ -1438,6 +1439,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_TRAPDOOR)
 			.add(WWBlocks.PALM_TRAPDOOR)
 			.add(WWBlocks.MAPLE_TRAPDOOR);
+	}
+
+	private void generateAmbience() {
+		this.getOrCreateTagBuilder(WWBlockTags.AMBIENCE_WIND_FALLING_LEAVES)
+			.add(Blocks.CHERRY_LEAVES)
+			.add(WWBlocks.YELLOW_MAPLE_LEAVES)
+			.add(WWBlocks.ORANGE_MAPLE_LEAVES)
+			.add(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	private void generateSounds() {

@@ -19,6 +19,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.BlockAmbienceUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -98,7 +99,10 @@ public class PollenBlock extends MultifaceBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.01F && isAttachedTo(level, pos, state, blockState -> blockState.is(BlockTags.LEAVES))) {
+		if (random.nextFloat() <= 0.01F
+			&& BlockAmbienceUtil.isBrightEnoughForWind(level, pos)
+			&& isAttachedTo(level, pos, state, blockState -> blockState.is(BlockTags.LEAVES))
+		) {
 			level.playLocalSound(
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,

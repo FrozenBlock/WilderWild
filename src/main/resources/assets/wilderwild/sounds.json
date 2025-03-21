@@ -677,6 +677,39 @@
       "wilderwild:ambient/overworld/wind/leaves_wind29"
     ]
   },
+  "ambient.overworld.wind_falling_leaves": {
+    "sounds": [
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind1",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind2",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind3",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind4",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind5",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind6",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind7",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind8",
+      "wilderwild:ambient/overworld/wind/falling_leaves_wind9"
+    ]
+  },
+  "ambient.overworld.wind_cattail": {
+    "sounds": [
+      "wilderwild:ambient/overworld/wind/cattail_wind1",
+      "wilderwild:ambient/overworld/wind/cattail_wind2",
+      "wilderwild:ambient/overworld/wind/cattail_wind3",
+      "wilderwild:ambient/overworld/wind/cattail_wind4",
+      "wilderwild:ambient/overworld/wind/cattail_wind5",
+      "wilderwild:ambient/overworld/wind/cattail_wind6",
+      "wilderwild:ambient/overworld/wind/cattail_wind7",
+      "wilderwild:ambient/overworld/wind/cattail_wind8",
+      "wilderwild:ambient/overworld/wind/cattail_wind9",
+      "wilderwild:ambient/overworld/wind/cattail_wind10",
+      "wilderwild:ambient/overworld/wind/cattail_wind11",
+      "wilderwild:ambient/overworld/wind/cattail_wind12",
+      "wilderwild:ambient/overworld/wind/cattail_wind13",
+      "wilderwild:ambient/overworld/wind/cattail_wind14",
+      "wilderwild:ambient/overworld/wind/cattail_wind15",
+      "wilderwild:ambient/overworld/wind/cattail_wind16"
+    ]
+  },
   "block.algae.break": {
     "sounds": [
       "wilderwild:block/algae/place1",
