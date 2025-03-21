@@ -21,20 +21,26 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import org.jetbrains.annotations.NotNull;
+import java.util.function.Predicate;
 
 public class PollenBlock extends MultifaceBlock {
 	public static final MapCodec<PollenBlock> CODEC = simpleCodec(PollenBlock::new);
@@ -92,6 +98,19 @@ public class PollenBlock extends MultifaceBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.01F && isAttachedTo(level, pos, state, blockState -> blockState.is(BlockTags.LEAVES))) {
+			level.playLocalSound(
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
+				WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES,
+				SoundSource.AMBIENT,
+				0.1F + (random.nextFloat() * 0.15F),
+				0.85F + (random.nextFloat() * 0.25F),
+				false
+			);
+		}
+
 		if (WWBlockConfig.Client.POLLEN_ENABLED) {
 			int i = pos.getX();
 			int j = pos.getY();
@@ -117,6 +136,21 @@ public class PollenBlock extends MultifaceBlock {
 				}
 			}
 		}
+	}
+
+	private static boolean isAttachedTo(LevelReader level, BlockPos pos, BlockState state, Predicate<BlockState> predicate) {
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+		for (Direction direction : DIRECTIONS) {
+			if (hasFace(state, direction)) {
+				mutable.setWithOffset(pos, direction);
+				if (state.getValue(getFaceProperty(direction))) {
+					if (predicate.test(level.getBlockState(mutable))) return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Override
