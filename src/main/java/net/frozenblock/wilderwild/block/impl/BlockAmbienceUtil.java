@@ -38,7 +38,6 @@ public class BlockAmbienceUtil {
 	private static final int MOSTLY_SURROUNDED_BY_LEAVES = 4;
 
 	public static void playLeavesAmbience(@NotNull BlockState state, Level level, BlockPos pos, @NotNull RandomSource random) {
-		if (!(state.getBlock() instanceof LeavesBlock)) return;
 		if (state.getOptionalValue(LeavesBlock.DISTANCE).orElse(0) >= 7) return;
 
 		SoundEvent soundToPlay = null;
@@ -53,7 +52,7 @@ public class BlockAmbienceUtil {
 				soundYOffset = -2D;
 			}
 		} else {
-			if (random.nextFloat() <= 0.004F) {
+			if (random.nextFloat() <= 0.002F) {
 				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, MOSTLY_SURROUNDED_BY_LEAVES)) return;
 				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES;
 				baseVolume = 0.025F;
