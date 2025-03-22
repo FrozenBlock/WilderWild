@@ -53,7 +53,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Override
 	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (randomSource.nextFloat() < 0.025F) {
+		if (randomSource.nextFloat() < BlockAmbienceUtil.horizontalWindStrength(level, blockPos) * 0.045F) {
 			if (blockState.getValue(WATERLOGGED)) {
 				BlockState aboveState = level.getBlockState(blockPos.above());
 				if (aboveState.is(this) && !aboveState.getValue(WATERLOGGED)) {

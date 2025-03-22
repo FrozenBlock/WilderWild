@@ -18,10 +18,15 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -41,22 +46,32 @@ public class BlockAmbienceUtil {
 		if (state.getOptionalValue(LeavesBlock.DISTANCE).orElse(0) >= 7) return;
 
 		SoundEvent soundToPlay = null;
-		float baseVolume = 0.05F;
-		float maxRandomVolume = 0.15F;
 		double soundYOffset = 0D;
 
+		float windStrength = horizontalWindStrength(level, pos);
+
+		float baseVolume = 0.05F;
+		float maxRandomVolume = 0.15F;
+		float basePitch = getFromLerp(windStrength, 0.75F, 1.1F);
+		float maxRandomPitch = getFromLerp(windStrength, 0.075F, 0.2F);
+
 		if (state.is(WWBlockTags.AMBIENCE_WIND_FALLING_LEAVES)) {
-			if (random.nextFloat() <= 0.0025F) {
+			if (random.nextFloat() <= getFromLerp(windStrength, 0.0005F, 0.005F)) {
 				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, COMPLETELY_SURROUNDED_BY_LEAVES)) return;
 				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_FALLING_LEAVES;
+
+				baseVolume = getFromLerp(windStrength, 0.015F, 0.09F);
+				maxRandomVolume = getFromLerp(windStrength, 0.005F, 0.15F);
+
 				soundYOffset = -2D;
 			}
 		} else {
-			if (random.nextFloat() <= 0.002F) {
+			if (random.nextFloat() <= windStrength * 0.005F) {
 				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, MOSTLY_SURROUNDED_BY_LEAVES)) return;
 				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES;
-				baseVolume = 0.025F;
-				maxRandomVolume = 0.075F;
+
+				baseVolume = getFromLerp(windStrength, 0.0075F, 0.09F);
+				maxRandomVolume = getFromLerp(windStrength, 0.005F, 0.15F);
 			}
 		}
 
@@ -68,10 +83,24 @@ public class BlockAmbienceUtil {
 				soundToPlay,
 				SoundSource.AMBIENT,
 				baseVolume + (random.nextFloat() * maxRandomVolume),
-				0.85F + (random.nextFloat() * 0.25F),
+				basePitch + (random.nextFloat() * maxRandomPitch),
 				false
 			);
 		}
+	}
+
+	public static float getFromLerp(float lerp, float min, float max) {
+		return Mth.lerp(lerp, min, max);
+	}
+
+	public static float horizontalWindStrength(@NotNull Level level, @NotNull BlockPos pos) {
+		float windLength = 0F;
+		if (level instanceof ServerLevel serverLevel) {
+			windLength = (float) WindManager.getWindManager(serverLevel).getWindMovement(pos).horizontalDistance();
+		} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT && level.isClientSide) {
+			windLength = (float) ClientWindManager.getWindMovement(level, pos).horizontalDistance();
+		}
+		return Mth.clamp(windLength * 1.25F, 0F, 1F);
 	}
 
 	public static boolean isBrightEnoughForWind(@NotNull Level level, BlockPos pos) {
