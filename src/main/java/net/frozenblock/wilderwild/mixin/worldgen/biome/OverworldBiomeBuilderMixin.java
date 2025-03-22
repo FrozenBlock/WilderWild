@@ -69,6 +69,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$injectBiomes(CallbackInfo info) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomePlacement.modifyJunglePlacement) {
 			MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
 			MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
@@ -77,6 +78,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
 	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 				this.addSurfaceBiome(
@@ -95,6 +97,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addMidSlice", at = @At("TAIL"))
 	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomePlacement.modifyCherryGrovePlacement) {
 			this.addSurfaceBiome(
 				parameters,

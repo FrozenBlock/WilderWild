@@ -59,6 +59,65 @@ public class BiolithIntegration extends ModIntegration {
 		WWWorldgenConfig.BiomeGeneration biomeGeneration = worldgenConfig.biomeGeneration;
 		WWWorldgenConfig.BiomePlacement biomePlacement = worldgenConfig.biomePlacement;
 
+		// VANILLA BIOMES
+
+		if (biomePlacement.modifyJunglePlacement) {
+			BiomePlacement.addSubOverworld(
+				Biomes.DESERT,
+				Biomes.JUNGLE,
+				allOf(
+					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.55F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.3F, 1F)
+				)
+			);
+		}
+
+		if (biomePlacement.modifyCherryGrovePlacement) {
+			BiomePlacement.addSubOverworld(
+				Biomes.FOREST,
+				Biomes.CHERRY_GROVE,
+				allOf(
+					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.15F, 0.2F),
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.35F, 0.3F),
+					CriterionBuilder.value(BiomeParameterTargets.EROSION, -0.2225F, 0.05F),
+					CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1F, 0.2F)
+				)
+			);
+			BiomePlacement.addSubOverworld(
+				Biomes.BIRCH_FOREST,
+				Biomes.CHERRY_GROVE,
+				allOf(
+					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.55F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.3F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.EROSION, -0.2225F, 0.05F),
+					CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1F, 0.2F)
+				)
+			);
+			BiomePlacement.addSubOverworld(
+				Biomes.OLD_GROWTH_BIRCH_FOREST,
+				Biomes.CHERRY_GROVE,
+				allOf(
+					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.55F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, 0.3F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.EROSION, -0.2225F, 0.05F),
+					CriterionBuilder.value(BiomeParameterTargets.PEAKS_VALLEYS, -1F, 0.2F)
+				)
+			);
+		}
+
+		if (biomePlacement.modifyStonyShorePlacement) {
+			BiomePlacement.addSubOverworld(
+				Biomes.BEACH,
+				Biomes.STONY_SHORE,
+				allOf(
+					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.45F, -0.15F),
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 1F),
+					CriterionBuilder.value(BiomeParameterTargets.CONTINENTALNESS, -0.19F, -0.11F),
+					CriterionBuilder.value(BiomeParameterTargets.EROSION, 0.05F, 0.45F)
+				)
+			);
+		}
+
 		// TRANSITION BIOMES
 
 		if (biomeGeneration.generateAridForest) {
@@ -651,8 +710,8 @@ public class BiolithIntegration extends ModIntegration {
 				});
 				 */
 
-				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, atEdgeOf(Biomes.SNOWY_SLOPES, 0.2F));
-				BiomePlacement.addSubOverworld(Biomes.SNOWY_SLOPES, WWBiomes.TUNDRA, atEdgeOf(Biomes.PLAINS, 0.1F));
+				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, atEdgeOf(Biomes.SNOWY_SLOPES, 0.4F));
+				BiomePlacement.addSubOverworld(Biomes.SNOWY_SLOPES, WWBiomes.TUNDRA, atEdgeOf(Biomes.PLAINS, 0.2F));
 			}
 
 			if (biomeGeneration.generateMapleForest) {
