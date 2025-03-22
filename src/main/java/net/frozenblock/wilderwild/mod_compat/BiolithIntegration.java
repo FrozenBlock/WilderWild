@@ -293,20 +293,6 @@ public class BiolithIntegration extends ModIntegration {
 				Biomes.FOREST,
 				WWBiomes.DYING_FOREST,
 				allOf(
-					CriterionBuilder.value(
-						BiomeParameterTargets.TEMPERATURE,
-						biomeGeneration.generateTundra ? -0.495F : -0.465F,
-						biomeGeneration.generateTundra ? -0.300F : 0F
-					),
-					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.105F, 0.05F),
-					CriterionBuilder.value(BiomeParameterTargets.EROSION, 0.05F, 0.45F)
-				)
-			);
-
-			BiomePlacement.addSubOverworld(
-				Biomes.FOREST,
-				WWBiomes.DYING_FOREST,
-				allOf(
 					neighboringAny(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.FROZEN_RIVER, Biomes.GROVE),
 					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.45F, 0.15F)
 				)
@@ -340,7 +326,7 @@ public class BiolithIntegration extends ModIntegration {
 				)
 			);
 
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+/*			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				addSurfaceBiome(
 					WWBiomes.DYING_MIXED_FOREST,
 					biomeGeneration.generateTundra ? DyingForest.TEMPERATURE_TUNDRA : DyingMixedForest.TEMPERATURE,
@@ -349,7 +335,7 @@ public class BiolithIntegration extends ModIntegration {
 					point.erosion(),
 					point.weirdness()
 				);
-			}
+			}*/
 		}
 
 		if (biomeGeneration.generateFlowerField) {
