@@ -29,7 +29,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -157,7 +156,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.05F && BlockAmbienceUtil.isBrightEnoughForWind(level, pos) && level.isNight()) {
+		if (random.nextFloat() <= 0.03F && BlockAmbienceUtil.isNight(level) && BlockAmbienceUtil.isBrightEnoughForWind(level, pos)) {
 			level.playLocalSound(
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,

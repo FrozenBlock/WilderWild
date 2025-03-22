@@ -25,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -72,4 +73,11 @@ public class BlockAmbienceUtil {
 		return true;
 	}
 
+	public static boolean isDay(@NotNull Level level) {
+		return !level.dimensionType().hasFixedTime() && Mth.cos(level.getSunAngle(1F)) >= 0F;
+	}
+
+	public static boolean isNight(@NotNull Level level) {
+		return !level.dimensionType().hasFixedTime() && Mth.cos(level.getSunAngle(1F)) < 0F;
+	}
 }
