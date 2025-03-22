@@ -53,6 +53,10 @@ val terrablender_version: String by project
 val fallingleaves_version: String by project
 val particlerain_version: String by project
 
+val biolith_version: String by project
+val run_biolith: String by project
+val shouldRunBiolith = run_biolith == "true"
+
 val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
@@ -214,6 +218,12 @@ dependencies {
 
     // Particle Rain
     modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
+
+    // Biolith
+    if (shouldRunBiolith)
+        modImplementation("maven.modrinth:biolith:${biolith_version}")
+    else
+        modCompileOnly("maven.modrinth:biolith:${biolith_version}")
 
     // Sodium
     if (shouldRunSodium)
