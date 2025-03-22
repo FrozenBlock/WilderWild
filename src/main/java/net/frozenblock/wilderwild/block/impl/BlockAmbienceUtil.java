@@ -58,7 +58,7 @@ public class BlockAmbienceUtil {
 		if (state.is(WWBlockTags.AMBIENCE_WIND_FALLING_LEAVES)) {
 			if (random.nextFloat() <= getFromLerp(windStrength, 0.0005F, 0.005F)) {
 				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, COMPLETELY_SURROUNDED_BY_LEAVES)) return;
-				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_FALLING_LEAVES;
+				soundToPlay = windStrength > 0.75F ? WWSounds.AMBIENT_OVERWORLD_WIND_FALLING_LEAVES_FAST : WWSounds.AMBIENT_OVERWORLD_WIND_FALLING_LEAVES;
 
 				baseVolume = getFromLerp(windStrength, 0.015F, 0.09F);
 				maxRandomVolume = getFromLerp(windStrength, 0.005F, 0.15F);
@@ -68,7 +68,7 @@ public class BlockAmbienceUtil {
 		} else {
 			if (random.nextFloat() <= windStrength * 0.005F) {
 				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, MOSTLY_SURROUNDED_BY_LEAVES)) return;
-				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES;
+				soundToPlay = windStrength > 0.75F ? WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES_FAST : WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES;
 
 				baseVolume = getFromLerp(windStrength, 0.0075F, 0.09F);
 				maxRandomVolume = getFromLerp(windStrength, 0.005F, 0.15F);

@@ -644,50 +644,165 @@
       }
     ]
   },
+  "ambient.overworld.wind_leaves_sweet": {
+    "sounds": [
+      "wilderwild:ambient/overworld/leaves/wind_sweet1",
+      "wilderwild:ambient/overworld/leaves/wind_sweet2",
+      "wilderwild:ambient/overworld/leaves/wind_sweet3",
+      "wilderwild:ambient/overworld/leaves/wind_sweet4",
+      "wilderwild:ambient/overworld/leaves/wind_sweet5",
+      "wilderwild:ambient/overworld/leaves/wind_sweet6",
+      "wilderwild:ambient/overworld/leaves/wind_sweet7",
+      "wilderwild:ambient/overworld/leaves/wind_sweet8",
+      "wilderwild:ambient/overworld/leaves/wind_sweet9",
+      "wilderwild:ambient/overworld/leaves/wind_sweet10",
+      "wilderwild:ambient/overworld/leaves/wind_sweet11",
+      "wilderwild:ambient/overworld/leaves/wind_sweet12",
+      "wilderwild:ambient/overworld/leaves/wind_sweet13",
+      "wilderwild:ambient/overworld/leaves/wind_sweet14",
+      "wilderwild:ambient/overworld/leaves/wind_sweet15",
+      "wilderwild:ambient/overworld/leaves/wind_sweet16",
+      "wilderwild:ambient/overworld/leaves/wind_sweet17",
+      "wilderwild:ambient/overworld/leaves/wind_sweet18",
+      "wilderwild:ambient/overworld/leaves/wind_sweet19",
+      "wilderwild:ambient/overworld/leaves/wind_sweet20",
+      "wilderwild:ambient/overworld/leaves/wind_sweet21",
+      "wilderwild:ambient/overworld/leaves/wind_sweet22",
+      "wilderwild:ambient/overworld/leaves/wind_sweet23",
+      "wilderwild:ambient/overworld/leaves/wind_sweet24"
+    ]
+  },
+  "ambient.overworld.wind_leaves_average": {
+    "sounds": [
+      "wilderwild:ambient/overworld/leaves/wind1",
+      "wilderwild:ambient/overworld/leaves/wind2",
+      "wilderwild:ambient/overworld/leaves/wind3",
+      "wilderwild:ambient/overworld/leaves/wind4",
+      "wilderwild:ambient/overworld/leaves/wind5",
+      "wilderwild:ambient/overworld/leaves/wind6",
+      "wilderwild:ambient/overworld/leaves/wind7",
+      "wilderwild:ambient/overworld/leaves/wind8",
+      "wilderwild:ambient/overworld/leaves/wind9",
+      "wilderwild:ambient/overworld/leaves/wind10",
+      "wilderwild:ambient/overworld/leaves/wind11",
+      "wilderwild:ambient/overworld/leaves/wind12",
+      "wilderwild:ambient/overworld/leaves/wind13",
+      "wilderwild:ambient/overworld/leaves/wind14",
+      "wilderwild:ambient/overworld/leaves/wind15",
+      "wilderwild:ambient/overworld/leaves/wind16",
+      "wilderwild:ambient/overworld/leaves/wind17",
+      "wilderwild:ambient/overworld/leaves/wind18",
+      "wilderwild:ambient/overworld/leaves/wind19",
+      "wilderwild:ambient/overworld/leaves/wind20",
+      "wilderwild:ambient/overworld/leaves/wind21",
+      "wilderwild:ambient/overworld/leaves/wind22",
+      "wilderwild:ambient/overworld/leaves/wind23",
+      "wilderwild:ambient/overworld/leaves/wind24",
+      "wilderwild:ambient/overworld/leaves/wind25",
+      "wilderwild:ambient/overworld/leaves/wind26",
+      "wilderwild:ambient/overworld/leaves/wind27",
+      "wilderwild:ambient/overworld/leaves/wind28",
+      "wilderwild:ambient/overworld/leaves/wind29",
+      "wilderwild:ambient/overworld/leaves/wind30",
+      "wilderwild:ambient/overworld/leaves/wind31",
+      "wilderwild:ambient/overworld/leaves/wind32",
+      "wilderwild:ambient/overworld/leaves/wind33",
+      "wilderwild:ambient/overworld/leaves/wind34",
+      "wilderwild:ambient/overworld/leaves/wind35",
+      "wilderwild:ambient/overworld/leaves/wind36",
+      "wilderwild:ambient/overworld/leaves/wind37",
+      "wilderwild:ambient/overworld/leaves/wind38",
+      "wilderwild:ambient/overworld/leaves/wind39"
+    ]
+  },
+  "ambient.overworld.wind_leaves_strong": {
+    "sounds": [
+      "wilderwild:ambient/overworld/leaves/wind_strong1",
+      "wilderwild:ambient/overworld/leaves/wind_strong2",
+      "wilderwild:ambient/overworld/leaves/wind_strong3",
+      "wilderwild:ambient/overworld/leaves/wind_strong4",
+      "wilderwild:ambient/overworld/leaves/wind_strong5",
+      "wilderwild:ambient/overworld/leaves/wind_strong6",
+      "wilderwild:ambient/overworld/leaves/wind_strong7",
+      "wilderwild:ambient/overworld/leaves/wind_strong8",
+      "wilderwild:ambient/overworld/leaves/wind_strong9",
+      "wilderwild:ambient/overworld/leaves/wind_strong10",
+      "wilderwild:ambient/overworld/leaves/wind_strong11",
+      "wilderwild:ambient/overworld/leaves/wind_strong12",
+      "wilderwild:ambient/overworld/leaves/wind_strong13",
+      "wilderwild:ambient/overworld/leaves/wind_strong14",
+      "wilderwild:ambient/overworld/leaves/wind_strong15",
+      "wilderwild:ambient/overworld/leaves/wind_strong16",
+      "wilderwild:ambient/overworld/leaves/wind_strong17",
+      "wilderwild:ambient/overworld/leaves/wind_strong18",
+      "wilderwild:ambient/overworld/leaves/wind_strong19",
+      "wilderwild:ambient/overworld/leaves/wind_strong20",
+      "wilderwild:ambient/overworld/leaves/wind_strong21",
+      "wilderwild:ambient/overworld/leaves/wind_strong22",
+      "wilderwild:ambient/overworld/leaves/wind_strong23",
+      "wilderwild:ambient/overworld/leaves/wind_strong24",
+      "wilderwild:ambient/overworld/leaves/wind_strong25"
+    ]
+  },
   "ambient.overworld.wind_leaves": {
     "sounds": [
-      "wilderwild:ambient/overworld/leaves/leaves_wind1",
-      "wilderwild:ambient/overworld/leaves/leaves_wind2",
-      "wilderwild:ambient/overworld/leaves/leaves_wind3",
-      "wilderwild:ambient/overworld/leaves/leaves_wind4",
-      "wilderwild:ambient/overworld/leaves/leaves_wind5",
-      "wilderwild:ambient/overworld/leaves/leaves_wind6",
-      "wilderwild:ambient/overworld/leaves/leaves_wind7",
-      "wilderwild:ambient/overworld/leaves/leaves_wind8",
-      "wilderwild:ambient/overworld/leaves/leaves_wind9",
-      "wilderwild:ambient/overworld/leaves/leaves_wind10",
-      "wilderwild:ambient/overworld/leaves/leaves_wind11",
-      "wilderwild:ambient/overworld/leaves/leaves_wind12",
-      "wilderwild:ambient/overworld/leaves/leaves_wind13",
-      "wilderwild:ambient/overworld/leaves/leaves_wind14",
-      "wilderwild:ambient/overworld/leaves/leaves_wind15",
-      "wilderwild:ambient/overworld/leaves/leaves_wind16",
-      "wilderwild:ambient/overworld/leaves/leaves_wind17",
-      "wilderwild:ambient/overworld/leaves/leaves_wind18",
-      "wilderwild:ambient/overworld/leaves/leaves_wind19",
-      "wilderwild:ambient/overworld/leaves/leaves_wind20",
-      "wilderwild:ambient/overworld/leaves/leaves_wind21",
-      "wilderwild:ambient/overworld/leaves/leaves_wind22",
-      "wilderwild:ambient/overworld/leaves/leaves_wind23",
-      "wilderwild:ambient/overworld/leaves/leaves_wind24",
-      "wilderwild:ambient/overworld/leaves/leaves_wind25",
-      "wilderwild:ambient/overworld/leaves/leaves_wind26",
-      "wilderwild:ambient/overworld/leaves/leaves_wind27",
-      "wilderwild:ambient/overworld/leaves/leaves_wind28",
-      "wilderwild:ambient/overworld/leaves/leaves_wind29"
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
+        "type": "event",
+        "weight": 1
+      },
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_average",
+        "type": "event",
+        "weight": 10
+      }
+    ]
+  },
+  "ambient.overworld.wind_leaves_fast": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_average",
+        "type": "event",
+        "weight": 5
+      },
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_strong",
+        "type": "event",
+        "weight": 25
+      }
     ]
   },
   "ambient.overworld.wind_falling_leaves": {
     "sounds": [
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind1",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind2",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind3",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind4",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind5",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind6",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind7",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind8",
-      "wilderwild:ambient/overworld/falling_leaves/falling_leaves_wind9"
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
+        "type": "event",
+        "weight": 10
+      },
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_average",
+        "type": "event",
+        "weight": 1
+      }
+    ]
+  },
+  "ambient.overworld.wind_falling_leaves_fast": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
+        "type": "event",
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_average",
+        "type": "event",
+        "weight": 5
+      },
+      {
+        "name": "wilderwild:ambient.overworld.wind_leaves_strong",
+        "type": "event",
+        "weight": 10
+      }
     ]
   },
   "ambient.overworld.wind_cattail": {
