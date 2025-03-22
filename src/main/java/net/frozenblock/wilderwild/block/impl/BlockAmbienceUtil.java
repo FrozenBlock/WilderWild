@@ -29,20 +29,35 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockAmbienceUtil {
+	private static final int COMPLETELY_SURROUNDED_BY_LEAVES = 6;
+	private static final int MOSTLY_SURROUNDED_BY_LEAVES = 4;
 
 	public static void playLeavesAmbience(@NotNull BlockState state, Level level, BlockPos pos, @NotNull RandomSource random) {
+		if (!(state.getBlock() instanceof LeavesBlock)) return;
+		if (state.getOptionalValue(LeavesBlock.DISTANCE).orElse(0) >= 7) return;
+
 		SoundEvent soundToPlay = null;
+		float baseVolume = 0.05F;
+		float maxRandomVolume = 0.15F;
 		double soundYOffset = 0D;
 
 		if (state.is(WWBlockTags.AMBIENCE_WIND_FALLING_LEAVES)) {
 			if (random.nextFloat() <= 0.0025F) {
-				if (!isBrightEnoughForWind(level, pos) || !isSurroundedByLeaves(level, pos)) return;
+				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, COMPLETELY_SURROUNDED_BY_LEAVES)) return;
 				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_FALLING_LEAVES;
 				soundYOffset = -2D;
+			}
+		} else {
+			if (random.nextFloat() <= 0.004F) {
+				if (!isBrightEnoughForWind(level, pos) || !hasNeighboringLeaves(level, pos, MOSTLY_SURROUNDED_BY_LEAVES)) return;
+				soundToPlay = WWSounds.AMBIENT_OVERWORLD_WIND_LEAVES;
+				baseVolume = 0.025F;
+				maxRandomVolume = 0.075F;
 			}
 		}
 
@@ -53,7 +68,7 @@ public class BlockAmbienceUtil {
 				pos.getZ() + 0.5D,
 				soundToPlay,
 				SoundSource.AMBIENT,
-				0.05F + (random.nextFloat() * 0.15F),
+				baseVolume + (random.nextFloat() * maxRandomVolume),
 				0.85F + (random.nextFloat() * 0.25F),
 				false
 			);
@@ -64,13 +79,16 @@ public class BlockAmbienceUtil {
 		return level.getBrightness(LightLayer.SKY, pos) > 10;
 	}
 
-	public static boolean isSurroundedByLeaves(Level level, BlockPos pos) {
+	public static boolean hasNeighboringLeaves(Level level, BlockPos pos, int requiredLeafCount) {
 		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+		int countedLeaves = 0;
+
 		for (Direction direction : Direction.values()) {
 			mutablePos.setWithOffset(pos, direction);
-			if (!level.getBlockState(mutablePos).is(BlockTags.LEAVES)) return false;
+			if (level.getBlockState(mutablePos).is(BlockTags.LEAVES)) countedLeaves += 1;
 		}
-		return true;
+
+		return countedLeaves >= requiredLeafCount;
 	}
 
 	public static boolean isDay(@NotNull Level level) {
