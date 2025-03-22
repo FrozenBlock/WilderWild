@@ -19,14 +19,17 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.BlockAmbienceUtil;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -149,6 +152,22 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 				return;
 			}
 			this.grow(level, state, pos);
+		}
+	}
+
+	@Override
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.025F && BlockAmbienceUtil.isBrightEnoughForWind(level, pos) && level.isNight()) {
+			level.playLocalSound(
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
+				WWSounds.AMBIENT_OVERWORLD_GRASSHOPPER,
+				SoundSource.AMBIENT,
+				0.15F + (random.nextFloat() * 0.15F),
+				0.75F + (random.nextFloat() * 0.375F),
+				false
+			);
 		}
 	}
 

@@ -710,6 +710,45 @@
       "wilderwild:ambient/overworld/cattail/cattail_wind16"
     ]
   },
+  "ambient.overworld.grasshopper": {
+    "sounds": [
+      "wilderwild:ambient/overworld/bug/grasshopper1",
+      "wilderwild:ambient/overworld/bug/grasshopper2",
+      "wilderwild:ambient/overworld/bug/grasshopper3",
+      "wilderwild:ambient/overworld/bug/grasshopper4",
+      "wilderwild:ambient/overworld/bug/grasshopper5",
+      "wilderwild:ambient/overworld/bug/grasshopper6",
+      "wilderwild:ambient/overworld/bug/grasshopper7",
+      "wilderwild:ambient/overworld/bug/grasshopper8",
+      "wilderwild:ambient/overworld/bug/grasshopper9",
+      "wilderwild:ambient/overworld/bug/grasshopper10",
+      "wilderwild:ambient/overworld/bug/grasshopper11",
+      "wilderwild:ambient/overworld/bug/grasshopper12",
+      "wilderwild:ambient/overworld/bug/grasshopper13",
+      "wilderwild:ambient/overworld/bug/grasshopper14",
+      "wilderwild:ambient/overworld/bug/grasshopper15",
+      "wilderwild:ambient/overworld/bug/grasshopper16",
+      "wilderwild:ambient/overworld/bug/grasshopper17",
+      "wilderwild:ambient/overworld/bug/grasshopper18",
+      "wilderwild:ambient/overworld/bug/grasshopper19",
+      "wilderwild:ambient/overworld/bug/grasshopper20",
+      "wilderwild:ambient/overworld/bug/grasshopper21",
+      "wilderwild:ambient/overworld/bug/grasshopper22",
+      "wilderwild:ambient/overworld/bug/grasshopper23",
+      "wilderwild:ambient/overworld/bug/grasshopper24",
+      "wilderwild:ambient/overworld/bug/grasshopper25",
+      "wilderwild:ambient/overworld/bug/grasshopper26",
+      "wilderwild:ambient/overworld/bug/grasshopper27",
+      "wilderwild:ambient/overworld/bug/grasshopper28",
+      "wilderwild:ambient/overworld/bug/grasshopper29",
+      "wilderwild:ambient/overworld/bug/grasshopper30",
+      "wilderwild:ambient/overworld/bug/grasshopper31",
+      "wilderwild:ambient/overworld/bug/grasshopper32",
+      "wilderwild:ambient/overworld/bug/grasshopper33",
+      "wilderwild:ambient/overworld/bug/grasshopper34",
+      "wilderwild:ambient/overworld/bug/grasshopper35"
+    ]
+  },
   "block.algae.break": {
     "sounds": [
       "wilderwild:block/algae/place1",
