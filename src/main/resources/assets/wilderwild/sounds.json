@@ -669,7 +669,14 @@
       "wilderwild:ambient/overworld/leaves/wind_sweet21",
       "wilderwild:ambient/overworld/leaves/wind_sweet22",
       "wilderwild:ambient/overworld/leaves/wind_sweet23",
-      "wilderwild:ambient/overworld/leaves/wind_sweet24"
+      "wilderwild:ambient/overworld/leaves/wind_sweet24",
+      "wilderwild:ambient/overworld/leaves/wind_sweet25",
+      "wilderwild:ambient/overworld/leaves/wind_sweet26",
+      "wilderwild:ambient/overworld/leaves/wind_sweet27",
+      "wilderwild:ambient/overworld/leaves/wind_sweet28",
+      "wilderwild:ambient/overworld/leaves/wind_sweet29",
+      "wilderwild:ambient/overworld/leaves/wind_sweet30",
+      "wilderwild:ambient/overworld/leaves/wind_sweet31"
     ]
   },
   "ambient.overworld.wind_leaves_average": {
@@ -712,7 +719,13 @@
       "wilderwild:ambient/overworld/leaves/wind36",
       "wilderwild:ambient/overworld/leaves/wind37",
       "wilderwild:ambient/overworld/leaves/wind38",
-      "wilderwild:ambient/overworld/leaves/wind39"
+      "wilderwild:ambient/overworld/leaves/wind39",
+      "wilderwild:ambient/overworld/leaves/wind40",
+      "wilderwild:ambient/overworld/leaves/wind41",
+      "wilderwild:ambient/overworld/leaves/wind42",
+      "wilderwild:ambient/overworld/leaves/wind43",
+      "wilderwild:ambient/overworld/leaves/wind44",
+      "wilderwild:ambient/overworld/leaves/wind45"
     ]
   },
   "ambient.overworld.wind_leaves_strong": {
@@ -741,7 +754,22 @@
       "wilderwild:ambient/overworld/leaves/wind_strong22",
       "wilderwild:ambient/overworld/leaves/wind_strong23",
       "wilderwild:ambient/overworld/leaves/wind_strong24",
-      "wilderwild:ambient/overworld/leaves/wind_strong25"
+      "wilderwild:ambient/overworld/leaves/wind_strong25",
+      "wilderwild:ambient/overworld/leaves/wind_strong26",
+      "wilderwild:ambient/overworld/leaves/wind_strong27",
+      "wilderwild:ambient/overworld/leaves/wind_strong28",
+      "wilderwild:ambient/overworld/leaves/wind_strong29",
+      "wilderwild:ambient/overworld/leaves/wind_strong30",
+      "wilderwild:ambient/overworld/leaves/wind_strong31",
+      "wilderwild:ambient/overworld/leaves/wind_strong32",
+      "wilderwild:ambient/overworld/leaves/wind_strong33",
+      "wilderwild:ambient/overworld/leaves/wind_strong34",
+      "wilderwild:ambient/overworld/leaves/wind_strong35",
+      "wilderwild:ambient/overworld/leaves/wind_strong36",
+      "wilderwild:ambient/overworld/leaves/wind_strong37",
+      "wilderwild:ambient/overworld/leaves/wind_strong38",
+      "wilderwild:ambient/overworld/leaves/wind_strong39",
+      "wilderwild:ambient/overworld/leaves/wind_strong40"
     ]
   },
   "ambient.overworld.wind_leaves": {
