@@ -777,11 +777,13 @@
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
         "type": "event",
+        "attenuation_distance": 18,
         "weight": 1
       },
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_average",
         "type": "event",
+        "attenuation_distance": 18,
         "weight": 10
       }
     ]
@@ -791,11 +793,13 @@
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_average",
         "type": "event",
+        "attenuation_distance": 24,
         "weight": 5
       },
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_strong",
         "type": "event",
+        "attenuation_distance": 24,
         "weight": 25
       }
     ]
@@ -804,7 +808,8 @@
     "sounds": [
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
-        "type": "event"
+        "type": "event",
+        "attenuation_distance": 18
       }
     ]
   },
@@ -813,16 +818,19 @@
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_sweet",
         "type": "event",
+        "attenuation_distance": 24,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_average",
         "type": "event",
+        "attenuation_distance": 24,
         "weight": 2
       },
       {
         "name": "wilderwild:ambient.overworld.wind_leaves_strong",
         "type": "event",
+        "attenuation_distance": 24,
         "weight": 5
       }
     ]
