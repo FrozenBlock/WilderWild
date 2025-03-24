@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -48,6 +52,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -101,8 +106,9 @@ public class TermiteManager {
 		this.termites.add(termite);
 	}
 
-	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
+	public void tick(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn, Runnable onTermitesUpdated) {
 		int maxTermites = maxTermites(natural, awake, canSpawn);
+		AtomicBoolean termitesUpdated = new AtomicBoolean();
 		RandomSource random = level.getRandom();
 
 		this.termites.removeIf(termite -> {
@@ -120,10 +126,12 @@ public class TermiteManager {
 						0D,
 						0D
 					);
+					termitesUpdated.set(true);
 				}
 			} else {
 				level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
+				termitesUpdated.set(true);
 				return true;
 			}
 			return false;
@@ -137,6 +145,7 @@ public class TermiteManager {
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
 				level.playSound(null, pos, WWSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				this.ticksToNextTermite = natural ? TERMITE_RELEASE_COUNTDOWN_NATURAL : TERMITE_RELEASE_COUNTDOWN;
+				termitesUpdated.set(true);
 			}
 		}
 		while (this.termites.size() > maxTermites) {
@@ -144,8 +153,14 @@ public class TermiteManager {
 			level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 			this.termites.remove(termite);
 			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
+			termitesUpdated.set(true);
+		}
+
+		if (termitesUpdated.get()) {
+			onTermitesUpdated.run();
 		}
 	}
+
 	public static final int TERMITE_RELEASE_COUNTDOWN = 200;
 	public static final int TERMITE_RELEASE_COUNTDOWN_NATURAL = 320;
 
