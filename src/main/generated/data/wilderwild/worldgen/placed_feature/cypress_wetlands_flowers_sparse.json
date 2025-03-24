@@ -6,13 +6,6 @@
       "chance": 7
     },
     {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
-    },
-    {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:clamped",
@@ -24,6 +17,13 @@
           "min_inclusive": -1
         }
       }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

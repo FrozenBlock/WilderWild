@@ -31,14 +31,18 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private WWMixinsConfig mixinsConfig;
-	private boolean hasEmbeddium;
+	private boolean hasEmbeddiumMod;
 	private boolean disableNonSodium;
+	private boolean hasFallingLeavesMod;
+	private boolean hasParticleRainMod;
 
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = WWMixinsConfig.get();
-		this.hasEmbeddium = FabricLoader.getInstance().isModLoaded("embeddium");
-		this.disableNonSodium = this.hasEmbeddium || FrozenBools.HAS_SODIUM;
+		this.hasEmbeddiumMod = FabricLoader.getInstance().isModLoaded("embeddium");
+		this.disableNonSodium = this.hasEmbeddiumMod || FrozenBools.HAS_SODIUM;
+		this.hasFallingLeavesMod = FabricLoader.getInstance().isModLoaded("fallingleaves");
+		this.hasParticleRainMod = FabricLoader.getInstance().isModLoaded("particlerain");
 	}
 
 	@Override
@@ -52,7 +56,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
 
 		if (mixinClassName.contains("client.sodium.")) {
-			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddium;
+			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddiumMod;
 		}
 		if (mixinClassName.contains("client.block_break.")) return this.mixinsConfig.client_block_break;
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
@@ -67,12 +71,9 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.shrieker.")) return this.mixinsConfig.client_shrieker;
 		if (mixinClassName.contains("client.warden.")) return this.mixinsConfig.client_warden;
 		if (mixinClassName.contains("client.wind.")) {
-			if (mixinClassName.contains("fallingleaves") && !FabricLoader.getInstance().isModLoaded("fallingleaves"))
-				return false;
-			if (mixinClassName.contains("particlerain") && !FabricLoader.getInstance().isModLoaded("particlerain"))
-				return false;
-			if (mixinClassName.contains("CloudRenderer") && this.disableNonSodium)
-				return false;
+			if (mixinClassName.contains("fallingleaves") && !this.hasFallingLeavesMod) return false;
+			if (mixinClassName.contains("particlerain") && !this.hasParticleRainMod) return false;
+			if (mixinClassName.contains("CloudRenderer") && this.disableNonSodium) return false;
 			return this.mixinsConfig.client_wind;
 		}
 
@@ -81,7 +82,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
-		if (mixinClassName.contains("block.echo_glass.")) return this.mixinsConfig.block_echo_glass;
 		if (mixinClassName.contains("block.fire.")) return this.mixinsConfig.block_fire;
 		if (mixinClassName.contains("block.frozen_vegetation.")) return this.mixinsConfig.block_frozen_vegetation;
 		if (mixinClassName.contains("block.ice.")) return this.mixinsConfig.block_ice;

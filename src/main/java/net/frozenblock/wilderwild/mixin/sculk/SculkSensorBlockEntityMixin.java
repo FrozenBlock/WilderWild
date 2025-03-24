@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import java.util.Optional;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
@@ -27,12 +26,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -92,12 +89,7 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
 		this.wilderWild$setActive(state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) != SculkSensorPhase.INACTIVE);
 		if (this.wilderWild$isActive() != this.wilderWild$isPrevActive() || animTicks == 10) {
-			Packet<ClientGamePacketListener> sensorUpdatePacket = sensor.getUpdatePacket();
-			if (sensorUpdatePacket != null) {
-				for (ServerPlayer player : PlayerLookup.tracking(level, pos)) {
-					player.connection.send(sensorUpdatePacket);
-				}
-			}
+			this.wilderWild$markForUpdate();
 		}
 		this.wilderWild$setPrevActive(this.wilderWild$isActive());
 		if (sensor instanceof CalibratedSculkSensorBlockEntity) {
@@ -117,6 +109,11 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		}
 		this.wilderWild$setAnimTicks(animTicks);
 		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
+	}
+
+	@Unique
+	private void wilderWild$markForUpdate() {
+		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
 	@Unique

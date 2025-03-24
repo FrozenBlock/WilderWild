@@ -130,7 +130,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
 							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 							level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-							lantern.updateSync();
+							lantern.markForUpdate();
 							level.updateNeighbourForOutputSignal(pos, this);
 							return InteractionResult.SUCCESS;
 						}
@@ -155,7 +155,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						player.getInventory().placeItemBackInInventory(bottleStack);
 						((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
 						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-						lantern.updateSync();
+						lantern.markForUpdate();
 						level.updateNeighbourForOutputSignal(pos, this);
 						return InteractionResult.SUCCESS;
 					}
@@ -169,7 +169,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					}
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
 					lantern.inventory.set(0, stack.split(1));
-					lantern.updateSync();
+					lantern.markForUpdate();
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
@@ -178,7 +178,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				if (stack1.isPresent()) {
 					popResource(level, pos, stack1.get());
 					lantern.inventory.clear();
-					lantern.updateSync();
+					lantern.markForUpdate();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
@@ -252,7 +252,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, @NotNull ServerLevel level, BlockPos pos, boolean bl) {
 		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
 			for (ItemStack item : lantern.inventory) {
 				popResource(level, pos, item);

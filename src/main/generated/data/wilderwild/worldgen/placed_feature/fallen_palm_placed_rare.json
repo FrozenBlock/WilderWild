@@ -2,6 +2,17 @@
   "feature": "wilderwild:fallen_palm",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 135
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:matching_block_tag",
@@ -12,17 +23,6 @@
         ],
         "tag": "wilderwild:feature/fallen_tree_placeable"
       }
-    },
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 135
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
     },
     {
       "type": "minecraft:biome"

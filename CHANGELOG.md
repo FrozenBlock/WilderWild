@@ -3,24 +3,10 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Added the `The Pest Helper` advancement for using Termites to eat a tree.
-- Added the `Flightless Flight` advancement for launching a Chicken or Ostrich with a Geyser.
-- Added the `Flame Broiled` advancement for setting a Cow, Mooshroom, or Moonloom on fire with a Geyser.
-- Added the `On Thin Ice` advancement for falling onto Fragile Ice and causing it to shatter.
-- Icicles can now be used to craft Ice.
-- Clovers now generate in Cherry Groves.
-- Slightly decreased the spawning of Sea Anemone and Sea Whips when using Bone Meal underwater.
-- Sea Anemones can no longer be Bone Mealed directly, instead only being renewable by using Bone Meal underwater.
-- Slightly decreased the average amount of Pollen particles that spawn.
-- Added the song `Espial` by Willow/pictochats_!
-  - This song plays in Mesoglea Caves, and while underwater.
-- Deep Dark biome music will now play in Ancient City structures.
-  - This change was made to help with edge-cases, such as when an Ancient City partially generates into another biome.
-  - This change can be disabled in the config.
-- Music will now have a subtle, slowly morphing pitch shift while in the Dying Forest, Dying Mixed Forest, Snowy Dying Forest, and Snowy Dying Mixed Forest biomes.
-- `BetaBeachConditionSource` and `SnowUnderMountainConditionSource` no longer take any parameters and are now a single static instance.
-- Fixed the item tint of Willow Leaves on 1.21.4+.
-- Fixed Polished Gabbro being uncraftable.
-- Fixed Fragile Ice not working properly on 1.21.2+.
-- Fixed Termites getting stuck on player-placed Logs indefinitely.
-- Fixed a server crash on 1.21.4+.
+- Added Biolith integration, thanks to Rebel459! ([#463](https://github.com/FrozenBlock/WilderWild/pull/463))
+- Fixed many of Wilder Wild's features not generating, or generating in unintended ways.
+  - This primarily impacted surface transition features, which would not generate at all.
+- Fixed Chest Boats and Rafts crashing on 1.21.2+.
+- Termite Mounds, Display Lanterns, and Sculk Sensors now sync their data to the client more similarly to Vanilla's method of doing so.
+- Fixed Firefly and Butterfly Bottles playing the release sound using the incorrect sound category.
+- Removed the `echo_glass` mixin package and merged its contents into existing mixins in the `block_break` mixin package.

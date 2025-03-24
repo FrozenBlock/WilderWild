@@ -17,9 +17,6 @@
       "heightmap": "OCEAN_FLOOR"
     },
     {
-      "type": "minecraft:biome"
-    },
-    {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
@@ -33,6 +30,9 @@
           }
         }
       }
+    },
+    {
+      "type": "minecraft:biome"
     }
   ]
 }

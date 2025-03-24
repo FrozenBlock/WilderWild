@@ -17,9 +17,6 @@
       "heightmap": "WORLD_SURFACE_WG"
     },
     {
-      "type": "minecraft:biome"
-    },
-    {
       "type": "frozenlib:noise_filter",
       "fade_distance": 0.175,
       "maxThresh": 1.0,
@@ -29,6 +26,9 @@
       "noise_scale": 0.0065,
       "scale_y": false,
       "use_y": false
+    },
+    {
+      "type": "minecraft:biome"
     }
   ]
 }

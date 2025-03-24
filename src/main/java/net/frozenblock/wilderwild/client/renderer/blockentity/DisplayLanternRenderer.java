@@ -58,7 +58,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		ItemStack stack = lantern.getItem();
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(0.5F, lantern.clientHanging ? 0.25F : 0.125F, 0.5F);
+			poseStack.translate(0.5F, lantern.isHanging() ? 0.25F : 0.125F, 0.5F);
 			poseStack.scale(0.7F, 0.7F, 0.7F);
 			poseStack.mulPose(Axis.YP.rotation((lantern.age + partialTick) / 20F));
 			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, lantern.getLevel(), 1);
@@ -78,7 +78,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 						occupant.getColorForRendering(),
 						1F,
 						(float) occupant.pos.x,
-						(lantern.clientHanging ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
+						(lantern.isHanging() ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
 						(float) occupant.pos.z,
 						Minecraft.getInstance().gameRenderer.getMainCamera().rotation()
 					);

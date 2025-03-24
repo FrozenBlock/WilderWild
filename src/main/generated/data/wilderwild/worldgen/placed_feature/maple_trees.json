@@ -21,11 +21,12 @@
       "type": "minecraft:in_square"
     },
     {
-      "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
     },
     {
-      "type": "minecraft:biome"
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
     },
     {
       "type": "minecraft:block_predicate_filter",
@@ -40,10 +41,6 @@
       }
     },
     {
-      "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 0
-    },
-    {
       "type": "frozenlib:noise_filter",
       "fade_distance": 0.2,
       "maxThresh": 1.0,
@@ -53,6 +50,9 @@
       "noise_scale": 0.0065,
       "scale_y": false,
       "use_y": false
+    },
+    {
+      "type": "minecraft:biome"
     }
   ]
 }

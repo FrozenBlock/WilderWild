@@ -31,7 +31,7 @@ import net.minecraft.client.renderer.entity.PigRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 
 @Environment(EnvType.CLIENT)
-public class WilderEasterEggs {
+public final class WilderEasterEggs {
 
 	public static void hatchEasterEggs() {
 		EntityTextureOverride.register(WWConstants.id("stella_warden"), WardenRenderer.class, WWConstants.id("textures/entity/warden/stella_warden.png"),

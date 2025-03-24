@@ -71,8 +71,6 @@ public final class WWMixinsConfig {
 
 	public boolean block_dripleaf = true;
 
-	public boolean block_echo_glass = true;
-
 	public boolean block_fire = true;
 
 	public boolean block_frozen_vegetation = true;

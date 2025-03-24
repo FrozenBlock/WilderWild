@@ -12,7 +12,6 @@
     "block.chest.ChestBlockEntityMixin",
     "block.chest.ChestBlockMixin",
     "block.dispenser.ShearsDispenseItemBehaviorMixin",
-    "block.echo_glass.ServerPlayerGameModeMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
     "block.frozen_vegetation.GrassBlockMixin",
@@ -133,7 +132,6 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
-    "block.echo_glass.client.MultiPlayerGameModeMixin",
     "client.allay.AllayModelMixin",
     "client.allay.AllayRendererMixin",
     "client.allay.AllayRenderStateMixin",
