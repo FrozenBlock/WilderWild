@@ -112,8 +112,8 @@ public final class WWLootTables {
 								LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 						).add(
-							LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F))
+							LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 						);
 					});
 			}
