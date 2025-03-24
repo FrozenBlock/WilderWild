@@ -6,6 +6,7 @@ hi
 - Added Biolith integration, thanks to Rebel459! ([#463](https://github.com/FrozenBlock/WilderWild/pull/463))
 - Fixed many of Wilder Wild's features not generating, or generating in unintended ways.
   - This primarily impacted surface transition features, which would not generate at all.
+- Wilder Wild's loot table modifications should no longer impede upon chances of obtaining certain Vanilla loot.
 - Fixed Chest Boats and Rafts crashing on 1.21.2+.
 - Termite Mounds, Display Lanterns, and Sculk Sensors now sync their data to the client more similarly to Vanilla's method of doing so.
 - Fixed Firefly and Butterfly Bottles playing the release sound using the incorrect sound category.
