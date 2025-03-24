@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.worldgen.biome;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
@@ -28,6 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
 import net.minecraft.core.Holder;
@@ -38,22 +38,21 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
-import net.minecraft.world.level.biome.AmbientMoodSettings;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 public final class FrozenCaves extends FrozenBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);
 	public static final Climate.Parameter EROSION_PEAK = Climate.Parameter.span(-1F, -0.6F);
+	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING);
+	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING);
 	public static final ImmutableList<Float> DEPTHS = ImmutableList.of(0.065F, 0.1F, 0.15F, 0.2F, 0.25F, 0.3F, 0.35F, 0.4F);
 	public static final float TEMP = -2.0F;
 	public static final float DOWNFALL = 0.4F;
@@ -175,6 +174,7 @@ public final class FrozenCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomeGeneration.generateFrozenCaves) {
 			for (float depth : DEPTHS) {
 				this.addFrozenCavesAtDepth(parameters, depth);
@@ -183,32 +183,31 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	public void addFrozenCavesAtDepth(@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, float depth) {
-		parameters.accept(
-			Pair.of(
-				Climate.parameters(
-					TEMPERATURE,
-					HUMIDITY,
-					CONTINENTALNESS,
-					EROSION_PEAK,
-					Climate.Parameter.point(depth),
-					Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING),
-					-depth
-				),
-				this.getKey()
-			)
-		);
-		parameters.accept(
-			Pair.of(
-				Climate.parameters(
-					TEMPERATURE,
-					HUMIDITY,
-					CONTINENTALNESS,
-					EROSION_PEAK,
-					Climate.Parameter.point(depth),
-					Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING),
-					-depth
-				),
-				this.getKey()
+		Pair<Climate.ParameterPoint, Climate.ParameterPoint> biomeParameters = this.makeParametersAt(depth);
+		parameters.accept(Pair.of(biomeParameters.getFirst(), this.getKey()));
+		parameters.accept(Pair.of(biomeParameters.getSecond(), this.getKey()));
+	}
+
+	@Contract("_ -> new")
+	public @NotNull Pair<Climate.ParameterPoint, Climate.ParameterPoint> makeParametersAt(float depth) {
+		return Pair.of(
+			Climate.parameters(
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_PEAK,
+				Climate.Parameter.point(depth),
+				Climate.Parameter.span(Weirdness.HIGH_SLICE_NORMAL_ASCENDING, Weirdness.HIGH_SLICE_NORMAL_DESCENDING),
+				-depth
+			),
+			Climate.parameters(
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION_PEAK,
+				Climate.Parameter.point(depth),
+				Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_DESCENDING),
+				-depth
 			)
 		);
 	}
