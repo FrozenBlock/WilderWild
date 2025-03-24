@@ -28,6 +28,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
@@ -176,6 +177,7 @@ public final class Oasis extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomeGeneration.generateOasis) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
 				this.addSurfaceBiome(

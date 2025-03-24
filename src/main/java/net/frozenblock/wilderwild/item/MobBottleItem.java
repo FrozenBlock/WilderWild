@@ -98,7 +98,7 @@ public class MobBottleItem extends Item {
 						player.getEyeY(),
 						player.getZ(),
 						this.releaseSound,
-						SoundSource.NEUTRAL,
+						SoundSource.PLAYERS,
 						0.75F,
 						level.getRandom().nextFloat() * 0.2F + 0.9F
 					);

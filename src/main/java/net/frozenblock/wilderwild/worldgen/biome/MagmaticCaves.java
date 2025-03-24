@@ -27,6 +27,7 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
@@ -192,6 +193,7 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (WWWorldgenConfig.get().biomeGeneration.generateMagmaticCaves) {
 			this.addBottomBiome(
 				parameters,

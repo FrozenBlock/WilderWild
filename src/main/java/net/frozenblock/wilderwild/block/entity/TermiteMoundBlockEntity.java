@@ -19,10 +19,8 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -33,10 +31,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -53,14 +51,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
-		this.termiteManager.tick(level, pos, natural, awake, canSpawn);
-		this.updateSync();
-	}
-
-	public void updateSync() {
-		for (ServerPlayer player : PlayerLookup.tracking(this)) {
-			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
-		}
+		this.termiteManager.tick(level, pos, natural, awake, canSpawn, this::markForUpdate);
 	}
 
 	public void tickClient() {
@@ -76,6 +67,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
 			this.clientTermiteIDs.add(termite.getID());
 		}
+	}
+
+	private void markForUpdate() {
+		this.setChanged();
+		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
 	@Override
@@ -163,7 +159,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 				this.y = pos.getY();
 				this.z = pos.getZ();
 				if (termite.getEating() != this.eating) {
-					this.mound.clientTermiteIDs.removeIf((i -> i == this.termiteID));
+					this.mound.clientTermiteIDs.removeIf(i -> i == this.termiteID);
 					this.stop();
 				}
 			} else {
@@ -176,7 +172,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		}
 
 		@Override
-		public String toString() {
+		public @NotNull String toString() {
 			return "TermiteSoundInstance[" + this.location + "]";
 		}
 	}

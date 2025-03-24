@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.SculkSpreader;
 import org.jetbrains.annotations.NotNull;
 
 public final class SpreadSculkCommand {
+
 	public static void register(@NotNull CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(
 			Commands.literal("sculkspread")

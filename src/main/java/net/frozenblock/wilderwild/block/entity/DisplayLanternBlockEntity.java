@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
@@ -48,7 +47,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -56,6 +54,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,14 +66,14 @@ import org.jetbrains.annotations.NotNull;
 public class DisplayLanternBlockEntity extends BlockEntity {
 	public static final int MAX_FIREFLY_AGE = 20;
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
-
+	private final boolean hanging;
 	public NonNullList<ItemStack> inventory;
 	public int age;
-	public boolean clientHanging;
 	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
 		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, blockState);
+		this.hanging = blockState.getValue(BlockStateProperties.HANGING);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
@@ -96,7 +95,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public void clientTick(Level level) {
 		this.age += 1;
-		this.clientHanging = this.getBlockState().getValue(BlockStateProperties.HANGING);
 		if (!this.fireflies.isEmpty()) {
 			for (Occupant firefly : this.fireflies) {
 				firefly.tick(level);
@@ -104,10 +102,13 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		}
 	}
 
-	public void updateSync() {
-		for (ServerPlayer player : PlayerLookup.tracking(this)) {
-			player.connection.send(Objects.requireNonNull(this.getUpdatePacket()));
-		}
+	public boolean isHanging() {
+		return this.hanging;
+	}
+
+	public void markForUpdate() {
+		this.setChanged();
+		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
 	}
 
 	@Override
@@ -249,7 +250,6 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
 		).apply(instance, Occupant::new));
-
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
 			FrozenByteBufCodecs.VEC3,
