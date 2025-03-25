@@ -18,22 +18,29 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class SnowyBlockUtils {
-	public static final Map<Block, Block> SNOWY_BLOCK_MAP = ImmutableMap.<Block, Block>builder()
+	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
 		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS)
+		.put(Blocks.TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS)
 		.put(Blocks.FERN, WWBlocks.FROZEN_FERN)
+		.put(Blocks.LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN)
 		.build();
+	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 
 	@Contract("_ -> param1")
 	@NotNull
@@ -43,9 +50,23 @@ public class SnowyBlockUtils {
 		return state;
 	}
 
+	@Contract("_ -> param1")
+	@NotNull
+	public static BlockState getNonSnowyEquivalent(@NotNull BlockState state) {
+		Block block = state.getBlock();
+		if (NON_SNOWY_BLOCK_MAP.containsKey(block)) return NON_SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
+		return state;
+	}
+
 	public static @NotNull BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
 		BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
-		if (!state.equals(snowyEquivalent)) level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
+		if (!state.equals(snowyEquivalent)) {
+			if (state.getBlock() instanceof DoublePlantBlock) {
+				DoublePlantBlock.placeAt(level, snowyEquivalent, pos, Block.UPDATE_CLIENTS);
+			} else {
+				level.setBlock(pos, snowyEquivalent, Block.UPDATE_CLIENTS);
+			}
+		}
 		return snowyEquivalent;
 	}
 }
