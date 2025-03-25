@@ -190,6 +190,20 @@ public class GeyserBlock extends BaseEntityBlock {
 			boolean natural = blockState.getValue(NATURAL);
 			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
 			GeyserParticleHandler.spawnBaseGeyserParticles(level, blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
+
+			if (geyserType == GeyserType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
+				level.playLocalSound(
+					blockPos.getX() + 0.5D,
+					blockPos.getY() + 0.5D,
+					blockPos.getZ() + 0.5D,
+					WWSounds.BLOCK_GEYSER_VENT_AMBIENT,
+					SoundSource.BLOCKS,
+					0.325F,
+					0.85F + random.nextFloat() * 0.3F,
+					false
+				);
+			}
+
 			if (stage == GeyserStage.DORMANT) {
 				GeyserParticleHandler.spawnDormantParticles(level, blockPos, geyserType, direction, random);
 			} else if (stage == GeyserStage.ACTIVE) {

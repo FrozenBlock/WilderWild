@@ -9,6 +9,7 @@ hi
 - Tall Grass and Large Ferns are now consistently converted to their snowy equivalents in worldgen.
 - Added the `getNonSnowyEquivalent` and `replaceWithNonSnowyEquivalent` methods to `SnowyBlockUtils.`
 - Wilder Wild's loot table modifications should now impede less upon chances of obtaining certain Vanilla loot.
+- Added sounds for hydrothermal vents.
 - Fixed Chest Boats and Rafts crashing on 1.21.2+.
 - Termite Mounds, Display Lanterns, and Sculk Sensors now sync their data to the client more similarly to Vanilla's method of doing so.
 - Fixed Firefly and Butterfly Bottles playing the release sound using the incorrect sound category.
