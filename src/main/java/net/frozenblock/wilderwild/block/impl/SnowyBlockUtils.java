@@ -20,10 +20,7 @@ package net.frozenblock.wilderwild.block.impl;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -68,5 +65,17 @@ public class SnowyBlockUtils {
 			}
 		}
 		return snowyEquivalent;
+	}
+
+	public static @NotNull BlockState replaceWithNonSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
+		BlockState nonSnowyEquivalent = getNonSnowyEquivalent(state);
+		if (!state.equals(nonSnowyEquivalent)) {
+			if (state.getBlock() instanceof DoublePlantBlock) {
+				DoublePlantBlock.placeAt(level, nonSnowyEquivalent, pos, Block.UPDATE_CLIENTS);
+			} else {
+				level.setBlock(pos, nonSnowyEquivalent, Block.UPDATE_CLIENTS);
+			}
+		}
+		return nonSnowyEquivalent;
 	}
 }
