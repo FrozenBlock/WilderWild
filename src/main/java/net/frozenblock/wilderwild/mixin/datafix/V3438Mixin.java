@@ -74,6 +74,11 @@ public class V3438Mixin {
 			WWConstants.string("geyser"),
 			DSL::remainder
 		);
+		schema.register(
+			map,
+			WWConstants.string("icicle"),
+			DSL::remainder
+		);
 		return map;
 	}
 }
