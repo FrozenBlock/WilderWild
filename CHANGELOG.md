@@ -13,6 +13,7 @@ hi
 - Fixed Chest Boats and Rafts crashing on 1.21.2+.
 - Termite Mounds, Display Lanterns, and Sculk Sensors now sync their data to the client more similarly to Vanilla's method of doing so.
 - Fixed Firefly and Butterfly Bottles playing the release sound using the incorrect sound category.
+- Fixed Sheep being unable to eat Short Grass.
 - Fixed config fields in the `structure` sub-category of the `worldgen` config incorrectly trying to sync to the `transitionGeneration` sub-category.
 - Removed the `echo_glass` mixin package and merged its contents into existing mixins in the `block_break` mixin package.
 - Removed `EntityMixin` from the `tumbleweed` mixin package, and implemented its functionality into Tumbleweed itself.
