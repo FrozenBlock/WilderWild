@@ -15,5 +15,6 @@ hi
 - Fixed Firefly and Butterfly Bottles playing the release sound using the incorrect sound category.
 - Fixed config fields in the `structure` sub-category of the `worldgen` config incorrectly trying to sync to the `transitionGeneration` sub-category.
 - Removed the `echo_glass` mixin package and merged its contents into existing mixins in the `block_break` mixin package.
+- Removed `EntityMixin` from the `tumbleweed` mixin package, and implemented its functionality into Tumbleweed itself.
 - Removed Serene Seasons-related tags.
   - Serene Seasons integration, including fixes for Snowlogging, will be found in a separate mod titled `Serene Wild.`
