@@ -41,7 +41,7 @@ public class EatBlockGoalMixin {
 
 	@Inject(method = "<clinit>", at = @At(value = "TAIL"))
 	private static void wilderWild$fixTallGrassPredicateForSnowy(CallbackInfo info) {
-		IS_TALL_GRASS = IS_TALL_GRASS.and(BlockStatePredicate.forBlock(WWBlocks.FROZEN_SHORT_GRASS));
+		IS_TALL_GRASS = IS_TALL_GRASS.or(BlockStatePredicate.forBlock(WWBlocks.FROZEN_SHORT_GRASS));
 	}
 
 }

@@ -264,7 +264,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	private void checkActive(double brightness) {
 		Player entity = this.level().getNearestPlayer(this, -1D);
-		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM)) || this.isTouchingStoppingBlock || this.isTouchingStickingBlock || (this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
+		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM))
+			|| this.isTouchingStoppingBlock || this.isTouchingStickingBlock ||
+			(this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
 			++this.ticksSinceActive;
 			if (this.ticksSinceActive >= MAX_INACTIVE_TICKS) {
 				this.destroy(false);
@@ -411,6 +413,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
 		return false;
+	}
+
+	@Override
+	public void remove(RemovalReason removalReason) {
+		if (removalReason == RemovalReason.DISCARDED) {
+			this.dropItem(false);
+		}
+		super.remove(removalReason);
 	}
 
 	@Override
