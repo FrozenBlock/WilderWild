@@ -16,6 +16,7 @@ hi
 - Fixed Sheep being unable to eat Short Grass.
 - Fixed config fields in the `structure` sub-category of the `worldgen` config incorrectly trying to sync to the `transitionGeneration` sub-category.
 - Fixed Icicles not having a datafixer registered.
+- Fixed Bees being breedable with... Air..? on 1.21.4+.
 - Removed the `echo_glass` mixin package and merged its contents into existing mixins in the `block_break` mixin package.
 - Removed `EntityMixin` from the `tumbleweed` mixin package, and implemented its functionality into Tumbleweed itself.
 - Removed Serene Seasons-related tags.
