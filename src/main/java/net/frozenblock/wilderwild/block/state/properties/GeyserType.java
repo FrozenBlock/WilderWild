@@ -30,7 +30,7 @@ public enum GeyserType implements StringRepresentable {
 	AIR("air", WWSounds.BLOCK_GEYSER_ERUPT_AIR),
 	WATER("water", WWSounds.BLOCK_GEYSER_ERUPT_WATER),
 	LAVA("lava", WWSounds.BLOCK_GEYSER_ERUPT_LAVA),
-	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEYSER_ERUPT_WATER);
+	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEYSER_VENT_AMBIENT);
 
 	public static final Codec<GeyserType> CODEC = StringRepresentable.fromEnum(GeyserType::values);
 

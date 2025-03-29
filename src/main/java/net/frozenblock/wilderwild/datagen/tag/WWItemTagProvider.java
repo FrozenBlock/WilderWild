@@ -182,67 +182,6 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.CATTAIL.asItem())
 			.add(WWBlocks.MILKWEED.asItem());
 
-		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
-			.add(WWBlocks.RED_HIBISCUS.asItem())
-			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
-			.add(WWBlocks.WHITE_HIBISCUS.asItem())
-			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.BUSH.asItem())
-			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.DATURA.asItem())
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.WILDFLOWERS.asItem())
-			.add(WWBlocks.PHLOX.asItem())
-			.add(WWBlocks.LANTANAS.asItem())
-			.add(WWBlocks.WILLOW_SAPLING.asItem())
-			.add(WWBlocks.CYPRESS_SAPLING.asItem())
-			.add(WWBlocks.BAOBAB_NUT.asItem())
-			.add(WWBlocks.COCONUT.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
-			.add(WWBlocks.TUMBLEWEED_PLANT.asItem());
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
-			.add(WWBlocks.RED_HIBISCUS.asItem())
-			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
-			.add(WWBlocks.WHITE_HIBISCUS.asItem())
-			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.BUSH.asItem())
-			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.DATURA.asItem())
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.WILDFLOWERS.asItem())
-			.add(WWBlocks.PHLOX.asItem())
-			.add(WWBlocks.LANTANAS.asItem())
-			.add(WWBlocks.WILLOW_SAPLING.asItem())
-			.add(WWBlocks.CYPRESS_SAPLING.asItem())
-			.add(WWBlocks.BAOBAB_NUT.asItem())
-			.add(WWBlocks.COCONUT.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
-			.add(WWBlocks.TUMBLEWEED_PLANT.asItem());
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
-			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.MAPLE_SAPLING.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
-			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.PASQUEFLOWER.asItem())
-			.add(WWBlocks.PHLOX.asItem())
-			.add(WWBlocks.LANTANAS.asItem());
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.BROWN_SHELF_FUNGI.asItem())
-			.add(WWBlocks.RED_SHELF_FUNGI.asItem())
-			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.PASQUEFLOWER.asItem())
-			.add(WWBlocks.PHLOX.asItem());
-
 		this.getOrCreateTagBuilder(ItemTags.ACACIA_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
 

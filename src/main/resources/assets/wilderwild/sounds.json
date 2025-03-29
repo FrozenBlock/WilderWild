@@ -3893,6 +3893,17 @@
     ],
     "subtitle": "subtitles.block.geyser.erupt"
   },
+  "block.geyser.vent.ambient": {
+    "sounds": [
+      "wilderwild:block/geyser/vent1",
+      "wilderwild:block/geyser/vent2",
+      "wilderwild:block/geyser/vent3",
+      "wilderwild:block/geyser/vent4",
+      "wilderwild:block/geyser/vent5",
+      "wilderwild:block/geyser/vent6"
+    ],
+    "subtitle": "subtitles.block.geyser.vent.ambient"
+  },
   "block.magma.break": {
     "sounds": [
       "wilderwild:block/magma/break1",
