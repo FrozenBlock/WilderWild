@@ -51,12 +51,138 @@ public final class WWVillagers {
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
-		TradeOfferHelper.registerWanderingTraderOffers(2, factories -> {
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.WILLOW_SAPLING.asItem(), 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1));
-			factories.add(new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1));
+		TradeOfferHelper.registerWanderingTraderOffers(factories -> {
+			// SELL SPECIAL ITEMS
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.BAOBAB_LOG.asItem(), 1, 8, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.WILLOW_LOG.asItem(), 1, 8, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_LOG.asItem(), 1, 8, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PALM_LOG.asItem(), 1, 8, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_LOG.asItem(), 1, 8, 4, 1)
+			);
+
+			// SELL COMMON ITEMS
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWItems.BAOBAB_NUT, 5, 1, 8, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.WILLOW_SAPLING.asItem(), 5, 1, 8, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.CYPRESS_SAPLING.asItem(), 5, 1, 8, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWItems.COCONUT, 5, 1, 8, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.MAPLE_SAPLING.asItem(), 5, 1, 8, 1)
+			);
+
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.AUBURN_CREEPING_MOSS.asItem(), 1, 3, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.AUBURN_CREEPING_MOSS.asItem(), 1, 2, 5, 1)
+			);
+
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.SEA_ANEMONE.asItem(), 3, 1, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.SEA_WHIP.asItem(), 3, 1, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.BARNACLES.asItem(), 3, 1, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PLANKTON.asItem(), 3, 1, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.TUBE_WORMS.asItem(), 3, 1, 4, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.SPONGE_BUD.asItem(), 3, 1, 4, 1)
+			);
+
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.SEEDING_DANDELION.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.CARNATION.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.MARIGOLD.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PASQUEFLOWER.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.RED_HIBISCUS.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.YELLOW_HIBISCUS.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.WHITE_HIBISCUS.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PINK_HIBISCUS.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PURPLE_HIBISCUS.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.PHLOX.asItem(), 1, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.LANTANAS.asItem(), 1, 1, 12, 1)
+			);
+
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.SHRUB.asItem(), 3, 1, 12, 1)
+			);
+			factories.addOffersToPool(
+				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL,
+				new VillagerTrades.ItemsForEmeralds(WWBlocks.CATTAIL.asItem(), 3, 1, 12, 1)
+			);
 		});
 	}
 }

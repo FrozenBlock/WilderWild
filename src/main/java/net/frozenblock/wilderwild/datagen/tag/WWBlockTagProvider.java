@@ -66,83 +66,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_PALM_LOG)
 			.add(WWBlocks.STRIPPED_MAPLE_LOG);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:summer_crops"))
-			.add(WWBlocks.RED_HIBISCUS)
-			.add(WWBlocks.YELLOW_HIBISCUS)
-			.add(WWBlocks.WHITE_HIBISCUS)
-			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
-			.add(WWBlocks.SHRUB)
-			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.DATURA)
-			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.PHLOX)
-			.add(WWBlocks.LANTANAS)
-			.add(WWBlocks.WILLOW_SAPLING)
-			.add(WWBlocks.CYPRESS_SAPLING)
-			.add(WWBlocks.BAOBAB_NUT)
-			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.TUMBLEWEED_PLANT);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:spring_crops"))
-			.add(WWBlocks.RED_HIBISCUS)
-			.add(WWBlocks.YELLOW_HIBISCUS)
-			.add(WWBlocks.WHITE_HIBISCUS)
-			.add(WWBlocks.PINK_HIBISCUS)
-			.add(WWBlocks.PURPLE_HIBISCUS)
-			.add(WWBlocks.SHRUB)
-			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.DATURA)
-			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.PHLOX)
-			.add(WWBlocks.LANTANAS)
-			.add(WWBlocks.WILLOW_SAPLING)
-			.add(WWBlocks.CYPRESS_SAPLING)
-			.add(WWBlocks.BAOBAB_NUT)
-			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.TUMBLEWEED_PLANT);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:autumn_crops"))
-			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.MAPLE_SAPLING)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.MARIGOLD)
-			.add(WWBlocks.PASQUEFLOWER)
-			.add(WWBlocks.PHLOX)
-			.add(WWBlocks.LANTANAS);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:winter_crops"))
-			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.PASQUEFLOWER)
-			.add(WWBlocks.MARIGOLD)
-			.add(WWBlocks.PHLOX);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:unbreakable_infertile_crops"))
-			.add(WWBlocks.SHRUB)
-			.add(WWBlocks.MILKWEED)
-			.add(WWBlocks.DATURA)
-			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.WILLOW_SAPLING)
-			.add(WWBlocks.CYPRESS_SAPLING)
-			.add(WWBlocks.BAOBAB_NUT)
-			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.TUMBLEWEED)
-			.add(WWBlocks.TUMBLEWEED_PLANT);
-
-		this.getOrCreateTagBuilder(getTag("sereneseasons:greenhouse_glass"))
-			.add(WWBlocks.ECHO_GLASS);
 	}
 
 	private void generateLib() {
@@ -1240,9 +1163,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CARNATION)
 			.add(WWBlocks.MARIGOLD)
 			.add(WWBlocks.SEEDING_DANDELION)
-			.add(WWBlocks.POTTED_YELLOW_HIBISCUS)
-			.add(WWBlocks.POTTED_WHITE_HIBISCUS)
-			.add(WWBlocks.POTTED_PINK_HIBISCUS)
+			.add(WWBlocks.RED_HIBISCUS)
+			.add(WWBlocks.YELLOW_HIBISCUS)
+			.add(WWBlocks.WHITE_HIBISCUS)
+			.add(WWBlocks.PINK_HIBISCUS)
+			.add(WWBlocks.PURPLE_HIBISCUS)
 			.add(WWBlocks.FLOWERING_LILY_PAD)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.CATTAIL)
@@ -1280,7 +1205,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN);
 
 		this.getOrCreateTagBuilder(BlockTags.EDIBLE_FOR_SHEEP)
-			.add(WWBlocks.FROZEN_SHORT_GRASS);
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_FERN);
 	}
 
 	private void generateWoods() {

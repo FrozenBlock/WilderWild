@@ -1301,7 +1301,7 @@ public final class WWWorldgenConfigGui {
 		var structure = config.structure;
 		var modifiedStructure = modifiedConfig.structure;
 		var defaultStructure = defaultConfig.structure;
-		var structureClazz = transition.getClass();
+		var structureClazz = structure.getClass();
 
 		var decayTrailRuins = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("decay_trail_ruins"), modifiedStructure.decayTrailRuins)

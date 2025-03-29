@@ -18,6 +18,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.item.Rarity;
@@ -40,9 +41,9 @@ public final class WWLootTables {
 				LootPool.Builder pool = LootPool.lootPool()
 					.add(
 						LootItem.lootTableItem(WWBlocks.ALGAE.asItem())
-						.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
-						.setWeight(4)
-						.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
+							.setWeight(4)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
 					).add(
 						LootItem.lootTableItem(WWBlocks.PLANKTON.asItem())
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
@@ -66,68 +67,68 @@ public final class WWLootTables {
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 6F)))
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
+					).add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+					).add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_CARPET.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+					).add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_CREEPING_MOSS.asItem())
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
 					)
 					.setRolls(UniformGenerator.between(2, 5));
 
 				tableBuilder.withPool(pool);
 			}
 		});
-		//BAOBAB NUT
+		//SAVANNA VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
-
-				tableBuilder.withPool(pool);
+				((FabricLootTableBuilder) tableBuilder)
+					.modifyPools(builder -> {
+						builder.add(
+							LootItem.lootTableItem(WWItems.BAOBAB_NUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						).add(
+							LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						);
+					});
 			}
 		});
-		//BAOBAB LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin()) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
-
-				tableBuilder.withPool(pool);
-			}
-		});
-		//COCONUT
+		//DESERT VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
-
-				tableBuilder.withPool(pool);
-			}
-		});
-		//PALM LOG
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)));
-
-				tableBuilder.withPool(pool);
+				((FabricLootTableBuilder) tableBuilder)
+					.modifyPools(builder -> {
+						builder.add(
+								LootItem.lootTableItem(WWItems.COCONUT).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						).add(
+							LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem()).setWeight(2).setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						);
+					});
 			}
 		});
 		//OSSEOUS SCULK
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)));
-
-				tableBuilder.withPool(pool);
-			}
-		});
-		//HANGING TENDRIL
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
-				LootPool.Builder pool = LootPool.lootPool()
-					.add(LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)));
+					.add(
+						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)))
+					).add(
+						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem()).setWeight(1).setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+					).setRolls(UniformGenerator.between(1, 5));
 
 				tableBuilder.withPool(pool);
 			}
