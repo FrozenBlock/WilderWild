@@ -25,7 +25,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,20 +45,8 @@ public class BlockRenderDispatcherMixin {
 		}
 	}
 
-	@Inject(method = "renderBatched", at = @At("HEAD"))
-	public void wilderWild$renderBatched(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random, CallbackInfo ci) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			this.renderBatched(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer, checkSides, random);
-		}
-	}
-
 	@Shadow
 	public void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
-	}
-
-	@Shadow
-	public void renderBatched(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, boolean checkSides, RandomSource random) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
 	}
 }
