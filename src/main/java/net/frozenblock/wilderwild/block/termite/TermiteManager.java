@@ -167,7 +167,6 @@ public class TermiteManager {
 
 	public void clearTermites(@NotNull Level level) {
 		for (Termite termite : this.termites) {
-			level.gameEvent(null, GameEvent.ENTITY_DIE, Vec3.atCenterOf(termite.pos));
 			level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 		}
 		this.termites.clear();
@@ -184,6 +183,7 @@ public class TermiteManager {
 	}
 
 	public void load(@NotNull CompoundTag tag) {
+		this.termites.clear();
 		tag.read("termites", Termite.LIST_CODEC, NbtOps.INSTANCE).ifPresent(this.termites::addAll);
 		this.ticksToNextTermite = tag.getIntOr("ticksToNextTermite", 0);
 		this.highestID = tag.getIntOr("highestID", 0);
