@@ -757,7 +757,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("firefly_bush_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			vegetationClazz,
 			"fireflyBushGen",
 			configInstance
 		);
@@ -768,7 +768,7 @@ public final class WWWorldgenConfigGui {
 				.setTooltip(tooltip("leaf_litter_generation"))
 				.requireRestart()
 				.build(),
-			clazz,
+			vegetationClazz,
 			"leafLitterGen",
 			configInstance
 		);

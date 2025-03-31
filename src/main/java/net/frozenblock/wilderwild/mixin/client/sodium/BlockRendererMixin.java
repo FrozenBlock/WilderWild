@@ -20,11 +20,13 @@ package net.frozenblock.wilderwild.mixin.client.sodium;
 
 
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
+import net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,28 +37,24 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// TODO: 1.21.5
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(BlockRenderer.class)
-public abstract class BlockRendererMixin {
-	//extends AbstractBlockRenderContext {
+public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 
-	/*
 	@Unique
 	private static final BlockModelShaper WILDERWILD$BLOCK_MODEL_SHAPER = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
 
 	@Shadow
-	public abstract void renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin);
+	public abstract void renderModel(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin);
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false, require = 0)
-	public void wilderWild$renderModel(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
+	public void wilderWild$renderModel(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
-			BakedModel snowModel = WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState);
+			BlockStateModel snowModel = WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState);
 			this.renderModel(snowModel, snowState, pos, origin);
 		}
 	}
-	 */
 
 }
