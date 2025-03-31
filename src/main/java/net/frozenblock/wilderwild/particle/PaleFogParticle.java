@@ -91,7 +91,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 		this.zd += wind.z() * multXZ;
 
 		float ageProgress = (float) this.age / this.lifetime;
-		float alphaScale = ageProgress * 0.0075F;
+		float alphaScale = ageProgress * 0.0095F;
 		this.alpha += -this.alpha * alphaScale;
 
 		if (this.alpha <= 0.06F) this.remove();
@@ -114,7 +114,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, true);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			seedParticle.gravity = 0.005F;
-			seedParticle.alpha = 0.3F;
+			seedParticle.alpha = 0.5F;
 			return seedParticle;
 		}
 	}
@@ -130,7 +130,7 @@ public class PaleFogParticle extends TextureSheetParticle {
 			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, false);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 250, 500);
 			seedParticle.gravity = 0.005F;
-			seedParticle.alpha = 0.4F;
+			seedParticle.alpha = 0.6F;
 			return seedParticle;
 		}
 	}
