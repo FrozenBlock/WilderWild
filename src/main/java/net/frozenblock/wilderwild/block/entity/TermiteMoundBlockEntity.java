@@ -22,23 +22,19 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
+import net.frozenblock.wilderwild.client.resources.sounds.TermiteEatingSoundInstance;
+import net.frozenblock.wilderwild.client.resources.sounds.TermiteIdleSoundInstance;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
 	public final TermiteManager termiteManager;
@@ -101,79 +97,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
 		Minecraft client = Minecraft.getInstance();
 		if (client.level != null) {
-			client.getSoundManager().play(
-				new TermiteSoundInstance<>(
-					mound,
-					termiteID,
-					eating ? WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW : WWSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE,
-					SoundSource.BLOCKS,
-					0.2F,
-					1F,
-					eating
-				)
-			);
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static class TermiteSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTickableSoundInstance {
-		private final T mound;
-		private final int termiteID;
-		private final boolean eating;
-		private boolean initialTermiteCheck;
-
-		public TermiteSoundInstance(T mound, int termiteID, SoundEvent sound, SoundSource category, float volume, float pitch, boolean eating) {
-			super(sound, category, SoundInstance.createUnseededRandom());
-			this.mound = mound;
-			this.looping = true;
-			this.delay = 0;
-			this.volume = volume;
-			this.pitch = pitch;
-			this.termiteID = termiteID;
-			this.eating = eating;
-		}
-
-		@Nullable
-		public TermiteManager.Termite getTermite() {
-			if (this.mound != null && !this.mound.isRemoved()) {
-				for (TermiteManager.Termite termite : this.mound.termiteManager.termites()) {
-					if (termite.getID() == this.termiteID) {
-						return termite;
-					}
-				}
-			}
-			return null;
-		}
-
-		@Override
-		public boolean canStartSilent() {
-			return true;
-		}
-
-		@Override
-		public void tick() {
-			TermiteManager.Termite termite = this.getTermite();
-			if (termite != null) {
-				BlockPos pos = termite.getPos();
-				this.x = pos.getX();
-				this.y = pos.getY();
-				this.z = pos.getZ();
-				if (termite.getEating() != this.eating) {
-					this.mound.clientTermiteIDs.removeIf(i -> i == this.termiteID);
-					this.stop();
-				}
+			if (eating) {
+				client.getSoundManager().play(
+					new TermiteEatingSoundInstance<>(mound, termiteID)
+				);
 			} else {
-				if (!this.initialTermiteCheck) {
-					this.initialTermiteCheck = true;
-				} else {
-					this.stop();
-				}
+				client.getSoundManager().play(
+					new TermiteIdleSoundInstance<>(mound, termiteID)
+				);
 			}
-		}
-
-		@Override
-		public @NotNull String toString() {
-			return "TermiteSoundInstance[" + this.location + "]";
 		}
 	}
 }
