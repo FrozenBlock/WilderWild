@@ -171,7 +171,7 @@
     "client.wind.particlerain.SnowParticleMixin",
     "client.wind.particlerain.WeatherParticleMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
-    "snowlogging.client.TerrainRenderContextMixin"
+    "snowlogging.client.SectionCompilerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

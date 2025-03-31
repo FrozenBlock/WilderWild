@@ -110,7 +110,12 @@ public final class WilderWildClient implements ClientModInitializer {
 
 			@Override
 			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-				WWConstants.MC_LIVE_TENDRILS = resourceManager.getResource(WWConstants.id("textures/entity/sculk_sensor/new_tendril_enabler.png")).isPresent();
+				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {
+					if (packResources.knownPackInfo().isPresent()) {
+						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
+					}
+					return false;
+				});
 			}
 		});
 
