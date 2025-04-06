@@ -55,7 +55,7 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 	@Override
 	@NotNull
 	public ResourceLocation getTexture(@NotNull T entity) {
-		return entity.texture;
+		return entity.getClientTexture();
 	}
 
 	@Override

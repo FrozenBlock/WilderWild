@@ -23,7 +23,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -89,16 +89,16 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay, Vec3 cameraPos) {
-		if (WWConstants.MC_LIVE_TENDRILS && entity instanceof SculkSensorTickInterface sculkSensorTickInterface) {
-			if (sculkSensorTickInterface.wilderWild$isActive()) {
-				int prevTicks = sculkSensorTickInterface.wilderWild$getPrevAnimTicks();
-				float rotation = sculkSensorTickInterface.wilderWild$getFacing().toYRot();
+		if (WWConstants.MC_LIVE_TENDRILS && entity instanceof SculkSensorInterface sculkSensorInterface) {
+			if (sculkSensorInterface.wilderWild$isActive()) {
+				int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
+				float rotation = sculkSensorInterface.wilderWild$getFacing().toYRot();
 				poseStack.translate(0.5F, 0.5F, 0.5F);
 				poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 				poseStack.translate(-0.5F, -0.5F, -0.5F);
-				float xRot = (prevTicks + partialTick * (sculkSensorTickInterface.wilderWild$getAnimTicks() - prevTicks))
+				float xRot = (prevTicks + partialTick * (sculkSensorInterface.wilderWild$getAnimTicks() - prevTicks))
 					* 0.1F
-					* ((float) Math.cos((sculkSensorTickInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
+					* ((float) Math.cos((sculkSensorInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
 				this.tendril1.xRot = xRot;
 				this.tendril2.xRot = xRot;
 				this.tendril3.xRot = xRot;
