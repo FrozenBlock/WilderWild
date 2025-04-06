@@ -7,5 +7,5 @@ hi
 - Fixed Willow Boats and Willow Chest Boats crashing clients on 1.21.2+.
 - Significantly optimized bandwidth usage of Hanging Tendrils.
 - MC LIVE 2020 Sculk Sensor tendrils are now handled entirely by the client.
-  - This results in a significant improvement in bandwidth for Sculk Sensors.
+  - This results in a significant improvement in bandwidth usage for Sculk Sensors.
   - This also results in the feature being usable when connecting to servers without Wilder Wild installed.
