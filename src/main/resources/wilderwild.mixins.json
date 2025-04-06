@@ -148,6 +148,7 @@
     "client.mesoglea.SuspendedParticleUnderwaterProviderMixin",
     "client.shrieker.LevelRendererMixin",
     "client.sodium.BlockRendererMixin",
+    "client.sodium.CloudRendererMixin",
     "client.sodium.FluidRendererMixin",
     "client.warden.WardenModelMixin",
     "client.wind.BaseAshSmokeParticleMixin",
