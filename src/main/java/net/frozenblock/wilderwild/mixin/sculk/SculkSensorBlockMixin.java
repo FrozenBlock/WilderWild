@@ -18,9 +18,8 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,20 +45,19 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock {
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
 	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
 		if (level.isClientSide) {
-			info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
-				((SculkSensorTickInterface) blockEntity).wilderWild$tickClient(worldx, pos, statex)));
-		} else {
-			info.setReturnValue(createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) ->
-				((SculkSensorTickInterface) blockEntity).wilderWild$tickServer((ServerLevel) worldx, pos, statex)));
+			info.setReturnValue(
+				createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (worldx, pos, statex, blockEntity) -> {
+					if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) {
+						sculkSensorInterface.wilderWild$tickClient(worldx, pos, statex);
+					}
+				})
+			);
 		}
 	}
 
 	@Inject(at = @At("HEAD"), method = "activate")
 	private void wilderWild$activate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int power, int frequency, CallbackInfo info) {
-		if (level.getBlockEntity(pos) instanceof SculkSensorBlockEntity blockEntity) {
-			((SculkSensorTickInterface) blockEntity).wilderWild$setActive(true);
-			((SculkSensorTickInterface) blockEntity).wilderWild$setAnimTicks(10);
-		}
+		level.blockEvent(pos, state.getBlock(), 1, 0);
 	}
 
 }

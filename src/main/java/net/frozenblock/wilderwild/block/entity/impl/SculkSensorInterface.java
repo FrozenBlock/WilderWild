@@ -20,19 +20,14 @@ package net.frozenblock.wilderwild.block.entity.impl;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public interface SculkSensorTickInterface {
-
-	void wilderWild$tickServer(ServerLevel level, BlockPos pos, BlockState state);
+public interface SculkSensorInterface {
 
 	void wilderWild$tickClient(Level level, BlockPos pos, BlockState state);
 
 	int wilderWild$getAge();
-
-	void wilderWild$setAge(int i);
 
 	int wilderWild$getAnimTicks();
 
@@ -40,18 +35,8 @@ public interface SculkSensorTickInterface {
 
 	int wilderWild$getPrevAnimTicks();
 
-	void wilderWild$setPrevAnimTicks(int i);
-
 	boolean wilderWild$isActive();
 
-	void wilderWild$setActive(boolean active);
-
-	boolean wilderWild$isPrevActive();
-
-	void wilderWild$setPrevActive(boolean active);
-
 	Direction wilderWild$getFacing();
-
-	void wilderWild$setFacing(Direction facing);
 
 }

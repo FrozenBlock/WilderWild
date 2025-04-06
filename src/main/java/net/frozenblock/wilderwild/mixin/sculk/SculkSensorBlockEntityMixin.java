@@ -18,28 +18,22 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import java.util.Objects;
-import net.frozenblock.wilderwild.block.entity.impl.SculkSensorTickInterface;
+import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
+import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.CalibratedSculkSensorBlockEntity;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -51,7 +45,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SculkSensorBlockEntity.class)
-public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorTickInterface {
+public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorInterface {
 
 	@Unique
 	public int wilderWild$animTicks;
@@ -70,62 +64,36 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		super(type, pos, state);
 	}
 
-	@Shadow
-	public abstract VibrationSystem.User getVibrationUser();
-
-	@Shadow
-	public abstract VibrationSystem.Data getVibrationData();
-
-	@Unique
-	@Override
-	public void wilderWild$tickServer(ServerLevel level, BlockPos pos, @NotNull BlockState state) {
-		SculkSensorBlockEntity sensor = SculkSensorBlockEntity.class.cast(this);
-		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
-		int animTicks = this.wilderWild$getAnimTicks();
-		this.wilderWild$setPrevAnimTicks(animTicks);
-		if (this.wilderWild$getAnimTicks() > 0) {
-			this.wilderWild$setAnimTicks(animTicks -= 1);
-		}
-		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
-		this.wilderWild$setActive(state.getValue(BlockStateProperties.SCULK_SENSOR_PHASE) != SculkSensorPhase.INACTIVE);
-		if (this.wilderWild$isActive() != this.wilderWild$isPrevActive() || animTicks == 10) {
-			this.wilderWild$markForUpdate();
-		}
-		this.wilderWild$setPrevActive(this.wilderWild$isActive());
-		if (sensor instanceof CalibratedSculkSensorBlockEntity) {
-			if (state.hasProperty(CalibratedSculkSensorBlock.FACING)) {
-				this.wilderWild$setFacing(state.getValue(CalibratedSculkSensorBlock.FACING));
-			}
+	@Inject(
+		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
+		at = @At("TAIL")
+	)
+	private void wilderWild$init(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
+		if (blockEntityType == BlockEntityType.CALIBRATED_SCULK_SENSOR && blockState.getBlock() instanceof CalibratedSculkSensorBlock) {
+			this.wilderWild$facing = blockState.getValue(CalibratedSculkSensorBlock.FACING);
 		}
 	}
 
 	@Unique
 	@Override
-	public void wilderWild$tickClient(Level level, BlockPos pos, BlockState state) {
-		int animTicks = this.wilderWild$getAnimTicks();
-		this.wilderWild$setPrevAnimTicks(animTicks);
-		if (animTicks > 0) {
-			animTicks -= 1;
+	public void wilderWild$tickClient(Level level, BlockPos pos, @NotNull BlockState state) {
+		if (state.hasProperty(CalibratedSculkSensorBlock.FACING)) {
+			this.wilderWild$facing = state.getValue(CalibratedSculkSensorBlock.FACING);
 		}
-		this.wilderWild$setAnimTicks(animTicks);
-		this.wilderWild$setAge(this.wilderWild$getAge() + 1);
-	}
-
-	@Unique
-	private void wilderWild$markForUpdate() {
-		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+		boolean active = this.wilderWild$isActive();
+		this.wilderWild$prevActive = active;
+		this.wilderWild$active = SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE;
+		int animTicks = this.wilderWild$getAnimTicks();
+		this.wilderWild$prevAnimTicks = animTicks;
+		if (animTicks > 0) animTicks -= 1;
+		this.wilderWild$animTicks = animTicks;
+		this.wilderWild$age = this.wilderWild$getAge() + 1;
 	}
 
 	@Unique
 	@Override
 	public int wilderWild$getAge() {
 		return this.wilderWild$age;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setAge(int i) {
-		this.wilderWild$age = i;
 	}
 
 	@Unique
@@ -140,33 +108,10 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		return this.wilderWild$prevAnimTicks;
 	}
 
-	@Override
-	public void wilderWild$setPrevAnimTicks(int i) {
-		this.wilderWild$prevAnimTicks = i;
-	}
-
 	@Unique
 	@Override
 	public boolean wilderWild$isActive() {
 		return this.wilderWild$active;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setActive(boolean active) {
-		this.wilderWild$active = active;
-	}
-
-	@Unique
-	@Override
-	public boolean wilderWild$isPrevActive() {
-		return this.wilderWild$prevActive;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setPrevActive(boolean active) {
-		this.wilderWild$prevActive = active;
 	}
 
 	@Unique
@@ -177,36 +122,8 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 
 	@Unique
 	@Override
-	public void wilderWild$setFacing(Direction facing) {
-		this.wilderWild$facing = facing;
-	}
-
-	@Unique
-	@Override
 	public Direction wilderWild$getFacing() {
 		return this.wilderWild$facing;
-	}
-
-	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	private void wilderWild$load(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
-		this.wilderWild$setAge(nbt.getInt("age"));
-		this.wilderWild$setAnimTicks(nbt.getInt("animTicks"));
-		this.wilderWild$setPrevAnimTicks(nbt.getInt("prevAnimTicks"));
-		this.wilderWild$setActive(nbt.getBoolean("active"));
-		this.wilderWild$setPrevActive(nbt.getBoolean("prevActive"));
-
-		Direction facing = Direction.byName(nbt.getString("facing"));
-		this.wilderWild$setFacing(Objects.requireNonNullElse(facing, Direction.NORTH));
-	}
-
-	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	private void wilderWild$saveAdditional(CompoundTag nbt, HolderLookup.Provider provider, CallbackInfo info) {
-		nbt.putInt("age", this.wilderWild$getAge());
-		nbt.putInt("animTicks", this.wilderWild$getAnimTicks());
-		nbt.putInt("prevAnimTicks", this.wilderWild$getPrevAnimTicks());
-		nbt.putBoolean("active", this.wilderWild$isActive());
-		nbt.putBoolean("prevActive", this.wilderWild$isPrevActive());
-		nbt.putString("facing", this.wilderWild$getFacing().getName());
 	}
 
 	@Mixin(SculkSensorBlockEntity.VibrationUser.class)

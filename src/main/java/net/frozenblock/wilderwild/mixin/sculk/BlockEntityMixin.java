@@ -18,14 +18,12 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -33,17 +31,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockEntity.class)
 public class BlockEntityMixin {
 
-	@Inject(method = "getUpdatePacket", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$getUpdatePacket(CallbackInfoReturnable<Packet<ClientGamePacketListener>> info) {
-		if (BlockEntity.class.cast(this) instanceof SculkSensorBlockEntity sensorBlockEntity) {
-			info.setReturnValue(ClientboundBlockEntityDataPacket.create(sensorBlockEntity));
-		}
-	}
+	@Shadow
+	@Nullable
+	protected Level level;
 
-	@Inject(method = "getUpdateTag", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$getUpdateTag(HolderLookup.Provider lookupProvider, CallbackInfoReturnable<CompoundTag> info) {
-		if (BlockEntity.class.cast(this) instanceof SculkSensorBlockEntity sensorBlockEntity) {
-			info.setReturnValue(sensorBlockEntity.saveWithoutMetadata(lookupProvider));
+	@Inject(method = "triggerEvent", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$triggerEvent(int eventId, int data, CallbackInfoReturnable<Boolean> info) {
+		if (BlockEntity.class.cast(this) instanceof SculkSensorInterface sculkSensorInterface) {
+			if (eventId == 1) {
+				sculkSensorInterface.wilderWild$setAnimTicks(10);
+				info.setReturnValue(true);
+			}
 		}
 	}
 }
