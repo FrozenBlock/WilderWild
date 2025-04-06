@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -72,11 +74,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int storedXP;
 	public int ringOutTicksLeft;
 	private int activeTicks;
+
 	//CLIENT ONLY
-	public ResourceLocation texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
-	public boolean twitching;
-	public boolean active;
-	public boolean milking;
+	@Environment(EnvType.CLIENT)
+	private ResourceLocation texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
@@ -112,9 +113,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	public void clientTick(@NotNull Level level, @NotNull BlockState state) {
-		this.twitching = this.ticksToStopTwitching > 0;
-		this.milking = this.ringOutTicksLeft > 0;
-		this.active = !SculkSensorBlock.canActivate(state);
+		if (!level.isClientSide) return;
+		boolean twitching = this.ticksToStopTwitching > 0;
+		boolean milking = this.ringOutTicksLeft > 0;
+		boolean active = !SculkSensorBlock.canActivate(state);
 		long time = level.getGameTime();
 		if (milking) {
 			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((time / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
@@ -125,6 +127,11 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		} else {
 			this.texture = WWConstants.id(BASE_TEXTURE + "inactive" + (((time / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
 		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public ResourceLocation getClientTexture() {
+		return this.texture;
 	}
 
 	public int getStoredXP() {
@@ -151,7 +158,9 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+		CompoundTag tag = new CompoundTag();
+		this.saveClientUsableNbt(tag);
+		return tag;
 	}
 
 	@Override
@@ -175,15 +184,19 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
 		super.saveAdditional(tag, provider);
 		tag.putInt("last_vibration_frequency", this.lastVibrationFrequency);
-		if (this.ticksToStopTwitching > 0) tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
 		if (this.storedXP > 0) tag.putInt("storedXP", this.storedXP);
-		if (this.ringOutTicksLeft > 0) tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 		if (this.activeTicks > 0) tag.putInt("activeTicks", this.activeTicks);
+		this.saveClientUsableNbt(tag);
 
 		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
 		VibrationSystem.Data.CODEC.encodeStart(registryOps, this.vibrationData)
 			.resultOrPartial((string) -> LOGGER.error("Failed to encode vibration listener for Hanging Tendril: '{}'", string))
 			.ifPresent(nbt -> tag.put("listener", nbt));
+	}
+
+	public void saveClientUsableNbt(CompoundTag tag) {
+		if (this.ticksToStopTwitching > 0) tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
+		if (this.ringOutTicksLeft > 0) tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 	}
 
 	@NotNull
