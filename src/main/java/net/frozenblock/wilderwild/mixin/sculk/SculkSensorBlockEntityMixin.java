@@ -19,12 +19,8 @@
 package net.frozenblock.wilderwild.mixin.sculk;
 
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
-import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -33,12 +29,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -80,13 +72,14 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		if (state.hasProperty(CalibratedSculkSensorBlock.FACING)) {
 			this.wilderWild$facing = state.getValue(CalibratedSculkSensorBlock.FACING);
 		}
-		boolean active = this.wilderWild$isActive();
-		this.wilderWild$prevActive = active;
+		this.wilderWild$prevActive = this.wilderWild$active;
 		this.wilderWild$active = SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE;
-		int animTicks = this.wilderWild$getAnimTicks();
-		this.wilderWild$prevAnimTicks = animTicks;
-		if (animTicks > 0) animTicks -= 1;
-		this.wilderWild$animTicks = animTicks;
+		if (this.wilderWild$active && !this.wilderWild$prevActive) {
+			this.wilderWild$animTicks = 10;
+		}
+
+		this.wilderWild$prevAnimTicks = this.wilderWild$animTicks;
+		this.wilderWild$animTicks = Math.max(0, this.wilderWild$animTicks - 1);
 		this.wilderWild$age = this.wilderWild$getAge() + 1;
 	}
 
@@ -125,27 +118,4 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	public Direction wilderWild$getFacing() {
 		return this.wilderWild$facing;
 	}
-
-	@Mixin(SculkSensorBlockEntity.VibrationUser.class)
-	public static class VibrationUserMixin {
-
-		@Shadow
-		@Final
-		protected BlockPos blockPos;
-
-		@Inject(
-			method = "onReceiveVibration",
-			at = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/world/level/block/SculkSensorBlock;activate(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V",
-				shift = At.Shift.AFTER
-			)
-		)
-		private void wilderWild$onReceiveVibration(
-			ServerLevel world, BlockPos pos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity2, float f, CallbackInfo info
-		) {
-			world.gameEvent(entity, WWGameEvents.SCULK_SENSOR_ACTIVATE, this.blockPos);
-		}
-	}
-
 }
