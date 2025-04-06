@@ -147,6 +147,7 @@
     "client.mesoglea.SuspendedParticleUnderwaterProviderMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sodium.BlockRendererMixin",
+    "client.sodium.CloudRendererMixin",
     "client.sodium.FluidRendererMixin",
     "client.warden.WardenModelMixin",
     "client.warden.WardenRendererMixin",

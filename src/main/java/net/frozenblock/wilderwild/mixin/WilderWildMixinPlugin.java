@@ -63,8 +63,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
 		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
 		if (mixinClassName.contains("client.mesoglea.")) {
-			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && this.disableNonSodium)
-				return false;
+			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && this.disableNonSodium) return false;
 			return this.mixinsConfig.client_mesoglea;
 		}
 		if (mixinClassName.contains("client.enderman.")) return this.mixinsConfig.client_enderman;
@@ -73,7 +72,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.wind.")) {
 			if (mixinClassName.contains("fallingleaves") && !this.hasFallingLeavesMod) return false;
 			if (mixinClassName.contains("particlerain") && !this.hasParticleRainMod) return false;
-			if (mixinClassName.contains("CloudRenderer") && this.disableNonSodium) return false;
 			return this.mixinsConfig.client_wind;
 		}
 

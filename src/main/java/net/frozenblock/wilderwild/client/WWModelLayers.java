@@ -84,6 +84,8 @@ public final class WWModelLayers {
 	// BOATS
 	public static final ModelLayerLocation BAOBAB_BOAT = new ModelLayerLocation(WWConstants.id("boat/baobab"), "main");
 	public static final ModelLayerLocation BAOBAB_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/baobab"), "main");
+	public static final ModelLayerLocation WILLOW_BOAT = new ModelLayerLocation(WWConstants.id("boat/willow"), "main");
+	public static final ModelLayerLocation WILLOW_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/willow"), "main");
 	public static final ModelLayerLocation CYPRESS_BOAT = new ModelLayerLocation(WWConstants.id("boat/cypress"), "main");
 	public static final ModelLayerLocation CYPRESS_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/cypress"), "main");
 	public static final ModelLayerLocation PALM_BOAT = new ModelLayerLocation(WWConstants.id("boat/palm"), "main");
@@ -149,6 +151,8 @@ public final class WWModelLayers {
 		// BOATS
 		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_BOAT, context -> new BoatRenderer(context, BAOBAB_BOAT));
 		EntityRendererRegistry.register(WWEntityTypes.BAOBAB_CHEST_BOAT, context -> new BoatRenderer(context, BAOBAB_CHEST_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.WILLOW_BOAT, context -> new BoatRenderer(context, WILLOW_BOAT));
+		EntityRendererRegistry.register(WWEntityTypes.WILLOW_CHEST_BOAT, context -> new BoatRenderer(context, WILLOW_CHEST_BOAT));
 		EntityRendererRegistry.register(WWEntityTypes.CYPRESS_BOAT, context -> new BoatRenderer(context, CYPRESS_BOAT));
 		EntityRendererRegistry.register(WWEntityTypes.CYPRESS_CHEST_BOAT, context -> new BoatRenderer(context, CYPRESS_CHEST_BOAT));
 		EntityRendererRegistry.register(WWEntityTypes.PALM_BOAT, context -> new BoatRenderer(context, PALM_BOAT));
@@ -160,6 +164,8 @@ public final class WWModelLayers {
 		LayerDefinition chestBoat = BoatModel.createChestBoatModel();
 		EntityModelLayerRegistry.registerModelLayer(BAOBAB_BOAT, () -> boat);
 		EntityModelLayerRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, () -> chestBoat);
+		EntityModelLayerRegistry.registerModelLayer(WILLOW_BOAT, () -> boat);
+		EntityModelLayerRegistry.registerModelLayer(WILLOW_CHEST_BOAT, () -> chestBoat);
 		EntityModelLayerRegistry.registerModelLayer(CYPRESS_BOAT, () -> boat);
 		EntityModelLayerRegistry.registerModelLayer(CYPRESS_CHEST_BOAT, () -> chestBoat);
 		EntityModelLayerRegistry.registerModelLayer(PALM_BOAT, () -> boat);
