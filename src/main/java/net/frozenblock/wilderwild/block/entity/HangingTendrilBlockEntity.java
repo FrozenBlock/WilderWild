@@ -74,7 +74,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int activeTicks;
 
 	//CLIENT ONLY
-	@Environment(EnvType.CLIENT)
 	private ResourceLocation texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
@@ -127,7 +126,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public ResourceLocation getClientTexture() {
 		return this.texture;
 	}
