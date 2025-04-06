@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -40,6 +41,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
@@ -60,6 +62,12 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public static final float MAX_OPEN_PERCENTAGE = 0.5F;
 	public static final int MAX_TIME_OPEN = 180;
 	public static final double MIN_PERCENTAGE_OF_TIME_OPEN = 0.2D;
+	public static final double BREAK_PARTICLE_Y_OFFSET = 0.3D;
+	public static final float BREAK_PARTICLE_OFFSET = 0.21875F;
+	public static final double BREAK_PARTICLE_SPEED = 0.05D;
+	public static final int MIN_BREAK_PARTICLES = 1;
+	public static final int MAX_BREAK_PARTICLES = 3;
+
 	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
 
 		@Override
@@ -327,6 +335,23 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		}
 	}
 
+	@Override
+	public void preRemoveSideEffects(BlockPos blockPos, BlockState blockState) {
+		if (this.level != null) {
+			this.unpackLootTable(null);
+			this.nonAncientItems().forEach(itemStack -> Containers.dropItemStack(this.level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), itemStack));
+			ArrayList<ItemStack> ancientItems = this.ancientItems();
+			if (!ancientItems.isEmpty()) {
+				this.level.playSound(null, blockPos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.random.nextFloat() * 0.1F));
+				for (ItemStack taunt : ancientItems) {
+					for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
+						spawnBreakParticles(this.level, taunt, blockPos);
+					}
+				}
+			}
+		}
+	}
+
 	@NotNull
 	public ArrayList<ItemStack> nonAncientItems() {
 		ArrayList<ItemStack> items = new ArrayList<>();
@@ -349,6 +374,22 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			}
 		}
 		return items;
+	}
+
+	private static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
+		if (level instanceof ServerLevel server) {
+			server.sendParticles(
+				new ItemParticleOption(ParticleTypes.ITEM, stack),
+				pos.getX() + 0.5D,
+				pos.getY() + BREAK_PARTICLE_Y_OFFSET,
+				pos.getZ() + 0.5D,
+				level.getRandom().nextIntBetweenInclusive(MIN_BREAK_PARTICLES, MAX_BREAK_PARTICLES),
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_OFFSET,
+				BREAK_PARTICLE_SPEED
+			);
+		}
 	}
 
 }

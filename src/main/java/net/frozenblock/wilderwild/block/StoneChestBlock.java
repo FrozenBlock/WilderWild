@@ -19,7 +19,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -32,24 +31,18 @@ import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -77,21 +70,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
-	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties ->
-		new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties)
-	);
+	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties));
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
 	public static final float LIFT_AMOUNT = 0.025F;
 	public static final float MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK = 0.05F;
-	public static final double BREAK_PARTICLE_Y_OFFSET = 0.3D;
-	public static final float BREAK_PARTICLE_OFFSET = 0.21875F;
-	public static final double BREAK_PARTICLE_SPEED = 0.05D;
-	public static final int MIN_BREAK_PARTICLES = 1;
-	public static final int MAX_BREAK_PARTICLES = 3;
-	public static final double ITEM_DELTA_TRIANGLE_B = 0.11485D;
-	public static final double ITEM_DELTA_TRIANGLE_A_Y = 0.2D;
-	public static final double ITEM_DELTA_TRIANGLE_A_XZ = 0D;
 	public static final BooleanProperty SCULK = WWBlockStateProperties.HAS_SCULK;
 	public static final DoubleBlockCombiner.Combiner<ChestBlockEntity, Optional<MenuProvider>> STONE_NAME_RETRIEVER = new DoubleBlockCombiner.Combiner<>() {
 
@@ -173,22 +156,6 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static boolean isStoneChestBlockedNoLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
-	}
-
-	public static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
-		if (level instanceof ServerLevel server) {
-			server.sendParticles(
-				new ItemParticleOption(ParticleTypes.ITEM, stack),
-				pos.getX() + 0.5D,
-				pos.getY() + BREAK_PARTICLE_Y_OFFSET,
-				pos.getZ() + 0.5D,
-				level.getRandom().nextIntBetweenInclusive(MIN_BREAK_PARTICLES, MAX_BREAK_PARTICLES),
-				BREAK_PARTICLE_OFFSET,
-				BREAK_PARTICLE_OFFSET,
-				BREAK_PARTICLE_OFFSET,
-				BREAK_PARTICLE_SPEED
-			);
-		}
 	}
 
 	@NotNull
@@ -398,38 +365,7 @@ public class StoneChestBlock extends ChestBlock {
 	protected void affectNeighborsAfterRemoval(BlockState state, @NotNull ServerLevel level, BlockPos pos, boolean bl) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof StoneChestBlockEntity stoneChest) {
-			if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) {
-				stoneChestInterface.wilderWild$bubbleBurst(state);
-			}
-
-			stoneChest.unpackLootTable(null);
-			ArrayList<ItemStack> ancientItems = stoneChest.ancientItems();
-			if (!ancientItems.isEmpty()) {
-				level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (level.random.nextFloat() / 10F));
-				for (ItemStack taunt : ancientItems) {
-					for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
-						spawnBreakParticles(level, taunt, pos);
-					}
-				}
-			}
-			RandomSource random = level.getRandom();
-			for (ItemStack item : stoneChest.nonAncientItems()) {
-				double d = EntityType.ITEM.getWidth();
-				double e = 1D - d;
-				double f = d / 2D;
-				double g = pos.getX() + random.nextDouble() * e + f;
-				double h = pos.getY() + random.nextDouble() * e;
-				double i = pos.getZ() + random.nextDouble() * e + f;
-				while (!item.isEmpty()) {
-					ItemEntity itemEntity = new ItemEntity(level, g, h, i, item.split(random.nextInt(21) + 10));
-					itemEntity.setDeltaMovement(
-						random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B),
-						random.triangle(ITEM_DELTA_TRIANGLE_A_Y, ITEM_DELTA_TRIANGLE_B),
-						random.triangle(ITEM_DELTA_TRIANGLE_A_XZ, ITEM_DELTA_TRIANGLE_B)
-					);
-					level.addFreshEntity(itemEntity);
-				}
-			}
+			if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) stoneChestInterface.wilderWild$bubbleBurst(state);
 			level.updateNeighbourForOutputSignal(pos, this);
 		}
 	}
