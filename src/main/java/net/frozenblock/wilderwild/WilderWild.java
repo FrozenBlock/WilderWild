@@ -110,19 +110,14 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBlocks.registerBlockProperties();
 		WWVillagers.register();
 
-		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> {
-			Jellyfish.clearLevelToNonPearlescentCount();
-		});
-		ServerTickEvents.START_SERVER_TICK.register(listener -> {
-			Jellyfish.clearLevelToNonPearlescentCount();
-		});
+		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> Jellyfish.clearLevelToNonPearlescentCount());
+		ServerTickEvents.START_SERVER_TICK.register(listener -> Jellyfish.clearLevelToNonPearlescentCount());
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 
 		WWModIntegrations.init();
 
 		WWNetworking.init();
-
 	}
 
 	@Override
