@@ -1,8 +1,12 @@
 {
-  "item.boatcontainer.baobab_ender_chest_boat": "Thuyền Baobab có Rương Ender",
-  "item.boatcontainer.baobab_furnace_boat": "Thuyền Baobab có Lò Nung",
+  "item.boatcontainer.baobab_ender_chest_boat": "Thuyền Gỗ Bao Báp có Rương Ender",
+  "item.boatcontainer.baobab_furnace_boat": "Thuyền Gỗ Bao Báp có Lò Nung",
   "item.boatcontainer.cypress_ender_chest_boat": "Thuyền Gỗ Hoàng Đàn có Rương Ender",
   "item.boatcontainer.cypress_furnace_boat": "Thuyền Gỗ Hoàng Đàn có Lò Nung",
   "item.boatcontainer.palm_ender_chest_boat": "Thuyền Gỗ Cọ có Rương Ender",
-  "item.boatcontainer.palm_furnace_boat": "Thuyền Gỗ Cọ có Lò Nung"
+  "item.boatcontainer.palm_furnace_boat": "Thuyền Gỗ Cọ có Lò Nung",
+  "item.boatcontainer.maple_ender_chest_boat": "Thuyền Gỗ Phong Có Rương Ender",
+  "item.boatcontainer.maple_furnace_boat": "Thuyền Gỗ Phong Có Lò Nung",
+  "item.boatcontainer.willow_ender_chest_boat": "Thuyền Gỗ Liễu Có Rương Ender",
+  "item.boatcontainer.willow_furnace_boat": "Thuyền Gỗ Liễu Có Lò Nung"
 }
