@@ -3,5 +3,4 @@ Thank you!
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED
 hi
 -----------------
-- Fixed a random crash.
-  - Thanks, Intellij!
+- Updated Vietnamese translations thanks to godkyo98! ([#478](https://github.com/FrozenBlock/WilderWild/pull/478) & [#479](https://github.com/FrozenBlock/WilderWild/pull/479))
