@@ -141,6 +141,8 @@
 
   "item.wilderwild.willow_boat": "Willow Boat",
   "item.wilderwild.willow_chest_boat": "Willow Boat with Chest",
+  "entity.wilderwild.willow_boat": "Willow Boat",
+  "entity.wilderwild.willow_chest_boat": "Willow Boat with Chest",
   "block.wilderwild.willow_button": "Willow Button",
   "block.wilderwild.willow_door": "Willow Door",
   "block.wilderwild.willow_fence": "Willow Fence",
