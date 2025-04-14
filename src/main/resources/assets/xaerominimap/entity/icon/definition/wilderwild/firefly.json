@@ -1,6 +1,22 @@
 {
 	"variants": {
-		"default": "outlined_sprite:wilderwild/firefly/firefly.png",
+    "wilderwild:textures/entity/firefly/firefly_on.png": "outlined_sprite:wilderwild/firefly/firefly_on.png",
+    "wilderwild:textures/entity/firefly/firefly_black.png": "outlined_sprite:wilderwild/firefly/firefly_black.png",
+    "wilderwild:textures/entity/firefly/firefly_blue.png": "outlined_sprite:wilderwild/firefly/firefly_blue.png",
+    "wilderwild:textures/entity/firefly/firefly_brown.png": "outlined_sprite:wilderwild/firefly/firefly_brown.png",
+    "wilderwild:textures/entity/firefly/firefly_cyan.png": "outlined_sprite:wilderwild/firefly/firefly_cyan.png",
+    "wilderwild:textures/entity/firefly/firefly_gray.png": "outlined_sprite:wilderwild/firefly/firefly_gray.png",
+    "wilderwild:textures/entity/firefly/firefly_green.png": "outlined_sprite:wilderwild/firefly/firefly_green.png",
+    "wilderwild:textures/entity/firefly/firefly_light_blue.png": "outlined_sprite:wilderwild/firefly/firefly_light_blue.png",
+    "wilderwild:textures/entity/firefly/firefly_light_gray.png": "outlined_sprite:wilderwild/firefly/firefly_light_gray.png",
+    "wilderwild:textures/entity/firefly/firefly_lime.png": "outlined_sprite:wilderwild/firefly/firefly_lime.png",
+    "wilderwild:textures/entity/firefly/firefly_magenta.png": "outlined_sprite:wilderwild/firefly/firefly_magenta.png",
+    "wilderwild:textures/entity/firefly/firefly_orange.png": "outlined_sprite:wilderwild/firefly/firefly_orange.png",
+    "wilderwild:textures/entity/firefly/firefly_pink.png": "outlined_sprite:wilderwild/firefly/firefly_pink.png",
+    "wilderwild:textures/entity/firefly/firefly_purple.png": "outlined_sprite:wilderwild/firefly/firefly_purple.png",
+    "wilderwild:textures/entity/firefly/firefly_red.png": "outlined_sprite:wilderwild/firefly/firefly_red.png",
+    "wilderwild:textures/entity/firefly/firefly_white.png": "outlined_sprite:wilderwild/firefly/firefly_white.png",
+    "wilderwild:textures/entity/firefly/firefly_yellow.png": "outlined_sprite:wilderwild/firefly/firefly_yellow.png",
 		"layersAllowed": true
 	}
 }

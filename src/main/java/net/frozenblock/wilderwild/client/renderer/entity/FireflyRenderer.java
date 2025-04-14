@@ -53,7 +53,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		int overlay,
 		int age,
 		float tickDelta,
-		@NotNull FireflyColor color,
+		@NotNull ResourceLocation colorTexture,
 		float scale,
 		float xOffset,
 		float yOffset,
@@ -98,7 +98,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 
-		RenderType colorRenderType = RenderType.entityTranslucentEmissive(color.texture());
+		RenderType colorRenderType = RenderType.entityTranslucentEmissive(colorTexture);
 		vertexConsumer = buffer.getBuffer(colorRenderType);
 
 		float calcColor = (((age + tickDelta) * Mth.PI) * -4F) / 255F;
@@ -147,7 +147,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 		poseStack.pushPose();
 		float f = entity.getScale();
 		poseStack.scale(f, f, f);
-		renderFirefly(poseStack, buffer, light, overlay, age, tickDelta, entity.getColorForRendering(), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
+		renderFirefly(poseStack, buffer, light, overlay, age, tickDelta, this.getTextureLocation(entity), scale, 0F, Y_OFFSET, 0F, this.entityRenderDispatcher.cameraOrientation());
 
 		if (this.shouldShowName(entity)) {
 			this.renderNameTag(entity, entity.getDisplayName(), poseStack, buffer, light, tickDelta);
@@ -158,7 +158,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Firefly entity) {
-		return TEXTURE;
+		return entity.getColorForRendering().texture();
 	}
 
 }
