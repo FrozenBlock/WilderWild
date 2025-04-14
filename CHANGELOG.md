@@ -7,3 +7,4 @@ hi
 - All Jellyfish entity textures are now 32x32 instead of 64x64, as the extra space was simply unneeded.
 - Fixed Willow Boats not having translation strings for their entity counterparts on 1.21.2.
 - Lowered the maximum height of Super Birch trees by 1.
+- Added minimap icons for Wilder Wild's mobs, started off by godkyo98's work! ([#480](https://github.com/FrozenBlock/WilderWild/pull/480))
