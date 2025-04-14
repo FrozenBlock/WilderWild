@@ -57,7 +57,6 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.branch.TrunkBranchPlacemen
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
@@ -2378,7 +2377,6 @@ public final class WWTreeConfigured {
 	}
 
 	private static TreeConfiguration.@NotNull TreeConfigurationBuilder birch() {
-		TreeFeatures.SUPER_BIRCH_BEES
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
