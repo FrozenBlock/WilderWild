@@ -79,7 +79,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 		makePlaneTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
-		return LayerDefinition.create(meshDefinition, 64, 64);
+		return LayerDefinition.create(meshDefinition, 32, 32);
 	}
 
 	private static void makeTentacles(PartDefinition partDefinition, int amount) {
