@@ -344,6 +344,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	public boolean shouldHide() {
 		return this.isNatural()
 			&& this.level().isDay()
+			&& !this.isPersistenceRequired()
+			&& !this.requiresCustomPersistence()
 			&& this.level().getBrightness(LightLayer.SKY, this.blockPosition()) >= 7;
 	}
 
