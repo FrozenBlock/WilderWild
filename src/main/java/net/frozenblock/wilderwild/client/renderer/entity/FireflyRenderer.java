@@ -148,7 +148,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			light,
 			LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 			renderState.calcColor,
-			renderState.color.texture(),
+			this.getTextureLocation(renderState),
 			renderState.animScale,
 			0F,
 			Y_OFFSET,
