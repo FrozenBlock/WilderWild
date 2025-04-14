@@ -19,6 +19,8 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
@@ -36,6 +38,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
+@Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
 	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
 	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");

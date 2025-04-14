@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.PenguinModel;
@@ -29,6 +31,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
+@Environment(EnvType.CLIENT)
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel<PenguinRenderState>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
 	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");

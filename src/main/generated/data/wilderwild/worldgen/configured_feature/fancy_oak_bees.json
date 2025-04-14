@@ -9,8 +9,8 @@
       {
         "type": "wilderwild:pollen_tree_decorator",
         "max_count": 5,
-        "placement_chance": 0.025,
-        "probability": 0.25
+        "placement_chance": 0.035,
+        "probability": 1.0
       },
       {
         "type": "wilderwild:shelf_fungi_tree_decorator",

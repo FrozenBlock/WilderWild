@@ -18,6 +18,8 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderState;
@@ -27,6 +29,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderState, ButterflyModel> {
 
 	public ButterflyRenderer(EntityRendererProvider.Context context) {

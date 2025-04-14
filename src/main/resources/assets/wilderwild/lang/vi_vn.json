@@ -29,7 +29,7 @@
   "biome.wilderwild.dying_mixed_forest": "Rừng Hỗn Hợp Sắp Chết",
   "biome.wilderwild.snowy_dying_mixed_forest": "Rừng Hỗn Hợp Sắp Chết Tuyết Phủ",
   "biome.wilderwild.tundra": "Lãnh Nguyên",
-
+  
   "item.wilderwild.baobab_nut": "Hạt cây Bao Báp",
   "item.wilderwild.baobab_boat": "Thuyền Gỗ Bao Báp",
   "item.wilderwild.baobab_chest_boat": "Thuyền Gỗ Bao Báp Có Rương",
@@ -227,7 +227,6 @@
   "block.wilderwild.potted_prickly_small_dripleaf": "Cây Cánh Cụt Nhỏ trong Chậu",
   "block.wilderwild.potted_short_grass": "Cỏ Thấp trong Chậu",
   "block.wilderwild.potted_pink_petals": "Cánh Hoa Hồng trong Chậu",
-
   "block.wilderwild.potted_bush": "Bụi Cây trong Chậu",
   "block.wilderwild.potted_firefly_bush": "Bụi Cây Đom Đóm trong Chậu",
   "block.wilderwild.potted_cactus_flower": "Hoa Xương Rồng trong Chậu",
@@ -397,7 +396,7 @@
 
   "block.wilderwild.potted_wildflowers": "Hoa Dại trong Chậu",
 
-  "item.wilderwild.copper_horn": "Sừng đồng",
+  "wilderwild.copper_horn": "Sừng đồng",
   "instrument.wilderwild.clarinet_copper_horn": "Sừng Clarinet",
   "instrument.wilderwild.recorder_copper_horn": "Sáo Dọc",
   "instrument.wilderwild.flute_copper_horn": "Sáo",
@@ -429,7 +428,7 @@
   "minecraft.tipped_arrow.effect.reach": "Mũi tên tầm với",
 
   "entity.wilderwild.firefly": "Đom đóm",
-  "item.wilderwild.firefly_spawn_egg": "Trứng sinh ra Đom Đóm",
+  "wilderwild.firefly_spawn_egg": "Trứng sinh ra Đom Đóm",
   "subtitles.entity.firefly.hide": "Đom đóm trốn",
   "subtitles.entity.firefly.hurt": "Đom đóm bị đập bẹp",
   "item.wilderwild.firefly_bottle": "Đom đóm trong lọ",
@@ -714,7 +713,7 @@
 
   "option.wilderwild.firefly": "Đom Đóm",
   "tooltip.wilderwild.firefly": "Bao gồm các tùy chọn cho Đom Đóm.",
-   "option.wilderwild.spawn_firefly_particles": "Sinh Sản Hạt Đom Đóm",
+  "option.wilderwild.spawn_firefly_particles": "Sinh Sản Hạt Đom Đóm",
   "tooltip.wilderwild.spawn_firefly_particles": "Hạt Đom Đóm có thể sinh sản từ Bụi Cây Đom Đóm hay không.",
   "option.wilderwild.spawn_fireflies": "Sinh Sản Đom Đóm",
   "tooltip.wilderwild.spawn_fireflies": "Đom đóm có thể sinh sản hay không.",

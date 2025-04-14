@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
+import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.model.PenguinModel;
@@ -65,6 +66,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WWConstants.id("stone_chest"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
+	public static final ModelLayerLocation FIREFLY = new ModelLayerLocation(WWConstants.id("firefly"), "main");
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WWConstants.id("tumbleweed"), "main");
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
@@ -95,6 +97,7 @@ public final class WWModelLayers {
 
 	public static void init() {
 		EntityRendererRegistry.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(FIREFLY, NoOpModel::createBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.BUTTERFLY, ButterflyRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
