@@ -21,29 +21,33 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
-public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState> {
+@Environment(EnvType.CLIENT)
+public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, NoOpModel<FireflyRenderState>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/firefly/firefly_off.png");
 	private static final RenderType LAYER = RenderType.entityTranslucent(TEXTURE);
 
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
 
-	public FireflyRenderer(EntityRendererProvider.Context ctx) {
-		super(ctx);
+	public FireflyRenderer(EntityRendererProvider.Context context) {
+		super(context, new NoOpModel<>(context.bakeLayer(WWModelLayers.FIREFLY)), 0.15F);
 	}
 
 	//CREDIT TO magistermaks ON GITHUB!!
@@ -53,7 +57,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 		int packedLight,
 		int overlay,
 		float calcColor,
-		@NotNull FireflyColor color,
+		@NotNull ResourceLocation colorTexture,
 		float scale,
 		float xOffset,
 		float yOffset,
@@ -98,7 +102,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
 
-		RenderType colorRenderType = RenderType.entityTranslucentEmissive(color.texture());
+		RenderType colorRenderType = RenderType.entityTranslucentEmissive(colorTexture);
 		vertexConsumer = buffer.getBuffer(colorRenderType);
 
 		vertexConsumer
@@ -144,17 +148,23 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 			light,
 			LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 			renderState.calcColor,
-			renderState.color,
+			renderState.color.texture(),
 			renderState.animScale,
 			0F,
 			Y_OFFSET,
 			0F,
 			this.entityRenderDispatcher.cameraOrientation()
 		);
-		if (renderState.shouldShowName) {
+		poseStack.popPose();
+
+		if (renderState.nameTag != null) {
 			this.renderNameTag(renderState, renderState.nameTag, poseStack, buffer, light);
 		}
-		poseStack.popPose();
+	}
+
+	@Override
+	public @NotNull ResourceLocation getTextureLocation(@NotNull FireflyRenderState renderState) {
+		return renderState.color.texture();
 	}
 
 	@Override
@@ -171,7 +181,5 @@ public class FireflyRenderer extends EntityRenderer<Firefly, FireflyRenderState>
 		renderState.animScale = Mth.lerp(partialTick, entity.getPrevAnimScale(), entity.getAnimScale());
 		renderState.color = entity.getColorForRendering();
 		renderState.calcColor = (((renderState.flickerAge + partialTick) * Mth.PI) * -4F) / 255F;
-
-		renderState.shouldShowName = this.shouldShowName(entity, renderState.distanceToCameraSq);
 	}
 }

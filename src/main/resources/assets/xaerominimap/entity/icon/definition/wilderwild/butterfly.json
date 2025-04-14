@@ -1,0 +1,12 @@
+{
+    "variants": {
+      "wilderwild:textures/entity/butterfly/butterfly_monarch.png": "outlined_sprite:wilderwild/butterfly/butterfly_monarch.png",
+      "wilderwild:textures/entity/butterfly/butterfly_clouded_yellow.png": "outlined_sprite:wilderwild/butterfly/butterfly_clouded_yellow.png",
+      "wilderwild:textures/entity/butterfly/butterfly_duskwing.png": "outlined_sprite:wilderwild/butterfly/butterfly_duskwing.png",
+      "wilderwild:textures/entity/butterfly/butterfly_green_hairstreak.png": "outlined_sprite:wilderwild/butterfly/butterfly_green_hairstreak.png",
+      "wilderwild:textures/entity/butterfly/butterfly_marbled.png": "outlined_sprite:wilderwild/butterfly/butterfly_marbled.png",
+      "wilderwild:textures/entity/butterfly/butterfly_morpho_blue.png": "outlined_sprite:wilderwild/butterfly/butterfly_morpho_blue.png",
+      "wilderwild:textures/entity/butterfly/butterfly_red_lacewing.png": "outlined_sprite:wilderwild/butterfly/butterfly_red_lacewing.png",
+      "layersAllowed": true
+    }
+  }

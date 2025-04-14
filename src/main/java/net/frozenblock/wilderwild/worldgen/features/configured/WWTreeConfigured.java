@@ -402,7 +402,7 @@ public final class WWTreeConfigured {
 	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
 	private static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
 	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
-	private static final BeehiveDecorator BEES = new BeehiveDecorator(1.0F);
+	private static final BeehiveDecorator BEES = new BeehiveDecorator(1F);
 	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
 	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
 	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
@@ -565,7 +565,7 @@ public final class WWTreeConfigured {
 			superBirch().decorators(
 				List.of(
 					BEES,
-					POLLEN_025,
+					POLLEN,
 					SHELF_FUNGUS_009
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -1078,7 +1078,7 @@ public final class WWTreeConfigured {
 			fancyOak().decorators(
 				List.of(
 					BEES,
-					POLLEN_025,
+					POLLEN,
 					SHELF_FUNGUS_0074
 				)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
@@ -2433,7 +2433,7 @@ public final class WWTreeConfigured {
 			Blocks.BIRCH_LEAVES,
 			8,
 			6,
-			6,
+			5,
 			0.15F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),

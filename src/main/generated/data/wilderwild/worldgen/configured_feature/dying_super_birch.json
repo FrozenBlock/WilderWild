@@ -89,7 +89,7 @@
       "type": "wilderwild:straight_with_branches_trunk_placer",
       "base_height": 8,
       "height_rand_a": 6,
-      "height_rand_b": 6,
+      "height_rand_b": 5,
       "trunk_branch_placement": {
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
