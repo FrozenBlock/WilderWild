@@ -8,3 +8,5 @@ hi
 - Fixed Willow Boats not having translation strings for their entity counterparts on 1.21.2.
 - Lowered the maximum height of Super Birch trees by 1.
 - Added Xaero's Minimap icons for Wilder Wild's mobs, started off by godkyo98's work! ([#480](https://github.com/FrozenBlock/WilderWild/pull/480))
+- Fireflies now properly render shadows and tint when hurt on 1.21.2+.
+- Fireflies can no longer hide when Name Tagged.
