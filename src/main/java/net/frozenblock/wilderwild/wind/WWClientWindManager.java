@@ -80,12 +80,12 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		if (WWAmbienceAndMiscConfig.WIND_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				this.spawnAmbientWindParticles(level, posX, posY, posZ, 32, randomSource, mutableBlockPos);
 			}
 		}
 		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 32, randomSource, mutableBlockPos);
 			}
 		}
 	}

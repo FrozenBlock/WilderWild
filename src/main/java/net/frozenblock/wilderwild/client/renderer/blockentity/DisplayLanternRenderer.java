@@ -74,7 +74,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 						light,
 						overlay,
 						calcColor,
-						occupant.getColorForRendering(),
+						occupant.getColorForRendering().texture(),
 						1F,
 						(float) occupant.pos.x,
 						(lantern.isHanging() ? 0.38F : 0.225F) + (float) Math.sin(ageDelta * 0.03F) * 0.15F,
