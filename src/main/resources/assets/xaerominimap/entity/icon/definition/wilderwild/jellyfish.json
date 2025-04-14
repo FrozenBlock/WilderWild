@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "wilderwild:textures/entity/jellyfish/jellyfish_blue.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_blue.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_lime.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_lime.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_pearlescent_blue.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_pearlescent_blue.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_pearlescent_purple.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_pearlescent_purple.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_pink.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_pink.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_red.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_red.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_white.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_white.png",
+    "wilderwild:textures/entity/jellyfish/jellyfish_yellow.png": "outlined_sprite:wilderwild/jellyfish/jellyfish_yellow.png",
+    "layersAllowed": true
+  }
+}

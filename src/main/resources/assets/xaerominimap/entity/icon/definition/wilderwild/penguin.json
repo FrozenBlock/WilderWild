@@ -1,0 +1,6 @@
+{
+    "variants": {
+      "default": "outlined_sprite:wilderwild/penguin/penguin.png",
+      "layersAllowed": true
+    }
+  }
