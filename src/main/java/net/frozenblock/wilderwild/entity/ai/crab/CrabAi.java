@@ -222,7 +222,7 @@ public final class CrabAi {
 					new RunOne<>(
 						List.of(
 							Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
-							Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, CrabAi::getSpeedModifierFollowingAdult), 1)
+							Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, FOLLOWING_ADULT_SPEED_MODIFIER), 1)
 						)
 					)
 				),
@@ -269,10 +269,6 @@ public final class CrabAi {
 
 	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
 		return CHASING_SPEED_MODIFIER;
-	}
-
-	private static float getSpeedModifierFollowingAdult(LivingEntity entity) {
-		return FOLLOWING_ADULT_SPEED_MODIFIER;
 	}
 
 	private static float getSpeedModifier(LivingEntity entity) {
