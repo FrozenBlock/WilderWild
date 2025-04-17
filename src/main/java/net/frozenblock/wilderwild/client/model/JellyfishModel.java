@@ -23,7 +23,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.entity.api.rendering.FrozenLibRenderTypes;
+import net.frozenblock.lib.render.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.model.HierarchicalModel;

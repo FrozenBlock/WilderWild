@@ -34,6 +34,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -52,18 +53,22 @@ public final class WWFluidRendering {
 			}
 
 			@Override
-			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState) {
-				if (WWBlockConfig.Client.MESOGLEA_FLUID && blockState.getBlock() instanceof MesogleaBlock) {
-					TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
-					LiquidRenderUtils.tesselateWithSingleTexture(
-						world,
-						pos,
-						vertexConsumer,
-						blockState,
-						fluidState,
-						sprite
-					);
-					return;
+			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, @NotNull BlockState blockState, FluidState fluidState) {
+				if (blockState.getBlock() instanceof MesogleaBlock) {
+					if (WWBlockConfig.Client.MESOGLEA_FLUID) {
+						TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
+						LiquidRenderUtils.tesselateWithSingleTexture(
+							world,
+							pos,
+							vertexConsumer,
+							blockState,
+							fluidState,
+							sprite
+						);
+						return;
+					} else {
+						return;
+					}
 				}
 				originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
 			}
