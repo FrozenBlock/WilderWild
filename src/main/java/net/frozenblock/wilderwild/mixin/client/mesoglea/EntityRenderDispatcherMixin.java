@@ -19,16 +19,11 @@
 package net.frozenblock.wilderwild.mixin.client.mesoglea;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -48,21 +43,8 @@ public class EntityRenderDispatcherMixin {
 		cancellable = true,
 		require = 0
 	)
-	private static void wilderWild$stopShadowRenderingIfMesoglea(
-		PoseStack.Pose pose,
-		VertexConsumer vertexConsumer,
-		ChunkAccess chunkAccess,
-		LevelReader levelReader,
-		BlockPos blockPos,
-		double d,
-		double e,
-		double f,
-		float g,
-		float h,
-		CallbackInfo info,
-		@Local(ordinal = 0) BlockState blockState
-	) {
-		if (blockState.getBlock() instanceof MesogleaBlock && (!blockState.getFluidState().isEmpty())) {
+	private static void wilderWild$stopShadowRenderingIfMesoglea(CallbackInfo info, @Local(ordinal = 0) BlockState blockState) {
+		if (blockState.getBlock() instanceof MesogleaBlock) {
 			info.cancel();
 		}
 	}
