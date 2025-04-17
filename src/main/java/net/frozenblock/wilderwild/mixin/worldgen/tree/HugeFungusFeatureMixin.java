@@ -197,9 +197,7 @@ public class HugeFungusFeatureMixin {
 		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
 		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
-		if (!shouldPlace.get()) {
-			return false;
-		}
+		if (!shouldPlace.get()) return false;
 		return original.call(instance, pos, blockState, flag);
 	}
 }
