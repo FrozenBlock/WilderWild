@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin;
@@ -75,8 +74,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 			return this.mixinsConfig.client_wind;
 		}
 
-		if (mixinClassName.contains("trailiertales.installed.")) return this.mixinsConfig.trailiertales;
-		if (mixinClassName.contains("trailiertales.missing.")) return this.mixinsConfig.trailiertales && !FrozenBools.HAS_TRAILIERTALES;
+		if (mixinClassName.contains("trailiertales.")) return this.mixinsConfig.trailiertales;
 		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
@@ -109,7 +107,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("item.axe.")) return this.mixinsConfig.item_axe;
 		if (mixinClassName.contains("item.brush.")) return this.mixinsConfig.item_brush;
 		if (mixinClassName.contains("item.instrument.")) return this.mixinsConfig.item_instrument;
-		if (mixinClassName.contains("loot.")) return this.mixinsConfig.loot;
 		if (mixinClassName.contains("projectile.")) return this.mixinsConfig.projectile;
 		if (mixinClassName.contains("sculk.")) return this.mixinsConfig.sculk;
 		if (mixinClassName.contains("warden.")) return this.mixinsConfig.warden;
