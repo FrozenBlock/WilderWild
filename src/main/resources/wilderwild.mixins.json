@@ -48,7 +48,6 @@
     "datafix.V3328Mixin",
     "datafix.V3438Mixin",
     "datagen.BlockModelGeneratorsMixin",
-    "datagen.RecipeBuilderMixin",
     "entity.ai.MobMixin",
     "entity.allay.AllayMixin",
     "entity.boat.BoatDropsMixin",
