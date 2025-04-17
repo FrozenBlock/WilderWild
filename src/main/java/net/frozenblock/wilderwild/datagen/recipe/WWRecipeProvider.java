@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
@@ -42,7 +43,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
-	public static boolean GENERATING_WW_RECIPES = false;
 
 	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -54,7 +54,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 		return new RecipeProvider(registries, exporter) {
 			@Override
 			public void buildRecipes() {
-				GENERATING_WW_RECIPES = true;
+				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
 				HollowedLogRecipeProvider.buildRecipes(this, exporter);
 				WWWoodRecipeProvider.buildRecipes(this, exporter);
@@ -284,7 +284,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICKS);
 
-				GENERATING_WW_RECIPES = false;
+				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
 		};
 	}

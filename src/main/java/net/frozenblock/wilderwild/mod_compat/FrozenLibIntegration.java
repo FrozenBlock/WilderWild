@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mod_compat;
@@ -25,6 +24,7 @@ import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
@@ -35,7 +35,9 @@ import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
+import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
+import net.frozenblock.lib.loot.api.FrozenLibLootTableEvents;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
@@ -48,7 +50,9 @@ import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProces
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -65,6 +69,7 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -83,7 +88,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -97,6 +104,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -231,6 +239,17 @@ public class FrozenLibIntegration extends ModIntegration {
 				}
 				return null;
 			}
+		);
+
+		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
+			if (container instanceof StoneChestBlockEntity) {
+				CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
+			}
+		});
+
+		ItemTooltipAdditionAPI.addTooltip(
+			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
+			stack -> !FrozenBools.HAS_TRAILIERTALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 		);
 	}
 
