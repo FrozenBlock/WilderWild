@@ -51,11 +51,15 @@ public class BoatTypeMixin {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BoatTypeMixin.");
 	}
 
-	@Inject(method = "<clinit>", at = @At(value = "FIELD",
-		opcode = Opcodes.PUTSTATIC,
-		target = "Lnet/minecraft/world/entity/vehicle/Boat$Type;$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
-		shift = At.Shift.AFTER))
-	private static void wilderWild$addCustomBoatType(CallbackInfo info) {
+	@Inject(
+		method = "<clinit>",
+		at = @At(value = "FIELD",
+			opcode = Opcodes.PUTSTATIC,
+			target = "Lnet/minecraft/world/entity/vehicle/Boat$Type;$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
+			shift = At.Shift.AFTER
+		)
+	)
+	private static void wilderWild$addCustomBoatTypes(CallbackInfo info) {
 		var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 

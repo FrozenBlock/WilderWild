@@ -16,7 +16,7 @@
  * along with this program; if not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.frozenblock.wilderwild.mixin.trailiertales.installed;
+package net.frozenblock.wilderwild.mixin.trailiertales;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WWFeatureFlags;

@@ -75,8 +75,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 			return this.mixinsConfig.client_wind;
 		}
 
-		if (mixinClassName.contains("trailiertales.installed.")) return this.mixinsConfig.trailiertales;
-		if (mixinClassName.contains("trailiertales.missing.")) return this.mixinsConfig.trailiertales && !FrozenBools.HAS_TRAILIERTALES;
+		if (mixinClassName.contains("trailiertales.")) return this.mixinsConfig.trailiertales;
 		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
