@@ -145,6 +145,7 @@
     "client.mesoglea.FogRendererMixin",
     "client.mesoglea.LevelRendererMixin",
     "client.mesoglea.SuspendedParticleUnderwaterProviderMixin",
+    "client.shader.RenderPipelinesMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sodium.BlockRendererMixin",
     "client.sodium.CloudRendererMixin",
