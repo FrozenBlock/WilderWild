@@ -82,27 +82,20 @@ public class SculkBlockMixin {
 	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, @NotNull BlockPos pos) {
 		int foundCancellingBlocks = 0;
 		Iterator<BlockPos> poses = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
-		do {
+		while (true) {
 			if (!poses.hasNext()) return false;
-			BlockPos blockPos = poses.next();
-			BlockState blockState2 = level.getBlockState(blockPos);
-			if (blockState2.is(WWBlockTags.ANCIENT_CITY_BLOCKS)) {
-				++foundCancellingBlocks;
-			}
+			BlockState blockState2 = level.getBlockState(poses.next());
+			if (blockState2.is(WWBlockTags.ANCIENT_CITY_BLOCKS)) ++foundCancellingBlocks;
 			if (foundCancellingBlocks >= WILDERWILD$OSSEOUS_SCULK_WORLDGEN_CANCELLING_BLOCK_COUNT) return true;
-		} while (true);
+		}
 	}
 
 	@Unique
 	private static boolean wilderWild$canPlaceOsseousSculk(BlockPos pos, boolean worldGen, LevelAccessor level) {
 		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION) return false;
-		if (worldGen) {
-			if (!wilderWild$ancientCityOrPillarNearby(level, pos)) {
-				return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_WORLDGEN_CHANCE) == 0;
-			}
-			return false;
-		}
-		return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_CHANCE) == 0;
+		if (!worldGen) return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_CHANCE) == 0;
+		if (!wilderWild$ancientCityOrPillarNearby(level, pos)) return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_WORLDGEN_CHANCE) == 0;
+		return false;
 	}
 
 	@ModifyExpressionValue(

@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -53,16 +54,16 @@ public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
 			if (blockState.canSurvive(worldGenLevel, mutableBlockPos)) {
 				if (random.nextFloat() <= 0.5F && worldGenLevel.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
 					if (random.nextFloat() <= 0.25F && worldGenLevel.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
-						worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), 2);
-						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.MIDDLE), 2);
-						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), 2);
+						worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
+						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.MIDDLE), Block.UPDATE_CLIENTS);
+						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
 						return true;
 					}
-					worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), 2);
-					worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), 2);
+					worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
+					worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
 					return true;
 				}
-				worldGenLevel.setBlock(mutablePlacePos, blockState, 2);
+				worldGenLevel.setBlock(mutablePlacePos, blockState, Block.UPDATE_CLIENTS);
 				return true;
 			}
 		}

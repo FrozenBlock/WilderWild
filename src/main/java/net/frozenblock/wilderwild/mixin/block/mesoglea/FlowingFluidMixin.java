@@ -45,9 +45,7 @@ public class FlowingFluidMixin {
 		Level level, BlockPos blockPos, FluidState fluidState, CallbackInfo info,
 		@Local BlockState state
 	) {
-		if (state.getBlock() instanceof MesogleaBlock) {
-			info.cancel();
-		}
+		if (state.getBlock() instanceof MesogleaBlock) info.cancel();
 	}
 
 }

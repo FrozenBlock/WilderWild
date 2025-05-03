@@ -187,9 +187,8 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 				this.removeTopHalfIfYoung(state, level, pos);
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Override

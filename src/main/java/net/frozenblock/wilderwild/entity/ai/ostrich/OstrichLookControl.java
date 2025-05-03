@@ -30,9 +30,7 @@ public class OstrichLookControl extends LookControl {
 
 	@Override
 	public void tick() {
-		if (!this.mob.hasControllingPassenger()) {
-			super.tick();
-		}
+		if (!this.mob.hasControllingPassenger()) super.tick();
 	}
 
 }

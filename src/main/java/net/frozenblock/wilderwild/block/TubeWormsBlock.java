@@ -83,11 +83,8 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 			BlockPos blockPos = blockPlaceContext.getClickedPos();
 			if (this.isValidWaterToReplace(level, blockPos)) {
 				BlockState belowState = level.getBlockState(blockPos.below());
-				if (belowState.is(this)) {
-					return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
-				} else {
-					return blockState;
-				}
+				if (belowState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
+				return blockState;
 			}
 		}
 
@@ -101,9 +98,7 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 
 	@Override
 	protected void tick(@NotNull BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (!blockState.canSurvive(serverLevel, blockPos)) {
-			serverLevel.destroyBlock(blockPos, true);
-		}
+		if (!blockState.canSurvive(serverLevel, blockPos)) serverLevel.destroyBlock(blockPos, true);
 	}
 
 	@Override
@@ -115,9 +110,7 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 		BlockPos blockPos,
 		BlockPos neighborPos
 	) {
-		if (direction == Direction.DOWN && !blockState.canSurvive(levelAccessor, blockPos)) {
-			levelAccessor.scheduleTick(blockPos, this, 1);
-		}
+		if (direction == Direction.DOWN && !blockState.canSurvive(levelAccessor, blockPos)) levelAccessor.scheduleTick(blockPos, this, 1);
 		levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
 
 		if (direction == Direction.UP) {
@@ -160,11 +153,11 @@ public class TubeWormsBlock extends BushBlock implements LiquidBlockContainer {
 	private boolean isValidWaterToReplace(@NotNull LevelReader levelReader, BlockPos blockPos) {
 		BlockState blockState = levelReader.getBlockState(blockPos);
 		FluidState fluidState = blockState.getFluidState();
-		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == 8;
+		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 
 	private boolean isValidWaterToSurvive(@NotNull LevelReader levelReader, BlockPos blockPos) {
 		FluidState fluidState = levelReader.getFluidState(blockPos);
-		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8;
+		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 }

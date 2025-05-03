@@ -41,13 +41,9 @@ public class RotatedPillarBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (FrozenBools.IS_DATAGEN) return;
-		if (WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) {
-			BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
-			if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) {
-				builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
-			}
-		}
+		if (FrozenBools.IS_DATAGEN || !WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) return;
+		BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
+		if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))

@@ -101,9 +101,7 @@ public class MobBottleItem extends Item {
 						level.getRandom().nextFloat() * 0.2F + 0.9F
 					);
 
-					if (stack.has(DataComponents.CUSTOM_NAME)) {
-						entity.setCustomName(stack.getHoverName());
-					}
+					if (stack.has(DataComponents.CUSTOM_NAME)) entity.setCustomName(stack.getHoverName());
 					player.gameEvent(GameEvent.ENTITY_PLACE);
 				} else {
 					WWConstants.printStackTrace("Couldn't spawn entity from bottle!", true);

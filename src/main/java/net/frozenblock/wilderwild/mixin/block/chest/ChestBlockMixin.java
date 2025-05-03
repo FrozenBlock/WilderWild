@@ -60,9 +60,7 @@ public class ChestBlockMixin {
 				&& sourceChest.lootTable.location().getPath().toLowerCase().contains("shipwreck")
 				&& level.random.nextInt(0, 3) == 1
 			) {
-				if (WWEntityConfig.get().jellyfish.spawnJellyfish) {
-					Jellyfish.spawnFromChest(level, state, pos, true);
-				}
+				if (WWEntityConfig.get().jellyfish.spawnJellyfish) Jellyfish.spawnFromChest(level, state, pos, true);
 			}
 			chestBlockEntityInterface.wilderWild$bubble(level, pos, state);
 		}
@@ -90,10 +88,9 @@ public class ChestBlockMixin {
 		Level level = blockPlaceContext.getLevel();
 		BlockPos pos = blockPlaceContext.getClickedPos();
 		ChestUtil.getCoupledChestBlockEntity(level, pos, original).ifPresent(coupledChest -> {
-			if (
-				coupledChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
-					&& level.getBlockEntity(pos) instanceof ChestBlockEntity chest
-					&& chest instanceof ChestBlockEntityInterface chestInterface
+			if (coupledChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
+				&& level.getBlockEntity(pos) instanceof ChestBlockEntity chest
+				&& chest instanceof ChestBlockEntityInterface chestInterface
 			) {
 				chestInterface.wilderWild$setCanBubble(coupledStoneChestInterface.wilderWild$getCanBubble());
 				chestInterface.wilderWild$syncBubble(chest, coupledChest);

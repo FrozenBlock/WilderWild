@@ -2,3 +2,5 @@ Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 - Increased Wilder Wild's protocol version to 14.
+- Significantly cleaned up multiple parts of the mod internally.
+- Fixed River biomes not generating with Biolith installed.

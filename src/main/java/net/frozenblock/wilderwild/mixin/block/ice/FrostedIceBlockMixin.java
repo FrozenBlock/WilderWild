@@ -59,23 +59,22 @@ public class FrostedIceBlockMixin {
 		)
 	)
 	private void wildWilder$melt(BlockState blockState, Level level, BlockPos blockPos, CallbackInfoReturnable<Boolean> info) {
-		if (WWBlockConfig.get().frostedIceCracking) {
-			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(
-					new BlockParticleOption(ParticleTypes.BLOCK, blockState),
-					blockPos.getX() + 0.5D,
-					blockPos.getY() + 0.5D,
-					blockPos.getZ() + 0.5D,
-					level.random.nextInt(20, 30),
-					0.3F,
-					0.3F,
-					0.3F,
-					0.05D
-				);
-			}
-			SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
-			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.15F, soundType.getPitch());
+		if (!WWBlockConfig.get().frostedIceCracking) return;
+		if (level instanceof ServerLevel serverLevel) {
+			serverLevel.sendParticles(
+				new BlockParticleOption(ParticleTypes.BLOCK, blockState),
+				blockPos.getX() + 0.5D,
+				blockPos.getY() + 0.5D,
+				blockPos.getZ() + 0.5D,
+				level.random.nextInt(20, 30),
+				0.3F,
+				0.3F,
+				0.3F,
+				0.05D
+			);
 		}
+		SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(blockState);
+		level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.15F, soundType.getPitch());
 	}
 
 }

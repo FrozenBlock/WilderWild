@@ -203,9 +203,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
-			default -> X_SHAPE;
 			case Y -> Y_SHAPE;
 			case Z -> Z_SHAPE;
+			default -> X_SHAPE;
 		};
 	}
 
@@ -213,9 +213,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
-			default -> X_COLLISION_SHAPE;
 			case Y -> Y_COLLISION_SHAPE;
 			case Z -> Z_COLLISION_SHAPE;
+			default -> X_COLLISION_SHAPE;
 		};
 	}
 
@@ -226,7 +226,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
+	public @NotNull BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
 		BlockState superState = super.getStateForPlacement(ctx);
 		return superState != null ? superState.setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER)) : null;
 	}
@@ -234,9 +234,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		}
+		if (state.getValue(WATERLOGGED)) level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		level.scheduleTick(currentPos, this, 1);
 		return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
 	}

@@ -80,9 +80,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 				) {
 					bottomPlaceState = bottomPlaceState.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater);
 					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
-					if (topPlaceState.canSurvive(level, topBlockPos)) {
-						level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
-					}
+					if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
 					generated = true;
 				}
 			}

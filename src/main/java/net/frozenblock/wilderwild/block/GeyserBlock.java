@@ -98,13 +98,9 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos) {
 		GeyserStage stage = state.getValue(GEYSER_STAGE);
-		if (stage == GeyserStage.DORMANT) {
-			return 0;
-		} else if (stage == GeyserStage.ACTIVE) {
-			return 5;
-		} else if (stage == GeyserStage.ERUPTING) {
-			return 15;
-		}
+		if (stage == GeyserStage.DORMANT) return 0;
+		if (stage == GeyserStage.ACTIVE) return 5;
+		if (stage == GeyserStage.ERUPTING) return 15;
 		return super.getAnalogOutputSignal(state, world, pos);
 	}
 
@@ -145,9 +141,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
 		if (direction.getAxis() == state.getValue(FACING).getAxis()) {
 			GeyserType geyserType = getGeyserTypeForPos(level, state, currentPos);
-			if (geyserType != state.getValue(GEYSER_TYPE)) {
-				state = state.setValue(GEYSER_TYPE, geyserType);
-			}
+			if (geyserType != state.getValue(GEYSER_TYPE)) state = state.setValue(GEYSER_TYPE, geyserType);
 		}
 		return state;
 	}
@@ -164,11 +158,9 @@ public class GeyserBlock extends BaseEntityBlock {
 			if (fluidState.is(FluidTags.WATER)) {
 				if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
 				return GeyserType.WATER;
-			} else if (fluidState.is(FluidTags.LAVA)) {
-				return GeyserType.LAVA;
-			} else {
-				return GeyserType.AIR;
 			}
+			if (fluidState.is(FluidTags.LAVA)) return GeyserType.LAVA;
+			return GeyserType.AIR;
 		}
 		return GeyserType.NONE;
 	}
@@ -176,9 +168,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
-		if (geyserType != state.getValue(GEYSER_TYPE)) {
-			level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
-		}
+		if (geyserType != state.getValue(GEYSER_TYPE)) level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
 	}
 
 	@Override

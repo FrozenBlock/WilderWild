@@ -60,9 +60,8 @@ public abstract class ParticleMixin {
 			if (dripSuspendedParticleInterface.wilderWild$usesWind()) {
 				BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 				FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
-				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + blockPos.getY()) >= this.y) {
-					return;
-				}
+				if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + blockPos.getY()) >= this.y) return;
+
 				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
 					.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 				this.xd += wind.x * 0.001D;

@@ -29,9 +29,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WWStoneChestLidPacket(BlockPos pos, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
-	public static final Type<WWStoneChestLidPacket> PACKET_TYPE = new Type<>(
-		WWConstants.id("stone_chest_lid")
-	);
+	public static final Type<WWStoneChestLidPacket> PACKET_TYPE = new Type<>(WWConstants.id("stone_chest_lid"));
 
 	public static final StreamCodec<FriendlyByteBuf, WWStoneChestLidPacket> CODEC = StreamCodec.ofMember(WWStoneChestLidPacket::write, WWStoneChestLidPacket::new);
 

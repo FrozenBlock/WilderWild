@@ -97,9 +97,8 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
-		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
@@ -110,9 +109,8 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			level.gameEvent(entity, GameEvent.SHEAR, pos);
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Override
@@ -130,13 +128,11 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
-		if (insideState.is(this)) {
-			return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
-		}
+		if (insideState.is(this)) return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
+
 		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
-		if (!waterlogged) {
-			waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
-		}
+		if (!waterlogged) waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+
 		for (Direction direction : context.getNearestLookingDirections()) {
 			BlockState blockState;
 			if (direction.getAxis() == Direction.Axis.Y) {
@@ -145,9 +141,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 				blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
 			}
 
-			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) {
-				return blockState;
-			}
+			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) return blockState;
 		}
 		return null;
 	}

@@ -41,9 +41,7 @@ public abstract class WallClimberNavigationMixin extends PathNavigation {
 		)
 	)
 	public float wilderWild$tick(float original) {
-		if (this.mob instanceof Crab crab) {
-			return original * (crab.isBaby() ? 4F : 2F);
-		}
+		if (this.mob instanceof Crab crab) return original * (crab.isBaby() ? 4F : 2F);
 		return original;
 	}
 

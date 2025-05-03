@@ -39,8 +39,6 @@ public class FeatureFlagsMixin {
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void wilderWild$modifyDefaultSet(CallbackInfo info) {
-		if (FrozenBools.HAS_TRAILIERTALES) {
-			DEFAULT_FLAGS = DEFAULT_FLAGS.join(WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
-		}
+		if (FrozenBools.HAS_TRAILIERTALES) DEFAULT_FLAGS = DEFAULT_FLAGS.join(WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 	}
 }

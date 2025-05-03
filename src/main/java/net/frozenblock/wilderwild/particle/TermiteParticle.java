@@ -152,7 +152,7 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {

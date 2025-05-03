@@ -49,11 +49,7 @@ public interface BlockGetterMixin {
 			Entity entity = entityCollisionContext.getEntity();
 			if (entity instanceof InMesogleaInterface inMesogleaInterface) {
 				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
-				if (eyeState != null) {
-					inMesogleaInterface.wilderWild$setClipInMesoglea(
-						eyeState.getBlock() instanceof MesogleaBlock
-					);
-				}
+				if (eyeState != null) inMesogleaInterface.wilderWild$setClipInMesoglea(eyeState.getBlock() instanceof MesogleaBlock);
 			}
 		}
 	}

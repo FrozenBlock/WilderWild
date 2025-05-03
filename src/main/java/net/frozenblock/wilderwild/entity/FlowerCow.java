@@ -133,13 +133,10 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 		} else if (itemStack.is(Items.SHEARS) && this.readyForShearing()) {
 			this.shear(SoundSource.PLAYERS);
 			this.gameEvent(GameEvent.SHEAR, player);
-			if (!this.level().isClientSide) {
-				itemStack.hurtAndBreak(1, player, getSlotForHand(interactionHand));
-			}
+			if (!this.level().isClientSide) itemStack.hurtAndBreak(1, player, getSlotForHand(interactionHand));
 			return InteractionResult.sidedSuccess(this.level().isClientSide);
-		} else {
-			return super.mobInteract(player, interactionHand);
 		}
+		return super.mobInteract(player, interactionHand);
 	}
 
 	@Override
@@ -196,9 +193,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) {
-			this.moobloomVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariantByLocation());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -277,21 +272,15 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
 		FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(serverLevel);
-		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) {
-			flowerCow.setVariant(this.getOffspringType(otherFlowerCow));
-		}
-
+		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(otherFlowerCow));
 		return flowerCow;
 	}
 
 	private MoobloomVariant getOffspringType(@NotNull FlowerCow flowerCow) {
 		MoobloomVariant flowerType = this.getVariantByLocation();
 		MoobloomVariant otherFlowerType = flowerCow.getVariantByLocation();
-		if (flowerType == otherFlowerType) {
-			return flowerType;
-		} else {
-			return this.getOffspringVariant(flowerCow);
-		}
+		if (flowerType == otherFlowerType) return flowerType;
+		return this.getOffspringVariant(flowerCow);
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(@NotNull FlowerCow otherFlowerCow) {
@@ -310,9 +299,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 			for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
 				Block variantFlower = registeredVariant.getFlowerBlockState().getBlock();
 				Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(this.level(), variantFlower);
-				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) {
-					return registeredVariant;
-				}
+				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) return registeredVariant;
 			}
 		}
 

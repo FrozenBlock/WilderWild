@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -43,13 +42,10 @@ import org.jetbrains.annotations.NotNull;
 public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
 	public static final ParticleType<SeedParticleOptions> SEED = register(
-		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC)
-		;
+		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC
+	);
 	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register(
 		"floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC
-	);
-	public static final ParticleType<WindParticleOptions> WIND = register(
-		"wind", false, particleType -> WindParticleOptions.CODEC, particleType -> WindParticleOptions.STREAM_CODEC
 	);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");

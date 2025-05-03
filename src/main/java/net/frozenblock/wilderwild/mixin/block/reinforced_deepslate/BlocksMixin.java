@@ -46,11 +46,8 @@ public final class BlocksMixin {
 		)
 	)
 	private static Block wilderWild$newReinforcedDeepslate(BlockBehaviour.Properties properties, Operation<Block> original) {
-		if (WWBlockConfig.get().newReinforcedDeepslate) {
-			return new RotatedPillarBlock(properties);
-		} else {
-			return original.call(properties);
-		}
+		if (WWBlockConfig.get().newReinforcedDeepslate) return new RotatedPillarBlock(properties);
+		return original.call(properties);
 	}
 
 }

@@ -35,7 +35,6 @@ public class OstrichPanic extends AnimalPanic<Ostrich> {
 	@Override
 	public void start(@NotNull ServerLevel level, @NotNull Ostrich ostrich, long gameTime) {
 		ostrich.emergeBeak();
-
 		super.start(level, ostrich, gameTime);
 	}
 }

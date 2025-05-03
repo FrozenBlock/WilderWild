@@ -55,14 +55,10 @@ public class LevelRendererMixin {
 		if (this.level != null) {
 			if (particleOptions.equals(ParticleTypes.BUBBLE)) {
 				BlockState state = this.level.getBlockState(BlockPos.containing(d, e, f));
-				if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
-					particleOptions = mesogleaBlock.getBubbleParticle();
-				}
+				if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getBubbleParticle();
 			} else if (particleOptions.equals(ParticleTypes.SPLASH)) {
 				BlockState state = this.level.getBlockState(BlockPos.containing(d, e, f));
-				if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
-					particleOptions = mesogleaBlock.getSplashParticle();
-				}
+				if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getSplashParticle();
 			}
 		}
 

@@ -40,9 +40,8 @@ public class ScorchedBlockEntity extends BlockEntity {
 
 	public boolean brush(long l) {
 		this.brushCountResetsAtTick = l + RESET_DELAY;
-		if (l < this.coolDownEndsAtTick || !(this.level instanceof ServerLevel)) {
-			return false;
-		}
+		if (l < this.coolDownEndsAtTick || !(this.level instanceof ServerLevel)) return false;
+
 		this.coolDownEndsAtTick = l + 10L;
 		int i = this.getCompletionState();
 		if (++this.brushCount >= 10) {
@@ -69,9 +68,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 	}
 
 	public void checkReset() {
-		if (this.level == null) {
-			return;
-		}
+		if (this.level == null) return;
 		if (this.brushCount != 0 && this.level.getGameTime() >= this.brushCountResetsAtTick) {
 			int i = this.getCompletionState();
 			this.brushCount = Math.max(0, this.brushCount - 2);

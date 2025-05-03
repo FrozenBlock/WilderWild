@@ -62,10 +62,12 @@ public abstract class ServerPlayerGameModeMixin {
 		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
 			instance.setBlockAndUpdate(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
 			return true;
-		} else if (destroyedState.getBlock() instanceof MesogleaBlock) {
+		}
+		if (destroyedState.getBlock() instanceof MesogleaBlock) {
 			instance.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 			return true;
-		} else if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getGameModeForPlayer().isCreative()) {
+		}
+		if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getGameModeForPlayer().isCreative()) {
 			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
 				EchoGlassBlock.setDamagedState(instance, pos, destroyedState);

@@ -66,18 +66,15 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	@Override
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
-		if (level != null) {
-			if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
-				wilderWild$sendBubbleSeedParticle(level, pos);
-				this.wilderWild$canBubble = false;
-				Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
-				possibleCoupledChest.ifPresent(coupledChest -> {
-					wilderWild$sendBubbleSeedParticle(level, coupledChest.getBlockPos());
-					if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) {
-						coupledChestInterface.wilderWild$setCanBubble(false);
-					}
-				});
-			}
+		if (level == null) return;
+		if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
+			wilderWild$sendBubbleSeedParticle(level, pos);
+			this.wilderWild$canBubble = false;
+			Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
+			possibleCoupledChest.ifPresent(coupledChest -> {
+				wilderWild$sendBubbleSeedParticle(level, coupledChest.getBlockPos());
+				if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) coupledChestInterface.wilderWild$setCanBubble(false);
+			});
 		}
 	}
 

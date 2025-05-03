@@ -86,9 +86,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	public void scheduleCrackIfNotScheduled(@NotNull Level level, BlockPos blockPos) {
-		if (!level.getBlockTicks().hasScheduledTick(blockPos, this)) {
-			level.scheduleTick(blockPos, this, DELAY_BETWEEN_CRACKS);
-		}
+		if (!level.getBlockTicks().hasScheduledTick(blockPos, this)) level.scheduleTick(blockPos, this, DELAY_BETWEEN_CRACKS);
 	}
 
 	@Override
@@ -101,7 +99,6 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		if (block.defaultBlockState().is(this) && level.getBlockState(blockPos2).isAir() && level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
 			this.scheduleShatter(level, blockPos, blockState, level.getRandom());
 		}
-
 		super.neighborChanged(blockState, level, blockPos, block, blockPos2, bl);
 	}
 
@@ -116,9 +113,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos blockPos, BlockState blockState, @NotNull Entity entity) {
-		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) {
-			this.scheduleCrackIfNotScheduled(level, blockPos);
-		}
+		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, blockPos);
 	}
 
 	@Override
@@ -138,9 +133,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
 		if (!projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) {
 			double velocity = projectile.getDeltaMovement().length();
-			if (velocity >= 1.6D) {
-				level.destroyBlock(blockHitResult.getBlockPos(), false);
-			}
+			if (velocity >= 1.6D) level.destroyBlock(blockHitResult.getBlockPos(), false);
 		}
 	}
 
@@ -150,9 +143,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
-		if (blockState.getValue(AGE) > 0) {
-			level.setBlock(blockPos, blockState.setValue(AGE,  0), UPDATE_CLIENTS);
-		}
+		if (blockState.getValue(AGE) > 0) level.setBlock(blockPos, blockState.setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 
 	@Override

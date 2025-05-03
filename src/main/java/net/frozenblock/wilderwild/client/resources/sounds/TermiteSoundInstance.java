@@ -49,9 +49,7 @@ public abstract class TermiteSoundInstance<T extends TermiteMoundBlockEntity> ex
 	public TermiteManager.Termite getTermite() {
 		if (this.mound != null && !this.mound.isRemoved()) {
 			for (TermiteManager.Termite termite : this.mound.termiteManager.termites()) {
-				if (termite.getID() == this.termiteID) {
-					return termite;
-				}
+				if (termite.getID() == this.termiteID) return termite;
 			}
 		}
 		return null;

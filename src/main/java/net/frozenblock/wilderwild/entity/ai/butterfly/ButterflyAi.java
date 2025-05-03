@@ -128,8 +128,7 @@ public class ButterflyAi {
 	}
 
 	public static void rememberHome(@NotNull LivingEntity butterfly, @NotNull BlockPos pos) {
-		GlobalPos globalPos = GlobalPos.of(butterfly.level().dimension(), pos);
-		butterfly.getBrain().setMemory(MemoryModuleType.HOME, globalPos);
+		butterfly.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(butterfly.level().dimension(), pos));
 	}
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity butterfly, @NotNull GlobalPos pos) {
@@ -138,13 +137,10 @@ public class ButterflyAi {
 
 	@NotNull
 	private static Optional<PositionTracker> getHomeTarget(@NotNull LivingEntity butterfly) {
-		Brain<?> brain = butterfly.getBrain();
-		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
+		Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
 			GlobalPos globalPos = home.get();
-			if (shouldGoTowardsHome(butterfly, globalPos)) {
-				return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
-			}
+			if (shouldGoTowardsHome(butterfly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
 		}
 
 		return Optional.empty();

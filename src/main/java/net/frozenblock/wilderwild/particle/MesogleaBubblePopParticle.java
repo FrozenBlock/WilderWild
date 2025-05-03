@@ -38,11 +38,10 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 		return 240;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprites;
 
-		public BubbleFactory(SpriteSet spriteSet) {
+		public Provider(SpriteSet spriteSet) {
 			this.sprites = spriteSet;
 		}
 

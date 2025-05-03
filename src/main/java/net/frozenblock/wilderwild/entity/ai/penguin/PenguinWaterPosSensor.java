@@ -44,9 +44,7 @@ public class PenguinWaterPosSensor extends Sensor<LivingEntity> {
 			&& brain.checkMemory(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(WWMemoryModuleTypes.LAND_POS, MemoryStatus.VALUE_ABSENT)
 		) {
-			if (entity.onGround()) {
-                brain.setMemory(WWMemoryModuleTypes.LAND_POS, GlobalPos.of(level.dimension(), entity.blockPosition()));
-			}
+			if (entity.onGround()) brain.setMemory(WWMemoryModuleTypes.LAND_POS, GlobalPos.of(level.dimension(), entity.blockPosition()));
 		}
 	}
 }

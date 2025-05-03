@@ -46,9 +46,7 @@ public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 		ArrayList<Ostrich> ostriches = Lists.newArrayList();
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {
-			if (livingEntity instanceof Ostrich ostrich) {
-				ostriches.add(ostrich);
-			}
+			if (livingEntity instanceof Ostrich ostrich) ostriches.add(ostrich);
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES, ostriches);
 	}

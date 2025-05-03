@@ -83,14 +83,14 @@ public abstract class MultiPlayerGameModeMixin {
 		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
 			instance.setBlock(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
 			return true;
-		} else if (destroyedState.getBlock() instanceof MesogleaBlock) {
+		}
+		if (destroyedState.getBlock() instanceof MesogleaBlock) {
 			instance.setBlock(pos, Blocks.AIR.defaultBlockState(), flags);
 			return true;
-		} else if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getPlayerMode().isCreative()) {
+		}
+		if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getPlayerMode().isCreative()) {
 			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.minecraft.player.getMainHandItem()) < 1) {
-				EchoGlassBlock.setDamagedState(instance, pos, destroyedState);
-			}
+			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.minecraft.player.getMainHandItem()) < 1) EchoGlassBlock.setDamagedState(instance, pos, destroyedState);
 			return true;
 		}
 		return original.call(instance, pos, newState, flags);

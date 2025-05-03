@@ -66,6 +66,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock {
+	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
+		Codec.INT.fieldOf("water_fog_color").forGetter(MesogleaBlock::getWaterFogColorOverride),
+		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleColumnUpParticle),
+		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(mesogleaBlock -> mesogleaBlock.currentDownParticle),
+		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(mesogleaBlock -> mesogleaBlock.splashParticle),
+		propertiesCodec()
+	).apply(instance, MesogleaBlock::new));
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
 	public static final double ITEM_SLOWDOWN = 0.999D;
 	public static final double ITEM_VERTICAL_BOOST = 0.025D;
@@ -78,16 +88,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public static final int AMBIENT_WHIRLPOOL_SOUND_CHANCE = 200;
 	public static final int TICK_DELAY = 5;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
-	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
-		Codec.INT.fieldOf("water_fog_color").forGetter(MesogleaBlock::getWaterFogColorOverride),
-		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleColumnUpParticle),
-		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(mesogleaBlock -> mesogleaBlock.currentDownParticle),
-		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(mesogleaBlock -> mesogleaBlock.splashParticle),
-		propertiesCodec()
-	).apply(instance, MesogleaBlock::new));
 	private final boolean pearlescent;
 	private final int waterFogColor;
 	private final ParticleOptions dripParticle;
@@ -156,9 +156,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 			while (true) {
 				mutableState = level.getBlockState(mutableBlockPos);
 				if (canExistIn(mutableState)) {
-					if (!level.setBlock(mutableBlockPos, getColumnState(mutableState, state), UPDATE_CLIENTS)) {
-						return;
-					}
+					if (!level.setBlock(mutableBlockPos, getColumnState(mutableState, state), UPDATE_CLIENTS)) return;
 					mutableBlockPos.move(Direction.UP);
 				} else {
 					BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
@@ -290,9 +288,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 			if (entityCollisionContext.getEntity() != null) {
 				Entity entity = entityCollisionContext.getEntity();
 				if (entity != null && entity.getType().is(WWEntityTags.STAYS_IN_MESOGLEA) && !entity.isPassenger() && !entity.isDescending()) {
-					if (entity instanceof Mob mob && mob.isLeashed()) {
-						return shape;
-					}
+					if (entity instanceof Mob mob && mob.isLeashed()) return shape;
 					BlockState insideState = entity.getBlockStateOn();
 					if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock)) {
 						for (Direction direction : Direction.values()) {
@@ -416,18 +412,14 @@ public class MesogleaBlock extends HalfTransparentBlock {
 					level.scheduleTick(pos, this, TICK_DELAY);
 				}
 			}
-			if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) {
-				level.scheduleTick(pos, this, TICK_DELAY);
-			}
+			if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) level.scheduleTick(pos, this, TICK_DELAY);
 		}
 		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override
 	public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos neighborPos, boolean movedByPiston) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			level.scheduleTick(pos, this, TICK_DELAY);
-		}
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) level.scheduleTick(pos, this, TICK_DELAY);
 	}
 
 	@Override

@@ -164,9 +164,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	@NotNull
 	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
-		if (state.getValue(WWBlockStateProperties.CRACKED)) {
-			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
-		}
+		if (state.getValue(WWBlockStateProperties.CRACKED)) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
 		return superStack;
 	}
 

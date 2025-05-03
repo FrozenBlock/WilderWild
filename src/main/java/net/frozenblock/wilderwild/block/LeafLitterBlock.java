@@ -22,10 +22,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import net.frozenblock.lib.particle.client.options.WindParticleOptions;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
-import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -149,11 +149,8 @@ public class LeafLitterBlock extends CarpetBlock {
 	@Override
 	public boolean canSurvive(BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
 		BlockState belowState = world.getBlockState(pos.below());
-		if (belowState.is(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)) {
-			return false;
-		} else {
-			return belowState.is(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON) || Block.isFaceFull(belowState.getCollisionShape(world, pos.below()), Direction.UP);
-		}
+		if (belowState.is(WWBlockTags.LEAF_LITTER_CANNOT_SURVIVE_ON)) return false;
+		return belowState.is(WWBlockTags.LEAF_LITTER_CAN_SURVIVE_ON) || Block.isFaceFull(belowState.getCollisionShape(world, pos.below()), Direction.UP);
 	}
 
 	@Override

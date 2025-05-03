@@ -78,9 +78,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
 			if (!canSkip) {
 				if (level.getBlockState(mutableBlockPos.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
-					if (i == WATER_SEARCH_RANGE) {
-						return false;
-					}
+					if (i == WATER_SEARCH_RANGE) return false;
 				} else {
 					canSkip = true;
 				}
@@ -99,9 +97,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	@NotNull
 	@Override
 	public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
-		if (state.getValue(WATERLOGGED)) {
-			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		}
+		if (state.getValue(WATERLOGGED)) level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		return direction == Direction.UP && !state.canSurvive(level, currentPos) ?
 			Blocks.AIR.defaultBlockState()
 			: super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);

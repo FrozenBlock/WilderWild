@@ -47,9 +47,7 @@ public class LevelRendererMixin {
 		ParticleOptions options, boolean force, boolean decreased, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
 		CallbackInfoReturnable<Particle> info
 	) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
-			dripParticle.wilderWild$setUsesWind(true);
-		}
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) dripParticle.wilderWild$setUsesWind(true);
 	}
 
 	@WrapOperation(

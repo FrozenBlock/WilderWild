@@ -46,9 +46,7 @@ public class BoneMealItemMixin {
 		@Local Level level,
 		@Local(ordinal = 0) BlockPos blockPos
 	) {
-		if (SnowloggingUtils.isSnowlogged(level.getBlockState(blockPos))) {
-			info.setReturnValue(InteractionResult.PASS);
-		}
+		if (SnowloggingUtils.isSnowlogged(level.getBlockState(blockPos))) info.setReturnValue(InteractionResult.PASS);
 	}
 
 }

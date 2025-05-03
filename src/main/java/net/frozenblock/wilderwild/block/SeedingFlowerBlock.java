@@ -173,25 +173,22 @@ public class SeedingFlowerBlock extends FlowerBlock {
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() <= SEED_SPAWN_CHANCE) {
-			this.spawnSeedsFrom(level, pos, state, MIN_SEEDS, MAX_SEEDS, null);
-		}
+		if (random.nextFloat() <= SEED_SPAWN_CHANCE) this.spawnSeedsFrom(level, pos, state, MIN_SEEDS, MAX_SEEDS, null);
 	}
 
 	@Override
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if (level.isClientSide) {
-			AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
-			if (shape.intersects(entity.getBoundingBox())) {
-				Vec3 movement = entity.getDeltaMovement();
-				double horizontalDistance = movement.horizontalDistance();
-				double horizontalVelocity = horizontalDistance * 1.5D;
+		if (!level.isClientSide) return;
+		AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
+		if (shape.intersects(entity.getBoundingBox())) {
+			Vec3 movement = entity.getDeltaMovement();
+			double horizontalDistance = movement.horizontalDistance();
+			double horizontalVelocity = horizontalDistance * 1.5D;
 
-				if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
-					int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
-					int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
-					this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));
-				}
+			if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
+				int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
+				int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
+				this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));
 			}
 		}
 	}
@@ -199,10 +196,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	@NotNull
 	@Override
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		BlockState original = super.playerWillDestroy(level, pos, state, player);
-		if (level instanceof ServerLevel server) {
-			this.spawnSeedsFrom(server, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
-		}
-		return original;
+		if (level instanceof ServerLevel server) this.spawnSeedsFrom(server, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 }

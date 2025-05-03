@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.particle.factory;
+package net.frozenblock.wilderwild.particle.provider;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,11 +30,11 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 @Environment(EnvType.CLIENT)
-public class WilderParticleFactories {
-	public static class ScorchingEffectFlameFactory implements ParticleProvider<SimpleParticleType> {
+public class WWParticleProviders {
+	public static class ScorchingEffectFlameProvider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
 
-		public ScorchingEffectFlameFactory(SpriteSet sprites) {
+		public ScorchingEffectFlameProvider(SpriteSet sprites) {
 			this.sprite = sprites;
 		}
 

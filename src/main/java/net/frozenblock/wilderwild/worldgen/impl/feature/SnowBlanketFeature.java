@@ -50,19 +50,14 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		@NotNull BlockPos.MutableBlockPos mutable,
 		@NotNull Optional<Holder<Biome>> optionalBiomeHolder
 	) {
-		boolean returnValue;
-		if (placeSnowLayer(level, bottomPos, mutable, optionalBiomeHolder, true) == SnowGenerationState.CANCEL) {
-			return false;
-		} else {
-			returnValue = true;
-			bottomPos.move(Direction.UP);
-		}
+		if (placeSnowLayer(level, bottomPos, mutable, optionalBiomeHolder, true) == SnowGenerationState.CANCEL) return false;
+		bottomPos.move(Direction.UP);
 
 		while (bottomPos.getY() <= topPos.getY()) {
 			placeSnowLayer(level, bottomPos, mutable, optionalBiomeHolder, false);
 			bottomPos.move(Direction.UP);
 		}
-		return returnValue;
+		return true;
 	}
 
 	private static @NotNull SnowGenerationState placeSnowLayer(

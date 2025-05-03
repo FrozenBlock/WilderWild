@@ -43,34 +43,30 @@ public class EnderManMixin {
 
 	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
 	public void wilderWild$playStareSound(CallbackInfo info) {
-		if (WWEntityConfig.get().enderMan.movingStareSound) {
-			info.cancel();
-			EnderMan enderman = EnderMan.class.cast(this);
-			if (enderman.tickCount >= this.lastStareSound + 400) {
-				this.lastStareSound = enderman.tickCount;
-				if (!enderman.isSilent()) {
-					wilderWild$playClientEnderManSound(EnderMan.class.cast(this));
-				}
-			}
+		if (!WWEntityConfig.get().enderMan.movingStareSound) return;
+		info.cancel();
+		EnderMan enderman = EnderMan.class.cast(this);
+		if (enderman.tickCount >= this.lastStareSound + 400) {
+			this.lastStareSound = enderman.tickCount;
+			if (!enderman.isSilent()) wilderWild$playClientEnderManSound(EnderMan.class.cast(this));
 		}
 	}
 
 	@Unique
 	private static void wilderWild$playClientEnderManSound(@NotNull EnderMan enderMan) {
 		Minecraft client = Minecraft.getInstance();
-		if (client.level != null && enderMan.isAlive()) {
-			client.getSoundManager().play(
-				new RestrictedMovingSound<>(
-					enderMan,
-					SoundEvents.ENDERMAN_STARE,
-					SoundSource.HOSTILE,
-					2.5F,
-					1F,
-					SoundPredicate.notSilentAndAlive(),
-					true
-				)
-			);
-		}
+		if (client.level == null || !enderMan.isAlive()) return;
+		client.getSoundManager().play(
+			new RestrictedMovingSound<>(
+				enderMan,
+				SoundEvents.ENDERMAN_STARE,
+				SoundSource.HOSTILE,
+				2.5F,
+				1F,
+				SoundPredicate.notSilentAndAlive(),
+				true
+			)
+		);
 	}
 
 }

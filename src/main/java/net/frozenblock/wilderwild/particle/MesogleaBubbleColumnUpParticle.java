@@ -75,9 +75,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;
 
-		if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) {
-			this.age += 1;
-		}
+		if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) this.age += 1;
 	}
 
 	@Override
@@ -104,12 +102,11 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 		super.remove();
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet spriteProvider;
 		private final ParticleOptions popParticle;
 
-		public BubbleFactory(SpriteSet spriteProvider, ParticleOptions popParticle) {
+		public Provider(SpriteSet spriteProvider, ParticleOptions popParticle) {
 			this.spriteProvider = spriteProvider;
 			this.popParticle = popParticle;
 		}

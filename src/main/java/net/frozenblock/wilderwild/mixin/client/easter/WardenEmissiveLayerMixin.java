@@ -55,8 +55,6 @@ public abstract class WardenEmissiveLayerMixin<T extends Warden, M extends Warde
 	public void wilderWild$cancelIfStella(
 		PoseStack matrices, MultiBufferSource vertexConsumers, int i, T warden, float f, float g, float h, float j, float k, float l, CallbackInfo info
 	) {
-		if (warden instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
-			info.cancel();
-		}
+		if (warden instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) info.cancel();
 	}
 }

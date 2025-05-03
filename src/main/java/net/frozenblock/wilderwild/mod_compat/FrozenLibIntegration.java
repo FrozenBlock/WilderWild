@@ -181,18 +181,15 @@ public class FrozenLibIntegration extends ModIntegration {
 					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
 						this.lastStack = stack;
 						return true;
-					} else {
-						this.firstCheck = true;
 					}
+					this.firstCheck = true;
 				}
 				return false;
 			}
 		});
 
 		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
-			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) {
-				return false;
-			}
+			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) return false;
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
 
@@ -336,9 +333,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockEntityWithoutLevelRendererRegistry.register(WWBlocks.STONE_CHEST, WWBlockEntityTypes.STONE_CHEST);
 
 		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
-			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) {
-				ctx.friction = 0.6F;
-			}
+			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) ctx.friction = 0.6F;
 		});
 
 		if (WWWorldgenConfig.get().structure.decayTrailRuins) {

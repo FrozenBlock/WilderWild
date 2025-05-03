@@ -53,9 +53,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 
 	@Override
 	public boolean canUse() {
-		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
-			return false;
-		}
+		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) return false;
 		this.findTarget();
 		return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
 	}

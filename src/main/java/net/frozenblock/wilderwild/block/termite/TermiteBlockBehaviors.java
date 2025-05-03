@@ -193,9 +193,7 @@ public final class TermiteBlockBehaviors {
 			})
 			.toList();
 
-		if (!behaviors.isEmpty()) {
-			return Optional.of(behaviors.getFirst());
-		}
+		if (!behaviors.isEmpty()) return Optional.of(behaviors.getFirst());
 		return Optional.empty();
 	}
 

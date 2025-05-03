@@ -113,9 +113,7 @@ public class SnowloggingUtils {
 	public static BlockState getSnowloggedState(BlockState state, BlockState snowState) {
 		if (state != null && snowState != null && canSnowlog(state) && snowState.is(Blocks.SNOW)) {
 			int layers = snowState.getValue(BlockStateProperties.LAYERS);
-			if (layers < 8) {
-				state = state.setValue(SNOW_LAYERS, layers);
-			}
+			if (layers < MAX_LAYERS) state = state.setValue(SNOW_LAYERS, layers);
 		}
 		return state;
 	}

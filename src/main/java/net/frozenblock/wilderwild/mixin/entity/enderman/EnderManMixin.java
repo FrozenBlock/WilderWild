@@ -59,9 +59,7 @@ public abstract class EnderManMixin implements WilderEnderman {
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
 	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		if (compound.contains("canPlayLoopingSound")) {
-			this.wilderWild$canPlayLoopingSound = compound.getBoolean("canPlayLoopingSound");
-		}
+		if (compound.contains("canPlayLoopingSound")) this.wilderWild$canPlayLoopingSound = compound.getBoolean("canPlayLoopingSound");
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("TAIL"))
@@ -82,20 +80,19 @@ public abstract class EnderManMixin implements WilderEnderman {
 	@Unique
 	@Override
 	public void wilderWild$createAngerLoop() {
-		if (WWEntityConfig.get().enderMan.angerLoopSound && this.wilderWild$canPlayLoopingSound) {
-			this.wilderWild$canPlayLoopingSound = false;
-			EnderMan enderMan = EnderMan.class.cast(this);
-			FrozenLibSoundPackets.createAndSendMovingRestrictionLoopingSound(
-				enderMan.level(),
-				enderMan,
-				BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
-				SoundSource.HOSTILE,
-				1F,
-				0.9F,
-				FrozenLibIntegration.ENDERMAN_ANGER_SOUND_PREDICATE,
-				true
-			);
-		}
+		if (!WWEntityConfig.get().enderMan.angerLoopSound || !this.wilderWild$canPlayLoopingSound) return;
+		this.wilderWild$canPlayLoopingSound = false;
+		EnderMan enderMan = EnderMan.class.cast(this);
+		FrozenLibSoundPackets.createAndSendMovingRestrictionLoopingSound(
+			enderMan.level(),
+			enderMan,
+			BuiltInRegistries.SOUND_EVENT.getHolder(WWSounds.ENTITY_ENDERMAN_ANGER_LOOP.getLocation()).orElseThrow(),
+			SoundSource.HOSTILE,
+			1F,
+			0.9F,
+			FrozenLibIntegration.ENDERMAN_ANGER_SOUND_PREDICATE,
+			true
+		);
 	}
 
 }

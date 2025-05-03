@@ -65,8 +65,7 @@ public class LeafParticle extends CherryParticle {
 		this.gCol = FastColor.ARGB32.green(color) / 255F;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<LeafParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<LeafParticleOptions> {
 		@Override
 		@NotNull
 		public Particle createParticle(

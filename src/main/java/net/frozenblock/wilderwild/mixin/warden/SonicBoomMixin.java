@@ -82,9 +82,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 3) Vec3 vec34
 	) {
 		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
-		if (hitPos != null) {
-			((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
-		}
+		if (hitPos != null) ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
 	}
 
 	@Inject(
@@ -106,9 +104,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
 				BlockState hitState = level.getBlockState(hitPos);
-				if (hitState.getBlock() instanceof EchoGlassBlock) {
-					EchoGlassBlock.damage(level, hitPos, hitState, false);
-				}
+				if (hitState.getBlock() instanceof EchoGlassBlock) EchoGlassBlock.damage(level, hitPos, hitState, false);
 			}
 		}
 	}
@@ -141,11 +137,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				hitPos = hit.getBlockPos();
 			}
 		}
-		if (blocked) {
-			return hitPos;
-		} else {
-			return null;
-		}
+		if (blocked) return hitPos;
+		return null;
 	}
 
 	@ModifyArg(

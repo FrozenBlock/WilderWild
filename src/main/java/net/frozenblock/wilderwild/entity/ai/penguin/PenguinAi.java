@@ -494,9 +494,7 @@ public class PenguinAi {
 	}
 
 	private static void onTargetInvalid(@NotNull Penguin penguin, @NotNull LivingEntity target) {
-		if (penguin.getTarget() == target) {
-			penguin.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-		}
+		if (penguin.getTarget() == target) penguin.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		penguin.getNavigation().stop();
 	}
 
@@ -542,9 +540,7 @@ public class PenguinAi {
 		if (penguins.isPresent()) {
 			List<Penguin> penguinList = penguins.get();
 			for (Penguin penguin : penguinList) {
-				if (penguin.getUUID().equals(callerID)) {
-					return Optional.of(penguin);
-				}
+				if (penguin.getUUID().equals(callerID)) return Optional.of(penguin);
 			}
 		}
 		return Optional.empty();

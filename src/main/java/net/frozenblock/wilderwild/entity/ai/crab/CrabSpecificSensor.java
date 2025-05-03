@@ -46,9 +46,7 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 		ArrayList<Crab> crabs = Lists.newArrayList();
 		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
 		for (LivingEntity livingEntity : entities) {
-			if (livingEntity instanceof Crab crab) {
-				crabs.add(crab);
-			}
+			if (livingEntity instanceof Crab crab) crabs.add(crab);
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_CRABS, crabs);
 	}

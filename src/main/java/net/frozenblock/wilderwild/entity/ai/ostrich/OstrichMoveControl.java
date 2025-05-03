@@ -30,7 +30,6 @@ public class OstrichMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (this.mob.isStuck()) return;
-		super.tick();
+		if (!this.mob.isStuck()) super.tick();
 	}
 }

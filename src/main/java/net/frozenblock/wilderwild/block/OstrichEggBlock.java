@@ -100,11 +100,8 @@ public class OstrichEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
 		if (!isSafeToHatch(level, blockPos.below())) return false;
-		if (level.isDay()) {
-			return true;
-		} else {
-			return level.getRandom().nextInt(500) == 0;
-		}
+		if (level.isDay()) return true;
+		return level.getRandom().nextInt(500) == 0;
 	}
 
 	private void hatchOstrichEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {

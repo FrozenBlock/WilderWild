@@ -74,9 +74,7 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!this.removed && !this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) {
-			this.age ++;
-		}
+		if (!this.removed && !this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) this.age += 1;
 	}
 
 	@Override
@@ -103,12 +101,11 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 		super.remove();
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet spriteProvider;
 		private final ParticleOptions popParticle;
 
-		public BubbleFactory(SpriteSet spriteProvider, ParticleOptions popParticle) {
+		public Provider(SpriteSet spriteProvider, ParticleOptions popParticle) {
 			this.spriteProvider = spriteProvider;
 			this.popParticle = popParticle;
 		}

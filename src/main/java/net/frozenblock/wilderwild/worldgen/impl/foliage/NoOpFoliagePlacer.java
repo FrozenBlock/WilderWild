@@ -42,15 +42,15 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected void createFoliage(
-			LevelSimulatedReader world,
-			FoliageSetter placer,
-			RandomSource random,
-			TreeConfiguration config,
-			int trunkHeight,
-			@NotNull FoliageAttachment node,
-			int foliageHeight,
-			int radius,
-			int offset
+		LevelSimulatedReader world,
+		FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
+		int trunkHeight,
+		@NotNull FoliageAttachment node,
+		int foliageHeight,
+		int radius,
+		int offset
 	) {
 	}
 
