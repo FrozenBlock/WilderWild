@@ -22,7 +22,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
@@ -39,6 +38,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.ChatFormatting;
 
 public final class ButterflyVariant implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(
