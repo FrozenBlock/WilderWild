@@ -32,8 +32,6 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.worldgen.biome.DyingForest;
-import net.frozenblock.wilderwild.worldgen.biome.DyingMixedForest;
 import net.frozenblock.wilderwild.worldgen.biome.FrozenCaves;
 import net.frozenblock.wilderwild.worldgen.biome.MagmaticCaves;
 import net.frozenblock.wilderwild.worldgen.biome.MapleForest;

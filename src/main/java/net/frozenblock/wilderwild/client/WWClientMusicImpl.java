@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
@@ -28,7 +29,6 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientMusicImpl {
