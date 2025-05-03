@@ -83,7 +83,7 @@ public class SeedParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {

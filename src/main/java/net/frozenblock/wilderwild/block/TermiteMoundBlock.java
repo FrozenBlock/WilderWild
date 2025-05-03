@@ -88,8 +88,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		RandomSource random
 	) {
 		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
-			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
-				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
+			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false).setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
 		}
 
 		scheduledTickAccess.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
@@ -103,30 +102,22 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
-		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) {
-			termiteMoundBlockEntity.termiteManager.clearTermites(level);
-		}
+		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) termiteMoundBlockEntity.termiteManager.clearTermites(level);
 	}
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		BlockState evaluatedState = this.evaluateMoundBlockStateAtPosition(state, level, pos);
-		if (evaluatedState != state) {
-			level.setBlockAndUpdate(pos, evaluatedState);
-		}
+		if (evaluatedState != state) level.setBlockAndUpdate(pos, evaluatedState);
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
 
 	public BlockState evaluateMoundBlockStateAtPosition(@NotNull BlockState moundState, Level level, BlockPos pos) {
 		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		if (canAwaken != moundState.getValue(WWBlockStateProperties.TERMITES_AWAKE)) {
-			moundState =  moundState.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken);
-		}
-		if (areTermitesSafe != moundState.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)) {
-			moundState = moundState.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
-		}
-		return moundState;
+		return moundState
+			.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken)
+			.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
 	}
 
 	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
@@ -170,9 +161,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public static @NotNull BlockState setTermiteEdibleIfPossible(@NotNull BlockState state) {
-		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
-			return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
-		}
+		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 		return state;
 	}
 }

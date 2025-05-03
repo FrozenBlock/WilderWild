@@ -148,10 +148,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		double functionDenominator = (functionHeight * functionHeight) + (functionHeight * 2.5D) + (totalHeight * radius);
 		double function = Math.sin(functionNumerator / functionDenominator);
 		double finalFunction = function * (radius * 0.75D) + 0.45D;
-		double min = 0D;
-		if (hot) {
-			min = 1.2D;
-		}
+		double min = hot ? 1.2D : 0D;
 
 		return Math.max(finalFunction, min);
 	}

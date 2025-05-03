@@ -45,14 +45,11 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Ostrich owner) {
 		if (!owner.isTamed() && owner.isVehicle()) {
 			Vec3 vec3 = DefaultRandomPos.getPos(owner, 5, 4);
-			if (vec3 == null) {
-				return false;
-			} else {
-				this.posX = vec3.x;
-				this.posY = vec3.y;
-				this.posZ = vec3.z;
-				return true;
-			}
+			if (vec3 == null) return false;
+			this.posX = vec3.x;
+			this.posY = vec3.y;
+			this.posZ = vec3.z;
+			return true;
 		} else {
 			return false;
 		}
@@ -77,19 +74,16 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 	@Override
 	public void tick(@NotNull ServerLevel level, @NotNull Ostrich owner, long gameTime) {
 		if (!owner.isTamed() && owner.getRandom().nextInt(50) == 0) {
-			Entity entity = owner.getFirstPassenger();
-			if (entity == null) {
-				return;
-			}
+			Entity passenger = owner.getFirstPassenger();
+			if (passenger == null) return;
 
-			if (entity instanceof Player player) {
+			if (passenger instanceof Player player) {
 				int i = owner.getTemper();
 				int j = owner.getMaxTemper();
 				if (j > 0 && owner.getRandom().nextInt(j) < i) {
 					owner.tameWithName(player);
 					return;
 				}
-
 				owner.modifyTemper(5);
 			}
 

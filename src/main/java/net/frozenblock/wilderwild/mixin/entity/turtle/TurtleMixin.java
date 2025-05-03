@@ -63,9 +63,7 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
 	@Inject(method = "aiStep", at = @At("TAIL"))
 	public void wilderWild$aiStep(CallbackInfo info) {
-		if (this.wilderWild$attackCooldown > 0) {
-			this.wilderWild$attackCooldown -= 1;
-		}
+		if (this.wilderWild$attackCooldown > 0) this.wilderWild$attackCooldown -= 1;
 	}
 
 	@Unique

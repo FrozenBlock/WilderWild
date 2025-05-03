@@ -64,11 +64,11 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		return !this.isEntityTouchingWaterOrLava(this.mob)
 			? super.getStart()
 			: this.getStartNode(
-			new BlockPos(
-				Mth.floor(this.mob.getBoundingBox().minX),
-				Mth.floor(this.mob.getBoundingBox().minY + 0.5),
-				Mth.floor(this.mob.getBoundingBox().minZ)
-			)
+				new BlockPos(
+					Mth.floor(this.mob.getBoundingBox().minX),
+					Mth.floor(this.mob.getBoundingBox().minY + 0.5),
+					Mth.floor(this.mob.getBoundingBox().minZ)
+				)
 		);
 	}
 
@@ -90,7 +90,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 			PathType blockPathTypes2 = this.getCachedPathType(node.x, node.y, node.z);
 			int j;
 			if (this.mob.getPathfindingMalus(blockPathTypes) >= 0.0F && blockPathTypes2 != PathType.STICKY_HONEY) {
-				j = Mth.floor(Math.max(1.0F, this.mob.maxUpStep()));
+				j = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
 			} else {
 				j = 0;
 			}
@@ -139,11 +139,8 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 				}
 			}
 
-			if (pathNodeType == PathType.WATER) {
-				return PathType.WATER;
-			} else {
-				return PathType.LAVA;
-			}
+			if (pathNodeType == PathType.WATER) return PathType.WATER;
+			return PathType.LAVA;
 		} else {
 			return getPathTypeStatic(context, mutable);
 		}

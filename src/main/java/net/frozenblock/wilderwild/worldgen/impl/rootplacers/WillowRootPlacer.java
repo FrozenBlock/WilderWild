@@ -73,24 +73,17 @@ public class WillowRootPlacer extends RootPlacer {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			BlockPos blockPos3 = blockPos2.relative(direction);
 			List<BlockPos> list2 = Lists.newArrayList();
-			if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list2, 0)) {
-				return false;
-			}
+			if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list2, 0)) return false;
 
 			list.addAll(list2);
 			list.add(blockPos2.relative(direction));
 		}
 
 		List<BlockPos> columnPoses = Lists.newArrayList();
-		for (BlockPos rootPoses : list) {
-			columnPoses.addAll(this.potentialColumnRootPositions(levelSimulatedReader, rootPoses));
-		}
+		for (BlockPos rootPoses : list) columnPoses.addAll(this.potentialColumnRootPositions(levelSimulatedReader, rootPoses));
 		list.addAll(columnPoses);
 
-		for (BlockPos blockPos4 : list) {
-			this.placeRoot(levelSimulatedReader, biConsumer, randomSource, blockPos4, treeConfiguration);
-		}
-
+		for (BlockPos blockPos4 : list) this.placeRoot(levelSimulatedReader, biConsumer, randomSource, blockPos4, treeConfiguration);
 		return true;
 	}
 
@@ -108,16 +101,13 @@ public class WillowRootPlacer extends RootPlacer {
 			for (BlockPos blockPos3 : this.potentialRootPositions(blockPos, direction, randomSource, blockPos2)) {
 				if (this.canPlaceRoot(levelSimulatedReader, blockPos3)) {
 					list.add(blockPos3);
-					if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) {
-						return false;
-					}
+					if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) return false;
 				}
 			}
 
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	protected List<BlockPos> potentialColumnRootPositions(
@@ -127,9 +117,7 @@ public class WillowRootPlacer extends RootPlacer {
 		ArrayList<BlockPos> positions = new ArrayList<>();
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		mutableBlockPos.set(blockPos);
-		while (this.canPlaceRoot(levelSimulatedReader, mutableBlockPos.move(Direction.DOWN))) {
-			positions.add(mutableBlockPos.immutable());
-		}
+		while (this.canPlaceRoot(levelSimulatedReader, mutableBlockPos.move(Direction.DOWN))) positions.add(mutableBlockPos.immutable());
 		return positions;
 	}
 
@@ -144,15 +132,11 @@ public class WillowRootPlacer extends RootPlacer {
 		int i = blockPos.distManhattan(blockPos2);
 		int j = this.willowRootPlacement.maxRootWidth();
 		float f = this.willowRootPlacement.randomSkewChance();
-		if (i > j - 3 && i <= j) {
-			return randomSource.nextFloat() < f ? List.of(blockPos3, blockPos4.below()) : List.of(blockPos3);
-		} else if (i > j) {
-			return List.of(blockPos3);
-		} else if (randomSource.nextFloat() < f) {
-			return List.of(blockPos3);
-		} else {
-			return randomSource.nextBoolean() ? List.of(blockPos4) : List.of(blockPos3);
-		}
+
+		if (i > j - 3 && i <= j) return randomSource.nextFloat() < f ? List.of(blockPos3, blockPos4.below()) : List.of(blockPos3);
+		if (i > j) return List.of(blockPos3);
+		if (randomSource.nextFloat() < f) return List.of(blockPos3);
+		return randomSource.nextBoolean() ? List.of(blockPos4) : List.of(blockPos3);
 	}
 
 	@Override

@@ -297,9 +297,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public void aiStep() {
 		this.updateSwingTime();
 		AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
-		if (movementSpeed != null) {
-			movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
-		}
+		if (movementSpeed != null) movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
 		super.aiStep();
 	}
 
@@ -350,9 +348,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 			}
 
-			if (this.isDiggingOrEmerging()) {
-				this.setDiggingTicks(this.getDiggingTicks() + 1);
-			}
+			if (this.isDiggingOrEmerging()) this.setDiggingTicks(this.getDiggingTicks() + 1);
 		} else {
 			switch (this.getPose()) {
 				case DIGGING -> {
@@ -380,12 +376,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
 		boolean actuallyHurt = super.hurtServer(level, source, amount);
 		if (actuallyHurt) {
-			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				CrabAi.wasHurtBy(level, this, livingEntity);
-			}
-			if (!this.isDiggingOrEmerging()) {
-				CrabAi.setDigCooldown(this);
-			}
+			if (source.getEntity() instanceof LivingEntity livingEntity) CrabAi.wasHurtBy(level, this, livingEntity);
+			if (!this.isDiggingOrEmerging()) CrabAi.setDigCooldown(this);
 		}
 		return actuallyHurt;
 	}
@@ -501,9 +493,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void playAmbientSound() {
 		SoundEvent soundEvent = this.getAmbientSound();
-		if (soundEvent != null) {
-			this.playSound(soundEvent, this.getSoundVolume() * IDLE_SOUND_VOLUME_PERCENTAGE, this.getVoicePitch());
-		}
+		if (soundEvent != null) this.playSound(soundEvent, this.getSoundVolume() * IDLE_SOUND_VOLUME_PERCENTAGE, this.getVoicePitch());
 	}
 
 	@Override
@@ -520,9 +510,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
-		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
-			return true;
-		}
+		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return true;
 		return super.isInvulnerableTo(level, source);
 	}
 
@@ -573,9 +561,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public boolean canHideOnGround() {
 		BlockPos onPos = this.getOnPos();
 		BlockPos topPos = this.blockPosition();
-		if (onPos.equals(topPos)) {
-			topPos = topPos.above();
-		}
+		if (onPos.equals(topPos)) topPos = topPos.above();
 		return this.onGround()
 			&& !this.isColliding(topPos, this.level().getBlockState(topPos))
 			&& this.level().getBlockState(onPos).is(WWBlockTags.CRAB_HIDEABLE);
@@ -583,18 +569,14 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public boolean canEmerge() {
 		BlockPos blockPos = this.blockPosition();
-		if (blockPos.equals(this.getOnPos())) {
-			blockPos = blockPos.above();
-		}
+		if (blockPos.equals(this.getOnPos())) blockPos = blockPos.above();
 		BlockState state = this.level().getBlockState(blockPos);
 		return !state.is(BlockTags.FIRE) && !state.getFluidState().is(FluidTags.LAVA);
 	}
 
 	public void endNavigation() {
 		this.getNavigation().stop();
-		if (this.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) {
-			wallClimberNavigation.pathToPosition = null;
-		}
+		if (this.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) wallClimberNavigation.pathToPosition = null;
 	}
 
 	@NotNull
@@ -621,7 +603,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 					this.emergingAnimationState.stop();
 					this.hidingAnimationState.stop();
 				}
-
 			}
 		} else if (DIGGING_TICKS.equals(key) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS && this.getPose() == Pose.DIGGING) {
 			this.diggingAnimationState.stop();
@@ -730,9 +711,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
-			if (otherParent instanceof Crab otherCrab) {
-				crab.setVariant(level.random.nextBoolean() ? this.getVariantByLocation() : otherCrab.getVariantByLocation());
-			}
+			if (otherParent instanceof Crab otherCrab) crab.setVariant(level.random.nextBoolean() ? this.getVariantByLocation() : otherCrab.getVariantByLocation());
 		}
 		return crab;
 	}

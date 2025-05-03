@@ -50,11 +50,6 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 	}
 
 	@Override
-	public boolean skipRendering(@NotNull BlockState blockState, @NotNull BlockState blockState2, @NotNull Direction direction) {
-		return blockState2.is(this) || super.skipRendering(blockState, blockState2, direction);
-	}
-
-	@Override
 	@NotNull
 	public NematocystSpreader getSpreader() {
 		return this.spreader;

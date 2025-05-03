@@ -64,9 +64,7 @@ public abstract class WallBlockMixin extends Block {
 	)
 	public Object wilderWild$getShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
 		if (o instanceof BlockState blockState) {
-			if (SnowloggingUtils.supportsSnowlogging(blockState)) {
-				o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
-			}
+			if (SnowloggingUtils.supportsSnowlogging(blockState)) o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
 		}
 		return original.call(instance, o);
 	}
@@ -79,9 +77,7 @@ public abstract class WallBlockMixin extends Block {
 		)
 	)
 	public Object wilderWild$getCollisionShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState && SnowloggingUtils.supportsSnowlogging(blockState)) {
-			o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
-		}
+		if (o instanceof BlockState blockState && SnowloggingUtils.supportsSnowlogging(blockState)) o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
 		return original.call(instance, o);
 	}
 
@@ -111,9 +107,7 @@ public abstract class WallBlockMixin extends Block {
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) {
-				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-			}
+			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);
 		}

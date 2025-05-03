@@ -78,8 +78,7 @@ public class Scorched extends Spider {
 	@Override
 	protected void registerGoals() {
 		//this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D,
-			(livingEntity) -> !((Armadillo)livingEntity).isScared()));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D, livingEntity -> !((Armadillo)livingEntity).isScared()));
 		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
@@ -118,9 +117,8 @@ public class Scorched extends Spider {
 	private void scorchedInLava() {
 		if (this.isInLava()) {
 			CollisionContext collisionContext = CollisionContext.of(this);
-			if (
-				collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
-					&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
+			if (collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
+				&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
 			) {
 				this.setOnGround(true);
 			} else {
@@ -131,10 +129,8 @@ public class Scorched extends Spider {
 
 	@Override
 	public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
-		boolean hurtTarget =  super.doHurtTarget(serverLevel, entity);
-		if (hurtTarget) {
-			entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
-		}
+		boolean hurtTarget = super.doHurtTarget(serverLevel, entity);
+		if (hurtTarget) entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
 		return hurtTarget;
 	}
 

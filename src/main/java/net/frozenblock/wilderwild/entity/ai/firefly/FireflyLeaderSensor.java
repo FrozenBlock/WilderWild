@@ -47,18 +47,15 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 				if (!leaderFireflies.isEmpty()) {
 					brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER, new EntityTracker(leaderFireflies.getFirst(), true));
 					return;
-				} else {
-					FireflyAi.setSwarmLeader(firefly);
 				}
+				FireflyAi.setSwarmLeader(firefly);
 			} else {
 				List<Firefly> nonLeaderFirefliesCloseBy = FireflyAi.getNearbyFirefliesInRank(firefly, false)
 					.stream().filter(otherFirefly -> otherFirefly.distanceTo(firefly) <= NON_LEADER_MAX_DISTANCE)
 					.toList();
 				List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
 
-				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) {
-					brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
-				}
+				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
 			}
 		}
 		brain.eraseMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER);

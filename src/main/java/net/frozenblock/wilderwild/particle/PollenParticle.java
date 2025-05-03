@@ -62,9 +62,7 @@ public class PollenParticle extends TextureSheetParticle {
 		if (this.canExist.isEmpty() || this.canExist.get().get()) {
 			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 			boolean rain = this.level.isRainingAt(blockPos);
-			if (rain) {
-				this.gravity = 0.06F;
-			}
+			if (rain) this.gravity = 0.06F;
 			this.xo = this.x;
 			this.yo = this.y;
 			this.zo = this.z;
@@ -98,9 +96,7 @@ public class PollenParticle extends TextureSheetParticle {
 				}
 			} else {
 				this.targetScale = 1F;
-				if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
-					this.age += 5;
-				}
+				if (this.x == this.xo && this.y == this.yo && this.z == this.zo) this.age += 5;
 			}
 			boolean onGround = this.onGround;
 			if (!rain) {
@@ -129,7 +125,7 @@ public class PollenParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record PollenFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(

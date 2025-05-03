@@ -63,15 +63,11 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		boolean bl = false;
-		if (level.getBlockState(pos).is(Blocks.WATER)) {
-			return false;
-		}
+		if (level.getBlockState(pos).is(Blocks.WATER)) return false;
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : DIRECTIONS) {
 			if (hasFace(state, direction)) {
-				BlockPos blockPos = pos.relative(direction);
-				if (!canAttachToNoWater(level, direction, blockPos, level.getBlockState(blockPos))) {
-					return false;
-				}
+				if (!canAttachToNoWater(level, direction, mutableBlockPos.setWithOffset(pos, direction), level.getBlockState(mutableBlockPos))) return false;
 				bl = true;
 			}
 		}

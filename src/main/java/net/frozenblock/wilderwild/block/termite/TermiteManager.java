@@ -83,12 +83,9 @@ public class TermiteManager {
 	}
 
 	public static boolean areTermitesSafe(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.values()) {
-			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
-				return false;
-			}
-			mutableBlockPos.move(direction, -1);
+			if (!isPosSafeForTermites(level, mutableBlockPos.setWithOffset(pos, direction))) return false;
 		}
 		return true;
 	}
@@ -241,12 +238,9 @@ public class TermiteManager {
 		public boolean tick(@NotNull Level level, boolean natural, RandomSource random) {
 			boolean exit = false;
 			++this.idleTicks;
-			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) {
-				return false;
-			}
-			if (!areTermitesSafe(level, this.pos)) {
-				return false;
-			}
+			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) return false;
+			if (!areTermitesSafe(level, this.pos)) return false;
+
 			if (isPosTickable(level, this.pos)) {
 				BlockState blockState = level.getBlockState(this.pos);
 				Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
@@ -296,9 +290,7 @@ public class TermiteManager {
 					}
 					BlockPos offset = this.pos.relative(direction);
 					BlockState state = level.getBlockState(offset);
-					if (!isStateSafeForTermites(state)) {
-						return false;
-					}
+					if (!isStateSafeForTermites(state)) return false;
 
 					if (this.update > 0 && !blockState.isAir()) {
 						--this.update;
@@ -343,19 +335,15 @@ public class TermiteManager {
 				state.getBlock(),
 				natural
 			);
-
 			if (optionalBlockBehavior.isPresent()) return mutableBlockPos;
 
 			mutableBlockPos.move(Direction.DOWN);
 			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos.immutable();
-			}
+			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) return mutableBlockPos.immutable();
+
 			mutableBlockPos.move(Direction.UP, 2);
 			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos.immutable();
-			}
+			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) return mutableBlockPos.immutable();
 			return null;
 		}
 
@@ -366,12 +354,9 @@ public class TermiteManager {
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
 			if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, upState)) return mutableBlockPos.immutable();
 
-			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
-				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
+				BlockState state = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 				if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, state)) return mutableBlockPos.immutable();
-
-				mutableBlockPos.move(direction, -1);
 			}
 
 			return null;
@@ -413,8 +398,7 @@ public class TermiteManager {
 					natural
 				);
 
-				if (
-					state.isAir()
+				if (state.isAir()
 					|| (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WWBlockTags.BLOCKS_TERMITE))
 					|| (optionalBlockBehavior.isPresent() && isEdibleProperty(state))) {
 					return true;

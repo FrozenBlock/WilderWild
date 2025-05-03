@@ -38,10 +38,9 @@ public abstract class BlockRenderDispatcherMixin {
 
 	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer);
-			info.cancel();
-		}
+		if (!SnowloggingUtils.isSnowlogged(state)) return;
+		this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer);
+		info.cancel();
 	}
 
 	@Shadow

@@ -279,43 +279,30 @@ public final class CrabAi {
 	}
 
 	private static void onTargetInvalid(ServerLevel level, @NotNull Crab crab, @NotNull LivingEntity target) {
-		if (crab.getTarget() == target) {
-			crab.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-		}
+		if (crab.getTarget() == target) crab.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		crab.endNavigation();
 	}
 
 	@NotNull
 	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull Crab crab) {
 		Brain<Crab> brain = crab.getBrain();
-		Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(crab, MemoryModuleType.ANGRY_AT);
-		if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, optional.get())) {
-			return optional;
-		} else {
-			Optional<? extends LivingEntity> optional2;
-			if (brain.hasMemoryValue(MemoryModuleType.UNIVERSAL_ANGER)) {
-				optional2 = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
-				if (optional2.isPresent()) {
-					return optional2;
-				}
-			}
+		Optional<LivingEntity> angryAt = BehaviorUtils.getLivingEntityFromUUIDMemory(crab, MemoryModuleType.ANGRY_AT);
+		if (angryAt.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, angryAt.get())) return angryAt;
+		if (brain.hasMemoryValue(MemoryModuleType.UNIVERSAL_ANGER)) {
+			Optional<? extends LivingEntity> nearestVisibleAttackablePlayer = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
+			if (nearestVisibleAttackablePlayer.isPresent()) return nearestVisibleAttackablePlayer;
 			return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 		}
+		return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 	}
 
 	public static void wasHurtBy(ServerLevel level, @NotNull Crab crab, LivingEntity target) {
 		if (crab.canTargetEntity(target)) {
-			if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
-				return;
-			}
-			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) {
-				return;
-			}
+			if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) return;
+			if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(crab, target, 4.0)) return;
 
 			if (crab.isBaby()) {
-				if (Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
-					broadcastAngerTarget(level, crab, target);
-				}
+				if (Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) broadcastAngerTarget(level, crab, target);
 				return;
 			}
 
@@ -330,15 +317,10 @@ public final class CrabAi {
 	}
 
 	public static void setAngerTarget(ServerLevel level, @NotNull Crab crab, LivingEntity target) {
-		if (crab.isBaby()) {
-			return;
-		}
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) {
-			return;
-		}
-		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) {
-			clearDigCooldown(crab);
-		}
+		if (crab.isBaby()) return;
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) return;
+		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) clearDigCooldown(crab);
+
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		crab.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
@@ -366,9 +348,7 @@ public final class CrabAi {
 	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, @NotNull Crab crab, LivingEntity currentTarget) {
 		Optional<LivingEntity> optional = getAngerTarget(crab);
 		LivingEntity livingEntity = BehaviorUtils.getNearestTarget(crab, optional, currentTarget);
-		if (optional.isPresent() && optional.get() == livingEntity) {
-			return;
-		}
+		if (optional.isPresent() && optional.get() == livingEntity) return;
 		setAngerTarget(level, crab, livingEntity);
 	}
 
@@ -379,7 +359,6 @@ public final class CrabAi {
 		} else {
 			setAngerTarget(level, crab, currentTarget);
 		}
-
 	}
 
 	@NotNull

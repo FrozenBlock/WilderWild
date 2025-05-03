@@ -162,9 +162,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		for (int i = 0; i < (vent ? VENT_DISTANCE_IN_BLOCKS : ERUPTION_DISTANCE_IN_BLOCKS); i++) {
 			if (level.hasChunkAt(mutablePos.move(direction))) {
 				BlockState state = level.getBlockState(mutablePos);
-				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
-					break;
-				}
+				if (!canEruptionPassThrough(level, mutablePos, state, direction)) break;
+
 				boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
 				boolean mismatchesWater = geyserType.isWater() && !state.getFluidState().is(Fluids.WATER);
 				boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
@@ -280,9 +279,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					}
 				} else {
 					if (state.is(BlockTags.FIRE)) {
-						if (!level.isClientSide()) {
-							level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
-						}
+						if (!level.isClientSide()) level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
 						level.removeBlock(blockPos, false);
 					}
 
@@ -335,9 +332,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			Player player = level.getNearestPlayer(gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z(), -1D, entity -> !entity.isSpectator() && entity.isAlive());
 			if (player != null) {
 				double distance = player.distanceToSqr(gesyerCenter);
-				if (Math.sqrt(distance) <= 48) {
-					return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
-				}
+				if (Math.sqrt(distance) <= 48) return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
 			}
 			return false;
 		}

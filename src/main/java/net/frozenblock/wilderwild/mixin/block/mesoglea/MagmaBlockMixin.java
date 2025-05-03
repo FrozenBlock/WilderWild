@@ -45,9 +45,7 @@ public class MagmaBlockMixin {
 		)
 	)
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			MesogleaBlock.updateColumn(level, pos.above(), state);
-		}
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos.above(), state);
 	}
 
 	@ModifyExpressionValue(
@@ -67,9 +65,7 @@ public class MagmaBlockMixin {
 		BlockPos neighborPos,
 		BlockState neighborState
 	) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
-		}
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return original || MesogleaBlock.isColumnSupportingMesoglea(neighborState);
 		return original;
 	}
 

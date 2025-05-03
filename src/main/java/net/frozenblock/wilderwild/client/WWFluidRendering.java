@@ -65,9 +65,8 @@ public final class WWFluidRendering {
 							sprite
 						);
 						return;
-					} else {
-						return;
 					}
+					return;
 				}
 				originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
 			}
@@ -84,9 +83,7 @@ public final class WWFluidRendering {
 	}
 
 	private static boolean isMesoglea(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-		if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) {
-			return view.getBlockState(pos).getBlock() instanceof MesogleaBlock;
-		}
+		if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) return view.getBlockState(pos).getBlock() instanceof MesogleaBlock;
 		return false;
 	}
 }

@@ -185,24 +185,21 @@ public class WWBlockLootHelper {
 				? LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1.0F))
+						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							lootProvider.applyExplosionDecay(
-								block,
-								LootItem.lootTableItem(block)
-									.apply(
-										IntStream.rangeClosed(1, 4).boxed().toList(),
-										integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
-											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-													.setProperties(
-														net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties()
-															.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
-													)
-											).when(lootProvider.hasShearsOrSilkTouch())
-									)
-							)
-						)
+							LootItem.lootTableItem(block)
+								.apply(
+									IntStream.rangeClosed(1, 4).boxed().toList(),
+									integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
+										.when(
+											LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+												.setProperties(
+													net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties()
+														.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
+												)
+										)
+								)
+						).when(lootProvider.hasShearsOrSilkTouch())
 				)
 				: lootProvider.noDrop()
 		);

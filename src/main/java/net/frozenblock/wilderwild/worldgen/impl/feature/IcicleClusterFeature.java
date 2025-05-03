@@ -48,24 +48,21 @@ public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 		BlockPos blockPos = context.origin();
 		IcicleClusterConfig config = context.config();
 		RandomSource randomSource = context.random();
-		if (!IcicleUtils.isEmptyOrWater(worldGenLevel, blockPos)) {
-			return false;
-		} else {
-			int height = config.height.sample(randomSource);
-			float g = config.density.sample(randomSource);
-			int j = config.radius.sample(randomSource);
-			int k = config.radius.sample(randomSource);
+		if (!IcicleUtils.isEmptyOrWater(worldGenLevel, blockPos)) return false;
 
-			for (int l = -j; l <= j; l++) {
-				for (int m = -k; m <= k; m++) {
-					double icicleChance = this.getChanceOfIcicle(j, k, l, m, config);
-					BlockPos blockPos2 = blockPos.offset(l, 0, m);
-					this.placeColumn(worldGenLevel, randomSource, blockPos2, l, m, icicleChance, height, g, config);
-				}
+		int height = config.height.sample(randomSource);
+		float g = config.density.sample(randomSource);
+		int j = config.radius.sample(randomSource);
+		int k = config.radius.sample(randomSource);
+
+		for (int l = -j; l <= j; l++) {
+			for (int m = -k; m <= k; m++) {
+				double icicleChance = this.getChanceOfIcicle(j, k, l, m, config);
+				BlockPos blockPos2 = blockPos.offset(l, 0, m);
+				this.placeColumn(worldGenLevel, randomSource, blockPos2, l, m, icicleChance, height, g, config);
 			}
-
-			return true;
 		}
+		return true;
 	}
 
 	private void placeColumn(
@@ -94,12 +91,7 @@ public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 				if (optionalInt.isPresent() && canPlaceIcicleA && !this.isLava(worldGenLevel, blockPos.atY(optionalInt.getAsInt()))) {
 					int m = icicleClusterConfig.iceLayerThickness.sample(randomSource);
 					this.replaceBlocksWithIceBlocks(worldGenLevel, blockPos.atY(optionalInt.getAsInt()), m, Direction.UP);
-					int n;
-					if (optionalInt3.isPresent()) {
-						n = Math.min(height, optionalInt.getAsInt() - optionalInt3.getAsInt());
-					} else {
-						n = height;
-					}
+					int n = optionalInt3.isPresent() ? Math.min(height, optionalInt.getAsInt() - optionalInt3.getAsInt()) : height;
 
 					o = this.getIcicleHeight(randomSource, i, j, g, n, icicleClusterConfig);
 				} else {
@@ -123,13 +115,9 @@ public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 				}
 
 				boolean bl4 = randomSource.nextBoolean() && p > 0 && w > 0 && column.getHeight().isPresent() && p + w == column.getHeight().getAsInt();
-				if (optionalInt.isPresent()) {
-					IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt.getAsInt() - 1), Direction.DOWN, p, bl4);
-				}
 
-				if (optionalInt3.isPresent()) {
-					IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt3.getAsInt() + 1), Direction.UP, w, bl4);
-				}
+				if (optionalInt.isPresent()) IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt.getAsInt() - 1), Direction.DOWN, p, bl4);
+				if (optionalInt3.isPresent()) IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt3.getAsInt() + 1), Direction.UP, w, bl4);
 			}
 		}
 	}
@@ -139,23 +127,17 @@ public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 	}
 
 	private int getIcicleHeight(@NotNull RandomSource randomSource, int i, int j, float f, int k, IcicleClusterConfig icicleClusterConfig) {
-		if (randomSource.nextFloat() > f) {
-			return 0;
-		} else {
-			int l = Math.abs(i) + Math.abs(j);
-			float g = Mth.clampedMap(l, 0F, icicleClusterConfig.maxDistanceFromCenterAffectingHeightBias, (float) k / 2F, 0F);
-			return (int)randomBetweenBiased(randomSource, 0F, (float)k, g, (float)icicleClusterConfig.heightDeviation);
-		}
+		if (randomSource.nextFloat() > f) return 0;
+		int l = Math.abs(i) + Math.abs(j);
+		float g = Mth.clampedMap(l, 0F, icicleClusterConfig.maxDistanceFromCenterAffectingHeightBias, (float) k / 2F, 0F);
+		return (int)randomBetweenBiased(randomSource, 0F, (float)k, g, (float)icicleClusterConfig.heightDeviation);
 	}
 
 	private void replaceBlocksWithIceBlocks(WorldGenLevel worldGenLevel, @NotNull BlockPos blockPos, int i, Direction direction) {
 		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 
 		for (int j = 0; j < i; j++) {
-			if (!IcicleUtils.placeIceBlockIfPossible(worldGenLevel, mutableBlockPos)) {
-				return;
-			}
-
+			if (!IcicleUtils.placeIceBlockIfPossible(worldGenLevel, mutableBlockPos)) return;
 			mutableBlockPos.move(direction);
 		}
 	}

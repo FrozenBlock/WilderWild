@@ -468,16 +468,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	public void tick() {
 		super.tick();
 
-		if (!this.isAlive()) {
-			this.setNoGravity(false);
-		}
+		if (!this.isAlive()) this.setNoGravity(false);
 		this.setFlickerAge(this.getFlickerAge() + 1);
-
 		float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);
-		if (animScale < 1.5F) {
-			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
-		}
+		if (animScale < 1.5F) this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
@@ -510,9 +505,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	public void die(DamageSource damageSource) {
-		if (this.isSwarmLeader()) {
-			FireflyAi.transferLeadershipToRandomFirefly(this);
-		}
+		if (this.isSwarmLeader()) FireflyAi.transferLeadershipToRandomFirefly(this);
 		super.die(damageSource);
 	}
 

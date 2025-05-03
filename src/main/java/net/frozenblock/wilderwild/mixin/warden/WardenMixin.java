@@ -174,9 +174,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Inject(at = @At("HEAD"), method = "canTargetEntity(Lnet/minecraft/world/entity/Entity;)Z", cancellable = true)
 	public void wilderWild$canTargetEntity(Entity entity, CallbackInfoReturnable<Boolean> info) {
-		if (entity instanceof Tumbleweed) {
-			info.setReturnValue(false);
-		}
+		if (entity instanceof Tumbleweed) info.setReturnValue(false);
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
@@ -199,9 +197,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	private void wilderWild$stellaHeartbeat(
 		Level instance, double d, double e, double f, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, Operation<Void> original
 	) {
-		if (this.wilderWild$isStella()) {
-			soundEvent = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
-		}
+		if (this.wilderWild$isStella()) soundEvent = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
 		original.call(instance, d, e, f, soundEvent, soundSource, g, h, bl);
 	}
 

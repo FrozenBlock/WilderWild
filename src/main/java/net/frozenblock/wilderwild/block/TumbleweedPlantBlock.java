@@ -146,9 +146,8 @@ public class TumbleweedPlantBlock extends VegetationBlock implements Bonemealabl
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
-		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
@@ -160,9 +159,8 @@ public class TumbleweedPlantBlock extends VegetationBlock implements Bonemealabl
 				level.gameEvent(entity, GameEvent.SHEAR, pos);
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Override

@@ -48,33 +48,31 @@ public class PenguinFollowReturnPos {
 						walkTarget,
 						lookTarget
 					) -> (serverLevel, pathfinderMob, l) -> {
-						if (pathfinderMob.onGround() && !pathfinderMob.isInWater()) {
-							return false;
-						} else if (l < returnTimer.getValue()) {
-							returnTimer.setValue(l + 60L);
-							return true;
-						} else {
-							GlobalPos globalPos = instance.get(landPos);
-
-							if (!globalPos.dimension().equals(serverLevel.dimension())) {
-								landPos.erase();
-								return false;
-							}
-
-							PathNavigation pathNavigation = pathfinderMob.getNavigation();
-							BlockPos pos = globalPos.pos();
-
-							lookTarget.set(new BlockPosTracker(pos));
-							walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
-
-							if (pathNavigation.isStuck()) {
-								landPos.erase();
-								return false;
-							}
-
+						if (pathfinderMob.onGround() && !pathfinderMob.isInWater()) return false;
+						if (l < returnTimer.getValue()) {
 							returnTimer.setValue(l + 60L);
 							return true;
 						}
+						GlobalPos globalPos = instance.get(landPos);
+
+						if (!globalPos.dimension().equals(serverLevel.dimension())) {
+							landPos.erase();
+							return false;
+						}
+
+						PathNavigation pathNavigation = pathfinderMob.getNavigation();
+						BlockPos pos = globalPos.pos();
+
+						lookTarget.set(new BlockPosTracker(pos));
+						walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
+
+						if (pathNavigation.isStuck()) {
+							landPos.erase();
+							return false;
+						}
+
+						returnTimer.setValue(l + 60L);
+						return true;
 					}
 				)
 		);

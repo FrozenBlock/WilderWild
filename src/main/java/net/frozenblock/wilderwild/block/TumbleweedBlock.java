@@ -76,9 +76,8 @@ public class TumbleweedBlock extends VegetationBlock implements SimpleWaterlogge
 			onShear(level, pos, player);
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
-		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	public static boolean onShear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
@@ -117,10 +116,7 @@ public class TumbleweedBlock extends VegetationBlock implements SimpleWaterlogge
 		BlockState neighborState,
 		RandomSource randomSource
 	) {
-		if (blockState.getValue(WATERLOGGED)) {
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		}
-
+		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
 

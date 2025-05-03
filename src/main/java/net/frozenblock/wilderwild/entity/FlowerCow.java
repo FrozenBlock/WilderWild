@@ -143,9 +143,8 @@ public class FlowerCow extends AbstractCow implements Shearable {
 				return InteractionResult.SUCCESS_SERVER;
 			}
 			return InteractionResult.CONSUME;
-		} else {
-			return super.mobInteract(player, interactionHand);
 		}
+		return super.mobInteract(player, interactionHand);
 	}
 
 	@Override
@@ -200,9 +199,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) {
-			this.moobloomVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariantByLocation());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -297,21 +294,15 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
 		FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(serverLevel, EntitySpawnReason.BREEDING);
-		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) {
-			flowerCow.setVariant(this.getOffspringType(serverLevel, otherFlowerCow));
-		}
-
+		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(serverLevel, otherFlowerCow));
 		return flowerCow;
 	}
 
 	private MoobloomVariant getOffspringType(ServerLevel serverLevel, @NotNull FlowerCow flowerCow) {
 		MoobloomVariant flowerType = this.getVariantByLocation();
 		MoobloomVariant otherFlowerType = flowerCow.getVariantByLocation();
-		if (flowerType == otherFlowerType) {
-			return flowerType;
-		} else {
-			return this.getOffspringVariant(serverLevel, flowerCow);
-		}
+		if (flowerType == otherFlowerType) return flowerType;
+		return this.getOffspringVariant(serverLevel, flowerCow);
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(ServerLevel serverLevel, @NotNull FlowerCow otherFlowerCow) {
@@ -330,9 +321,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
 				Block variantFlower = registeredVariant.getFlowerBlockState().getBlock();
 				Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(serverLevel, variantFlower);
-				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) {
-					return registeredVariant;
-				}
+				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) return registeredVariant;
 			}
 		}
 

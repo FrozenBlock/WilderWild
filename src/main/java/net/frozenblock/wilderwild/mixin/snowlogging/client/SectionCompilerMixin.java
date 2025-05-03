@@ -76,22 +76,21 @@ public abstract class SectionCompilerMixin {
 		@Local(ordinal = 2) BlockPos blockPos3,
 		@Local BlockState blockState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-			RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
-			BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
-			randomSource.setSeed(snowState.getSeed(blockPos3));
-			this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
-			poseStack.pushPose();
-			poseStack.translate(
-				(float) SectionPos.sectionRelative(blockPos3.getX()),
-				(float) SectionPos.sectionRelative(blockPos3.getY()),
-				(float) SectionPos.sectionRelative(blockPos3.getZ())
-			);
-			this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, list);
-			poseStack.popPose();
-			list.clear();
-		}
+		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
+		BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
+		RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
+		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
+		randomSource.setSeed(snowState.getSeed(blockPos3));
+		this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
+		poseStack.pushPose();
+		poseStack.translate(
+			(float) SectionPos.sectionRelative(blockPos3.getX()),
+			(float) SectionPos.sectionRelative(blockPos3.getY()),
+			(float) SectionPos.sectionRelative(blockPos3.getZ())
+		);
+		this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, list);
+		poseStack.popPose();
+		list.clear();
 	}
 
 }

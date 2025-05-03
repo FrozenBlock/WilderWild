@@ -37,8 +37,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.monster.warden.Warden;
-import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -114,9 +112,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newDigAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) {
-			return WWWardenAnimation.WARDEN_DIG;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) return WWWardenAnimation.WARDEN_DIG;
 		return original;
 	}
 
@@ -130,9 +126,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
-			return WWWardenAnimation.WARDEN_EMERGE;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) return WWWardenAnimation.WARDEN_EMERGE;
 		return original;
 	}
 
@@ -146,9 +140,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
-			return WWWardenAnimation.WARDEN_SNIFF;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) return WWWardenAnimation.WARDEN_SNIFF;
 		return original;
 	}
 
@@ -310,11 +302,6 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		float timeSin15 = timeSin * 15F;
 		this.leftLeg.xRot += (timeSin15 + 15F) * Mth.DEG_TO_RAD;
 		this.rightLeg.xRot += (-timeSin15 + 15F) * Mth.DEG_TO_RAD;
-	}
-
-	@Unique
-	private boolean wilderWild$touchingFluid(@NotNull Warden warden) {
-		return warden.isInWater() || warden.isInLava();
 	}
 
 }

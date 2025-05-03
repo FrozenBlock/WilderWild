@@ -204,9 +204,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
-			default -> X_SHAPE;
 			case Y -> Y_SHAPE;
 			case Z -> Z_SHAPE;
+			default -> X_SHAPE;
 		};
 	}
 
@@ -214,9 +214,9 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	@NotNull
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(AXIS)) {
-			default -> X_COLLISION_SHAPE;
 			case Y -> Y_COLLISION_SHAPE;
 			case Z -> Z_COLLISION_SHAPE;
+			default -> X_COLLISION_SHAPE;
 		};
 	}
 
@@ -227,7 +227,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
+	public @NotNull BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
 		BlockState superState = super.getStateForPlacement(ctx);
 		return superState != null ? superState.setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).is(Fluids.WATER)) : null;
 	}
@@ -243,9 +243,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		BlockState neighborState,
 		RandomSource randomSource
 	) {
-		if (blockState.getValue(WATERLOGGED)) {
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		}
+		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		scheduledTickAccess.scheduleTick(blockPos, this, 1);
 		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}

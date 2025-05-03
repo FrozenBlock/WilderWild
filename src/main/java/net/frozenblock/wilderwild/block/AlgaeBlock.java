@@ -106,9 +106,8 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	InsideBlockEffectApplier insideBlockEffectApplier
 	) {
 		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
-			if (entity.getType().equals(EntityType.FALLING_BLOCK)) {
-				level.destroyBlock(pos, false);
-			}
+			if (entity.getType().equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);
+
 			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
 				if (entity instanceof Player player && player.getAbilities().flying) return;
 				entity.resetFallDistance();
@@ -122,9 +121,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			mutableBlockPos.setWithOffset(pos, direction);
-			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) {
-				return true;
-			}
+			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) return true;
 		}
 		return false;
 	}
@@ -150,10 +147,10 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
 		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
 		int count = 0;
-		do {
+		while (count < threshold) {
 			if (!posesToCheck.hasNext()) return false;
 			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE)) count = count + 1;
-		} while (count < threshold);
+		}
 		return true;
 	}
 }

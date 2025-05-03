@@ -138,7 +138,10 @@ public final class OverworldBiomeBuilderMixin {
 		ResourceKey<Biome> biomeKey,
 		Operation<Void> operation
 	) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) {
+			operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+			return;
+		}
 		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
 			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);

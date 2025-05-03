@@ -89,9 +89,7 @@ public abstract class FallingLeafParticleMixin extends TextureSheetParticle {
 		@Share("wilderWild$useWind")LocalBooleanRef wilderWild$useWind,
 		@Share("wilderWild$windZ") LocalDoubleRef wilderWild$windZ
 	) {
-		if (wilderWild$useWind.get()) {
-			return (float) wilderWild$windZ.get() * 0.6F;
-		}
+		if (wilderWild$useWind.get()) return (float) wilderWild$windZ.get() * 0.6F;
 		return original;
 	}
 

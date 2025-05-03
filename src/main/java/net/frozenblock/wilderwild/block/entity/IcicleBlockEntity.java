@@ -154,9 +154,7 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 			@Nullable Entity entity2,
 			float f
 		) {
-			if (IcicleBlockEntity.this.getBlockState().getBlock() instanceof IcicleBlock icicleBlock) {
-				icicleBlock.triggerFall(world, this.blockPos);
-			}
+			if (IcicleBlockEntity.this.getBlockState().getBlock() instanceof IcicleBlock icicleBlock) icicleBlock.triggerFall(world, this.blockPos);
 		}
 
 		@Override

@@ -99,12 +99,8 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 			poseStack.translate(0.5F, 0.5F, 0.5F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-chestRotation));
 			poseStack.translate(-0.5F, -0.5F, -0.5F);
-			DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource;
-			if (bl) {
-				propertySource = abstractStoneChestBlock.combine(blockState, level, entity.getBlockPos(), true);
-			} else {
-				propertySource = DoubleBlockCombiner.Combiner::acceptNone;
-			}
+			DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> propertySource = bl
+				? abstractStoneChestBlock.combine(blockState, level, entity.getBlockPos(), true) : DoubleBlockCombiner.Combiner::acceptNone;
 
 			float openProg = entity.getOpenProgress(partialTick);
 			openProg = 1F - openProg;

@@ -84,9 +84,7 @@ public class BrushItemMixin {
 		Level instance, Entity player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
-			soundEvent = scorchedBlock.brushSound;
-		}
+		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) soundEvent = scorchedBlock.brushSound;
 		original.call(instance, player, blockPos, soundEvent, soundSource);
 	}
 
@@ -104,9 +102,7 @@ public class BrushItemMixin {
 		@Share("wilderWild$hitResultRef") LocalRef<BlockHitResult> hitResultRef,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, hitResultRef.get(), blockStateRef.get())) {
-			info.cancel();
-		}
+		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, hitResultRef.get(), blockStateRef.get())) info.cancel();
 	}
 
 	@Unique
@@ -114,11 +110,11 @@ public class BrushItemMixin {
 		@NotNull Level level, LivingEntity livingEntity, @NotNull ItemStack stack, BlockHitResult hitResult, BlockState blockState
 	) {
 		if (!level.isClientSide() && livingEntity instanceof Player player) {
-			BlockPos blockPos = hitResult.getBlockPos();
-			BlockEntity blockEntity = level.getBlockEntity(blockPos);
-			if (blockEntity instanceof ScorchedBlockEntity scorchedBlockEntity && blockState.getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
-				boolean shouldDegrade = scorchedBlockEntity.brush(level.getGameTime());
-				if (shouldDegrade) {
+			if (level.getBlockEntity(hitResult.getBlockPos()) instanceof ScorchedBlockEntity scorchedBlockEntity
+				&& blockState.getBlock() instanceof ScorchedBlock scorchedBlock
+				&& scorchedBlock.canBrush
+			) {
+				if (scorchedBlockEntity.brush(level.getGameTime())) {
 					EquipmentSlot equipmentSlot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
 					stack.hurtAndBreak(1, livingEntity, equipmentSlot);
 				}

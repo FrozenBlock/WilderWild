@@ -195,9 +195,8 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 				this.removeTopHalfIfYoung(state, level, pos);
 			}
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@Override

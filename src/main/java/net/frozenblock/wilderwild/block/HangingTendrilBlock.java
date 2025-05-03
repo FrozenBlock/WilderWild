@@ -152,12 +152,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		BlockState neighborState,
 		RandomSource randomSource
 	) {
-		if (!blockState.canSurvive(levelReader, blockPos)) {
-			scheduledTickAccess.scheduleTick(blockPos, this, 1);
-		}
-		if (blockState.getValue(WATERLOGGED)) {
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		}
+		if (!blockState.canSurvive(levelReader, blockPos)) scheduledTickAccess.scheduleTick(blockPos, this, 1);
+		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
 		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
 	}
 
@@ -185,9 +181,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
-		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) {
-			updateNeighbours(level, pos, state);
-		}
+		if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE) updateNeighbours(level, pos, state);
 	}
 
 	public static void updateNeighbours(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
@@ -268,12 +262,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof HangingTendrilBlockEntity hangingEntity) {
+		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingEntity) {
 			return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
-		} else {
-			return 0;
 		}
+		return 0;
 	}
 
 	@Override
@@ -290,9 +282,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean bl) {
 		super.spawnAfterBreak(state, level, pos, stack, bl);
 		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendrilBlockEntity) {
-			if (hangingTendrilBlockEntity.getStoredXP() > 0) {
-				this.popExperience(level, pos, hangingTendrilBlockEntity.getStoredXP());
-			}
+			if (hangingTendrilBlockEntity.getStoredXP() > 0) this.popExperience(level, pos, hangingTendrilBlockEntity.getStoredXP());
 		}
 	}
 
@@ -300,22 +290,19 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
-			if (level.isClientSide) {
-				return InteractionResult.SUCCESS;
-			} else {
-				if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity tendrilEntity) {
-					if (tendrilEntity.getStoredXP() > 0) {
-						level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-						level.playSound(null,
-							pos,
-							WWSounds.BLOCK_HANGING_TENDRIL_WRING,
-							SoundSource.BLOCKS,
-							1F,
-							level.getRandom().nextFloat() * 0.1F + 0.9F
-						);
-						tendrilEntity.ringOutTicksLeft = RING_OUT_TICKS;
-						return InteractionResult.SUCCESS;
-					}
+			if (level.isClientSide) return InteractionResult.SUCCESS;
+			if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity tendrilEntity) {
+				if (tendrilEntity.getStoredXP() > 0) {
+					level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
+					level.playSound(null,
+						pos,
+						WWSounds.BLOCK_HANGING_TENDRIL_WRING,
+						SoundSource.BLOCKS,
+						1F,
+						level.getRandom().nextFloat() * 0.1F + 0.9F
+					);
+					tendrilEntity.ringOutTicksLeft = RING_OUT_TICKS;
+					return InteractionResult.SUCCESS;
 				}
 			}
 		}

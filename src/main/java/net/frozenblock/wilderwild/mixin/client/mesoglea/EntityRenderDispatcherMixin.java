@@ -43,9 +43,7 @@ public class EntityRenderDispatcherMixin {
 		require = 0
 	)
 	private static void wilderWild$stopShadowRenderingIfMesoglea(CallbackInfo info, @Local(ordinal = 0) BlockState blockState) {
-		if (blockState.getBlock() instanceof MesogleaBlock) {
-			info.cancel();
-		}
+		if (blockState.getBlock() instanceof MesogleaBlock) info.cancel();
 	}
 
 }

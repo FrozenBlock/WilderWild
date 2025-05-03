@@ -44,9 +44,7 @@ public class MilkweedPod extends Item {
 	@NotNull
 	public InteractionResult use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
 		ItemStack itemStack = user.getItemInHand(hand);
-		if (!user.getAbilities().instabuild) {
-			itemStack.shrink(1);
-		}
+		if (!user.getAbilities().instabuild) itemStack.shrink(1);
 		if (level instanceof ServerLevel serverLevel) {
 			float pitch = user.getXRot();
 			float yaw = user.getYRot();

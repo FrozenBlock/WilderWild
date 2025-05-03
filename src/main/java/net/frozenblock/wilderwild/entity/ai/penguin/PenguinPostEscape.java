@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -28,10 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 
 	public PenguinPostEscape() {
-		super(
-			Map.of(),
-			1
-		);
+		super(ImmutableMap.of(), 1);
 	}
 
 	@Override

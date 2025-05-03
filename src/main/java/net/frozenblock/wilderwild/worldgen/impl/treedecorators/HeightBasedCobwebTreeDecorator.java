@@ -66,9 +66,7 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 					for (Direction direction : Direction.Plane.HORIZONTAL) {
 						if (random.nextFloat() <= this.placementChance) {
 							mutableBlockPos.setWithOffset(pos, direction);
-							if (context.isAir(mutableBlockPos)) {
-								context.setBlock(mutableBlockPos, blockState);
-							}
+							if (context.isAir(mutableBlockPos)) context.setBlock(mutableBlockPos, blockState);
 						}
 					}
 				}

@@ -30,9 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public record WWLightningStrikePacket(int blockStateId, double x, double y, double z, int tickCount) implements CustomPacketPayload {
-	public static final Type<WWLightningStrikePacket> PACKET_TYPE = new Type<>(
-		WWConstants.id("lightning_strike")
-	);
+	public static final Type<WWLightningStrikePacket> PACKET_TYPE = new Type<>(WWConstants.id("lightning_strike"));
 
 	public static final StreamCodec<FriendlyByteBuf, WWLightningStrikePacket> CODEC = StreamCodec.ofMember(WWLightningStrikePacket::write, WWLightningStrikePacket::new);
 

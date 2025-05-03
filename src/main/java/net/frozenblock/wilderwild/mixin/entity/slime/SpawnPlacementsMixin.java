@@ -46,9 +46,7 @@ public class SpawnPlacementsMixin {
 			)
 		)
 	)
-	private static <T extends Mob> void wilderWild$register(
-		EntityType<T> type, SpawnPlacementType spawnPlacementType, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, Operation<Void> original
-	) {
+	private static <T extends Mob> void wilderWild$register(EntityType<T> type, SpawnPlacementType spawnPlacementType, Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate, Operation<Void> original) {
 		original.call(type, WWSpawnTypes.ON_GROUND_OR_IN_ALGAE, heightmapType, predicate);
 	}
 

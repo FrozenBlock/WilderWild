@@ -227,14 +227,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 		if (this.getBeakCooldown() > 0) {
 			this.setBeakCooldown(this.getBeakCooldown() - 1);
-			if (this.getBeakCooldown() == 0) {
-				this.setTargetBeakAnimProgress(0F);
-			}
+			if (this.getBeakCooldown() == 0) this.setTargetBeakAnimProgress(0F);
 		}
 
-		if (this.refuseToMove()) {
-			this.clampHeadRotationToBody(this, 0F);
-		}
+		if (this.refuseToMove()) this.clampHeadRotationToBody(this, 0F);
 
 		this.prevBeakAnimProgress = this.beakAnimProgress;
 		this.beakAnimProgress = this.beakAnimProgress + ((this.getTargetBeakAnimProgress() - this.beakAnimProgress) * this.getBeakEaseAmount());
@@ -256,9 +252,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		this.prevStraightProgress = this.straightProgress;
 		this.straightProgress = this.straightProgress + ((this.getTargetStraightProgress() - this.straightProgress) * 0.3F);
 
-		if (this.isStuck()) {
-			this.getNavigation().stop();
-		}
+		if (this.isStuck()) this.getNavigation().stop();
 	}
 
 	public AABB createAttackBox(float tickDelta) {
@@ -269,9 +263,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	private void handleAttackAndStuck(ServerLevel level) {
 		if (this.isAttacking()) {
-			if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) {
-				this.cancelAttack(true);
-			}
+			if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) this.cancelAttack(true);
+
 			BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
 			boolean hasAttacked = false;
 			AABB attackBox = this.createAttackBox(1F);
@@ -280,9 +273,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 			if (this.isBeakTouchingCollidingBlock(false)) {
 				SoundType soundType = this.getBeakState().getSoundType();
-				if (!this.isSilent()) {
-					this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
-				}
+				if (!this.isSilent()) this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
 				this.spawnBlockParticles(false, false);
 				this.cancelAttack(false);
 			}
@@ -294,17 +285,13 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 					if (!this.hasPassenger(entity)) {
 						Entity commander = this.getLastAttackCommander();
 						if (commander != null) {
-							if (!commander.isAlliedTo(entity) && commander != entity) {
-								hasAttacked = this.doHurtOnEntity(level, commander, entity);
-							}
+							if (!commander.isAlliedTo(entity) && commander != entity) hasAttacked = this.doHurtOnEntity(level, commander, entity);
 						} else {
 							if (this.attackHasCommander) {
 								this.cancelAttack(false);
 								return;
 							}
-							if (this.canTargetEntity(entity)) {
-								hasAttacked = this.doHurtOnEntity(level, null, entity);
-							}
+							if (this.canTargetEntity(entity)) hasAttacked = this.doHurtOnEntity(level, null, entity);
 						}
 					}
 					if (hasAttacked) {
@@ -323,25 +310,19 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 						SoundEvent stuckSoundEvent = inbred ? WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK : WWSounds.ENTITY_OSTRICH_BEAK_STUCK;
 						float volume = inbred ? 8F : this.getSoundVolume();
 						this.level().playSound(null, beakBlockPos, stuckSoundEvent, this.getSoundSource(), volume, this.getVoicePitch());
-						if (inbred) {
-							ScreenShakeManager.addEntityScreenShake(this, 3.5F, 40, 16F);
-						}
+						if (inbred) ScreenShakeManager.addEntityScreenShake(this, 3.5F, 40, 16F);
 					}
 					this.spawnBlockParticles(true, false);
 					return;
 				}
 			}
 
-			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) {
-				this.cancelAttack(false);
-			}
+			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) this.cancelAttack(false);
 
 		} else {
 			if (this.getStuckTicks() > 0) {
 				this.setStuckTicks(this.getStuckTicks() - 1);
-				if (this.getStuckTicks() == 0 || !this.isBeakTouchingCollidingBlock(true)) {
-					this.emergeBeak();
-				}
+				if (this.getStuckTicks() == 0 || !this.isBeakTouchingCollidingBlock(true)) this.emergeBeak();
 			}
 		}
 	}
@@ -553,9 +534,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public boolean handleLeashAtDistance(Entity entity, float distance) {
-		if (distance > 6F && this.isStuck()) {
-			this.emergeBeak();
-		}
+		if (distance > 6F && this.isStuck()) this.emergeBeak();
 		super.handleLeashAtDistance(entity, distance);
 		return true;
 	}
@@ -587,41 +566,29 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
-		if (!this.isFood(stack)) {
-			return false;
-		} else {
-			boolean bl = this.getHealth() < this.getMaxHealth();
-			if (bl) {
-				this.heal(2F);
-			}
+		if (!this.isFood(stack)) return false;
+		boolean isHurt = this.getHealth() < this.getMaxHealth();
+		if (isHurt) this.heal(2F);
 
-			boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
-			if (bl2) {
-				this.setInLove(player);
-			}
+		boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
+		if (bl2) this.setInLove(player);
 
-			boolean bl3 = this.isBaby();
-			if (bl3) {
-				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
-				if (!this.level().isClientSide) {
-					this.ageUp(10);
-				}
-			}
+		boolean isBaby = this.isBaby();
+		if (isBaby) {
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
+			if (!this.level().isClientSide) this.ageUp(10);
+		}
 
-			if (!bl && !bl2 && !bl3) {
-				return false;
-			} else {
-				if (!this.isSilent()) {
-					SoundEvent soundEvent = this.getEatingSound();
-					if (soundEvent != null) {
-						this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
-					}
-				}
-
-				this.gameEvent(GameEvent.EAT);
-				return true;
+		if (!isHurt && !bl2 && !isBaby) return false;
+		if (!this.isSilent()) {
+			SoundEvent soundEvent = this.getEatingSound();
+			if (soundEvent != null) {
+				this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 			}
 		}
+
+		this.gameEvent(GameEvent.EAT);
+		return true;
 	}
 
 	@Contract("null->false")
@@ -644,31 +611,22 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	public boolean causeFallDamage(double fallDistance, float multiplier, @NotNull DamageSource source) {
 		int i = this.calculateFallDamage(fallDistance, multiplier);
-		if (i <= 0) {
-			return false;
-		} else {
-			if (fallDistance >= 6F) {
-				this.hurt(source, (float) i);
-				if (this.isVehicle()) {
-					for (Entity entity : this.getIndirectPassengers()) {
-						entity.hurt(source, (float) i);
-					}
-				}
+		if (i <= 0) return false;
+		if (fallDistance >= 6F) {
+			this.hurt(source, (float) i);
+			if (this.isVehicle()) {
+				for (Entity entity : this.getIndirectPassengers()) entity.hurt(source, (float) i);
 			}
-
-			this.playBlockFallSound();
-			return true;
 		}
+
+		this.playBlockFallSound();
+		return true;
 	}
 
 	@Override
 	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
 		boolean bl = super.hurtServer(level, source, amount);
-		if (bl) {
-			if (source.getEntity() instanceof LivingEntity livingEntity) {
-				OstrichAi.wasHurtBy(level, this, livingEntity);
-			}
-		}
+		if (bl && source.getEntity() instanceof LivingEntity livingEntity) OstrichAi.wasHurtBy(level, this, livingEntity);
 		return bl;
 	}
 
@@ -933,8 +891,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isInbred())
-			return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
+		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
 		return !this.isAggressive() ? WWSounds.ENTITY_OSTRICH_IDLE :
 			this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
 	}
@@ -1035,9 +992,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		compound.putBoolean("IsAttacking", this.isAttacking());
 		compound.putInt("StuckTicks", this.getStuckTicks());
 		compound.putFloat("BeakAnimProgress", this.beakAnimProgress);
-		if (this.lastAttackCommander != null) {
-			compound.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
-		}
+		if (this.lastAttackCommander != null) compound.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
 		compound.putBoolean("AttackHasCommander", this.attackHasCommander);
 		compound.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
 	}

@@ -41,9 +41,7 @@ public class FogRendererMixin {
 	)
 	private static int wilderWild$replaceWaterFogColorInMesoglea(int original, Camera camera, float tickDelta, ClientLevel clientLevel) {
 		BlockState state = clientLevel.getBlockState(camera.getBlockPosition());
-		if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
-			return mesogleaBlock.getWaterFogColorOverride();
-		}
+		if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) return mesogleaBlock.getWaterFogColorOverride();
 		return original;
 	}
 

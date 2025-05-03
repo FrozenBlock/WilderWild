@@ -113,14 +113,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
 			if (!this.isDiggingOrEmerging() && !warden.hasPose(Pose.SNIFFING) && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
-				if (this.wilderWild$isSubmergedInWaterOrLava()) {
-					warden.setPose(Pose.SWIMMING);
-				} else {
-					warden.setPose(Pose.STANDING);
-				}
+				this.setPose(this.wilderWild$isSubmergedInWaterOrLava() ? Pose.SWIMMING : Pose.STANDING);
 			}
-
-			this.wilderWild$newSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75F || this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75F;
+			this.wilderWild$newSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75F
+				|| this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75F;
 		} else {
 			super.travel(travelVector);
 			this.wilderWild$newSwimming = false;
@@ -156,15 +152,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Override
 	public void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
 		if (WWEntityConfig.WARDEN_SWIMS && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
-			Optional<LivingEntity> ATTACK_TARGET = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-			Optional<LivingEntity> ROAR_TARGET = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
-			LivingEntity target = ATTACK_TARGET.orElseGet(() -> ROAR_TARGET.orElse(null));
-
-			if (target != null) {
-				if ((!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) {
-					super.jumpInLiquid(fluid);
-				}
-			}
+			Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+			Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
+			LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
+			if (target != null && (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) super.jumpInLiquid(fluid);
 		} else {
 			super.jumpInLiquid(fluid);
 		}
@@ -172,21 +163,17 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Override
 	protected boolean updateInWaterStateAndDoFluidPushing() {
-		if (WWEntityConfig.WARDEN_SWIMS) {
-			Warden warden = Warden.class.cast(this);
-			this.fluidHeight.clear();
-			warden.updateInWaterStateAndDoWaterCurrentPushing();
-			boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-			return this.wilderWild$isTouchingWaterOrLava() || bl;
-		}
-		return super.updateInWaterStateAndDoFluidPushing();
+		if (!WWEntityConfig.WARDEN_SWIMS) return super.updateInWaterStateAndDoFluidPushing();
+		Warden warden = Warden.class.cast(this);
+		this.fluidHeight.clear();
+		warden.updateInWaterStateAndDoWaterCurrentPushing();
+		boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
+		return this.wilderWild$isTouchingWaterOrLava() || bl;
 	}
 
 	@Inject(method = "getDefaultDimensions", at = @At("RETURN"), cancellable = true)
 	public void modifySwimmingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> info) {
-		if (!this.isDiggingOrEmerging() && this.isVisuallySwimming()) {
-			info.setReturnValue(EntityDimensions.scalable(this.getType().getWidth(), 0.85F));
-		}
+		if (!this.isDiggingOrEmerging() && this.isVisuallySwimming()) info.setReturnValue(EntityDimensions.scalable(this.getType().getWidth(), 0.85F));
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

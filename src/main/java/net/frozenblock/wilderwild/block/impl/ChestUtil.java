@@ -42,19 +42,14 @@ public class ChestUtil {
 		} else {
 			return Optional.empty();
 		}
-		if (level.getBlockEntity(mutableBlockPos) instanceof ChestBlockEntity chest) {
-			return Optional.of(chest);
-		}
+		if (level.getBlockEntity(mutableBlockPos) instanceof ChestBlockEntity chest) return Optional.of(chest);
 		return Optional.empty();
 	}
 
 	public static @NotNull Optional<StoneChestBlockEntity> getCoupledStoneChestBlockEntity(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		Optional<ChestBlockEntity> possibleCoupledChest = getCoupledChestBlockEntity(level, pos, state);
 		if (possibleCoupledChest.isPresent()) {
-			ChestBlockEntity chest = possibleCoupledChest.get();
-			if (chest instanceof StoneChestBlockEntity stoneChestBlockEntity) {
-				return Optional.of(stoneChestBlockEntity);
-			}
+			if (possibleCoupledChest.get() instanceof StoneChestBlockEntity stoneChestBlockEntity) return Optional.of(stoneChestBlockEntity);
 		}
 		return Optional.empty();
 	}
@@ -81,9 +76,7 @@ public class ChestUtil {
 				}
 			} else {
 				boolean wasLogged = oldState.getFluidState().is(Fluids.WATER);
-				if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) {
-					chestBlockEntityInterface.wilderWild$setCanBubble(true);
-				}
+				if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) chestBlockEntityInterface.wilderWild$setCanBubble(true);
 			}
 			possibleCoupledChest.ifPresent(chestBlockEntity -> chestBlockEntityInterface.wilderWild$syncBubble(chest, chestBlockEntity));
 		}

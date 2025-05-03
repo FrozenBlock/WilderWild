@@ -127,14 +127,11 @@ public class SculkSpreaderChargeCursorMixin {
 			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutableBlockPos2)) {
 				mutableBlockPos.set(mutableBlockPos2);
 				canReturn = true;
-				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutableBlockPos2)) {
-					return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
-				}
+				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutableBlockPos2)) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
 			}
 
-			if (canReturn) {
-				return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
-			}
+			if (canReturn) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
+
 			if (!(blockState.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutableBlockPos2)) continue;
 			mutableBlockPos.set(mutableBlockPos2);
 			if (!SculkVeinBlock.hasSubstrateAccess(level, blockState, mutableBlockPos2)) continue;
@@ -179,15 +176,10 @@ public class SculkSpreaderChargeCursorMixin {
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		if (isWorldGen.get()) {
-			if (wilderWild$isReplaceableBuildingBlock(state, true)) {
-				return new SlabWallStairSculkBehavior();
-			} else if (state.is(WWBlocks.STONE_CHEST)) {
-				return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
-			}
+			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new SlabWallStairSculkBehavior();
+			if (state.is(WWBlocks.STONE_CHEST)) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
 		} else {
-			if (wilderWild$isReplaceableBuildingBlock(state, false)) {
-				return new SlabWallStairSculkBehavior();
-			}
+			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new SlabWallStairSculkBehavior();
 		}
 		return operation.call(state);
 	}
@@ -203,11 +195,8 @@ public class SculkSpreaderChargeCursorMixin {
 		LevelAccessor levelAccessor, BlockPos blockPos, RandomSource random, Operation<BlockPos> operation,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
-		if (isWorldGen.get()) {
-			return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
-		} else {
-			return operation.call(levelAccessor, blockPos, random);
-		}
+		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
+		return operation.call(levelAccessor, blockPos, random);
 	}
 
 }

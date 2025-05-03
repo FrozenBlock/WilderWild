@@ -96,15 +96,9 @@ public class BaobabNutBlock extends SaplingBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 vec3d = state.getOffset(pos);
-		VoxelShape voxelShape;
-		if (!state.getValue(HANGING)) {
-			voxelShape = SHAPES[4];
-		} else {
-			voxelShape = SHAPES[state.getValue(AGE)];
-		}
-
-		return voxelShape.move(vec3d.x, vec3d.y, vec3d.z);
+		Vec3 offset = state.getOffset(pos);
+		VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
+		return voxelShape.move(offset.x, offset.y, offset.z);
 	}
 
 	@Override
@@ -114,15 +108,12 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) >= 9) {
-			if (!isHanging(state)) {
-				if (random.nextInt(7) == 0) {
-					this.advanceTree(level, pos, state, random);
-				}
-			} else {
-				if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
-					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-				}
+		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) < 9) return;
+		if (!isHanging(state)) {
+			if (random.nextInt(7) == 0) this.advanceTree(level, pos, state, random);
+		} else {
+			if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			}
 		}
 	}
@@ -144,7 +135,6 @@ public class BaobabNutBlock extends SaplingBlock {
 		} else {
 			super.performBonemeal(level, random, pos, state);
 		}
-
 	}
 
 	@Override

@@ -37,9 +37,7 @@ public class HalfTransparentBlockMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
 		)
 	)
-	private boolean wilderWild$checkForIceAndFragileIce(
-		BlockState instance, Block block, Operation<Boolean> original
-	) {
+	private boolean wilderWild$checkForIceAndFragileIce(BlockState instance, Block block, Operation<Boolean> original) {
 		if (instance.is(Blocks.ICE) && block == WWBlocks.FRAGILE_ICE) return true;
 		if (instance.is(WWBlocks.FRAGILE_ICE) && block == Blocks.ICE) return true;
 		return original.call(instance, block);

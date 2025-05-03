@@ -40,42 +40,33 @@ public class PenguinReturnToWater {
 					instance.absent(MemoryModuleType.WALK_TARGET),
 					instance.registered(MemoryModuleType.LOOK_TARGET)
 				)
-				.apply(
-					instance,
-					(
-						waterPos,
-						memoryAccessor,
-						walkTarget,
-						lookTarget
-					) -> (serverLevel, pathfinderMob, l) -> {
-						if (pathfinderMob.isInWater()) {
-							return false;
-						} else if (l < returnTimer.getValue()) {
-							returnTimer.setValue(l + 60L);
-							return true;
-						} else {
-							GlobalPos globalPos = instance.get(waterPos);
+				.apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (serverLevel, pathfinderMob, l) -> {
+					if (pathfinderMob.isInWater()) return false;
+					if (l < returnTimer.getValue()) {
+						returnTimer.setValue(l + 60L);
+						return true;
+					}
+					GlobalPos globalPos = instance.get(waterPos);
 
-							if (!globalPos.dimension().equals(serverLevel.dimension())) {
-								waterPos.erase();
-								return false;
-							}
+					if (!globalPos.dimension().equals(serverLevel.dimension())) {
+						waterPos.erase();
+						return false;
+					}
 
-							PathNavigation pathNavigation = pathfinderMob.getNavigation();
-							BlockPos pos = globalPos.pos();
+					PathNavigation pathNavigation = pathfinderMob.getNavigation();
+					BlockPos pos = globalPos.pos();
 
-							lookTarget.set(new BlockPosTracker(pos));
-							walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
+					lookTarget.set(new BlockPosTracker(pos));
+					walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
 
-							if (pathNavigation.isStuck()) {
-								waterPos.erase();
-								return false;
-							}
+					if (pathNavigation.isStuck()) {
+						waterPos.erase();
+						return false;
+					}
 
-							returnTimer.setValue(l + 60L);
-							return true;
-						}
-					})
+					returnTimer.setValue(l + 60L);
+					return true;
+				})
 		);
 	}
 }

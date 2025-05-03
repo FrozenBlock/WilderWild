@@ -34,9 +34,7 @@ public interface SimpleWaterloggedBlockMixin {
 
 	@Inject(method = "canPlaceLiquid", at = @At("HEAD"), cancellable = true)
 	default void wilderWild$canPlaceLiquid(LivingEntity entity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.setReturnValue(false);
-		}
+		if (SnowloggingUtils.isSnowlogged(state)) info.setReturnValue(false);
 	}
 
 }
