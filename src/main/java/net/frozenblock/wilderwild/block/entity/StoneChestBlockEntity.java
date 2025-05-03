@@ -209,18 +209,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 1.5F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
-		if (this.level != null) {
-			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-		}
+		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * WWBlockConfig.get().stoneChest.getStoneChestTimer());
-		if (this.level != null) {
-			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-		}
+		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public int getComparatorOutput() {
@@ -331,9 +327,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (!data.contains("wilderwild_is_ancient") && !item.isEmpty()) {
-				items.add(item);
-			}
+			if (!data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}
@@ -343,9 +337,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (data.contains("wilderwild_is_ancient") && !item.isEmpty()) {
-				items.add(item);
-			}
+			if (data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}

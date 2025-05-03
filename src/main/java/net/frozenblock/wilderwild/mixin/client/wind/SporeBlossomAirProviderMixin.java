@@ -35,9 +35,7 @@ public class SporeBlossomAirProviderMixin {
 
 	@Inject(method = "createParticle*", at = @At("RETURN"))
 	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface suspendedParticle) {
-			suspendedParticle.wilderWild$setUsesWind(true);
-		}
+		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface suspendedParticle) suspendedParticle.wilderWild$setUsesWind(true);
 	}
 
 }

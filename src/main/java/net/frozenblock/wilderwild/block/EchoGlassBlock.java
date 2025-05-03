@@ -150,13 +150,9 @@ public class EchoGlassBlock extends TransparentBlock {
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		int light = getLightLevel(level, pos);
 		if (light <= 8) {
-			if (random.nextBoolean()) {
-				heal(level, pos);
-			}
+			if (random.nextBoolean()) heal(level, pos);
 		} else {
-			if (random.nextFloat() <= 0.75F) {
-				damage(level, pos, state, true);
-			}
+			if (random.nextFloat() <= 0.75F) damage(level, pos, state, true);
 		}
 	}
 
@@ -190,9 +186,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state);
 		int damage = state.getValue(WWBlockStateProperties.DAMAGE);
-		if (damage != 0) {
-			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
-		}
+		if (damage != 0) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
 		return superStack;
 	}
 }

@@ -33,9 +33,7 @@ public abstract class SweetBerryBushBlockMixin {
 
 	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.setReturnValue(true);
-		}
+		if (SnowloggingUtils.isSnowlogged(state)) info.setReturnValue(true);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))

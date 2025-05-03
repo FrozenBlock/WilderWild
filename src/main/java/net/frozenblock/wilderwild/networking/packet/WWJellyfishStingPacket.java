@@ -27,13 +27,9 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WWJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
-	public static final Type<WWJellyfishStingPacket> PACKET_TYPE = new Type<>(
-		WWConstants.id("jellyfish_sting")
-	);
+	public static final Type<WWJellyfishStingPacket> PACKET_TYPE = new Type<>(WWConstants.id("jellyfish_sting"));
 
-	public static final StreamCodec<FriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL
-		.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby)
-		.cast();
+	public static final StreamCodec<FriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby).cast();
 
 	public static void sendTo(ServerPlayer serverPlayer, boolean isBaby) {
 		ServerPlayNetworking.send(serverPlayer, new WWJellyfishStingPacket(isBaby));

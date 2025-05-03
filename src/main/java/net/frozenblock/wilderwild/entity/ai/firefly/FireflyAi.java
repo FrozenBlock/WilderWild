@@ -135,14 +135,11 @@ public class FireflyAi {
 	}
 
 	public static void rememberHome(@NotNull LivingEntity firefly, @NotNull BlockPos pos) {
-		Brain<?> brain = firefly.getBrain();
-		GlobalPos globalPos = GlobalPos.of(firefly.level().dimension(), pos);
-		brain.setMemory(MemoryModuleType.HOME, globalPos);
+		firefly.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(firefly.level().dimension(), pos));
 	}
 
 	private static boolean shouldGoTowardsHome(@NotNull LivingEntity firefly, @NotNull GlobalPos pos) {
-		Level level = firefly.level();
-		return ((Firefly) firefly).hasHome() && level.dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
+		return ((Firefly) firefly).hasHome() && firefly.level().dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
 	}
 
 	@NotNull
@@ -152,13 +149,10 @@ public class FireflyAi {
 
 	@NotNull
 	private static Optional<PositionTracker> getHomeTarget(@NotNull LivingEntity firefly) {
-		Brain<?> brain = firefly.getBrain();
-		Optional<GlobalPos> home = brain.getMemory(MemoryModuleType.HOME);
+		Optional<GlobalPos> home = firefly.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
 			GlobalPos globalPos = home.get();
-			if (shouldGoTowardsHome(firefly, globalPos)) {
-				return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), firefly.level())));
-			}
+			if (shouldGoTowardsHome(firefly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), firefly.level())));
 		}
 
 		return Optional.empty();

@@ -55,18 +55,12 @@ public final class WWTreeGrowers {
 				ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
 				BlockPos pos = treeGrowerInterface.wilderWild$getPos();
 				if (level != null && pos != null) {
-					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
-						return WWTreeConfigured.SWAMP_CYPRESS.getKey();
-					}
+					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeConfigured.SWAMP_CYPRESS.getKey();
 					Holder<Biome> biome = level.getBiome(pos);
-					if (biome.is(BiomeTags.IS_BADLANDS)) {
-						return WWTreeConfigured.JUNIPER.getKey();
-					}
+					if (biome.is(BiomeTags.IS_BADLANDS)) return WWTreeConfigured.JUNIPER.getKey();
 				}
 			}
-			if (random.nextFloat() > 0.4F) {
-				return random.nextFloat() > 0.7F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
-			}
+			if (random.nextFloat() > 0.4F) return random.nextFloat() > 0.7F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
 			return WWConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};

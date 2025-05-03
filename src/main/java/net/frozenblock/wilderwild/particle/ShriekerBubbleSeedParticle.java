@@ -74,13 +74,11 @@ public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 		}
 
 		this.age++;
-		if (this.age == this.lifetime) {
-			this.remove();
-		}
+		if (this.age == this.lifetime) this.remove();
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {

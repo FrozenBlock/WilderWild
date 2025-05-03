@@ -139,9 +139,7 @@ public class JellyfishAi {
 	}
 
 	private static void onTargetInvalid(ServerLevel level, @NotNull Jellyfish jellyfish, @NotNull LivingEntity target) {
-		if (jellyfish.getTarget() == target) {
-			jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-		}
+		if (jellyfish.getTarget() == target) jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
 	@NotNull

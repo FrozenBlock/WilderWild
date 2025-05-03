@@ -77,9 +77,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public static void setAgeOnBothHalves(Block block, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean spawnParticles) {
-		if (age > MAX_AGE) {
-			return;
-		}
+		if (age > MAX_AGE) return;
+
 		level.setBlockAndUpdate(pos, state.setValue(AGE, age));
 		boolean isUpper = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER;
 		boolean hasSecondState = false;
@@ -145,7 +144,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		}
 		if (isFullyGrown(state)) {
-			if (level instanceof ServerLevel serverLevel) {
+			if (level instanceof ServerLevel) {
 				if (stack.is(Items.SHEARS)) {
 					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
@@ -163,9 +162,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	@NotNull
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
 		if (isFullyGrown(state)) {
-			if (level instanceof ServerLevel) {
-				this.pickAndSpawnSeeds(level, state, pos);
-			}
+			if (level instanceof ServerLevel) this.pickAndSpawnSeeds(level, state, pos);
 			return InteractionResult.SUCCESS;
 		}
 		return super.useWithoutItem(state, level, pos, entity, hitResult);

@@ -61,9 +61,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 
 	@Inject(method = "setPlacedBy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isItemSnow(stack) && WWBlockConfig.canSnowlog()) {
-			info.cancel();
-		}
+		if (SnowloggingUtils.isItemSnow(stack) && WWBlockConfig.canSnowlog()) info.cancel();
 	}
 
 	@ModifyExpressionValue(
@@ -111,9 +109,7 @@ public abstract class DoublePlantBlockMixin extends BushBlock {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			info.cancel();
 			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) {
-				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-			}
+			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 		}
 	}
 

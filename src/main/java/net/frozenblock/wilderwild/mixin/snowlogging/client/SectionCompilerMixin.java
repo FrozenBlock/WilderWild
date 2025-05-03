@@ -46,7 +46,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SectionCompiler.class)
 public abstract class SectionCompilerMixin {
 
-
 	@Shadow
 	protected abstract BufferBuilder getOrBeginLayer(Map<RenderType, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, RenderType renderType);
 
@@ -74,19 +73,17 @@ public abstract class SectionCompilerMixin {
 		@Local(ordinal = 2) BlockPos blockPos3,
 		@Local BlockState blockState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-
-			RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
-			BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
-			poseStack.pushPose();
-			poseStack.translate(
-				(float)SectionPos.sectionRelative(blockPos3.getX()),
-				(float)SectionPos.sectionRelative(blockPos3.getY()),
-				(float)SectionPos.sectionRelative(blockPos3.getZ())
-			);
-			this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, randomSource);
-			poseStack.popPose();
-		}
+		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
+		BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
+		RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
+		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
+		poseStack.pushPose();
+		poseStack.translate(
+			(float)SectionPos.sectionRelative(blockPos3.getX()),
+			(float)SectionPos.sectionRelative(blockPos3.getY()),
+			(float)SectionPos.sectionRelative(blockPos3.getZ())
+		);
+		this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, randomSource);
+		poseStack.popPose();
 	}
 }

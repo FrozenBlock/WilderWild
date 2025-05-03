@@ -169,19 +169,15 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	public static boolean checkJellyfishSpawnRules(
 		@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnReason, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
-		if (EntitySpawnReason.isSpawner(spawnReason)) {
-			return true;
-		} else if (!WWEntityConfig.get().jellyfish.spawnJellyfish) {
-			return false;
-		}
+		if (EntitySpawnReason.isSpawner(spawnReason)) return true;
+		if (!WWEntityConfig.get().jellyfish.spawnJellyfish) return false;
+
 		Holder<Biome> biome = level.getBiome(pos);
 		if (!biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
 			return false;
 		}
 		if (biome.is(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
-			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) {
-				return true;
-			}
+			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) return true;
 		}
 		int seaLevel = level.getSeaLevel();
 		return (random.nextInt(0, SPAWN_CHANCE) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - SPAWN_HEIGHT_NORMAL_SEA_OFFSET);
@@ -245,9 +241,8 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 			spawnData = jellyfishGroupData = new JellyfishGroupData(true, jellyfishVariantHolder);
 			this.setVariant(jellyfishVariantHolder.value());
 		}
-		if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) {
-			this.setBaby(true);
-		}
+		if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) this.setBaby(true);
+
 		jellyfishGroupData.increaseGroupSizeByOne();
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
@@ -493,9 +488,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 
 	public void moveToAccurate(@NotNull Entity entity, double speed) {
 		Path path = this.getNavigation().createPath(entity, 0);
-		if (path != null) {
-			this.getNavigation().moveTo(path, speed);
-		}
+		if (path != null) this.getNavigation().moveTo(path, speed);
 	}
 
 	@Contract("null->false")
@@ -550,25 +543,17 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.WATER_BUCKET)) {
-			return super.mobInteract(player, hand);
-		}
-		if (!itemStack.is(this.getVariantByLocation().getReproductionFood())) {
-			return InteractionResult.PASS;
-		}
+		if (itemStack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
+		if (!itemStack.is(this.getVariantByLocation().getReproductionFood())) return InteractionResult.PASS;
+
 		if (this.isBaby()) {
-			if (!player.getAbilities().instabuild) {
-				itemStack.shrink(1);
-			}
+			if (!player.getAbilities().instabuild) itemStack.shrink(1);
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
 		} else if (this.canReproduce()) {
-			if (this.level().isClientSide) {
-				return InteractionResult.CONSUME;
-			} else if (this.level() instanceof ServerLevel serverLevel) {
-				if (!player.getAbilities().instabuild) {
-					itemStack.shrink(1);
-				}
+			if (this.level().isClientSide) return InteractionResult.CONSUME;
+			if (this.level() instanceof ServerLevel serverLevel) {
+				if (!player.getAbilities().instabuild) itemStack.shrink(1);
 				this.fullness += 1;
 				this.ticksSinceSpawn = 0;
 				if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
@@ -589,9 +574,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 
 	public void spawnChild(ServerLevel level) {
 		Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level, EntitySpawnReason.BREEDING);
-		if (jellyfish == null) {
-			return;
-		}
+		if (jellyfish == null) return;
 		jellyfish.setBaby(true);
 		float bbHeight = this.getBbHeight();
 		Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
@@ -617,9 +600,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 		if (super.hurtServer(level, source, amount)) {
 			if (level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
 				LivingEntity target = this.getLastHurtByMob();
-				if (this.canTargetEntity(target, level)) {
-					this.setAttackTarget(target);
-				}
+				if (this.canTargetEntity(target, level)) this.setAttackTarget(target);
 			}
 			return true;
 		}

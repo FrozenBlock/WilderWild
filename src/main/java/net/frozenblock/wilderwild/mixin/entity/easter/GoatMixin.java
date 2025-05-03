@@ -37,9 +37,7 @@ public class GoatMixin {
 
 	@Inject(method = "isScreamingGoat", at = @At("RETURN"), cancellable = true)
 	private void wilderWild$isScreamingGoat(CallbackInfoReturnable<Boolean> info) {
-		if (this.wilderWild$isTreetrain1()) {
-			info.setReturnValue(true);
-		}
+		if (this.wilderWild$isTreetrain1()) info.setReturnValue(true);
 	}
 
 }

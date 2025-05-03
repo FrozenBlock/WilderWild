@@ -48,9 +48,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		BlockState state, LevelReader levelReader, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(ordinal = 1) BlockState blockState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			info.setReturnValue(true);
-		}
+		if (SnowloggingUtils.isSnowlogged(blockState)) info.setReturnValue(true);
 	}
 
 	@WrapOperation(

@@ -86,18 +86,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			}
 		}
 		if (hasFireflies) {
-			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level);
-			}
+			for (Occupant firefly : this.fireflies) firefly.tick(level);
 		}
 	}
 
 	public void clientTick(Level level) {
 		this.age += 1;
 		if (!this.fireflies.isEmpty()) {
-			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level);
-			}
+			for (Occupant firefly : this.fireflies) firefly.tick(level);
 		}
 	}
 
@@ -197,17 +193,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void spawnFireflies() {
-		if (this.level != null) {
-			if (!this.level.isClientSide) {
-				this.doFireflySpawns(this.level);
-			}
-		}
+		if (this.level == null) return;
+		if (!this.level.isClientSide) this.spawnFireflies(this.level);
 	}
 
 	public void spawnFireflies(@NotNull Level level) {
-		if (!this.getFireflies().isEmpty()) {
-			this.doFireflySpawns(level);
-		}
+		if (!this.getFireflies().isEmpty()) this.doFireflySpawns(level);
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {
@@ -232,12 +223,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public int getComparatorOutput() {
-		if (!this.invEmpty()) {
-			return Redstone.SIGNAL_MAX;
-		}
-		if (!this.noFireflies()) {
-			return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
-		}
+		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
+		if (!this.noFireflies()) return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
 	}
 
@@ -251,16 +238,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		).apply(instance, Occupant::new));
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
-			FrozenByteBufCodecs.VEC3,
-			Occupant::getPos,
-			ResourceLocation.STREAM_CODEC,
-			Occupant::getColor,
-			ByteBufCodecs.STRING_UTF8,
-			Occupant::getCustomName,
-			ByteBufCodecs.INT,
-			Occupant::getAge,
-			ByteBufCodecs.DOUBLE,
-			Occupant::getY,
+			FrozenByteBufCodecs.VEC3, Occupant::getPos,
+			ResourceLocation.STREAM_CODEC, Occupant::getColor,
+			ByteBufCodecs.STRING_UTF8, Occupant::getCustomName,
+			ByteBufCodecs.INT, Occupant::getAge,
+			ByteBufCodecs.DOUBLE, Occupant::getY,
 			Occupant::new
 		);
 

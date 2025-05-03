@@ -52,11 +52,7 @@ public class RoundMapleFoliagePlacer extends MapleFoliagePlacer {
 	) {
 		double function = Math.sin(((height * Math.PI) + (totalHeight * 0.5F)) / totalHeight);
 		double finalFunction = (function * (radius - 1)) + 1D;
-
-		double min = 0D;
-		if (hot) {
-			min = 1.2D;
-		}
+		double min = hot ? 1.2D : 0D;
 
 		return Math.max(finalFunction, min);
 	}

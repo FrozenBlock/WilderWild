@@ -169,6 +169,6 @@ public class SeaAnemoneBlock extends BushBlock implements LiquidBlockContainer {
 	private boolean isValidWaterToReplace(@NotNull LevelReader levelReader, BlockPos blockPos) {
 		BlockState blockState = levelReader.getBlockState(blockPos);
 		FluidState fluidState = blockState.getFluidState();
-		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == 8;
+		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 }

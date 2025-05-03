@@ -85,15 +85,11 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		this.yo = this.y;
 		this.zo = this.z;
 		this.preMoveUpdate();
-		if (this.removed) {
-			return;
-		}
+		if (this.removed) return;
 		this.yd -= this.gravity;
 		this.move(this.xd, this.yd, this.zd);
 		this.postMoveUpdate();
-		if (this.removed) {
-			return;
-		}
+		if (this.removed) return;
 		this.prevXRotMultiplier = this.xRotMultiplier;
 		this.xRotMultiplier += ((this.shouldTickUpXRotMultiplier ? 1F : 0F) - this.xRotMultiplier) * 0.25F;
 		this.xd *= 0.98F;
@@ -101,9 +97,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		this.zd *= 0.98F;
 		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
 		FluidState fluidState = this.level.getFluidState(blockPos);
-		if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) {
-			this.remove();
-		}
+		if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) blockPos.getY() + fluidState.getHeight(this.level, blockPos))) this.remove();
 	}
 
 	@Override
@@ -144,16 +138,13 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	protected void preMoveUpdate() {
-		if (this.lifetime-- <= 0) {
-			this.remove();
-		}
+		if (this.lifetime-- <= 0) this.remove();
 	}
 
 	protected void postMoveUpdate() {
 	}
 
 	//Blue Pearlescent
-	@Environment(EnvType.CLIENT)
 	public static class BPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -169,7 +160,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class BPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -183,7 +173,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class BPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -200,7 +189,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Purple Pearlescent
-	@Environment(EnvType.CLIENT)
 	public static class PPMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -216,7 +204,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class PPMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -230,7 +217,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class PPMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -247,7 +233,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Blue
-	@Environment(EnvType.CLIENT)
 	public static class BMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -263,7 +248,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class BMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -277,7 +261,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class BMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -294,7 +277,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Yellow
-	@Environment(EnvType.CLIENT)
 	public static class YMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -310,7 +292,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class YMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -324,7 +305,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class YMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -341,7 +321,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Lime
-	@Environment(EnvType.CLIENT)
 	public static class LMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -357,7 +336,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class LMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -371,7 +349,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class LMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -388,7 +365,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Red
-	@Environment(EnvType.CLIENT)
 	public static class RMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -404,7 +380,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class RMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -418,7 +393,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class RMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -435,7 +409,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 	}
 
 	//Pink
-	@Environment(EnvType.CLIENT)
 	public static class PMesogleaFallProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -451,7 +424,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class PMesogleaHangProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -465,7 +437,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class PMesogleaLandProvider implements ParticleProvider<SimpleParticleType> {
 		protected final SpriteSet sprite;
 
@@ -481,8 +452,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-
-	@Environment(EnvType.CLIENT)
 	static class DripLandParticle extends MesogleaDripParticle {
 		DripLandParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
 			super(clientLevel, d, e, f);
@@ -493,7 +462,6 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	static class FallingParticle extends MesogleaDripParticle {
 		FallingParticle(@NotNull ClientLevel clientLevel, double d, double e, double f) {
 			this(clientLevel, d, e, f, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)));
@@ -508,13 +476,10 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		protected void postMoveUpdate() {
-			if (this.onGround) {
-				this.remove();
-			}
+			if (this.onGround) this.remove();
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	static class FallAndLandParticle extends MesogleaDripParticle.FallingParticle {
 		protected final ParticleOptions landParticle;
 
@@ -560,9 +525,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		protected void postMoveUpdate() {
-			if (!this.removed) {
-				this.setSprite(spriteSet.get((int) (this.age * 0.2D) + 1, (int) (this.lifetime * 0.2D) + 1));
-			}
+			if (!this.removed) this.setSprite(spriteSet.get((int) (this.age * 0.2D) + 1, (int) (this.lifetime * 0.2D) + 1));
 		}
 	}
 }

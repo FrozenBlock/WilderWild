@@ -44,9 +44,7 @@ public class LevelMixin {
 		Level instance, BlockPos blockPos, Operation<FluidState> original
 	) {
 		FluidState fluidState = original.call(instance, blockPos);
-		if (fluidState.is(Fluids.WATER) && instance.getBlockState(blockPos).getBlock() instanceof MesogleaBlock) {
-			return Fluids.EMPTY.defaultFluidState();
-		}
+		if (fluidState.is(Fluids.WATER) && instance.getBlockState(blockPos).getBlock() instanceof MesogleaBlock) return Fluids.EMPTY.defaultFluidState();
 		return fluidState;
 	}
 
@@ -61,9 +59,7 @@ public class LevelMixin {
 		FluidState fluidState,
 		@Local BlockState blockState
 	) {
-		if (blockState.getBlock() instanceof MesogleaBlock) {
-			return Fluids.EMPTY.defaultFluidState();
-		}
+		if (blockState.getBlock() instanceof MesogleaBlock) return Fluids.EMPTY.defaultFluidState();
 		return fluidState;
 	}
 

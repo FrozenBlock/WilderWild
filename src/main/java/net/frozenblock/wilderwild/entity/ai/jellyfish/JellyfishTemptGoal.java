@@ -48,9 +48,7 @@ public class JellyfishTemptGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		ServerLevel level = getServerLevel(this.mob);
-		if (this.mob.getTarget() != null) {
-			return false;
-		}
+		if (this.mob.getTarget() != null) return false;
 		if (this.calmDown > 0) {
 			--this.calmDown;
 			return false;

@@ -95,16 +95,11 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	@Environment(EnvType.CLIENT)
 	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
 		Minecraft client = Minecraft.getInstance();
-		if (client.level != null) {
-			if (eating) {
-				client.getSoundManager().play(
-					new TermiteEatingSoundInstance<>(mound, termiteID)
-				);
-			} else {
-				client.getSoundManager().play(
-					new TermiteIdleSoundInstance<>(mound, termiteID)
-				);
-			}
+		if (client.level == null) return;
+		if (eating) {
+			client.getSoundManager().play(new TermiteEatingSoundInstance<>(mound, termiteID));
+		} else {
+			client.getSoundManager().play(new TermiteIdleSoundInstance<>(mound, termiteID));
 		}
 	}
 }

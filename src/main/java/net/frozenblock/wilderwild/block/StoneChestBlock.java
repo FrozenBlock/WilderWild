@@ -114,12 +114,8 @@ public class StoneChestBlock extends ChestBlock {
 				@Override
 				@NotNull
 				public Component getDisplayName() {
-					if (chestBlockEntity.hasCustomName()) {
-						return chestBlockEntity.getDisplayName();
-					}
-					if (chestBlockEntity2.hasCustomName()) {
-						return chestBlockEntity2.getDisplayName();
-					}
+					if (chestBlockEntity.hasCustomName()) return chestBlockEntity.getDisplayName();
+					if (chestBlockEntity2.hasCustomName()) return chestBlockEntity2.getDisplayName();
 					return Component.translatable("container.double_stone_chest");
 				}
 			});
@@ -145,23 +141,17 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		return false;
 	}
 
 	public static boolean canInteract(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
 		return true;
 	}
 
 	public static boolean hasLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		return false;
 	}
 
@@ -222,6 +212,7 @@ public class StoneChestBlock extends ChestBlock {
 					} else {
 						stoneChest.liftLid(LIFT_AMOUNT);
 					}
+
 					if (first) {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
 						ResourceKey<LootTable> lootTable = stoneChest.lootTable;
@@ -375,8 +366,7 @@ public class StoneChestBlock extends ChestBlock {
 			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 
 		ChestUtil.getCoupledStoneChestBlockEntity(level, pos, retState).ifPresent(coupledStoneChest -> {
-			if (
-				coupledStoneChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
+			if (coupledStoneChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
 				&& level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest
 				&& chest instanceof ChestBlockEntityInterface chestInterface
 			) {
@@ -400,9 +390,7 @@ public class StoneChestBlock extends ChestBlock {
 		if (!level.isClientSide) {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
 			if (blockEntity instanceof StoneChestBlockEntity stoneChest) {
-				if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) {
-					stoneChestInterface.wilderWild$bubbleBurst(state);
-				}
+				if (stoneChest instanceof ChestBlockEntityInterface stoneChestInterface) stoneChestInterface.wilderWild$bubbleBurst(state);
 
 				stoneChest.unpackLootTable(null);
 				ArrayList<ItemStack> ancientItems = stoneChest.ancientItems();
@@ -436,9 +424,7 @@ public class StoneChestBlock extends ChestBlock {
 			}
 		}
 
-		if (state.hasBlockEntity() && !state.is(newState.getBlock())) {
-			level.removeBlockEntity(pos);
-		}
+		if (state.hasBlockEntity() && !state.is(newState.getBlock())) level.removeBlockEntity(pos);
 	}
 
 	@Override
@@ -448,9 +434,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Override
 	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
-			return stoneChestBlockEntity.getComparatorOutput();
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) return stoneChestBlockEntity.getComparatorOutput();
 		return 0;
 	}
 

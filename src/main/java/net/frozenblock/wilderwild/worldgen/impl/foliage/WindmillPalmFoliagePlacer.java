@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class WindmillPalmFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		winePalmCodec(instance).apply(instance, WindmillPalmFoliagePlacer::new)
 	);
 
@@ -55,15 +55,15 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected void createFoliage(
-			LevelSimulatedReader world,
-			FoliagePlacer.FoliageSetter placer,
-			RandomSource random,
-			TreeConfiguration config,
-			int trunkHeight,
-			FoliagePlacer.@NotNull FoliageAttachment node,
-			int foliageHeight,
-			int radius,
-			int offset
+		LevelSimulatedReader world,
+		FoliagePlacer.FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
+		int trunkHeight,
+		FoliagePlacer.@NotNull FoliageAttachment node,
+		int foliageHeight,
+		int radius,
+		int offset
 	) {
 		BlockPos bottomPos = node.pos().below(radius);
 		int totalHeight = (radius * 2) + 1;

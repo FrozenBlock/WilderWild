@@ -38,18 +38,17 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.Client.SOUL_FIRE_SOUNDS && state.is(Blocks.SOUL_FIRE) && random.nextInt(48) == 0) {
-			level.playLocalSound(
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5D,
-				pos.getZ() + 0.5D,
-				WWSounds.BLOCK_SOUL_FIRE_AMBIENT,
-				SoundSource.BLOCKS,
-				0.6F + random.nextFloat(),
-				random.nextFloat() * 0.7F + 0.3F,
-				false
-			);
-		}
+		if (!WWBlockConfig.Client.SOUL_FIRE_SOUNDS || !state.is(Blocks.SOUL_FIRE) || random.nextInt(48) != 0) return;
+		level.playLocalSound(
+			pos.getX() + 0.5D,
+			pos.getY() + 0.5D,
+			pos.getZ() + 0.5D,
+			WWSounds.BLOCK_SOUL_FIRE_AMBIENT,
+			SoundSource.BLOCKS,
+			0.6F + random.nextFloat(),
+			random.nextFloat() * 0.7F + 0.3F,
+			false
+		);
 	}
 
 	@Inject(
@@ -65,32 +64,31 @@ public class BaseFireBlockMixin {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Local(ordinal = 1) BlockState blockState2
 	) {
-		if (WWBlockConfig.FIRE_MAGMA_PARTICLES && blockState2.is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.0075F) {
-				level.addParticle(
-					ParticleTypes.LAVA,
-					false,
-					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
-					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(random.nextDouble() - 0.5D) * 0.05D,
-					random.nextDouble() * 0.12D + 0.06D,
-					(random.nextDouble() - 0.5D) * 0.05D
-				);
-			}
+		if (!WWBlockConfig.FIRE_MAGMA_PARTICLES || !blockState2.is(Blocks.MAGMA_BLOCK)) return;
+		if (random.nextFloat() <= 0.0075F) {
+			level.addParticle(
+				ParticleTypes.LAVA,
+				false,
+				(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getY() + random.nextDouble() + random.nextDouble(),
+				(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(random.nextDouble() - 0.5D) * 0.05D,
+				random.nextDouble() * 0.12D + 0.06D,
+				(random.nextDouble() - 0.5D) * 0.05D
+			);
+		}
 
-			if (random.nextFloat() <= 0.0875F) {
-				level.addParticle(
-					ParticleTypes.LARGE_SMOKE,
-					false,
-					(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(double) pos.getY() + random.nextDouble() + random.nextDouble(),
-					(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
-					(random.nextDouble() - 0.5D) * 0.05D,
-					random.nextDouble() * 0.12D + 0.06D,
-					(random.nextDouble() - 0.5D) * 0.05D
-				);
-			}
+		if (random.nextFloat() <= 0.0875F) {
+			level.addParticle(
+				ParticleTypes.LARGE_SMOKE,
+				false,
+				(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getY() + random.nextDouble() + random.nextDouble(),
+				(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(random.nextDouble() - 0.5D) * 0.05D,
+				random.nextDouble() * 0.12D + 0.06D,
+				(random.nextDouble() - 0.5D) * 0.05D
+			);
 		}
 	}
 

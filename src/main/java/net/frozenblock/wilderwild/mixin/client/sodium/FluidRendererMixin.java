@@ -62,9 +62,7 @@ public class FluidRendererMixin {
 		CallbackInfo info,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (blockState.getBlock() instanceof MesogleaBlock) {
-			isMesoglea.set(blockState.getBlock() instanceof MesogleaBlock);
-		}
+		if (blockState.getBlock() instanceof MesogleaBlock) isMesoglea.set(blockState.getBlock() instanceof MesogleaBlock);
 	}
 
 	@WrapOperation(

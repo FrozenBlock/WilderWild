@@ -87,22 +87,16 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 		if (placeState != null) {
 			level.setBlock(pos, placeState, Block.UPDATE_ALL);
 			clearSculkVeins(level, pos);
-			if (markForPostProcessing) {
-				level.getChunk(pos).markPosForPostprocessing(pos);
-			}
+			if (markForPostProcessing) level.getChunk(pos).markPosForPostprocessing(pos);
 		}
 		return true;
 	}
 
 	@Nullable
 	private BlockState switchBlockStates(@NotNull BlockState blockState) {
-		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
-		} else if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-			return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
-		} else if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
-		}
+		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
+		if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
+		if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
 		return null;
 	}
 

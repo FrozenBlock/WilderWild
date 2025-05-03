@@ -142,9 +142,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	public void wilderWild$replaceBubbleParticles(
 		Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original
 	) {
-		if (this.wilderWild$replacementBubbleParticle != null) {
-			particleOptions = this.wilderWild$replacementBubbleParticle;
-		}
+		if (this.wilderWild$replacementBubbleParticle != null) particleOptions = this.wilderWild$replacementBubbleParticle;
 		original.call(instance, particleOptions, d, e, f, g, h, i);
 	}
 
@@ -159,9 +157,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	public void wilderWild$replaceSplashParticles(
 		Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original
 	) {
-		if (this.wilderWild$replacementSplashParticle != null) {
-			particleOptions = this.wilderWild$replacementSplashParticle;
-		}
+		if (this.wilderWild$replacementSplashParticle != null) particleOptions = this.wilderWild$replacementSplashParticle;
 		original.call(instance, particleOptions, d, e, f, g, h, i);
 	}
 

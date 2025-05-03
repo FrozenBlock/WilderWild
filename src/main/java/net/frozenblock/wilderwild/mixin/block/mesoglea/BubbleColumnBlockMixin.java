@@ -49,12 +49,11 @@ public abstract class BubbleColumnBlockMixin extends Block {
 
 	@Inject(method = "getColumnState", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$getColumnState(BlockState blockState, CallbackInfoReturnable<BlockState> info) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(blockState);
-			dragDirection.ifPresent(direction -> info.setReturnValue(
-				Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
-			));
-		}
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(blockState);
+		dragDirection.ifPresent(direction -> info.setReturnValue(
+			Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
+		));
 	}
 
 	@ModifyExpressionValue(
@@ -66,9 +65,7 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		)
 	)
 	private static boolean wilderWild$updateColumnBooleanTweak(boolean original) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			return true;
-		}
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return true;
 		return original;
 	}
 
@@ -106,9 +103,7 @@ public abstract class BubbleColumnBlockMixin extends Block {
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			MesogleaBlock.updateColumn(level, pos.above(), state);
-		}
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos.above(), state);
 	}
 
 	@Inject(
@@ -130,11 +125,8 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		RandomSource randomSource,
 		CallbackInfoReturnable<BlockState> info
 	) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			if (MesogleaBlock.hasBubbleColumn(neighborState)) {
-				scheduledTickAccess.scheduleTick(blockPos, BubbleColumnBlock.class.cast(this), 5);
-			}
-		}
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		if (MesogleaBlock.hasBubbleColumn(neighborState)) scheduledTickAccess.scheduleTick(blockPos, BubbleColumnBlock.class.cast(this), 5);
 	}
 
 }

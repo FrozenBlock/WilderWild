@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
 public class CrabMoveControl extends MoveControl {
-
 	private final Crab crab;
 
 	public CrabMoveControl(Crab crab) {
@@ -31,12 +30,8 @@ public class CrabMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (!this.crab.cancelMovementToDescend && !this.crab.isDiggingOrEmerging()) {
-			super.tick();
-		}
-		if (crab.getNavigation().isStuck()) {
-			this.operation = Operation.WAIT;
-		}
+		if (!this.crab.cancelMovementToDescend && !this.crab.isDiggingOrEmerging()) super.tick();
+		if (this.crab.getNavigation().isStuck()) this.operation = Operation.WAIT;
 	}
 
 }

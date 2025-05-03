@@ -86,9 +86,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return wind.get().z;
-		}
+		if (WWClientWindManager.shouldUseWind()) return wind.get().z;
 		return original;
 	}
 
@@ -103,9 +101,7 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		CherryParticle instance, double x, double y, double z, Operation<Void> original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
-		}
+		if (WWClientWindManager.shouldUseWind()) y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
 		original.call(instance, x, y, z);
 	}
 
@@ -113,12 +109,8 @@ public abstract class CherryParticleMixin extends TextureSheetParticle {
 		method = "tick",
 		constant = @Constant(intValue = 299)
 	)
-	public int wilderWild$fixMoveD(
-		int constant
-	) {
-		if (WWClientWindManager.shouldUseWind()) {
-			return 10;
-		}
+	public int wilderWild$fixMoveD(int constant) {
+		if (WWClientWindManager.shouldUseWind()) return 10;
 		return constant;
 	}
 

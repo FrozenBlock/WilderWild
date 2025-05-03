@@ -91,9 +91,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 		int height
 	) {
 		int newHeight = height + this.additionalHeight.sample(random);
-		for (int i = 0; i < newHeight; ++i) {
-			this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
-		}
+		for (int i = 0; i < newHeight; ++i) this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
 	}
 
 	private void placeLog(

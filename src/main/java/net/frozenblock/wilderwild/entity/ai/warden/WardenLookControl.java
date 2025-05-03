@@ -44,22 +44,18 @@ public class WardenLookControl extends LookControl {
 		} else {
 			if (this.lookAtCooldown > 0) {
 				--this.lookAtCooldown;
-				this.getYRotD().ifPresent((float_) ->
-					this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, float_ + 20.0F, this.yMaxRotSpeed));
-				this.getXRotD().ifPresent((float_) ->
-					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), float_ + 10.0F, this.xMaxRotAngle)));
+				this.getYRotD().ifPresent(rot -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, rot + 20F, this.yMaxRotSpeed));
+				this.getXRotD().ifPresent(rot -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), rot + 10F, this.xMaxRotAngle)));
 			} else {
-				if (this.mob.getNavigation().isDone()) {
-					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0F, 5.0F));
-				}
+				if (this.mob.getNavigation().isDone()) this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0F, 5F));
 				this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
 			}
 
 			float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
 			if (f < (float) (-this.maxYRotFromCenter)) {
-				this.mob.yBodyRot -= 4.0F;
+				this.mob.yBodyRot -= 4F;
 			} else if (f > (float) this.maxYRotFromCenter) {
-				this.mob.yBodyRot += 4.0F;
+				this.mob.yBodyRot += 4F;
 			}
 		}
 	}

@@ -126,9 +126,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		if (direction != Direction.UP && direction != Direction.DOWN) return blockState;
 
 		Direction tipDirection = blockState.getValue(TIP_DIRECTION);
-		if (tipDirection == Direction.DOWN && tickAccess.getBlockTicks().hasScheduledTick(blockPos, this)) {
-			return blockState;
-		} else if (direction == tipDirection.getOpposite() && !this.canSurvive(blockState, levelReader, blockPos)) {
+		if (tipDirection == Direction.DOWN && tickAccess.getBlockTicks().hasScheduledTick(blockPos, this)) return blockState;
+		if (direction == tipDirection.getOpposite() && !this.canSurvive(blockState, levelReader, blockPos)) {
 			tickAccess.scheduleTick(blockPos, this, tipDirection == Direction.DOWN ? DELAY_BEFORE_FALLING : 1);
 			return blockState;
 		} else {
@@ -140,14 +139,13 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	protected void onProjectileHit(@NotNull Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
-		if (!level.isClientSide) {
-			BlockPos blockPos = blockHitResult.getBlockPos();
-			if (level instanceof ServerLevel serverLevel
-				&& projectile.mayInteract(serverLevel, blockPos)
-				&& projectile.mayBreak(serverLevel)
-				&& projectile.getDeltaMovement().length() > 0.4D) {
-				level.destroyBlock(blockPos, true);
-			}
+		if (level.isClientSide) return;
+		BlockPos blockPos = blockHitResult.getBlockPos();
+		if (level instanceof ServerLevel serverLevel
+			&& projectile.mayInteract(serverLevel, blockPos)
+			&& projectile.mayBreak(serverLevel)
+			&& projectile.getDeltaMovement().length() > 0.4D) {
+			level.destroyBlock(blockPos, true);
 		}
 	}
 
@@ -247,11 +245,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		if (icicleThickness == DripstoneThickness.TIP_MERGE) {
 			voxelShape = TIP_MERGE_SHAPE;
 		} else if (icicleThickness == DripstoneThickness.TIP) {
-			if (blockState.getValue(TIP_DIRECTION) == Direction.DOWN) {
-				voxelShape = TIP_SHAPE_DOWN;
-			} else {
-				voxelShape = TIP_SHAPE_UP;
-			}
+			voxelShape = blockState.getValue(TIP_DIRECTION) == Direction.DOWN ? TIP_SHAPE_DOWN : TIP_SHAPE_UP;
 		} else if (icicleThickness == DripstoneThickness.FRUSTUM) {
 			voxelShape = FRUSTUM_SHAPE;
 		} else if (icicleThickness == DripstoneThickness.MIDDLE) {
@@ -260,8 +254,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 			voxelShape = BASE_SHAPE;
 		}
 
-		Vec3 vec3 = blockState.getOffset(blockPos);
-		return voxelShape.move(vec3.x, 0D, vec3.z);
+		Vec3 offset = blockState.getOffset(blockPos);
+		return voxelShape.move(offset.x, 0D, offset.z);
 	}
 
 	@Override
@@ -369,17 +363,15 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		BlockState blockState = levelReader.getBlockState(blockPos.relative(direction));
 		if (isIcicleWithDirection(blockState, direction2)) {
 			return !bl && blockState.getValue(THICKNESS) != DripstoneThickness.TIP_MERGE ? DripstoneThickness.TIP : DripstoneThickness.TIP_MERGE;
-		} else if (!isIcicleWithDirection(blockState, direction)) {
-			return DripstoneThickness.TIP;
-		} else {
-			DripstoneThickness dripstoneThickness = blockState.getValue(THICKNESS);
-			if (dripstoneThickness != DripstoneThickness.TIP && dripstoneThickness != DripstoneThickness.TIP_MERGE) {
-				BlockState blockState2 = levelReader.getBlockState(blockPos.relative(direction2));
-				return !isIcicleWithDirection(blockState2, direction) ? DripstoneThickness.BASE : DripstoneThickness.MIDDLE;
-			} else {
-				return DripstoneThickness.FRUSTUM;
-			}
 		}
+		if (!isIcicleWithDirection(blockState, direction)) return DripstoneThickness.TIP;
+
+		DripstoneThickness dripstoneThickness = blockState.getValue(THICKNESS);
+		if (dripstoneThickness != DripstoneThickness.TIP && dripstoneThickness != DripstoneThickness.TIP_MERGE) {
+			BlockState blockState2 = levelReader.getBlockState(blockPos.relative(direction2));
+			return !isIcicleWithDirection(blockState2, direction) ? DripstoneThickness.BASE : DripstoneThickness.MIDDLE;
+		}
+		return DripstoneThickness.FRUSTUM;
 	}
 
 	public static boolean canDrip(BlockState blockState) {
@@ -390,11 +382,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		Direction direction = blockState.getValue(TIP_DIRECTION);
 		BlockPos blockPos2 = blockPos.relative(direction);
 		BlockState blockState2 = serverLevel.getBlockState(blockPos2);
-		if (!blockState2.getFluidState().isEmpty()) {
-			return false;
-		} else {
-			return blockState2.isAir() || isUnmergedTipWithDirection(blockState2, direction.getOpposite());
-		}
+		if (!blockState2.getFluidState().isEmpty()) return false;
+		return blockState2.isAir() || isUnmergedTipWithDirection(blockState2, direction.getOpposite());
 	}
 
 	private static boolean isValidIciclePlacement(@NotNull LevelReader levelReader, @NotNull BlockPos blockPos, @NotNull Direction direction) {
@@ -460,13 +449,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		for(int j = 1; j < i; ++j) {
 			mutableBlockPos.move(direction);
 			BlockState blockState = levelAccessor.getBlockState(mutableBlockPos);
-			if (predicate.test(blockState)) {
-				return Optional.of(mutableBlockPos.immutable());
-			}
-
-			if (levelAccessor.isOutsideBuildHeight(mutableBlockPos.getY()) || !biPredicate.test(mutableBlockPos, blockState)) {
-				return Optional.empty();
-			}
+			if (predicate.test(blockState)) return Optional.of(mutableBlockPos.immutable());
+			if (levelAccessor.isOutsideBuildHeight(mutableBlockPos.getY()) || !biPredicate.test(mutableBlockPos, blockState)) return Optional.empty();
 		}
 
 		return Optional.empty();

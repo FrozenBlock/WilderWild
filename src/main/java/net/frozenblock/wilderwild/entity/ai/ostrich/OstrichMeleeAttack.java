@@ -44,14 +44,14 @@ public class OstrichMeleeAttack {
 					LivingEntity livingEntity = instance.get(memoryAccessor2);
 					if (!isHoldingUsableProjectileWeapon(ostrich)
 						&& ostrich.isWithinMeleeAttackRange(livingEntity)
-						&& instance.get(memoryAccessor4).contains(livingEntity)) {
+						&& instance.get(memoryAccessor4).contains(livingEntity)
+					) {
 						memoryAccessor.set(new EntityTracker(livingEntity, true));
 						ostrich.swing(InteractionHand.MAIN_HAND);
 						memoryAccessor3.setWithExpiry(true, cooldownBetweenAttacks);
 						return true;
-					} else {
-						return false;
 					}
+					return false;
 				}
 			)
 		);
@@ -60,7 +60,7 @@ public class OstrichMeleeAttack {
 	private static boolean isHoldingUsableProjectileWeapon(@NotNull Ostrich ostrich) {
 		return ostrich.isHolding(stack -> {
 			Item item = stack.getItem();
-			return item instanceof ProjectileWeaponItem && ostrich.canFireProjectileWeapon((ProjectileWeaponItem) item);
+			return item instanceof ProjectileWeaponItem projectileWeaponItem && ostrich.canFireProjectileWeapon(projectileWeaponItem);
 		});
 	}
 }
