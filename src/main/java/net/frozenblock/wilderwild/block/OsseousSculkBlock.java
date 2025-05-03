@@ -186,9 +186,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 
 	private BlockState getGrowthState(@NotNull RandomSource random, @NotNull Direction direction) {
 		BlockState blockState = this.defaultBlockState().setValue(FACING, direction);
-		if (direction == Direction.UP && random.nextInt(CATALYST_GROWTH_CHANCE) == 0) {
-			blockState = Blocks.SCULK_CATALYST.defaultBlockState();
-		}
+		if (direction == Direction.UP && random.nextInt(CATALYST_GROWTH_CHANCE) == 0) blockState = Blocks.SCULK_CATALYST.defaultBlockState();
 		return blockState;
 	}
 
@@ -204,7 +202,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		BlockState state = level.getBlockState(mutableBlockPos);
 		if (state.is(this)) {
 			BlockState stateReplace;
