@@ -232,6 +232,10 @@ public final class WWEntityTypes {
 	}
 
 	public static void init() {
+		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
+	}
+
+	static {
 		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
 		SpawnPlacements.register(
 			FIREFLY,

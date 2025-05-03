@@ -38,11 +38,7 @@ public final class SculkVeinSpreaderConfigMixin {
 		)
 	)
 	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Block block, Operation<Boolean> operation) {
-		return state.is(WWBlocks.OSSEOUS_SCULK) ||
-			state.is(WWBlocks.SCULK_SLAB) ||
-			state.is(WWBlocks.SCULK_STAIRS) ||
-			state.is(WWBlocks.SCULK_WALL) ||
-			operation.call(state, block);
+		return state.is(WWBlocks.OSSEOUS_SCULK) || state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 
 }

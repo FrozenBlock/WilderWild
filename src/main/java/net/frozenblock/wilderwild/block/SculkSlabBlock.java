@@ -51,9 +51,7 @@ public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
 	@Override
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-		if (dropExperience) {
-			this.tryDropExperience(level, pos, stack, EXPERIENCE);
-		}
+		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
 	}
 
 	@Override

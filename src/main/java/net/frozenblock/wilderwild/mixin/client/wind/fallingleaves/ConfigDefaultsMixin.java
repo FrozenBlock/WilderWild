@@ -36,11 +36,13 @@ public class ConfigDefaultsMixin {
 	@Inject(
 		method = "isConifer",
 		at = @At("HEAD"),
-		cancellable = true
+		cancellable = true,
+		require = 0
 	)
 	private static void wilderWild$forceAddCompatBecauseTheyDidnt(ResourceLocation blockId, CallbackInfoReturnable<Boolean> info) {
 		if (blockId.toString().equals(WWConstants.string("cypress_leaves"))
-			|| blockId.toString().equals(WWConstants.string("palm_fronds"))) {
+			|| blockId.toString().equals(WWConstants.string("palm_fronds"))
+		) {
 			info.setReturnValue(true);
 		}
 	}
@@ -55,7 +57,8 @@ public class ConfigDefaultsMixin {
 		if (blockName.equals(WWConstants.string("palm_fronds"))
 			|| blockName.equals(WWConstants.string("yellow_maple_leaves"))
 			|| blockName.equals(WWConstants.string("orange_maple_leaves"))
-			|| blockName.equals(WWConstants.string("red_maple_leaves"))) {
+			|| blockName.equals(WWConstants.string("red_maple_leaves"))
+		) {
 			info.setReturnValue(0D);
 		}
 	}

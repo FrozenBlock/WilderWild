@@ -43,37 +43,25 @@ public class IcicleFeature extends Feature<IcicleConfig> {
 		RandomSource randomSource = featurePlaceContext.random();
 		IcicleConfig icicleConfig = featurePlaceContext.config();
 		Optional<Direction> optional = getTipDirection(levelAccessor, blockPos, randomSource);
-		if (optional.isEmpty()) {
-			return false;
-		} else {
-			BlockPos blockPos2 = blockPos.relative(optional.get().getOpposite());
-			if (icicleConfig.placeIceBlocks) {
-				createPatchOfIceBlocks(levelAccessor, randomSource, blockPos2, icicleConfig);
-			}
-			int i = randomSource.nextFloat() < icicleConfig.chanceOfTallerIcicle
-				&& DripstoneUtils.isEmptyOrWater(levelAccessor.getBlockState(blockPos.relative(optional.get())))
-				? 2
-				: 1;
-			IcicleUtils.growIcicle(levelAccessor, blockPos, optional.get(), i, false);
-			return true;
-		}
+		if (optional.isEmpty()) return false;
+		BlockPos blockPos2 = blockPos.relative(optional.get().getOpposite());
+		if (icicleConfig.placeIceBlocks) createPatchOfIceBlocks(levelAccessor, randomSource, blockPos2, icicleConfig);
+
+		int i = randomSource.nextFloat() < icicleConfig.chanceOfTallerIcicle && DripstoneUtils.isEmptyOrWater(levelAccessor.getBlockState(blockPos.relative(optional.get())))
+			? 2 : 1;
+		IcicleUtils.growIcicle(levelAccessor, blockPos, optional.get(), i, false);
+		return true;
 	}
 
 	private static Optional<Direction> getTipDirection(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, RandomSource randomSource) {
 		boolean bl = IcicleUtils.isIcicleBase(levelAccessor.getBlockState(blockPos.above()));
 		boolean bl2 = IcicleUtils.isIcicleBase(levelAccessor.getBlockState(blockPos.below()));
-		if (bl && bl2) {
-			return Optional.of(randomSource.nextBoolean() ? Direction.DOWN : Direction.UP);
-		} else if (bl) {
-			return Optional.of(Direction.DOWN);
-		} else {
-			return bl2 ? Optional.of(Direction.UP) : Optional.empty();
-		}
+		if (bl && bl2) return Optional.of(randomSource.nextBoolean() ? Direction.DOWN : Direction.UP);
+		if (bl) return Optional.of(Direction.DOWN);
+		return bl2 ? Optional.of(Direction.UP) : Optional.empty();
 	}
 
-	private static void createPatchOfIceBlocks(
-		LevelAccessor levelAccessor, RandomSource randomSource, BlockPos blockPos, IcicleConfig icicleConfig
-	) {
+	private static void createPatchOfIceBlocks(LevelAccessor levelAccessor, RandomSource randomSource, BlockPos blockPos, IcicleConfig icicleConfig) {
 		IcicleUtils.placeIceBlockIfPossible(levelAccessor, blockPos);
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {

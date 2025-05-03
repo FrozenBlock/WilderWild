@@ -62,9 +62,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		if (penguin.hasPose(Pose.ROARING)) {
-			penguin.setPose(Pose.STANDING);
-		}
+		if (penguin.hasPose(Pose.ROARING)) penguin.setPose(Pose.STANDING);
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 2400);
 		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING);
 	}

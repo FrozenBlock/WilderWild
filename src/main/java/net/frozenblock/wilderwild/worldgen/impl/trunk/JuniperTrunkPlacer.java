@@ -89,22 +89,19 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		boolean isThreeBranches = branchCount == 3;
 		boolean moreThanOneBranch = branchCount >= 2;
 		int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
-		for (int m = 0; m < l; ++m) {
-			this.placeLog(level, blockSetter, random, pos.above(m), config);
-		}
+		for (int m = 0; m < l; ++m) this.placeLog(level, blockSetter, random, pos.above(m), config);
+
 		ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
-		if (isThreeBranches) {
-			list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
-		}
+		if (isThreeBranches) list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
+
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
 		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
 		ArrayList<Direction> allDirsMF = new ArrayList<>();
 
-		for (Direction d : Direction.Plane.HORIZONTAL) {
-			if (d != direction) allDirsMF.add(d);
-		}
+		for (Direction d : Direction.Plane.HORIZONTAL) if (d != direction) allDirsMF.add(d);
+
 		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
 			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());

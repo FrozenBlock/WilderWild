@@ -47,9 +47,7 @@ public abstract class WardenEmissiveLayerMixin extends RenderLayer<WardenRenderS
 		cancellable = true
 	)
 	public void wilderWild$cancelIfStella(
-		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, LivingEntityRenderState renderState, float f, float g, CallbackInfo ci) {
-		if (renderState instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) {
-			ci.cancel();
-		}
+		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, LivingEntityRenderState renderState, float f, float g, CallbackInfo info) {
+		if (renderState instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella()) info.cancel();
 	}
 }

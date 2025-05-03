@@ -33,8 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 	public static final MapCodec<SmallBushFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> blobParts(instance)
-			.apply(instance, SmallBushFoliagePlacer::new)
+		instance -> blobParts(instance).apply(instance, SmallBushFoliagePlacer::new)
 	);
 
 	public SmallBushFoliagePlacer(IntProvider radius, IntProvider offset, int height) {

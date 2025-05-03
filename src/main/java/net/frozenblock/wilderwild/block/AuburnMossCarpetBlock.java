@@ -70,9 +70,7 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState blockState, @NotNull LevelReader levelReader, @NotNull BlockPos blockPos) {
 		boolean canSurvive = super.canSurvive(blockState, levelReader, blockPos);
-		if (blockState.getValue(WATERLOGGED)) {
-			return canSurvive && !levelReader.getFluidState(blockPos.below()).is(FluidTags.WATER);
-		}
+		if (blockState.getValue(WATERLOGGED)) return canSurvive && !levelReader.getFluidState(blockPos.below()).is(FluidTags.WATER);
 		return canSurvive;
 	}
 

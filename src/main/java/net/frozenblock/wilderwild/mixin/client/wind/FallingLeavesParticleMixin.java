@@ -148,9 +148,7 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 		method = "tick",
 		constant = @Constant(intValue = 299)
 	)
-	public int wilderWild$fixMoveD(
-		int constant
-	) {
+	public int wilderWild$fixMoveD(int constant) {
 		if (WWClientWindManager.shouldUseWind()) return 10;
 		return constant;
 	}

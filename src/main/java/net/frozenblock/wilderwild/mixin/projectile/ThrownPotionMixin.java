@@ -47,9 +47,7 @@ public abstract class ThrownPotionMixin {
 			potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
 			if (potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getAllEffects().iterator().hasNext()) {
 				potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
-				if (this.isLingering()) {
-					potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
-				}
+				if (this.isLingering()) potion.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
 			}
 		}
 	}

@@ -58,6 +58,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
+	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter(coconutBlock -> coconutBlock.treeGrower),
+		propertiesCodec()
+	).apply(instance, CoconutBlock::new));
 	public static final double GROWTH_CHANCE_HANGING = 0.4D;
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final int MAX_AGE = 2;
@@ -66,10 +70,6 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
-	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter((coconutBlock) -> coconutBlock.treeGrower),
-		propertiesCodec()
-	).apply(instance, CoconutBlock::new));
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(2D, 9D, 2D, 14D, 16D, 14D)),
 		Shapes.or(Block.box(1D, 8D, 1D, 15D, 16D, 15D)),

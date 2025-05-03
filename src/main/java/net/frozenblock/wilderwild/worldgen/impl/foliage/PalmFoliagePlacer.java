@@ -51,8 +51,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	protected static <P extends PalmFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(
 		RecordCodecBuilder.@NotNull Instance<P> instance
 	) {
-		return foliagePlacerParts(instance)
-			.and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength));
+		return foliagePlacerParts(instance).and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength));
 	}
 
 	@Override

@@ -55,68 +55,65 @@ public class PenguinFindEscapePos {
 						walkTarget,
 						lookTarget
 					) -> (serverLevel, pathfinderMob, l) -> {
-						if (!serverLevel.getFluidState(pathfinderMob.blockPosition().above()).is(FluidTags.WATER)) {
-							return false;
-						} else if (l < mutableLong.getValue()) {
+						if (!serverLevel.getFluidState(pathfinderMob.blockPosition().above()).is(FluidTags.WATER)) return false;
+						if (l < mutableLong.getValue()) {
 							mutableLong.setValue(l + 60L);
 							return true;
-						} else {
-							BlockPos blockPos = pathfinderMob.blockPosition();
-							BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-							CollisionContext collisionContext = CollisionContext.of(pathfinderMob);
+						}
 
-							List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(blockPos, searchRange, serverLevel.random);
+						BlockPos blockPos = pathfinderMob.blockPosition();
+						BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+						CollisionContext collisionContext = CollisionContext.of(pathfinderMob);
 
-							boolean foundLand = false;
+						List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(blockPos, searchRange, serverLevel.random);
+
+						boolean foundLand = false;
+						for (BlockPos blockPos2 : possiblePoses) {
+							if (blockPos2.getX() != blockPos.getX() || blockPos2.getZ() != blockPos.getZ()) {
+								BlockState blockState = serverLevel.getBlockState(blockPos2);
+								BlockState blockState2 = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.DOWN));
+								if (!blockState.is(Blocks.WATER)
+									&& serverLevel.getFluidState(blockPos2).isEmpty()
+									&& blockState.getCollisionShape(serverLevel, blockPos2, collisionContext).isEmpty()
+									&& blockState2.isFaceSturdy(serverLevel, mutableBlockPos, Direction.UP)
+								) {
+									BlockPos blockPos3 = blockPos2.immutable().above();
+									lookTarget.set(new BlockPosTracker(blockPos3));
+									walkTarget.set(new WalkTarget(new BlockPosTracker(blockPos3), speedModifier, 1));
+									foundLand = true;
+									break;
+								}
+							}
+						}
+
+						boolean foundWater = false;
+						if (!foundLand) {
 							for (BlockPos blockPos2 : possiblePoses) {
 								if (blockPos2.getX() != blockPos.getX() || blockPos2.getZ() != blockPos.getZ()) {
 									BlockState blockState = serverLevel.getBlockState(blockPos2);
-									BlockState blockState2 = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.DOWN));
-									if (!blockState.is(Blocks.WATER)
-										&& serverLevel.getFluidState(blockPos2).isEmpty()
-										&& blockState.getCollisionShape(serverLevel, blockPos2, collisionContext).isEmpty()
-										&& blockState2.isFaceSturdy(serverLevel, mutableBlockPos, Direction.UP)
-									) {
-										BlockPos blockPos3 = blockPos2.immutable().above();
-										lookTarget.set(new BlockPosTracker(blockPos3));
-										walkTarget.set(new WalkTarget(new BlockPosTracker(blockPos3), speedModifier, 1));
-										foundLand = true;
-										break;
-									}
-								}
-							}
+									BlockState aboveState = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.UP));
 
-							boolean foundWater = false;
-							if (!foundLand) {
-								for (BlockPos blockPos2 : possiblePoses) {
-									if (blockPos2.getX() != blockPos.getX() || blockPos2.getZ() != blockPos.getZ()) {
-										BlockState blockState = serverLevel.getBlockState(blockPos2);
-										BlockState aboveState = serverLevel.getBlockState(mutableBlockPos.setWithOffset(blockPos2, Direction.UP));
-
-										if (blockState.is(Blocks.WATER)) {
-											if (aboveState.isAir()) {
-												BlockPos shallowPos = blockPos2.immutable().relative(Direction.UP, 3);
-												lookTarget.set(new BlockPosTracker(shallowPos));
-												walkTarget.set(new WalkTarget(new BlockPosTracker(shallowPos), speedModifier, 1));
-												foundWater = true;
-												break;
-											}
+									if (blockState.is(Blocks.WATER)) {
+										if (aboveState.isAir()) {
+											BlockPos shallowPos = blockPos2.immutable().relative(Direction.UP, 3);
+											lookTarget.set(new BlockPosTracker(shallowPos));
+											walkTarget.set(new WalkTarget(new BlockPosTracker(shallowPos), speedModifier, 1));
+											foundWater = true;
+											break;
 										}
 									}
 								}
 							}
+						}
 
-							if (!foundWater) {
-								BlockPos severeEscapePos = blockPos.relative(Direction.UP, 3);
-								lookTarget.set(new BlockPosTracker(severeEscapePos));
-								walkTarget.set(new WalkTarget(new BlockPosTracker(severeEscapePos), speedModifier, 1));
-								mutableLong.setValue(l + 20L);
-								return true;
-							}
-
-							mutableLong.setValue(l + 60L);
+						if (!foundWater) {
+							BlockPos severeEscapePos = blockPos.relative(Direction.UP, 3);
+							lookTarget.set(new BlockPosTracker(severeEscapePos));
+							walkTarget.set(new WalkTarget(new BlockPosTracker(severeEscapePos), speedModifier, 1));
+							mutableLong.setValue(l + 20L);
 							return true;
 						}
+						mutableLong.setValue(l + 60L);return true;
 					}
 				)
 		);

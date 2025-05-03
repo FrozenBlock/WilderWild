@@ -74,7 +74,6 @@ public class PlanktonBlock extends AlgaeBlock {
 			level.destroyBlock(pos, false);
 			return;
 		}
-
 		this.tryChangingState(state, level, pos);
 	}
 

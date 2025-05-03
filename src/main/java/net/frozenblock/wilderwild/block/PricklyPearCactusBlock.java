@@ -126,7 +126,6 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 
-
 	@Override
 	@NotNull
 	public InteractionResult useItemOn(
@@ -141,9 +140,8 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 		if (isFullyGrown(state)) {
 			onPlayerPick(level, pos, state, player, hand, stack);
 			return InteractionResult.SUCCESS;
-		} else {
-			return super.useItemOn(stack, state, level, pos, player, hand, hit);
 		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
 	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
@@ -167,14 +165,13 @@ public class PricklyPearCactusBlock extends BushBlock implements BonemealableBlo
 
 	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
 		basePick(level, pos, state);
-		if (!level.isClientSide) {
-			if (shears) {
-				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-				level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
-				level.gameEvent(entity, GameEvent.SHEAR, pos);
-			} else {
-				level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
-			}
+		if (level.isClientSide) return;
+		if (shears) {
+			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+			level.gameEvent(entity, GameEvent.SHEAR, pos);
+		} else {
+			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 		}
 	}
 

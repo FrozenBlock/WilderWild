@@ -117,13 +117,8 @@ public abstract class RainParticleMixin extends WeatherParticle {
 		double newYRot = (Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG;
 		double newXRot = (Mth.atan2(horizontalDistance, this.yd)) * Mth.RAD_TO_DEG;
 
-		if (Math.abs(newYRot - this.wilderWild$prevYRot) > 180D) {
-			newYRot += 360D;
-		}
-
-		if (Math.abs(newXRot - this.wilderWild$prevXRot) > 180D) {
-			newXRot += 360D;
-		}
+		if (Math.abs(newYRot - this.wilderWild$prevYRot) > 180D) newYRot += 360D;
+		if (Math.abs(newXRot - this.wilderWild$prevXRot) > 180D) newXRot += 360D;
 
 		double newYRotDifference = newYRot - this.wilderWild$yRot;
 		double newXRotDifference = newXRot - this.wilderWild$xRot;

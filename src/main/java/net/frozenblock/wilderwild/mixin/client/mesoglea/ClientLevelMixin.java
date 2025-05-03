@@ -43,9 +43,7 @@ public class ClientLevelMixin {
 		ParticleOptions original,
 		@Local BlockState state
 	) {
-		if (state.getBlock() instanceof MesogleaBlock) {
-			return null;
-		}
+		if (state.getBlock() instanceof MesogleaBlock) return null;
 		return original;
 	}
 

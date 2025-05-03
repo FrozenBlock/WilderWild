@@ -44,7 +44,6 @@ public class MesogleaSplashParticle extends WaterDropParticle {
 		return 240;
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet spriteProvider;
 

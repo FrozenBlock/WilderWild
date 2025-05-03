@@ -19,9 +19,9 @@ package net.frozenblock.wilderwild.block.impl;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.particle.client.options.WindParticleOptions;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
-import net.frozenblock.wilderwild.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;

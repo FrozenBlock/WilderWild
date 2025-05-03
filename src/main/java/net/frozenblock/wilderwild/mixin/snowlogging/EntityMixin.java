@@ -38,9 +38,7 @@ public class EntityMixin {
 		)
 	)
 	public BlockParticleOption wilderWild$spawnSprintParticle(ParticleType<?> type, BlockState state, Operation<BlockParticleOption> original) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			state = SnowloggingUtils.getSnowEquivalent(state);
-		}
+		if (SnowloggingUtils.isSnowlogged(state)) state = SnowloggingUtils.getSnowEquivalent(state);
 		return original.call(type, state);
 	}
 

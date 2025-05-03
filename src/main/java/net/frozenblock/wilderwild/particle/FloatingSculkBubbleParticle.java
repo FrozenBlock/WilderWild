@@ -180,11 +180,10 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		return this.quadSize * Mth.lerp(partialTick, this.currentInflation, this.targetInflation);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class BubbleFactory implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
+	public static class Provider implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
 		private final SpriteSet spriteProvider;
 
-		public BubbleFactory(SpriteSet spriteProvider) {
+		public Provider(SpriteSet spriteProvider) {
 			this.spriteProvider = spriteProvider;
 		}
 

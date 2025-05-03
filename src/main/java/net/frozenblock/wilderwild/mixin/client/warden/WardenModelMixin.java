@@ -130,9 +130,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
-			return WWWardenAnimation.WARDEN_EMERGE;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) return WWWardenAnimation.WARDEN_EMERGE;
 		return original;
 	}
 
@@ -146,9 +144,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
-			return WWWardenAnimation.WARDEN_SNIFF;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) return WWWardenAnimation.WARDEN_SNIFF;
 		return original;
 	}
 
@@ -310,11 +306,6 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		float timeSin15 = timeSin * 15F;
 		this.leftLeg.xRot += (timeSin15 + 15F) * Mth.DEG_TO_RAD;
 		this.rightLeg.xRot += (-timeSin15 + 15F) * Mth.DEG_TO_RAD;
-	}
-
-	@Unique
-	private boolean wilderWild$touchingFluid(@NotNull Warden warden) {
-		return warden.isInWaterOrBubble() || warden.isInLava();
 	}
 
 }

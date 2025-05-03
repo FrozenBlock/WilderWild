@@ -67,8 +67,7 @@ public class FallingParticle extends TextureSheetParticle {
 		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record Factory(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(@NotNull SimpleParticleType particleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {

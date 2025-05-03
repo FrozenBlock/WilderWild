@@ -71,8 +71,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		this.gCol = ARGB.green(color) / 255F;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record Factory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WWFallingLeavesParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WWFallingLeavesParticleOptions> {
 		@Override
 		@NotNull
 		public Particle createParticle(

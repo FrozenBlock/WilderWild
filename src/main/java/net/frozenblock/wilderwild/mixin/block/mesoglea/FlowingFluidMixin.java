@@ -33,9 +33,7 @@ public class FlowingFluidMixin {
 
 	@Inject(method = "spread", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$stopMesogleaWaterSpread(ServerLevel serverLevel, BlockPos blockPos, BlockState blockState, FluidState fluidState, CallbackInfo info) {
-		if (blockState.getBlock() instanceof MesogleaBlock) {
-			info.cancel();
-		}
+		if (blockState.getBlock() instanceof MesogleaBlock) info.cancel();
 	}
 
 }

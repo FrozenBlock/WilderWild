@@ -29,9 +29,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPayload {
-	public static final Type<WWScorchingFirePlacePacket> PACKET_TYPE = new Type<>(
-		WWConstants.id("scorching_fire_place")
-	);
+	public static final Type<WWScorchingFirePlacePacket> PACKET_TYPE = new Type<>(WWConstants.id("scorching_fire_place"));
 
 	public static final StreamCodec<FriendlyByteBuf, WWScorchingFirePlacePacket> CODEC = StreamCodec.ofMember(WWScorchingFirePlacePacket::write, WWScorchingFirePlacePacket::new);
 
@@ -41,12 +39,7 @@ public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPa
 
 	public static void sendToAll(ServerLevel serverLevel, BlockPos pos) {
 		for (ServerPlayer player : PlayerLookup.tracking(serverLevel, pos)) {
-			ServerPlayNetworking.send(
-				player,
-				new WWScorchingFirePlacePacket(
-					pos
-				)
-			);
+			ServerPlayNetworking.send(player, new WWScorchingFirePlacePacket(pos));
 		}
 	}
 
