@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
-import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;

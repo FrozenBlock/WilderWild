@@ -19,8 +19,6 @@ package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
