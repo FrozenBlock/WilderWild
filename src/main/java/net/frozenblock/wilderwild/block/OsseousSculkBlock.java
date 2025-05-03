@@ -204,7 +204,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
 		BlockState state = level.getBlockState(mutableBlockPos);
 		if (state.is(this)) {
 			BlockState stateReplace;
