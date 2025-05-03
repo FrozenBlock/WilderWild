@@ -128,8 +128,6 @@ public final class WWMixinsConfig {
 
 	public boolean item_instrument = true;
 
-	public boolean loot = true;
-
 	public boolean projectile = true;
 
 	public boolean sculk = true;
