@@ -69,7 +69,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.frozenblock.wilderwild.wind.WWWindManager;
-import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -119,6 +118,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.ChatFormatting;
 
 public class FrozenLibIntegration extends ModIntegration {
 	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
