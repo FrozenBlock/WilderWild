@@ -122,9 +122,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
 			if (fallDistance >= 4F) {
 				level.destroyBlock(blockPos, false);
-				if (entity instanceof ServerPlayer serverPlayer) {
-					WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
-				}
+				if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
 			}
 		}
 	}
