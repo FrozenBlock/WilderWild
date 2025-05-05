@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.sculk;
@@ -128,14 +127,11 @@ public class SculkSpreaderChargeCursorMixin {
 			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutableBlockPos2)) {
 				mutableBlockPos.set(mutableBlockPos2);
 				canReturn = true;
-				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutableBlockPos2)) {
-					return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
-				}
+				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutableBlockPos2)) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
 			}
 
-			if (canReturn) {
-				return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
-			}
+			if (canReturn) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
+
 			if (!(blockState.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutableBlockPos2)) continue;
 			mutableBlockPos.set(mutableBlockPos2);
 			if (!SculkVeinBlock.hasSubstrateAccess(level, blockState, mutableBlockPos2)) continue;
@@ -180,15 +176,10 @@ public class SculkSpreaderChargeCursorMixin {
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		if (isWorldGen.get()) {
-			if (wilderWild$isReplaceableBuildingBlock(state, true)) {
-				return new SlabWallStairSculkBehavior();
-			} else if (state.is(WWBlocks.STONE_CHEST)) {
-				return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
-			}
+			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new SlabWallStairSculkBehavior();
+			if (state.is(WWBlocks.STONE_CHEST)) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
 		} else {
-			if (wilderWild$isReplaceableBuildingBlock(state, false)) {
-				return new SlabWallStairSculkBehavior();
-			}
+			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new SlabWallStairSculkBehavior();
 		}
 		return operation.call(state);
 	}
@@ -204,11 +195,8 @@ public class SculkSpreaderChargeCursorMixin {
 		LevelAccessor levelAccessor, BlockPos blockPos, RandomSource random, Operation<BlockPos> operation,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
-		if (isWorldGen.get()) {
-			return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
-		} else {
-			return operation.call(levelAccessor, blockPos, random);
-		}
+		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
+		return operation.call(levelAccessor, blockPos, random);
 	}
 
 }

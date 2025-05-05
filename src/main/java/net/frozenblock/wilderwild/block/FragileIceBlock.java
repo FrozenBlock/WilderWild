@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -88,9 +87,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	public void scheduleCrackIfNotScheduled(@NotNull Level level, BlockPos blockPos) {
-		if (!level.getBlockTicks().hasScheduledTick(blockPos, this)) {
-			level.scheduleTick(blockPos, this, DELAY_BETWEEN_CRACKS);
-		}
+		if (!level.getBlockTicks().hasScheduledTick(blockPos, this)) level.scheduleTick(blockPos, this, DELAY_BETWEEN_CRACKS);
 	}
 
 	@Override
@@ -104,9 +101,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		for (Direction direction : UPDATE_SHAPE_ORDER) {
 			mutableBlockPos.setWithOffset(blockPos, direction);
 			if (serverLevel.getBlockState(mutableBlockPos).is(this)) {
-				if (serverLevel.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) {
-					this.scheduleShatter(serverLevel, mutableBlockPos, blockState, serverLevel.getRandom());
-				}
+				if (serverLevel.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) this.scheduleShatter(serverLevel, mutableBlockPos, blockState, serverLevel.getRandom());
 			}
 		}
 		super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, bl);
@@ -123,9 +118,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos blockPos, BlockState blockState, @NotNull Entity entity) {
-		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) {
-			this.scheduleCrackIfNotScheduled(level, blockPos);
-		}
+		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, blockPos);
 	}
 
 	@Override
@@ -134,9 +127,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
 			if (fallDistance >= 4F) {
 				level.destroyBlock(blockPos, false);
-				if (entity instanceof ServerPlayer serverPlayer) {
-					WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
-				}
+				if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
 			}
 		}
 	}
@@ -145,9 +136,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
 		if (!projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) {
 			double velocity = projectile.getDeltaMovement().length();
-			if (velocity >= 1.6D) {
-				level.destroyBlock(blockHitResult.getBlockPos(), false);
-			}
+			if (velocity >= 1.6D) level.destroyBlock(blockHitResult.getBlockPos(), false);
 		}
 	}
 
@@ -157,9 +146,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
-		if (blockState.getValue(AGE) > 0) {
-			level.setBlock(blockPos, blockState.setValue(AGE,  0), UPDATE_CLIENTS);
-		}
+		if (blockState.getValue(AGE) > 0) level.setBlock(blockPos, blockState.setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 
 	@Override

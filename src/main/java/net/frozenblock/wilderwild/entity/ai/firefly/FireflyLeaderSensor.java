@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity.ai.firefly;
@@ -48,18 +47,15 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 				if (!leaderFireflies.isEmpty()) {
 					brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER, new EntityTracker(leaderFireflies.getFirst(), true));
 					return;
-				} else {
-					FireflyAi.setSwarmLeader(firefly);
 				}
+				FireflyAi.setSwarmLeader(firefly);
 			} else {
 				List<Firefly> nonLeaderFirefliesCloseBy = FireflyAi.getNearbyFirefliesInRank(firefly, false)
 					.stream().filter(otherFirefly -> otherFirefly.distanceTo(firefly) <= NON_LEADER_MAX_DISTANCE)
 					.toList();
 				List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
 
-				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) {
-					brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
-				}
+				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
 			}
 		}
 		brain.eraseMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER);

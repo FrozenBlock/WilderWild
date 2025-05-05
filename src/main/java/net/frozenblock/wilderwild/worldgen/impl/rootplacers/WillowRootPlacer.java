@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.worldgen.impl.rootplacers;
@@ -74,24 +73,17 @@ public class WillowRootPlacer extends RootPlacer {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			BlockPos blockPos3 = blockPos2.relative(direction);
 			List<BlockPos> list2 = Lists.newArrayList();
-			if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list2, 0)) {
-				return false;
-			}
+			if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list2, 0)) return false;
 
 			list.addAll(list2);
 			list.add(blockPos2.relative(direction));
 		}
 
 		List<BlockPos> columnPoses = Lists.newArrayList();
-		for (BlockPos rootPoses : list) {
-			columnPoses.addAll(this.potentialColumnRootPositions(levelSimulatedReader, rootPoses));
-		}
+		for (BlockPos rootPoses : list) columnPoses.addAll(this.potentialColumnRootPositions(levelSimulatedReader, rootPoses));
 		list.addAll(columnPoses);
 
-		for (BlockPos blockPos4 : list) {
-			this.placeRoot(levelSimulatedReader, biConsumer, randomSource, blockPos4, treeConfiguration);
-		}
-
+		for (BlockPos blockPos4 : list) this.placeRoot(levelSimulatedReader, biConsumer, randomSource, blockPos4, treeConfiguration);
 		return true;
 	}
 
@@ -109,16 +101,13 @@ public class WillowRootPlacer extends RootPlacer {
 			for (BlockPos blockPos3 : this.potentialRootPositions(blockPos, direction, randomSource, blockPos2)) {
 				if (this.canPlaceRoot(levelSimulatedReader, blockPos3)) {
 					list.add(blockPos3);
-					if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) {
-						return false;
-					}
+					if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) return false;
 				}
 			}
 
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	protected List<BlockPos> potentialColumnRootPositions(
@@ -128,9 +117,7 @@ public class WillowRootPlacer extends RootPlacer {
 		ArrayList<BlockPos> positions = new ArrayList<>();
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		mutableBlockPos.set(blockPos);
-		while (this.canPlaceRoot(levelSimulatedReader, mutableBlockPos.move(Direction.DOWN))) {
-			positions.add(mutableBlockPos.immutable());
-		}
+		while (this.canPlaceRoot(levelSimulatedReader, mutableBlockPos.move(Direction.DOWN))) positions.add(mutableBlockPos.immutable());
 		return positions;
 	}
 
@@ -145,15 +132,11 @@ public class WillowRootPlacer extends RootPlacer {
 		int i = blockPos.distManhattan(blockPos2);
 		int j = this.willowRootPlacement.maxRootWidth();
 		float f = this.willowRootPlacement.randomSkewChance();
-		if (i > j - 3 && i <= j) {
-			return randomSource.nextFloat() < f ? List.of(blockPos3, blockPos4.below()) : List.of(blockPos3);
-		} else if (i > j) {
-			return List.of(blockPos3);
-		} else if (randomSource.nextFloat() < f) {
-			return List.of(blockPos3);
-		} else {
-			return randomSource.nextBoolean() ? List.of(blockPos4) : List.of(blockPos3);
-		}
+
+		if (i > j - 3 && i <= j) return randomSource.nextFloat() < f ? List.of(blockPos3, blockPos4.below()) : List.of(blockPos3);
+		if (i > j) return List.of(blockPos3);
+		if (randomSource.nextFloat() < f) return List.of(blockPos3);
+		return randomSource.nextBoolean() ? List.of(blockPos4) : List.of(blockPos3);
 	}
 
 	@Override

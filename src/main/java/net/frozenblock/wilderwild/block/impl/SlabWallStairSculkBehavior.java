@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block.impl;
@@ -88,22 +87,16 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 		if (placeState != null) {
 			level.setBlock(pos, placeState, Block.UPDATE_ALL);
 			clearSculkVeins(level, pos);
-			if (markForPostProcessing) {
-				level.getChunk(pos).markPosForPostprocessing(pos);
-			}
+			if (markForPostProcessing) level.getChunk(pos).markPosForPostprocessing(pos);
 		}
 		return true;
 	}
 
 	@Nullable
 	private BlockState switchBlockStates(@NotNull BlockState blockState) {
-		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-			return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
-		} else if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-			return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
-		} else if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-			return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
-		}
+		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
+		if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
+		if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
 		return null;
 	}
 

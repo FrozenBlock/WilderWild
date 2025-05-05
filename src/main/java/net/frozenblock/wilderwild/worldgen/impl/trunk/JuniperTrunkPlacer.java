@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.worldgen.impl.trunk;
@@ -90,22 +89,19 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		boolean isThreeBranches = branchCount == 3;
 		boolean moreThanOneBranch = branchCount >= 2;
 		int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
-		for (int m = 0; m < l; ++m) {
-			this.placeLog(level, blockSetter, random, pos.above(m), config);
-		}
+		for (int m = 0; m < l; ++m) this.placeLog(level, blockSetter, random, pos.above(m), config);
+
 		ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
-		if (isThreeBranches) {
-			list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
-		}
+		if (isThreeBranches) list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
+
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
 		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
 		ArrayList<Direction> allDirsMF = new ArrayList<>();
 
-		for (Direction d : Direction.Plane.HORIZONTAL) {
-			if (d != direction) allDirsMF.add(d);
-		}
+		for (Direction d : Direction.Plane.HORIZONTAL) if (d != direction) allDirsMF.add(d);
+
 		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
 			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());

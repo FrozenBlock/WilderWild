@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.warden;
@@ -83,9 +82,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 3) Vec3 vec34
 	) {
 		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
-		if (hitPos != null) {
-			((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
-		}
+		if (hitPos != null) ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
 	}
 
 	@Inject(
@@ -107,9 +104,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				i = Mth.floor(vec32.length()) + 10;
 				info.cancel();
 				BlockState hitState = level.getBlockState(hitPos);
-				if (hitState.getBlock() instanceof EchoGlassBlock) {
-					EchoGlassBlock.damage(level, hitPos, hitState, false);
-				}
+				if (hitState.getBlock() instanceof EchoGlassBlock) EchoGlassBlock.damage(level, hitPos, hitState, false);
 			}
 		}
 	}
@@ -142,11 +137,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 				hitPos = hit.getBlockPos();
 			}
 		}
-		if (blocked) {
-			return hitPos;
-		} else {
-			return null;
-		}
+		if (blocked) return hitPos;
+		return null;
 	}
 
 	@ModifyArg(

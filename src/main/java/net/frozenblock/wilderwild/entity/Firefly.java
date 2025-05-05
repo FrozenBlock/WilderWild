@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity;
@@ -469,16 +468,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	public void tick() {
 		super.tick();
 
-		if (!this.isAlive()) {
-			this.setNoGravity(false);
-		}
+		if (!this.isAlive()) this.setNoGravity(false);
 		this.setFlickerAge(this.getFlickerAge() + 1);
-
 		float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);
-		if (animScale < 1.5F) {
-			this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
-		}
+		if (animScale < 1.5F) this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
@@ -511,9 +505,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	public void die(DamageSource damageSource) {
-		if (this.isSwarmLeader()) {
-			FireflyAi.transferLeadershipToRandomFirefly(this);
-		}
+		if (this.isSwarmLeader()) FireflyAi.transferLeadershipToRandomFirefly(this);
 		super.die(damageSource);
 	}
 

@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.client.warden;
@@ -38,8 +37,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.monster.warden.Warden;
-import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -115,9 +112,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newDigAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) {
-			return WWWardenAnimation.WARDEN_DIG;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIM_ANIMATION) return WWWardenAnimation.WARDEN_DIG;
 		return original;
 	}
 
@@ -131,9 +126,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$newEmergeAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) {
-			return WWWardenAnimation.WARDEN_EMERGE;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION) return WWWardenAnimation.WARDEN_EMERGE;
 		return original;
 	}
 
@@ -147,9 +140,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private AnimationDefinition wilderWild$bedrockSniffAnim(AnimationDefinition original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) {
-			return WWWardenAnimation.WARDEN_SNIFF;
-		}
+		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION) return WWWardenAnimation.WARDEN_SNIFF;
 		return original;
 	}
 
@@ -311,11 +302,6 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		float timeSin15 = timeSin * 15F;
 		this.leftLeg.xRot += (timeSin15 + 15F) * Mth.DEG_TO_RAD;
 		this.rightLeg.xRot += (-timeSin15 + 15F) * Mth.DEG_TO_RAD;
-	}
-
-	@Unique
-	private boolean wilderWild$touchingFluid(@NotNull Warden warden) {
-		return warden.isInWater() || warden.isInLava();
 	}
 
 }

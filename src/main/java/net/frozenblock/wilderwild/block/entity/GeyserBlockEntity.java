@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block.entity;
@@ -163,9 +162,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		for (int i = 0; i < (vent ? VENT_DISTANCE_IN_BLOCKS : ERUPTION_DISTANCE_IN_BLOCKS); i++) {
 			if (level.hasChunkAt(mutablePos.move(direction))) {
 				BlockState state = level.getBlockState(mutablePos);
-				if (!canEruptionPassThrough(level, mutablePos, state, direction)) {
-					break;
-				}
+				if (!canEruptionPassThrough(level, mutablePos, state, direction)) break;
+
 				boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
 				boolean mismatchesWater = geyserType.isWater() && !state.getFluidState().is(Fluids.WATER);
 				boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
@@ -281,9 +279,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					}
 				} else {
 					if (state.is(BlockTags.FIRE)) {
-						if (!level.isClientSide()) {
-							level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
-						}
+						if (!level.isClientSide()) level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
 						level.removeBlock(blockPos, false);
 					}
 
@@ -336,9 +332,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			Player player = level.getNearestPlayer(gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z(), -1D, entity -> !entity.isSpectator() && entity.isAlive());
 			if (player != null) {
 				double distance = player.distanceToSqr(gesyerCenter);
-				if (Math.sqrt(distance) <= 48) {
-					return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
-				}
+				if (Math.sqrt(distance) <= 48) return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
 			}
 			return false;
 		}

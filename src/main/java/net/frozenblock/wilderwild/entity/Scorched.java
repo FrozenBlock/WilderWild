@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity;
@@ -79,8 +78,7 @@ public class Scorched extends Spider {
 	@Override
 	protected void registerGoals() {
 		//this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D,
-			(livingEntity) -> !((Armadillo)livingEntity).isScared()));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D, livingEntity -> !((Armadillo)livingEntity).isScared()));
 		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
@@ -119,9 +117,8 @@ public class Scorched extends Spider {
 	private void scorchedInLava() {
 		if (this.isInLava()) {
 			CollisionContext collisionContext = CollisionContext.of(this);
-			if (
-				collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
-					&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
+			if (collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
+				&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
 			) {
 				this.setOnGround(true);
 			} else {
@@ -132,10 +129,8 @@ public class Scorched extends Spider {
 
 	@Override
 	public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
-		boolean hurtTarget =  super.doHurtTarget(serverLevel, entity);
-		if (hurtTarget) {
-			entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
-		}
+		boolean hurtTarget = super.doHurtTarget(serverLevel, entity);
+		if (hurtTarget) entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
 		return hurtTarget;
 	}
 

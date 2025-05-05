@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -98,12 +97,8 @@ public class StoneChestBlock extends ChestBlock {
 				@Override
 				@NotNull
 				public Component getDisplayName() {
-					if (chestBlockEntity.hasCustomName()) {
-						return chestBlockEntity.getDisplayName();
-					}
-					if (chestBlockEntity2.hasCustomName()) {
-						return chestBlockEntity2.getDisplayName();
-					}
+					if (chestBlockEntity.hasCustomName()) return chestBlockEntity.getDisplayName();
+					if (chestBlockEntity2.hasCustomName()) return chestBlockEntity2.getDisplayName();
 					return Component.translatable("container.double_stone_chest");
 				}
 			});
@@ -129,23 +124,17 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	public static boolean hasLid(@NotNull Level level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		return false;
 	}
 
 	public static boolean canInteract(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return !(stoneChest.closing || stoneChest.cooldownTicks > 0);
 		return true;
 	}
 
 	public static boolean hasLid(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) return stoneChest.openProgress < MIN_OPENABLE_PROGRESS;
 		return false;
 	}
 
@@ -190,6 +179,7 @@ public class StoneChestBlock extends ChestBlock {
 					} else {
 						stoneChest.liftLid(LIFT_AMOUNT);
 					}
+
 					if (first) {
 						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
 						ResourceKey<LootTable> lootTable = stoneChest.lootTable;
@@ -343,8 +333,7 @@ public class StoneChestBlock extends ChestBlock {
 			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 
 		ChestUtil.getCoupledStoneChestBlockEntity(level, pos, retState).ifPresent(coupledStoneChest -> {
-			if (
-				coupledStoneChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
+			if (coupledStoneChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
 				&& level.getBlockEntity(pos) instanceof StoneChestBlockEntity chest
 				&& chest instanceof ChestBlockEntityInterface chestInterface
 			) {
@@ -377,9 +366,7 @@ public class StoneChestBlock extends ChestBlock {
 
 	@Override
 	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
-			return stoneChestBlockEntity.getComparatorOutput();
-		}
+		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) return stoneChestBlockEntity.getComparatorOutput();
 		return 0;
 	}
 

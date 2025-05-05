@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.item.brush;
@@ -35,7 +34,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -85,9 +83,7 @@ public class BrushItemMixin {
 		Level instance, Entity player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
-			soundEvent = scorchedBlock.brushSound;
-		}
+		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) soundEvent = scorchedBlock.brushSound;
 		original.call(instance, player, blockPos, soundEvent, soundSource);
 	}
 
@@ -105,9 +101,7 @@ public class BrushItemMixin {
 		@Share("wilderWild$hitResultRef") LocalRef<BlockHitResult> hitResultRef,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, hitResultRef.get(), blockStateRef.get())) {
-			info.cancel();
-		}
+		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, hitResultRef.get(), blockStateRef.get())) info.cancel();
 	}
 
 	@Unique
@@ -115,11 +109,11 @@ public class BrushItemMixin {
 		@NotNull Level level, LivingEntity livingEntity, @NotNull ItemStack stack, BlockHitResult hitResult, BlockState blockState
 	) {
 		if (!level.isClientSide() && livingEntity instanceof Player player) {
-			BlockPos blockPos = hitResult.getBlockPos();
-			BlockEntity blockEntity = level.getBlockEntity(blockPos);
-			if (blockEntity instanceof ScorchedBlockEntity scorchedBlockEntity && blockState.getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) {
-				boolean shouldDegrade = scorchedBlockEntity.brush(level.getGameTime());
-				if (shouldDegrade) {
+			if (level.getBlockEntity(hitResult.getBlockPos()) instanceof ScorchedBlockEntity scorchedBlockEntity
+				&& blockState.getBlock() instanceof ScorchedBlock scorchedBlock
+				&& scorchedBlock.canBrush
+			) {
+				if (scorchedBlockEntity.brush(level.getGameTime())) {
 					EquipmentSlot equipmentSlot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
 					stack.hurtAndBreak(1, livingEntity, equipmentSlot);
 				}

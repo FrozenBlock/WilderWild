@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.warden;
@@ -175,9 +174,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Inject(at = @At("HEAD"), method = "canTargetEntity(Lnet/minecraft/world/entity/Entity;)Z", cancellable = true)
 	public void wilderWild$canTargetEntity(Entity entity, CallbackInfoReturnable<Boolean> info) {
-		if (entity instanceof Tumbleweed) {
-			info.setReturnValue(false);
-		}
+		if (entity instanceof Tumbleweed) info.setReturnValue(false);
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
@@ -200,9 +197,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	private void wilderWild$stellaHeartbeat(
 		Level instance, double d, double e, double f, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, Operation<Void> original
 	) {
-		if (this.wilderWild$isStella()) {
-			soundEvent = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
-		}
+		if (this.wilderWild$isStella()) soundEvent = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
 		original.call(instance, d, e, f, soundEvent, soundSource, g, h, bl);
 	}
 

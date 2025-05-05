@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.worldgen.impl.sapling;
@@ -56,18 +55,12 @@ public final class WWTreeGrowers {
 				ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
 				BlockPos pos = treeGrowerInterface.wilderWild$getPos();
 				if (level != null && pos != null) {
-					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) {
-						return WWTreeConfigured.SWAMP_CYPRESS.getKey();
-					}
+					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeConfigured.SWAMP_CYPRESS.getKey();
 					Holder<Biome> biome = level.getBiome(pos);
-					if (biome.is(BiomeTags.IS_BADLANDS)) {
-						return WWTreeConfigured.JUNIPER.getKey();
-					}
+					if (biome.is(BiomeTags.IS_BADLANDS)) return WWTreeConfigured.JUNIPER.getKey();
 				}
 			}
-			if (random.nextFloat() > 0.4F) {
-				return random.nextFloat() > 0.7F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
-			}
+			if (random.nextFloat() > 0.4F) return random.nextFloat() > 0.7F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
 			return WWConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};

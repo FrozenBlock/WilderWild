@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -151,13 +150,9 @@ public class EchoGlassBlock extends TransparentBlock {
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		int light = getLightLevel(level, pos);
 		if (light <= 8) {
-			if (random.nextBoolean()) {
-				heal(level, pos);
-			}
+			if (random.nextBoolean()) heal(level, pos);
 		} else {
-			if (random.nextFloat() <= 0.75F) {
-				damage(level, pos, state, true);
-			}
+			if (random.nextFloat() <= 0.75F) damage(level, pos, state, true);
 		}
 	}
 
@@ -190,9 +185,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
 		ItemStack superStack = super.getCloneItemStack(levelReader, blockPos, blockState, bl);
 		int damage = blockState.getValue(WWBlockStateProperties.DAMAGE);
-		if (damage != 0) {
-			ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
-		}
+		if (damage != 0) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
 		return superStack;
 	}
 }

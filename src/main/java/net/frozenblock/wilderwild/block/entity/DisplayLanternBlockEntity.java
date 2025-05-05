@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block.entity;
@@ -88,18 +87,14 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 			}
 		}
 		if (hasFireflies) {
-			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level);
-			}
+			for (Occupant firefly : this.fireflies) firefly.tick(level);
 		}
 	}
 
 	public void clientTick(Level level) {
 		this.age += 1;
 		if (!this.fireflies.isEmpty()) {
-			for (Occupant firefly : this.fireflies) {
-				firefly.tick(level);
-			}
+			for (Occupant firefly : this.fireflies) firefly.tick(level);
 		}
 	}
 
@@ -193,17 +188,12 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public void spawnFireflies() {
-		if (this.level != null) {
-			if (!this.level.isClientSide) {
-				this.doFireflySpawns(this.level);
-			}
-		}
+		if (this.level == null) return;
+		if (!this.level.isClientSide) this.spawnFireflies(this.level);
 	}
 
 	public void spawnFireflies(@NotNull Level level) {
-		if (!this.getFireflies().isEmpty()) {
-			this.doFireflySpawns(level);
-		}
+		if (!this.getFireflies().isEmpty()) this.doFireflySpawns(level);
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {
@@ -234,12 +224,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	public int getComparatorOutput() {
-		if (!this.invEmpty()) {
-			return Redstone.SIGNAL_MAX;
-		}
-		if (!this.noFireflies()) {
-			return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
-		}
+		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
+		if (!this.noFireflies()) return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
 	}
 
@@ -253,16 +239,11 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		).apply(instance, Occupant::new));
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
-			FrozenByteBufCodecs.VEC3,
-			Occupant::getPos,
-			ResourceLocation.STREAM_CODEC,
-			Occupant::getColor,
-			ByteBufCodecs.STRING_UTF8,
-			Occupant::getCustomName,
-			ByteBufCodecs.INT,
-			Occupant::getAge,
-			ByteBufCodecs.DOUBLE,
-			Occupant::getY,
+			FrozenByteBufCodecs.VEC3, Occupant::getPos,
+			ResourceLocation.STREAM_CODEC, Occupant::getColor,
+			ByteBufCodecs.STRING_UTF8, Occupant::getCustomName,
+			ByteBufCodecs.INT, Occupant::getAge,
+			ByteBufCodecs.DOUBLE, Occupant::getY,
 			Occupant::new
 		);
 

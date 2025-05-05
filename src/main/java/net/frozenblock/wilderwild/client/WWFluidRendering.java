@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.client;
@@ -34,6 +33,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -52,17 +52,20 @@ public final class WWFluidRendering {
 			}
 
 			@Override
-			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState) {
-				if (WWBlockConfig.Client.MESOGLEA_FLUID && blockState.getBlock() instanceof MesogleaBlock) {
-					TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
-					LiquidRenderUtils.tesselateWithSingleTexture(
-						world,
-						pos,
-						vertexConsumer,
-						blockState,
-						fluidState,
-						sprite
-					);
+			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, @NotNull BlockState blockState, FluidState fluidState) {
+				if (blockState.getBlock() instanceof MesogleaBlock) {
+					if (WWBlockConfig.Client.MESOGLEA_FLUID) {
+						TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
+						LiquidRenderUtils.tesselateWithSingleTexture(
+							world,
+							pos,
+							vertexConsumer,
+							blockState,
+							fluidState,
+							sprite
+						);
+						return;
+					}
 					return;
 				}
 				originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
@@ -80,9 +83,7 @@ public final class WWFluidRendering {
 	}
 
 	private static boolean isMesoglea(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos) {
-		if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) {
-			return view.getBlockState(pos).getBlock() instanceof MesogleaBlock;
-		}
+		if (view != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) return view.getBlockState(pos).getBlock() instanceof MesogleaBlock;
 		return false;
 	}
 }

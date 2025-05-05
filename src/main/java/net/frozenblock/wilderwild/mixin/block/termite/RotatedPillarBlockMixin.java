@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.block.termite;
@@ -42,13 +41,9 @@ public class RotatedPillarBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (FrozenBools.IS_DATAGEN) return;
-		if (WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) {
-			BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
-			if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) {
-				builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
-			}
-		}
+		if (FrozenBools.IS_DATAGEN || !WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) return;
+		BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
+		if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))

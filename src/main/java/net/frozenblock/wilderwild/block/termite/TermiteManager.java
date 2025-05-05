@@ -2,34 +2,28 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block.termite;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -53,7 +47,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -84,12 +77,9 @@ public class TermiteManager {
 	}
 
 	public static boolean areTermitesSafe(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.values()) {
-			if (!isPosSafeForTermites(level, mutableBlockPos.move(direction))) {
-				return false;
-			}
-			mutableBlockPos.move(direction, -1);
+			if (!isPosSafeForTermites(level, mutableBlockPos.setWithOffset(pos, direction))) return false;
 		}
 		return true;
 	}
@@ -242,12 +232,9 @@ public class TermiteManager {
 		public boolean tick(@NotNull Level level, boolean natural, RandomSource random) {
 			boolean exit = false;
 			++this.idleTicks;
-			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) {
-				return false;
-			}
-			if (!areTermitesSafe(level, this.pos)) {
-				return false;
-			}
+			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) return false;
+			if (!areTermitesSafe(level, this.pos)) return false;
+
 			if (isPosTickable(level, this.pos)) {
 				BlockState blockState = level.getBlockState(this.pos);
 				Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
@@ -297,9 +284,7 @@ public class TermiteManager {
 					}
 					BlockPos offset = this.pos.relative(direction);
 					BlockState state = level.getBlockState(offset);
-					if (!isStateSafeForTermites(state)) {
-						return false;
-					}
+					if (!isStateSafeForTermites(state)) return false;
 
 					if (this.update > 0 && !blockState.isAir()) {
 						--this.update;
@@ -344,19 +329,15 @@ public class TermiteManager {
 				state.getBlock(),
 				natural
 			);
-
 			if (optionalBlockBehavior.isPresent()) return mutableBlockPos;
 
 			mutableBlockPos.move(Direction.DOWN);
 			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos.immutable();
-			}
+			if (!state.isAir() && isBlockMovable(state, Direction.DOWN) && exposedToAir(level, mutableBlockPos, natural)) return mutableBlockPos.immutable();
+
 			mutableBlockPos.move(Direction.UP, 2);
 			state = level.getBlockState(mutableBlockPos);
-			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) {
-				return mutableBlockPos.immutable();
-			}
+			if (!state.isAir() && isBlockMovable(state, Direction.UP) && exposedToAir(level, mutableBlockPos, natural)) return mutableBlockPos.immutable();
 			return null;
 		}
 
@@ -367,12 +348,9 @@ public class TermiteManager {
 			BlockState upState = level.getBlockState(mutableBlockPos.move(Direction.UP));
 			if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, upState)) return mutableBlockPos.immutable();
 
-			mutableBlockPos.move(Direction.DOWN);
 			for (Direction direction : directions) {
-				BlockState state = level.getBlockState(mutableBlockPos.move(direction));
+				BlockState state = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 				if (checkIfBlockIsEdibleAndFixPos(level, natural, mutableBlockPos, state)) return mutableBlockPos.immutable();
-
-				mutableBlockPos.move(direction, -1);
 			}
 
 			return null;
@@ -414,8 +392,7 @@ public class TermiteManager {
 					natural
 				);
 
-				if (
-					state.isAir()
+				if (state.isAir()
 					|| (!state.isRedstoneConductor(level, mutableBlockPos) && !state.is(WWBlockTags.BLOCKS_TERMITE))
 					|| (optionalBlockBehavior.isPresent() && isEdibleProperty(state))) {
 					return true;

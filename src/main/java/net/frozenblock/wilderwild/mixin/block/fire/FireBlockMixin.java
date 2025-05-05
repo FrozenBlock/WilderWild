@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.block.fire;
@@ -52,41 +51,38 @@ public class FireBlockMixin {
 
 	@Unique
 	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextFloat() <= 0.0125F) {
-			ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
-		}
+		if (random.nextFloat() <= 0.0125F) ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$magmaSmoke(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.FIRE_MAGMA_PARTICLES && level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) {
-			if (random.nextFloat() <= 0.05F) {
-				level.sendParticles(
-					ParticleTypes.LAVA,
-					(double) pos.getX() + 0.5D,
-					pos.getY() + 0.5D,
-					(double) pos.getZ() + 0.5D,
-					1,
-					random.nextDouble() / 3D,
-					random.nextDouble() * 0.5D,
-					random.nextDouble() / 3D,
-					(random.nextDouble() - 0.5D) * 0.05D
-				);
-			}
+		if (!WWBlockConfig.FIRE_MAGMA_PARTICLES || !level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) return;
+		if (random.nextFloat() <= 0.05F) {
+			level.sendParticles(
+				ParticleTypes.LAVA,
+				(double) pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				(double) pos.getZ() + 0.5D,
+				1,
+				random.nextDouble() / 3D,
+				random.nextDouble() * 0.5D,
+				random.nextDouble() / 3D,
+				(random.nextDouble() - 0.5D) * 0.05D
+			);
+		}
 
-			if (random.nextFloat() <= 0.2F) {
-				level.sendParticles(
-					ParticleTypes.LARGE_SMOKE,
-					(double) pos.getX() + 0.5D,
-					pos.getY() + 0.5D,
-					(double) pos.getZ() + 0.5D,
-					random.nextInt(1, 6),
-					random.nextDouble() / 3D,
-					random.nextDouble() * 0.5D,
-					random.nextDouble() / 3D,
-					(random.nextDouble() - 0.5D) * 0.05D
-				);
-			}
+		if (random.nextFloat() <= 0.2F) {
+			level.sendParticles(
+				ParticleTypes.LARGE_SMOKE,
+				(double) pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				(double) pos.getZ() + 0.5D,
+				random.nextInt(1, 6),
+				random.nextDouble() / 3D,
+				random.nextDouble() * 0.5D,
+				random.nextDouble() / 3D,
+				(random.nextDouble() - 0.5D) * 0.05D
+			);
 		}
 	}
 

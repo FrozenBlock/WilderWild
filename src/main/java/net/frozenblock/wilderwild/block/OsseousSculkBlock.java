@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -76,11 +75,11 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		BlockState stateReplace;
 		Direction oppositeDirection;
 		for (Direction direction : UPDATE_SHAPE_ORDER) {
-			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+			stateReplace = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 			oppositeDirection = direction.getOpposite();
 			BlockState stateSetTo = null;
 			if (stateReplace.is(Blocks.SCULK_VEIN)) {
@@ -91,10 +90,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true)
 					.setValue(BlockStateProperties.WATERLOGGED, true);
 			}
-			if (stateSetTo != null) {
-				level.setBlock(mutableBlockPos, stateSetTo, UPDATE_ALL);
-			}
-			mutableBlockPos.move(oppositeDirection);
+
+			if (stateSetTo != null) level.setBlock(mutableBlockPos, stateSetTo, UPDATE_ALL);
 		}
 	}
 
@@ -166,9 +163,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 							level.setBlock(mutableBlockPos.setWithOffset(topPos, direction), blockState, UPDATE_ALL);
 							playPlaceSound(level, mutableBlockPos, blockState);
 							workOnBottom(level, mutableBlockPos, random);
-							if (!isWorldGeneration) {
-								return Math.max(0, cursorCharge - cost);
-							}
+							if (!isWorldGeneration) return Math.max(0, cursorCharge - cost);
 						}
 					}
 				}
@@ -203,9 +198,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			BlockPos bottom = possibleBottom.get();
 			BlockState bottomState = level.getBlockState(bottom);
 			if (bottomState.is(this)) {
-				if (random.nextInt(0, SCULK_CONVERSION_CHANCE) == 0) {
-					this.convertToSculk(level, bottom);
-				}
+				if (random.nextInt(0, SCULK_CONVERSION_CHANCE) == 0) this.convertToSculk(level, bottom);
 			}
 		}
 	}
@@ -217,7 +210,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			BlockState stateReplace;
 			Direction oppositeDirection;
 			for (Direction direction : UPDATE_SHAPE_ORDER) {
-				stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+				stateReplace = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
 				oppositeDirection = direction.getOpposite();
 				if (stateReplace.is(Blocks.SCULK_VEIN)) {
 					stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
@@ -228,9 +221,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 				} else if (stateReplace.is(this) && stateReplace.hasProperty(FACING) && stateReplace.getValue(FACING) == direction) {
 					placeVeinsAround(level, mutableBlockPos.mutable());
 				}
-				mutableBlockPos.move(oppositeDirection);
 			}
-			mutableBlockPos.move(state.getValue(FACING));
+			mutableBlockPos.setWithOffset(pos, state.getValue(FACING));
 			placeVeinsAround(level, mutableBlockPos.mutable());
 			level.setBlock(pos, Blocks.SCULK.defaultBlockState(), UPDATE_ALL);
 		}
@@ -246,9 +238,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		for (int i = 0; i < 32; i++) {
 			if (blockState.getBlock() == this) {
 				BlockState offsetState = level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING)));
-				if (offsetState.canBeReplaced() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
-					return Optional.of(mutableBlockPos.immutable());
-				}
+				if (offsetState.canBeReplaced() || offsetState.getBlock() == Blocks.SCULK_VEIN) return Optional.of(mutableBlockPos.immutable());
 				mutableBlockPos.set(mutableBlockPos2);
 				blockState = level.getBlockState(mutableBlockPos);
 			} else {
@@ -267,9 +257,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 
 		for (int i = 0; i < 32; i++) {
 			if (blockState.getBlock() == this) {
-				if (level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING), -1)).is(Blocks.SCULK)) {
-					return Optional.of(mutableBlockPos.immutable());
-				}
+				if (level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING), -1)).is(Blocks.SCULK)) return Optional.of(mutableBlockPos.immutable());
 				mutableBlockPos.set(mutableBlockPos2);
 				blockState = level.getBlockState(mutableBlockPos);
 			} else {

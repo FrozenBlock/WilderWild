@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity;
@@ -144,9 +143,8 @@ public class FlowerCow extends AbstractCow implements Shearable {
 				return InteractionResult.SUCCESS_SERVER;
 			}
 			return InteractionResult.CONSUME;
-		} else {
-			return super.mobInteract(player, interactionHand);
 		}
+		return super.mobInteract(player, interactionHand);
 	}
 
 	@Override
@@ -201,9 +199,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) {
-			this.moobloomVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariantByLocation());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -298,21 +294,15 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
 		FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(serverLevel, EntitySpawnReason.BREEDING);
-		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) {
-			flowerCow.setVariant(this.getOffspringType(serverLevel, otherFlowerCow));
-		}
-
+		if (flowerCow != null && ageableMob instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(serverLevel, otherFlowerCow));
 		return flowerCow;
 	}
 
 	private MoobloomVariant getOffspringType(ServerLevel serverLevel, @NotNull FlowerCow flowerCow) {
 		MoobloomVariant flowerType = this.getVariantByLocation();
 		MoobloomVariant otherFlowerType = flowerCow.getVariantByLocation();
-		if (flowerType == otherFlowerType) {
-			return flowerType;
-		} else {
-			return this.getOffspringVariant(serverLevel, flowerCow);
-		}
+		if (flowerType == otherFlowerType) return flowerType;
+		return this.getOffspringVariant(serverLevel, flowerCow);
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(ServerLevel serverLevel, @NotNull FlowerCow otherFlowerCow) {
@@ -331,9 +321,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
 				Block variantFlower = registeredVariant.getFlowerBlockState().getBlock();
 				Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(serverLevel, variantFlower);
-				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) {
-					return registeredVariant;
-				}
+				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) return registeredVariant;
 			}
 		}
 

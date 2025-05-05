@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -100,13 +99,9 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos) {
 		GeyserStage stage = state.getValue(GEYSER_STAGE);
-		if (stage == GeyserStage.DORMANT) {
-			return 0;
-		} else if (stage == GeyserStage.ACTIVE) {
-			return 5;
-		} else if (stage == GeyserStage.ERUPTING) {
-			return 15;
-		}
+		if (stage == GeyserStage.DORMANT) return 0;
+		if (stage == GeyserStage.ACTIVE) return 5;
+		if (stage == GeyserStage.ERUPTING) return 15;
 		return super.getAnalogOutputSignal(state, world, pos);
 	}
 
@@ -155,9 +150,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	) {
 		if (direction.getAxis() == blockState.getValue(FACING).getAxis()) {
 			GeyserType geyserType = getGeyserTypeForPos(levelReader, blockState, blockPos);
-			if (geyserType != blockState.getValue(GEYSER_TYPE)) {
-				blockState = blockState.setValue(GEYSER_TYPE, geyserType);
-			}
+			if (geyserType != blockState.getValue(GEYSER_TYPE)) blockState = blockState.setValue(GEYSER_TYPE, geyserType);
 		}
 		return blockState;
 	}
@@ -174,11 +167,9 @@ public class GeyserBlock extends BaseEntityBlock {
 			if (fluidState.is(FluidTags.WATER)) {
 				if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
 				return GeyserType.WATER;
-			} else if (fluidState.is(FluidTags.LAVA)) {
-				return GeyserType.LAVA;
-			} else {
-				return GeyserType.AIR;
 			}
+			if (fluidState.is(FluidTags.LAVA)) return GeyserType.LAVA;
+			return GeyserType.AIR;
 		}
 		return GeyserType.NONE;
 	}
@@ -186,9 +177,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
-		if (geyserType != state.getValue(GEYSER_TYPE)) {
-			level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
-		}
+		if (geyserType != state.getValue(GEYSER_TYPE)) level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
 	}
 
 	@Override

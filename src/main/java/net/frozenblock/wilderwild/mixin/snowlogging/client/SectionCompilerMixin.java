@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
@@ -77,22 +76,21 @@ public abstract class SectionCompilerMixin {
 		@Local(ordinal = 2) BlockPos blockPos3,
 		@Local BlockState blockState
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-			RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
-			BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
-			randomSource.setSeed(snowState.getSeed(blockPos3));
-			this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
-			poseStack.pushPose();
-			poseStack.translate(
-				(float) SectionPos.sectionRelative(blockPos3.getX()),
-				(float) SectionPos.sectionRelative(blockPos3.getY()),
-				(float) SectionPos.sectionRelative(blockPos3.getZ())
-			);
-			this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, list);
-			poseStack.popPose();
-			list.clear();
-		}
+		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
+		BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
+		RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
+		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
+		randomSource.setSeed(snowState.getSeed(blockPos3));
+		this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
+		poseStack.pushPose();
+		poseStack.translate(
+			(float) SectionPos.sectionRelative(blockPos3.getX()),
+			(float) SectionPos.sectionRelative(blockPos3.getY()),
+			(float) SectionPos.sectionRelative(blockPos3.getZ())
+		);
+		this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, list);
+		poseStack.popPose();
+		list.clear();
 	}
 
 }

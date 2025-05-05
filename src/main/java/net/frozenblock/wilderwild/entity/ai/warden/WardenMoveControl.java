@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity.ai.warden;
@@ -53,9 +52,9 @@ public class WardenMoveControl extends MoveControl {
 					double f = this.wantedZ - this.mob.getZ();
 					double g = d * d + e * e + f * f;
 					if (g < 2.5000003E-7F) {
-						this.mob.setZza(0.0F);
+						this.mob.setZza(0F);
 					} else {
-						float h = (float) (Mth.atan2(f, d) * 180.0F / (float) Math.PI) - 90.0F;
+						float h = (float) (Mth.atan2(f, d) * 180F / (float) Math.PI) - 90F;
 						this.mob.setYRot(this.rotlerp(this.mob.getYRot(), h, this.yawChange));
 						this.mob.yBodyRot = this.mob.getYRot();
 						this.mob.yHeadRot = this.mob.getYRot();
@@ -64,12 +63,12 @@ public class WardenMoveControl extends MoveControl {
 							this.mob.setSpeed(i * this.speedInWater);
 							double j = Math.sqrt(d * d + f * f);
 							if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {
-								float k = -((float) (Mth.atan2(e, j) * 180.0F / (float) Math.PI));
+								float k = -((float) (Mth.atan2(e, j) * 180F / (float) Math.PI));
 								k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
-								this.mob.setXRot(this.rotlerp(this.mob.getXRot(), k, 5.0F));
+								this.mob.setXRot(this.rotlerp(this.mob.getXRot(), k, 5F));
 							}
-							float k = Mth.cos(this.mob.getXRot() * (float) (Math.PI / 180.0));
-							float l = Mth.sin(this.mob.getXRot() * (float) (Math.PI / 180.0));
+							float k = Mth.cos(this.mob.getXRot() * (float) (Math.PI / 180));
+							float l = Mth.sin(this.mob.getXRot() * (float) (Math.PI / 180));
 							this.mob.zza = k * i;
 							this.mob.yya = -l * i;
 						} else {
@@ -77,10 +76,10 @@ public class WardenMoveControl extends MoveControl {
 						}
 					}
 				} else {
-					this.mob.setSpeed(0.0F);
-					this.mob.setXxa(0.0F);
-					this.mob.setYya(0.0F);
-					this.mob.setZza(0.0F);
+					this.mob.setSpeed(0F);
+					this.mob.setXxa(0F);
+					this.mob.setYya(0F);
+					this.mob.setZza(0F);
 				}
 			} else {
 				super.tick();

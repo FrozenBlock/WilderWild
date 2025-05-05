@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block;
@@ -97,15 +96,9 @@ public class BaobabNutBlock extends SaplingBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 vec3d = state.getOffset(pos);
-		VoxelShape voxelShape;
-		if (!state.getValue(HANGING)) {
-			voxelShape = SHAPES[4];
-		} else {
-			voxelShape = SHAPES[state.getValue(AGE)];
-		}
-
-		return voxelShape.move(vec3d.x, vec3d.y, vec3d.z);
+		Vec3 offset = state.getOffset(pos);
+		VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
+		return voxelShape.move(offset.x, offset.y, offset.z);
 	}
 
 	@Override
@@ -115,15 +108,12 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) >= 9) {
-			if (!isHanging(state)) {
-				if (random.nextInt(7) == 0) {
-					this.advanceTree(level, pos, state, random);
-				}
-			} else {
-				if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
-					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-				}
+		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) < 9) return;
+		if (!isHanging(state)) {
+			if (random.nextInt(7) == 0) this.advanceTree(level, pos, state, random);
+		} else {
+			if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
+				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 			}
 		}
 	}
@@ -145,7 +135,6 @@ public class BaobabNutBlock extends SaplingBlock {
 		} else {
 			super.performBonemeal(level, random, pos, state);
 		}
-
 	}
 
 	@Override

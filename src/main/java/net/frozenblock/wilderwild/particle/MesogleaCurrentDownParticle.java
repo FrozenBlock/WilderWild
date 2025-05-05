@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.particle;
@@ -53,11 +52,11 @@ public class MesogleaCurrentDownParticle extends TextureSheetParticle {
 	) {
 		super(clientLevel, x, y, z, xd, yd, zd);
 		this.popParticle = popParticle;
-		this.lifetime = (int)(Math.random() * 60.0) + 30;
+		this.lifetime = (int)(Math.random() * 60D) + 30;
 		this.hasPhysics = false;
-		this.xd = 0.0;
-		this.yd = -0.05;
-		this.zd = 0.0;
+		this.xd = 0D;
+		this.yd = -0.05D;
+		this.zd = 0.D;
 		this.setSize(0.02F, 0.02F);
 		this.quadSize = this.quadSize * (this.random.nextFloat() * 0.6F + 0.2F);
 		this.gravity = 0.002F;
@@ -87,10 +86,7 @@ public class MesogleaCurrentDownParticle extends TextureSheetParticle {
 			this.xd *= 0.07;
 			this.zd *= 0.07;
 			this.move(this.xd, this.yd, this.zd);
-			if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER) || this.onGround) {
-				this.age += 1;
-			}
-
+			if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER) || this.onGround) this.age += 1;
 			this.angle += 0.08F;
 		}
 	}
@@ -119,12 +115,11 @@ public class MesogleaCurrentDownParticle extends TextureSheetParticle {
 		super.remove();
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class BubbleFactory implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet spriteProvider;
 		private final ParticleOptions popParticle;
 
-		public BubbleFactory(SpriteSet spriteProvider, ParticleOptions popParticle) {
+		public Provider(SpriteSet spriteProvider, ParticleOptions popParticle) {
 			this.spriteProvider = spriteProvider;
 			this.popParticle = popParticle;
 		}

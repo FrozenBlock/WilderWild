@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.block.entity;
@@ -218,18 +217,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 1.5F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
-		if (this.level != null) {
-			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-		}
+		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
 		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * WWBlockConfig.get().stoneChest.getStoneChestTimer());
-		if (this.level != null) {
-			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-		}
+		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public int getComparatorOutput() {
@@ -344,9 +339,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			if (!ancientItems.isEmpty()) {
 				this.level.playSound(null, blockPos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.random.nextFloat() * 0.1F));
 				for (ItemStack taunt : ancientItems) {
-					for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) {
-						spawnBreakParticles(this.level, taunt, blockPos);
-					}
+					for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) spawnBreakParticles(this.level, taunt, blockPos);
 				}
 			}
 		}
@@ -357,9 +350,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (!data.contains("wilderwild_is_ancient") && !item.isEmpty()) {
-				items.add(item);
-			}
+			if (!data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}
@@ -369,9 +360,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (data.contains("wilderwild_is_ancient") && !item.isEmpty()) {
-				items.add(item);
-			}
+			if (data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}

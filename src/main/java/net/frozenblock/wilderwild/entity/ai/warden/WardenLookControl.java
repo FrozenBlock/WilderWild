@@ -2,18 +2,17 @@
  * Copyright 2025 FrozenBlock
  * This file is part of Wilder Wild.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.entity.ai.warden;
@@ -45,22 +44,18 @@ public class WardenLookControl extends LookControl {
 		} else {
 			if (this.lookAtCooldown > 0) {
 				--this.lookAtCooldown;
-				this.getYRotD().ifPresent((float_) ->
-					this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, float_ + 20.0F, this.yMaxRotSpeed));
-				this.getXRotD().ifPresent((float_) ->
-					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), float_ + 10.0F, this.xMaxRotAngle)));
+				this.getYRotD().ifPresent(rot -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, rot + 20F, this.yMaxRotSpeed));
+				this.getXRotD().ifPresent(rot -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), rot + 10F, this.xMaxRotAngle)));
 			} else {
-				if (this.mob.getNavigation().isDone()) {
-					this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0F, 5.0F));
-				}
+				if (this.mob.getNavigation().isDone()) this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0F, 5F));
 				this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
 			}
 
 			float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
 			if (f < (float) (-this.maxYRotFromCenter)) {
-				this.mob.yBodyRot -= 4.0F;
+				this.mob.yBodyRot -= 4F;
 			} else if (f > (float) this.maxYRotFromCenter) {
-				this.mob.yBodyRot += 4.0F;
+				this.mob.yBodyRot += 4F;
 			}
 		}
 	}
