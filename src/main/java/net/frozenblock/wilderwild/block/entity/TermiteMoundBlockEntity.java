@@ -33,6 +33,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
@@ -81,15 +83,15 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-		this.termiteManager.saveAdditional(tag);
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		this.termiteManager.saveAdditional(valueOutput);
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
-		this.termiteManager.load(tag);
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.termiteManager.load(valueInput);
 	}
 
 	@Environment(EnvType.CLIENT)

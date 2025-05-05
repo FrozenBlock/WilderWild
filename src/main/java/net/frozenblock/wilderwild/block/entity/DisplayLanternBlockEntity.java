@@ -60,6 +60,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.redstone.Redstone;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -131,21 +133,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
 		this.fireflies.clear();
-		tag.read("fireflies", Occupant.LIST_CODEC, NbtOps.INSTANCE).ifPresent(this.fireflies::addAll);
+		valueInput.read("fireflies", Occupant.LIST_CODEC).ifPresent(this.fireflies::addAll);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(tag, this.inventory, provider);
-		this.age = tag.getIntOr("age", 0);
+		ContainerHelper.loadAllItems(valueInput, this.inventory);
+		this.age = valueInput.getIntOr("age", 0);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-		tag.put("fireflies", Occupant.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.fireflies).getOrThrow());
-		ContainerHelper.saveAllItems(tag, this.inventory, provider);
-		tag.putInt("age", this.age);
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.store("fireflies", Occupant.LIST_CODEC, this.fireflies);
+		ContainerHelper.saveAllItems(valueOutput, this.inventory);
+		valueOutput.putInt("age", this.age);
 	}
 
 	@Override
@@ -163,9 +165,9 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void removeComponentsFromTag(CompoundTag compoundTag) {
-		super.removeComponentsFromTag(compoundTag);
-		compoundTag.remove("fireflies");
+	public void removeComponentsFromTag(ValueOutput valueOutput) {
+		super.removeComponentsFromTag(valueOutput);
+		valueOutput.discard("fireflies");
 	}
 
 	@NotNull

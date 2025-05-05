@@ -51,6 +51,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -166,17 +168,17 @@ public class TermiteManager {
 		return this.termites;
 	}
 
-	public void saveAdditional(@NotNull CompoundTag tag) {
-		tag.store("termites", Termite.LIST_CODEC, NbtOps.INSTANCE, this.termites);
-		tag.putInt("ticksToNextTermite", this.ticksToNextTermite);
-		tag.putInt("highestID", this.highestID);
+	public void saveAdditional(@NotNull ValueOutput valueOutput) {
+		valueOutput.store("termites", Termite.LIST_CODEC, this.termites);
+		valueOutput.putInt("ticksToNextTermite", this.ticksToNextTermite);
+		valueOutput.putInt("highestID", this.highestID);
 	}
 
-	public void load(@NotNull CompoundTag tag) {
+	public void load(@NotNull ValueInput valueInput) {
 		this.termites.clear();
-		tag.read("termites", Termite.LIST_CODEC, NbtOps.INSTANCE).ifPresent(this.termites::addAll);
-		this.ticksToNextTermite = tag.getIntOr("ticksToNextTermite", 0);
-		this.highestID = tag.getIntOr("highestID", 0);
+		valueInput.read("termites", Termite.LIST_CODEC).ifPresent(this.termites::addAll);
+		this.ticksToNextTermite = valueInput.getIntOr("ticksToNextTermite", 0);
+		this.highestID = valueInput.getIntOr("highestID", 0);
 	}
 
 	public static class Termite {

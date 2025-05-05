@@ -80,6 +80,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -510,32 +512,32 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
 
 		this.getColorAsHolder()
 			.unwrapKey()
-			.ifPresent(resourceKey -> compoundTag.putString("color", resourceKey.location().toString()));
+			.ifPresent(resourceKey -> valueOutput.putString("color", resourceKey.location().toString()));
 
-		compoundTag.putBoolean("fromBottle", this.wilderWild$fromBottle());
-		compoundTag.putInt("flickerAge", this.getFlickerAge());
-		compoundTag.putFloat("scale", this.getAnimScale());
-		compoundTag.putFloat("prevScale", this.getPrevAnimScale());
+		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
+		valueOutput.putInt("flickerAge", this.getFlickerAge());
+		valueOutput.putFloat("scale", this.getAnimScale());
+		valueOutput.putFloat("prevScale", this.getPrevAnimScale());
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
 
-		compoundTag.getString("color").flatMap(string -> Optional.ofNullable(ResourceLocation.tryParse(string))
+		valueInput.getString("color").flatMap(string -> Optional.ofNullable(ResourceLocation.tryParse(string))
 				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
 				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
 		).ifPresent(reference -> this.setColor(reference.value()));
 
-		compoundTag.getBoolean("fromBottle").ifPresent(this::wilderWild$setFromBottle);
-		compoundTag.getInt("flickerAge").ifPresent(this::setFlickerAge);
-		compoundTag.getFloat("scale").ifPresent(this::setAnimScale);
-		compoundTag.getFloat("prevScale").ifPresent(this::setPrevAnimScale);
+		this.wilderWild$setFromBottle(valueInput.getBooleanOr("fromBottle", false));
+		valueInput.getInt("flickerAge").ifPresent(this::setFlickerAge);
+		this.setAnimScale(valueInput.getFloatOr("scale", 1.5F));
+		this.setPrevAnimScale(valueInput.getFloatOr("prevScale", 1.5F));
 	}
 
 	@Override

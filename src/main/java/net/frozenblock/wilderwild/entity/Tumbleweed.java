@@ -80,6 +80,8 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -205,7 +207,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			double brightness = serverLevel.getBrightness(LightLayer.SKY, BlockPos.containing(this.getEyePosition()));
 			this.checkActive(brightness);
 			this.moveWithWind(serverLevel, brightness, deltaPos);
-			this.tickAfterWindLeash();
 			this.pickupItem();
 		}
 	}
@@ -280,22 +281,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			}
 			if (this.wasEyeInWater) deltaMovement = deltaMovement.add(0D, 0.01D, 0D);
 			this.setDeltaMovement(deltaMovement);
-		}
-	}
-
-	protected void tickAfterWindLeash() {
-		Entity entity = this.getLeashHolder();
-		if (entity != null && entity.level() == this.level()) {
-			this.restrictTo(entity.blockPosition(), 5);
-			float f = this.distanceTo(entity);
-			if (f > 10F) {
-				this.dropLeash();
-			} else if (f > 6F) {
-				double d = (entity.getX() - this.getX()) / (double) f;
-				double e = (entity.getY() - this.getY()) / (double) f;
-				double g = (entity.getZ() - this.getZ()) / (double) f;
-				this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(d * d * 0.4D, d), Math.copySign(e * e * 0.4D, e), Math.copySign(g * g * 0.4D, g)));
-			}
 		}
 	}
 
@@ -439,36 +424,36 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		this.spawnedFromShears = compound.getBooleanOr("SpawnedFromShears", false);
-		this.ticksSinceActive = compound.getIntOr("TicksSinceActive", 0);
-		this.isItemNatural = compound.getBooleanOr("IsTumbleweedItemNatural", false);
-		this.setItemX(compound.getFloatOr("ItemX", 0F));
-		this.setItemZ(compound.getFloatOr("ItemZ", 0F));
-		this.pitch = compound.getFloatOr("TumblePitch", 0F);
-		this.roll = compound.getFloatOr("TumbleRoll", 0F);
-		this.isTouchingStickingBlock = compound.getBooleanOr("isTouchingStickingBlock", false);
-		this.isTouchingStoppingBlock = compound.getBooleanOr("IsTouchingStoppingBlock", false);
-		this.lookRot = compound.getFloatOr("LookRot", 0F);
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.spawnedFromShears = valueInput.getBooleanOr("SpawnedFromShears", false);
+		this.ticksSinceActive = valueInput.getIntOr("TicksSinceActive", 0);
+		this.isItemNatural = valueInput.getBooleanOr("IsTumbleweedItemNatural", false);
+		this.setItemX(valueInput.getFloatOr("ItemX", 0F));
+		this.setItemZ(valueInput.getFloatOr("ItemZ", 0F));
+		this.pitch = valueInput.getFloatOr("TumblePitch", 0F);
+		this.roll = valueInput.getFloatOr("TumbleRoll", 0F);
+		this.isTouchingStickingBlock = valueInput.getBooleanOr("isTouchingStickingBlock", false);
+		this.isTouchingStoppingBlock = valueInput.getBooleanOr("IsTouchingStoppingBlock", false);
+		this.lookRot = valueInput.getFloatOr("LookRot", 0F);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(compound, this.inventory, this.registryAccess());
+		ContainerHelper.loadAllItems(valueInput, this.inventory);
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putBoolean("SpawnedFromShears", this.spawnedFromShears);
-		compound.putInt("TicksSinceActive", this.ticksSinceActive);
-		compound.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
-		compound.putFloat("ItemX", this.getItemX());
-		compound.putFloat("ItemZ", this.getItemZ());
-		compound.putFloat("TumblePitch", this.pitch);
-		compound.putFloat("TumbleRoll", this.roll);
-		compound.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
-		compound.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
-		compound.putFloat("LookRot", this.lookRot);
-		ContainerHelper.saveAllItems(compound, this.inventory, this.registryAccess());
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putBoolean("SpawnedFromShears", this.spawnedFromShears);
+		valueOutput.putInt("TicksSinceActive", this.ticksSinceActive);
+		valueOutput.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
+		valueOutput.putFloat("ItemX", this.getItemX());
+		valueOutput.putFloat("ItemZ", this.getItemZ());
+		valueOutput.putFloat("TumblePitch", this.pitch);
+		valueOutput.putFloat("TumbleRoll", this.roll);
+		valueOutput.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
+		valueOutput.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
+		valueOutput.putFloat("LookRot", this.lookRot);
+		ContainerHelper.saveAllItems(valueOutput, this.inventory);
 	}
 
 	@Override

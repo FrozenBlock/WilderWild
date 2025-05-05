@@ -42,6 +42,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -63,25 +65,15 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
-
-		if (tag.contains("listener")) {
-			RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-			Data.CODEC.parse(new Dynamic<>(registryOps, tag.getCompound("listener").get()))
-				.resultOrPartial((string) -> LOGGER.error("Failed to parse vibration listener for Icicle: '{}'", string))
-				.ifPresent(data -> this.vibrationData = data);
-		}
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.vibrationData = valueInput.read("listener", Data.CODEC).orElseGet(Data::new);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-
-		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-		Data.CODEC.encodeStart(registryOps, this.vibrationData)
-			.resultOrPartial((string) -> LOGGER.error("Failed to encode vibration listener for Icicle: '{}'", string))
-			.ifPresent(nbt -> tag.put("listener", nbt));
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.store("listener", Data.CODEC, this.vibrationData);
 	}
 
 	@NotNull

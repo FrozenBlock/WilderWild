@@ -38,6 +38,8 @@ import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -132,22 +134,17 @@ public class FallingLeafTicker extends SilentTicker {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.put("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec().encodeStart(NbtOps.INSTANCE, this.leafLitter).getOrThrow());
-		this.yd = compound.getDoubleOr("LeafFallVelocity", 0D);
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.store("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec(), this.leafLitter);
+		valueOutput.putDouble("LeafFallVelocity", this.yd);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		compound.putDouble("LeafFallVelocity", this.yd);
-		if (compound.contains("LeafLitterBlock")) {
-			BuiltInRegistries.BLOCK.byNameCodec()
-				.parse(NbtOps.INSTANCE, compound.get("LeafLitterBlock"))
-				.resultOrPartial(WWConstants.LOGGER::error)
-				.ifPresent(block -> this.leafLitter = block);
-		}
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.yd = valueInput.getDoubleOr("LeafFallVelocity", -0.05D);
+		this.leafLitter = valueInput.read("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec()).orElse(null);
 	}
 
 }

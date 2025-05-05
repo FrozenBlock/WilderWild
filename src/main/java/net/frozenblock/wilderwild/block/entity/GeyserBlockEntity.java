@@ -58,6 +58,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -372,19 +374,19 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-		tag.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
-		tag.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
-		tag.putFloat("EruptionProgress", this.eruptionProgress);
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
+		valueOutput.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
+		valueOutput.putFloat("EruptionProgress", this.eruptionProgress);
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
-		this.hasRunFirstCheck = tag.getBooleanOr("HasRunFirstCheck", false);
-		this.ticksUntilNextEvent = tag.getIntOr("TicksUntilNextEvent", 0);
-		this.eruptionProgress = tag.getFloatOr("EruptionProgress", 0F);
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.hasRunFirstCheck = valueInput.getBooleanOr("HasRunFirstCheck", false);
+		this.ticksUntilNextEvent = valueInput.getIntOr("TicksUntilNextEvent", 0);
+		this.eruptionProgress = valueInput.getFloatOr("EruptionProgress", 0F);
 	}
 
 	@Environment(EnvType.CLIENT)

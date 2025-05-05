@@ -64,6 +64,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -327,15 +329,15 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
-		compoundTag.putString("EntityPose", this.getPose().name());
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putString("EntityPose", this.getPose().name());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
-		compoundTag.getString("EntityPose").ifPresent(entityPose -> {
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		valueInput.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
 				this.setPose(Pose.valueOf(entityPose));
 			}

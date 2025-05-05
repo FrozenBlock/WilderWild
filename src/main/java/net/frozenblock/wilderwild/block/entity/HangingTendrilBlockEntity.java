@@ -30,6 +30,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.Level;
@@ -43,6 +44,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -149,39 +153,39 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		CompoundTag tag = new CompoundTag();
-		this.saveClientUsableNbt(tag);
-		return tag;
+		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
+			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, provider);
+			this.saveClientUsableNbt(tagValueOutput);
+			return tagValueOutput.buildResult();
+		}
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
-		this.lastVibrationFrequency = tag.getIntOr("last_vibration_frequency", 0);
-		this.ticksToStopTwitching = tag.getIntOr("ticksToStopTwitching", 0);
-		this.storedXP = tag.getIntOr("storedXP", 0);
-		this.ringOutTicksLeft = tag.getIntOr("ringOutTicksLeft", 0);
-		this.activeTicks = tag.getIntOr("activeTicks", 0);
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.lastVibrationFrequency = valueInput.getIntOr("last_vibration_frequency", 0);
+		this.ticksToStopTwitching = valueInput.getIntOr("ticksToStopTwitching", 0);
+		this.storedXP = valueInput.getIntOr("storedXP", 0);
+		this.ringOutTicksLeft = valueInput.getIntOr("ringOutTicksLeft", 0);
+		this.activeTicks = valueInput.getIntOr("activeTicks", 0);
 
-		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-		this.vibrationData = tag.read("listener", VibrationSystem.Data.CODEC, registryOps).orElseGet(VibrationSystem.Data::new);
+		this.vibrationData = valueInput.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-		tag.putInt("last_vibration_frequency", this.lastVibrationFrequency);
-		if (this.storedXP > 0) tag.putInt("storedXP", this.storedXP);
-		if (this.activeTicks > 0) tag.putInt("activeTicks", this.activeTicks);
-		this.saveClientUsableNbt(tag);
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.putInt("last_vibration_frequency", this.lastVibrationFrequency);
+		if (this.storedXP > 0) valueOutput.putInt("storedXP", this.storedXP);
+		if (this.activeTicks > 0) valueOutput.putInt("activeTicks", this.activeTicks);
+		this.saveClientUsableNbt(valueOutput);
 
-		RegistryOps<Tag> registryOps = provider.createSerializationContext(NbtOps.INSTANCE);
-		tag.store("listener", VibrationSystem.Data.CODEC, registryOps, this.vibrationData);
+		valueOutput.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
-	public void saveClientUsableNbt(CompoundTag tag) {
-		if (this.ticksToStopTwitching > 0) tag.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
-		if (this.ringOutTicksLeft > 0) tag.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
+	public void saveClientUsableNbt(ValueOutput valueOutput) {
+		if (this.ticksToStopTwitching > 0) valueOutput.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
+		if (this.ringOutTicksLeft > 0) valueOutput.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 	}
 
 	@NotNull

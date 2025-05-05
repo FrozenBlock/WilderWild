@@ -86,6 +86,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -533,10 +535,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	public boolean handleLeashAtDistance(Entity entity, float distance) {
-		if (distance > 6F && this.isStuck()) this.emergeBeak();
-		super.handleLeashAtDistance(entity, distance);
-		return true;
+	public void onElasticLeashPull() {
+		super.onElasticLeashPull();
+		if (this.isStuck()) this.emergeBeak();
 	}
 
 	@Override
@@ -984,30 +985,30 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putInt("BeakCooldown", this.getBeakCooldown());
-		compound.putFloat("TargetBeakAnimProgress", this.getTargetBeakAnimProgress());
-		compound.putFloat("TargetStraightProgress", this.getTargetStraightProgress());
-		compound.putBoolean("IsAttacking", this.isAttacking());
-		compound.putInt("StuckTicks", this.getStuckTicks());
-		compound.putFloat("BeakAnimProgress", this.beakAnimProgress);
-		if (this.lastAttackCommander != null) compound.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
-		compound.putBoolean("AttackHasCommander", this.attackHasCommander);
-		compound.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putInt("BeakCooldown", this.getBeakCooldown());
+		valueOutput.putFloat("TargetBeakAnimProgress", this.getTargetBeakAnimProgress());
+		valueOutput.putFloat("TargetStraightProgress", this.getTargetStraightProgress());
+		valueOutput.putBoolean("IsAttacking", this.isAttacking());
+		valueOutput.putInt("StuckTicks", this.getStuckTicks());
+		valueOutput.putFloat("BeakAnimProgress", this.beakAnimProgress);
+		if (this.lastAttackCommander != null) valueOutput.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
+		valueOutput.putBoolean("AttackHasCommander", this.attackHasCommander);
+		valueOutput.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		this.setBeakCooldown(compound.getIntOr("BeakCooldown", 0));
-		this.setTargetBeakAnimProgress(compound.getFloatOr("TargetBeakAnimProgress", 0F));
-		this.setTargetStraightProgress(compound.getFloatOr("TargetStraightProgress", 0F));
-		this.setAttacking(compound.getBooleanOr("IsAttacking", false));
-		this.setStuckTicks(compound.getIntOr("StuckTicks", 0));
-		this.beakAnimProgress = compound.getFloatOr("BeakAnimProgress", 0F);
-		compound.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> this.lastAttackCommander = uuid);
-		this.attackHasCommander = compound.getBooleanOr("AttackHasCommander", false);
-		this.commanderWasPlayer = compound.getBooleanOr("CommanderWasPlayer", false);
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		this.setBeakCooldown(valueInput.getIntOr("BeakCooldown", 0));
+		this.setTargetBeakAnimProgress(valueInput.getFloatOr("TargetBeakAnimProgress", 0F));
+		this.setTargetStraightProgress(valueInput.getFloatOr("TargetStraightProgress", 0F));
+		this.setAttacking(valueInput.getBooleanOr("IsAttacking", false));
+		this.setStuckTicks(valueInput.getIntOr("StuckTicks", 0));
+		this.beakAnimProgress = valueInput.getFloatOr("BeakAnimProgress", 0F);
+		valueInput.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> this.lastAttackCommander = uuid);
+		this.attackHasCommander = valueInput.getBooleanOr("AttackHasCommander", false);
+		this.commanderWasPlayer = valueInput.getBooleanOr("CommanderWasPlayer", false);
 	}
 }

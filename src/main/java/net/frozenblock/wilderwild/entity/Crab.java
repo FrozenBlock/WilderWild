@@ -112,6 +112,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -750,8 +752,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
+		stack.copyFrom(WWDataComponents.CRAB_VARIANT, this);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 			compoundTag.putInt("Age", this.getAge());
 			Brain<Crab> brain = this.getBrain();
 			if (brain.hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN)) {
@@ -764,13 +766,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
 		Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-
 		compoundTag.getInt("Age").ifPresent(this::setAge);
 		compoundTag.getLong("HuntingCooldown").ifPresent(huntingCooldown -> {
 			this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, huntingCooldown);
 		});
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.CRAB_VARIANT)
-			.ifPresent(variant -> this.setVariant(variant.value()));
 	}
 
 	@Override
@@ -840,49 +839,47 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
-		compoundTag.putString("variant", this.getVariantLocation().toString());
-		compoundTag.putBoolean("FromBucket", this.fromBucket());
-		compoundTag.putInt("DigTicks", this.getDiggingTicks());
-		compoundTag.putString("EntityPose", this.getPose().name());
-		compoundTag.putDouble("PrevX", this.prevMovement.x);
-		compoundTag.putDouble("PrevY", this.prevMovement.y);
-		compoundTag.putDouble("PrevZ", this.prevMovement.z);
-		compoundTag.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
-		compoundTag.putString("ClimbingFace", this.getClimbingFace().name());
-		compoundTag.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
-		compoundTag.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
-
-		RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
-		compoundTag.store("listener", VibrationSystem.Data.CODEC, registryOps, this.vibrationData);
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		valueOutput.putString("variant", this.getVariantLocation().toString());
+		valueOutput.putBoolean("FromBucket", this.fromBucket());
+		valueOutput.putInt("DigTicks", this.getDiggingTicks());
+		valueOutput.putString("EntityPose", this.getPose().name());
+		valueOutput.store("PrevMovement", Vec3.CODEC, this.prevMovement);
+		valueOutput.putDouble("PrevX", this.prevMovement.x);
+		valueOutput.putDouble("PrevY", this.prevMovement.y);
+		valueOutput.putDouble("PrevZ", this.prevMovement.z);
+		valueOutput.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
+		valueOutput.putString("ClimbingFace", this.getClimbingFace().name());
+		valueOutput.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
+		valueOutput.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
+		valueOutput.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.CRAB_VARIANT)
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		VariantUtils.readVariant(valueInput, WilderWildRegistries.CRAB_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		this.setFromBucket(compoundTag.getBooleanOr("FromBucket", false));
-		this.setDiggingTicks(compoundTag.getIntOr("DigTicks", 0));
+		this.setFromBucket(valueInput.getBooleanOr("FromBucket", false));
+		this.setDiggingTicks(valueInput.getIntOr("DigTicks", 0));
 
-		compoundTag.getString("EntityPose").ifPresent(entityPose -> {
+		valueInput.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
 				this.setPose(Pose.valueOf(entityPose));
 			}
 		});
-		this.prevMovement = new Vec3(compoundTag.getDoubleOr("PrevX", 0D), compoundTag.getDoubleOr("PrevY", 0D), compoundTag.getDoubleOr("PrevZ", 0D));
-		this.cancelMovementToDescend = compoundTag.getBooleanOr("CancelMovementToDescend", false);
-		compoundTag.getString("ClimbingFace").ifPresent(climingFace -> {
+		this.prevMovement = valueInput.read("PrevMovement", Vec3.CODEC).orElse(Vec3.ZERO);
+		this.cancelMovementToDescend = valueInput.getBooleanOr("CancelMovementToDescend", false);
+		valueInput.getString("ClimbingFace").ifPresent(climingFace -> {
 			if (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(climingFace))) {
 				this.setClimbingFace(ClimbingFace.valueOf(climingFace).direction);
 			}
 		});
-		this.setTargetClimbAnimX(compoundTag.getFloatOr("TargetClimbAnimX", 0));
-		this.setTargetClimbAnimAmount(compoundTag.getFloatOr("TargetClimbAnimAmount", 0));
+		this.setTargetClimbAnimX(valueInput.getFloatOr("TargetClimbAnimX", 0));
+		this.setTargetClimbAnimAmount(valueInput.getFloatOr("TargetClimbAnimAmount", 0));
 
-		RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
-		this.vibrationData = compoundTag.read("listener", VibrationSystem.Data.CODEC, registryOps).orElseGet(VibrationSystem.Data::new);
+		this.vibrationData = valueInput.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
 	}
 
 	@Override

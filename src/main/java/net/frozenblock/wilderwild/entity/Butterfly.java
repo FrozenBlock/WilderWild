@@ -80,6 +80,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -429,18 +431,18 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
-		VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
-		compoundTag.putBoolean("fromBottle", this.wilderWild$fromBottle());
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
+		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.BUTTERFLY_VARIANT)
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		VariantUtils.readVariant(valueInput, WilderWildRegistries.BUTTERFLY_VARIANT)
 			.ifPresent(butterflyVariantHolder -> this.setVariant(butterflyVariantHolder.value()));
-		compoundTag.getBoolean("fromBottle").ifPresent(this::wilderWild$setFromBottle);
+		this.wilderWild$setFromBottle(valueInput.getBooleanOr("fromBottle", false));
 	}
 
 	@Override

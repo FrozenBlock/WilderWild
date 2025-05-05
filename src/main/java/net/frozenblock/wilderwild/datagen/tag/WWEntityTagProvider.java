@@ -36,19 +36,19 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(FrozenEntityTags.CREEPER_IGNORES)
+		this.valueLookupBuilder(FrozenEntityTags.CREEPER_IGNORES)
 			.add(WWEntityTypes.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
+		this.valueLookupBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
 			.add(EntityType.SLIME)
 			.add(EntityType.WARDEN)
 			.add(EntityType.WITHER)
 			.addOptionalTag(EntityTypeTags.AQUATIC);
 
-		this.getOrCreateTagBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
+		this.valueLookupBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
 			.add(WWEntityTypes.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WWEntityTags.JELLYFISH_CANT_STING)
+		this.valueLookupBuilder(WWEntityTags.JELLYFISH_CANT_STING)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -59,7 +59,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED);
 
-		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_BONK)
+		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_BONK)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -72,7 +72,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
+		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
@@ -89,24 +89,24 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
+		this.valueLookupBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
 			.add(EntityType.WITHER)
 			.add(EntityType.WARDEN)
 			.add(EntityType.ENDER_DRAGON);
 
-		this.getOrCreateTagBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
+		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
 			.add(WWEntityTypes.CRAB)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.PENGUIN);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
+		this.valueLookupBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
 			.add(WWEntityTypes.JELLYFISH);
 
-		this.getOrCreateTagBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
+		this.valueLookupBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID)
 			.add(EntityType.COD)
@@ -114,15 +114,15 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
 
-		this.getOrCreateTagBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
+		this.valueLookupBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
 			.add(EntityType.SQUID)
 			.add(EntityType.GLOW_SQUID);
 
-		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
+		this.valueLookupBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
 			.add(EntityType.ARROW)
 			.add(EntityType.SPECTRAL_ARROW);
 
-		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
+		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityType.PLAYER)
 			.add(EntityType.IRON_GOLEM)
 			.add(EntityType.RAVAGER)
@@ -133,7 +133,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.MAGMA_CUBE)
 			.add(EntityType.GIANT);
 
-		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
+		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
 			.add(EntityType.PHANTOM)
 			.add(EntityType.BREEZE)
 			.add(EntityType.CHICKEN)
@@ -150,7 +150,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.TUMBLEWEED);
 
-		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
+		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
 			.add(EntityType.EGG)
 			.add(EntityType.SPLASH_POTION)
 			.add(EntityType.LINGERING_POTION)
@@ -162,28 +162,28 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.ENDER_PEARL)
 			.add(EntityType.FIREWORK_ROCKET);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+		this.valueLookupBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypes.PENGUIN);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.FROG_FOOD)
+		this.valueLookupBuilder(EntityTypeTags.FROG_FOOD)
 			.add(WWEntityTypes.BUTTERFLY);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
+		this.valueLookupBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
 			.add(WWEntityTypes.OSTRICH)
 			.add(WWEntityTypes.SCORCHED);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.ARTHROPOD)
+		this.valueLookupBuilder(EntityTypeTags.ARTHROPOD)
 			.add(WWEntityTypes.CRAB)
 			.add(WWEntityTypes.SCORCHED);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC)
+		this.valueLookupBuilder(EntityTypeTags.AQUATIC)
 			.add(WWEntityTypes.CRAB)
 			.add(WWEntityTypes.JELLYFISH);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
+		this.valueLookupBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
 			.add(WWEntityTypes.SCORCHED);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.BOAT)
+		this.valueLookupBuilder(EntityTypeTags.BOAT)
 			.add(
 				WWEntityTypes.BAOBAB_BOAT,
 				WWEntityTypes.BAOBAB_CHEST_BOAT,
@@ -197,7 +197,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 				WWEntityTypes.MAPLE_CHEST_BOAT
 			);
 
-		this.getOrCreateTagBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
+		this.valueLookupBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
 			.add(WWEntityTypes.OSTRICH);
 	}
 }

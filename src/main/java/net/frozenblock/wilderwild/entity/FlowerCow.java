@@ -69,6 +69,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.Util;
@@ -229,18 +231,18 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
-		VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
-		compoundTag.putInt("FlowersLeft", this.getFlowersLeft());
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
+		valueOutput.putInt("FlowersLeft", this.getFlowersLeft());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.MOOBLOOM_VARIANT)
+	public void readAdditionalSaveData(ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
+		VariantUtils.readVariant(valueInput, WilderWildRegistries.MOOBLOOM_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		compoundTag.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
+		valueInput.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
 	}
 
 	public ResourceLocation getVariantLocation() {

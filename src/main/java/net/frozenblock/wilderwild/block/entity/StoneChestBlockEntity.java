@@ -53,6 +53,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -190,23 +192,23 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.loadAdditional(tag, provider);
-		this.openProgress = tag.getFloatOr("openProgress", 0F);
-		this.highestLidPoint = tag.getFloatOr("highestLidPoint", 0F);
-		this.stillLidTicks = tag.getIntOr("stillLidTicks", 0);
-		this.cooldownTicks = tag.getIntOr("cooldownTicks", 0);
-		this.closing = tag.getBooleanOr("closing", false);
+	public void loadAdditional(@NotNull ValueInput valueInput) {
+		super.loadAdditional(valueInput);
+		this.openProgress = valueInput.getFloatOr("openProgress", 0F);
+		this.highestLidPoint = valueInput.getFloatOr("highestLidPoint", 0F);
+		this.stillLidTicks = valueInput.getIntOr("stillLidTicks", 0);
+		this.cooldownTicks = valueInput.getIntOr("cooldownTicks", 0);
+		this.closing = valueInput.getBooleanOr("closing", false);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider provider) {
-		super.saveAdditional(tag, provider);
-		tag.putFloat("openProgress", this.openProgress);
-		tag.putFloat("highestLidPoint", this.highestLidPoint);
-		tag.putInt("stillLidTicks", this.stillLidTicks);
-		tag.putInt("cooldownTicks", this.cooldownTicks);
-		tag.putBoolean("closing", this.closing);
+	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+		super.saveAdditional(valueOutput);
+		valueOutput.putFloat("openProgress", this.openProgress);
+		valueOutput.putFloat("highestLidPoint", this.highestLidPoint);
+		valueOutput.putInt("stillLidTicks", this.stillLidTicks);
+		valueOutput.putInt("cooldownTicks", this.cooldownTicks);
+		valueOutput.putBoolean("closing", this.closing);
 	}
 
 	public float getOpenProgress(float delta) {

@@ -102,6 +102,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -758,8 +760,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void saveToBucketTag(@NotNull ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
+		stack.copyFrom(WWDataComponents.JELLYFISH_VARIANT, this);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
 			compoundTag.putBoolean("canReproduce", this.canReproduce());
 			compoundTag.putInt("fullness", this.fullness);
 			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
@@ -772,10 +774,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
 		Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
-			.ifPresent(variant -> this.setVariant(variant.value()));
-
 		compoundTag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
 		this.fullness = compoundTag.getIntOr("fullness", 0);
 		this.reproductionCooldown = compoundTag.getIntOr("reproductionCooldown", 0);
@@ -785,32 +783,32 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.addAdditionalSaveData(compoundTag);
-		VariantUtils.writeVariant(compoundTag, this.getVariantAsHolder());
-		compoundTag.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
-		compoundTag.putBoolean("canReproduce", this.canReproduce());
-		compoundTag.putInt("fullness", this.fullness);
-		compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
-		compoundTag.putInt("age", this.getAge());
-		compoundTag.putInt("forcedAge", this.forcedAge);
-		compoundTag.putBoolean("isBaby", this.isBaby());
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+		super.addAdditionalSaveData(valueOutput);
+		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
+		valueOutput.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
+		valueOutput.putBoolean("canReproduce", this.canReproduce());
+		valueOutput.putInt("fullness", this.fullness);
+		valueOutput.putInt("reproductionCooldown", this.reproductionCooldown);
+		valueOutput.putInt("age", this.getAge());
+		valueOutput.putInt("forcedAge", this.forcedAge);
+		valueOutput.putBoolean("isBaby", this.isBaby());
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-		super.readAdditionalSaveData(compoundTag);
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+		super.readAdditionalSaveData(valueInput);
 
-		VariantUtils.readVariant(compoundTag, this.registryAccess(), WilderWildRegistries.JELLYFISH_VARIANT)
+		VariantUtils.readVariant(valueInput, WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
 
-		this.ticksSinceSpawn = compoundTag.getIntOr("ticksSinceSpawn", 0);
-		compoundTag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
-		this.fullness = compoundTag.getIntOr("fullness", 0);
-		this.reproductionCooldown = compoundTag.getIntOr("reproductionCooldown", 0);
-		this.setAge(compoundTag.getIntOr("age", 0));
-		this.forcedAge = compoundTag.getIntOr("forcedAge", 0);
-		this.setBaby(compoundTag.getBooleanOr("isBaby", false));
+		this.ticksSinceSpawn = valueInput.getIntOr("ticksSinceSpawn", 0);
+		this.setCanReproduce(valueInput.getBooleanOr("canReproduce", false));
+		this.fullness = valueInput.getIntOr("fullness", 0);
+		this.reproductionCooldown = valueInput.getIntOr("reproductionCooldown", 0);
+		this.setAge(valueInput.getIntOr("age", 0));
+		this.forcedAge = valueInput.getIntOr("forcedAge", 0);
+		this.setBaby(valueInput.getBooleanOr("isBaby", false));
 	}
 
 	public static class JellyfishGroupData implements SpawnGroupData {
