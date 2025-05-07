@@ -52,6 +52,8 @@ import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -246,13 +248,13 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		nbt.putInt("wilderDeathTicks", this.wilderWild$deathTicks);
+	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
+		valueOutput.putInt("wilderDeathTicks", this.wilderWild$deathTicks);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$deathTicks = nbt.getIntOr("wilderDeathTicks", 0);
+	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.wilderWild$deathTicks = valueInput.getIntOr("wilderDeathTicks", 0);
 	}
 
 	@Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)

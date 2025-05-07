@@ -139,7 +139,7 @@
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.ClientLevelMixin",
     "client.mesoglea.EntityRenderDispatcherMixin",
-    "client.mesoglea.FogRendererMixin",
+    "client.mesoglea.WaterFogEnvironmentMixin",
     "client.mesoglea.LevelRendererMixin",
     "client.mesoglea.SuspendedParticleUnderwaterProviderMixin",
     "client.shader.RenderPipelinesMixin",

@@ -26,6 +26,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,13 +54,13 @@ public class TurtleMixin implements TurtleCooldownInterface {
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		compoundTag.putInt("AttackCooldown", this.wilderWild$attackCooldown);
+	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
+		valueOutput.putInt("AttackCooldown", this.wilderWild$attackCooldown);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo info) {
-		this.wilderWild$attackCooldown = compoundTag.getIntOr("AttackCooldown", 0);
+	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.wilderWild$attackCooldown = valueInput.getIntOr("AttackCooldown", 0);
 	}
 
 	@Inject(method = "aiStep", at = @At("TAIL"))

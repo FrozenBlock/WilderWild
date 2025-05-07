@@ -29,6 +29,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractBoat;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,13 +55,13 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		if (this.wilderWild$boatBoostTicks > 0) nbt.putInt("WilderWildBoatBoostTicks", this.wilderWild$boatBoostTicks);
+	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
+		if (this.wilderWild$boatBoostTicks > 0) valueOutput.putInt("WilderWildBoatBoostTicks", this.wilderWild$boatBoostTicks);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$boatBoostTicks = nbt.getIntOr("WilderWildBoatBoostTicks", 0);
+	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.wilderWild$boatBoostTicks = valueInput.getIntOr("WilderWildBoatBoostTicks", 0);
 		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
 	}
 

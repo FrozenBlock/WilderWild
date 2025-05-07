@@ -36,28 +36,28 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 
 	@Override
 	public void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
+		this.builder(DamageTypeTags.NO_ANGER)
 			.add(WWDamageTypes.TUMBLEWEED)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
+		this.builder(DamageTypeTags.BYPASSES_ARMOR)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
+		this.builder(DamageTypeTags.BYPASSES_EFFECTS)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
+		this.builder(DamageTypeTags.CAN_BREAK_ARMOR_STAND)
 			.add(WWDamageTypes.OSTRICH);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.PANIC_CAUSES)
+		this.builder(DamageTypeTags.PANIC_CAUSES)
 			.add(WWDamageTypes.TUMBLEWEED);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_SHIELD)
+		this.builder(DamageTypeTags.BYPASSES_SHIELD)
 			.add(WWDamageTypes.FALLING_ICICLE);
 
-		this.getOrCreateTagBuilder(DamageTypeTags.NO_KNOCKBACK)
+		this.builder(DamageTypeTags.NO_KNOCKBACK)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
-		this.getOrCreateTagBuilder(WWDamageTypeTags.EMPTY);
+		this.builder(WWDamageTypeTags.EMPTY);
 	}
 }

@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -42,6 +43,10 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	@NotNull
 	private TagKey<Item> getTag(String id) {
 		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+	}
+
+	@NotNull private ResourceKey<Item> getKey(String namespace, String path) {
+		return ResourceKey.create(this.registryKey, ResourceLocation.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
@@ -73,13 +78,13 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.valueLookupBuilder(ItemTags.ARMADILLO_FOOD)
 			.add(WWItems.SCORCHED_EYE);
 
-		this.valueLookupBuilder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
-			.add(Items.BROWN_MUSHROOM)
-			.addOptional(WWConstants.id("brown_shelf_fungus"));
+		this.builder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
+			.add(Items.BROWN_MUSHROOM.builtInRegistryHolder().key())
+			.addOptional(this.getKey(WWConstants.MOD_ID, "brown_shelf_fungus"));
 
-		this.valueLookupBuilder(WWItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
-			.add(Items.RED_MUSHROOM)
-			.addOptional(WWConstants.id("red_shelf_fungus"));
+		this.builder(WWItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
+			.add(Items.RED_MUSHROOM.builtInRegistryHolder().key())
+			.addOptional(this.getKey(WWConstants.MOD_ID, "red_shelf_fungus"));
 
 		this.valueLookupBuilder(WWItemTags.TUMBLEWEED_COMMON)
 			.add(Items.ROTTEN_FLESH)
@@ -441,8 +446,8 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem());
 
 		this.valueLookupBuilder(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
-			.addOptional(WWConstants.id("hollowed_pale_oak_log"))
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"));
+			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG.asItem())
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem());
 
 		this.valueLookupBuilder(WWItemTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlocks.HOLLOWED_MAPLE_LOG.asItem())
@@ -487,7 +492,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem())
-			.addOptional(WWConstants.id("stripped_hollowed_pale_oak_log"))
+			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem())
 			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
 
 		this.valueLookupBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)

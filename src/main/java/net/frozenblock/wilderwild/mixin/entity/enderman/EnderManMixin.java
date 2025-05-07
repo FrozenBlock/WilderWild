@@ -27,6 +27,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,13 +55,13 @@ public abstract class EnderManMixin implements WilderEnderman {
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
-	public void wilderWild$addAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		compound.putBoolean("canPlayLoopingSound", this.wilderWild$canPlayLoopingSound);
+	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
+		valueOutput.putBoolean("canPlayLoopingSound", this.wilderWild$canPlayLoopingSound);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
-	public void wilderWild$readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		this.wilderWild$canPlayLoopingSound = compound.getBooleanOr("canPlayLoopingSound", false);
+	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.wilderWild$canPlayLoopingSound = valueInput.getBooleanOr("canPlayLoopingSound", false);
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("TAIL"))

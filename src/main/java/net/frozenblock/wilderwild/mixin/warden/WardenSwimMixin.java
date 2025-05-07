@@ -43,6 +43,8 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -177,13 +179,13 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		nbt.putBoolean("newSwimming", this.wilderWild$newSwimming);
+	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
+		valueOutput.putBoolean("newSwimming", this.wilderWild$newSwimming);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(CompoundTag nbt, CallbackInfo info) {
-		this.wilderWild$newSwimming = nbt.getBooleanOr("newSwimming", false);
+	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
+		this.wilderWild$newSwimming = valueInput.getBooleanOr("newSwimming", false);
 	}
 
 	@Unique

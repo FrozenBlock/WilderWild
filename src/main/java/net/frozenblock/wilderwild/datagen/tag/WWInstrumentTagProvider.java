@@ -35,7 +35,7 @@ public final class WWInstrumentTagProvider extends FabricTagProvider<Instrument>
 
 	@Override
 	public void addTags(@NotNull HolderLookup.Provider arg) {
-		this.getOrCreateTagBuilder(WWInstrumentTags.COPPER_HORNS)
+		this.builder(WWInstrumentTags.COPPER_HORNS)
 			.add(WWItems.RECORDER_COPPER_HORN)
 			.add(WWItems.FLUTE_COPPER_HORN)
 			.add(WWItems.OBOE_COPPER_HORN)
