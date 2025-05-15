@@ -26,7 +26,6 @@ import net.caffeinemc.mods.sodium.client.render.immediate.CloudRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -64,24 +63,6 @@ public abstract class CloudRendererMixin {
 		double cameraX = original.call(instance);
 		cameraX = shouldUseWind.get() ? (cameraX - WWClientWindManager.getCloudX(tickDelta) * 12D) - ((double)(ticks + tickDelta) * 0.03) : cameraX;
 		return cameraX;
-	}
-
-	@WrapOperation(
-		method = "render",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/phys/Vec3;y()D"
-		),
-		require = 0
-	)
-	public double wilderWild$changeCloudY(
-		Vec3 instance, Operation<Double> original,
-		@Local(ordinal = 1, argsOnly = true) float tickDelta,
-		@Share("wilderWild$shouldUseWind") LocalBooleanRef shouldUseWind
-	) {
-		double cameraY = original.call(instance);
-		cameraY = shouldUseWind.get() ? (cameraY - Mth.clamp(WWClientWindManager.getCloudY(tickDelta) * 12D, -10D, 10D)) : cameraY;
-		return cameraY;
 	}
 
 	@WrapOperation(

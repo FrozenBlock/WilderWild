@@ -36,7 +36,6 @@ public final class WWWindManager extends WindManagerExtension {
 	public static final Codec<WWWindManager> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 				Codec.DOUBLE.fieldOf("cloudX").forGetter(windManager -> windManager.cloudX),
-				Codec.DOUBLE.fieldOf("cloudY").forGetter(windManager -> windManager.cloudY),
 				Codec.DOUBLE.fieldOf("cloudZ").forGetter(windManager -> windManager.cloudZ)
 			)
 			.apply(instance, WWWindManager::createFromCodec)
@@ -49,16 +48,14 @@ public final class WWWindManager extends WindManagerExtension {
 	);
 
 	public double cloudX;
-	public double cloudY;
 	public double cloudZ;
 
 	public WWWindManager() {
 	}
 
-	public static @NotNull WWWindManager createFromCodec(double cloudX, double cloudY, double cloudZ) {
+	public static @NotNull WWWindManager createFromCodec(double cloudX, double cloudZ) {
 		WWWindManager manager = new WWWindManager();
 		manager.cloudX = cloudX;
-		manager.cloudY = cloudY;
 		manager.cloudZ = cloudZ;
 		return manager;
 	}
@@ -66,7 +63,6 @@ public final class WWWindManager extends WindManagerExtension {
 	@Override
 	public void tick(ServerLevel level) {
 		this.cloudX += (this.getWindManager().laggedWindX * 0.007D);
-		this.cloudY += (this.getWindManager().laggedWindY * 0.01D);
 		this.cloudZ += (this.getWindManager().laggedWindZ * 0.007D);
 	}
 
@@ -82,10 +78,6 @@ public final class WWWindManager extends WindManagerExtension {
 			needsReset = true;
 			this.cloudX = 0D;
 		}
-		if (this.cloudY == Double.MAX_VALUE || this.cloudY == Double.MIN_VALUE) {
-			needsReset = true;
-			this.cloudY = 0D;
-		}
 		if (this.cloudZ == Double.MAX_VALUE || this.cloudZ == Double.MIN_VALUE) {
 			needsReset = true;
 			this.cloudZ = 0D;
@@ -97,6 +89,6 @@ public final class WWWindManager extends WindManagerExtension {
 	@Contract("_ -> new")
 	@Override
 	public @NotNull CustomPacketPayload syncPacket(WindSyncPacket packet) {
-		return new WWWindPacket(new Vec3(this.cloudX, this.cloudY, this.cloudZ));
+		return new WWWindPacket(this.cloudX, this.cloudZ);
 	}
 }

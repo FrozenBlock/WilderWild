@@ -29,7 +29,6 @@ import net.minecraft.client.CloudStatus;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -71,7 +70,6 @@ public class LevelRendererMixin {
 			double cameraY = vec3.y;
 			double cameraZ = vec3.z;
 			cameraX =  (cameraX - WWClientWindManager.getCloudX(partialTick) * 12D) - (double)((ticks) * 0.03F);
-			cloudHeight = (float) (cloudHeight - Mth.clamp(WWClientWindManager.getCloudY(partialTick) * 12D, -10D, 10D));
 			cameraZ = cameraZ - WWClientWindManager.getCloudZ(partialTick) * 12D;
 			vec3 = new Vec3(cameraX, cameraY, cameraZ);
 		}

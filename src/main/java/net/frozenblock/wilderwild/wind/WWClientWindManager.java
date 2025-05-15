@@ -37,18 +37,12 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public final class WWClientWindManager implements ClientWindManagerExtension {
 	public static double prevCloudX;
-	public static double prevCloudY;
 	public static double prevCloudZ;
 	public static double cloudX;
-	public static double cloudY;
 	public static double cloudZ;
 
 	public static double getCloudX(float partialTick) {
 		return Mth.lerp(partialTick, prevCloudX, cloudX);
-	}
-
-	public static double getCloudY(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudY, cloudY);
 	}
 
 	public static double getCloudZ(float partialTick) {
@@ -58,11 +52,9 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 	@Override
 	public void clientTick() {
 		prevCloudX = cloudX;
-		prevCloudY = cloudY;
 		prevCloudZ = cloudZ;
 
 		cloudX += (ClientWindManager.laggedWindX * 0.007D);
-		cloudY += (ClientWindManager.laggedWindY * 0.01D);
 		cloudZ += (ClientWindManager.laggedWindZ * 0.007D);
 
 		Minecraft minecraft = Minecraft.getInstance();
@@ -164,13 +156,11 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 	@Override
 	public void receiveSyncPacket(@NotNull FriendlyByteBuf byteBuf, @NotNull Minecraft minecraft) {
 		double cloudX = byteBuf.readDouble();
-		double cloudY = byteBuf.readDouble();
 		double cloudZ = byteBuf.readDouble();
 
 		minecraft.execute(() -> {
 			if (minecraft.level != null) {
 				WWClientWindManager.cloudX = cloudX;
-				WWClientWindManager.cloudY = cloudY;
 				WWClientWindManager.cloudZ = cloudZ;
 			}
 		});

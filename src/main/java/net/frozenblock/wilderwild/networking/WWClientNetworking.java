@@ -62,10 +62,8 @@ public final class WWClientNetworking {
 
 	public static void receiveWindExtensionSyncPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWWindPacket.PACKET_TYPE, (packet, ctx) -> {
-			Vec3 cloudPos = packet.cloudPos();
-			WWClientWindManager.cloudX = cloudPos.x();
-			WWClientWindManager.cloudY = cloudPos.y();
-			WWClientWindManager.cloudZ = cloudPos.z();
+			WWClientWindManager.cloudX = packet.cloudX();
+			WWClientWindManager.cloudZ = packet.cloudZ();
 		});
 	}
 
