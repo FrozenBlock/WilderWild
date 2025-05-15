@@ -318,6 +318,10 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final SoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
 	public static final SoundEvent ENTITY_TUMBLEWEED_DAMAGE = register("entity.tumbleweed.damage");
+	public static final SoundEvent ENTITY_TUMBLEWEED_CANNONBALL_BOUNCE = register("entity.tumbleweed.cannonball.bounce");
+	public static final SoundEvent ENTITY_TUMBLEWEED_CANNONBALL_ROLL = register("entity.tumbleweed.cannonball.roll");
+	public static final SoundEvent ENTITY_TUMBLEWEED_CANNONBALL_BREAK = register("entity.tumbleweed.cannonball.break");
+	public static final SoundEvent ENTITY_TUMBLEWEED_CANNONBALL_DAMAGE = register("entity.tumbleweed.cannonball.damage");
 	public static final SoundEvent ENTITY_WARDEN_KIRBY_DEATH = register("entity.warden.kirby_death");
 	public static final SoundEvent ENTITY_WARDEN_DYING = register("entity.warden.dying");
 	public static final SoundEvent ENTITY_WARDEN_UNDERWATER_DYING = register("entity.warden.dying_underwater");

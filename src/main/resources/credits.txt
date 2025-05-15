@@ -81,6 +81,7 @@ voxelotl:
  - Sea Anemone textures and model.
  - Tube Worms textures.
  - Spawn egg textures in 1.21.5+.
+ - Cannonball Tumbleweed texture.
 
 Willow/pictochats_:
  - Composer.
@@ -299,3 +300,9 @@ https://freesound.org/people/kevp888/sounds/718232/
 https://freesound.org/people/JavierZumer/sounds/422658/
 https://freesound.org/people/laurent/sounds/164070/
 https://freesound.org/people/Robinhood76/sounds/95801/
+
+Cannonball Tumbleweed Sounds:
+https://freesound.org/people/F.M.Audio/sounds/555290/
+https://freesound.org/people/adharca/sounds/278170/
+https://freesound.org/people/joedeshon/sounds/145805/
+https://freesound.org/people/dersinnsspace/sounds/435223/

@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderState extends LivingEntityRenderState {
+	public boolean isCannonball;
 	public float tumbleRot;
 	public float pitch;
 	public float roll;
