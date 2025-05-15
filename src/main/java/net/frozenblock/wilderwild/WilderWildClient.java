@@ -98,9 +98,7 @@ public final class WilderWildClient implements ClientModInitializer {
 			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
 
 			ClientTickEvents.START_WORLD_TICK.register(clientLevel -> {
-				if (FrozenLibConfig.IS_DEBUG) {
-					ostrichDebugRenderer.tick();
-				}
+				if (FrozenLibConfig.IS_DEBUG) ostrichDebugRenderer.tick();
 			});
 
 			DebugRenderManager.addClearRunnable(ostrichDebugRenderer::clear);

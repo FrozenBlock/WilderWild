@@ -66,31 +66,31 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 
 public final class WWAquaticConfigured {
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL = WWFeatureUtils.register("cattail");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig, ConfiguredFeature<CattailFeatureConfig, ?>> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig, ConfiguredFeature<WaterCoverFeatureConfig, ?>> PATCH_PLANKTON = WWFeatureUtils.register("patch_plankton");
-	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration, ConfiguredFeature<ProbabilityFeatureConfiguration, ?>> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
-	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig, ConfiguredFeature<SpongeBudFeatureConfig, ?>> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_WHIP = WWFeatureUtils.register("patch_sea_whip");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_SEA_WHIP_SPARSE = WWFeatureUtils.register("patch_sea_whip_sparse");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TUBE_WORMS = WWFeatureUtils.register("patch_tube_worms");
+	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL = WWFeatureUtils.register("cattail");
+	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
+	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_PLANKTON = WWFeatureUtils.register("patch_plankton");
+	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
+	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_WHIP = WWFeatureUtils.register("patch_sea_whip");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_WHIP_SPARSE = WWFeatureUtils.register("patch_sea_whip_sparse");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_TUBE_WORMS = WWFeatureUtils.register("patch_tube_worms");
 
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig, ConfiguredFeature<NoisePathFeatureConfig, ?>> OCEAN_MOSS = register("ocean_moss");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration, ConfiguredFeature<VegetationPatchConfiguration, ?>> AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> OCEAN_MOSS = register("ocean_moss");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
 
 	private WWAquaticConfigured() {
 		throw new UnsupportedOperationException("WWAquaticConfigured contains only static declarations.");

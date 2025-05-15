@@ -34,7 +34,8 @@ public class BlockModelGeneratorsMixin {
 			value = "INVOKE",
 			target = "Lcom/google/common/collect/ImmutableMap$Builder;put(Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableMap$Builder;",
 			ordinal = 0
-		)
+		),
+		remap = false
 	)
 	public ImmutableMap.Builder wilderWild$addRotatedGabbroGeneration(
 		ImmutableMap.Builder instance, Object key, Object value, Operation<ImmutableMap.Builder> original

@@ -73,8 +73,7 @@ public final class WWWorldGen {
 						generationSettings.removeFeature(WWPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 					}
 				}
-			)
-			.add(
+			).add(
 				ModificationPhase.REMOVALS,
 				BiomeSelectors.includeByKey(WWBiomes.MIXED_FOREST),
 				(context) -> {
