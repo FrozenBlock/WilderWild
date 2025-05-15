@@ -3358,7 +3358,7 @@
       {
         "name": "music.overworld.jungle",
         "type": "event",
-        "weight": 13
+        "weight": 20
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3372,7 +3372,7 @@
       {
         "name": "music.overworld.sparse_jungle",
         "type": "event",
-        "weight": 12
+        "weight": 24
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3386,7 +3386,7 @@
       {
         "name": "music.overworld.bamboo_jungle",
         "type": "event",
-        "weight": 12
+        "weight": 18
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
