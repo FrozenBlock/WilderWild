@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
 import net.frozenblock.lib.tag.api.TagUtils;
@@ -36,6 +38,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -73,11 +76,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -98,6 +103,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	public NonNullList<ItemStack> inventory;
 	public boolean spawnedFromShears;
+	public boolean isAprilFools;
 	public int ticksSinceActive;
 	public boolean isItemNatural;
 	public boolean isTouchingStickingBlock;
@@ -151,6 +157,13 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 				this.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
 			}
 		}
+
+		if (isDateAprilFools() && random.nextFloat() < 0.25F) {
+			this.setCustomName(Component.literal("Cannonball"));
+			this.isAprilFools = true;
+			this.setDeltaMovement(new Vec3(random.nextGaussian() * 2D, random.nextDouble() * 4D, random.nextGaussian() * 2D));
+		}
+
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);
 	}
 
@@ -164,13 +177,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		if (entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
+		boolean isCannonball = this.isCannonball();
+		if (!isCannonball && entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
 		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
-		if (entity instanceof Tumbleweed) super.doPush(entity);
+		if (isCannonball || entity instanceof Tumbleweed) super.doPush(entity);
 		if (this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			boolean hurt = entity.hurt(this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
+			boolean hurt = entity.hurt(this.damageSources().source(isCannonball ? WWDamageTypes.CANNONBALL : WWDamageTypes.TUMBLEWEED, this), isCannonball ? 3F : 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
-			if (!isSmall) this.destroy(false);
+			if (!isSmall && !isCannonball) this.destroy(false);
 		}
 	}
 
@@ -181,7 +195,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void onInsideBlock(@NotNull BlockState state) {
-		if (state.getBlock() instanceof LeavesBlock) this.isTouchingStickingBlock = true;
+		if (state.getBlock() instanceof LeavesBlock && !this.isCannonball()) this.isTouchingStickingBlock = true;
 	}
 
 	@Override
@@ -248,10 +262,18 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	private void checkActive(double brightness) {
+		if (this.isAprilFools && !isDateAprilFools()) {
+			this.destroy(false);
+			return;
+		}
+
 		Player entity = this.level().getNearestPlayer(this, -1D);
-		if (!this.requiresCustomPersistence() && ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM))
+		if (!this.isCannonball()
+			&& !this.requiresCustomPersistence()
+			&& ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM))
 			|| this.isTouchingStoppingBlock || this.isTouchingStickingBlock ||
-			(this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))) {
+			(this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))
+		) {
 			++this.ticksSinceActive;
 			if (this.ticksSinceActive >= MAX_INACTIVE_TICKS) this.destroy(false);
 		} else {
@@ -260,11 +282,14 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	private void moveWithWind(@NotNull ServerLevel serverLevel, double brightness, @NotNull Vec3 deltaPos) {
+		if (this.isCannonball()) return;
+
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
-			Vec3 deltaMovement = this.getDeltaMovement();
 			WindManager windManager = WindManager.getWindManager(serverLevel);
 			Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
 			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
+
+			Vec3 deltaMovement = this.getDeltaMovement();
 			deltaMovement = deltaMovement.add((windVec.x * 0.2D), 0D, (windVec.z * 0.2D));
 			deltaMovement = new Vec3(deltaMovement.x, deltaMovement.y < 0 ? deltaMovement.y * 0.88D : deltaMovement.y, deltaMovement.z);
 			if (deltaPos.y <= 0D && this.onGround()) {
@@ -300,6 +325,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void pickupItem() {
+		if (this.isCannonball()) return;
 		ItemStack inventoryStack = this.inventory.getFirst();
 		if (inventoryStack.getCount() > 1) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
@@ -328,9 +354,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void destroy(boolean killed) {
-		if (this.isAlive()) {
-			this.playSound(WWSounds.ENTITY_TUMBLEWEED_BREAK, this.getSoundVolume(), this.getVoicePitch());
-		}
+		if (this.isAlive()) this.playSound(this.getDeathSound(), this.getSoundVolume(), this.getVoicePitch());
 		this.dropItem(killed);
 		this.spawnBreakParticles();
 		this.remove(RemovalReason.KILLED);
@@ -353,7 +377,25 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public boolean isInvulnerableTo(@NotNull DamageSource source) {
-		return source.is(DamageTypeTags.WITCH_RESISTANT_TO) || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.FREEZE) || source.is(DamageTypes.SWEET_BERRY_BUSH) || source.is(DamageTypes.WITHER) || super.isInvulnerableTo(source);
+		if (this.isCannonball()) {
+			if (source.is(DamageTypeTags.IS_EXPLOSION)) return true;
+			if (source.is(DamageTypeTags.IS_FIRE)) return true;
+			if (source.is(DamageTypeTags.BURN_FROM_STEPPING)) return false;
+			if (source.is(DamageTypeTags.IS_DROWNING)) return false;
+			if (source.is(DamageTypes.SPIT)) return false;
+			if (source.is(DamageTypes.DRAGON_BREATH)) return false;
+		}
+		return source.is(DamageTypeTags.WITCH_RESISTANT_TO)
+			|| source.is(DamageTypes.CACTUS)
+			|| source.is(DamageTypes.FREEZE)
+			|| source.is(DamageTypes.SWEET_BERRY_BUSH)
+			|| source.is(DamageTypes.WITHER)
+			|| super.isInvulnerableTo(source);
+	}
+
+	@Override
+	public boolean ignoreExplosion(Explosion explosion) {
+		return super.ignoreExplosion(explosion);
 	}
 
 	@Override
@@ -378,17 +420,28 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-		return WWSounds.ENTITY_TUMBLEWEED_DAMAGE;
+		return this.isCannonball() ? WWSounds.ENTITY_TUMBLEWEED_CANNONBALL_DAMAGE : WWSounds.ENTITY_TUMBLEWEED_DAMAGE;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_TUMBLEWEED_BREAK;
+		return this.isCannonball() ? WWSounds.ENTITY_TUMBLEWEED_CANNONBALL_BREAK : WWSounds.ENTITY_TUMBLEWEED_BREAK;
 	}
 
 	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		this.playSound(WWSounds.ENTITY_TUMBLEWEED_BOUNCE, 0.2F, 1F);
+		boolean isCannonball = this.isCannonball();
+		this.playSound(
+			isCannonball ? WWSounds.ENTITY_TUMBLEWEED_CANNONBALL_ROLL : WWSounds.ENTITY_TUMBLEWEED_BOUNCE,
+			0.2F,
+			isCannonball ? 0.5F + (this.random.nextFloat() * 0.8F) : 1F
+		);
+	}
+
+	@Override
+	protected float nextStep() {
+		if (this.isCannonball()) return this.moveDist + 0.25F;
+		return super.nextStep();
 	}
 
 	@Override
@@ -451,6 +504,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.isTouchingStickingBlock = compound.getBoolean("isTouchingStickingBlock");
 		this.isTouchingStoppingBlock = compound.getBoolean("IsTouchingStoppingBlock");
 		this.lookRot = compound.getFloat("LookRot");
+		this.isAprilFools = compound.getBoolean("IsAprilFools");
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(compound, this.inventory, this.registryAccess());
 	}
@@ -467,6 +521,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		compound.putFloat("TumbleRoll", this.roll);
 		compound.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
 		compound.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
+		compound.putBoolean("IsAprilFools", this.isAprilFools);
 		compound.putFloat("LookRot", this.lookRot);
 		ContainerHelper.saveAllItems(compound, this.inventory, this.registryAccess());
 	}
@@ -494,10 +549,19 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.destroy(true);
 	}
 
+	public boolean isCannonball() {
+		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("cannonball");
+	}
+
+	public static boolean isDateAprilFools() {
+		LocalDate localDate = LocalDate.now();
+		return localDate.get(ChronoField.MONTH_OF_YEAR) == 4 && localDate.get(ChronoField.DAY_OF_MONTH) == 1;
+	}
+
 	public void spawnBreakParticles() {
 		if (this.level() instanceof ServerLevel level) {
 			level.sendParticles(
-				new BlockParticleOption(ParticleTypes.BLOCK, WWBlocks.TUMBLEWEED.defaultBlockState()),
+				new BlockParticleOption(ParticleTypes.BLOCK, this.isCannonball() ? Blocks.NETHERITE_BLOCK.defaultBlockState() : WWBlocks.TUMBLEWEED.defaultBlockState()),
 				this.getX(),
 				this.getY(0.6666666666666666D),
 				this.getZ(),
@@ -581,8 +645,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, @NotNull BlockState blockState) {
-		if (blockState.is(WWBlockTags.STOPS_TUMBLEWEED)) {
-			this.isTouchingStoppingBlock = true;
-		}
+		if (blockState.is(WWBlockTags.STOPS_TUMBLEWEED)) this.isTouchingStoppingBlock = true;
 	}
 }

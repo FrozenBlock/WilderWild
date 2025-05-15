@@ -41,6 +41,8 @@ import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<Tumbleweed>> {
+	private static final ResourceLocation TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+	private static final ResourceLocation CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
 	private final ItemRenderer itemRenderer;
 
 	public TumbleweedRenderer(@NotNull Context context) {
@@ -82,7 +84,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedModel<
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull Tumbleweed entity) {
-		return WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+		return entity.isCannonball() ? CANNONBALL_LOCATION : TUMBLEWEED_LOCATION;
 	}
 
 }
