@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass;
@@ -42,6 +41,7 @@ public abstract class DefaultMaterialsMixin {
 			target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/material/Material;",
 			ordinal = 3
 		),
+		remap = false,
 		require = 0
 	)
 	private static Material wilderWild$allowCutoutOnTransparent(TerrainRenderPass pass, AlphaCutoffParameter alphaCutoff, boolean mipped, Operation<Material> original) {

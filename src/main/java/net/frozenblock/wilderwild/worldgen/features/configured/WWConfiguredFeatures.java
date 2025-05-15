@@ -73,208 +73,208 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWConfiguredFeatures {
 	// FALLEN TREES
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_TREES_MIXED = WWFeatureUtils.register("fallen_trees_mixed");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_MIXED = WWFeatureUtils.register("mossy_fallen_trees_mixed");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MOSSY_FALLEN_TREES_OAK_AND_BIRCH = WWFeatureUtils.register("mossy_fallen_trees_oak_and_birch");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_SPRUCE = WWFeatureUtils.register("fallen_birch_and_spruce");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_BIRCH = WWFeatureUtils.register("fallen_birch");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_CHERRY = WWFeatureUtils.register("fallen_cherry");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_SPRUCE = WWFeatureUtils.register("fallen_spruce");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CLEAN_FALLEN_SPRUCE = WWFeatureUtils.register("clean_fallen_spruce");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_SWAMP_TREES = WWFeatureUtils.register("fallen_swamp_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SWAMP_TREES_WILLOW = WWFeatureUtils.register("fallen_swamp_trees_willow");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> DECORATED_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("decorated_large_fallen_spruce");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> CLEAN_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("clean_large_fallen_spruce");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_SPRUCE_AND_OAK = WWFeatureUtils.register("fallen_spruce_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_BIRCH_AND_OAK = WWFeatureUtils.register("fallen_birch_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_CYPRESS_AND_OAK = WWFeatureUtils.register("fallen_cypress_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_ACACIA_AND_OAK = WWFeatureUtils.register("fallen_acacia_and_oak");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_LARGE_JUNGLE = WWFeatureUtils.register("fallen_large_jungle");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_PALM_AND_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_palm_and_jungle_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_jungle_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> FALLEN_OAK_AND_BIRCH_DARK_FOREST = WWFeatureUtils.register("fallen_oak_and_birch_dark_forest");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_MANGROVE = WWFeatureUtils.register("fallen_mangrove");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_DARK_OAKS = WWFeatureUtils.register("fallen_dark_oaks");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_MAPLE = WWFeatureUtils.register("fallen_maple");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> FALLEN_PALE_OAKS = WWFeatureUtils.register("fallen_pale_oaks");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_TREES_MIXED = WWFeatureUtils.register("fallen_trees_mixed");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MOSSY_FALLEN_TREES_MIXED = WWFeatureUtils.register("mossy_fallen_trees_mixed");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MOSSY_FALLEN_TREES_OAK_AND_BIRCH = WWFeatureUtils.register("mossy_fallen_trees_oak_and_birch");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_BIRCH_AND_SPRUCE = WWFeatureUtils.register("fallen_birch_and_spruce");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_BIRCH = WWFeatureUtils.register("fallen_birch");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_CHERRY = WWFeatureUtils.register("fallen_cherry");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_SPRUCE = WWFeatureUtils.register("fallen_spruce");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> CLEAN_FALLEN_SPRUCE = WWFeatureUtils.register("clean_fallen_spruce");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_SWAMP_TREES = WWFeatureUtils.register("fallen_swamp_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_SWAMP_TREES_WILLOW = WWFeatureUtils.register("fallen_swamp_trees_willow");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> DECORATED_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("decorated_large_fallen_spruce");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> CLEAN_LARGE_FALLEN_SPRUCE = WWFeatureUtils.register("clean_large_fallen_spruce");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_SPRUCE_AND_OAK = WWFeatureUtils.register("fallen_spruce_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_BIRCH_AND_OAK = WWFeatureUtils.register("fallen_birch_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_CYPRESS_AND_OAK = WWFeatureUtils.register("fallen_cypress_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_ACACIA_AND_OAK = WWFeatureUtils.register("fallen_acacia_and_oak");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_LARGE_JUNGLE = WWFeatureUtils.register("fallen_large_jungle");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_PALM_AND_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_palm_and_jungle_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_JUNGLE_AND_OAK = WWFeatureUtils.register("fallen_jungle_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> FALLEN_OAK_AND_BIRCH_DARK_FOREST = WWFeatureUtils.register("fallen_oak_and_birch_dark_forest");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_MANGROVE = WWFeatureUtils.register("fallen_mangrove");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_DARK_OAKS = WWFeatureUtils.register("fallen_dark_oaks");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_MAPLE = WWFeatureUtils.register("fallen_maple");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> FALLEN_PALE_OAKS = WWFeatureUtils.register("fallen_pale_oaks");
 
 	// TREES
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PLAINS = WWFeatureUtils.register("trees_plains");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_FLOWER_FIELD = WWFeatureUtils.register("trees_flower_field");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_ORIGINAL_NO_LITTER = WWFeatureUtils.register("trees_birch_and_oak_original_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_ORIGINAL_LEAF_LITTER = WWFeatureUtils.register("trees_birch_and_oak_original_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_ORIGINAL = WWFeatureUtils.register("trees_birch_and_oak_original");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_NO_LITTER = WWFeatureUtils.register("trees_birch_and_oak_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_LEAF_LITTER = WWFeatureUtils.register("trees_birch_and_oak_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK = WWFeatureUtils.register("trees_birch_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_AND_OAK_CALM = WWFeatureUtils.register("trees_birch_and_oak_calm");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_DYING_FOREST = WWFeatureUtils.register("trees_dying_forest");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SNOWY_DYING_FOREST = WWFeatureUtils.register("trees_snowy_dying_forest");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_DYING_MIXED_FOREST = WWFeatureUtils.register("trees_dying_mixed_forest");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SNOWY_DYING_MIXED_FOREST = WWFeatureUtils.register("trees_snowy_dying_mixed_forest");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SEMI_BIRCH_AND_OAK_NO_LITTER = WWFeatureUtils.register("trees_semi_birch_and_oak_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SEMI_BIRCH_AND_OAK_LEAF_LITTER = WWFeatureUtils.register("trees_semi_birch_and_oak_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_SEMI_BIRCH_AND_OAK = WWFeatureUtils.register("trees_semi_birch_and_oak");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH = WWFeatureUtils.register("trees_birch");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_BIRCH_TALL = WWFeatureUtils.register("trees_birch_tall");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_FLOWER_FOREST = WWFeatureUtils.register("trees_flower_forest");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MIXED_TREES_NO_LITTER = WWFeatureUtils.register("mixed_trees_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MIXED_TREES_LEAF_LITTER = WWFeatureUtils.register("mixed_trees_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MIXED_TREES = WWFeatureUtils.register("mixed_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TEMPERATE_RAINFOREST_TREES_NO_LITTER = WWFeatureUtils.register("temperate_rainforest_trees_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TEMPERATE_RAINFOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("temperate_rainforest_trees_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TEMPERATE_RAINFOREST_TREES = WWFeatureUtils.register("temperate_rainforest_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES_NO_LITTER = WWFeatureUtils.register("rainforest_trees_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("rainforest_trees_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RAINFOREST_TREES = WWFeatureUtils.register("rainforest_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_TAIGA_TREES = WWFeatureUtils.register("birch_taiga_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_BIRCH_TAIGA_TREES = WWFeatureUtils.register("old_growth_birch_taiga_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BIRCH_JUNGLE_TREES = WWFeatureUtils.register("birch_jungle_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_BIRCH_JUNGLE_TREES = WWFeatureUtils.register("sparse_birch_jungle_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_forest_vegetation_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_forest_vegetation_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_FOREST_VEGETATION = WWFeatureUtils.register("dark_forest_vegetation");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_DARK_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("old_growth_dark_forest_vegetation_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_DARK_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("old_growth_dark_forest_vegetation_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> OLD_GROWTH_DARK_FOREST_VEGETATION = WWFeatureUtils.register("old_growth_dark_forest_vegetation");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_BIRCH_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_birch_forest_vegetation_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_BIRCH_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_birch_forest_vegetation_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_BIRCH_FOREST_VEGETATION = WWFeatureUtils.register("dark_birch_forest_vegetation");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_TAIGA_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_taiga_vegetation_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_TAIGA_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_taiga_vegetation_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> DARK_TAIGA_VEGETATION = WWFeatureUtils.register("dark_taiga_vegetation");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_TAIGA = WWFeatureUtils.register("trees_taiga");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SHORT_TREES_TAIGA = WWFeatureUtils.register("short_trees_taiga");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SHORT_MEGA_SPRUCE = WWFeatureUtils.register("short_mega_spruce_configured");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SHORT_MEGA_SPRUCE_ON_SNOW = WWFeatureUtils.register("short_mega_spruce_on_snow_configured");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_PINE_TAIGA = WWFeatureUtils.register("trees_old_growth_pine_taiga");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_SPRUCE_TAIGA = WWFeatureUtils.register("trees_old_growth_spruce_taiga");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = WWFeatureUtils.register("trees_old_growth_snowy_pine_taiga");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_GROVE = WWFeatureUtils.register("trees_grove");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_WINDSWEPT_HILLS = WWFeatureUtils.register("trees_windswept_hills");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MEADOW_TREES = WWFeatureUtils.register("meadow_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES = WWFeatureUtils.register("savanna_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES_BAOBAB = WWFeatureUtils.register("savanna_trees_baobab");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SAVANNA_TREES_BAOBAB_VANILLA = WWFeatureUtils.register("savanna_trees_baobab_vanilla");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WINDSWEPT_SAVANNA_TREES = WWFeatureUtils.register("windswept_savanna_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES = WWFeatureUtils.register("arid_savanna_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_SAVANNA_TREES_PALM = WWFeatureUtils.register("arid_savanna_trees_palm");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES_NO_LITTER = WWFeatureUtils.register("parched_forest_trees_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("parched_forest_trees_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PARCHED_FOREST_TREES = WWFeatureUtils.register("parched_forest_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES_NO_LITTER = WWFeatureUtils.register("arid_forest_trees_no_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("arid_forest_trees_leaf_litter");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ARID_FOREST_TREES = WWFeatureUtils.register("arid_forest_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES = WWFeatureUtils.register("cypress_wetlands_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_SAPLING = WWFeatureUtils.register("cypress_wetlands_trees_sapling");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CYPRESS_WETLANDS_TREES_WATER = WWFeatureUtils.register("cypress_wetlands_trees_water");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WOODED_BADLANDS_TREES = WWFeatureUtils.register("wooded_badlands_trees");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_TREES = WWFeatureUtils.register("swamp_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_SURFACE_WILLOW = WWFeatureUtils.register("swamp_trees_surface_willow");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SWAMP_TREES_WATER_SHALLOW = WWFeatureUtils.register("swamp_trees_water_shallow");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SWAMP_TREES_WATER = WWFeatureUtils.register("swamp_trees_water");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BIG_COARSE_BUSHES = WWFeatureUtils.register("big_coarse_bushes");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BUSHES = WWFeatureUtils.register("bushes");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS = WWFeatureUtils.register("palms");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_JUNGLE = WWFeatureUtils.register("palms_jungle");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALMS_OASIS = WWFeatureUtils.register("palms_oasis");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> BAMBOO_JUNGLE_TREES = WWFeatureUtils.register("bamboo_jungle_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> JUNGLE_TREES = WWFeatureUtils.register("jungle_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SPARSE_JUNGLE_TREES = WWFeatureUtils.register("sparse_jungle_trees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MANGROVE_VEGETATION = WWFeatureUtils.register("mangrove_vegetation");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRIES = WWFeatureUtils.register("cherries");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig, ConfiguredFeature<ComboFeatureConfig, ?>> RED_MAPLES = WWFeatureUtils.register("red_maples");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES = WWFeatureUtils.register("maples");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> YELLOW_MAPLES_NO_BEES = WWFeatureUtils.register("yellow_maples_no_bees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ORANGE_MAPLES_NO_BEES = WWFeatureUtils.register("orange_maples_no_bees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MAPLES_NO_BEES = WWFeatureUtils.register("red_maples_no_bees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> YELLOW_MAPLES_BEES_SAPLING = WWFeatureUtils.register("yellow_maples_bees_sapling");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> ORANGE_MAPLES_BEES_SAPLING = WWFeatureUtils.register("orange_maples_bees_sapling");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> RED_MAPLES_BEES_SAPLING = WWFeatureUtils.register("red_maples_bees_sapling");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES_BEES_SAPLING = WWFeatureUtils.register("maples_bees_sapling");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> MAPLES_NO_BEES = WWFeatureUtils.register("maples_no_bees");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALE_OAKS = WWFeatureUtils.register("pale_oaks");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> PALE_OAKS_CREAKING = WWFeatureUtils.register("pale_oaks_creaking");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> TREES_PALE_GARDEN = WWFeatureUtils.register("trees_pale_garden");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_BIRCHES = WWFeatureUtils.register("snapped_birches");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_OAKS = WWFeatureUtils.register("snapped_oaks");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK = WWFeatureUtils.register("snapped_birch_and_oak");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_SPRUCES = WWFeatureUtils.register("snapped_spruces");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_LARGE_SPRUCES = WWFeatureUtils.register("snapped_large_spruces");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_SPRUCES_ON_SNOW = WWFeatureUtils.register("snapped_spruces_on_snow");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_LARGE_SPRUCES_ON_SNOW = WWFeatureUtils.register("snapped_large_spruces_on_snow");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_OAK_AND_SPRUCE = WWFeatureUtils.register("snapped_birch_and_oak_and_spruce");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_SPRUCE = WWFeatureUtils.register("snapped_birch_and_spruce");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_CYPRESSES = WWFeatureUtils.register("snapped_cypresses");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_JUNGLES = WWFeatureUtils.register("snapped_jungles");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_LARGE_JUNGLES = WWFeatureUtils.register("snapped_large_jungles");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_BIRCH_AND_JUNGLE = WWFeatureUtils.register("snapped_birch_and_jungle");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_ACACIAS = WWFeatureUtils.register("snapped_acacias");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> SNAPPED_ACACIA_AND_OAK = WWFeatureUtils.register("snapped_acacia_and_oak");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_CHERRY = WWFeatureUtils.register("snapped_cherry");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_DARK_OAKS = WWFeatureUtils.register("snapped_dark_oaks");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_MAPLE = WWFeatureUtils.register("snapped_maple");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> SNAPPED_PALE_OAKS = WWFeatureUtils.register("snapped_pale_oaks");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_PLAINS = WWFeatureUtils.register("trees_plains");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_FLOWER_FIELD = WWFeatureUtils.register("trees_flower_field");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_ORIGINAL_NO_LITTER = WWFeatureUtils.register("trees_birch_and_oak_original_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_ORIGINAL_LEAF_LITTER = WWFeatureUtils.register("trees_birch_and_oak_original_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_ORIGINAL = WWFeatureUtils.register("trees_birch_and_oak_original");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_NO_LITTER = WWFeatureUtils.register("trees_birch_and_oak_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_LEAF_LITTER = WWFeatureUtils.register("trees_birch_and_oak_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK = WWFeatureUtils.register("trees_birch_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_AND_OAK_CALM = WWFeatureUtils.register("trees_birch_and_oak_calm");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_DYING_FOREST = WWFeatureUtils.register("trees_dying_forest");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_SNOWY_DYING_FOREST = WWFeatureUtils.register("trees_snowy_dying_forest");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_DYING_MIXED_FOREST = WWFeatureUtils.register("trees_dying_mixed_forest");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_SNOWY_DYING_MIXED_FOREST = WWFeatureUtils.register("trees_snowy_dying_mixed_forest");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_SEMI_BIRCH_AND_OAK_NO_LITTER = WWFeatureUtils.register("trees_semi_birch_and_oak_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_SEMI_BIRCH_AND_OAK_LEAF_LITTER = WWFeatureUtils.register("trees_semi_birch_and_oak_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_SEMI_BIRCH_AND_OAK = WWFeatureUtils.register("trees_semi_birch_and_oak");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH = WWFeatureUtils.register("trees_birch");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_BIRCH_TALL = WWFeatureUtils.register("trees_birch_tall");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_FLOWER_FOREST = WWFeatureUtils.register("trees_flower_forest");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MIXED_TREES_NO_LITTER = WWFeatureUtils.register("mixed_trees_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MIXED_TREES_LEAF_LITTER = WWFeatureUtils.register("mixed_trees_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MIXED_TREES = WWFeatureUtils.register("mixed_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TEMPERATE_RAINFOREST_TREES_NO_LITTER = WWFeatureUtils.register("temperate_rainforest_trees_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TEMPERATE_RAINFOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("temperate_rainforest_trees_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TEMPERATE_RAINFOREST_TREES = WWFeatureUtils.register("temperate_rainforest_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> RAINFOREST_TREES_NO_LITTER = WWFeatureUtils.register("rainforest_trees_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> RAINFOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("rainforest_trees_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> RAINFOREST_TREES = WWFeatureUtils.register("rainforest_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIRCH_TAIGA_TREES = WWFeatureUtils.register("birch_taiga_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_BIRCH_TAIGA_TREES = WWFeatureUtils.register("old_growth_birch_taiga_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIRCH_JUNGLE_TREES = WWFeatureUtils.register("birch_jungle_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SPARSE_BIRCH_JUNGLE_TREES = WWFeatureUtils.register("sparse_birch_jungle_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_forest_vegetation_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_forest_vegetation_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_FOREST_VEGETATION = WWFeatureUtils.register("dark_forest_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_DARK_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("old_growth_dark_forest_vegetation_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_DARK_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("old_growth_dark_forest_vegetation_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_DARK_FOREST_VEGETATION = WWFeatureUtils.register("old_growth_dark_forest_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_BIRCH_FOREST_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_birch_forest_vegetation_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_BIRCH_FOREST_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_birch_forest_vegetation_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_BIRCH_FOREST_VEGETATION = WWFeatureUtils.register("dark_birch_forest_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_TAIGA_VEGETATION_NO_LITTER = WWFeatureUtils.register("dark_taiga_vegetation_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_TAIGA_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("dark_taiga_vegetation_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> DARK_TAIGA_VEGETATION = WWFeatureUtils.register("dark_taiga_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_TAIGA = WWFeatureUtils.register("trees_taiga");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SHORT_TREES_TAIGA = WWFeatureUtils.register("short_trees_taiga");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SHORT_MEGA_SPRUCE = WWFeatureUtils.register("short_mega_spruce_configured");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SHORT_MEGA_SPRUCE_ON_SNOW = WWFeatureUtils.register("short_mega_spruce_on_snow_configured");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_OLD_GROWTH_PINE_TAIGA = WWFeatureUtils.register("trees_old_growth_pine_taiga");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_OLD_GROWTH_SPRUCE_TAIGA = WWFeatureUtils.register("trees_old_growth_spruce_taiga");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_OLD_GROWTH_SNOWY_PINE_TAIGA = WWFeatureUtils.register("trees_old_growth_snowy_pine_taiga");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_GROVE = WWFeatureUtils.register("trees_grove");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_WINDSWEPT_HILLS = WWFeatureUtils.register("trees_windswept_hills");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MEADOW_TREES = WWFeatureUtils.register("meadow_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SAVANNA_TREES = WWFeatureUtils.register("savanna_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SAVANNA_TREES_BAOBAB = WWFeatureUtils.register("savanna_trees_baobab");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SAVANNA_TREES_BAOBAB_VANILLA = WWFeatureUtils.register("savanna_trees_baobab_vanilla");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> WINDSWEPT_SAVANNA_TREES = WWFeatureUtils.register("windswept_savanna_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ARID_SAVANNA_TREES = WWFeatureUtils.register("arid_savanna_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ARID_SAVANNA_TREES_PALM = WWFeatureUtils.register("arid_savanna_trees_palm");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PARCHED_FOREST_TREES_NO_LITTER = WWFeatureUtils.register("parched_forest_trees_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PARCHED_FOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("parched_forest_trees_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PARCHED_FOREST_TREES = WWFeatureUtils.register("parched_forest_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ARID_FOREST_TREES_NO_LITTER = WWFeatureUtils.register("arid_forest_trees_no_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ARID_FOREST_TREES_LEAF_LITTER = WWFeatureUtils.register("arid_forest_trees_leaf_litter");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ARID_FOREST_TREES = WWFeatureUtils.register("arid_forest_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> CYPRESS_WETLANDS_TREES = WWFeatureUtils.register("cypress_wetlands_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> CYPRESS_WETLANDS_TREES_SAPLING = WWFeatureUtils.register("cypress_wetlands_trees_sapling");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> CYPRESS_WETLANDS_TREES_WATER = WWFeatureUtils.register("cypress_wetlands_trees_water");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> WOODED_BADLANDS_TREES = WWFeatureUtils.register("wooded_badlands_trees");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SWAMP_TREES = WWFeatureUtils.register("swamp_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SWAMP_TREES_SURFACE_WILLOW = WWFeatureUtils.register("swamp_trees_surface_willow");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SWAMP_TREES_WATER_SHALLOW = WWFeatureUtils.register("swamp_trees_water_shallow");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SWAMP_TREES_WATER = WWFeatureUtils.register("swamp_trees_water");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIG_COARSE_BUSHES = WWFeatureUtils.register("big_coarse_bushes");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BUSHES = WWFeatureUtils.register("bushes");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALMS = WWFeatureUtils.register("palms");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALMS_JUNGLE = WWFeatureUtils.register("palms_jungle");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALMS_OASIS = WWFeatureUtils.register("palms_oasis");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BAMBOO_JUNGLE_TREES = WWFeatureUtils.register("bamboo_jungle_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> JUNGLE_TREES = WWFeatureUtils.register("jungle_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SPARSE_JUNGLE_TREES = WWFeatureUtils.register("sparse_jungle_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MANGROVE_VEGETATION = WWFeatureUtils.register("mangrove_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> CHERRIES = WWFeatureUtils.register("cherries");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
+	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> RED_MAPLES = WWFeatureUtils.register("red_maples");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MAPLES = WWFeatureUtils.register("maples");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> YELLOW_MAPLES_NO_BEES = WWFeatureUtils.register("yellow_maples_no_bees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ORANGE_MAPLES_NO_BEES = WWFeatureUtils.register("orange_maples_no_bees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> RED_MAPLES_NO_BEES = WWFeatureUtils.register("red_maples_no_bees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> YELLOW_MAPLES_BEES_SAPLING = WWFeatureUtils.register("yellow_maples_bees_sapling");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ORANGE_MAPLES_BEES_SAPLING = WWFeatureUtils.register("orange_maples_bees_sapling");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> RED_MAPLES_BEES_SAPLING = WWFeatureUtils.register("red_maples_bees_sapling");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MAPLES_BEES_SAPLING = WWFeatureUtils.register("maples_bees_sapling");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MAPLES_NO_BEES = WWFeatureUtils.register("maples_no_bees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALE_OAKS = WWFeatureUtils.register("pale_oaks");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALE_OAKS_CREAKING = WWFeatureUtils.register("pale_oaks_creaking");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> TREES_PALE_GARDEN = WWFeatureUtils.register("trees_pale_garden");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_BIRCHES = WWFeatureUtils.register("snapped_birches");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_OAKS = WWFeatureUtils.register("snapped_oaks");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SNAPPED_BIRCH_AND_OAK = WWFeatureUtils.register("snapped_birch_and_oak");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_SPRUCES = WWFeatureUtils.register("snapped_spruces");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_LARGE_SPRUCES = WWFeatureUtils.register("snapped_large_spruces");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_SPRUCES_ON_SNOW = WWFeatureUtils.register("snapped_spruces_on_snow");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_LARGE_SPRUCES_ON_SNOW = WWFeatureUtils.register("snapped_large_spruces_on_snow");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SNAPPED_BIRCH_AND_OAK_AND_SPRUCE = WWFeatureUtils.register("snapped_birch_and_oak_and_spruce");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SNAPPED_BIRCH_AND_SPRUCE = WWFeatureUtils.register("snapped_birch_and_spruce");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_CYPRESSES = WWFeatureUtils.register("snapped_cypresses");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_JUNGLES = WWFeatureUtils.register("snapped_jungles");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_LARGE_JUNGLES = WWFeatureUtils.register("snapped_large_jungles");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SNAPPED_BIRCH_AND_JUNGLE = WWFeatureUtils.register("snapped_birch_and_jungle");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_ACACIAS = WWFeatureUtils.register("snapped_acacias");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SNAPPED_ACACIA_AND_OAK = WWFeatureUtils.register("snapped_acacia_and_oak");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_CHERRY = WWFeatureUtils.register("snapped_cherry");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_DARK_OAKS = WWFeatureUtils.register("snapped_dark_oaks");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_MAPLE = WWFeatureUtils.register("snapped_maple");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SNAPPED_PALE_OAKS = WWFeatureUtils.register("snapped_pale_oaks");
 
 	// FLOWERS
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CLOVERS = WWFeatureUtils.register("clovers");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PHLOX = WWFeatureUtils.register("phlox");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LANTANAS = WWFeatureUtils.register("lantanas");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WILDFLOWERS = WWFeatureUtils.register("wildflowers");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WILDFLOWERS_AND_PHLOX = WWFeatureUtils.register("wildflowers_and_phlox");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> WILDFLOWERS_AND_LANTANAS = WWFeatureUtils.register("wildflowers_and_lantanas");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> LANTANAS_AND_PHLOX = WWFeatureUtils.register("lantanas_and_phlox");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> CARNATION = WWFeatureUtils.register("carnation");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD = WWFeatureUtils.register("marigold");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MARIGOLD_SPARSE = WWFeatureUtils.register("marigold_sparse");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> EYEBLOSSOM = WWFeatureUtils.register("eyeblossom");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PINK_TULIP_UNCOMMON = WWFeatureUtils.register("pink_tulip_uncommon");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ALLIUM_UNCOMMON = WWFeatureUtils.register("allium_uncommon");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DATURA = WWFeatureUtils.register("datura");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> ROSE_BUSH = WWFeatureUtils.register("rose_bush");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PEONY = WWFeatureUtils.register("peony");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LILAC = WWFeatureUtils.register("lilac");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC = WWFeatureUtils.register("flower_generic");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_GENERIC_NO_CARNATION = WWFeatureUtils.register("flower_generic_no_carnation");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_PLAINS = WWFeatureUtils.register("flower_plains");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_SNOWY_PLAINS = WWFeatureUtils.register("flower_snowy_plains");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_TUNDRA = WWFeatureUtils.register("flower_tundra");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MILKWEED = WWFeatureUtils.register("milkweed");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> HIBISCUS = WWFeatureUtils.register("hibiscus");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> HIBISCUS_JUNGLE = WWFeatureUtils.register("hibiscus_jungle");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FLOWER_FIELD = WWFeatureUtils.register("flower_flower_field");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MOSS_CARPET = WWFeatureUtils.register("moss_carpet");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> CLOVERS = WWFeatureUtils.register("clovers");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PHLOX = WWFeatureUtils.register("phlox");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> LANTANAS = WWFeatureUtils.register("lantanas");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> WILDFLOWERS = WWFeatureUtils.register("wildflowers");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> WILDFLOWERS_AND_PHLOX = WWFeatureUtils.register("wildflowers_and_phlox");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> WILDFLOWERS_AND_LANTANAS = WWFeatureUtils.register("wildflowers_and_lantanas");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> LANTANAS_AND_PHLOX = WWFeatureUtils.register("lantanas_and_phlox");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SEEDING_DANDELION = WWFeatureUtils.register("seeding_dandelion");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> CARNATION = WWFeatureUtils.register("carnation");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MARIGOLD = WWFeatureUtils.register("marigold");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MARIGOLD_SPARSE = WWFeatureUtils.register("marigold_sparse");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> EYEBLOSSOM = WWFeatureUtils.register("eyeblossom");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PINK_TULIP_UNCOMMON = WWFeatureUtils.register("pink_tulip_uncommon");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> ALLIUM_UNCOMMON = WWFeatureUtils.register("allium_uncommon");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> DATURA = WWFeatureUtils.register("datura");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> ROSE_BUSH = WWFeatureUtils.register("rose_bush");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PEONY = WWFeatureUtils.register("peony");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> LILAC = WWFeatureUtils.register("lilac");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_GENERIC = WWFeatureUtils.register("flower_generic");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_GENERIC_NO_CARNATION = WWFeatureUtils.register("flower_generic_no_carnation");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_PLAINS = WWFeatureUtils.register("flower_plains");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_SNOWY_PLAINS = WWFeatureUtils.register("flower_snowy_plains");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_TUNDRA = WWFeatureUtils.register("flower_tundra");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MILKWEED = WWFeatureUtils.register("milkweed");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> HIBISCUS = WWFeatureUtils.register("hibiscus");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> HIBISCUS_JUNGLE = WWFeatureUtils.register("hibiscus_jungle");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_FLOWER_FIELD = WWFeatureUtils.register("flower_flower_field");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MOSS_CARPET = WWFeatureUtils.register("moss_carpet");
 
 	public static final WeightedList<BlockState> FLOWERS_CHERRY_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.POPPY.defaultBlockState(), 9)
 		.add(Blocks.PINK_TULIP.defaultBlockState(), 5)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CYPRESS_WETLANDS = WWFeatureUtils.register("flowers_cypress_wetlands");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_CYPRESS_WETLANDS = WWFeatureUtils.register("tall_flowers_cypress_wetlands");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST = WWFeatureUtils.register("flowers_temperate_rainforest");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_TEMPERATE_RAINFOREST = WWFeatureUtils.register("tall_flowers_temperate_rainforest");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("flowers_temperate_rainforest_vanilla");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("tall_flowers_temperate_rainforest_vanilla");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_PALE_MUSHROOM = WWFeatureUtils.register("patch_pale_mushroom");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration, ConfiguredFeature<RandomFeatureConfiguration, ?>> HUGE_PALE_MUSHROOMS = WWFeatureUtils.register("huge_pale_mushrooms");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MUSHROOMS_DARK_FOREST = WWFeatureUtils.register("mushroom_dark_forest");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST = WWFeatureUtils.register("flowers_rainforest");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_RAINFOREST = WWFeatureUtils.register("tall_flowers_rainforest");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_RAINFOREST_VANILLA = WWFeatureUtils.register("flowers_rainforest_vanilla");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_RAINFOREST_VANILLA = WWFeatureUtils.register("tall_flowers_rainforest_vanilla");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_JUNGLE = WWFeatureUtils.register("flowers_jungle");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_FLOWERS_JUNGLE = WWFeatureUtils.register("tall_flowers_jungle");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration, ConfiguredFeature<SimpleRandomFeatureConfiguration, ?>> TALL_FLOWER_FLOWER_FIELD = WWFeatureUtils.register("tall_flower_flower_field");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_CHERRY = WWFeatureUtils.register("flowers_cherry");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_SUNFLOWER_PLAINS = WWFeatureUtils.register("flowers_sunflower_plains");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_BIRCH_CLEARING = WWFeatureUtils.register("flowers_birch_clearing");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWERS_FOREST_CLEARING = WWFeatureUtils.register("flowers_forest_clearing");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_CYPRESS_WETLANDS = WWFeatureUtils.register("flowers_cypress_wetlands");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_CYPRESS_WETLANDS = WWFeatureUtils.register("tall_flowers_cypress_wetlands");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_TEMPERATE_RAINFOREST = WWFeatureUtils.register("flowers_temperate_rainforest");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_TEMPERATE_RAINFOREST = WWFeatureUtils.register("tall_flowers_temperate_rainforest");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("flowers_temperate_rainforest_vanilla");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_TEMPERATE_RAINFOREST_VANILLA = WWFeatureUtils.register("tall_flowers_temperate_rainforest_vanilla");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_PALE_MUSHROOM = WWFeatureUtils.register("patch_pale_mushroom");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> HUGE_PALE_MUSHROOMS = WWFeatureUtils.register("huge_pale_mushrooms");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MUSHROOMS_DARK_FOREST = WWFeatureUtils.register("mushroom_dark_forest");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_RAINFOREST = WWFeatureUtils.register("flowers_rainforest");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_RAINFOREST = WWFeatureUtils.register("tall_flowers_rainforest");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_RAINFOREST_VANILLA = WWFeatureUtils.register("flowers_rainforest_vanilla");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_RAINFOREST_VANILLA = WWFeatureUtils.register("tall_flowers_rainforest_vanilla");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_JUNGLE = WWFeatureUtils.register("flowers_jungle");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_FLOWERS_JUNGLE = WWFeatureUtils.register("tall_flowers_jungle");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> TALL_FLOWER_FLOWER_FIELD = WWFeatureUtils.register("tall_flower_flower_field");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_CHERRY = WWFeatureUtils.register("flowers_cherry");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_SUNFLOWER_PLAINS = WWFeatureUtils.register("flowers_sunflower_plains");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_BIRCH_CLEARING = WWFeatureUtils.register("flowers_birch_clearing");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWERS_FOREST_CLEARING = WWFeatureUtils.register("flowers_forest_clearing");
 
 	// VEGETATION
 	public static final WeightedList<BlockState> OASIS_GRASS_POOL = WeightedList.<BlockState>builder()
@@ -312,17 +312,17 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 2)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_BUSH = WWFeatureUtils.register("patch_frozen_bush");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_TAIGA_FROZEN_GRASS = WWFeatureUtils.register("patch_taiga_frozen_grass");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_GRASS = WWFeatureUtils.register("patch_frozen_grass");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_LARGE_FERN = WWFeatureUtils.register("patch_frozen_large_fern");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_FROZEN_TALL_GRASS = WWFeatureUtils.register("patch_frozen_tall_grass");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration, ConfiguredFeature<SimpleBlockConfiguration, ?>> SINGLE_PIECE_OF_FROZEN_GRASS = WWFeatureUtils.register("single_piece_of_frozen_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FROZEN_BUSH = WWFeatureUtils.register("patch_frozen_bush");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_TAIGA_FROZEN_GRASS = WWFeatureUtils.register("patch_taiga_frozen_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FROZEN_GRASS = WWFeatureUtils.register("patch_frozen_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FROZEN_LARGE_FERN = WWFeatureUtils.register("patch_frozen_large_fern");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FROZEN_TALL_GRASS = WWFeatureUtils.register("patch_frozen_tall_grass");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> SINGLE_PIECE_OF_FROZEN_GRASS = WWFeatureUtils.register("single_piece_of_frozen_grass");
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_GRASS = WWFeatureUtils.register("oasis_grass");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> OASIS_SHRUB = WWFeatureUtils.register("oasis_shrub");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> JUNGLE_SHRUB = WWFeatureUtils.register("jungle_shrub");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SPARSE_SHRUB = WWFeatureUtils.register("sparse_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> OASIS_GRASS = WWFeatureUtils.register("oasis_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> OASIS_SHRUB = WWFeatureUtils.register("oasis_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> JUNGLE_SHRUB = WWFeatureUtils.register("jungle_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SPARSE_SHRUB = WWFeatureUtils.register("sparse_shrub");
 
 	public static final WeightedList<BlockState> FLOWER_FIELD_SHRUB_POOL = WeightedList.<BlockState>builder()
 		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
@@ -334,23 +334,23 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FLOWER_FIELD_SHRUB = WWFeatureUtils.register("flower_field_shrub");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GENERIC_SHRUB = WWFeatureUtils.register("generic_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_FIELD_SHRUB = WWFeatureUtils.register("flower_field_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> GENERIC_SHRUB = WWFeatureUtils.register("generic_shrub");
 
 	public static final WeightedList<BlockState> DESERT_SHRUB_POOL = WeightedList.<BlockState>builder()
 		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
 		.add(WWBlocks.SHRUB.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DESERT_SHRUB = WWFeatureUtils.register("desert_shrub");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_SHRUB_SAND = WWFeatureUtils.register("badlands_shrub_sand");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("badlands_shrub_terracotta");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("wooded_badlands_shrub_terracotta");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> WOODED_BADLANDS_SHRUB_DIRT = WWFeatureUtils.register("wooded_badlands_shrub_dirt");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_OASIS = WWFeatureUtils.register("patch_cactus_oasis");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL = WWFeatureUtils.register("patch_cactus_tall");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_CACTUS_TALL_BADLANDS = WWFeatureUtils.register("patch_cactus_tall_badlands");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> DRY_GRASS_SPARSE_ON_SAND = WWFeatureUtils.register("dry_grass_sparse_on_sand");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> DESERT_SHRUB = WWFeatureUtils.register("desert_shrub");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> BADLANDS_SHRUB_SAND = WWFeatureUtils.register("badlands_shrub_sand");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("badlands_shrub_terracotta");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> WOODED_BADLANDS_SHRUB_TERRACOTTA = WWFeatureUtils.register("wooded_badlands_shrub_terracotta");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> WOODED_BADLANDS_SHRUB_DIRT = WWFeatureUtils.register("wooded_badlands_shrub_dirt");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_CACTUS_OASIS = WWFeatureUtils.register("patch_cactus_oasis");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_CACTUS_TALL = WWFeatureUtils.register("patch_cactus_tall");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_CACTUS_TALL_BADLANDS = WWFeatureUtils.register("patch_cactus_tall_badlands");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> DRY_GRASS_SPARSE_ON_SAND = WWFeatureUtils.register("dry_grass_sparse_on_sand");
 
 	public static final WeightedList<BlockState> PRICKLY_PEAR_POOL = WeightedList.<BlockState>builder()
 		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
@@ -360,21 +360,21 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.CACTUS.defaultBlockState(), 3)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> PRICKLY_PEAR = WWFeatureUtils.register("prickly_pear");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PRICKLY_PEAR = WWFeatureUtils.register("prickly_pear");
 
 	public static final WeightedList<BlockState> LARGE_FERN_AND_GRASS_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 3)
 		.add(Blocks.LARGE_FERN.defaultBlockState(), 3)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS = WWFeatureUtils.register("large_fern_and_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> LARGE_FERN_AND_GRASS = WWFeatureUtils.register("large_fern_and_grass");
 
 	public static final WeightedList<BlockState> LARGE_FERN_AND_GRASS_POOL_2 = WeightedList.<BlockState>builder()
 		.add(Blocks.TALL_GRASS.defaultBlockState(), 5)
 		.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> LARGE_FERN_AND_GRASS_2 = WWFeatureUtils.register("large_fern_and_grass_2");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> LARGE_FERN_AND_GRASS_2 = WWFeatureUtils.register("large_fern_and_grass_2");
 
 	public static final WeightedList<BlockState> FERN_AND_GRASS_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 3)
@@ -395,17 +395,17 @@ public final class WWConfiguredFeatures {
 		.build();
 
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TALL_GRASS_AND_GRASS_WATER = WWFeatureUtils.register("tall_grass_and_grass_water");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_GRASS_AND_GRASS_WATER = WWFeatureUtils.register("tall_grass_and_grass_water");
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_TALL_GRASS = WWFeatureUtils.register("swamp_tall_grass");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> SWAMP_FERN = WWFeatureUtils.register("swamp_fern");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> MYCELIUM_GROWTH = WWFeatureUtils.register("mycelium_growth");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration, ConfiguredFeature<MultifaceGrowthConfiguration, ?>> POLLEN = WWFeatureUtils.register("pollen");
-	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> CRIMSON_SHELF_FUNGI = WWFeatureUtils.register("crimson_shelf_fungi");
-	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig, ConfiguredFeature<ShelfFungiFeatureConfig, ?>> WARPED_SHELF_FUNGI = WWFeatureUtils.register("warped_shelf_fungi");
-	public static final FrozenLibConfiguredFeature<ColumnWithDiskFeatureConfig, ConfiguredFeature<ColumnWithDiskFeatureConfig, ?>> TERMITE_MOUND = WWFeatureUtils.register("termite_mound");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SWAMP_TALL_GRASS = WWFeatureUtils.register("swamp_tall_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SWAMP_FERN = WWFeatureUtils.register("swamp_fern");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FERN_AND_GRASS = WWFeatureUtils.register("fern_and_grass");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> GRASS_AND_FERN = WWFeatureUtils.register("grass_and_fern");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MYCELIUM_GROWTH = WWFeatureUtils.register("mycelium_growth");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> POLLEN = WWFeatureUtils.register("pollen");
+	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig> CRIMSON_SHELF_FUNGI = WWFeatureUtils.register("crimson_shelf_fungi");
+	public static final FrozenLibConfiguredFeature<ShelfFungiFeatureConfig> WARPED_SHELF_FUNGI = WWFeatureUtils.register("warped_shelf_fungi");
+	public static final FrozenLibConfiguredFeature<ColumnWithDiskFeatureConfig> TERMITE_MOUND = WWFeatureUtils.register("termite_mound");
 
 	public static final WeightedList<BlockState> TUMBLEWEED_PLANT_POOL = WeightedList.<BlockState>builder()
 		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
@@ -414,7 +414,7 @@ public final class WWConfiguredFeatures {
 		.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
 		.build();
 
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration, ConfiguredFeature<RandomPatchConfiguration, ?>> TUMBLEWEED = WWFeatureUtils.register("tumbleweed");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TUMBLEWEED = WWFeatureUtils.register("tumbleweed");
 
 	private WWConfiguredFeatures() {
 		throw new UnsupportedOperationException("WWConfiguredFeatures contains only static declarations.");
