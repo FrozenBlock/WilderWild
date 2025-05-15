@@ -70,6 +70,7 @@
     "entity.slime.SpawnPlacementsMixin",
     "entity.stray.StrayMixin",
     "entity.tumbleweed.BlockBehaviourMixin",
+    "entity.tumbleweed.ServerExplosionMixin",
     "entity.tumbleweed.LivingEntityMixin",
     "entity.turtle.TurtleMixin",
     "item.brush.BrushItemMixin",

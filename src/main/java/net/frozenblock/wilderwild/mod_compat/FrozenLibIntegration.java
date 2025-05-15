@@ -58,6 +58,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -337,6 +338,10 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
 			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) ctx.friction = 0.6F;
+		});
+
+		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
+			if (ctx.entity instanceof Tumbleweed tumbleweed && tumbleweed.isCannonball()) ctx.friction = 0.965F;
 		});
 
 		if (WWWorldgenConfig.get().structure.decayTrailRuins) {

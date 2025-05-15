@@ -2905,6 +2905,38 @@
     ],
     "subtitle": "subtitles.entity.tumbleweed.damage"
   },
+  "entity.tumbleweed.cannonball.bounce": {
+    "sounds": [
+      "wilderwild:mob/tumbleweed/cannonball/ding1",
+      "wilderwild:mob/tumbleweed/cannonball/ding2",
+      "wilderwild:mob/tumbleweed/cannonball/ding3",
+      "wilderwild:mob/tumbleweed/cannonball/ding4"
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.cannonball.bounce"
+  },
+  "entity.tumbleweed.cannonball.roll": {
+    "sounds": [
+      "wilderwild:mob/tumbleweed/cannonball/step1",
+      "wilderwild:mob/tumbleweed/cannonball/step2"
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.cannonball.roll"
+  },
+  "entity.tumbleweed.cannonball.break": {
+    "sounds": [
+      "wilderwild:mob/tumbleweed/cannonball/ding1",
+      "wilderwild:mob/tumbleweed/cannonball/ding2",
+      "wilderwild:mob/tumbleweed/cannonball/ding3",
+      "wilderwild:mob/tumbleweed/cannonball/ding4"
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.cannonball.break"
+  },
+  "entity.tumbleweed.cannonball.damage": {
+    "sounds": [
+      "wilderwild:mob/tumbleweed/cannonball/step1",
+      "wilderwild:mob/tumbleweed/cannonball/step2"
+    ],
+    "subtitle": "subtitles.entity.tumbleweed.cannonball.damage"
+  },
   "entity.warden.brap": {
     "sounds": [
       "wilderwild:mob/warden/brap"

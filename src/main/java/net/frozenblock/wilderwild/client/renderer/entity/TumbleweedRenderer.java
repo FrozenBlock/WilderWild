@@ -42,6 +42,8 @@ import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRenderState, TumbleweedModel> {
+	private static final ResourceLocation TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+	private static final ResourceLocation CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
 	private final ItemRenderer itemRenderer;
 
 	public TumbleweedRenderer(@NotNull Context context) {
@@ -82,7 +84,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull TumbleweedRenderState renderState) {
-		return WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+		return renderState.isCannonball ? CANNONBALL_LOCATION : TUMBLEWEED_LOCATION;
 	}
 
 	@Override
@@ -99,6 +101,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 		renderState.itemZ = entity.itemZ;
 		renderState.pitch = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD;
 		renderState.roll = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD;
+		renderState.isCannonball = entity.isCannonball();
 		renderState.visibleItem = entity.getVisibleItem();
 		renderState.level = entity.level();
 	}
