@@ -42,11 +42,11 @@ public class LivingEntityMixin {
 
 	@Unique
 	private void wilderWild$cancelIfEntityIsTumbleweed(Entity entity, CallbackInfo info) {
-		if (entity instanceof Tumbleweed && Entity.class.cast(this).getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) {
+		if (entity instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && Entity.class.cast(this).getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) {
 			info.cancel();
 			return;
 		}
-		if (Entity.class.cast(this) instanceof Tumbleweed && entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) info.cancel();
+		if (Entity.class.cast(this) instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) info.cancel();
 	}
 
 }

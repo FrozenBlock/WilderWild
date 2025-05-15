@@ -38,6 +38,7 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 	public void addTags(@NotNull HolderLookup.Provider arg) {
 		this.getOrCreateTagBuilder(DamageTypeTags.NO_ANGER)
 			.add(WWDamageTypes.TUMBLEWEED)
+			.add(WWDamageTypes.CANNONBALL)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
@@ -50,7 +51,8 @@ public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType>
 			.add(WWDamageTypes.OSTRICH);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.PANIC_CAUSES)
-			.add(WWDamageTypes.TUMBLEWEED);
+			.add(WWDamageTypes.TUMBLEWEED)
+			.add(WWDamageTypes.CANNONBALL);
 
 		this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_SHIELD)
 			.add(WWDamageTypes.FALLING_ICICLE);

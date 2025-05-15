@@ -40,6 +40,7 @@ public class BlockBehaviourMixin {
 		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock
 			&& context instanceof EntityCollisionContext entityCollisionContext
 			&& entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed
+			&& !tumbleweed.isCannonball()
 		) {
 			tumbleweed.isTouchingStickingBlock = true;
 			info.setReturnValue(Shapes.empty());
