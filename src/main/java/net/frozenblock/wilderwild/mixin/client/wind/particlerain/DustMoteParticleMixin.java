@@ -60,6 +60,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 			target = "Lpigcart/particlerain/particle/DustMoteParticle;zd:D",
 			shift = At.Shift.AFTER
 		),
+		remap = false,
 		require = 0
 	)
 	private void wilderWild$modifyMovementWithWind(CallbackInfo info) {

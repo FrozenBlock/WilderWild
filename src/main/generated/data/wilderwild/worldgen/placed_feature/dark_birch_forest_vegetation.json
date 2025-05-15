@@ -18,8 +18,8 @@
       "maxThresh": 1.0,
       "min_threshold": 0.625,
       "must_be_inside": false,
-      "noise": 4,
       "noise_scale": 0.0065,
+      "noise_type": "XORO",
       "scale_y": false,
       "use_y": false
     },

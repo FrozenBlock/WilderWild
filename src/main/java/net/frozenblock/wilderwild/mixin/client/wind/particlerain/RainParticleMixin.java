@@ -71,10 +71,11 @@ public abstract class RainParticleMixin extends WeatherParticle {
 			value = "FIELD",
 			target = "Lpigcart/particlerain/config/ModConfig$RainOptions;stormWindStrength:F"
 		),
+		remap = false,
 		require = 0
 	)
 	public float wilderWild$modifyStormWindStrength(float original) {
-		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX * 0.5F;
 		return original;
 	}
 
@@ -84,10 +85,11 @@ public abstract class RainParticleMixin extends WeatherParticle {
 			value = "FIELD",
 			target = "Lpigcart/particlerain/config/ModConfig$RainOptions;windStrength:F"
 		),
+		remap = false,
 		require = 0
 	)
 	public float wilderWild$modifyWindStrength(float original) {
-		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX;
+		if (WWClientWindManager.shouldUseWind()) return (float) ClientWindManager.windX * 0.5F;
 		return original;
 	}
 
@@ -98,9 +100,14 @@ public abstract class RainParticleMixin extends WeatherParticle {
 	)
 	public void wilderWild$modifyWindZ(ClientLevel level, double x, double y, double z, CallbackInfo info) {
 		if (WWClientWindManager.shouldUseWind()) this.zd = this.gravity * (float) ClientWindManager.windZ;
-		if (ModConfig.CONFIG.compat.yLevelWindAdjustment) {
-			this.zd *= yLevelWindAdjustment(y);
-		}
+		if (ModConfig.CONFIG.compat.yLevelWindAdjustment) this.zd *= yLevelWindAdjustment(y);
+
+		double horizontalDistance = Math.sqrt((this.xd * this.xd) + (this.zd * this.zd));
+		this.wilderWild$yRot += (float) (Mth.atan2(this.xd, this.zd)) * Mth.RAD_TO_DEG;
+		this.wilderWild$xRot += (float) (Mth.atan2(horizontalDistance, this.yd)) * Mth.RAD_TO_DEG;
+
+		this.wilderWild$prevYRot = this.wilderWild$yRot;
+		this.wilderWild$prevXRot = this.wilderWild$xRot;
 	}
 
 	@Inject(
