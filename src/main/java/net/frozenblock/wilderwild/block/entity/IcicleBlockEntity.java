@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -26,11 +25,6 @@ import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;

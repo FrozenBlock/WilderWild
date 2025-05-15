@@ -18,15 +18,12 @@
 package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.entity.api.SilentTicker;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;

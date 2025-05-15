@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
