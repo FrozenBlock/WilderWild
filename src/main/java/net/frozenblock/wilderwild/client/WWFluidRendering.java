@@ -53,16 +53,18 @@ public final class WWFluidRendering {
 
 			@Override
 			public void renderFluid(BlockPos pos, BlockAndTintGetter world, VertexConsumer vertexConsumer, @NotNull BlockState blockState, FluidState fluidState) {
-				if (WWBlockConfig.Client.MESOGLEA_FLUID && blockState.getBlock() instanceof MesogleaBlock) {
-					TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
-					LiquidRenderUtils.tesselateWithSingleTexture(
-						world,
-						pos,
-						vertexConsumer,
-						blockState,
-						fluidState,
-						sprite
-					);
+				if (blockState.getBlock() instanceof MesogleaBlock) {
+					if (WWBlockConfig.Client.MESOGLEA_FLUID) {
+						TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(blockState);
+						LiquidRenderUtils.tesselateWithSingleTexture(
+							world,
+							pos,
+							vertexConsumer,
+							blockState,
+							fluidState,
+							sprite
+						);
+					}
 					return;
 				}
 				originalHandler.renderFluid(pos, world, vertexConsumer, blockState, fluidState);
