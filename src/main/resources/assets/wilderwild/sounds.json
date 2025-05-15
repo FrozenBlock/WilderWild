@@ -3258,7 +3258,7 @@
       {
         "name": "music.overworld.forest",
         "type": "event",
-        "weight": 20
+        "weight": 22
       },
       {
         "name": "wilderwild:music/ludocrypt/serene_sonder",
@@ -3294,7 +3294,7 @@
       {
         "name": "music.overworld.lush_caves",
         "type": "event",
-        "weight": 25
+        "weight": 15
       },
       {
         "name": "wilderwild:music/pictochats/amber",
@@ -3329,7 +3329,7 @@
       {
         "name": "music.overworld.cherry_grove",
         "type": "event",
-        "weight": 13
+        "weight": 9
       },
       {
         "name": "wilderwild:music/pictochats/amber",
@@ -3344,7 +3344,7 @@
       {
         "name": "music.overworld.grove",
         "type": "event",
-        "weight": 12
+        "weight": 14
       },
       {
         "name": "wilderwild:music/pictochats/amber",
@@ -3358,7 +3358,7 @@
       {
         "name": "music.overworld.jungle",
         "type": "event",
-        "weight": 20
+        "weight": 13
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3372,7 +3372,7 @@
       {
         "name": "music.overworld.sparse_jungle",
         "type": "event",
-        "weight": 24
+        "weight": 12
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3386,7 +3386,7 @@
       {
         "name": "music.overworld.bamboo_jungle",
         "type": "event",
-        "weight": 18
+        "weight": 12
       },
       {
         "name": "wilderwild:music/pictochats/dahlia",
@@ -3416,6 +3416,11 @@
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "volume": 0.5
+      },
+      {
+        "name": "music/game/lilypad",
+        "stream": true,
+        "volume": 0.4
       },
       {
         "name": "music/game/stand_tall",
@@ -3551,6 +3556,11 @@
   "music.overworld.magmatic_caves": {
     "sounds": [
       {
+        "name": "music/game/broken_clocks",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
         "name": "music/game/endless",
         "stream": true,
         "volume": 0.4
@@ -3588,6 +3598,11 @@
   },
   "music.overworld.frozen_caves": {
     "sounds": [
+      {
+        "name": "music/game/os_piano",
+        "stream": true,
+        "volume": 0.4
+      },
       {
         "name": "music/game/infinite_amethyst",
         "stream": true,
@@ -3638,6 +3653,11 @@
   },
   "music.overworld.maple_forest": {
     "sounds": [
+      {
+        "name": "music/game/below_and_above",
+        "stream": true,
+        "volume": 0.4
+      },
       {
         "name": "music/game/comforting_memories",
         "stream": true,
