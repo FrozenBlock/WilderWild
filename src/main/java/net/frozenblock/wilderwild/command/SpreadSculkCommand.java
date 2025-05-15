@@ -80,9 +80,9 @@ public final class SpreadSculkCommand {
 		SculkSpreader sculkSpreader = worldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
 		sculkSpreader.addCursors(pos, charge);
 		ServerLevel level = source.getLevel();
-		while (!sculkSpreader.getCursors().isEmpty()) {
-			sculkSpreader.updateCursors(level, pos, level.getRandom(), true);
-		}
+
+		while (!sculkSpreader.getCursors().isEmpty()) sculkSpreader.updateCursors(level, pos, level.getRandom(), true);
+
 		source.sendSuccess(
 			() -> Component.translatable(
 				worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success",

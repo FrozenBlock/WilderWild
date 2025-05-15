@@ -33,6 +33,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private boolean hasEmbeddiumMod;
 	private boolean disableNonSodium;
 	private boolean hasFallingLeavesMod;
+	private boolean hasParticleRainMod;
 
 	@Override
 	public void onLoad(String mixinPackage) {
@@ -40,6 +41,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		this.hasEmbeddiumMod = FabricLoader.getInstance().isModLoaded("embeddium");
 		this.disableNonSodium = this.hasEmbeddiumMod || FrozenBools.HAS_SODIUM;
 		this.hasFallingLeavesMod = FabricLoader.getInstance().isModLoaded("fallingleaves");
+		this.hasParticleRainMod = FabricLoader.getInstance().isModLoaded("particlerain");
 	}
 
 	@Override
@@ -69,6 +71,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.warden.")) return this.mixinsConfig.client_warden;
 		if (mixinClassName.contains("client.wind.")) {
 			if (mixinClassName.contains("fallingleaves") && !this.hasFallingLeavesMod) return false;
+			if (mixinClassName.contains("particlerain") && !this.hasParticleRainMod) return false;
 			return this.mixinsConfig.client_wind;
 		}
 

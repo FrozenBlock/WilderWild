@@ -41,6 +41,7 @@ public abstract class DefaultTerrainRenderPassesMixin {
 			target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/terrain/TerrainRenderPass;",
 			ordinal = 2
 		),
+		remap = false,
 		require = 0
 	)
 	private static TerrainRenderPass wilderwild$allowFragmentDiscardOnTranslucent(
