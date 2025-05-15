@@ -49,6 +49,7 @@ public abstract class SnowParticleMixin extends WeatherParticle {
 			value = "FIELD",
 			target = "Lpigcart/particlerain/ModConfig$SnowOptions;stormWindStrength:F"
 		),
+		remap = false,
 		require = 0
 	)
 	public float wilderWild$modifyStormWindStrength(float original) {
@@ -62,6 +63,7 @@ public abstract class SnowParticleMixin extends WeatherParticle {
 			value = "FIELD",
 			target = "Lpigcart/particlerain/ModConfig$SnowOptions;windStrength:F"
 		),
+		remap = false,
 		require = 0
 	)
 	public float wilderWild$modifyWindStrength(float original) {

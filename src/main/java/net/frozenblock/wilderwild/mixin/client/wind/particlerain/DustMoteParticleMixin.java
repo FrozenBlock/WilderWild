@@ -69,6 +69,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
 			ordinal = 0
 		),
+		remap = false,
 		require = 0
 	)
 	private float wilderWild$modifyXInit(float original) {
@@ -96,6 +97,7 @@ public abstract class DustMoteParticleMixin extends WeatherParticle {
 			target = "Lpigcart/particlerain/ModConfig$SandOptions;windStrength:F",
 			ordinal = 1
 		),
+		remap = false,
 		require = 0
 	)
 	private float wilderWild$modifyZInit(float original) {

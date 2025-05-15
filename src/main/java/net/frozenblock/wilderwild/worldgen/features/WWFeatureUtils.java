@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.worldgen.features;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -31,21 +30,19 @@ public final class WWFeatureUtils {
 	}
 
 	@NotNull
-	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration, ConfiguredFeature<NoneFeatureConfiguration, ?>> register(@NotNull String id, @NotNull Feature<NoneFeatureConfiguration> feature) {
+	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(@NotNull String id, @NotNull Feature<NoneFeatureConfiguration> feature) {
 		return register(id, feature, FeatureConfiguration.NONE);
 	}
 
 	@NotNull
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id, F feature, @NotNull FC config) {
-		var key = WWConstants.id(id);
-		FrozenLibConfiguredFeature<FC, ConfiguredFeature<FC, ?>> frozen = new FrozenLibConfiguredFeature<>(key);
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC> register(@NotNull String id, F feature, @NotNull FC config) {
+		FrozenLibConfiguredFeature<FC> frozen = new FrozenLibConfiguredFeature<>(WWConstants.id(id));
 		frozen.makeAndSetHolder(feature, config);
 		return frozen;
 	}
 
 	@NotNull
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC, ConfiguredFeature<FC, ?>> register(@NotNull String id) {
-		var key = WWConstants.id(id);
-		return new FrozenLibConfiguredFeature<>(key);
+	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(@NotNull String id) {
+		return new FrozenLibConfiguredFeature<>(WWConstants.id(id));
 	}
 }

@@ -217,7 +217,7 @@ dependencies {
     modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
 
     // Particle Rain
-    modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
+    modImplementation("maven.modrinth:particle-rain:${particlerain_version}")
 
     // Biolith
     if (shouldRunBiolith)

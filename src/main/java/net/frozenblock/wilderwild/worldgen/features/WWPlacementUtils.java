@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.worldgen.features;
 
 import java.util.List;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
@@ -28,9 +29,9 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWPlacementUtils {
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(4, 0.0065, 0.625, 1.0, 0.2, false, false, false);
-	public static final NoisePlacementFilter SHRUB_CLEARING_FILTER = new NoisePlacementFilter(4, 0.0065, 0.69, 1.0, 0.2, false, false, false);
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(4, 0.0065, 0.675, 1.0, 0.175, false, false, true);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.625D, 1D, 0.2D, false, false, false);
+	public static final NoisePlacementFilter SHRUB_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.675D, 1D, 0.175D, false, false, true);
 
 	private WWPlacementUtils() {
 		throw new UnsupportedOperationException("WWPlacementUtils contains only static declarations.");
@@ -38,20 +39,22 @@ public final class WWPlacementUtils {
 
 	@NotNull
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers) {
-		return new FrozenLibPlacedFeature(WWConstants.id(id))
-			.makeAndSetHolder((Holder) configured, modifiers);
+	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
+		@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers
+	) {
+		return new FrozenLibPlacedFeature(WWConstants.id(id)).makeAndSetHolder((Holder) configured, modifiers);
 	}
 
 	@NotNull
-	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers) {
+	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
+		@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers
+	) {
 		return register(id, registryEntry, List.of(modifiers));
 	}
 
 	@NotNull
 	public static FrozenLibPlacedFeature register(@NotNull String id) {
-		var key = WWConstants.id(id);
-		return new FrozenLibPlacedFeature(key);
+		return new FrozenLibPlacedFeature(WWConstants.id(id));
 	}
 
 }

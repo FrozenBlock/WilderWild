@@ -54,9 +54,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
+	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
+
 	// MESOGLEA CAVES
 	public static final FrozenLibPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
-	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
 	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
 	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_COLUMN = WWPlacementUtils.register("blue_mesoglea_column");
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = WWPlacementUtils.register("purple_mesoglea_column");
