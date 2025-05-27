@@ -31,7 +31,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.chunk.RenderChunkRegion;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.chunk.RenderSectionRegion;
 import net.minecraft.client.renderer.chunk.SectionCompiler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -49,7 +50,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SectionCompilerMixin {
 
 	@Shadow
-	protected abstract BufferBuilder getOrBeginLayer(Map<RenderType, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, RenderType renderType);
+	protected abstract BufferBuilder getOrBeginLayer(Map<RenderType, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, ChunkSectionLayer chunkSectionLayer);
 
 	@Shadow
 	@Final
@@ -65,7 +66,7 @@ public abstract class SectionCompilerMixin {
 	)
 	public void wilderWild$compileWithSnowlogging(
 		SectionPos sectionPos,
-		RenderChunkRegion renderChunkRegion,
+		RenderSectionRegion renderSectionRegion,
 		VertexSorting vertexSorting,
 		SectionBufferBuilderPack sectionBufferBuilderPack,
 		CallbackInfoReturnable<SectionCompiler.Results> info,
@@ -78,8 +79,8 @@ public abstract class SectionCompilerMixin {
 	) {
 		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
 		BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-		RenderType renderType = ItemBlockRenderTypes.getChunkRenderType(snowState);
-		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, renderType);
+		ChunkSectionLayer chunkSectionLayer = ItemBlockRenderTypes.getChunkRenderType(snowState);
+		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, chunkSectionLayer);
 		randomSource.setSeed(snowState.getSeed(blockPos3));
 		this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
 		poseStack.pushPose();
@@ -88,7 +89,7 @@ public abstract class SectionCompilerMixin {
 			(float) SectionPos.sectionRelative(blockPos3.getY()),
 			(float) SectionPos.sectionRelative(blockPos3.getZ())
 		);
-		this.blockRenderer.renderBatched(snowState, blockPos3, renderChunkRegion, poseStack, bufferBuilder, true, list);
+		this.blockRenderer.renderBatched(snowState, blockPos3, renderSectionRegion, poseStack, bufferBuilder, true, list);
 		poseStack.popPose();
 		list.clear();
 	}

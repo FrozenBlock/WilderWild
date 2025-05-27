@@ -22,6 +22,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.AllayModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -29,6 +30,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -37,8 +39,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AllayModel.class)
 public abstract class AllayModelMixin extends EntityModel<AllayRenderState> implements ArmedModel {
 
+	@Unique
+	private KeyframeAnimation wilderWild$dancingAnimation;
+
 	protected AllayModelMixin(ModelPart modelPart) {
 		super(modelPart);
+	}
+
+	@Inject(method = "<init>", at = @At("TAIL"))
+	public void wilderWild$init(ModelPart root, CallbackInfo info) {
+		this.wilderWild$dancingAnimation = WWAllayAnimation.ALLAY_DANCING.bake(root);
 	}
 
 	@Inject(
@@ -52,8 +62,8 @@ public abstract class AllayModelMixin extends EntityModel<AllayRenderState> impl
 		require = 0
 	)
 	private void wilderWild$runKeyframeDance(AllayRenderState renderState, CallbackInfo info) {
-		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && renderState instanceof WilderAllay wilderAllay) {
-			this.animate(wilderAllay.wilderWild$getDancingAnimationState(), WWAllayAnimation.ALLAY_DANCING, renderState.ageInTicks);
+		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && renderState instanceof WilderAllay wilderAllay && this.wilderWild$dancingAnimation != null) {
+			this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$getDancingAnimationState(), renderState.ageInTicks);
 		}
 	}
 }

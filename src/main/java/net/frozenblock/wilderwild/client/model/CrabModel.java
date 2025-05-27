@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.client.model;
 
 import net.frozenblock.wilderwild.client.animation.definitions.CrabAnimation;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -47,6 +48,9 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	private final ModelPart back_left_leg;
 	private final ModelPart middle_left_leg;
 	private final ModelPart front_left_leg;
+	private final KeyframeAnimation hidingAnimation;
+	private final KeyframeAnimation diggingAnimation;
+	private final KeyframeAnimation emergingAnimation;
 
 	public CrabModel(@NotNull ModelPart root) {
 		super(root);
@@ -66,6 +70,10 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		this.back_left_leg = this.legs.getChild("back_left_leg");
 		this.middle_left_leg = this.legs.getChild("middle_left_leg");
 		this.front_left_leg = this.legs.getChild("front_left_leg");
+
+		this.hidingAnimation = CrabAnimation.CRAB_EMERGE_WAIT.bake(root);
+		this.diggingAnimation = CrabAnimation.CRAB_DIG.bake(root);
+		this.emergingAnimation = CrabAnimation.CRAB_EMERGE.bake(root);
 	}
 
 	@NotNull
@@ -107,9 +115,9 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		super.setupAnim(renderState);
 		this.root.y = 23.9F;
 
-		this.animate(renderState.hidingAnimationState, CrabAnimation.CRAB_EMERGE_WAIT, renderState.ageInTicks);
-		this.animate(renderState.diggingAnimationState, CrabAnimation.CRAB_DIG, renderState.ageInTicks);
-		this.animate(renderState.emergingAnimationState, CrabAnimation.CRAB_EMERGE, renderState.ageInTicks);
+		this.hidingAnimation.apply(renderState.hidingAnimationState, renderState.ageInTicks);
+		this.diggingAnimation.apply(renderState.diggingAnimationState, renderState.ageInTicks);
+		this.emergingAnimation.apply(renderState.emergingAnimationState, renderState.ageInTicks);
 
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.client.model;
 import java.util.Set;
 import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -44,6 +45,9 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 	private final ModelPart feet;
 	private final ModelPart left_foot;
 	private final ModelPart right_foot;
+	private final KeyframeAnimation layDownAnimation;
+	private final KeyframeAnimation standUpAnimation;
+	private final KeyframeAnimation callAnimation;
 
 	public PenguinModel(@NotNull ModelPart root) {
 		super(root);
@@ -55,6 +59,10 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.feet = this.body.getChild("feet");
 		this.left_foot = this.feet.getChild("left_foot");
 		this.right_foot = this.feet.getChild("right_foot");
+
+		this.layDownAnimation = PenguinAnimation.PENGUIN_LAY_DOWN.bake(root);
+		this.standUpAnimation = PenguinAnimation.PENGUIN_STAND_UP.bake(root);
+		this.callAnimation = PenguinAnimation.PENGUIN_CALL.bake(root);
 	}
 
 	public static @NotNull LayerDefinition createBodyLayer() {
@@ -141,9 +149,9 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 
 		float limbSwing = renderState.walkAnimationPos * 2.65F;
 		float limbSwingAmount = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);
-		this.animate(renderState.layDownAnimationState, PenguinAnimation.PENGUIN_LAY_DOWN, renderState.ageInTicks);
-		this.animate(renderState.standUpAnimationState, PenguinAnimation.PENGUIN_STAND_UP, renderState.ageInTicks);
-		this.animate(renderState.callAnimationState, PenguinAnimation.PENGUIN_CALL, renderState.ageInTicks);
+		this.layDownAnimation.apply(renderState.layDownAnimationState, renderState.ageInTicks);
+		this.standUpAnimation.apply(renderState.standUpAnimationState, renderState.ageInTicks);
+		this.callAnimation.apply(renderState.callAnimationState, renderState.ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
 		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
 		this.animateWade(renderState.ageInTicks, idleWadeProgress * notMovingDelta * notSlidingProgress);

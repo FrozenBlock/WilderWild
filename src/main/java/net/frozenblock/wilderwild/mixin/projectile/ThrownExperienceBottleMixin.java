@@ -33,7 +33,7 @@ public class ThrownExperienceBottleMixin {
 		method = "onHit",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V",
+			target = "Lnet/minecraft/server/level/ServerLevel;levelEvent(ILnet/minecraft/core/BlockPos;I)V",
 			ordinal = 0
 		)
 	)
