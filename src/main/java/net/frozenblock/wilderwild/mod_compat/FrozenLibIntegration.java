@@ -38,6 +38,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import net.frozenblock.lib.loot.api.FrozenLibLootTableEvents;
+import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
@@ -52,11 +53,13 @@ import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
+import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -250,6 +253,8 @@ public class FrozenLibIntegration extends ModIntegration {
 			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
 			stack -> !FrozenBools.HAS_TRAILIERTALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 		);
+
+		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser) && !(user instanceof IcicleBlockEntity.VibrationUser));
 	}
 
 	@Override
