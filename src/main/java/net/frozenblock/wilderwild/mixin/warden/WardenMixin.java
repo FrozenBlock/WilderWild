@@ -23,7 +23,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -171,11 +170,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 				}
 			}
 		}
-	}
-
-	@Inject(at = @At("HEAD"), method = "canTargetEntity(Lnet/minecraft/world/entity/Entity;)Z", cancellable = true)
-	public void wilderWild$canTargetEntity(Entity entity, CallbackInfoReturnable<Boolean> info) {
-		if (entity instanceof Tumbleweed) info.setReturnValue(false);
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)

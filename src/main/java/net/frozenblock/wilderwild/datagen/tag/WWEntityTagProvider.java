@@ -39,6 +39,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.valueLookupBuilder(FrozenEntityTags.CREEPER_IGNORES)
 			.add(WWEntityTypes.JELLYFISH);
 
+		this.valueLookupBuilder(FrozenEntityTags.WARDEN_CANNOT_TARGET)
+			.add(WWEntityTypes.TUMBLEWEED);
+
 		this.valueLookupBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
 			.add(EntityType.SLIME)
 			.add(EntityType.WARDEN)
