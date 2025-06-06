@@ -37,6 +37,8 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
+import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
@@ -56,6 +58,13 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		VertexConsumer vertexConsumer = this.material.buffer(multiBufferSource, RenderType::entitySolid);
 		this.model.setupAnim(this.openness);
 		this.model.renderToBuffer(poseStack, vertexConsumer, i, j);
+	}
+
+	@Override
+	public void getExtents(@NotNull Set<Vector3f> set) {
+		PoseStack poseStack = new PoseStack();
+		this.model.setupAnim(this.openness);
+		this.model.root().getExtentsForGui(poseStack, set);
 	}
 
 	@Environment(EnvType.CLIENT)
