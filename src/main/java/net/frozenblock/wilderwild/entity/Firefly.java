@@ -111,7 +111,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
-
 		return level.getSkyDarken() >= 4 && level.canSeeSky(pos);
 	}
 
@@ -163,9 +162,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
-		if (COLOR.equals(entityDataAccessor)) {
-			this.fireflyColor = Optional.of(this.getColorByLocation());
-		}
+		if (COLOR.equals(entityDataAccessor)) this.fireflyColor = Optional.of(this.getColorByLocation());
 	}
 
 	@Override
@@ -413,8 +410,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	public void tick() {
 		super.tick();
-
 		if (!this.isAlive()) this.setNoGravity(false);
+
 		this.setFlickerAge(this.getFlickerAge() + 1);
 		float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);

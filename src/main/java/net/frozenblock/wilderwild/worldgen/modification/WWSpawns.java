@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.worldgen.modification;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -38,13 +39,27 @@ public final class WWSpawns {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
 
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_COMMON_BUTTERFLY),
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY_COMMON),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 2, 1, 1);
 	}
 
 	public static void addJellyfish() {
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_JELLYFISH),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"), WWEntityTypes.JELLYFISH, 2, 1, 1);
+		BiomeModifications.create(WWConstants.id("jellyfish_spawns")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_JELLYFISH),
+			(selectionContext, modificationContext) -> {
+				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
+
+				spawnSettings.addSpawn(
+					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH, 2, 1, 1)
+				);
+
+				double jellyfishCharge = 0.3D;
+				if (!selectionContext.hasTag(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) jellyfishCharge = 1.3D;
+				spawnSettings.setSpawnCost(WWEntityTypes.JELLYFISH, jellyfishCharge, 0.15D);
+			}
+		);
 	}
 
 	public static void addCrabs() {

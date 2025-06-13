@@ -26,10 +26,10 @@ import org.jetbrains.annotations.NotNull;
 public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
-	public static final TagKey<Biome> HAS_COMMON_BUTTERFLY = bind("entity/spawn/common_butterfly");
+	public static final TagKey<Biome> HAS_BUTTERFLY_COMMON = bind("entity/spawn/butterfly_common");
 	public static final TagKey<Biome> HAS_FIREFLY = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_JELLYFISH = bind("entity/spawn/jellyfish");
-	public static final TagKey<Biome> JELLYFISH_SPECIAL_SPAWN = bind("entity/spawn/jellyfish_special_spawn");
+	public static final TagKey<Biome> JELLYFISH_COMMON_SPAWN = bind("entity/spawn/jellyfish_common_spawn");
 	public static final TagKey<Biome> HAS_MOOBLOOM = bind("entity/spawn/moobloom");
 	public static final TagKey<Biome> HAS_CRAB = bind("entity/spawn/crab");
 	public static final TagKey<Biome> HAS_OSTRICH = bind("entity/spawn/ostrich");

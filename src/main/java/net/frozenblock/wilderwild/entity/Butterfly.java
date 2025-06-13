@@ -125,7 +125,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		if (!(level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON))) return false;
 
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WWBiomeTags.HAS_COMMON_BUTTERFLY)) {
+		if (!biome.is(WWBiomeTags.HAS_BUTTERFLY_COMMON)) {
 			Vec3 spawnPos = Vec3.atCenterOf(pos);
 			Butterfly nearestButterfly = level.getNearestEntity(
 				Butterfly.class,
@@ -194,9 +194,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
-		if (entityDataAccessor.equals(VARIANT)) {
-			this.butterflyVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (entityDataAccessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariantByLocation());
 	}
 
 	@Override
@@ -359,9 +357,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public void tick() {
 		super.tick();
-		if (!this.isAlive()) {
-			this.setNoGravity(false);
-		}
+		if (!this.isAlive()) this.setNoGravity(false);
 
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
