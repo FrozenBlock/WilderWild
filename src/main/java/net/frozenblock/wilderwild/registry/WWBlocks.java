@@ -113,6 +113,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -1749,7 +1750,13 @@ public final class WWBlocks {
 
 	private static void actualRegisterBlockItem(String path, Block block) {
 		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
-			Registry.register(BuiltInRegistries.ITEM, WWConstants.id(path), new BlockItem(block, new Item.Properties()));
+			Supplier<Item> itemSupplier = () -> new BlockItem(block, new Item.Properties());
+			if (block instanceof DoorBlock) itemSupplier = () -> new DoubleHighBlockItem(block, new Item.Properties());
+			Registry.register(
+				BuiltInRegistries.ITEM,
+				WWConstants.id(path),
+				itemSupplier.get()
+			);
 		}
 	}
 
