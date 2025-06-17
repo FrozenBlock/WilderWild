@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
@@ -107,6 +108,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -1763,7 +1767,7 @@ public final class WWBlocks {
 
 	private static <T extends Block> T register(String path, Function<Properties, T> block, Properties properties) {
 		T registered = registerWithoutItem(path, block, properties);
-		Items.registerBlock(registered);
+		registerBlockItem(registered);
 		return registered;
 	}
 
@@ -1776,6 +1780,12 @@ public final class WWBlocks {
 
 	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
+	}
+
+	private static void registerBlockItem(Block block) {
+		BiFunction<Block, Item.Properties, Item> itemSupplier = BlockItem::new;
+		if (block instanceof DoorBlock) itemSupplier = DoubleHighBlockItem::new;
+		Items.registerBlock(block, itemSupplier);
 	}
 
 	@NotNull
