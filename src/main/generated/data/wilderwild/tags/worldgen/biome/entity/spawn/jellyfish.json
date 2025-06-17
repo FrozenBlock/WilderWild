@@ -4,7 +4,7 @@
     "minecraft:deep_lukewarm_ocean",
     "minecraft:lukewarm_ocean",
     {
-      "id": "wilderwild:mesoglea_caves",
+      "id": "#wilderwild:entity/spawn/jellyfish_common_spawn",
       "required": false
     }
   ]
