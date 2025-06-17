@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.world.level.FoliageColor;
@@ -197,6 +198,14 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
 		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
 		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK);
+		WWModelHelper.createGeyser(generator);
+
+		generator.registerSimpleItemModel(WWBlocks.OSSEOUS_SCULK, ModelLocationUtils.getModelLocation(WWBlocks.OSSEOUS_SCULK));
+		generator.registerSimpleItemModel(WWBlocks.SCULK_STAIRS, ModelLocationUtils.getModelLocation(WWBlocks.SCULK_STAIRS));
+		generator.registerSimpleItemModel(WWBlocks.SCULK_SLAB, ModelLocationUtils.getModelLocation(WWBlocks.SCULK_SLAB));
+		generator.registerSimpleItemModel(WWBlocks.SCULK_WALL, ModelLocationUtils.getModelLocation(WWBlocks.SCULK_WALL));
+		generator.registerSimpleItemModel(WWBlocks.TERMITE_MOUND, ModelLocationUtils.getModelLocation(WWBlocks.TERMITE_MOUND));
+		generator.registerSimpleItemModel(WWBlocks.TUMBLEWEED, ModelLocationUtils.getModelLocation(WWBlocks.TUMBLEWEED));
 	}
 
 	@Override

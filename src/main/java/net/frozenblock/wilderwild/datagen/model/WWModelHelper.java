@@ -240,6 +240,10 @@ public final class WWModelHelper {
 		generator.createMultiface(multifaceBlock);
 	}
 
+	public static void createGeyser(@NotNull BlockModelGenerators generator) {
+		generator.createRotatableColumn(WWBlocks.GEYSER);
+	}
+
 	public static void generateCopperHorn(@NotNull ItemModelGenerators generator, Item item) {
 		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
 		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/tooting_copper_horn"));
