@@ -5,6 +5,11 @@
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial_title_version",
+        "stream": true,
+        "volume": 0.8
       }
     ]
   },
