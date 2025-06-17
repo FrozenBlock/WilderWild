@@ -31,7 +31,6 @@ import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -65,7 +64,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -77,19 +75,12 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable, VariantHolder<ButterflyVariant> {
 	public static final int TICKS_PER_FLAP = 3;
-	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
-	private static final TargetingConditions SPAWN_RADIUS_CHECK = TargetingConditions.forNonCombat()
-		.ignoreLineOfSight()
-		.ignoreInvisibilityTesting()
-		.range(SPAWN_RADIUS_CHECK_DISTANCE)
-		.selector(entity -> entity.isAlive() && !entity.isSpectator());
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.STRING);
 
@@ -121,25 +112,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
-
-		if (!(level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON))) return false;
-
-		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WWBiomeTags.HAS_BUTTERFLY_COMMON)) {
-			Vec3 spawnPos = Vec3.atCenterOf(pos);
-			Butterfly nearestButterfly = level.getNearestEntity(
-				Butterfly.class,
-				SPAWN_RADIUS_CHECK,
-				null,
-				spawnPos.x,
-				spawnPos.y,
-				spawnPos.z,
-				AABB.ofSize(spawnPos, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE)
-			);
-			return nearestButterfly == null;
-		}
-
-		return true;
+		return level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
 	}
 
 	@NotNull

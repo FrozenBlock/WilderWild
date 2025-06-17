@@ -36,11 +36,30 @@ public final class WWSpawns {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
 			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 4, 12, 24);
 
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 1, 1, 1);
+		BiomeModifications.create(WWConstants.id("butterfly_spawns")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
+			(selectionContext, modificationContext) -> {
+				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
 
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY_COMMON),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"), WWEntityTypes.BUTTERFLY, 2, 1, 1);
+				double butterflyCharge = 0.3D;
+				double butterflyLimit = 0.15D;
+				int butterflyWeight = 2;
+
+				if (!selectionContext.hasTag(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)) {
+					butterflyCharge = 1.35D;
+					butterflyLimit = 0.075D;
+					butterflyWeight = 1;
+				}
+
+				spawnSettings.addSpawn(
+					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY, butterflyWeight, 1, 1)
+				);
+
+				spawnSettings.setSpawnCost(WWEntityTypes.BUTTERFLY, butterflyCharge, butterflyLimit);
+			}
+		);
 	}
 
 	public static void addJellyfish() {

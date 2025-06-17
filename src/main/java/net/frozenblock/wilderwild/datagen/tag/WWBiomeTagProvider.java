@@ -477,10 +477,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY_COMMON)
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
