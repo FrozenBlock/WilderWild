@@ -139,6 +139,7 @@ accessible class net/minecraft/world/level/block/entity/SculkSensorBlockEntity$V
 accessible class net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 
 # Spawn Placements
 accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V

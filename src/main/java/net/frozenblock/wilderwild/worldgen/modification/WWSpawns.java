@@ -54,7 +54,8 @@ public final class WWSpawns {
 
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY, butterflyWeight, 1, 1)
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY, 1, 1),
+					butterflyWeight
 				);
 
 				spawnSettings.setSpawnCost(WWEntityTypes.BUTTERFLY, butterflyCharge, butterflyLimit);
@@ -71,7 +72,8 @@ public final class WWSpawns {
 
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH, 2, 1, 1)
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH, 1, 1),
+					2
 				);
 
 				double jellyfishCharge = 0.3D;
