@@ -11,3 +11,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - The `wilderwild:entity/spawn/butterfly` biome tag now dictates all biomes Butterflies can spawn in.
     - The `wilderwild:entity/spawn/common_butterfly` biome tag has been replaced with the `wilderwild:entity/spawn/butterfly_common_spawn` biome tag.
         - This tag now dictates which biomes (of the ones they can spawn in) Butterflies can spawn more frequently and closer together in.
+- Renamed the `wilderwild:feature/red_creeping_moss_feature_placeable` block tag to `wilderwild:feature/auburn_creeping_moss_feature_placeable`.
+- Auburn Creeping Moss generated in Auburn Moss patches can now generate on the sides of blocks.
+- Fixed the Bush not datafixing into the Shrub in 1.21.5+ due to an incorrect DataVersion.

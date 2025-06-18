@@ -225,7 +225,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
-		this.getOrCreateTagBuilder(WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE)
+		this.getOrCreateTagBuilder(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
 			.add(Blocks.PRISMARINE)
 			.add(Blocks.PRISMARINE_BRICKS)
 			.add(Blocks.DARK_PRISMARINE)
@@ -241,7 +241,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.DOORS)
 			.addOptionalTag(BlockTags.TRAPDOORS)
 			.addOptionalTag(BlockTags.LEAVES)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE)
 			.add(Blocks.PRISMARINE)
