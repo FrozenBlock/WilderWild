@@ -2,6 +2,12 @@ Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 - Added a title screen version of `Espial` by `pictochats_`!
+- Added the song `Anemone` by `pictochats_`!
+- Added the `wilderwild:music_pool/has_ocean_music` and `wilderwild:music_pool/has_warm_ocean_music` biome tags.
+  - The music that plays in Ocean biomes contains the `minecraft:music.game` pool like it did before, now with `Anemone` and `Epsial` by `pictochats_` having a chance to play as well.
+  - `Anemone` by `pictochats_` plays most commonly in warmer Ocean biomes.
+  - `Espial` by `pictochats` plays most commonly in all other Ocean biomes.
+  - Added a config option to toggle Wilder Wild's Ocean music.
 - Fixed Doors not using the proper item class.
 - Jellyfish and Butterflies have had their spawning logic vastly simplified, now using Vanilla's Spawn Charge/Cost system.
   - As a result of this change, the following changes have been made:

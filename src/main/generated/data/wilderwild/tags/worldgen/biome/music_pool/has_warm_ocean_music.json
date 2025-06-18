@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "minecraft:warm_ocean",
+      "required": false
+    },
+    {
+      "id": "minecraft:lukewarm_ocean",
+      "required": false
+    },
+    {
+      "id": "minecraft:deep_lukewarm_ocean",
+      "required": false
+    }
+  ]
+}

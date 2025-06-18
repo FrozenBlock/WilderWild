@@ -3512,6 +3512,46 @@
       }
     ]
   },
+  "music.overworld.wilder_oceans": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 14
+      },
+      {
+        "name": "wilderwild:music/pictochats/anemone",
+        "stream": true,
+        "volume": 0.7
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 3
+      }
+    ]
+  },
+  "music.overworld.wilder_warm_oceans": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 12
+      },
+      {
+        "name": "wilderwild:music/pictochats/anemone",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.7
+      }
+    ]
+  },
   "music.overworld.mesoglea_caves": {
     "sounds": [
       {
