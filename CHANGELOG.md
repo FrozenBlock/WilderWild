@@ -20,3 +20,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Renamed the `wilderwild:feature/red_creeping_moss_feature_placeable` block tag to `wilderwild:feature/auburn_creeping_moss_feature_placeable`.
 - Auburn Creeping Moss generated in Auburn Moss patches can now generate on the sides of blocks.
 - Fixed the Bush not datafixing into the Shrub in 1.21.5+ due to an incorrect DataVersion.
+- Fixed Maple Leaf Litters not generating as intended.
+- Fixed the Leaf Litter model being raised too high above the ground on versions prior to 1.21.5.

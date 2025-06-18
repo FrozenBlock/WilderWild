@@ -1054,11 +1054,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1072,11 +1074,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1090,11 +1094,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAF_LITTER))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
