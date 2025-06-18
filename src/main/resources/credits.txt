@@ -89,6 +89,7 @@ Willow/pictochats_:
     - Amber
     - Dahlia
     - Espial
+     - Title Screen Version
  - Penguin step sounds.
 
 LudoCrypt:

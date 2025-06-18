@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -28,11 +27,9 @@ import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
@@ -77,19 +74,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable {
 	public static final int TICKS_PER_FLAP = 3;
-	private static final double SPAWN_RADIUS_CHECK_DISTANCE = 20D;
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.STRING);
 
@@ -122,20 +116,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (EntitySpawnReason.ignoresLightRequirements(reason)) return true;
 
-		if (!(level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON))) return false;
-
-		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WWBiomeTags.HAS_COMMON_BUTTERFLY)) {
-			Vec3 spawnPos = Vec3.atCenterOf(pos);
-			List<Butterfly> nearbyButterflies = level.getEntities(
-				WWEntityTypes.BUTTERFLY,
-				AABB.ofSize(spawnPos, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE, SPAWN_RADIUS_CHECK_DISTANCE),
-				entity -> entity.isAlive() && !entity.isSpectator()
-			);
-			return nearbyButterflies.isEmpty();
-		}
-
-		return true;
+		return level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
 	}
 
 	@NotNull
@@ -195,9 +176,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
-		if (entityDataAccessor.equals(VARIANT)) {
-			this.butterflyVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (entityDataAccessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariantByLocation());
 	}
 
 	@Override
@@ -374,9 +353,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public void tick() {
 		super.tick();
-		if (!this.isAlive()) {
-			this.setNoGravity(false);
-		}
+		if (!this.isAlive()) this.setNoGravity(false);
 
 		if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);

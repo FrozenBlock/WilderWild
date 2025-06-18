@@ -472,10 +472,13 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	private void generateUtilityTags() {
 		this.builder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
+			.add(Biomes.FLOWER_FOREST)
+			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.builder(WWBiomeTags.HAS_COMMON_BUTTERFLY)
+		this.builder(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
@@ -522,9 +525,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WARM_OCEAN)
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.LUKEWARM_OCEAN)
-			.addOptional(WWBiomes.MESOGLEA_CAVES);
+			.addOptionalTag(WWBiomeTags.JELLYFISH_COMMON_SPAWN);
 
-		this.builder(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)
+		this.builder(WWBiomeTags.JELLYFISH_COMMON_SPAWN)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
 		this.builder(WWBiomeTags.BLUE_JELLYFISH)

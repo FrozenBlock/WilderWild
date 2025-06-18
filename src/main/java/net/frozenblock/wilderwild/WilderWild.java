@@ -19,8 +19,6 @@ package net.frozenblock.wilderwild;
 
 import java.util.ArrayList;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.config.api.instance.ConfigModification;
@@ -34,7 +32,6 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
-import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWActivities;
@@ -111,13 +108,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWVillagers.register();
 
 		WWModIntegrations.init();
-		WWBlocks.registerBlockProperties();
 		WWNetworking.init();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
-
-		ServerLifecycleEvents.SERVER_STOPPED.register(listener -> Jellyfish.clearLevelToNonPearlescentCount());
-		ServerTickEvents.START_SERVER_TICK.register(listener -> Jellyfish.clearLevelToNonPearlescentCount());
 	}
 
 	@Override

@@ -18,13 +18,9 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import net.frozenblock.lib.entity.api.EntityUtils;
 import net.frozenblock.lib.entity.api.NoFlopAbstractFish;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -126,7 +122,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
-	private static final Map<ResourceKey<Level>, Integer> NON_PEARLESCENT_JELLYFISH_PER_LEVEL = new HashMap<>();
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
@@ -152,26 +147,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.getNavigation().setCanFloat(false);
 	}
 
-	public static int getJellyfishPerLevel(@NotNull ServerLevel level, boolean pearlescent) {
-		AtomicInteger count = new AtomicInteger();
-		ResourceKey<Level> dimension = level.dimension();
-		if (!NON_PEARLESCENT_JELLYFISH_PER_LEVEL.containsKey(dimension)) {
-			EntityUtils.getEntitiesPerLevel(level).forEach(entity -> {
-				if (entity instanceof Jellyfish jellyfish && (pearlescent == jellyfish.getVariantByLocation().isPearlescent())) {
-					count.addAndGet(1);
-				}
-			});
-			NON_PEARLESCENT_JELLYFISH_PER_LEVEL.put(dimension, count.get());
-		} else {
-			count.set(NON_PEARLESCENT_JELLYFISH_PER_LEVEL.get(dimension));
-		}
-		return count.get();
-	}
-
-	public static void clearLevelToNonPearlescentCount() {
-		NON_PEARLESCENT_JELLYFISH_PER_LEVEL.clear();
-	}
-
 	public static boolean checkJellyfishSpawnRules(
 		@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnReason, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
@@ -179,10 +154,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (!WWEntityConfig.get().jellyfish.spawnJellyfish) return false;
 
 		Holder<Biome> biome = level.getBiome(pos);
-		if (!biome.is(WWBiomeTags.PEARLESCENT_JELLYFISH) && getJellyfishPerLevel(level.getLevel(), false) >= type.getCategory().getMaxInstancesPerChunk() / 3) {
-			return false;
-		}
-		if (biome.is(WWBiomeTags.JELLYFISH_SPECIAL_SPAWN)) {
+		if (biome.is(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) {
 			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) return true;
 		}
 		int seaLevel = level.getSeaLevel();

@@ -36,7 +36,7 @@ public final class WWMinecraftDataFixer {
 	// 4 is 25w04a (entity components + 25w02a w/ wildflowers)
 	// 5 is 25w05a (bush -> shrub)
 
-	public static final int DATA_VERSION = 4;
+	public static final int DATA_VERSION = 5;
 
 	private WWMinecraftDataFixer() {
 		throw new UnsupportedOperationException("WWMinecraftDataFixer contains only static declarations.");
