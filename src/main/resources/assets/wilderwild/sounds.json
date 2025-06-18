@@ -3517,7 +3517,7 @@
       {
         "name": "music.game",
         "type": "event",
-        "weight": 14
+        "weight": 20
       },
       {
         "name": "wilderwild:music/pictochats/anemone",
@@ -3537,7 +3537,7 @@
       {
         "name": "music.game",
         "type": "event",
-        "weight": 12
+        "weight": 20
       },
       {
         "name": "wilderwild:music/pictochats/anemone",
