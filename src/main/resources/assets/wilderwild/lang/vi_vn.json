@@ -29,7 +29,7 @@
   "biome.wilderwild.dying_mixed_forest": "Rừng Hỗn Hợp Sắp Chết",
   "biome.wilderwild.snowy_dying_mixed_forest": "Rừng Hỗn Hợp Sắp Chết Tuyết Phủ",
   "biome.wilderwild.tundra": "Lãnh Nguyên",
-  
+
   "item.wilderwild.baobab_nut": "Hạt cây Bao Báp",
   "item.wilderwild.baobab_boat": "Thuyền Gỗ Bao Báp",
   "item.wilderwild.baobab_chest_boat": "Thuyền Gỗ Bao Báp Có Rương",
@@ -141,6 +141,8 @@
 
   "item.wilderwild.willow_boat": "Thuyền Gỗ Liễu",
   "item.wilderwild.willow_chest_boat": "Thuyền Gỗ Liễu Có Rương",
+  "entity.wilderwild.willow_boat": "Thuyền Gỗ Liễu",
+  "entity.wilderwild.willow_chest_boat": "Thuyền Gỗ Liễu Có Rương",
   "block.wilderwild.willow_button": "Nút Gỗ Liễu",
   "block.wilderwild.willow_door": "Cửa Gỗ Liễu",
   "block.wilderwild.willow_fence": "Hàng Rào Gỗ Liễu",
@@ -227,6 +229,7 @@
   "block.wilderwild.potted_prickly_small_dripleaf": "Cây Cánh Cụt Nhỏ trong Chậu",
   "block.wilderwild.potted_short_grass": "Cỏ Thấp trong Chậu",
   "block.wilderwild.potted_pink_petals": "Cánh Hoa Hồng trong Chậu",
+
   "block.wilderwild.potted_bush": "Bụi Cây trong Chậu",
   "block.wilderwild.potted_firefly_bush": "Bụi Cây Đom Đóm trong Chậu",
   "block.wilderwild.potted_cactus_flower": "Hoa Xương Rồng trong Chậu",
@@ -467,7 +470,7 @@
   "subtitles.entity.butterfly.death": "Bướm chết",
   "subtitles.bottle.catch_butterfly": "Lọ chứa đầy bướm",
   "subtitles.bottle.release_butterfly": "Bướm được thả ra khỏi lọ",
-  
+
   "entity.wilderwild.jellyfish": "Sứa",
   "item.wilderwild.jellyfish_spawn_egg": "Trứng sinh ra Sứa",
   "subtitles.entity.jellyfish.ambient": "Sứa kêu ầm ầm",
@@ -545,9 +548,14 @@
   "subtitles.entity.tumbleweed.move": "Cây Bụi Lăn di chuyển",
   "subtitles.entity.tumbleweed.break": "Cây Bụi Lăn vỡ ra",
   "subtitles.entity.tumbleweed.damage": "Cây Bụi Lăn nứt ra",
+  "subtitles.entity.tumbleweed.cannonball.bounce": "Đạn Đại Bác nảy",
+  "subtitles.entity.tumbleweed.cannonball.roll": "Đạn Đại Bác lăn",
+  "subtitles.entity.tumbleweed.cannonball.break": "Đạn Đại Bác vỡ",
+  "subtitles.entity.tumbleweed.cannonball.damage": "Đạn Đại Bác trúng",
   "death.attack.tumbleweed": "%1$s bị cuốn bay",
   "death.attack.tumbleweed.item": "%1$s bị cuốn bay bởi %2$s dùng %3$s",
-
+  "death.attack.cannonball": "%1$s đã bị trúng đạn đại bác",
+  "death.attack.cannonball.item": "%1$s đã bị %2$s bắn đạn đại bác bằng %3$s",
   "subtitles.entity.warden.brap": "Warden làm hôi nơi này",
   "subtitles.entity.warden.dying_underwater": "Warden kêu ục ục",
   "subtitles.entity.warden.stella_heartbeat": "Tim của Warden đập",
@@ -644,7 +652,7 @@
   "tooltip.wilderwild.max_termite_distance": "Kiểm soát khoảng cách tối đa mà mối có thể sống từ đống mối của chúng.",
   "option.wilderwild.max_natural_termite_distance": "Khoảng Cách Tối Đa Từ Đống Mối Tự Nhiên",
   "tooltip.wilderwild.max_natural_termite_distance": "Kiểm soát khoảng cách tối đa mà mối có thể sống từ đống mối của chúng\nkhi đống mối được tạo ra tự nhiên.",
-  
+
   "option.wilderwild.block_sounds": "Âm Thanh Khối",
   "tooltip.wilderwild.block_sounds": "Bao gồm các tùy chọn để ghi đè âm thanh khối.",
   "option.wilderwild.cactus_sounds": "Âm Thanh Xương Rồng",
@@ -1085,7 +1093,7 @@
   "option.wilderwild.biome.true": "§aBật",
 
   "option.wilderwild.misc": "Không Gian & Khác",
-  
+
   "option.wilderwild.biome_ambience": "Không Gian Sinh Thái",
   "tooltip.wilderwild.biome_ambience": "Chứa các tùy chọn cho không gian sinh thái.",
   "option.wilderwild.deep_dark_ambience": "Không Gian Vùng Tối Sâu",
@@ -1110,7 +1118,7 @@
   "tooltip.wilderwild.magmatic_caves_fog": "Có nên làm cho sương mù ở hang Dung Nham trở nên tối đen hay không.",
   "option.wilderwild.magmatic_caves_particles": "Hạt Phấn Trong Hang Động Dung Nham",
   "tooltip.wilderwild.magmatic_caves_particles": "Có nên tạo các hạt khói trong hang Dung Nham hay không.",
-  
+
   "option.wilderwild.modify_advancements": "Chỉnh Sửa Thành Tựu",
   "tooltip.wilderwild.modify_advancements": "Có nên chỉnh sửa thành tựu theo tiêu chí của Wilder Wild hay không. Tắt nếu gặp vấn đề tương thích.",
   "option.wilderwild.vegetation_colors": "Màu Sắc Thảm Thực Vật",
