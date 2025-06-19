@@ -183,7 +183,8 @@
               "weight": 1
             }
           ]
-        }
+        },
+        "vertical_placement_offset": 1
       },
       "placement_chance": 0.75,
       "replacement_block_predicate": {
@@ -363,7 +364,8 @@
             "weight": 1
           }
         ]
-      }
+      },
+      "vertical_placement_offset": 1
     },
     "heightmap": "MOTION_BLOCKING_NO_LEAVES",
     "placement_radius": {

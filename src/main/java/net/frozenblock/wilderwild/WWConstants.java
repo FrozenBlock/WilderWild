@@ -38,33 +38,23 @@ public final class WWConstants {
 
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {
-		if (shouldLog) {
-			LOGGER.info(message);
-		}
+		if (shouldLog) LOGGER.info(message);
 	}
 
 	public static void logWithModId(String message, boolean shouldLog) {
-		if (shouldLog) {
-			LOGGER.info(message + " " + MOD_ID);
-		}
+		if (shouldLog) LOGGER.info(message + " " + MOD_ID);
 	}
 
 	public static void warn(String message, boolean shouldLog) {
-		if (shouldLog) {
-			LOGGER.warn(message);
-		}
+		if (shouldLog) LOGGER.warn(message);
 	}
 
 	public static void error(String message, boolean shouldLog) {
-		if (shouldLog) {
-			LOGGER.error(message);
-		}
+		if (shouldLog) LOGGER.error(message);
 	}
 
 	public static void printStackTrace(String message, boolean shouldPrint) {
-		if (shouldPrint) {
-			LOGGER.error(message, new Throwable(message).fillInStackTrace());
-		}
+		if (shouldPrint) LOGGER.error(message, new Throwable(message).fillInStackTrace());
 	}
 
 	@NotNull

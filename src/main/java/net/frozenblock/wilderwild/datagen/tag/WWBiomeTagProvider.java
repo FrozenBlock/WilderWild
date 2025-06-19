@@ -212,8 +212,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.builder(WWBiomeTags.HAS_JUNGLE_MUSIC)
 			.addOptional(Biomes.JUNGLE);
+
 		this.builder(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC)
 			.addOptional(Biomes.BAMBOO_JUNGLE);
+
 		this.builder(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC)
 			.addOptional(Biomes.SPARSE_JUNGLE);
 
@@ -224,6 +226,19 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(Biomes.ICE_SPIKES)
 			.addOptional(Biomes.FROZEN_RIVER)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.builder(WWBiomeTags.HAS_OCEAN_MUSIC)
+			.addOptional(Biomes.OCEAN)
+			.addOptional(Biomes.DEEP_OCEAN)
+			.addOptional(Biomes.COLD_OCEAN)
+			.addOptional(Biomes.DEEP_COLD_OCEAN)
+			.addOptional(Biomes.FROZEN_OCEAN)
+			.addOptional(Biomes.DEEP_FROZEN_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_WARM_OCEAN_MUSIC)
+			.addOptional(Biomes.WARM_OCEAN)
+			.addOptional(Biomes.LUKEWARM_OCEAN)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 
 		this.builder(WWBiomeTags.HAS_MAPLE_MUSIC)
 			.addOptional(WWBiomes.MAPLE_FOREST)

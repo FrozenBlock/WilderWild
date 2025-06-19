@@ -89,7 +89,8 @@ Willow/pictochats_:
     - Amber
     - Dahlia
     - Espial
-     - Title Screen Version
+    - Espial (Title Screen Version)
+    - Anemone
  - Penguin step sounds.
 
 LudoCrypt:
@@ -99,10 +100,6 @@ LudoCrypt:
     - Dove (https://ludocrypt.bandcamp.com/track/dove)
 
 Contributors:
-
-C418:
- - Flake (From Minecraft - Volume Beta: https://c418.bandcamp.com/album/minecraft-volume-beta)
- - Excuse (From Minecraft - Volume Alpha: https://c418.bandcamp.com/album/minecraft-volume-alpha)
 
 DaDolphin:
  - Original Penguin walking, laying down, sliding, wading, standing up, and calling animations.

@@ -24,12 +24,7 @@ import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 
-public record WillowRootPlacement(
-	HolderSet<Block> canGrowThrough,
-	int maxRootWidth,
-	int maxRootLength,
-	float randomSkewChance
-) {
+public record WillowRootPlacement(HolderSet<Block> canGrowThrough, int maxRootWidth, int maxRootLength, float randomSkewChance) {
 	public static final Codec<WillowRootPlacement> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 				RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_grow_through").forGetter(willowRootPlacement -> willowRootPlacement.canGrowThrough),

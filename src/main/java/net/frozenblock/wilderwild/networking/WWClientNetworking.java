@@ -87,16 +87,18 @@ public final class WWClientNetworking {
 	public static void receiveLightningStrikePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWLightningStrikePacket.PACKET_TYPE, (packet, ctx) -> {
 			BlockState blockState = Block.stateById(packet.blockStateId());
+			if (blockState.isAir()) return;
+
 			Minecraft minecraft = Minecraft.getInstance();
 			ClientLevel clientLevel = ctx.client().level;
-			if (!blockState.isAir()) {
-				RandomSource random = clientLevel.getRandom();
-				if (WWEntityConfig.get().lightning.lightningBlockParticles) {
-					lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
-				}
-				if (WWEntityConfig.get().lightning.lightningSmokeParticles) {
-					lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
-				}
+			RandomSource random = clientLevel.getRandom();
+
+			WWEntityConfig.LightningConfig lightningConfig = WWEntityConfig.get().lightning;
+			if (lightningConfig.lightningBlockParticles) {
+				lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
+			}
+			if (lightningConfig.lightningSmokeParticles) {
+				lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
 			}
 		});
 	}
@@ -104,13 +106,12 @@ public final class WWClientNetworking {
 	public static void receiveStoneChestLidPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, ctx) -> {
 			ClientLevel clientLevel = ctx.client().level;
-			if (clientLevel.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
-				stoneChestBlockEntity.openProgress = packet.openProgress();
-				stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
-				stoneChestBlockEntity.cooldownTicks = packet.cooldownTicks();
-				stoneChestBlockEntity.stillLidTicks = packet.stillLidTicks();
-				stoneChestBlockEntity.closing = packet.closing();
-			}
+			if (!(clientLevel.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity)) return;
+			stoneChestBlockEntity.openProgress = packet.openProgress();
+			stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
+			stoneChestBlockEntity.cooldownTicks = packet.cooldownTicks();
+			stoneChestBlockEntity.stillLidTicks = packet.stillLidTicks();
+			stoneChestBlockEntity.closing = packet.closing();
 		});
 	}
 

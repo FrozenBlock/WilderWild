@@ -123,7 +123,7 @@ public final class WWCavePlaced {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		WWConstants.log("Registering WWCavePlaced.", true);
+		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 
 		// MESOGLEA CAVES
 

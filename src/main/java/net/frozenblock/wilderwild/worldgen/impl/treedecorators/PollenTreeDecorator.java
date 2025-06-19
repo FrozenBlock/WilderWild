@@ -61,25 +61,21 @@ public class PollenTreeDecorator extends TreeDecorator {
 		if (!WWWorldgenConfig.GENERATE_POLLEN) return;
 
 		RandomSource random = context.random();
-		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
-			poses.addAll(context.leaves());
-			Util.shuffle(poses, random);
-			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			int placedPollen = 0;
-			BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
-			for (BlockPos pos : poses) {
-				if (placedPollen >= this.maxCount) return;
+		if (random.nextFloat() > this.probability) return;
 
-				for (Direction direction : Direction.values()) {
-					mutableBlockPos.setWithOffset(pos, direction);
-					if (context.isAir(mutableBlockPos)) {
-						if (random.nextFloat() <= this.placementChance) {
-							context.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
-							placedPollen += 1;
-						}
-					}
-				}
+		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		poses.addAll(context.leaves());
+		Util.shuffle(poses, random);
+		BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
+
+		int placedPollen = 0;
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : poses) {
+			if (placedPollen >= this.maxCount) return;
+			for (Direction direction : Direction.values()) {
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
+				placedPollen += 1;
 			}
 		}
 	}

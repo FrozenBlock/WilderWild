@@ -164,7 +164,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("feature/small_coarse_dirt_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("feature/packed_mud_path_badlands_replaceable");
 	public static final TagKey<Block> POLLEN_FEATURE_PLACEABLE = bind("feature/pollen_feature_placeable");
-	public static final TagKey<Block> RED_CREEPING_MOSS_FEATURE_PLACEABLE = bind("feature/red_creeping_moss_feature_placeable");
+	public static final TagKey<Block> AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE = bind("feature/auburn_creeping_moss_feature_placeable");
 	public static final TagKey<Block> BARNACLES_FEATURE_PLACEABLE = bind("feature/barnacles_feature_placeable");
 	public static final TagKey<Block> BARNACLES_FEATURE_PLACEABLE_STRUCTURE = bind("feature/barnacles_feature_placeable_structure");
 	public static final TagKey<Block> SEA_ANEMONE_FEATURE_CANNOT_PLACE = bind("feature/sea_anemone_feature_cannot_place");

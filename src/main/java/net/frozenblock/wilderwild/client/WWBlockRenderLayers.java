@@ -179,8 +179,8 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
 		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
 		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT_MIPPED);
+		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
 	}
 }

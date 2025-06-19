@@ -376,6 +376,8 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES = registerForHolder("music.overworld.wilder_bamboo_jungles");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES = registerForHolder("music.overworld.wilder_sparse_jungles");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_SNOWY = registerForHolder("music.overworld.wilder_snowy");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_OCEANS = registerForHolder("music.overworld.wilder_oceans");
+	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_WARM_OCEANS = registerForHolder("music.overworld.wilder_warm_oceans");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_FROZEN_CAVES = registerForHolder("music.overworld.frozen_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MESOGLEA_CAVES = registerForHolder("music.overworld.mesoglea_caves");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_MAGMATIC_CAVES = registerForHolder("music.overworld.magmatic_caves");

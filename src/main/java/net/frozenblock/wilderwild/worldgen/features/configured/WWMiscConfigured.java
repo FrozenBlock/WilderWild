@@ -55,7 +55,6 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
-import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -176,7 +175,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
 
 	// AUBURN MOSS
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH = register("auburn_moss_patch");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS = register("red_moss");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
@@ -1104,11 +1103,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1133,11 +1134,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1162,11 +1165,13 @@ public final class WWMiscConfigured {
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
 					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
 							.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.verticalPlacementOffset(1)
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1174,12 +1179,35 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_MOSS_VEGETATION.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(
-				new WeightedStateProvider(
-						WeightedList.<BlockState>builder()
-						.add(WWBlocks.AUBURN_CREEPING_MOSS.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true), 3)
-						.add(WWBlocks.AUBURN_MOSS_CARPET.defaultBlockState(), 1)
+		AUBURN_MOSS_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.SIMPLE_BLOCK,
+							new SimpleBlockConfiguration(
+								BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET)
+							),
+							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+						),
+						0.275F
+					)
+				),
+				PlacementUtils.inlinePlaced(
+					Feature.MULTIFACE_GROWTH,
+					new MultifaceGrowthConfiguration(
+						WWBlocks.AUBURN_CREEPING_MOSS,
+						1,
+						true,
+						false,
+						true,
+						0.5F,
+						new HolderSet.Named<>(
+							BuiltInRegistries.BLOCK,
+							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
+						)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 				)
 			)
 		);
@@ -1259,7 +1287,7 @@ public final class WWMiscConfigured {
 						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK,
-							WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE
+							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
 						)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
