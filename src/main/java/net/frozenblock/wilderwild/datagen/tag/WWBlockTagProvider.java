@@ -236,7 +236,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRASS_BLOCK)
 			.addOptionalTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
-		
+
 		this.valueLookupBuilder(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
 			.add(Blocks.PRISMARINE)
 			.add(Blocks.PRISMARINE_BRICKS)
