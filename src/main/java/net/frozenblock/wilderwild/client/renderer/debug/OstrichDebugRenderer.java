@@ -48,9 +48,7 @@ public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRend
 	}
 
 	public void tick() {
-		this.surroundEntities = ImmutableList.copyOf(
-			this.minecraft.level.entitiesForRendering()
-		);
+		this.surroundEntities = ImmutableList.copyOf(this.minecraft.level.entitiesForRendering());
 	}
 
 	@Override
@@ -60,8 +58,8 @@ public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRend
 
 	@Override
 	public void render(PoseStack matrices, @NotNull MultiBufferSource vertexConsumers, double cameraX, double cameraY, double cameraZ) {
-		for (Entity entity2 : this.surroundEntities) {
-			if (entity2 instanceof Ostrich ostrich) {
+		for (Entity entity : this.surroundEntities) {
+			if (entity instanceof Ostrich ostrich) {
 				AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
 				LevelRenderer.renderLineBox(
 					matrices,

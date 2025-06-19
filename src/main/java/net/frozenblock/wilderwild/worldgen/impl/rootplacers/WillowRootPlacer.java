@@ -99,10 +99,9 @@ public class WillowRootPlacer extends RootPlacer {
 		int maxLength = this.willowRootPlacement.maxRootLength();
 		if (i != maxLength && list.size() <= maxLength) {
 			for (BlockPos blockPos3 : this.potentialRootPositions(blockPos, direction, randomSource, blockPos2)) {
-				if (this.canPlaceRoot(levelSimulatedReader, blockPos3)) {
-					list.add(blockPos3);
-					if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) return false;
-				}
+				if (!this.canPlaceRoot(levelSimulatedReader, blockPos3)) continue;
+				list.add(blockPos3);
+				if (!this.simulateRoots(levelSimulatedReader, randomSource, blockPos3, direction, blockPos2, list, i + 1)) return false;
 			}
 
 			return true;
@@ -127,16 +126,16 @@ public class WillowRootPlacer extends RootPlacer {
 		RandomSource randomSource,
 		BlockPos blockPos2
 	) {
-		BlockPos blockPos3 = blockPos.below();
-		BlockPos blockPos4 = blockPos.relative(direction);
+		BlockPos belowPos = blockPos.below();
+		BlockPos offsetPos = blockPos.relative(direction);
 		int i = blockPos.distManhattan(blockPos2);
 		int j = this.willowRootPlacement.maxRootWidth();
 		float f = this.willowRootPlacement.randomSkewChance();
 
-		if (i > j - 3 && i <= j) return randomSource.nextFloat() < f ? List.of(blockPos3, blockPos4.below()) : List.of(blockPos3);
-		if (i > j) return List.of(blockPos3);
-		if (randomSource.nextFloat() < f) return List.of(blockPos3);
-		return randomSource.nextBoolean() ? List.of(blockPos4) : List.of(blockPos3);
+		if (i > j - 3 && i <= j) return randomSource.nextFloat() < f ? List.of(belowPos, offsetPos.below()) : List.of(belowPos);
+		if (i > j) return List.of(belowPos);
+		if (randomSource.nextFloat() < f) return List.of(belowPos);
+		return randomSource.nextBoolean() ? List.of(offsetPos) : List.of(belowPos);
 	}
 
 	@Override

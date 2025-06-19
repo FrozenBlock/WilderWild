@@ -56,19 +56,16 @@ public class AboveLogsTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context context) {
 		RandomSource random = context.random();
-		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
-			poses.addAll(context.leaves());
-			Util.shuffle(poses, random);
-			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			for (BlockPos pos : poses) {
-				mutableBlockPos.set(pos).move(Direction.UP);
-				if (context.isAir(mutableBlockPos)) {
-					if (random.nextFloat() <= this.placementChance) {
-						context.setBlock(mutableBlockPos, this.blockStateProvider.getState(random, mutableBlockPos));
-					}
-				}
-			}
+		if (random.nextFloat() > this.probability) return;
+
+		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		poses.addAll(context.leaves());
+		Util.shuffle(poses, random);
+
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : poses) {
+			if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, Direction.UP))) continue;
+			context.setBlock(mutableBlockPos, this.blockStateProvider.getState(random, mutableBlockPos));
 		}
 	}
 }

@@ -3398,19 +3398,10 @@
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 3
-      },
-      {
         "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
         "weight": 2
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
       },
       {
         "name": "wilderwild:music/pictochats/molt",
@@ -3665,11 +3656,6 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 2
-      },
-      {
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "weight": 3
@@ -3758,12 +3744,7 @@
       {
         "name": "music.overworld.forest",
         "type": "event",
-        "volume": 0.2,
-        "weight": 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
+        "volume": 0.2
       }
     ]
   },
@@ -3772,12 +3753,7 @@
       {
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
-        "volume": 0.2,
-        "weight": 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
+        "volume": 0.2
       }
     ]
   },

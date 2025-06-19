@@ -34,15 +34,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class MapleFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
-		(instance) -> mapleFoliagePlacerParts(instance).apply(instance, MapleFoliagePlacer::new)
+		instance -> mapleFoliagePlacerParts(instance).apply(instance, MapleFoliagePlacer::new)
 	);
 
 	@Contract("_ -> new")
 	protected static <P extends MapleFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> mapleFoliagePlacerParts(
 		RecordCodecBuilder.Instance<P> instance
 	) {
-		return foliagePlacerParts(instance)
-			.and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length));
+		return foliagePlacerParts(instance).and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length));
 	}
 
 	protected final IntProvider length;

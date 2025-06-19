@@ -80,17 +80,15 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		if (isSmall) {
 			tryPlaceLeaf(world, placer, random, config, topLayerPos);
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				mutablePos.setWithOffset(topLayerPos, direction);
-				tryPlaceLeaf(world, placer, random, config, mutablePos);
+				tryPlaceLeaf(world, placer, random, config, mutablePos.setWithOffset(topLayerPos, direction));
 			}
 		} else {
 			for (int xOff = -radius; xOff <= radius; ++xOff) {
 				for (int zOff = -radius; zOff <= radius; ++zOff) {
 					mutablePos.setWithOffset(topLayerPos, xOff, 0, zOff);
 					Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
-					if (placePosCenter.closerThan(topLayerCenter, radius + 0.5D)) {
-						tryPlaceLeaf(world, placer, random, config, mutablePos);
-					}
+					if (!placePosCenter.closerThan(topLayerCenter, radius + 0.5D)) continue;
+					tryPlaceLeaf(world, placer, random, config, mutablePos);
 				}
 			}
 		}
@@ -117,11 +115,9 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		}
 
 		for (BlockPos frondPos : frondPoses) {
-			int frondLength;
-			frondLength = this.frondLength.sample(random);
+			int frondLength = this.frondLength.sample(random);
 			for (int i = 0; i < frondLength; ++i) {
-				mutablePos.setWithOffset(frondPos, 0, -i, 0);
-				tryPlaceLeaf(world, placer, random, config, mutablePos);
+				tryPlaceLeaf(world, placer, random, config, mutablePos.setWithOffset(frondPos, 0, -i, 0));
 			}
 		}
 	}

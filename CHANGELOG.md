@@ -8,6 +8,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - `Anemone` by `pictochats_` plays most commonly in warmer Ocean biomes.
   - `Espial` by `pictochats` plays most commonly in all other Ocean biomes.
   - Added a config option to toggle Wilder Wild's Ocean music.
+- Removed the songs `Excuse` and `Flake` by `C418` as obfuscated ogg files no longer work in Minecraft.
 - Fixed Doors not using the proper item class.
 - Jellyfish and Butterflies have had their spawning logic vastly simplified, now using Vanilla's Spawn Charge/Cost system.
   - As a result of this change, the following changes have been made:
@@ -16,9 +17,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
       - This tag now dictates which biomes (of the ones they can spawn in) Jellyfish can spawn more frequently and closer together in.
     - The `wilderwild:entity/spawn/butterfly` biome tag now dictates all biomes Butterflies can spawn in.
     - The `wilderwild:entity/spawn/common_butterfly` biome tag has been replaced with the `wilderwild:entity/spawn/butterfly_common_spawn` biome tag.
-        - This tag now dictates which biomes (of the ones they can spawn in) Butterflies can spawn more frequently and closer together in.
+      - This tag now dictates which biomes (of the ones they can spawn in) Butterflies can spawn more frequently and closer together in.
 - Renamed the `wilderwild:feature/red_creeping_moss_feature_placeable` block tag to `wilderwild:feature/auburn_creeping_moss_feature_placeable`.
 - Auburn Creeping Moss generated in Auburn Moss patches can now generate on the sides of blocks.
 - Fixed the Bush not datafixing into the Shrub in 1.21.5+ due to an incorrect DataVersion.
 - Fixed Maple Leaf Litters not generating as intended.
 - Fixed the Leaf Litter model being raised too high above the ground on versions prior to 1.21.5.
+- Misc. internal cleanup.
