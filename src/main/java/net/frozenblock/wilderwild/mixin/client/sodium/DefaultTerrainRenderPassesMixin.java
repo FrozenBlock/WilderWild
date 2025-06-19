@@ -17,14 +17,13 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.DefaultTerrainRenderPasses;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,9 +44,9 @@ public abstract class DefaultTerrainRenderPassesMixin {
 		require = 0
 	)
 	private static TerrainRenderPass wilderwild$allowFragmentDiscardOnTranslucent(
-		RenderType renderType, boolean isTranslucent, boolean allowFragmentDiscard, Operation<TerrainRenderPass> original
+		ChunkSectionLayer chunkSectionLayer, boolean isTranslucent, boolean allowFragmentDiscard, Operation<TerrainRenderPass> original
 	) {
-		return original.call(renderType, isTranslucent, true);
+		return original.call(chunkSectionLayer, isTranslucent, true);
 	}
 
 }
