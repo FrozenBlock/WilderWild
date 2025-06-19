@@ -423,6 +423,13 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var wilderOceanMusic = entryBuilder.startBooleanToggle(text("wilder_ocean_music"), music.wilderOceanMusic)
+			.setDefaultValue(defaultConfig.music.wilderOceanMusic)
+			.setSaveConsumer(newValue -> music.wilderOceanMusic = newValue)
+			.setTooltip(tooltip("wilder_ocean_music"))
+			.requireRestart()
+			.build();
+
 		var wilderExtraMusic = entryBuilder.startBooleanToggle(text("wilder_extra_music"), music.wilderExtraMusic)
 			.setDefaultValue(defaultConfig.music.wilderExtraMusic)
 			.setSaveConsumer(newValue -> music.wilderExtraMusic = newValue)
@@ -446,7 +453,9 @@ public final class WWAmbienceAndMiscConfigGui {
 		var musicCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("music"),
 			false,
 			tooltip("music"),
-			wilderForestMusic, wilderLushCavesMusic, wilderDripstoneCavesMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic,
+			wilderForestMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic,
+			wilderOceanMusic,
+			wilderLushCavesMusic, wilderDripstoneCavesMusic,
 			wilderExtraMusic,
 			ancientCityMusic,
 			distortedDyingForestMusic

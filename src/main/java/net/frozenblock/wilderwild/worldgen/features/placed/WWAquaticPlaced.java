@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.worldgen.features.placed;
 
-import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.worldgen.features.WWPlacementUtils;
@@ -35,12 +34,9 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("cattail");
@@ -316,16 +312,6 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
-	}
-
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
-		return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
-	}
-
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
-		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 
 }

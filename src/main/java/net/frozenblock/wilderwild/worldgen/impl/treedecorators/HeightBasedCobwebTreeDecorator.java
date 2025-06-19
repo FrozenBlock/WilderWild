@@ -57,19 +57,17 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context context) {
 		RandomSource random = context.random();
-		if (random.nextFloat() <= this.probability) {
-			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			BlockState blockState = Blocks.COBWEB.defaultBlockState();
-			List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
-			for (BlockPos pos : logs) {
-				if (pos.getY() <= this.maxHeight) {
-					for (Direction direction : Direction.Plane.HORIZONTAL) {
-						if (random.nextFloat() <= this.placementChance) {
-							mutableBlockPos.setWithOffset(pos, direction);
-							if (context.isAir(mutableBlockPos)) context.setBlock(mutableBlockPos, blockState);
-						}
-					}
-				}
+		if (random.nextFloat() > this.probability) return;
+
+		BlockState blockState = Blocks.COBWEB.defaultBlockState();
+		List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
+
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : logs) {
+			if (pos.getY() > this.maxHeight) continue;
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutableBlockPos, blockState);
 			}
 		}
 	}

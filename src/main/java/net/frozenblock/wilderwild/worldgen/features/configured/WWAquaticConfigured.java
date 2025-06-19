@@ -436,7 +436,7 @@ public final class WWAquaticConfigured {
 						0.7F,
 						new HolderSet.Named<>(
 							BuiltInRegistries.BLOCK,
-							WWBlockTags.RED_CREEPING_MOSS_FEATURE_PLACEABLE
+							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
 						)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)

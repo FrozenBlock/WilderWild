@@ -118,20 +118,17 @@ public class MobBottleItem extends Item {
 		if (customData.isEmpty()) return;
 		if (this.type == WWEntityTypes.BUTTERFLY) {
 			Optional<ResourceLocation> optional = customData.read(BUTTERFLY_VARIANT_FIELD_CODEC).result();
-			if (optional.isPresent()) {
-				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				ResourceLocation variantKey = optional.get();
-				list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
-			}
+			if (optional.isEmpty()) return;
+			ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+			ResourceLocation variantKey = optional.get();
+			list.add(Component.translatable(variantKey.getNamespace() + ".butterfly.variant." + variantKey.getPath()).withStyle(chatFormattings));
 		} else if (this.type == WWEntityTypes.FIREFLY) {
 			Optional<ResourceLocation> optional = customData.read(FIREFLY_VARIANT_FIELD_CODEC).result();
-			if (optional.isPresent()) {
-				ResourceLocation colorKey = optional.get();
-				if (colorKey.equals(FireflyColors.DEFAULT.location())) return;
-
-				ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-				list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
-			}
+			if (optional.isEmpty()) return;
+			ResourceLocation colorKey = optional.get();
+			if (colorKey.equals(FireflyColors.DEFAULT.location())) return;
+			ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+			list.add(Component.translatable(colorKey.getNamespace() + ".firefly.color." + colorKey.getPath()).withStyle(chatFormattings));
 		}
 	}
 

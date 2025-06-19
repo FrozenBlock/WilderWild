@@ -54,11 +54,8 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		SoundEvent soundEvent, Level level, BlockPos blockPos, BlockState blockState
 	) {
 		if (blockState.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
-			if (soundEvent == SoundEvents.CHEST_OPEN) {
-				soundEvent = WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
-			} else if (soundEvent == SoundEvents.CHEST_CLOSE) {
-				soundEvent = WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
-			}
+			if (soundEvent == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
+			if (soundEvent == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
 		}
 		return soundEvent;
 	}
@@ -67,7 +64,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level == null) return;
-		if (this.wilderWild$canBubble && state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
+		if (this.wilderWild$canBubble && state.getOptionalValue(BlockStateProperties.WATERLOGGED).orElse(false)) {
 			wilderWild$sendBubbleSeedParticle(level, pos);
 			this.wilderWild$canBubble = false;
 			Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
@@ -80,20 +77,19 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	private static void wilderWild$sendBubbleSeedParticle(Level level, BlockPos pos) {
-		if (level instanceof ServerLevel serverLevel) {
-			Vec3 centerPos = Vec3.atCenterOf(pos);
-			serverLevel.sendParticles(
-				WWParticleTypes.CHEST_BUBBLE_SPAWNER,
-				centerPos.x(),
-				centerPos.y(),
-				centerPos.z(),
-				1,
-				0D,
-				0D,
-				0D,
-				0D
-			);
-		}
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		Vec3 centerPos = Vec3.atCenterOf(pos);
+		serverLevel.sendParticles(
+			WWParticleTypes.CHEST_BUBBLE_SPAWNER,
+			centerPos.x(),
+			centerPos.y(),
+			centerPos.z(),
+			1,
+			0D,
+			0D,
+			0D,
+			0D
+		);
 	}
 
 	@Unique
@@ -120,9 +116,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
 	public void load(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo info) {
-		if (tag.contains("wilderwild_can_bubble")) {
-			this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
-		}
+		if (tag.contains("wilderwild_can_bubble")) this.wilderWild$canBubble = tag.getBoolean("wilderwild_can_bubble");
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))

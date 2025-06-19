@@ -1,34 +1,64 @@
 {
-  "type": "minecraft:simple_block",
+  "type": "minecraft:random_selector",
   "config": {
-    "to_place": {
-      "type": "minecraft:weighted_state_provider",
-      "entries": [
+    "default": {
+      "feature": {
+        "type": "minecraft:multiface_growth",
+        "config": {
+          "block": "wilderwild:auburn_creeping_moss",
+          "can_be_placed_on": "#wilderwild:feature/auburn_creeping_moss_feature_placeable",
+          "can_place_on_ceiling": false,
+          "can_place_on_floor": true,
+          "can_place_on_wall": true,
+          "chance_of_spreading": 0.5,
+          "search_range": 1
+        }
+      },
+      "placement": [
         {
-          "data": {
-            "Name": "wilderwild:auburn_creeping_moss",
-            "Properties": {
-              "down": "true",
-              "east": "false",
-              "north": "false",
-              "south": "false",
-              "up": "false",
-              "waterlogged": "false",
-              "west": "false"
-            }
-          },
-          "weight": 3
-        },
-        {
-          "data": {
-            "Name": "wilderwild:auburn_moss_carpet",
-            "Properties": {
-              "waterlogged": "false"
-            }
-          },
-          "weight": 1
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+              "minecraft:air",
+              "minecraft:water"
+            ]
+          }
         }
       ]
-    }
+    },
+    "features": [
+      {
+        "chance": 0.275,
+        "feature": {
+          "feature": {
+            "type": "minecraft:simple_block",
+            "config": {
+              "to_place": {
+                "type": "minecraft:simple_state_provider",
+                "state": {
+                  "Name": "wilderwild:auburn_moss_carpet",
+                  "Properties": {
+                    "waterlogged": "false"
+                  }
+                }
+              }
+            }
+          },
+          "placement": [
+            {
+              "type": "minecraft:block_predicate_filter",
+              "predicate": {
+                "type": "minecraft:matching_blocks",
+                "blocks": [
+                  "minecraft:air",
+                  "minecraft:water"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }
