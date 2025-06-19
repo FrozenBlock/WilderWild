@@ -41,10 +41,9 @@ public class LavaFluidMixin {
 		)
 	)
 	public void wilderWild$randomTick(Level level, BlockPos pos, FluidState state, RandomSource random, CallbackInfo info) {
-		if (random.nextFloat() <= 0.275F) {
-			BlockPos belowPos = pos.below();
-			ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);
-		}
+		if (random.nextFloat() > 0.275F) return;
+		BlockPos belowPos = pos.below();
+		ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);
 	}
 
 }

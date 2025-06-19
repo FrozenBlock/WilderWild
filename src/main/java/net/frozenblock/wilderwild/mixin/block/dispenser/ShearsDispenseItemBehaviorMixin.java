@@ -83,41 +83,31 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearShelfFungi(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() instanceof ShelfFungiBlock) {
-			return ShelfFungiBlock.onShear(level, pos, blockState, null);
-		}
+		if (blockState.getBlock() instanceof ShelfFungiBlock) return ShelfFungiBlock.onShear(level, pos, blockState, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearSpongeBud(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.SPONGE_BUD) {
-			return SpongeBudBlock.onShear(level, pos, blockState, null);
-		}
+		if (blockState.getBlock() == WWBlocks.SPONGE_BUD) return SpongeBudBlock.onShear(level, pos, blockState, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweed(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.TUMBLEWEED) {
-			return TumbleweedBlock.onShear(level, pos, null);
-		}
+		if (blockState.getBlock() == WWBlocks.TUMBLEWEED) return TumbleweedBlock.onShear(level, pos, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweedStem(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.TUMBLEWEED_PLANT) {
-			return TumbleweedPlantBlock.onShear(level, pos, blockState, null);
-		}
+		if (blockState.getBlock() == WWBlocks.TUMBLEWEED_PLANT) return TumbleweedPlantBlock.onShear(level, pos, blockState, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearBush(@NotNull BlockState blockState, @NotNull ServerLevel level, BlockPos pos) {
-		if (blockState.getBlock() instanceof WilderBushBlock bushBlock) {
-			return bushBlock.onShear(level, pos, blockState, null);
-		}
+		if (blockState.getBlock() instanceof WilderBushBlock bushBlock) return bushBlock.onShear(level, pos, blockState, null);
 		return false;
 	}
 

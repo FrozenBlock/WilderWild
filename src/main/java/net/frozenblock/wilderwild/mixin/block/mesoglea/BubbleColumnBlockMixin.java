@@ -85,13 +85,11 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		CallbackInfo info,
 		@Local(ordinal = 0) BlockPos.MutableBlockPos mutableBlockPos
 	) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			BlockState mutableState = level.getBlockState(mutableBlockPos);
-			if (!canExistIn(mutableState)) {
-				MesogleaBlock.updateColumn(level, mutableBlockPos, state);
-				info.cancel();
-			}
-		}
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		BlockState mutableState = level.getBlockState(mutableBlockPos);
+		if (canExistIn(mutableState)) return;
+		MesogleaBlock.updateColumn(level, mutableBlockPos, state);
+		info.cancel();
 	}
 
 	@Shadow

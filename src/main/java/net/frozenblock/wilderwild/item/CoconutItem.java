@@ -71,9 +71,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			level.addFreshEntity(coconut);
 		}
 		player.awardStat(Stats.ITEM_USED.get(this));
-		if (!player.getAbilities().instabuild) {
-			itemStack.shrink(1);
-		}
+		if (!player.getAbilities().instabuild) itemStack.shrink(1);
 		return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
 	}
 
