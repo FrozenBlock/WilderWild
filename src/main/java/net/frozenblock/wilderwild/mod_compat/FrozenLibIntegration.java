@@ -242,9 +242,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		);
 
 		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
-			if (container instanceof StoneChestBlockEntity) {
-				CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
-			}
+			if (!(container instanceof StoneChestBlockEntity)) return;
+			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
 		});
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
 

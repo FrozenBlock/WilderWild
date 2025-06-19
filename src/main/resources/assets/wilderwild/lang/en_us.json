@@ -1156,6 +1156,8 @@
   "tooltip.wilderwild.wilder_jungle_music": "Whether to use new music in Jungles.",
   "option.wilderwild.wilder_snowy_music": "Snowy Music",
   "tooltip.wilderwild.wilder_snowy_music": "Whether to use new music in Snowy biomes.",
+  "option.wilderwild.wilder_ocean_music": "Ocean Music",
+  "tooltip.wilderwild.wilder_ocean_music": "Whether to use new music in Ocean biomes.",
   "option.wilderwild.wilder_extra_music": "Extra Music",
   "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus and whilst Under Water.",
   "option.wilderwild.ancient_city_music": "Ancient City Music",

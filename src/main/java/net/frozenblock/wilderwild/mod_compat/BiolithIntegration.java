@@ -323,7 +323,8 @@ public class BiolithIntegration extends ModIntegration {
 				)
 			);
 
-/*			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+			/*
+			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				addSurfaceBiome(
 					WWBiomes.DYING_MIXED_FOREST,
 					biomeGeneration.generateTundra ? DyingForest.TEMPERATURE_TUNDRA : DyingMixedForest.TEMPERATURE,
@@ -332,7 +333,8 @@ public class BiolithIntegration extends ModIntegration {
 					point.erosion(),
 					point.weirdness()
 				);
-			}*/
+			}
+			*/
 		}
 
 		if (biomeGeneration.generateFlowerField) {

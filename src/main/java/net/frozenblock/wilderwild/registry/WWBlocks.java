@@ -1851,7 +1851,7 @@ public final class WWBlocks {
 
 	private static void registerBlockItem(Block block) {
 		BiFunction<Block, Item.Properties, Item> itemSupplier = BlockItem::new;
-		if (block instanceof DoorBlock) itemSupplier = DoubleHighBlockItem::new;
+		if (block instanceof DoorBlock || block instanceof TallFlowerBlock) itemSupplier = DoubleHighBlockItem::new;
 		Items.registerBlock(block, itemSupplier);
 	}
 

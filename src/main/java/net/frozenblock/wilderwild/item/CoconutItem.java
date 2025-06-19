@@ -68,9 +68,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, itemStack, player, 0F, 0.8F, 1.4F);
 		}
 		player.awardStat(Stats.ITEM_USED.get(this));
-		if (!player.getAbilities().instabuild) {
-			itemStack.shrink(1);
-		}
+		if (!player.getAbilities().instabuild) itemStack.shrink(1);
 		return InteractionResult.SUCCESS;
 	}
 

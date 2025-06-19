@@ -17,7 +17,7 @@
         "weight": 4
       },
       {
-        "name": "wilderwild:ambient/cave/deep_dark/clicking1",
+        "name": "wilderwild:ambient/cave/deep_dark/clicking1f",
         "volume": 0.1,
         "weight": 5
       },
@@ -3398,19 +3398,10 @@
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 3
-      },
-      {
         "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
         "weight": 2
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
       },
       {
         "name": "wilderwild:music/pictochats/molt",
@@ -3509,6 +3500,46 @@
       {
         "name": "music/game/mice_on_venus",
         "stream": true
+      }
+    ]
+  },
+  "music.overworld.wilder_oceans": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 20
+      },
+      {
+        "name": "wilderwild:music/pictochats/anemone",
+        "stream": true,
+        "volume": 0.7
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 3
+      }
+    ]
+  },
+  "music.overworld.wilder_warm_oceans": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 20
+      },
+      {
+        "name": "wilderwild:music/pictochats/anemone",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.7
       }
     ]
   },
@@ -3625,11 +3656,6 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 2
-      },
-      {
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "weight": 3
@@ -3718,12 +3744,7 @@
       {
         "name": "music.overworld.forest",
         "type": "event",
-        "volume": 0.2,
-        "weight": 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
+        "volume": 0.2
       }
     ]
   },
@@ -3732,12 +3753,7 @@
       {
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
-        "volume": 0.2,
-        "weight": 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
+        "volume": 0.2
       }
     ]
   },
