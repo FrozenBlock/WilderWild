@@ -354,6 +354,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_JUNGLE_MUSIC = bind("music_pool/has_jungle_music");
 	public static final TagKey<Biome> HAS_BAMBOO_JUNGLE_MUSIC = bind("music_pool/has_bamboo_jungle_music");
 	public static final TagKey<Biome> HAS_SPARSE_JUNGLE_MUSIC = bind("music_pool/has_sparse_jungle_music");
+	public static final TagKey<Biome> HAS_OCEAN_MUSIC = bind("music_pool/has_ocean_music");
+	public static final TagKey<Biome> HAS_WARM_OCEAN_MUSIC = bind("music_pool/has_warm_ocean_music");
 	public static final TagKey<Biome> HAS_FROZEN_MUSIC = bind("music_pool/has_frozen_music");
 	public static final TagKey<Biome> HAS_MAGMATIC_MUSIC = bind("music_pool/has_magmatic_music");
 	public static final TagKey<Biome> HAS_MESOGLEA_MUSIC = bind("music_pool/has_mesoglea_music");

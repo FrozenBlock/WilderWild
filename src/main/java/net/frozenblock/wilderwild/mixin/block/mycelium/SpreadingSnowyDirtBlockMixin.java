@@ -84,12 +84,11 @@ public class SpreadingSnowyDirtBlockMixin {
 		@Share("wilderWild$aboveState") LocalRef<BlockState> aboveStateRef,
 		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef
 	) {
-		if (defaultState.is(Blocks.MYCELIUM)) {
-			BlockState aboveState = aboveStateRef.get();
-			BlockPos abovePos = abovePosRef.get();
-			if (aboveState != null && abovePos != null && aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) {
-				world.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
-			}
+		if (!defaultState.is(Blocks.MYCELIUM)) return;
+		BlockState aboveState = aboveStateRef.get();
+		BlockPos abovePos = abovePosRef.get();
+		if (aboveState != null && abovePos != null && aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) {
+			world.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
 		}
 	}
 }

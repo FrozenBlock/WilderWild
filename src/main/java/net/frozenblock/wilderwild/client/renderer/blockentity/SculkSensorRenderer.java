@@ -61,49 +61,43 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	@NotNull
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
-		PartDefinition modelPartData = modelData.getRoot();
-		modelPartData.addOrReplaceChild(
-			"tendril1",
-			CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, 0F, 8F, 8F, 0.001F),
-			PartPose.offsetAndRotation(3F, 8F, 3F, 0, -TENDRIL_ANGLE, Mth.PI)
+		PartDefinition root = modelData.getRoot();
+		makeTendril(root, "tendril1", false, 3F, 3F, -TENDRIL_ANGLE);
+		makeTendril(root, "tendril2", true, 13F, 3F, TENDRIL_ANGLE);
+		makeTendril(root, "tendril3", false, 13F, 13F, -TENDRIL_ANGLE_SOUTH);
+		makeTendril(root, "tendril4", true, 3F, 13F,  TENDRIL_ANGLE_SOUTH);
+		return LayerDefinition.create(modelData, 16, 16);
+	}
+
+	private static void makeTendril(
+		PartDefinition root, String name, boolean mirror, float xPos, float zPos, float rot
+	) {
+		CubeListBuilder cubeListBuilder = CubeListBuilder.create().texOffs(0, 0);
+		if (mirror) cubeListBuilder.mirror();
+		cubeListBuilder.addBox(-4F, -8F, 0F, 8F, 8F, 0.001F);
+
+		root.addOrReplaceChild(
+			name,
+			cubeListBuilder,
+			PartPose.offsetAndRotation(xPos, 8F, zPos, 0F, rot, Mth.PI)
 		);
-		modelPartData.addOrReplaceChild(
-			"tendril2",
-			CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-4F, -8F, 0F, 8F, 8F, 0.001F),
-			PartPose.offsetAndRotation(13F, 8F, 3F, 0, TENDRIL_ANGLE, Mth.PI)
-		);
-		modelPartData.addOrReplaceChild(
-			"tendril3",
-			CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, 0F, 8F, 8F, 0.001F),
-			PartPose.offsetAndRotation(13F, 8F, 13F, 0, -TENDRIL_ANGLE_SOUTH, Mth.PI)
-		);
-		modelPartData.addOrReplaceChild(
-			"tendril4",
-			CubeListBuilder.create().texOffs(0, 0).mirror().addBox(-4F, -8F, 0F, 8F, 8F, 0.001F),
-			PartPose.offsetAndRotation(3F, 8F, 13F, 0, TENDRIL_ANGLE_SOUTH, Mth.PI)
-		);
-		return LayerDefinition.create(modelData, 64, 64);
 	}
 
 	@Override
 	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-		if (WWConstants.MC_LIVE_TENDRILS && entity instanceof SculkSensorInterface sculkSensorInterface) {
-			if (sculkSensorInterface.wilderWild$isActive()) {
-				int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
-				float rotation = sculkSensorInterface.wilderWild$getFacing().toYRot();
-				poseStack.translate(0.5F, 0.5F, 0.5F);
-				poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
-				poseStack.translate(-0.5F, -0.5F, -0.5F);
-				float xRot = (prevTicks + partialTick * (sculkSensorInterface.wilderWild$getAnimTicks() - prevTicks))
-					* 0.1F
-					* ((float) Math.cos((sculkSensorInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
-				this.tendril1.xRot = xRot;
-				this.tendril2.xRot = xRot;
-				this.tendril3.xRot = xRot;
-				this.tendril4.xRot = xRot;
-				this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay);
-			}
-		}
+		if (!WWConstants.MC_LIVE_TENDRILS || !(entity instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) return;
+		int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
+		poseStack.translate(0.5F, 0.5F, 0.5F);
+		poseStack.mulPose(Axis.YP.rotationDegrees(-sculkSensorInterface.wilderWild$getFacing().toYRot()));
+		poseStack.translate(-0.5F, -0.5F, -0.5F);
+		float xRot = (prevTicks + partialTick * (sculkSensorInterface.wilderWild$getAnimTicks() - prevTicks))
+			* 0.1F
+			* ((float) Math.cos((sculkSensorInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
+		this.tendril1.xRot = xRot;
+		this.tendril2.xRot = xRot;
+		this.tendril3.xRot = xRot;
+		this.tendril4.xRot = xRot;
+		this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay);
 	}
 
 }

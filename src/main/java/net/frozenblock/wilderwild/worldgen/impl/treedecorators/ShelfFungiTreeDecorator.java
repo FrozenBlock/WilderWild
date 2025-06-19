@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.worldgen.impl.treedecorators;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.BlockPos;
@@ -61,22 +60,16 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 		if (!WWWorldgenConfig.GENERATE_SHELF_FUNGI) return;
 
 		RandomSource random = context.random();
-		if (random.nextFloat() <= this.probability) {
-			List<BlockPos> poses = context.logs();
-			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			for (BlockPos pos : poses) {
-				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					if (random.nextFloat() <= this.placementChance) {
-						mutableBlockPos.setWithOffset(pos, direction);
-						if (context.isAir(mutableBlockPos)) {
-							BlockState state = this.blockStateProvider.getState(random, mutableBlockPos)
-								.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
-								.setValue(ShelfFungiBlock.FACING, direction);
+		if (random.nextFloat() > this.probability) return;
 
-							context.setBlock(mutableBlockPos, state);
-						}
-					}
-				}
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : context.logs()) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
+				BlockState state = this.blockStateProvider.getState(random, mutableBlockPos)
+					.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
+					.setValue(ShelfFungiBlock.FACING, direction);
+				context.setBlock(mutableBlockPos, state);
 			}
 		}
 	}

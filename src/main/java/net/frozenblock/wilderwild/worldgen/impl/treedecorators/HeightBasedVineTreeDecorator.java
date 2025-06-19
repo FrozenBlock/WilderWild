@@ -58,23 +58,19 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 	@Override
 	public void place(@NotNull Context context) {
 		RandomSource random = context.random();
-		if (random.nextFloat() <= this.probability) {
-			ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
-			poses.addAll(context.roots());
-			Util.shuffle(poses, random);
-			BlockState vineState = Blocks.VINE.defaultBlockState();
-			BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			for (BlockPos pos : poses) {
-				if (pos.getY() <= this.maxHeight) {
-					for (Direction direction : Direction.Plane.HORIZONTAL) {
-						if (random.nextFloat() <= this.placementChance) {
-							mutableBlockPos.setWithOffset(pos, direction);
-							if (context.isAir(mutableBlockPos)) {
-								context.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
-							}
-						}
-					}
-				}
+		if (random.nextFloat() > this.probability) return;
+
+		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		poses.addAll(context.roots());
+		Util.shuffle(poses, random);
+		BlockState vineState = Blocks.VINE.defaultBlockState();
+
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (BlockPos pos : poses) {
+			if (pos.getY() > this.maxHeight) continue;
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
 			}
 		}
 	}

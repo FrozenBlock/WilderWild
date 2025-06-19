@@ -76,17 +76,15 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 			if (currentRadius <= 1D) {
 				tryPlaceLeaf(world, placer, random, config, centerPos);
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					mutablePos.setWithOffset(centerPos, direction);
-					tryPlaceLeaf(world, placer, random, config, mutablePos);
+					tryPlaceLeaf(world, placer, random, config, mutablePos.setWithOffset(centerPos, direction));
 				}
 			} else {
 				for (int xOff = -radius; xOff <= radius; ++xOff) {
 					for (int zOff = -radius; zOff <= radius; ++zOff) {
 						mutablePos.setWithOffset(centerPos, xOff, 0, zOff);
 						Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
-						if (placePosCenter.closerThan(center, currentRadius)) {
-							tryPlaceLeaf(world, placer, random, config, mutablePos);
-						}
+						if (!placePosCenter.closerThan(center, currentRadius)) continue;
+						tryPlaceLeaf(world, placer, random, config, mutablePos);
 					}
 				}
 			}
