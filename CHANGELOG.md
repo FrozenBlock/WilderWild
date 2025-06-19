@@ -24,4 +24,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed Maple Leaf Litters not generating as intended.
 - Fixed the Leaf Litter model being raised too high above the ground on versions prior to 1.21.5.
 - Misc. internal cleanup.
-- Updated the Vietnamese translation, thanks to `godkyo98`! ([#496](https://github.com/FrozenBlock/WilderWild/pull/496))
+- Updated the Vietnamese translation on 1.21.6+, thanks to `godkyo98`! ([#496](https://github.com/FrozenBlock/WilderWild/pull/496))
