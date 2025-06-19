@@ -1751,7 +1751,7 @@ public final class WWBlocks {
 	private static void actualRegisterBlockItem(String path, Block block) {
 		if (BuiltInRegistries.ITEM.getOptional(WWConstants.id(path)).isEmpty()) {
 			Supplier<Item> itemSupplier = () -> new BlockItem(block, new Item.Properties());
-			if (block instanceof DoorBlock) itemSupplier = () -> new DoubleHighBlockItem(block, new Item.Properties());
+			if (block instanceof DoorBlock || block instanceof TallFlowerBlock) itemSupplier = () -> new DoubleHighBlockItem(block, new Item.Properties());
 			Registry.register(
 				BuiltInRegistries.ITEM,
 				WWConstants.id(path),
