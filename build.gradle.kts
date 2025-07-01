@@ -261,7 +261,8 @@ tasks {
                 "**/*.nbt",
                 "**/*.png",
                 "**/*.ogg",
-                "**/*.mixins.json"
+                "**/*.mixins.json",
+                "**/*.zip"
             )
         ) {
             expand(properties)

@@ -1,28 +1,6 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Added a title screen version of `Espial` by `pictochats_`!
-- Added the song `Anemone` by `pictochats_`!
-- Added the `wilderwild:music_pool/has_ocean_music` and `wilderwild:music_pool/has_warm_ocean_music` biome tags.
-  - The music that plays in Ocean biomes contains the `minecraft:music.game` pool like it did before, now with `Anemone` and `Epsial` by `pictochats_` having a chance to play as well.
-  - `Anemone` by `pictochats_` plays most commonly in warmer Ocean biomes.
-  - `Espial` by `pictochats` plays most commonly in all other Ocean biomes.
-  - Added a config option to toggle Wilder Wild's Ocean music.
-- Removed the songs `Excuse` and `Flake` by `C418` as obfuscated ogg files no longer work in Minecraft.
-- Jellyfish and Butterflies have had their spawning logic vastly simplified, now using Vanilla's Spawn Charge/Cost system.
-  - As a result of this change, the following changes have been made:
-    - The `wilderwild:entity/spawn/jellyfish` biome tag now dictates all biomes Jellyfish can spawn in.
-    - The `wilderwild:entity/spawn/jellyfish_special_spawn` biome tag has been replaced with the `wilderwild:entity/spawn/jellyfish_common_spawn` biome tag.
-      - This tag now dictates which biomes (of the ones they can spawn in) Jellyfish can spawn more frequently and closer together in.
-    - The `wilderwild:entity/spawn/butterfly` biome tag now dictates all biomes Butterflies can spawn in.
-    - The `wilderwild:entity/spawn/common_butterfly` biome tag has been replaced with the `wilderwild:entity/spawn/butterfly_common_spawn` biome tag.
-      - This tag now dictates which biomes (of the ones they can spawn in) Butterflies can spawn more frequently and closer together in.
-- Renamed the `wilderwild:feature/red_creeping_moss_feature_placeable` block tag to `wilderwild:feature/auburn_creeping_moss_feature_placeable`.
-- Auburn Creeping Moss generated in Auburn Moss patches can now generate on the sides of blocks.
-- Fixed the Bush not datafixing into the Shrub in 1.21.5+ due to an incorrect DataVersion.
-- Fixed Maple Leaf Litters not generating as intended.
-- Fixed the Leaf Litter model being raised too high above the ground on versions prior to 1.21.5.
-- Fixed Doors not using the proper item class.
-- Fixed Tall Flowers not using the proper item class.
-- Misc. internal cleanup.
-- Updated the Vietnamese translation on 1.21.6+, thanks to `godkyo98`! ([#496](https://github.com/FrozenBlock/WilderWild/pull/496))
+- Reimplemented `Flake` and `Excuse` by C418, maintaining obfuscation using FrozenLib's new resource pack API to use obfuscated resource packs in mods!
+- All of Wilder Wild's music is now a part of the obfuscated internal resource pack.
+- Fixed a misspelled sound file.
