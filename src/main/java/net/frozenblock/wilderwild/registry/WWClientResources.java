@@ -48,7 +48,7 @@ public final class WWClientResources {
 		);
 
 		try {
-			FrozenLibModResourcePackApi.findAndPrepareResourcePack(container, "wilder_music", true, false);
+			FrozenLibModResourcePackApi.findAndPrepareResourcePack(container, "wilder_music", true, true, false);
 		} catch (Exception ignored) {
 			WWConstants.error("Unable to load Wilder Wild Music resource pack!", true);
 		}
