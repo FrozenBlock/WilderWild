@@ -254,9 +254,9 @@ public final class WWBlocks {
 	public static final Block CYPRESS_LEAVES = Blocks.leaves(SoundType.GRASS); // in front so the other leaves can have a copy of its settings
 	public static final Block BAOBAB_LEAVES = new BaobabLeavesBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
 	public static final PalmFrondsBlock PALM_FRONDS = new PalmFrondsBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES));
-	public static final Block YELLOW_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW));
-	public static final Block ORANGE_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE));
-	public static final Block RED_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED));
+	public static final Block YELLOW_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_YELLOW).sound(WWSoundTypes.MAPLE_LEAVES));
+	public static final Block ORANGE_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_ORANGE).sound(WWSoundTypes.MAPLE_LEAVES));
+	public static final Block RED_MAPLE_LEAVES = new LeavesWithLitterBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_LEAVES).mapColor(MapColor.COLOR_RED).sound(WWSoundTypes.MAPLE_LEAVES));
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = createHollowedLogBlock(MapColor.WOOD, MapColor.PODZOL);
 	public static final HollowedLogBlock HOLLOWED_SPRUCE_LOG =  createHollowedLogBlock(MapColor.PODZOL, MapColor.COLOR_BROWN);
@@ -292,21 +292,24 @@ public final class WWBlocks {
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter(
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter(
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 
 	// SCULK
@@ -1820,9 +1823,10 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		Supplier<Double> frequencyModifier,
-		int textureSize
+		int textureSize,
+		SoundType soundType
 	) {
-		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType, soundType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
 			leafLitterBlock,
@@ -1844,9 +1848,10 @@ public final class WWBlocks {
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
-		float particleGravityScale
+		float particleGravityScale,
+		SoundType soundType
 	) {
-		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(sourceBlock, particleType, soundType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
 			leafLitterBlock,
@@ -1860,13 +1865,14 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
+	private static @NotNull LeafLitterBlock createLeafLitter(Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, SoundType soundType) {
 		BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
 			.instabreak()
 			.replaceable()
-			.pushReaction(PushReaction.DESTROY);
+			.pushReaction(PushReaction.DESTROY).
+			sound(soundType);
 
 		LeafLitterBlock leafLitterBlock = new LeafLitterBlock(sourceBlock, properties);
 		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);

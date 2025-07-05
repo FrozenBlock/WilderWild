@@ -127,11 +127,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_FROSTED_ICE_BREAK = register("block.frosted_ice.break");
 	public static final SoundEvent BLOCK_FROSTED_ICE_STEP = register("block.frosted_ice.step");
 	public static final SoundEvent BLOCK_FROSTED_ICE_FALL = register("block.frosted_ice.fall");
-	public static final SoundEvent BLOCK_LEAVES_PLACE = register("block.leaves.place");
-	public static final SoundEvent BLOCK_LEAVES_HIT = register("block.leaves.hit");
-	public static final SoundEvent BLOCK_LEAVES_BREAK = register("block.leaves.break");
-	public static final SoundEvent BLOCK_LEAVES_STEP = register("block.leaves.step");
-	public static final SoundEvent BLOCK_LEAVES_FALL = register("block.leaves.fall");
+	public static final SoundEvent BLOCK_MAPLE_LEAVES_PLACE = register("block.maple_leaves.place");
+	public static final SoundEvent BLOCK_MAPLE_LEAVES_HIT = register("block.maple_leaves.hit");
+	public static final SoundEvent BLOCK_MAPLE_LEAVES_BREAK = register("block.maple_leaves.break");
+	public static final SoundEvent BLOCK_MAPLE_LEAVES_STEP = register("block.maple_leaves.step");
+	public static final SoundEvent BLOCK_MAPLE_LEAVES_FALL = register("block.maple_leaves.fall");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");

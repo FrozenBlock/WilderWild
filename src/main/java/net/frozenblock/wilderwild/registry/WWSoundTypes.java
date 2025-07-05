@@ -213,12 +213,12 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_FROSTED_ICE_HIT,
 		WWSounds.BLOCK_FROSTED_ICE_FALL
 	);
-	public static final SoundType LEAVES = new SoundType(1F, 1F,
-		WWSounds.BLOCK_LEAVES_BREAK,
-		WWSounds.BLOCK_LEAVES_STEP,
-		WWSounds.BLOCK_LEAVES_PLACE,
-		WWSounds.BLOCK_LEAVES_HIT,
-		WWSounds.BLOCK_LEAVES_FALL
+	public static final SoundType MAPLE_LEAVES = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MAPLE_LEAVES_BREAK,
+		WWSounds.BLOCK_MAPLE_LEAVES_STEP,
+		WWSounds.BLOCK_MAPLE_LEAVES_PLACE,
+		WWSounds.BLOCK_MAPLE_LEAVES_HIT,
+		WWSounds.BLOCK_MAPLE_LEAVES_FALL
 	);
 	public static final SoundType FLOWER = new SoundType(0.8F, 1F,
 		WWSounds.BLOCK_FLOWER_BREAK,
