@@ -80,11 +80,6 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_ECHO_GLASS_FALL = register("block.echo_glass.fall");
 	public static final SoundEvent BLOCK_ECHO_GLASS_CRACK = register("block.echo_glass.crack");
 	public static final SoundEvent BLOCK_ECHO_GLASS_REPAIR = register("block.echo_glass.repair");
-	public static final SoundEvent BLOCK_FLOWER_PLACE = register("block.flower.place");
-	public static final SoundEvent BLOCK_FLOWER_HIT = register("block.flower.hit");
-	public static final SoundEvent BLOCK_FLOWER_BREAK = register("block.flower.break");
-	public static final SoundEvent BLOCK_FLOWER_STEP = register("block.flower.step");
-	public static final SoundEvent BLOCK_FLOWER_FALL = register("block.flower.fall");
 	public static final SoundEvent BLOCK_GRAVEL_PLACE = register("block.gravel.place");
 	public static final SoundEvent BLOCK_GRAVEL_HIT = register("block.gravel.hit");
 	public static final SoundEvent BLOCK_GRAVEL_BREAK = register("block.gravel.break");

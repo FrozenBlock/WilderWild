@@ -298,7 +298,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		WindManager.addExtension(WWWindManager::new);
 
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, WWSoundTypes.FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, SoundType.PINK_PETALS, () -> WWBlockConfig.get().blockSounds.flowerSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, SoundType.CHERRY_LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SAPLING, WWSoundTypes.SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CACTUS, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);

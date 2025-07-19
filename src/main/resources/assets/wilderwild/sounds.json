@@ -931,55 +931,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.flower.break": {
-    "sounds": [
-      "wilderwild:block/flower/break1",
-      "wilderwild:block/flower/break2",
-      "wilderwild:block/flower/break3",
-      "wilderwild:block/flower/break4",
-      "wilderwild:block/flower/break5"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.flower.fall": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ]
-  },
-  "block.flower.hit": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.flower.place": {
-    "sounds": [
-      "wilderwild:block/flower/break1",
-      "wilderwild:block/flower/break2",
-      "wilderwild:block/flower/break3",
-      "wilderwild:block/flower/break4",
-      "wilderwild:block/flower/break5"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.flower.step": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
   "block.gravel.break": {
     "sounds": [
       "wilderwild:block/gravel/break1",
