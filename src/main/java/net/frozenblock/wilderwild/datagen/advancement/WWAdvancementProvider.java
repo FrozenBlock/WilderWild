@@ -158,7 +158,8 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 							new EntityTypePredicate(
 								HolderSet.direct(
 									EntityType.CHICKEN.builtInRegistryHolder(),
-									WWEntityTypes.OSTRICH.builtInRegistryHolder()
+									WWEntityTypes.OSTRICH.builtInRegistryHolder(),
+									WWEntityTypes.PENGUIN.builtInRegistryHolder()
 								)
 							)
 						)
