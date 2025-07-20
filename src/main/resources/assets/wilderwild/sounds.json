@@ -1687,50 +1687,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.palm_crown.break": {
-    "sounds": [
-      "wilderwild:block/palm_crown/break1",
-      "wilderwild:block/palm_crown/break2",
-      "wilderwild:block/palm_crown/break3",
-      "wilderwild:block/palm_crown/break4"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.palm_crown.fall": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
-    ]
-  },
-  "block.palm_crown.hit": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.palm_crown.place": {
-    "sounds": [
-      "wilderwild:block/palm_crown/break1",
-      "wilderwild:block/palm_crown/break2",
-      "wilderwild:block/palm_crown/break3",
-      "wilderwild:block/palm_crown/break4"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.palm_crown.step": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
   "block.pollen.break": {
     "sounds": [
       "wilderwild:block/pollen/break1",

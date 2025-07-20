@@ -155,13 +155,6 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_HIT,
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_FALL
 	);
-	public static final SoundType PALM_CROWN = new SoundType(1F, 1F,
-		WWSounds.BLOCK_PALM_CROWN_BREAK,
-		WWSounds.BLOCK_PALM_CROWN_STEP,
-		WWSounds.BLOCK_PALM_CROWN_PLACE,
-		WWSounds.BLOCK_PALM_CROWN_HIT,
-		WWSounds.BLOCK_PALM_CROWN_FALL
-	);
 	public static final SoundType CLAY = new SoundType(0.9F, 1F,
 		WWSounds.BLOCK_CLAY_BREAK,
 		WWSounds.BLOCK_CLAY_STEP,

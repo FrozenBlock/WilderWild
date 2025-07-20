@@ -4,6 +4,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for Maple Leaves.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
+- Removed sounds for the Palm Crown, as the block has long-since been removed.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Retextured the Marigold.
 - Removed the internal .zip resource pack containing Wilder Wild's music.

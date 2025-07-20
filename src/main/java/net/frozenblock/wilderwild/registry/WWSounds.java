@@ -159,11 +159,6 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_OSSEOUS_SCULK_BREAK = register("block.osseous_sculk.break");
 	public static final SoundEvent BLOCK_OSSEOUS_SCULK_STEP = register("block.osseous_sculk.step");
 	public static final SoundEvent BLOCK_OSSEOUS_SCULK_FALL = register("block.osseous_sculk.fall");
-	public static final SoundEvent BLOCK_PALM_CROWN_PLACE = register("block.palm_crown.place");
-	public static final SoundEvent BLOCK_PALM_CROWN_HIT = register("block.palm_crown.hit");
-	public static final SoundEvent BLOCK_PALM_CROWN_BREAK = register("block.palm_crown.break");
-	public static final SoundEvent BLOCK_PALM_CROWN_STEP = register("block.palm_crown.step");
-	public static final SoundEvent BLOCK_PALM_CROWN_FALL = register("block.palm_crown.fall");
 	public static final SoundEvent BLOCK_POLLEN_PLACE = register("block.pollen.place");
 	public static final SoundEvent BLOCK_POLLEN_HIT = register("block.pollen.hit");
 	public static final SoundEvent BLOCK_POLLEN_BREAK = register("block.pollen.break");
