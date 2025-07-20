@@ -2,6 +2,7 @@ Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 - Added unique sounds for Maple Leaves.
+- Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
 - Removed sounds for the Palm Crown, as the block has long-since been removed.
