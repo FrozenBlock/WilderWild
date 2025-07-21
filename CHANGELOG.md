@@ -18,6 +18,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Renamed the `wilderwild:feature/has_field_flowers` biome tag to `wilderwild:feature/has_flower_field_flowers.`
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
+- Blue Orchid Mooblooms no longer spawn in Flower Forests.
+- Added Gabbro blocks to Sculk-related tags they were missing from.
+- Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
+- Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Retextured the Penguin Spawn Egg in 1.21.5+.

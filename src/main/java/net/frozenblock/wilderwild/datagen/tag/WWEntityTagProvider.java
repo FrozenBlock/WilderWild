@@ -52,8 +52,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WWEntityTags.JELLYFISH_CANT_STING)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.PUFFERFISH)
@@ -63,8 +62,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.TUMBLEWEED);
 
 		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_BONK)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
@@ -76,8 +74,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.BREEZE);
 
 		this.getOrCreateTagBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.COD)
 			.add(EntityType.SALMON)
@@ -105,20 +102,17 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH);
 
 		this.getOrCreateTagBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.COD)
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
 
 		this.getOrCreateTagBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID);
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID);
 
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
-			.add(EntityType.ARROW)
-			.add(EntityType.SPECTRAL_ARROW);
+			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
 
 		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityType.PLAYER)

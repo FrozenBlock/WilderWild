@@ -1,7 +1,7 @@
 {
   "values": [
-    "minecraft:flower_forest",
     "minecraft:forest",
+    "minecraft:flower_forest",
     "minecraft:dark_forest",
     {
       "id": "wilderwild:sparse_forest",
