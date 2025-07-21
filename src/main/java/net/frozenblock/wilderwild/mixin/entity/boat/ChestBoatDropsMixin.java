@@ -33,18 +33,12 @@ public final class ChestBoatDropsMixin {
 
 	@Inject(method = "getDropItem", at = @At("RETURN"), cancellable = true)
 	public void wilderWild$getModdedChestBoats(CallbackInfoReturnable<Item> info) {
-		var boat = ChestBoat.class.cast(this);
-		if (boat.getVariant() == WWBoatTypes.BAOBAB) {
-			info.setReturnValue(WWItems.BAOBAB_CHEST_BOAT);
-		} else if (boat.getVariant() == WWBoatTypes.WILLOW) {
-			info.setReturnValue(WWItems.WILLOW_CHEST_BOAT);
-		} else if (boat.getVariant() == WWBoatTypes.CYPRESS) {
-			info.setReturnValue(WWItems.CYPRESS_CHEST_BOAT);
-		} else if (boat.getVariant() == WWBoatTypes.PALM) {
-			info.setReturnValue(WWItems.PALM_CHEST_BOAT);
-		} else if (boat.getVariant() == WWBoatTypes.MAPLE) {
-			info.setReturnValue(WWItems.MAPLE_CHEST_BOAT);
-		}
+		ChestBoat boat = ChestBoat.class.cast(this);
+		if (boat.getVariant() == WWBoatTypes.BAOBAB) info.setReturnValue(WWItems.BAOBAB_CHEST_BOAT);
+		if (boat.getVariant() == WWBoatTypes.WILLOW) info.setReturnValue(WWItems.WILLOW_CHEST_BOAT);
+		if (boat.getVariant() == WWBoatTypes.CYPRESS) info.setReturnValue(WWItems.CYPRESS_CHEST_BOAT);
+		if (boat.getVariant() == WWBoatTypes.PALM) info.setReturnValue(WWItems.PALM_CHEST_BOAT);
+		if (boat.getVariant() == WWBoatTypes.MAPLE) info.setReturnValue(WWItems.MAPLE_CHEST_BOAT);
 	}
 
 }
