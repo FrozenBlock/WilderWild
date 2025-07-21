@@ -453,6 +453,13 @@ public final class WWAmbienceAndMiscConfigGui {
 			.requireRestart()
 			.build();
 
+		var wilderExtraMusic = entryBuilder.startBooleanToggle(text("wilder_extra_music"), music.wilderExtraMusic)
+			.setDefaultValue(defaultConfig.music.wilderExtraMusic)
+			.setSaveConsumer(newValue -> music.wilderExtraMusic = newValue)
+			.setTooltip(tooltip("wilder_extra_music"))
+			.requireRestart()
+			.build();
+
 		var ancientCityMusic = entryBuilder.startBooleanToggle(text("ancient_city_music"), music.ancientCityMusic)
 			.setDefaultValue(defaultConfig.music.ancientCityMusic)
 			.setSaveConsumer(newValue -> music.ancientCityMusic = newValue)
@@ -472,6 +479,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			wilderForestMusic, wilderCherryGroveMusic, wilderGroveMusic, wilderJungleMusic, wilderSnowyMusic,
 			wilderOceanMusic,
 			wilderLushCavesMusic, wilderDripstoneCavesMusic,
+			wilderExtraMusic,
 			ancientCityMusic,
 			distortedDyingForestMusic
 		);

@@ -70,29 +70,22 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	private void generateLib() {
 		this.getOrCreateTagBuilder(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(Blocks.DIRT)
-			.add(WWBlocks.SCORCHED_SAND)
-			.add(WWBlocks.SCORCHED_RED_SAND);
+			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
 	}
 
 	private void generateFeatures() {
 		this.getOrCreateTagBuilder(WWBlockTags.STONE_TRANSITION_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.DIRT)
-			.add(Blocks.MUD)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MUD)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.STONE_TRANSITION_PLACEABLE)
 			.add(Blocks.STONE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.DIRT)
-			.add(Blocks.MUD);
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MUD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.DIRT)
-			.add(Blocks.MUD)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MUD)
 			.add(Blocks.SAND)
 			.add(Blocks.STONE);
 
@@ -100,19 +93,16 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SAND_TRANSITION_REPLACEABLE)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MUD)
 			.add(Blocks.GRAVEL)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.STONE)
-			.add(Blocks.DIRT)
-			.add(Blocks.MUD);
+			.add(Blocks.STONE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SAND_TRANSITION_PLACEABLE)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.MUD)
 			.add(Blocks.GRAVEL)
-			.add(Blocks.MUD)
 			.add(Blocks.SAND)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
@@ -121,29 +111,24 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.TERRACOTTA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MUD_TRANSITION_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.CLAY)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MUD_TRANSITION_PLACEABLE)
-			.add(Blocks.MUD)
-			.add(Blocks.MUDDY_MANGROVE_ROOTS);
+			.add(Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MUD_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.CLAY)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.COARSE_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.PODZOL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.COARSE_CLEARING_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.PODZOL)
 			.add(Blocks.GRAVEL);
 
@@ -152,18 +137,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.COARSE_DIRT);
 
 		this.getOrCreateTagBuilder(WWBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.STONE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.STONE);
 
@@ -174,21 +156,16 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SAND_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.GRAVEL)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GRAVEL_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.COARSE_DIRT)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GRAVEL_CLEARING_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.COARSE_DIRT)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE)
@@ -199,14 +176,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.STONE_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.addOptionalTag(BlockTags.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PACKED_MUD_PATH_REPLACEABLE)
-			.add(Blocks.DIRT)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.COARSE_DIRT);
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MOSS_PATH_REPLACEABLE)
 			.add(Blocks.GRASS_BLOCK)
@@ -223,8 +197,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.RED_SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
-			.add(Blocks.RED_SAND)
-			.add(Blocks.RED_SANDSTONE)
+			.add(Blocks.RED_SAND, Blocks.RED_SANDSTONE)
 			.addOptionalTag(BlockTags.TERRACOTTA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.POLLEN_FEATURE_PLACEABLE)
@@ -316,15 +289,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.WARPED_STEMS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
-			.add(Blocks.SAND)
-			.add(WWBlocks.SCORCHED_SAND);
+			.add(Blocks.SAND, WWBlocks.SCORCHED_SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
-			.add(Blocks.RED_SAND)
-			.add(WWBlocks.SCORCHED_RED_SAND);
+			.add(Blocks.RED_SAND, WWBlocks.SCORCHED_RED_SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(Blocks.RED_SAND);
@@ -370,9 +341,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
-			.add(Blocks.DIRT)
+			.add(Blocks.GRASS_BLOCK, Blocks.DIRT)
 			.add(Blocks.CLAY)
-			.add(Blocks.GRASS_BLOCK)
 			.add(Blocks.PODZOL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.RIVER_POOL_REPLACEABLE)
@@ -408,8 +378,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BASIN_REPLACEABLE)
-			.add(Blocks.GRASS_BLOCK)
-			.add(Blocks.COARSE_DIRT)
+			.add(Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT)
 			.add(Blocks.PODZOL)
 			.add(Blocks.MOSS_BLOCK)
 			.add(WWBlocks.AUBURN_MOSS_BLOCK);
@@ -457,20 +426,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.YELLOW_NEMATOCYST);
 
 		this.getOrCreateTagBuilder(WWBlockTags.ICICLE_FALLS_FROM)
-			.add(Blocks.ICE)
-			.add(Blocks.PACKED_ICE)
-			.add(Blocks.BLUE_ICE)
-			.add(WWBlocks.FRAGILE_ICE);
+			.add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)
-			.add(Blocks.ICE)
-			.add(Blocks.PACKED_ICE)
-			.add(Blocks.BLUE_ICE)
-			.add(WWBlocks.FRAGILE_ICE);
+			.add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.STOPS_TUMBLEWEED)
-			.add(Blocks.MUD)
-			.add(Blocks.MUDDY_MANGROVE_ROOTS)
+			.add(Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS)
 			.add(Blocks.SLIME_BLOCK)
 			.add(Blocks.IRON_BARS)
 			.add(Blocks.HONEY_BLOCK);
@@ -484,10 +446,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.FIREFLY_HIDEABLE_BLOCKS)
-			.add(Blocks.SHORT_GRASS)
-			.add(Blocks.TALL_GRASS)
-			.add(Blocks.FERN)
-			.add(Blocks.LARGE_FERN)
+			.add(Blocks.SHORT_GRASS, Blocks.TALL_GRASS)
+			.add(Blocks.FERN, Blocks.LARGE_FERN)
 			.add(Blocks.PEONY)
 			.add(Blocks.ROSE_BUSH)
 			.add(Blocks.DEAD_BUSH)
@@ -567,80 +527,42 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateDeepDark() {
 		this.getOrCreateTagBuilder(WWBlockTags.ANCIENT_CITY_BLOCKS)
-			.add(Blocks.COBBLED_DEEPSLATE)
-			.add(Blocks.COBBLED_DEEPSLATE_STAIRS)
-			.add(Blocks.COBBLED_DEEPSLATE_SLAB)
-			.add(Blocks.COBBLED_DEEPSLATE_WALL)
-			.add(Blocks.POLISHED_DEEPSLATE)
-			.add(Blocks.POLISHED_DEEPSLATE_STAIRS)
-			.add(Blocks.POLISHED_DEEPSLATE_SLAB)
-			.add(Blocks.POLISHED_DEEPSLATE_WALL)
-			.add(Blocks.DEEPSLATE_BRICKS)
-			.add(Blocks.DEEPSLATE_BRICK_STAIRS)
-			.add(Blocks.DEEPSLATE_BRICK_SLAB)
-			.add(Blocks.DEEPSLATE_BRICK_WALL)
+			.add(Blocks.COBBLED_DEEPSLATE, Blocks.COBBLED_DEEPSLATE_STAIRS, Blocks.COBBLED_DEEPSLATE_SLAB, Blocks.COBBLED_DEEPSLATE_WALL)
+			.add(Blocks.POLISHED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE_STAIRS, Blocks.POLISHED_DEEPSLATE_SLAB, Blocks.POLISHED_DEEPSLATE_WALL)
+			.add(Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_BRICK_STAIRS, Blocks.DEEPSLATE_BRICK_SLAB, Blocks.DEEPSLATE_BRICK_WALL)
 			.add(Blocks.CRACKED_DEEPSLATE_BRICKS)
-			.add(Blocks.DEEPSLATE_TILES)
-			.add(Blocks.DEEPSLATE_TILE_STAIRS)
+			.add(Blocks.DEEPSLATE_TILES, Blocks.DEEPSLATE_TILE_STAIRS)
 			.add(Blocks.CHISELED_DEEPSLATE)
 			.add(Blocks.REINFORCED_DEEPSLATE)
-			.add(Blocks.POLISHED_BASALT)
-			.add(Blocks.SMOOTH_BASALT)
-			.add(Blocks.DARK_OAK_LOG)
-			.add(Blocks.DARK_OAK_PLANKS)
-			.add(Blocks.DARK_OAK_FENCE)
-			.add(Blocks.LIGHT_BLUE_CARPET)
-			.add(Blocks.BLUE_CARPET)
-			.add(Blocks.LIGHT_BLUE_WOOL)
-			.add(Blocks.GRAY_WOOL)
-			.add(Blocks.CHEST)
+			.add(Blocks.POLISHED_BASALT, Blocks.SMOOTH_BASALT)
+			.add(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_FENCE)
+			.add(Blocks.LIGHT_BLUE_CARPET, Blocks.BLUE_CARPET)
+			.add(Blocks.LIGHT_BLUE_WOOL, Blocks.GRAY_WOOL)
+			.add(Blocks.CHEST, WWBlocks.STONE_CHEST)
 			.add(Blocks.LADDER)
-			.add(Blocks.CANDLE)
-			.add(Blocks.WHITE_CANDLE)
-			.add(Blocks.SOUL_LANTERN)
-			.add(Blocks.SOUL_FIRE)
+			.add(Blocks.CANDLE, Blocks.WHITE_CANDLE)
+			.add(Blocks.SOUL_LANTERN, Blocks.SOUL_FIRE)
 			.add(Blocks.SOUL_SAND);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_SLAB_REPLACEABLE)
-			.add(Blocks.STONE_SLAB)
-			.add(Blocks.GRANITE_SLAB)
-			.add(Blocks.DIORITE_SLAB)
-			.add(Blocks.ANDESITE_SLAB)
-			.add(Blocks.BLACKSTONE_SLAB);
+			.add(Blocks.STONE_SLAB, Blocks.GRANITE_SLAB, Blocks.DIORITE_SLAB, Blocks.ANDESITE_SLAB, Blocks.BLACKSTONE_SLAB, WWBlocks.GABBRO_SLAB);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
-			.add(Blocks.COBBLED_DEEPSLATE_SLAB)
-			.add(Blocks.POLISHED_DEEPSLATE_SLAB)
-			.add(Blocks.DEEPSLATE_BRICK_SLAB)
-			.add(Blocks.DEEPSLATE_TILE_SLAB)
+			.add(Blocks.COBBLED_DEEPSLATE_SLAB, Blocks.POLISHED_DEEPSLATE_SLAB, Blocks.DEEPSLATE_BRICK_SLAB, Blocks.DEEPSLATE_TILE_SLAB)
 			.addOptionalTag(WWBlockTags.SCULK_SLAB_REPLACEABLE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_STAIR_REPLACEABLE)
-			.add(Blocks.STONE_STAIRS)
-			.add(Blocks.GRANITE_STAIRS)
-			.add(Blocks.DIORITE_STAIRS)
-			.add(Blocks.ANDESITE_STAIRS)
-			.add(Blocks.BLACKSTONE_STAIRS);
+			.add(Blocks.STONE_STAIRS, Blocks.GRANITE_STAIRS, Blocks.DIORITE_STAIRS, Blocks.ANDESITE_STAIRS, Blocks.BLACKSTONE_STAIRS, WWBlocks.GABBRO_STAIRS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)
-			.add(Blocks.COBBLED_DEEPSLATE_STAIRS)
-			.add(Blocks.POLISHED_DEEPSLATE_STAIRS)
-			.add(Blocks.DEEPSLATE_BRICK_STAIRS)
-			.add(Blocks.DEEPSLATE_TILE_STAIRS)
+			.add(Blocks.COBBLED_DEEPSLATE_STAIRS, Blocks.POLISHED_DEEPSLATE_STAIRS, Blocks.DEEPSLATE_BRICK_STAIRS, Blocks.DEEPSLATE_TILE_STAIRS)
 			.addOptionalTag(WWBlockTags.SCULK_STAIR_REPLACEABLE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_WALL_REPLACEABLE)
-			.add(Blocks.COBBLESTONE_WALL)
-			.add(Blocks.GRANITE_WALL)
-			.add(Blocks.DIORITE_WALL)
-			.add(Blocks.ANDESITE_WALL)
-			.add(Blocks.BLACKSTONE_WALL);
+			.add(Blocks.COBBLESTONE_WALL, Blocks.GRANITE_WALL, Blocks.DIORITE_WALL, Blocks.ANDESITE_WALL, Blocks.BLACKSTONE_WALL, WWBlocks.GABBRO_WALL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)
-			.add(Blocks.COBBLED_DEEPSLATE_WALL)
-			.add(Blocks.POLISHED_DEEPSLATE_WALL)
-			.add(Blocks.DEEPSLATE_BRICK_WALL)
-			.add(Blocks.DEEPSLATE_TILE_WALL)
+			.add(Blocks.COBBLED_DEEPSLATE_WALL, Blocks.POLISHED_DEEPSLATE_WALL, Blocks.DEEPSLATE_BRICK_WALL, Blocks.DEEPSLATE_TILE_WALL)
 			.addOptionalTag(WWBlockTags.SCULK_WALL_REPLACEABLE);
 
 		this.getOrCreateTagBuilder(BlockTags.OCCLUDES_VIBRATION_SIGNALS)
@@ -649,68 +571,52 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	private void generateHollowedAndTermites() {
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_ACACIA_LOGS)
-			.add(WWBlocks.HOLLOWED_ACACIA_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+			.add(WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_BIRCH_LOGS)
-			.add(WWBlocks.HOLLOWED_BIRCH_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+			.add(WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_CHERRY_LOGS)
-			.add(WWBlocks.HOLLOWED_CHERRY_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+			.add(WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_CRIMSON_STEMS)
-			.add(WWBlocks.HOLLOWED_CRIMSON_STEM)
-			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
+			.add(WWBlocks.HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_DARK_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_DARK_OAK_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+			.add(WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_JUNGLE_LOGS)
-			.add(WWBlocks.HOLLOWED_JUNGLE_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+			.add(WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_MANGROVE_LOGS)
-			.add(WWBlocks.HOLLOWED_MANGROVE_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+			.add(WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_OAK_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+			.add(WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_SPRUCE_LOGS)
-			.add(WWBlocks.HOLLOWED_SPRUCE_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-
-		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALM_LOGS)
-			.add(WWBlocks.HOLLOWED_PALM_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+			.add(WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_WARPED_STEMS)
-			.add(WWBlocks.HOLLOWED_WARPED_STEM)
-			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+			.add(WWBlocks.HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
-			.add(WWBlocks.HOLLOWED_BAOBAB_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+			.add(WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_WILLOW_LOGS)
-			.add(WWBlocks.HOLLOWED_WILLOW_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+			.add(WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
-			.add(WWBlocks.HOLLOWED_CYPRESS_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+			.add(WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+
+		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALM_LOGS)
+			.add(WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_MAPLE_LOGS)
-			.add(WWBlocks.HOLLOWED_MAPLE_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+			.add(WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG)
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
 		this.getOrCreateTagBuilder(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS)
@@ -772,66 +678,41 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);
 
 		this.getOrCreateTagBuilder(WWBlockTags.KILLS_TERMITE)
-			.add(Blocks.WATER)
-			.add(Blocks.LAVA)
-			.add(Blocks.POWDER_SNOW)
-			.add(Blocks.WATER_CAULDRON)
-			.add(Blocks.LAVA_CAULDRON)
-			.add(Blocks.POWDER_SNOW_CAULDRON)
-			.add(Blocks.CRIMSON_ROOTS)
-			.add(Blocks.CRIMSON_PLANKS)
-			.add(Blocks.WARPED_PLANKS)
-			.add(Blocks.WEEPING_VINES)
-			.add(Blocks.WEEPING_VINES_PLANT)
-			.add(Blocks.TWISTING_VINES)
-			.add(Blocks.TWISTING_VINES_PLANT)
-			.add(Blocks.CRIMSON_SLAB)
-			.add(Blocks.WARPED_SLAB)
-			.add(Blocks.CRIMSON_PRESSURE_PLATE)
-			.add(Blocks.WARPED_PRESSURE_PLATE)
-			.add(Blocks.CRIMSON_FENCE)
-			.add(Blocks.WARPED_FENCE)
-			.add(Blocks.CRIMSON_TRAPDOOR)
-			.add(Blocks.WARPED_TRAPDOOR)
-			.add(Blocks.CRIMSON_FENCE_GATE)
-			.add(Blocks.WARPED_FENCE_GATE)
-			.add(Blocks.CRIMSON_STAIRS)
-			.add(Blocks.WARPED_STAIRS)
-			.add(Blocks.CRIMSON_BUTTON)
-			.add(Blocks.WARPED_BUTTON)
-			.add(Blocks.CRIMSON_DOOR)
-			.add(Blocks.WARPED_DOOR)
-			.add(Blocks.CRIMSON_SIGN)
-			.add(Blocks.WARPED_SIGN)
-			.add(Blocks.CRIMSON_WALL_SIGN)
-			.add(Blocks.WARPED_WALL_SIGN)
-			.add(Blocks.CRIMSON_STEM)
-			.add(Blocks.WARPED_STEM)
-			.add(Blocks.STRIPPED_WARPED_STEM)
-			.add(Blocks.STRIPPED_WARPED_HYPHAE)
-			.add(Blocks.WARPED_NYLIUM)
-			.add(Blocks.WARPED_FUNGUS)
-			.add(Blocks.STRIPPED_CRIMSON_STEM)
-			.add(Blocks.STRIPPED_CRIMSON_HYPHAE)
-			.add(Blocks.CRIMSON_NYLIUM)
-			.add(Blocks.CRIMSON_FUNGUS)
-			.add(Blocks.REDSTONE_WIRE)
-			.add(Blocks.REDSTONE_BLOCK)
-			.add(Blocks.REDSTONE_TORCH)
-			.add(Blocks.REDSTONE_WALL_TORCH)
-			.add(WWBlocks.HOLLOWED_CRIMSON_STEM)
-			.add(WWBlocks.HOLLOWED_WARPED_STEM)
-			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM)
-			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
+			.add(Blocks.WATER, Blocks.WATER_CAULDRON)
+			.add(Blocks.LAVA, Blocks.LAVA_CAULDRON)
+			.add(Blocks.POWDER_SNOW, Blocks.POWDER_SNOW_CAULDRON)
+			.add(Blocks.CRIMSON_ROOTS, Blocks.NETHER_SPROUTS)
+			.add(Blocks.CRIMSON_PLANKS, Blocks.WARPED_PLANKS)
+			.add(Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT)
+			.add(Blocks.TWISTING_VINES, Blocks.TWISTING_VINES_PLANT)
+			.add(Blocks.CRIMSON_SLAB, Blocks.WARPED_SLAB)
+			.add(Blocks.CRIMSON_PRESSURE_PLATE, Blocks.WARPED_PRESSURE_PLATE)
+			.add(Blocks.CRIMSON_FENCE, Blocks.WARPED_FENCE)
+			.add(Blocks.CRIMSON_TRAPDOOR, Blocks.WARPED_TRAPDOOR)
+			.add(Blocks.CRIMSON_FENCE_GATE, Blocks.WARPED_FENCE_GATE)
+			.add(Blocks.CRIMSON_STAIRS, Blocks.WARPED_STAIRS)
+			.add(Blocks.CRIMSON_BUTTON, Blocks.WARPED_BUTTON)
+			.add(Blocks.CRIMSON_DOOR, Blocks.WARPED_DOOR)
+			.add(Blocks.CRIMSON_SIGN, Blocks.WARPED_SIGN)
+			.add(Blocks.CRIMSON_WALL_SIGN, Blocks.WARPED_WALL_SIGN)
+			.add(Blocks.CRIMSON_HANGING_SIGN, Blocks.WARPED_HANGING_SIGN)
+			.add(Blocks.CRIMSON_WALL_HANGING_SIGN, Blocks.WARPED_WALL_HANGING_SIGN)
+			.add(Blocks.CRIMSON_STEM, Blocks.WARPED_STEM)
+			.add(Blocks.STRIPPED_CRIMSON_STEM, Blocks.STRIPPED_WARPED_STEM)
+			.add(Blocks.STRIPPED_CRIMSON_HYPHAE, Blocks.STRIPPED_WARPED_HYPHAE)
+			.add(Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM)
+			.add(Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS)
+			.add(Blocks.NETHER_WART_BLOCK, Blocks.WARPED_WART_BLOCK)
+			.add(Blocks.NETHER_WART)
+			.add(Blocks.REDSTONE_WIRE, Blocks.REDSTONE_BLOCK, Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH)
+			.add(WWBlocks.HOLLOWED_CRIMSON_STEM, WWBlocks.HOLLOWED_WARPED_STEM)
+			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM)
 			.addOptionalTag(BlockTags.WARPED_STEMS)
 			.addOptionalTag(BlockTags.CRIMSON_STEMS)
 			.add(Blocks.RESIN_CLUMP)
 			.add(Blocks.CREAKING_HEART)
-			.add(Blocks.CLOSED_EYEBLOSSOM)
-			.add(Blocks.OPEN_EYEBLOSSOM)
-			.add(WWBlocks.PALE_MUSHROOM)
-			.add(WWBlocks.PALE_SHELF_FUNGI)
-			.add(WWBlocks.PALE_MUSHROOM_BLOCK);
+			.add(Blocks.CLOSED_EYEBLOSSOM, Blocks.OPEN_EYEBLOSSOM)
+			.add(WWBlocks.PALE_MUSHROOM, WWBlocks.PALE_SHELF_FUNGI, WWBlocks.PALE_MUSHROOM_BLOCK);
 	}
 
 	private void generateMinecraft() {
@@ -839,32 +720,22 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.CACTUS)
 			.add(Blocks.SWEET_BERRY_BUSH)
 			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS)
-			.add(WWBlocks.TUMBLEWEED_PLANT)
-			.add(WWBlocks.TUMBLEWEED)
+			.add(WWBlocks.TUMBLEWEED, WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.add(WWBlocks.MYCELIUM_GROWTH)
-			.add(WWBlocks.BROWN_SHELF_FUNGI)
-			.add(WWBlocks.RED_SHELF_FUNGI)
-			.add(WWBlocks.PALE_SHELF_FUNGI)
-			.add(WWBlocks.CRIMSON_SHELF_FUNGI)
-			.add(WWBlocks.WARPED_SHELF_FUNGI)
-			.add(WWBlocks.PALE_MUSHROOM_BLOCK)
-			.add(WWBlocks.PALE_MUSHROOM)
+			.add(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI)
+			.add(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI)
+			.add(WWBlocks.PALE_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM)
 			.add(WWBlocks.CLOVERS)
-			.add(WWBlocks.FROZEN_SHORT_GRASS)
-			.add(WWBlocks.FROZEN_TALL_GRASS)
-			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN, WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.FROZEN_BUSH)
-			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.BARNACLES);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
 			.add(Blocks.SWEET_BERRY_BUSH)
 			.add(WWBlocks.OSSEOUS_SCULK)
-			.add(WWBlocks.SCULK_SLAB)
-			.add(WWBlocks.SCULK_STAIRS)
-			.add(WWBlocks.SCULK_WALL)
+			.add(WWBlocks.SCULK_SLAB, WWBlocks.SCULK_STAIRS, WWBlocks.SCULK_WALL)
 			.add(WWBlocks.HANGING_TENDRIL)
 			.add(WWBlocks.BAOBAB_LEAVES)
 			.add(WWBlocks.WILLOW_LEAVES)
@@ -888,34 +759,20 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.STONE_CHEST)
 			.add(WWBlocks.NULL_BLOCK)
 			.add(WWBlocks.DISPLAY_LANTERN)
-			.add(WWBlocks.SCORCHED_SAND)
-			.add(WWBlocks.SCORCHED_RED_SAND)
+			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND)
 			.add(WWBlocks.CHISELED_MUD_BRICKS)
 			.add(WWBlocks.CRACKED_MUD_BRICKS)
-			.add(WWBlocks.MOSSY_MUD_BRICKS)
-			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS)
-			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB)
-			.add(WWBlocks.MOSSY_MUD_BRICK_WALL)
+			.add(WWBlocks.MOSSY_MUD_BRICKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICK_WALL)
 
 			.add(WWBlocks.GABBRO)
 			.add(WWBlocks.GEYSER)
-			.add(WWBlocks.GABBRO_STAIRS)
-			.add(WWBlocks.GABBRO_SLAB)
-			.add(WWBlocks.GABBRO_WALL)
-			.add(WWBlocks.POLISHED_GABBRO)
-			.add(WWBlocks.POLISHED_GABBRO_STAIRS)
-			.add(WWBlocks.POLISHED_GABBRO_SLAB)
-			.add(WWBlocks.POLISHED_GABBRO_WALL)
+			.add(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL)
+			.add(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL)
 			.add(WWBlocks.CHISELED_GABBRO_BRICKS)
 			.add(WWBlocks.GABBRO_BRICKS)
 			.add(WWBlocks.CRACKED_GABBRO_BRICKS)
-			.add(WWBlocks.GABBRO_BRICK_STAIRS)
-			.add(WWBlocks.GABBRO_BRICK_SLAB)
-			.add(WWBlocks.GABBRO_BRICK_WALL)
-			.add(WWBlocks.MOSSY_GABBRO_BRICKS)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL)
+			.add(WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICK_WALL)
+			.add(WWBlocks.MOSSY_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL)
 
 			.add(WWBlocks.FRAGILE_ICE)
 			.add(WWBlocks.ICICLE)
@@ -923,16 +780,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.BARNACLES);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
-			.add(WWBlocks.SCORCHED_SAND)
-			.add(WWBlocks.SCORCHED_RED_SAND)
+			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND)
 			.add(WWBlocks.TERMITE_MOUND)
 			.add(WWBlocks.PLANKTON)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
 			.add(WWBlocks.SHRUB)
-			.add(WWBlocks.TUMBLEWEED)
-			.add(WWBlocks.TUMBLEWEED_PLANT)
+			.add(WWBlocks.TUMBLEWEED, WWBlocks.TUMBLEWEED_PLANT)
 			.add(WWBlocks.MILKWEED)
 			.add(WWBlocks.DATURA)
 			.add(WWBlocks.CATTAIL)
@@ -952,10 +807,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.CLOVERS)
-			.add(WWBlocks.FROZEN_SHORT_GRASS)
-			.add(WWBlocks.FROZEN_TALL_GRASS)
-			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN, WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.FROZEN_BUSH)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
 			.add(WWBlocks.AUBURN_CREEPING_MOSS)
@@ -965,8 +818,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PALE_MUSHROOM);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
-			.add(WWBlocks.SCORCHED_SAND)
-			.add(WWBlocks.SCORCHED_RED_SAND);
+			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
 
 		this.getOrCreateTagBuilder(BlockTags.DIRT)
 			.add(WWBlocks.AUBURN_MOSS_BLOCK);
@@ -977,23 +829,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
 			.add(WWBlocks.GABBRO)
 			.add(WWBlocks.GEYSER)
-			.add(WWBlocks.GABBRO_STAIRS)
-			.add(WWBlocks.GABBRO_SLAB)
-			.add(WWBlocks.GABBRO_WALL)
-			.add(WWBlocks.POLISHED_GABBRO)
-			.add(WWBlocks.POLISHED_GABBRO_STAIRS)
-			.add(WWBlocks.POLISHED_GABBRO_SLAB)
-			.add(WWBlocks.POLISHED_GABBRO_WALL)
+			.add(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL)
+			.add(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL)
 			.add(WWBlocks.CHISELED_GABBRO_BRICKS)
 			.add(WWBlocks.GABBRO_BRICKS)
 			.add(WWBlocks.CRACKED_GABBRO_BRICKS)
-			.add(WWBlocks.GABBRO_BRICK_STAIRS)
-			.add(WWBlocks.GABBRO_BRICK_SLAB)
-			.add(WWBlocks.GABBRO_BRICK_WALL)
-			.add(WWBlocks.MOSSY_GABBRO_BRICKS)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB)
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
+			.add(WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICK_WALL)
+			.add(WWBlocks.MOSSY_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 
 		this.getOrCreateTagBuilder(BlockTags.BASE_STONE_OVERWORLD)
 			.add(WWBlocks.GABBRO);
@@ -1063,17 +905,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.CLOVERS)
-			.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.RED_MAPLE_LEAF_LITTER)
-			.add(WWBlocks.FROZEN_SHORT_GRASS)
-			.add(WWBlocks.FROZEN_TALL_GRASS)
-			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN, WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.FROZEN_BUSH)
 			.add(WWBlocks.SEA_ANEMONE)
 			.add(WWBlocks.SEA_WHIP)
 			.add(WWBlocks.TUBE_WORMS)
-			.add(WWBlocks.FROZEN_BUSH)
 			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
@@ -1257,38 +1094,28 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.BAOBAB_LOGS)
-			.add(WWBlocks.BAOBAB_LOG)
-			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
-			.add(WWBlocks.BAOBAB_WOOD)
-			.add(WWBlocks.STRIPPED_BAOBAB_WOOD)
+			.add(WWBlocks.BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG)
+			.add(WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.WILLOW_LOGS)
-			.add(WWBlocks.WILLOW_LOG)
-			.add(WWBlocks.STRIPPED_WILLOW_LOG)
-			.add(WWBlocks.WILLOW_WOOD)
-			.add(WWBlocks.STRIPPED_WILLOW_WOOD)
+			.add(WWBlocks.WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG)
+			.add(WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WILLOW_LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.CYPRESS_LOGS)
-			.add(WWBlocks.CYPRESS_LOG)
-			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
-			.add(WWBlocks.CYPRESS_WOOD)
-			.add(WWBlocks.STRIPPED_CYPRESS_WOOD)
+			.add(WWBlocks.CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG)
+			.add(WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.PALM_LOGS)
-			.add(WWBlocks.PALM_LOG)
-			.add(WWBlocks.STRIPPED_PALM_LOG)
-			.add(WWBlocks.PALM_WOOD)
-			.add(WWBlocks.STRIPPED_PALM_WOOD)
+			.add(WWBlocks.PALM_LOG, WWBlocks.STRIPPED_PALM_LOG)
+			.add(WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.MAPLE_LOGS)
-			.add(WWBlocks.MAPLE_LOG)
-			.add(WWBlocks.STRIPPED_MAPLE_LOG)
-			.add(WWBlocks.MAPLE_WOOD)
-			.add(WWBlocks.STRIPPED_MAPLE_WOOD)
+			.add(WWBlocks.MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG)
+			.add(WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
 
 		this.getOrCreateTagBuilder(BlockTags.LOGS)
@@ -1478,40 +1305,28 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON)
-			.add(Blocks.PUMPKIN)
-			.add(Blocks.CARVED_PUMPKIN)
+			.add(Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.JACK_O_LANTERN)
 			.add(Blocks.MELON);
 
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON_STEM)
+			.add(Blocks.MELON_STEM, Blocks.PUMPKIN_STEM)
+			.add(Blocks.ATTACHED_MELON_STEM, Blocks.ATTACHED_PUMPKIN_STEM);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_LILY_PAD)
-			.add(Blocks.LILY_PAD)
-			.add(WWBlocks.FLOWERING_LILY_PAD);
+			.add(Blocks.LILY_PAD, WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_SANDSTONE)
-			.add(Blocks.SANDSTONE)
-			.add(Blocks.SANDSTONE_SLAB)
-			.add(Blocks.SANDSTONE_STAIRS)
-			.add(Blocks.SANDSTONE_WALL)
-			.add(Blocks.CHISELED_SANDSTONE)
-			.add(Blocks.CUT_SANDSTONE)
-			.add(Blocks.CUT_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_SANDSTONE)
-			.add(Blocks.SMOOTH_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_SANDSTONE_STAIRS)
+			.add(Blocks.SANDSTONE, Blocks.SANDSTONE_SLAB, Blocks.SANDSTONE_STAIRS, Blocks.SANDSTONE_WALL)
+			.add(Blocks.CHISELED_SANDSTONE, Blocks.CUT_SANDSTONE, Blocks.CUT_SANDSTONE_SLAB)
+			.add(Blocks.SMOOTH_SANDSTONE, Blocks.SMOOTH_SANDSTONE_SLAB, Blocks.SMOOTH_SANDSTONE_STAIRS)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "smooth_sandstone_wall"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_sandstone_stairs"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_sandstone_wall"))
 
-			.add(Blocks.RED_SANDSTONE)
-			.add(Blocks.RED_SANDSTONE_SLAB)
-			.add(Blocks.RED_SANDSTONE_STAIRS)
-			.add(Blocks.RED_SANDSTONE_WALL)
-			.add(Blocks.CHISELED_RED_SANDSTONE)
-			.add(Blocks.CUT_RED_SANDSTONE)
-			.add(Blocks.CUT_RED_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_RED_SANDSTONE)
-			.add(Blocks.SMOOTH_RED_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_RED_SANDSTONE_STAIRS)
+			.add(Blocks.RED_SANDSTONE, Blocks.RED_SANDSTONE_SLAB, Blocks.RED_SANDSTONE_STAIRS, Blocks.RED_SANDSTONE_WALL)
+			.add(Blocks.CHISELED_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE_SLAB)
+			.add(Blocks.SMOOTH_RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE_SLAB, Blocks.SMOOTH_RED_SANDSTONE_STAIRS)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "smooth_red_sandstone_wall"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_red_sandstone_stairs"))
@@ -1529,9 +1344,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","cut_pink_sandstone_slab"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MUSHROOM_BLOCK)
-			.add(Blocks.RED_MUSHROOM_BLOCK)
-			.add(Blocks.BROWN_MUSHROOM_BLOCK)
-			.add(WWBlocks.PALE_MUSHROOM_BLOCK)
+			.add(Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "mossy_glowshroom_cap"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "mossy_glowshroom_fur"))
@@ -1545,9 +1358,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","blue_bioshroom"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MUSHROOM)
-			.add(Blocks.RED_MUSHROOM)
-			.add(Blocks.BROWN_MUSHROOM)
-			.add(WWBlocks.PALE_MUSHROOM)
+			.add(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, WWBlocks.PALE_MUSHROOM)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "mossy_glowshroom_sapling"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "small_jellyshroom"))
@@ -1563,13 +1374,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","mycotoxic_mushrooms"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FROSTED_ICE)
-			.add(Blocks.FROSTED_ICE)
-			.add(WWBlocks.FRAGILE_ICE);
+			.add(Blocks.FROSTED_ICE, WWBlocks.FRAGILE_ICE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_ICE)
-			.add(Blocks.ICE)
-			.add(Blocks.PACKED_ICE)
-			.add(Blocks.BLUE_ICE)
+			.add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE)
 			.add(WWBlocks.ICICLE);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COARSE_DIRT)
@@ -1579,8 +1387,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("regions_unexplored","silt_coarse_dirt"));
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_CACTUS)
-			.add(Blocks.CACTUS)
-			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
+			.add(Blocks.CACTUS, WWBlocks.PRICKLY_PEAR_CACTUS)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betternether", "barrel_cactus"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betternether", "nether_cactus"))
@@ -1740,10 +1547,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_LEAVES)
 			.add(WWBlocks.CYPRESS_LEAVES)
 			.add(WWBlocks.PALM_FRONDS)
-			.add(WWBlocks.YELLOW_MAPLE_LEAVES)
-			.add(WWBlocks.ORANGE_MAPLE_LEAVES)
-			.add(WWBlocks.RED_MAPLE_LEAVES)
 			.add(Blocks.PALE_OAK_LEAVES)
+
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "pythadendron_leaves"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "lacugrove_leaves"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "dragon_tree_leaves"))
@@ -1900,12 +1705,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.PEONY)
 			.add(Blocks.LILAC)
 			.add(Blocks.TORCHFLOWER)
-			.add(Blocks.PINK_PETALS)
 			.add(Blocks.WILDFLOWERS)
 			.add(WWBlocks.PHLOX)
 			.add(WWBlocks.LANTANAS)
-			.add(Blocks.CLOSED_EYEBLOSSOM)
-			.add(Blocks.OPEN_EYEBLOSSOM)
+			.add(Blocks.CLOSED_EYEBLOSSOM, Blocks.OPEN_EYEBLOSSOM)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cyan_rose"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "manedrop"))

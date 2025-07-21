@@ -32,9 +32,7 @@ public final class FrogMixin {
 	@Inject(at = @At("RETURN"), method = "getDeathSound", cancellable = true)
 	public void wilderWild$newDeath(CallbackInfoReturnable<SoundEvent> info) {
 		String string = ChatFormatting.stripFormatting(Frog.class.cast(this).getName().getString());
-		if (string.equalsIgnoreCase("Xfrtrex") || string.equalsIgnoreCase("BluePhoenixLOL")) {
-			info.setReturnValue(WWSounds.ENTITY_FROG_SUS_DEATH);
-		}
+		if (string.equalsIgnoreCase("Xfrtrex") || string.equalsIgnoreCase("BluePhoenixLOL")) info.setReturnValue(WWSounds.ENTITY_FROG_SUS_DEATH);
 	}
 
 }

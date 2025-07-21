@@ -28,6 +28,9 @@
       "id": "wilderwild:snowy_dying_mixed_forest",
       "required": false
     },
-    "wilderwild:magmatic_caves"
+    {
+      "id": "wilderwild:magmatic_caves",
+      "required": false
+    }
   ]
 }

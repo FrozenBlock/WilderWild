@@ -4,6 +4,7 @@
     "minecraft:granite_stairs",
     "minecraft:diorite_stairs",
     "minecraft:andesite_stairs",
-    "minecraft:blackstone_stairs"
+    "minecraft:blackstone_stairs",
+    "wilderwild:gabbro_stairs"
   ]
 }

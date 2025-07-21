@@ -1,8 +1,8 @@
 {
   "values": [
     "minecraft:jungle",
-    "minecraft:savanna",
     "minecraft:sparse_jungle",
+    "minecraft:savanna",
     {
       "id": "wilderwild:birch_jungle",
       "required": false

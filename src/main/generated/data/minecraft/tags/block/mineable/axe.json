@@ -6,8 +6,8 @@
       "id": "#wilderwild:hollowed_logs",
       "required": false
     },
-    "wilderwild:tumbleweed_plant",
     "wilderwild:tumbleweed",
+    "wilderwild:tumbleweed_plant",
     "wilderwild:prickly_pear",
     "wilderwild:mycelium_growth",
     "wilderwild:brown_shelf_fungi",
@@ -23,7 +23,6 @@
     "wilderwild:frozen_fern",
     "wilderwild:frozen_large_fern",
     "wilderwild:frozen_bush",
-    "wilderwild:frozen_large_fern",
     "wilderwild:barnacles"
   ]
 }

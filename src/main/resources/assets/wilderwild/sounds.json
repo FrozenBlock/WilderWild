@@ -931,55 +931,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.flower.break": {
-    "sounds": [
-      "wilderwild:block/flower/break1",
-      "wilderwild:block/flower/break2",
-      "wilderwild:block/flower/break3",
-      "wilderwild:block/flower/break4",
-      "wilderwild:block/flower/break5"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.flower.fall": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ]
-  },
-  "block.flower.hit": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.flower.place": {
-    "sounds": [
-      "wilderwild:block/flower/break1",
-      "wilderwild:block/flower/break2",
-      "wilderwild:block/flower/break3",
-      "wilderwild:block/flower/break4",
-      "wilderwild:block/flower/break5"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.flower.step": {
-    "sounds": [
-      "wilderwild:block/flower/step1",
-      "wilderwild:block/flower/step2",
-      "wilderwild:block/flower/step3",
-      "wilderwild:block/flower/step4",
-      "wilderwild:block/flower/step5"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
   "block.gravel.break": {
     "sounds": [
       "wilderwild:block/gravel/break1",
@@ -1391,52 +1342,56 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.leaves.break": {
+  "block.maple_leaves.break": {
     "sounds": [
-      "wilderwild:block/leaves/break1",
-      "wilderwild:block/leaves/break2",
-      "wilderwild:block/leaves/break3",
-      "wilderwild:block/leaves/break4",
-      "wilderwild:block/leaves/break5"
+      "wilderwild:block/maple_leaves/break1",
+      "wilderwild:block/maple_leaves/break2",
+      "wilderwild:block/maple_leaves/break3",
+      "wilderwild:block/maple_leaves/break4",
+      "wilderwild:block/maple_leaves/break5",
+      "wilderwild:block/maple_leaves/break6",
+      "wilderwild:block/maple_leaves/break7"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.leaves.fall": {
+  "block.maple_leaves.fall": {
     "sounds": [
-      "wilderwild:block/leaves/step1",
-      "wilderwild:block/leaves/step2",
-      "wilderwild:block/leaves/step3",
-      "wilderwild:block/leaves/step4",
-      "wilderwild:block/leaves/step5"
+      "wilderwild:block/maple_leaves/step1",
+      "wilderwild:block/maple_leaves/step2",
+      "wilderwild:block/maple_leaves/step3",
+      "wilderwild:block/maple_leaves/step4",
+      "wilderwild:block/maple_leaves/step5"
     ]
   },
-  "block.leaves.hit": {
+  "block.maple_leaves.hit": {
     "sounds": [
-      "wilderwild:block/leaves/step1",
-      "wilderwild:block/leaves/step2",
-      "wilderwild:block/leaves/step3",
-      "wilderwild:block/leaves/step4",
-      "wilderwild:block/leaves/step5"
+      "wilderwild:block/maple_leaves/step1",
+      "wilderwild:block/maple_leaves/step2",
+      "wilderwild:block/maple_leaves/step3",
+      "wilderwild:block/maple_leaves/step4",
+      "wilderwild:block/maple_leaves/step5"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.leaves.place": {
+  "block.maple_leaves.place": {
     "sounds": [
-      "wilderwild:block/leaves/break1",
-      "wilderwild:block/leaves/break2",
-      "wilderwild:block/leaves/break3",
-      "wilderwild:block/leaves/break4",
-      "wilderwild:block/leaves/break5"
+      "wilderwild:block/maple_leaves/break1",
+      "wilderwild:block/maple_leaves/break2",
+      "wilderwild:block/maple_leaves/break3",
+      "wilderwild:block/maple_leaves/break4",
+      "wilderwild:block/maple_leaves/break5",
+      "wilderwild:block/maple_leaves/break6",
+      "wilderwild:block/maple_leaves/break7"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.leaves.step": {
+  "block.maple_leaves.step": {
     "sounds": [
-      "wilderwild:block/leaves/step1",
-      "wilderwild:block/leaves/step2",
-      "wilderwild:block/leaves/step3",
-      "wilderwild:block/leaves/step4",
-      "wilderwild:block/leaves/step5"
+      "wilderwild:block/maple_leaves/step1",
+      "wilderwild:block/maple_leaves/step2",
+      "wilderwild:block/maple_leaves/step3",
+      "wilderwild:block/maple_leaves/step4",
+      "wilderwild:block/maple_leaves/step5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -1729,50 +1684,6 @@
       "wilderwild:block/osseous_sculk/step4",
       "wilderwild:block/osseous_sculk/step5",
       "wilderwild:block/osseous_sculk/step6"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
-  "block.palm_crown.break": {
-    "sounds": [
-      "wilderwild:block/palm_crown/break1",
-      "wilderwild:block/palm_crown/break2",
-      "wilderwild:block/palm_crown/break3",
-      "wilderwild:block/palm_crown/break4"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.palm_crown.fall": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
-    ]
-  },
-  "block.palm_crown.hit": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.palm_crown.place": {
-    "sounds": [
-      "wilderwild:block/palm_crown/break1",
-      "wilderwild:block/palm_crown/break2",
-      "wilderwild:block/palm_crown/break3",
-      "wilderwild:block/palm_crown/break4"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.palm_crown.step": {
-    "sounds": [
-      "wilderwild:block/palm_crown/step1",
-      "wilderwild:block/palm_crown/step2",
-      "wilderwild:block/palm_crown/step3",
-      "wilderwild:block/palm_crown/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -3398,19 +3309,10 @@
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 3
-      },
-      {
         "name": "wilderwild:music/ludocrypt/serene_sonder",
         "stream": true,
         "volume": 0.8,
         "weight": 2
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true
       },
       {
         "name": "wilderwild:music/pictochats/molt",
@@ -3665,11 +3567,6 @@
         "stream": true
       },
       {
-        "name": "wilderwild:music/c418/flake",
-        "stream": true,
-        "weight": 2
-      },
-      {
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "weight": 3
@@ -3758,13 +3655,7 @@
       {
         "name": "music.overworld.forest",
         "type": "event",
-        "volume": 0.2,
-        "weight" : 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true,
-        "volume": 0.4
+        "volume": 0.2
       }
     ]
   },
@@ -3773,13 +3664,7 @@
       {
         "name": "wilderwild:music.overworld.wilder_snowy",
         "type": "event",
-        "volume": 0.2,
-        "weight" : 6
-      },
-      {
-        "name": "wilderwild:music/c418/excuse",
-        "stream": true,
-        "volume": 0.4
+        "volume": 0.2
       }
     ]
   },
