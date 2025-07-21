@@ -19,6 +19,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
 - Blue Orchid Mooblooms no longer spawn in Flower Forests.
+- Marigold Mooblooms now spawn in Flower Fields and Flower Forests.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.

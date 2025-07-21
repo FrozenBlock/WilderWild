@@ -671,7 +671,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(WWBiomeTags.HAS_CARNATION);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_MARIGOLD)
+			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD)
 			.addOptionalTag(WWBiomeTags.HAS_MARIGOLD_SPARSE);
 
