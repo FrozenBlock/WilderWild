@@ -16,3 +16,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Pumpkin and Melon stems now use Wilder Wild's melon sounds opposed to Vanilla's wood sounds.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
+- Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
