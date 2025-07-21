@@ -1,7 +1,7 @@
 {
    "pack": {
      "pack_format": 34,
-     "supported_formats": {"min_inclusive": 34, "max_inclusive": 60},
+     "supported_formats": {"min_inclusive": 34, "max_inclusive": 81},
      "description": "MC Live 2020's Sculk Sensor tendrils"
    }
 }

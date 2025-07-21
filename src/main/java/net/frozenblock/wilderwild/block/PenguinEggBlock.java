@@ -100,8 +100,7 @@ public class PenguinEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
 		if (!isSafeToHatch(level, blockPos.below())) return false;
-		if (level.isDay()) return true;
-		return level.getRandom().nextInt(500) == 0;
+		return level.getRandom().nextInt(30) == 0;
 	}
 
 	private void hatchPenguinEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {

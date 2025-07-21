@@ -99,10 +99,6 @@ LudoCrypt:
 
 Contributors:
 
-C418:
- - Flake (From Minecraft - Volume Beta: https://c418.bandcamp.com/album/minecraft-volume-beta)
- - Excuse (From Minecraft - Volume Alpha: https://c418.bandcamp.com/album/minecraft-volume-alpha)
-
 DaDolphin:
  - Original Penguin walking, laying down, sliding, wading, standing up, and calling animations.
 

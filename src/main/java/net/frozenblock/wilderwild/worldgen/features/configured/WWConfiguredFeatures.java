@@ -2147,22 +2147,23 @@ public final class WWConfiguredFeatures {
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(
 						new NoiseProvider(2345L,
-							new NormalNoise.NoiseParameters(0, 1F), 0.020833334F,
+							new NormalNoise.NoiseParameters(0, 1F), 0.016F,
 							List.of(
 								Blocks.DANDELION.defaultBlockState(),
+								WWBlocks.MARIGOLD.defaultBlockState(),
 								Blocks.POPPY.defaultBlockState(),
+								WWBlocks.CARNATION.defaultBlockState(),
 								Blocks.ALLIUM.defaultBlockState(),
 								Blocks.AZURE_BLUET.defaultBlockState(),
 								Blocks.RED_TULIP.defaultBlockState(),
 								Blocks.ORANGE_TULIP.defaultBlockState(),
 								Blocks.WHITE_TULIP.defaultBlockState(),
 								Blocks.PINK_TULIP.defaultBlockState(),
-								Blocks.OXEYE_DAISY.defaultBlockState(),
-								Blocks.CORNFLOWER.defaultBlockState(),
-								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 								WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-								WWBlocks.CARNATION.defaultBlockState(),
-								WWBlocks.MARIGOLD.defaultBlockState(),
+								Blocks.DANDELION.defaultBlockState(),
+								Blocks.OXEYE_DAISY.defaultBlockState(),
+								Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+								Blocks.CORNFLOWER.defaultBlockState(),
 								WWBlocks.PASQUEFLOWER.defaultBlockState()
 							)
 						)

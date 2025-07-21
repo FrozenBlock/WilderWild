@@ -1140,6 +1140,8 @@
   "tooltip.wilderwild.wilder_snowy_music": "Whether to use new music in Snowy biomes.",
   "option.wilderwild.wilder_ocean_music": "Ocean Music",
   "tooltip.wilderwild.wilder_ocean_music": "Whether to use new music in Ocean biomes.",
+  "option.wilderwild.wilder_extra_music": "Extra Music",
+  "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus and whilst Under Water.",
   "option.wilderwild.ancient_city_music": "Ancient City Music",
   "tooltip.wilderwild.ancient_city_music": "Whether Deep Dark music can play while in an Ancient City.\nThis fixes edge-cases such as when an Ancient City is partially in another biome.",
   "option.wilderwild.distorted_dying_forest_music": "Distorted Dying Forest Music",
@@ -1204,6 +1206,7 @@
   "option.wilderwild.simple_bool.false": "§cOFF",
   "option.wilderwild.simple_bool.true": "§aON",
 
+  "pack.wilderwild.wilder_extra_music": "Wilder Extra Music",
   "pack.wilderwild.minecraft_live_tendrils": "Minecraft Live Tendrils",
 
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",

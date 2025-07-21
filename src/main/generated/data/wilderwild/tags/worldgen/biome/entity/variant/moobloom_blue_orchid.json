@@ -1,9 +1,9 @@
 {
   "values": [
-    "minecraft:flower_forest",
     "minecraft:swamp",
+    "minecraft:mangrove_swamp",
     {
-      "id": "wilderwild:flower_field",
+      "id": "wilderwild:rainforest",
       "required": false
     }
   ]

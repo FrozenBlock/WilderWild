@@ -113,20 +113,6 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_GABBRO_BRICKS_HIT,
 		WWSounds.BLOCK_GABBRO_BRICKS_FALL
 	);
-	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
-		WWSounds.BLOCK_MAGMA_BREAK,
-		WWSounds.BLOCK_MAGMA_STEP,
-		WWSounds.BLOCK_MAGMA_PLACE,
-		WWSounds.BLOCK_MAGMA_HIT,
-		WWSounds.BLOCK_MAGMA_FALL
-	);
-	public static final SoundType MELON = new SoundType(1F, 1F,
-		WWSounds.BLOCK_MELON_BREAK,
-		WWSounds.BLOCK_MELON_STEP,
-		WWSounds.BLOCK_MELON_PLACE,
-		WWSounds.BLOCK_MELON_HIT,
-		WWSounds.BLOCK_MELON_FALL
-	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1F,
 		WWSounds.BLOCK_MESOGLEA_BREAK,
 		WWSounds.BLOCK_MESOGLEA_STEP,
@@ -154,13 +140,6 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_PLACE,
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_HIT,
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_FALL
-	);
-	public static final SoundType PALM_CROWN = new SoundType(1F, 1F,
-		WWSounds.BLOCK_PALM_CROWN_BREAK,
-		WWSounds.BLOCK_PALM_CROWN_STEP,
-		WWSounds.BLOCK_PALM_CROWN_PLACE,
-		WWSounds.BLOCK_PALM_CROWN_HIT,
-		WWSounds.BLOCK_PALM_CROWN_FALL
 	);
 	public static final SoundType CLAY = new SoundType(0.9F, 1F,
 		WWSounds.BLOCK_CLAY_BREAK,
@@ -213,19 +192,12 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_FROSTED_ICE_HIT,
 		WWSounds.BLOCK_FROSTED_ICE_FALL
 	);
-	public static final SoundType LEAVES = new SoundType(1F, 1F,
-		WWSounds.BLOCK_LEAVES_BREAK,
-		WWSounds.BLOCK_LEAVES_STEP,
-		WWSounds.BLOCK_LEAVES_PLACE,
-		WWSounds.BLOCK_LEAVES_HIT,
-		WWSounds.BLOCK_LEAVES_FALL
-	);
-	public static final SoundType FLOWER = new SoundType(0.8F, 1F,
-		WWSounds.BLOCK_FLOWER_BREAK,
-		WWSounds.BLOCK_FLOWER_STEP,
-		WWSounds.BLOCK_FLOWER_PLACE,
-		WWSounds.BLOCK_FLOWER_HIT,
-		WWSounds.BLOCK_FLOWER_FALL
+	public static final SoundType MAPLE_LEAVES = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MAPLE_LEAVES_BREAK,
+		WWSounds.BLOCK_MAPLE_LEAVES_STEP,
+		WWSounds.BLOCK_MAPLE_LEAVES_PLACE,
+		WWSounds.BLOCK_MAPLE_LEAVES_HIT,
+		WWSounds.BLOCK_MAPLE_LEAVES_FALL
 	);
 	public static final SoundType LILY_PAD = new SoundType(1F, 1F,
 		SoundEvents.BIG_DRIPLEAF_BREAK,
@@ -275,6 +247,20 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
+	);
+	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
+		WWSounds.BLOCK_MAGMA_BREAK,
+		WWSounds.BLOCK_MAGMA_STEP,
+		WWSounds.BLOCK_MAGMA_PLACE,
+		WWSounds.BLOCK_MAGMA_HIT,
+		WWSounds.BLOCK_MAGMA_FALL
+	);
+	public static final SoundType MELON = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MELON_BREAK,
+		WWSounds.BLOCK_MELON_STEP,
+		WWSounds.BLOCK_MELON_PLACE,
+		WWSounds.BLOCK_MELON_HIT,
+		WWSounds.BLOCK_MELON_FALL
 	);
 
 	private WWSoundTypes() {
