@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -61,6 +62,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
 		SoundEvent.DIRECT_CODEC.fieldOf("brush_sound").forGetter((scorchedBlock) -> scorchedBlock.brushSound),
 		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter((scorchedBlock) -> scorchedBlock.brushCompletedSound),
+		Codec.BOOL.fieldOf("is_sand").forGetter((scorchedBlock) -> scorchedBlock.isSand),
 		propertiesCodec()
 	).apply(instance, ScorchedBlock::new));
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
@@ -68,14 +70,18 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final BlockState wetState;
 	public final SoundEvent brushSound;
 	public final SoundEvent brushCompletedSound;
+	public final boolean isSand;
 
-	public ScorchedBlock(@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, @NotNull Properties settings) {
+	public ScorchedBlock(
+		@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, boolean isSand, @NotNull Properties settings
+	) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
+		this.wetState = wetState;
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
-		this.wetState = wetState;
+		this.isSand = isSand;
 		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
 	}
 
@@ -166,6 +172,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 		ItemStack superStack = super.getCloneItemStack(level, pos, state, bl);
 		if (state.getValue(WWBlockStateProperties.CRACKED)) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
 		return superStack;
+	}
+
+	@Override
+	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+		if (!this.isSand) return;
+		AmbientDesertBlockSoundsPlayer.playAmbientSandSounds(level, blockPos, randomSource);
 	}
 
 	@Override

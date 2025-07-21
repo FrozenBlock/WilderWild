@@ -52,8 +52,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH);
 
 		this.valueLookupBuilder(WWEntityTags.JELLYFISH_CANT_STING)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.PUFFERFISH)
@@ -63,8 +62,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.TUMBLEWEED);
 
 		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_BONK)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.SPIDER)
 			.add(EntityType.CAVE_SPIDER)
@@ -76,8 +74,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.BREEZE);
 
 		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.DOLPHIN)
 			.add(EntityType.COD)
 			.add(EntityType.SALMON)
@@ -91,11 +88,6 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
-
-		this.valueLookupBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
-			.add(EntityType.WITHER)
-			.add(EntityType.WARDEN)
-			.add(EntityType.ENDER_DRAGON);
 
 		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
@@ -110,20 +102,17 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.JELLYFISH);
 
 		this.valueLookupBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID)
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
 			.add(EntityType.COD)
 			.add(EntityType.SALMON)
 			.add(EntityType.TROPICAL_FISH)
 			.add(EntityType.TADPOLE);
 
 		this.valueLookupBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
-			.add(EntityType.SQUID)
-			.add(EntityType.GLOW_SQUID);
+			.add(EntityType.SQUID, EntityType.GLOW_SQUID);
 
 		this.valueLookupBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
-			.add(EntityType.ARROW)
-			.add(EntityType.SPECTRAL_ARROW);
+			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
 
 		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityType.PLAYER)

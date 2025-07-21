@@ -23,8 +23,8 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -53,10 +53,12 @@ public final class WWClientResources {
 			ResourcePackActivationType.DEFAULT_ENABLED
 		);
 
-		try {
-			FrozenLibModResourcePackApi.findAndPrepareResourcePack(container, "wilder_music", true, true, false);
-		} catch (Exception ignored) {
-			WWConstants.error("Unable to load Wilder Wild Music resource pack!", true);
+		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
+			ResourceManagerHelper.registerBuiltinResourcePack(
+				WWConstants.id("wilder_extra_music"), container,
+				Component.translatable("pack.wilderwild.wilder_extra_music"),
+				ResourcePackActivationType.ALWAYS_ENABLED
+			);
 		}
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {

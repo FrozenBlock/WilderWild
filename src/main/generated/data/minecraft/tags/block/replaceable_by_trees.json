@@ -10,17 +10,14 @@
     "wilderwild:phlox",
     "wilderwild:lantanas",
     "wilderwild:clovers",
-    "wilderwild:yellow_maple_leaf_litter",
-    "wilderwild:orange_maple_leaf_litter",
-    "wilderwild:red_maple_leaf_litter",
     "wilderwild:frozen_short_grass",
     "wilderwild:frozen_tall_grass",
     "wilderwild:frozen_fern",
     "wilderwild:frozen_large_fern",
+    "wilderwild:frozen_bush",
     "wilderwild:sea_anemone",
     "wilderwild:sea_whip",
     "wilderwild:tube_worms",
-    "wilderwild:frozen_bush",
     {
       "id": "#wilderwild:leaf_litters",
       "required": false

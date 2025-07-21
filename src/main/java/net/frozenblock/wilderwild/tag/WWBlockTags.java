@@ -36,6 +36,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_SANDSTONE = bind("sound/sandstone");
 	public static final TagKey<Block> SOUND_LILY_PAD = bind("sound/lily_pad");
 	public static final TagKey<Block> SOUND_MELON = bind("sound/melon");
+	public static final TagKey<Block> SOUND_MELON_STEM = bind("sound/melon_stem");
 	public static final TagKey<Block> SOUND_GRAVEL = bind("sound/gravel");
 	public static final TagKey<Block> SOUND_CLAY = bind("sound/clay");
 	public static final TagKey<Block> SOUND_DEAD_BUSH = bind("sound/dead_bush");

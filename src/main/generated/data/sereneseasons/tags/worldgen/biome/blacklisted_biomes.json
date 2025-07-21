@@ -1,9 +1,24 @@
 {
   "values": [
-    "wilderwild:frozen_caves",
-    "wilderwild:mesoglea_caves",
-    "wilderwild:magmatic_caves",
-    "wilderwild:warm_river",
-    "wilderwild:warm_beach"
+    {
+      "id": "wilderwild:frozen_caves",
+      "required": false
+    },
+    {
+      "id": "wilderwild:mesoglea_caves",
+      "required": false
+    },
+    {
+      "id": "wilderwild:magmatic_caves",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_river",
+      "required": false
+    },
+    {
+      "id": "wilderwild:warm_beach",
+      "required": false
+    }
   ]
 }

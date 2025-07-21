@@ -1,8 +1,8 @@
 {
   "values": [
     "minecraft:warm_ocean",
-    "minecraft:deep_lukewarm_ocean",
     "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
     "minecraft:cold_ocean",
     "minecraft:deep_cold_ocean",
     "minecraft:frozen_ocean",

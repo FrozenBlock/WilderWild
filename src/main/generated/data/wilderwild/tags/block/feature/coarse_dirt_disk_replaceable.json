@@ -4,9 +4,9 @@
       "id": "#minecraft:sand",
       "required": false
     },
+    "minecraft:grass_block",
     "minecraft:dirt",
     "minecraft:clay",
-    "minecraft:grass_block",
     "minecraft:podzol"
   ]
 }

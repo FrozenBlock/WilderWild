@@ -300,8 +300,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		WindManager.addExtension(WWWindManager.TYPE);
 
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, WWSoundTypes.FLOWER, () -> WWBlockConfig.get().blockSounds.flowerSounds);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, WWSoundTypes.LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, SoundType.PINK_PETALS, () -> WWBlockConfig.get().blockSounds.flowerSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, SoundType.CHERRY_LEAVES, () -> WWBlockConfig.get().blockSounds.leafSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SAPLING, WWSoundTypes.SAPLING, () -> WWBlockConfig.get().blockSounds.saplingSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CACTUS, WWSoundTypes.CACTUS, () -> WWBlockConfig.get().blockSounds.cactusSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COARSE_DIRT, WWSoundTypes.COARSE_DIRT, () -> WWBlockConfig.get().blockSounds.coarseDirtSounds);
@@ -312,6 +312,7 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SANDSTONE, WWSoundTypes.SANDSTONE, () -> WWBlockConfig.get().blockSounds.sandstoneSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LILY_PAD, WWSoundTypes.LILY_PAD, () -> WWBlockConfig.get().blockSounds.lilyPadSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON, WWSoundTypes.MELON, () -> WWBlockConfig.get().blockSounds.melonSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON_STEM, SoundType.CROP, () -> WWBlockConfig.get().blockSounds.melonSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_GRAVEL, WWSoundTypes.GRAVEL, () -> WWBlockConfig.get().blockSounds.gravelSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CLAY, WWSoundTypes.CLAY, () -> WWBlockConfig.get().blockSounds.claySounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_DEAD_BUSH, SoundType.NETHER_SPROUTS, () -> WWBlockConfig.get().blockSounds.deadBushSounds);

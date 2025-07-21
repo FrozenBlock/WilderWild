@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,8 +39,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.DryVegetationBlock;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -56,7 +55,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TumbleweedPlantBlock extends VegetationBlock implements BonemealableBlock {
+public class TumbleweedPlantBlock extends DryVegetationBlock implements BonemealableBlock {
 	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 	public static final int MAX_AGE = 3;
 	public static final int AGE_FOR_SOLID_COLLISION = 2;
@@ -82,7 +81,7 @@ public class TumbleweedPlantBlock extends VegetationBlock implements Bonemealabl
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends TumbleweedPlantBlock> codec() {
+	public MapCodec<? extends TumbleweedPlantBlock> codec() {
 		return CODEC;
 	}
 
@@ -123,7 +122,7 @@ public class TumbleweedPlantBlock extends VegetationBlock implements Bonemealabl
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DRY_VEGETATION_MAY_PLACE_ON) || state.is(WWBlockTags.SHRUB_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
+		return state.is(WWBlockTags.SHRUB_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
 	@Override

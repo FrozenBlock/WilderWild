@@ -1,14 +1,14 @@
 {
   "values": [
     "minecraft:forest",
+    "minecraft:flower_forest",
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",
     "minecraft:dark_forest",
+    "minecraft:pale_garden",
     "minecraft:taiga",
     "minecraft:old_growth_spruce_taiga",
     "minecraft:old_growth_pine_taiga",
-    "minecraft:flower_forest",
-    "minecraft:pale_garden",
     {
       "id": "wilderwild:old_growth_birch_taiga",
       "required": false
