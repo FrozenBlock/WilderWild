@@ -14,7 +14,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - C418's music has once again been removed.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
-- Pumpkin and Melon stems now use Wilder Wild's melon sounds opposed to Vanilla's wood sounds.
+- Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 - Renamed the `wilderwild:feature/has_field_flowers` biome tag to `wilderwild:feature/has_flower_field_flowers.`
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
