@@ -308,15 +308,15 @@ public final class WWBlocks {
 	);
 	public static final Block YELLOW_MAPLE_LEAVES = register("yellow_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_YELLOW)
+		Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final Block ORANGE_MAPLE_LEAVES = register("orange_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_ORANGE)
+		Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final Block RED_MAPLE_LEAVES = register("red_maple_leaves",
 		LeavesWithLitterBlock::new,
-		Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_RED)
+		Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
 	public static final HollowedLogBlock HOLLOWED_OAK_LOG = register("hollowed_oak_log",
@@ -436,21 +436,24 @@ public final class WWBlocks {
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
-		5
+		5,
+		WWSoundTypes.MAPLE_LEAVES
 	);
 
 	// SCULK
@@ -1843,9 +1846,10 @@ public final class WWBlocks {
 		@NotNull ParticleType<LeafParticleOptions> particleType,
 		float litterChance,
 		Supplier<Double> frequencyModifier,
-		int textureSize
+		int textureSize,
+		SoundType soundType
 	) {
-		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F);
+		return leafLitter(id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, soundType);
 	}
 
 	@NotNull
@@ -1857,9 +1861,10 @@ public final class WWBlocks {
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
-		float particleGravityScale
+		float particleGravityScale,
+		SoundType soundType
 	) {
-		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType);
+		LeafLitterBlock leafLitterBlock = createLeafLitter(id, sourceBlock, particleType, soundType);
 		FallingLeafUtil.registerFallingLeafWithLitter(
 			sourceBlock,
 			leafLitterBlock,
@@ -1873,13 +1878,14 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType) {
+	private static @NotNull LeafLitterBlock createLeafLitter(String id, Block sourceBlock, @NotNull ParticleType<LeafParticleOptions> particleType, SoundType soundType) {
 		Properties properties = Properties.ofFullCopy(sourceBlock)
 			.randomTicks()
 			.noCollission()
 			.instabreak()
 			.replaceable()
-			.pushReaction(PushReaction.DESTROY);
+			.pushReaction(PushReaction.DESTROY).
+			sound(soundType);
 
 		LeafLitterBlock leafLitterBlock = register(id, properties1 -> new LeafLitterBlock(sourceBlock, properties1), properties);
 		LeafLitterBlock.LeafLitterParticleRegistry.registerLeafParticle(leafLitterBlock, particleType);

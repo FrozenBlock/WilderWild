@@ -35,8 +35,7 @@ public class PathNavigationMixin {
 		)
 	)
 	public void wilderWild$onStuckNavigationStop(CallbackInfo info) {
-		PathNavigation navigation = PathNavigation.class.cast(this);
-		if (navigation instanceof CrabNavigation crabNavigation) crabNavigation.pathToPosition = null;
+		if (PathNavigation.class.cast(this) instanceof CrabNavigation crabNavigation) crabNavigation.pathToPosition = null;
 	}
 
 	@Inject(
@@ -47,8 +46,7 @@ public class PathNavigationMixin {
 		)
 	)
 	public void wilderWild$onStuckNavigationTimeout(CallbackInfo info) {
-		PathNavigation navigation = PathNavigation.class.cast(this);
-		if (navigation instanceof CrabNavigation crabNavigation) crabNavigation.pathToPosition = null;
+		if (PathNavigation.class.cast(this) instanceof CrabNavigation crabNavigation) crabNavigation.pathToPosition = null;
 	}
 
 }

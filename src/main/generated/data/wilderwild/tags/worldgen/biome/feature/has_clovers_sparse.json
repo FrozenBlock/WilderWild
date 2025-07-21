@@ -1,8 +1,8 @@
 {
   "values": [
     "wilderwild:rainforest",
-    "minecraft:sparse_jungle",
     "minecraft:jungle",
+    "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
     "minecraft:dark_forest",
     "minecraft:ocean",

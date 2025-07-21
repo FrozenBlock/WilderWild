@@ -1,7 +1,7 @@
 {
   "values": [
-    "minecraft:mangrove_swamp",
     "minecraft:swamp",
+    "minecraft:mangrove_swamp",
     "minecraft:jungle",
     "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",

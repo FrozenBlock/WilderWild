@@ -1,8 +1,8 @@
 {
   "values": [
     "minecraft:grass_block",
-    "minecraft:gravel",
     "minecraft:mud",
+    "minecraft:gravel",
     "minecraft:sand",
     {
       "id": "#minecraft:base_stone_overworld",

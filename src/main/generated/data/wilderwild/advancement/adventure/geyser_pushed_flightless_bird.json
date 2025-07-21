@@ -11,7 +11,8 @@
             "predicate": {
               "type": [
                 "minecraft:chicken",
-                "wilderwild:ostrich"
+                "wilderwild:ostrich",
+                "wilderwild:penguin"
               ],
               "movement": {
                 "y": {

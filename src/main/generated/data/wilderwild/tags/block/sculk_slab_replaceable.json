@@ -4,6 +4,7 @@
     "minecraft:granite_slab",
     "minecraft:diorite_slab",
     "minecraft:andesite_slab",
-    "minecraft:blackstone_slab"
+    "minecraft:blackstone_slab",
+    "wilderwild:gabbro_slab"
   ]
 }
