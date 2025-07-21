@@ -113,20 +113,6 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_GABBRO_BRICKS_HIT,
 		WWSounds.BLOCK_GABBRO_BRICKS_FALL
 	);
-	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
-		WWSounds.BLOCK_MAGMA_BREAK,
-		WWSounds.BLOCK_MAGMA_STEP,
-		WWSounds.BLOCK_MAGMA_PLACE,
-		WWSounds.BLOCK_MAGMA_HIT,
-		WWSounds.BLOCK_MAGMA_FALL
-	);
-	public static final SoundType MELON = new SoundType(1F, 1F,
-		WWSounds.BLOCK_MELON_BREAK,
-		WWSounds.BLOCK_MELON_STEP,
-		WWSounds.BLOCK_MELON_PLACE,
-		WWSounds.BLOCK_MELON_HIT,
-		WWSounds.BLOCK_MELON_FALL
-	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1F,
 		WWSounds.BLOCK_MESOGLEA_BREAK,
 		WWSounds.BLOCK_MESOGLEA_STEP,
@@ -261,6 +247,27 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_HIT,
 		WWSounds.BLOCK_REINFORCED_DEEPSLATE_FALL
+	);
+	public static final SoundType MAGMA = new SoundType(1F, 0.9F,
+		WWSounds.BLOCK_MAGMA_BREAK,
+		WWSounds.BLOCK_MAGMA_STEP,
+		WWSounds.BLOCK_MAGMA_PLACE,
+		WWSounds.BLOCK_MAGMA_HIT,
+		WWSounds.BLOCK_MAGMA_FALL
+	);
+	public static final SoundType MELON = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MELON_BREAK,
+		WWSounds.BLOCK_MELON_STEP,
+		WWSounds.BLOCK_MELON_PLACE,
+		WWSounds.BLOCK_MELON_HIT,
+		WWSounds.BLOCK_MELON_FALL
+	);
+	public static final SoundType MELON_STEM = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MELON_BREAK,
+		WWSounds.BLOCK_MELON_STEP,
+		SoundEvents.CROP_PLANTED,
+		WWSounds.BLOCK_MELON_HIT,
+		WWSounds.BLOCK_MELON_FALL
 	);
 
 	private WWSoundTypes() {
