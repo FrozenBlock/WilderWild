@@ -441,6 +441,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.FIREFLY_HIDEABLE_BLOCKS)
 			.add(Blocks.SHORT_GRASS, Blocks.TALL_GRASS)
 			.add(Blocks.FERN, Blocks.LARGE_FERN)
+			.add(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN, WWBlocks.FROZEN_LARGE_FERN)
 			.add(Blocks.PEONY)
 			.add(Blocks.ROSE_BUSH)
 			.add(Blocks.DEAD_BUSH)
