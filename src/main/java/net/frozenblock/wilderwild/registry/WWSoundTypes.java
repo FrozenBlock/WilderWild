@@ -262,13 +262,6 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MELON_HIT,
 		WWSounds.BLOCK_MELON_FALL
 	);
-	public static final SoundType MELON_STEM = new SoundType(1F, 1F,
-		SoundEvents.CROP_BREAK,
-		WWSounds.BLOCK_MELON_STEP,
-		SoundEvents.CROP_PLANTED,
-		WWSounds.BLOCK_MELON_HIT,
-		WWSounds.BLOCK_MELON_FALL
-	);
 
 	private WWSoundTypes() {
 		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
