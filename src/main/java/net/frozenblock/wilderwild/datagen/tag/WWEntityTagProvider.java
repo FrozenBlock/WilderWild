@@ -92,11 +92,6 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
-		this.getOrCreateTagBuilder(WWEntityTags.ANCIENT_HORN_IMMUNE)
-			.add(EntityType.WITHER)
-			.add(EntityType.WARDEN)
-			.add(EntityType.ENDER_DRAGON);
-
 		this.getOrCreateTagBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
 

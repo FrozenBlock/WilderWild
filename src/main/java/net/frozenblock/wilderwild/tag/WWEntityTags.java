@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = bind("can_swim_in_algae");
 	public static final TagKey<EntityType<?>> STAYS_IN_MESOGLEA = bind("stays_in_mesoglea");
-	public static final TagKey<EntityType<?>> ANCIENT_HORN_IMMUNE = bind("ancient_horn_immune");
 	public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
 	public static final TagKey<EntityType<?>> CRAB_HUNT_TARGETS = bind("crab_hunt_targets");
 	public static final TagKey<EntityType<?>> PENGUIN_HUNT_TARGETS = bind("penguin_hunt_targets");
