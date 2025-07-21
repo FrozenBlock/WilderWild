@@ -250,6 +250,9 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MAPLE_WOOD.asItem(), WWBlocks.STRIPPED_MAPLE_WOOD.asItem())
 			.addOptionalTag(WWItemTags.HOLLOWED_MAPLE_LOGS);
 
+		this.valueLookupBuilder(ItemTags.PALE_OAK_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_PALE_OAK_LOGS);
+
 		this.valueLookupBuilder(ItemTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES.asItem())
 			.add(WWBlocks.WILLOW_LEAVES.asItem())
@@ -419,8 +422,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.HOLLOWED_PALM_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem());
 
 		this.valueLookupBuilder(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem());
+			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem());
 
 		this.valueLookupBuilder(WWItemTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlocks.HOLLOWED_MAPLE_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
