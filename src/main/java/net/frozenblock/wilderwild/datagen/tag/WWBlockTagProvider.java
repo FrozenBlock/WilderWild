@@ -1397,6 +1397,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.MELON);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON_STEM)
+			.add(Blocks.MELON_STEM, Blocks.PUMPKIN_STEM)
 			.add(Blocks.ATTACHED_MELON_STEM, Blocks.ATTACHED_PUMPKIN_STEM);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_LILY_PAD)
