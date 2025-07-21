@@ -239,6 +239,9 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.MAPLE_WOOD.asItem(), WWBlocks.STRIPPED_MAPLE_WOOD.asItem())
 			.addOptionalTag(WWItemTags.HOLLOWED_MAPLE_LOGS);
 
+		this.getOrCreateTagBuilder(ItemTags.PALE_OAK_LOGS)
+			.addOptionalTag(WWItemTags.HOLLOWED_PALE_OAK_LOGS);
+
 		this.getOrCreateTagBuilder(ItemTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES.asItem())
 			.add(WWBlocks.WILLOW_LEAVES.asItem())

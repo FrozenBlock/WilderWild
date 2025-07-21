@@ -630,7 +630,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
 			.addOptionalTag(WWBlockTags.HOLLOWED_WILLOW_LOGS)
