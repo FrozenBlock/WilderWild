@@ -174,14 +174,11 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(WWBlocks.CHISELED_MUD_BRICKS), RecipeProvider.has(WWBlocks.CHISELED_MUD_BRICKS))
 			.save(exporter);
 
-		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.PACKED_MUD);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.MUD_BRICKS);
+		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.PACKED_MUD);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICKS, Blocks.PACKED_MUD);
-		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_SLAB, Blocks.MUD_BRICKS, 2);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_SLAB, Blocks.PACKED_MUD, 2);
-		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.MUD_BRICKS);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.PACKED_MUD);
-		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.MUD_BRICKS);
 		stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.PACKED_MUD);
 
 		// MOSSY MUD BRICKS
