@@ -17,3 +17,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
+- Retextured the Penguin Spawn Egg in 1.21.5+.
+- Added missing translation strings for Wilder Wild's music in 1.21.6+.
