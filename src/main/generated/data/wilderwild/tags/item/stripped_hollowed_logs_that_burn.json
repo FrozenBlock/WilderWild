@@ -12,10 +12,7 @@
     "wilderwild:stripped_hollowed_willow_log",
     "wilderwild:stripped_hollowed_cypress_log",
     "wilderwild:stripped_hollowed_palm_log",
-    {
-      "id": "wilderwild:stripped_hollowed_pale_oak_log",
-      "required": false
-    },
+    "wilderwild:stripped_hollowed_pale_oak_log",
     "wilderwild:stripped_hollowed_maple_log"
   ]
 }
