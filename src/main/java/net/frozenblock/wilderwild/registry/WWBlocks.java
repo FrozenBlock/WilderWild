@@ -216,6 +216,7 @@ public final class WWBlocks {
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,
+			true,
 			properties
 		),
 		Properties.of()
@@ -231,6 +232,7 @@ public final class WWBlocks {
 			true,
 			SoundEvents.BRUSH_SAND,
 			SoundEvents.BRUSH_SAND_COMPLETED,
+			true,
 			properties
 		),
 		Properties.of()

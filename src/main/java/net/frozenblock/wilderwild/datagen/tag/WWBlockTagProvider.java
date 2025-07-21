@@ -1044,6 +1044,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(BlockTags.EDIBLE_FOR_SHEEP)
 			.add(WWBlocks.FROZEN_SHORT_GRASS)
 			.add(WWBlocks.FROZEN_FERN);
+
+		this.getOrCreateTagBuilder(BlockTags.PLAYS_AMBIENT_DESERT_BLOCK_SOUNDS)
+			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
 	}
 
 	private void generateWoods() {

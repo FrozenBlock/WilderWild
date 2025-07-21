@@ -24,6 +24,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
+- Scorched Sand blocks and Tumbleweed now play Desert ambience.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Retextured the Penguin Spawn Egg in 1.21.5+.

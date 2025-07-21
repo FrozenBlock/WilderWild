@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,8 +37,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DryVegetationBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -53,7 +52,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TumbleweedBlock extends VegetationBlock implements SimpleWaterloggedBlock {
+public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final MapCodec<TumbleweedBlock> CODEC = simpleCodec(TumbleweedBlock::new);
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
@@ -66,7 +65,7 @@ public class TumbleweedBlock extends VegetationBlock implements SimpleWaterlogge
 
 	@NotNull
 	@Override
-	protected MapCodec<? extends TumbleweedBlock> codec() {
+	public MapCodec<? extends TumbleweedBlock> codec() {
 		return CODEC;
 	}
 
@@ -98,11 +97,6 @@ public class TumbleweedBlock extends VegetationBlock implements SimpleWaterlogge
 			return state.setValue(WATERLOGGED, waterlogged);
 		}
 		return null;
-	}
-
-	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(BlockTags.DRY_VEGETATION_MAY_PLACE_ON);
 	}
 
 	@Override
