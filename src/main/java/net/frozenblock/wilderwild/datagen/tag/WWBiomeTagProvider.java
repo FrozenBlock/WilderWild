@@ -1572,9 +1572,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FIELD_FLOWERS)
-			.add(Biomes.FLOWER_FOREST)
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWER_FIELD_FLOWERS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FLOWER_FOREST_FLOWERS)
+			.add(Biomes.FLOWER_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SUNFLOWER_PLAINS_FLOWERS)
 			.add(Biomes.SUNFLOWER_PLAINS);

@@ -226,7 +226,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNAPPED_CRIMSON_FUNGI = bind("feature/has_snapped_crimson_fungi");
 	public static final TagKey<Biome> HAS_SNAPPED_WARPED_FUNGI = bind("feature/has_snapped_warped_fungi");
 	public static final TagKey<Biome> HAS_POLLEN = bind("feature/has_pollen");
-	public static final TagKey<Biome> HAS_FIELD_FLOWERS = bind("feature/has_field_flowers");
+	public static final TagKey<Biome> HAS_FLOWER_FIELD_FLOWERS = bind("feature/has_flower_field_flowers");
+	public static final TagKey<Biome> HAS_FLOWER_FOREST_FLOWERS = bind("feature/has_flower_forest_flowers");
 	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI = bind("feature/has_crimson_shelf_fungi");
 	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI = bind("feature/has_warped_shelf_fungi");
 	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI_RARE = bind("feature/has_crimson_shelf_fungi_rare");

@@ -13,14 +13,20 @@
               ],
               "firstOctave": 0
             },
-            "scale": 0.020833334,
+            "scale": 0.016,
             "seed": 2345,
             "states": [
               {
                 "Name": "minecraft:dandelion"
               },
               {
+                "Name": "wilderwild:marigold"
+              },
+              {
                 "Name": "minecraft:poppy"
+              },
+              {
+                "Name": "wilderwild:carnation"
               },
               {
                 "Name": "minecraft:allium"
@@ -41,22 +47,19 @@
                 "Name": "minecraft:pink_tulip"
               },
               {
-                "Name": "minecraft:oxeye_daisy"
+                "Name": "wilderwild:seeding_dandelion"
               },
               {
-                "Name": "minecraft:cornflower"
+                "Name": "minecraft:dandelion"
+              },
+              {
+                "Name": "minecraft:oxeye_daisy"
               },
               {
                 "Name": "minecraft:lily_of_the_valley"
               },
               {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "wilderwild:marigold"
+                "Name": "minecraft:cornflower"
               },
               {
                 "Name": "wilderwild:pasqueflower"

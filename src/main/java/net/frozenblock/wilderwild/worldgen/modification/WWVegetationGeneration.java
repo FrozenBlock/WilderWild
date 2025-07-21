@@ -194,8 +194,14 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_BERRY_FOREST.getKey());
 						}
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FIELD_FLOWERS)) {
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_FOREST_FLOWERS);
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FLOWER_FIELD.getKey());
+						}
+
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FOREST_FLOWERS)) {
+							generationSettings.removeFeature(VegetationPlacements.FLOWER_FOREST_FLOWERS);
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FLOWER_FOREST.getKey());
 						}
 
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CYPRESS_FLOWERS)) {

@@ -287,6 +287,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature HIBISCUS = register("hibiscus");
 	public static final FrozenLibPlacedFeature HIBISCUS_JUNGLE = register("hibiscus_jungle");
 	public static final FrozenLibPlacedFeature HIBISCUS_SPARSE_JUNGLE = register("hibiscus_sparse_jungle");
+	public static final FrozenLibPlacedFeature FLOWER_FLOWER_FOREST = register("flower_flower_forest");
 	public static final FrozenLibPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
 	public static final FrozenLibPlacedFeature FLOWER_TEMPERATE_RAINFOREST = register("flower_temperate_rainforest");
 	public static final FrozenLibPlacedFeature TALL_FLOWER_TEMPERATE_RAINFOREST = register("tall_flower_temperate_rainforest");
@@ -1749,6 +1750,13 @@ public final class WWPlacedFeatures {
 
 		HIBISCUS_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE.getHolder(),
 			RarityFilter.onAverageOnceEvery(5),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		FLOWER_FLOWER_FOREST.makeAndSetHolder(WWConfiguredFeatures.FLOWER_FLOWER_FIELD.getHolder(),
+			CountPlacement.of(1),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
