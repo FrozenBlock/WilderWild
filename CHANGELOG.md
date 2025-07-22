@@ -23,6 +23,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Moobloom variants are now selected based upon the flower features in the biome.
   - As a result of this, all biome tags relating to Moobloom variants have been removed.
 - Mooblooms will now prefer to walk towards flowers of the same type as themselves.
+- Butterflies will now prefer moving towards flowers slightly more.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.

@@ -20,11 +20,7 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
