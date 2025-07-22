@@ -85,7 +85,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 	@Override
 	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
 		BlockState state = levelReader.getBlockState(blockPos);
-		if (this.getVariant().getFlowerBlockState().is(state.getBlock())) return 20F;
+		if (this.getVariant().getFlowerBlockState().is(state.getBlock())) return 40F;
 		return super.getWalkTargetValue(blockPos, levelReader) * 0.5F;
 	}
 
