@@ -605,13 +605,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(BiomeTags.IS_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_JUNGLE)
 			.addOptionalTag(BiomeTags.IS_FOREST)
-			.addOptional(WWBiomes.FLOWER_FIELD);
+			.addOptional(WWBiomes.FLOWER_FIELD)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_AZURE_BLUET)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.PLAINS)
 			.addOptionalTag(BiomeTags.IS_FOREST)
-			.addOptional(WWBiomes.FLOWER_FIELD);
+			.addOptional(WWBiomes.FLOWER_FIELD)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_RED_TULIP)
 			.add(Biomes.FLOWER_FOREST)
@@ -650,7 +652,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.PLAINS)
 			.addOptionalTag(BiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST)
-			.addOptional(WWBiomes.FLOWER_FIELD);
+			.addOptional(WWBiomes.FLOWER_FIELD)
+			.addOptional(WWBiomes.TUNDRA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_ALLIUM)
 			.add(Biomes.FLOWER_FOREST)
@@ -658,8 +661,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptionalTag(BiomeTags.IS_FOREST)
 			.addOptionalTag(ConventionalBiomeTags.IS_BIRCH_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.MOOBLOOM_BLUE_ORCHID)
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)

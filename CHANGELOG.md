@@ -19,6 +19,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Renamed the `wilderwild:feature/has_field_flowers` biome tag to `wilderwild:feature/has_flower_field_flowers.`
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
+- Toned down flower generation in Tundras.
 - Blue Orchid Mooblooms no longer spawn in Flower Forests.
 - Marigold Mooblooms now spawn in Flower Fields and Flower Forests.
 - Added Gabbro blocks to Sculk-related tags they were missing from.

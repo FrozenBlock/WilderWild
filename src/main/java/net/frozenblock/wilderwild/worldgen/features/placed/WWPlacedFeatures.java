@@ -1672,7 +1672,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FLOWER_TUNDRA.makeAndSetHolder(WWConfiguredFeatures.FLOWER_TUNDRA.getHolder(),
-			RarityFilter.onAverageOnceEvery(3),
+			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

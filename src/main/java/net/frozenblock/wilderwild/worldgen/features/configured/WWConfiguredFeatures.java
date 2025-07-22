@@ -1916,7 +1916,7 @@ public final class WWConfiguredFeatures {
 
 		FLOWER_TUNDRA.makeAndSetHolder(Feature.FLOWER,
 			new RandomPatchConfiguration(
-				48,
+				42,
 				7,
 				3,
 				PlacementUtils.onlyWhenEmpty(
