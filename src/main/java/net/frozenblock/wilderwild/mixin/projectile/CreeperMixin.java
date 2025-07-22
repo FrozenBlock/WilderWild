@@ -38,11 +38,9 @@ public final class CreeperMixin {
 	public boolean wilderWild$spawnLingeringCloud(boolean original) {
 		if (original && WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
 			Creeper creeper = Creeper.class.cast(this);
-			if (!creeper.getActiveEffects().isEmpty()) {
-				RandomSource random = creeper.getRandom();
-				creeper.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (random.nextFloat() * 0.2F));
-				creeper.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (random.nextFloat() * 0.2F));
-			}
+			RandomSource random = creeper.getRandom();
+			creeper.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (random.nextFloat() * 0.2F));
+			creeper.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (random.nextFloat() * 0.2F));
 		}
 		return original;
 	}

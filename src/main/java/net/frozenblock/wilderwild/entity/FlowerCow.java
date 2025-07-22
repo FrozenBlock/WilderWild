@@ -103,7 +103,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 		if (spawnGroupData instanceof FlowerCowSpawnGroupData flowerCowSpawnGroupData) {
 			this.setVariant(flowerCowSpawnGroupData.type.value());
 		} else {
-			Holder<MoobloomVariant> moobloomVariantHolder = MoobloomVariants.getSpawnVariant(this.registryAccess(), holder, level.getRandom());
+			Holder<MoobloomVariant> moobloomVariantHolder = MoobloomVariants.getSpawnVariant(this.registryAccess(), holder, this.blockPosition(), level.getRandom());
 			spawnGroupData = new FlowerCowSpawnGroupData(moobloomVariantHolder);
 			this.setVariant(moobloomVariantHolder.value());
 		}
@@ -127,9 +127,8 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 				this.incrementFlowersLeft();
 				this.level().broadcastEntityEvent(this, GROW_FLOWER_EVENT_ID);
 				return InteractionResult.SUCCESS;
-			} else {
-				return InteractionResult.CONSUME;
 			}
+			return InteractionResult.CONSUME;
 		} else if (itemStack.is(Items.SHEARS) && this.readyForShearing()) {
 			this.shear(SoundSource.PLAYERS);
 			this.gameEvent(GameEvent.SHEAR, player);
