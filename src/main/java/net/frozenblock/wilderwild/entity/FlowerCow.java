@@ -39,7 +39,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -85,7 +84,9 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 
 	@Override
 	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
-		return levelReader.getBlockState(blockPos).is(BlockTags.FLOWERS) ? 10F : levelReader.getPathfindingCostFromLightLevels(blockPos);
+		BlockState state = levelReader.getBlockState(blockPos);
+		if (this.getVariant().getFlowerBlockState().is(state.getBlock())) return 15F;
+		return super.getWalkTargetValue(blockPos, levelReader);
 	}
 
 	public static boolean checkFlowerCowSpawnRules(
@@ -142,7 +143,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 	public void shear(SoundSource soundSource) {
 		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR, soundSource, 1F, 1F);
 		if (this.level() instanceof ServerLevel serverLevel) {
-			BlockState flowerState = this.getVariantByLocation().getFlowerBlockState();
+			BlockState flowerState = this.getVariant().getFlowerBlockState();
 			spawnShearParticles(serverLevel, this, flowerState);
 			this.level().addFreshEntity(
 				new ItemEntity(
@@ -192,7 +193,7 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariantByLocation());
+		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariant());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -276,15 +277,15 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 	}
 
 	private MoobloomVariant getOffspringType(@NotNull FlowerCow flowerCow) {
-		MoobloomVariant flowerType = this.getVariantByLocation();
-		MoobloomVariant otherFlowerType = flowerCow.getVariantByLocation();
+		MoobloomVariant flowerType = this.getVariant();
+		MoobloomVariant otherFlowerType = flowerCow.getVariant();
 		if (flowerType == otherFlowerType) return flowerType;
 		return this.getOffspringVariant(flowerCow);
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(@NotNull FlowerCow otherFlowerCow) {
-		MoobloomVariant moobloomVariant = this.getVariantByLocation();
-		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariantByLocation();
+		MoobloomVariant moobloomVariant = this.getVariant();
+		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
 
 		BlockState flowerBlock = moobloomVariant.getFlowerBlockState();
 		BlockState otherFlowerBlock = otherMoobloomVariant.getFlowerBlockState();
