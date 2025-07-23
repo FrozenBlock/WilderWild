@@ -14,13 +14,16 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - C418's music has once again been removed.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
-- Pumpkin and Melon stems now use Wilder Wild's melon sounds opposed to Vanilla's wood sounds.
+- Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 - Renamed the `wilderwild:feature/has_field_flowers` biome tag to `wilderwild:feature/has_flower_field_flowers.`
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
-- Blue Orchid Mooblooms no longer spawn in Flower Forests.
-- Marigold Mooblooms now spawn in Flower Fields and Flower Forests.
+- Toned down flower generation in Tundras.
+- Moobloom variants are now selected based upon the flower features in the biome.
+  - As a result of this, all biome tags relating to Moobloom variants have been removed.
+- Mooblooms will now prefer to walk towards flowers of the same type as themselves.
+- Butterflies will now prefer moving towards flowers slightly more.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.

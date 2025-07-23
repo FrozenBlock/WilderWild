@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_azure_bluet",
   "flower_block_state": {
     "Name": "minecraft:azure_bluet"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_azure_bluet"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

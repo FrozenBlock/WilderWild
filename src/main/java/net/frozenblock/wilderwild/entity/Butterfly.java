@@ -105,7 +105,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Override
 	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
-		return levelReader.getPathfindingCostFromLightLevels(blockPos);
+		float bonus = levelReader.getBlockState(blockPos).is(BlockTags.FLOWERS) ? 7F : 0F;
+		return levelReader.getPathfindingCostFromLightLevels(blockPos) + bonus;
 	}
 
 	public static boolean checkButterflySpawnRules(
@@ -174,7 +175,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
-		if (entityDataAccessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariantByLocation());
+		if (entityDataAccessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariant());
 	}
 
 	@Override
@@ -297,6 +298,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	public void setVariant(@NotNull ResourceLocation variant) {
 		this.entityData.set(VARIANT, variant.toString());
+	}
+
+	public ButterflyVariant getVariant() {
+		return this.getVariantByLocation();
 	}
 
 	@Override

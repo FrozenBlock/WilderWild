@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_poppy",
   "flower_block_state": {
     "Name": "minecraft:poppy"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_poppy"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

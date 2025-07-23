@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_pink_tulip",
   "flower_block_state": {
     "Name": "minecraft:pink_tulip"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_pink_tulip"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

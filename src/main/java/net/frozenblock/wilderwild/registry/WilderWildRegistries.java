@@ -45,7 +45,7 @@ public final class WilderWildRegistries {
 		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
 		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);
 		DynamicRegistries.registerSynced(CRAB_VARIANT, CrabVariant.DIRECT_CODEC, CrabVariant.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.NETWORK_CODEC);
+		DynamicRegistries.registerSynced(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.DIRECT_CODEC);
 		DynamicRegistries.registerSynced(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC);
 	}
 }

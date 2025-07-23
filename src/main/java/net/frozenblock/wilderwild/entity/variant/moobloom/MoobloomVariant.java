@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.List;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
@@ -27,22 +26,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
-import net.minecraft.world.entity.variant.PriorityProvider;
-import net.minecraft.world.entity.variant.SpawnCondition;
-import net.minecraft.world.entity.variant.SpawnContext;
-import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public final class MoobloomVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
+public final class MoobloomVariant {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::assetInfo),
-			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState),
-			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(MoobloomVariant::spawnConditions)
-		).apply(instance, MoobloomVariant::new)
-	);
-	public static final Codec<MoobloomVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::assetInfo),
 			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState)
@@ -54,17 +42,11 @@ public final class MoobloomVariant implements PriorityProvider<SpawnContext, Spa
 
 	private final ClientAsset clientAsset;
 	private final BlockState flowerBlockState;
-	private final SpawnPrioritySelectors spawnConditions;
 
 
-	public MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState, SpawnPrioritySelectors spawnConditions) {
+	public MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState) {
 		this.clientAsset = clientAsset;
 		this.flowerBlockState = flowerBlockState;
-		this.spawnConditions = spawnConditions;
-	}
-
-	private MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState) {
-		this(clientAsset, flowerBlockState, SpawnPrioritySelectors.EMPTY);
 	}
 
 	@NotNull
@@ -74,15 +56,6 @@ public final class MoobloomVariant implements PriorityProvider<SpawnContext, Spa
 
 	public BlockState getFlowerBlockState() {
 		return this.flowerBlockState;
-	}
-
-	public SpawnPrioritySelectors spawnConditions() {
-		return this.spawnConditions;
-	}
-
-	@Override
-	public @NotNull List<Selector<SpawnContext, SpawnCondition>> selectors() {
-		return this.spawnConditions.selectors();
 	}
 
 }

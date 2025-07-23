@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_pasqueflower",
   "flower_block_state": {
     "Name": "wilderwild:pasqueflower"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_pasqueflower"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

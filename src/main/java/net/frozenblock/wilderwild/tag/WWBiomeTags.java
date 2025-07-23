@@ -48,21 +48,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> RED_JELLYFISH = bind("entity/variant/red_jellyfish");
 	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
-	public static final TagKey<Biome> MOOBLOOM_DANDELION = bind("entity/variant/moobloom_dandelion");
-	public static final TagKey<Biome> MOOBLOOM_POPPY = bind("entity/variant/moobloom_poppy");
-	public static final TagKey<Biome> MOOBLOOM_AZURE_BLUET = bind("entity/variant/moobloom_azure_bluet");
-	public static final TagKey<Biome> MOOBLOOM_RED_TULIP = bind("entity/variant/moobloom_red_tulip");
-	public static final TagKey<Biome> MOOBLOOM_ORANGE_TULIP = bind("entity/variant/moobloom_orange_tulip");
-	public static final TagKey<Biome> MOOBLOOM_WHITE_TULIP = bind("entity/variant/moobloom_white_tulip");
-	public static final TagKey<Biome> MOOBLOOM_PINK_TULIP = bind("entity/variant/moobloom_pink_tulip");
-	public static final TagKey<Biome> MOOBLOOM_OXEYE_DAISY = bind("entity/variant/moobloom_oxeye_daisy");
-	public static final TagKey<Biome> MOOBLOOM_CORNFLOWER = bind("entity/variant/moobloom_cornflower");
-	public static final TagKey<Biome> MOOBLOOM_LILY_OF_THE_VALLEY = bind("entity/variant/moobloom_lily_of_the_valley");
-	public static final TagKey<Biome> MOOBLOOM_ALLIUM = bind("entity/variant/moobloom_allium");
-	public static final TagKey<Biome> MOOBLOOM_BLUE_ORCHID = bind("entity/variant/moobloom_blue_orchid");
-	public static final TagKey<Biome> MOOBLOOM_CARNATION = bind("entity/variant/moobloom_carnation");
-	public static final TagKey<Biome> MOOBLOOM_MARIGOLD = bind("entity/variant/moobloom_marigold");
-	public static final TagKey<Biome> MOOBLOOM_PASQUEFLOWER = bind("entity/variant/moobloom_pasqueflower");
 
 	public static final TagKey<Biome> PRODUCES_BARNACLES_FROM_BONEMEAL = bind("produces_barnacles_from_bonemeal");
 	public static final TagKey<Biome> PRODUCES_SPONGE_BUDS_FROM_BONEMEAL = bind("produces_sponge_buds_from_bonemeal");
