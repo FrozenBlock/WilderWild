@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.entity.EntityType;
@@ -33,8 +34,25 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 public final class WWSpawns {
 
 	public static void addBugs() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 1, 4, 8);
+		BiomeModifications.create(WWConstants.id("firefly_spawns")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.all(),
+			(selectionContext, modificationContext) -> {
+				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
+
+				if (WWEntityConfig.get().firefly.firefliesNeedBush) {
+					spawnSettings.setSpawnCost(WWEntityTypes.FIREFLY, 0.35D, 0.3D);
+				} else if (!selectionContext.hasTag(WWBiomeTags.HAS_FIREFLY)) {
+					return;
+				}
+
+				spawnSettings.addSpawn(
+					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.FIREFLY, 4, 8),
+					1
+				);
+			}
+		);
 
 		BiomeModifications.create(WWConstants.id("butterfly_spawns")).add(
 			ModificationPhase.ADDITIONS,

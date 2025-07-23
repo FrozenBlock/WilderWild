@@ -187,6 +187,17 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var firefliesNeedBush = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("fireflies_need_bush"), modifiedFirefly.firefliesNeedBush)
+				.setDefaultValue(defaultConfig.firefly.firefliesNeedBush)
+				.setSaveConsumer(newValue -> firefly.firefliesNeedBush = newValue)
+				.setTooltip(tooltip("fireflies_need_bush"))
+				.build(),
+			firefly.getClass(),
+			"firefliesNeedBush",
+			configInstance
+		);
+
 		var fireflySpawnCap = FrozenClothConfig.syncedEntry(
 			entryBuilder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 1, 100)
 				.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
@@ -224,7 +235,7 @@ public final class WWEntityConfigGui {
 		var fireflyCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("firefly"),
 			false,
 			tooltip("firefly"),
-			spawnFireflyParticles, spawnFireflies, fireflySpawnCap, fireflySwarm, fireflySwarmsBush
+			spawnFireflyParticles, spawnFireflies, firefliesNeedBush, fireflySpawnCap, fireflySwarm, fireflySwarmsBush
 		);
 
 		var spawnButterflies = FrozenClothConfig.syncedEntry(

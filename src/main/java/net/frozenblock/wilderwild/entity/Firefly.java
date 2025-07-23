@@ -18,8 +18,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.mojang.serialization.Dynamic;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -56,7 +54,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -80,7 +77,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -116,9 +112,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason reason, @NotNull BlockPos pos, @NotNull RandomSource random
 	) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
-		return (EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)
-			&& hasNearbyFireflyBush(level, pos, 3, 1)
-			&& !reachedNearbyFireflyLimit(level, pos, 3, 12);
+		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)) return false;
+		if (!WWEntityConfig.get().firefly.firefliesNeedBush) return true;
+		return ((int)(random.nextDouble() * getNearbyFireflyBushCount(level, pos, 3))) >= 1;
 	}
 
 	@NotNull
@@ -419,28 +415,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		}
 	}
 
-	public static boolean hasNearbyFireflyBush(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
-		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
+	public static int getNearbyFireflyBushCount(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance) {
 		int count = 0;
-		do {
-			if (!posesToCheck.hasNext()) return false;
-			if (level.getBlockState(posesToCheck.next()).is(Blocks.FIREFLY_BUSH)) {
-				count = count + 1;
-			}
-		} while (count < threshold);
-		return true;
-	}
-
-	public static boolean reachedNearbyFireflyLimit(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
-		List<Firefly> nearbyFireflies = level.getEntitiesOfClass(
-			Firefly.class,
-			AABB.encapsulatingFullBlocks(
-				blockPos.offset(-distance, -distance, -distance),
-				blockPos.offset(distance, distance, distance)
-			),
-			LivingEntity::isAlive
-		);
-		return nearbyFireflies.size() > threshold;
+		Iterable<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance));
+		for (BlockPos pos : posesToCheck) {
+			if (level.getBlockState(pos).is(Blocks.FIREFLY_BUSH)) count += 1;
+		}
+		return count;
 	}
 
 	@Override

@@ -725,6 +725,8 @@
   "tooltip.wilderwild.spawn_firefly_particles": "Whether Firefly Particles can spawn from Firefly Bushes.",
   "option.wilderwild.spawn_fireflies": "Spawn Fireflies",
   "tooltip.wilderwild.spawn_fireflies": "Whether Fireflies can spawn.",
+  "option.wilderwild.fireflies_need_bush": "Firefly Bush Spawning",
+  "tooltip.wilderwild.fireflies_need_bush": "Whether Fireflies can spawn anywhere with a Firefly Bush.\nIf disabled, Fireflies will only spawn in Swamp-like biomes.",
   "option.wilderwild.firefly_spawn_cap": "Firefly Spawn Cap",
   "tooltip.wilderwild.firefly_spawn_cap": "Controls the Firefly's spawn cap.",
   "option.wilderwild.firefly_swarm": "Firefly Swarms",

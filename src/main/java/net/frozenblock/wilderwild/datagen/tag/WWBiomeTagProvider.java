@@ -476,6 +476,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 	}
 
 	private void generateUtilityTags() {
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FIREFLY)
+			.add(Biomes.SWAMP)
+			.add(Biomes.MANGROVE_SWAMP)
+			.addOptional(WWBiomes.CYPRESS_WETLANDS);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
 			.add(Biomes.FLOWER_FOREST)
