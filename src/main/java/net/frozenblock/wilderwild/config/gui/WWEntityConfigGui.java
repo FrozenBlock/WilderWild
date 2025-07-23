@@ -192,6 +192,7 @@ public final class WWEntityConfigGui {
 				.setDefaultValue(defaultConfig.firefly.firefliesNeedBush)
 				.setSaveConsumer(newValue -> firefly.firefliesNeedBush = newValue)
 				.setTooltip(tooltip("fireflies_need_bush"))
+				.requireRestart()
 				.build(),
 			firefly.getClass(),
 			"firefliesNeedBush",
