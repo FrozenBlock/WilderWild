@@ -58,7 +58,7 @@ public class JellyfishTemptGoal extends Goal {
 	}
 
 	private boolean shouldFollow(LivingEntity entity, ServerLevel level) {
-		HolderSet<Item> tag = this.mob.getVariantByLocation().getReproductionFood();
+		HolderSet<Item> tag = this.mob.getVariant().getReproductionFood();
 		return entity.getMainHandItem().is(tag) || entity.getOffhandItem().is(tag);
 	}
 

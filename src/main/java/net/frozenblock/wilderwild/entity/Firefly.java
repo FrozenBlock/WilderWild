@@ -164,7 +164,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
 		super.onSyncedDataUpdated(entityDataAccessor);
-		if (COLOR.equals(entityDataAccessor)) this.fireflyColor = Optional.of(this.getColorByLocation());
+		if (COLOR.equals(entityDataAccessor)) this.fireflyColor = Optional.of(this.getVariant());
 	}
 
 	@Override

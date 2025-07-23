@@ -20,11 +20,7 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,21 +28,18 @@ public final class MoobloomVariant {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState),
-			ResourceLocation.CODEC.fieldOf("texture").forGetter(moobloomVariant -> moobloomVariant.texture),
-			RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(MoobloomVariant::biomes)
+			ResourceLocation.CODEC.fieldOf("texture").forGetter(moobloomVariant -> moobloomVariant.texture)
 		).apply(instance, MoobloomVariant::new)
 	);
 
 	private final BlockState flowerBlockState;
 	private final ResourceLocation texture;
 	private final ResourceLocation textureFull;
-	private final HolderSet<Biome> biomes;
 
-	public MoobloomVariant(BlockState flowerBlockState, @NotNull ResourceLocation texture, HolderSet<Biome> biomes) {
+	public MoobloomVariant(BlockState flowerBlockState, @NotNull ResourceLocation texture) {
 		this.flowerBlockState = flowerBlockState;
 		this.texture = texture;
 		this.textureFull = fullTextureId(texture);
-		this.biomes = biomes;
 	}
 
 	private static @NotNull ResourceLocation fullTextureId(@NotNull ResourceLocation resourceLocation) {
@@ -62,18 +55,13 @@ public final class MoobloomVariant {
 		return this.textureFull;
 	}
 
-	public HolderSet<Biome> biomes() {
-		return this.biomes;
-	}
-
 	@Override
 	public boolean equals(Object object) {
 		if (object == this) {
 			return true;
 		} else {
 			return object instanceof MoobloomVariant moobloomVariant && Objects.equals(this.texture, moobloomVariant.texture)
-				&& Objects.equals(this.flowerBlockState, moobloomVariant.flowerBlockState)
-				&& Objects.equals(this.biomes, moobloomVariant.biomes);
+				&& Objects.equals(this.flowerBlockState, moobloomVariant.flowerBlockState);
 		}
 	}
 
@@ -81,8 +69,7 @@ public final class MoobloomVariant {
 	public int hashCode() {
 		int i = 1;
 		i = 31 * i + this.texture.hashCode();
-		i = 31 * i + this.flowerBlockState.hashCode();
-		return 31 * i + this.biomes.hashCode();
+		return 31 * i + this.flowerBlockState.hashCode();
 	}
 
 }
