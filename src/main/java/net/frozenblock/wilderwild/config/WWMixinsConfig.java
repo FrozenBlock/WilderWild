@@ -66,8 +66,6 @@ public final class WWMixinsConfig {
 
 	public boolean trailiertales = true;
 
-	public boolean block_ambience = true;
-
 	public boolean block_cactus = true;
 
 	public boolean block_chest = true;

@@ -36,8 +36,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
-- Desert ambience now plays in the Oasis biome.
+- Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
+  - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Retextured the Penguin Spawn Egg in 1.21.5+.

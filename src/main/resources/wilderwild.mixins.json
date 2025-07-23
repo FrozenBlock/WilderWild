@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
-    "block.ambience.AmbientDesertBlockSoundsPlayerMixin",
     "block.block_break.ServerPlayerGameModeMixin",
     "block.cactus.CactusBlockMixin",
     "block.cactus.EntityTypeMixin",
