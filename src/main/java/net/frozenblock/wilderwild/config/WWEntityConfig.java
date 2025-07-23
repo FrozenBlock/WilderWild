@@ -170,6 +170,8 @@ public final class WWEntityConfig {
 
 		@EntrySyncData("spawnFireflies")
 		public boolean spawnFireflies = true;
+		@EntrySyncData("firefliesNeedBush")
+		public boolean firefliesNeedBush = true;
 		@EntrySyncData("fireflySpawnCap")
 		public int fireflySpawnCap = 56;
 

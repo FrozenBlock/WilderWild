@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_allium",
   "flower_block_state": {
     "Name": "minecraft:allium"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_allium"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

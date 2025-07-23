@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_carnation",
   "flower_block_state": {
     "Name": "wilderwild:carnation"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_carnation"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

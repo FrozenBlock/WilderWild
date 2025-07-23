@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_blue_orchid",
   "flower_block_state": {
     "Name": "minecraft:blue_orchid"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_blue_orchid"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }

@@ -40,7 +40,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -88,7 +87,9 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Override
 	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
-		return levelReader.getBlockState(blockPos).is(BlockTags.FLOWERS) ? 10F : levelReader.getPathfindingCostFromLightLevels(blockPos);
+		BlockState state = levelReader.getBlockState(blockPos);
+		if (this.getVariant().getFlowerBlockState().is(state.getBlock())) return 20F;
+		return super.getWalkTargetValue(blockPos, levelReader);
 	}
 
 	public static boolean checkFlowerCowSpawnRules(
@@ -133,8 +134,6 @@ public class FlowerCow extends AbstractCow implements Shearable {
 				this.incrementFlowersLeft();
 				this.level().broadcastEntityEvent(this, GROW_FLOWER_EVENT_ID);
 				return InteractionResult.SUCCESS;
-			} else {
-				return InteractionResult.CONSUME;
 			}
 		} else if (itemStack.is(Items.SHEARS)) {
 			if (this.level() instanceof ServerLevel serverLevel && this.readyForShearing()) {
@@ -151,7 +150,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	@Override
 	public void shear(ServerLevel serverLevel, SoundSource soundSource, ItemStack itemStack) {
 		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR, soundSource, 1F, 1F);
-		BlockState flowerState = this.getVariantByLocation().getFlowerBlockState();
+		BlockState flowerState = this.getVariant().getFlowerBlockState();
 		spawnShearParticles(serverLevel, this, flowerState);
 		this.level().addFreshEntity(
 			new ItemEntity(
@@ -200,7 +199,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariantByLocation());
+		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariant());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -260,6 +259,10 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		return this.moobloomVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getValue(MoobloomVariants.DEFAULT));
 	}
 
+	public MoobloomVariant getVariant() {
+		return this.getVariantByLocation();
+	}
+
 	public void setVariant(@NotNull MoobloomVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getKey(variant)).toString());
 	}
@@ -300,15 +303,15 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	private MoobloomVariant getOffspringType(ServerLevel serverLevel, @NotNull FlowerCow flowerCow) {
-		MoobloomVariant flowerType = this.getVariantByLocation();
-		MoobloomVariant otherFlowerType = flowerCow.getVariantByLocation();
+		MoobloomVariant flowerType = this.getVariant();
+		MoobloomVariant otherFlowerType = flowerCow.getVariant();
 		if (flowerType == otherFlowerType) return flowerType;
 		return this.getOffspringVariant(serverLevel, flowerCow);
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(ServerLevel serverLevel, @NotNull FlowerCow otherFlowerCow) {
-		MoobloomVariant moobloomVariant = this.getVariantByLocation();
-		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariantByLocation();
+		MoobloomVariant moobloomVariant = this.getVariant();
+		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
 
 		BlockState flowerBlock = moobloomVariant.getFlowerBlockState();
 		BlockState otherFlowerBlock = otherMoobloomVariant.getFlowerBlockState();

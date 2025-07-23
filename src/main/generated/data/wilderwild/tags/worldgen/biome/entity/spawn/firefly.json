@@ -3,7 +3,7 @@
     "minecraft:swamp",
     "minecraft:mangrove_swamp",
     {
-      "id": "wilderwild:rainforest",
+      "id": "wilderwild:cypress_wetlands",
       "required": false
     }
   ]

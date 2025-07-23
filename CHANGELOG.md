@@ -14,19 +14,25 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - C418's music has once again been removed.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
-- Pumpkin and Melon stems now use Wilder Wild's melon sounds opposed to Vanilla's wood sounds.
+- Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 - Renamed the `wilderwild:feature/has_field_flowers` biome tag to `wilderwild:feature/has_flower_field_flowers.`
   - The `wilderwild:feature/has_flower_forest_flowers` biome tag has been added, differentiating Flower Field and Flower Forest flower generation.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
-- Blue Orchid Mooblooms no longer spawn in Flower Forests.
-- Marigold Mooblooms now spawn in Flower Fields and Flower Forests.
+- Toned down flower generation in Tundras.
+- Moobloom variants are now selected based upon the flower features in the biome.
+  - As a result of this, all biome tags relating to Moobloom variants have been removed.
+- Mooblooms will now prefer to walk towards flowers of the same type as themselves.
+- Butterflies will now prefer moving towards flowers slightly more.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
 - Fixed a few Pale Oak blocks missing from tags.
 - Fireflies can now hide in frozen vegetation blocks.
 - Fireflies can now hide in Bushes in 1.21.5+.
+- Reworked Firefly spawning in 1.21.5+, making it less likely for Fireflies to all pool up in one place.
+- Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
+  - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))

@@ -2,14 +2,5 @@
   "asset_id": "wilderwild:entity/moobloom/moobloom_oxeye_daisy",
   "flower_block_state": {
     "Name": "minecraft:oxeye_daisy"
-  },
-  "spawn_conditions": [
-    {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": "#wilderwild:entity/variant/moobloom_oxeye_daisy"
-      },
-      "priority": 1
-    }
-  ]
+  }
 }
