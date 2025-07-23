@@ -247,12 +247,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			if (crabGroupData.getGroupSize() >= 2) this.setAge(-24000);
 			this.setVariant(crabGroupData.type.value());
 		} else {
-			Optional<Holder.Reference<CrabVariant>> optionalCrabVariantReference = CrabVariants.selectVariantToSpawn(
-				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			Optional<Holder.Reference<CrabVariant>> optionalCrabVariant = VariantUtils.selectVariantToSpawn(
+				SpawnContext.create(level, this.blockPosition()),
+				WilderWildRegistries.CRAB_VARIANT
 			);
-			if (optionalCrabVariantReference.isPresent()) {
-				spawnData = new CrabSpawnGroupData(optionalCrabVariantReference.get());
-				this.setVariant(optionalCrabVariantReference.get().value());
+			if (optionalCrabVariant.isPresent()) {
+				spawnData = new CrabSpawnGroupData(optionalCrabVariant.get());
+				this.setVariant(optionalCrabVariant.get().value());
 			}
 		}
 		return super.finalizeSpawn(level, difficulty, reason, spawnData);

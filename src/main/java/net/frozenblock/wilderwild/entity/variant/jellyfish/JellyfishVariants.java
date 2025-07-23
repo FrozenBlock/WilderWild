@@ -17,23 +17,17 @@
 
 package net.frozenblock.wilderwild.entity.variant.jellyfish;
 
-import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.ClientAsset;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.variant.BiomeCheck;
-import net.minecraft.world.entity.variant.PriorityProvider;
-import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -72,14 +66,6 @@ public final class JellyfishVariants {
 				bootstrapContext.lookup(Registries.ITEM).getOrThrow(items)
 			)
 		);
-	}
-
-	public static @NotNull Optional<Holder.Reference<JellyfishVariant>> selectVariantToSpawn(
-		RandomSource randomSource,
-		@NotNull RegistryAccess registryAccess,
-		SpawnContext spawnContext
-	) {
-		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	public static void bootstrap(BootstrapContext<JellyfishVariant> bootstrapContext) {

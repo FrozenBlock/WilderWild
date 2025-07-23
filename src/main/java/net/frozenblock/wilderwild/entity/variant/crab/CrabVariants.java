@@ -17,19 +17,13 @@
 
 package net.frozenblock.wilderwild.entity.variant.crab;
 
-import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.variant.BiomeCheck;
-import net.minecraft.world.entity.variant.PriorityProvider;
-import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -53,14 +47,6 @@ public final class CrabVariants {
 			resourceKey,
 			new CrabVariant(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1))
 		);
-	}
-
-	public static @NotNull Optional<Holder.Reference<CrabVariant>> selectVariantToSpawn(
-		RandomSource randomSource,
-		@NotNull RegistryAccess registryAccess,
-		SpawnContext spawnContext
-	) {
-		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	public static void bootstrap(BootstrapContext<CrabVariant> bootstrapContext) {

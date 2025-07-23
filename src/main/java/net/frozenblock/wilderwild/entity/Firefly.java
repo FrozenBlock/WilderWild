@@ -68,6 +68,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -143,12 +144,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
 			this.setColor(fireflySpawnGroupData.color.value());
 		} else {
-			Optional<Holder.Reference<FireflyColor>> fireflyColorHolder = FireflyColors.selectVariantToSpawn(
-				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			Optional<Holder.Reference<FireflyColor>> optionalFireflyColor = VariantUtils.selectVariantToSpawn(
+				SpawnContext.create(level, this.blockPosition()),
+				WilderWildRegistries.FIREFLY_COLOR
 			);
-			if (fireflyColorHolder.isPresent()) {
-				spawnData = new FireflySpawnGroupData(fireflyColorHolder.get());
-				this.setColor(fireflyColorHolder.get().value());
+			if (optionalFireflyColor.isPresent()) {
+				spawnData = new FireflySpawnGroupData(optionalFireflyColor.get());
+				this.setColor(optionalFireflyColor.get().value());
 			}
 
 			if (!shouldSetHome) FireflyAi.setSwarmLeader(this);

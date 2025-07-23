@@ -214,12 +214,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.setVariant(jellyGroupData.variant.value());
 			jellyfishGroupData = jellyGroupData;
 		} else {
-			Optional<Holder.Reference<JellyfishVariant>> optionalJellyfishVariantReference = JellyfishVariants.selectVariantToSpawn(
-				level.getRandom(), level.registryAccess(), SpawnContext.create(level, this.blockPosition())
+			Optional<Holder.Reference<JellyfishVariant>> optionalJellyfishVariant = VariantUtils.selectVariantToSpawn(
+				SpawnContext.create(level, this.blockPosition()),
+				WilderWildRegistries.JELLYFISH_VARIANT
 			);
-			if (optionalJellyfishVariantReference.isPresent()) {
-				spawnData = jellyfishGroupData = new JellyfishGroupData(true, optionalJellyfishVariantReference.get());
-				this.setVariant(optionalJellyfishVariantReference.get().value());
+			if (optionalJellyfishVariant.isPresent()) {
+				spawnData = jellyfishGroupData = new JellyfishGroupData(true, optionalJellyfishVariant.get());
+				this.setVariant(optionalJellyfishVariant.get().value());
 			}
 		}
 

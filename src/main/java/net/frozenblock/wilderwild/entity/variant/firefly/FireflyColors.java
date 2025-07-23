@@ -19,18 +19,12 @@ package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.variant.PriorityProvider;
-import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -97,14 +91,6 @@ public final class FireflyColors {
 		int spawnPriority
 	) {
 		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name));
-	}
-
-	public static @NotNull Optional<Holder.Reference<FireflyColor>> selectVariantToSpawn(
-		RandomSource randomSource,
-		@NotNull RegistryAccess registryAccess,
-		SpawnContext spawnContext
-	) {
-		return PriorityProvider.pick(registryAccess.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).listElements(), Holder::value, randomSource, spawnContext);
 	}
 
 	@Contract(pure = true)
