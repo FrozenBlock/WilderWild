@@ -124,20 +124,11 @@ public final class Tundra extends FrozenBiome {
 			this.getKey().location(),
 			(x, y, grassColor) -> {
 				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
-				if (noise < -0.5D) {
-					return GRASS_COLOR_BROWN;
-				} else if (noise < -0.35D) {
-					return GRASS_COLOR_ORANGE;
-				} else if (noise > 0.8D) {
-					return GRASS_COLOR_BLUE_GREENISH;
-				} else if (noise > 0.5D) {
-					return GRASS_COLOR_LIGHTER_GREEN;
-				}
-				/*
-				else if (noise > 0.34222D) {
-					return GRASS_COLOR_RED;
-				}
-				 */
+				if (noise < -0.5D) return GRASS_COLOR_BROWN;
+				if (noise < -0.35D) return GRASS_COLOR_ORANGE;
+				if (noise > 0.8D) return GRASS_COLOR_BLUE_GREENISH;
+				if (noise > 0.5D) return GRASS_COLOR_LIGHTER_GREEN;
+				//if (noise > 0.34222D) return GRASS_COLOR_RED;
 				return grassColor;
 			}
 		);

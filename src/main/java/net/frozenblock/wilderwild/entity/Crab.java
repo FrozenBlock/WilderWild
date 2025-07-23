@@ -605,7 +605,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 			this.emergingAnimationState.stop();
 			this.hidingAnimationState.start(this.tickCount);
 		} else if (VARIANT.equals(key)) {
-			this.crabVariant = Optional.of(this.getVariantByLocation());
+			this.crabVariant = Optional.of(this.getVariant());
 		}
 		super.onSyncedDataUpdated(key);
 	}
@@ -707,7 +707,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
-			if (otherParent instanceof Crab otherCrab) crab.setVariant(level.random.nextBoolean() ? this.getVariantByLocation() : otherCrab.getVariantByLocation());
+			if (otherParent instanceof Crab otherCrab) crab.setVariant(level.random.nextBoolean() ? this.getVariant() : otherCrab.getVariant());
 		}
 		return crab;
 	}

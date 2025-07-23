@@ -221,12 +221,8 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 
 	@Override
 	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-		if (IS_BABY.equals(key)) {
-			this.refreshDimensions();
-		}
-		if (VARIANT.equals(key)) {
-			this.jellyfishVariant = Optional.of(this.getVariantByLocation());
-		}
+		if (IS_BABY.equals(key)) this.refreshDimensions();
+		if (VARIANT.equals(key)) this.jellyfishVariant = Optional.of(this.getVariant());
 		super.onSyncedDataUpdated(key);
 	}
 
@@ -453,9 +449,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 
 	@Override
 	protected void onOffspringSpawnedFromEgg(@NotNull Player player, @NotNull Mob child) {
-		if (child instanceof Jellyfish jellyfish) {
-			jellyfish.setVariant(this.getVariantByLocation());
-		}
+		if (child instanceof Jellyfish jellyfish) jellyfish.setVariant(this.getVariant());
 	}
 
 	public void moveToAccurate(@NotNull Entity entity, double speed) {
@@ -516,7 +510,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
 		if (itemStack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
-		if (!itemStack.is(this.getVariantByLocation().getReproductionFood())) return InteractionResult.PASS;
+		if (!itemStack.is(this.getVariant().getReproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
 			if (!player.getAbilities().instabuild) itemStack.shrink(1);
@@ -552,7 +546,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 		Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
 		jellyfish.moveTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());
 		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5D));
-		jellyfish.setVariant(this.getVariantByLocation());
+		jellyfish.setVariant(this.getVariant());
 		level.broadcastEntityEvent(this, (byte) 18);
 		if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
 			level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
