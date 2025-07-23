@@ -39,10 +39,8 @@ public final class MoobloomVariant {
 	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 
-
 	private final ClientAsset clientAsset;
 	private final BlockState flowerBlockState;
-
 
 	public MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState) {
 		this.clientAsset = clientAsset;
@@ -57,5 +55,4 @@ public final class MoobloomVariant {
 	public BlockState getFlowerBlockState() {
 		return this.flowerBlockState;
 	}
-
 }
