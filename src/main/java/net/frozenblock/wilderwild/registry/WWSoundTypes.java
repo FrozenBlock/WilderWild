@@ -262,6 +262,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MELON_HIT,
 		WWSounds.BLOCK_MELON_FALL
 	);
+	public static final SoundType SHORT_GRASS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_SHORT_GRASS_BREAK,
+		SoundEvents.GRASS_STEP,
+		WWSounds.BLOCK_SHORT_GRASS_PLACE,
+		SoundEvents.GRASS_HIT,
+		SoundEvents.GRASS_FALL
+	);
 
 	private WWSoundTypes() {
 		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");

@@ -174,6 +174,9 @@ public final class WWBlockConfig {
 		@EntrySyncData("flowerSounds")
 		public boolean flowerSounds = true;
 
+		@EntrySyncData("grassSounds")
+		public boolean grassSounds = true;
+
 		@EntrySyncData("magmaSounds")
 		public boolean magmaSounds = true;
 

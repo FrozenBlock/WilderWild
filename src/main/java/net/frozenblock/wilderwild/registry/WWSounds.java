@@ -246,6 +246,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MELON_BREAK = register("block.melon.break");
 	public static final SoundEvent BLOCK_MELON_STEP = register("block.melon.step");
 	public static final SoundEvent BLOCK_MELON_FALL = register("block.melon.fall");
+	public static final SoundEvent BLOCK_SHORT_GRASS_PLACE = register("block.short_grass.place");
+	public static final SoundEvent BLOCK_SHORT_GRASS_HIT = register("block.short_grass.hit");
+	public static final SoundEvent BLOCK_SHORT_GRASS_BREAK = register("block.short_grass.break");
+	public static final SoundEvent BLOCK_SHORT_GRASS_STEP = register("block.short_grass.step");
+	public static final SoundEvent BLOCK_SHORT_GRASS_FALL = register("block.short_grass.fall");
 	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY
