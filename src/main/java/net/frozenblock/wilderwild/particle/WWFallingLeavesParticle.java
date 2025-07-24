@@ -39,20 +39,22 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	private static final int DEFAULT_UNTINTED_COLOR = ARGB.color(255, 255, 255);
+	public final boolean bounceOnFloor;
 
 	public WWFallingLeavesParticle(
 		ClientLevel world,
 		double x, double y, double z,
 		float gravityScale,
 		float windBig,
-		boolean swirl,
-		boolean flowAway,
+		FallingLeafUtil.LeafMovementType leafMovementType,
 		float quadSize,
 		float downwardVelocity,
 		SpriteSet spriteProvider,
 		ParticleType<WWFallingLeavesParticleOptions> particleType
 	) {
-		super(world, x, y, z, spriteProvider, gravityScale, windBig, swirl, flowAway, quadSize, downwardVelocity);
+		super(world, x, y, z, spriteProvider, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
+		this.bounceOnFloor = leafMovementType.bounceOnFloor();
+
 		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;
 		if (leafParticleData != null) {
@@ -82,8 +84,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				x, y, z,
 				0.25F * options.getGravityScale(),
 				options.getWindScale(),
-				options.swirl(),
-				!options.swirl(),
+				options.leafMovementType(),
 				(options.getTextureSize() / 16F) * 0.5F,
 				0F,
 				this.spriteProvider,
@@ -91,9 +92,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 			);
 
 			leafParticle.quadSize = (options.getTextureSize() / 16F) * 0.5F;
-			if (options.isFastFalling()) {
-				leafParticle.gravity = 0.04F;
-			}
+			if (options.isFastFalling()) leafParticle.gravity = 0.04F;
 
 			//leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
 			if (options.controlVelUponSpawn()) {

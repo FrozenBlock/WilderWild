@@ -21,6 +21,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.networking.FrozenByteBufCodecs;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -35,15 +36,14 @@ import org.jetbrains.annotations.NotNull;
 public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
-				ResourceLocation.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
-				Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),
-				Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
-				Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
-				Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
-				Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
-				Codec.BOOL.fieldOf("swirl").forGetter(WWFallingLeavesParticleOptions::swirl)
-			)
-			.apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions)
+			ResourceLocation.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
+			Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),
+			Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
+			Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
+			Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
+			Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
+			FallingLeafUtil.LeafMovementType.CODEC.fieldOf("leafMovementType").forGetter(WWFallingLeavesParticleOptions::leafMovementType)
+		).apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWFallingLeavesParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ResourceLocation.STREAM_CODEC, WWFallingLeavesParticleOptions::getParticleId,
@@ -52,7 +52,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getGravityScale,
 		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isFastFalling,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getWindScale,
-		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::swirl,
+		FallingLeafUtil.LeafMovementType.STREAM_CODEC, WWFallingLeavesParticleOptions::leafMovementType,
 		WWFallingLeavesParticleOptions::createCodecParticleOptions
 	);
 
@@ -62,18 +62,24 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	private final int textureSize;
 	private final float gravityScale;
 	private final float windScale;
-	private final boolean swirl;
+	private final FallingLeafUtil.LeafMovementType leafMovementType;
 	private final boolean isFastFalling;
 	private final boolean controlVelUponSpawn;
 
 	@NotNull
-	public static WWFallingLeavesParticleOptions create(ParticleType<WWFallingLeavesParticleOptions> type, int textureSize, float gravityScale, float windScale, boolean swirl) {
-		return new WWFallingLeavesParticleOptions(type, 0D, 0D, 0D, textureSize, gravityScale, false, windScale, swirl);
+	public static WWFallingLeavesParticleOptions create(
+		ParticleType<WWFallingLeavesParticleOptions> type, int textureSize, float gravityScale, float windScale, FallingLeafUtil.LeafMovementType leafMovementType
+	) {
+		return new WWFallingLeavesParticleOptions(
+			type, 0D, 0D, 0D, textureSize, gravityScale, false, windScale, leafMovementType
+		);
 	}
 
 	@NotNull
 	public static WWFallingLeavesParticleOptions createFastFalling(ParticleType<WWFallingLeavesParticleOptions> type, int textureSize) {
-		return new WWFallingLeavesParticleOptions(type, 0D, -0.05D, 0D, textureSize, 25F, true, 0F, false);
+		return new WWFallingLeavesParticleOptions(
+			type, 0D, -0.05D, 0D, textureSize, 25F, true, 0F, FallingLeafUtil.LeafMovementType.NONE
+		);
 	}
 
 	private WWFallingLeavesParticleOptions(
@@ -85,11 +91,10 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		float gravityScale,
 		boolean isFastFalling,
 		float windScale,
-		boolean swirl
+		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, isFastFalling, windScale, swirl);
+		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, isFastFalling, windScale, leafMovementType);
 	}
-
 
 	private @NotNull static WWFallingLeavesParticleOptions createCodecParticleOptions(
 		ResourceLocation particleId,
@@ -98,7 +103,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		float gravityScale,
 		boolean isFastFalling,
 		float windScale,
-		boolean swirl
+		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		ParticleType<WWFallingLeavesParticleOptions> particleType;
 		if (BuiltInRegistries.PARTICLE_TYPE.containsKey(particleId)) {
@@ -106,7 +111,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}
-		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, isFastFalling, windScale, swirl);
+		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, isFastFalling, windScale, leafMovementType);
 	}
 
 	private WWFallingLeavesParticleOptions(
@@ -117,7 +122,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		boolean isFastFalling,
 		boolean controlVelUponSpawn,
 		float windScale,
-		boolean swirl
+		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		this.type = type;
 		this.particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(type);
@@ -127,7 +132,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		this.isFastFalling = isFastFalling;
 		this.controlVelUponSpawn = controlVelUponSpawn;
 		this.windScale = windScale;
-		this.swirl = swirl;
+		this.leafMovementType = leafMovementType;
 	}
 
 	@NotNull
@@ -164,7 +169,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		return this.windScale;
 	}
 
-	public boolean swirl() {
-		return this.swirl;
+	public FallingLeafUtil.LeafMovementType leafMovementType() {
+		return this.leafMovementType;
 	}
 }

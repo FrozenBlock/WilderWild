@@ -124,7 +124,7 @@ public final class WWParticleTypes {
 		5,
 		1.4F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> SPRUCE_LEAVES = createLeafParticle(
 		WWConstants.id("spruce_leaves"),
@@ -134,7 +134,7 @@ public final class WWParticleTypes {
 		5,
 		2F,
 		5F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> BIRCH_LEAVES = createLeafParticle(
 		WWConstants.id("birch_leaves"),
@@ -144,7 +144,7 @@ public final class WWParticleTypes {
 		4,
 		1F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> JUNGLE_LEAVES = createLeafParticle(
 		WWConstants.id("jungle_leaves"),
@@ -154,7 +154,7 @@ public final class WWParticleTypes {
 		4,
 		1.4F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> ACACIA_LEAVES = createLeafParticle(
 		WWConstants.id("acacia_leaves"),
@@ -164,7 +164,7 @@ public final class WWParticleTypes {
 		3,
 		1.4F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> DARK_OAK_LEAVES = createLeafParticle(
 		WWConstants.id("dark_oak_leaves"),
@@ -174,7 +174,7 @@ public final class WWParticleTypes {
 		5,
 		1.4F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> PALE_OAK_LEAVES = createLeafParticle(
 		WWConstants.id("pale_oak_leaves"),
@@ -184,7 +184,7 @@ public final class WWParticleTypes {
 		5,
 		0.28F,
 		20F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> MANGROVE_LEAVES = createLeafParticle(
 		WWConstants.id("mangrove_leaves"),
@@ -194,7 +194,7 @@ public final class WWParticleTypes {
 		6,
 		2.5F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> CHERRY_LEAVES = createLeafParticle(
 		WWConstants.id("cherry_leaves"),
@@ -204,7 +204,7 @@ public final class WWParticleTypes {
 		4,
 		1F,
 		2F,
-		false
+		FallingLeafUtil.LeafMovementType.FLOW_AWAY
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> AZALEA_LEAVES = createLeafParticle(
 		WWConstants.id("azalea_leaves"),
@@ -214,7 +214,7 @@ public final class WWParticleTypes {
 		4,
 		2F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> FLOWERING_AZALEA_LEAVES = createLeafParticle(
 		WWConstants.id("flowering_azalea_leaves"),
@@ -224,7 +224,7 @@ public final class WWParticleTypes {
 		4,
 		2F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> BAOBAB_LEAVES = createLeafParticle(
 		WWConstants.id("baobab_leaves"),
@@ -234,7 +234,7 @@ public final class WWParticleTypes {
 		4,
 		2F,
 		15F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> CYPRESS_LEAVES = createLeafParticle(
 		WWConstants.id("cypress_leaves"),
@@ -244,7 +244,7 @@ public final class WWParticleTypes {
 		4,
 		2F,
 		5F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> PALM_FRONDS = createLeafParticle(
 		WWConstants.id("palm_fronds"),
@@ -254,7 +254,7 @@ public final class WWParticleTypes {
 		6,
 		4.5F,
 		5F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 
 	public static final ParticleType<WWFallingLeavesParticleOptions> YELLOW_MAPLE_LEAVES = createLeafParticle(WWConstants.id("yellow_maple_leaves"));
@@ -269,7 +269,7 @@ public final class WWParticleTypes {
 		5,
 		1.4F,
 		10F,
-		true
+		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 
 	private WWParticleTypes() {
@@ -294,10 +294,10 @@ public final class WWParticleTypes {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean swirl
+		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(location);
-		FallingLeafUtil.registerFallingLeaf(
+		FallingLeafUtil.registerLeaves(
 			sourceBlock,
 			leafParticle,
 			particleChance,
@@ -305,15 +305,9 @@ public final class WWParticleTypes {
 			textureSize,
 			particleGravityScale,
 			windScale,
-			swirl
+			leafMovementType
 		);
 		return leafParticle;
-	}
-
-	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(
-		ResourceLocation location, Block sourceBlock, Supplier<Double> frequencyModifier, int textureSize
-	) {
-		return createLeafParticle(location, sourceBlock, 0.0225F, frequencyModifier, textureSize, 1.4F, 10F, true);
 	}
 
 	@NotNull
