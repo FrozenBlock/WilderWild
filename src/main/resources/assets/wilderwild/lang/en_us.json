@@ -675,6 +675,8 @@
   "tooltip.wilderwild.dead_bush_sounds": "Whether Dead Bush sounds should be overridden.",
   "option.wilderwild.flower_sounds": "Flower Sounds",
   "tooltip.wilderwild.flower_sounds": "Whether Flower sounds should be overridden.",
+  "option.wilderwild.grass_sounds": "Grass Sounds",
+  "tooltip.wilderwild.grass_sounds": "Whether Grass sounds should be overridden.\nThis will not impact the Grass Block.\nThis instead will affect blocks such as Short Grass and Ferns.",
   "option.wilderwild.gravel_sounds": "Gravel Sounds",
   "tooltip.wilderwild.gravel_sounds": "Whether Gravel sounds should be overridden.",
   "option.wilderwild.ice_sounds": "Ice Sounds",
