@@ -3,6 +3,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 # Blocks
 - Added unique sounds for Maple Leaves.
+- Added unique sounds for the Maple wood set. (WIP)
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
@@ -11,7 +12,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a new config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
-  - Fabric's conventional Pumpkin block tag is now used, opposed to manually adding Pumpkin blocks to Wilder Wild's block tag.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Wilder Wild's Sandstone sounds block tag now uses Fabric's conventional Sandstone block tag.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
@@ -29,6 +29,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
+- Changed the Clovers' textures to be brighter, making them more visible on Grass Blocks.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music

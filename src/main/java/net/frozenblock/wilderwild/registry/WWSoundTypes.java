@@ -199,6 +199,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MAPLE_LEAVES_HIT,
 		WWSounds.BLOCK_MAPLE_LEAVES_FALL
 	);
+	public static final SoundType MAPLE_WOOD = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MAPLE_WOOD_BREAK,
+		WWSounds.BLOCK_MAPLE_WOOD_STEP,
+		WWSounds.BLOCK_MAPLE_WOOD_PLACE,
+		WWSounds.BLOCK_MAPLE_WOOD_HIT,
+		WWSounds.BLOCK_MAPLE_WOOD_FALL
+	);
 	public static final SoundType LILY_PAD = new SoundType(1F, 1F,
 		SoundEvents.BIG_DRIPLEAF_BREAK,
 		SoundEvents.BIG_DRIPLEAF_STEP,
