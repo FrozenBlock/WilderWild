@@ -1233,7 +1233,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON)
-			.addOptionalTag(ConventionalBlockTags.PUMPKINS)
+			.add(Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.JACK_O_LANTERN)
 			.add(Blocks.MELON);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON_STEM)
