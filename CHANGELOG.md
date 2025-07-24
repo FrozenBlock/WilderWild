@@ -28,6 +28,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 # Textures
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
+- Retextured Lantanas.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music
