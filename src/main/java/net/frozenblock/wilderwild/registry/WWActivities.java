@@ -23,7 +23,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.schedule.Activity;
 import org.jetbrains.annotations.NotNull;
 
-public class WWActivities {
+public final class WWActivities {
 	public static final Activity STAND_UP = register("stand_up");
 	public static final Activity PRE_SEARCH = register("pre_search");
 	public static final Activity SEARCH = register("search");

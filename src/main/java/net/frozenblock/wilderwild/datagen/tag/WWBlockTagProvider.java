@@ -59,12 +59,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(ConventionalBlockTags.CHESTS)
 			.add(WWBlocks.STONE_CHEST);
 
-		this.getOrCreateTagBuilder(getTag("c:stripped_logs"))
+		this.getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS)
 			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_WILLOW_LOG)
 			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_PALM_LOG)
-			.add(WWBlocks.STRIPPED_MAPLE_LOG);
+			.add(WWBlocks.STRIPPED_MAPLE_LOG)
+			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS);
 	}
 
 	private void generateLib() {
@@ -1275,7 +1276,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON)
-			.add(Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.JACK_O_LANTERN)
+			.addOptionalTag(ConventionalBlockTags.PUMPKINS)
 			.add(Blocks.MELON);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MELON_STEM)
@@ -1286,32 +1287,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.LILY_PAD, WWBlocks.FLOWERING_LILY_PAD);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_SANDSTONE)
-			.add(Blocks.SANDSTONE, Blocks.SANDSTONE_SLAB, Blocks.SANDSTONE_STAIRS, Blocks.SANDSTONE_WALL)
-			.add(Blocks.CHISELED_SANDSTONE, Blocks.CUT_SANDSTONE, Blocks.CUT_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_SANDSTONE, Blocks.SMOOTH_SANDSTONE_SLAB, Blocks.SMOOTH_SANDSTONE_STAIRS)
-
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "smooth_sandstone_wall"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_sandstone_stairs"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_sandstone_wall"))
-
-			.add(Blocks.RED_SANDSTONE, Blocks.RED_SANDSTONE_SLAB, Blocks.RED_SANDSTONE_STAIRS, Blocks.RED_SANDSTONE_WALL)
-			.add(Blocks.CHISELED_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE_SLAB)
-			.add(Blocks.SMOOTH_RED_SANDSTONE, Blocks.SMOOTH_RED_SANDSTONE_SLAB, Blocks.SMOOTH_RED_SANDSTONE_STAIRS)
-
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "smooth_red_sandstone_wall"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_red_sandstone_stairs"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "cut_red_sandstone_wall"))
-
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","pink_sandstone"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","pink_sandstone_slab"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","pink_sandstone_stairs"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","pink_sandstone_wall"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","smooth_pink_sandstone"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","smooth_pink_sandstone_slab"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","smooth_pink_sandstone_stairs"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","chiseled_pink_sandstone"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","cut_pink_sandstone"))
-			.addOptional(ResourceLocation.fromNamespaceAndPath("natures_spirit","cut_pink_sandstone_slab"));
+			.addOptionalTag(ConventionalBlockTags.SANDSTONE_BLOCKS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MUSHROOM_BLOCK)
 			.add(Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK)
@@ -1654,7 +1630,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.FERN)
 			.add(Blocks.LARGE_FERN)
 			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN);
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.CLOVERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FLOWER)
 			.add(Blocks.DANDELION)
