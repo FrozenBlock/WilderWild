@@ -4,6 +4,10 @@
     "wilderwild:stripped_willow_log",
     "wilderwild:stripped_cypress_log",
     "wilderwild:stripped_palm_log",
-    "wilderwild:stripped_maple_log"
+    "wilderwild:stripped_maple_log",
+    {
+      "id": "#wilderwild:stripped_hollowed_logs",
+      "required": false
+    }
   ]
 }
