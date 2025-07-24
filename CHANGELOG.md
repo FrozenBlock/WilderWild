@@ -6,6 +6,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
 - Removed sounds for the Palm Crown, as the block has long-since been removed.
+- Added unique sounds for Short/Tall Grass, Fern, and Bush blocks, now sounding much cleaner and less disturbing.
+  - Added a new config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
@@ -24,6 +26,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - As a result of this, all biome tags relating to Moobloom variants have been removed.
 - Mooblooms will now prefer to walk towards flowers of the same type as themselves.
 - Butterflies will now prefer moving towards flowers slightly more.
+- Updated mob variant selection on 1.21.6+ to be consistent with Vanilla.
+  - This change does not apply to Mooblooms.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
@@ -34,8 +38,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
-- Desert ambience now plays in the Oasis biome.
+- Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
+  - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Retextured the Penguin Spawn Egg in 1.21.5+.
