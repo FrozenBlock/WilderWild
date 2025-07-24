@@ -127,6 +127,15 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_BREAK = register("block.maple_leaves.break");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_STEP = register("block.maple_leaves.step");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_FALL = register("block.maple_leaves.fall");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_PLACE = register("block.maple_wood.place");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HIT = register("block.maple_wood.hit");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_BREAK = register("block.maple_wood.break");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_STEP = register("block.maple_wood.step");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_FALL = register("block.maple_wood.fall");
+	public static final SoundEvent BLOCK_MAPLE_BUTTON_CLICK_OFF = register("block.maple_wood_button.click_off");
+	public static final SoundEvent BLOCK_MAPLE_BUTTON_CLICK_ON = register("block.maple_wood_button.click_on");
+	public static final SoundEvent BLOCK_MAPLE_PRESSURE_PLATE_CLICK_OFF = register("block.maple_wood_button.click_off");
+	public static final SoundEvent BLOCK_MAPLE_PRESSURE_PLATE_CLICK_ON = register("block.maple_wood_button.click_on");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");

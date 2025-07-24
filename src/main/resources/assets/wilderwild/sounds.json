@@ -1395,6 +1395,93 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.maple_wood.break": {
+    "sounds": [
+      "wilderwild:block/maple_wood/break1",
+      "wilderwild:block/maple_wood/break2",
+      "wilderwild:block/maple_wood/break3",
+      "wilderwild:block/maple_wood/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.maple_wood.fall": {
+    "sounds": [
+      "wilderwild:block/maple_wood/step1",
+      "wilderwild:block/maple_wood/step2",
+      "wilderwild:block/maple_wood/step3",
+      "wilderwild:block/maple_wood/step4",
+      "wilderwild:block/maple_wood/step6"
+    ]
+  },
+  "block.maple_wood.hit": {
+    "sounds": [
+      "wilderwild:block/maple_wood/step1",
+      "wilderwild:block/maple_wood/step2",
+      "wilderwild:block/maple_wood/step3",
+      "wilderwild:block/maple_wood/step4",
+      "wilderwild:block/maple_wood/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.maple_wood.place": {
+    "sounds": [
+      "wilderwild:block/maple_wood/break1",
+      "wilderwild:block/maple_wood/break2",
+      "wilderwild:block/maple_wood/break3",
+      "wilderwild:block/maple_wood/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.maple_wood.step": {
+    "sounds": [
+      "wilderwild:block/maple_wood/step1",
+      "wilderwild:block/maple_wood/step2",
+      "wilderwild:block/maple_wood/step3",
+      "wilderwild:block/maple_wood/step4",
+      "wilderwild:block/maple_wood/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.maple_wood_button.click_off": {
+    "sounds": [
+      {
+        "name": "wilderwild:block/maple_wood_button/click",
+        "pitch": 0.5,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.block.button.click"
+  },
+  "block.maple_wood_button.click_on": {
+    "sounds": [
+      {
+        "name": "wilderwild:block/maple_wood_button/click",
+        "pitch": 0.6,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.block.button.click"
+  },
+  "block.maple_wood_pressure_plate.click_off": {
+    "sounds": [
+      {
+        "name": "minecraft:random/click",
+        "pitch": 0.7,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "block.maple_wood_pressure_plate.click_on": {
+    "sounds": [
+      {
+        "name": "minecraft:random/click",
+        "pitch": 0.8,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
   "block.mesoglea.break": {
     "sounds": [
       "wilderwild:block/mesoglea/break1",
