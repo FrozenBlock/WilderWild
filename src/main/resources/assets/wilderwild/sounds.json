@@ -3989,43 +3989,19 @@
   },
   "block.short_grass.place": {
     "sounds": [
-      {
-        "name": "wilderwild:block/short_grass/break1",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break2",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break3",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break4",
-        "volume": 1.25
-      }
+      "wilderwild:block/short_grass/break1",
+      "wilderwild:block/short_grass/break2",
+      "wilderwild:block/short_grass/break3",
+      "wilderwild:block/short_grass/break4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.short_grass.break": {
     "sounds": [
-      {
-        "name": "wilderwild:block/short_grass/break1",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break2",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break3",
-        "volume": 1.25
-      },
-      {
-        "name": "wilderwild:block/short_grass/break4",
-        "volume": 1.25
-      }
+      "wilderwild:block/short_grass/break1",
+      "wilderwild:block/short_grass/break2",
+      "wilderwild:block/short_grass/break3",
+      "wilderwild:block/short_grass/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },

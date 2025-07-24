@@ -64,12 +64,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.valueLookupBuilder(ConventionalBlockTags.CHESTS)
 			.add(WWBlocks.STONE_CHEST);
 
-		this.valueLookupBuilder(getTag("c:stripped_logs"))
+		this.valueLookupBuilder(ConventionalBlockTags.STRIPPED_LOGS)
 			.add(WWBlocks.STRIPPED_BAOBAB_LOG)
 			.add(WWBlocks.STRIPPED_WILLOW_LOG)
 			.add(WWBlocks.STRIPPED_CYPRESS_LOG)
 			.add(WWBlocks.STRIPPED_PALM_LOG)
-			.add(WWBlocks.STRIPPED_MAPLE_LOG);
+			.add(WWBlocks.STRIPPED_MAPLE_LOG)
+			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS);
 	}
 
 	private void generateLib() {
@@ -1320,7 +1321,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.GRAVEL);
 
 		this.valueLookupBuilder(WWBlockTags.SOUND_MELON)
-			.add(Blocks.PUMPKIN, Blocks.CARVED_PUMPKIN, Blocks.JACK_O_LANTERN)
+			.addOptionalTag(ConventionalBlockTags.PUMPKINS)
 			.add(Blocks.MELON);
 
 		this.valueLookupBuilder(WWBlockTags.SOUND_MELON_STEM)
@@ -1333,46 +1334,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
 		this.builder(WWBlockTags.SOUND_SANDSTONE)
-			.add(Blocks.SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.SANDSTONE_STAIRS.builtInRegistryHolder().key())
-			.add(Blocks.SANDSTONE_WALL.builtInRegistryHolder().key())
-			.add(Blocks.CHISELED_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.CUT_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.CUT_SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_SANDSTONE_STAIRS.builtInRegistryHolder().key())
-
-			.addOptional(this.getKey("trailiertales", "smooth_sandstone_wall"))
-			.addOptional(this.getKey("trailiertales", "cut_sandstone_stairs"))
-			.addOptional(this.getKey("trailiertales", "cut_sandstone_wall"))
-
-			.add(Blocks.RED_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.RED_SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.RED_SANDSTONE_STAIRS.builtInRegistryHolder().key())
-			.add(Blocks.RED_SANDSTONE_WALL.builtInRegistryHolder().key())
-			.add(Blocks.CHISELED_RED_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.CUT_RED_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.CUT_RED_SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_RED_SANDSTONE.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_RED_SANDSTONE_SLAB.builtInRegistryHolder().key())
-			.add(Blocks.SMOOTH_RED_SANDSTONE_STAIRS.builtInRegistryHolder().key())
-
-			.addOptional(this.getKey("trailiertales", "smooth_red_sandstone_wall"))
-			.addOptional(this.getKey("trailiertales", "cut_red_sandstone_stairs"))
-			.addOptional(this.getKey("trailiertales", "cut_red_sandstone_wall"))
-
-			.addOptional(this.getKey("natures_spirit","pink_sandstone"))
-			.addOptional(this.getKey("natures_spirit","pink_sandstone_slab"))
-			.addOptional(this.getKey("natures_spirit","pink_sandstone_stairs"))
-			.addOptional(this.getKey("natures_spirit","pink_sandstone_wall"))
-			.addOptional(this.getKey("natures_spirit","smooth_pink_sandstone"))
-			.addOptional(this.getKey("natures_spirit","smooth_pink_sandstone_slab"))
-			.addOptional(this.getKey("natures_spirit","smooth_pink_sandstone_stairs"))
-			.addOptional(this.getKey("natures_spirit","chiseled_pink_sandstone"))
-			.addOptional(this.getKey("natures_spirit","cut_pink_sandstone"))
-			.addOptional(this.getKey("natures_spirit","cut_pink_sandstone_slab"));
+			.addOptionalTag(ConventionalBlockTags.SANDSTONE_BLOCKS);
 
 		this.builder(WWBlockTags.SOUND_MUSHROOM_BLOCK)
 			.add(Blocks.RED_MUSHROOM_BLOCK.builtInRegistryHolder().key())
@@ -1865,6 +1827,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_FERN)
 			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.add(Blocks.BUSH)
-			.add(WWBlocks.FROZEN_BUSH);
+			.add(WWBlocks.FROZEN_BUSH)
+			.add(WWBlocks.CLOVERS);
 	}
 }
