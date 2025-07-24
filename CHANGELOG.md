@@ -29,6 +29,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
+- Changed the Clovers' textures to be brighter, making them more visible on Grass Blocks.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music
