@@ -1584,7 +1584,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.FERN)
 			.add(Blocks.LARGE_FERN)
 			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN);
+			.add(WWBlocks.FROZEN_LARGE_FERN)
+			.add(WWBlocks.CLOVERS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FLOWER)
 			.add(Blocks.DANDELION)
