@@ -442,6 +442,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
+		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
@@ -450,6 +451,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
+		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAVES
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
@@ -458,6 +460,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
+		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAVES
 	);
 
@@ -1916,10 +1919,11 @@ public final class WWBlocks {
 		float litterChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
+		FallingLeafUtil.LeafMovementType leafMovementType,
 		SoundType soundType
 	) {
 		return leafLitter(
-			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, true, soundType
+			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
 		);
 	}
 
@@ -1934,11 +1938,11 @@ public final class WWBlocks {
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
-		boolean swirl,
+		FallingLeafUtil.LeafMovementType leafMovementType,
 		SoundType soundType
 	) {
 		LeafLitterBlock leafLitterBlock = createLeafLitter(id, soundType);
-		FallingLeafUtil.registerFallingLeafWithLitter(
+		FallingLeafUtil.registerLeavesWithLitter(
 			sourceBlock,
 			leafLitterBlock,
 			litterChance,
@@ -1948,7 +1952,7 @@ public final class WWBlocks {
 			textureSize,
 			particleGravityScale,
 			windScale,
-			swirl
+			leafMovementType
 		);
 		return leafLitterBlock;
 	}

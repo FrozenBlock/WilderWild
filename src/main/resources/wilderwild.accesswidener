@@ -205,3 +205,4 @@ accessible field net/minecraft/client/particle/Particle gravity F
 accessible field net/minecraft/client/particle/Particle friction F
 accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/client/particle/SpriteSet;DDD)V
+accessible field net/minecraft/client/particle/Particle stoppedByCollision Z

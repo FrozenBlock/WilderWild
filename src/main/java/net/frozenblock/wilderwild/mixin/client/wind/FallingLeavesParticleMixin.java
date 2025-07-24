@@ -26,6 +26,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
@@ -33,7 +34,9 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,6 +46,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(FallingLeavesParticle.class)
 public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
+
+	@Shadow
+	private float rotSpeed;
+
+	@Shadow
+	@Final
+	private float spinAcceleration;
+
+	@Shadow
+	private boolean flowAway;
+
+	@Shadow
+	private boolean swirl;
 
 	protected FallingLeavesParticleMixin(ClientLevel world, double d, double e, double f) {
 		super(world, d, e, f);
@@ -151,6 +167,29 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 	public int wilderWild$fixMoveD(int constant) {
 		if (WWClientWindManager.shouldUseWind()) return 10;
 		return constant;
+	}
+
+	@ModifyExpressionValue(
+		method = "tick",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;onGround:Z"
+		)
+	)
+	public boolean wilderWild$bounceOnFloorIfAllowed(boolean onGround) {
+		if (FallingLeavesParticle.class.cast(this) instanceof WWFallingLeavesParticle wwParticle) {
+			if (onGround && wwParticle.bounceOnFloor && !(this.xd == 0D || this.zd == 0D)) {
+				this.yd += (Math.abs(this.xd) + Math.abs(this.zd)) * 0.5D;
+				this.xd *= 0.5D;
+				this.zd *= 0.5D;
+				this.stoppedByCollision = false;
+				this.flowAway = false;
+				this.swirl = false;
+				this.rotSpeed = this.rotSpeed + this.spinAcceleration / 10F;
+				return false;
+			}
+		}
+		return onGround;
 	}
 
 }
