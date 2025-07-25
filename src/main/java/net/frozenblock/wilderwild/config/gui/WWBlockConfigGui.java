@@ -642,6 +642,17 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
+		var paleOakSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_oak_sounds"), modifiedBlockSounds.paleOakSounds)
+				.setDefaultValue(defaultConfig.blockSounds.paleOakSounds)
+				.setSaveConsumer(newValue -> blockSounds.paleOakSounds = newValue)
+				.setTooltip(tooltip("pale_oak_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"paleOakSounds",
+			configInstance
+		);
+
 		var reinforcedDeepslateSounds = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("reinforced_deepslate_sounds"), modifiedBlockSounds.reinforcedDeepslateSounds)
 				.setDefaultValue(defaultConfig.blockSounds.reinforcedDeepslateSounds)
@@ -689,10 +700,10 @@ public final class WWBlockConfigGui {
 		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
 			false,
 			tooltip("block_sounds"),
-			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds,
-			flowerSounds, grassSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
-			melonSounds, magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
-			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
+			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds, flowerSounds, frostedIceSounds,
+			gravelSounds, iceSounds, leafSounds, lilyPadSounds, melonSounds, magmaSounds, mushroomBlockSounds,
+			paleOakSounds, podzolSounds, reinforcedDeepslateSounds, sandstoneSounds, saplingSounds, sugarCaneSounds,
+			witherRoseSounds
 		);
 	}
 

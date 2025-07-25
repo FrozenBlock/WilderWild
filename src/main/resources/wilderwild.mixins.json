@@ -39,6 +39,8 @@
     "block.ocean.SpongeBlockMixin",
     "block.ocean.TallSeagrassBlockMixin",
     "block.reinforced_deepslate.BlocksMixin",
+    "block.sound.BlockSetTypeMixin",
+    "block.sound.WoodTypeMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
     "datafix.DataFixersMixin",
