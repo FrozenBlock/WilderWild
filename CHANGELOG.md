@@ -10,6 +10,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
 - Removed sounds for the Palm Crown, as the block has long-since been removed.
+- Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - Added a config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
