@@ -4,12 +4,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 # Blocks
 - Added unique sounds for Maple Leaves.
 - Added unique sounds for the Maple wood set. (WIP)
+- Added unique sounds for Auburn and Pale Moss.
+  - Added a config option to toggle these new sounds.
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
 - Removed sounds for the Palm Crown, as the block has long-since been removed.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
-  - Added a new config option to toggle these new sounds.
+  - Added a config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.

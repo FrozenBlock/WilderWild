@@ -103,6 +103,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_BREAK = register("block.hollowed_cherry_log.break");
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_STEP = register("block.hollowed_cherry_log.step");
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_FALL = register("block.hollowed_cherry_log.fall");
+	public static final SoundEvent BLOCK_HOLLOWED_MAPLE_LOG_PLACE = register("block.hollowed_maple_log.place");
+	public static final SoundEvent BLOCK_HOLLOWED_MAPLE_LOG_HIT = register("block.hollowed_maple_log.hit");
+	public static final SoundEvent BLOCK_HOLLOWED_MAPLE_LOG_BREAK = register("block.hollowed_maple_log.break");
+	public static final SoundEvent BLOCK_HOLLOWED_MAPLE_LOG_STEP = register("block.hollowed_maple_log.step");
+	public static final SoundEvent BLOCK_HOLLOWED_MAPLE_LOG_FALL = register("block.hollowed_maple_log.fall");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_PLACE = register("block.hollowed_stem.place");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_HIT = register("block.hollowed_stem.hit");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_BREAK = register("block.hollowed_stem.break");
@@ -122,6 +127,16 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_FROSTED_ICE_BREAK = register("block.frosted_ice.break");
 	public static final SoundEvent BLOCK_FROSTED_ICE_STEP = register("block.frosted_ice.step");
 	public static final SoundEvent BLOCK_FROSTED_ICE_FALL = register("block.frosted_ice.fall");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_PLACE = register("block.auburn_moss.place");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_HIT = register("block.auburn_moss.hit");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_BREAK = register("block.auburn_moss.break");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_STEP = register("block.auburn_moss.step");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_FALL = register("block.auburn_moss.fall");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_CARPET_PLACE = register("block.auburn_moss_carpet.place");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_CARPET_HIT = register("block.auburn_moss_carpet.hit");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_CARPET_BREAK = register("block.auburn_moss_carpet.break");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_CARPET_STEP = register("block.auburn_moss_carpet.step");
+	public static final SoundEvent BLOCK_AUBURN_MOSS_CARPET_FALL = register("block.auburn_moss_carpet.fall");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_PLACE = register("block.maple_leaves.place");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_HIT = register("block.maple_leaves.hit");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_BREAK = register("block.maple_leaves.break");
@@ -132,10 +147,21 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MAPLE_WOOD_BREAK = register("block.maple_wood.break");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_STEP = register("block.maple_wood.step");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_FALL = register("block.maple_wood.fall");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_DOOR_CLOSE = register("block.maple_wood_door.close");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_DOOR_OPEN = register("block.maple_wood_door.open");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE = register("block.maple_wood_fence_gate.close");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN = register("block.maple_wood_fence_gate.open");
 	public static final SoundEvent BLOCK_MAPLE_BUTTON_CLICK_OFF = register("block.maple_wood_button.click_off");
 	public static final SoundEvent BLOCK_MAPLE_BUTTON_CLICK_ON = register("block.maple_wood_button.click_on");
-	public static final SoundEvent BLOCK_MAPLE_PRESSURE_PLATE_CLICK_OFF = register("block.maple_wood_button.click_off");
-	public static final SoundEvent BLOCK_MAPLE_PRESSURE_PLATE_CLICK_ON = register("block.maple_wood_button.click_on");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HANGING_SIGN_PLACE = register("block.maple_wood_hanging_sign.place");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HANGING_SIGN_HIT = register("block.maple_wood_hanging_sign.hit");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HANGING_SIGN_BREAK = register("block.maple_wood_hanging_sign.break");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HANGING_SIGN_STEP = register("block.maple_wood_hanging_sign.step");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_HANGING_SIGN_FALL = register("block.maple_wood_hanging_sign.fall");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF = register("block.maple_wood_pressure_plate.click_off");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON = register("block.maple_wood_pressure_plate.click_on");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE = register("block.maple_wood_trapdoor.close");
+	public static final SoundEvent BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN = register("block.maple_wood_trapdoor.open");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");
@@ -256,10 +282,7 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MELON_STEP = register("block.melon.step");
 	public static final SoundEvent BLOCK_MELON_FALL = register("block.melon.fall");
 	public static final SoundEvent BLOCK_SHORT_GRASS_PLACE = register("block.short_grass.place");
-	public static final SoundEvent BLOCK_SHORT_GRASS_HIT = register("block.short_grass.hit");
 	public static final SoundEvent BLOCK_SHORT_GRASS_BREAK = register("block.short_grass.break");
-	public static final SoundEvent BLOCK_SHORT_GRASS_STEP = register("block.short_grass.step");
-	public static final SoundEvent BLOCK_SHORT_GRASS_FALL = register("block.short_grass.fall");
 	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY

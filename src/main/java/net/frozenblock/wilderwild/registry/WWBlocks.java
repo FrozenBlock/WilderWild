@@ -157,8 +157,10 @@ public final class WWBlocks {
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
 	public static final BlockSetType MAPLE_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
 		.soundGroup(WWSoundTypes.MAPLE_WOOD)
+		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN)
+		.trapdoorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE).trapdoorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN)
+		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF)
 		.buttonClickOnSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_ON).buttonClickOffSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_OFF)
-		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_PRESSURE_PLATE_CLICK_ON).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_PRESSURE_PLATE_CLICK_OFF)
 		.register(WWConstants.id("maple"));
 	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WWConstants.id("baobab"), BAOBAB_SET);
 	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
@@ -166,6 +168,8 @@ public final class WWBlocks {
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
 	public static final WoodType MAPLE_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.soundGroup(WWSoundTypes.MAPLE_WOOD)
+		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN)
+		.hangingSignSoundGroup(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 		.register(WWConstants.id("maple"), MAPLE_SET);
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
@@ -277,8 +281,7 @@ public final class WWBlocks {
 	public static final HollowedLogBlock HOLLOWED_BAOBAB_LOG = createHollowedLogBlock(MapColor.COLOR_ORANGE, MapColor.COLOR_BROWN);
 	public static final HollowedLogBlock HOLLOWED_WILLOW_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_LIGHT_GREEN);
 	public static final HollowedLogBlock HOLLOWED_CYPRESS_LOG = createHollowedLogBlock(MapColor.COLOR_LIGHT_GRAY, MapColor.STONE);
-	// TODO: MAPLE SOUNDS
-	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW);
+	public static final HollowedLogBlock HOLLOWED_MAPLE_LOG = createHollowedLogBlock(MapColor.COLOR_BROWN, MapColor.TERRACOTTA_YELLOW, WWSoundTypes.HOLLOWED_MAPLE_LOG);
 	public static final HollowedLogBlock HOLLOWED_PALM_LOG = createHollowedLogBlock(PALM_PLANKS_COLOR, PALM_BARK_COLOR);
 
 	// STRIPPED HOLLOWED LOGS
@@ -1293,8 +1296,7 @@ public final class WWBlocks {
 			.mapColor(MAPLE_PLANKS_COLOR)
 			.sound(WWSoundTypes.MAPLE_WOOD)
 	);
-	// TODO: MAPLE SOUNDS
-	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = createStrippedHollowedLogBlock(MAPLE_PLANKS_COLOR);
+	public static final HollowedLogBlock STRIPPED_HOLLOWED_MAPLE_LOG = createStrippedHollowedLogBlock(MAPLE_PLANKS_COLOR, WWSoundTypes.HOLLOWED_MAPLE_LOG);
 
 	public static final Block MAPLE_LOG = Blocks.log(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWSoundTypes.MAPLE_WOOD);
 	public static final FrozenSignBlock MAPLE_SIGN = new FrozenSignBlock(
@@ -1325,7 +1327,6 @@ public final class WWBlocks {
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
 
-	// TODO: MAPLE SOUNDS
 	public static final FrozenCeilingHangingSignBlock MAPLE_HANGING_SIGN = new FrozenCeilingHangingSignBlock(
 		BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor()),
