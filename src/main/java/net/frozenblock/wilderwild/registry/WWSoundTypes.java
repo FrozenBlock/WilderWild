@@ -206,6 +206,27 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MAPLE_WOOD_HIT,
 		WWSounds.BLOCK_MAPLE_WOOD_FALL
 	);
+	public static final SoundType PALE_OAK_LEAVES = new SoundType(1F, 1F,
+		WWSounds.BLOCK_PALE_OAK_LEAVES_BREAK,
+		WWSounds.BLOCK_PALE_OAK_LEAVES_STEP,
+		WWSounds.BLOCK_PALE_OAK_LEAVES_PLACE,
+		WWSounds.BLOCK_PALE_OAK_LEAVES_HIT,
+		WWSounds.BLOCK_PALE_OAK_LEAVES_FALL
+	);
+	public static final SoundType PALE_MOSS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_PALE_MOSS_BREAK,
+		WWSounds.BLOCK_PALE_MOSS_STEP,
+		WWSounds.BLOCK_PALE_MOSS_PLACE,
+		WWSounds.BLOCK_PALE_MOSS_HIT,
+		WWSounds.BLOCK_PALE_MOSS_FALL
+	);
+	public static final SoundType PALE_MOSS_CARPET = new SoundType(1F, 1F,
+		WWSounds.BLOCK_PALE_MOSS_CARPET_BREAK,
+		WWSounds.BLOCK_PALE_MOSS_CARPET_STEP,
+		WWSounds.BLOCK_PALE_MOSS_CARPET_PLACE,
+		WWSounds.BLOCK_PALE_MOSS_CARPET_HIT,
+		WWSounds.BLOCK_PALE_MOSS_CARPET_FALL
+	);
 	public static final SoundType PALE_OAK_WOOD = new SoundType(1F, 1F,
 		WWSounds.BLOCK_PALE_OAK_WOOD_BREAK,
 		WWSounds.BLOCK_PALE_OAK_WOOD_STEP,
