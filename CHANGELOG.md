@@ -21,6 +21,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
+- Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
