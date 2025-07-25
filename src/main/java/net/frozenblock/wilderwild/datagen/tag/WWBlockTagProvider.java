@@ -1245,6 +1245,20 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD)
+			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_OAK_WOOD_HANGING_SIGN)
+			.add(Blocks.PALE_OAK_HANGING_SIGN, Blocks.PALE_OAK_WALL_HANGING_SIGN);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_OAK_WOOD)
+			.addOptionalTag(BlockTags.PALE_OAK_LOGS)
+			.add(Blocks.PALE_OAK_PLANKS, Blocks.PALE_OAK_STAIRS, Blocks.PALE_OAK_SLAB)
+			.add(Blocks.PALE_OAK_FENCE, Blocks.PALE_OAK_FENCE_GATE)
+			.add(Blocks.PALE_OAK_BUTTON, Blocks.PALE_OAK_PRESSURE_PLATE)
+			.add(Blocks.PALE_OAK_DOOR, Blocks.PALE_OAK_TRAPDOOR)
+			.add(Blocks.PALE_OAK_SIGN, Blocks.PALE_OAK_WALL_SIGN);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COCONUT)
 			.add(WWBlocks.COCONUT)
 
