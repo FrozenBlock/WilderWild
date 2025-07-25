@@ -11,10 +11,6 @@
     "wilderwild:prickly_pear",
     "wilderwild:pollen",
     "wilderwild:phlox",
-    "wilderwild:lantanas",
-    {
-      "id": "#wilderwild:leaf_litters",
-      "required": false
-    }
+    "wilderwild:lantanas"
   ]
 }
