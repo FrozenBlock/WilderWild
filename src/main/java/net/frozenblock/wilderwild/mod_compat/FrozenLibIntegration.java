@@ -320,8 +320,8 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SUGAR_CANE, WWSoundTypes.SUGARCANE, () -> WWBlockConfig.get().blockSounds.sugarCaneSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, () -> WWBlockConfig.get().blockSounds.witherRoseSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
-		BlockSoundTypeOverwrites.addBlock(WWBlocks.AUBURN_MOSS_BLOCK, WWSoundTypes.AUBURN_MOSS, () -> WWBlockConfig.get().blockSounds.mossSounds);
-		BlockSoundTypeOverwrites.addBlocks(new Block[]{WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS}, WWSoundTypes.AUBURN_MOSS_CARPET, () -> WWBlockConfig.get().blockSounds.mossSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS, WWSoundTypes.AUBURN_MOSS, () -> WWBlockConfig.get().blockSounds.mossSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS_CARPET, WWSoundTypes.AUBURN_MOSS_CARPET, () -> WWBlockConfig.get().blockSounds.mossSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COCONUT, WWSoundTypes.COCONUT, () -> true);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
