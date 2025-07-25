@@ -103,6 +103,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_BREAK = register("block.hollowed_cherry_log.break");
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_STEP = register("block.hollowed_cherry_log.step");
 	public static final SoundEvent BLOCK_HOLLOWED_CHERRY_LOG_FALL = register("block.hollowed_cherry_log.fall");
+	public static final SoundEvent BLOCK_HOLLOWED_PALE_OAK_LOG_PLACE = register("block.hollowed_pale_oak_log.place");
+	public static final SoundEvent BLOCK_HOLLOWED_PALE_OAK_LOG_HIT = register("block.hollowed_pale_oak_log.hit");
+	public static final SoundEvent BLOCK_HOLLOWED_PALE_OAK_LOG_BREAK = register("block.hollowed_pale_oak_log.break");
+	public static final SoundEvent BLOCK_HOLLOWED_PALE_OAK_LOG_STEP = register("block.hollowed_pale_oak_log.step");
+	public static final SoundEvent BLOCK_HOLLOWED_PALE_OAK_LOG_FALL = register("block.hollowed_pale_oak_log.fall");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_PLACE = register("block.hollowed_stem.place");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_HIT = register("block.hollowed_stem.hit");
 	public static final SoundEvent BLOCK_HOLLOWED_STEM_BREAK = register("block.hollowed_stem.break");

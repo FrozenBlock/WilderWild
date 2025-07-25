@@ -1244,6 +1244,56 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.hollowed_pale_oak_log.break": {
+    "sounds": [
+      "wilderwild:block/hollowed_pale_oak_log/break1",
+      "wilderwild:block/hollowed_pale_oak_log/break2",
+      "wilderwild:block/hollowed_pale_oak_log/break3",
+      "wilderwild:block/hollowed_pale_oak_log/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.hollowed_pale_oak_log.fall": {
+    "sounds": [
+      "wilderwild:block/hollowed_pale_oak_log/step1",
+      "wilderwild:block/hollowed_pale_oak_log/step2",
+      "wilderwild:block/hollowed_pale_oak_log/step3",
+      "wilderwild:block/hollowed_pale_oak_log/step4",
+      "wilderwild:block/hollowed_pale_oak_log/step5",
+      "wilderwild:block/hollowed_pale_oak_log/step6"
+    ]
+  },
+  "block.hollowed_pale_oak_log.hit": {
+    "sounds": [
+      "wilderwild:block/hollowed_pale_oak_log/step1",
+      "wilderwild:block/hollowed_pale_oak_log/step2",
+      "wilderwild:block/hollowed_pale_oak_log/step3",
+      "wilderwild:block/hollowed_pale_oak_log/step4",
+      "wilderwild:block/hollowed_pale_oak_log/step5",
+      "wilderwild:block/hollowed_pale_oak_log/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.hollowed_pale_oak_log.place": {
+    "sounds": [
+      "wilderwild:block/hollowed_pale_oak_log/break1",
+      "wilderwild:block/hollowed_pale_oak_log/break2",
+      "wilderwild:block/hollowed_pale_oak_log/break3",
+      "wilderwild:block/hollowed_pale_oak_log/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.hollowed_pale_oak_log.step": {
+    "sounds": [
+      "wilderwild:block/hollowed_pale_oak_log/step1",
+      "wilderwild:block/hollowed_pale_oak_log/step2",
+      "wilderwild:block/hollowed_pale_oak_log/step3",
+      "wilderwild:block/hollowed_pale_oak_log/step4",
+      "wilderwild:block/hollowed_pale_oak_log/step5",
+      "wilderwild:block/hollowed_pale_oak_log/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.ice.break": {
     "sounds": [
       "wilderwild:block/ice/break1",
