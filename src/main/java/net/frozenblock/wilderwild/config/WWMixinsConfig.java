@@ -90,6 +90,8 @@ public final class WWMixinsConfig {
 
 	public boolean block_ocean = true;
 
+	public boolean block_sound = true;
+
 	public boolean block_reinforced_deepslate = true;
 
 	public boolean block_spawner = true;

@@ -685,6 +685,8 @@
   "tooltip.wilderwild.mushroom_block_sounds": "Whether Mushroom Block sounds should be overridden.",
   "option.wilderwild.podzol_sounds": "Podzol Sounds",
   "tooltip.wilderwild.podzol_sounds": "Whether Podzol sounds should be overridden.",
+  "option.wilderwild.pale_oak_sounds": "Pale Oak Sounds",
+  "tooltip.wilderwild.pale_oak_sounds": "Whether Pale Oak wood sounds should be overridden.",
   "option.wilderwild.sapling_sounds": "Sapling Sounds",
   "tooltip.wilderwild.sapling_sounds": "Whether Sapling sounds should be overridden.",
   "option.wilderwild.sugar_cane_sounds": "Sugar Cane Sounds",

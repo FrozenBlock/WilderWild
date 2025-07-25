@@ -4,6 +4,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 # Blocks
 - Added unique sounds for Maple Leaves.
 - Added unique sounds for the Maple wood set. (WIP)
+- Added unique sounds for the Pale Oak wood set.
+  - Added a new config option to toggle these sounds.
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
