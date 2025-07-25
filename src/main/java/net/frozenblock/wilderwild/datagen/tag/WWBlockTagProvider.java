@@ -889,8 +889,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.PRICKLY_PEAR_CACTUS)
 			.add(WWBlocks.POLLEN)
 			.add(WWBlocks.PHLOX)
-			.add(WWBlocks.LANTANAS)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.add(WWBlocks.LANTANAS);
 
 		this.valueLookupBuilder(BlockTags.REPLACEABLE)
 			.add(WWBlocks.MYCELIUM_GROWTH);
@@ -947,7 +946,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POLLEN)
 			.add(WWBlocks.BARNACLES)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
-			.add(WWBlocks.AUBURN_CREEPING_MOSS);
+			.add(WWBlocks.AUBURN_CREEPING_MOSS)
+			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
 
 		this.valueLookupBuilder(BlockTags.FLOWER_POTS)
 			.add(WWBlocks.POTTED_BAOBAB_NUT)
