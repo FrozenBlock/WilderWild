@@ -620,6 +620,17 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
+		var mossSounds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("moss_sounds"), modifiedBlockSounds.mossSounds)
+				.setDefaultValue(defaultConfig.blockSounds.mossSounds)
+				.setSaveConsumer(newValue -> blockSounds.mossSounds = newValue)
+				.setTooltip(tooltip("moss_sounds"))
+				.build(),
+			blockSounds.getClass(),
+			"mossSounds",
+			configInstance
+		);
+
 		var mushroomBlockSounds = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
 				.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
@@ -691,7 +702,7 @@ public final class WWBlockConfigGui {
 			tooltip("block_sounds"),
 			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds,
 			flowerSounds, grassSounds, frostedIceSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds,
-			melonSounds, magmaSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
+			melonSounds, magmaSounds, mossSounds, mushroomBlockSounds, podzolSounds, reinforcedDeepslateSounds,
 			sandstoneSounds, saplingSounds, sugarCaneSounds, witherRoseSounds
 		);
 	}

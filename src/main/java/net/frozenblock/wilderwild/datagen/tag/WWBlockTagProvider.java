@@ -1218,6 +1218,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS_CARPET)
+			.add(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS)
+			.add(WWBlocks.AUBURN_MOSS_BLOCK);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COCONUT)
 			.add(WWBlocks.COCONUT)
 
