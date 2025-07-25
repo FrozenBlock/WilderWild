@@ -1259,6 +1259,18 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.PALE_OAK_DOOR, Blocks.PALE_OAK_TRAPDOOR)
 			.add(Blocks.PALE_OAK_SIGN, Blocks.PALE_OAK_WALL_SIGN);
 
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_MOSS_CARPET)
+			.add(Blocks.PALE_MOSS_CARPET, Blocks.PALE_HANGING_MOSS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_MOSS)
+			.add(Blocks.PALE_MOSS_BLOCK);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS_CARPET)
+			.add(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS)
+			.add(WWBlocks.AUBURN_MOSS_BLOCK);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COCONUT)
 			.add(WWBlocks.COCONUT)
 
