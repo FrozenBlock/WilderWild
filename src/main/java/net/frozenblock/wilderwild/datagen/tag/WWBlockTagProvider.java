@@ -1298,7 +1298,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.valueLookupBuilder(WWBlockTags.SOUND_PALE_OAK_WOOD_HANGING_SIGN)
 			.add(Blocks.PALE_OAK_HANGING_SIGN, Blocks.PALE_OAK_WALL_HANGING_SIGN);
-		
+
 		this.valueLookupBuilder(WWBlockTags.SOUND_PALE_OAK_WOOD)
 			.add(Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG)
 			.add(Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD)
