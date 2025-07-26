@@ -1356,6 +1356,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_MUSHROOM_BLOCK)
 			.add(Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK)
+			.add(Blocks.MUSHROOM_STEM)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "mossy_glowshroom_cap"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "mossy_glowshroom_fur"))
