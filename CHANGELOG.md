@@ -3,7 +3,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 # Blocks
 - Added unique sounds for Maple Leaves.
-- Added unique sounds for the Maple wood set. (WIP)
+- Added unique sounds for the Maple wood set.
+- Added unique sounds for Pale Oak Leaves.
+  - This will be disabled if the config options for either Pale Oak wood or Leaves sounds are disabled.
+- Added unique sounds for the Pale Oak wood set.
+  - Added a config option to toggle these sounds.
 - Added unique sounds for Auburn and Pale Moss.
   - Added a config option to toggle these new sounds.
 - Removed duplicate leaves sounds.
