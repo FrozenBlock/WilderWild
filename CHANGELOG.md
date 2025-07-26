@@ -3,15 +3,20 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 # Blocks
 - Added unique sounds for Maple Leaves.
-- Added unique sounds for the Maple wood set. (WIP)
+- Added unique sounds for the Maple wood set.
+- Added unique sounds for Pale Oak Leaves.
+  - This will be disabled if the config options for either Pale Oak wood or Leaves sounds are disabled.
 - Added unique sounds for the Pale Oak wood set.
-  - Added a new config option to toggle these sounds.
+  - Added a config option to toggle these sounds.
+- Added unique sounds for Auburn and Pale Moss.
+  - Added a config option to toggle these new sounds.
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
 - Removed sounds for the Palm Crown, as the block has long-since been removed.
+- Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
-  - Added a new config option to toggle these new sounds.
+  - Added a config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
@@ -21,6 +26,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
+- Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
