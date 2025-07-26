@@ -1363,11 +1363,12 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 		this.builder(WWBlockTags.SOUND_SANDSTONE)
 			.addOptionalTag(ConventionalBlockTags.SANDSTONE_BLOCKS);
-
+		
 		this.builder(WWBlockTags.SOUND_MUSHROOM_BLOCK)
 			.add(Blocks.RED_MUSHROOM_BLOCK.builtInRegistryHolder().key())
 			.add(Blocks.BROWN_MUSHROOM_BLOCK.builtInRegistryHolder().key())
 			.add(WWBlocks.PALE_MUSHROOM_BLOCK.builtInRegistryHolder().key())
+			.add(Blocks.MUSHROOM_STEM.builtInRegistryHolder().key())
 
 			.addOptional(this.getKey("betterend", "mossy_glowshroom_cap"))
 			.addOptional(this.getKey("betterend", "mossy_glowshroom_fur"))

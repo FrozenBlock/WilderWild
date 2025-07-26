@@ -18,6 +18,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - Added a config option to toggle these new sounds.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
+- Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Wilder Wild's Sandstone sounds block tag now uses Fabric's conventional Sandstone block tag.
