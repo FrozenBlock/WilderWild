@@ -324,10 +324,16 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MAGMA_BLOCK, WWSoundTypes.MAGMA, () -> WWBlockConfig.get().blockSounds.magmaSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS, WWSoundTypes.AUBURN_MOSS, () -> WWBlockConfig.get().blockSounds.mossSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS_CARPET, WWSoundTypes.AUBURN_MOSS_CARPET, () -> WWBlockConfig.get().blockSounds.mossSounds);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COCONUT, WWSoundTypes.COCONUT, () -> true);
-
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_MOSS, WWSoundTypes.PALE_MOSS, () -> WWBlockConfig.get().blockSounds.mossSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_MOSS_CARPET, WWSoundTypes.PALE_MOSS_CARPET, () -> WWBlockConfig.get().blockSounds.mossSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, WWSoundTypes.PALE_OAK_LEAVES, () -> {
+			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
+			return soundConfig.paleOakSounds && soundConfig.leafSounds;
+		});
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD, WWSoundTypes.PALE_OAK_WOOD, () -> WWBlockConfig.get().blockSounds.paleOakSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD, WWSoundTypes.HOLLOWED_PALE_OAK_LOG, () -> WWBlockConfig.get().blockSounds.paleOakSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD_HANGING_SIGN, WWSoundTypes.PALE_OAK_WOOD_HANGING_SIGN, () -> WWBlockConfig.get().blockSounds.paleOakSounds);
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COCONUT, WWSoundTypes.COCONUT, () -> true);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);

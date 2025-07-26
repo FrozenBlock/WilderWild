@@ -1245,6 +1245,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_OAK_LEAVES)
+			.add(Blocks.PALE_OAK_LEAVES);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
 
@@ -1519,7 +1522,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_LEAVES)
 			.add(WWBlocks.CYPRESS_LEAVES)
 			.add(WWBlocks.PALM_FRONDS)
-			.add(Blocks.PALE_OAK_LEAVES)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "pythadendron_leaves"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "lacugrove_leaves"))
