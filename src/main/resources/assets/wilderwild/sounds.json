@@ -1666,20 +1666,17 @@
   },
   "block.maple_wood_trapdoor.close": {
     "sounds": [
-      "wilderwild:block/maple_wood_trapdoor/close1",
-      "wilderwild:block/maple_wood_trapdoor/close2",
-      "wilderwild:block/maple_wood_trapdoor/close3"
+      "wilderwild:block/maple_wood_trapdoor/toggle1",
+      "wilderwild:block/maple_wood_trapdoor/toggle2",
+      "wilderwild:block/maple_wood_trapdoor/toggle3"
     ],
     "subtitle": "subtitles.block.trapdoor.toggle"
   },
   "block.maple_wood_trapdoor.open": {
     "sounds": [
-      "wilderwild:block/maple_wood_trapdoor/open1",
-      "wilderwild:block/maple_wood_trapdoor/open2",
-      "wilderwild:block/maple_wood_trapdoor/open3",
-      "wilderwild:block/maple_wood_trapdoor/open4",
-      "wilderwild:block/maple_wood_trapdoor/open5"
-
+      "wilderwild:block/maple_wood_trapdoor/toggle1",
+      "wilderwild:block/maple_wood_trapdoor/toggle2",
+      "wilderwild:block/maple_wood_trapdoor/toggle3"
     ],
     "subtitle": "subtitles.block.trapdoor.toggle"
   },
