@@ -2,6 +2,7 @@
   "values": [
     "minecraft:red_mushroom_block",
     "minecraft:brown_mushroom_block",
+    "minecraft:mushroom_stem",
     {
       "id": "betterend:mossy_glowshroom_cap",
       "required": false
