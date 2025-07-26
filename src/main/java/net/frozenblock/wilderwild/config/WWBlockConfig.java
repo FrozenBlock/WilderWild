@@ -201,6 +201,9 @@ public final class WWBlockConfig {
 		@EntrySyncData("melonSounds")
 		public boolean melonSounds = true;
 
+		@EntrySyncData("mossSounds")
+		public boolean mossSounds = true;
+
 		@EntrySyncData("mushroomBlockSounds")
 		public boolean mushroomBlockSounds = true;
 

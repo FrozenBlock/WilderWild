@@ -1281,6 +1281,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	}
 
 	private void generateSounds() {
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_OAK_LEAVES)
+			.add(Blocks.PALE_OAK_LEAVES);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD)
 			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
 
@@ -1294,6 +1297,18 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.PALE_OAK_BUTTON, Blocks.PALE_OAK_PRESSURE_PLATE)
 			.add(Blocks.PALE_OAK_DOOR, Blocks.PALE_OAK_TRAPDOOR)
 			.add(Blocks.PALE_OAK_SIGN, Blocks.PALE_OAK_WALL_SIGN);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_MOSS_CARPET)
+			.add(Blocks.PALE_MOSS_CARPET, Blocks.PALE_HANGING_MOSS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_PALE_MOSS)
+			.add(Blocks.PALE_MOSS_BLOCK);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS_CARPET)
+			.add(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_AUBURN_MOSS)
+			.add(WWBlocks.AUBURN_MOSS_BLOCK);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_COCONUT)
 			.add(WWBlocks.COCONUT)
@@ -1543,7 +1558,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_LEAVES)
 			.add(WWBlocks.CYPRESS_LEAVES)
 			.add(WWBlocks.PALM_FRONDS)
-			.add(Blocks.PALE_OAK_LEAVES)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "pythadendron_leaves"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "lacugrove_leaves"))
