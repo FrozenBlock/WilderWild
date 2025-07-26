@@ -11,7 +11,6 @@
     "wilderwild:willow_leaves",
     "wilderwild:cypress_leaves",
     "wilderwild:palm_fronds",
-    "minecraft:pale_oak_leaves",
     {
       "id": "betterend:pythadendron_leaves",
       "required": false
