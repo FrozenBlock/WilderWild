@@ -148,14 +148,14 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_HIT,
 		WWSounds.BLOCK_TUMBLEWEED_PLANT_FALL
 	);
-	public static final SoundType AUBURN_MOSS = new SoundType(0.85F, 1F,
+	public static final SoundType AUBURN_MOSS = new SoundType(1F, 1F,
 		WWSounds.BLOCK_AUBURN_MOSS_BREAK,
 		WWSounds.BLOCK_AUBURN_MOSS_STEP,
 		WWSounds.BLOCK_AUBURN_MOSS_PLACE,
 		WWSounds.BLOCK_AUBURN_MOSS_HIT,
 		WWSounds.BLOCK_AUBURN_MOSS_FALL
 	);
-	public static final SoundType AUBURN_MOSS_CARPET = new SoundType(0.85F, 1F,
+	public static final SoundType AUBURN_MOSS_CARPET = new SoundType(1F, 1F,
 		WWSounds.BLOCK_AUBURN_MOSS_CARPET_BREAK,
 		WWSounds.BLOCK_AUBURN_MOSS_CARPET_STEP,
 		WWSounds.BLOCK_AUBURN_MOSS_CARPET_PLACE,
