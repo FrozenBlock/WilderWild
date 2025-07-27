@@ -1445,6 +1445,59 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.maple_leaf_litter.break": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/break1",
+      "wilderwild:block/maple_leaf_litter/break2",
+      "wilderwild:block/maple_leaf_litter/break3",
+      "wilderwild:block/maple_leaf_litter/break4",
+      "wilderwild:block/maple_leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.maple_leaf_litter.fall": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.maple_leaf_litter.hit": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.maple_leaf_litter.place": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/place1",
+      "wilderwild:block/maple_leaf_litter/place2",
+      "wilderwild:block/maple_leaf_litter/place3",
+      "wilderwild:block/maple_leaf_litter/place4",
+      "wilderwild:block/maple_leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.maple_leaf_litter.step": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.maple_wood.break": {
     "sounds": [
       "wilderwild:block/maple_wood/break1",

@@ -3,6 +3,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 # Blocks
 - Added unique sounds for Maple Leaves.
+- Added unique sounds for Maple Leaf Litters.
 - Added unique sounds for the Maple wood set.
 - Added unique sounds for Pale Oak Leaves.
   - This will be disabled if the config options for either Pale Oak wood or Leaves sounds are disabled.

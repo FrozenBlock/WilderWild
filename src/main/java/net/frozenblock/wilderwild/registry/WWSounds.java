@@ -142,6 +142,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_BREAK = register("block.maple_leaves.break");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_STEP = register("block.maple_leaves.step");
 	public static final SoundEvent BLOCK_MAPLE_LEAVES_FALL = register("block.maple_leaves.fall");
+	public static final SoundEvent BLOCK_MAPLE_LEAF_LITTER_PLACE = register("block.maple_leaf_litter.place");
+	public static final SoundEvent BLOCK_MAPLE_LEAF_LITTER_HIT = register("block.maple_leaf_litter.hit");
+	public static final SoundEvent BLOCK_MAPLE_LEAF_LITTER_BREAK = register("block.maple_leaf_litter.break");
+	public static final SoundEvent BLOCK_MAPLE_LEAF_LITTER_STEP = register("block.maple_leaf_litter.step");
+	public static final SoundEvent BLOCK_MAPLE_LEAF_LITTER_FALL = register("block.maple_leaf_litter.fall");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_PLACE = register("block.maple_wood.place");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_HIT = register("block.maple_wood.hit");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_BREAK = register("block.maple_wood.break");
