@@ -1503,7 +1503,8 @@
       "wilderwild:block/maple_wood/break1",
       "wilderwild:block/maple_wood/break2",
       "wilderwild:block/maple_wood/break3",
-      "wilderwild:block/maple_wood/break4"
+      "wilderwild:block/maple_wood/break4",
+      "wilderwild:block/maple_wood/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1531,7 +1532,8 @@
       "wilderwild:block/maple_wood/break1",
       "wilderwild:block/maple_wood/break2",
       "wilderwild:block/maple_wood/break3",
-      "wilderwild:block/maple_wood/break4"
+      "wilderwild:block/maple_wood/break4",
+      "wilderwild:block/maple_wood/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
