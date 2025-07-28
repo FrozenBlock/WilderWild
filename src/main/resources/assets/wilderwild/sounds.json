@@ -1604,7 +1604,8 @@
       "wilderwild:block/maple_wood_hanging_sign/break1",
       "wilderwild:block/maple_wood_hanging_sign/break2",
       "wilderwild:block/maple_wood_hanging_sign/break3",
-      "wilderwild:block/maple_wood_hanging_sign/break4"
+      "wilderwild:block/maple_wood_hanging_sign/break4",
+      "wilderwild:block/maple_wood_hanging_sign/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1634,7 +1635,8 @@
       "wilderwild:block/maple_wood_hanging_sign/break1",
       "wilderwild:block/maple_wood_hanging_sign/break2",
       "wilderwild:block/maple_wood_hanging_sign/break3",
-      "wilderwild:block/maple_wood_hanging_sign/break4"
+      "wilderwild:block/maple_wood_hanging_sign/break4",
+      "wilderwild:block/maple_wood_hanging_sign/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -2214,9 +2216,9 @@
   },
   "block.sculk_shrieker.gargle": {
     "sounds": [
-      "wilderwild:block/sculk_shrieker/gargle_1",
-      "wilderwild:block/sculk_shrieker/gargle_2",
-      "wilderwild:block/sculk_shrieker/gargle_3"
+      "wilderwild:block/sculk_shrieker/gargle1",
+      "wilderwild:block/sculk_shrieker/gargle2",
+      "wilderwild:block/sculk_shrieker/gargle3"
     ],
     "subtitle": "subtitles.block.sculk_shrieker.gargle"
   },
@@ -2615,25 +2617,25 @@
   },
   "entity.firefly.hurt": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.firefly.hurt"
   },
   "entity.butterfly.hurt": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.butterfly.hurt"
   },
   "entity.butterfly.death": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.butterfly.death"
   },
