@@ -449,7 +449,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
-		WWSoundTypes.MAPLE_LEAVES
+		WWSoundTypes.MAPLE_LEAF_LITTER
 	);
 	public static final LeafLitterBlock ORANGE_MAPLE_LEAF_LITTER = leafLitter("orange_maple_leaf_litter",
 		ORANGE_MAPLE_LEAVES,
@@ -457,7 +457,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
-		WWSoundTypes.MAPLE_LEAVES
+		WWSoundTypes.MAPLE_LEAF_LITTER
 	);
 	public static final LeafLitterBlock RED_MAPLE_LEAF_LITTER = leafLitter("red_maple_leaf_litter",
 		RED_MAPLE_LEAVES,
@@ -465,7 +465,7 @@ public final class WWBlocks {
 		0.04F,
 		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
 		5,
-		WWSoundTypes.MAPLE_LEAVES
+		WWSoundTypes.MAPLE_LEAF_LITTER
 	);
 
 	// SCULK
