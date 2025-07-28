@@ -1249,7 +1249,8 @@
       "wilderwild:block/hollowed_maple_log/break1",
       "wilderwild:block/hollowed_maple_log/break2",
       "wilderwild:block/hollowed_maple_log/break3",
-      "wilderwild:block/hollowed_maple_log/break4"
+      "wilderwild:block/hollowed_maple_log/break4",
+      "wilderwild:block/hollowed_maple_log/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1279,7 +1280,8 @@
       "wilderwild:block/hollowed_maple_log/break1",
       "wilderwild:block/hollowed_maple_log/break2",
       "wilderwild:block/hollowed_maple_log/break3",
-      "wilderwild:block/hollowed_maple_log/break4"
+      "wilderwild:block/hollowed_maple_log/break4",
+      "wilderwild:block/hollowed_maple_log/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
