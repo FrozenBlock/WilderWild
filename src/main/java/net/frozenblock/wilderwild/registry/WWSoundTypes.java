@@ -176,6 +176,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_MAPLE_LEAVES_HIT,
 		WWSounds.BLOCK_MAPLE_LEAVES_FALL
 	);
+	public static final SoundType MAPLE_LEAF_LITTER = new SoundType(1F, 1F,
+		WWSounds.BLOCK_MAPLE_LEAF_LITTER_BREAK,
+		WWSounds.BLOCK_MAPLE_LEAF_LITTER_STEP,
+		WWSounds.BLOCK_MAPLE_LEAF_LITTER_PLACE,
+		WWSounds.BLOCK_MAPLE_LEAF_LITTER_HIT,
+		WWSounds.BLOCK_MAPLE_LEAF_LITTER_FALL
+	);
 	public static final SoundType MAPLE_WOOD = new SoundType(1F, 1F,
 		WWSounds.BLOCK_MAPLE_WOOD_BREAK,
 		WWSounds.BLOCK_MAPLE_WOOD_STEP,
