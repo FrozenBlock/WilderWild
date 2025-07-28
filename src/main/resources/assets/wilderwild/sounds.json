@@ -1249,7 +1249,8 @@
       "wilderwild:block/hollowed_maple_log/break1",
       "wilderwild:block/hollowed_maple_log/break2",
       "wilderwild:block/hollowed_maple_log/break3",
-      "wilderwild:block/hollowed_maple_log/break4"
+      "wilderwild:block/hollowed_maple_log/break4",
+      "wilderwild:block/hollowed_maple_log/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1279,7 +1280,8 @@
       "wilderwild:block/hollowed_maple_log/break1",
       "wilderwild:block/hollowed_maple_log/break2",
       "wilderwild:block/hollowed_maple_log/break3",
-      "wilderwild:block/hollowed_maple_log/break4"
+      "wilderwild:block/hollowed_maple_log/break4",
+      "wilderwild:block/hollowed_maple_log/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -1445,12 +1447,66 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.maple_leaf_litter.break": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/break1",
+      "wilderwild:block/maple_leaf_litter/break2",
+      "wilderwild:block/maple_leaf_litter/break3",
+      "wilderwild:block/maple_leaf_litter/break4",
+      "wilderwild:block/maple_leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.maple_leaf_litter.fall": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.maple_leaf_litter.hit": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.maple_leaf_litter.place": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/place1",
+      "wilderwild:block/maple_leaf_litter/place2",
+      "wilderwild:block/maple_leaf_litter/place3",
+      "wilderwild:block/maple_leaf_litter/place4",
+      "wilderwild:block/maple_leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.maple_leaf_litter.step": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/step1",
+      "wilderwild:block/maple_leaf_litter/step2",
+      "wilderwild:block/maple_leaf_litter/step3",
+      "wilderwild:block/maple_leaf_litter/step4",
+      "wilderwild:block/maple_leaf_litter/step5",
+      "wilderwild:block/maple_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.maple_wood.break": {
     "sounds": [
       "wilderwild:block/maple_wood/break1",
       "wilderwild:block/maple_wood/break2",
       "wilderwild:block/maple_wood/break3",
-      "wilderwild:block/maple_wood/break4"
+      "wilderwild:block/maple_wood/break4",
+      "wilderwild:block/maple_wood/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1478,7 +1534,8 @@
       "wilderwild:block/maple_wood/break1",
       "wilderwild:block/maple_wood/break2",
       "wilderwild:block/maple_wood/break3",
-      "wilderwild:block/maple_wood/break4"
+      "wilderwild:block/maple_wood/break4",
+      "wilderwild:block/maple_wood/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -1549,7 +1606,8 @@
       "wilderwild:block/maple_wood_hanging_sign/break1",
       "wilderwild:block/maple_wood_hanging_sign/break2",
       "wilderwild:block/maple_wood_hanging_sign/break3",
-      "wilderwild:block/maple_wood_hanging_sign/break4"
+      "wilderwild:block/maple_wood_hanging_sign/break4",
+      "wilderwild:block/maple_wood_hanging_sign/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -1579,7 +1637,8 @@
       "wilderwild:block/maple_wood_hanging_sign/break1",
       "wilderwild:block/maple_wood_hanging_sign/break2",
       "wilderwild:block/maple_wood_hanging_sign/break3",
-      "wilderwild:block/maple_wood_hanging_sign/break4"
+      "wilderwild:block/maple_wood_hanging_sign/break4",
+      "wilderwild:block/maple_wood_hanging_sign/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -2159,9 +2218,9 @@
   },
   "block.sculk_shrieker.gargle": {
     "sounds": [
-      "wilderwild:block/sculk_shrieker/gargle_1",
-      "wilderwild:block/sculk_shrieker/gargle_2",
-      "wilderwild:block/sculk_shrieker/gargle_3"
+      "wilderwild:block/sculk_shrieker/gargle1",
+      "wilderwild:block/sculk_shrieker/gargle2",
+      "wilderwild:block/sculk_shrieker/gargle3"
     ],
     "subtitle": "subtitles.block.sculk_shrieker.gargle"
   },
@@ -2560,25 +2619,25 @@
   },
   "entity.firefly.hurt": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.firefly.hurt"
   },
   "entity.butterfly.hurt": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.butterfly.hurt"
   },
   "entity.butterfly.death": {
     "sounds": [
-      "wilderwild:mob/firefly/hurt_1",
-      "wilderwild:mob/firefly/hurt_2",
-      "wilderwild:mob/firefly/hurt_3"
+      "wilderwild:mob/firefly/hurt1",
+      "wilderwild:mob/firefly/hurt2",
+      "wilderwild:mob/firefly/hurt3"
     ],
     "subtitle": "subtitles.entity.butterfly.death"
   },
