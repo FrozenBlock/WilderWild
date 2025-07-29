@@ -11,6 +11,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle these sounds.
 - Added unique sounds for Auburn and Pale Moss.
   - Added a config option to toggle these new sounds.
+- Leaves blocks now use Azalea Leaves' sounds instead of Cherry Leaves' sounds.
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
