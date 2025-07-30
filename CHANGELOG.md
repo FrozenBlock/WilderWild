@@ -50,6 +50,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed the internal .zip resource pack containing Wilder Wild's music.
   - This has been reverted to the original implementation, including the config option and resource pack to disable Wilder Wild's music playing in the title screen and while under water.
   - C418's music has once again been removed.
+  - A separate .zip resource pack is now downloaded in the background upon boot.
+    - The downloaded .zip can be found in the `/frozenlib/downloaded_resourcepacks` folder within Minecraft's run directory.
+    - A toast will be displayed instructing the player to reload the game's resources once the pack has been downloaded.
+      - Resource pack downloading can be disabled via FrozenLib's config.
+      - This change was made to minimize the amount of file space Wilder Wild takes up, cutting it down by roughly two-thirds of its size.
+        - This makes Wilder Wild more friendly to download for users with slower internet connections as its music will only be downloaded once, while also removing unnecessary file space on servers.
 - Added missing translation strings for Wilder Wild's music in 1.21.6+.
 
 # World Generation
