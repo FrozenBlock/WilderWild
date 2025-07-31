@@ -28,6 +28,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_FLOWER = bind("sound/flower");
 	public static final TagKey<Block> SOUND_LEAVES = bind("sound/leaves");
 	public static final TagKey<Block> SOUND_CONIFER_LEAVES = bind("sound/conifer_leaves");
+	public static final TagKey<Block> SOUND_CONIFER_LEAF_LITTER = bind("sound/conifer_leaf_litter");
 	public static final TagKey<Block> SOUND_SAPLING = bind("sound/sapling");
 	public static final TagKey<Block> SOUND_CACTUS = bind("sound/cactus");
 	public static final TagKey<Block> SOUND_COARSE_DIRT = bind("sound/coarse_dirt");

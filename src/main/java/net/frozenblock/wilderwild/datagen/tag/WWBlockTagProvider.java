@@ -1561,6 +1561,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(ResourceLocation.fromNamespaceAndPath("traverse","red_autumnal_sapling"))
 			.addOptional(ResourceLocation.fromNamespaceAndPath("traverse","yellow_autumnal_sapling"));
 
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_CONIFER_LEAF_LITTER)
+			.add(WWBlocks.SPRUCE_LEAF_LITTER)
+			.add(WWBlocks.CYPRESS_LEAF_LITTER);
+
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_CONIFER_LEAVES)
 			.add(Blocks.SPRUCE_LEAVES)
 			.add(WWBlocks.CYPRESS_LEAVES)
