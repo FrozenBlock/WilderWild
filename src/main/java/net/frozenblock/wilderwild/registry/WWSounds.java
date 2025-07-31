@@ -217,6 +217,16 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_BREAK = register("block.cherry_leaf_litter.break");
 	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_STEP = register("block.cherry_leaf_litter.step");
 	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_FALL = register("block.cherry_leaf_litter.fall");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_PLACE = register("block.conifer_leaves.place");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_HIT = register("block.conifer_leaves.hit");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_BREAK = register("block.conifer_leaves.break");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_STEP = register("block.conifer_leaves.step");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_FALL = register("block.conifer_leaves.fall");
+	public static final SoundEvent BLOCK_CONIFER_LEAF_LITTER_PLACE = register("block.conifer_leaf_litter.place");
+	public static final SoundEvent BLOCK_CONIFER_LEAF_LITTER_HIT = register("block.conifer_leaf_litter.hit");
+	public static final SoundEvent BLOCK_CONIFER_LEAF_LITTER_BREAK = register("block.conifer_leaf_litter.break");
+	public static final SoundEvent BLOCK_CONIFER_LEAF_LITTER_STEP = register("block.conifer_leaf_litter.step");
+	public static final SoundEvent BLOCK_CONIFER_LEAF_LITTER_FALL = register("block.conifer_leaf_litter.fall");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");

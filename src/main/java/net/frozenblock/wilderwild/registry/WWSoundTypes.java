@@ -211,6 +211,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_HIT,
 		WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_FALL
 	);
+	public static final SoundType CONIFER_LEAF_LITTER = new SoundType(1F, 1F,
+		WWSounds.BLOCK_CONIFER_LEAF_LITTER_BREAK,
+		WWSounds.BLOCK_CONIFER_LEAF_LITTER_STEP,
+		WWSounds.BLOCK_CONIFER_LEAF_LITTER_PLACE,
+		WWSounds.BLOCK_CONIFER_LEAF_LITTER_HIT,
+		WWSounds.BLOCK_CONIFER_LEAF_LITTER_FALL
+	);
 
 	//VANILLA SOUNDS
 	public static final SoundType CLAY = new SoundType(0.9F, 1F,
@@ -261,6 +268,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_FROSTED_ICE_PLACE,
 		WWSounds.BLOCK_FROSTED_ICE_HIT,
 		WWSounds.BLOCK_FROSTED_ICE_FALL
+	);
+	public static final SoundType CONIFER_LEAVES = new SoundType(0.9F, 1F,
+		WWSounds.BLOCK_CONIFER_LEAVES_BREAK,
+		WWSounds.BLOCK_CONIFER_LEAVES_STEP,
+		WWSounds.BLOCK_CONIFER_LEAVES_PLACE,
+		WWSounds.BLOCK_CONIFER_LEAVES_HIT,
+		WWSounds.BLOCK_CONIFER_LEAVES_FALL
 	);
 	public static final SoundType PALE_OAK_LEAVES = new SoundType(1F, 1F,
 		WWSounds.BLOCK_PALE_OAK_LEAVES_BREAK,
