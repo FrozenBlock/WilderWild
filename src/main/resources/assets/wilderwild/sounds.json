@@ -2260,10 +2260,10 @@
   },
   "block.pale_oak_leaf_litter.place": {
     "sounds": [
-      "wilderwild:block/pale_oak_leaf_litter/break5",
-      "wilderwild:block/pale_oak_leaf_litter/break5",
-      "wilderwild:block/pale_oak_leaf_litter/break5",
-      "wilderwild:block/pale_oak_leaf_litter/break5",
+      "wilderwild:block/pale_oak_leaf_litter/break1",
+      "wilderwild:block/pale_oak_leaf_litter/break2",
+      "wilderwild:block/pale_oak_leaf_litter/break3",
+      "wilderwild:block/pale_oak_leaf_litter/break4",
       "wilderwild:block/pale_oak_leaf_litter/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
