@@ -167,6 +167,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON = register("block.maple_wood_pressure_plate.click_on");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE = register("block.maple_wood_trapdoor.close");
 	public static final SoundEvent BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN = register("block.maple_wood_trapdoor.open");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_PLACE = register("block.conifer_leaves.place");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_HIT = register("block.conifer_leaves.hit");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_BREAK = register("block.conifer_leaves.break");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_STEP = register("block.conifer_leaves.step");
+	public static final SoundEvent BLOCK_CONIFER_LEAVES_FALL = register("block.conifer_leaves.fall");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");

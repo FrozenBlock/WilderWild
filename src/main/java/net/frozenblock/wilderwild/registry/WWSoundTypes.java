@@ -311,6 +311,13 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
+	public static final SoundType CONIFER_LEAVES = new SoundType(0.9F, 1F,
+		WWSounds.BLOCK_CONIFER_LEAVES_BREAK,
+		WWSounds.BLOCK_CONIFER_LEAVES_STEP,
+		WWSounds.BLOCK_CONIFER_LEAVES_PLACE,
+		WWSounds.BLOCK_CONIFER_LEAVES_HIT,
+		WWSounds.BLOCK_CONIFER_LEAVES_FALL
+	);
 
 	private WWSoundTypes() {
 		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
