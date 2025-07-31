@@ -311,7 +311,7 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
-	public static final SoundType CONIFER_LEAVES = new SoundType(0.9F, 1F,
+	public static final SoundType CONIFER_LEAVES = new SoundType(1F, 1F,
 		WWSounds.BLOCK_CONIFER_LEAVES_BREAK,
 		WWSounds.BLOCK_CONIFER_LEAVES_STEP,
 		WWSounds.BLOCK_CONIFER_LEAVES_PLACE,
