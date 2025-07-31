@@ -12,6 +12,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for Auburn and Pale Moss.
   - Added a config option to toggle these new sounds.
 - Leaves blocks now use Azalea Leaves' sounds instead of Cherry Leaves' sounds.
+- Added unique sounds for coniferous Leaves blocks.
 - Removed duplicate leaves sounds.
 - Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Removed duplicate flower sounds.
@@ -67,6 +68,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Leaf Litters of every leaf type now generate.
   - Azalea and Cherry Leaf Litters do not generate naturally, but can still be obtained by smelting their leaves block.
   - This change was made to establish stronger consistency between Vanilla and Wilder Wild.
+- Leaf Litter patch features no longer get placed over blocks such as Sand or Gravel.
+  - This change was made to improve the visuals of Beta Beaches.
 
 # Entities
 - Moobloom variants are now selected based upon the flower features in the biome.
@@ -83,6 +86,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
 
 # Misc.
+- Increased Wilder Wild's protocol version to 15.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
