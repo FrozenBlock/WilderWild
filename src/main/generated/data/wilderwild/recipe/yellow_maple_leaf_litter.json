@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "wilderwild:yellow_maple_leaves",
+  "result": {
+    "id": "wilderwild:yellow_maple_leaf_litter"
+  }
+}

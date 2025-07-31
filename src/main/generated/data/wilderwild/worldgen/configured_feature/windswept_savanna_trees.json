@@ -1,11 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:oak_no_fungi_checked",
+    "default": {
+      "feature": "wilderwild:windswept_savanna_trees_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.8,
-        "feature": "minecraft:acacia_checked"
+        "chance": 0.75,
+        "feature": {
+          "feature": "wilderwild:windswept_savanna_trees_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }

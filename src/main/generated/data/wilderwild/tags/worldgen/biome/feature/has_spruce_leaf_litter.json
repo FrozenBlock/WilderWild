@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:old_growth_pine_taiga",
+    {
+      "id": "wilderwild:dark_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    },
+    {
+      "id": "wilderwild:old_growth_birch_taiga",
+      "required": false
+    }
+  ]
+}

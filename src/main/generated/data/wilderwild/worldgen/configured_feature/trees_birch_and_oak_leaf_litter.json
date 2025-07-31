@@ -5,11 +5,11 @@
     "features": [
       {
         "chance": 0.2,
-        "feature": "wilderwild:short_birch_bees_0004"
+        "feature": "wilderwild:short_birch_bees_0004_leaf_litter"
       },
       {
         "chance": 0.04,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_leaf_litter"
       },
       {
         "chance": 0.26,

@@ -140,7 +140,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.ARID_SAVANNA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.SHORT_TAIGA)
-			.add(Biomes.TAIGA)
+			.add(Biomes.TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.SHORT_TAIGA_SNOWY)
 			.add(Biomes.SNOWY_TAIGA);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.TALL_PINE_TAIGA)
@@ -1260,11 +1262,29 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_LEAF_LITTER)
-			.add(Biomes.DARK_FOREST)
-			.add(Biomes.PALE_GARDEN)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_UNCOMMON_LEAF_LITTER)
+			.add(Biomes.FOREST)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SPRUCE_LEAF_LITTER)
+			.add(Biomes.TAIGA)
+			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
+			.addOptional(WWBiomes.DARK_TAIGA)
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_DARK_OAK_LEAF_LITTER)
+			.add(Biomes.DARK_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_PALE_OAK_LEAF_LITTER)
+			.add(Biomes.PALE_GARDEN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SURFACE_ICICLES)
 			.add(Biomes.ICE_SPIKES);

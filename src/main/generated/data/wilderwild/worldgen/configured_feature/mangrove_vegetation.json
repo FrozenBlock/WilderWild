@@ -1,11 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:mangrove_checked",
+    "default": {
+      "feature": "wilderwild:mangrove_vegetation_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.85,
-        "feature": "wilderwild:tall_mangrove_checked"
+        "chance": 0.2,
+        "feature": {
+          "feature": "wilderwild:mangrove_vegetation_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }

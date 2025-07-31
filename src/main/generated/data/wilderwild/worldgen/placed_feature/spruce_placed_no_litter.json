@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:short_trees_taiga",
+  "feature": "wilderwild:trees_taiga_no_litter",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "data": 5,
+            "data": 10,
             "weight": 9
           },
           {
-            "data": 6,
+            "data": 11,
             "weight": 1
           }
         ]
@@ -30,6 +30,17 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "frozenlib:noise_filter",
+      "fade_distance": 0.2,
+      "maxThresh": 1.0,
+      "min_threshold": 0.625,
+      "must_be_inside": false,
+      "noise_scale": 0.0065,
+      "noise_type": "XORO",
+      "scale_y": false,
+      "use_y": false
     }
   ]
 }

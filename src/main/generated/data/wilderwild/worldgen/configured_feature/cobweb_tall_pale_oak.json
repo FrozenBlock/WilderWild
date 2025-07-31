@@ -48,7 +48,7 @@
           "entries": [
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "1"
@@ -58,7 +58,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "1"
@@ -68,7 +68,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "1"
@@ -78,7 +78,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "1"
@@ -88,7 +88,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "2"
@@ -98,7 +98,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "2"
@@ -108,7 +108,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "2"
@@ -118,7 +118,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "2"
@@ -128,7 +128,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "3"
@@ -138,7 +138,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "3"
@@ -148,7 +148,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "3"
@@ -158,7 +158,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "3"
@@ -179,7 +179,7 @@
           "entries": [
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "1"
@@ -189,7 +189,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "1"
@@ -199,7 +199,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "1"
@@ -209,7 +209,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "1"
@@ -219,7 +219,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "2"
@@ -229,7 +229,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "2"
@@ -239,7 +239,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "2"
@@ -249,7 +249,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "2"
@@ -259,7 +259,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "3"
@@ -269,7 +269,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "3"
@@ -279,7 +279,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "3"
@@ -289,7 +289,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "3"
@@ -299,7 +299,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "north",
                   "segment_amount": "4"
@@ -309,7 +309,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "east",
                   "segment_amount": "4"
@@ -319,7 +319,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "south",
                   "segment_amount": "4"
@@ -329,7 +329,7 @@
             },
             {
               "data": {
-                "Name": "minecraft:leaf_litter",
+                "Name": "wilderwild:pale_oak_leaf_litter",
                 "Properties": {
                   "facing": "west",
                   "segment_amount": "4"

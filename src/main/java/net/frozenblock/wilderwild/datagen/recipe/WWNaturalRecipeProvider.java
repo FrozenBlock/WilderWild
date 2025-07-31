@@ -23,36 +23,35 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Nullable;
 
 public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
-		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.LANTANAS, "orange_dye");
+		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.LANTANAS, "orange_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PHLOX, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PHLOX, "purple_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.RED_DYE, WWBlocks.RED_HIBISCUS, "red_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.YELLOW_DYE, WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWBlocks.WHITE_HIBISCUS, "white_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.PINK_DYE, WWBlocks.PINK_HIBISCUS, "pink_dye");
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PURPLE_HIBISCUS, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.RED_DYE, WWBlocks.RED_HIBISCUS, "red_dye");
+		provider.oneToOneConversionRecipe(Items.YELLOW_DYE, WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
+		provider.oneToOneConversionRecipe(Items.WHITE_DYE, WWBlocks.WHITE_HIBISCUS, "white_dye");
+		provider.oneToOneConversionRecipe(Items.PINK_DYE, WWBlocks.PINK_HIBISCUS, "pink_dye");
+		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PURPLE_HIBISCUS, "purple_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
+		provider.oneToOneConversionRecipe(Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
 
-		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.MILKWEED, "orange_dye", 2);
+		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.MILKWEED, "orange_dye", 2);
 
-		oneToOneConversionRecipe(provider, exporter, Items.MAGENTA_DYE, WWBlocks.CARNATION, "magenta_dye");
+		provider.oneToOneConversionRecipe(Items.MAGENTA_DYE, WWBlocks.CARNATION, "magenta_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
+		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.PURPLE_DYE, WWBlocks.PASQUEFLOWER, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PASQUEFLOWER, "purple_dye");
 
-		oneToOneConversionRecipe(provider, exporter, Items.WHITE_DYE, WWItems.SPLIT_COCONUT, "white_dye");
+		provider.oneToOneConversionRecipe(Items.WHITE_DYE, WWItems.SPLIT_COCONUT, "white_dye");
 		provider.shapeless(RecipeCategory.MISC, Items.BOWL, 2)
 			.requires(WWItems.SPLIT_COCONUT, 2)
 			.group("bowl")
@@ -86,18 +85,56 @@ public final class WWNaturalRecipeProvider {
 		provider.carpet(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_MOSS_BLOCK);
 
 		provider.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWBlocks.ICICLE);
-	}
 
-	private static void oneToOneConversionRecipe(RecipeProvider provider, RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group) {
-		oneToOneConversionRecipe(provider, recipeOutput, result, ingredient, group, 1);
-	}
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.ACACIA_LEAVES), RecipeCategory.MISC, WWBlocks.ACACIA_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_acacia_leaves", provider.has(Items.ACACIA_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.AZALEA_LEAVES), RecipeCategory.MISC, WWBlocks.AZALEA_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_azalea_leaves", provider.has(Items.AZALEA_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.BAOBAB_LEAVES), RecipeCategory.MISC, WWBlocks.BAOBAB_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_baobab_leaves", provider.has(WWBlocks.BAOBAB_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BIRCH_LEAVES), RecipeCategory.MISC, WWBlocks.BIRCH_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_birch_leaves", provider.has(Items.BIRCH_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.CHERRY_LEAVES), RecipeCategory.MISC, WWBlocks.CHERRY_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_cherry_leaves", provider.has(Items.CHERRY_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.CYPRESS_LEAVES), RecipeCategory.MISC, WWBlocks.CYPRESS_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_cypress_leaves", provider.has(WWBlocks.CYPRESS_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.DARK_OAK_LEAVES), RecipeCategory.MISC, WWBlocks.DARK_OAK_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_dark_oak_leaves", provider.has(Items.DARK_OAK_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.JUNGLE_LEAVES), RecipeCategory.MISC, WWBlocks.JUNGLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_jungle_leaves", provider.has(Items.JUNGLE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.MANGROVE_LEAVES), RecipeCategory.MISC, WWBlocks.MANGROVE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_mangrove_leaves", provider.has(Items.MANGROVE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.PALE_OAK_LEAVES), RecipeCategory.MISC, WWBlocks.PALE_OAK_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_pale_oak_leaves", provider.has(Items.PALE_OAK_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.PALM_FRONDS), RecipeCategory.MISC, WWBlocks.PALM_FROND_LITTER, 0.1F, 200)
+			.unlockedBy("has_palm_fronds", provider.has(WWBlocks.PALM_FRONDS))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.SPRUCE_LEAVES), RecipeCategory.MISC, WWBlocks.SPRUCE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_spruce_leaves", provider.has(Items.SPRUCE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.WILLOW_LEAVES), RecipeCategory.MISC, WWBlocks.WILLOW_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_willow_leaves", provider.has(WWBlocks.WILLOW_LEAVES))
+			.save(exporter);
 
-	private static void oneToOneConversionRecipe(RecipeProvider provider, RecipeOutput recipeOutput, ItemLike result, ItemLike ingredient, @Nullable String group, int resultCount) {
-		provider.shapeless(RecipeCategory.MISC, result, resultCount)
-			.requires(ingredient)
-			.group(group)
-			.unlockedBy(RecipeProvider.getHasName(ingredient), provider.has(ingredient))
-			.save(recipeOutput, WWConstants.string(RecipeProvider.getConversionRecipeName(result, ingredient)));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_yellow_maple_leaves", provider.has(WWBlocks.YELLOW_MAPLE_LEAVES))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, WWBlocks.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_orange_maple_leaves", provider.has(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
+			.save(exporter);
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.RED_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_red_maple_leaves", provider.has(WWBlocks.RED_MAPLE_LEAVES))
+			.save(exporter);
 	}
 
 }

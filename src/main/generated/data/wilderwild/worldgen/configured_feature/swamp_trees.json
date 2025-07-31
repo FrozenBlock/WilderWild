@@ -1,6 +1,18 @@
 {
-  "type": "minecraft:simple_random_selector",
+  "type": "minecraft:random_selector",
   "config": {
-    "features": "wilderwild:swamp_oak_checked"
+    "default": {
+      "feature": "wilderwild:swamp_trees_no_litter",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.1,
+        "feature": {
+          "feature": "wilderwild:swamp_trees_leaf_litter",
+          "placement": []
+        }
+      }
+    ]
   }
 }

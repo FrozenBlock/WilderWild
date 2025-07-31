@@ -1,0 +1,407 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:trunk_vine"
+      },
+      {
+        "type": "minecraft:leave_vine",
+        "probability": 0.25
+      },
+      {
+        "type": "wilderwild:shelf_fungi_tree_decorator",
+        "placement_chance": 0.25,
+        "probability": 0.054,
+        "shelf_fungi_provider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "shelf_fungus_stage",
+          "source": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "wilderwild:brown_shelf_fungi",
+                  "Properties": {
+                    "age": "0",
+                    "face": "wall",
+                    "facing": "north",
+                    "shelf_fungus_stage": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 17
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:red_shelf_fungi",
+                  "Properties": {
+                    "age": "0",
+                    "face": "wall",
+                    "facing": "north",
+                    "shelf_fungus_stage": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 3
+              }
+            ]
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 1
+          }
+        }
+      },
+      {
+        "type": "minecraft:place_on_ground",
+        "block_state_provider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "height": 2,
+        "radius": 4,
+        "tries": 43
+      },
+      {
+        "type": "minecraft:place_on_ground",
+        "block_state_provider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:jungle_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "height": 2,
+        "radius": 2,
+        "tries": 75
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:jungle_foliage_placer",
+      "height": 2,
+      "offset": 0,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:jungle_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 1,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "minecraft:mega_jungle_trunk_placer",
+      "base_height": 10,
+      "height_rand_a": 2,
+      "height_rand_b": 19
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:jungle_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

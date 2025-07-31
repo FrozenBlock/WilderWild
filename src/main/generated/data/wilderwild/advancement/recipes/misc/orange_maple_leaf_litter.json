@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_orange_maple_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:orange_maple_leaf_litter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:orange_maple_leaf_litter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_orange_maple_leaves"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:orange_maple_leaf_litter"
+    ]
+  }
+}

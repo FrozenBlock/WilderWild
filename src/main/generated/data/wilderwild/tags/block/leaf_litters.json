@@ -1,6 +1,19 @@
 {
   "values": [
     "minecraft:leaf_litter",
+    "wilderwild:acacia_leaf_litter",
+    "wilderwild:azalea_leaf_litter",
+    "wilderwild:baobab_leaf_litter",
+    "wilderwild:birch_leaf_litter",
+    "wilderwild:cherry_leaf_litter",
+    "wilderwild:cypress_leaf_litter",
+    "wilderwild:dark_oak_leaf_litter",
+    "wilderwild:jungle_leaf_litter",
+    "wilderwild:mangrove_leaf_litter",
+    "wilderwild:pale_oak_leaf_litter",
+    "wilderwild:palm_frond_litter",
+    "wilderwild:spruce_leaf_litter",
+    "wilderwild:willow_leaf_litter",
     "wilderwild:yellow_maple_leaf_litter",
     "wilderwild:orange_maple_leaf_litter",
     "wilderwild:red_maple_leaf_litter"

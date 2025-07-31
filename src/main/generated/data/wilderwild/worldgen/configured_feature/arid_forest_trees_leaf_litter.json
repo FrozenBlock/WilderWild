@@ -13,11 +13,11 @@
       },
       {
         "chance": 0.38,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_leaf_litter"
       },
       {
         "chance": 0.2325,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_leaf_litter"
       }
     ]
   }

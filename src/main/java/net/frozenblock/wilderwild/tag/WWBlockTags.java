@@ -52,6 +52,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_PALE_MOSS = bind("sound/pale_moss");
 	public static final TagKey<Block> SOUND_PALE_MOSS_CARPET = bind("sound/pale_moss_carpet");
 	public static final TagKey<Block> SOUND_PALE_OAK_LEAVES = bind("sound/pale_oak_leaves");
+	public static final TagKey<Block> SOUND_PALE_OAK_LEAF_LITTER = bind("sound/pale_oak_leaf_litter");
 	public static final TagKey<Block> SOUND_PALE_OAK_WOOD = bind("sound/pale_oak_wood");
 	public static final TagKey<Block> SOUND_PALE_OAK_WOOD_HANGING_SIGN = bind("sound/pale_oak_wood_hanging_sign");
 	public static final TagKey<Block> SOUND_HOLLOWED_PALE_OAK_WOOD = bind("sound/hollowed_pale_oak_wood");

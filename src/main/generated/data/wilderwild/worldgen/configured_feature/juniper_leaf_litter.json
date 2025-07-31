@@ -1,0 +1,375 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:place_on_ground",
+        "block_state_provider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "height": 2,
+        "radius": 4,
+        "tries": 43
+      },
+      {
+        "type": "minecraft:place_on_ground",
+        "block_state_provider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "1"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "2"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "3"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "north",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "east",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "south",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            },
+            {
+              "data": {
+                "Name": "wilderwild:cypress_leaf_litter",
+                "Properties": {
+                  "facing": "west",
+                  "segment_amount": "4"
+                }
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "height": 2,
+        "radius": 2,
+        "tries": 75
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:random_spread_foliage_placer",
+      "foliage_height": 2,
+      "leaf_placement_attempts": 32,
+      "offset": 2,
+      "radius": 2
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:cypress_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "wilderwild:juniper_trunk_placer",
+      "base_height": 2,
+      "branch_count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 3,
+        "min_inclusive": 1
+      },
+      "branch_end_offset_from_top": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": -3
+      },
+      "branch_horizontal_length": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 2
+      },
+      "branch_start_offset_from_top": {
+        "max_inclusive": -5,
+        "min_inclusive": -8
+      },
+      "height_rand_a": 1,
+      "height_rand_b": 1
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:cypress_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

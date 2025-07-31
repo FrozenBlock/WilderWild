@@ -261,6 +261,16 @@ public final class WWWorldgen {
 				})
 			.add(
 				ModificationPhase.REPLACEMENTS,
+				BiomeSelectors.tag(WWBiomeTags.SHORT_TAIGA_SNOWY),
+				context -> {
+					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
+						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+						generationSettings.removeFeature(VegetationPlacements.TREES_TAIGA);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPRUCE_PLACED_NO_LITTER.getKey());
+					}
+				})
+			.add(
+				ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.tag(WWBiomeTags.TALL_PINE_TAIGA),
 				context -> {
 					if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {

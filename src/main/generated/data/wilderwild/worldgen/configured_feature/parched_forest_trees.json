@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.1,
+        "chance": 0.2,
         "feature": {
           "feature": "wilderwild:parched_forest_trees_leaf_litter",
           "placement": []

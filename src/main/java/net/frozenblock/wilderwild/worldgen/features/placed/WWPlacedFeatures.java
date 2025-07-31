@@ -38,6 +38,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.treePlacement;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -112,8 +113,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature TREES_BIRCH = register("trees_birch");
 	public static final FrozenLibPlacedFeature TREES_BIRCH_TALL = register("trees_birch_tall");
 	public static final FrozenLibPlacedFeature SPRUCE_PLACED = register("spruce_placed");
+	public static final FrozenLibPlacedFeature SPRUCE_PLACED_NO_LITTER = register("spruce_placed_no_litter");
 	public static final FrozenLibPlacedFeature SHORT_SPRUCE_PLACED = register("short_spruce_placed");
-	public static final FrozenLibPlacedFeature SHORT_SPRUCE_RARE_PLACED = register("short_spruce_rare_placed");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_PLACED = register("short_mega_spruce_placed");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW_PLACED = register("short_mega_spruce_on_snow_placed");
 	public static final FrozenLibPlacedFeature TREES_OLD_GROWTH_PINE_TAIGA = register("trees_old_growth_pine_taiga");
@@ -331,6 +332,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP = register("patch_firefly_bush_near_water_swamp");
 	public static final FrozenLibPlacedFeature PATCH_FIREFLY_BUSH_SWAMP = register("patch_firefly_bush_swamp");
 	public static final FrozenLibPlacedFeature PATCH_LEAF_LITTER = register("patch_leaf_litter");
+	public static final FrozenLibPlacedFeature PATCH_UNCOMMON_LEAF_LITTER = register("patch_uncommon_leaf_litter");
+	public static final FrozenLibPlacedFeature PATCH_DARK_OAK_LEAF_LITTER = register("patch_dark_oak_leaf_litter");
+	public static final FrozenLibPlacedFeature PATCH_PALE_OAK_LEAF_LITTER = register("patch_pale_oak_leaf_litter");
+	public static final FrozenLibPlacedFeature PATCH_SPRUCE_LEAF_LITTER = register("patch_spruce_leaf_litter");
 
 	private WWPlacedFeatures() {
 		throw new UnsupportedOperationException("WWPlacedFeatures contains only static declarations.");
@@ -711,13 +716,14 @@ public final class WWPlacedFeatures {
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		SHORT_SPRUCE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
-			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
+		SPRUCE_PLACED_NO_LITTER.makeAndSetHolder(WWConfiguredFeatures.TREES_TAIGA_NO_LITTER.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		SHORT_SPRUCE_RARE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
-			treePlacement(PlacementUtils.countExtra(5, 0.1F, 1))
+		SHORT_SPRUCE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA.getHolder(),
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		SHORT_MEGA_SPRUCE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHORT_MEGA_SPRUCE.getHolder(),
@@ -2074,8 +2080,68 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		BlockPredicateFilter leafLitterPredicate = BlockPredicateFilter.forPredicate(
+			BlockPredicate.not(
+				BlockPredicate.anyOf(
+					BlockPredicate.matchesTag(
+						Direction.DOWN.getUnitVec3i(),
+						BlockTags.SAND
+					),
+					BlockPredicate.matchesTag(
+						Direction.DOWN.getUnitVec3i(),
+						BlockTags.TERRACOTTA
+					),
+					BlockPredicate.matchesBlocks(
+						Direction.DOWN.getUnitVec3i(),
+						Blocks.GRAVEL,
+						Blocks.SUSPICIOUS_GRAVEL,
+						Blocks.CLAY
+					),
+					BlockPredicate.not(
+						BlockPredicate.noFluid(Direction.DOWN.getUnitVec3i())
+					)
+				)
+			)
+		);
+
 		PATCH_LEAF_LITTER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_LEAF_LITTER),
-			VegetationPlacements.worldSurfaceSquaredWithCount(2)
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			leafLitterPredicate
+		);
+
+		PATCH_UNCOMMON_LEAF_LITTER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_LEAF_LITTER),
+			CountPlacement.of(1),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			leafLitterPredicate
+		);
+
+		PATCH_DARK_OAK_LEAF_LITTER.makeAndSetHolder(WWConfiguredFeatures.PATCH_DARK_OAK_LEAF_LITTER.getHolder(),
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			leafLitterPredicate
+		);
+
+		PATCH_PALE_OAK_LEAF_LITTER.makeAndSetHolder(WWConfiguredFeatures.PATCH_PALE_OAK_LEAF_LITTER.getHolder(),
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			leafLitterPredicate
+		);
+
+		PATCH_SPRUCE_LEAF_LITTER.makeAndSetHolder(WWConfiguredFeatures.PATCH_SPRUCE_LEAF_LITTER.getHolder(),
+			CountPlacement.of(2),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			leafLitterPredicate
 		);
 	}
 

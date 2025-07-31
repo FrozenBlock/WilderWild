@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:dying_fungus_pine_checked",
+    "default": "wilderwild:dying_fungus_pine_leaf_litter",
     "features": [
       {
         "chance": 0.045,
@@ -17,39 +17,39 @@
       },
       {
         "chance": 0.021,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_leaf_litter"
       },
       {
         "chance": 0.041,
-        "feature": "wilderwild:dying_medium_birch"
+        "feature": "wilderwild:dying_medium_birch_leaf_litter"
       },
       {
         "chance": 0.05,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_leaf_litter"
       },
       {
         "chance": 0.025,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_leaf_litter"
       },
       {
         "chance": 0.09,
-        "feature": "wilderwild:fungus_pine_checked"
+        "feature": "wilderwild:fungus_pine_leaf_litter"
       },
       {
         "chance": 0.4,
-        "feature": "wilderwild:spruce_short_checked"
+        "feature": "wilderwild:spruce_short_leaf_litter"
       },
       {
         "chance": 0.2,
-        "feature": "wilderwild:spruce_checked"
+        "feature": "wilderwild:spruce_leaf_litter"
       },
       {
         "chance": 0.72,
-        "feature": "wilderwild:dying_fungus_pine_checked"
+        "feature": "wilderwild:dying_fungus_pine_leaf_litter"
       },
       {
         "chance": 0.6,
-        "feature": "wilderwild:short_mega_spruce_checked"
+        "feature": "wilderwild:short_mega_spruce_leaf_litter"
       }
     ]
   }

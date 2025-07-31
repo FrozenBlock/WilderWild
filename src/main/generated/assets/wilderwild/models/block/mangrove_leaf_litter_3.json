@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_leaf_litter_3",
+  "textures": {
+    "texture": "wilderwild:block/mangrove_leaf_litter"
+  }
+}

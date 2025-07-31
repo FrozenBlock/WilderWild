@@ -15,6 +15,7 @@ accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/Foli
 accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer isDirt (Lnet/minecraft/world/level/LevelSimulatedReader;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/data/worldgen/placement/VegetationPlacements treePlacementBase (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
 accessible method net/minecraft/world/level/levelgen/feature/TreeFeature setBlockKnownShape (Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/data/worldgen/features/VegetationFeatures segmentedBlockPatchBuilder (Lnet/minecraft/world/level/block/Block;IILnet/minecraft/world/level/block/state/properties/IntegerProperty;Lnet/minecraft/world/level/block/state/properties/EnumProperty;)Lnet/minecraft/util/random/WeightedList$Builder;
 
 # Items
 extendable method net/minecraft/world/item/InstrumentItem getInstrument (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/HolderLookup$Provider;)Ljava/util/Optional;

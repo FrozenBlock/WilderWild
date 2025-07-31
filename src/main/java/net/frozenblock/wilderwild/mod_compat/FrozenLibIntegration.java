@@ -333,9 +333,13 @@ public class FrozenLibIntegration extends ModIntegration {
 			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
 			return soundConfig.paleOakSounds && soundConfig.leafSounds;
 		});
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, SoundType.CHERRY_LEAVES, () -> {
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, SoundType.AZALEA_LEAVES, () -> {
 			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
 			return !soundConfig.paleOakSounds && soundConfig.leafSounds;
+		});
+		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAF_LITTER, WWSoundTypes.PALE_OAK_LEAF_LITTER, () -> {
+			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
+			return soundConfig.paleOakSounds && soundConfig.leafSounds;
 		});
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD, WWSoundTypes.PALE_OAK_WOOD, () -> WWBlockConfig.get().blockSounds.paleOakSounds);
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD, WWSoundTypes.HOLLOWED_PALE_OAK_LOG, () -> WWBlockConfig.get().blockSounds.paleOakSounds);

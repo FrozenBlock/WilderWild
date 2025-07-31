@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:willow_leaf_litter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_willow_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:willow_leaves"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_willow_leaves"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:willow_leaf_litter"
+    ]
+  }
+}

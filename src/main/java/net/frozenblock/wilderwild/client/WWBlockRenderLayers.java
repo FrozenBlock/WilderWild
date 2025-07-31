@@ -181,6 +181,20 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAVES, RenderType.cutoutMipped());
+
+		renderLayerRegistry.putBlock(WWBlocks.ACACIA_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.AZALEA_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.BIRCH_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.CHERRY_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.DARK_OAK_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.JUNGLE_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.MANGROVE_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PALE_OAK_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PALM_FROND_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.SPRUCE_LEAF_LITTER, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.WILLOW_LEAF_LITTER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, RenderType.cutout());

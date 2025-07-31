@@ -1,19 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:oak_no_fungi_checked",
+    "default": {
+      "feature": "wilderwild:savanna_trees_baobab_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.8,
-        "feature": "minecraft:acacia_checked"
-      },
-      {
-        "chance": 0.062,
-        "feature": "wilderwild:baobab"
-      },
-      {
-        "chance": 0.035,
-        "feature": "wilderwild:baobab_tall"
+        "chance": 0.5,
+        "feature": {
+          "feature": "wilderwild:savanna_trees_baobab_leaf_liter",
+          "placement": []
+        }
       }
     ]
   }

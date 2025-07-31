@@ -1,0 +1,19 @@
+{
+  "feature": "wilderwild:baobab_tall_leaf_litter",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "wilderwild:baobab_nut",
+          "Properties": {
+            "age": "0",
+            "hanging": "false",
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

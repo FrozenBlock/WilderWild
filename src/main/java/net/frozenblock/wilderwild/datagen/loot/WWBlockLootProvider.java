@@ -180,6 +180,23 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.HOLLOWED_WARPED_STEM);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
+		this.add(WWBlocks.ACACIA_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ACACIA_LEAF_LITTER));
+		this.add(WWBlocks.AZALEA_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.AZALEA_LEAF_LITTER));
+		this.add(WWBlocks.BAOBAB_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.BAOBAB_LEAF_LITTER));
+		this.add(WWBlocks.BIRCH_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.BIRCH_LEAF_LITTER));
+		this.add(WWBlocks.CHERRY_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.CHERRY_LEAF_LITTER));
+		this.add(WWBlocks.CYPRESS_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.CYPRESS_LEAF_LITTER));
+		this.add(WWBlocks.DARK_OAK_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.DARK_OAK_LEAF_LITTER));
+		this.add(WWBlocks.JUNGLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.JUNGLE_LEAF_LITTER));
+		this.add(WWBlocks.MANGROVE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.MANGROVE_LEAF_LITTER));
+		this.add(WWBlocks.PALE_OAK_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.PALE_OAK_LEAF_LITTER));
+		this.add(WWBlocks.PALM_FROND_LITTER, this.createSegmentedBlockDrops(WWBlocks.PALM_FROND_LITTER));
+		this.add(WWBlocks.SPRUCE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.SPRUCE_LEAF_LITTER));
+		this.add(WWBlocks.WILLOW_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.WILLOW_LEAF_LITTER));
+		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER));
+		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER));
+
 		this.dropSelf(WWBlocks.GABBRO);
 		this.dropSelf(WWBlocks.GABBRO_STAIRS);
 		this.add(WWBlocks.GABBRO_SLAB, this::createSlabItemTable);
@@ -529,9 +546,6 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL);
 
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH);
-		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER));
-		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER));
-		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER, this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER));
 
 		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE);
 		this.dropWhenSilkTouch(WWBlocks.ICICLE);
