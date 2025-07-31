@@ -6,10 +6,8 @@
     "minecraft:jungle_leaves",
     "minecraft:mangrove_leaves",
     "minecraft:oak_leaves",
-    "minecraft:spruce_leaves",
     "wilderwild:baobab_leaves",
     "wilderwild:willow_leaves",
-    "wilderwild:cypress_leaves",
     "wilderwild:palm_fronds",
     {
       "id": "betterend:pythadendron_leaves",
@@ -72,19 +70,11 @@
       "required": false
     },
     {
-      "id": "biomesoplenty:cypress_leaves",
-      "required": false
-    },
-    {
       "id": "biomesoplenty:dead_leaves",
       "required": false
     },
     {
       "id": "biomesoplenty:empyreal_leaves",
-      "required": false
-    },
-    {
-      "id": "biomesoplenty:fir_leaves",
       "required": false
     },
     {
@@ -120,10 +110,6 @@
       "required": false
     },
     {
-      "id": "biomesoplenty:pine_leaves",
-      "required": false
-    },
-    {
       "id": "biomesoplenty:rainbow_birch_leaves",
       "required": false
     },
@@ -132,15 +118,7 @@
       "required": false
     },
     {
-      "id": "biomesoplenty:redwood_leaves",
-      "required": false
-    },
-    {
       "id": "biomesoplenty:snowblossom_leaves",
-      "required": false
-    },
-    {
-      "id": "biomesoplenty:umbran_leaves",
       "required": false
     },
     {
@@ -172,14 +150,6 @@
       "required": false
     },
     {
-      "id": "natures_spirit:saxaul_leaves",
-      "required": false
-    },
-    {
-      "id": "natures_spirit:fir_leaves",
-      "required": false
-    },
-    {
       "id": "natures_spirit:part_white_wisteria_leaves",
       "required": false
     },
@@ -189,10 +159,6 @@
     },
     {
       "id": "natures_spirit:part_purple_wisteria_leaves",
-      "required": false
-    },
-    {
-      "id": "natures_spirit:cedar_leaves",
       "required": false
     },
     {
@@ -208,14 +174,6 @@
       "required": false
     },
     {
-      "id": "natures_spirit:joshua_leaves",
-      "required": false
-    },
-    {
-      "id": "natures_spirit:frosty_fir_leaves",
-      "required": false
-    },
-    {
       "id": "natures_spirit:orange_maple_leaves",
       "required": false
     },
@@ -224,15 +182,7 @@
       "required": false
     },
     {
-      "id": "natures_spirit:larch_leaves",
-      "required": false
-    },
-    {
       "id": "natures_spirit:mahogany_leaves",
-      "required": false
-    },
-    {
-      "id": "natures_spirit:redwood_leaves",
       "required": false
     },
     {
@@ -248,10 +198,6 @@
       "required": false
     },
     {
-      "id": "natures_spirit:cypress_leaves",
-      "required": false
-    },
-    {
       "id": "natures_spirit:coconut_leaves",
       "required": false
     },
@@ -260,19 +206,11 @@
       "required": false
     },
     {
-      "id": "natures_spirit:sugi_leaves",
-      "required": false
-    },
-    {
       "id": "natures_spirit:yellow_maple_leaves",
       "required": false
     },
     {
       "id": "natures_spirit:palo_verde_leaves",
-      "required": false
-    },
-    {
-      "id": "natures_spirit:frosty_redwood_leaves",
       "required": false
     },
     {
@@ -312,23 +250,11 @@
       "required": false
     },
     {
-      "id": "regions_unexplored:cypress_leaves",
-      "required": false
-    },
-    {
       "id": "regions_unexplored:dead_leaves",
       "required": false
     },
     {
-      "id": "regions_unexplored:dead_pine_leaves",
-      "required": false
-    },
-    {
       "id": "regions_unexplored:enchanted_birch_leaves",
-      "required": false
-    },
-    {
-      "id": "regions_unexplored:eucalyptus_leaves",
       "required": false
     },
     {
@@ -337,10 +263,6 @@
     },
     {
       "id": "regions_unexplored:golden_larch_leaves",
-      "required": false
-    },
-    {
-      "id": "regions_unexplored:joshua_leaves",
       "required": false
     },
     {
@@ -372,19 +294,11 @@
       "required": false
     },
     {
-      "id": "regions_unexplored:pine_leaves",
-      "required": false
-    },
-    {
       "id": "regions_unexplored:pink_magnolia_leaves",
       "required": false
     },
     {
       "id": "regions_unexplored:red_maple_leaves",
-      "required": false
-    },
-    {
-      "id": "regions_unexplored:redwood_leaves",
       "required": false
     },
     {
@@ -412,15 +326,7 @@
       "required": false
     },
     {
-      "id": "terrestria:cypress_leaves",
-      "required": false
-    },
-    {
       "id": "terrestria:dark_japanese_maple_leaves",
-      "required": false
-    },
-    {
-      "id": "terrestria:hemlock_leaves",
       "required": false
     },
     {
@@ -433,14 +339,6 @@
     },
     {
       "id": "terrestria:jungle_palm_leaves",
-      "required": false
-    },
-    {
-      "id": "terrestria:rainbow_eucalyptus_leaves",
-      "required": false
-    },
-    {
-      "id": "terrestria:redwood_leaves",
       "required": false
     },
     {
@@ -461,10 +359,6 @@
     },
     {
       "id": "traverse:brown_autumnal_leaves",
-      "required": false
-    },
-    {
-      "id": "traverse:fir_leaves",
       "required": false
     },
     {

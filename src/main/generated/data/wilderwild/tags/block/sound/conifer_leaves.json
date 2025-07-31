@@ -1,0 +1,110 @@
+{
+  "values": [
+    "minecraft:spruce_leaves",
+    "wilderwild:cypress_leaves",
+    {
+      "id": "biomesoplenty:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:fir_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:pine_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "biomesoplenty:umbran_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:fir_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:joshua_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:frosty_fir_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:saxaul_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cedar_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:larch_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:frosty_redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "natures_spirit:sugi_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:dead_pine_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:eucalyptus_leaves",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:joshua_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:cypress_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:rainbow_eucalyptus_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:redwood_leaves",
+      "required": false
+    },
+    {
+      "id": "terrestria:hemlock_leaves",
+      "required": false
+    },
+    {
+      "id": "traverse:fir_leaves",
+      "required": false
+    }
+  ]
+}

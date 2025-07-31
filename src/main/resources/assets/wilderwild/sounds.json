@@ -1394,6 +1394,58 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.conifer_leaves.break": {
+    "sounds": [
+      "wilderwild:block/conifer_leaves/break1",
+      "wilderwild:block/conifer_leaves/break2",
+      "wilderwild:block/conifer_leaves/break3",
+      "wilderwild:block/conifer_leaves/break4",
+      "wilderwild:block/conifer_leaves/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.conifer_leaves.fall": {
+    "sounds": [
+      "wilderwild:block/conifer_leaves/step1",
+      "wilderwild:block/conifer_leaves/step2",
+      "wilderwild:block/conifer_leaves/step3",
+      "wilderwild:block/conifer_leaves/step4",
+      "wilderwild:block/conifer_leaves/step5",
+      "wilderwild:block/conifer_leaves/step6"
+    ]
+  },
+  "block.conifer_leaves.hit": {
+    "sounds": [
+      "wilderwild:block/conifer_leaves/step1",
+      "wilderwild:block/conifer_leaves/step2",
+      "wilderwild:block/conifer_leaves/step3",
+      "wilderwild:block/conifer_leaves/step4",
+      "wilderwild:block/conifer_leaves/step5",
+      "wilderwild:block/conifer_leaves/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.conifer_leaves.place": {
+    "sounds": [
+      "wilderwild:block/conifer_leaves/break1",
+      "wilderwild:block/conifer_leaves/break2",
+      "wilderwild:block/conifer_leaves/break3",
+      "wilderwild:block/conifer_leaves/break4",
+      "wilderwild:block/conifer_leaves/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.conifer_leaves.step": {
+    "sounds": [
+      "wilderwild:block/conifer_leaves/step1",
+      "wilderwild:block/conifer_leaves/step2",
+      "wilderwild:block/conifer_leaves/step3",
+      "wilderwild:block/conifer_leaves/step4",
+      "wilderwild:block/conifer_leaves/step5",
+      "wilderwild:block/conifer_leaves/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.maple_leaves.break": {
     "sounds": [
       "wilderwild:block/maple_leaves/break1",
