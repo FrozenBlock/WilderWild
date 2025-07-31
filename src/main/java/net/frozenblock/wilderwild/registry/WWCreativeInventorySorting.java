@@ -164,10 +164,6 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAVES);
-
-		addAfterInNaturalBlocks(Items.LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAF_LITTER);
 		// MAPLE (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(Blocks.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
 		addAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
@@ -228,6 +224,24 @@ public class WWCreativeInventorySorting {
 		addBeforeInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.HOLLOWED_MAPLE_LOG);
 		addAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 		addAfterInNaturalBlocks(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
+
+		// LEAF LITTERS
+		addAfterInNaturalBlocks(Items.LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.SPRUCE_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.BIRCH_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.JUNGLE_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.ACACIA_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.DARK_OAK_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.MANGROVE_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.WILLOW_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.PALM_FROND_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.PALM_FROND_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.CHERRY_LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.RED_MAPLE_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
+		addAfterInNaturalBlocks(WWBlocks.PALE_OAK_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS
 		addAfterInNaturalBlocks(Items.DANDELION, WWBlocks.SEEDING_DANDELION);

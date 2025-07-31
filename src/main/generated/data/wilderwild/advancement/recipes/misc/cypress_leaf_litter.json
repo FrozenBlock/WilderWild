@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cypress_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:cypress_leaves"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:cypress_leaf_litter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cypress_leaves"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:cypress_leaf_litter"
+    ]
+  }
+}

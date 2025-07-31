@@ -88,12 +88,18 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FROZEN_BUSH = bind("feature/has_frozen_bush");
 
 	public static final TagKey<Biome> HAS_LEAF_LITTER = bind("feature/has_leaf_litter");
+	public static final TagKey<Biome> HAS_UNCOMMON_LEAF_LITTER = bind("feature/has_uncommon_leaf_litter");
+	public static final TagKey<Biome> HAS_SPRUCE_LEAF_LITTER = bind("feature/has_spruce_leaf_litter");
+	public static final TagKey<Biome> HAS_DARK_OAK_LEAF_LITTER = bind("feature/has_dark_oak_leaf_litter");
+	public static final TagKey<Biome> HAS_PALE_OAK_LEAF_LITTER = bind("feature/has_pale_oak_leaf_litter");
+
 	public static final TagKey<Biome> HAS_SURFACE_ICICLES = bind("feature/has_surface_icicles");
 	public static final TagKey<Biome> HAS_SURFACE_FRAGILE_ICE = bind("feature/has_surface_fragile_ice");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> HAS_TREES_SNOWY = bind("has_trees_snowy");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");
 	public static final TagKey<Biome> SHORT_TAIGA = bind("feature/short_taiga");
+	public static final TagKey<Biome> SHORT_TAIGA_SNOWY = bind("feature/short_taiga_snowy");
 	public static final TagKey<Biome> TALL_PINE_TAIGA = bind("feature/tall_pine_taiga");
 	public static final TagKey<Biome> TALL_SPRUCE_TAIGA = bind("feature/tall_spruce_taiga");
 	public static final TagKey<Biome> HAS_FALLEN_BIRCH_TREES = bind("feature/has_fallen_birch_trees");

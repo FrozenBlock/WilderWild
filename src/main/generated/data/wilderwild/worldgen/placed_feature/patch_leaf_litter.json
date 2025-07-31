@@ -14,6 +14,60 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:not",
+        "predicate": {
+          "type": "minecraft:any_of",
+          "predicates": [
+            {
+              "type": "minecraft:matching_block_tag",
+              "offset": [
+                0,
+                -1,
+                0
+              ],
+              "tag": "minecraft:sand"
+            },
+            {
+              "type": "minecraft:matching_block_tag",
+              "offset": [
+                0,
+                -1,
+                0
+              ],
+              "tag": "minecraft:terracotta"
+            },
+            {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:gravel",
+                "minecraft:suspicious_gravel",
+                "minecraft:clay"
+              ],
+              "offset": [
+                0,
+                -1,
+                0
+              ]
+            },
+            {
+              "type": "minecraft:not",
+              "predicate": {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:empty",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ]
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }

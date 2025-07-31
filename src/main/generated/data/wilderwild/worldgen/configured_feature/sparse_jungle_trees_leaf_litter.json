@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:jungle_tree_checked_leaf_litter",
+    "features": [
+      {
+        "chance": 0.1,
+        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
+      },
+      {
+        "chance": 0.5,
+        "feature": "minecraft:jungle_bush"
+      }
+    ]
+  }
+}

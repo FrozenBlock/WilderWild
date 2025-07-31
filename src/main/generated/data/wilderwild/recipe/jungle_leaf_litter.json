@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "minecraft:jungle_leaves",
+  "result": {
+    "id": "wilderwild:jungle_leaf_litter"
+  }
+}

@@ -24,6 +24,7 @@ import net.frozenblock.lib.block.client.api.TintRegistryHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.level.DryFoliageColor;
 import net.minecraft.world.level.GrassColor;
 
 @Environment(EnvType.CLIENT)
@@ -42,6 +43,9 @@ public final class WWTints {
 		BlockColor grassTintProvider = (blockState, blockAndTintGetter, blockPos, i) ->
 			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
 
+		BlockColor dryFoliageProvider = (blockState, blockAndTintGetter, blockPos, i) ->
+			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageDryFoliageColor(blockAndTintGetter, blockPos) : DryFoliageColor.FOLIAGE_DRY_DEFAULT;
+
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PINK_PETALS);
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_WILDFLOWERS);
 		ColorProviderRegistry.BLOCK.register(grassTintProvider, WWBlocks.POTTED_BUSH);
@@ -59,5 +63,18 @@ public final class WWTints {
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHORT_GRASS);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.SHRUB);
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHRUB);
+
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.ACACIA_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.AZALEA_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.BAOBAB_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.BIRCH_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.CHERRY_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.CYPRESS_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.DARK_OAK_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.JUNGLE_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.MANGROVE_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.PALM_FROND_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.SPRUCE_LEAF_LITTER);
+		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.WILLOW_LEAF_LITTER);
 	}
 }

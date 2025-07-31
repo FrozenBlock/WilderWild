@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "minecraft:azalea_leaves",
+  "result": {
+    "id": "wilderwild:azalea_leaf_litter"
+  }
+}

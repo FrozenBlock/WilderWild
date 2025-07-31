@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:acacia_checked_leaf_litter",
+    "features": [
+      {
+        "chance": 0.8,
+        "feature": "wilderwild:acacia_checked_leaf_litter"
+      },
+      {
+        "chance": 0.08,
+        "feature": "wilderwild:oak_no_fungi_checked_leaf_litter"
+      },
+      {
+        "chance": 0.052,
+        "feature": "wilderwild:small_windmill_palm_checked"
+      }
+    ]
+  }
+}

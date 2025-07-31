@@ -1,51 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:birch_checked",
+    "default": {
+      "feature": "wilderwild:old_growth_birch_taiga_trees_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.39,
-        "feature": "wilderwild:spruce_checked"
-      },
-      {
-        "chance": 0.086,
-        "feature": "wilderwild:fungus_pine_checked"
-      },
-      {
-        "chance": 0.02,
-        "feature": "wilderwild:dying_fungus_pine_checked"
-      },
-      {
-        "chance": 0.155,
-        "feature": "wilderwild:spruce_short_checked"
-      },
-      {
-        "chance": 0.37,
-        "feature": "wilderwild:dying_super_birch"
-      },
-      {
-        "chance": 0.01,
-        "feature": "wilderwild:dying_birch"
-      },
-      {
-        "chance": 0.01,
-        "feature": "wilderwild:dying_medium_birch"
-      },
-      {
-        "chance": 0.01,
-        "feature": "wilderwild:dying_short_birch"
-      },
-      {
-        "chance": 0.355,
-        "feature": "wilderwild:birch_checked"
-      },
-      {
-        "chance": 0.1,
-        "feature": "wilderwild:medium_birch"
-      },
-      {
-        "chance": 0.1,
-        "feature": "wilderwild:short_birch"
+        "chance": 0.15,
+        "feature": {
+          "feature": "wilderwild:old_growth_birch_taiga_trees_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }

@@ -1,7 +1,5 @@
 {
   "values": [
-    "minecraft:dark_forest",
-    "minecraft:pale_garden",
     {
       "id": "wilderwild:temperate_rainforest",
       "required": false

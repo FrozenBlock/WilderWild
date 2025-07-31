@@ -19,7 +19,7 @@
       },
       {
         "chance": 0.235,
-        "feature": "minecraft:dark_oak_checked"
+        "feature": "wilderwild:dark_oak_checked"
       },
       {
         "chance": 0.075,

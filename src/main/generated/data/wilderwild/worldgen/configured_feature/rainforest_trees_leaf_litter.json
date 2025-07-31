@@ -21,19 +21,19 @@
       },
       {
         "chance": 0.022,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_leaf_litter"
       },
       {
         "chance": 0.052,
-        "feature": "wilderwild:dying_medium_birch"
+        "feature": "wilderwild:dying_medium_birch_leaf_litter"
       },
       {
         "chance": 0.12,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_leaf_litter"
       },
       {
         "chance": 0.098,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_leaf_litter"
       },
       {
         "chance": 0.37,
@@ -41,11 +41,11 @@
       },
       {
         "chance": 0.02,
-        "feature": "wilderwild:birch_checked"
+        "feature": "wilderwild:birch_checked_leaf_litter"
       },
       {
         "chance": 0.19,
-        "feature": "wilderwild:medium_birch"
+        "feature": "wilderwild:medium_birch_leaf_litter"
       }
     ]
   }

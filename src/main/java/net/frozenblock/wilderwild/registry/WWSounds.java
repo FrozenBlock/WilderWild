@@ -177,6 +177,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_PALE_OAK_LEAVES_BREAK = register("block.pale_oak_leaves.break");
 	public static final SoundEvent BLOCK_PALE_OAK_LEAVES_STEP = register("block.pale_oak_leaves.step");
 	public static final SoundEvent BLOCK_PALE_OAK_LEAVES_FALL = register("block.pale_oak_leaves.fall");
+	public static final SoundEvent BLOCK_PALE_OAK_LEAF_LITTER_PLACE = register("block.pale_oak_leaf_litter.place");
+	public static final SoundEvent BLOCK_PALE_OAK_LEAF_LITTER_HIT = register("block.pale_oak_leaf_litter.hit");
+	public static final SoundEvent BLOCK_PALE_OAK_LEAF_LITTER_BREAK = register("block.pale_oak_leaf_litter.break");
+	public static final SoundEvent BLOCK_PALE_OAK_LEAF_LITTER_STEP = register("block.pale_oak_leaf_litter.step");
+	public static final SoundEvent BLOCK_PALE_OAK_LEAF_LITTER_FALL = register("block.pale_oak_leaf_litter.fall");
 	public static final SoundEvent BLOCK_PALE_MOSS_PLACE = register("block.pale_moss.place");
 	public static final SoundEvent BLOCK_PALE_MOSS_HIT = register("block.pale_moss.hit");
 	public static final SoundEvent BLOCK_PALE_MOSS_BREAK = register("block.pale_moss.break");
@@ -207,6 +212,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_ON = register("block.pale_oak_wood_pressure_plate.click_on");
 	public static final SoundEvent BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE = register("block.pale_oak_wood_trapdoor.close");
 	public static final SoundEvent BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN = register("block.pale_oak_wood_trapdoor.open");
+	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_PLACE = register("block.cherry_leaf_litter.place");
+	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_HIT = register("block.cherry_leaf_litter.hit");
+	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_BREAK = register("block.cherry_leaf_litter.break");
+	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_STEP = register("block.cherry_leaf_litter.step");
+	public static final SoundEvent BLOCK_CHERRY_LEAF_LITTER_FALL = register("block.cherry_leaf_litter.fall");
 	public static final SoundEvent BLOCK_MESOGLEA_PLACE = register("block.mesoglea.place");
 	public static final SoundEvent BLOCK_MESOGLEA_HIT = register("block.mesoglea.hit");
 	public static final SoundEvent BLOCK_MESOGLEA_BREAK = register("block.mesoglea.break");

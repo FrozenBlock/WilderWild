@@ -133,6 +133,19 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI);
 		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI);
 
+		generator.createLeafLitter(WWBlocks.ACACIA_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.AZALEA_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.BAOBAB_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.BIRCH_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.CHERRY_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.CYPRESS_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.DARK_OAK_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.JUNGLE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.MANGROVE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.PALE_OAK_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.PALM_FROND_LITTER);
+		generator.createLeafLitter(WWBlocks.SPRUCE_LEAF_LITTER);
+		generator.createLeafLitter(WWBlocks.WILLOW_LEAF_LITTER);
 		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
 		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER);

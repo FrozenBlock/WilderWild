@@ -2037,6 +2037,59 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.pale_oak_leaf_litter.break": {
+    "sounds": [
+      "wilderwild:block/pale_oak_leaf_litter/break1",
+      "wilderwild:block/pale_oak_leaf_litter/break2",
+      "wilderwild:block/pale_oak_leaf_litter/break3",
+      "wilderwild:block/pale_oak_leaf_litter/break4",
+      "wilderwild:block/pale_oak_leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.pale_oak_leaf_litter.fall": {
+    "sounds": [
+      "wilderwild:block/pale_oak_leaf_litter/step1",
+      "wilderwild:block/pale_oak_leaf_litter/step2",
+      "wilderwild:block/pale_oak_leaf_litter/step3",
+      "wilderwild:block/pale_oak_leaf_litter/step4",
+      "wilderwild:block/pale_oak_leaf_litter/step5",
+      "wilderwild:block/pale_oak_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.pale_oak_leaf_litter.hit": {
+    "sounds": [
+      "wilderwild:block/pale_oak_leaf_litter/step1",
+      "wilderwild:block/pale_oak_leaf_litter/step2",
+      "wilderwild:block/pale_oak_leaf_litter/step3",
+      "wilderwild:block/pale_oak_leaf_litter/step4",
+      "wilderwild:block/pale_oak_leaf_litter/step5",
+      "wilderwild:block/pale_oak_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.pale_oak_leaf_litter.place": {
+    "sounds": [
+      "wilderwild:block/pale_oak_leaf_litter/break5",
+      "wilderwild:block/pale_oak_leaf_litter/break5",
+      "wilderwild:block/pale_oak_leaf_litter/break5",
+      "wilderwild:block/pale_oak_leaf_litter/break5",
+      "wilderwild:block/pale_oak_leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.pale_oak_leaf_litter.step": {
+    "sounds": [
+      "wilderwild:block/pale_oak_leaf_litter/step1",
+      "wilderwild:block/pale_oak_leaf_litter/step2",
+      "wilderwild:block/pale_oak_leaf_litter/step3",
+      "wilderwild:block/pale_oak_leaf_litter/step4",
+      "wilderwild:block/pale_oak_leaf_litter/step5",
+      "wilderwild:block/pale_oak_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.pale_oak_wood.break": {
     "sounds": [
       "wilderwild:block/pale_oak_wood/break1",
@@ -2214,6 +2267,59 @@
       "wilderwild:block/pale_oak_wood_trapdoor/open5"
     ],
     "subtitle": "subtitles.block.trapdoor.toggle"
+  },
+  "block.cherry_leaf_litter.break": {
+    "sounds": [
+      "wilderwild:block/cherry_leaf_litter/break1",
+      "wilderwild:block/cherry_leaf_litter/break2",
+      "wilderwild:block/cherry_leaf_litter/break3",
+      "wilderwild:block/cherry_leaf_litter/break4",
+      "wilderwild:block/cherry_leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cherry_leaf_litter.fall": {
+    "sounds": [
+      "wilderwild:block/cherry_leaf_litter/step1",
+      "wilderwild:block/cherry_leaf_litter/step2",
+      "wilderwild:block/cherry_leaf_litter/step3",
+      "wilderwild:block/cherry_leaf_litter/step4",
+      "wilderwild:block/cherry_leaf_litter/step5",
+      "wilderwild:block/cherry_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.cherry_leaf_litter.hit": {
+    "sounds": [
+      "wilderwild:block/cherry_leaf_litter/step1",
+      "wilderwild:block/cherry_leaf_litter/step2",
+      "wilderwild:block/cherry_leaf_litter/step3",
+      "wilderwild:block/cherry_leaf_litter/step4",
+      "wilderwild:block/cherry_leaf_litter/step5",
+      "wilderwild:block/cherry_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cherry_leaf_litter.place": {
+    "sounds": [
+      "wilderwild:block/cherry_leaf_litter/place1",
+      "wilderwild:block/cherry_leaf_litter/place2",
+      "wilderwild:block/cherry_leaf_litter/place3",
+      "wilderwild:block/cherry_leaf_litter/place4",
+      "wilderwild:block/cherry_leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cherry_leaf_litter.step": {
+    "sounds": [
+      "wilderwild:block/cherry_leaf_litter/step1",
+      "wilderwild:block/cherry_leaf_litter/step2",
+      "wilderwild:block/cherry_leaf_litter/step3",
+      "wilderwild:block/cherry_leaf_litter/step4",
+      "wilderwild:block/cherry_leaf_litter/step5",
+      "wilderwild:block/cherry_leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.mesoglea.break": {
     "sounds": [

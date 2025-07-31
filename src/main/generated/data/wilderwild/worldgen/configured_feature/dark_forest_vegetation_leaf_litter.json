@@ -19,7 +19,7 @@
       },
       {
         "chance": 0.55,
-        "feature": "minecraft:dark_oak_leaf_litter"
+        "feature": "wilderwild:dark_oak_leaf_litter_checked"
       },
       {
         "chance": 0.075,
@@ -27,11 +27,11 @@
       },
       {
         "chance": 0.2,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_leaf_litter"
       },
       {
         "chance": 0.015,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_leaf_litter"
       },
       {
         "chance": 0.32,

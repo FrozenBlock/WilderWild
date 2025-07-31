@@ -36,6 +36,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
 - Fixed a few Pale Oak blocks missing from tags.
+- Added Leaf Litter blocks for every leaf type in 1.21.5+.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 
@@ -64,6 +65,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Updated flower generation in Flower Fields and Flower Forests, being more visually pleasing.
   - Flower generation in Flower Forests is now more even and sparse than that of Flower Fields.
 - Toned down flower generation in Tundras.
+- Leaf Litters of every leaf type now generate.
+  - Azalea and Cherry Leaf Litters do not generate naturally, but can still be obtained by smelting their leaves block.
+  - This change was made to establish stronger consistency between Vanilla and Wilder Wild.
 
 # Entities
 - Moobloom variants are now selected based upon the flower features in the biome.

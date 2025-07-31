@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "wilderwild:juniper",
+    "features": [
+      {
+        "chance": 0.095,
+        "feature": "wilderwild:oak_no_fungi_checked"
+      },
+      {
+        "chance": 0.4,
+        "feature": "wilderwild:big_bush_coarse_grass_checked"
+      },
+      {
+        "chance": 0.67,
+        "feature": "wilderwild:short_oak_checked"
+      },
+      {
+        "chance": 0.2,
+        "feature": "wilderwild:juniper"
+      }
+    ]
+  }
+}

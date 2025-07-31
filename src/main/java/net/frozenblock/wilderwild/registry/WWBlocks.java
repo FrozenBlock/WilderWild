@@ -446,6 +446,20 @@ public final class WWBlocks {
 	);
 
 	// LEAF LITTER
+	public static final LeafLitterBlock ACACIA_LEAF_LITTER = createLeafLitter("acacia_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock AZALEA_LEAF_LITTER = createLeafLitter("azalea_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock BAOBAB_LEAF_LITTER = createLeafLitter("baobab_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock BIRCH_LEAF_LITTER = createLeafLitter("birch_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock CHERRY_LEAF_LITTER = createLeafLitter("cherry_leaf_litter", WWSoundTypes.CHERRY_LEAF_LITTER);
+	public static final LeafLitterBlock CYPRESS_LEAF_LITTER = createLeafLitter("cypress_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock DARK_OAK_LEAF_LITTER = createLeafLitter("dark_oak_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock JUNGLE_LEAF_LITTER = createLeafLitter("jungle_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock MANGROVE_LEAF_LITTER = createLeafLitter("mangrove_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock PALE_OAK_LEAF_LITTER = createLeafLitter("pale_oak_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock PALM_FROND_LITTER = createLeafLitter("palm_frond_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock SPRUCE_LEAF_LITTER = createLeafLitter("spruce_leaf_litter", SoundType.LEAF_LITTER);
+	public static final LeafLitterBlock WILLOW_LEAF_LITTER = createLeafLitter("willow_leaf_litter", SoundType.LEAF_LITTER);
+
 	public static final LeafLitterBlock YELLOW_MAPLE_LEAF_LITTER = leafLitter("yellow_maple_leaf_litter",
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
@@ -2149,6 +2163,19 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
+		CompostingChanceRegistry.INSTANCE.add(ACACIA_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(AZALEA_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(CHERRY_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(DARK_OAK_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(JUNGLE_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(MANGROVE_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PALE_OAK_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(WILLOW_LEAF_LITTER, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.3F);
@@ -2318,6 +2345,20 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MAPLE_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_WALL_HANGING_SIGN, 5, 20);
+
+		flammableBlockRegistry.add(ACACIA_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(AZALEA_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(BAOBAB_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(BIRCH_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(CHERRY_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(CYPRESS_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(DARK_OAK_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(JUNGLE_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(MANGROVE_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(PALE_OAK_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(PALM_FROND_LITTER, 60, 100);
+		flammableBlockRegistry.add(SPRUCE_LEAF_LITTER, 60, 100);
+		flammableBlockRegistry.add(WILLOW_LEAF_LITTER, 60, 100);
 	}
 
 	private static void registerFuels() {
@@ -2449,6 +2490,20 @@ public final class WWBlocks {
 			builder.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_PALM_LOG.asItem(), 300);
 			builder.add(STRIPPED_HOLLOWED_MAPLE_LOG.asItem(), 300);
+
+			builder.add(ACACIA_LEAF_LITTER, 100);
+			builder.add(AZALEA_LEAF_LITTER, 100);
+			builder.add(BAOBAB_LEAF_LITTER, 100);
+			builder.add(BIRCH_LEAF_LITTER, 100);
+			builder.add(CHERRY_LEAF_LITTER, 100);
+			builder.add(CYPRESS_LEAF_LITTER, 100);
+			builder.add(DARK_OAK_LEAF_LITTER, 100);
+			builder.add(JUNGLE_LEAF_LITTER, 100);
+			builder.add(MANGROVE_LEAF_LITTER, 100);
+			builder.add(PALE_OAK_LEAF_LITTER, 100);
+			builder.add(PALM_FROND_LITTER, 100);
+			builder.add(SPRUCE_LEAF_LITTER, 100);
+			builder.add(WILLOW_LEAF_LITTER, 100);
 
 			builder.add(TUMBLEWEED.asItem(), 150);
 			builder.add(TUMBLEWEED_PLANT.asItem(), 150);

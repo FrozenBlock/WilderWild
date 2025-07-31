@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.3,
+        "chance": 0.4,
         "feature": {
           "feature": "wilderwild:arid_forest_trees_leaf_litter",
           "placement": []

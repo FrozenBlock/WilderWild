@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": "wilderwild:swamp_oak_checked_leaf_litter"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_birch_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:birch_leaves"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wilderwild:birch_leaf_litter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_birch_leaves"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:birch_leaf_litter"
+    ]
+  }
+}

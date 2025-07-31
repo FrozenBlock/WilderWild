@@ -1,23 +1,17 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:juniper",
+    "default": {
+      "feature": "wilderwild:wooded_badlands_trees_no_litter",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.095,
-        "feature": "wilderwild:oak_no_fungi_checked"
-      },
-      {
         "chance": 0.4,
-        "feature": "wilderwild:big_bush_coarse_grass_checked"
-      },
-      {
-        "chance": 0.67,
-        "feature": "wilderwild:short_oak_checked"
-      },
-      {
-        "chance": 0.2,
-        "feature": "wilderwild:juniper"
+        "feature": {
+          "feature": "wilderwild:wooded_badlands_trees_leaf_litter",
+          "placement": []
+        }
       }
     ]
   }
