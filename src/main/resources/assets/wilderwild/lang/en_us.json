@@ -1259,7 +1259,16 @@
 
   "pack.wilderwild.wilder_extra_music": "Wilder Extra Music",
   "pack.wilderwild.minecraft_live_tendrils": "Minecraft Live Tendrils",
-  "frozenlib.resourcepack.wilder_wild_music": "Wilder Wild Music",
+  "frozenlib.resourcepack.group.wilderwild_music": "Wilder Wild Music",
+  "frozenlib.resourcepack.pack.ww_dove": "LudoCrypt - Dove",
+  "frozenlib.resourcepack.pack.ww_horizon_afoot": "LudoCrypt - Horizon Afoot",
+  "frozenlib.resourcepack.pack.ww_serene_sonder": "LudoCrypt - Serene Sonder",
+  "frozenlib.resourcepack.pack.ww_amber": "pictochats_ - Amber",
+  "frozenlib.resourcepack.pack.ww_anemone": "pictochats_ - Anemone",
+  "frozenlib.resourcepack.pack.ww_dahlia": "pictochats_ - Dahlia",
+  "frozenlib.resourcepack.pack.ww_espial_title_mix": "pictochats_ - Espial (Title Mix)",
+  "frozenlib.resourcepack.pack.ww_espial": "pictochats_ - Espial",
+  "frozenlib.resourcepack.pack.ww_molt": "pictochats_ - Molt",
 
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",
