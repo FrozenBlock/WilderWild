@@ -67,6 +67,12 @@ public final class WWClientMusicImpl {
 		addMusicDownloadInfo(musicDownloadGroup, "espial_title_mix", "_v1");
 		addMusicDownloadInfo(musicDownloadGroup, "espial", "_v1");
 		addMusicDownloadInfo(musicDownloadGroup, "molt", "_v1");
+
+		if (WWAmbienceAndMiscConfig.get().music.danMusic) {
+			addMusicDownloadInfo(musicDownloadGroup, "excuse", "_v1");
+			addMusicDownloadInfo(musicDownloadGroup, "flake", "_v1");
+		}
+
 		return musicDownloadGroup;
 	}
 
