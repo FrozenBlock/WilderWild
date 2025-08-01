@@ -1148,6 +1148,8 @@
   "tooltip.wilderwild.wilder_ocean_music": "Whether to use new music in Ocean biomes.",
   "option.wilderwild.wilder_extra_music": "Extra Music",
   "tooltip.wilderwild.wilder_extra_music": "Whether to use new music in the Menus and whilst Under Water.",
+  "option.wilderwild.dan_music": "C418 Music",
+  "tooltip.wilderwild.dan_music": "Whether to use album-exclusive Minecraft tracks by C418 for Wilder Wild.",
   "option.wilderwild.ancient_city_music": "Ancient City Music",
   "tooltip.wilderwild.ancient_city_music": "Whether Deep Dark music can play while in an Ancient City.\nThis fixes edge-cases such as when an Ancient City is partially in another biome.",
   "option.wilderwild.distorted_dying_forest_music": "Distorted Dying Forest Music",
@@ -1224,6 +1226,8 @@
   "frozenlib.resourcepack.pack.ww_espial_title_mix": "pictochats_ - Espial (Title Mix)",
   "frozenlib.resourcepack.pack.ww_espial": "pictochats_ - Espial",
   "frozenlib.resourcepack.pack.ww_molt": "pictochats_ - Molt",
+  "frozenlib.resourcepack.pack.ww_excuse": "C418 - Excuse",
+  "frozenlib.resourcepack.pack.ww_flake": "C418 - Flake",
 
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",
