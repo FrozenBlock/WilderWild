@@ -80,6 +80,7 @@ loom {
     runtimeOnlyLog4j.set(true)
 
     mixin {
+        useLegacyMixinAp.set(true)
         defaultRefmapName.set("mixins.$mod_id.refmap.json")
     }
 
