@@ -586,16 +586,6 @@
   "subtitles.particle.mesoglea_drip.land": "Mesoglea drips",
   "subtitles.particle.mesoglea_bubble.pop": "Mesoglea Bubble pops",
 
-  "wilderwild.music.ludocrypt.dove": "LudoCrypt - Dove",
-  "wilderwild.music.ludocrypt.horizon_afoot": "LudoCrypt - Horizon Afoot",
-  "wilderwild.music.ludocrypt.serene_sonder": "LudoCrypt - Serene Sonder",
-  "wilderwild.music.pictochats.amber": "pictochats_ - Amber",
-  "wilderwild.music.pictochats.anemone": "pictochats_ - Anemone",
-  "wilderwild.music.pictochats.dahlia": "pictochats_ - Dahlia",
-  "wilderwild.music.pictochats.espial": "pictochats_ - Espial",
-  "wilderwild.music.pictochats.espial_title_version": "pictochats_ - Espial (Title)",
-  "wilderwild.music.pictochats.molt": "pictochats_ - Molt",
-
   "option.wilderwild.component.title": "Wilder Wild Options",
 
   "option.wilderwild.block": "Block",
@@ -1273,6 +1263,18 @@
   "frozenlib.resourcepack.pack.ww_molt": "pictochats_ - Molt",
   "frozenlib.resourcepack.pack.ww_excuse": "C418 - Excuse",
   "frozenlib.resourcepack.pack.ww_flake": "C418 - Flake",
+
+  "wilderwild.music.ludocrypt.dove": "LudoCrypt - Dove",
+  "wilderwild.music.ludocrypt.horizon_afoot": "LudoCrypt - Horizon Afoot",
+  "wilderwild.music.ludocrypt.serene_sonder": "LudoCrypt - Serene Sonder",
+  "wilderwild.music.pictochats.amber": "pictochats_ - Amber",
+  "wilderwild.music.pictochats.anemone": "pictochats_ - Anemone",
+  "wilderwild.music.pictochats.dahlia": "pictochats_ - Dahlia",
+  "wilderwild.music.pictochats.espial": "pictochats_ - Espial",
+  "wilderwild.music.pictochats.espial_title_version": "pictochats_ - Espial (Title)",
+  "wilderwild.music.pictochats.molt": "pictochats_ - Molt",
+  "wilderwild.music.c418.excuse": "C418 - Excuse",
+  "wilderwild.music.c418.flake": "C418 - Flake",
 
   "wilderwild.advancements.adventure.obtain_null_block.title": "Hackermode = §aON",
   "wilderwild.advancements.adventure.obtain_null_block.description": "Obtain a Null Block",
