@@ -28,7 +28,6 @@ import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
@@ -59,65 +58,9 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWParticleEngine.init();
 		WWTints.initBlocks();
 		WWTints.initItems();
-		WWClientMusicImpl.addMusicChanges();
+		WWClientMusicImpl.init();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/dove_v1.json",
-			"ww_dove",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/horizon_afoot_v1.json",
-			"ww_horizon_afoot",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/serene_sonder_v1.json",
-			"ww_serene_sonder",
-			true,
-			false
-		);
-
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/amber_v1.json",
-			"ww_amber",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/anemone_v1.json",
-			"ww_anemone",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/dahlia_v1.json",
-			"ww_dahlia",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/espial_title_mix_v1.json",
-			"ww_espial_title_mix",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/espial_v1.json",
-			"ww_espial",
-			true,
-			false
-		);
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/molt_v1.json",
-			"ww_molt",
-			true,
-			false
-		);
 
 		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
