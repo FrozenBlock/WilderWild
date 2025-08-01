@@ -28,7 +28,6 @@ import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
 import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
 import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
@@ -56,19 +55,11 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWItemProperties.init();
 		WWModelLayers.init();
 		WWParticleEngine.init();
-
 		WWTints.applyTints();
 		WWEasterEggs.hatchEasterEggs();
-		WWClientMusicImpl.addMusicChanges();
+		WWClientMusicImpl.init();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/music_v1.json",
-			"wilder_wild_music",
-			true,
-			false
-		);
 
 		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
 			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
