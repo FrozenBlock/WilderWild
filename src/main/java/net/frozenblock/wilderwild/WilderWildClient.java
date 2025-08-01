@@ -64,8 +64,57 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWClientNetworking.registerPacketReceivers();
 
 		FrozenLibModResourcePackApi.downloadResourcePack(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/music_v1.json",
-			"wilder_wild_music",
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/dove_v1.json",
+			"ww_dove",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/horizon_afoot_v1.json",
+			"ww_horizon_afoot",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/serene_sonder_v1.json",
+			"ww_serene_sonder",
+			true,
+			false
+		);
+
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/amber_v1.json",
+			"ww_amber",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/anemone_v1.json",
+			"ww_anemone",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/dahlia_v1.json",
+			"ww_dahlia",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/espial_title_mix_v1.json",
+			"ww_espial_title_mix",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/espial_v1.json",
+			"ww_espial",
+			true,
+			false
+		);
+		FrozenLibModResourcePackApi.downloadResourcePack(
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/molt_v1.json",
+			"ww_molt",
 			true,
 			false
 		);
