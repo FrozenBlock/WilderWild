@@ -71,6 +71,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This change was made to establish stronger consistency between Vanilla and Wilder Wild.
 - Leaf Litter patch features no longer get placed over blocks such as Sand or Gravel.
   - This change was made to improve the visuals of Beta Beaches.
+- Significantly cleaned up feature datagen in 1.21.5+.
 
 # Entities
 - Moobloom variants are now selected based upon the flower features in the biome.
