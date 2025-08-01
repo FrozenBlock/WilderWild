@@ -66,7 +66,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		FrozenLibModResourcePackApi.downloadResourcePack(
 			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/music_v1.json",
 			"wilder_wild_music",
-			false,
+			true,
 			false
 		);
 
