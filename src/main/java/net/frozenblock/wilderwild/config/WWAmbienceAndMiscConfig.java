@@ -224,6 +224,9 @@ public final class WWAmbienceAndMiscConfig {
 		@EntrySyncData(value = "wilderExtraMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean wilderExtraMusic = true;
 
+		@EntrySyncData(value = "danMusic", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean danMusic = false;
+
 		@EntrySyncData(value = "ancientCityMusic", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean ancientCityMusic = true;
 
