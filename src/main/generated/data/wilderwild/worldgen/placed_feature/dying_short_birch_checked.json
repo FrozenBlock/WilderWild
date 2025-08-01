@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:short_dying_birch",
+  "feature": "wilderwild:dying_short_birch",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

@@ -21,11 +21,11 @@
       },
       {
         "chance": 0.22,
-        "feature": "wilderwild:dead_birch"
+        "feature": "wilderwild:dead_birch_checked"
       },
       {
         "chance": 0.32,
-        "feature": "wilderwild:dead_medium_birch"
+        "feature": "wilderwild:dead_medium_birch_checked"
       },
       {
         "chance": 0.075,

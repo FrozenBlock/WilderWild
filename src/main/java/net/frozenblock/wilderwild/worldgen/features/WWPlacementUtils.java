@@ -19,7 +19,9 @@ package net.frozenblock.wilderwild.worldgen.features;
 
 import java.util.List;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredTreeFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;

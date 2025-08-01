@@ -9,31 +9,31 @@
       },
       {
         "chance": 0.12,
-        "feature": "wilderwild:dying_fancy_oak_bees_0004"
+        "feature": "wilderwild:fancy_dying_oak_bees_0004_checked"
       },
       {
         "chance": 0.27,
-        "feature": "wilderwild:fancy_oak_bees_0004"
+        "feature": "wilderwild:fancy_oak_bees_0004_checked"
       },
       {
         "chance": 0.15,
-        "feature": "wilderwild:old_dying_fancy_oak_bees_0004"
+        "feature": "wilderwild:old_fancy_dying_oak_bees_0004_checked"
       },
       {
         "chance": 0.022,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_checked"
       },
       {
         "chance": 0.052,
-        "feature": "wilderwild:dying_medium_birch"
+        "feature": "wilderwild:dying_medium_birch_checked"
       },
       {
         "chance": 0.12,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_checked"
       },
       {
         "chance": 0.098,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_checked"
       },
       {
         "chance": 0.37,
@@ -41,11 +41,11 @@
       },
       {
         "chance": 0.02,
-        "feature": "wilderwild:birch_checked"
+        "feature": "wilderwild:birch_tree_checked"
       },
       {
         "chance": 0.19,
-        "feature": "wilderwild:medium_birch"
+        "feature": "wilderwild:medium_birch_checked"
       }
     ]
   }

@@ -79,10 +79,6 @@ val datagen by sourceSets.registering {
 loom {
     runtimeOnlyLog4j.set(true)
 
-    mixin {
-        defaultRefmapName.set("mixins.$mod_id.refmap.json")
-    }
-
     accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
     interfaceInjection {
         // When enabled, injected interfaces from dependencies will be applied.

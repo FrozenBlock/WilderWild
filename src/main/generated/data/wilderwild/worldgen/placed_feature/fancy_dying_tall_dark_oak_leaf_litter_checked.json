@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:medium_dying_birch",
+  "feature": "wilderwild:fancy_dying_tall_dark_oak_leaf_litter",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "minecraft:birch_sapling",
+          "Name": "minecraft:dark_oak_sapling",
           "Properties": {
             "stage": "0"
           }

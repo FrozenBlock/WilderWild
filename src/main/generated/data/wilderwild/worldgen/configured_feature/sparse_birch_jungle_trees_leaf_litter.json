@@ -1,31 +1,31 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:jungle_tree_checked_leaf_litter",
+    "default": "wilderwild:jungle_tree_leaf_litter_checked",
     "features": [
       {
         "chance": 0.07,
-        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
+        "feature": "wilderwild:fancy_oak_leaf_litter_checked"
       },
       {
         "chance": 0.055,
-        "feature": "wilderwild:medium_birch_leaf_litter"
+        "feature": "wilderwild:medium_birch_leaf_litter_checked"
       },
       {
         "chance": 0.089,
-        "feature": "wilderwild:dying_birch_leaf_litter"
+        "feature": "wilderwild:dying_birch_leaf_litter_checked"
       },
       {
         "chance": 0.049,
-        "feature": "wilderwild:medium_birch_bees_0004_leaf_litter"
+        "feature": "wilderwild:medium_birch_bees_0004_leaf_litter_checked"
       },
       {
         "chance": 0.059,
-        "feature": "wilderwild:short_birch_leaf_litter"
+        "feature": "wilderwild:short_birch_leaf_litter_checked"
       },
       {
         "chance": 0.069,
-        "feature": "wilderwild:dying_short_birch_leaf_litter"
+        "feature": "wilderwild:dying_short_birch_leaf_litter_checked"
       },
       {
         "chance": 0.5,

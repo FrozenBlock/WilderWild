@@ -9,15 +9,15 @@
       },
       {
         "chance": 0.175,
-        "feature": "wilderwild:dying_fancy_oak_checked"
+        "feature": "wilderwild:fancy_dying_oak_checked"
       },
       {
         "chance": 0.38,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_checked"
       },
       {
         "chance": 0.2325,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_checked"
       }
     ]
   }

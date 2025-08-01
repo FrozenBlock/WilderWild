@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:juniper",
+    "default": "wilderwild:juniper_checked",
     "features": [
       {
         "chance": 0.095,
@@ -17,7 +17,7 @@
       },
       {
         "chance": 0.2,
-        "feature": "wilderwild:juniper"
+        "feature": "wilderwild:juniper_checked"
       }
     ]
   }

@@ -1,31 +1,31 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:medium_birch_bees_0004",
+    "default": "wilderwild:medium_birch_bees_0004_checked",
     "features": [
       {
         "chance": 0.012,
-        "feature": "wilderwild:dying_medium_birch"
+        "feature": "wilderwild:dying_medium_birch_checked"
       },
       {
         "chance": 0.035,
-        "feature": "wilderwild:medium_birch"
+        "feature": "wilderwild:medium_birch_checked"
       },
       {
         "chance": 0.02,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_checked"
       },
       {
         "chance": 0.04,
-        "feature": "wilderwild:short_birch_bees_0004"
+        "feature": "wilderwild:short_birch_bees_0004_checked"
       },
       {
         "chance": 0.01,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_checked"
       },
       {
         "chance": 0.05,
-        "feature": "wilderwild:birch_bees_0004"
+        "feature": "wilderwild:birch_bees_0004_checked"
       }
     ]
   }

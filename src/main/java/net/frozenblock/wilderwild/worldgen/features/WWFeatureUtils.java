@@ -18,7 +18,9 @@
 package net.frozenblock.wilderwild.worldgen.features;
 
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -44,5 +46,15 @@ public final class WWFeatureUtils {
 	@NotNull
 	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(@NotNull String id) {
 		return new FrozenLibConfiguredFeature<>(WWConstants.id(id));
+	}
+
+	@NotNull
+	public static FrozenLibConfiguredTreeFeature registerTree(
+		@NotNull String id,
+		Block leafLitterBlock,
+		int triesA, int radiusA, int heightA,
+		int triesB, int radiusB, int heightB
+	) {
+		return new FrozenLibConfiguredTreeFeature(WWConstants.id(id), leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
 	}
 }
