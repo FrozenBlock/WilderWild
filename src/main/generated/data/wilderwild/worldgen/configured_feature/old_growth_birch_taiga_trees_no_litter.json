@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:birch_checked",
+    "default": "wilderwild:birch_tree_checked",
     "features": [
       {
         "chance": 0.39,
@@ -21,31 +21,31 @@
       },
       {
         "chance": 0.37,
-        "feature": "wilderwild:dying_super_birch"
+        "feature": "wilderwild:dying_super_birch_checked"
       },
       {
         "chance": 0.01,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_checked"
       },
       {
         "chance": 0.01,
-        "feature": "wilderwild:dying_medium_birch"
+        "feature": "wilderwild:dying_medium_birch_checked"
       },
       {
         "chance": 0.01,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_checked"
       },
       {
         "chance": 0.355,
-        "feature": "wilderwild:birch_checked"
+        "feature": "wilderwild:birch_tree_checked"
       },
       {
         "chance": 0.1,
-        "feature": "wilderwild:medium_birch"
+        "feature": "wilderwild:medium_birch_checked"
       },
       {
         "chance": 0.1,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_checked"
       }
     ]
   }

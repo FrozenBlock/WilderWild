@@ -711,13 +711,13 @@ public final class WWConfiguredFeatures {
 
 		TREES_BIRCH_AND_OAK_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.2F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.04F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.26F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.055F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.04F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.115F)),
-				WWTreePlaced.OAK_BEES_0004_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004.getLitterVariantHolder(), 0.2F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.04F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.26F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.055F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.04F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.115F)),
+				WWTreePlaced.OAK_BEES_0004.getLitterVariantHolder()
 			)
 		);
 
@@ -754,20 +754,20 @@ public final class WWConfiguredFeatures {
 		TREES_DYING_FOREST.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.045F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.07F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH_LEAF_LITTER.getHolder(), 0.07F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.015F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.06F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.0433F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.085F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder(), 0.033F)
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.045F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH.getLitterVariantHolder(), 0.07F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH.getLitterVariantHolder(), 0.07F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.015F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.06F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.0433F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.025F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.085F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.35F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getLitterVariantHolder(), 0.033F)
 				),
-				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -794,42 +794,42 @@ public final class WWConfiguredFeatures {
 					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getHolder(), 0.086F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.07F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.015F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.06F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.0433F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.085F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder(), 0.033F)
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH.getLitterVariantHolder(), 0.07F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.015F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.06F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.0433F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.025F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.085F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.35F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getLitterVariantHolder(), 0.033F)
 				),
-				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getLitterVariantHolder()
 			)
 		);
 
 		TREES_DYING_MIXED_FOREST_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.33F),
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.25F),
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.086F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.07F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.015F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.06F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.0433F),
-					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.085F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.35F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder(), 0.033F)
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.33F),
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.25F),
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.086F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_BIRCH.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_MEDIUM_BIRCH.getLitterVariantHolder(), 0.07F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.015F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.06F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_SEMI_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.0433F),
+					new WeightedPlacedFeature(WWTreePlaced.SMALL_FANCY_DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.025F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.085F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.DEAD_OAK_CHECKED.getLitterVariantHolder(), 0.35F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getLitterVariantHolder(), 0.033F)
 				),
-				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.DEAD_OAK_BRANCHES_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -890,18 +890,18 @@ public final class WWConfiguredFeatures {
 		TREES_SEMI_BIRCH_AND_OAK_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.2F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.04F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.06F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.04F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.13F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.14F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.045F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.025F)
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004.getLitterVariantHolder(), 0.2F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.04F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.06F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.025F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.04F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.13F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.14F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.045F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004.getLitterVariantHolder(), 0.025F)
 				),
-				WWTreePlaced.OAK_BEES_0004_LEAF_LITTER.getHolder()
+				WWTreePlaced.OAK_BEES_0004.getLitterVariantHolder()
 			)
 		);
 
@@ -951,13 +951,13 @@ public final class WWConfiguredFeatures {
 		TREES_BIRCH_TALL_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.002F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.001F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH_LEAF_LITTER.getHolder(), 0.075F),
-					new WeightedPlacedFeature(WWTreePlaced.BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.177F)
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_BEES_0004.getLitterVariantHolder(), 0.002F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.001F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH.getLitterVariantHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.BIRCH_BEES_0004.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.177F)
 				),
-				WWTreePlaced.SUPER_BIRCH_BEES_0004_LEAF_LITTER.getHolder()
+				WWTreePlaced.SUPER_BIRCH_BEES_0004.getLitterVariantHolder()
 			)
 		);
 
@@ -1009,17 +1009,17 @@ public final class WWConfiguredFeatures {
 
 		MIXED_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.33F),
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.29F),
-				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.086F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.12F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.025F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.01F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.23F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.325F)),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.33F),
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.29F),
+				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.086F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.12F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.025F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.23F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.325F)),
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1059,19 +1059,19 @@ public final class WWConfiguredFeatures {
 
 		TEMPERATE_RAINFOREST_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.045F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.042F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.021F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.041F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.05F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.025F),
-				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.09F),
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.4F),
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.2F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.72F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_MEGA_SPRUCE_LEAF_LITTER.getHolder(), 0.6F)),
-				WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.045F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.042F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.021F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.041F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.05F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.025F),
+				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.09F),
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.4F),
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.2F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.72F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_MEGA_SPRUCE_CHECKED.getLitterVariantHolder(), 0.6F)),
+				WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1110,18 +1110,18 @@ public final class WWConfiguredFeatures {
 
 		RAINFOREST_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder(), 0.085F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.12F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.27F),
-				new WeightedPlacedFeature(WWTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004_LEAF_LITTER.getHolder(), 0.15F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.022F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.052F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.120F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.098F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.37F),
-				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.19F)),
-				WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.OAK_CHECKED.getLitterVariantHolder(), 0.085F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.12F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.27F),
+				new WeightedPlacedFeature(WWTreePlaced.OLD_DYING_FANCY_OAK_BEES_0004.getLitterVariantHolder(), 0.15F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.022F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.052F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.120F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.098F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.37F),
+				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.19F)),
+				WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1159,15 +1159,15 @@ public final class WWConfiguredFeatures {
 		BIRCH_TAIGA_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.39F),
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.086F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.155F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.37F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.01F)
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.39F),
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.086F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.155F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.37F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.01F)
 				),
-				WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder()
+				WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder()
 			)
 		);
 
@@ -1208,18 +1208,18 @@ public final class WWConfiguredFeatures {
 		OLD_GROWTH_BIRCH_TAIGA_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.39F),
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.086F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.155F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH_LEAF_LITTER.getHolder(), 0.37F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-					new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED_LEAF_LITTER.getHolder(), 0.355F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.1F)),
-				WWTreePlaced.BIRCH_CHECKED_LEAF_LITTER.getHolder()
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.39F),
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.086F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.155F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SUPER_BIRCH.getLitterVariantHolder(), 0.37F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED.getLitterVariantHolder(), 0.355F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.1F)),
+				WWTreePlaced.BIRCH_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1258,16 +1258,16 @@ public final class WWConfiguredFeatures {
 		BIRCH_JUNGLE_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.049F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.069F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.049F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.079F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.119F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.049F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.069F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004.getLitterVariantHolder(), 0.049F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.079F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.119F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.25F),
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder(), 0.165F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getLitterVariantHolder(), 0.165F)
 				),
-				WWTreePlaced.JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1305,15 +1305,15 @@ public final class WWConfiguredFeatures {
 		SPARSE_BIRCH_JUNGLE_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.07F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.055F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.089F),
-					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004_LEAF_LITTER.getHolder(), 0.049F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.059F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.069F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.07F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.055F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.089F),
+					new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_BEES_0004.getLitterVariantHolder(), 0.049F),
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.059F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.069F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F)
 				),
-				WWTreePlaced.JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1345,7 +1345,7 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.1F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.045F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.027F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.02F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.012F),
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.185F)),
 				WWTreePlaced.OAK_CHECKED.getHolder()
@@ -1356,18 +1356,18 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
-				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_LEAF_LITTER_CHECKED.getHolder(), 0.55F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.2F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.015F),
-				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.32F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.045F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.027F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.012F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.185F)),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_CHECKED.getLitterVariantHolder(), 0.55F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.2F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.015F),
+				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.32F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.045F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.027F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.012F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.185F)),
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1401,7 +1401,7 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.0766F),
 				new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.035F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.222F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.095F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.095F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.045F),
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.24F)),
 				WWTreePlaced.OAK_CHECKED.getHolder()
@@ -1412,20 +1412,20 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.045F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.07F),
-				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_LEAF_LITTER_CHECKED.getHolder(), 0.55F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.255F),
-				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.04F),
-				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.6F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.522F),
-				new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.018F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.0766F),
-				new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.035F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.222F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.095F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.045F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.24F)),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_CHECKED.getHolder(), 0.55F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.255F),
+				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED.getLitterVariantHolder(), 0.1F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.04F),
+				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.6F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.522F),
+				new WeightedPlacedFeature(WWTreePlaced.COBWEB_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.018F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.0766F),
+				new WeightedPlacedFeature(WWTreePlaced.COBWEB_FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.035F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.222F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.095F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.045F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.24F)),
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1459,7 +1459,7 @@ public final class WWConfiguredFeatures {
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.095F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getHolder(), 0.045F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getHolder(), 0.027F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.02F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.012F),
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.15F)),
 				WWTreePlaced.OAK_CHECKED.getHolder()
@@ -1470,20 +1470,20 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
 				new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.035F),
-				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_LEAF_LITTER_CHECKED.getHolder(), 0.235F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.35F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.015F),
-				new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.4F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH_LEAF_LITTER.getHolder(), 0.015F),
-				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.15F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.095F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.045F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.027F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.012F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.15F)),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_CHECKED.getHolder(), 0.235F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.35F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.015F),
+				new WeightedPlacedFeature(WWTreePlaced.MEDIUM_BIRCH.getLitterVariantHolder(), 0.4F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_MEDIUM_BIRCH.getLitterVariantHolder(), 0.015F),
+				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.15F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.095F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.045F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.027F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.012F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.15F)),
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1527,23 +1527,23 @@ public final class WWConfiguredFeatures {
 
 		DARK_TAIGA_VEGETATION_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.155F),
-				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.086F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.045F),
-				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_LEAF_LITTER.getHolder(), 0.19F),
-				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_LEAF_LITTER_CHECKED.getHolder(), 0.235F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.075F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.12F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.004F),
-				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.005F),
-				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.2F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.08F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.024F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.01F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.031F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.015F)),
-				WWTreePlaced.DARK_OAK_LEAF_LITTER_CHECKED.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.155F),
+				new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.086F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.045F),
+				new WeightedPlacedFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.getLitterVariantHolder(), 0.19F),
+				new WeightedPlacedFeature(WWTreePlaced.DARK_OAK_CHECKED.getHolder(), 0.235F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.075F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.12F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.004F),
+				new WeightedPlacedFeature(WWTreePlaced.BIRCH_CHECKED.getLitterVariantHolder(), 0.1F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.005F),
+				new WeightedPlacedFeature(WWTreePlaced.TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.2F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.08F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.024F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_TALL_DARK_OAK_CHECKED.getLitterVariantHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.031F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.015F)),
+				WWTreePlaced.DARK_OAK_CHECKED.getHolder()
 			)
 		);
 
@@ -1576,10 +1576,10 @@ public final class WWConfiguredFeatures {
 		TREES_TAIGA_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.33333334F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.075F)
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.33333334F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.075F)
 				),
-				WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder()
+				WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1641,13 +1641,13 @@ public final class WWConfiguredFeatures {
 		TREES_OLD_GROWTH_PINE_TAIGA_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_SPRUCE_LEAF_LITTER.getHolder(), 0.025641026F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_MEGA_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.028F),
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.30769232F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.045F),
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.33333334F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getLitterVariantHolder(), 0.025641026F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_MEGA_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.028F),
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.30769232F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.045F),
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.33333334F)
 				),
-				WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder()
+				WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1681,11 +1681,11 @@ public final class WWConfiguredFeatures {
 		TREES_OLD_GROWTH_SPRUCE_TAIGA_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_SPRUCE_LEAF_LITTER.getHolder(), 0.33333334F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.075F),
-					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_LEAF_LITTER.getHolder(), 0.33333334F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_FUNGUS_SPRUCE_CHECKED.getLitterVariantHolder(), 0.33333334F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.075F),
+					new WeightedPlacedFeature(WWTreePlaced.FUNGUS_PINE_CHECKED.getLitterVariantHolder(), 0.33333334F)
 				),
-				WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder()
+				WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1729,7 +1729,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getHolder(), 0.666F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.01F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.02F),
 					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.1F)
 				),
@@ -1740,12 +1740,12 @@ public final class WWConfiguredFeatures {
 		TREES_WINDSWEPT_HILLS_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_LEAF_LITTER.getHolder(), 0.666F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.01F),
-					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F)
+					new WeightedPlacedFeature(WWTreePlaced.SPRUCE_CHECKED.getLitterVariantHolder(), 0.666F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.01F),
+					new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.02F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.1F)
 				),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1782,7 +1782,7 @@ public final class WWConfiguredFeatures {
 		SAVANNA_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.8F)),
-				WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1817,10 +1817,10 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.8F),
-					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_LEAF_LITTER.getHolder(), 0.062F),
-					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL_LEAF_LITTER.getHolder(), 0.035F)
+					new WeightedPlacedFeature(WWTreePlaced.BAOBAB.getLitterVariantHolder(), 0.062F),
+					new WeightedPlacedFeature(WWTreePlaced.BAOBAB_TALL.getLitterVariantHolder(), 0.035F)
 				),
-				WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1861,7 +1861,7 @@ public final class WWConfiguredFeatures {
 		WINDSWEPT_SAVANNA_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.8F)),
-				WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -1895,7 +1895,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.8F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder(), 0.08F)
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder(), 0.08F)
 				),
 				WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder()
 			)
@@ -1932,7 +1932,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.8F),
-					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder(), 0.08F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder(), 0.08F),
 					new WeightedPlacedFeature(WWTreePlaced.SMALL_WINDMILL_PALM_CHECKED.getHolder(), 0.052F)
 				),
 				WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder()
@@ -1959,7 +1959,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getHolder(), 0.59F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.186F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.02F),
 				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getHolder(), 0.155F),
 				new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.37F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getHolder(), 0.01F),
@@ -1971,15 +1971,15 @@ public final class WWConfiguredFeatures {
 
 		PARCHED_FOREST_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.59F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.186F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.02F),
-				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.155F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.59F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.186F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.02F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.155F),
 				new WeightedPlacedFeature(WWTreePlaced.ACACIA_CHECKED_LEAF_LITTER.getHolder(), 0.37F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.01F),
-				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.155F)),
-				WWTreePlaced.OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.01F),
+				new WeightedPlacedFeature(WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder(), 0.155F)),
+				WWTreePlaced.OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -2002,7 +2002,7 @@ public final class WWConfiguredFeatures {
 		ARID_FOREST_TREES_NO_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
 				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getHolder(), 0.7085F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED.getHolder(), 0.175F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getHolder(), 0.175F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getHolder(), 0.38F),
 				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getHolder(), 0.2325F)),
 				WWTreePlaced.DYING_OAK_CHECKED.getHolder()
@@ -2011,11 +2011,11 @@ public final class WWConfiguredFeatures {
 
 		ARID_FOREST_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(List.of(
-				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.7085F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.175F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH_LEAF_LITTER.getHolder(), 0.38F),
-				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH_LEAF_LITTER.getHolder(), 0.2325F)),
-				WWTreePlaced.DYING_OAK_CHECKED_LEAF_LITTER.getHolder()
+				new WeightedPlacedFeature(WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder(), 0.7085F),
+				new WeightedPlacedFeature(WWTreePlaced.FANCY_DYING_OAK_CHECKED.getLitterVariantHolder(), 0.175F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_SHORT_BIRCH.getLitterVariantHolder(), 0.38F),
+				new WeightedPlacedFeature(WWTreePlaced.DYING_BIRCH.getLitterVariantHolder(), 0.2325F)),
+				WWTreePlaced.DYING_OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -2080,12 +2080,12 @@ public final class WWConfiguredFeatures {
 		WOODED_BADLANDS_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED_LEAF_LITTER.getHolder(), 0.095F),
+					new WeightedPlacedFeature(WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder(), 0.095F),
 					new WeightedPlacedFeature(WWTreePlaced.BIG_BUSH_COARSE_GRASS_CHECKED.getHolder(), 0.4F),
-					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.67F),
-					new WeightedPlacedFeature(WWTreePlaced.JUNIPER_LEAF_LITTER.getHolder(), 0.2F)
+					new WeightedPlacedFeature(WWTreePlaced.SHORT_OAK_CHECKED.getLitterVariantHolder(), 0.67F),
+					new WeightedPlacedFeature(WWTreePlaced.JUNIPER.getLitterVariantHolder(), 0.2F)
 				),
-				WWTreePlaced.JUNIPER_LEAF_LITTER.getHolder()
+				WWTreePlaced.JUNIPER.getLitterVariantHolder()
 			)
 		);
 
@@ -2110,7 +2110,7 @@ public final class WWConfiguredFeatures {
 		);
 
 		SWAMP_TREES_LEAF_LITTER.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.SWAMP_OAK_CHECKED_LEAF_LITTER.getHolder()))
+			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.SWAMP_OAK_CHECKED.getLitterVariantHolder()))
 		);
 
 		SWAMP_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
@@ -2142,10 +2142,10 @@ public final class WWConfiguredFeatures {
 		SWAMP_TREES_SURFACE_WILLOW_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.WILLOW_CHECKED_LEAF_LITTER.getHolder(), 0.75F),
-					new WeightedPlacedFeature(WWTreePlaced.WILLOW_TALL_CHECKED_LEAF_LITTER.getHolder(), 0.2F)
+					new WeightedPlacedFeature(WWTreePlaced.WILLOW_CHECKED.getLitterVariantHolder(), 0.75F),
+					new WeightedPlacedFeature(WWTreePlaced.WILLOW_TALL_CHECKED.getLitterVariantHolder(), 0.2F)
 				),
-				WWTreePlaced.SWAMP_OAK_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.SWAMP_OAK_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -2268,9 +2268,9 @@ public final class WWConfiguredFeatures {
 		BAMBOO_JUNGLE_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.05F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.05F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.15F),
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder(), 0.7F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getLitterVariantHolder(), 0.7F)
 				),
 				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(VegetationFeatures.PATCH_GRASS_JUNGLE))
 			)
@@ -2305,10 +2305,10 @@ public final class WWConfiguredFeatures {
 		SPARSE_JUNGLE_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F)
 				),
-				WWTreePlaced.JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -2342,11 +2342,11 @@ public final class WWConfiguredFeatures {
 		JUNGLE_TREES_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED_LEAF_LITTER.getHolder(), 0.1F),
+					new WeightedPlacedFeature(WWTreePlaced.FANCY_OAK_CHECKED.getLitterVariantHolder(), 0.1F),
 					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.JUNGLE_BUSH), 0.5F),
-					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder(), 0.33333334F)
+					new WeightedPlacedFeature(WWTreePlaced.MEGA_JUNGLE_TREE_CHECKED.getLitterVariantHolder(), 0.33333334F)
 				),
-				WWTreePlaced.JUNGLE_TREE_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.JUNGLE_TREE_CHECKED.getLitterVariantHolder()
 			)
 		);
 
@@ -2378,9 +2378,9 @@ public final class WWConfiguredFeatures {
 		MANGROVE_VEGETATION_LEAF_LITTER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.TALL_MANGROVE_CHECKED_LEAF_LITTER.getHolder(), 0.85F)
+					new WeightedPlacedFeature(WWTreePlaced.TALL_MANGROVE_CHECKED.getLitterVariantHolder(), 0.85F)
 				),
-				WWTreePlaced.MANGROVE_CHECKED_LEAF_LITTER.getHolder()
+				WWTreePlaced.MANGROVE_CHECKED.getLitterVariantHolder()
 			)
 		);
 

@@ -4,13 +4,13 @@
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
-        "type": "minecraft:matching_block_tag",
-        "offset": [
-          0,
-          -1,
-          0
-        ],
-        "tag": "wilderwild:feature/fallen_tree_placeable"
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:pale_oak_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
       }
     }
   ]

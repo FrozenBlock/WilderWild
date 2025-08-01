@@ -9,13 +9,13 @@
       {
         "type": "wilderwild:pollen_tree_decorator",
         "max_count": 5,
-        "placement_chance": 0.025,
-        "probability": 0.25
+        "placement_chance": 0.035,
+        "probability": 1.0
       },
       {
         "type": "wilderwild:shelf_fungi_tree_decorator",
         "placement_chance": 0.25,
-        "probability": 0.03,
+        "probability": 0.074,
         "shelf_fungi_provider": {
           "type": "minecraft:randomized_int_state_provider",
           "property": "shelf_fungus_stage",
@@ -33,7 +33,7 @@
                     "waterlogged": "false"
                   }
                 },
-                "weight": 3
+                "weight": 17
               },
               {
                 "data": {
@@ -46,7 +46,7 @@
                     "waterlogged": "false"
                   }
                 },
-                "weight": 2
+                "weight": 3
               }
             ]
           },

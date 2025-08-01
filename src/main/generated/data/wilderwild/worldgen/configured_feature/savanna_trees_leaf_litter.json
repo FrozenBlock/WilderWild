@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:oak_no_fungi_checked_leaf_litter",
+    "default": "wilderwild:oak_no_fungi_leaf_litter_checked",
     "features": [
       {
         "chance": 0.8,

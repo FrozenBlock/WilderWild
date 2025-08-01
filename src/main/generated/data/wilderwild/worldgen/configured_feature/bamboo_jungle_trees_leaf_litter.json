@@ -8,7 +8,7 @@
     "features": [
       {
         "chance": 0.05,
-        "feature": "wilderwild:fancy_oak_checked_leaf_litter"
+        "feature": "wilderwild:fancy_oak_leaf_litter_checked"
       },
       {
         "chance": 0.15,
@@ -16,7 +16,7 @@
       },
       {
         "chance": 0.7,
-        "feature": "wilderwild:mega_jungle_tree_checked_leaf_litter"
+        "feature": "wilderwild:mega_jungle_tree_leaf_litter_checked"
       }
     ]
   }

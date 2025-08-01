@@ -9,23 +9,23 @@
       },
       {
         "chance": 0.055,
-        "feature": "wilderwild:medium_birch"
+        "feature": "wilderwild:medium_birch_checked"
       },
       {
         "chance": 0.089,
-        "feature": "wilderwild:dying_birch"
+        "feature": "wilderwild:dying_birch_checked"
       },
       {
         "chance": 0.049,
-        "feature": "wilderwild:medium_birch_bees_0004"
+        "feature": "wilderwild:medium_birch_bees_0004_checked"
       },
       {
         "chance": 0.059,
-        "feature": "wilderwild:short_birch"
+        "feature": "wilderwild:short_birch_checked"
       },
       {
         "chance": 0.069,
-        "feature": "wilderwild:dying_short_birch"
+        "feature": "wilderwild:dying_short_birch_checked"
       },
       {
         "chance": 0.5,

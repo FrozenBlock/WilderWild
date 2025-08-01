@@ -1,11 +1,11 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "wilderwild:super_birch_bees",
+    "default": "wilderwild:super_birch_bees_checked",
     "features": [
       {
         "chance": 0.5,
-        "feature": "wilderwild:fancy_oak_bees"
+        "feature": "wilderwild:fancy_oak_bees_checked"
       }
     ]
   }

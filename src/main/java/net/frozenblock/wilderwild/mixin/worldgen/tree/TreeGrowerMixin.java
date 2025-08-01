@@ -77,9 +77,12 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				}
 				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
-		} else if (treeGrower == TreeGrower.SPRUCE) {
+		}
+		if (treeGrower == TreeGrower.SPRUCE) {
 			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
-		} else if (treeGrower == TreeGrower.BIRCH) {
+		}
+
+		if (treeGrower == TreeGrower.BIRCH) {
 			if (random.nextFloat() < 0.15F) {
 				info.setReturnValue(flowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
 			} else if (random.nextFloat() < 0.65F) {
@@ -89,23 +92,30 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
 			}
-		} else if (treeGrower == TreeGrower.CHERRY) {
+		}
+
+		if (treeGrower == TreeGrower.CHERRY) {
 			if (random.nextFloat() < 0.15F) {
 				info.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
-		} else if (treeGrower == TreeGrower.PALE_OAK) {
+		}
+		if (treeGrower == TreeGrower.PALE_OAK) {
 			if (random.nextFloat() < 0.175F) {
 				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
 			} else {
 				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
 			}
-		} else if (treeGrower == TreeGrower.JUNGLE) {
+		}
+
+		if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.75F) {
 				info.setReturnValue(WWTreeConfigured.JUNGLE_TREE_NO_VINE.getKey());
 			}
-		} else if (treeGrower == TreeGrower.MANGROVE) {
+		}
+
+		if (treeGrower == TreeGrower.MANGROVE) {
 			if (random.nextFloat() < 0.85F) {
 				info.setReturnValue(WWTreeConfigured.TALL_MANGROVE.getKey());
 			} else {

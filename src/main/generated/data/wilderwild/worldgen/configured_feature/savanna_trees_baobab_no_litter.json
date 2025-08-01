@@ -9,11 +9,11 @@
       },
       {
         "chance": 0.062,
-        "feature": "wilderwild:baobab"
+        "feature": "wilderwild:baobab_checked"
       },
       {
         "chance": 0.035,
-        "feature": "wilderwild:baobab_tall"
+        "feature": "wilderwild:baobab_tall_checked"
       }
     ]
   }

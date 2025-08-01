@@ -126,12 +126,11 @@ public final class WWCavePlaced {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 
 		// MESOGLEA CAVES
-
-		ORE_CALCITE.makeAndSetHolder(WWCaveConfigured.ORE_CALCITE.getHolder(),
+		ORE_CALCITE.makeAndSetHolder(WWCaveConfigured.ORE_CALCITE,
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		MESOGLEA_CAVES_STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL.getHolder(),
+		MESOGLEA_CAVES_STONE_POOL.makeAndSetHolder(WWCaveConfigured.STONE_POOL,
 			CountPlacement.of(60),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -140,7 +139,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA_COLUMN.getHolder(),
+		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA_COLUMN,
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -149,7 +148,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA_COLUMN.getHolder(),
+		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA_COLUMN,
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
@@ -158,14 +157,14 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MESOGLEA_PATHS.makeAndSetHolder(WWCaveConfigured.MESOGLEA_PATHS.getHolder(),
+		MESOGLEA_PATHS.makeAndSetHolder(WWCaveConfigured.MESOGLEA_PATHS,
 			CountPlacement.of(30),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			BiomeFilter.biome()
 		);
 
-		BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA.getHolder(),
+		BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA,
 			CountPlacement.of(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -174,7 +173,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_BLUE_MESOGLEA.getHolder(),
+		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_BLUE_MESOGLEA,
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -183,7 +182,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA.getHolder(),
+		PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA,
 			CountPlacement.of(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -192,7 +191,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARD_PURLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_PURPLE_MESOGLEA.getHolder(),
+		DOWNWARD_PURLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_PURPLE_MESOGLEA,
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -201,43 +200,42 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		NEMATOCYST_BLUE.makeAndSetHolder(WWCaveConfigured.NEMATOCYST_BLUE.getHolder(),
+		NEMATOCYST_BLUE.makeAndSetHolder(WWCaveConfigured.NEMATOCYST_BLUE,
 			CountPlacement.of(ConstantInt.of(99)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
-		NEMATOCYST_PURPLE.makeAndSetHolder(WWCaveConfigured.NEMATOCYST_PURPLE.getHolder(),
+		NEMATOCYST_PURPLE.makeAndSetHolder(WWCaveConfigured.NEMATOCYST_PURPLE,
 			CountPlacement.of(ConstantInt.of(99)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WWCaveConfigured.MESOGLEA_CLUSTER_PURPLE.getHolder(),
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WWCaveConfigured.MESOGLEA_CLUSTER_PURPLE,
 			CountPlacement.of(UniformInt.of(9, 15)), InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WWCaveConfigured.MESOGLEA_CLUSTER_BLUE.getHolder(),
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WWCaveConfigured.MESOGLEA_CLUSTER_BLUE,
 			CountPlacement.of(UniformInt.of(6, 13)), InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWCaveConfigured.LARGE_MESOGLEA_PURPLE.getHolder(),
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWCaveConfigured.LARGE_MESOGLEA_PURPLE,
 			CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WWCaveConfigured.LARGE_MESOGLEA_BLUE.getHolder(),
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WWCaveConfigured.LARGE_MESOGLEA_BLUE,
 			CountPlacement.of(UniformInt.of(1, 5)), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome()
 		);
 
 		// MAGMATIC CAVES
-
-		MAGMA_LAVA_POOL.makeAndSetHolder(WWCaveConfigured.MAGMA_LAVA_POOL.getHolder(),
+		MAGMA_LAVA_POOL.makeAndSetHolder(WWCaveConfigured.MAGMA_LAVA_POOL,
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(60)),
@@ -246,15 +244,15 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_GABBRO_PATH.getHolder(),
+		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_GABBRO_PATH,
 			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		MAGMA_DISK.makeAndSetHolder(WWCaveConfigured.MAGMA_DISK.getHolder(),
+		MAGMA_DISK.makeAndSetHolder(WWCaveConfigured.MAGMA_DISK,
 			modifiersWithCount(48, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		OBSIDIAN_DISK.makeAndSetHolder(WWCaveConfigured.OBSIDIAN_DISK.getHolder(),
+		OBSIDIAN_DISK.makeAndSetHolder(WWCaveConfigured.OBSIDIAN_DISK,
 			modifiersWithCount(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
@@ -265,22 +263,22 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		FIRE_PATCH_MAGMA.makeAndSetHolder(WWCaveConfigured.FIRE_PATCH_MAGMA.getHolder(),
+		FIRE_PATCH_MAGMA.makeAndSetHolder(WWCaveConfigured.FIRE_PATCH_MAGMA,
 			CountPlacement.of(UniformInt.of(80, 130)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
-		ORE_GABBRO.makeAndSetHolder(WWCaveConfigured.ORE_GABBRO.getHolder(),
+		ORE_GABBRO.makeAndSetHolder(WWCaveConfigured.ORE_GABBRO,
 			modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		GABBRO_DISK.makeAndSetHolder(WWCaveConfigured.GABBRO_DISK.getHolder(),
+		GABBRO_DISK.makeAndSetHolder(WWCaveConfigured.GABBRO_DISK,
 			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		GABBRO_PILE.makeAndSetHolder(WWCaveConfigured.GABBRO_PILE.getHolder(),
+		GABBRO_PILE.makeAndSetHolder(WWCaveConfigured.GABBRO_PILE,
 			CountPlacement.of(UniformInt.of(24, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -288,7 +286,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MAGMA_PILE.makeAndSetHolder(WWCaveConfigured.MAGMA_PILE.getHolder(),
+		MAGMA_PILE.makeAndSetHolder(WWCaveConfigured.MAGMA_PILE,
 			CountPlacement.of(UniformInt.of(32, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -302,7 +300,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		NETHER_GEYSER.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
+		NETHER_GEYSER.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
 			CountPlacement.of(UniformInt.of(24, 48)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -315,7 +313,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		NETHER_LAVA_GEYSER.makeAndSetHolder(WWCaveConfigured.UPWARDS_GEYSER_COLUMN.getHolder(),
+		NETHER_LAVA_GEYSER.makeAndSetHolder(WWCaveConfigured.UPWARDS_GEYSER_COLUMN,
 			CountPlacement.of(UniformInt.of(8, 20)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -331,7 +329,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_LAVA.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
+		GEYSER_LAVA.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
 			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -347,7 +345,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_UP.makeAndSetHolder(WWCaveConfigured.GEYSER_UP.getHolder(),
+		GEYSER_UP.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
 			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -366,7 +364,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_DOWN.makeAndSetHolder(WWCaveConfigured.GEYSER_DOWN.getHolder(),
+		GEYSER_DOWN.makeAndSetHolder(WWCaveConfigured.GEYSER_DOWN,
 			CountPlacement.of(UniformInt.of(48, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -379,7 +377,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH.getHolder(),
+		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -396,7 +394,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST.getHolder(),
+		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -413,7 +411,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH.getHolder(),
+		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -430,7 +428,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST.getHolder(),
+		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -447,7 +445,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEYSER_COLUMN.getHolder(),
+		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEYSER_COLUMN,
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -456,7 +454,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GABBRO_COLUMN.getHolder(),
+		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GABBRO_COLUMN,
 			CountPlacement.of(UniformInt.of(72, 120)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -479,7 +477,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_MAGMA.getHolder(),
+		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_MAGMA,
 			CountPlacement.of(72),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -489,15 +487,14 @@ public final class WWCavePlaced {
 		);
 
 		// FROZEN CAVES
-
-		ICICLE_CLUSTER.makeAndSetHolder(WWCaveConfigured.ICICLE_CLUSTER.getHolder(),
+		ICICLE_CLUSTER.makeAndSetHolder(WWCaveConfigured.ICICLE_CLUSTER,
 			CountPlacement.of(UniformInt.of(24, 48)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
-		CAVE_ICICLES.makeAndSetHolder(WWCaveConfigured.CAVE_ICICLE.getHolder(),
+		CAVE_ICICLES.makeAndSetHolder(WWCaveConfigured.CAVE_ICICLE,
 			CountPlacement.of(UniformInt.of(56, 192)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -506,7 +503,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ICICLES_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.ICICLE.getHolder(),
+		ICICLES_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.ICICLE,
 			CountPlacement.of(UniformInt.of(20, 30)),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
@@ -517,7 +514,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ICICLES_SURFACE.makeAndSetHolder(WWCaveConfigured.ICICLE.getHolder(),
+		ICICLES_SURFACE.makeAndSetHolder(WWCaveConfigured.ICICLE,
 			CountPlacement.of(UniformInt.of(22, 30)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
@@ -528,15 +525,15 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ICE_PATHS.makeAndSetHolder(WWCaveConfigured.ICE_PATHS.getHolder(),
+		ICE_PATHS.makeAndSetHolder(WWCaveConfigured.ICE_PATHS,
 			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		FRAGILE_ICE_DISK.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_DISK.getHolder(),
+		FRAGILE_ICE_DISK.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_DISK,
 			modifiersWithCount(38, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		FRAGILE_ICE_PILE.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PILE.getHolder(),
+		FRAGILE_ICE_PILE.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PILE,
 			CountPlacement.of(UniformInt.of(60, 80)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -544,7 +541,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		HANGING_PACKED_ICE.makeAndSetHolder(WWCaveConfigured.HANGING_PACKED_ICE.getHolder(),
+		HANGING_PACKED_ICE.makeAndSetHolder(WWCaveConfigured.HANGING_PACKED_ICE,
 			CountPlacement.of(16),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -553,7 +550,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.ICE_PATCH_CEILING.getHolder(),
+		ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.ICE_PATCH_CEILING,
 			CountPlacement.of(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -562,7 +559,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_COLUMN_PATCH.getHolder(),
+		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_COLUMN_PATCH,
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -571,7 +568,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		FRAGILE_ICE_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH.getHolder(),
+		FRAGILE_ICE_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH,
 			CountPlacement.of(48),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -580,7 +577,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DIORITE_PATCH.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH.getHolder(),
+		DIORITE_PATCH.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH,
 			CountPlacement.of(16),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -589,7 +586,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DIORITE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH_CEILING.getHolder(),
+		DIORITE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH_CEILING,
 			CountPlacement.of(16),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,

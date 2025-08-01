@@ -83,34 +83,34 @@ public final class WWAquaticPlaced {
 
 		WWConstants.logWithModId("Registering WWAquaticPlaced for", true);
 
-		PATCH_CATTAIL.makeAndSetHolder(WWAquaticConfigured.CATTAIL.getHolder(),
+		PATCH_CATTAIL.makeAndSetHolder(WWAquaticConfigured.CATTAIL,
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL.getHolder(),
+		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL,
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL.getHolder(),
+		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
-		PATCH_CATTAIL_MUD.makeAndSetHolder(WWAquaticConfigured.CATTAIL_MUD.getHolder(),
+		PATCH_CATTAIL_MUD.makeAndSetHolder(WWAquaticConfigured.CATTAIL_MUD,
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		BARNACLES_COMMON.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_DENSE.getHolder(),
+		BARNACLES_COMMON.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_DENSE,
 			CountPlacement.of(UniformInt.of(1, 2)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
@@ -118,75 +118,75 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		BARNACLES_STRUCTURE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_STRUCTURE.getHolder(),
+		BARNACLES_STRUCTURE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_STRUCTURE,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		BARNACLES.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES.getHolder(),
+		BARNACLES.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		BARNACLES_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES.getHolder(),
+		BARNACLES_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(18),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		BARNACLES_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES.getHolder(),
+		BARNACLES_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.PATCH_FLOWERING_WATERLILY.getHolder(),
+		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.PATCH_FLOWERING_WATERLILY,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		PATCH_ALGAE.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE.getHolder(),
+		PATCH_ALGAE.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE,
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE_SMALL.getHolder(),
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE_SMALL,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		PATCH_PLANKTON.makeAndSetHolder(WWAquaticConfigured.PATCH_PLANKTON.getHolder(),
+		PATCH_PLANKTON.makeAndSetHolder(WWAquaticConfigured.PATCH_PLANKTON,
 			RarityFilter.onAverageOnceEvery(30),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 
-		SEAGRASS_MEADOW.makeAndSetHolder(WWAquaticConfigured.SEAGRASS_MEADOW.getHolder(),
+		SEAGRASS_MEADOW.makeAndSetHolder(WWAquaticConfigured.SEAGRASS_MEADOW,
 			CountPlacement.of(98),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
 		);
 
-		SPONGE_BUDS.makeAndSetHolder(WWAquaticConfigured.SPONGE_BUD.getHolder(),
+		SPONGE_BUDS.makeAndSetHolder(WWAquaticConfigured.SPONGE_BUD,
 			CountPlacement.of(UniformInt.of(0, 3)),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		SPONGE_BUDS_RARE.makeAndSetHolder(WWAquaticConfigured.SPONGE_BUD.getHolder(),
+		SPONGE_BUDS_RARE.makeAndSetHolder(WWAquaticConfigured.SPONGE_BUD,
 			CountPlacement.of(UniformInt.of(0, 1)),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
@@ -194,63 +194,63 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_ANEMONE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE.getHolder(),
+		PATCH_SEA_ANEMONE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE.getHolder(),
+		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE.getHolder(),
+		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP.getHolder(),
+		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE.getHolder(),
+		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE.getHolder(),
+		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE,
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
+		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(22),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS.getHolder(),
+		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(42),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		HYDROTHERMAL_VENT.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT.getHolder(),
+		HYDROTHERMAL_VENT.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT,
 			RarityFilter.onAverageOnceEvery(48),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -259,7 +259,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		HYDROTHERMAL_VENT_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT.getHolder(),
+		HYDROTHERMAL_VENT_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT,
 			RarityFilter.onAverageOnceEvery(72),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -268,7 +268,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS.getHolder(),
+		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(40),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -277,7 +277,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		HYDROTHERMAL_VENT_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS.getHolder(),
+		HYDROTHERMAL_VENT_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT_TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(65),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -286,27 +286,27 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		OCEAN_MOSS.makeAndSetHolder(WWAquaticConfigured.OCEAN_MOSS.getHolder(),
+		OCEAN_MOSS.makeAndSetHolder(WWAquaticConfigured.OCEAN_MOSS,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.AUBURN_MOSS_UNDERWATER.getHolder(),
+		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.AUBURN_MOSS_UNDERWATER,
 			RarityFilter.onAverageOnceEvery(22),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		AUBURN_MOSS_UNDERWATER_RARE.makeAndSetHolder(WWAquaticConfigured.AUBURN_MOSS_UNDERWATER.getHolder(),
+		AUBURN_MOSS_UNDERWATER_RARE.makeAndSetHolder(WWAquaticConfigured.AUBURN_MOSS_UNDERWATER,
 			RarityFilter.onAverageOnceEvery(52),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		AUBURN_CREEPING_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.getHolder(),
+		AUBURN_CREEPING_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.AUBURN_CREEPING_MOSS_PATCH_UNDERWATER,
 			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
