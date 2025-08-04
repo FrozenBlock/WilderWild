@@ -797,19 +797,19 @@
     "sounds": [
       {
         "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
+        "volume": 2
       }
     ]
   },
@@ -817,19 +817,19 @@
     "sounds": [
       {
         "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
+        "volume": 2
       }
     ],
     "subtitle": "subtitles.block.generic.hit"
@@ -847,19 +847,19 @@
     "sounds": [
       {
         "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
+        "volume": 2
       },
       {
         "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
+        "volume": 2
       }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
@@ -2495,11 +2495,26 @@
   },
   "block.cherry_leaf_litter.break": {
     "sounds": [
-      "wilderwild:block/cherry_leaf_litter/break1",
-      "wilderwild:block/cherry_leaf_litter/break2",
-      "wilderwild:block/cherry_leaf_litter/break3",
-      "wilderwild:block/cherry_leaf_litter/break4",
-      "wilderwild:block/cherry_leaf_litter/break5"
+      {
+        "name": "wilderwild:block/cherry_leaf_litter/break1",
+        "volume": 0.8
+      },
+      {
+        "name": "wilderwild:block/cherry_leaf_litter/break2",
+        "volume": 0.8
+      },
+      {
+        "name": "wilderwild:block/cherry_leaf_litter/break3",
+        "volume": 0.8
+      },
+      {
+        "name": "wilderwild:block/cherry_leaf_litter/break4",
+        "volume": 0.8
+      },
+      {
+        "name": "wilderwild:block/cherry_leaf_litter/break5",
+        "volume": 0.8
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },

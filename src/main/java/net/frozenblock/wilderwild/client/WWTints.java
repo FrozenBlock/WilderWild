@@ -65,16 +65,12 @@ public final class WWTints {
 		TintRegistryHelper.registerAverageFoliageColorForBlock(WWBlocks.POTTED_SHRUB);
 
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.ACACIA_LEAF_LITTER);
-		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.AZALEA_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.BAOBAB_LEAF_LITTER);
-		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.BIRCH_LEAF_LITTER);
-		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.CHERRY_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.CYPRESS_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.DARK_OAK_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.JUNGLE_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.MANGROVE_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.PALM_FROND_LITTER);
-		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.SPRUCE_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.WILLOW_LEAF_LITTER);
 	}
 }
