@@ -795,42 +795,18 @@
   },
   "block.coarse_dirt.fall": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ]
   },
   "block.coarse_dirt.hit": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -845,22 +821,10 @@
   },
   "block.coarse_dirt.step": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
