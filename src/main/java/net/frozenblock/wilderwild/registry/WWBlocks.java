@@ -719,7 +719,7 @@ public final class WWBlocks {
 			.noCollission()
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
-			.sound(SoundType.WET_GRASS)
+			.sound(WWSoundTypes.SEA_ANEMONE)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final SeaWhipBlock SEA_WHIP = new SeaWhipBlock(

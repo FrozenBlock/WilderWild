@@ -20,6 +20,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - Added a config option to toggle these new sounds.
+- Added unique sounds for placing and breaking Sea Anemone.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
 - Fixed Echo Glass place sounds being stereo instead of mono.
 - Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
@@ -46,6 +47,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
 - Changed the Clovers' textures to be brighter, making them more visible on Grass Blocks.
+- Retextured the Sea Anemone's item texture to feel more like a Sea Anemone.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music
