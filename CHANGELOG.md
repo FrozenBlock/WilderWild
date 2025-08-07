@@ -40,6 +40,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
 - Fixed a few Pale Oak blocks missing from tags.
 - Added Leaf Litter blocks for every leaf type in 1.21.5+.
+- Leaf particles now spawn while walking on Leaf Litters and Leaves blocks in 1.21.5+.
+  - Added config options to toggle these individually, with normal Leaves blocks having this disabled by default.
+- Leaf particles now spawn while breaking Leaf Litters and Leaves blocks in 1.21.5+.
+  - Added config options to toggle these individually, both being disabled by default.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 
@@ -54,6 +58,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Cattails can now sway like other underwater vegetation.
   - Swaying will occur when waterlogged, though the top half will have a weaker sway if it isn't also waterlogged.
 - Completely retextured Milkweed, now looking more akin to their real-world tropical counterpart.
+- Updated the textures for all Hibiscus flowers.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music
