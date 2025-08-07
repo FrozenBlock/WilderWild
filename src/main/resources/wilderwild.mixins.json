@@ -22,6 +22,7 @@
     "block.ice.SpawnUtilStrategyMixin",
     "block.ice.WalkNodeEvaluatorMixin",
     "block.lava.LavaFluidMixin",
+    "block.leaves.LeafLitterBlockMixin",
     "block.leaves.LeavesBlockMixin",
     "block.mesoglea.BlockGetterMixin",
     "block.mesoglea.BlockStateBaseMixin",

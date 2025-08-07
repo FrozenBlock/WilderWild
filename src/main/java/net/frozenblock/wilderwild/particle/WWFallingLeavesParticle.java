@@ -50,19 +50,20 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		float quadSize,
 		float downwardVelocity,
 		SpriteSet spriteProvider,
+		boolean isLitter,
 		ParticleType<WWFallingLeavesParticleOptions> particleType
 	) {
 		super(world, x, y, z, spriteProvider, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
 		this.bounceOnFloor = leafMovementType.bounceOnFloor();
 
-		FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLeafParticleData(particleType);
+		FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;
 		if (leafParticleData != null) {
 			Block leavesBlock = leafParticleData.leavesBlock();
 			BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);
 			if (blockColor != null) {
 				BlockPos particlePos = BlockPos.containing(x, y, z);
-				color = world.getBlockTint(particlePos, BiomeColors.FOLIAGE_COLOR_RESOLVER);
+				color = world.getBlockTint(particlePos, isLitter ? BiomeColors.DRY_FOLIAGE_COLOR_RESOLVER : BiomeColors.FOLIAGE_COLOR_RESOLVER);
 				try {
 					color = blockColor.getColor(leavesBlock.defaultBlockState(), world, particlePos, 0);
 				} catch (Exception ignored) {}
@@ -88,6 +89,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				(options.getTextureSize() / 16F) * 0.5F,
 				0F,
 				this.spriteProvider,
+				options.isLitter(),
 				(ParticleType<WWFallingLeavesParticleOptions>) options.getType()
 			);
 
