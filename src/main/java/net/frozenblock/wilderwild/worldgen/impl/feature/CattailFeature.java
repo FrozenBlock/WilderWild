@@ -54,37 +54,41 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		int maxHeight = level.getMaxBuildHeight() - 1;
 		BlockPos.MutableBlockPos bottomBlockPos = blockPos.mutable();
 		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
-		BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState().setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER);
-		int placementAttempts = config.placementAttempts().sample(random);
-		boolean waterPlacement = config.onlyPlaceInWater();
 		TagKey<Block> placeableBlocks = config.canBePlacedOn();
+		boolean waterPlacement = config.onlyPlaceInWater();
 
+		int placementAttempts = config.placementAttempts().sample(random);
 		for (int l = 0; l < placementAttempts; l++) {
-			int randomX = config.width().sample(random);
-			int randomZ = config.width().sample(random);
-			int newX = posX + randomX;
-			int newZ = posZ + randomZ;
+			int newX = posX + config.width().sample(random);
+			int newZ = posZ + config.width().sample(random);
 			int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
-			if (oceanFloorY < maxHeight - 1) {
-				bottomBlockPos.set(newX, oceanFloorY, newZ);
-				BlockState bottomState = level.getBlockState(bottomBlockPos);
-				boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
-				BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState();
-				topBlockPos.set(bottomBlockPos).move(Direction.UP);
-				BlockState topState = level.getBlockState(topBlockPos);
-				if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater))
-					&& topState.isAir()
-					&& bottomPlaceState.canSurvive(level, bottomBlockPos)
-					&& (!waterPlacement || (bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2)))
-					&& level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)
-				) {
-					bottomPlaceState = bottomPlaceState.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater);
-					level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
-					if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
-					generated = true;
-				}
+			if (oceanFloorY >= maxHeight - 1) continue;
+
+			bottomBlockPos.set(newX, oceanFloorY, newZ);
+			BlockState bottomState = level.getBlockState(bottomBlockPos);
+			boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
+			BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState();
+			topBlockPos.setWithOffset(bottomBlockPos, Direction.UP);
+			BlockState topState = level.getBlockState(topBlockPos);
+			if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater))
+				&& topState.isAir()
+				&& bottomPlaceState.canSurvive(level, bottomBlockPos)
+				&& (!waterPlacement || (bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2)))
+				&& level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)
+			) {
+				bottomPlaceState = bottomPlaceState
+					.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
+					.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+				BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState()
+					.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
+					.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+
+				level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
+				if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
+				generated = true;
 			}
 		}
 		return generated;
 	}
+
 }
