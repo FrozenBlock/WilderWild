@@ -57,6 +57,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
@@ -353,12 +354,6 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
-	public static void createCattail(@NotNull BlockModelGenerators generator) {
-		MultiVariant topModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture));
-		MultiVariant bottomModel = BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture));
-		generator.createDoubleBlock(WWBlocks.CATTAIL, topModel, bottomModel);
-	}
-
 	public static void createIcicle(@NotNull BlockModelGenerators generator) {
 		PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> c2 = PropertyDispatch.initial(
 			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
@@ -467,6 +462,34 @@ public final class WWModelHelper {
 							.select(TubeWormsPart.TOP, BlockModelGenerators.plainVariant(topModel))
 							.select(TubeWormsPart.MIDDLE, BlockModelGenerators.plainVariant(middleModel))
 							.select(TubeWormsPart.BOTTOM, BlockModelGenerators.plainVariant(bottomModel))
+					)
+			);
+	}
+
+	public static void createCattail(@NotNull BlockModelGenerators generator) {
+		generator.registerSimpleFlatItemModel(WWBlocks.CATTAIL.asItem());
+
+		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+
+		ResourceLocation swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.dispatch(WWBlocks.CATTAIL)
+					.with(
+						PropertyDispatch.initial(BlockStateProperties.DOUBLE_BLOCK_HALF, BlockStateProperties.WATERLOGGED , WWBlockStateProperties.SWAYING)
+							.select(DoubleBlockHalf.LOWER, false, false, BlockModelGenerators.plainVariant(bottomModel))
+							.select(DoubleBlockHalf.LOWER, false, true, BlockModelGenerators.plainVariant(bottomModel))
+							.select(DoubleBlockHalf.LOWER, true, false, BlockModelGenerators.plainVariant(bottomModel))
+							.select(DoubleBlockHalf.LOWER, true, true, BlockModelGenerators.plainVariant(swayingBottom))
+
+							.select(DoubleBlockHalf.UPPER, false, false, BlockModelGenerators.plainVariant(topModel))
+							.select(DoubleBlockHalf.UPPER, false, true, BlockModelGenerators.plainVariant(swayingTopWeak))
+							.select(DoubleBlockHalf.UPPER, true, false, BlockModelGenerators.plainVariant(topModel))
+							.select(DoubleBlockHalf.UPPER, true, true, BlockModelGenerators.plainVariant(swayingTopStrong))
 					)
 			);
 	}

@@ -381,6 +381,13 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
+	public static final SoundType SEA_ANEMONE = new SoundType(1F, 1F,
+		WWSounds.BLOCK_SEA_ANEMONE_BREAK,
+		WWSounds.BLOCK_ALGAE_PLACE,
+		WWSounds.BLOCK_SEA_ANEMONE_PLACE,
+		WWSounds.BLOCK_ALGAE_HIT,
+		WWSounds.BLOCK_ALGAE_FALL
+	);
 
 	private WWSoundTypes() {
 		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");

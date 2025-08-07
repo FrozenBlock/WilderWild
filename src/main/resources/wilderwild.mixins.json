@@ -36,6 +36,7 @@
     "block.mesoglea.SoulSandBlockMixin",
     "block.mycelium.SpreadingSnowyDirtBlockMixin",
     "block.ocean.BoneMealItemMixin",
+    "block.ocean.DoublePlantBlockMixin",
     "block.ocean.KelpBlockMixin",
     "block.ocean.SeagrassBlockMixin",
     "block.ocean.SpongeBlockMixin",
