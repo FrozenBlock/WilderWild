@@ -46,6 +46,8 @@ public final class WWAmbienceAndMiscConfigGui {
 		var waterColors = config.waterColors;
 		var vegetationColors = config.vegetationColors;
 		var leafParticles = config.leafParticles;
+		var modifiedLeafParticles = modifiedConfig.leafParticles;
+		Class<? extends WWAmbienceAndMiscConfig.LeafParticles> leafParticlesClazz = leafParticles.getClass();
 		var wind = config.wind;
 		var modifiedWind = modifiedConfig.wind;
 		Class<? extends WWAmbienceAndMiscConfig.Wind> windClazz = wind.getClass();
@@ -135,6 +137,40 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setDefaultValue(defaultConfig.leafParticles.useWilderWildFallingLeaves)
 			.setSaveConsumer(newValue -> leafParticles.useWilderWildFallingLeaves = newValue)
 			.setTooltip(tooltip("wilder_wild_falling_leaves"))
+			.build();
+
+		var leafWalkingParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leaf_walking_particles"), modifiedLeafParticles.leafWalkingParticles)
+				.setDefaultValue(defaultConfig.leafParticles.leafWalkingParticles)
+				.setSaveConsumer(newValue -> leafParticles.leafWalkingParticles = newValue)
+				.setTooltip(tooltip("leaf_walking_particles"))
+				.build(),
+			leafParticlesClazz,
+			"leafWalkingParticles",
+			configInstance
+		);
+
+		var breakingLeafParticles = entryBuilder.startBooleanToggle(text("breaking_leaf_particles"), leafParticles.breakingLeafParticles)
+			.setDefaultValue(defaultConfig.leafParticles.breakingLeafParticles)
+			.setSaveConsumer(newValue -> leafParticles.breakingLeafParticles = newValue)
+			.setTooltip(tooltip("breaking_leaf_particles"))
+			.build();
+
+		var leafLitterParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leaf_litter_particles"), modifiedLeafParticles.leafLitterParticles)
+				.setDefaultValue(defaultConfig.leafParticles.leafLitterParticles)
+				.setSaveConsumer(newValue -> leafParticles.leafLitterParticles = newValue)
+				.setTooltip(tooltip("leaf_litter_particles"))
+				.build(),
+			leafParticlesClazz,
+			"leafLitterParticles",
+			configInstance
+		);
+
+		var breakingLeafLitterParticles = entryBuilder.startBooleanToggle(text("breaking_leaf_litter_particles"), leafParticles.breakingLeafLitterParticles)
+			.setDefaultValue(defaultConfig.leafParticles.breakingLeafLitterParticles)
+			.setSaveConsumer(newValue -> leafParticles.breakingLeafLitterParticles = newValue)
+			.setTooltip(tooltip("breaking_leaf_litter_particles"))
 			.build();
 
 		var oakLeafParticles = entryBuilder.startIntSlider(text("oak_leaf_particles"), leafParticles.oakFrequency, 0, 500)
@@ -252,6 +288,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			false,
 			tooltip("leaf_particles"),
 			useWilderWildFallingLeaves,
+			leafWalkingParticles, breakingLeafParticles, leafLitterParticles, breakingLeafLitterParticles,
 			oakLeafParticles, spruceLeafParticles, birchLeafParticles, jungleLeafParticles, acaciaLeafParticles, darkOakLeafParticles,
 			paleOakLeafParticles, mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
 			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles, willowLeafParticles

@@ -42,6 +42,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 			Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
 			Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
 			Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
+			Codec.BOOL.fieldOf("isLitter").forGetter(WWFallingLeavesParticleOptions::isLitter),
 			FallingLeafUtil.LeafMovementType.CODEC.fieldOf("leafMovementType").forGetter(WWFallingLeavesParticleOptions::leafMovementType)
 		).apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions)
 	);
@@ -52,6 +53,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getGravityScale,
 		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isFastFalling,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getWindScale,
+		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isLitter,
 		FallingLeafUtil.LeafMovementType.STREAM_CODEC, WWFallingLeavesParticleOptions::leafMovementType,
 		WWFallingLeavesParticleOptions::createCodecParticleOptions
 	);
@@ -62,23 +64,48 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	private final int textureSize;
 	private final float gravityScale;
 	private final float windScale;
+	private final boolean isLitter;
 	private final FallingLeafUtil.LeafMovementType leafMovementType;
 	private final boolean isFastFalling;
 	private final boolean controlVelUponSpawn;
 
 	@NotNull
 	public static WWFallingLeavesParticleOptions create(
-		ParticleType<WWFallingLeavesParticleOptions> type, int textureSize, float gravityScale, float windScale, FallingLeafUtil.LeafMovementType leafMovementType
+		ParticleType<WWFallingLeavesParticleOptions> type,
+		int textureSize,
+		float gravityScale,
+		float windScale,
+		boolean isLitter,
+		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		return new WWFallingLeavesParticleOptions(
-			type, 0D, 0D, 0D, textureSize, gravityScale, false, windScale, leafMovementType
+			type, 0D, 0D, 0D, textureSize, gravityScale, false, windScale, isLitter, leafMovementType
 		);
 	}
 
 	@NotNull
-	public static WWFallingLeavesParticleOptions createFastFalling(ParticleType<WWFallingLeavesParticleOptions> type, int textureSize) {
+	public static WWFallingLeavesParticleOptions createControlledVelocity(
+		ParticleType<WWFallingLeavesParticleOptions> type,
+		@NotNull Vec3 velocity,
+		int textureSize,
+		float gravityScale,
+		float windScale,
+		boolean isLitter,
+		FallingLeafUtil.LeafMovementType leafMovementType
+	) {
 		return new WWFallingLeavesParticleOptions(
-			type, 0D, -0.05D, 0D, textureSize, 25F, true, 0F, FallingLeafUtil.LeafMovementType.NONE
+			type, velocity.x(), velocity.y(), velocity.z(), textureSize, gravityScale, false, true, windScale, isLitter, leafMovementType
+		);
+	}
+
+	@NotNull
+	public static WWFallingLeavesParticleOptions createFastFalling(
+		ParticleType<WWFallingLeavesParticleOptions> type,
+		int textureSize,
+		boolean isLitter
+	) {
+		return new WWFallingLeavesParticleOptions(
+			type, 0D, -0.05D, 0D, textureSize, 25F, true, 0F, isLitter, FallingLeafUtil.LeafMovementType.NONE
 		);
 	}
 
@@ -91,9 +118,26 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		float gravityScale,
 		boolean isFastFalling,
 		float windScale,
+		boolean isLitter,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, isFastFalling, windScale, leafMovementType);
+		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, isFastFalling, windScale, isLitter, leafMovementType);
+	}
+
+	private WWFallingLeavesParticleOptions(
+		ParticleType<WWFallingLeavesParticleOptions> type,
+		double xSpeed,
+		double ySpeed,
+		double zSpeed,
+		int textureSize,
+		float gravityScale,
+		boolean isFastFalling,
+		boolean controlVelUponSpawn,
+		float windScale,
+		boolean isLitter,
+		FallingLeafUtil.LeafMovementType leafMovementType
+	) {
+		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, controlVelUponSpawn, windScale, isLitter, leafMovementType);
 	}
 
 	private @NotNull static WWFallingLeavesParticleOptions createCodecParticleOptions(
@@ -103,6 +147,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		float gravityScale,
 		boolean isFastFalling,
 		float windScale,
+		boolean isLitter,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		ParticleType<WWFallingLeavesParticleOptions> particleType;
@@ -111,7 +156,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}
-		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, isFastFalling, windScale, leafMovementType);
+		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, isFastFalling, windScale, isLitter, leafMovementType);
 	}
 
 	private WWFallingLeavesParticleOptions(
@@ -122,6 +167,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		boolean isFastFalling,
 		boolean controlVelUponSpawn,
 		float windScale,
+		boolean isLitter,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
 		this.type = type;
@@ -132,6 +178,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		this.isFastFalling = isFastFalling;
 		this.controlVelUponSpawn = controlVelUponSpawn;
 		this.windScale = windScale;
+		this.isLitter = isLitter;
 		this.leafMovementType = leafMovementType;
 	}
 
@@ -167,6 +214,10 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 
 	public float getWindScale() {
 		return this.windScale;
+	}
+
+	public boolean isLitter() {
+		return this.isLitter;
 	}
 
 	public FallingLeafUtil.LeafMovementType leafMovementType() {
