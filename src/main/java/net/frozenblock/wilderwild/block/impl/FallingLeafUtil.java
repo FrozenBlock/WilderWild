@@ -208,7 +208,7 @@ public class FallingLeafUtil {
 		return true;
 	}
 
-	public static void spawnWalkingParticles(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Vec3 velocity) {
+	public static void spawnParticlesFromTop(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Vec3 velocity) {
 		boolean litter = false;
 		if (state.is(WWBlockTags.LEAF_LITTERS)) {
 			litter = true;
@@ -259,7 +259,7 @@ public class FallingLeafUtil {
 		movement = new Vec3(movement.x * 0.5D, horizontalDistance * 0.1D, movement.z * 0.5D);
 
 		if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
-		FallingLeafUtil.spawnWalkingParticles(level, pos, state, movement);
+		FallingLeafUtil.spawnParticlesFromTop(level, pos, state, movement);
 	}
 
 	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData, boolean isLitter) {
