@@ -19,28 +19,83 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.block.api.WaterloggableTallFlowerBlock;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CattailBlock extends WaterloggableTallFlowerBlock {
+	public static final BooleanProperty SWAYING = WWBlockStateProperties.SWAYING;
 
 	public CattailBlock(@NotNull Properties settings) {
 		super(settings);
+		this.registerDefaultState(this.defaultBlockState().setValue(SWAYING, false));
 	}
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState blockState = super.getStateForPlacement(context);
-		return blockState != null ? SnowloggingUtils.getSnowPlacementState(blockState, context) : null;
+		if (blockState == null) return null;
+
+		blockState = blockState.setValue(SWAYING, blockState.getValue(WATERLOGGED));
+		return SnowloggingUtils.getSnowPlacementState(blockState, context);
+	}
+
+	@Override
+	public void setPlacedBy(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, LivingEntity livingEntity, ItemStack itemStack) {
+		BlockPos abovePos = blockPos.above();
+		BlockState topState = copyWaterloggedFrom(level, abovePos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER))
+			.setValue(SWAYING, blockState.getValue(WATERLOGGED));
+
+		level.setBlock(abovePos, topState, UPDATE_ALL);
+	}
+
+	@Override
+	protected @NotNull BlockState updateShape(
+		@NotNull BlockState state,
+		LevelReader level,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState, RandomSource randomSource
+	) {
+		state = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, randomSource);
+		if (state == null || !state.is(this)) return state;
+
+		state = state.setValue(
+			SWAYING,
+			state.getValue(HALF) == DoubleBlockHalf.UPPER ? level.getFluidState(pos.below()).is(FluidTags.WATER) : state.getValue(WATERLOGGED)
+		);
+		return state;
 	}
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE) || blockState.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
+		return super.mayPlaceOn(blockState, blockGetter, blockPos)
+			|| blockState.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
+			|| blockState.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(SWAYING);
 	}
 }

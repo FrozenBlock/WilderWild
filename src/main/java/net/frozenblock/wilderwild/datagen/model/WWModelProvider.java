@@ -82,7 +82,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
 
-		WWModelHelper.createCattail(generator);
 		generator.createDoublePlantWithDefaultItem(WWBlocks.DATURA, BlockModelGenerators.PlantType.NOT_TINTED);
 
 		generator.createPlantWithDefaultItem(WWBlocks.SEEDING_DANDELION, WWBlocks.POTTED_SEEDING_DANDELION, BlockModelGenerators.PlantType.NOT_TINTED);
@@ -117,6 +116,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createSeaWhip(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.BARNACLES);
 		WWModelHelper.createTubeWorms(generator);
+		WWModelHelper.createCattail(generator);
 		WWModelHelper.createMultifaceBlock(generator, WWBlocks.POLLEN);
 
 		generator.createFullAndCarpetBlocks(WWBlocks.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_CARPET);
@@ -203,7 +203,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWBlocks.CATTAIL.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.ICICLE.asItem(), ModelTemplates.FLAT_ITEM);
 

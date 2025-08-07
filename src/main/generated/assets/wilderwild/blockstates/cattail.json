@@ -1,10 +1,28 @@
 {
   "variants": {
-    "half=lower": {
+    "half=lower,swaying=false,waterlogged=false": {
       "model": "wilderwild:block/cattail_bottom"
     },
-    "half=upper": {
+    "half=lower,swaying=false,waterlogged=true": {
+      "model": "wilderwild:block/cattail_bottom"
+    },
+    "half=lower,swaying=true,waterlogged=false": {
+      "model": "wilderwild:block/cattail_bottom"
+    },
+    "half=lower,swaying=true,waterlogged=true": {
+      "model": "wilderwild:block/cattail_swaying_bottom"
+    },
+    "half=upper,swaying=false,waterlogged=false": {
       "model": "wilderwild:block/cattail_top"
+    },
+    "half=upper,swaying=false,waterlogged=true": {
+      "model": "wilderwild:block/cattail_top"
+    },
+    "half=upper,swaying=true,waterlogged=false": {
+      "model": "wilderwild:block/cattail_swaying_top_weak"
+    },
+    "half=upper,swaying=true,waterlogged=true": {
+      "model": "wilderwild:block/cattail_swaying_top"
     }
   }
 }
