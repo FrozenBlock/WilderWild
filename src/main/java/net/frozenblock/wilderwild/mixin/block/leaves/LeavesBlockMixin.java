@@ -24,7 +24,9 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +35,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LeavesBlock.class)
-public class LeavesBlockMixin {
+public abstract class LeavesBlockMixin extends Block {
+
+	public LeavesBlockMixin(Properties properties) {
+		super(properties);
+	}
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$fallingLeafParticles(
@@ -56,6 +62,12 @@ public class LeavesBlockMixin {
 		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
 	) {
 		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);
+	}
+
+	@Override
+	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+		super.stepOn(level, pos, state, entity);
+		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, false);
 	}
 
 }

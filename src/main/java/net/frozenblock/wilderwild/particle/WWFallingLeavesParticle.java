@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	private static final int DEFAULT_UNTINTED_COLOR = ARGB.color(255, 255, 255);
 	public final boolean bounceOnFloor;
+	public final boolean isLitter;
 
 	public WWFallingLeavesParticle(
 		ClientLevel world,
@@ -55,6 +56,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	) {
 		super(world, x, y, z, spriteProvider, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
 		this.bounceOnFloor = leafMovementType.bounceOnFloor();
+		this.isLitter = isLitter;
 
 		FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;

@@ -56,6 +56,10 @@ public final class WWAmbienceAndMiscConfig {
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
 
 				Client.USE_WILDER_WILD_FALLING_LEAVES = config.leafParticles.useWilderWildFallingLeaves;
+				Client.LEAF_WALKING_PARTICLES = config.leafParticles.leafWalkingParticles;
+				Client.BREAKING_LEAF_PARTICLES = config.leafParticles.breakingLeafParticles;
+				Client.LEAF_LITTER_WALKING_PARTICLES = config.leafParticles.leafLitterParticles;
+				Client.BREAKING_LEAF_LITTER_PARTICLES = config.leafParticles.breakingLeafLitterParticles;
 				Client.OAK_LEAF_FREQUENCY = config.leafParticles.oakFrequency / 100D;
 				Client.SPRUCE_LEAF_FREQUENCY = config.leafParticles.spruceFrequency / 100D;
 				Client.BIRCH_LEAF_FREQUENCY = config.leafParticles.birchFrequency / 100D;
@@ -106,6 +110,10 @@ public final class WWAmbienceAndMiscConfig {
 
 	public static class Client {
 		public static volatile boolean USE_WILDER_WILD_FALLING_LEAVES = true;
+		public static volatile boolean LEAF_WALKING_PARTICLES = true;
+		public static volatile boolean BREAKING_LEAF_PARTICLES = false;
+		public static volatile boolean LEAF_LITTER_WALKING_PARTICLES = true;
+		public static volatile boolean BREAKING_LEAF_LITTER_PARTICLES = false;
 		public static volatile double OAK_LEAF_FREQUENCY = 1D;
 		public static volatile double SPRUCE_LEAF_FREQUENCY = 1D;
 		public static volatile double BIRCH_LEAF_FREQUENCY = 1D;
@@ -285,6 +293,18 @@ public final class WWAmbienceAndMiscConfig {
 	public static class LeafParticles {
 		@EntrySyncData(value = "useWilderWildFallingLeaves", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean useWilderWildFallingLeaves = true;
+
+		@EntrySyncData(value = "leafWalkingParticles")
+		public boolean leafWalkingParticles = false;
+
+		@EntrySyncData(value = "breakingLeafParticles", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean breakingLeafParticles = false;
+
+		@EntrySyncData(value = "leafLitterParticles")
+		public boolean leafLitterParticles = true;
+
+		@EntrySyncData(value = "breakingLeafLitterParticles", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean breakingLeafLitterParticles = false;
 
 		@EntrySyncData(value = "oakFrequency", behavior = SyncBehavior.UNSYNCABLE)
 		public int oakFrequency = 50;

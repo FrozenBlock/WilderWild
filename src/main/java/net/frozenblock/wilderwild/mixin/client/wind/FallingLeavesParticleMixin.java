@@ -186,6 +186,7 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 				this.flowAway = false;
 				this.swirl = false;
 				this.rotSpeed = this.rotSpeed + this.spinAcceleration / 10F;
+				if (wwParticle.isLitter) this.yd *= 0.75D;
 				return false;
 			}
 		}

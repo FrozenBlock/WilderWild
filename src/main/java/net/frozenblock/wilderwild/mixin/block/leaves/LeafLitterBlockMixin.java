@@ -25,9 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -46,15 +43,7 @@ public abstract class LeafLitterBlockMixin extends VegetationBlock {
 		@NotNull Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier
 	) {
-		AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
-		if (shape.intersects(entity.getBoundingBox())) {
-			Vec3 movement = entity.getDeltaMovement();
-			double horizontalDistance = movement.horizontalDistance();
-			movement = new Vec3(movement.x * 0.5D, horizontalDistance * 0.1D, movement.z * 0.5D);
-
-			if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
-			FallingLeafUtil.spawnLitterParticles(level, pos, state, movement);
-		}
+		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, true);
 	}
 
 }

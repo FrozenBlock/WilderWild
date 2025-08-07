@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -39,12 +40,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -204,18 +208,24 @@ public class FallingLeafUtil {
 		return true;
 	}
 
-	public static void spawnLitterParticles(@NotNull Level level, BlockPos pos, BlockState state, Vec3 velocity) {
-		if (!WWAmbienceAndMiscConfig.Client.USE_WILDER_WILD_FALLING_LEAVES) return;
+	public static void spawnWalkingParticles(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Vec3 velocity) {
+		boolean litter = false;
+		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+			litter = true;
+			if (!WWAmbienceAndMiscConfig.Client.LEAF_LITTER_WALKING_PARTICLES) return;
+		} else if (!WWAmbienceAndMiscConfig.Client.LEAF_WALKING_PARTICLES) {
+			return;
+		}
 
 		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
 		RandomSource random = level.random;
-		double x = pos.getX() + 0.1D + random.nextDouble() * 0.8D;
-		double y = pos.getY() + 0.1D;
-		double z = pos.getZ() + 0.1D + random.nextDouble() * 0.8D;
+		double x = pos.getX() + 0.5D + random.nextGaussian() * 0.4D;
+		double y = pos.getY() + (!litter ? 1.1D : 0.1D);
+		double z = pos.getZ() + 0.5D + random.nextGaussian() * 0.4D;
 
-		WWFallingLeavesParticleOptions options = createLeafParticleOptions(optionalFallingLeafData.get(), velocity, true);
+		WWFallingLeavesParticleOptions options = createLeafParticleOptions(optionalFallingLeafData.get(), velocity, litter);
 		if (level instanceof ServerLevel server) {
 			server.sendParticles(
 				options,
@@ -230,6 +240,26 @@ public class FallingLeafUtil {
 				0D, 0D, 0D
 			);
 		}
+	}
+
+	public static void trySpawnWalkParticles(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Entity entity,
+		boolean checkCollision
+	) {
+		if (checkCollision) {
+			AABB shape = state.getShape(level, pos, CollisionContext.of(entity)).bounds().move(pos);
+			if (!shape.intersects(entity.getBoundingBox())) return;
+		}
+
+		Vec3 movement = entity.getDeltaMovement();
+		double horizontalDistance = movement.horizontalDistance();
+		movement = new Vec3(movement.x * 0.5D, horizontalDistance * 0.1D, movement.z * 0.5D);
+
+		if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
+		FallingLeafUtil.spawnWalkingParticles(level, pos, state, movement);
 	}
 
 	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData, boolean isLitter) {
