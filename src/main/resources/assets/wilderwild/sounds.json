@@ -795,42 +795,18 @@
   },
   "block.coarse_dirt.fall": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ]
   },
   "block.coarse_dirt.hit": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -845,22 +821,10 @@
   },
   "block.coarse_dirt.step": {
     "sounds": [
-      {
-        "name": "wilderwild:block/coarse_dirt/step1",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step2",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step3",
-        "volume": 2.2
-      },
-      {
-        "name": "wilderwild:block/coarse_dirt/step4",
-        "volume": 2.2
-      }
+      "wilderwild:block/coarse_dirt/step1",
+      "wilderwild:block/coarse_dirt/step2",
+      "wilderwild:block/coarse_dirt/step3",
+      "wilderwild:block/coarse_dirt/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -4448,6 +4412,24 @@
       "wilderwild:block/short_grass/break2",
       "wilderwild:block/short_grass/break3",
       "wilderwild:block/short_grass/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sea_anemone.place": {
+    "sounds": [
+      "wilderwild:block/sea_anemone/break1",
+      "wilderwild:block/sea_anemone/break2",
+      "wilderwild:block/sea_anemone/break3",
+      "wilderwild:block/sea_anemone/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sea_anemone.break": {
+    "sounds": [
+      "wilderwild:block/sea_anemone/break1",
+      "wilderwild:block/sea_anemone/break2",
+      "wilderwild:block/sea_anemone/break3",
+      "wilderwild:block/sea_anemone/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },

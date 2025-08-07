@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.Util;
@@ -386,6 +387,34 @@ public final class WWModelHelper {
 							.select(TubeWormsPart.TOP, Variant.variant().with(VariantProperties.MODEL, topModel))
 							.select(TubeWormsPart.MIDDLE, Variant.variant().with(VariantProperties.MODEL, middleModel))
 							.select(TubeWormsPart.BOTTOM, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+					)
+			);
+	}
+
+	public static void createCattail(@NotNull BlockModelGenerators generator) {
+		generator.createSimpleFlatItemModel(WWBlocks.CATTAIL.asItem());
+
+		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+
+		ResourceLocation swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		ResourceLocation swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.CATTAIL)
+					.with(
+						PropertyDispatch.properties(BlockStateProperties.DOUBLE_BLOCK_HALF, BlockStateProperties.WATERLOGGED , WWBlockStateProperties.SWAYING)
+							.select(DoubleBlockHalf.LOWER, false, false, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+							.select(DoubleBlockHalf.LOWER, false, true, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+							.select(DoubleBlockHalf.LOWER, true, false, Variant.variant().with(VariantProperties.MODEL, bottomModel))
+							.select(DoubleBlockHalf.LOWER, true, true, Variant.variant().with(VariantProperties.MODEL, swayingBottom))
+
+							.select(DoubleBlockHalf.UPPER, false, false, Variant.variant().with(VariantProperties.MODEL, topModel))
+							.select(DoubleBlockHalf.UPPER, false, true, Variant.variant().with(VariantProperties.MODEL, swayingTopWeak))
+							.select(DoubleBlockHalf.UPPER, true, false, Variant.variant().with(VariantProperties.MODEL, topModel))
+							.select(DoubleBlockHalf.UPPER, true, true, Variant.variant().with(VariantProperties.MODEL, swayingTopStrong))
 					)
 			);
 	}
