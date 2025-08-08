@@ -41,8 +41,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added Leaf Litter blocks for every leaf type in 1.21.5+.
 - Leaf particles now spawn while walking on Leaf Litters and Leaves blocks in 1.21.5+.
   - Added config options to toggle these individually, with normal Leaves blocks having this disabled by default.
-- Leaf particles now spawn while breaking Leaf Litters and Leaves blocks in 1.21.5+.
-  - Added config options to toggle these individually, both being disabled by default.
+  - This applies to Breezes, which will spawn a steady stream of Leaves flowing upwards.
+- Leaf particles now spawn from explosions near and when manually breaking Leaf Litters and Leaves blocks in 1.21.5+.
+  - Added config options to toggle these individually, all being disabled by default.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 
