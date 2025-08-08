@@ -48,27 +48,37 @@ public final class WWParticleEngine {
 
 		particleRegistry.register(WWParticleTypes.LEAF_CLUSTER_SPAWNER, LeafClusterSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.OAK_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.OAK_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.SPRUCE_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.SPRUCE_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.BIRCH_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.BIRCH_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.JUNGLE_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.JUNGLE_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.ACACIA_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.ACACIA_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.DARK_OAK_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.DARK_OAK_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.PALE_OAK_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.PALE_OAK_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.MANGROVE_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MANGROVE_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.CHERRY_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.CHERRY_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.AZALEA_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.FLOWERING_AZALEA_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.AZALEA_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.BAOBAB_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.BAOBAB_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.CYPRESS_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.CYPRESS_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.PALM_FRONDS, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.PALM_LITTER_FRONDS, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.YELLOW_MAPLE_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.ORANGE_MAPLE_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.RED_MAPLE_LEAVES, WWFallingLeavesParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.WILLOW_LEAVES, WWFallingLeavesParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.WILLOW_LITTER_LEAVES, WWFallingLeavesParticle.Provider::new);
 
 		particleRegistry.register(WWParticleTypes.CHEST_BUBBLE_SPAWNER, ChestBubbleSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER, ShriekerBubbleSeedParticle.Provider::new);

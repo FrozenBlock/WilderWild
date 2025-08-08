@@ -41,6 +41,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 			Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
 			Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
 			Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
+			Codec.BOOL.fieldOf("controlVelocityUponSpawn").forGetter(WWFallingLeavesParticleOptions::controlVelUponSpawn),
 			Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
 			Codec.BOOL.fieldOf("isLitter").forGetter(WWFallingLeavesParticleOptions::isLitter),
 			FallingLeafUtil.LeafMovementType.CODEC.fieldOf("leafMovementType").forGetter(WWFallingLeavesParticleOptions::leafMovementType)
@@ -52,6 +53,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		ByteBufCodecs.INT, WWFallingLeavesParticleOptions::getTextureSize,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getGravityScale,
 		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isFastFalling,
+		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::controlVelUponSpawn,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getWindScale,
 		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isLitter,
 		FallingLeafUtil.LeafMovementType.STREAM_CODEC, WWFallingLeavesParticleOptions::leafMovementType,
@@ -146,6 +148,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		int textureSize,
 		float gravityScale,
 		boolean isFastFalling,
+		boolean controlVelUponSpawn,
 		float windScale,
 		boolean isLitter,
 		FallingLeafUtil.LeafMovementType leafMovementType
@@ -156,7 +159,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		} else {
 			particleType = WWParticleTypes.OAK_LEAVES;
 		}
-		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, isFastFalling, windScale, isLitter, leafMovementType);
+		return new WWFallingLeavesParticleOptions(particleType, velocity, textureSize, gravityScale, isFastFalling, controlVelUponSpawn, windScale, isLitter, leafMovementType);
 	}
 
 	private WWFallingLeavesParticleOptions(

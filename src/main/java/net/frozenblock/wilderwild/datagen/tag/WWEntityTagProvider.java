@@ -111,6 +111,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
 			.add(EntityType.SQUID, EntityType.GLOW_SQUID);
 
+		this.getOrCreateTagBuilder(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN)
+			.add(EntityType.BREEZE);
+
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
 			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
 

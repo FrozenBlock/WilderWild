@@ -173,6 +173,29 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("breaking_leaf_litter_particles"))
 			.build();
 
+		var leafExplosionParticles = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("leaf_explosion_particles"), modifiedLeafParticles.leafExplosionParticles)
+				.setDefaultValue(defaultConfig.leafParticles.leafExplosionParticles)
+				.setSaveConsumer(newValue -> leafParticles.leafExplosionParticles = newValue)
+				.setTooltip(tooltip("leaf_explosion_particles"))
+				.build(),
+			leafParticlesClazz,
+			"leafExplosionParticles",
+			configInstance
+		);
+
+		var leafExplosionVelocity = FrozenClothConfig.syncedEntry(
+			entryBuilder.startIntSlider(text("leaf_explosion_velocity"), modifiedLeafParticles.leafExplosionVelocity, 0, 500)
+				.setDefaultValue(defaultConfig.leafParticles.leafExplosionVelocity)
+				.setSaveConsumer(newValue -> leafParticles.leafExplosionVelocity = newValue)
+				.setTooltip(tooltip("leaf_explosion_velocity"))
+				.setDisplayRequirement(Requirement.isTrue(() -> WWAmbienceAndMiscConfig.get().leafParticles.leafExplosionParticles))
+				.build(),
+			leafParticlesClazz,
+			"leafExplosionVelocity",
+			configInstance
+		);
+
 		var oakLeafParticles = entryBuilder.startIntSlider(text("oak_leaf_particles"), leafParticles.oakFrequency, 0, 500)
 			.setDefaultValue(defaultConfig.leafParticles.oakFrequency)
 			.setSaveConsumer(newValue -> leafParticles.oakFrequency = newValue)
@@ -289,6 +312,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			tooltip("leaf_particles"),
 			useWilderWildFallingLeaves,
 			leafWalkingParticles, breakingLeafParticles, leafLitterParticles, breakingLeafLitterParticles,
+			leafExplosionParticles, leafExplosionVelocity,
 			oakLeafParticles, spruceLeafParticles, birchLeafParticles, jungleLeafParticles, acaciaLeafParticles, darkOakLeafParticles,
 			paleOakLeafParticles, mangroveLeafParticles, cherryLeafParticles, azaleaLeafParticles, floweringAzaleaLeafParticles,
 			baobabLeafParticles, cypressLeafParticles, palmFrondParticles, mapleLeafParticles, willowLeafParticles
