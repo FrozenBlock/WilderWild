@@ -18,7 +18,7 @@ buildscript {
 }
 
 plugins {
-    id("fabric-loom") version("+")
+    id("fabric-loom") version("1.11.+")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -78,11 +78,6 @@ val datagen by sourceSets.registering {
 
 loom {
     runtimeOnlyLog4j.set(true)
-
-    mixin {
-        useLegacyMixinAp.set(true)
-        defaultRefmapName.set("mixins.$mod_id.refmap.json")
-    }
 
     accessWidenerPath.set(file("src/main/resources/$mod_id.accesswidener"))
     interfaceInjection {
