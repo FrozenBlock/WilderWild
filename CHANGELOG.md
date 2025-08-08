@@ -59,6 +59,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Swaying will occur when waterlogged, though the top half will have a weaker sway if it isn't also waterlogged.
 - Completely retextured Milkweed, now looking more akin to their real-world tropical counterpart.
 - Updated the textures for all Hibiscus flowers.
+- Fixed a tiling error with the Stripped Maple Log.
+- Retextured the Cypress Log.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 
 # Music
