@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.block.impl;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -29,6 +31,8 @@ import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOption
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -41,7 +45,9 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerExplosion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
@@ -90,11 +96,11 @@ public class FallingLeafUtil {
 			leafLitterBlock,
 			true,
 			leafParticle,
-			particleChance,
-			frequencyModifier,
+			1F,
+			() -> 1D,
 			textureSize,
-			particleGravityScale,
-			windScale,
+			particleGravityScale * 1.5F,
+			windScale * 0.8F,
 			leafMovementType.getLitterEquivalent()
 		);
 	}
@@ -254,12 +260,102 @@ public class FallingLeafUtil {
 			if (!shape.intersects(entity.getBoundingBox())) return;
 		}
 
+		boolean franticSpawn = entity.getType().is(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN);
+		double horizontalScale = franticSpawn ? 0.1D : 0.5D;
+		double additionalY = franticSpawn ? 0.1D : 0D;
 		Vec3 movement = entity.getDeltaMovement();
 		double horizontalDistance = movement.horizontalDistance();
-		movement = new Vec3(movement.x * 0.5D, horizontalDistance * 0.1D, movement.z * 0.5D);
+		movement = new Vec3(movement.x * horizontalScale, (horizontalDistance * 0.1D) + additionalY, movement.z * horizontalScale);
 
-		if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
+		if (!franticSpawn) {
+			if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
+		} else {
+			if (level.random.nextFloat() > 0.05F) return;
+		}
 		FallingLeafUtil.spawnParticlesFromTop(level, pos, state, movement);
+	}
+
+	public static void trySpawnExplosionParticles(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		Explosion explosion
+	) {
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		if (!(explosion instanceof ServerExplosion serverExplosion)) return;
+		if (!WWAmbienceAndMiscConfig.EXPLOSION_LEAF_PARTICLES) return;
+
+		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+		if (optionalFallingLeafData.isEmpty()) return;
+
+		float radius = serverExplosion.radius();
+		Vec3 difference = Vec3.atCenterOf(pos).subtract(serverExplosion.center());
+		double leafPower = (radius - difference.length()) / radius;
+
+		RandomSource random = level.random;
+		boolean litter = false;
+		Supplier<Vec3> posSupplier;
+		Supplier<Integer> count;
+
+		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+			litter = true;
+			posSupplier = () -> new Vec3(
+				pos.getX() + 0.5D + random.nextGaussian() * 0.4D,
+				pos.getY() + 0.1D,
+				pos.getZ() + 0.5D + random.nextGaussian() * 0.4D
+			);
+			count = () -> Math.max((int) (leafPower) * state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2), 1);
+		} else {
+			if (serverExplosion.getBlockInteraction().shouldAffectBlocklikeEntities()) {
+				posSupplier = () -> new Vec3(
+					pos.getX() + 0.5D + random.nextGaussian() * 0.4D,
+					pos.getY() + 0.5D + random.nextGaussian() * 0.4D,
+					pos.getZ() + 0.5D + random.nextGaussian() * 0.4D
+				);
+			} else {
+				BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+				List<Direction> validDirections = new ArrayList<>();
+				for (Direction direction : Direction.values()) {
+					BlockState offsetState = level.getBlockState(mutable.setWithOffset(pos, direction));
+					if (!Block.isFaceFull(offsetState.getCollisionShape(level, mutable), direction.getOpposite())) validDirections.add(direction);
+				}
+
+				posSupplier = () -> {
+					Optional<Direction> optionalDirection = Util.getRandomSafe(validDirections, random);
+					if (optionalDirection.isEmpty()) return null;
+
+					Direction direction = optionalDirection.get();
+					double x = pos.getX() + 0.5D + (random.nextGaussian() * 0.4D);
+					double y = pos.getY() + 0.5D + (random.nextGaussian() * 0.4D);
+					double z = pos.getZ() + 0.5D + (random.nextGaussian() * 0.4D);
+
+					if (direction.getAxis() == Direction.Axis.X) x = pos.getX() + 0.5D + (direction.getStepX() * 0.6D);
+					if (direction.getAxis() == Direction.Axis.Y) y = pos.getY() + 0.5D + (direction.getStepY() * 0.6D);
+					if (direction.getAxis() == Direction.Axis.Z) z = pos.getZ() + 0.5D + (direction.getStepZ() * 0.6D);
+
+					return new Vec3(x, y, z);
+				};
+			}
+			count = () -> Math.clamp((int) (leafPower * 4F), 1, 4);
+		}
+
+		WWFallingLeavesParticleOptions options = createLeafParticleOptions(
+			optionalFallingLeafData.get(),
+			difference.scale((leafPower * leafPower) * 0.2D * WWAmbienceAndMiscConfig.EXPLOSION_LEAF_VELOCITY),
+			litter
+		);
+
+		for (int i = 0; i < count.get(); i++) {
+			Vec3 particlePos = posSupplier.get();
+			if (particlePos == null) return;
+
+			serverLevel.sendParticles(
+				options,
+				particlePos.x, particlePos.y, particlePos.z,
+				1,
+				0D, 0D, 0D, 0D
+			);
+		}
 	}
 
 	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafUtil.@NotNull FallingLeafData fallingLeafData, boolean isLitter) {
