@@ -19,10 +19,12 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 
 public class PaleShelfFungiBlock extends ShelfFungiBlock {
@@ -32,8 +34,8 @@ public class PaleShelfFungiBlock extends ShelfFungiBlock {
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
-	public PaleShelfFungiBlock(@NotNull Properties settings) {
-		super(settings);
+	public PaleShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties settings) {
+		super(shearingLootTable, settings);
 	}
 
 	@Override

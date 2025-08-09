@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -41,6 +41,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -61,8 +62,6 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(0.8D, 0.75D, 0.8D);
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
-	public static final int MIN_PEARS_FROM_HARVEST = 1;
-	public static final int MAX_PEARS_FROM_HARVEST = 2;
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3D, 0D, 3D, 13D, 13D, 13D);
@@ -151,17 +150,15 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
-	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state) {
+	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-		ItemStack pear = new ItemStack(WWItems.PRICKLY_PEAR);
-		pear.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PEARS_FROM_HARVEST, MAX_PEARS_FROM_HARVEST));
-		popResource(level, pos, pear);
+		if (level instanceof ServerLevel serverLevel) dropPricklyPear(serverLevel, stack, state, null, entity, pos);
 	}
 
 	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
 		if (!level.isClientSide()) {
 			boolean shears = stack.is(Items.SHEARS);
-			onPricklyPearPick(level, pos, state, shears, player);
+			onPricklyPearPick(level, pos, state, shears, stack, player);
 			if (shears) {
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			} else {
@@ -170,8 +167,8 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		}
 	}
 
-	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
-		basePick(level, pos, state);
+	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, ItemStack stack, @Nullable Entity entity) {
+		basePick(level, pos, state, stack, entity);
 		if (level.isClientSide()) return;
 		if (shears) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
@@ -180,6 +177,20 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		} else {
 			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
 		}
+	}
+
+	public static void dropPricklyPear(
+		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+	) {
+		dropFromBlockInteractLootTable(
+			level,
+			WWLootTables.SHEAR_PRICKLY_PEAR,
+			state,
+			blockEntity,
+			stack,
+			entity,
+			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
+		);
 	}
 
 	@Override

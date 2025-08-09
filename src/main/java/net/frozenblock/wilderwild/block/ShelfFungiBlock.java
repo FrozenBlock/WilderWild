@@ -18,10 +18,13 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -53,6 +56,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -66,21 +70,30 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntegerProperty STAGE = WWBlockStateProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<ShelfFungiBlock> CODEC = simpleCodec(ShelfFungiBlock::new);
+	public static final MapCodec<ShelfFungiBlock> CODEC = RecordCodecBuilder.mapCodec(
+		instance ->
+			instance.group(
+				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("shearing_loot_table").forGetter(shelfFungiBlock -> shelfFungiBlock.shearingLootTable),
+				propertiesCodec()
+			).apply(instance, ShelfFungiBlock::new)
+	);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0D, 0D, 13D, 16D, 16D, 16D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0D, 0D, 0D, 16D, 16D, 3D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13D, 0D, 0D, 16D, 16D, 16D);
 	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0D, 0D, 0D, 3D, 16D, 16D);
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
+	private final ResourceKey<LootTable> shearingLootTable;
 
-	public ShelfFungiBlock(@NotNull Properties settings) {
+	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties settings) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().
-			setValue(FACING, Direction.NORTH)
-			.setValue(WATERLOGGED, false)
-			.setValue(FACE, AttachFace.WALL)
-			.setValue(STAGE, 1)
+		this.shearingLootTable = shearingLootTable;
+		this.registerDefaultState(
+			this.stateDefinition.any().
+				setValue(FACING, Direction.NORTH)
+				.setValue(WATERLOGGED, false)
+				.setValue(FACE, AttachFace.WALL)
+				.setValue(STAGE, 1)
 		);
 	}
 
@@ -111,23 +124,42 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	@Override
 	@NotNull
 	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
+		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
 		int stage = state.getValue(STAGE);
 		if (stage > 1) {
-			popResource(level, pos, new ItemStack(state.getBlock()));
 			level.setBlockAndUpdate(pos, state.setValue(STAGE, stage - 1));
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+			if (level instanceof ServerLevel serverLevel) dropShelfFungi(serverLevel, stack, state, null, entity, pos);
 			level.gameEvent(entity, GameEvent.SHEAR, pos);
 			return true;
 		}
 		return false;
+	}
+
+	public static void dropShelfFungi(
+		ServerLevel level, ItemStack stack, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+	) {
+		if (!(state.getBlock() instanceof  ShelfFungiBlock shelfFungiBlock)) return;
+		dropFromBlockInteractLootTable(
+			level,
+			shelfFungiBlock.getShearingLootTable(),
+			state,
+			blockEntity,
+			stack,
+			entity,
+			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
+		);
+	}
+
+	public ResourceKey<LootTable> getShearingLootTable() {
+		return this.shearingLootTable;
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.datagen.advancement.WWAdvancementProvider;
+import net.frozenblock.wilderwild.datagen.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.datagen.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.datagen.model.WWModelProvider;
@@ -65,6 +66,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWRegistryProvider::new);
 
 		pack.addProvider(WWBlockLootProvider::new);
+		pack.addProvider(WWBlockInteractionLootProvider::new);
 		pack.addProvider(WWBiomeTagProvider::new);
 		pack.addProvider(WWBlockTagProvider::new);
 		pack.addProvider(WWDamageTypeTagProvider::new);

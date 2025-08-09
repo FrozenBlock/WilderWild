@@ -973,7 +973,7 @@ public final class WWBlocks {
 	);
 
 	public static final ShelfFungiBlock BROWN_SHELF_FUNGI = register("brown_shelf_fungi",
-		ShelfFungiBlock::new,
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_BROWN_SHELF_FUNGI, properties),
 		Properties.ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK)
 			.lightLevel(state -> 1)
 			.randomTicks()
@@ -985,7 +985,7 @@ public final class WWBlocks {
 	);
 
 	public static final ShelfFungiBlock RED_SHELF_FUNGI = register("red_shelf_fungi",
-		ShelfFungiBlock::new,
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_RED_SHELF_FUNGI, properties),
 		Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
 			.noCollision()
@@ -996,7 +996,7 @@ public final class WWBlocks {
 	);
 
 	public static final ShelfFungiBlock CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi",
-		ShelfFungiBlock::new,
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_CRIMSON_SHELF_FUNGI, properties),
 		Properties.of()
 			.mapColor(MapColor.NETHER)
 			.strength(0.2F)
@@ -1009,7 +1009,7 @@ public final class WWBlocks {
 	);
 
 	public static final ShelfFungiBlock WARPED_SHELF_FUNGI = register("warped_shelf_fungi",
-		ShelfFungiBlock::new,
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_WARPED_SHELF_FUNGI, properties),
 		Properties.of()
 			.mapColor(MapColor.NETHER)
 			.strength(0.2F)
@@ -1046,7 +1046,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 	public static final PaleShelfFungiBlock PALE_SHELF_FUNGI = register("pale_shelf_fungi",
-		PaleShelfFungiBlock::new,
+		properties -> new PaleShelfFungiBlock(WWLootTables.SHEAR_PALE_SHELF_FUNGI, properties),
 		Properties.ofFullCopy(PALE_MUSHROOM_BLOCK)
 			.randomTicks()
 			.noCollision()

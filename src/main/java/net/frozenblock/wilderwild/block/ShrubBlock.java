@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -175,18 +176,19 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
+		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
-	public boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
 		if (!isMinimumAge(state)) {
 			if (!level.isClientSide()) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
+					if (level instanceof ServerLevel serverLevel) dropShrub(serverLevel, stack, state, null, entity, pos);
 					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, new ItemStack(WWBlocks.SHRUB));
 					level.addFreshEntity(itemEntity);
 				}
@@ -197,6 +199,20 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 			return true;
 		}
 		return false;
+	}
+
+	public static void dropShrub(
+		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+	) {
+		dropFromBlockInteractLootTable(
+			level,
+			WWLootTables.SHEAR_SHRUB,
+			state,
+			blockEntity,
+			stack,
+			entity,
+			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
+		);
 	}
 
 	@Override

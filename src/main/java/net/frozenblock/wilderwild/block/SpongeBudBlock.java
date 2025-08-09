@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -95,23 +97,37 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		@NotNull InteractionHand hand,
 		@NotNull BlockHitResult hit
 	) {
-		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
+		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			return InteractionResult.SUCCESS;
 		}
 		return super.useItemOn(stack, state, level, pos, player, hand, hit);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
 		int age = state.getValue(AGE);
 		if (age > 0) {
-			popResource(level, pos, new ItemStack(state.getBlock()));
 			level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+			if (level instanceof ServerLevel serverLevel) dropSpongeBud(serverLevel, stack, state, null, entity, pos);
 			level.gameEvent(entity, GameEvent.SHEAR, pos);
 			return true;
 		}
 		return false;
+	}
+
+	public static void dropSpongeBud(
+		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+	) {
+		dropFromBlockInteractLootTable(
+			level,
+			WWLootTables.SHEAR_SPONGE_BUD,
+			state,
+			blockEntity,
+			stack,
+			entity,
+			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
+		);
 	}
 
 	@Override

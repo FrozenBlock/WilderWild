@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -28,6 +28,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -50,8 +52,6 @@ public class MilkweedBlock extends TallFlowerBlock {
 	public static final int GROWTH_CHANCE = 5;
 	public static final int MIN_SEEDS_ON_RUSTLE = 14;
 	public static final int MAX_SEEDS_ON_RUSTLE = 30;
-	public static final int MIN_PODS_FROM_HARVEST = 1;
-	public static final int MAX_PODS_FROM_HARVEST = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final int MAX_AGE = 3;
 
@@ -67,13 +67,25 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
 	}
 
-	public static void onShear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		ItemStack stack = new ItemStack(WWItems.MILKWEED_POD);
-		stack.setCount(level.getRandom().nextIntBetweenInclusive(MIN_PODS_FROM_HARVEST, MAX_PODS_FROM_HARVEST));
-		popResource(level, pos, stack);
+	public static void onShear(@NotNull Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-		level.gameEvent(player, GameEvent.SHEAR, pos);
+		if (level instanceof ServerLevel serverLevel) dropMilkweed(serverLevel, stack, state, null, entity, pos);
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0, false);
+	}
+
+	public static void dropMilkweed(
+		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+	) {
+		dropFromBlockInteractLootTable(
+			level,
+			WWLootTables.SHEAR_MILKWEED,
+			state,
+			blockEntity,
+			stack,
+			entity,
+			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
+		);
 	}
 
 	public static void setAgeOnBothHalves(Block block, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean spawnParticles) {
@@ -148,7 +160,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 				if (stack.is(Items.SHEARS)) {
 					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
-					onShear(level, pos, state, player);
+					onShear(level, pos, state, stack, player);
 				} else {
 					this.pickAndSpawnSeeds(level, state, pos);
 				}
