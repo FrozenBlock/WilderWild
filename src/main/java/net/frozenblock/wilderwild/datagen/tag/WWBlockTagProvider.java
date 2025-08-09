@@ -877,6 +877,13 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.GABBRO_BRICK_WALL)
 			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 
+		this.valueLookupBuilder(BlockTags.WOODEN_SHELVES)
+			.add(WWBlocks.BAOBAB_SHELF)
+			.add(WWBlocks.WILLOW_SHELF)
+			.add(WWBlocks.CYPRESS_SHELF)
+			.add(WWBlocks.PALM_SHELF)
+			.add(WWBlocks.MAPLE_SHELF);
+
 		this.valueLookupBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(Blocks.COBWEB)
 			.add(Blocks.LILY_PAD)

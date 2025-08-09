@@ -75,6 +75,13 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.GABBRO_BRICK_WALL.asItem())
 			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL.asItem());
 
+		this.valueLookupBuilder(ItemTags.WOODEN_SHELVES)
+			.add(WWBlocks.BAOBAB_SHELF.asItem())
+			.add(WWBlocks.WILLOW_SHELF.asItem())
+			.add(WWBlocks.CYPRESS_SHELF.asItem())
+			.add(WWBlocks.PALM_SHELF.asItem())
+			.add(WWBlocks.MAPLE_SHELF.asItem());
+
 		this.valueLookupBuilder(ItemTags.ARMADILLO_FOOD)
 			.add(WWItems.SCORCHED_EYE);
 

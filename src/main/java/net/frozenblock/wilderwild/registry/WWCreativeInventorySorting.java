@@ -59,6 +59,7 @@ public class WWCreativeInventorySorting {
 		// BAOBAB (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(Items.MANGROVE_HANGING_SIGN, WWItems.BAOBAB_SIGN);
 		addAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
+		addAfterInFunctionalBlocks(Items.MANGROVE_SHELF, WWBlocks.BAOBAB_SHELF);
 		// BAOBAB (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(Items.MANGROVE_CHEST_BOAT, WWItems.BAOBAB_BOAT);
 		addAfterInToolsAndUtilities(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_CHEST_BOAT);
@@ -87,6 +88,7 @@ public class WWCreativeInventorySorting {
 		// WILLOW (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(WWItems.BAOBAB_HANGING_SIGN, WWItems.WILLOW_SIGN);
 		addAfterInFunctionalBlocks(WWItems.WILLOW_SIGN, WWItems.WILLOW_HANGING_SIGN);
+		addAfterInFunctionalBlocks(WWBlocks.BAOBAB_SHELF, WWBlocks.WILLOW_SHELF);
 		// WILLOW (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(WWItems.BAOBAB_CHEST_BOAT, WWItems.WILLOW_BOAT);
 		addAfterInToolsAndUtilities(WWItems.WILLOW_BOAT, WWItems.WILLOW_CHEST_BOAT);
@@ -112,6 +114,7 @@ public class WWCreativeInventorySorting {
 		// CYPRESS (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(WWItems.WILLOW_HANGING_SIGN, WWItems.CYPRESS_SIGN);
 		addAfterInFunctionalBlocks(WWItems.CYPRESS_SIGN, WWItems.CYPRESS_HANGING_SIGN);
+		addAfterInFunctionalBlocks(WWBlocks.WILLOW_SHELF, WWBlocks.CYPRESS_SHELF);
 		// CYPRESS (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(WWItems.WILLOW_CHEST_BOAT, WWItems.CYPRESS_BOAT);
 		addAfterInToolsAndUtilities(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_CHEST_BOAT);
@@ -136,6 +139,7 @@ public class WWCreativeInventorySorting {
 		// PALM (FUNCTIONAL BLOCKS)
 		addAfterInFunctionalBlocks(WWItems.CYPRESS_HANGING_SIGN, WWItems.PALM_SIGN);
 		addAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
+		addAfterInFunctionalBlocks(WWBlocks.CYPRESS_SHELF, WWBlocks.PALM_SHELF);
 		// PALM (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
 		addAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
@@ -165,8 +169,9 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAVES);
 		// MAPLE (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(Blocks.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
+		addAfterInFunctionalBlocks(Items.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
 		addAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
+		addAfterInFunctionalBlocks(Items.CHERRY_SHELF, WWBlocks.MAPLE_SHELF);
 		// MAPLE (TOOLS AND UTILITIES)
 		addAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
 		addAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);

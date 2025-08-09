@@ -42,6 +42,7 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(provider, exporter, WWBlocks.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_PLANKS);
 		FrozenRecipeProvider.woodenSign(provider, exporter, WWItems.BAOBAB_SIGN, WWBlocks.BAOBAB_PLANKS);
 		provider.hangingSign(WWItems.BAOBAB_HANGING_SIGN, WWBlocks.STRIPPED_BAOBAB_LOG);
+		provider.shelf(WWBlocks.BAOBAB_SHELF, WWBlocks.STRIPPED_BAOBAB_LOG);
 
 		provider.planksFromLogs(WWBlocks.WILLOW_PLANKS, WWItemTags.WILLOW_LOGS, 4);
 		provider.woodFromLogs(WWBlocks.WILLOW_WOOD, WWBlocks.WILLOW_LOG);
@@ -58,6 +59,7 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(provider, exporter, WWBlocks.WILLOW_TRAPDOOR, WWBlocks.WILLOW_PLANKS);
 		FrozenRecipeProvider.woodenSign(provider, exporter, WWItems.WILLOW_SIGN, WWBlocks.WILLOW_PLANKS);
 		provider.hangingSign(WWItems.WILLOW_HANGING_SIGN, WWBlocks.STRIPPED_WILLOW_LOG);
+		provider.shelf(WWBlocks.WILLOW_SHELF, WWBlocks.STRIPPED_WILLOW_LOG);
 
 		provider.planksFromLogs(WWBlocks.CYPRESS_PLANKS, WWItemTags.CYPRESS_LOGS, 4);
 		provider.woodFromLogs(WWBlocks.CYPRESS_WOOD, WWBlocks.CYPRESS_LOG);
@@ -74,6 +76,7 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(provider, exporter, WWBlocks.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_PLANKS);
 		FrozenRecipeProvider.woodenSign(provider, exporter, WWItems.CYPRESS_SIGN, WWBlocks.CYPRESS_PLANKS);
 		provider.hangingSign(WWItems.CYPRESS_HANGING_SIGN, WWBlocks.STRIPPED_CYPRESS_LOG);
+		provider.shelf(WWBlocks.CYPRESS_SHELF, WWBlocks.STRIPPED_CYPRESS_LOG);
 
 		provider.planksFromLogs(WWBlocks.PALM_PLANKS, WWItemTags.PALM_LOGS, 4);
 		provider.woodFromLogs(WWBlocks.PALM_WOOD, WWBlocks.PALM_LOG);
@@ -90,6 +93,7 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(provider, exporter, WWBlocks.PALM_TRAPDOOR, WWBlocks.PALM_PLANKS);
 		FrozenRecipeProvider.woodenSign(provider, exporter, WWItems.PALM_SIGN, WWBlocks.PALM_PLANKS);
 		provider.hangingSign(WWItems.PALM_HANGING_SIGN, WWBlocks.STRIPPED_PALM_LOG);
+		provider.shelf(WWBlocks.PALM_SHELF, WWBlocks.STRIPPED_PALM_LOG);
 
 		provider.planksFromLogs(WWBlocks.MAPLE_PLANKS, WWItemTags.MAPLE_LOGS, 4);
 		provider.woodFromLogs(WWBlocks.MAPLE_WOOD, WWBlocks.MAPLE_LOG);
@@ -106,6 +110,7 @@ public final class WWWoodRecipeProvider {
 		FrozenRecipeProvider.woodenTrapdoor(provider, exporter, WWBlocks.MAPLE_TRAPDOOR, WWBlocks.MAPLE_PLANKS);
 		FrozenRecipeProvider.woodenSign(provider, exporter, WWItems.MAPLE_SIGN, WWBlocks.MAPLE_PLANKS);
 		provider.hangingSign(WWItems.MAPLE_HANGING_SIGN, WWBlocks.STRIPPED_MAPLE_LOG);
+		provider.shelf(WWBlocks.MAPLE_SHELF, WWBlocks.STRIPPED_MAPLE_LOG);
 	}
 
 }

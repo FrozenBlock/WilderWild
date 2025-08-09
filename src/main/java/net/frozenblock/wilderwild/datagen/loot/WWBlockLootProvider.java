@@ -74,6 +74,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.BAOBAB_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.BAOBAB_SIGN);
 		this.dropSelf(WWBlocks.BAOBAB_HANGING_SIGN);
+		this.dropSelf(WWBlocks.BAOBAB_SHELF);
 		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.BAOBAB_LEAVES, registryLookup);
 
 		this.dropSelf(WWBlocks.WILLOW_LOG);
@@ -93,6 +94,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.WILLOW_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.WILLOW_SIGN);
 		this.dropSelf(WWBlocks.WILLOW_HANGING_SIGN);
+		this.dropSelf(WWBlocks.WILLOW_SHELF);
 		this.dropSelf(WWBlocks.WILLOW_SAPLING);
 		this.add(WWBlocks.WILLOW_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.WILLOW_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 
@@ -113,6 +115,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.CYPRESS_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.CYPRESS_SIGN);
 		this.dropSelf(WWBlocks.CYPRESS_HANGING_SIGN);
+		this.dropSelf(WWBlocks.CYPRESS_SHELF);
 		this.dropSelf(WWBlocks.CYPRESS_SAPLING);
 		this.add(WWBlocks.CYPRESS_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.CYPRESS_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 
@@ -133,6 +136,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.PALM_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.PALM_SIGN);
 		this.dropSelf(WWBlocks.PALM_HANGING_SIGN);
+		this.dropSelf(WWBlocks.PALM_SHELF);
 		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.PALM_FRONDS, registryLookup);
 
 		this.dropSelf(WWBlocks.MAPLE_LOG);
@@ -152,6 +156,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MAPLE_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.MAPLE_SIGN);
 		this.dropSelf(WWBlocks.MAPLE_HANGING_SIGN);
+		this.dropSelf(WWBlocks.MAPLE_SHELF);
 		this.dropSelf(WWBlocks.MAPLE_SAPLING);
 		this.add(WWBlocks.YELLOW_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 		this.add(WWBlocks.ORANGE_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));

@@ -83,6 +83,7 @@ voxelotl:
  - Tube Worms textures.
  - Spawn egg textures in 1.21.5+.
  - Cannonball Tumbleweed texture.
+ - Shelf textures in 1.21.9+.
 
 Willow/pictochats_:
  - Composer.

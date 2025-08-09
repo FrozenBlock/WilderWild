@@ -96,6 +96,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
@@ -115,6 +116,7 @@ import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -132,6 +134,7 @@ import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -1360,6 +1363,17 @@ public final class WWBlocks {
 			.overrideLootTable(BAOBAB_SIGN.getLootTable())
 	);
 
+	public static final Block BAOBAB_SHELF = register(
+		"baobab_shelf",
+		ShelfBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.instrument(NoteBlockInstrument.BASS)
+			.sound(SoundType.SHELF)
+			.ignitedByLava()
+			.strength(2F, 3F)
+	);
+
 	public static final BlockFamily FAMILY_BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
 		.button(BAOBAB_BUTTON)
 		.slab(BAOBAB_SLAB)
@@ -1464,6 +1478,17 @@ public final class WWBlocks {
 			.mapColor(WILLOW_LOG.defaultMapColor())
 			.overrideDescription(WILLOW_SIGN.getDescriptionId())
 			.overrideLootTable(WILLOW_SIGN.getLootTable())
+	);
+
+	public static final Block WILLOW_SHELF = register(
+		"willow_shelf",
+		ShelfBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.instrument(NoteBlockInstrument.BASS)
+			.sound(SoundType.SHELF)
+			.ignitedByLava()
+			.strength(2F, 3F)
 	);
 
 	public static final BlockFamily FAMILY_WILLOW = BlockFamilies.familyBuilder(WILLOW_PLANKS)
@@ -1573,6 +1598,17 @@ public final class WWBlocks {
 			.overrideLootTable(CYPRESS_SIGN.getLootTable())
 	);
 
+	public static final Block CYPRESS_SHELF = register(
+		"cypress_shelf",
+		ShelfBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.instrument(NoteBlockInstrument.BASS)
+			.sound(SoundType.SHELF)
+			.ignitedByLava()
+			.strength(2F, 3F)
+	);
+
 	public static final BlockFamily FAMILY_CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
 		.button(CYPRESS_BUTTON)
 		.slab(CYPRESS_SLAB)
@@ -1678,6 +1714,17 @@ public final class WWBlocks {
 			.mapColor(PALM_LOG.defaultMapColor())
 			.overrideDescription(PALM_SIGN.getDescriptionId())
 			.overrideLootTable(PALM_SIGN.getLootTable())
+	);
+
+	public static final Block PALM_SHELF = register(
+		"palm_shelf",
+		ShelfBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.instrument(NoteBlockInstrument.BASS)
+			.sound(SoundType.SHELF)
+			.ignitedByLava()
+			.strength(2F, 3F)
 	);
 
 	public static final BlockFamily FAMILY_PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
@@ -1792,6 +1839,17 @@ public final class WWBlocks {
 			.overrideLootTable(MAPLE_SIGN.getLootTable())
 	);
 
+	public static final Block MAPLE_SHELF = register(
+		"maple_shelf",
+		ShelfBlock::new,
+		BlockBehaviour.Properties.of()
+			.mapColor(MapColor.WOOD)
+			.instrument(NoteBlockInstrument.BASS)
+			.sound(SoundType.SHELF)
+			.ignitedByLava()
+			.strength(2F, 3F)
+	);
+
 	public static final BlockFamily FAMILY_MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
 		.button(MAPLE_BUTTON)
 		.slab(MAPLE_SLAB)
@@ -1890,6 +1948,7 @@ public final class WWBlocks {
 	private static void registerBlockItem(Block block) {
 		BiFunction<Block, Item.Properties, Item> itemSupplier = BlockItem::new;
 		if (block instanceof DoorBlock || block instanceof TallFlowerBlock) itemSupplier = DoubleHighBlockItem::new;
+		if (block instanceof ShelfBlock) itemSupplier = (shelfBlock, properties) -> new BlockItem(shelfBlock, properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
 		Items.registerBlock(block, itemSupplier);
 	}
 
@@ -2043,8 +2102,6 @@ public final class WWBlocks {
 		registerDispenses();
 
 		var sign = (FabricBlockEntityType) BlockEntityType.SIGN;
-		var hangingSign = (FabricBlockEntityType) BlockEntityType.HANGING_SIGN;
-
 		sign.addSupportedBlock(BAOBAB_SIGN);
 		sign.addSupportedBlock(BAOBAB_WALL_SIGN);
 		sign.addSupportedBlock(WILLOW_SIGN);
@@ -2056,6 +2113,7 @@ public final class WWBlocks {
 		sign.addSupportedBlock(MAPLE_SIGN);
 		sign.addSupportedBlock(MAPLE_WALL_SIGN);
 
+		var hangingSign = (FabricBlockEntityType) BlockEntityType.HANGING_SIGN;
 		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
 		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
 		hangingSign.addSupportedBlock(WILLOW_HANGING_SIGN);
@@ -2066,6 +2124,13 @@ public final class WWBlocks {
 		hangingSign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
 		hangingSign.addSupportedBlock(MAPLE_HANGING_SIGN);
 		hangingSign.addSupportedBlock(MAPLE_WALL_HANGING_SIGN);
+
+		var shelf = (FabricBlockEntityType) BlockEntityType.SHELF;
+		shelf.addSupportedBlock(BAOBAB_SHELF);
+		shelf.addSupportedBlock(WILLOW_SHELF);
+		shelf.addSupportedBlock(CYPRESS_SHELF);
+		shelf.addSupportedBlock(PALM_SHELF);
+		shelf.addSupportedBlock(MAPLE_SHELF);
 
 		registerStrippable();
 		registerComposting();
@@ -2256,6 +2321,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(BAOBAB_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(BAOBAB_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(BAOBAB_SHELF, 30, 20);
 
 		flammableBlockRegistry.add(HOLLOWED_WILLOW_LOG, 5, 5);
 		flammableBlockRegistry.add(STRIPPED_HOLLOWED_WILLOW_LOG, 5, 5);
@@ -2277,6 +2343,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(WILLOW_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(WILLOW_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(WILLOW_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(WILLOW_SHELF, 30, 20);
 
 		flammableBlockRegistry.add(HOLLOWED_CYPRESS_LOG, 5, 5);
 		flammableBlockRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG, 5, 5);
@@ -2298,6 +2365,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(CYPRESS_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(CYPRESS_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(CYPRESS_SHELF, 30, 20);
 
 		flammableBlockRegistry.add(HOLLOWED_PALM_LOG, 5, 5);
 		flammableBlockRegistry.add(STRIPPED_HOLLOWED_PALM_LOG, 5, 5);
@@ -2319,6 +2387,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(PALM_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(PALM_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(PALM_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(PALM_SHELF, 30, 20);
 
 		flammableBlockRegistry.add(HOLLOWED_MAPLE_LOG, 5, 5);
 		flammableBlockRegistry.add(STRIPPED_HOLLOWED_MAPLE_LOG, 5, 5);
@@ -2345,6 +2414,7 @@ public final class WWBlocks {
 		flammableBlockRegistry.add(MAPLE_WALL_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_HANGING_SIGN, 5, 20);
 		flammableBlockRegistry.add(MAPLE_WALL_HANGING_SIGN, 5, 20);
+		flammableBlockRegistry.add(MAPLE_SHELF, 30, 20);
 
 		flammableBlockRegistry.add(ACACIA_LEAF_LITTER, 60, 100);
 		flammableBlockRegistry.add(AZALEA_LEAF_LITTER, 60, 100);
