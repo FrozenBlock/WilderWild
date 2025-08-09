@@ -215,8 +215,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public boolean killedEntity(ServerLevel serverLevel, LivingEntity livingEntity) {
-		boolean killed = super.killedEntity(serverLevel, livingEntity);
+	public boolean killedEntity(ServerLevel serverLevel, LivingEntity livingEntity, DamageSource source) {
+		boolean killed = super.killedEntity(serverLevel, livingEntity, source);
 		if (this.getBrain().isActive(Activity.FIGHT)) PenguinAi.addCallMemoryIfPenguinsClose(this);
 		return killed;
 	}

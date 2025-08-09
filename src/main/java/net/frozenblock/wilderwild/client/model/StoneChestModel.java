@@ -31,7 +31,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class StoneChestModel extends Model {
+public class StoneChestModel extends Model<Float> {
 	private static final String BASE = "bottom";
 	private static final String LID = "lid";
 	private final ModelPart lid;
@@ -68,7 +68,9 @@ public class StoneChestModel extends Model {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	public void setupAnim(float liftProgress) {
+	@Override
+	public void setupAnim(@NotNull Float liftProgress) {
+		super.setupAnim(liftProgress);
 		this.lid.xRot = -(liftProgress * Mth.HALF_PI);
 	}
 }

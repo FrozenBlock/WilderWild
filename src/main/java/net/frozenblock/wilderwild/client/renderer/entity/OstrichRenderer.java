@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
@@ -69,7 +69,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 	}
 
 	@Override
-	public void render(@NotNull OstrichRenderState renderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
+	public void submit(@NotNull OstrichRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
 		if (renderState.isInbred) {
 			this.adultModel = this.inbredModel;
 			this.babyModel = this.inbredBabyModel;
@@ -77,7 +77,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 			this.adultModel = this.normalModel;
 			this.babyModel = this.normalBabyModel;
 		}
-		super.render(renderState, poseStack, multiBufferSource, packedLight);
+		super.submit(renderState, poseStack, submitNodeCollector);
 	}
 
 

@@ -35,19 +35,23 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	public static final ResourceLocation STONE_CHEST_TEXTURE = WWConstants.id("stone");
+	private final MaterialSet materials;
 	private final StoneChestModel model;
 	private final Material material;
 	private final float openness;
 
-	public StoneChestSpecialRenderer(StoneChestModel stoneChestModel, Material material, float f) {
+	public StoneChestSpecialRenderer(MaterialSet materialSet, StoneChestModel stoneChestModel, Material material, float f) {
+		this.materials = materialSet;
 		this.model = stoneChestModel;
 		this.material = material;
 		this.openness = f;
@@ -55,7 +59,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 
 	@Override
 	public void render(ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, boolean bl) {
-		VertexConsumer vertexConsumer = this.material.buffer(multiBufferSource, RenderType::entitySolid);
+		VertexConsumer vertexConsumer = this.material.buffer(this.materials, multiBufferSource, RenderType::entitySolid);
 		this.model.setupAnim(this.openness);
 		this.model.renderToBuffer(poseStack, vertexConsumer, i, j);
 	}
@@ -87,10 +91,10 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public @NotNull SpecialModelRenderer<?> bake(@NotNull EntityModelSet entityModelSet) {
-			StoneChestModel stoneChestModel = new StoneChestModel(entityModelSet.bakeLayer(WWModelLayers.STONE_CHEST));
+		public @NotNull SpecialModelRenderer<?> bake(@NotNull BakingContext bakingContext) {
+			StoneChestModel stoneChestModel = new StoneChestModel(bakingContext.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
 			Material material = new Material(Sheets.CHEST_SHEET, this.texture.withPrefix("entity/stone_chest/"));
-			return new StoneChestSpecialRenderer(stoneChestModel, material, this.openness);
+			return new StoneChestSpecialRenderer(bakingContext.materials(), stoneChestModel, material, this.openness);
 		}
 	}
 }

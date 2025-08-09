@@ -472,7 +472,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.setId(packet.getId());
 		this.setUUID(packet.getUUID());
 		this.absSnapTo(d, e, f, 0, 0);
-		this.setDeltaMovement(packet.getXa(), packet.getYa(), packet.getZa());
+		this.setDeltaMovement(packet.getMovement());
 	}
 
 	@Override

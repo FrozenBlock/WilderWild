@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractChestBlock;
@@ -56,11 +57,13 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	public static final Material STONE_SCULK = getStoneChestTextureId("ancient");
 	public static final Material STONE_LEFT_SCULK = getStoneChestTextureId("ancient_left");
 	public static final Material STONE_RIGHT_SCULK = getStoneChestTextureId("ancient_right");
+	private final MaterialSet materials;
 	private final StoneChestModel singleModel;
 	private final StoneChestModel doubleLeftModel;
 	private final StoneChestModel doubleRightModel;
 
 	public StoneChestRenderer(@NotNull BlockEntityRendererProvider.Context context) {
+		this.materials = context.materials();
 		this.singleModel = new StoneChestModel(context.bakeLayer(WWModelLayers.STONE_CHEST));
 		this.doubleLeftModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT));
 		this.doubleRightModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT));
@@ -107,7 +110,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 			openProg = 1F - openProg * openProg * openProg;
 			int i = propertySource.apply(new BrightnessCombiner<>()).applyAsInt(light);
 			Material spriteIdentifier = getStoneChestTexture(chestType, entity.getBlockState().getValue(WWBlockStateProperties.HAS_SCULK));
-			VertexConsumer vertexConsumer = spriteIdentifier.buffer(buffer, RenderType::entityCutout);
+			VertexConsumer vertexConsumer = spriteIdentifier.buffer(this.materials, buffer, RenderType::entityCutout);
 			if (isDouble) {
 				if (chestType == ChestType.LEFT) {
 					this.render(poseStack, vertexConsumer, this.doubleLeftModel, openProg, i, overlay);

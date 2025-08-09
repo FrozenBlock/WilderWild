@@ -94,7 +94,7 @@ public class GeyserBlockEntity extends BlockEntity {
 
 	@Override
 	public boolean triggerEvent(int eventId, int data) {
-		if (eventId == 1 && this.level.isClientSide) {
+		if (eventId == 1 && this.level.isClientSide()) {
 			this.eruptionProgress = 0F;
 			this.ticksUntilNextEvent = data;
 			return true;

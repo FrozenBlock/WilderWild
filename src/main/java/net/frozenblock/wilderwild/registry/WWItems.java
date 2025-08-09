@@ -185,17 +185,17 @@ public final class WWItems {
 	public static final Item FERMENTED_SCORCHED_EYE = register("fermented_scorched_eye", Item::new, new Item.Properties());
 
 	// SPAWN EGGS & BUCKETS
-	public static final SpawnEggItem FIREFLY_SPAWN_EGG = register("firefly_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.FIREFLY, properties), new Item.Properties());
-	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = register("jellyfish_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.JELLYFISH, properties), new Item.Properties());
+	public static final SpawnEggItem FIREFLY_SPAWN_EGG = register("firefly_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.FIREFLY));
+	public static final SpawnEggItem JELLYFISH_SPAWN_EGG = register("jellyfish_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.JELLYFISH));
 	public static final MobBucketItem JELLYFISH_BUCKET = register("jellyfish_bucket", properties -> new MobBucketItem(WWEntityTypes.JELLYFISH, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, properties), new Item.Properties().stacksTo(1));
-	public static final SpawnEggItem CRAB_SPAWN_EGG = register("crab_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.CRAB, properties), new Item.Properties());
+	public static final SpawnEggItem CRAB_SPAWN_EGG = register("crab_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.CRAB));
 	public static final MobBucketItem CRAB_BUCKET = register("crab_bucket", properties -> new MobBucketItem(WWEntityTypes.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties), new Item.Properties().stacksTo(1));
 
-	public static final SpawnEggItem OSTRICH_SPAWN_EGG = register("ostrich_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.OSTRICH, properties), new Item.Properties());
-	public static final SpawnEggItem SCORCHED_SPAWN_EGG = register("scorched_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.SCORCHED, properties), new Item.Properties());
-	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = register("butterfly_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.BUTTERFLY, properties), new Item.Properties());
-	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.MOOBLOOM, properties), new Item.Properties());
-	public static final SpawnEggItem PENGUIN_SPAWN_EGG = register("penguin_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.PENGUIN, properties), new Item.Properties());
+	public static final SpawnEggItem OSTRICH_SPAWN_EGG = register("ostrich_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.OSTRICH));
+	public static final SpawnEggItem SCORCHED_SPAWN_EGG = register("scorched_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.SCORCHED));
+	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = register("butterfly_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.BUTTERFLY));
+	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.MOOBLOOM));
+	public static final SpawnEggItem PENGUIN_SPAWN_EGG = register("penguin_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.PENGUIN));
 
 	// INSTRUMENT
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));

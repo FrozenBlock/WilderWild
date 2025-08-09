@@ -184,7 +184,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	public boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
 		if (!isMinimumAge(state)) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 				if (isFullyGrown(state)) {
 					ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, new ItemStack(WWBlocks.SHRUB));
@@ -245,7 +245,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (!level.isClientSide && !SnowloggingUtils.isSnowlogged(state)) {
+		if (!level.isClientSide() && !SnowloggingUtils.isSnowlogged(state)) {
 			boolean creative = player.isCreative();
 			boolean canContinue = true;
 			if (!creative) {

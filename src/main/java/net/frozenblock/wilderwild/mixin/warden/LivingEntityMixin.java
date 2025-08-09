@@ -52,7 +52,7 @@ public class LivingEntityMixin {
 			Level level = warden.level();
 			int deathTicks = wilderWarden.wilderWild$getDeathTicks() + 1;
 			wilderWarden.wilderWild$setDeathTicks(deathTicks);
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				if (deathTicks == 35) {
 					warden.deathTime = 35;
 				} else if (deathTicks == 53) {

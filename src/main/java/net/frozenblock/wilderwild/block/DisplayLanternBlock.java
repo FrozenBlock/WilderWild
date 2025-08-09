@@ -108,7 +108,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public InteractionResult useItemOn(
 		@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit
 	) {
-		if (level.isClientSide) return InteractionResult.SUCCESS;
+		if (level.isClientSide()) return InteractionResult.SUCCESS;
 		BlockEntity entity = level.getBlockEntity(pos);
 		if (entity instanceof DisplayLanternBlockEntity lantern) {
 			if (lantern.invEmpty()) {
@@ -268,7 +268,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ?
+		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
 			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
 	}
@@ -279,7 +279,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+	protected int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos, Direction direction) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof DisplayLanternBlockEntity displayLanternBlockEntity) return displayLanternBlockEntity.getComparatorOutput();
 		return 0;
@@ -287,7 +287,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		if (!level.isClientSide && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
+		if (!level.isClientSide() && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
 			var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, stack) == 0) {
 				lanternEntity.spawnFireflies(level);

@@ -41,6 +41,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.CompoundContainer;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
@@ -86,7 +87,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		}
 
 		@Override
-		protected boolean isOwnContainer(@NotNull Player player) {
+		public boolean isOwnContainer(@NotNull Player player) {
 			if (player.containerMenu instanceof ChestMenu chest) {
 				Container inventory = chest.getContainer();
 				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer container && container.contains(StoneChestBlockEntity.this);
@@ -234,7 +235,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
-		if (!level.isClientSide && level instanceof ServerLevel server) {
+		if (!level.isClientSide() && level instanceof ServerLevel server) {
 			if (this.highestLidPoint > 0.2F) {
 				server.sendParticles(
 					new BlockParticleOption(ParticleTypes.BLOCK, state),
@@ -279,7 +280,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public void syncLidValuesAndUpdate(@Nullable StoneChestBlockEntity otherStoneChest) {
-		boolean shouldSend = !this.level.isClientSide && this.openProgress != this.prevOpenProgress;
+		boolean shouldSend = !this.level.isClientSide() && this.openProgress != this.prevOpenProgress;
 		if (otherStoneChest != null) {
 			this.syncValues(otherStoneChest);
 			if (shouldSend) {
@@ -322,13 +323,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void startOpen(@NotNull Player player) {
+	public void startOpen(ContainerUser containerUser) {
 	}
 
 	@Override
-	public void stopOpen(@NotNull Player player) {
-		if (!this.remove && !player.isSpectator()) {
-			this.stoneStateManager.decrementOpeners(player, Objects.requireNonNull(this.getLevel()), this.getBlockPos(), this.getBlockState());
+	public void stopOpen(ContainerUser containerUser) {
+		if (!this.remove && !containerUser.getLivingEntity().isSpectator()) {
+			this.stoneStateManager.decrementOpeners(containerUser.getLivingEntity(), this.getLevel(), this.getBlockPos(), this.getBlockState());
 		}
 	}
 
@@ -352,7 +353,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (!data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
+			if (!data.copyTag().contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}
@@ -362,7 +363,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
 			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-			if (data.contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
+			if (data.copyTag().contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
 	}

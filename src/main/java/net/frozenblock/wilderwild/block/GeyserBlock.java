@@ -97,12 +97,12 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos) {
+	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos, Direction direction) {
 		GeyserStage stage = state.getValue(GEYSER_STAGE);
 		if (stage == GeyserStage.DORMANT) return 0;
 		if (stage == GeyserStage.ACTIVE) return 5;
 		if (stage == GeyserStage.ERUPTING) return 15;
-		return super.getAnalogOutputSignal(state, world, pos);
+		return super.getAnalogOutputSignal(state, world, pos, direction);
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			boolean hasNeighborSignal = level.hasNeighborSignal(blockPos);
 			if (hasNeighborSignal != blockState.getValue(POWERED)) {
 				BlockState newState = blockState.setValue(POWERED, hasNeighborSignal);
@@ -221,7 +221,7 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ?
+		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
 			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
 	}

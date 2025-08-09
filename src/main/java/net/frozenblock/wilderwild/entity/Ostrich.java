@@ -239,7 +239,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		this.beakState = this.makeBeakState();
 		this.beakVoxelShape = this.getBeakState().getCollisionShape(this.level(), BlockPos.containing(this.getBeakPos()), CollisionContext.of(this));
 
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.handleAttackAndStuck((ServerLevel) this.level());
 
 			if (this.getFirstPassenger() != null || this.isAggressive()) {
@@ -576,7 +576,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		boolean isBaby = this.isBaby();
 		if (isBaby) {
 			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
-			if (!this.level().isClientSide) this.ageUp(10);
+			if (!this.level().isClientSide()) this.ageUp(10);
 		}
 
 		if (!isHurt && !bl2 && !isBaby) return false;
@@ -945,7 +945,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	public void spawnBlockParticles(boolean beakBury, boolean backwards) {
-		if (!this.level().isClientSide && this.level() instanceof ServerLevel server && this.beakVoxelShape != null) {
+		if (!this.level().isClientSide() && this.level() instanceof ServerLevel server && this.beakVoxelShape != null) {
 			if (this.getBeakState().shouldSpawnTerrainParticles() && this.getBeakState().getRenderShape() != RenderShape.INVISIBLE) {
 				Vec3 particlePos = this.getBeakPos();
 				Vec3 deltaBeakPos = particlePos.subtract(this.getPrevBeakPos()).scale(!backwards ? 2D : -2D);

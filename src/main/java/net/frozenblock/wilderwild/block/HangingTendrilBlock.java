@@ -198,7 +198,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, WWBlockEntityTypes.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
+		return !level.isClientSide() ? createTickerHelper(type, WWBlockEntityTypes.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.serverTick(worldx, pos, statex)
 		) : createTickerHelper(type, WWBlockEntityTypes.HANGING_TENDRIL, (worldx, pos, statex, blockEntity) ->
 			blockEntity.clientTick(worldx ,statex));
@@ -261,7 +261,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction direction) {
 		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingEntity) {
 			return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
 		}
@@ -290,7 +290,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
-			if (level.isClientSide) return InteractionResult.SUCCESS;
+			if (level.isClientSide()) return InteractionResult.SUCCESS;
 			if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity tendrilEntity) {
 				if (tendrilEntity.getStoredXP() > 0) {
 					level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));

@@ -159,7 +159,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			boolean shears = stack.is(Items.SHEARS);
 			onPricklyPearPick(level, pos, state, shears, player);
 			if (shears) {
@@ -172,7 +172,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 
 	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, @Nullable Entity entity) {
 		basePick(level, pos, state);
-		if (level.isClientSide) return;
+		if (level.isClientSide()) return;
 		if (shears) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));

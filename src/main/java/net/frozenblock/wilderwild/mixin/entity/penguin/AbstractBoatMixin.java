@@ -66,7 +66,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			int boostTicks = this.wilderWild$getBoatBoostTicks();
 			this.wilderWild$setBoatBoostTicks(Math.max(boostTicks - 1, 0));
 			this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);

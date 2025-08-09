@@ -67,8 +67,8 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 	@ModifyExpressionValue(
 		method = "playerWillDestroy",
 		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/world/level/Level;isClientSide:Z"
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;isClientSide()Z"
 		)
 	)
 	public boolean wilderWild$playerWillDestroy(boolean original, Level level, BlockPos pos, BlockState state, Player player) {

@@ -126,7 +126,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			onShear(level, pos, state, player);
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 		}
@@ -134,7 +134,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 
 	public void onShear(@NotNull Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
@@ -185,7 +185,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		@NotNull Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier
 	) {
-		if (!level.isClientSide) return;
+		if (!level.isClientSide()) return;
 		AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
 		if (shape.intersects(entity.getBoundingBox())) {
 			Vec3 movement = entity.getDeltaMovement();

@@ -28,15 +28,15 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.TumbleweedRenderS
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
@@ -45,17 +45,18 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	private static final ResourceLocation TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	private static final ResourceLocation CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
 	private final ItemRenderer itemRenderer;
+	private final ItemModelResolver itemModelResolver;
 
 	public TumbleweedRenderer(@NotNull Context context) {
 		super(context, new TumbleweedModel(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
 		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
+		this.itemModelResolver = context.getItemModelResolver();
 	}
 
 	@Override
-	public void render(TumbleweedRenderState renderState, PoseStack poseStack, MultiBufferSource buffer, int i) {
-		super.render(renderState, poseStack, buffer, i);
-		ItemStack stack = renderState.visibleItem;
-		if (!stack.isEmpty()) {
+	public void submit(TumbleweedRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+		super.submit(renderState, poseStack, submitNodeCollector);
+		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(renderState.itemX, 0.4375D, renderState.itemZ);
 			Quaternionf quaternionf = new Quaternionf().rotationXYZ(
@@ -64,7 +65,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 				renderState.roll * Mth.DEG_TO_RAD
 			);
 			poseStack.mulPose(quaternionf);
-			this.itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, i, OverlayTexture.NO_OVERLAY, poseStack, buffer, renderState.level, 1);
+			submitNodeCollector.submitItem(poseStack, renderState.item, renderState.lightCoords, OverlayTexture.NO_OVERLAY);
 			poseStack.popPose();
 		}
 	}
@@ -96,7 +97,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 		renderState.pitch = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD;
 		renderState.roll = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD;
 		renderState.isCannonball = entity.isCannonball();
-		renderState.visibleItem = entity.getVisibleItem();
+		this.itemModelResolver.updateForLiving(renderState.item, entity.getVisibleItem(), ItemDisplayContext.GROUND, entity);
 		renderState.level = entity.level();
 	}
 }

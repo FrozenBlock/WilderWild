@@ -106,7 +106,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	public void clientTick(@NotNull Level level, @NotNull BlockState state) {
-		if (!level.isClientSide) return;
+		if (!level.isClientSide()) return;
 		boolean twitching = this.ticksToStopTwitching > 0;
 		boolean milking = this.ringOutTicksLeft > 0;
 		boolean active = !SculkSensorBlock.canActivate(state);

@@ -129,7 +129,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	public @NotNull InteractionResult mobInteract(@NotNull Player player, InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		if (!this.isBaby() && this.isFood(itemStack) && !this.hasMaxFlowersLeft()) {
-			if (!this.level().isClientSide) {
+			if (!this.level().isClientSide()) {
 				this.usePlayerItem(player, interactionHand, itemStack);
 				this.incrementFlowersLeft();
 				this.level().broadcastEntityEvent(this, GROW_FLOWER_EVENT_ID);

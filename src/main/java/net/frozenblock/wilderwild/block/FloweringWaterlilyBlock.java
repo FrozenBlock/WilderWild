@@ -77,7 +77,7 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 		@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			onShear(level, pos, state, player);
 			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 		}
@@ -85,7 +85,7 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 
 	public void onShear(@NotNull Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 			level.gameEvent(entity, GameEvent.SHEAR, pos);

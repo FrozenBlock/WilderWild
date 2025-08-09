@@ -44,7 +44,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 
 	public DisplayLanternRenderer(@NotNull Context ctx) {
 		ctx.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
-		this.itemRenderer = ctx.getItemRenderer();
+		this.itemRenderer = ctx.itemRenderer();
 	}
 
 	@NotNull

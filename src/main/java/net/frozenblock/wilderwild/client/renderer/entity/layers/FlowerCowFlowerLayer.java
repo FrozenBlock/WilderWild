@@ -23,8 +23,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.minecraft.client.model.CowModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowModel> {
@@ -45,10 +46,12 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, FlowerCowRenderState renderState, float f, float g) {
+	public void submit(
+		@NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector, int i, @NotNull FlowerCowRenderState renderState, float f, float g
+	) {
 		if (!renderState.isBaby) {
-			boolean bl = renderState.appearsGlowing && renderState.isInvisible;
-			if (!renderState.isInvisible|| bl) {
+			boolean bl = renderState.appearsGlowing() && renderState.isInvisible;
+			if (!renderState.isInvisible || bl) {
 				BlockState blockState = renderState.flowerBlockState;
 				int m = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
 				BlockStateModel blockStateModel = this.blockRenderer.getBlockModel(blockState);
@@ -60,7 +63,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.translate(0F, -0.35F, 0.5F);
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
+					this.submitFlowerBlock(poseStack, submitNodeCollector, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -71,7 +74,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(-32));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
+					this.submitFlowerBlock(poseStack, submitNodeCollector, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -82,7 +85,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(112));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
+					this.submitFlowerBlock(poseStack, submitNodeCollector, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 
@@ -94,30 +97,20 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 					poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
 					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, blockStateModel);
+					this.submitFlowerBlock(poseStack, submitNodeCollector, i, bl, blockState, m, blockStateModel);
 					poseStack.popPose();
 				}
 			}
 		}
 	}
 
-	private void renderFlowerBlock(
-		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, boolean bl, BlockState blockState, int j, BlockStateModel blockStateModel
+	private void submitFlowerBlock(
+		PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, boolean outlined, BlockState blockState, int j, BlockStateModel blockStateModel
 	) {
-		if (bl) {
-			this.blockRenderer.getModelRenderer()
-				.renderModel(
-					poseStack.last(),
-					multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
-					blockStateModel,
-					0F,
-					0F,
-					0F,
-					i,
-					j
-				);
-		} else {
-			this.blockRenderer.renderSingleBlock(blockState, poseStack, multiBufferSource, i, j);
+		if (outlined) {
+			submitNodeCollector.submitBlockModel(poseStack, RenderType.outline(TextureAtlas.LOCATION_BLOCKS), blockStateModel, 0F, 0F, 0F, i, j);
+			return;
 		}
+		submitNodeCollector.submitBlock(poseStack, blockState, i, j);
 	}
 }

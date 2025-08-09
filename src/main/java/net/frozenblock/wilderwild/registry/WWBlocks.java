@@ -265,7 +265,7 @@ public final class WWBlocks {
 	public static final PricklyPearCactusBlock PRICKLY_PEAR_CACTUS = registerWithoutItem("prickly_pear",
 		PricklyPearCactusBlock::new,
 		Properties.ofFullCopy(Blocks.CACTUS)
-			.noCollission()
+			.noCollision()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 
@@ -516,7 +516,7 @@ public final class WWBlocks {
 		HangingTendrilBlock::new,
 		Properties.ofFullCopy(Blocks.SCULK_SENSOR)
 			.strength(0.7F)
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.randomTicks()
 			.lightLevel(state -> 1)
@@ -977,7 +977,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK)
 			.lightLevel(state -> 1)
 			.randomTicks()
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
@@ -988,7 +988,7 @@ public final class WWBlocks {
 		ShelfFungiBlock::new,
 		Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK)
 			.randomTicks()
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
@@ -1001,7 +1001,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.NETHER)
 			.strength(0.2F)
 			.randomTicks()
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(SoundType.FUNGUS)
 			.hasPostProcess(Blocks::always)
@@ -1014,7 +1014,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.NETHER)
 			.strength(0.2F)
 			.randomTicks()
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(SoundType.FUNGUS)
 			.hasPostProcess(Blocks::always)
@@ -1034,7 +1034,7 @@ public final class WWBlocks {
 	properties -> new PaleMushroomBlock(ResourceKey.create(Registries.CONFIGURED_FEATURE, WWConstants.id("huge_pale_mushroom")), properties),
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.COLOR_GRAY)
-			.noCollission()
+			.noCollision()
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.GRASS)
@@ -1049,7 +1049,7 @@ public final class WWBlocks {
 		PaleShelfFungiBlock::new,
 		Properties.ofFullCopy(PALE_MUSHROOM_BLOCK)
 			.randomTicks()
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
 			.hasPostProcess(Blocks::always)
@@ -1068,7 +1068,7 @@ public final class WWBlocks {
 		SpongeBudBlock::new,
 		Properties.ofFullCopy(Blocks.SPONGE)
 			.strength(0.1F)
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(SoundType.SPONGE)
 	);
@@ -1078,7 +1078,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
 			.forceSolidOn()
-			.noCollission()
+			.noCollision()
 			.sound(SoundType.CORAL_BLOCK)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1088,7 +1088,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.WATER)
 			.instabreak()
-			.noCollission()
+			.noCollision()
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
 			.sound(WWSoundTypes.SEA_ANEMONE)
@@ -1100,7 +1100,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.WATER)
 			.instabreak()
-			.noCollission()
+			.noCollision()
 			.sound(SoundType.WET_GRASS)
 			.pushReaction(PushReaction.DESTROY)
 	);
@@ -1110,7 +1110,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.WATER)
 			.strength(0.2F)
-			.noCollission()
+			.noCollision()
 			.randomTicks()
 			.sound(SoundType.CORAL_BLOCK)
 			.pushReaction(PushReaction.DESTROY)
@@ -1137,7 +1137,7 @@ public final class WWBlocks {
 		BlockBehaviour.Properties.of()
 			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.forceSolidOn()
-			.noCollission()
+			.noCollision()
 			.strength(0.1F)
 			.sound(SoundType.MOSS_CARPET)
 			.pushReaction(PushReaction.DESTROY)
@@ -2033,7 +2033,7 @@ public final class WWBlocks {
 	public static Properties nematocystProperties(@NotNull MapColor mapColor) {
 		return Properties.of()
 			.mapColor(mapColor)
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.NEMATOCYST)
 			.pushReaction(PushReaction.DESTROY);

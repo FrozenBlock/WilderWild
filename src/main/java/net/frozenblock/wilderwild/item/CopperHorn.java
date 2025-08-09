@@ -46,7 +46,7 @@ public class CopperHorn extends InstrumentItem {
 		float range = instrument.range() / 16F;
 		int note = (int) ((-user.getXRot() + 90) / 7.5D);
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			float soundPitch = !user.isShiftKeyDown() ?
 				(float) Math.pow(2D, (note - 12F) / 12D) :
 				(float) Math.pow(2D, 0.01111F * -user.getXRot());

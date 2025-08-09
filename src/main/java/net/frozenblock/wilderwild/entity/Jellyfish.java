@@ -353,7 +353,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 		}
 
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			if (this.forcedAgeTimer > 0) {
 				if (this.forcedAgeTimer % 4 == 0) {
 					this.level().addParticle(
@@ -425,7 +425,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void stingEntities() {
-		if (this.isAlive() && !this.level().isClientSide) {
+		if (this.isAlive() && !this.level().isClientSide()) {
 			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08D));
 			boolean baby = this.isBaby();
 			float damage = baby ? 1F : 3F;
@@ -529,7 +529,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
 		} else if (this.canReproduce()) {
-			if (this.level().isClientSide) return InteractionResult.CONSUME;
+			if (this.level().isClientSide()) return InteractionResult.CONSUME;
 			if (this.level() instanceof ServerLevel serverLevel) {
 				if (!player.getAbilities().instabuild) itemStack.shrink(1);
 				this.fullness += 1;
@@ -657,7 +657,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public int getAge() {
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			return this.entityData.get(IS_BABY) ? -1 : 1;
 		}
 		return this.age;

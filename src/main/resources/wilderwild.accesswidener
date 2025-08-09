@@ -36,7 +36,7 @@ accessible method net/minecraft/world/level/levelgen/structure/ScatteredFeatureP
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece generateBox (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece fillColumnDown (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
-accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure maxDistanceFromCenter I
+accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure maxDistanceFromCenter Lnet/minecraft/world/level/levelgen/structure/structures/JigsawStructure$MaxDistance;
 accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure startJigsawName Ljava/util/Optional;
 accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure maxDepth I
 accessible field net/minecraft/world/level/levelgen/structure/structures/JigsawStructure startHeight Lnet/minecraft/world/level/levelgen/heightproviders/HeightProvider;
@@ -77,10 +77,6 @@ accessible field net/minecraft/client/model/SpiderModel rightFrontLeg Lnet/minec
 accessible field net/minecraft/client/model/SpiderModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
 
 # Entity Rendering
-accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer alphaFunction Lnet/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer$AlphaFunction;
-accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer drawSelector Lnet/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer$DrawSelector;
-accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer texture Lnet/minecraft/resources/ResourceLocation;
-accessible field net/minecraft/client/renderer/entity/layers/LivingEntityEmissiveLayer bufferProvider Ljava/util/function/Function;
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
 mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
@@ -92,9 +88,6 @@ accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/worl
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
 extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
-
-# Projectiles
-accessible field net/minecraft/world/entity/projectile/Projectile hasBeenShot Z
 
 # Damage Sources
 accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;

@@ -139,7 +139,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	protected void onProjectileHit(@NotNull Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
-		if (level.isClientSide) return;
+		if (level.isClientSide()) return;
 		BlockPos blockPos = blockHitResult.getBlockPos();
 		if (level instanceof ServerLevel serverLevel
 			&& projectile.mayInteract(serverLevel, blockPos)
@@ -468,8 +468,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, BlockState blockState, BlockEntityType<T> type) {
-		return !level.isClientSide ? createTickerHelper(type, WWBlockEntityTypes.ICICLE, (worldx, pos, statex, blockEntity) ->
-			blockEntity.serverTick(worldx, pos, statex)
-		) : null;
+		return !level.isClientSide()
+			? createTickerHelper(type, WWBlockEntityTypes.ICICLE, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex))
+			: null;
 	}
 }

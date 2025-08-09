@@ -119,7 +119,7 @@ public class StoneChestBlock extends ChestBlock {
 	};
 
 	public StoneChestBlock(@NotNull Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, @NotNull Properties properties) {
-		super(supplier, properties);
+		super(supplier, WWSounds.BLOCK_STONE_CHEST_OPEN, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(SCULK, false));
 	}
 
@@ -156,7 +156,7 @@ public class StoneChestBlock extends ChestBlock {
 	@Override
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
-		if (level.isClientSide) return InteractionResult.SUCCESS;
+		if (level.isClientSide()) return InteractionResult.SUCCESS;
 
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
 			if (stoneChest.closing) return InteractionResult.FAIL;
@@ -222,7 +222,9 @@ public class StoneChestBlock extends ChestBlock {
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-		return level.isClientSide ? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::clientStoneTick) : BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
+		return level.isClientSide()
+			? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::clientStoneTick)
+			: BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
 	}
 
 	@Override
@@ -365,7 +367,7 @@ public class StoneChestBlock extends ChestBlock {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction direction) {
 		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChestBlockEntity) return stoneChestBlockEntity.getComparatorOutput();
 		return 0;
 	}

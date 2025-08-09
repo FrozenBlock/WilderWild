@@ -303,7 +303,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void tick() {
-		boolean isClient = this.level().isClientSide;
+		boolean isClient = this.level().isClientSide();
 		if (this.level() instanceof ServerLevel serverLevel) {
 			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 		}

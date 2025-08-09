@@ -151,7 +151,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
 		if (isFullyGrown(state)) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				Tumbleweed.spawnFromShears(level, pos);
 				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));

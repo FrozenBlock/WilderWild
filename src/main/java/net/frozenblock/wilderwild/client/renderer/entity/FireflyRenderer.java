@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderStat
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -49,10 +50,9 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		super(context, new NoOpModel<>(context.bakeLayer(WWModelLayers.FIREFLY)), 0.15F);
 	}
 
-	//CREDIT TO magistermaks ON GITHUB!!
 	public static void renderFirefly(
 		@NotNull PoseStack poseStack,
-		@NotNull MultiBufferSource buffer,
+		@NotNull SubmitNodeCollector submitNodeCollector,
 		int packedLight,
 		int overlay,
 		float calcColor,
@@ -63,15 +63,52 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		float zOffset,
 		Quaternionf rotation
 	) {
+		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, rotation);
+
+		submitNodeCollector.submitCustomGeometry(
+			poseStack,
+			LAYER,
+			(pose, vertexConsumer) -> renderBaseLayer(pose, vertexConsumer, packedLight, overlay)
+		);
+		submitNodeCollector.submitCustomGeometry(
+			poseStack,
+			RenderType.entityTranslucentEmissive(colorTexture),
+			(pose, vertexConsumer) -> renderColorLayer(pose, vertexConsumer, calcColor, packedLight, overlay)
+		);
+
+		poseStack.popPose();
+	}
+
+	public static void renderFirefly(
+		@NotNull PoseStack poseStack,
+		@NotNull MultiBufferSource bufferSource,
+		int packedLight,
+		int overlay,
+		float calcColor,
+		@NotNull ResourceLocation colorTexture,
+		float scale,
+		float xOffset,
+		float yOffset,
+		float zOffset,
+		Quaternionf rotation
+	) {
+		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, rotation);
+		PoseStack.Pose pose = poseStack.last();
+		renderBaseLayer(pose, bufferSource.getBuffer(LAYER), packedLight, overlay);
+		renderColorLayer(pose, bufferSource.getBuffer(RenderType.entityTranslucentEmissive(colorTexture)), calcColor, packedLight, overlay);
+		poseStack.popPose();
+	}
+
+	private static void setupPoseStack(@NotNull PoseStack poseStack, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, scale);
 		poseStack.translate(xOffset, yOffset, zOffset);
 		poseStack.mulPose(rotation);
 		poseStack.mulPose(QUAT_180);
+	}
 
-		PoseStack.Pose pose = poseStack.last();
-		VertexConsumer vertexConsumer = buffer.getBuffer(LAYER);
-
+	//CREDIT TO magistermaks ON GITHUB!!
+	private static void renderBaseLayer(PoseStack.Pose pose, @NotNull VertexConsumer vertexConsumer, int packedLight, int overlay) {
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
 			.setColor(1F, 1F, 1F, 1F)
@@ -100,10 +137,10 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
+	}
 
-		RenderType colorRenderType = RenderType.entityTranslucentEmissive(colorTexture);
-		vertexConsumer = buffer.getBuffer(colorRenderType);
-
+	//CREDIT TO magistermaks ON GITHUB!!
+	private static void renderColorLayer(PoseStack.Pose pose, @NotNull VertexConsumer vertexConsumer, float calcColor, int packedLight, int overlay) {
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
 			.setColor(calcColor, calcColor, calcColor, calcColor)
@@ -132,19 +169,17 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.setOverlay(overlay)
 			.setLight(packedLight)
 			.setNormal(pose, 0F, 1F, 0F);
-
-		poseStack.popPose();
 	}
 
 	@Override
-	public void render(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, MultiBufferSource buffer, int light) {
+	public void submit(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		poseStack.pushPose();
 		float f = renderState.scale;
 		poseStack.scale(f, f, f);
 		renderFirefly(
 			poseStack,
-			buffer,
-			light,
+			submitNodeCollector,
+			renderState.lightCoords,
 			LivingEntityRenderer.getOverlayCoords(renderState, 0F),
 			renderState.calcColor,
 			this.getTextureLocation(renderState),
@@ -156,9 +191,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		);
 		poseStack.popPose();
 
-		if (renderState.nameTag != null) {
-			this.renderNameTag(renderState, renderState.nameTag, poseStack, buffer, light);
-		}
+		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, submitNodeCollector);
 	}
 
 	@Override

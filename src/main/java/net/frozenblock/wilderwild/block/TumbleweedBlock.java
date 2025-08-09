@@ -80,7 +80,7 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	}
 
 	public static boolean onShear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			Tumbleweed.spawnFromShears(level, pos);
 			level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 			level.gameEvent(entity, GameEvent.SHEAR, pos);

@@ -190,7 +190,7 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 
 	public void spawnFireflies() {
 		if (this.level == null) return;
-		if (!this.level.isClientSide) this.spawnFireflies(this.level);
+		if (!this.level.isClientSide()) this.spawnFireflies(this.level);
 	}
 
 	public void spawnFireflies(@NotNull Level level) {

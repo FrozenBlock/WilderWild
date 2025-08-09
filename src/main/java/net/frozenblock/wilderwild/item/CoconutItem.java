@@ -64,7 +64,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, itemStack, player, 0F, 0.8F, 1.4F);
 		}
 		player.awardStat(Stats.ITEM_USED.get(this));

@@ -86,7 +86,7 @@ public interface WWBottleable {
 			livingEntity.wilderWild$saveToBottleTag(bottleStack);
 
 			Level level = livingEntity.level();
-			if (!level.isClientSide) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
+			if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
 
 			if (!player.getAbilities().instabuild) player.getItemInHand(interactionHand).shrink(1);
 
