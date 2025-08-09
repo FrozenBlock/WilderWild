@@ -132,8 +132,9 @@ public class FlowerCow extends AbstractCow implements Shearable {
 				this.usePlayerItem(player, interactionHand, itemStack);
 				this.incrementFlowersLeft();
 				this.level().broadcastEntityEvent(this, GROW_FLOWER_EVENT_ID);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS_SERVER;
 			}
+			return InteractionResult.CONSUME;
 		} else if (itemStack.is(Items.SHEARS)) {
 			if (this.level() instanceof ServerLevel serverLevel && this.readyForShearing()) {
 				this.shear(serverLevel, SoundSource.PLAYERS, itemStack);
