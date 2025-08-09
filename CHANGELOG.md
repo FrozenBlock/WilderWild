@@ -93,6 +93,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Moobloom variants are now selected based upon the flower features in the biome.
   - As a result of this, all biome tags relating to Moobloom variants have been removed.
 - Mooblooms will now prefer to walk towards flowers of the same type as themselves.
+- Fixed an issue where feeding a Moobloom to regrow its flowers would not make the play swing their arm in 1.21.2+.
 - Butterflies will now prefer moving towards flowers slightly more.
 - Updated mob variant selection on 1.21.6+ to be consistent with Vanilla.
   - This change does not apply to Mooblooms.
