@@ -27,6 +27,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
 - Wilder Wild's Sandstone sounds block tag now uses Fabric's conventional Sandstone block tag.
+- Moved Leaf Litters from the `minecraft:inside_step_sound_blocks` block tag to the `minecraft:combination_step_sound_blocks` block tag in 1.21.5+.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
 - Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
@@ -92,6 +93,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Moobloom variants are now selected based upon the flower features in the biome.
   - As a result of this, all biome tags relating to Moobloom variants have been removed.
 - Mooblooms will now prefer to walk towards flowers of the same type as themselves.
+- Fixed an issue where feeding a Moobloom to regrow its flowers would not make the play swing their arm in 1.21.2+.
 - Butterflies will now prefer moving towards flowers slightly more.
 - Updated mob variant selection on 1.21.6+ to be consistent with Vanilla.
   - This change does not apply to Mooblooms.
