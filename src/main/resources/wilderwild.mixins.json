@@ -132,7 +132,6 @@
     "client.block_break.MultiPlayerGameModeMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",
-    "client.easter.WardenEmissiveLayerMixin",
     "client.enderman.EnderManMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",
     "client.mesoglea.ClientLevelMixin",
