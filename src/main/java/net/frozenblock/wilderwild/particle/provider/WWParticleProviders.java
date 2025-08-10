@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.particle.provider;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.Particle;
@@ -27,7 +26,6 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.util.RandomSource;
 
 @Environment(EnvType.CLIENT)
 public class WWParticleProviders {
@@ -40,18 +38,16 @@ public class WWParticleProviders {
 
 		@Override
 		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			RandomSource random = AdvancedMath.random();
 			FlameParticle flameParticle = new FlameParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
 			flameParticle.pickSprite(this.sprite);
 			flameParticle.yd = ySpeed * 0.05D;
-			flameParticle.xd = (0.5D - random.nextDouble()) * 0.05D;
-			flameParticle.zd = (0.5D - random.nextDouble()) * 0.05D;
+			flameParticle.xd = (0.5D - level.random.nextDouble()) * 0.05D;
+			flameParticle.zd = (0.5D - level.random.nextDouble()) * 0.05D;
 			flameParticle.setLifetime((int)(8D / (Math.random() * 0.8D + 0.2D)));
 			return flameParticle;
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static class UnderwaterAshProvider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
 

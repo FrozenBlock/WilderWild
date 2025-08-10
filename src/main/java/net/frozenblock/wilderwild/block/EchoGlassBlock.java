@@ -68,31 +68,31 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	public static void damage(@NotNull Level level, @NotNull BlockPos pos, BlockState blockState, boolean shouldDrop) {
-		if (canDamage(blockState)) {
-			setDamagedState(level, pos, blockState);
-			level.playSound(
-				null,
-				pos,
-				WWSounds.BLOCK_ECHO_GLASS_CRACK,
-				SoundSource.BLOCKS,
-				0.5F,
-				0.9F + level.random.nextFloat() * 0.2F
-			);
-			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(
-					new BlockParticleOption(ParticleTypes.BLOCK, blockState),
-					pos.getX() + 0.5D,
-					pos.getY() + 0.5D,
-					pos.getZ() + 0.5D,
-					level.random.nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
-					0.3F,
-					0.3F,
-					0.3F,
-					0.05D
-				);
-			}
-		} else {
+		if (!canDamage(blockState)) {
 			level.destroyBlock(pos, shouldDrop);
+			return;
+		}
+		setDamagedState(level, pos, blockState);
+		level.playSound(
+			null,
+			pos,
+			WWSounds.BLOCK_ECHO_GLASS_CRACK,
+			SoundSource.BLOCKS,
+			0.5F,
+			0.9F + level.random.nextFloat() * 0.2F
+		);
+		if (level instanceof ServerLevel serverLevel) {
+			serverLevel.sendParticles(
+				new BlockParticleOption(ParticleTypes.BLOCK, blockState),
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
+				level.random.nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
+				0.3F,
+				0.3F,
+				0.3F,
+				0.05D
+			);
 		}
 	}
 
@@ -148,8 +148,7 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		int light = getLightLevel(level, pos);
-		if (light <= 8) {
+		if (getLightLevel(level, pos) <= 8) {
 			if (random.nextBoolean()) heal(level, pos);
 		} else {
 			if (random.nextFloat() <= 0.75F) damage(level, pos, state, true);

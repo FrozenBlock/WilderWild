@@ -267,7 +267,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	@Nullable
 	public LivingEntity getTarget() {
-		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		return this.getTargetFromBrain();
 	}
 
 	@Override

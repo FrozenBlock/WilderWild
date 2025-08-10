@@ -62,9 +62,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		this.yd = velocity.y();
 		this.zd = velocity.z();
 		this.sound = size <= 0 ? WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
-		if (size >= 1) {
-			this.scale((float) (1.4F + size));
-		}
+		if (size >= 1) this.scale((float) (1.4F + size));
 		this.lifetime = Math.max(maxAge, 10);
 		this.stayInflatedTime = (4 - this.lifetime) * -1;
 	}
