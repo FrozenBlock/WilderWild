@@ -131,8 +131,7 @@ public final class WWEntityConfig {
 	}
 
 	public static WWEntityConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
+		if (real) return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 

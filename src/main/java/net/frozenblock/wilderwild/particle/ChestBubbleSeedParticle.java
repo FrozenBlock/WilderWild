@@ -63,7 +63,7 @@ public class ChestBubbleSeedParticle extends NoRenderParticle {
 				double particleY = this.pos.getY() + 0.625D;
 				for (int i = 0; i < this.random.nextInt(4, 10); i++) {
 					double particleX = (this.pos.getX() + additionalX) + this.random.nextGaussian() * 0.21875D;
-					double particleZ = (this.pos.getZ() + additionalZ)  + this.random.nextGaussian() * 0.21875D;
+					double particleZ = (this.pos.getZ() + additionalZ) + this.random.nextGaussian() * 0.21875D;
 
 					this.level.addParticle(
 						ParticleTypes.BUBBLE,
