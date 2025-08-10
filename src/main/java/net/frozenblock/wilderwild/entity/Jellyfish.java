@@ -284,7 +284,7 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	@Override
 	@Nullable
 	public LivingEntity getTarget() {
-		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+		return this.getTargetFromBrain();
 	}
 
 	public void setAttackTarget(LivingEntity entity) {

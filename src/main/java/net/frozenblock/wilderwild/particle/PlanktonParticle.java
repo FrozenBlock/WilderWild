@@ -105,9 +105,7 @@ public class PlanktonParticle extends TextureSheetParticle {
 				this.remove();
 			} else {
 				this.targetScale = 0F;
-				if (this.prevScale <= 0.04F) {
-					this.scale = 0F;
-				}
+				if (this.prevScale <= 0.04F) this.scale = 0F;
 			}
 		} else {
 			this.targetScale = 1F;
