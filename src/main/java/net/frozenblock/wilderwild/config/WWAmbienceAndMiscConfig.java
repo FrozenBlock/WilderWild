@@ -54,14 +54,14 @@ public final class WWAmbienceAndMiscConfig {
 				WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = config.wind.windDisturbanceParticleSpawnAttempts;
 				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
-				EXPLOSION_LEAF_PARTICLES = config.leafParticles.leafExplosionParticles;
-				EXPLOSION_LEAF_VELOCITY = config.leafParticles.leafExplosionVelocity / 100D;
 
 				Client.USE_WILDER_WILD_FALLING_LEAVES = config.leafParticles.useWilderWildFallingLeaves;
 				Client.LEAF_WALKING_PARTICLES = config.leafParticles.leafWalkingParticles;
 				Client.BREAKING_LEAF_PARTICLES = config.leafParticles.breakingLeafParticles;
 				Client.LEAF_LITTER_WALKING_PARTICLES = config.leafParticles.leafLitterParticles;
 				Client.BREAKING_LEAF_LITTER_PARTICLES = config.leafParticles.breakingLeafLitterParticles;
+				Client.EXPLOSION_LEAF_PARTICLES = config.leafParticles.leafExplosionParticles;
+				Client.EXPLOSION_LEAF_VELOCITY = config.leafParticles.leafExplosionVelocity / 100D;
 				Client.OAK_LEAF_FREQUENCY = config.leafParticles.oakFrequency / 100D;
 				Client.SPRUCE_LEAF_FREQUENCY = config.leafParticles.spruceFrequency / 100D;
 				Client.BIRCH_LEAF_FREQUENCY = config.leafParticles.birchFrequency / 100D;
@@ -109,8 +109,6 @@ public final class WWAmbienceAndMiscConfig {
 	public static volatile int WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = 100;
 	public static volatile int PARTICLE_WIND_MOVEMENT = 100;
 	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
-	public static volatile boolean EXPLOSION_LEAF_PARTICLES = false;
-	public static volatile double EXPLOSION_LEAF_VELOCITY = 0.75D;
 
 	public static class Client {
 		public static volatile boolean USE_WILDER_WILD_FALLING_LEAVES = true;
@@ -118,6 +116,8 @@ public final class WWAmbienceAndMiscConfig {
 		public static volatile boolean BREAKING_LEAF_PARTICLES = false;
 		public static volatile boolean LEAF_LITTER_WALKING_PARTICLES = true;
 		public static volatile boolean BREAKING_LEAF_LITTER_PARTICLES = false;
+		public static volatile boolean EXPLOSION_LEAF_PARTICLES = false;
+		public static volatile double EXPLOSION_LEAF_VELOCITY = 0.75D;
 		public static volatile double OAK_LEAF_FREQUENCY = 1D;
 		public static volatile double SPRUCE_LEAF_FREQUENCY = 1D;
 		public static volatile double BIRCH_LEAF_FREQUENCY = 1D;
@@ -310,10 +310,10 @@ public final class WWAmbienceAndMiscConfig {
 		@EntrySyncData(value = "breakingLeafLitterParticles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean breakingLeafLitterParticles = false;
 
-		@EntrySyncData(value = "leafExplosionParticles")
+		@EntrySyncData(value = "leafExplosionParticles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean leafExplosionParticles = false;
 
-		@EntrySyncData(value = "leafExplosionIntensity")
+		@EntrySyncData(value = "leafExplosionIntensity", behavior = SyncBehavior.UNSYNCABLE)
 		public int leafExplosionVelocity = 75;
 
 		@EntrySyncData(value = "oakFrequency", behavior = SyncBehavior.UNSYNCABLE)
