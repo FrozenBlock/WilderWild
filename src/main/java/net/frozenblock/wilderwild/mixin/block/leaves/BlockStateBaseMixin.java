@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
+import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -33,7 +34,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.function.BiConsumer;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin {
@@ -52,7 +52,7 @@ public abstract class BlockStateBaseMixin {
 	public void wilderWild$createLeafParticlesOnExplosionHit(
 		ServerLevel level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer, CallbackInfo info
 	) {
-		FallingLeafUtil.trySpawnExplosionParticles(this.asState(), level, pos, explosion);
+		FallingLeafUtil.trySendExplosionParticles(this.asState(), level, pos, explosion);
 	}
 
 }

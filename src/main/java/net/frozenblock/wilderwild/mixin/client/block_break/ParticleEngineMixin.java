@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.block_break;
 
+import java.util.Optional;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
@@ -36,8 +37,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ParticleEngine.class)
