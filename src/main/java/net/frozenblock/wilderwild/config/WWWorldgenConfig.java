@@ -113,8 +113,7 @@ public final class WWWorldgenConfig {
 	}
 
 	public static WWWorldgenConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
+		if (real) return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 

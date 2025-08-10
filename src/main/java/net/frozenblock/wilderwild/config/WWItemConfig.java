@@ -51,8 +51,7 @@ public final class WWItemConfig {
 	}
 
 	public static WWItemConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
+		if (real) return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 

@@ -34,16 +34,15 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class LeafParticleOptions implements ParticleOptions {
-	public static final MapCodec<LeafParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final MapCodec<LeafParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		instance.group(
-				ResourceLocation.CODEC.fieldOf("particleType").forGetter(LeafParticleOptions::getParticleId),
-				Vec3.CODEC.fieldOf("velocity").forGetter(LeafParticleOptions::getVelocity),
-				Codec.INT.fieldOf("textureSize").forGetter(LeafParticleOptions::getTextureSize),
-				Codec.FLOAT.fieldOf("gravity").forGetter(LeafParticleOptions::getGravityScale),
-				Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::isFastFalling),
-				Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::shouldControlVelUponSpawn)
-			)
-			.apply(instance, LeafParticleOptions::createCodecParticleOptions)
+			ResourceLocation.CODEC.fieldOf("particleType").forGetter(LeafParticleOptions::getParticleId),
+			Vec3.CODEC.fieldOf("velocity").forGetter(LeafParticleOptions::getVelocity),
+			Codec.INT.fieldOf("textureSize").forGetter(LeafParticleOptions::getTextureSize),
+			Codec.FLOAT.fieldOf("gravity").forGetter(LeafParticleOptions::getGravityScale),
+			Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::isFastFalling),
+			Codec.BOOL.fieldOf("isFastFalling").forGetter(LeafParticleOptions::shouldControlVelUponSpawn)
+		).apply(instance, LeafParticleOptions::createCodecParticleOptions)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, LeafParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ResourceLocation.STREAM_CODEC, LeafParticleOptions::getParticleId,

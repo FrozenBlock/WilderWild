@@ -149,8 +149,7 @@ public final class WWBlockConfig {
 	}
 
 	public static WWBlockConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
+		if (real) return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 
