@@ -137,7 +137,6 @@
     "client.brush.LevelEventHandlerMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",
-    "client.easter.WardenEmissiveLayerMixin",
     "client.enderman.EnderManMixin",
     "client.layer.LayerTypeMixin",
     "client.mesoglea.BubbleColumnAmbientSoundHandlerMixin",

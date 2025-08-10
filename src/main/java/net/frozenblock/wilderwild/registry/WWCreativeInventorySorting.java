@@ -35,7 +35,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class WWCreativeInventorySorting {
+public final class WWCreativeInventorySorting {
 
 	public static void init() {
 		// BAOBAB (BUILDING BLOCKS)

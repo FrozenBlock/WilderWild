@@ -21,7 +21,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Instruments;
 
-public class WWInstruments {
+public final class WWInstruments {
 
 	public static void bootstrap(BootstrapContext<Instrument> registry) {
 		Instruments.register(registry, WWItems.RECORDER_COPPER_HORN, WWSounds.ITEM_COPPER_HORN_RECORDER, 32767, 64F);
