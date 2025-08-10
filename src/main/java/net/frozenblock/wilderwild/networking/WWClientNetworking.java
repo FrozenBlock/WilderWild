@@ -22,9 +22,11 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
+import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
@@ -58,6 +60,7 @@ public final class WWClientNetworking {
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
 		receiveScorchingFirePlacePacket();
+		receiveLeavesExplosionPacket();
 	}
 
 	public static void receiveWindExtensionSyncPacket() {
@@ -231,5 +234,12 @@ public final class WWClientNetworking {
 
 			angle += rotAngle;
 		}
+	}
+
+	public static void receiveLeavesExplosionPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WWLeavesExplosionParticlePacket.PACKET_TYPE, (packet, ctx) -> {
+			ClientLevel clientLevel = ctx.client().level;
+			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(clientLevel, packet);
+		});
 	}
 }
