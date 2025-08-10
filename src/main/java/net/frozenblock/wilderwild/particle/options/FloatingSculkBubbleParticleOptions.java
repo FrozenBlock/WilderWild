@@ -32,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
-	public static final MapCodec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final MapCodec<FloatingSculkBubbleParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		instance.group(
 			Codec.DOUBLE.fieldOf("size").forGetter((particleOptions) -> particleOptions.size),
 			Codec.INT.fieldOf("maxAge").forGetter((particleOptions) -> particleOptions.maxAge),

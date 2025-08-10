@@ -148,8 +148,7 @@ public final class WWAmbienceAndMiscConfig {
 	}
 
 	public static WWAmbienceAndMiscConfig get(boolean real) {
-		if (real)
-			return INSTANCE.instance();
+		if (real) return INSTANCE.instance();
 		return INSTANCE.config();
 	}
 

@@ -56,57 +56,54 @@ public class PollenParticle extends TextureSheetParticle {
 
 	@Override
 	public void tick() {
-		if (WWBlockConfig.Client.POLLEN_ENABLED) {
-			BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-			boolean rain = this.level.isRainingAt(blockPos);
-			if (rain) this.gravity = 0.06F;
-			this.xo = this.x;
-			this.yo = this.y;
-			this.zo = this.z;
-			this.yd -= 0.04 * (double) this.gravity;
-			this.move(this.xd, this.yd, this.zd);
-			if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
-				this.xd *= 1.1D;
-				this.zd *= 1.1D;
-			}
-			this.xd *= this.friction;
-			this.yd *= this.friction;
-			this.zd *= this.friction;
-			if (this.onGround) {
-				this.xd *= 0.7D;
-				this.zd *= 0.7D;
-			}
-			this.prevScale = this.scale;
-			this.scale += (this.targetScale - this.scale) * 0.15F;
-			FluidState fluidState = this.level.getFluidState(blockPos);
-			if (blockPos.getY() + fluidState.getHeight(this.level, blockPos) >= this.y) {
-				this.lifetime = this.age;
-			}
-			if (this.age++ >= this.lifetime) {
-				if (this.prevScale == 0F) {
-					this.remove();
-				} else {
-					this.targetScale = 0F;
-					if (this.prevScale <= 0.04F) {
-						this.scale = 0F;
-					}
-				}
+		if (!WWBlockConfig.Client.POLLEN_ENABLED) {
+			this.remove();
+			return;
+		}
+
+		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
+		boolean rain = this.level.isRainingAt(blockPos);
+		if (rain) this.gravity = 0.06F;
+		this.xo = this.x;
+		this.yo = this.y;
+		this.zo = this.z;
+		this.yd -= 0.04D * (double) this.gravity;
+		this.move(this.xd, this.yd, this.zd);
+		if (this.speedUpWhenYMotionIsBlocked && this.y == this.yo) {
+			this.xd *= 1.1D;
+			this.zd *= 1.1D;
+		}
+		this.xd *= this.friction;
+		this.yd *= this.friction;
+		this.zd *= this.friction;
+		if (this.onGround) {
+			this.xd *= 0.7D;
+			this.zd *= 0.7D;
+		}
+		this.prevScale = this.scale;
+		this.scale += (this.targetScale - this.scale) * 0.15F;
+		FluidState fluidState = this.level.getFluidState(blockPos);
+		if (blockPos.getY() + fluidState.getHeight(this.level, blockPos) >= this.y) this.lifetime = this.age;
+		if (this.age++ >= this.lifetime) {
+			if (this.prevScale == 0F) {
+				this.remove();
 			} else {
-				this.targetScale = 1F;
-				if (this.x == this.xo && this.y == this.yo && this.z == this.zo) this.age += 5;
-			}
-			boolean onGround = this.onGround;
-			if (!rain) {
-				double multXZ = (onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
-				double multY = (onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
-				Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-					.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-				this.xd += wind.x() * multXZ;
-				this.yd += (wind.y() + 0.1D) * multY;
-				this.zd += wind.z() * multXZ;
+				this.targetScale = 0F;
+				if (this.prevScale <= 0.04F) this.scale = 0F;
 			}
 		} else {
-			this.remove();
+			this.targetScale = 1F;
+			if (this.x == this.xo && this.y == this.yo && this.z == this.zo) this.age += 5;
+		}
+		boolean onGround = this.onGround;
+		if (!rain) {
+			double multXZ = (onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
+			double multY = (onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
+			Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+			this.xd += wind.x() * multXZ;
+			this.yd += (wind.y() + 0.1D) * multY;
+			this.zd += wind.z() * multXZ;
 		}
 	}
 
