@@ -27,8 +27,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.impl.WWBoatTypes;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
-import net.frozenblock.wilderwild.item.CopperHorn;
-import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.CopperHornItem;
+import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.Registry;
@@ -95,7 +95,7 @@ public final class WWItems {
 	public static final BlockItem ECHO_GLASS = new BlockItem(WWBlocks.ECHO_GLASS, new Item.Properties());
 	public static final BlockItem DISPLAY_LANTERN = new BlockItem(WWBlocks.DISPLAY_LANTERN, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 	// ITEMS
-	public static final MilkweedPod MILKWEED_POD = new MilkweedPod(new Item.Properties().stacksTo(64));
+	public static final MilkweedPodItem MILKWEED_POD = new MilkweedPodItem(new Item.Properties().stacksTo(64));
 	public static final Item SPLIT_COCONUT = new Item(new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final BoatItem BAOBAB_BOAT = new BoatItem(false, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
 	public static final BoatItem BAOBAB_CHEST_BOAT = new BoatItem(true, WWBoatTypes.BAOBAB, new Item.Properties().stacksTo(1));
@@ -142,7 +142,7 @@ public final class WWItems {
 	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.MOOBLOOM, Integer.parseInt("FED639", 16), Integer.parseInt("F7EDC1", 16), new Item.Properties());
 	public static final SpawnEggItem PENGUIN_SPAWN_EGG = new SpawnEggItem(WWEntityTypes.PENGUIN, Integer.parseInt("2E2C40", 16), Integer.parseInt("E0B635", 16), new Item.Properties());
 	// INSTRUMENT
-	public static final CopperHorn COPPER_HORN = new CopperHorn(new Item.Properties().stacksTo(1), WWInstrumentTags.COPPER_HORNS);
+	public static final CopperHornItem COPPER_HORN = new CopperHornItem(new Item.Properties().stacksTo(1), WWInstrumentTags.COPPER_HORNS);
 	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
 	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
 	public static final ResourceKey<Instrument> RECORDER_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("recorder_copper_horn"));

@@ -118,12 +118,10 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 							if (lantern.getFireflies().size() < MAX_FIREFLIES) {
 								String name = "";
-								if (stack.has(DataComponents.CUSTOM_NAME)) {
-									name = stack.getHoverName().getString();
-								}
+								if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
 								lantern.addFirefly(level, color, name);
-								if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
 
+								player.getItemInHand(hand).consume(1, player);
 								player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
 								level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 								level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
@@ -137,9 +135,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 					if (!lantern.getFireflies().isEmpty()) {
 						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
 						level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-						if (!player.isCreative()) {
-							player.getItemInHand(hand).shrink(1);
-						}
+						player.getItemInHand(hand).consume(1, player);
 						ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 						CustomData.update(
 							WWDataComponents.BOTTLE_ENTITY_DATA,

@@ -36,7 +36,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 public final class WWItemProperties {
 
 	public static void init() {
-		ItemProperties.register(WWItems.COPPER_HORN, WWConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F);
+		ItemProperties.register(WWItems.COPPER_HORN, WWConstants.vanillaId("tooting"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1F : 0F);
+		ItemProperties.register(WWItems.MILKWEED_POD, WWConstants.vanillaId("blowing"), (itemStack, clientLevel, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1F : 0F);
 
 		ItemProperties.register(WWItems.SCORCHED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);
 		ItemProperties.register(WWItems.SCORCHED_RED_SAND, WWConstants.vanillaId("cracked"), (itemStack, clientLevel, livingEntity, seed) -> ItemBlockStateTagUtils.getBoolProperty(itemStack, WWBlockStateProperties.CRACKED, false) ? 1F : 0F);

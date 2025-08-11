@@ -3434,6 +3434,14 @@
     ],
     "subtitle": "subtitles.item.coconut.knock"
   },
+  "item.milkweed_pod.blow": {
+    "sounds": [
+      "wilderwild:item/milkweed_pod/blow1",
+      "wilderwild:item/milkweed_pod/blow2",
+      "wilderwild:item/milkweed_pod/blow3"
+    ],
+    "subtitle": "subtitles.item.milkweed_pod.blow"
+  },
   "item.copper_horn.recorder": {
     "sounds": [
       {

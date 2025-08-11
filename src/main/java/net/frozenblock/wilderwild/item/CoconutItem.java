@@ -52,26 +52,26 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 
 	@Override
 	@NotNull
-	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-		ItemStack itemStack = player.getItemInHand(usedHand);
+	public InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand usedHand) {
+		ItemStack itemStack = user.getItemInHand(usedHand);
+		itemStack.consume(1, user);
 		level.playSound(
-			null,
-			player.getX(),
-			player.getY(),
-			player.getZ(),
+			user,
+			user.getX(),
+			user.getY(),
+			user.getZ(),
 			WWSounds.ITEM_COCONUT_THROW,
 			SoundSource.NEUTRAL,
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
 		if (!level.isClientSide) {
-			CoconutProjectile coconut = new CoconutProjectile(level, player);
+			CoconutProjectile coconut = new CoconutProjectile(level, user);
 			coconut.setItem(itemStack);
-			coconut.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 0.8F, 1.4F);
+			coconut.shootFromRotation(user, user.getXRot(), user.getYRot(), 0F, 0.8F, 1.4F);
 			level.addFreshEntity(coconut);
 		}
-		player.awardStat(Stats.ITEM_USED.get(this));
-		if (!player.getAbilities().instabuild) itemStack.shrink(1);
+		user.awardStat(Stats.ITEM_USED.get(this));
 		return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
 	}
 

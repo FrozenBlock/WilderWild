@@ -37,9 +37,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class CopperHorn extends InstrumentItem {
+public class CopperHornItem extends InstrumentItem {
 
-	public CopperHorn(@NotNull Properties settings, @NotNull TagKey<Instrument> instruments) {
+	public CopperHornItem(@NotNull Properties settings, @NotNull TagKey<Instrument> instruments) {
 		super(settings, instruments);
 	}
 
