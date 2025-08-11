@@ -103,12 +103,16 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
+- Decreased the amount of bass present in some of the Jellyfish's sounds.
+
+# Items
+- The Milkweed pod now has a cooldown of two seconds.
+- Added unique sounds for blowing a Milkweed Pod.
+- Using a Milkweed Pod now properly awards the statistic for item usage.
+- Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 
 # Misc.
 - Increased Wilder Wild's protocol version to 15.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
-- The Milkweed pod now has a cooldown of two seconds.
-- Added unique sounds for blowing a Milkweed Pod.
-- Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
