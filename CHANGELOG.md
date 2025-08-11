@@ -47,6 +47,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added config options to toggle these individually, all being disabled by default.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
+- Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 
 # Textures
 - Retextured the Marigold.
