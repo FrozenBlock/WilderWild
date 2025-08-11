@@ -34,6 +34,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -65,10 +66,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	public ContainerOpenersCounter openersCounter;
 
 	@Inject(
-		method = "<init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
+		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At("TAIL")
 	)
-	public void wilderWild$customStoneChestOpenersCounter(BlockPos blockPos, BlockState blockState, CallbackInfo info) {
+	public void wilderWild$customStoneChestOpenersCounter(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
 		if (ChestBlockEntity.class.cast(this) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
 			this.openersCounter = new ContainerOpenersCounter() {
 
