@@ -92,12 +92,6 @@ Willow/pictochats_:
     - Anemone
  - Penguin step sounds.
 
-LudoCrypt:
- - Composer.
-    - Horizon Afoot (https://ludocrypt.bandcamp.com/track/horizon-afoot)
-    - Serene Sonder (https://ludocrypt.bandcamp.com/track/serene-sonder)
-    - Dove (https://ludocrypt.bandcamp.com/track/dove)
-
 Contributors:
 
 DaDolphin:
@@ -194,6 +188,12 @@ Moonisky:
 
 godkyo98:
  - Vietnamese translation.
+
+LudoCrypt:
+ - Composer.
+    - Horizon Afoot
+    - Serene Sonder
+    - Dove
 
 Ostrich Sounds:
 Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
