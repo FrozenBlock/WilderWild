@@ -34,6 +34,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
+- Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
 - Removed a few unused sounds.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.

@@ -26,8 +26,11 @@ import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.entity.impl.InMesogleaInterface;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -41,6 +44,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
@@ -49,8 +53,19 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Shadow
 	public abstract double distanceToSqr(Vec3 vec3);
 
+	@Shadow
+	public abstract Level level();
+
+	@Shadow
+	protected boolean wasTouchingWater;
 	@Unique
 	private boolean wilderWild$clipInMesoglea;
+
+	@Unique
+	private boolean wilderWild$wasInMesoglea;
+
+	@Unique
+	private boolean wilderWild$wasTouchingMesoglea;
 
 	@Unique
 	private ParticleOptions wilderWild$replacementSplashParticle;
@@ -171,5 +186,83 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Override
 	public boolean wilderWild$wasClipInMesoglea() {
 		return this.wilderWild$clipInMesoglea;
+	}
+
+	@Inject(
+		method = "updateFluidOnEyes",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/material/FluidState;getTags()Ljava/util/stream/Stream;"
+		)
+	)
+	public void wilderwild$updateIsInMesolgea(
+		CallbackInfo info,
+		@Local BlockPos eyePos
+	) {
+		this.wilderWild$setInMesoglea(this.level().getBlockState(eyePos).getBlock() instanceof MesogleaBlock);
+	}
+
+	@Unique
+	@Override
+	public void wilderWild$setInMesoglea(boolean inMesoglea) {
+		this.wilderWild$wasInMesoglea = inMesoglea;
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$wasInMesoglea() {
+		return this.wilderWild$wasInMesoglea;
+	}
+
+	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
+		if (this.wilderWild$wasInMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
+	}
+
+	@Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("TAIL"))
+	public void wilderWild$setNotTouchingMesoglea(CallbackInfo info) {
+		if (!this.wasTouchingWater) this.wilderWild$wasTouchingMesoglea = false;
+	}
+
+	@ModifyExpressionValue(
+		method = "updateFluidHeightAndDoFluidPushing",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/lang/Math;max(DD)D"
+		)
+	)
+	public double wilderWild$setTouchingMesoglea(
+		double original,
+		TagKey<Fluid> tagKey, double d,
+		@Local BlockPos.MutableBlockPos mutableBlockPos
+	) {
+		if (!this.wilderWild$wasTouchingMesoglea()) {
+			if (tagKey.equals(FluidTags.WATER) && this.level().getBlockState(mutableBlockPos).getBlock() instanceof MesogleaBlock) {
+				this.wilderWild$setTouchingMesoglea(true);
+			}
+		}
+		return original;
+	}
+
+	@Unique
+	@Override
+	public void wilderWild$setTouchingMesoglea(boolean inMesoglea) {
+		this.wilderWild$wasTouchingMesoglea = inMesoglea;
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$wasTouchingMesoglea() {
+		return this.wilderWild$wasTouchingMesoglea;
+	}
+
+	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$getSwimSplashSound(CallbackInfoReturnable<SoundEvent> info) {
+		if (this.wilderWild$wasTouchingMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SPLASH_MESOGLEA);
+	}
+
+	@Inject(method = "getSwimHighSpeedSplashSound", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$getSwimHighSpeedSplashSound(CallbackInfoReturnable<SoundEvent> info) {
+		if (this.wilderWild$wasTouchingMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SPLASH_MESOGLEA);
 	}
 }
