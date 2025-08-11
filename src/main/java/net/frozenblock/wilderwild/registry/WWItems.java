@@ -25,7 +25,9 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CopperHorn;
+import net.frozenblock.wilderwild.item.CopperHornItem;
 import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
@@ -157,7 +159,7 @@ public final class WWItems {
 	public static final Item DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 
 	// ITEMS
-	public static final MilkweedPod MILKWEED_POD = register("milkweed_pod", MilkweedPod::new, new Item.Properties());
+	public static final MilkweedPodItem MILKWEED_POD = register("milkweed_pod", MilkweedPodItem::new, new Item.Properties());
 	public static final Item SPLIT_COCONUT = register("split_coconut", Item::new, new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final MobBottleItem FIREFLY_BOTTLE = register("firefly_bottle",
 		properties -> new MobBottleItem(
@@ -202,8 +204,8 @@ public final class WWItems {
 	public static final SpawnEggItem PENGUIN_SPAWN_EGG = register("penguin_spawn_egg", properties -> new SpawnEggItem(WWEntityTypes.PENGUIN, Integer.parseInt("2E2C40", 16), Integer.parseInt("E0B635", 16), properties), new Item.Properties());
 
 	// INSTRUMENT
-	public static final CopperHorn COPPER_HORN = register("copper_horn",
-		properties -> new CopperHorn(WWInstrumentTags.COPPER_HORNS, properties),
+	public static final CopperHornItem COPPER_HORN = register("copper_horn",
+		properties -> new CopperHornItem(WWInstrumentTags.COPPER_HORNS, properties),
 		new Item.Properties().stacksTo(1)
 	);
 
