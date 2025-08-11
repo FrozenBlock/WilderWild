@@ -3,9 +3,6 @@
 	"textures": {
 		"layer0": "wilderwild:item/copper_horn"
 	},
-	"overrides": [
-		{"predicate": {"tooting": 1}, "model": "wilderwild:item/tooting_copper_horn"}
-	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [0, 180, 0],
