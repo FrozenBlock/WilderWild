@@ -237,7 +237,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.BAOBAB_NUT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.COCONUT, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SPLIT_COCONUT, ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWItems.MILKWEED_POD, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.PEELED_PRICKLY_PEAR, ModelTemplates.FLAT_ITEM);
 
@@ -268,6 +267,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.declareCustomModelItem(WWBlocks.PALM_DOOR.asItem());
 		generator.declareCustomModelItem(WWBlocks.PALM_TRAPDOOR.asItem());
 		generator.declareCustomModelItem(WWBlocks.MILKWEED.asItem());
+		WWModelHelper.generateMilkweedPod(generator, WWItems.MILKWEED_POD);
 		generator.declareCustomModelItem(WWBlocks.NULL_BLOCK.asItem());
 
 		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);

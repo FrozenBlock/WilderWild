@@ -23,8 +23,8 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.item.CoconutItem;
-import net.frozenblock.wilderwild.item.CopperHorn;
-import net.frozenblock.wilderwild.item.MilkweedPod;
+import net.frozenblock.wilderwild.item.CopperHornItem;
+import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
@@ -157,7 +157,7 @@ public final class WWItems {
 	public static final Item DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 
 	// ITEMS
-	public static final MilkweedPod MILKWEED_POD = register("milkweed_pod", MilkweedPod::new, new Item.Properties());
+	public static final MilkweedPodItem MILKWEED_POD = register("milkweed_pod", MilkweedPodItem::new, new Item.Properties());
 	public static final Item SPLIT_COCONUT = register("split_coconut", Item::new, new Item.Properties().food(WWFood.SPLIT_COCONUT));
 	public static final MobBottleItem FIREFLY_BOTTLE = register("firefly_bottle",
 		properties -> new MobBottleItem(
@@ -207,8 +207,8 @@ public final class WWItems {
 	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trumpet_copper_horn"));
 	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trombone_copper_horn"));
 
-	public static final CopperHorn COPPER_HORN = register("copper_horn",
-		CopperHorn::new,
+	public static final CopperHornItem COPPER_HORN = register("copper_horn",
+		CopperHornItem::new,
 		new Item.Properties().stacksTo(1).component(DataComponents.INSTRUMENT, new InstrumentComponent(SAX_COPPER_HORN))
 	);
 

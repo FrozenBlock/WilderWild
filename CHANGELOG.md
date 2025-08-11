@@ -109,4 +109,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
+- The Milkweed pod now has a cooldown of two seconds.
+- Added unique sounds for blowing a Milkweed Pod.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.

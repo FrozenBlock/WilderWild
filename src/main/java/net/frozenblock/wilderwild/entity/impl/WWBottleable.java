@@ -88,7 +88,7 @@ public interface WWBottleable {
 			Level level = livingEntity.level();
 			if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
 
-			if (!player.getAbilities().instabuild) player.getItemInHand(interactionHand).shrink(1);
+			player.getItemInHand(interactionHand).consume(1, player);
 
 			player.getInventory().placeItemBackInInventory(bottleStack);
 
