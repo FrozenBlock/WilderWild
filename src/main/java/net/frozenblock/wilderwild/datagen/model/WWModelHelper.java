@@ -247,7 +247,13 @@ public final class WWModelHelper {
 
 	public static void generateCopperHorn(@NotNull ItemModelGenerators generator, Item item) {
 		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/tooting_copper_horn"));
+		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/copper_horn_tooting"));
+		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
+	}
+
+	public static void generateMilkweedPod(ItemModelGenerators generator, Item item) {
+		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/milkweed_pod_blowing"));
 		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
 	}
 

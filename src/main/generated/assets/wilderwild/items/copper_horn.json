@@ -7,7 +7,7 @@
     },
     "on_true": {
       "type": "minecraft:model",
-      "model": "wilderwild:item/tooting_copper_horn"
+      "model": "wilderwild:item/copper_horn_tooting"
     },
     "property": "minecraft:using_item"
   }
