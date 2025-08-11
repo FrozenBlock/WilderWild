@@ -1,0 +1,26 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "wilderwild:item/milkweed_pod"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [28, -125, 0],
+			"translation": [-0.25, 2, 2],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [28, 55, 0],
+			"translation": [0.25, 2, 2],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [-43, -55, -5],
+			"translation": [-0.5, -2.5, -12.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-43, 125, -5],
+			"translation": [-0.5, -2.5, -12.5]
+		}
+	}
+}

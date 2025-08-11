@@ -55,7 +55,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
 		ItemStack itemStack = player.getItemInHand(usedHand);
 		level.playSound(
-			null,
+			player,
 			player.getX(),
 			player.getY(),
 			player.getZ(),
@@ -64,11 +64,9 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
-		if (!level.isClientSide) {
-			Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, itemStack, player, 0F, 0.8F, 1.4F);
-		}
+		itemStack.consume(1, player);
+		if (!level.isClientSide) Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, itemStack, player, 0F, 0.8F, 1.4F);
 		player.awardStat(Stats.ITEM_USED.get(this));
-		if (!player.getAbilities().instabuild) itemStack.shrink(1);
 		return InteractionResult.SUCCESS;
 	}
 
