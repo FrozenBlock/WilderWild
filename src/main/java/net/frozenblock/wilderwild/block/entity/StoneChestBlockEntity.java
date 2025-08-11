@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block.entity;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
@@ -38,18 +37,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.CompoundContainer;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
-import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
@@ -69,39 +63,12 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public static final double BREAK_PARTICLE_SPEED = 0.05D;
 	public static final int MIN_BREAK_PARTICLES = 1;
 	public static final int MAX_BREAK_PARTICLES = 3;
-
-	private final ContainerOpenersCounter stoneStateManager = new ContainerOpenersCounter() {
-
-		@Override
-		protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-			//StoneChestBlockEntity.playSound(level, pos, state, RegisterSounds.BLOCK_STONE_CHEST_SEARCH);
-		}
-
-		@Override
-		protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		}
-
-		@Override
-		protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
-			StoneChestBlockEntity.this.signalOpenCount(level, pos, state, count, openCount);
-		}
-
-		@Override
-		public boolean isOwnContainer(@NotNull Player player) {
-			if (player.containerMenu instanceof ChestMenu chest) {
-				Container inventory = chest.getContainer();
-				return inventory == StoneChestBlockEntity.this || inventory instanceof CompoundContainer container && container.contains(StoneChestBlockEntity.this);
-			}
-			return false;
-		}
-	};
 	public float openProgress;
 	public float prevOpenProgress;
 	public float highestLidPoint;
 	public int stillLidTicks;
 	public int cooldownTicks;
 	public boolean closing;
-
 	protected long updateTime;
 
 	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
@@ -320,17 +287,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	@Override
 	protected Component getDefaultName() {
 		return Component.translatable("container.stone_chest");
-	}
-
-	@Override
-	public void startOpen(ContainerUser containerUser) {
-	}
-
-	@Override
-	public void stopOpen(ContainerUser containerUser) {
-		if (!this.remove && !containerUser.getLivingEntity().isSpectator()) {
-			this.stoneStateManager.decrementOpeners(containerUser.getLivingEntity(), this.getLevel(), this.getBlockPos(), this.getBlockState());
-		}
 	}
 
 	@Override

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.mixin.block.chest;
 
 import java.util.Optional;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -28,15 +29,24 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.CompoundContainer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -48,6 +58,44 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@Unique
 	private boolean wilderWild$canBubble = true;
+
+	@Shadow
+	@Final
+	@Mutable
+	public ContainerOpenersCounter openersCounter;
+
+	@Inject(
+		method = "<init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
+		at = @At("TAIL")
+	)
+	public void wilderWild$customStoneChestOpenersCounter(BlockPos blockPos, BlockState blockState, CallbackInfo info) {
+		if (ChestBlockEntity.class.cast(this) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
+			this.openersCounter = new ContainerOpenersCounter() {
+
+				@Override
+				protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				}
+
+				@Override
+				protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				}
+
+				@Override
+				protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
+					stoneChestBlockEntity.signalOpenCount(level, pos, state, count, openCount);
+				}
+
+				@Override
+				public boolean isOwnContainer(@NotNull Player player) {
+					if (player.containerMenu instanceof ChestMenu chest) {
+						Container inventory = chest.getContainer();
+						return inventory == stoneChestBlockEntity || inventory instanceof CompoundContainer container && container.contains(stoneChestBlockEntity);
+					}
+					return false;
+				}
+			};
+		}
+	}
 
 	@ModifyVariable(method = "playSound", at = @At("HEAD"), argsOnly = true)
 	private static SoundEvent wilderWild$playSound(
