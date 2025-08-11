@@ -730,6 +730,42 @@
     ],
     "subtitle": "subtitles.block.chest.open"
   },
+  "block.copper_chest.close_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/close_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest.open_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/open_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
+  "block.copper_chest_oxidized.close_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/close_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest_oxidized.open_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/open_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
+  "block.copper_chest_weathered.close_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/close_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest_weathered.open_underwater": {
+    "sounds": [
+      "wilderwild:block/copper_chest/open_underwater"
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
   "block.clay.break": {
     "sounds": [
       "wilderwild:block/clay/break1",

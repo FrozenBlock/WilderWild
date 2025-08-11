@@ -104,6 +104,12 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		if (blockState.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
 			if (soundEvent == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
 			if (soundEvent == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OPEN_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_CLOSE_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_OXIDIZED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_OXIDIZED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_WEATHERED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_OPEN_UNDERWATER;
+			if (soundEvent == SoundEvents.COPPER_CHEST_WEATHERED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER;
 		}
 		return soundEvent;
 	}

@@ -59,6 +59,12 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_CACTUS_FALL = register("block.cactus.fall");
 	public static final SoundEvent BLOCK_CHEST_CLOSE_UNDERWATER = register("block.chest.close_underwater");
 	public static final SoundEvent BLOCK_CHEST_OPEN_UNDERWATER = register("block.chest.open_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_CLOSE_UNDERWATER = register("block.copper_chest.close_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_OPEN_UNDERWATER = register("block.copper_chest.open_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER = register("block.copper_chest_oxidized.close_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER = register("block.copper_chest_oxidized.open_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER = register("block.copper_chest_weathered.close_underwater");
+	public static final SoundEvent BLOCK_COPPER_CHEST_WEATHERED_OPEN_UNDERWATER = register("block.copper_chest_weathered.open_underwater");
 	public static final SoundEvent BLOCK_CLAY_PLACE = register("block.clay.place");
 	public static final SoundEvent BLOCK_CLAY_HIT = register("block.clay.hit");
 	public static final SoundEvent BLOCK_CLAY_BREAK = register("block.clay.break");
