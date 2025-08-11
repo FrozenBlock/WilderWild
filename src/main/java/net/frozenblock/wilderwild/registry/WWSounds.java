@@ -383,6 +383,7 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_COCONUT_LAND_BREAK = register("item.coconut.land_break");
 	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
 	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");
+	public static final SoundEvent ITEM_MILKWEED_POD_BLOWN = register("item.milkweed_pod.blow");
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX = registerForHolder("item.copper_horn.saxophone");
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA = registerForHolder("item.copper_horn.tuba");
 	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_RECORDER = registerForHolder("item.copper_horn.recorder");

@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "wilderwild:item/milkweed_pod"
+	},
+	"overrides": [
+		{"predicate": {"blowing": 1}, "model": "wilderwild:item/milkweed_pod_blowing"}
+	]
+}

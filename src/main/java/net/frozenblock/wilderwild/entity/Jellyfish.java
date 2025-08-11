@@ -513,13 +513,13 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 		if (!itemStack.is(this.getVariant().getReproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
-			if (!player.getAbilities().instabuild) itemStack.shrink(1);
+			itemStack.consume(1, player);
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
 		} else if (this.canReproduce()) {
 			if (this.level().isClientSide) return InteractionResult.CONSUME;
 			if (this.level() instanceof ServerLevel serverLevel) {
-				if (!player.getAbilities().instabuild) itemStack.shrink(1);
+				itemStack.consume(1, player);
 				this.fullness += 1;
 				this.ticksSinceSpawn = 0;
 				if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
