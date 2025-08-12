@@ -17,10 +17,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -28,7 +26,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -333,16 +330,6 @@ public final class WWCreativeInventorySorting {
 		// SCORCHED SAND
 		addAfterInNaturalBlocks(Items.SAND, WWBlocks.SCORCHED_SAND);
 		addAfterInNaturalBlocks(Items.RED_SAND, WWBlocks.SCORCHED_RED_SAND);
-
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
-			var second = new ItemStack(WWBlocks.SCORCHED_SAND);
-			ItemBlockStateTagUtils.setProperty(second, WWBlockStateProperties.CRACKED, true);
-			entries.addAfter(WWBlocks.SCORCHED_SAND, second);
-
-			var secondRed = new ItemStack(WWBlocks.SCORCHED_RED_SAND);
-			ItemBlockStateTagUtils.setProperty(secondRed, WWBlockStateProperties.CRACKED, true);
-			entries.addAfter(WWBlocks.SCORCHED_RED_SAND, secondRed);
-		});
 
 		// STORAGE
 		addAfterInFunctionalBlocks(Items.CHEST, WWBlocks.STONE_CHEST);

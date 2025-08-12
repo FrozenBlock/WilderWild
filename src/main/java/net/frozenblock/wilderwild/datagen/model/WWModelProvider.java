@@ -106,6 +106,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createPlantWithDefaultItem(WWBlocks.FROZEN_FERN, WWBlocks.POTTED_FROZEN_FERN, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createDoublePlantWithDefaultItem(WWBlocks.FROZEN_LARGE_FERN, BlockModelGenerators.PlantType.NOT_TINTED);
 
+		generator.createTrivialBlock(WWBlocks.SCORCHED_SAND, TexturedModel.CUBE);
+		generator.createTrivialBlock(WWBlocks.SCORCHED_RED_SAND, TexturedModel.CUBE);
+
 		generator.createTrivialBlock(WWBlocks.CHISELED_MUD_BRICKS, TexturedModel.CUBE);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
 		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
@@ -243,8 +246,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.declareCustomModelItem(WWBlocks.NULL_BLOCK.asItem());
 
 		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
-		WWModelHelper.generateScorchedSandItem(generator, WWItems.SCORCHED_SAND);
-		WWModelHelper.generateScorchedSandItem(generator, WWItems.SCORCHED_RED_SAND);
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// Spawn Eggs

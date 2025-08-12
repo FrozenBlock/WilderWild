@@ -442,6 +442,17 @@ public final class WWSounds {
 	public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");
 	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 
+	// MESOGLEA
+	public static final SoundEvent AMBIENT_MESOGLEA_ENTER = register("ambient.mesoglea.enter");
+	public static final SoundEvent AMBIENT_MESOGLEA_EXIT = register("ambient.mesoglea.exit");
+	public static final SoundEvent ENTITY_GENERIC_SWIM_MESOGLEA = register("entity.generic.swim_mesoglea");
+	public static final SoundEvent ENTITY_HOSTILE_SWIM_MESOGLEA = register("entity.hostile.swim_mesoglea");
+	public static final SoundEvent ENTITY_PLAYER_SWIM_MESOGLEA = register("entity.player.swim_mesoglea");
+	public static final SoundEvent ENTITY_GENERIC_SPLASH_MESOGLEA = register("entity.generic.splash_mesoglea");
+	public static final SoundEvent ENTITY_HOSTILE_SPLASH_MESOGLEA = register("entity.hostile.splash_mesoglea");
+	public static final SoundEvent ENTITY_PLAYER_SPLASH_MESOGLEA = register("entity.player.splash_mesoglea");
+	public static final SoundEvent ENTITY_PLAYER_SPLASH_HIGH_SPEED_MESOGLEA = register("entity.player.splash.high_speed_mesoglea");
+
 	//MISC
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");

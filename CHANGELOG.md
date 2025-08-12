@@ -34,6 +34,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
+- Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
 - Removed a few unused sounds.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
@@ -45,8 +46,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This applies to Breezes, which will spawn a steady stream of Leaves flowing upwards.
 - Leaf particles now spawn from explosions near and when manually breaking Leaf Litters and Leaves blocks in 1.21.5+.
   - Added config options to toggle these individually, all being disabled by default.
+- Removed the cracked variants of Scorched Sand blocks, simplifying them in both implementation and design to be more consistent with Vanilla.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
+- Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 
 # Textures
 - Retextured the Marigold.
