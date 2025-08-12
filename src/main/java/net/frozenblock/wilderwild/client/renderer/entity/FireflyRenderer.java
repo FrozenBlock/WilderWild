@@ -67,11 +67,6 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 		submitNodeCollector.submitCustomGeometry(
 			poseStack,
-			RenderType.entityTranslucentEmissive(colorTexture),
-			(pose, vertexConsumer) -> renderColorLayer(pose, vertexConsumer, calcColor, packedLight, overlay)
-		);
-		submitNodeCollector.submitCustomGeometry(
-			poseStack,
 			LAYER,
 			(pose, vertexConsumer) -> renderBaseLayer(pose, vertexConsumer, packedLight, overlay)
 		);
