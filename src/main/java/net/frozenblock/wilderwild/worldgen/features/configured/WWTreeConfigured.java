@@ -2757,15 +2757,32 @@ public final class WWTreeConfigured {
 	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
+			new FancyTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
+			BlockStateProvider.simple(leaves),
+			new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
+			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
+		).ignoreVines();
+		/*
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
 			BlockStateProvider.simple(leaves),
 			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 6, baseHeight - 3)),
 			new TwoLayersFeatureSize(1, 0, 0)
 		).ignoreVines();
+		 */
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundMapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
+		return new TreeConfiguration.TreeConfigurationBuilder(
+			BlockStateProvider.simple(log),
+			new FancyTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
+			BlockStateProvider.simple(leaves),
+			new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
+			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
+		).ignoreVines();
+		/*
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
 			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
@@ -2773,6 +2790,7 @@ public final class WWTreeConfigured {
 			new RoundMapleFoliagePlacer(UniformInt.of(2, 4), UniformInt.of(0, 3), UniformInt.of(baseHeight - 6, baseHeight - 3)),
 			new TwoLayersFeatureSize(1, 0, 1)
 		).ignoreVines();
+		 */
 	}
 
 	@NotNull

@@ -63,7 +63,7 @@ public final class MapleForest extends FrozenBiome {
 	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int OLD_GRASS_COLOR = 11845250;
 	//public static final int GRASS_COLOR = 12498813;
-	public static final int GRASS_COLOR = 13023096;
+	public static final int GRASS_COLOR = Integer.parseInt("bfb755", 16);
 	public static final int FOLIAGE_COLOR = 11190658;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final MapleForest INSTANCE = new MapleForest();

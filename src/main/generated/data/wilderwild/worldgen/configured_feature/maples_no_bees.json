@@ -4,7 +4,7 @@
     "default": "wilderwild:yellow_maple_checked",
     "features": [
       {
-        "chance": 0.4,
+        "chance": 0.275,
         "feature": {
           "feature": "wilderwild:yellow_maples_no_bees",
           "placement": []
