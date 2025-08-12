@@ -678,12 +678,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -696,12 +696,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -714,7 +714,7 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
@@ -789,12 +789,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -807,12 +807,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -825,13 +825,13 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState().setValue(WWBlockStateProperties.CRACKED, true)))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.defaultBlockState()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))

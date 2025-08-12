@@ -367,10 +367,7 @@
       }
     },
     "foliage_placer": {
-      "type": "minecraft:fancy_foliage_placer",
-      "height": 1,
-      "offset": 1,
-      "radius": 1
+      "type": "wilderwild:no_op_foliage_placer"
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",

@@ -257,20 +257,6 @@ public final class WWModelHelper {
 		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
 	}
 
-	public static void generateScorchedSandItem(@NotNull ItemModelGenerators generator, Item item) {
-		generator.itemModelOutput.accept(
-			item,
-			ItemModelUtils.selectBlockItemProperty(
-				WWBlockStateProperties.CRACKED,
-				ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item)),
-				Map.of(
-					true, ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item, "_cracked"))
-				)
-			)
-		);
-
-	}
-
 	public static void generateEchoGlass(@NotNull ItemModelGenerators generator, Item item) {
 		generator.itemModelOutput.accept(
 			item,

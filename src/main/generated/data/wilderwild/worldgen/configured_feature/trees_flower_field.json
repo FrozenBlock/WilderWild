@@ -8,52 +8,31 @@
     "features": [
       {
         "chance": 0.2,
-        "feature": {
-          "feature": "wilderwild:fancy_oak_bees_025",
-          "placement": []
-        }
+        "feature": "wilderwild:fancy_oak_bees_025_checked"
       },
       {
         "chance": 0.09,
-        "feature": {
-          "feature": "wilderwild:fancy_dying_oak_bees_025",
-          "placement": []
-        }
+        "feature": "wilderwild:fancy_dying_oak_bees_025_checked"
       },
       {
         "chance": 0.1,
-        "feature": {
-          "feature": "wilderwild:birch_bees_0025",
-          "placement": []
-        }
+        "feature": "wilderwild:birch_bees_0025_checked"
       },
       {
         "chance": 0.1,
-        "feature": {
-          "feature": "wilderwild:medium_birch_bees_025",
-          "placement": []
-        }
+        "feature": "wilderwild:medium_birch_bees_025_checked"
       },
       {
         "chance": 0.5,
-        "feature": {
-          "feature": "wilderwild:big_bush",
-          "placement": []
-        }
+        "feature": "wilderwild:big_bush_checked"
       },
       {
         "chance": 0.3,
-        "feature": {
-          "feature": "wilderwild:bush",
-          "placement": []
-        }
+        "feature": "wilderwild:bush_checked"
       },
       {
         "chance": 0.169,
-        "feature": {
-          "feature": "wilderwild:short_oak",
-          "placement": []
-        }
+        "feature": "wilderwild:short_oak_checked"
       }
     ]
   }
