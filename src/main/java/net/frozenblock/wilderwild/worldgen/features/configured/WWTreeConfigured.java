@@ -1157,7 +1157,7 @@ public final class WWTreeConfigured {
 						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
-				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1)
 			).decorators(
 				List.of(
@@ -1183,7 +1183,7 @@ public final class WWTreeConfigured {
 						.build()
 				),
 				BlockStateProvider.simple(Blocks.AIR),
-				new FancyFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 1),
+				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1)
 			).decorators(
 				List.of(
