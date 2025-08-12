@@ -23,17 +23,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -43,11 +39,9 @@ import net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,7 +50,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
-	private static final BooleanProperty CRACKEDNESS = WWBlockStateProperties.CRACKED;
 	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),
@@ -76,13 +69,12 @@ public class ScorchedBlock extends BaseEntityBlock {
 		@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, boolean isSand, @NotNull Properties settings
 	) {
 		super(settings);
-		this.registerDefaultState(this.stateDefinition.any().setValue(CRACKEDNESS, false));
 		this.wetState = wetState;
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
 		this.brushCompletedSound = brushCompletedSound;
 		this.isSand = isSand;
-		this.fillScorchMap(this.wetState, this.defaultBlockState(), this.defaultBlockState().setValue(CRACKEDNESS, true));
+		this.fillScorchMap(this.wetState, this.defaultBlockState());
 	}
 
 	public static boolean canScorch(@NotNull BlockState state) {
@@ -91,10 +83,10 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		state = stateWithoutDusting(state);
-		if (canScorch(state)) {
-			level.setBlockAndUpdate(pos, SCORCH_MAP.get(state));
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-		}
+		if (!canScorch(state)) return;
+
+		level.setBlockAndUpdate(pos, SCORCH_MAP.get(state));
+		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
 	public static boolean canHydrate(@NotNull BlockState state) {
@@ -103,10 +95,10 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
 		state = stateWithoutDusting(state);
-		if (canHydrate(state)) {
-			level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-		}
+		if (!canHydrate(state)) return;
+
+		level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
+		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
 	@NotNull
@@ -120,23 +112,19 @@ public class ScorchedBlock extends BaseEntityBlock {
 		return CODEC;
 	}
 
-	public void fillScorchMap(BlockState wetState, BlockState defaultState, BlockState defaultStateCracked) {
+	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
 		SCORCH_MAP.put(wetState, defaultState);
-		SCORCH_MAP.put(defaultState, defaultStateCracked);
 		HYDRATE_MAP.put(defaultState, wetState);
-		HYDRATE_MAP.put(defaultStateCracked, defaultState);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(CRACKEDNESS, DUSTED);
+		builder.add(DUSTED);
 	}
 
 	@Override
 	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
-		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) {
-			hydrate(state, level, pos);
-		}
+		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) hydrate(state, level, pos);
 	}
 
 	@Override
@@ -147,10 +135,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		FluidState fluidState = level.getFluidState(pos.above());
-		if (fluidState.is(FluidTags.WATER)) {
-			hydrate(state, level, pos);
-		}
+		if (level.getFluidState(pos.above()).is(FluidTags.WATER)) hydrate(state, level, pos);
 	}
 
 	@Override
@@ -161,17 +146,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 		} else if (fluid == Fluids.WATER) {
 			hydrate(state, level, pos);
 		}
-		if (level.getBlockEntity(pos) instanceof ScorchedBlockEntity scorchedBlock) {
-			scorchedBlock.checkReset();
-		}
-	}
-
-	@Override
-	@NotNull
-	public ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean bl) {
-		ItemStack superStack = super.getCloneItemStack(level, pos, state, bl);
-		if (state.getValue(WWBlockStateProperties.CRACKED)) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.CRACKED, true);
-		return superStack;
+		if (level.getBlockEntity(pos) instanceof ScorchedBlockEntity scorchedBlock) scorchedBlock.checkReset();
 	}
 
 	@Override

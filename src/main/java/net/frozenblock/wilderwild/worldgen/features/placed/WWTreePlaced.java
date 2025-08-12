@@ -58,6 +58,7 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature MEDIUM_BIRCH = WWTreeConfigured.MEDIUM_BIRCH.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_MEDIUM_BIRCH = WWTreeConfigured.DYING_MEDIUM_BIRCH.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature MEDIUM_BIRCH_BEES_0004 = WWTreeConfigured.MEDIUM_BIRCH_BEES_0004.toPlacedFeature();
+	public static final FrozenLibPlacedTreeFeature MEDIUM_BIRCH_BEES_025 = WWTreeConfigured.MEDIUM_BIRCH_BEES_025.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_SUPER_BIRCH = WWTreeConfigured.DYING_SUPER_BIRCH.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SUPER_BIRCH_BEES_0004 = WWTreeConfigured.SUPER_BIRCH_BEES_0004.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SUPER_BIRCH_BEES = WWTreeConfigured.SUPER_BIRCH_BEES.toPlacedFeature();
@@ -307,6 +308,7 @@ public final class WWTreePlaced {
 		MEDIUM_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 		DYING_MEDIUM_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 		MEDIUM_BIRCH_BEES_0004.makeAndSetHolders(birchSaplingPlacement);
+		MEDIUM_BIRCH_BEES_025.makeAndSetHolders(birchSaplingPlacement);
 		DYING_SUPER_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 		SUPER_BIRCH_BEES_0004.makeAndSetHolders(birchSaplingPlacement);
 		SUPER_BIRCH_BEES.makeAndSetHolders(birchSaplingPlacement);
