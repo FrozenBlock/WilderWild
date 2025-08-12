@@ -34,7 +34,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -128,7 +127,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (!level.isClientSide()) {
 			onShear(level, pos, state, player);
-			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			stack.hurtAndBreak(1, player, hand);
 		}
 	}
 

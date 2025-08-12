@@ -30,7 +30,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -160,7 +159,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 			boolean shears = stack.is(Items.SHEARS);
 			onPricklyPearPick(level, pos, state, shears, stack, player);
 			if (shears) {
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+				stack.hurtAndBreak(1, player, hand);
 			} else {
 				player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
 			}
