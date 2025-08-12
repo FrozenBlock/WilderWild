@@ -1,6 +1,0 @@
-{
-	"parent": "wilderwild:block/scorched_sand",
-	"overrides": [
-		{"predicate": {"cracked": 1}, "model": "wilderwild:item/scorched_sand_cracked"}
-	]
-}

@@ -580,6 +580,92 @@
       }
     ]
   },
+  "ambient.mesoglea.enter": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/mesoglea/enter1",
+        "volume": 0.5
+      },
+      {
+        "name": "wilderwild:ambient/mesoglea/enter2",
+        "volume": 0.5
+      },
+      {
+        "name": "wilderwild:ambient/mesoglea/enter3",
+        "volume": 0.5
+      }
+    ]
+  },
+  "ambient.mesoglea.exit": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/mesoglea/exit1",
+        "volume": 0.3
+      },
+      {
+        "name": "wilderwild:ambient/mesoglea/exit2",
+        "volume": 0.3
+      },
+      {
+        "name": "wilderwild:ambient/mesoglea/exit3",
+        "volume": 0.3
+      }
+    ]
+  },
+  "entity.generic.swim_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/swim1",
+      "wilderwild:liquid/mesoglea/swim2",
+      "wilderwild:liquid/mesoglea/swim3",
+      "wilderwild:liquid/mesoglea/swim4"
+    ],
+    "subtitle": "subtitles.entity.generic.swim"
+  },
+  "entity.hostile.swim_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/swim1",
+      "wilderwild:liquid/mesoglea/swim2",
+      "wilderwild:liquid/mesoglea/swim3",
+      "wilderwild:liquid/mesoglea/swim4"
+    ],
+    "subtitle": "subtitles.entity.generic.swim"
+  },
+  "entity.player.swim_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/swim1",
+      "wilderwild:liquid/mesoglea/swim2",
+      "wilderwild:liquid/mesoglea/swim3",
+      "wilderwild:liquid/mesoglea/swim4"
+    ],
+    "subtitle": "subtitles.entity.generic.swim"
+  },
+  "entity.generic.splash_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/heavy_splash",
+      "wilderwild:liquid/mesoglea/heavy_splash"
+    ],
+    "subtitle": "subtitles.entity.generic.splash"
+  },
+  "entity.hostile.splash_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/heavy_splash",
+      "wilderwild:liquid/mesoglea/heavy_splash"
+    ],
+    "subtitle": "subtitles.entity.generic.splash"
+  },
+  "entity.player.splash_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/heavy_splash",
+      "wilderwild:liquid/mesoglea/heavy_splash"
+    ],
+    "subtitle": "subtitles.entity.generic.splash"
+  },
+  "entity.player.splash.high_speed_mesoglea": {
+    "sounds": [
+      "wilderwild:liquid/mesoglea/heavy_splash"
+    ],
+    "subtitle": "subtitles.entity.generic.splash"
+  },
   "block.algae.break": {
     "sounds": [
       "wilderwild:block/algae/place1",
