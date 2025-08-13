@@ -29,4 +29,6 @@ public interface InMesogleaInterface {
 	void wilderWild$setTouchingMesoglea(boolean inMesoglea);
 
 	boolean wilderWild$wasTouchingMesoglea();
+
+	boolean wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea();
 }
