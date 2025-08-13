@@ -120,6 +120,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The Milkweed pod now has a cooldown of two seconds.
 - Added unique sounds for blowing a Milkweed Pod.
 - Using a Milkweed Pod now properly awards the statistic for item usage.
+- Ender Pearls no longer play two teleportation sounds upon landing.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 
 # Misc.

@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.phys.HitResult;
@@ -60,16 +59,6 @@ public class ThrownEnderpearlMixin {
 					pitch
 				);
 			}
-			if (!owner.isSilent()) {
-				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
-				level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, owner.getSoundSource(), 0.4F, pitch);
-				FrozenLibSoundPackets.createAndSendLocalPlayerSound(
-					owner,
-					BuiltInRegistries.SOUND_EVENT.getHolder(SoundEvents.CHORUS_FRUIT_TELEPORT.getLocation()).orElseThrow(),
-					0.4F,
-					pitch
-				);
-			}
 		}
 	}
 
@@ -96,18 +85,6 @@ public class ThrownEnderpearlMixin {
 					WWSounds.ITEM_ENDER_PEARL_LAND,
 					owner.getSoundSource(),
 					0.6F,
-					0.85F + (level.random.nextFloat() * 0.2F)
-				);
-			}
-			if (owner != null && !owner.isSilent()) {
-				level.playSound(
-					null,
-					pearl.getX(),
-					pearl.getY(),
-					pearl.getZ(),
-					SoundEvents.CHORUS_FRUIT_TELEPORT,
-					owner.getSoundSource(),
-					0.4F,
 					0.85F + (level.random.nextFloat() * 0.2F)
 				);
 			}
