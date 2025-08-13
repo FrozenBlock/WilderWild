@@ -464,6 +464,7 @@ public final class WWSounds {
 	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 
 	// MESOGLEA
+	public static final SoundEvent AMBIENT_MESOGLEA_LOOP = register("ambient.mesoglea.loop");
 	public static final SoundEvent AMBIENT_MESOGLEA_ENTER = register("ambient.mesoglea.enter");
 	public static final SoundEvent AMBIENT_MESOGLEA_EXIT = register("ambient.mesoglea.exit");
 	public static final SoundEvent ENTITY_GENERIC_SWIM_MESOGLEA = register("entity.generic.swim_mesoglea");
