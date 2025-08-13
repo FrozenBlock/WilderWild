@@ -35,6 +35,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
 - Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
+- Added a unique ambient loop while a player is inside of Mesoglea.
 - Removed a few unused sounds.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
@@ -121,3 +122,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
+- The ambient loops for the Deep Dark, Dripstone Caves, and Lush Caves biomes are no longer preloaded.

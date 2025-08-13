@@ -122,7 +122,6 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/deep_dark/ambience",
-        "preload": true,
         "stream": true,
         "volume": 1.0
       }
@@ -171,7 +170,6 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/dripstone_caves/ambience",
-        "preload": true,
         "stream": true,
         "volume": 0.15
       }
@@ -393,7 +391,6 @@
     "sounds": [
       {
         "name": "wilderwild:ambient/cave/lush_caves/ambience",
-        "preload": true,
         "stream": true,
         "volume": 0.4
       }
@@ -580,6 +577,15 @@
       }
     ]
   },
+  "ambient.mesoglea.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/mesoglea/ambience",
+        "stream": true,
+        "volume": 0.65
+      }
+    ]
+  },
   "ambient.mesoglea.enter": {
     "sounds": [
       {
@@ -614,49 +620,93 @@
   },
   "entity.generic.swim_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/swim1",
-      "wilderwild:liquid/mesoglea/swim2",
-      "wilderwild:liquid/mesoglea/swim3",
-      "wilderwild:liquid/mesoglea/swim4"
+      {
+        "name": "wilderwild:liquid/mesoglea/swim1",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim2",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim3",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim4",
+        "volume": 1.75
+      }
     ],
     "subtitle": "subtitles.entity.generic.swim"
   },
   "entity.hostile.swim_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/swim1",
-      "wilderwild:liquid/mesoglea/swim2",
-      "wilderwild:liquid/mesoglea/swim3",
-      "wilderwild:liquid/mesoglea/swim4"
+      {
+        "name": "wilderwild:liquid/mesoglea/swim1",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim2",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim3",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim4",
+        "volume": 1.75
+      }
     ],
     "subtitle": "subtitles.entity.generic.swim"
   },
   "entity.player.swim_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/swim1",
-      "wilderwild:liquid/mesoglea/swim2",
-      "wilderwild:liquid/mesoglea/swim3",
-      "wilderwild:liquid/mesoglea/swim4"
+      {
+        "name": "wilderwild:liquid/mesoglea/swim5",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim6",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim7",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim8",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim9",
+        "volume": 1.75
+      },
+      {
+        "name": "wilderwild:liquid/mesoglea/swim10",
+        "volume": 1.75
+      }
     ],
     "subtitle": "subtitles.entity.generic.swim"
   },
   "entity.generic.splash_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/heavy_splash",
-      "wilderwild:liquid/mesoglea/heavy_splash"
+      "wilderwild:liquid/mesoglea/splash1",
+      "wilderwild:liquid/mesoglea/splash2"
     ],
     "subtitle": "subtitles.entity.generic.splash"
   },
   "entity.hostile.splash_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/heavy_splash",
-      "wilderwild:liquid/mesoglea/heavy_splash"
+      "wilderwild:liquid/mesoglea/splash1",
+      "wilderwild:liquid/mesoglea/splash2"
     ],
     "subtitle": "subtitles.entity.generic.splash"
   },
   "entity.player.splash_mesoglea": {
     "sounds": [
-      "wilderwild:liquid/mesoglea/heavy_splash",
-      "wilderwild:liquid/mesoglea/heavy_splash"
+      "wilderwild:liquid/mesoglea/splash1",
+      "wilderwild:liquid/mesoglea/splash2"
     ],
     "subtitle": "subtitles.entity.generic.splash"
   },
