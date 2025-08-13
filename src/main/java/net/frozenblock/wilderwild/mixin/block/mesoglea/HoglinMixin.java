@@ -32,7 +32,7 @@ public class HoglinMixin {
 	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
 		if (!(Hoglin.class.cast(this) instanceof InMesogleaInterface inMesogleaInterface)) return;
-		if (inMesogleaInterface.wilderWild$wasInMesoglea()) info.setReturnValue(WWSounds.ENTITY_HOSTILE_SWIM_MESOGLEA);
+		if (inMesogleaInterface.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_HOSTILE_SWIM_MESOGLEA);
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)

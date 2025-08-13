@@ -58,6 +58,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Shadow
 	protected boolean wasTouchingWater;
+
+	@Shadow
+	public abstract boolean isUnderWater();
+
 	@Unique
 	private boolean wilderWild$clipInMesoglea;
 
@@ -221,7 +225,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
-		if (this.wilderWild$wasInMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
+		if (this.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
 	}
 
 	@Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("TAIL"))
@@ -259,6 +263,12 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Override
 	public boolean wilderWild$wasTouchingMesoglea() {
 		return this.wilderWild$wasTouchingMesoglea;
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea() {
+		return this.isUnderWater() ? this.wilderWild$wasInMesoglea() : this.wilderWild$wasTouchingMesoglea();
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)
