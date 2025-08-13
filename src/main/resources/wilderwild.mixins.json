@@ -128,6 +128,7 @@
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
     "worldgen.tree.HugeFungusFeatureMixin",
+    "worldgen.tree.PlaceOnGroundDecoratorMixin",
     "worldgen.tree.TreeFeatureMixin",
     "worldgen.tree.TreeGrowerMixin"
   ],

@@ -545,29 +545,28 @@ public final class WWVegetationGeneration {
 			.add(ModificationPhase.REPLACEMENTS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {
-					if (WWWorldgenConfig.get().vegetation.leafLitterGen) {
-						BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+					WWWorldgenConfig.TreeGeneration treeGeneration = WWWorldgenConfig.get().treeGeneration;
+					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LEAF_LITTER)) {
-							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LEAF_LITTER.getKey());
-						}
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_UNCOMMON_LEAF_LITTER)) {
-							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_UNCOMMON_LEAF_LITTER.getKey());
-						}
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DARK_OAK_LEAF_LITTER)) {
-							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DARK_OAK_LEAF_LITTER.getKey());
-						}
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_OAK_LEAF_LITTER)) {
-							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PALE_OAK_LEAF_LITTER.getKey());
-						}
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPRUCE_LEAF_LITTER)) {
-							generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SPRUCE_LEAF_LITTER.getKey());
-						}
+					if (treeGeneration.oakLeafLitter && biomeSelectionContext.hasTag(WWBiomeTags.HAS_LEAF_LITTER)) {
+						generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LEAF_LITTER.getKey());
+					}
+					if (treeGeneration.oakLeafLitter && biomeSelectionContext.hasTag(WWBiomeTags.HAS_UNCOMMON_LEAF_LITTER)) {
+						generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_UNCOMMON_LEAF_LITTER.getKey());
+					}
+					if (treeGeneration.darkOakLeafLitter && biomeSelectionContext.hasTag(WWBiomeTags.HAS_DARK_OAK_LEAF_LITTER)) {
+						generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_DARK_OAK_LEAF_LITTER.getKey());
+					}
+					if (treeGeneration.paleOakLeafLitter && biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_OAK_LEAF_LITTER)) {
+						generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PALE_OAK_LEAF_LITTER.getKey());
+					}
+					if (treeGeneration.spruceLeafLitter && biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPRUCE_LEAF_LITTER)) {
+						generationSettings.removeFeature(VegetationPlacements.PATCH_LEAF_LITTER);
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SPRUCE_LEAF_LITTER.getKey());
 					}
 				});
 	}

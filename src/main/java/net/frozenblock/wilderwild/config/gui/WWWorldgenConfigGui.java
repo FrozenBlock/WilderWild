@@ -625,13 +625,169 @@ public final class WWWorldgenConfigGui {
 			"paleOakBranches",
 			configInstance
 		);
+		var acaciaLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("acacia_leaf_litter_generation"), modifiedConfig.treeGeneration.acaciaLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.acaciaLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.acaciaLeafLitter = newValue)
+				.setTooltip(tooltip("acacia_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"acaciaLeafLitter",
+			configInstance
+		);
+		var azaleaLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("azalea_leaf_litter_generation"), modifiedConfig.treeGeneration.azaleaLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.azaleaLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.azaleaLeafLitter = newValue)
+				.setTooltip(tooltip("azalea_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"azaleaLeafLitter",
+			configInstance
+		);
+		var baobabLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("baobab_leaf_litter_generation"), modifiedConfig.treeGeneration.baobabLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.baobabLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.baobabLeafLitter = newValue)
+				.setTooltip(tooltip("baobab_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"baobabLeafLitter",
+			configInstance
+		);
+		var birchLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("birch_leaf_litter_generation"), modifiedConfig.treeGeneration.birchLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.birchLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.birchLeafLitter = newValue)
+				.setTooltip(tooltip("birch_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"birchLeafLitter",
+			configInstance
+		);
+		var cherryLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cherry_leaf_litter_generation"), modifiedConfig.treeGeneration.cherryLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.cherryLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.cherryLeafLitter = newValue)
+				.setTooltip(tooltip("cherry_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"cherryLeafLitter",
+			configInstance
+		);
+		var cypressLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cypress_leaf_litter_generation"), modifiedConfig.treeGeneration.cypressLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.cypressLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.cypressLeafLitter = newValue)
+				.setTooltip(tooltip("cypress_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"cypressLeafLitter",
+			configInstance
+		);
+		var darkOakLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("dark_oak_leaf_litter_generation"), modifiedConfig.treeGeneration.darkOakLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.darkOakLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.darkOakLeafLitter = newValue)
+				.setTooltip(tooltip("dark_oak_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"darkOakLeafLitter",
+			configInstance
+		);
+		var jungleLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("jungle_leaf_litter_generation"), modifiedConfig.treeGeneration.jungleLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.jungleLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.jungleLeafLitter = newValue)
+				.setTooltip(tooltip("jungle_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"jungleLeafLitter",
+			configInstance
+		);
+		var mangroveLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("mangrove_leaf_litter_generation"), modifiedConfig.treeGeneration.mangroveLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.mangroveLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.mangroveLeafLitter = newValue)
+				.setTooltip(tooltip("mangrove_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"mangroveLeafLitter",
+			configInstance
+		);
+		var oakLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("oak_leaf_litter_generation"), modifiedConfig.treeGeneration.oakLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.oakLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.oakLeafLitter = newValue)
+				.setTooltip(tooltip("oak_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"oakLeafLitter",
+			configInstance
+		);
+		var paleOakLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pale_oak_leaf_litter_generation"), modifiedConfig.treeGeneration.paleOakLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.paleOakLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.paleOakLeafLitter = newValue)
+				.setTooltip(tooltip("pale_oak_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"paleOakLeafLitter",
+			configInstance
+		);
+		var palmFrondLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("palm_frond_litter_generation"), modifiedConfig.treeGeneration.palmFrondLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.palmFrondLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.palmFrondLitter = newValue)
+				.setTooltip(tooltip("palm_frond_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"palmFrondLitter",
+			configInstance
+		);
+		var spruceLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spruce_leaf_litter_generation"), modifiedConfig.treeGeneration.spruceLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.spruceLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.spruceLeafLitter = newValue)
+				.setTooltip(tooltip("spruce_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"spruceLeafLitter",
+			configInstance
+		);
+		var willowLeafLitter = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("willow_leaf_litter_generation"), modifiedConfig.treeGeneration.willowLeafLitter)
+				.setDefaultValue(defaultConfig.treeGeneration.willowLeafLitter)
+				.setSaveConsumer(newValue -> config.treeGeneration.willowLeafLitter = newValue)
+				.setTooltip(tooltip("willow_leaf_litter_generation"))
+				.requireRestart()
+				.build(),
+			treeClazz,
+			"willowLeafLitter",
+			configInstance
+		);
 
 		var treeGenerationCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("tree_generation_category"),
 			false,
 			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, hollowedFallenTrees, snappedTrees,
 			baobab, palm, willow,
-			birchBranches, oakBranches, darkOakBranches, paleOakBranches
+			birchBranches, oakBranches, darkOakBranches, paleOakBranches, acaciaLeafLitter, azaleaLeafLitter, baobabLeafLitter, birchLeafLitter,
+			cherryLeafLitter, cypressLeafLitter, darkOakLeafLitter, jungleLeafLitter, mangroveLeafLitter, oakLeafLitter, paleOakLeafLitter,
+			palmFrondLitter, spruceLeafLitter, willowLeafLitter
 		);
 
 		var vegetation = config.vegetation;
@@ -760,17 +916,6 @@ public final class WWWorldgenConfigGui {
 			"fireflyBushGen",
 			configInstance
 		);
-		var leafLitterGen = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("leaf_litter_generation"), modifiedConfig.vegetation.leafLitterGen)
-				.setDefaultValue(defaultConfig.vegetation.leafLitterGen)
-				.setSaveConsumer(newValue -> config.vegetation.leafLitterGen = newValue)
-				.setTooltip(tooltip("leaf_litter_generation"))
-				.requireRestart()
-				.build(),
-			vegetationClazz,
-			"leafLitterGen",
-			configInstance
-		);
 		var pumpkin = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("pumpkin_generation"), modifiedVegetation.pumpkin)
 				.setDefaultValue(defaultVegetation.pumpkin)
@@ -787,7 +932,7 @@ public final class WWWorldgenConfigGui {
 			false,
 			tooltip("vegetation"),
 			grassGeneration, dryGrassGeneration, flowerGeneration, shrubGeneration, cactusGeneration, shelfFungiGeneration, mushroomGeneration, paleMushroomGeneration,
-			fireflyBushGen, leafLitterGen, pollen, pumpkin, tumbleweed
+			fireflyBushGen, pollen, pumpkin, tumbleweed
 		);
 
 		var surfaceDecoration = config.surfaceDecoration;
