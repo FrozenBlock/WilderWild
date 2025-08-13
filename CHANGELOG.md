@@ -58,6 +58,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Jellyfish Spawn Egg in 1.21.5+.
 - Updated the textures of most Nematocyst and Mesoglea blocks to reflect the respective new Jellyfish textures.
 - The Nematocyst model no longer has shading.
+- Fixed a slight offset on one part of the Nematocyst's model.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
