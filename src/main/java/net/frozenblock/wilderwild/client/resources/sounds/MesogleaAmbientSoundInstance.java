@@ -29,13 +29,14 @@ import net.minecraft.client.resources.sounds.UnderwaterAmbientSoundInstances;
 import net.minecraft.sounds.SoundSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaAmbientSoundInstance extends AbstractTickableSoundInstance {
 	public static final int FADE_DURATION = 40;
 	private final LocalPlayer player;
 	private int fade;
-	private final List<AbstractTickableSoundInstance> altSounds = new ArrayList<>();
+	private static final List<AbstractTickableSoundInstance> ALT_SOUNDS = new ArrayList<>();
 
 	public MesogleaAmbientSoundInstance(LocalPlayer localPlayer) {
 		super(WWSounds.AMBIENT_MESOGLEA_LOOP, SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
@@ -48,6 +49,9 @@ public class MesogleaAmbientSoundInstance extends AbstractTickableSoundInstance 
 
 	@Override
 	public void tick() {
+		ALT_SOUNDS.removeIf(Objects::isNull);
+		ALT_SOUNDS.removeIf(AbstractTickableSoundInstance::isStopped);
+
 		if (!this.player.isRemoved() && this.fade >= 0) {
 			boolean isUnderwater = this.player.isUnderWater();
 			boolean inMesoglea = this.player instanceof PlayerInMesogleaInterface mesogleaInterface && mesogleaInterface.wilderWild$wasPlayerInMesoglea();
@@ -55,10 +59,10 @@ public class MesogleaAmbientSoundInstance extends AbstractTickableSoundInstance 
 				this.fade++;
 			} else {
 				if (isUnderwater) {
-					if (this.altSounds.isEmpty() || this.altSounds.stream().allMatch(AbstractTickableSoundInstance::isStopped)) {
+					if (ALT_SOUNDS.isEmpty()) {
 						AbstractTickableSoundInstance underwaterSound = new UnderwaterAmbientSoundInstances.UnderwaterAmbientSoundInstance(this.player);
 						Minecraft.getInstance().getSoundManager().playDelayed(underwaterSound, 1);
-						this.altSounds.add(underwaterSound);
+						ALT_SOUNDS.add(underwaterSound);
 					}
 				}
 				this.fade -= 2;

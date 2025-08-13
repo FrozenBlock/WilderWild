@@ -31,8 +31,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class UnderwaterAmbientSoundInstancesMixin {
@@ -63,7 +66,13 @@ public class UnderwaterAmbientSoundInstancesMixin {
 		private LocalPlayer player;
 
 		@Unique
-		private final List<AbstractTickableSoundInstance> wilderWild$altSounds = new ArrayList<>();
+		private static final List<AbstractTickableSoundInstance> WILDERWILD$ALT_SOUNDS = new ArrayList<>();
+
+		@Inject(method = "tick", at = @At("HEAD"))
+		public void wilderWild$clearAltSounds(CallbackInfo info) {
+			WILDERWILD$ALT_SOUNDS.removeIf(Objects::isNull);
+			WILDERWILD$ALT_SOUNDS.removeIf(AbstractTickableSoundInstance::isStopped);
+		}
 
 		@ModifyExpressionValue(
 			method = "tick",
@@ -74,10 +83,10 @@ public class UnderwaterAmbientSoundInstancesMixin {
 		)
 		public boolean wilderWild$stopAdditionsIfInMesoglea(boolean original) {
 			if (this.player instanceof PlayerInMesogleaInterface playerInMesoglea && playerInMesoglea.wilderWild$wasPlayerInMesoglea()) {
-				if (this.wilderWild$altSounds.isEmpty() || this.wilderWild$altSounds.stream().allMatch(AbstractTickableSoundInstance::isStopped)) {
+				if (WILDERWILD$ALT_SOUNDS.isEmpty()) {
 					AbstractTickableSoundInstance mesogleaSound = new MesogleaAmbientSoundInstance(this.player);
 					Minecraft.getInstance().getSoundManager().playDelayed(mesogleaSound, 1);
-					this.wilderWild$altSounds.add(mesogleaSound);
+					WILDERWILD$ALT_SOUNDS.add(mesogleaSound);
 				}
 				return false;
 			}

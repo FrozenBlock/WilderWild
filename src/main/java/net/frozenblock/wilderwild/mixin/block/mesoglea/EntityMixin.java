@@ -188,6 +188,11 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		return this.wilderWild$clipInMesoglea;
 	}
 
+	@Inject(method = "updateFluidOnEyes", at = @At("HEAD"))
+	public void wilderwild$updateIsInMesolgeaA(CallbackInfo info) {
+		this.wilderWild$setInMesoglea(false);
+	}
+
 	@Inject(
 		method = "updateFluidOnEyes",
 		at = @At(
@@ -195,7 +200,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 			target = "Lnet/minecraft/world/level/material/FluidState;getTags()Ljava/util/stream/Stream;"
 		)
 	)
-	public void wilderwild$updateIsInMesolgea(
+	public void wilderwild$updateIsInMesolgeaB(
 		CallbackInfo info,
 		@Local BlockPos eyePos
 	) {

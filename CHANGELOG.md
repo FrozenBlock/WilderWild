@@ -52,7 +52,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 
-# Textures
+# Textures & Models
+- Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
+- Retextured the Jellyfish Bucket.
+- Retextured the Jellyfish Spawn Egg in 1.21.5+.
+- Updated the textures of most Nematocyst and Mesoglea blocks to reflect the respective new Jellyfish textures.
+- The Nematocyst model no longer has shading.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
