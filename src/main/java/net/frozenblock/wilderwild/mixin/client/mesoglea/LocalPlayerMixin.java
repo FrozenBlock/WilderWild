@@ -18,13 +18,18 @@
 package net.frozenblock.wilderwild.mixin.client.mesoglea;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.client.resources.sounds.MesogleaAmbientSoundInstance;
 import net.frozenblock.wilderwild.entity.impl.PlayerInMesogleaInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -73,6 +78,21 @@ public class LocalPlayerMixin {
 	) {
 		if (isInMesoglea.get()) return WWSounds.AMBIENT_MESOGLEA_ENTER;
 		return original;
+	}
+
+	@WrapOperation(
+		method = "updateIsUnderwater",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/sounds/SoundManager;play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V"
+		)
+	)
+	public void wilderWild$replaceLoopSoundIfInMesoglea(
+		SoundManager instance, SoundInstance soundInstance, Operation<Void> original,
+		@Share("wilderWild$isInMesoglea") LocalBooleanRef isInMesoglea
+	) {
+		if (isInMesoglea.get()) soundInstance = new MesogleaAmbientSoundInstance(LocalPlayer.class.cast(this));
+		original.call(instance, soundInstance);
 	}
 
 	@ModifyExpressionValue(

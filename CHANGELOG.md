@@ -35,6 +35,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
 - Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
+- Added a unique ambient loop while a player is inside of Mesoglea.
 - Removed a few unused sounds.
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
@@ -51,7 +52,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 
-# Textures
+# Textures & Models
+- Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
+- Retextured the Jellyfish Bucket.
+- Retextured the Jellyfish Spawn Egg in 1.21.5+.
+- Updated the textures of most Nematocyst and Mesoglea blocks to reflect the respective new Jellyfish textures.
+- The Nematocyst model no longer has shading.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
@@ -114,6 +120,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The Milkweed pod now has a cooldown of two seconds.
 - Added unique sounds for blowing a Milkweed Pod.
 - Using a Milkweed Pod now properly awards the statistic for item usage.
+- Ender Pearls no longer play two teleportation sounds upon landing.
 - Removed yet another internal reference to the Ancient Horn. Begone. Your time has long passed.
 
 # Misc.
@@ -121,3 +128,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
+- The ambient loops for the Deep Dark, Dripstone Caves, and Lush Caves biomes are no longer preloaded.

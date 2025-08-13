@@ -541,7 +541,7 @@ public final class WWBlocks {
 		WWParticleTypes.YELLOW_MESOGLEA_CURRENT_DOWN,
 		WWParticleTypes.YELLOW_MESOGLEA_SPLASH,
 		false,
-		Integer.parseInt("FFCA51", 16)
+		Integer.parseInt("FFC958", 16)
 	);
 	public static final MesogleaBlock BLUE_MESOGLEA = mesoglea("blue_mesoglea",
 		MapColor.COLOR_LIGHT_BLUE,
@@ -551,7 +551,7 @@ public final class WWBlocks {
 		WWParticleTypes.BLUE_MESOGLEA_CURRENT_DOWN,
 		WWParticleTypes.BLUE_MESOGLEA_SPLASH,
 		false,
-		Integer.parseInt("50A4FF", 16)
+		Integer.parseInt("596BFF", 16)
 	);
 	public static final MesogleaBlock LIME_MESOGLEA = mesoglea("lime_mesoglea",
 		MapColor.COLOR_LIGHT_GREEN,
@@ -561,7 +561,7 @@ public final class WWBlocks {
 		WWParticleTypes.LIME_MESOGLEA_CURRENT_DOWN,
 		WWParticleTypes.LIME_MESOGLEA_SPLASH,
 		false,
-		Integer.parseInt("0CCD40", 16)
+		Integer.parseInt("55EF1B", 16)
 	);
 	public static final MesogleaBlock RED_MESOGLEA = mesoglea("red_mesoglea",
 		MapColor.COLOR_RED,
@@ -571,7 +571,7 @@ public final class WWBlocks {
 		WWParticleTypes.RED_MESOGLEA_CURRENT_DOWN,
 		WWParticleTypes.RED_MESOGLEA_SPLASH,
 		false,
-		Integer.parseInt("FF3B3C", 16)
+		Integer.parseInt("FD3420", 16)
 	);
 	public static final MesogleaBlock PINK_MESOGLEA = mesoglea("pink_mesoglea",
 		MapColor.COLOR_PINK,
@@ -581,7 +581,7 @@ public final class WWBlocks {
 		WWParticleTypes.PINK_MESOGLEA_CURRENT_DOWN,
 		WWParticleTypes.PINK_MESOGLEA_SPLASH,
 		false,
-		Integer.parseInt("DF71DC", 16)
+		Integer.parseInt("ED87D1", 16)
 	);
 
 	public static final NematocystBlock BLUE_PEARLESCENT_NEMATOCYST = register("blue_pearlescent_nematocyst",
