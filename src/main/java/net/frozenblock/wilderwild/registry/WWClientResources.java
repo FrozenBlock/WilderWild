@@ -75,12 +75,6 @@ public final class WWClientResources {
 					}
 					return false;
 				});
-				WWConstants.ORIGINAL_FIREFLIES = resourceManager.listPacks().anyMatch(packResources -> {
-					if (packResources.knownPackInfo().isPresent()) {
-						return packResources.knownPackInfo().get().id().equals(WWConstants.string("original_firefly"));
-					}
-					return false;
-				});
 			}
 		});
 	}
