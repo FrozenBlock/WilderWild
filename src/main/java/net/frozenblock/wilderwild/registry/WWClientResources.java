@@ -46,7 +46,7 @@ public final class WWClientResources {
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
 			ResourcePackActivationType.NORMAL
 		);
-		
+
 		ResourceManagerHelper.registerBuiltinResourcePack(
 			WWConstants.id("original_firefly"),
 			container, Component.literal("Original Fireflies"),
@@ -64,7 +64,7 @@ public final class WWClientResources {
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public ResourceLocation getFabricId() {
-				return WWConstants.id("minecraft_live_sculk_sensor");
+				return WWConstants.id("resource_pack_value_setters");
 			}
 
 			@Override
@@ -72,6 +72,12 @@ public final class WWClientResources {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {
 					if (packResources.knownPackInfo().isPresent()) {
 						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
+					}
+					return false;
+				});
+				WWConstants.ORIGINAL_FIREFLIES = resourceManager.listPacks().anyMatch(packResources -> {
+					if (packResources.knownPackInfo().isPresent()) {
+						return packResources.knownPackInfo().get().id().equals(WWConstants.string("original_firefly"));
 					}
 					return false;
 				});

@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class FireflyRenderState extends LivingEntityRenderState {
-	public int flickerAge;
 	public float animScale;
 	public FireflyColor color;
 	public float calcColor;
