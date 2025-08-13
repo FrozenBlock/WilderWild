@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.entity.impl.PlayerInMesogleaInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -84,15 +85,15 @@ public class LocalPlayerMixin {
 		method = "updateIsUnderwater",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/sounds/SoundManager;play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V"
+			target = "Lnet/minecraft/client/sounds/SoundManager;play(Lnet/minecraft/client/resources/sounds/SoundInstance;)Lnet/minecraft/client/sounds/SoundEngine$PlayResult;"
 		)
 	)
-	public void wilderWild$replaceLoopSoundIfInMesoglea(
-		SoundManager instance, SoundInstance soundInstance, Operation<Void> original,
+	public SoundEngine.PlayResult wilderWild$replaceLoopSoundIfInMesoglea(
+		SoundManager instance, SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original,
 		@Share("wilderWild$isInMesoglea") LocalBooleanRef isInMesoglea
 	) {
 		if (isInMesoglea.get()) soundInstance = new MesogleaAmbientSoundInstance(LocalPlayer.class.cast(this));
-		original.call(instance, soundInstance);
+		return original.call(instance, soundInstance);
 	}
 
 	@ModifyExpressionValue(
