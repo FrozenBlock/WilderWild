@@ -37,10 +37,9 @@ public class PlayerMixin implements PlayerInMesogleaInterface {
 	@Inject(method = "updateIsUnderwater", at = @At(value = "HEAD"))
 	public void wilderwild$updateIsInMesolgea(CallbackInfoReturnable<Boolean> info) {
 		if (!(Player.class.cast(this) instanceof InMesogleaInterface mesogleaInterface)) return;
-		this.wilderWild$setPlayerInMesoglea(mesogleaInterface.wilderWild$wasInMesoglea());
+		this.wilderWild$wasPlayerInMesoglea = mesogleaInterface.wilderWild$wasInMesoglea();
 	}
 
-	@Unique
 	@Override
 	public void wilderWild$setPlayerInMesoglea(boolean inMesoglea) {
 		this.wilderWild$wasPlayerInMesoglea = inMesoglea;
@@ -54,7 +53,8 @@ public class PlayerMixin implements PlayerInMesogleaInterface {
 
 	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
-		if (this.wilderWild$wasPlayerInMesoglea()) info.setReturnValue(WWSounds.ENTITY_PLAYER_SWIM_MESOGLEA);
+		if (!(Player.class.cast(this) instanceof InMesogleaInterface inMesogleaInterface)) return;
+		if (inMesogleaInterface.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_PLAYER_SWIM_MESOGLEA);
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)
