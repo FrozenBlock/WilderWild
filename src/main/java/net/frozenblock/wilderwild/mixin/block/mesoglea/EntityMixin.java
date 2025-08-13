@@ -139,6 +139,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock) {
+			this.wilderWild$setTouchingMesoglea(true);
 			double distance = this.distanceToSqr(Vec3.atCenterOf(blockPos));
 			if (distance < closestPosDistanceRef.get()) {
 				closestPosDistanceRef.set(distance);
@@ -231,26 +232,6 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("TAIL"))
 	public void wilderWild$setNotTouchingMesoglea(CallbackInfo info) {
 		if (!this.wasTouchingWater) this.wilderWild$wasTouchingMesoglea = false;
-	}
-
-	@ModifyExpressionValue(
-		method = "updateFluidHeightAndDoFluidPushing",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/lang/Math;max(DD)D"
-		)
-	)
-	public double wilderWild$setTouchingMesoglea(
-		double original,
-		TagKey<Fluid> tagKey, double d,
-		@Local BlockPos.MutableBlockPos mutableBlockPos
-	) {
-		if (!this.wilderWild$wasTouchingMesoglea()) {
-			if (tagKey.equals(FluidTags.WATER) && this.level().getBlockState(mutableBlockPos).getBlock() instanceof MesogleaBlock) {
-				this.wilderWild$setTouchingMesoglea(true);
-			}
-		}
-		return original;
 	}
 
 	@Unique

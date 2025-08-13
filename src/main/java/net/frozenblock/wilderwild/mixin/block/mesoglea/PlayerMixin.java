@@ -34,17 +34,12 @@ public class PlayerMixin implements PlayerInMesogleaInterface {
 	@Unique
 	private boolean wilderWild$wasPlayerInMesoglea;
 
-	@Unique
-	private boolean wilderWild$isPlayerTouchingMesogleaOrUnderWaterAndMesoglea;
-
 	@Inject(method = "updateIsUnderwater", at = @At(value = "HEAD"))
 	public void wilderwild$updateIsInMesolgea(CallbackInfoReturnable<Boolean> info) {
 		if (!(Player.class.cast(this) instanceof InMesogleaInterface mesogleaInterface)) return;
-		this.wilderWild$setPlayerInMesoglea(mesogleaInterface.wilderWild$wasInMesoglea());
-		this.wilderWild$setPlayerTouchingMesogleaOrUnderWaterAndMesoglea(mesogleaInterface.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea());
+		this.wilderWild$wasPlayerInMesoglea = mesogleaInterface.wilderWild$wasInMesoglea();
 	}
 
-	@Unique
 	@Override
 	public void wilderWild$setPlayerInMesoglea(boolean inMesoglea) {
 		this.wilderWild$wasPlayerInMesoglea = inMesoglea;
@@ -56,20 +51,10 @@ public class PlayerMixin implements PlayerInMesogleaInterface {
 		return this.wilderWild$wasPlayerInMesoglea;
 	}
 
-	@Override
-	public void wilderWild$setPlayerTouchingMesogleaOrUnderWaterAndMesoglea(boolean touchingMesogleaOrUnderWaterAndMesoglea) {
-		this.wilderWild$isPlayerTouchingMesogleaOrUnderWaterAndMesoglea = touchingMesogleaOrUnderWaterAndMesoglea;
-	}
-
-	@Unique
-	@Override
-	public boolean wilderWild$isPlayerTouchingMesogleaOrUnderWaterAndMesoglea() {
-		return this.wilderWild$isPlayerTouchingMesogleaOrUnderWaterAndMesoglea;
-	}
-
 	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
-		if (this.wilderWild$isPlayerTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_PLAYER_SWIM_MESOGLEA);
+		if (!(Player.class.cast(this) instanceof InMesogleaInterface inMesogleaInterface)) return;
+		if (inMesogleaInterface.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_PLAYER_SWIM_MESOGLEA);
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)
