@@ -55,6 +55,20 @@ public final class WWWorldgenConfig {
 				OAK_BRANCHES = config.treeGeneration.oakBranches;
 				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
 				PALE_OAK_BRANCHES = config.treeGeneration.paleOakBranches;
+				ACACIA_LEAF_LITTERS = config.treeGeneration.acaciaLeafLitter;
+				AZALEA_LEAF_LITTERS = config.treeGeneration.azaleaLeafLitter;
+				BAOBAB_LEAF_LITTERS = config.treeGeneration.baobabLeafLitter;
+				BIRCH_LEAF_LITTERS = config.treeGeneration.birchLeafLitter;
+				CHERRY_LEAF_LITTERS  = config.treeGeneration.cherryLeafLitter;
+				CYPRESS_LEAF_LITTERS = config.treeGeneration.cypressLeafLitter;
+				DARK_OAK_LEAF_LITTERS = config.treeGeneration.darkOakLeafLitter;
+				JUNGLE_LEAF_LITTERS = config.treeGeneration.jungleLeafLitter;
+				MANGROVE_LEAF_LITTERS = config.treeGeneration.mangroveLeafLitter;
+				OAK_LEAF_LITTERS = config.treeGeneration.oakLeafLitter;
+				PALE_OAK_LEAF_LITTERS = config.treeGeneration.paleOakLeafLitter;
+				PALM_FROND_LITTERS = config.treeGeneration.palmFrondLitter;
+				SPRUCE_LEAF_LITTERS = config.treeGeneration.spruceLeafLitter;
+				WILLOW_LEAF_LITTERS = config.treeGeneration.willowLeafLitter;
 				NEW_WITCH_HUTS = config.structure.newWitchHuts;
 			}
 		}
@@ -67,6 +81,20 @@ public final class WWWorldgenConfig {
 	public static volatile boolean OAK_BRANCHES = true;
 	public static volatile boolean DARK_OAK_BRANCHES = true;
 	public static volatile boolean PALE_OAK_BRANCHES = true;
+	public static volatile boolean ACACIA_LEAF_LITTERS = true;
+	public static volatile boolean AZALEA_LEAF_LITTERS = true;
+	public static volatile boolean BAOBAB_LEAF_LITTERS = true;
+	public static volatile boolean BIRCH_LEAF_LITTERS = true;
+	public static volatile boolean CHERRY_LEAF_LITTERS = true;
+	public static volatile boolean CYPRESS_LEAF_LITTERS = true;
+	public static volatile boolean DARK_OAK_LEAF_LITTERS = true;
+	public static volatile boolean JUNGLE_LEAF_LITTERS = true;
+	public static volatile boolean MANGROVE_LEAF_LITTERS = true;
+	public static volatile boolean OAK_LEAF_LITTERS = true;
+	public static volatile boolean PALE_OAK_LEAF_LITTERS = true;
+	public static volatile boolean PALM_FROND_LITTERS = true;
+	public static volatile boolean SPRUCE_LEAF_LITTERS = true;
+	public static volatile boolean WILLOW_LEAF_LITTERS = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -154,9 +182,6 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("fireflyBushGen")
 		public boolean fireflyBushGen = true;
-
-		@EntrySyncData("leafLitterGen")
-		public boolean leafLitterGen = true;
 
 		@EntrySyncData("pumpkin")
 		public boolean pumpkin = true;
@@ -288,6 +313,48 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("paleOakBranches")
 		public boolean paleOakBranches = true;
+
+		@EntrySyncData("acaciaLeafLitter")
+		public boolean acaciaLeafLitter = true;
+
+		@EntrySyncData("azaleaLeafLitter")
+		public boolean azaleaLeafLitter = true;
+
+		@EntrySyncData("baobabLeafLitter")
+		public boolean baobabLeafLitter = true;
+
+		@EntrySyncData("birchLeafLitter")
+		public boolean birchLeafLitter = true;
+
+		@EntrySyncData("cherryLeafLitter")
+		public boolean cherryLeafLitter = true;
+
+		@EntrySyncData("cypressLeafLitter")
+		public boolean cypressLeafLitter = true;
+
+		@EntrySyncData("darkOakLeafLitter")
+		public boolean darkOakLeafLitter = true;
+
+		@EntrySyncData("jungleLeafLitter")
+		public boolean jungleLeafLitter = true;
+
+		@EntrySyncData("mangroveLeafLitter")
+		public boolean mangroveLeafLitter = true;
+
+		@EntrySyncData("oakLeafLitter")
+		public boolean oakLeafLitter = true;
+
+		@EntrySyncData("paleOakLeafLitter")
+		public boolean paleOakLeafLitter = true;
+
+		@EntrySyncData("palmFrondLitter")
+		public boolean palmFrondLitter = true;
+
+		@EntrySyncData("spruceLeafLitter")
+		public boolean spruceLeafLitter = true;
+
+		@EntrySyncData("willowLeafLitter")
+		public boolean willowLeafLitter = true;
 	}
 
 	public static class AquaticGeneration {

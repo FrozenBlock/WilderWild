@@ -88,6 +88,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Leaf Litters of every leaf type now generate.
   - Azalea and Cherry Leaf Litters do not generate naturally, but can still be obtained by smelting their leaves block.
   - This change was made to establish stronger consistency between Vanilla and Wilder Wild.
+- Added config options to toggle the generation of every Leaf Litter type.
 - Leaf Litter patch features no longer get placed over blocks such as Sand or Gravel.
   - This change was made to improve the visuals of Beta Beaches.
 - Significantly cleaned up feature datagen in 1.21.5+.
