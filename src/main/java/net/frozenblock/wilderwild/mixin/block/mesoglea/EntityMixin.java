@@ -58,6 +58,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Shadow
 	protected boolean wasTouchingWater;
+
+	@Shadow
+	public abstract boolean isUnderWater();
+
 	@Unique
 	private boolean wilderWild$clipInMesoglea;
 
@@ -135,6 +139,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock) {
+			this.wilderWild$setTouchingMesoglea(true);
 			double distance = this.distanceToSqr(Vec3.atCenterOf(blockPos));
 			if (distance < closestPosDistanceRef.get()) {
 				closestPosDistanceRef.set(distance);
@@ -188,6 +193,11 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		return this.wilderWild$clipInMesoglea;
 	}
 
+	@Inject(method = "updateFluidOnEyes", at = @At("HEAD"))
+	public void wilderwild$updateIsInMesolgeaA(CallbackInfo info) {
+		this.wilderWild$setInMesoglea(false);
+	}
+
 	@Inject(
 		method = "updateFluidOnEyes",
 		at = @At(
@@ -195,7 +205,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 			target = "Lnet/minecraft/world/level/material/FluidState;getTags()Ljava/util/stream/Stream;"
 		)
 	)
-	public void wilderwild$updateIsInMesolgea(
+	public void wilderwild$updateIsInMesolgeaB(
 		CallbackInfo info,
 		@Local BlockPos eyePos
 	) {
@@ -216,32 +226,12 @@ public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Inject(method = "getSwimSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getSwimSound(CallbackInfoReturnable<SoundEvent> info) {
-		if (this.wilderWild$wasInMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
+		if (this.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
 	}
 
 	@Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("TAIL"))
 	public void wilderWild$setNotTouchingMesoglea(CallbackInfo info) {
 		if (!this.wasTouchingWater) this.wilderWild$wasTouchingMesoglea = false;
-	}
-
-	@ModifyExpressionValue(
-		method = "updateFluidHeightAndDoFluidPushing",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/lang/Math;max(DD)D"
-		)
-	)
-	public double wilderWild$setTouchingMesoglea(
-		double original,
-		TagKey<Fluid> tagKey, double d,
-		@Local BlockPos.MutableBlockPos mutableBlockPos
-	) {
-		if (!this.wilderWild$wasTouchingMesoglea()) {
-			if (tagKey.equals(FluidTags.WATER) && this.level().getBlockState(mutableBlockPos).getBlock() instanceof MesogleaBlock) {
-				this.wilderWild$setTouchingMesoglea(true);
-			}
-		}
-		return original;
 	}
 
 	@Unique
@@ -254,6 +244,12 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Override
 	public boolean wilderWild$wasTouchingMesoglea() {
 		return this.wilderWild$wasTouchingMesoglea;
+	}
+
+	@Unique
+	@Override
+	public boolean wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea() {
+		return this.isUnderWater() ? this.wilderWild$wasInMesoglea() : this.wilderWild$wasTouchingMesoglea();
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)
