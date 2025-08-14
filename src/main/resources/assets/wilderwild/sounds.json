@@ -5096,6 +5096,24 @@
     ],
     "subtitle": "subtitles.block.generic.break"
   },
+  "block.tube_worms.place": {
+    "sounds": [
+      "wilderwild:block/tube_worms/break1",
+      "wilderwild:block/tube_worms/break2",
+      "wilderwild:block/tube_worms/break3",
+      "wilderwild:block/tube_worms/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tube_worms.break": {
+    "sounds": [
+      "wilderwild:block/tube_worms/break1",
+      "wilderwild:block/tube_worms/break2",
+      "wilderwild:block/tube_worms/break3",
+      "wilderwild:block/tube_worms/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
   "block.auburn_moss.break": {
     "sounds": [
       {

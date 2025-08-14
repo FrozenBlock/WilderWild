@@ -335,6 +335,8 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_SHORT_GRASS_BREAK = register("block.short_grass.break");
 	public static final SoundEvent BLOCK_SEA_ANEMONE_PLACE = register("block.sea_anemone.place");
 	public static final SoundEvent BLOCK_SEA_ANEMONE_BREAK = register("block.sea_anemone.break");
+	public static final SoundEvent BLOCK_TUBE_WORMS_PLACE = register("block.tube_worms.place");
+	public static final SoundEvent BLOCK_TUBE_WORM_BREAK = register("block.sea_anemonetube_worms.break");
 	public static final SoundEvent BLOCK_FIRE_IGNITE = register("block.fire.ignite");
 
 	//ENTITY
