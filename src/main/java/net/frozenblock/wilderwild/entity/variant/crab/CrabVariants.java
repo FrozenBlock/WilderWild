@@ -45,7 +45,11 @@ public final class CrabVariants {
 		String texturePath = "entity/crab/" + textureName;
 		bootstrapContext.register(
 			resourceKey,
-			new CrabVariant(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1))
+			new CrabVariant(
+				new ClientAsset(WWConstants.id(texturePath)),
+				new ClientAsset(WWConstants.id(texturePath + "_mojang")),
+				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1)
+			)
 		);
 	}
 

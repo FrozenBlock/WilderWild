@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -37,12 +38,16 @@ import org.jetbrains.annotations.NotNull;
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
 	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
+	private final CrabModel normalModel = this.getModel();
+	private final CrabModel mojangModel;
+
 	public CrabRenderer(EntityRendererProvider.Context context) {
 		this(context, WWModelLayers.CRAB);
 	}
 
 	public CrabRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, new CrabModel(context.bakeLayer(layer)), 0.3F);
+		this.mojangModel = new CrabModel(context.bakeLayer(WWModelLayers.CRAB_MOJANG));
 	}
 
 	@Override
@@ -53,9 +58,15 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	protected void scale(CrabRenderState renderState, PoseStack poseStack) {
+	protected void scale(@NotNull CrabRenderState renderState, PoseStack poseStack) {
 		super.scale(renderState, poseStack);
 		poseStack.scale(renderState.ageScale, renderState.ageScale, renderState.ageScale);
+	}
+
+	@Override
+	public void render(@NotNull CrabRenderState renderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
+		this.model = (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
+		super.render(renderState, poseStack, multiBufferSource, packedLight);
 	}
 
 	@Override
@@ -66,7 +77,8 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull CrabRenderState renderState) {
-		return !renderState.isDitto ? renderState.texture : CRAB_DITTO_LOCATION;
+		if (renderState.isDitto) return CRAB_DITTO_LOCATION;
+		return WWConstants.MOJANG_CRABS ? renderState.mojangTexture : renderState.texture;
 	}
 
 	@Override
@@ -85,6 +97,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.diggingAnimationState.copyFrom(entity.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(entity.emergingAnimationState);
 		renderState.texture = entity.getVariantForRendering().assetInfo().texturePath();
+		renderState.mojangTexture = entity.getVariantForRendering().mojangAssetInfo().texturePath();
 	}
 }
 

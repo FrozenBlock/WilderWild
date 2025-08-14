@@ -3723,10 +3723,9 @@
   },
   "entity.jellyfish.hide": {
     "sounds": [
-      "wilderwild:block/mesoglea/step1",
-      "wilderwild:block/mesoglea/step2",
-      "wilderwild:block/mesoglea/step3",
-      "wilderwild:block/mesoglea/step4"
+      "wilderwild:mob/jellyfish/hide1",
+      "wilderwild:mob/jellyfish/hide2",
+      "wilderwild:mob/jellyfish/hide3"
     ],
     "subtitle": "subtitles.entity.jellyfish.hide"
   },
@@ -5012,9 +5011,9 @@
   },
   "particle.mesoglea_bubble.pop": {
     "sounds": [
-      "wilderwild:particle/bubble/pop1",
-      "wilderwild:particle/bubble/pop2",
-      "wilderwild:particle/bubble/pop3"
+      "wilderwild:particle/mesoglea_bubble/pop1",
+      "wilderwild:particle/mesoglea_bubble/pop2",
+      "wilderwild:particle/mesoglea_bubble/pop3"
     ],
     "subtitle": "subtitles.particle.mesoglea_bubble.pop"
   },

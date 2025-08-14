@@ -37,33 +37,42 @@ public final class CrabVariant implements PriorityProvider<SpawnContext, SpawnCo
 	public static final Codec<CrabVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::assetInfo),
+			ClientAsset.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangAssetInfo),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(CrabVariant::spawnConditions)
 		).apply(instance, CrabVariant::new)
 	);
 	public static final Codec<CrabVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::assetInfo)
+			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::assetInfo),
+			ClientAsset.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangAssetInfo)
 		).apply(instance, CrabVariant::new)
 	);
 	public static final Codec<Holder<CrabVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.CRAB_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<CrabVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.CRAB_VARIANT);
 
 	private final ClientAsset clientAsset;
+	private final ClientAsset mojangClientAsset;
 	private final SpawnPrioritySelectors spawnConditions;
 
 
-	public CrabVariant(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions) {
+	public CrabVariant(ClientAsset clientAsset, ClientAsset mojangClientAsset, SpawnPrioritySelectors spawnConditions) {
 		this.clientAsset = clientAsset;
+		this.mojangClientAsset = mojangClientAsset;
 		this.spawnConditions = spawnConditions;
 	}
 
-	private CrabVariant(ClientAsset clientAsset) {
-		this(clientAsset, SpawnPrioritySelectors.EMPTY);
+	private CrabVariant(ClientAsset clientAsset, ClientAsset mojangClientAsset) {
+		this(clientAsset, mojangClientAsset, SpawnPrioritySelectors.EMPTY);
 	}
 
 	@NotNull
 	public ClientAsset assetInfo() {
 		return this.clientAsset;
+	}
+
+	@NotNull
+	public ClientAsset mojangAssetInfo() {
+		return this.mojangClientAsset;
 	}
 
 	public SpawnPrioritySelectors spawnConditions() {

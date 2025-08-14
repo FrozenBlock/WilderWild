@@ -27,6 +27,7 @@ import net.minecraft.world.entity.AnimationState;
 @Environment(EnvType.CLIENT)
 public class CrabRenderState extends LivingEntityRenderState {
 	private static final ResourceLocation DEFAULT_TEXTURE = WWConstants.id("textures/entity/crab/crab.png");
+	private static final ResourceLocation DEFAULT_MOJANG_TEXTURE = WWConstants.id("textures/entity/crab/crab_mojang.png");
 	public float climbXRot;
 	public float attackTime;
 	public boolean isDitto;
@@ -34,4 +35,5 @@ public class CrabRenderState extends LivingEntityRenderState {
 	public final AnimationState diggingAnimationState = new AnimationState();
 	public final AnimationState emergingAnimationState = new AnimationState();
 	public ResourceLocation texture = DEFAULT_TEXTURE;
+	public ResourceLocation mojangTexture = DEFAULT_MOJANG_TEXTURE;
 }

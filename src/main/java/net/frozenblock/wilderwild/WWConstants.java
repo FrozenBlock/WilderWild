@@ -34,7 +34,8 @@ public final class WWConstants {
 	 * It's smart to use this for at least registries.
 	 */
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static volatile boolean MC_LIVE_TENDRILS = false;
+	public static boolean MC_LIVE_TENDRILS = false;
+	public static boolean MOJANG_CRABS = false;
 
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {
