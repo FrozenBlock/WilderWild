@@ -383,10 +383,17 @@ public final class WWSoundTypes {
 	);
 	public static final SoundType SEA_ANEMONE = new SoundType(1F, 1F,
 		WWSounds.BLOCK_SEA_ANEMONE_BREAK,
-		WWSounds.BLOCK_ALGAE_PLACE,
+		WWSounds.BLOCK_ALGAE_STEP,
 		WWSounds.BLOCK_SEA_ANEMONE_PLACE,
 		WWSounds.BLOCK_ALGAE_HIT,
 		WWSounds.BLOCK_ALGAE_FALL
+	);
+	public static final SoundType TUBE_WORMS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_TUBE_WORM_BREAK,
+		SoundEvents.CORAL_BLOCK_STEP,
+		WWSounds.BLOCK_TUBE_WORMS_PLACE,
+		SoundEvents.CORAL_BLOCK_HIT,
+		SoundEvents.CORAL_BLOCK_FALL
 	);
 
 	private WWSoundTypes() {
