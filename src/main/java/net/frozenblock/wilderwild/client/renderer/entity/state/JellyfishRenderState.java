@@ -31,5 +31,6 @@ public class JellyfishRenderState extends LivingEntityRenderState {
 
 	public float jellyXRot;
 	public float tentXRot;
+	public float armXRot;
 	public float jellyScale;
 }

@@ -94,6 +94,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 		renderState.jellyXRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1)) * Mth.DEG_TO_RAD;
 		renderState.tentXRot = -(entity.xRot6 + partialTick * (entity.xRot5 - entity.xRot6)) * Mth.DEG_TO_RAD;
+		renderState.armXRot = -(entity.xRot9 + partialTick * (entity.xRot8 - entity.xRot9)) * Mth.DEG_TO_RAD;
 		renderState.jellyScale = (entity.prevScale + partialTick * (entity.scale - entity.prevScale)) * entity.getAgeScale();
 	}
 }

@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.particle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -79,15 +78,15 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 
 	@Override
 	public void remove() {
-		this.level.playSound(
-			Minecraft.getInstance().player,
+		this.level.playLocalSound(
 			this.x,
 			this.y,
 			this.z,
 			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
-			0.1F,
-			this.random.nextFloat() * 0.2F + 0.8F
+			0.05F,
+			this.random.nextFloat() * 0.2F + 0.8F,
+			false
 		);
 		this.level.addParticle(
 			this.popParticle,
