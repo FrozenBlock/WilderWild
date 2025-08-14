@@ -4256,9 +4256,9 @@
   },
   "particle.mesoglea_bubble.pop": {
     "sounds": [
-      "wilderwild:particle/bubble/pop1",
-      "wilderwild:particle/bubble/pop2",
-      "wilderwild:particle/bubble/pop3"
+      "wilderwild:particle/mesoglea_bubble/pop1",
+      "wilderwild:particle/mesoglea_bubble/pop2",
+      "wilderwild:particle/mesoglea_bubble/pop3"
     ],
     "subtitle": "subtitles.particle.mesoglea_bubble.pop"
   },
