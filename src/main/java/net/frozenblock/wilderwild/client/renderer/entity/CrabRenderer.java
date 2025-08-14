@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -64,9 +64,9 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public void render(@NotNull CrabRenderState renderState, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
+	public void submit(@NotNull CrabRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
 		this.model = (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
-		super.render(renderState, poseStack, multiBufferSource, packedLight);
+		super.submit(renderState, poseStack, submitNodeCollector);
 	}
 
 	@Override
