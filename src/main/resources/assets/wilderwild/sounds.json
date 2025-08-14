@@ -2987,10 +2987,9 @@
   },
   "entity.jellyfish.hide": {
     "sounds": [
-      "wilderwild:block/mesoglea/step1",
-      "wilderwild:block/mesoglea/step2",
-      "wilderwild:block/mesoglea/step3",
-      "wilderwild:block/mesoglea/step4"
+      "wilderwild:mob/jellyfish/hide1",
+      "wilderwild:mob/jellyfish/hide2",
+      "wilderwild:mob/jellyfish/hide3"
     ],
     "subtitle": "subtitles.entity.jellyfish.hide"
   },

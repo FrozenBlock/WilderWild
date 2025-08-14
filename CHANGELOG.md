@@ -23,6 +23,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
 - Added a unique ambient loop while a player is inside of Mesoglea.
 - Tweaked the sounds and volume of Mesoglea Bubbles popping.
+- Added unique sounds for Jellyfish hiding in Mesoglea/Nematocyst.
 - Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
@@ -35,6 +36,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
 - Fixed Echo Glass place sounds being stereo instead of mono.
 - Fixed underwater Chest closing sounds being stereo instead of mono.
+- Decreased the amount of bass present in some of the Jellyfish's sounds.
 - The ambient loops for the Deep Dark, Dripstone Caves, and Lush Caves biomes are no longer preloaded.
 - Removed duplicate leaves sounds.
 - Removed duplicate flower sounds.
@@ -61,11 +63,15 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 # Textures & Models
 - Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
+  - Pearlescent Jellyfish now have additional "oral arms."
+  - Fixed an incorrect calculation that caused the Jellyfish's tentacles to not lag behind the "cap" properly, but instead get pushed in the opposite direction.
 - Retextured the Jellyfish Bucket.
 - Retextured the Jellyfish Spawn Egg in 1.21.5+.
 - Updated the textures of most Nematocyst and Mesoglea blocks to reflect the respective new Jellyfish textures.
 - The Nematocyst model no longer has shading.
 - Fixed a slight offset on one part of the Nematocyst's model.
+- Redesigned the Crab to be more in-line with Mojang's proposed design.
+  - The old textures and model can still be used by disabling the internal `Mojang Crabs` Resource Pack.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
@@ -122,7 +128,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
-- Decreased the amount of bass present in some of the Jellyfish's sounds.
 
 # Items
 - The Milkweed pod now has a cooldown of two seconds.

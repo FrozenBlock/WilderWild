@@ -45,10 +45,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	private final ModelPart bone;
 	private final ModelPart body;
 	private final ModelPart tentacleBase;
+	private final ModelPart armBase;
 	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
 	private final ModelPart[] planeTentacles = new ModelPart[JELLYFISH_TENTACLES];
 	public float xRot;
 	public float tentXRot;
+	public float armXRot;
 
 	public float red;
 	public float green;
@@ -60,6 +62,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		this.bone = root.getChild("bone");
 		this.body = this.bone.getChild("body");
 		this.tentacleBase = this.bone.getChild("tentacleBase");
+		this.armBase = this.bone.getChild("armBase");
 		Arrays.setAll(this.tentacles, i -> tentacleBase.getChild(createTentacleName(i, false)));
 		Arrays.setAll(this.planeTentacles, i -> tentacleBase.getChild(createTentacleName(i, true)));
 	}
@@ -78,6 +81,12 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 		makePlaneTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
+		CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25)
+			.addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
+		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.ZERO);
+		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, 90F * Mth.DEG_TO_RAD));
+		armBase.addOrReplaceChild("arms2", arm, PartPose.rotation(90F * Mth.DEG_TO_RAD, 0F, 90F * Mth.DEG_TO_RAD));
+
 		return LayerDefinition.create(meshDefinition, 32, 32);
 	}
 
@@ -87,9 +96,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		for (int i = 0; i < amount; ++i) {
 			float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i, false), tentacle, PartPose.offsetAndRotation(
-					(float) Math.cos(rot) * 2.5F,
+					Mth.cos(rot) * 2.5F,
 					0F,
-                    (float) Math.sin(rot) * 2.5F,
+                    Mth.sin(rot) * 2.5F,
 					0F,
                     i * Mth.PI * -2F / amount + Mth.HALF_PI,
 					0F
@@ -106,9 +115,9 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		for (int i = 0; i < amount; ++i) {
 			float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i, true), i % 2 == 0 ? altTentacle : tentacle, PartPose.offsetAndRotation(
-					(float) Math.cos(rot) * 2.75F,
+					Mth.cos(rot) * 2.75F,
 					0F,
-					(float) Math.sin(rot) * 2.75F,
+					Mth.sin(rot) * 2.75F,
 					0F,
 					i * Mth.PI * -2F / amount + Mth.HALF_PI,
 					0F
@@ -133,13 +142,15 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 	public void prepareMobModel(@NotNull T jelly, float limbSwing, float limbSwimgAmount, float partialTick) {
 		this.xRot = -(jelly.xRot1 + partialTick * (jelly.xBodyRot - jelly.xRot1)) * Mth.DEG_TO_RAD;
 		this.tentXRot = -(jelly.xRot6 + partialTick * (jelly.xRot5 - jelly.xRot6)) * Mth.DEG_TO_RAD;
+		this.armXRot = -(jelly.xRot9 + partialTick * (jelly.xRot8 - jelly.xRot9)) * Mth.DEG_TO_RAD;
 	}
 
 	@Override
 	public void setupAnim(@NotNull T jellyfish, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.bone.xRot = this.xRot;
-		this.tentacleBase.xRot = (this.xRot - this.tentXRot);
+		this.tentacleBase.xRot = (this.tentXRot - this.xRot);
+		this.armBase.xRot = (this.armXRot - this.xRot);
 
 		float animation = limbSwing * 2F;
 		float movementDelta = Math.min(limbSwingAmount * 26.6666667F, 1F);
@@ -155,7 +166,15 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1F, 1.25F + (sin * 0.75F));
 
 		this.body.y = Mth.lerp(movementDelta, 0F, 3.5F - (squashStretch * 3.5F));
-		this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 1.5F) * 1.5F;
+		this.armBase.y = this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 1.5F) * 1.5F;
+
+		//ARM SQUASH & STRETCH
+		float armSinIdle = (float) (Math.sin((ageInTicks * 0.1F) - 1F) * 0.2F);
+		float armSquash = (armSinIdle * 1.25F) + 1F;
+
+		this.armBase.xScale = armSquash;
+		this.armBase.zScale = armSquash;
+		this.armBase.yScale = (-armSinIdle * 0.75F) + 0.75F;
 
 		float tentRot = -Mth.rotLerp(
 			movementDelta,

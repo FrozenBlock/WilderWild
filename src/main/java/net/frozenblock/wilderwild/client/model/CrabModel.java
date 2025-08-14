@@ -86,23 +86,53 @@ public class CrabModel<T extends Crab> extends HierarchicalModel<T> {
 		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 2).addBox(-4F, -2F, -2F, 8F, 3F, 7F)
 			.texOffs(7, 0).addBox(-4F, -4F, 5F, 8F, 2F, 0F), PartPose.ZERO);
 
-		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(16, 12).addBox(1.0F, -1.0F, -1F, 3F, 2F, 2F), PartPose.offsetAndRotation(-6F, -1F, 4.25F, 0F, -0.6981F, 0.2618F));
+		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(16, 12).addBox(1F, -1F, -1F, 3F, 2F, 2F), PartPose.offsetAndRotation(-6F, -1F, 4.25F, 0F, -0.6981F, 0.2618F));
 
-		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(6F, -1.5F, 4.25F, 0.0F, 0.6981F, -0.5236F));
+		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(6F, -1.5F, 4.25F, 0F, 0.6981F, -0.5236F));
 		PartDefinition claw_top = main_claw.addOrReplaceChild("claw_top", CubeListBuilder.create().texOffs(0, 12).addBox(-6F, -1.5F, -1F, 6F, 2F, 2F), PartPose.ZERO);
 		PartDefinition claw_bottom = main_claw.addOrReplaceChild("claw_bottom", CubeListBuilder.create().texOffs(0, 16).addBox(-6F, 0.5F, -1F, 6F, 1F, 2F), PartPose.ZERO);
 
 		//LEGS
+		final float legOffset = 4F;
 		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0F, -1F, -1F));
 		CubeListBuilder leg = CubeListBuilder.create().texOffs(28, 12).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F);
-		PartDefinition back_right_leg = legs.addOrReplaceChild("back_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, -2.25F, -0.4876F, -0.0741F, -0.7109F));
-		PartDefinition back_left_leg = legs.addOrReplaceChild("back_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, -2.25F, -0.4876F, 0.0741F, 0.7109F));
-		PartDefinition middle_right_leg = legs.addOrReplaceChild("middle_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, -0.25F, -0.0949F, -0.0741F, -0.7109F));
-		PartDefinition middle_left_leg = legs.addOrReplaceChild("middle_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, -0.25F, -0.0949F, 0.0741F, 0.7109F));
-		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", leg, PartPose.offsetAndRotation(4F, 1F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
-		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", leg, PartPose.offsetAndRotation(-4F, 1F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
+		PartDefinition back_right_leg = legs.addOrReplaceChild("back_right_leg", leg, PartPose.offsetAndRotation(legOffset, 1F, -2.25F, -0.4876F, -0.0741F, -0.7109F));
+		PartDefinition back_left_leg = legs.addOrReplaceChild("back_left_leg", leg, PartPose.offsetAndRotation(-legOffset, 1F, -2.25F, -0.4876F, 0.0741F, 0.7109F));
+		PartDefinition middle_right_leg = legs.addOrReplaceChild("middle_right_leg", leg, PartPose.offsetAndRotation(legOffset, 1F, -0.25F, -0.0949F, -0.0741F, -0.7109F));
+		PartDefinition middle_left_leg = legs.addOrReplaceChild("middle_left_leg", leg, PartPose.offsetAndRotation(-legOffset, 1F, -0.25F, -0.0949F, 0.0741F, 0.7109F));
+		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", leg, PartPose.offsetAndRotation(legOffset, 1F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
+		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", leg, PartPose.offsetAndRotation(-legOffset, 1F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
+	}
+
+	@NotNull
+	public static LayerDefinition createMojangBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0F, 0F, -2F));
+
+		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(7, 0).addBox(-3.5F, -6F, 5F, 9F, 2F, 0F)
+			.texOffs(0, 2).addBox(-3.5F, -4F, -2F, 9F, 5F, 7F), PartPose.offset(-1F, 0F, 0F));
+
+		PartDefinition left_claw = body.addOrReplaceChild("left_claw", CubeListBuilder.create().texOffs(20, 14).addBox(1F, -1F, -1F, 3F, 2F, 2F), PartPose.offsetAndRotation(-6F, -1F, 4.25F, 0F, -0.6981F, 0.2618F));
+
+		PartDefinition main_claw = body.addOrReplaceChild("main_claw", CubeListBuilder.create(), PartPose.offsetAndRotation(7.25F, -2F, 4F, 0F, 0.6981F, -0.5236F));
+		PartDefinition claw_top = main_claw.addOrReplaceChild("claw_top", CubeListBuilder.create().texOffs(0, 14).addBox(-8F, -3F, -1F, 8F, 3F, 2F), PartPose.offset(0F, 0.5F, 0F));
+		PartDefinition claw_bottom = main_claw.addOrReplaceChild("claw_bottom", CubeListBuilder.create().texOffs(0, 19).addBox(-8F, 0F, -1F, 8F, 1F, 2F), PartPose.offset(0F, 0.5F, 0F));
+
+		// LEGS
+		final float legOffset = 4.5F;
+		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0F, -1F, -1F));
+		PartDefinition front_left_leg = legs.addOrReplaceChild("front_left_leg", CubeListBuilder.create().texOffs(0, 27).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(-legOffset, 1.5F, 1.75F, 0.3414F, 0.0741F, 0.7109F));
+		PartDefinition front_right_leg = legs.addOrReplaceChild("front_right_leg", CubeListBuilder.create().texOffs(0, 22).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(legOffset, 1.5F, 1.75F, 0.3414F, -0.0741F, -0.7109F));
+		PartDefinition middle_left_leg = legs.addOrReplaceChild("middle_left_leg", CubeListBuilder.create().texOffs(4, 27).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(-legOffset, 1.5F, -0.25F, -0.0949F, 0.0741F, 0.7109F));
+		PartDefinition middle_right_leg = legs.addOrReplaceChild("middle_right_leg", CubeListBuilder.create().texOffs(4, 22).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(legOffset, 1.5F, -0.25F, -0.0949F, -0.0741F, -0.7109F));
+		PartDefinition back_left_leg = legs.addOrReplaceChild("back_left_leg", CubeListBuilder.create().texOffs(8, 27).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(-legOffset, 1.5F, -2.75F, -0.4876F, 0.0741F, 0.7109F));
+		PartDefinition back_right_leg = legs.addOrReplaceChild("back_right_leg", CubeListBuilder.create().texOffs(8, 22).addBox(-0.5F, 0F, -0.5F, 1F, 4F, 1F), PartPose.offsetAndRotation(legOffset, 1.5F, -2.75F, -0.4876F, -0.0741F, -0.7109F));
+
+		return LayerDefinition.create(meshdefinition, 48, 48);
 	}
 
 	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {

@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -31,12 +32,16 @@ import org.jetbrains.annotations.NotNull;
 public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
+	private final CrabModel<T> normalModel = this.getModel();
+	private final CrabModel<T> mojangModel;
+
 	public CrabRenderer(EntityRendererProvider.Context context) {
 		this(context, WWModelLayers.CRAB);
 	}
 
 	public CrabRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer) {
 		super(context, new CrabModel<>(context.bakeLayer(layer)), 0.3F);
+		this.mojangModel = new CrabModel<>(context.bakeLayer(WWModelLayers.CRAB_MOJANG));
 	}
 
 	@Override
@@ -46,6 +51,13 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	}
 
 	@Override
+	public void render(@NotNull T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+		this.model = (!WWConstants.MOJANG_CRABS || entity.isDitto()) ? this.normalModel : this.mojangModel;
+		super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+	}
+
+
+	@Override
 	protected float getFlipDegrees(@NotNull T livingEntity) {
 		return 180F;
 	}
@@ -53,7 +65,8 @@ public class CrabRenderer<T extends Crab> extends MobRenderer<T, CrabModel<T>> {
 	@Override
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull T entity) {
-		return !entity.isDitto() ? entity.getVariantForRendering().texture() : CRAB_DITTO_LOCATION;
+		if (entity.isDitto()) return CRAB_DITTO_LOCATION;
+		return !WWConstants.MOJANG_CRABS ? entity.getVariantForRendering().texture() : entity.getVariantForRendering().mojangTexture();
 	}
 
 }
