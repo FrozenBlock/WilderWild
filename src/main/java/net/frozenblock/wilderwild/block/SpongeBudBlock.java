@@ -39,6 +39,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -174,6 +175,12 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 			};
 			case CEILING -> CEILING_SHAPE;
 		};
+	}
+
+	@Override
+	public @NotNull SoundType getSoundType(@NotNull BlockState blockState) {
+		if (blockState.getValue(WATERLOGGED)) return SoundType.WET_SPONGE;
+		return super.getSoundType(blockState);
 	}
 
 	@Override

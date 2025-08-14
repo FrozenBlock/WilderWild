@@ -25,6 +25,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a unique ambient loop while a player is inside of Mesoglea.
 - Tweaked the sounds and volume of Mesoglea Bubbles popping.
 - Added unique sounds for Jellyfish hiding in Mesoglea/Nematocyst.
+- Sponge Buds now use the Wet Sponge sound type when waterlogged.
 - Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
