@@ -83,6 +83,7 @@ voxelotl:
  - Tube Worms textures.
  - Spawn egg textures in 1.21.5+.
  - Cannonball Tumbleweed texture.
+ - Mojang-Like Crab Textures in 4.1.
 
 Willow/pictochats_:
  - Composer.

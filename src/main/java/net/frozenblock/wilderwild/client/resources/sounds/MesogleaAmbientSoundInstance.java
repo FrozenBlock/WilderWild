@@ -17,6 +17,9 @@
 
 package net.frozenblock.wilderwild.client.resources.sounds;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.entity.impl.PlayerInMesogleaInterface;
@@ -27,9 +30,6 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.resources.sounds.UnderwaterAmbientSoundInstances;
 import net.minecraft.sounds.SoundSource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaAmbientSoundInstance extends AbstractTickableSoundInstance {
