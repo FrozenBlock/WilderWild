@@ -47,6 +47,13 @@ public final class WWClientResources {
 			ResourcePackActivationType.NORMAL
 		);
 
+		ResourceManagerHelper.registerBuiltinResourcePack(
+			WWConstants.id("mojang_crabs"),
+			container,
+			Component.translatable("pack.wilderwild.mojang_crabs"),
+			ResourcePackActivationType.DEFAULT_ENABLED
+		);
+
 		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
 			ResourceManagerHelper.registerBuiltinResourcePack(
 				WWConstants.id("wilder_extra_music"), container,
@@ -66,6 +73,12 @@ public final class WWClientResources {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {
 					if (packResources.knownPackInfo().isPresent()) {
 						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
+					}
+					return false;
+				});
+				WWConstants.MOJANG_CRABS = resourceManager.listPacks().anyMatch(packResources -> {
+					if (packResources.knownPackInfo().isPresent()) {
+						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mojang_crabs"));
 					}
 					return false;
 				});
