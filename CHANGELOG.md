@@ -17,6 +17,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - Added a config option to toggle these new sounds.
 - Added unique sounds for placing and breaking Sea Anemone.
+- Added unique sounds for placing and breaking Tube Worms.
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
