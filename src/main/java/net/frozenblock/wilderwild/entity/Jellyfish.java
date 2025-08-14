@@ -124,6 +124,9 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	public float xRot4;
 	public float xRot5;
 	public float xRot6;
+	public float xRot7;
+	public float xRot8;
+	public float xRot9;
 	public boolean vanishing;
 	public boolean growing;
 	public float prevScale = 1F;
@@ -295,6 +298,9 @@ public class Jellyfish extends NoFlopAbstractFish implements VariantHolder<Jelly
 	public void aiStep() {
 		this.prevScale = this.scale;
 		super.aiStep();
+		this.xRot9 = this.xRot8;
+		this.xRot8 = this.xRot7;
+		this.xRot7 = this.xRot6;
 		this.xRot6 = this.xRot5;
 		this.xRot5 = this.xRot4;
 		this.xRot4 = this.xRot3;

@@ -37,11 +37,13 @@ public final class CrabVariant {
 
 	private final ResourceLocation texture;
 	private final ResourceLocation textureFull;
+	private final ResourceLocation mojangTextureFull;
 	private final HolderSet<Biome> biomes;
 
 	public CrabVariant(@NotNull ResourceLocation texture, HolderSet<Biome> biomes) {
 		this.texture = texture;
 		this.textureFull = fullTextureId(texture);
+		this.mojangTextureFull = fullMojangTextureId(texture);
 		this.biomes = biomes;
 	}
 
@@ -49,9 +51,18 @@ public final class CrabVariant {
 		return resourceLocation.withPath(string -> "textures/" + string + ".png");
 	}
 
+	private static @NotNull ResourceLocation fullMojangTextureId(@NotNull ResourceLocation resourceLocation) {
+		return resourceLocation.withPath(string -> "textures/" + string + "_mojang" + ".png");
+	}
+
 	@NotNull
 	public ResourceLocation texture() {
 		return this.textureFull;
+	}
+
+	@NotNull
+	public ResourceLocation mojangTexture() {
+		return this.mojangTextureFull;
 	}
 
 	public HolderSet<Biome> biomes() {

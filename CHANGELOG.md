@@ -1,7 +1,7 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-# Blocks
+# Sounds
 - Added unique sounds for Maple Leaves.
 - Added unique sounds for Maple Leaf Litters.
 - Added unique sounds for the Maple wood set.
@@ -13,52 +13,65 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle these new sounds.
 - Leaves blocks now use Azalea Leaves' sounds instead of Cherry Leaves' sounds.
 - Added unique sounds for coniferous Leaves blocks.
-- Removed duplicate leaves sounds.
-- Fixed Pink Petals incorrectly being assigned a different block SoundType.
-- Removed duplicate flower sounds.
-- Removed sounds for the Palm Crown, as the block has long-since been removed.
 - Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - Added a config option to toggle these new sounds.
 - Added unique sounds for placing and breaking Sea Anemone.
-- Fixed underwater Chest closing sounds being stereo instead of mono.
-- Fixed Echo Glass place sounds being stereo instead of mono.
+- Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
+- Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
+- Updated Coarse Dirt sounds to be more distinct from regular Dirt.
+- Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
+- Added a unique ambient loop while a player is inside of Mesoglea.
+- Tweaked the sounds and volume of Mesoglea Bubbles popping.
+- Added unique sounds for Jellyfish hiding in Mesoglea/Nematocyst.
 - Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
+- Fixed Pink Petals incorrectly being assigned a different block SoundType.
 - Wilder Wild's Sandstone sounds block tag now uses Fabric's conventional Sandstone block tag.
 - Moved Leaf Litters from the `minecraft:inside_step_sound_blocks` block tag to the `minecraft:combination_step_sound_blocks` block tag in 1.21.5+.
 - Scorched Sand blocks and Tumbleweed now play Desert ambience.
 - Desert ambience now plays in the Oasis biome in 1.21.5.
   - Added a `block_ambience` field to Wilder Wild's mixin config.
   - These changes are not present in 1.21.6+ as the biome requirement no longer exists.
-- Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
-- Updated Coarse Dirt sounds to be more distinct from regular Dirt.
-- Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
-- Added a unique ambient loop while a player is inside of Mesoglea.
+- Fixed Echo Glass place sounds being stereo instead of mono.
+- Fixed underwater Chest closing sounds being stereo instead of mono.
+- Decreased the amount of bass present in some of the Jellyfish's sounds.
+- The ambient loops for the Deep Dark, Dripstone Caves, and Lush Caves biomes are no longer preloaded.
+- Removed duplicate leaves sounds.
+- Removed duplicate flower sounds.
+- Removed sounds for the Palm Crown, as the block has long-since been removed.
 - Removed a few unused sounds.
-- Added Gabbro blocks to Sculk-related tags they were missing from.
-- Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
-- Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
-- Fixed a few Pale Oak blocks missing from tags.
+
+# Blocks
 - Added Leaf Litter blocks for every leaf type in 1.21.5+.
 - Leaf particles now spawn while walking on Leaf Litters and Leaves blocks in 1.21.5+.
   - Added config options to toggle these individually, with normal Leaves blocks having this disabled by default.
   - This applies to Breezes, which will spawn a steady stream of Leaves flowing upwards.
 - Leaf particles now spawn from explosions near and when manually breaking Leaf Litters and Leaves blocks in 1.21.5+.
   - Added config options to toggle these individually, all being disabled by default.
+- Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
+  - Any block can now be given Falling Leaves.
+  - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
+- Added Gabbro blocks to Sculk-related tags they were missing from.
+- Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
+- Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.
+- Fixed a few Pale Oak blocks missing from tags.
 - Removed the cracked variants of Scorched Sand blocks, simplifying them in both implementation and design to be more consistent with Vanilla.
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
-- Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 
 # Textures & Models
 - Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
+  - Pearlescent Jellyfish now have additional "oral arms."
+  - Fixed an incorrect calculation that caused the Jellyfish's tentacles to not lag behind the "cap" properly, but instead get pushed in the opposite direction.
 - Retextured the Jellyfish Bucket.
 - Retextured the Jellyfish Spawn Egg in 1.21.5+.
 - Updated the textures of most Nematocyst and Mesoglea blocks to reflect the respective new Jellyfish textures.
 - The Nematocyst model no longer has shading.
 - Fixed a slight offset on one part of the Nematocyst's model.
+- Redesigned the Crab to be more in-line with Mojang's proposed design.
+  - The old textures and model can still be used by disabling the internal `Mojang Crabs` Resource Pack.
 - Retextured the Marigold.
 - Retextured the Marigold Moobloom.
 - Retextured Lantanas.
@@ -115,7 +128,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
-- Decreased the amount of bass present in some of the Jellyfish's sounds.
 
 # Items
 - The Milkweed pod now has a cooldown of two seconds.
@@ -126,7 +138,3 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 # Misc.
 - Increased Wilder Wild's protocol version to 15.
-- Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
-  - Any block can now be given Falling Leaves.
-  - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
-- The ambient loops for the Deep Dark, Dripstone Caves, and Lush Caves biomes are no longer preloaded.

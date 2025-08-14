@@ -439,8 +439,6 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_EXPERIENCE_BOTTLE_SPLASH = register("item.experience_bottle.splash");
 	public static final SoundEvent ITEM_POTION_MAGIC = register("item.potion.magic");
 	public static final SoundEvent ITEM_POTION_LINGERING = register("item.potion.lingering");
-	public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");
-	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 
 	// MESOGLEA
 	public static final SoundEvent AMBIENT_MESOGLEA_LOOP = register("ambient.mesoglea.loop");
@@ -453,6 +451,8 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_HOSTILE_SPLASH_MESOGLEA = register("entity.hostile.splash_mesoglea");
 	public static final SoundEvent ENTITY_PLAYER_SPLASH_MESOGLEA = register("entity.player.splash_mesoglea");
 	public static final SoundEvent ENTITY_PLAYER_SPLASH_HIGH_SPEED_MESOGLEA = register("entity.player.splash.high_speed_mesoglea");
+	public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");
+	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 
 	//MISC
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
