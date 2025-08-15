@@ -15,12 +15,15 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for coniferous Leaves blocks.
 - Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
+  - The Frozen and Dry variants of these blocks will use tweaked versions of these sounds to fit their appearance better.
   - Added a config option to toggle these new sounds.
 - Added unique sounds for placing and breaking Sea Anemone.
 - Added unique sounds for placing and breaking Tube Worms.
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
+- Updated Fragile Ice and Frosted Ice sounds to be more distinct from other Ice blocks.
+- Updated Ice, Packed Ice, and Blue Ice sounds to be more distinct from Fragile Ice and Frosted Ice.
 - Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
 - Added a unique ambient loop while a player is inside of Mesoglea.
 - Tweaked the sounds and volume of Mesoglea Bubbles popping.

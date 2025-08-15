@@ -311,6 +311,13 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
+	public static final SoundType FROZEN_GRASS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_FROZEN_GRASS_BREAK,
+		SoundEvents.GRASS_STEP,
+		WWSounds.BLOCK_FROZEN_GRASS_PLACE,
+		SoundEvents.GRASS_HIT,
+		SoundEvents.GRASS_FALL
+	);
 	public static final SoundType CONIFER_LEAVES = new SoundType(1F, 1F,
 		WWSounds.BLOCK_CONIFER_LEAVES_BREAK,
 		WWSounds.BLOCK_CONIFER_LEAVES_STEP,

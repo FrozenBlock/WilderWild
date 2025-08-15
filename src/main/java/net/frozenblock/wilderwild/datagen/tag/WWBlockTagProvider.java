@@ -1593,13 +1593,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_GRASS)
 			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.TALL_GRASS)
-			.add(WWBlocks.FROZEN_SHORT_GRASS)
-			.add(WWBlocks.FROZEN_TALL_GRASS)
 			.add(Blocks.FERN)
 			.add(Blocks.LARGE_FERN)
-			.add(WWBlocks.FROZEN_FERN)
-			.add(WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.CLOVERS);
+
+		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FROZEN_GRASS)
+			.add(WWBlocks.FROZEN_SHORT_GRASS)
+			.add(WWBlocks.FROZEN_TALL_GRASS)
+			.add(WWBlocks.FROZEN_FERN)
+			.add(WWBlocks.FROZEN_LARGE_FERN);
 
 		this.getOrCreateTagBuilder(WWBlockTags.SOUND_FLOWER)
 			.add(Blocks.DANDELION)
