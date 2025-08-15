@@ -381,6 +381,20 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
+	public static final SoundType FROZEN_GRASS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_FROZEN_GRASS_BREAK,
+		SoundEvents.GRASS_STEP,
+		WWSounds.BLOCK_FROZEN_GRASS_PLACE,
+		SoundEvents.GRASS_HIT,
+		SoundEvents.GRASS_FALL
+	);
+	public static final SoundType DRY_GRASS = new SoundType(1F, 1F,
+		WWSounds.BLOCK_DRY_GRASS_BREAK,
+		SoundEvents.GRASS_STEP,
+		WWSounds.BLOCK_DRY_GRASS_PLACE,
+		SoundEvents.GRASS_HIT,
+		SoundEvents.GRASS_FALL
+	);
 	public static final SoundType SEA_ANEMONE = new SoundType(1F, 1F,
 		WWSounds.BLOCK_SEA_ANEMONE_BREAK,
 		WWSounds.BLOCK_ALGAE_STEP,
