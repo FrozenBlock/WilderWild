@@ -2,16 +2,9 @@
   "values": [
     "minecraft:short_grass",
     "minecraft:tall_grass",
-    "wilderwild:frozen_short_grass",
-    "wilderwild:frozen_tall_grass",
-    "minecraft:short_dry_grass",
-    "minecraft:tall_dry_grass",
     "minecraft:fern",
     "minecraft:large_fern",
-    "wilderwild:frozen_fern",
-    "wilderwild:frozen_large_fern",
     "minecraft:bush",
-    "wilderwild:frozen_bush",
     "wilderwild:clovers"
   ]
 }
