@@ -65,7 +65,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 # Textures & Models
 - Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
-  - Pearlescent Jellyfish now have additional "oral arms."
+  - Jellyfish now have additional "oral arms."
   - Fixed an incorrect calculation that caused the Jellyfish's tentacles to not lag behind the "cap" properly, but instead get pushed in the opposite direction.
 - Retextured the Jellyfish Bucket.
 - Retextured the Jellyfish Spawn Egg in 1.21.5+.

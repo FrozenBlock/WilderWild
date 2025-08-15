@@ -83,7 +83,7 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 
 		CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25)
 			.addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
-		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.ZERO);
+		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, 45F * Mth.DEG_TO_RAD, 0F));
 		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, 90F * Mth.DEG_TO_RAD));
 		armBase.addOrReplaceChild("arms2", arm, PartPose.rotation(90F * Mth.DEG_TO_RAD, 0F, 90F * Mth.DEG_TO_RAD));
 
