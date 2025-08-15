@@ -15,16 +15,20 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for coniferous Leaves blocks.
 - Updated all Hollowed Log/Stem sounds to be more pleasing to the ears.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
+  - The Frozen and Dry variants of these blocks will use tweaked versions of these sounds to fit their appearance better.
   - Added a config option to toggle these new sounds.
 - Added unique sounds for placing and breaking Sea Anemone.
 - Added unique sounds for placing and breaking Tube Worms.
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
+- Updated Fragile Ice and Frosted Ice sounds to be more distinct from other Ice blocks.
+- Updated Ice, Packed Ice, and Blue Ice sounds to be more distinct from Fragile Ice and Frosted Ice.
 - Added unique sounds for entering, exiting, swimming, and splashing in Mesoglea.
 - Added a unique ambient loop while a player is inside of Mesoglea.
 - Tweaked the sounds and volume of Mesoglea Bubbles popping.
 - Added unique sounds for Jellyfish hiding in Mesoglea/Nematocyst.
+- Sponge Buds now use the Wet Sponge sound type when waterlogged.
 - Fixed Mushroom Stems not using Wilder Wild's mushroom block sound type.
 - Fixed Jack O Lanterns not using Wilder Wild's melon sound type.
 - Pumpkin and Melon stems now use crop sounds opposed to wood sounds.
@@ -64,7 +68,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 # Textures & Models
 - Retextured all Jellyfish to be more distinct from one another, and to fit into Minecraft's art style more.
-  - Pearlescent Jellyfish now have additional "oral arms."
+  - Jellyfish now have additional "oral arms."
   - Fixed an incorrect calculation that caused the Jellyfish's tentacles to not lag behind the "cap" properly, but instead get pushed in the opposite direction.
 - Retextured the Jellyfish Bucket.
 - Retextured the Jellyfish Spawn Egg in 1.21.5+.
