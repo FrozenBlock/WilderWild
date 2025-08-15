@@ -354,6 +354,10 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_MELON_FALL = register("block.melon.fall");
 	public static final SoundEvent BLOCK_SHORT_GRASS_PLACE = register("block.short_grass.place");
 	public static final SoundEvent BLOCK_SHORT_GRASS_BREAK = register("block.short_grass.break");
+	public static final SoundEvent BLOCK_FROZEN_GRASS_PLACE = register("block.frozen_grass.place");
+	public static final SoundEvent BLOCK_FROZEN_GRASS_BREAK = register("block.frozen_grass.break");
+	public static final SoundEvent BLOCK_DRY_GRASS_PLACE = register("block.dry_grass.place");
+	public static final SoundEvent BLOCK_DRY_GRASS_BREAK = register("block.dry_grass.break");
 	public static final SoundEvent BLOCK_SEA_ANEMONE_PLACE = register("block.sea_anemone.place");
 	public static final SoundEvent BLOCK_SEA_ANEMONE_BREAK = register("block.sea_anemone.break");
 	public static final SoundEvent BLOCK_TUBE_WORMS_PLACE = register("block.tube_worms.place");

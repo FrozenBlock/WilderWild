@@ -1528,20 +1528,20 @@
   },
   "block.ice.fall": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/ice/step1",
+      "wilderwild:block/ice/step2",
+      "wilderwild:block/ice/step3",
+      "wilderwild:block/ice/step4",
+      "wilderwild:block/ice/step5"
     ]
   },
   "block.ice.hit": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/ice/step1",
+      "wilderwild:block/ice/step2",
+      "wilderwild:block/ice/step3",
+      "wilderwild:block/ice/step4",
+      "wilderwild:block/ice/step5"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -1557,40 +1557,55 @@
   },
   "block.ice.step": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/ice/step1",
+      "wilderwild:block/ice/step2",
+      "wilderwild:block/ice/step3",
+      "wilderwild:block/ice/step4",
+      "wilderwild:block/ice/step5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.frosted_ice.break": {
     "sounds": [
-      "wilderwild:block/frosted_ice/break1",
-      "wilderwild:block/frosted_ice/break2",
-      "wilderwild:block/frosted_ice/break3",
-      "wilderwild:block/frosted_ice/break4",
-      "wilderwild:block/frosted_ice/break5"
+      {
+        "name": "wilderwild:block/frosted_ice/break1",
+        "volume": 0.75
+      },
+      {
+        "name": "wilderwild:block/frosted_ice/break2",
+        "volume": 0.75
+      },
+      {
+        "name": "wilderwild:block/frosted_ice/break3",
+        "volume": 0.75
+      },
+      {
+        "name": "wilderwild:block/frosted_ice/break4",
+        "volume": 0.75
+      },
+      {
+        "name": "wilderwild:block/frosted_ice/break5",
+        "volume": 0.75
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.frosted_ice.fall": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/frosted_ice/step1",
+      "wilderwild:block/frosted_ice/step2",
+      "wilderwild:block/frosted_ice/step3",
+      "wilderwild:block/frosted_ice/step4",
+      "wilderwild:block/frosted_ice/step5"
     ]
   },
   "block.frosted_ice.hit": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/frosted_ice/step1",
+      "wilderwild:block/frosted_ice/step2",
+      "wilderwild:block/frosted_ice/step3",
+      "wilderwild:block/frosted_ice/step4",
+      "wilderwild:block/frosted_ice/step5"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -1606,11 +1621,11 @@
   },
   "block.frosted_ice.step": {
     "sounds": [
-      "wilderwild:block/ice/place1",
-      "wilderwild:block/ice/place2",
-      "wilderwild:block/ice/place3",
-      "wilderwild:block/ice/place4",
-      "wilderwild:block/ice/place5"
+      "wilderwild:block/frosted_ice/step1",
+      "wilderwild:block/frosted_ice/step2",
+      "wilderwild:block/frosted_ice/step3",
+      "wilderwild:block/frosted_ice/step4",
+      "wilderwild:block/frosted_ice/step5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -5305,6 +5320,42 @@
       "wilderwild:block/short_grass/break2",
       "wilderwild:block/short_grass/break3",
       "wilderwild:block/short_grass/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.frozen_grass.place": {
+    "sounds": [
+      "wilderwild:block/frozen_grass/break1",
+      "wilderwild:block/frozen_grass/break2",
+      "wilderwild:block/frozen_grass/break3",
+      "wilderwild:block/frozen_grass/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.frozen_grass.break": {
+    "sounds": [
+      "wilderwild:block/frozen_grass/break1",
+      "wilderwild:block/frozen_grass/break2",
+      "wilderwild:block/frozen_grass/break3",
+      "wilderwild:block/frozen_grass/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dry_grass.place": {
+    "sounds": [
+      "wilderwild:block/dry_grass/break1",
+      "wilderwild:block/dry_grass/break2",
+      "wilderwild:block/dry_grass/break3",
+      "wilderwild:block/dry_grass/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dry_grass.break": {
+    "sounds": [
+      "wilderwild:block/dry_grass/break1",
+      "wilderwild:block/dry_grass/break2",
+      "wilderwild:block/dry_grass/break3",
+      "wilderwild:block/dry_grass/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },

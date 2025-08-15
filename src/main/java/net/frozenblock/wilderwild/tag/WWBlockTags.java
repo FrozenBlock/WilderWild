@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_GRASS = bind("sound/grass");
+	public static final TagKey<Block> SOUND_FROZEN_GRASS = bind("sound/frozen_grass");
+	public static final TagKey<Block> SOUND_DRY_GRASS = bind("sound/dry_grass");
 	public static final TagKey<Block> SOUND_FLOWER = bind("sound/flower");
 	public static final TagKey<Block> SOUND_LEAVES = bind("sound/leaves");
 	public static final TagKey<Block> SOUND_CONIFER_LEAVES = bind("sound/conifer_leaves");
