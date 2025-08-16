@@ -193,14 +193,12 @@ public final class WWModelHelper {
 	}
 
 	public static void createNematocyst(@NotNull BlockModelGenerators generator, Block nematocystBlock) {
-		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(nematocystBlock);
-
 		TextureMapping nematocystTextureMapping = new TextureMapping();
 		nematocystTextureMapping.put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(nematocystBlock));
 		nematocystTextureMapping.put(TextureSlot.FAN, TextureMapping.getBlockTexture(nematocystBlock, "_outer"));
 		ResourceLocation nematocystModel = NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput);
 
-		Condition.TerminalCondition terminalCondition = Util.make(
+		/*Condition.TerminalCondition terminalCondition = Util.make(
 			Condition.condition(), terminalConditionx -> MULTIFACE_GENERATOR_NO_UV_LOCK.stream().map(Pair::getFirst).forEach(booleanPropertyx -> {
 				terminalConditionx.term(booleanPropertyx, false);
 			})
@@ -213,10 +211,31 @@ public final class WWModelHelper {
 				multiPartGenerator.with(Condition.condition().term(booleanProperty, true), function.apply(nematocystModel));
 				multiPartGenerator.with(terminalCondition, function.apply(nematocystModel));
 			}
-		}
+		}*/
 
 		generator.createSimpleFlatItemModel(nematocystBlock);
-		generator.blockStateOutput.accept(multiPartGenerator);
+
+		// todo make a model that isnt Windows 11
+		generator.blockStateOutput
+			.accept(
+				MultiPartGenerator.multiPart(nematocystBlock)
+					.with(Condition.condition().term(BlockStateProperties.ATTACH_FACE, AttachFace.CEILING), Variant.variant().with(VariantProperties.MODEL, nematocystModel).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+					/*.with(
+						PropertyDispatch.properties(BlockStateProperties.ATTACH_FACE, BlockStateProperties.HORIZONTAL_FACING)
+							.select(AttachFace.CEILING, Direction.NORTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.CEILING, Direction.EAST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+							.select(AttachFace.CEILING, Direction.SOUTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.CEILING, Direction.WEST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.FLOOR, Direction.NORTH, Variant.variant())
+							.select(AttachFace.FLOOR, Direction.EAST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.FLOOR, Direction.SOUTH, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.FLOOR, Direction.WEST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+							.select(AttachFace.WALL, Direction.NORTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.WALL, Direction.EAST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+							.select(AttachFace.WALL, Direction.SOUTH, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+							.select(AttachFace.WALL, Direction.WEST, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+					)*/
+			);
 	}
 
 	public static void createShelfFungi(@NotNull BlockModelGenerators generator, @NotNull Block shelfFungiBlock) {

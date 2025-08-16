@@ -1,12 +1,15 @@
 {
-  "type": "wilderwild:nematocyst_feature",
+  "type": "minecraft:simple_block",
   "config": {
-    "block": "wilderwild:purple_pearlescent_nematocyst",
-    "can_be_placed_on": "#wilderwild:feature/purple_nematocyst_feature_placeable",
-    "can_place_on_ceiling": true,
-    "can_place_on_floor": true,
-    "can_place_on_wall": true,
-    "chance_of_spreading": 0.98,
-    "search_range": 20
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:purple_pearlescent_nematocyst",
+        "Properties": {
+          "face": "wall",
+          "facing": "north"
+        }
+      }
+    }
   }
 }

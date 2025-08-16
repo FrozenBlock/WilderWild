@@ -102,8 +102,10 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> PURPLE_MESOGLEA_POOL = WWFeatureUtils.register("purple_mesoglea_pool");
 	public static final FrozenLibConfiguredFeature<RandomBooleanFeatureConfiguration> PURPLE_MESOGLEA = WWFeatureUtils.register("purple_mesoglea");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DOWNWARD_PURPLE_MESOGLEA = WWFeatureUtils.register("downwards_purple_mesoglea");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
+	//public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
+	//public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig> LARGE_MESOGLEA_PURPLE = WWFeatureUtils.register("large_mesoglea_purple");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig> LARGE_MESOGLEA_BLUE = WWFeatureUtils.register("large_mesoglea_blue");
 
@@ -397,7 +399,18 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		NEMATOCYST_BLUE.makeAndSetHolder(WWFeatures.NEMATOCYST_FEATURE,
+		NEMATOCYST_BLUE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST)
+			)
+		);
+		NEMATOCYST_PURPLE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				BlockStateProvider.simple(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST)
+			)
+		);
+		// TODO: better nematocyst placement
+		/*NEMATOCYST_BLUE.makeAndSetHolder(WWFeatures.NEMATOCYST_FEATURE,
 			new MultifaceGrowthConfiguration(
 				WWBlocks.BLUE_PEARLESCENT_NEMATOCYST,
 				20,
@@ -425,7 +438,7 @@ public final class WWCaveConfigured {
 					WWBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE
 				)
 			)
-		);
+		);*/
 
 		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA_FEATURE,
 			new LargeMesogleaConfig(
