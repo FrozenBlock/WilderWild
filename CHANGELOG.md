@@ -17,6 +17,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for Short/Tall Grass, Fern, Bush, and Clover blocks, now sounding much cleaner and less disturbing.
   - The Frozen and Dry variants of these blocks will use tweaked versions of these sounds to fit their appearance better.
   - Added a config option to toggle these new sounds.
+- Added unique sounds for placing and breaking Barnacles.
 - Added unique sounds for placing and breaking Sea Anemone.
 - Added unique sounds for placing and breaking Tube Worms.
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
@@ -90,7 +91,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Updated the textures for all Hibiscus flowers.
 - Fixed a tiling error with the Stripped Maple Log.
 - Retextured the Cypress Log.
+- Geysers now use an emissive top face in 1.21.4+.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
+- Retextured the Ostrich Spawn Egg in 1.21.5+.
 
 # Music
 - Removed the internal .zip resource pack containing Wilder Wild's music.

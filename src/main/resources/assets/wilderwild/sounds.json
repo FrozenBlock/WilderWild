@@ -4585,6 +4585,24 @@
     ],
     "subtitle": "subtitles.block.generic.break"
   },
+  "block.barnacles.place": {
+    "sounds": [
+      "wilderwild:block/barnacles/break1",
+      "wilderwild:block/barnacles/break2",
+      "wilderwild:block/barnacles/break3",
+      "wilderwild:block/barnacles/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.barnacles.break": {
+    "sounds": [
+      "wilderwild:block/barnacles/break1",
+      "wilderwild:block/barnacles/break2",
+      "wilderwild:block/barnacles/break3",
+      "wilderwild:block/barnacles/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
   "block.sea_anemone.place": {
     "sounds": [
       "wilderwild:block/sea_anemone/break1",
