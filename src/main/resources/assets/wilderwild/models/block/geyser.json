@@ -1,12 +1,31 @@
 {
-  "parent": "minecraft:block/cube",
-  "textures": {
-    "down": "wilderwild:block/gabbro",
-    "east": "wilderwild:block/gabbro",
-    "north": "wilderwild:block/gabbro",
-    "particle": "wilderwild:block/gabbro",
-    "south": "wilderwild:block/gabbro",
-    "up": "wilderwild:block/geyser",
-    "west": "wilderwild:block/gabbro"
-  }
+  "parent": "minecraft:block/block",
+	"textures": {
+		"emissive": "wilderwild:block/geyser_emissive",
+		"up": "wilderwild:block/geyser",
+		"particle": "wilderwild:block/gabbro",
+		"side": "wilderwild:block/gabbro"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "north"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "south"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#up", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#side", "cullface": "down"}
+			}
+		},
+		{
+			"from": [0, 16, 0],
+			"to": [16, 16, 16],
+			"light_emission": 15,
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#emissive", "cullface": "up"}
+			}
+		}
+	]
 }
