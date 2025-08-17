@@ -367,6 +367,13 @@ public final class WWSoundTypes {
 		SoundEvents.GRASS_HIT,
 		SoundEvents.GRASS_FALL
 	);
+	public static final SoundType BARNACLES = new SoundType(1F, 1F,
+		WWSounds.BLOCK_BARNACLES_BREAK,
+		SoundEvents.CORAL_BLOCK_STEP,
+		WWSounds.BLOCK_BARNACLES_PLACE,
+		SoundEvents.CORAL_BLOCK_HIT,
+		SoundEvents.CORAL_BLOCK_FALL
+	);
 	public static final SoundType SEA_ANEMONE = new SoundType(1F, 1F,
 		WWSounds.BLOCK_SEA_ANEMONE_BREAK,
 		WWSounds.BLOCK_ALGAE_STEP,
