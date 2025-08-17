@@ -709,7 +709,7 @@ public final class WWBlocks {
 			.strength(0.5F)
 			.forceSolidOn()
 			.noCollission()
-			.sound(SoundType.CORAL_BLOCK)
+			.sound(WWSoundTypes.BARNACLES)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final SeaAnemoneBlock SEA_ANEMONE = new SeaAnemoneBlock(
