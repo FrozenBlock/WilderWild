@@ -1082,7 +1082,7 @@ public final class WWBlocks {
 			.strength(0.5F)
 			.forceSolidOn()
 			.noCollision()
-			.sound(SoundType.CORAL_BLOCK)
+			.sound(WWSoundTypes.BARNACLES)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
