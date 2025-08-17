@@ -1207,11 +1207,9 @@ public final class WWBlocks {
 	public static final GeyserBlock GEYSER = register("geyser",
 		GeyserBlock::new,
 		Properties.ofFullCopy(GABBRO)
-			.lightLevel(blockState -> 2)
 			.strength(8F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
-			.emissiveRendering(Blocks::always)
 	);
 
 	public static final Block POLISHED_GABBRO = register("polished_gabbro",

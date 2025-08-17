@@ -169,6 +169,8 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.TUMBLEWEED_PLANT, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.TUMBLEWEED, ChunkSectionLayer.CUTOUT);
 
+		BlockRenderLayerMap.putBlock(WWBlocks.GEYSER, ChunkSectionLayer.TRANSLUCENT);
+
 		BlockRenderLayerMap.putBlock(WWBlocks.FRAGILE_ICE, ChunkSectionLayer.TRANSLUCENT);
 		BlockRenderLayerMap.putBlock(WWBlocks.ICICLE, ChunkSectionLayer.CUTOUT);
 
