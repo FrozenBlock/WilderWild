@@ -817,7 +817,7 @@ public final class WWBlocks {
 
 	public static final GeyserBlock GEYSER = new GeyserBlock(
 		BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
-			.sound(WWSoundTypes.GABBRO)
+			.sound(WWSoundTypes.GEYSER)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.lightLevel(blockState -> 2)
