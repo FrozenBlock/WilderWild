@@ -316,6 +316,11 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_GABBRO_BRICKS_BREAK = register("block.gabbro_bricks.break");
 	public static final SoundEvent BLOCK_GABBRO_BRICKS_STEP = register("block.gabbro_bricks.step");
 	public static final SoundEvent BLOCK_GABBRO_BRICKS_FALL = register("block.gabbro_bricks.fall");
+	public static final SoundEvent BLOCK_GEYSER_PLACE = register("block.geyser.place");
+	public static final SoundEvent BLOCK_GEYSER_HIT = register("block.geyser.hit");
+	public static final SoundEvent BLOCK_GEYSER_BREAK = register("block.geyser.break");
+	public static final SoundEvent BLOCK_GEYSER_STEP = register("block.geyser.step");
+	public static final SoundEvent BLOCK_GEYSER_FALL = register("block.geyser.fall");
 	public static final SoundEvent BLOCK_GEYSER_BOIL = register("block.geyser.boil");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_AIR = register("block.geyser.erupt.air");
 	public static final SoundEvent BLOCK_GEYSER_ERUPT_WATER = register("block.geyser.erupt.water");
