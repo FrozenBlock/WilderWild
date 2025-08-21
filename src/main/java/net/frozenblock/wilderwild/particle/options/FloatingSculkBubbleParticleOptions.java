@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -42,7 +41,7 @@ public class FloatingSculkBubbleParticleOptions implements ParticleOptions {
 	public static final StreamCodec<RegistryFriendlyByteBuf, FloatingSculkBubbleParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, FloatingSculkBubbleParticleOptions::getSize,
 		ByteBufCodecs.VAR_INT, FloatingSculkBubbleParticleOptions::getMaxAge,
-		FrozenByteBufCodecs.VEC3, FloatingSculkBubbleParticleOptions::getVelocity,
+		Vec3.STREAM_CODEC, FloatingSculkBubbleParticleOptions::getVelocity,
 		FloatingSculkBubbleParticleOptions::new
 	);
 

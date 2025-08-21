@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -42,7 +41,7 @@ public class SeedParticleOptions implements ParticleOptions {
 	public static final StreamCodec<RegistryFriendlyByteBuf, SeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.BOOL, SeedParticleOptions::isMilkweed,
 		ByteBufCodecs.BOOL, SeedParticleOptions::isControlled,
-		FrozenByteBufCodecs.VEC3, SeedParticleOptions::getVelocity,
+		Vec3.STREAM_CODEC, SeedParticleOptions::getVelocity,
 		SeedParticleOptions::new
 	);
 

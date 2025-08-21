@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.particle.options;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
@@ -49,7 +48,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWFallingLeavesParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ResourceLocation.STREAM_CODEC, WWFallingLeavesParticleOptions::getParticleId,
-		FrozenByteBufCodecs.VEC3, WWFallingLeavesParticleOptions::getVelocity,
+		Vec3.STREAM_CODEC, WWFallingLeavesParticleOptions::getVelocity,
 		ByteBufCodecs.INT, WWFallingLeavesParticleOptions::getTextureSize,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getGravityScale,
 		ByteBufCodecs.BOOL, WWFallingLeavesParticleOptions::isFastFalling,
