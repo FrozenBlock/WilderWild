@@ -1207,6 +1207,7 @@ public final class WWBlocks {
 	public static final GeyserBlock GEYSER = register("geyser",
 		GeyserBlock::new,
 		Properties.ofFullCopy(GABBRO)
+			.sound(WWSoundTypes.GEYSER)
 			.strength(8F)
 			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
 			.hasPostProcess(Blocks::always)
