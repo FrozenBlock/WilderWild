@@ -120,6 +120,13 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_GABBRO_BRICKS_HIT,
 		WWSounds.BLOCK_GABBRO_BRICKS_FALL
 	);
+	public static final SoundType GEYSER = new SoundType(1F, 1F,
+		WWSounds.BLOCK_GEYSER_BREAK,
+		WWSounds.BLOCK_GEYSER_STEP,
+		WWSounds.BLOCK_GEYSER_PLACE,
+		WWSounds.BLOCK_GEYSER_HIT,
+		WWSounds.BLOCK_GEYSER_FALL
+	);
 	public static final SoundType MESOGLEA = new SoundType(0.8F, 1F,
 		WWSounds.BLOCK_MESOGLEA_BREAK,
 		WWSounds.BLOCK_MESOGLEA_STEP,

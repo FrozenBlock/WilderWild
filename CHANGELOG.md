@@ -21,6 +21,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added unique sounds for placing and breaking Sea Anemone.
 - Added unique sounds for placing and breaking Tube Worms.
 - Added unique sounds for Copper Chests being opened and Closed underwater in 25w32a+.
+- Updated the place and break sounds of Geysers to be distinct from Gabbro.
 - Updated Gabbro Bricks sounds to be more distinct from regular Gabbro blocks.
 - Updated Coarse Dirt sounds to be more distinct from regular Dirt.
 - Updated Fragile Ice and Frosted Ice sounds to be more distinct from other Ice blocks.
