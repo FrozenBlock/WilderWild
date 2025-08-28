@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -156,12 +155,5 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		}
 
 		poseStack.popPose();
-	}
-
-	private void render(
-		@NotNull PoseStack poseStack, @NotNull VertexConsumer vertices, @NotNull StoneChestModel stoneChestModel, float liftProgress, int light, int overlay
-	) {
-		stoneChestModel.setupAnim(liftProgress);
-		stoneChestModel.renderToBuffer(poseStack, vertices, light, overlay);
 	}
 }
