@@ -42,7 +42,6 @@ import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractChestBlock;
-import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
@@ -114,12 +113,14 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		poseStack.mulPose(Axis.YP.rotationDegrees(-blockState.getValue(StoneChestBlock.FACING).toYRot()));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
+		float openProgess = entity.getOpenNess(partialTick);
+		openProgess = 1F - openProgess;
+		openProgess = 1F - openProgess * openProgess * openProgess;
+
 		DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combineResult = hasLevel
 			? abstractChestBlock.combine(blockState, level, entity.getBlockPos(), true)
 			: DoubleBlockCombiner.Combiner::acceptNone;
-		float openProgess = combineResult.apply(ChestBlock.opennessCombiner(entity)).get(partialTick);
-		openProgess = 1F - openProgess;
-		openProgess = 1F - openProgess * openProgess * openProgess;
+
 
 		final Material texture = getStoneChestTexture(chestType, entity.getBlockState().getValue(WWBlockStateProperties.HAS_SCULK));
 		final RenderType renderType = texture.renderType(RenderType::entityCutout);
