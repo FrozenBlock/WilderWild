@@ -52,7 +52,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 
 	@NotNull
 	public static LayerDefinition getTexturedModelData() {
-		return LayerDefinition.create(new MeshDefinition(), 64, 64);
+		return LayerDefinition.create(new MeshDefinition(), 16, 16);
 	}
 
 	@Override
