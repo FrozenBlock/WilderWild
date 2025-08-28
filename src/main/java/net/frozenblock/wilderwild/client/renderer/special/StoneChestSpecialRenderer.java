@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.client.renderer.special;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,10 +27,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.StoneChestModel;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.Material;
@@ -39,7 +37,6 @@ import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
@@ -50,18 +47,34 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	private final Material material;
 	private final float openness;
 
-	public StoneChestSpecialRenderer(MaterialSet materialSet, StoneChestModel stoneChestModel, Material material, float f) {
+	public StoneChestSpecialRenderer(MaterialSet materialSet, StoneChestModel stoneChestModel, Material material, float openness) {
 		this.materials = materialSet;
 		this.model = stoneChestModel;
 		this.material = material;
-		this.openness = f;
+		this.openness = openness;
 	}
 
 	@Override
-	public void render(ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, boolean bl) {
-		VertexConsumer vertexConsumer = this.material.buffer(this.materials, multiBufferSource, RenderType::entitySolid);
-		this.model.setupAnim(this.openness);
-		this.model.renderToBuffer(poseStack, vertexConsumer, i, j);
+	public void submit(
+		ItemDisplayContext itemDisplayContext,
+		PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		int light,
+		int overlay,
+		boolean bl
+	) {
+		submitNodeCollector.submitModel(
+			this.model,
+			this.openness,
+			poseStack,
+			this.material.renderType(RenderType::entitySolid),
+			light,
+			overlay,
+			-1,
+			this.materials.get(this.material),
+			0,
+			null
+		);
 	}
 
 	@Override
@@ -75,10 +88,9 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	public record Unbaked(ResourceLocation texture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<StoneChestSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-					ResourceLocation.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
-					Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
-				)
-				.apply(instance, StoneChestSpecialRenderer.Unbaked::new)
+				ResourceLocation.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
+				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
+			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);
 
 		public Unbaked(ResourceLocation resourceLocation) {

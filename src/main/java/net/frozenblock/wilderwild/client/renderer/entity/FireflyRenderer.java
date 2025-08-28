@@ -26,9 +26,8 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
-import net.frozenblock.wilderwild.client.renderer.impl.FireflyNodeCollectorInterface;
 import net.frozenblock.wilderwild.entity.Firefly;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -36,7 +35,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
@@ -51,50 +49,81 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		super(context, new NoOpModel<>(context.bakeLayer(WWModelLayers.FIREFLY)), 0.15F);
 	}
 
-	public static void renderFirefly(
+	public static void submitFireflyWithoutRenderState(
 		@NotNull PoseStack poseStack,
-		@NotNull MultiBufferSource bufferSource,
-		int packedLight,
-		int overlay,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		Quaternionf cameraOrientation,
+		@NotNull FireflyColor color,
 		float calcColor,
-		@NotNull ResourceLocation colorTexture,
 		float scale,
 		float xOffset,
 		float yOffset,
 		float zOffset,
-		Quaternionf rotation
+		int light,
+		int overlay
 	) {
-		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, rotation);
-		PoseStack.Pose pose = poseStack.last();
-		renderFirefly(pose, bufferSource, packedLight, overlay, calcColor, null);
-		renderFirefly(pose, bufferSource, packedLight, overlay, calcColor, colorTexture);
+		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, cameraOrientation);
+
+		submitNodeCollector
+			.order(0)
+			.submitCustomGeometry(
+				poseStack,
+				LAYER,
+				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, light, overlay)
+			);
+
+		submitNodeCollector
+			.order(1)
+			.submitCustomGeometry(
+				poseStack,
+				RenderType.entityTranslucentEmissive(color.assetInfo().texturePath()),
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, calcColor)
+			);
+
 		poseStack.popPose();
 	}
 
-	public static void renderFirefly(
-		@NotNull PoseStack.Pose pose,
-		@NotNull MultiBufferSource bufferSource,
-		int packedLight,
-		int overlay,
-		float calcColor,
-		@Nullable ResourceLocation colorTexture
+	public static void submitFirefly(
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		Quaternionf cameraOrientation,
+		@NotNull FireflyRenderState renderState
 	) {
-		if (colorTexture == null) {
-			render(pose, bufferSource.getBuffer(LAYER), 1F, packedLight, overlay);
-		} else {
-			render(pose, bufferSource.getBuffer(RenderType.entityTranslucentEmissive(colorTexture)), calcColor, packedLight, overlay);
-		}
+		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, cameraOrientation);
+
+		final int light = renderState.lightCoords;
+		final int overlay = getOverlayCoords(renderState, 0F);
+		submitNodeCollector
+			.order(0)
+			.submitCustomGeometry(
+				poseStack,
+				LAYER,
+				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, light, overlay)
+			);
+
+		submitNodeCollector
+			.order(1)
+			.submitCustomGeometry(
+				poseStack,
+				RenderType.entityTranslucentEmissive(renderState.color.assetInfo().texturePath()),
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, renderState.calcColor)
+			);
+
+		poseStack.popPose();
+	}
+
+	public static void renderFireflyBase(@NotNull PoseStack.Pose pose, @NotNull VertexConsumer vertexConsumer, int packedLight, int overlay) {
+		render(pose, vertexConsumer, 1F, packedLight, overlay);
+	}
+
+	public static void renderFireflyColor(@NotNull PoseStack.Pose pose, @NotNull VertexConsumer vertexConsumer, int packedLight, int overlay, float calcColor) {
+		render(pose, vertexConsumer, calcColor, packedLight, overlay);
 	}
 
 	@Override
-	public void submit(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
-		if (!(submitNodeCollector instanceof FireflyNodeCollectorInterface fireflyNodeCollector)) return;
-
+	public void submit(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
 		Quaternionf cameraOrientation = this.entityRenderDispatcher.cameraOrientation();
-		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, cameraOrientation);
-		fireflyNodeCollector.wilderWild$submitFirefly(poseStack, renderState, false, cameraOrientation);
-		fireflyNodeCollector.wilderWild$submitFirefly(poseStack, renderState, true, cameraOrientation);
-		poseStack.popPose();
+		submitFirefly(poseStack, submitNodeCollector, cameraOrientation, renderState);
 
 		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, submitNodeCollector);
 	}

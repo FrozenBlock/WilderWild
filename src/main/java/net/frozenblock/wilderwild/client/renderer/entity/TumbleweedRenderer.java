@@ -56,18 +56,19 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	@Override
 	public void submit(TumbleweedRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		super.submit(renderState, poseStack, submitNodeCollector);
-		if (!renderState.item.isEmpty()) {
-			poseStack.pushPose();
-			poseStack.translate(renderState.itemX, 0.4375D, renderState.itemZ);
-			Quaternionf quaternionf = new Quaternionf().rotationXYZ(
-				renderState.pitch * Mth.DEG_TO_RAD,
-				0F,
-				renderState.roll * Mth.DEG_TO_RAD
-			);
-			poseStack.mulPose(quaternionf);
-			submitNodeCollector.submitItem(poseStack, renderState.item, renderState.lightCoords, OverlayTexture.NO_OVERLAY);
-			poseStack.popPose();
-		}
+
+		if (renderState.item.isEmpty()) return;
+
+		poseStack.pushPose();
+		poseStack.translate(renderState.itemX, 0.4375D, renderState.itemZ);
+		Quaternionf quaternionf = new Quaternionf().rotationXYZ(
+			renderState.pitch * Mth.DEG_TO_RAD,
+			0F,
+			renderState.roll * Mth.DEG_TO_RAD
+		);
+		poseStack.mulPose(quaternionf);
+		renderState.item.submit(poseStack, submitNodeCollector, 1, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		poseStack.popPose();
 	}
 
 	@Override

@@ -179,8 +179,13 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		valueOutput.putBoolean("closing", this.closing);
 	}
 
-	public float getOpenProgress(float delta) {
-		return Mth.lerp(delta, this.prevOpenProgress, this.openProgress);
+	@Override
+	public float getOpenNess(float partialTick) {
+		return this.getOpenProgress(partialTick);
+	}
+
+	public float getOpenProgress(float partialTick) {
+		return Mth.lerp(partialTick, this.prevOpenProgress, this.openProgress);
 	}
 
 	public void liftLid(float liftAmount) {

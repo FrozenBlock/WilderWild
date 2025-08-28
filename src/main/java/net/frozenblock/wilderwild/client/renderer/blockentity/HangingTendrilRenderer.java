@@ -26,11 +26,13 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
@@ -45,10 +47,18 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 	}
 
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay, Vec3 cameraPos) {
-		if (WWBlockConfig.Client.BILLBOARD_TENDRILS) {
-			super.render(entity, partialTick, poseStack, buffer, light, overlay, cameraPos);
-		}
+	public void submit(
+		@NotNull T blockEntity,
+		float tickDelta,
+		@NotNull PoseStack poseStack,
+		int light,
+		int overlay,
+		@NotNull Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		@NotNull SubmitNodeCollector submitNodeCollector
+	) {
+		if (!WWBlockConfig.Client.BILLBOARD_TENDRILS) return;
+		super.submit(blockEntity, tickDelta, poseStack, light, overlay, cameraPos, crumblingOverlay, submitNodeCollector);
 	}
 
 	@Override

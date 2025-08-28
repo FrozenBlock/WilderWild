@@ -63,7 +63,7 @@ public final class OstrichDebugRenderer implements DebugRenderer.SimpleDebugRend
 				try {
 					AABB attackBox = ostrich.createAttackBox(DebugRenderManager.PARTIAL_TICK).move(-cameraX, -cameraY, -cameraZ);
 					ShapeRenderer.renderLineBox(
-						matrices,
+						matrices.last(),
 						vertexConsumers.getBuffer(RenderType.lines()),
 						attackBox,
 						1F, 0F, 0F, 1F

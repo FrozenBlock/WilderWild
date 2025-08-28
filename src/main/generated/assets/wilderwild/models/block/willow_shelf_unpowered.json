@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/template_shelf_unpowered",
   "textures": {
-    "all": "wilderwild:block/willow_shelf"
+    "all": "wilderwild:block/willow_shelf",
+    "particle": "wilderwild:block/stripped_willow_log"
   }
 }

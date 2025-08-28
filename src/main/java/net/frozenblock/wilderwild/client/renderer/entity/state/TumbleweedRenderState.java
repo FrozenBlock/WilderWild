@@ -21,7 +21,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)

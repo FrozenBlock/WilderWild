@@ -4,7 +4,7 @@
   "group": "hanging_sign",
   "key": {
     "#": "wilderwild:stripped_baobab_log",
-    "X": "#minecraft:chains"
+    "X": "minecraft:iron_chain"
   },
   "pattern": [
     "X X",

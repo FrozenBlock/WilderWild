@@ -50,6 +50,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -64,7 +65,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class DisplayLanternBlockEntity extends BlockEntity {
+public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner {
 	public static final int MAX_FIREFLY_AGE = 20;
 	private final ArrayList<Occupant> fireflies = new ArrayList<>();
 	private final boolean hanging;
@@ -228,6 +229,21 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
 		if (!this.noFireflies()) return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
+	}
+
+	@Override
+	public @NotNull Level level() {
+		return this.level;
+	}
+
+	@Override
+	public @NotNull Vec3 position() {
+		return this.getBlockPos().getCenter();
+	}
+
+	@Override
+	public float getVisualRotationYInDegrees() {
+		return 0F;
 	}
 
 	public static class Occupant {

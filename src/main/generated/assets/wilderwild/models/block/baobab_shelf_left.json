@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/template_shelf_left",
   "textures": {
-    "all": "wilderwild:block/baobab_shelf"
+    "all": "wilderwild:block/baobab_shelf",
+    "particle": "wilderwild:block/stripped_baobab_log"
   }
 }

@@ -30,14 +30,16 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
@@ -84,10 +86,22 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		);
 	}
 
+
+
 	@Override
-	public void render(@NotNull T entity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay, Vec3 cameraPos) {
+	public void submit(
+		T entity,
+		float partialTick,
+		PoseStack poseStack,
+		int light,
+		int overlay,
+		Vec3 vec3,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+		SubmitNodeCollector submitNodeCollector
+	) {
 		if (!WWConstants.MC_LIVE_TENDRILS || !(entity instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) return;
-		int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
+
+		final int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(-sculkSensorInterface.wilderWild$getFacing().toYRot()));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
@@ -98,7 +112,6 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		this.tendril2.xRot = xRot;
 		this.tendril3.xRot = xRot;
 		this.tendril4.xRot = xRot;
-		this.root.render(poseStack, buffer.getBuffer(ACTIVE_SENSOR_LAYER), light, overlay);
+		submitNodeCollector.submitModelPart(this.root, poseStack, ACTIVE_SENSOR_LAYER, light, overlay, null);
 	}
-
 }

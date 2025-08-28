@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/template_shelf_unpowered",
   "textures": {
-    "all": "wilderwild:block/cypress_shelf"
+    "all": "wilderwild:block/cypress_shelf",
+    "particle": "wilderwild:block/stripped_cypress_log"
   }
 }
