@@ -30,6 +30,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:zhen_land",
+      "required": false
+    },
+    {
       "id": "wilderwild:semi_birch_forest",
       "required": false
     },

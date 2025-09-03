@@ -140,6 +140,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature TEMPERATE_RAINFOREST_TREES = register("temperate_rainforest_trees");
 	public static final FrozenLibPlacedFeature RAINFOREST_TREES = register("rainforest_trees");
 	public static final FrozenLibPlacedFeature BIRCH_TAIGA_TREES = register("birch_taiga_trees");
+	public static final FrozenLibPlacedFeature ZHEN_LAND_TREES = register("zhen_land_trees");
 	public static final FrozenLibPlacedFeature OLD_GROWTH_BIRCH_TAIGA_TREES = register("old_growth_birch_taiga_trees");
 	public static final FrozenLibPlacedFeature PARCHED_FOREST_TREES = register("parched_forest_trees");
 	public static final FrozenLibPlacedFeature ARID_FOREST_TREES = register("arid_forest_trees");
@@ -853,6 +854,11 @@ public final class WWPlacedFeatures {
 
 		BIRCH_TAIGA_TREES.makeAndSetHolder(WWConfiguredFeatures.BIRCH_TAIGA_TREES,
 			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+		);
+
+		ZHEN_LAND_TREES.makeAndSetHolder(WWConfiguredFeatures.ZHEN_LAND_TREES,
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(2, 0.1F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 

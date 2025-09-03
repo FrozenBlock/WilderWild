@@ -246,6 +246,28 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@NotNull
+	public static SurfaceRules.RuleSource zhenLandRules() {
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(WWBiomes.ZHEN_LAND),
+			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+				SurfaceRules.ifTrue(
+					SurfaceRules.waterBlockCheck(-1, 0),
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
+							FrozenSurfaceRules.MUD
+						),
+						SurfaceRules.ifTrue(
+							SurfaceRules.noiseCondition(Noises.SURFACE, -0.95D / 8.25D, Double.MAX_VALUE),
+							FrozenSurfaceRules.makeStateRule(WWBlocks.AUBURN_MOSS_BLOCK)
+						)
+					)
+				)
+			)
+		);
+	}
+
+	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.OLD_GROWTH_DARK_FOREST),
@@ -473,6 +495,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				aridGrass(),
 				aridRules(),
 				oldGrowthSnowyTaigaRules(),
+				zhenLandRules(),
 				oldGrowthDarkForestRules(),
 				temperateRainforestRules(),
 				rainforestRules(),

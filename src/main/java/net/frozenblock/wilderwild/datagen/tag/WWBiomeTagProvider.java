@@ -96,6 +96,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA)
@@ -165,6 +166,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.builder(BiomeTags.IS_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
 		this.builder(BiomeTags.IS_SAVANNA)
@@ -288,6 +290,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.builder(ConventionalBiomeTags.IS_COLD_OVERWORLD)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DYING_FOREST)
@@ -323,6 +326,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
@@ -340,6 +344,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
@@ -428,7 +433,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.BIRCH_TAIGA);
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND);
 
 		this.builder(ConventionalBiomeTags.IS_RIVER)
 			.addOptional(WWBiomes.WARM_RIVER)
@@ -692,6 +698,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
@@ -733,6 +740,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.DYING_FOREST)
@@ -867,6 +875,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
 		this.builder(WWBiomeTags.HAS_FALLEN_LARGE_SPRUCE)
@@ -968,6 +977,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
@@ -989,6 +999,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.RAINFOREST)
@@ -1051,6 +1062,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
@@ -1059,6 +1071,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
@@ -1067,6 +1080,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
@@ -1074,6 +1088,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
@@ -1164,6 +1179,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
@@ -1323,6 +1339,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
@@ -1396,7 +1413,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.builder(WWBiomeTags.HAS_SNAPPED_BIRCH_AND_SPRUCE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
-			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA);
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND);
 
 		this.builder(WWBiomeTags.HAS_SNAPPED_CYPRESS)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
@@ -1587,6 +1605,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.TUNDRA);
@@ -1735,6 +1754,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
@@ -1834,6 +1854,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.PARCHED_FOREST)
@@ -1857,6 +1878,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
@@ -1876,6 +1898,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
@@ -1887,6 +1910,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
 		this.builder(WWBiomeTags.HAS_FOREST_CLEARING_FLOWERS)
@@ -2065,6 +2089,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.ARID_FOREST)
 			.addOptional(WWBiomes.PARCHED_FOREST)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
@@ -2083,6 +2108,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
@@ -2106,6 +2132,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
@@ -2171,6 +2198,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA)
@@ -2190,6 +2218,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.ARID_FOREST)
 			.addOptional(WWBiomes.PARCHED_FOREST);
 
@@ -2202,6 +2231,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
@@ -2246,6 +2276,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.ZHEN_LAND)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.DYING_FOREST)

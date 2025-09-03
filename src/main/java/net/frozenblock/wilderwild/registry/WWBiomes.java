@@ -48,6 +48,7 @@ import net.frozenblock.wilderwild.worldgen.biome.TemperateRainforest;
 import net.frozenblock.wilderwild.worldgen.biome.Tundra;
 import net.frozenblock.wilderwild.worldgen.biome.WarmBeach;
 import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
+import net.frozenblock.wilderwild.worldgen.biome.ZhenLand;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
@@ -55,6 +56,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomes {
 	// Main Biomes
+	public static final ResourceKey<Biome> ZHEN_LAND = ZhenLand.INSTANCE.getKey();
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
 	public static final ResourceKey<Biome> OASIS = Oasis.INSTANCE.getKey();
 	public static final ResourceKey<Biome> WARM_RIVER = WarmRiver.INSTANCE.getKey();
@@ -104,6 +106,7 @@ public final class WWBiomes {
 		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
+		register(context, ZHEN_LAND, ZhenLand.INSTANCE.create(context));
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
 		register(context, OASIS, Oasis.INSTANCE.create(context));
 		register(context, WARM_RIVER, WarmRiver.INSTANCE.create(context));

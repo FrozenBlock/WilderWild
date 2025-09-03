@@ -24,6 +24,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:zhen_land",
+      "required": false
+    },
+    {
       "id": "wilderwild:arid_forest",
       "required": false
     },

@@ -81,6 +81,10 @@
       "required": false
     },
     {
+      "id": "wilderwild:zhen_land",
+      "required": false
+    },
+    {
       "id": "wilderwild:old_growth_dark_forest",
       "required": false
     },

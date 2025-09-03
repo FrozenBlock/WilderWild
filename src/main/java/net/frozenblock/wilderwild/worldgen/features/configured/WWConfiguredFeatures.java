@@ -135,6 +135,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIRCH_TAIGA_TREES_NO_LITTER = WWFeatureUtils.register("birch_taiga_trees_no_litter");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIRCH_TAIGA_TREES_LEAF_LITTER = WWFeatureUtils.register("birch_taiga_trees_leaf_litter");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIRCH_TAIGA_TREES = WWFeatureUtils.register("birch_taiga_trees");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ZHEN_LAND_TREES = WWFeatureUtils.register("zhen_land_trees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_BIRCH_TAIGA_TREES_NO_LITTER = WWFeatureUtils.register("old_growth_birch_taiga_trees_no_litter");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_BIRCH_TAIGA_TREES_LEAF_LITTER = WWFeatureUtils.register("old_growth_birch_taiga_trees_leaf_litter");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> OLD_GROWTH_BIRCH_TAIGA_TREES = WWFeatureUtils.register("old_growth_birch_taiga_trees");
@@ -1156,6 +1157,50 @@ public final class WWConfiguredFeatures {
 					)
 				),
 				PlacementUtils.inlinePlaced(BIRCH_TAIGA_TREES_NO_LITTER.getHolder())
+			)
+		);
+
+		ZHEN_LAND_TREES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							Feature.RANDOM_SELECTOR,
+							new RandomFeatureConfiguration(
+								List.of(
+									WWTreePlaced.SPRUCE_CHECKED.litterAsWeightedPlacedFeature(0.29F),
+									WWTreePlaced.FUNGUS_PINE_CHECKED.litterAsWeightedPlacedFeature(0.086F),
+									WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.litterAsWeightedPlacedFeature(0.02F),
+									WWTreePlaced.SUPER_BIRCH_BEES.asWeightedPlacedFeature(0.05F),
+									WWTreePlaced.SPRUCE_SHORT_CHECKED.litterAsWeightedPlacedFeature(0.155F),
+									WWTreePlaced.MEDIUM_BIRCH_BEES_0004.litterAsWeightedPlacedFeature(0.37F),
+									WWTreePlaced.BIRCH_BEES_025.asWeightedPlacedFeature(0.1F),
+									WWTreePlaced.DYING_MEDIUM_BIRCH.litterAsWeightedPlacedFeature(0.01F),
+									WWTreePlaced.DYING_SHORT_BIRCH.litterAsWeightedPlacedFeature(0.01F)
+								),
+								WWTreePlaced.SHORT_BIRCH.getLitterVariantHolder()
+							)
+						),
+						0.15F
+					)
+				),
+				PlacementUtils.inlinePlaced(
+					Feature.RANDOM_SELECTOR,
+					new RandomFeatureConfiguration(
+						List.of(
+							WWTreePlaced.SPRUCE_CHECKED.asWeightedPlacedFeature(0.29F),
+							WWTreePlaced.FUNGUS_PINE_CHECKED.asWeightedPlacedFeature(0.086F),
+							WWTreePlaced.DYING_FUNGUS_PINE_CHECKED.asWeightedPlacedFeature(0.02F),
+							WWTreePlaced.SUPER_BIRCH_BEES.asWeightedPlacedFeature(0.05F),
+							WWTreePlaced.SPRUCE_SHORT_CHECKED.asWeightedPlacedFeature(0.155F),
+							WWTreePlaced.MEDIUM_BIRCH_BEES_0004.asWeightedPlacedFeature(0.37F),
+							WWTreePlaced.BIRCH_BEES_025.asWeightedPlacedFeature(0.1F),
+							WWTreePlaced.DYING_MEDIUM_BIRCH.asWeightedPlacedFeature(0.01F),
+							WWTreePlaced.DYING_SHORT_BIRCH.asWeightedPlacedFeature(0.01F)
+						),
+						WWTreePlaced.SHORT_BIRCH.getHolder()
+					)
+				)
 			)
 		);
 

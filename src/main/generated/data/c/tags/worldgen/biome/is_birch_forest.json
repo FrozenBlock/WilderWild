@@ -19,6 +19,10 @@
     {
       "id": "wilderwild:birch_taiga",
       "required": false
+    },
+    {
+      "id": "wilderwild:zhen_land",
+      "required": false
     }
   ]
 }
