@@ -23,14 +23,17 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.util.RandomSource;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.storage.WritableLevelData;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,17 +42,24 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(ParticleEngine.class)
-public abstract class ParticleEngineMixin {
+@Mixin(ClientLevel.class)
+public abstract class ClientLevelMixin extends Level {
 
 	@Shadow
 	@Final
-	private RandomSource random;
+	private Minecraft minecraft;
 
-	@Shadow
-	public abstract @Nullable Particle createParticle(ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i);
+	protected ClientLevelMixin(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, RegistryAccess registryAccess, Holder<DimensionType> holder, boolean bl, boolean bl2, long l, int i) {
+		super(writableLevelData, resourceKey, registryAccess, holder, bl, bl2, l, i);
+	}
 
-	@Inject(method = "destroy", at = @At(value = "HEAD"))
+	@Inject(
+		method = "addDestroyBlockEffect",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;"
+		)
+	)
 	public void wilderWild$spawnLeafParticlesOnDestroy(BlockPos pos, BlockState state, CallbackInfo info) {
 		boolean litter = false;
 		if (state.is(WWBlockTags.LEAF_LITTERS)) {
@@ -65,7 +75,7 @@ public abstract class ParticleEngineMixin {
 		FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
 		int count = !litter ? this.random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
 		for (int i = 0; i < count; i++) {
-			this.createParticle(
+			this.minecraft.particleEngine.createParticle(
 				FallingLeafUtil.createLeafParticleOptions(fallingLeafData, litter),
 				pos.getX() + 0.5D + this.random.nextDouble() * 0.25D,
 				pos.getY() + (!litter ? 0.5D + this.random.nextDouble() * 0.25D : 0.1D),

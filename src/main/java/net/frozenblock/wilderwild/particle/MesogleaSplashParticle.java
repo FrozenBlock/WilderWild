@@ -24,18 +24,21 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.WaterDropParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaSplashParticle extends WaterDropParticle {
 
-	public MesogleaSplashParticle(ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-		super(clientLevel, d, e, f);
+	public MesogleaSplashParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, TextureAtlasSprite sprite) {
+		super(clientLevel, x, y, z, sprite);
 		this.gravity = 0.04F;
-		if (h == 0D && (g != 0D || i != 0D)) {
-			this.xd = g;
+		if (yd == 0D && (xd != 0D || zd != 0D)) {
+			this.xd = xd;
 			this.yd = 0.1D;
-			this.zd = i;
+			this.zd = zd;
 		}
 	}
 
@@ -45,16 +48,20 @@ public class MesogleaSplashParticle extends WaterDropParticle {
 	}
 
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteProvider;
+		private final SpriteSet spriteSet;
 
-		public Provider(SpriteSet spriteProvider) {
-			this.spriteProvider = spriteProvider;
+		public Provider(SpriteSet spriteSet) {
+			this.spriteSet = spriteSet;
 		}
 
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaSplashParticle mesogleaSplashParticle = new MesogleaSplashParticle(clientLevel, d, e, f, g, h, i);
-			mesogleaSplashParticle.pickSprite(this.spriteProvider);
-			return mesogleaSplashParticle;
+		public Particle createParticle(
+			SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			return new MesogleaSplashParticle(level, x, y, z, xd, yd, zd, this.spriteSet.get(random));
 		}
 	}
 }

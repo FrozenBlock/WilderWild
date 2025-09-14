@@ -23,9 +23,9 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -34,7 +34,7 @@ import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class PlanktonParticle extends TextureSheetParticle {
+public class PlanktonParticle extends SingleQuadParticle {
 	private static final float MAX_R = 216F;
 	private static final float MIN_R = 160F;
 	private static final float MAX_G = 247F;
@@ -60,10 +60,18 @@ public class PlanktonParticle extends TextureSheetParticle {
 	private float glowingG = 0F;
 	private float glowingB = 0F;
 
-	PlanktonParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
+	PlanktonParticle(
+		@NotNull ClientLevel level,
+		double x,
+		double y,
+		double z,
+		double xd,
+		double yd,
+		double zd,
+		TextureAtlasSprite sprite
+	) {
+		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
-		this.pickSprite(spriteProvider);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.gravity = 0F;
@@ -148,18 +156,22 @@ public class PlanktonParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	protected @NotNull Layer getLayer() {
+		return Layer.TRANSLUCENT;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record PlanktonProvider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record PlanktonProvider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-			PlanktonParticle planktonParticle = new PlanktonParticle(clientLevel, this.spriteProvider, x, y, z, 0D, 0D, 0D);
-			RandomSource random = clientLevel.random;
+		public Particle createParticle(
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
 			planktonParticle.xd = 0D;
 			planktonParticle.yd = -0.02D;
 			planktonParticle.zd = 0D;
@@ -175,12 +187,17 @@ public class PlanktonParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record GlowingProvider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record GlowingProvider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-			PlanktonParticle planktonParticle = new PlanktonParticle(clientLevel, this.spriteProvider, x, y, z, 0D, 0D, 0D);
-			RandomSource random = clientLevel.random;
+		public Particle createParticle(
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
 			planktonParticle.xd = 0D;
 			planktonParticle.yd = -0.02D;
 			planktonParticle.zd = 0D;

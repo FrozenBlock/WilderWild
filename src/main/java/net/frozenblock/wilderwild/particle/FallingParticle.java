@@ -22,18 +22,18 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class FallingParticle extends TextureSheetParticle {
-	private final SpriteSet spriteProvider;
+public class FallingParticle extends SingleQuadParticle {
+	private final SpriteSet spriteSet;
 
-	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteProvider) {
-		this(level, x, y, z, spriteProvider);
+	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteSet) {
+		this(level, x, y, z, spriteSet);
 		this.xd *= 0.1D;
 		this.yd *= 0.1D;
 		this.zd *= 0.1D;
@@ -43,10 +43,10 @@ public class FallingParticle extends TextureSheetParticle {
 		this.lifetime = level.random.nextInt(4, 8);
 	}
 
-	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteProvider) {
-		super(level, x, y, z, 0D, 0D, 0D);
-		this.spriteProvider = spriteProvider;
-		this.setSpriteFromAge(spriteProvider);
+	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteSet) {
+		super(level, x, y, z, 0D, 0D, 0D, spriteSet.first());
+		this.spriteSet = spriteSet;
+		this.setSpriteFromAge(spriteSet);
 		this.gravity = 1F;
 		this.quadSize = 0.2F;
 	}
@@ -58,20 +58,25 @@ public class FallingParticle extends TextureSheetParticle {
 			this.remove();
 			return;
 		}
-		this.setSpriteFromAge(this.spriteProvider);
+		this.setSpriteFromAge(this.spriteSet);
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	protected @NotNull Layer getLayer() {
+		return Layer.TRANSLUCENT;
 	}
 
-	public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType particleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-			return new FallingParticle(clientLevel, x, y, z, g, h, i, this.spriteProvider);
+		public Particle createParticle(
+			@NotNull SimpleParticleType particleOptions,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			return new FallingParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 		}
 	}
 }

@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class SuspendedParticleUnderwaterProviderMixin {
 
 	@WrapOperation(
-		method = "createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDD)Lnet/minecraft/client/particle/Particle;",
+		method = "Lnet/minecraft/client/particle/SuspendedParticle$UnderwaterProvider;createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/particle/SuspendedParticle;setColor(FFF)V"

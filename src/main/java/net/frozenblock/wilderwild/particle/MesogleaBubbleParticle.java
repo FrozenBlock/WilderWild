@@ -23,18 +23,19 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class MesogleaBubbleParticle extends TextureSheetParticle {
+public class MesogleaBubbleParticle extends SingleQuadParticle {
 	private final ParticleOptions popParticle;
 
 	protected MesogleaBubbleParticle(
@@ -45,9 +46,10 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 		double xd,
 		double yd,
 		double zd,
-		ParticleOptions popParticle
+		ParticleOptions popParticle,
+		TextureAtlasSprite sprite
 	) {
-		super(clientLevel, x, y, z, xd, yd, zd);
+		super(clientLevel, x, y, z, xd, yd, zd, sprite);
 		this.popParticle = popParticle;
 		this.gravity = -0.125F;
 		this.friction = 0.85F;
@@ -62,12 +64,6 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 	@Override
 	public int getLightColor(float tint) {
 		return 240;
-	}
-
-	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
 	@Override
@@ -100,29 +96,29 @@ public class MesogleaBubbleParticle extends TextureSheetParticle {
 		super.remove();
 	}
 
+	@Override
+	protected @NotNull Layer getLayer() {
+		return Layer.OPAQUE;
+	}
+
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteProvider;
+		private final SpriteSet spriteSet;
 		private final ParticleOptions popParticle;
 
-		public Provider(SpriteSet spriteProvider, ParticleOptions popParticle) {
-			this.spriteProvider = spriteProvider;
+		public Provider(SpriteSet spriteSet, ParticleOptions popParticle) {
+			this.spriteSet = spriteSet;
 			this.popParticle = popParticle;
 		}
 
 		@Override
 		public Particle createParticle(
 			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel clientLevel,
-			double x,
-			double y,
-			double z,
-			double xd,
-			double yd,
-			double zd
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			MesogleaBubbleParticle bubble = new MesogleaBubbleParticle(clientLevel, x, y, z, xd, yd, zd, this.popParticle);
-			bubble.pickSprite(this.spriteProvider);
-			return bubble;
+			return new MesogleaBubbleParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
 		}
 	}
 

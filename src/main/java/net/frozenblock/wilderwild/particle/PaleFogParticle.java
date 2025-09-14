@@ -25,9 +25,9 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -37,27 +37,26 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class PaleFogParticle extends TextureSheetParticle {
+public class PaleFogParticle extends SingleQuadParticle {
 
 	PaleFogParticle(
 		@NotNull ClientLevel level,
-		@NotNull SpriteSet spriteProvider,
 		double x,
 		double y,
 		double z,
-		double velocityX,
-		double velocityY,
-		double velocityZ,
-		boolean large
+		double xd,
+		double yd,
+		double zd,
+		boolean large,
+		TextureAtlasSprite sprite
 	) {
-		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
+		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.xd = 0D;
 		this.yd = -0.0025D;
 		this.zd = 0D;
 		float width = large ? 0.2F : 0.1F;
 		float height = large ? 0.4F : 0.1F;
 		this.setSize(width, height);
-		this.pickSprite(spriteProvider);
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.hasPhysics = true;
 		this.friction = 1F;
@@ -97,20 +96,22 @@ public class PaleFogParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	protected Layer getLayer() {
+		return Layer.TRANSLUCENT;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record LargeFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record LargeFactory(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+			@NotNull SimpleParticleType options,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			RandomSource random = level.getRandom();
-			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, true);
+			PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, true, this.spriteSet.get(random));
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			seedParticle.gravity = 0.005F;
 			seedParticle.alpha = 0.5F;
@@ -119,14 +120,17 @@ public class PaleFogParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record SmallFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record SmallFactory(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+			@NotNull SimpleParticleType options,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			RandomSource random = level.getRandom();
-			PaleFogParticle seedParticle = new PaleFogParticle(level, this.spriteProvider, x, y, z, 0D, 0D, 0D, false);
+			PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, false, this.spriteSet.get(random));
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 250, 500);
 			seedParticle.gravity = 0.005F;
 			seedParticle.alpha = 0.6F;

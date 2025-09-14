@@ -137,7 +137,7 @@
     "client.allay.AllayRendererMixin",
     "client.allay.AllayRenderStateMixin",
     "client.block_break.MultiPlayerGameModeMixin",
-    "client.block_break.ParticleEngineMixin",
+    "client.block_break.ClientLevelMixin",
     "client.brush.LevelEventHandlerMixin",
     "client.easter.StellaWardenModel",
     "client.easter.StellaWardenRenderer",

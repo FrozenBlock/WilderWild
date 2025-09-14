@@ -25,14 +25,15 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,9 +49,10 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 		double xd,
 		double yd,
 		double zd,
-		ParticleOptions popParticle
+		ParticleOptions popParticle,
+		TextureAtlasSprite sprite
 	) {
-		super(clientLevel, x, y, z, xd, yd, zd);
+		super(clientLevel, x, y, z, xd, yd, zd, sprite);
 		this.popParticle = popParticle;
 	}
 
@@ -60,9 +62,8 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	protected @NotNull Layer getLayer() {
+		return Layer.OPAQUE;
 	}
 
 	@Override
@@ -102,28 +103,23 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	}
 
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteProvider;
+		private final SpriteSet spriteSet;
 		private final ParticleOptions popParticle;
 
-		public Provider(SpriteSet spriteProvider, ParticleOptions popParticle) {
-			this.spriteProvider = spriteProvider;
+		public Provider(SpriteSet spriteSet, ParticleOptions popParticle) {
+			this.spriteSet = spriteSet;
 			this.popParticle = popParticle;
 		}
 
 		@Override
 		public Particle createParticle(
 			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel clientLevel,
-			double x,
-			double y,
-			double z,
-			double xd,
-			double yd,
-			double zd
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			MesogleaBubbleColumnUpParticle bubble = new MesogleaBubbleColumnUpParticle(clientLevel, x, y, z, xd, yd, zd, this.popParticle);
-			bubble.pickSprite(this.spriteProvider);
-			return bubble;
+			return new MesogleaBubbleColumnUpParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
 		}
 	}
 

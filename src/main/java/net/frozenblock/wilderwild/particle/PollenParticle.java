@@ -28,28 +28,37 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class PollenParticle extends TextureSheetParticle {
+public class PollenParticle extends SingleQuadParticle {
 	public static final double WIND_INTENSITY = 0.2D;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
 	private Optional<Supplier<Boolean>> canExist = Optional.empty();
 
-	PollenParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
+	PollenParticle(
+		@NotNull ClientLevel level,
+		double x,
+		double y,
+		double z,
+		double xd,
+		double yd,
+		double zd,
+		TextureAtlasSprite sprite
+	) {
+		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
-		this.pickSprite(spriteProvider);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.hasPhysics = true;
@@ -119,20 +128,23 @@ public class PollenParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	protected @NotNull Layer getLayer() {
+		return Layer.OPAQUE;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			PollenParticle pollenParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0D, -0.800000011920929D, 0D);
-			pollenParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 500, 1000);
+			PollenParticle pollenParticle = new PollenParticle(level, x, y, z, 0D, -0.800000011920929D, 0D, this.spriteSet.get(random));
+			pollenParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			pollenParticle.gravity = 0.01F;
 			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
 			pollenParticle.canExist = Optional.of(() -> WWBlockConfig.Client.POLLEN_ENABLED);
@@ -141,14 +153,18 @@ public class PollenParticle extends TextureSheetParticle {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record PaleSporeFactory(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record PaleSporeFactory(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType defaultParticleType, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
-			PollenParticle sporeParticle = new PollenParticle(clientLevel, this.spriteProvider, x, y, z, 0D, -0.800000011920929D, 0D);
-			sporeParticle.lifetime = Mth.randomBetweenInclusive(clientLevel.random, 200, 500);
+			PollenParticle sporeParticle = new PollenParticle(level, x, y, z, 0D, -0.800000011920929D, 0D, this.spriteSet.get(random));
+			sporeParticle.lifetime = Mth.randomBetweenInclusive(random, 200, 500);
 			sporeParticle.gravity = 0.01F;
 			sporeParticle.setColor(112F / 255F, 114F / 255F, 112F / 255F);
 			return sporeParticle;

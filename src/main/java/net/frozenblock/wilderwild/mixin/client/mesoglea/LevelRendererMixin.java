@@ -43,7 +43,7 @@ public class LevelRendererMixin {
 	private @Nullable ClientLevel level;
 
 	@WrapOperation(
-		method = "addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;",
+		method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/particle/ParticleEngine;createParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)Lnet/minecraft/client/particle/Particle;"

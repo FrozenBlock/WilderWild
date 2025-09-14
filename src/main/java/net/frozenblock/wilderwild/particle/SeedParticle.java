@@ -25,9 +25,9 @@ import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -36,12 +36,20 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class SeedParticle extends TextureSheetParticle {
+public class SeedParticle extends SingleQuadParticle {
 
-	SeedParticle(@NotNull ClientLevel level, @NotNull SpriteSet spriteProvider, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		super(level, x, y - 0.125D, z, velocityX, velocityY, velocityZ);
+	SeedParticle(
+		@NotNull ClientLevel level,
+		double x,
+		double y,
+		double z,
+		double xd,
+		double yd,
+		double zd,
+		TextureAtlasSprite sprite
+	) {
+		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
-		this.pickSprite(spriteProvider);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.hasPhysics = true;
 		this.friction = 1F;
@@ -75,21 +83,25 @@ public class SeedParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	protected @NotNull Layer getLayer() {
+		return Layer.OPAQUE;
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SeedParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SeedParticleOptions> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			RandomSource random = level.getRandom();
-			Vec3 controlledVelocity = options.getVelocity();
-			double windex = options.isControlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
-			double windZ = options.isControlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
-			SeedParticle seedParticle = new SeedParticle(level, this.spriteProvider, x, y, z, windex, 0.3D, windZ);
+		public Particle createParticle(
+			@NotNull SeedParticleOptions options,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			final Vec3 controlledVelocity = options.getVelocity();
+			final double windex = options.isControlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
+			final double windZ = options.isControlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
+			SeedParticle seedParticle = new SeedParticle(level, x, y, z, windex, 0.3D, windZ, this.spriteSet.get(random));
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 200, 500);
 			seedParticle.gravity = 0.01F;
 			seedParticle.xd = (windex + random.triangle(0D, 0.8D)) / 17D;

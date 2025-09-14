@@ -27,18 +27,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
-	private final SpriteSet spriteProvider;
+	private final SpriteSet spriteSet;
 	private final SoundEvent sound;
 	private final int stayInflatedTime;
 
@@ -53,11 +53,11 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		double size,
 		int maxAge,
 		@NotNull Vec3 velocity,
-		@NotNull SpriteSet spriteProvider
+		@NotNull SpriteSet spriteSet
 	) {
-		super(clientLevel, x, y, z, 0D, 0D, 0D);
-		this.spriteProvider = spriteProvider;
-		this.setSpriteFromAge(spriteProvider);
+		super(clientLevel, x, y, z, 0D, 0D, 0D, spriteSet.first());
+		this.spriteSet = spriteSet;
+		this.setSpriteFromAge(spriteSet);
 		this.xd = velocity.x();
 		this.yd = velocity.y();
 		this.zd = velocity.z();
@@ -73,16 +73,15 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	}
 
 	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	protected @NotNull Layer getLayer() {
+		return Layer.TRANSLUCENT;
 	}
 
 	@Override
-	public void setSpriteFromAge(@NotNull SpriteSet spriteProvider) {
+	public void setSpriteFromAge(@NotNull SpriteSet spriteSet) {
 		if (!this.removed) {
 			int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
-			this.setSprite(spriteProvider.get(i, 7));
+			this.setSprite(spriteSet.get(i, 7));
 		}
 	}
 
@@ -170,7 +169,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 			this.level.playSound(Minecraft.getInstance().player, this.x, this.y, this.z, this.sound, SoundSource.NEUTRAL, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
 			this.setParticleSpeed(0D, 0D, 0D);
 		}
-		this.setSpriteFromAge(this.spriteProvider);
+		this.setSpriteFromAge(this.spriteSet);
 	}
 
 	@Override
@@ -179,15 +178,21 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	}
 
 	public static class Provider implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
-		private final SpriteSet spriteProvider;
+		private final SpriteSet spriteSet;
 
-		public Provider(SpriteSet spriteProvider) {
-			this.spriteProvider = spriteProvider;
+		public Provider(SpriteSet spriteSet) {
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
-		public Particle createParticle(@NotNull FloatingSculkBubbleParticleOptions options, @NotNull ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd) {
-			FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(clientLevel, x, y, z, options.getSize(), options.getMaxAge(), options.getVelocity(), this.spriteProvider);
+		public Particle createParticle(
+			@NotNull FloatingSculkBubbleParticleOptions options,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(level, x, y, z, options.getSize(), options.getMaxAge(), options.getVelocity(), this.spriteSet);
 			bubble.setAlpha(1F);
 			return bubble;
 		}

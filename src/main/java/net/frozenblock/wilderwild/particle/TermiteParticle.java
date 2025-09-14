@@ -17,17 +17,17 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.QuadParticleRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
-public class TermiteParticle extends TextureSheetParticle {
+public class TermiteParticle extends SingleQuadParticle {
 	private final TermiteRotationType xRot;
 	private final TermiteRotationType yRot;
 	private final TermiteRotationType zRot;
@@ -54,14 +54,12 @@ public class TermiteParticle extends TextureSheetParticle {
 	private float scale = 0F;
 	private float targetScale = 0F;
 
-	public TermiteParticle(@NotNull ClientLevel clientLevel, @NotNull SpriteSet spriteProvider, double x, double y, double z) {
-		super(clientLevel, x, y, z);
-		this.pickSprite(spriteProvider);
+	public TermiteParticle(@NotNull ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite, RandomSource random) {
+		super(level, x, y, z, sprite);
 		this.hasPhysics = false;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		RandomSource random = clientLevel.getRandom();
 		this.xRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
 		this.yRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
 		this.zRot = random.nextBoolean() ? TermiteRotationType.COS : TermiteRotationType.SIN;
@@ -74,12 +72,6 @@ public class TermiteParticle extends TextureSheetParticle {
 		this.xSpinSpeed = 8F + (random.nextFloat() * 8F);
 		this.ySpinSpeed = 8F + (random.nextFloat() * 8F);
 		this.zSpinSpeed = 8F + (random.nextFloat() * 8F);
-	}
-
-	@Override
-	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
 	}
 
 	@Override
@@ -110,16 +102,16 @@ public class TermiteParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	protected void renderRotatedQuad(VertexConsumer vertexConsumer, @NotNull Camera camera, Quaternionf quaternionf, float partialTick) {
-		Vec3 vec3 = camera.getPosition();
-		float animationProgress = this.age + partialTick;
-		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
-		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
-		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
-		float g = (float) (x - vec3.x() + xRotation);
-		float h = (float) (y - vec3.y() + yRotation);
-		float i = (float) (z - vec3.z() + zRotation);
-		this.renderRotatedQuad(vertexConsumer, quaternionf, g, h, i, partialTick);
+	protected void extractRotatedQuad(QuadParticleRenderState renderState, @NotNull Camera camera, Quaternionf rotation, float partialTick) {
+		final Vec3 cameraPos = camera.getPosition();
+		final float animationProgress = this.age + partialTick;
+		final float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
+		final float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
+		final float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
+		final float x = (float) (this.x - cameraPos.x() + xRotation);
+		final float y = (float) (this.y - cameraPos.y() + yRotation);
+		final float z = (float) (this.z - cameraPos.z() + zRotation);
+		this.extractRotatedQuad(renderState, rotation, x, y, z, partialTick);
 	}
 
 	@Override
@@ -146,19 +138,31 @@ public class TermiteParticle extends TextureSheetParticle {
 		return this.quadSize * Mth.lerp(partialTicks, this.prevScale, this.scale);
 	}
 
+	@Override
+	protected @NotNull Layer getLayer() {
+		return Layer.TRANSLUCENT;
+	}
+
 	enum TermiteRotationType {
 		COS,
 		SIN
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull SimpleParticleType termiteParticleOptions, @NotNull ClientLevel clientLevel, double x, double y, double z, double g, double h, double i) {
-			TermiteParticle termite = new TermiteParticle(clientLevel, spriteProvider, x, y, z);
-			termite.setAlpha(1.0F);
-			termite.setLifetime(clientLevel.getRandom().nextInt(10) + 5 + termite.age);
+		public Particle createParticle(
+			@NotNull SimpleParticleType termiteParticleOptions,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			TermiteParticle termite = new TermiteParticle(level, x, y, z, this.spriteSet.get(random), random);
+			termite.setAlpha(1F);
+			termite.setLifetime(random.nextInt(10) + 5 + termite.age);
 			termite.scale(0.75F);
 			return termite;
 		}

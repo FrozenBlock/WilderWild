@@ -29,9 +29,11 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -50,11 +52,11 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		FallingLeafUtil.LeafMovementType leafMovementType,
 		float quadSize,
 		float downwardVelocity,
-		SpriteSet spriteProvider,
 		boolean isLitter,
-		ParticleType<WWFallingLeavesParticleOptions> particleType
+		ParticleType<WWFallingLeavesParticleOptions> particleType,
+		TextureAtlasSprite sprite
 	) {
-		super(world, x, y, z, spriteProvider, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
+		super(world, x, y, z, sprite, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
 		this.bounceOnFloor = leafMovementType.bounceOnFloor();
 		this.isLitter = isLitter;
 
@@ -76,11 +78,15 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		this.gCol = ARGB.green(color) / 255F;
 	}
 
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WWFallingLeavesParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<WWFallingLeavesParticleOptions> {
 		@Override
 		@NotNull
 		public Particle createParticle(
-			@NotNull WWFallingLeavesParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed
+			@NotNull WWFallingLeavesParticleOptions options,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
 		) {
 			WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
 				level,
@@ -90,9 +96,9 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				options.leafMovementType(),
 				(options.getTextureSize() / 16F) * 0.5F,
 				0F,
-				this.spriteProvider,
 				options.isLitter(),
-				(ParticleType<WWFallingLeavesParticleOptions>) options.getType()
+				(ParticleType<WWFallingLeavesParticleOptions>) options.getType(),
+				this.spriteSet.get(random)
 			);
 
 			leafParticle.quadSize = (options.getTextureSize() / 16F) * 0.5F;
@@ -105,9 +111,9 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 				leafParticle.yd = velocity.y;
 				leafParticle.zd = velocity.z;
 			} else {
-				leafParticle.xd = xSpeed;
-				leafParticle.yd = ySpeed;
-				leafParticle.zd = zSpeed;
+				leafParticle.xd = xd;
+				leafParticle.yd = yd;
+				leafParticle.zd = zd;
 			}
 			return leafParticle;
 		}

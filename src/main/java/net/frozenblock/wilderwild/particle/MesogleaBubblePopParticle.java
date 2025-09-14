@@ -25,6 +25,8 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubblePopParticle extends BubblePopParticle {
@@ -39,14 +41,20 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 	}
 
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet sprites;
+		private final SpriteSet spriteSet;
 
 		public Provider(SpriteSet spriteSet) {
-			this.sprites = spriteSet;
+			this.spriteSet = spriteSet;
 		}
 
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			return new MesogleaBubblePopParticle(clientLevel, d, e, f, g, h, i, this.sprites);
+		public Particle createParticle(
+			SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			return new MesogleaBubblePopParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 		}
 	}
 

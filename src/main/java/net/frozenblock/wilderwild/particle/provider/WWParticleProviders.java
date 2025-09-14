@@ -26,21 +26,28 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WWParticleProviders {
 	public static class ScorchingEffectFlameProvider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet sprite;
+		private final SpriteSet spriteSet;
 
-		public ScorchingEffectFlameProvider(SpriteSet sprites) {
-			this.sprite = sprites;
+		public ScorchingEffectFlameProvider(SpriteSet spriteSet) {
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
-		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			FlameParticle flameParticle = new FlameParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
-			flameParticle.pickSprite(this.sprite);
-			flameParticle.yd = ySpeed * 0.05D;
+		public Particle createParticle(
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			FlameParticle flameParticle = new FlameParticle(level, x, y, z, xd, yd, zd, this.spriteSet.get(random));
+			flameParticle.yd = yd * 0.05D;
 			flameParticle.xd = (0.5D - level.random.nextDouble()) * 0.05D;
 			flameParticle.zd = (0.5D - level.random.nextDouble()) * 0.05D;
 			flameParticle.setLifetime((int)(8D / (Math.random() * 0.8D + 0.2D)));
@@ -49,16 +56,22 @@ public class WWParticleProviders {
 	}
 
 	public static class UnderwaterAshProvider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet sprite;
+		private final SpriteSet spriteSet;
 
 		public UnderwaterAshProvider(SpriteSet spriteSet) {
-			this.sprite = spriteSet;
+			this.spriteSet = spriteSet;
 		}
 
 		@Override
-		public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			SuspendedParticle suspendedParticle = new SuspendedParticle(level, this.sprite, x, y, z);
-			float color = level.random.nextFloat() * 0.3F;
+		public Particle createParticle(
+			@NotNull SimpleParticleType simpleParticleType,
+			@NotNull ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
+			SuspendedParticle suspendedParticle = new SuspendedParticle(level, x, y, z, this.spriteSet.get(random));
+			final float color = level.random.nextFloat() * 0.3F;
 			suspendedParticle.setColor(color, color, color);
 			suspendedParticle.scale(3F);
 			suspendedParticle.xd = 0D;
