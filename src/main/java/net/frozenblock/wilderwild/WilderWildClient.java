@@ -21,12 +21,8 @@ import java.util.Optional;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.config.frozenlib_config.FrozenLibConfig;
-import net.frozenblock.lib.debug.client.api.DebugRendererEvents;
-import net.frozenblock.lib.debug.client.impl.DebugRenderManager;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
@@ -36,7 +32,6 @@ import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWTints;
-import net.frozenblock.wilderwild.client.renderer.debug.OstrichDebugRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.registry.WWClientResources;
 
@@ -60,18 +55,6 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWClientMusicImpl.init();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		DebugRendererEvents.DEBUG_RENDERERS_CREATED.register(client -> {
-			OstrichDebugRenderer ostrichDebugRenderer = new OstrichDebugRenderer(client);
-
-			ClientTickEvents.START_WORLD_TICK.register(clientLevel -> {
-				if (FrozenLibConfig.IS_DEBUG) ostrichDebugRenderer.tick();
-			});
-
-			DebugRenderManager.addClearRunnable(ostrichDebugRenderer::clear);
-
-			DebugRenderManager.registerRenderer(WWConstants.id("ostrich"), ostrichDebugRenderer::render);
-		});
 	}
 
 }

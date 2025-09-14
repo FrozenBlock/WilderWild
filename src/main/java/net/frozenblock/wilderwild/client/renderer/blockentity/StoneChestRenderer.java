@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.StoneChestModel;
+import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRenderState;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.renderer.RenderType;
@@ -35,12 +36,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractChestBlock;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
@@ -51,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T> {
+public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T, StoneChestRenderState> {
 	public static final Material STONE = getStoneChestTextureId("stone");
 	public static final Material STONE_LEFT = getStoneChestTextureId("stone_left");
 	public static final Material STONE_RIGHT = getStoneChestTextureId("stone_right");
@@ -71,7 +72,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	}
 
 	@NotNull
-	public static Material getStoneChestTexture(@NotNull ChestType type, boolean sculk) {
+	public static Material getStoneChestTexture(boolean sculk, @NotNull ChestType type) {
 		return !sculk ? getStoneChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getStoneChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
 	}
 
@@ -90,70 +91,82 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	}
 
 	@Override
-	public void submit(
-		@NotNull T entity,
-		float partialTick,
-		@NotNull PoseStack poseStack,
-		int light,
-		int overlay,
-		@NotNull Vec3 cameraPos,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
-		@NotNull SubmitNodeCollector submitNodeCollector
-	) {
-		Level level = entity.getLevel();
-		final boolean hasLevel = level != null;
-		BlockState blockState = hasLevel ? entity.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
-		ChestType chestType = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
-
-		if (!(blockState.getBlock() instanceof AbstractChestBlock<?> abstractChestBlock)) return;
-
+	public void submit(@NotNull StoneChestRenderState renderState, @NotNull PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(-blockState.getValue(StoneChestBlock.FACING).toYRot()));
+		poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.angle));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
-		float openProgess = entity.getOpenNess(partialTick);
-		openProgess = 1F - openProgess;
-		openProgess = 1F - openProgess * openProgess * openProgess;
+		float openProgress = renderState.open;
+		openProgress = 1F - openProgress;
+		openProgress = 1F - openProgress * openProgress * openProgress;
 
-		DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combineResult = hasLevel
-			? abstractChestBlock.combine(blockState, level, entity.getBlockPos(), true)
-			: DoubleBlockCombiner.Combiner::acceptNone;
+		final Material material = getStoneChestTexture(renderState.hasSculk, renderState.type);
+		final RenderType renderType = material.renderType(RenderType::entityCutout);
+		final TextureAtlasSprite sprite = this.materials.get(material);
 
-
-		final Material texture = getStoneChestTexture(chestType, entity.getBlockState().getValue(WWBlockStateProperties.HAS_SCULK));
-		final RenderType renderType = texture.renderType(RenderType::entityCutout);
-		final TextureAtlasSprite sprite = this.materials.get(texture);
-
-		if (chestType != ChestType.SINGLE) {
+		if (renderState.type != ChestType.SINGLE) {
 			submitNodeCollector.submitModel(
-				chestType == ChestType.LEFT ? this.doubleLeftModel : doubleRightModel,
-				openProgess,
-				poseStack,
+				renderState.type == ChestType.LEFT ? this.doubleLeftModel : this.doubleRightModel,
+				openProgress, poseStack,
 				renderType,
-				light,
-				overlay,
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
 				-1,
 				sprite,
 				0,
-				crumblingOverlay
+				renderState.breakProgress
 			);
 		} else {
-			final int combinedLight = combineResult.apply(new BrightnessCombiner<>()).applyAsInt(light);
 			submitNodeCollector.submitModel(
 				this.singleModel,
-				openProgess,
+				openProgress,
 				poseStack,
 				renderType,
-				combinedLight,
-				overlay,
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
 				-1,
 				sprite,
 				0,
-				crumblingOverlay
+				renderState.breakProgress
 			);
 		}
 
 		poseStack.popPose();
 	}
+
+	@Override
+	public @NotNull StoneChestRenderState createRenderState() {
+		return new StoneChestRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		@NotNull T stoneChest,
+		@NotNull StoneChestRenderState renderState,
+		float partialTicks,
+		@NotNull Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);
+
+		final boolean levelExists = stoneChest.getLevel() != null;
+		BlockState blockState = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		renderState.type = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
+		renderState.angle = blockState.getValue(StoneChestBlock.FACING).toYRot();
+		renderState.hasSculk = blockState.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);
+
+		DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> neighborCombineResult;
+		if (levelExists && blockState.getBlock() instanceof ChestBlock chestBlock) {
+			neighborCombineResult = chestBlock.combine(blockState, stoneChest.getLevel(), stoneChest.getBlockPos(), true);
+		} else {
+			neighborCombineResult = DoubleBlockCombiner.Combiner::acceptNone;
+		}
+
+		renderState.open = neighborCombineResult.apply(StoneChestBlock.opennessCombiner(stoneChest)).get(partialTicks);
+		if (renderState.type != ChestType.SINGLE) {
+			renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).applyAsInt(renderState.lightCoords);
+		}
+	}
+
 }

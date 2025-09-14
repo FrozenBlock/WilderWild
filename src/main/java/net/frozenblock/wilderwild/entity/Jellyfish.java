@@ -46,7 +46,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -288,12 +287,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@NotNull
 	public Brain<Jellyfish> getBrain() {
 		return (Brain<Jellyfish>) super.getBrain();
-	}
-
-	@Override
-	protected void sendDebugPackets() {
-		super.sendDebugPackets();
-		DebugPackets.sendEntityBrain(this);
 	}
 
 	@Override

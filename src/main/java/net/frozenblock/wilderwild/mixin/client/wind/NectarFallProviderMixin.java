@@ -17,25 +17,26 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.DripParticle;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SuspendedParticle;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(SuspendedParticle.SporeBlossomAirProvider.class)
-public class SporeBlossomAirProviderMixin {
+@Mixin(DripParticle.NectarFallProvider.class)
+public class NectarFallProviderMixin {
 
-	@Inject(method = "createParticle*", at = @At("RETURN"))
-	public void wilderWild$createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface suspendedParticle) suspendedParticle.wilderWild$setUsesWind(true);
+	@ModifyReturnValue(
+		method = "Lnet/minecraft/client/particle/DripParticle$NectarFallProvider;createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
+		at = @At("RETURN")
+	)
+	private static Particle wilderWild$setUsesWindAndFixColor(Particle original) {
+		if (original instanceof SingleQuadParticle singleQuadParticle) singleQuadParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
+		return original;
 	}
 
 }

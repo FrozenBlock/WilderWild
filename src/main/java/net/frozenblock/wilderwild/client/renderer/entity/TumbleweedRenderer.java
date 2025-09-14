@@ -27,10 +27,8 @@ import net.frozenblock.wilderwild.client.model.TumbleweedModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.TumbleweedRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -44,12 +42,10 @@ import org.joml.Quaternionf;
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRenderState, TumbleweedModel> {
 	private static final ResourceLocation TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
 	private static final ResourceLocation CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
-	private final ItemRenderer itemRenderer;
 	private final ItemModelResolver itemModelResolver;
 
 	public TumbleweedRenderer(@NotNull Context context) {
 		super(context, new TumbleweedModel(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
-		this.itemRenderer = Minecraft.getInstance().getItemRenderer();
 		this.itemModelResolver = context.getItemModelResolver();
 	}
 

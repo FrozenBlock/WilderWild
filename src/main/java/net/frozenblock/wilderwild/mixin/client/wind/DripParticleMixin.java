@@ -24,39 +24,24 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.DripParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(DripParticle.class)
-public abstract class DripParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
+public abstract class DripParticleMixin extends SingleQuadParticle implements WilderDripSuspendedParticleInterface {
 
 	@Unique
-	private boolean wilderWild$usesWind = false;
+	private boolean wilderWild$usesWind = true;
 
-	protected DripParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
-		super(clientLevel, d, e, f);
-	}
-
-	@Inject(method = "createSporeBlossomFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createBlossomFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) dripParticle.wilderWild$setUsesWind(true);
-	}
-
-	@Inject(method = "createNectarFallParticle", at = @At("RETURN"))
-	private static void wilderWild$createNectarFallParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfoReturnable<Particle> info) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) {
-			dripParticle.wilderWild$setUsesWind(true);
-			info.getReturnValue().setColor(250F / 255F, 171F / 255F, 28F / 255F);
-		}
+	protected DripParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
+		super(clientLevel, d, e, f, textureAtlasSprite);
 	}
 
 	@Unique

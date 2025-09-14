@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -319,12 +318,6 @@ public class Penguin extends Animal {
 		PenguinAi.updateActivity(this);
 		profilerFiller.pop();
 		super.customServerAiStep(serverLevel);
-	}
-
-	@Override
-	protected void sendDebugPackets() {
-		super.sendDebugPackets();
-		DebugPackets.sendEntityBrain(this);
 	}
 
 	@Override

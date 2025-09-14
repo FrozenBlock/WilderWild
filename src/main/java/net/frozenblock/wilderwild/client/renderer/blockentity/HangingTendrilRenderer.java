@@ -17,16 +17,14 @@
 
 package net.frozenblock.wilderwild.client.renderer.blockentity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.block.api.entity.BillboardBlockEntityRenderer;
+import net.frozenblock.lib.block.client.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.client.renderer.blockentity.state.HangingTendrilRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T> {
+public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T, HangingTendrilRenderState> {
 
 	public HangingTendrilRenderer(@NotNull Context ctx) {
 		super(ctx);
@@ -47,29 +45,31 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 	}
 
 	@Override
-	public void submit(
-		@NotNull T blockEntity,
-		float tickDelta,
-		@NotNull PoseStack poseStack,
-		int light,
-		int overlay,
-		@NotNull Vec3 cameraPos,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
-		@NotNull SubmitNodeCollector submitNodeCollector
-	) {
-		if (!WWBlockConfig.Client.BILLBOARD_TENDRILS) return;
-		super.submit(blockEntity, tickDelta, poseStack, light, overlay, cameraPos, crumblingOverlay, submitNodeCollector);
-	}
-
-	@Override
-	@NotNull
-	public ResourceLocation getTexture(@NotNull T entity) {
-		return entity.getClientTexture();
-	}
-
-	@Override
 	@NotNull
 	public ModelPart getRoot(@NotNull Context ctx) {
 		return ctx.bakeLayer(WWModelLayers.HANGING_TENDRIL);
+	}
+
+	@Override
+	@NotNull
+	public ResourceLocation getTexture(@NotNull HangingTendrilRenderState renderState) {
+		return renderState.texture;
+	}
+
+	@Override
+	public @NotNull HangingTendrilRenderState createRenderState() {
+		return new HangingTendrilRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		@NotNull T hangingTendril,
+		@NotNull HangingTendrilRenderState renderState,
+		float partialTicks,
+		@NotNull Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		super.extractRenderState(hangingTendril, renderState, partialTicks, cameraPos, crumblingOverlay);
+		renderState.texture = hangingTendril.getClientTexture();
 	}
 }

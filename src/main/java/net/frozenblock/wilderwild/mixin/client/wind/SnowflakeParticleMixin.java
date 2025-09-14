@@ -22,8 +22,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SnowflakeParticle;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,10 +33,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SnowflakeParticle.class)
-public abstract class SnowflakeParticleMixin extends TextureSheetParticle {
+public abstract class SnowflakeParticleMixin extends SingleQuadParticle {
 
-	protected SnowflakeParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
-		super(clientLevel, d, e, f);
+	protected SnowflakeParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
+		super(clientLevel, d, e, f, textureAtlasSprite);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

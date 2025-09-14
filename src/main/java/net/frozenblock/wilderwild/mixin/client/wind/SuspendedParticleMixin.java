@@ -21,20 +21,21 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SuspendedParticle;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SuspendedParticle.class)
-public abstract class SuspendedParticleMixin extends TextureSheetParticle implements WilderDripSuspendedParticleInterface {
+public abstract class SuspendedParticleMixin extends SingleQuadParticle implements WilderDripSuspendedParticleInterface {
 
 	@Unique
-	private boolean wilderWild$usesWind = false;
+	private boolean wilderWild$usesWind = true;
 
-	protected SuspendedParticleMixin(ClientLevel clientLevel, double d, double e, double f) {
-		super(clientLevel, d, e, f);
+	protected SuspendedParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
+		super(clientLevel, d, e, f, textureAtlasSprite);
 	}
 
 	@Unique

@@ -23,29 +23,16 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.CloudStatus;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
-
-	@Inject(method = "addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;", at = @At("RETURN"))
-	private void wilderWild$addParticle(
-		ParticleOptions options, boolean force, boolean decreased, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-		CallbackInfoReturnable<Particle> info
-	) {
-		if (info.getReturnValue() instanceof WilderDripSuspendedParticleInterface dripParticle) dripParticle.wilderWild$setUsesWind(true);
-	}
 
 	@WrapOperation(
 		method = "renderLevel",

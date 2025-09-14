@@ -24,6 +24,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.renderer.blockentity.state.SculkSensorRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -35,6 +36,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.phys.Vec3;
@@ -42,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T> {
+public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T, SculkSensorRenderState> {
 	private static final float RAD_25 = 25F * Mth.DEG_TO_RAD;
 	private static final float TENDRIL_ANGLE = 45F * Mth.DEG_TO_RAD;
 	private static final float TENDRIL_ANGLE_SOUTH = 225F * Mth.DEG_TO_RAD;
@@ -86,32 +88,57 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		);
 	}
 
-
-
 	@Override
-	public void submit(
-		T entity,
-		float partialTick,
-		PoseStack poseStack,
-		int light,
-		int overlay,
-		Vec3 vec3,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
-		SubmitNodeCollector submitNodeCollector
-	) {
-		if (!WWConstants.MC_LIVE_TENDRILS || !(entity instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) return;
+	public void submit(@NotNull SculkSensorRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+		if (!renderState.active) return;
 
-		final int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(-sculkSensorInterface.wilderWild$getFacing().toYRot()));
+		poseStack.mulPose(Axis.YP.rotationDegrees(renderState.blockYRot));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
-		float xRot = (prevTicks + partialTick * (sculkSensorInterface.wilderWild$getAnimTicks() - prevTicks))
-			* 0.1F
-			* ((float) Math.cos((sculkSensorInterface.wilderWild$getAge() + partialTick) * 2.25F) * RAD_25);
+
+		final float xRot = renderState.tendrilXRot;
 		this.tendril1.xRot = xRot;
 		this.tendril2.xRot = xRot;
 		this.tendril3.xRot = xRot;
 		this.tendril4.xRot = xRot;
-		submitNodeCollector.submitModelPart(this.root, poseStack, ACTIVE_SENSOR_LAYER, light, overlay, null);
+
+		submitNodeCollector.submitModelPart(
+			this.root,
+			poseStack,
+			ACTIVE_SENSOR_LAYER,
+			renderState.lightCoords,
+			OverlayTexture.NO_OVERLAY,
+			null,
+			-1,
+			renderState.breakProgress
+		);
+	}
+
+	@Override
+	public @NotNull SculkSensorRenderState createRenderState() {
+		return new SculkSensorRenderState();
+	}
+
+	@Override
+	public void extractRenderState(
+		@NotNull T sculkSensor,
+		@NotNull SculkSensorRenderState renderState,
+		float partialTicks,
+		@NotNull Vec3 cameraPos,
+		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+	) {
+		BlockEntityRenderer.super.extractRenderState(sculkSensor, renderState, partialTicks, cameraPos, crumblingOverlay);
+
+		if (!WWConstants.MC_LIVE_TENDRILS || !(sculkSensor instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) {
+			renderState.active = false;
+			return;
+		}
+
+		final int prevTicks = sculkSensorInterface.wilderWild$getPrevAnimTicks();
+		renderState.active = true;
+		renderState.blockYRot = -sculkSensorInterface.wilderWild$getFacing().toYRot();
+		renderState.tendrilXRot = (prevTicks + partialTicks * (sculkSensorInterface.wilderWild$getAnimTicks() - prevTicks))
+			* 0.1F
+			* ((float) Math.cos((sculkSensorInterface.wilderWild$getAge() + partialTicks) * 2.25F) * RAD_25);
 	}
 }

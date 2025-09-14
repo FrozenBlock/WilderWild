@@ -36,7 +36,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -528,12 +527,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	protected boolean shouldStayCloseToLeashHolder() {
 		return false;
-	}
-
-	@Override
-	protected void sendDebugPackets() {
-		super.sendDebugPackets();
-		DebugPackets.sendEntityBrain(this);
 	}
 
 	@Override

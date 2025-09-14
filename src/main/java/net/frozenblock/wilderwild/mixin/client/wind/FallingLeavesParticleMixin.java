@@ -30,12 +30,13 @@ import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -45,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(FallingLeavesParticle.class)
-public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
+public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 
 	@Shadow
 	private float rotSpeed;
@@ -54,20 +55,22 @@ public abstract class FallingLeavesParticleMixin extends TextureSheetParticle {
 	@Final
 	private float spinAcceleration;
 
+	@Final
 	@Shadow
+	@Mutable
 	private boolean flowAway;
 
+	@Final
 	@Shadow
+	@Mutable
 	private boolean swirl;
 
-	protected FallingLeavesParticleMixin(ClientLevel world, double d, double e, double f) {
-		super(world, d, e, f);
+	protected FallingLeavesParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
+		super(clientLevel, d, e, f, textureAtlasSprite);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	public void wilderWild$rotateLeafOnCreation(
-		ClientLevel clientLevel, double d, double e, double f, SpriteSet spriteSet, float g, float h, boolean bl, boolean bl2, float i, float j, CallbackInfo info
-	) {
+	public void wilderWild$rotateLeafOnCreation(CallbackInfo info) {
 		this.roll = this.random.nextFloat() * Mth.TWO_PI;
 		this.oRoll = this.roll;
 	}

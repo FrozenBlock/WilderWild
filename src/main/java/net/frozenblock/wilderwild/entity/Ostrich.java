@@ -39,7 +39,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -785,12 +784,6 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	public Vec3 getLeashOffset() {
 		return new Vec3(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), this.getBbWidth() * 0.5D);
-	}
-
-	@Override
-	public void sendDebugPackets() {
-		super.sendDebugPackets();
-		DebugPackets.sendEntityBrain(this);
 	}
 
 	@NotNull

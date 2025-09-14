@@ -27,7 +27,7 @@ import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +41,12 @@ import randommcsomethin.fallingleaves.particle.FallingLeafParticle;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin(FallingLeafParticle.class)
-public abstract class FallingLeafParticleMixin extends TextureSheetParticle {
+public abstract class FallingLeafParticleMixin {
+
+	// TODO: Fix
+
+	/*
+	extends SingleQuadParticle {
 
 	@Shadow(remap = false)
 	@Final
@@ -108,5 +113,6 @@ public abstract class FallingLeafParticleMixin extends TextureSheetParticle {
 		this.xd += (wind.x - this.xd) * (double)this.windCoefficient / 60D;
 		this.zd += (wind.z - this.zd) * (double)this.windCoefficient / 60D;
 	}
+	 */
 
 }
