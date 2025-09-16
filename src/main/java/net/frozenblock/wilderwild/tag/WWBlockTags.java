@@ -115,8 +115,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_HIDEABLE = bind("crab_hideable");
 	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
-	public static final TagKey<Block> GEYSER_CAN_PASS_THROUGH = bind("geyser_can_pass_through");
-	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 	public static final TagKey<Block> PENGUIN_IGNORE_FRICTION = bind("penguin_ignore_friction");
 	public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = bind("penguins_spawnable_on");

@@ -474,20 +474,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON);
 
-		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CAN_PASS_THROUGH)
-			.addOptionalTag(BlockTags.TRAPDOORS)
-			.add(Blocks.COPPER_GRATE)
-			.add(Blocks.EXPOSED_COPPER_GRATE)
-			.add(Blocks.WEATHERED_COPPER_GRATE)
-			.add(Blocks.OXIDIZED_COPPER_GRATE)
-			.add(Blocks.WAXED_COPPER_GRATE)
-			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
-			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
-			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE)
+		this.getOrCreateTagBuilder(FrozenBlockTags.BLOWING_CAN_PASS_THROUGH)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
-
-		this.getOrCreateTagBuilder(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
 
 		this.getOrCreateTagBuilder(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);

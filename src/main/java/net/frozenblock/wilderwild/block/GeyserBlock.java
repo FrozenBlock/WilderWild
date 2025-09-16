@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.lib.wind.api.BlowingHelper;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
@@ -106,11 +107,11 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		Level level = context.getLevel();
-		BlockPos pos = context.getClickedPos();
-		Direction direction = context.getNearestLookingDirection().getOpposite();
-		GeyserType geyserType = getGeyserTypeForPos(level, direction, pos);
-		boolean canErupt = context.getLevel().hasNeighborSignal(context.getClickedPos()) && isActive(geyserType);
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
+		final Direction direction = context.getNearestLookingDirection().getOpposite();
+		final GeyserType geyserType = getGeyserTypeForPos(level, direction, pos);
+		final boolean canErupt = context.getLevel().hasNeighborSignal(pos) && isActive(geyserType);
 
 		return this.defaultBlockState()
 			.setValue(GEYSER_STAGE, canErupt ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
@@ -151,10 +152,10 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelAccessor level, @NotNull Direction direction, @NotNull BlockPos pos) {
-		BlockPos checkPos = pos.relative(direction);
-		BlockState checkState = level.getBlockState(checkPos);
-		if (GeyserBlockEntity.canEruptionPassThrough(level, checkPos, checkState, direction)) {
-			FluidState fluidState = checkState.getFluidState();
+		final BlockPos checkPos = pos.relative(direction);
+		final BlockState checkState = level.getBlockState(checkPos);
+		if (BlowingHelper.canBlowingPassThrough(level, checkPos, checkState, direction)) {
+			final FluidState fluidState = checkState.getFluidState();
 			if (fluidState.is(FluidTags.WATER)) {
 				if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
 				return GeyserType.WATER;
@@ -167,40 +168,41 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
+		final GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
 		if (geyserType != state.getValue(GEYSER_TYPE)) level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
 	}
 
 	@Override
 	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
-		GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
-		if (isActive(geyserType)) {
-			Direction direction = blockState.getValue(FACING);
-			boolean natural = blockState.getValue(NATURAL);
-			GeyserStage stage = blockState.getValue(GEYSER_STAGE);
-			GeyserParticleHandler.spawnBaseGeyserParticles(level, blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
+		final GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
+		if (!isActive(geyserType)) return;
 
-			if (geyserType == GeyserType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
-				level.playLocalSound(
-					blockPos.getX() + 0.5D,
-					blockPos.getY() + 0.5D,
-					blockPos.getZ() + 0.5D,
-					WWSounds.BLOCK_GEYSER_VENT_AMBIENT,
-					SoundSource.BLOCKS,
-					0.325F,
-					0.85F + random.nextFloat() * 0.3F,
-					false
-				);
-			}
+		final Direction direction = blockState.getValue(FACING);
+		final boolean natural = blockState.getValue(NATURAL);
+		final GeyserStage stage = blockState.getValue(GEYSER_STAGE);
+		GeyserParticleHandler.spawnBaseGeyserParticles(level, blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
 
-			if (stage == GeyserStage.DORMANT) {
-				GeyserParticleHandler.spawnDormantParticles(level, blockPos, geyserType, direction, random);
-			} else if (stage == GeyserStage.ACTIVE) {
-				GeyserParticleHandler.spawnActiveParticles(level, blockPos, geyserType, direction, random);
-			}
-			if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
-				level.playLocalSound(blockPos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
-			}
+		if (geyserType == GeyserType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
+			level.playLocalSound(
+				blockPos.getX() + 0.5D,
+				blockPos.getY() + 0.5D,
+				blockPos.getZ() + 0.5D,
+				WWSounds.BLOCK_GEYSER_VENT_AMBIENT,
+				SoundSource.BLOCKS,
+				0.325F,
+				0.85F + random.nextFloat() * 0.3F,
+				false
+			);
+		}
+
+		if (stage == GeyserStage.DORMANT) {
+			GeyserParticleHandler.spawnDormantParticles(level, blockPos, geyserType, direction, random);
+		} else if (stage == GeyserStage.ACTIVE) {
+			GeyserParticleHandler.spawnActiveParticles(level, blockPos, geyserType, direction, random);
+		}
+
+		if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
+			level.playLocalSound(blockPos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 		}
 	}
 
@@ -223,11 +225,11 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@NotNull
 	public static Vec3 getParticleVelocity(@NotNull Direction direction, @NotNull RandomSource random, double min, double max) {
-		double difference = max - min;
-		double velocity = min + (random.nextDouble() * difference);
-		double x = direction.getStepX() * velocity;
-		double y = direction.getStepY() * velocity;
-		double z = direction.getStepZ() * velocity;
+		final double difference = max - min;
+		final double velocity = min + (random.nextDouble() * difference);
+		final double x = direction.getStepX() * velocity;
+		final double y = direction.getStepY() * velocity;
+		final double z = direction.getStepZ() * velocity;
 		return new Vec3(x, y, z);
 	}
 
