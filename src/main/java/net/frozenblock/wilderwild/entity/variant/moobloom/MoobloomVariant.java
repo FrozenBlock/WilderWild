@@ -32,24 +32,24 @@ import org.jetbrains.annotations.NotNull;
 public final class MoobloomVariant {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::resourceTexture),
 			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::getFlowerBlockState)
 		).apply(instance, MoobloomVariant::new)
 	);
 	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 
-	private final ClientAsset clientAsset;
+	private final ClientAsset.ResourceTexture resourceTexture;
 	private final BlockState flowerBlockState;
 
-	public MoobloomVariant(ClientAsset clientAsset, BlockState flowerBlockState) {
-		this.clientAsset = clientAsset;
+	public MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState) {
+		this.resourceTexture = resourceTexture;
 		this.flowerBlockState = flowerBlockState;
 	}
 
 	@NotNull
-	public ClientAsset assetInfo() {
-		return this.clientAsset;
+	public ClientAsset.ResourceTexture resourceTexture() {
+		return this.resourceTexture;
 	}
 
 	public BlockState getFlowerBlockState() {

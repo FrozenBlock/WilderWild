@@ -59,7 +59,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	}
 
 	@Override
-	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
+	protected void scale(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack) {
 		super.scale(renderState, poseStack);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
 		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
@@ -74,7 +74,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	@NotNull
 	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState renderState) {
 		if (renderState.isRGB) return WHITE_TEXTURE;
-		return renderState.variant.assetInfo().texturePath();
+		return renderState.variant.resourceTexture().texturePath();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	}
 
 	@Override
-	public void extractRenderState(Jellyfish entity, JellyfishRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Jellyfish entity, @NotNull JellyfishRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 
 		renderState.tickCount = entity.tickCount;

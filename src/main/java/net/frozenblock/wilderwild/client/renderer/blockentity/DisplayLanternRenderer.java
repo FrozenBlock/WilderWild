@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.DisplayLanternRenderState;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -34,6 +33,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
@@ -55,7 +55,12 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 	}
 
 	@Override
-	public void submit(@NotNull DisplayLanternRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+	public void submit(
+		@NotNull DisplayLanternRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(0.5F, renderState.isHanging ? 0.25F : 0.125F, 0.5F);
@@ -70,7 +75,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 				FireflyRenderer.submitFireflyWithoutRenderState(
 					poseStack,
 					submitNodeCollector,
-					renderState.cameraRotation,
+					cameraRenderState.orientation,
 					occupant.color,
 					occupant.calcColor,
 					1F,
@@ -107,7 +112,6 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			displayLantern.level(), displayLantern,
 			HashCommon.long2int(displayLantern.getBlockPos().asLong())
 		);
-		renderState.cameraRotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
 		renderState.extractOccupants(displayLantern, partialTicks);
 	}
 

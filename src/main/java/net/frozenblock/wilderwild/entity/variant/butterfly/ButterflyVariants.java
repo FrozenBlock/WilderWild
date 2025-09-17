@@ -65,7 +65,7 @@ public final class ButterflyVariants {
 		HolderSet<Biome> holderSet = bootstrapContext.lookup(Registries.BIOME).getOrThrow(biomeTag);
 		bootstrapContext.register(
 			resourceKey,
-			new ButterflyVariant(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1), name)
+			new ButterflyVariant(new ClientAsset.ResourceTexture(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1), name)
 		);
 	}
 

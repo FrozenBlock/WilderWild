@@ -43,37 +43,37 @@ import net.minecraft.ChatFormatting;
 public final class FireflyColor implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(FireflyColor::spawnConditions),
 			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
 		).apply(instance, FireflyColor::new)
 	);
 	public static final Codec<FireflyColor> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
 			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
 		).apply(instance, FireflyColor::new)
 	);
 	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
 
-	private final ClientAsset clientAsset;
+	private final ClientAsset.ResourceTexture resourceTexture;
 	private final SpawnPrioritySelectors spawnConditions;
 	private final String name;
 
-	public FireflyColor(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
-		this.clientAsset = clientAsset;
+	public FireflyColor(ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name) {
+		this.resourceTexture = resourceTexture;
 		this.spawnConditions = spawnConditions;
 		this.name = name;
 	}
 
-	private FireflyColor(ClientAsset clientAsset, String name) {
-		this(clientAsset, SpawnPrioritySelectors.EMPTY, name);
+	private FireflyColor(ClientAsset.ResourceTexture resourceTexture, String name) {
+		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name);
 	}
 
 	@NotNull
-	public ClientAsset assetInfo() {
-		return this.clientAsset;
+	public ClientAsset.ResourceTexture resourceTexture() {
+		return this.resourceTexture;
 	}
 
 	public SpawnPrioritySelectors spawnConditions() {

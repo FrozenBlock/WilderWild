@@ -46,8 +46,8 @@ public final class CrabVariants {
 		bootstrapContext.register(
 			resourceKey,
 			new CrabVariant(
-				new ClientAsset(WWConstants.id(texturePath)),
-				new ClientAsset(WWConstants.id(texturePath + "_mojang")),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_mojang")),
 				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1)
 			)
 		);

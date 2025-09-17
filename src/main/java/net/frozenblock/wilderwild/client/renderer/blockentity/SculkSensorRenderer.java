@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
@@ -89,7 +90,12 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	}
 
 	@Override
-	public void submit(@NotNull SculkSensorRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+	public void submit(
+		@NotNull SculkSensorRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		if (!renderState.active) return;
 
 		poseStack.translate(0.5F, 0.5F, 0.5F);

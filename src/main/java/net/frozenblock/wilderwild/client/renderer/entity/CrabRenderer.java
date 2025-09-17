@@ -30,6 +30,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -64,9 +65,14 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public void submit(@NotNull CrabRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
+	public void submit(
+		@NotNull CrabRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		this.model = (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
-		super.submit(renderState, poseStack, submitNodeCollector);
+		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 	}
 
 	@Override
@@ -88,7 +94,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public void extractRenderState(Crab entity, CrabRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Crab entity, @NotNull CrabRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 		renderState.climbXRot = Mth.lerp(partialTick, entity.prevClimbAnimX, entity.climbAnimX) * 85F;
 		renderState.attackTime = entity.getAttackAnim(partialTick);
@@ -96,8 +102,8 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.hidingAnimationState.copyFrom(entity.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(entity.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(entity.emergingAnimationState);
-		renderState.texture = entity.getVariantForRendering().assetInfo().texturePath();
-		renderState.mojangTexture = entity.getVariantForRendering().mojangAssetInfo().texturePath();
+		renderState.texture = entity.getVariantForRendering().resourceTexture().texturePath();
+		renderState.mojangTexture = entity.getVariantForRendering().mojangResourceTexture().texturePath();
 	}
 }
 

@@ -60,7 +60,7 @@ public final class JellyfishVariants {
 		bootstrapContext.register(
 			resourceKey,
 			new JellyfishVariant(
-				new ClientAsset(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
 				pearlescent,
 				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1),
 				bootstrapContext.lookup(Registries.ITEM).getOrThrow(items)

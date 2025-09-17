@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +77,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderType.entityTranslucentEmissive(color.assetInfo().texturePath()),
+				RenderType.entityTranslucentEmissive(color.resourceTexture().texturePath()),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, calcColor)
 			);
 
@@ -105,7 +106,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderType.entityTranslucentEmissive(renderState.color.assetInfo().texturePath()),
+				RenderType.entityTranslucentEmissive(renderState.color.resourceTexture().texturePath()),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, renderState.calcColor)
 			);
 
@@ -121,16 +122,21 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public void submit(@NotNull FireflyRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
-		Quaternionf cameraOrientation = this.entityRenderDispatcher.cameraOrientation();
+	public void submit(
+		@NotNull FireflyRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
+		Quaternionf cameraOrientation = cameraRenderState.orientation;
 		submitFirefly(poseStack, submitNodeCollector, cameraOrientation, renderState);
 
-		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, submitNodeCollector);
+		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, submitNodeCollector, cameraRenderState);
 	}
 
 	@Override
 	public @NotNull ResourceLocation getTextureLocation(@NotNull FireflyRenderState renderState) {
-		return renderState.color.assetInfo().texturePath();
+		return renderState.color.resourceTexture().texturePath();
 	}
 
 	@Override
@@ -140,7 +146,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public void extractRenderState(Firefly entity, FireflyRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Firefly entity, @NotNull FireflyRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 		renderState.animScale = Mth.lerp(partialTick, entity.getPrevAnimScale(), entity.getAnimScale());
 		renderState.color = entity.getColorForRendering();

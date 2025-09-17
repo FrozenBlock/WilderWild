@@ -27,14 +27,12 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternRenderState extends BlockEntityRenderState {
 	public float age;
 	public boolean isHanging;
 	public ItemStackRenderState item = new ItemStackRenderState();
-	public Quaternionf cameraRotation;
 	public List<Occupant> occupants;
 
 	public void extractOccupants(@NotNull DisplayLanternBlockEntity displayLantern, float partialTicks) {

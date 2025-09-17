@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
@@ -69,7 +70,12 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 	}
 
 	@Override
-	public void submit(@NotNull OstrichRenderState renderState, @NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector) {
+	public void submit(
+		@NotNull OstrichRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		if (renderState.isInbred) {
 			this.adultModel = this.inbredModel;
 			this.babyModel = this.inbredBabyModel;
@@ -77,7 +83,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 			this.adultModel = this.normalModel;
 			this.babyModel = this.normalBabyModel;
 		}
-		super.submit(renderState, poseStack, submitNodeCollector);
+		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 	}
 
 
@@ -94,7 +100,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 	}
 
 	@Override
-	public void extractRenderState(Ostrich entity, OstrichRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Ostrich entity, @NotNull OstrichRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 		renderState.walkAnimationPos *= 1.65F;
 		renderState.walkAnimationSpeed = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);

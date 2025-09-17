@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
@@ -91,7 +92,12 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	}
 
 	@Override
-	public void submit(@NotNull StoneChestRenderState renderState, @NotNull PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
+	public void submit(
+		@NotNull StoneChestRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.angle));
@@ -108,7 +114,8 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		if (renderState.type != ChestType.SINGLE) {
 			submitNodeCollector.submitModel(
 				renderState.type == ChestType.LEFT ? this.doubleLeftModel : this.doubleRightModel,
-				openProgress, poseStack,
+				openProgress,
+				poseStack,
 				renderType,
 				renderState.lightCoords,
 				OverlayTexture.NO_OVERLAY,

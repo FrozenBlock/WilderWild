@@ -90,7 +90,7 @@ public final class FireflyColors {
 		String name,
 		int spawnPriority
 	) {
-		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name));
+		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset.ResourceTexture(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name));
 	}
 
 	@Contract(pure = true)

@@ -74,7 +74,7 @@ public final class MoobloomVariants {
 		bootstrapContext.register(
 			resourceKey,
 			new MoobloomVariant(
-				new ClientAsset(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
 				flowerBlock.defaultBlockState()
 			)
 		);

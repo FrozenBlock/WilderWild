@@ -31,6 +31,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -50,8 +51,13 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	public void submit(TumbleweedRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
-		super.submit(renderState, poseStack, submitNodeCollector);
+	public void submit(
+		@NotNull TumbleweedRenderState renderState,
+		@NotNull PoseStack poseStack,
+		@NotNull SubmitNodeCollector submitNodeCollector,
+		@NotNull CameraRenderState cameraRenderState
+	) {
+		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 
 		if (renderState.item.isEmpty()) return;
 
@@ -68,7 +74,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	protected void setupRotations(TumbleweedRenderState livingEntityRenderState, @NotNull PoseStack poseStack, float rotationYaw, float scale) {
+	protected void setupRotations(@NotNull TumbleweedRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float scale) {
 		poseStack.translate(0D, -1.3D, 0D);
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 	}
@@ -86,7 +92,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	public void extractRenderState(Tumbleweed entity, TumbleweedRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull Tumbleweed entity, @NotNull TumbleweedRenderState renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 		renderState.tumbleRot = Mth.lerp(partialTick, entity.prevTumble, entity.tumble) * Mth.DEG_TO_RAD;
 		renderState.itemX = entity.itemX;

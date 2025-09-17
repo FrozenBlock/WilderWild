@@ -43,37 +43,37 @@ import net.minecraft.ChatFormatting;
 public final class ButterflyVariant implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(ButterflyVariant::spawnConditions),
 			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
 		).apply(instance, ButterflyVariant::new)
 	);
 	public static final Codec<ButterflyVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
 			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
 		).apply(instance, ButterflyVariant::new)
 	);
 	public static final Codec<Holder<ButterflyVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.BUTTERFLY_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ButterflyVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT);
 
-	private final ClientAsset clientAsset;
+	private final ClientAsset.ResourceTexture resourceTexture;
 	private final SpawnPrioritySelectors spawnConditions;
 	private final String name;
 
-	public ButterflyVariant(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
-		this.clientAsset = clientAsset;
+	public ButterflyVariant(ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name) {
+		this.resourceTexture = resourceTexture;
 		this.spawnConditions = spawnConditions;
 		this.name = name;
 	}
 
-	private ButterflyVariant(ClientAsset clientAsset, String name) {
-		this(clientAsset, SpawnPrioritySelectors.EMPTY, name);
+	private ButterflyVariant(ClientAsset.ResourceTexture resourceTexture, String name) {
+		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name);
 	}
 
 	@NotNull
-	public ClientAsset assetInfo() {
-		return this.clientAsset;
+	public ClientAsset.ResourceTexture resourceTexture() {
+		return this.resourceTexture;
 	}
 
 	public SpawnPrioritySelectors spawnConditions() {

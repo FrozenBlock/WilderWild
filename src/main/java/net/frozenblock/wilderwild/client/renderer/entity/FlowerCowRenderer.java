@@ -44,17 +44,17 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState renderState, float partialTick) {
+	public void extractRenderState(@NotNull FlowerCow flowerCow, @NotNull FlowerCowRenderState renderState, float partialTick) {
 		super.extractRenderState(flowerCow, renderState, partialTick);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
 		MoobloomVariant variant = flowerCow.getVariantForRendering();
-		renderState.texture = variant.assetInfo().texturePath();
+		renderState.texture = variant.resourceTexture().texturePath();
 		renderState.flowerBlockState = variant.getFlowerBlockState();
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull FlowerCowRenderState renderState) {
+	public @NotNull ResourceLocation getTextureLocation(@NotNull FlowerCowRenderState renderState) {
 		return renderState.texture;
 	}
 }

@@ -23,13 +23,12 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkShriekerBlock;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,8 +40,7 @@ public class LevelEventHandlerMixin {
 
 	@Shadow
 	@Final
-	@Nullable
-	private Level level;
+	private ClientLevel level;
 
 	@ModifyExpressionValue(
 		method = "levelEvent",

@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 public final class JellyfishVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<JellyfishVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::resourceTexture),
 			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::isPearlescent),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(JellyfishVariant::spawnConditions),
 			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::getReproductionFood)
@@ -48,7 +48,7 @@ public final class JellyfishVariant implements PriorityProvider<SpawnContext, Sp
 	);
 	public static final Codec<JellyfishVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::assetInfo),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::resourceTexture),
 			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::isPearlescent),
 			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::getReproductionFood)
 		).apply(instance, JellyfishVariant::new)
@@ -56,25 +56,25 @@ public final class JellyfishVariant implements PriorityProvider<SpawnContext, Sp
 	public static final Codec<Holder<JellyfishVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.JELLYFISH_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<JellyfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.JELLYFISH_VARIANT);
 
-	private final ClientAsset clientAsset;
+	private final ClientAsset.ResourceTexture resourceTexture;
 	private final boolean pearlescent;
 	private final SpawnPrioritySelectors spawnConditions;
 	private final HolderSet<Item> reproductionFood;
 
-	public JellyfishVariant(ClientAsset clientAsset, boolean pearlescent, SpawnPrioritySelectors spawnConditions, HolderSet<Item> reproductionFood) {
-		this.clientAsset = clientAsset;
+	public JellyfishVariant(ClientAsset.ResourceTexture resourceTexture, boolean pearlescent, SpawnPrioritySelectors spawnConditions, HolderSet<Item> reproductionFood) {
+		this.resourceTexture = resourceTexture;
 		this.pearlescent = pearlescent;
 		this.spawnConditions = spawnConditions;
 		this.reproductionFood = reproductionFood;
 	}
 
-	private JellyfishVariant(ClientAsset clientAsset, boolean pearlescent, HolderSet<Item> reproductionFood) {
-		this(clientAsset, pearlescent, SpawnPrioritySelectors.EMPTY, reproductionFood);
+	private JellyfishVariant(ClientAsset.ResourceTexture resourceTexture, boolean pearlescent, HolderSet<Item> reproductionFood) {
+		this(resourceTexture, pearlescent, SpawnPrioritySelectors.EMPTY, reproductionFood);
 	}
 
 	@NotNull
-	public ClientAsset assetInfo() {
-		return this.clientAsset;
+	public ClientAsset.ResourceTexture resourceTexture() {
+		return this.resourceTexture;
 	}
 
 	public SpawnPrioritySelectors spawnConditions() {
