@@ -194,6 +194,12 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(multiPartGenerator);
 	}
 
+	public static void createHangingFroglight(@NotNull BlockModelGenerators generator, Block bodyBlock, @NotNull Block headBlock) {
+		generator.registerSimpleFlatItemModel(headBlock.asItem());
+		generator.createCrossBlock(headBlock, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createCrossBlock(bodyBlock, BlockModelGenerators.PlantType.NOT_TINTED);
+	}
+
 	public static void createShelfFungi(@NotNull BlockModelGenerators generator, @NotNull Block shelfFungiBlock) {
 		TextureMapping shelfFungiTextureMapping = new TextureMapping();
 		shelfFungiTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(shelfFungiBlock));

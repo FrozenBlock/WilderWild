@@ -18,9 +18,8 @@
 package net.frozenblock.wilderwild.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
 import net.frozenblock.lib.datagen.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -38,23 +37,21 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
-public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
+public final class WWEntityLootProvider extends FabricEntityLootTableProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
 	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries, LootContextParamSets.ENTITY);
+		super(output, registries);
 		this.registries = registries;
 	}
 
 	@Override
-	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		HolderLookup.Provider registryLookup = this.registries.join();
+	public void generate() {
+		final HolderLookup.Provider registryLookup = this.registries.join();
 
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
@@ -70,7 +67,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 					pearlescentFixedId = pearlescentFixedId + "_pearlescent";
 				}
 				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(pearlescentFixedId + "_nematocyst"))).value();
-				output.accept(
+				this.add(
+					WWEntityTypes.JELLYFISH,
 					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),
 					LootTable.lootTable()
 						.withPool(
@@ -87,8 +85,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				);
 			});
 
-		output.accept(
-			WWEntityTypes.CRAB.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.CRAB,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -96,14 +94,14 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 						.add(
 							LootItem.lootTableItem(WWItems.CRAB_CLAW)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
-								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
 
-		output.accept(
-			WWEntityTypes.OSTRICH.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.OSTRICH,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -116,8 +114,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(
-			WWEntityTypes.SCORCHED.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.SCORCHED,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -140,8 +138,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(
-			WWEntityTypes.TUMBLEWEED.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.TUMBLEWEED,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -154,8 +152,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(
-			WWEntityTypes.MOOBLOOM.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.MOOBLOOM,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -178,8 +176,8 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(
-			WWEntityTypes.PENGUIN.getDefaultLootTable().orElseThrow(),
+		this.add(
+			WWEntityTypes.PENGUIN,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -192,7 +190,7 @@ public final class WWEntityLootProvider extends SimpleFabricLootTableProvider {
 				)
 		);
 
-		output.accept(WWEntityTypes.FIREFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
-		output.accept(WWEntityTypes.BUTTERFLY.getDefaultLootTable().orElseThrow(), LootTable.lootTable());
+		this.add(WWEntityTypes.FIREFLY, LootTable.lootTable());
+		this.add(WWEntityTypes.BUTTERFLY, LootTable.lootTable());
 	}
 }

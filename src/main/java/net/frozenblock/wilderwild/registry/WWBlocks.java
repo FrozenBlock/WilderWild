@@ -50,6 +50,8 @@ import net.frozenblock.wilderwild.block.FrozenBushBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
@@ -86,6 +88,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -1915,6 +1918,13 @@ public final class WWBlocks {
 			.isRedstoneConductor(Blocks::never)
 	);
 
+	public static final FroglightGoopBodyBlock OCHRE_FROGLIGHT_GOOP_BODY = froglightGoopBody("ochre_froglight_goop_body", FroglightType.OCHRE, Blocks.OCHRE_FROGLIGHT);
+	public static final FroglightGoopBlock OCHRE_FROGLIGHT_GOOP = froglightGoop("ochre_froglight_goop", FroglightType.OCHRE, Blocks.OCHRE_FROGLIGHT);
+	public static final FroglightGoopBodyBlock VERDANT_FROGLIGHT_GOOP_BODY = froglightGoopBody("verdant_froglight_goop_body", FroglightType.VERDANT, Blocks.VERDANT_FROGLIGHT);
+	public static final FroglightGoopBlock VERDANT_FROGLIGHT_GOOP = froglightGoop("verdant_froglight_goop", FroglightType.VERDANT, Blocks.VERDANT_FROGLIGHT);
+	public static final FroglightGoopBodyBlock PEARLESCENT_FROGLIGHT_GOOP_BODY = froglightGoopBody("pearlescent_froglight_goop_body", FroglightType.PEARLESCENT, Blocks.PEARLESCENT_FROGLIGHT);
+	public static final FroglightGoopBlock PEARLESCENT_FROGLIGHT_GOOP = froglightGoop("pearlescent_froglight_goop", FroglightType.PEARLESCENT, Blocks.PEARLESCENT_FROGLIGHT);
+
 	private WWBlocks() {
 		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
 	}
@@ -2061,7 +2071,7 @@ public final class WWBlocks {
 		boolean pearlescent,
 		int waterFogColor
 	) {
-		MesogleaBlock mesogleaBlock = register(
+		return register(
 			id,
 			properties -> new MesogleaBlock(
 				pearlescent,
@@ -2084,7 +2094,6 @@ public final class WWBlocks {
 				.dynamicShape()
 				.pushReaction(PushReaction.DESTROY)
 		);
-		return mesogleaBlock;
 	}
 
 	@NotNull
@@ -2094,6 +2103,35 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.NEMATOCYST)
+			.pushReaction(PushReaction.DESTROY);
+	}
+
+	@NotNull
+	public static FroglightGoopBodyBlock froglightGoopBody(String id, FroglightType froglightType, Block froglightBlock) {
+		return register(
+			id,
+			properties -> new FroglightGoopBodyBlock(froglightType, properties),
+			froglightGoopProperties(froglightBlock)
+		);
+	}
+
+	@NotNull
+	public static FroglightGoopBlock froglightGoop(String id, FroglightType froglightType, Block froglightBlock) {
+		return register(
+			id,
+			properties -> new FroglightGoopBlock(froglightType, properties),
+			froglightGoopProperties(froglightBlock)
+		);
+	}
+
+	private static BlockBehaviour.@NotNull Properties froglightGoopProperties(@NotNull Block froglightBlock) {
+		return BlockBehaviour.Properties.of()
+			.mapColor(froglightBlock.defaultMapColor())
+			.randomTicks()
+			.instabreak()
+			.noCollision()
+			.sound(SoundType.FROGLIGHT)
+			.lightLevel(blockStatex -> 5)
 			.pushReaction(PushReaction.DESTROY);
 	}
 

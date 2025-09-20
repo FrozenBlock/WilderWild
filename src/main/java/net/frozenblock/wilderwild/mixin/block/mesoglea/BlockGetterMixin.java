@@ -45,13 +45,13 @@ public interface BlockGetterMixin {
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void wilderWild$setClipInMesoglea(ClipContext context, CallbackInfoReturnable<BlockHitResult> info) {
-		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			Entity entity = entityCollisionContext.getEntity();
-			if (entity instanceof InMesogleaInterface inMesogleaInterface) {
-				BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
-				if (eyeState != null) inMesogleaInterface.wilderWild$setClipInMesoglea(eyeState.getBlock() instanceof MesogleaBlock);
-			}
-		}
+		if (!(context.collisionContext instanceof EntityCollisionContext entityCollisionContext)) return;
+
+		final Entity entity = entityCollisionContext.getEntity();
+		if (!(entity instanceof InMesogleaInterface inMesogleaInterface)) return;
+
+		final BlockState eyeState = getBlockState(BlockPos.containing(entity.getEyePosition()));
+		if (eyeState != null) inMesogleaInterface.wilderWild$setClipInMesoglea(eyeState.getBlock() instanceof MesogleaBlock);
 	}
 
 	@WrapOperation(

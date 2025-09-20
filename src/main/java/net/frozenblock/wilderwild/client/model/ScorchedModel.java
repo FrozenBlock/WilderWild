@@ -57,6 +57,7 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 
 	@Override
 	public void setupAnim(ScorchedRenderState renderState) {
+		super.setupAnim(renderState);
 		spiderAnim(renderState); // basically super.setupAnim but we can't have a parent class here
 		float ageInTicks = renderState.ageInTicks;
 		float walkPos = renderState.walkAnimationPos;
@@ -115,7 +116,6 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 	}
 
 	private void spiderAnim(@NotNull LivingEntityRenderState renderState) {
-		this.root.getAllParts().forEach(ModelPart::resetPose);
 		this.head.yRot = renderState.yRot * Mth.DEG_TO_RAD;
 		this.head.xRot = renderState.xRot * Mth.DEG_TO_RAD;
 		float f = renderState.walkAnimationPos * 0.6662F;

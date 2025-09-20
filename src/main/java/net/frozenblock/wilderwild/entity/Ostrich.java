@@ -381,7 +381,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 					}
 				}
 			} else {
-				for (Entity entity : serverLevel.entityManager.getEntityGetter().getAll()) {
+				for (Entity entity : serverLevel.getAllEntities()) {
 					if (entity.getUUID().equals(this.lastAttackCommander)) {
 						commander = entity;
 						break;

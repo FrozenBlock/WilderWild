@@ -138,6 +138,11 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST.asItem())
 			.add(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST.asItem());
 
+		this.valueLookupBuilder(WWItemTags.FROGLIGHT_GOOP)
+			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.asItem())
+			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP.asItem())
+			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP.asItem());
+
 		this.valueLookupBuilder(WWItemTags.JELLYFISH_FOOD)
 			.add(Items.COD, Items.SALMON);
 

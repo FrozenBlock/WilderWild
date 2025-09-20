@@ -14,6 +14,7 @@
     "block.dispenser.ShearsDispenseItemBehaviorMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",
+    "block.froglight.BlocksMixin",
     "block.frozen_vegetation.GrassBlockMixin",
     "block.ice.EntityMixin",
     "block.ice.FrostedIceBlockMixin",

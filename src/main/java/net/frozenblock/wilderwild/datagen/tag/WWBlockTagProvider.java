@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+
 	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
@@ -431,6 +432,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_NEMATOCYST)
 			.add(WWBlocks.YELLOW_NEMATOCYST);
 
+		this.valueLookupBuilder(WWBlockTags.FROGLIGHT_GOOP)
+			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP)
+			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY)
+			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP)
+			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY)
+			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP)
+			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY);
+
 		this.valueLookupBuilder(WWBlockTags.ICICLE_FALLS_FROM)
 			.add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
 
@@ -489,20 +498,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON);
 
-		this.valueLookupBuilder(WWBlockTags.GEYSER_CAN_PASS_THROUGH)
-			.addOptionalTag(BlockTags.TRAPDOORS)
-			.add(Blocks.COPPER_GRATE)
-			.add(Blocks.EXPOSED_COPPER_GRATE)
-			.add(Blocks.WEATHERED_COPPER_GRATE)
-			.add(Blocks.OXIDIZED_COPPER_GRATE)
-			.add(Blocks.WAXED_COPPER_GRATE)
-			.add(Blocks.WAXED_EXPOSED_COPPER_GRATE)
-			.add(Blocks.WAXED_WEATHERED_COPPER_GRATE)
-			.add(Blocks.WAXED_OXIDIZED_COPPER_GRATE)
+		this.valueLookupBuilder(FrozenBlockTags.BLOWING_CAN_PASS_THROUGH)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
-
-		this.valueLookupBuilder(WWBlockTags.GEYSER_CANNOT_PASS_THROUGH)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS);
 
 		this.valueLookupBuilder(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.add(Blocks.LIGHTNING_ROD);
@@ -762,7 +759,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.AUBURN_MOSS_BLOCK)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
-			.add(WWBlocks.AUBURN_CREEPING_MOSS);
+			.add(WWBlocks.AUBURN_CREEPING_MOSS)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(WWBlocks.STONE_CHEST)
@@ -822,7 +820,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_BUSH)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
 			.add(WWBlocks.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
+			.addOptionalTag(WWBlockTags.NEMATOCYSTS)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.valueLookupBuilder(BlockTags.ENDERMAN_HOLDABLE)
 			.add(WWBlocks.PALE_MUSHROOM);
@@ -883,6 +882,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.CYPRESS_SHELF)
 			.add(WWBlocks.PALM_SHELF)
 			.add(WWBlocks.MAPLE_SHELF);
+
+		this.valueLookupBuilder(BlockTags.CLIMBABLE)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.valueLookupBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(Blocks.COBWEB)
