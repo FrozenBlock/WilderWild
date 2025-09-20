@@ -280,6 +280,13 @@
   "block.wilderwild.display_lantern": "Display Lantern",
   "item.wilderwild.display_lantern": "Display Lantern",
 
+  "block.wilderwild.pearlescent_froglight_goop": "Pearlescent Froglight Goop",
+  "block.wilderwild.pearlescent_froglight_goop_body": "Pearlescent Froglight Goop Body",
+  "block.wilderwild.verdant_froglight_goop": "Verdant Froglight Goop",
+  "block.wilderwild.verdant_froglight_goop_body": "Verdant Froglight Goop Body",
+  "block.wilderwild.ochre_froglight_goop": "Ochre Froglight Goop",
+  "block.wilderwild.ochre_froglight_goop_body": "Ochre Froglight Goop Body",
+
   "block.wilderwild.frozen_fern": "Frozen Fern",
   "block.wilderwild.potted_frozen_fern": "Potted Frozen Fern",
   "block.wilderwild.frozen_large_fern": "Frozen Large Fern",
@@ -600,6 +607,8 @@
   "tooltip.wilderwild.cactus_placement": "Whether Cacti can be placed next to other blocks.\nIf you have Cactus farms, it is recommended you disable this.",
   "option.wilderwild.new_reinforced_deepslate": "Rotatable Reinforced Deepslate",
   "tooltip.wilderwild.new_reinforced_deepslate": "Whether Reinforced Deepslate can be rotated.\nThis can cause desync if enabled on Vanilla servers.",
+  "option.wilderwild.froglight_goop_growth": "Froglight Goop Growth",
+  "tooltip.wilderwild.froglight_goop_growth": "Whether Froglight Goop can generate under Froglights.\nThis will occur randomly while a Froglight is below water.",
   "option.wilderwild.frosted_ice_cracking": "New Frosted Ice Cracking",
   "tooltip.wilderwild.frosted_ice_cracking": "Whether Frosted Ice will spawn break particles and play a quiet break sound upon cracking.",
   "option.wilderwild.chest_bubbling": "Chest Bubbling",

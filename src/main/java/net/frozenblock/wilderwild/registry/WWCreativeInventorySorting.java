@@ -325,6 +325,11 @@ public final class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
 
+		// FROGLIGHT
+		addAfterInNaturalAndFunctionalBlocks(Items.PEARLESCENT_FROGLIGHT, WWBlocks.OCHRE_FROGLIGHT_GOOP);
+		addAfterInNaturalAndFunctionalBlocks(WWBlocks.OCHRE_FROGLIGHT_GOOP, WWBlocks.VERDANT_FROGLIGHT_GOOP);
+		addAfterInNaturalAndFunctionalBlocks(WWBlocks.VERDANT_FROGLIGHT_GOOP, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
+
 		// ICE
 		addAfterInNaturalBlocks(Items.ICE, WWBlocks.FRAGILE_ICE);
 		addAfterInNaturalBlocks(Items.BLUE_ICE, WWBlocks.ICICLE);

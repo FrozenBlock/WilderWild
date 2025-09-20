@@ -76,6 +76,8 @@ public final class WWMixinsConfig {
 
 	public boolean block_fire = true;
 
+	public boolean block_froglight = true;
+
 	public boolean block_frozen_vegetation = true;
 
 	public boolean block_ice = true;

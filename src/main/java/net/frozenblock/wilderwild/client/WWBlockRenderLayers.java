@@ -176,6 +176,13 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.FRAGILE_ICE, RenderType.translucent());
 		renderLayerRegistry.putBlock(WWBlocks.ICICLE, RenderType.cutout());
 
+		renderLayerRegistry.putBlock(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.VERDANT_FROGLIGHT_GOOP, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.OCHRE_FROGLIGHT_GOOP, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, RenderType.cutout());
+
 		renderLayerRegistry.putBlock(WWBlocks.BAOBAB_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.WILLOW_LEAVES, RenderType.cutoutMipped());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_LEAVES, RenderType.cutoutMipped());
