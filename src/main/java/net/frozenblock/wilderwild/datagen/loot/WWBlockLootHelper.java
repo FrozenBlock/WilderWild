@@ -156,6 +156,12 @@ public class WWBlockLootHelper {
 		);
 	}
 
+	public static void makeHangingFroglightLoot(@NotNull BlockLootSubProvider lootProvider, Block bodyBlock, Block headBlock) {
+		final LootTable.Builder builder = lootProvider.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock));
+		lootProvider.add(bodyBlock, builder);
+		lootProvider.add(headBlock, builder);
+	}
+
 	public static void makeShearsOrSilkTouchRequiredPetalsDrops(@NotNull BlockLootSubProvider lootProvider, Block block) {
 		lootProvider.add(block,
 		LootTable.lootTable()

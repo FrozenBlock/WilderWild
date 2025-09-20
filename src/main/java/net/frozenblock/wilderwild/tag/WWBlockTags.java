@@ -89,6 +89,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
 
+	public static final TagKey<Block> FROGLIGHT_GOOP = bind("froglight_goop");
+
 	public static final TagKey<Block> LEAF_LITTERS = bind("leaf_litters");
 	public static final TagKey<Block> LEAF_LITTER_CANNOT_SURVIVE_ON = bind("leaf_litter_cannot_survive_on");
 	public static final TagKey<Block> LEAF_LITTER_CAN_SURVIVE_ON = bind("leaf_litter_can_survive_on");
@@ -122,8 +124,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> NO_LIGHTNING_SMOKE_PARTICLES = bind("no_lightning_smoke_particles");
 	public static final TagKey<Block> CRAB_HIDEABLE = bind("crab_hideable");
 	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
-	public static final TagKey<Block> GEYSER_CAN_PASS_THROUGH = bind("geyser_can_pass_through");
-	public static final TagKey<Block> GEYSER_CANNOT_PASS_THROUGH = bind("geyser_cannot_pass_through");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 	public static final TagKey<Block> PENGUIN_IGNORE_FRICTION = bind("penguin_ignore_friction");
 	public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = bind("penguins_spawnable_on");
