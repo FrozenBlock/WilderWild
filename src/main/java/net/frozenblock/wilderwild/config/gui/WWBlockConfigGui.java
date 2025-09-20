@@ -123,6 +123,19 @@ public final class WWBlockConfigGui {
 			)
 		);
 
+		var froglightGoopGrowth = category.addEntry(
+			FrozenClothConfig.syncedEntry(
+				entryBuilder.startBooleanToggle(text("froglight_goop_growth"), modifiedConfig.froglightGoopGrowth)
+					.setDefaultValue(defaultConfig.froglightGoopGrowth)
+					.setSaveConsumer(newValue -> config.froglightGoopGrowth = newValue)
+					.setTooltip(tooltip("froglight_goop_growth"))
+					.build(),
+				clazz,
+				"froglightGoopGrowth",
+				configInstance
+			)
+		);
+
 		var frostedIceCracking = category.addEntry(
 			FrozenClothConfig.syncedEntry(
 				entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)

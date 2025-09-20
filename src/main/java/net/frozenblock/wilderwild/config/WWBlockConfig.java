@@ -135,6 +135,9 @@ public final class WWBlockConfig {
 	@EntrySyncData("newReinforcedDeepslate")
 	public boolean newReinforcedDeepslate = true;
 
+	@EntrySyncData("froglightGoopGrowth")
+	public boolean froglightGoopGrowth = true;
+
 	@EntrySyncData("frostedIceCracking")
 	public boolean frostedIceCracking = true;
 

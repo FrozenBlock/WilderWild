@@ -59,7 +59,7 @@ Zhen:
  - Plankton block textures.
  - Auburn Moss & Auburn Creeping Moss textures.
  - Retextured Datura in 4.0.
- - Updated Cattail textures in 4.1.
+ - Updated & Animated Cattail textures in 4.1.
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -114,7 +114,8 @@ JarethTheRad:
  - Structure assistance.
 
 zozozrob_:
- - Cattail textures & occasional concept artist for a short time.
+ - Original Cattail textures & occasional concept artist for a short time.
+ - Froglight Goop concept & textures!
 
 Xicad/Emma:
  - Echo Glass concept.

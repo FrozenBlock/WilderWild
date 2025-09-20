@@ -169,6 +169,10 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
 		WWModelHelper.createNematocyst(generator, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
 
+		WWModelHelper.createHangingFroglight(generator, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
+		WWModelHelper.createHangingFroglight(generator, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, WWBlocks.VERDANT_FROGLIGHT_GOOP);
+		WWModelHelper.createHangingFroglight(generator, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, WWBlocks.OCHRE_FROGLIGHT_GOOP);
+
 		WWModelHelper.createFragileIce(generator);
 		WWModelHelper.createIcicle(generator);
 

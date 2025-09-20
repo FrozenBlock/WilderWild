@@ -198,5 +198,12 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
+
+		BlockRenderLayerMap.putBlock(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.VERDANT_FROGLIGHT_GOOP, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.OCHRE_FROGLIGHT_GOOP, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, ChunkSectionLayer.CUTOUT);
 	}
 }
