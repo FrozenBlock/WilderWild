@@ -82,6 +82,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
 
+	public static final TagKey<Block> FROGLIGHT_GOOP = bind("froglight_goop");
+
 	public static final TagKey<Block> LEAF_LITTERS = bind("leaf_litters");
 	public static final TagKey<Block> LEAF_LITTER_CANNOT_SURVIVE_ON = bind("leaf_litter_cannot_survive_on");
 	public static final TagKey<Block> LEAF_LITTER_CAN_SURVIVE_ON = bind("leaf_litter_can_survive_on");

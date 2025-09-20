@@ -60,6 +60,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Vastly extended the usability of Wilder Wild's Falling Leaf particles for modders in 1.21.5+:
   - Any block can now be given Falling Leaves.
   - Added the `LeafMovementType` enum, used to specify different ways the Falling Leaf should move.
+- Added Froglight Goop blocks!
+  - Froglight Goop generates below Froglight blocks that are below Water.
+    - Added a new config option to toggle this behavior.
+  - Froglight Goop emits a light level of 5, and can be climbed on.
+  - Froglight Goop cannot be used to craft new Froglights, you will still need to use your Frogs for them!
 - Added Gabbro blocks to Sculk-related tags they were missing from.
 - Nether Wart, Nether Wart Blocks, and Warped Wart Blocks now kill Termites upon contact.
 - Added a few missing Crimson and Warped blocks to the `wilderwild:kills_termite` block tag.

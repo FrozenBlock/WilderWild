@@ -419,6 +419,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.RED_NEMATOCYST)
 			.add(WWBlocks.YELLOW_NEMATOCYST);
 
+		this.getOrCreateTagBuilder(WWBlockTags.FROGLIGHT_GOOP)
+			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP)
+			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY)
+			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP)
+			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY)
+			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP)
+			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY);
+
 		this.getOrCreateTagBuilder(WWBlockTags.ICICLE_FALLS_FROM)
 			.add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
 
@@ -721,7 +729,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.LANTANAS)
 			.add(WWBlocks.AUBURN_MOSS_BLOCK)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
-			.add(WWBlocks.AUBURN_CREEPING_MOSS);
+			.add(WWBlocks.AUBURN_CREEPING_MOSS)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(WWBlocks.STONE_CHEST)
@@ -778,7 +787,8 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.FROZEN_FERN, WWBlocks.FROZEN_LARGE_FERN)
 			.add(WWBlocks.AUBURN_MOSS_CARPET)
 			.add(WWBlocks.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(WWBlockTags.NEMATOCYSTS);
+			.addOptionalTag(WWBlockTags.NEMATOCYSTS)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.getOrCreateTagBuilder(BlockTags.SAND)
 			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
@@ -829,6 +839,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POLISHED_GABBRO_WALL)
 			.add(WWBlocks.GABBRO_BRICK_WALL)
 			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL);
+
+		this.getOrCreateTagBuilder(BlockTags.CLIMBABLE)
+			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
 
 		this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(Blocks.COBWEB)

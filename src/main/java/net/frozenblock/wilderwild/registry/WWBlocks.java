@@ -53,6 +53,8 @@ import net.frozenblock.wilderwild.block.FragileIceBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.IcicleBlock;
@@ -87,6 +89,7 @@ import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -1373,6 +1376,13 @@ public final class WWBlocks {
 			.isRedstoneConductor(Blocks::never)
 	);
 
+	public static final FroglightGoopBodyBlock PEARLESCENT_FROGLIGHT_GOOP_BODY = froglightGoopBody(FroglightType.PEARLESCENT, Blocks.PEARLESCENT_FROGLIGHT);
+	public static final FroglightGoopBlock PEARLESCENT_FROGLIGHT_GOOP = froglightGoop(FroglightType.PEARLESCENT, Blocks.PEARLESCENT_FROGLIGHT);
+	public static final FroglightGoopBodyBlock VERDANT_FROGLIGHT_GOOP_BODY = froglightGoopBody(FroglightType.VERDANT, Blocks.VERDANT_FROGLIGHT);
+	public static final FroglightGoopBlock VERDANT_FROGLIGHT_GOOP = froglightGoop(FroglightType.VERDANT, Blocks.VERDANT_FROGLIGHT);
+	public static final FroglightGoopBodyBlock OCHRE_FROGLIGHT_GOOP_BODY = froglightGoopBody(FroglightType.OCHRE, Blocks.OCHRE_FROGLIGHT);
+	public static final FroglightGoopBlock OCHRE_FROGLIGHT_GOOP = froglightGoop(FroglightType.OCHRE, Blocks.OCHRE_FROGLIGHT);
+
 	private WWBlocks() {
 		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
 	}
@@ -1685,6 +1695,13 @@ public final class WWBlocks {
 		registerBlockAfter(RED_NEMATOCYST, "yellow_nematocyst", YELLOW_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(YELLOW_NEMATOCYST, "lime_nematocyst", LIME_NEMATOCYST, CreativeModeTabs.NATURAL_BLOCKS);
 
+		registerBlock("ochre_froglight_goop_body", OCHRE_FROGLIGHT_GOOP_BODY);
+		registerBlockAfter(Items.PEARLESCENT_FROGLIGHT, "ochre_froglight_goop", OCHRE_FROGLIGHT_GOOP, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlock("verdant_froglight_goop_body", VERDANT_FROGLIGHT_GOOP_BODY);
+		registerBlockAfter(OCHRE_FROGLIGHT_GOOP, "verdant_froglight_goop", VERDANT_FROGLIGHT_GOOP, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+		registerBlock("pearlescent_froglight_goop_body", PEARLESCENT_FROGLIGHT_GOOP_BODY);
+		registerBlockAfter(VERDANT_FROGLIGHT_GOOP, "pearlescent_froglight_goop", PEARLESCENT_FROGLIGHT_GOOP, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
+
 		registerBlockAfter(Items.ICE, "fragile_ice", FRAGILE_ICE, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.BLUE_ICE, "icicle", ICICLE, CreativeModeTabs.NATURAL_BLOCKS);
 
@@ -1941,6 +1958,27 @@ public final class WWBlocks {
 				.sound(WWSoundTypes.NEMATOCYST)
 				.pushReaction(PushReaction.DESTROY)
 		);
+	}
+
+	@NotNull
+	public static FroglightGoopBodyBlock froglightGoopBody(FroglightType froglightType, Block froglightBlock) {
+		return new FroglightGoopBodyBlock(froglightType, froglightGoopProperties(froglightBlock));
+	}
+
+	@NotNull
+	public static FroglightGoopBlock froglightGoop(FroglightType froglightType, Block froglightBlock) {
+		return new FroglightGoopBlock(froglightType, froglightGoopProperties(froglightBlock));
+	}
+
+	private static BlockBehaviour.@NotNull Properties froglightGoopProperties(@NotNull Block froglightBlock) {
+		return BlockBehaviour.Properties.of()
+			.mapColor(froglightBlock.defaultMapColor())
+			.randomTicks()
+			.instabreak()
+			.noCollission()
+			.sound(SoundType.FROGLIGHT)
+			.lightLevel(blockStatex -> 5)
+			.pushReaction(PushReaction.DESTROY);
 	}
 
 	public static void registerBlockProperties() {

@@ -30,6 +30,10 @@
     {
       "id": "#wilderwild:nematocysts",
       "required": false
+    },
+    {
+      "id": "#wilderwild:froglight_goop",
+      "required": false
     }
   ]
 }

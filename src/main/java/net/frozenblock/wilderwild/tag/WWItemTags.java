@@ -32,6 +32,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> MESOGLEA = bind("mesoglea");
 	public static final TagKey<Item> NEMATOCYSTS = bind("nematocysts");
 	public static final TagKey<Item> PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");
+	public static final TagKey<Item> FROGLIGHT_GOOP = bind("froglight_goop");
 	public static final TagKey<Item> TUMBLEWEED_COMMON = bind("tumbleweed_common");
 	public static final TagKey<Item> TUMBLEWEED_MEDIUM = bind("tumbleweed_medium");
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
