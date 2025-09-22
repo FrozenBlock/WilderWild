@@ -109,7 +109,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 
 		level.addParticle(
 			new WindParticleOptions(
-				(int) (10D + (horizontalWind * 30D)),
+				(int) (15D + (horizontalWind * 40D)),
 				wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D,
 				wind.length() <= 0.25D ? WindParticleOptions.ParticleLength.SMALL : WindParticleOptions.ParticleLength.MEDIUM
 			),
