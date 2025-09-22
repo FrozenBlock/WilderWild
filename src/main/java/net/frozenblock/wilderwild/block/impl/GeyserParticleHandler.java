@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block.impl;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.particle.client.options.WindParticleOptions;
+import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
@@ -294,7 +294,11 @@ public class GeyserParticleHandler {
 				Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, 0.6D, 0.8D);
 				particleVelocity = particleVelocity.add(GeyserBlock.getVelocityFromDistance(blockPos, direction, particlePos, random, 0.2D));
 				particleEngine.createParticle(
-					new WindParticleOptions(12, particleVelocity),
+					new WindParticleOptions(
+						12,
+						particleVelocity,
+						random.nextDouble() <= 0.3D ? WindParticleOptions.ParticleLength.SMALL : WindParticleOptions.ParticleLength.MEDIUM
+					),
 					particlePos.x,
 					particlePos.y,
 					particlePos.z,

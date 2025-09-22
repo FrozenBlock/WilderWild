@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.wind;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.particle.client.options.WindParticleOptions;
+import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -108,13 +108,13 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency())) return;
 
 		level.addParticle(
-			new WindParticleOptions((int) (10D + (horizontalWind * 30D)), wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
-			x,
-			y,
-			z,
-			0D,
-			0D,
-			0D
+			new WindParticleOptions(
+				(int) (10D + (horizontalWind * 30D)),
+				wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D,
+				wind.length() <= 0.25D ? WindParticleOptions.ParticleLength.SMALL : WindParticleOptions.ParticleLength.MEDIUM
+			),
+			x, y, z,
+			0D, 0D, 0D
 		);
 	}
 
@@ -135,13 +135,12 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) return;
 
 		level.addParticle(
-			new WindParticleOptions((int) (10D + (windLength * 30D)), wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D),
-			x,
-			y,
-			z,
-			0D,
-			0D,
-			0D
+			new WindParticleOptions(
+				(int) (10D + (windLength * 30D)),
+				wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D
+			),
+			x, y, z,
+			0D, 0D, 0D
 		);
 	}
 
