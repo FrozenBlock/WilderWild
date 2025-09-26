@@ -277,7 +277,7 @@ public class FallingLeafUtil {
 		if (optionalFallingLeafData.isEmpty()) return;
 
 		float radius = serverExplosion.radius();
-		Vec3 difference = Vec3.atCenterOf(pos).subtract(serverExplosion.center());
+		Vec3 difference = pos.getCenter().subtract(serverExplosion.center());
 		double leafPower = (radius - difference.length()) / radius;
 
 		List<Direction> validDirections = new ArrayList<>();
