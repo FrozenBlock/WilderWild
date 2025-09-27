@@ -57,11 +57,12 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	@Override
 	public void submit(
 		ItemDisplayContext itemDisplayContext,
-		PoseStack poseStack,
+		@NotNull PoseStack poseStack,
 		@NotNull SubmitNodeCollector submitNodeCollector,
 		int light,
 		int overlay,
-		boolean bl
+		boolean bl,
+		int outlineColor
 	) {
 		submitNodeCollector.submitModel(
 			this.model,
@@ -72,7 +73,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 			overlay,
 			-1,
 			this.materials.get(this.material),
-			0,
+			outlineColor,
 			null
 		);
 	}
