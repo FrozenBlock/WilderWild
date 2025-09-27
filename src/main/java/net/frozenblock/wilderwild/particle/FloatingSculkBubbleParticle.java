@@ -23,13 +23,11 @@ import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.RisingParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -39,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
 	private final SpriteSet spriteSet;
-	private final SoundEvent sound;
 	private final int stayInflatedTime;
 
 	private float currentInflation = 0F;
@@ -61,7 +58,6 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		this.xd = velocity.x();
 		this.yd = velocity.y();
 		this.zd = velocity.z();
-		this.sound = size <= 0 ? WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP : WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP;
 		if (size >= 1) this.scale((float) (1.4F + size));
 		this.lifetime = Math.max(maxAge, 10);
 		this.stayInflatedTime = (4 - this.lifetime) * -1;
@@ -166,7 +162,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		}
 
 		if (this.age == this.stayInflatedTime + 1) {
-			this.level.playSound(Minecraft.getInstance().player, this.x, this.y, this.z, this.sound, SoundSource.NEUTRAL, 0.4F, level.random.nextFloat() * 0.2F + 0.8F);
+			this.level.playLocalSound(this.x, this.y, this.z, WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP, SoundSource.NEUTRAL, 0.4F, this.level.random.nextFloat() * 0.2F + 0.8F, false);
 			this.setParticleSpeed(0D, 0D, 0D);
 		}
 		this.setSpriteFromAge(this.spriteSet);
