@@ -4950,14 +4950,6 @@
       }
     ]
   },
-  "particle.floating_sculk_bubble.big_pop": {
-    "sounds": [
-      "wilderwild:particle/bubble/pop1",
-      "wilderwild:particle/bubble/pop2",
-      "wilderwild:particle/bubble/pop3"
-    ],
-    "subtitle": "subtitles.particle.floating_sculk_bubble.big_pop"
-  },
   "particle.floating_sculk_bubble.pop": {
     "sounds": [
       "wilderwild:particle/floating_sculk_bubble/pop1",

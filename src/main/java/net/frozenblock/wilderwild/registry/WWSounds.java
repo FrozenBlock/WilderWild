@@ -484,7 +484,6 @@ public final class WWSounds {
 
 	//MISC
 	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");
-	public static final SoundEvent PARTICLE_FLOATING_SCULK_BUBBLE_BIG_POP = register("particle.floating_sculk_bubble.big_pop");
 	public static final SoundEvent PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = registerForHolder("music.overworld.wilder_forests");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_WILD_FLOWER_FORESTS = registerForHolder("music.overworld.wilder_flower_forests");
