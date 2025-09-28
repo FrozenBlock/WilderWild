@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientMusicImpl {
+	private static final String MUSIC_PACK_SUFFIX = "_v1";
 
 	public static void init() {
 		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
@@ -59,27 +60,29 @@ public final class WWClientMusicImpl {
 
 	private static FrozenLibModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
 		FrozenLibModResourcePackApi.PackDownloadGroup musicDownloadGroup = FrozenLibModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
-		addMusicDownloadInfo(musicDownloadGroup, "dove", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "horizon_afoot", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "serene_sonder", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "amber", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "anemone", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "dahlia", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "espial_title_mix", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "espial", "_v1");
-		addMusicDownloadInfo(musicDownloadGroup, "molt", "_v1");
+		addMusicDownloadInfo(musicDownloadGroup, "dove");
+		addMusicDownloadInfo(musicDownloadGroup, "horizon_afoot");
+		addMusicDownloadInfo(musicDownloadGroup, "serene_sonder");
+		addMusicDownloadInfo(musicDownloadGroup, "amber");
+		addMusicDownloadInfo(musicDownloadGroup, "anemone");
+		addMusicDownloadInfo(musicDownloadGroup, "dahlia");
+		addMusicDownloadInfo(musicDownloadGroup, "espial_title_mix");
+		addMusicDownloadInfo(musicDownloadGroup, "espial");
+		addMusicDownloadInfo(musicDownloadGroup, "molt");
+		addMusicDownloadInfo(musicDownloadGroup, "frozen_blocks");
+		addMusicDownloadInfo(musicDownloadGroup, "pressure");
 
 		if (WWAmbienceAndMiscConfig.get().music.danMusic) {
-			addMusicDownloadInfo(musicDownloadGroup, "excuse", "_v1");
-			addMusicDownloadInfo(musicDownloadGroup, "flake", "_v1");
+			addMusicDownloadInfo(musicDownloadGroup, "excuse");
+			addMusicDownloadInfo(musicDownloadGroup, "flake");
 		}
 
 		return musicDownloadGroup;
 	}
 
-	private static void addMusicDownloadInfo(@NotNull FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName, String packSuffix) {
+	private static void addMusicDownloadInfo(@NotNull FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
 		downloadGroup.add(
-			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/" + trackName + packSuffix + ".json",
+			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/" + trackName + MUSIC_PACK_SUFFIX + ".json",
 			"ww_" + trackName
 		);
 	}
