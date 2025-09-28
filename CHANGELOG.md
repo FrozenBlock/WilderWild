@@ -111,6 +111,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
       - Resource pack downloading can be disabled via FrozenLib's config.
       - This change was made to minimize the amount of file space Wilder Wild takes up, cutting it down by roughly two-thirds of its size.
         - This makes Wilder Wild more friendly to download for users with slower internet connections as its music will only be downloaded once, while also removing unnecessary file space on servers.
+- Added the track `Frozen Blocks` by Zhen!
+  - This track plays in the Mesoglea Caves, Frozen Caves, Frozen Ocean, Deep Frozen Ocean, Snowy Taiga, Snowy Plains, Snowy Beaches, Ice Spikes, Frozen River, and Snowy Old Growth Pine Taiga biomes.
+  - `Anemone` by pictochats_ no longer plays in the Frozen Ocean and Deep Frozen Ocean biomes, remaining in all other ocean biomes and being most commonly heard in the Lukewarm Ocean, Deep Lukewarm Ocean, and Warm Ocean biomes.
+- Added the track `Pressure` by Zhen!
+  - This track plays in the Magmatic Caves, Desert, Oasis, Badlands, Eroded Badlands, and Wooded Badlands biomes.
+  - Added two config options to toggle Wilder Wild's music in the Desert and Badlands biomes.
 - Added missing translation strings for Wilder Wild's music in 1.21.6+.
 
 # World Generation

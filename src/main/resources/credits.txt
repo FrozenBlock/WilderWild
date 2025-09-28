@@ -60,6 +60,9 @@ Zhen:
  - Auburn Moss & Auburn Creeping Moss textures.
  - Retextured Datura in 4.0.
  - Updated & Animated Cattail textures in 4.1.
+ - Composer:
+    - Frozen Blocks
+    - Pressure
 
 voxelotl:
  - Scorched Eye and Fermented Scorched Eye textures.
@@ -86,7 +89,7 @@ voxelotl:
  - Mojang-Like Crab Textures in 4.1.
 
 Willow/pictochats_:
- - Composer.
+ - Composer:
     - Molt
     - Amber
     - Dahlia
