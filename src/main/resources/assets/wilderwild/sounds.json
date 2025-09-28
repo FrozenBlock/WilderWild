@@ -4588,6 +4588,36 @@
       }
     ]
   },
+  "music.overworld.wilder_badlands": {
+    "sounds": [
+      {
+        "name": "music.overworld.badlands",
+        "type": "event",
+        "weight": 14
+      },
+      {
+        "name": "wilderwild:music/zhen/pressure",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.wilder_deserts": {
+    "sounds": [
+      {
+        "name": "music.overworld.desert",
+        "type": "event",
+        "weight": 10
+      },
+      {
+        "name": "wilderwild:music/zhen/pressure",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
@@ -4600,6 +4630,12 @@
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
         "volume": 0.5
+      },
+      {
+        "name": "wilderwild:music/zhen/frozen_blocks",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
       },
       {
         "name": "music/game/lilypad",
@@ -4721,6 +4757,27 @@
       }
     ]
   },
+  "music.overworld.wilder_frozen_oceans": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 20
+      },
+      {
+        "name": "wilderwild:music/pictochats/espial",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 2
+      },
+      {
+        "name": "wilderwild:music/zhen/frozen_blocks",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
   "music.overworld.wilder_warm_oceans": {
     "sounds": [
       {
@@ -4774,6 +4831,12 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/zhen/frozen_blocks",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 4
       }
     ]
   },
@@ -4817,6 +4880,12 @@
         "stream": true,
         "volume": 0.8,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/zhen/pressure",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
       }
     ]
   },
@@ -4866,6 +4935,12 @@
       {
         "name": "wilderwild:music/pictochats/molt",
         "stream": true,
+        "weight": 3
+      },
+      {
+        "name": "wilderwild:music/zhen/frozen_blocks",
+        "stream": true,
+        "volume": 0.8,
         "weight": 3
       }
     ]

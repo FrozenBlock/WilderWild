@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "minecraft:desert",
+      "required": false
+    },
+    {
+      "id": "wilderwild:oasis",
+      "required": false
+    }
+  ]
+}

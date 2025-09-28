@@ -111,6 +111,23 @@ public final class WWMusic {
 				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES));
 			});
 
+		BiomeModifications.create(WWConstants.id("modify_music_badlands")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_BADLANDS_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (!WWAmbienceAndMiscConfig.get().music.wilderBadlandsMusic) return;
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_BADLANDS));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_deserts")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_DESERT_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (!WWAmbienceAndMiscConfig.get().music.wilderDesertMusic) return;
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_DESERTS));
+			});
+
+
 		BiomeModifications.create(WWConstants.id("modify_music_snowy")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),
@@ -125,6 +142,14 @@ public final class WWMusic {
 			(selectionContext, modificationContext) -> {
 				if (!WWAmbienceAndMiscConfig.get().music.wilderOceanMusic) return;
 				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_OCEANS));
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_frozen_oceans")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_FROZEN_OCEAN_MUSIC),
+			(selectionContext, modificationContext) -> {
+				if (!WWAmbienceAndMiscConfig.get().music.wilderOceanMusic) return;
+				modificationContext.getEffects().setMusic(Musics.createGameMusic(WWSounds.MUSIC_OVERWORLD_WILD_FROZEN_OCEANS));
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_warm_oceans")).add(

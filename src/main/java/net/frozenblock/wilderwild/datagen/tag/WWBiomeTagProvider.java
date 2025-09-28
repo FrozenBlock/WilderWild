@@ -221,6 +221,15 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC)
 			.addOptional(Biomes.SPARSE_JUNGLE);
 
+		this.builder(WWBiomeTags.HAS_BADLANDS_MUSIC)
+			.addOptional(Biomes.BADLANDS)
+			.addOptional(Biomes.ERODED_BADLANDS)
+			.addOptional(Biomes.WOODED_BADLANDS);
+
+		this.builder(WWBiomeTags.HAS_DESERT_MUSIC)
+			.addOptional(Biomes.DESERT)
+			.addOptional(WWBiomes.OASIS);
+
 		this.builder(WWBiomeTags.HAS_SNOWY_MUSIC)
 			.addOptional(Biomes.SNOWY_TAIGA)
 			.addOptional(Biomes.SNOWY_PLAINS)
@@ -233,7 +242,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(Biomes.OCEAN)
 			.addOptional(Biomes.DEEP_OCEAN)
 			.addOptional(Biomes.COLD_OCEAN)
-			.addOptional(Biomes.DEEP_COLD_OCEAN)
+			.addOptional(Biomes.DEEP_COLD_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_FROZEN_OCEAN_MUSIC)
 			.addOptional(Biomes.FROZEN_OCEAN)
 			.addOptional(Biomes.DEEP_FROZEN_OCEAN);
 
