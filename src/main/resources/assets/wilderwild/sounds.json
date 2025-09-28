@@ -4598,7 +4598,7 @@
       {
         "name": "wilderwild:music/zhen/pressure",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.7,
         "weight": 2
       }
     ]
@@ -4613,7 +4613,7 @@
       {
         "name": "wilderwild:music/zhen/pressure",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.7,
         "weight": 2
       }
     ]
@@ -4835,7 +4835,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.7,
         "weight": 4
       }
     ]
@@ -4884,7 +4884,7 @@
       {
         "name": "wilderwild:music/zhen/pressure",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.7,
         "weight": 2
       }
     ]
@@ -4940,7 +4940,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.7,
         "weight": 3
       }
     ]
