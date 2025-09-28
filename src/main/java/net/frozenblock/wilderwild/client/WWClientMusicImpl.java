@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientMusicImpl {
-	private static final String MUSIC_PACK_SUFFIX = "_v1";
+	private static final String MUSIC_PACK_SUFFIX = "_v2";
 
 	public static void init() {
 		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
