@@ -297,7 +297,7 @@ public class GeyserParticleHandler {
 					new WindParticleOptions(
 						12,
 						particleVelocity,
-						random.nextDouble() <= 0.3D ? WindParticleOptions.ParticleLength.SMALL : WindParticleOptions.ParticleLength.MEDIUM
+						WindParticleOptions.ParticleLength.SMALL
 					),
 					particlePos.x,
 					particlePos.y,
