@@ -4670,7 +4670,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.8,
+        "volume": 0.6,
         "weight": 2
       },
       {
@@ -4809,7 +4809,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.7,
+        "volume": 0.5,
         "weight": 2
       }
     ]
@@ -4871,7 +4871,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.7,
+        "volume": 0.5,
         "weight": 4
       }
     ]
@@ -4976,7 +4976,7 @@
       {
         "name": "wilderwild:music/zhen/frozen_blocks",
         "stream": true,
-        "volume": 0.7,
+        "volume": 0.5,
         "weight": 3
       }
     ]
