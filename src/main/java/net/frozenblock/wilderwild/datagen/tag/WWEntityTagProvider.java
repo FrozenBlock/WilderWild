@@ -24,6 +24,7 @@ import net.frozenblock.lib.tag.api.FrozenEntityTags;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
@@ -115,7 +116,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
 
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_CANNOT_PUSH)
-			.add(EntityType.WITHER, EntityType.ENDER_DRAGON);
+			.add(EntityType.WITHER, EntityType.ENDER_DRAGON)
+			.add(EntityType.VEX)
+			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "apparition"));
 
 		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityType.PLAYER)
