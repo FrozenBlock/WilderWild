@@ -118,6 +118,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_CANNOT_PUSH)
 			.add(EntityType.WITHER, EntityType.ENDER_DRAGON)
 			.add(EntityType.VEX)
+			.add(EntityType.EYE_OF_ENDER)
 			.addOptional(ResourceLocation.fromNamespaceAndPath("trailiertales", "apparition"));
 
 		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)

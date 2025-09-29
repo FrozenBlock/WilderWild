@@ -72,7 +72,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed the cracked variants of Scorched Sand blocks, simplifying them in both implementation and design to be more consistent with Vanilla.
 - Geysers no longer attempt to push Arrows/Tridents that are stuck inside blocks.
 - Item entities no longer jitter while being pushed by a Geyser.
-- Geysers no longer attempt to push Withers, Ender Dragons, Vexes, and Apparitions (Trailier Tales).
+- Geysers no longer attempt to push Withers, Ender Dragons, Vexes, Eyes of Ender, and Apparitions (`Trailier Tales`).
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 
@@ -152,8 +152,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option in 1.21.5+ to dictate whether Fireflies can spawn wherever a Firefly Bush is.
   - If disabled, Fireflies can only spawn in Swamp-like biomes.
 - Fixed Penguins not counting towards the `Flightless Flight` advancement.
+- Tumbleweed now implement the `InventoryCarrier` interface on 1.21.9+.
 
 # Items
+- Copper Horns have been removed in 1.21.9+!
+  - Copper Horns are now a feature in the `The Copperier Age` mod.
+  - Copper Horns will be datafixed to use the `thecopperierage` namespace, meaning they will work fine as long as a world is loaded with `The Copperier Age` installed.
 - The Milkweed pod now has a cooldown of two seconds.
 - Added unique sounds for blowing a Milkweed Pod.
 - Using a Milkweed Pod now properly awards the statistic for item usage.
