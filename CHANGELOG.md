@@ -103,6 +103,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Geysers now use an emissive top face in 1.21.4+.
 - Retextured the Penguin Spawn Egg in 1.21.5+.
 - Retextured the Ostrich Spawn Egg in 1.21.5+.
+- Replaced the data/resource pack icon with a new one by Voxelotl!
 
 # Music
 - Removed the internal .zip resource pack containing Wilder Wild's music.
