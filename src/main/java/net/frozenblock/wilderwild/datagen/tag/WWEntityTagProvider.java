@@ -117,6 +117,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
 			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
 
+		this.getOrCreateTagBuilder(WWEntityTags.GEYSER_CANNOT_PUSH)
+			.add(EntityType.WITHER, EntityType.ENDER_DRAGON);
+
 		this.getOrCreateTagBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityType.PLAYER)
 			.add(EntityType.IRON_GOLEM)
