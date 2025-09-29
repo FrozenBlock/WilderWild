@@ -72,7 +72,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed the cracked variants of Scorched Sand blocks, simplifying them in both implementation and design to be more consistent with Vanilla.
 - Geysers no longer attempt to push Arrows/Tridents that are stuck inside blocks.
 - Item entities no longer jitter while being pushed by a Geyser.
-- Geysers no longer attempt to push Withers and Ender Dragons.
+- Geysers no longer attempt to push Withers, Ender Dragons, Vexes, and Apparitions (Trailier Tales).
 - Removed duplicate Stonecutting recipes for Mud Bricks. ([#502](https://github.com/FrozenBlock/WilderWild/issues/502))
 - Penguin and Ostrich eggs now take much longer to hatch. ([#501](https://github.com/FrozenBlock/WilderWild/issues/501))
 
