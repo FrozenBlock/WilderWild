@@ -3,6 +3,7 @@
     "minecraft:wither",
     "minecraft:ender_dragon",
     "minecraft:vex",
+    "minecraft:eye_of_ender",
     {
       "id": "trailiertales:apparition",
       "required": false

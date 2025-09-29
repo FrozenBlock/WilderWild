@@ -122,7 +122,8 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 
 		this.valueLookupBuilder(WWEntityTags.GEYSER_CANNOT_PUSH)
 			.add(EntityType.WITHER, EntityType.ENDER_DRAGON)
-			.add(EntityType.VEX);
+			.add(EntityType.VEX)
+			.add(EntityType.EYE_OF_ENDER);
 
 		this.builder(WWEntityTags.GEYSER_CANNOT_PUSH)
 			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("trailiertales", "apparition")));
