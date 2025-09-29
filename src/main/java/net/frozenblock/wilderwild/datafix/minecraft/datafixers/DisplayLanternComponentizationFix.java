@@ -42,13 +42,11 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 
 	@NotNull
 	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		List<Dynamic<?>> list = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		List<Dynamic<?>> oldDynamics = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		dynamic = dynamic.remove("Fireflies");
 
 		List<Dynamic<?>> newDynamics = Lists.newArrayList();
-		for (Dynamic<?> embeddedDynamic : list) {
-			newDynamics.add(fixOccupant(embeddedDynamic));
-		}
+		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(fixOccupant(embeddedDynamic));
 
 		return dynamic.set("fireflies", dynamic.createList(newDynamics.stream()));
 	}
@@ -62,18 +60,16 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 
 	@NotNull
 	private static Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
-		List<Dynamic<?>> list = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		final List<Dynamic<?>> color = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		String colorID = WWConstants.string("on");
-		if (!list.isEmpty()) {
-			colorID = ((StringTag) list.getFirst().getValue()).asString().orElse(colorID);
-		}
+		if (!color.isEmpty()) colorID = ((StringTag) color.getFirst().getValue()).asString().orElse(colorID);
 		return dynamic.set("color", dynamic.createString(colorID));
 	}
 
 	@Override
 	protected TypeRewriteRule makeRule() {
-		Type<?> type = this.getInputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern"));
-		OpticFinder<?> opticFinder = DSL.namedChoice(WWConstants.string("display_lantern"), type);
+		final Type<?> type = this.getInputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern"));
+		final OpticFinder<?> opticFinder = DSL.namedChoice(WWConstants.string("display_lantern"), type);
 
 		return this.fixTypeEverywhereTyped(
 			"Display Lantern componentization fix",

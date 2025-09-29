@@ -277,7 +277,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.generateMilkweedPod(generator, WWItems.MILKWEED_POD);
 		generator.declareCustomModelItem(WWBlocks.NULL_BLOCK.asItem());
 
-		WWModelHelper.generateCopperHorn(generator, WWItems.COPPER_HORN);
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS);
 
 		// Spawn Eggs

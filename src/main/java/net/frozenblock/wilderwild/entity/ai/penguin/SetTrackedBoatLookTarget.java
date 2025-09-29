@@ -31,14 +31,13 @@ public class SetTrackedBoatLookTarget {
 	@Contract(" -> new")
 	public static @NotNull OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(
-			instance -> instance.group(instance.absent(MemoryModuleType.LOOK_TARGET), instance.present(WWMemoryModuleTypes.TRACKED_BOAT))
-				.apply(
-					instance,
-					(lookTarget, trackedBoat) -> (serverLevel, livingEntity, l) -> {
-						lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
-						return true;
-					}
-				)
+			instance -> instance.group(
+				instance.absent(MemoryModuleType.LOOK_TARGET),
+				instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
+			).apply(instance, (lookTarget, trackedBoat) -> (serverLevel, livingEntity, l) -> {
+				lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
+				return true;
+			})
 		);
 	}
 }

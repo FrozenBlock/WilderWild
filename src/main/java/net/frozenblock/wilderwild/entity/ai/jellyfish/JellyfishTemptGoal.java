@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JellyfishTemptGoal extends Goal {
@@ -36,7 +37,6 @@ public class JellyfishTemptGoal extends Goal {
 	@Nullable
 	protected Player player;
 	private int calmDown;
-	private boolean isRunning;
 
 	public JellyfishTemptGoal(Jellyfish mob, double speedModifier) {
 		this.mob = mob;
@@ -47,24 +47,22 @@ public class JellyfishTemptGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		ServerLevel level = getServerLevel(this.mob);
 		if (this.mob.getTarget() != null) return false;
 		if (this.calmDown > 0) {
 			--this.calmDown;
 			return false;
 		}
-		this.player = level.getNearestPlayer(this.targetingConditions, this.mob);
+		this.player = getServerLevel(this.mob).getNearestPlayer(this.targetingConditions, this.mob);
 		return this.player != null;
 	}
 
-	private boolean shouldFollow(LivingEntity entity, ServerLevel level) {
-		HolderSet<Item> tag = this.mob.getVariant().getReproductionFood();
+	private boolean shouldFollow(@NotNull LivingEntity entity, ServerLevel level) {
+		final HolderSet<Item> tag = this.mob.getVariant().getReproductionFood();
 		return entity.getMainHandItem().is(tag) || entity.getOffhandItem().is(tag);
 	}
 
 	@Override
 	public void start() {
-		this.isRunning = true;
 	}
 
 	@Override
@@ -72,11 +70,11 @@ public class JellyfishTemptGoal extends Goal {
 		this.player = null;
 		this.mob.getNavigation().stop();
 		this.calmDown = JellyfishTemptGoal.reducedTickDelay(100);
-		this.isRunning = false;
 	}
 
 	@Override
 	public void tick() {
+		if (this.player == null) return;
 		this.mob.getLookControl().setLookAt(this.player, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
 		if (this.mob.distanceToSqr(this.player) < 6.25) {
 			this.mob.getNavigation().stop();
@@ -85,8 +83,5 @@ public class JellyfishTemptGoal extends Goal {
 		}
 	}
 
-	public boolean isRunning() {
-		return this.isRunning;
-	}
 }
 

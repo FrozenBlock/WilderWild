@@ -38,13 +38,13 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 	protected LivingEntity target;
 	protected TargetingConditions targetConditions;
 
-	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, boolean bl) {
-		this(mob, class_, 10, bl, false, null);
+	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> targetClass, boolean mustSee) {
+		this(mob, targetClass, 10, mustSee, false, null);
 	}
 
-	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> class_, int i, boolean bl, boolean bl2, @Nullable TargetingConditions.Selector predicate) {
-		super(mob, bl, bl2);
-		this.targetType = class_;
+	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> targetClass, int i, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector predicate) {
+		super(mob, mustSee, mustReach);
+		this.targetType = targetClass;
 		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
 		this.setFlags(EnumSet.of(Goal.Flag.TARGET));
 		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
@@ -68,7 +68,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 
 	@Override
 	public void start() {
-		((TurtleCooldownInterface) this.mob).wilderWild$setAttackCooldown(2400);
+		if (this.mob instanceof TurtleCooldownInterface turtleCooldownInterface) turtleCooldownInterface.wilderWild$setAttackCooldown(2400);
 		this.mob.setTarget(this.target);
 		super.start();
 	}

@@ -35,7 +35,7 @@ public class CrabHeal {
 			instance.present(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS)
 		).apply(instance, (underground, digCooldown, healCooldown) -> (world, crab, l) -> {
-			Brain<Crab> brain = crab.getBrain();
+			final Brain<Crab> brain = crab.getBrain();
 			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).isPresent()) {
 				int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
 				if (cooldownTicks > 0) {

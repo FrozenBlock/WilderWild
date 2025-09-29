@@ -45,13 +45,13 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel serverLevel, @NotNull E penguin) {
+	protected boolean checkExtraStartConditions(@NotNull ServerLevel serverLevel, @NotNull E penguin) {
 		return !penguin.isTouchingWaterOrSwimming();
 	}
 
 	@Override
 	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		Brain<Penguin> brain = penguin.getBrain();
+		final Brain<Penguin> brain = penguin.getBrain();
 		return brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
 			&& !penguin.isTouchingWaterOrSwimming();
@@ -59,7 +59,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		Brain<Penguin> brain = penguin.getBrain();
+		final Brain<Penguin> brain = penguin.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH);
 		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
 		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE);
@@ -69,7 +69,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		Brain<Penguin> brain = penguin.getBrain();
+		final Brain<Penguin> brain = penguin.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
 		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);
 

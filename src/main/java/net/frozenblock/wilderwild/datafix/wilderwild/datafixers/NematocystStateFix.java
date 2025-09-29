@@ -44,9 +44,9 @@ public final class NematocystStateFix extends DataFix {
 	}
 
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
-		Optional<String> optional = dynamic.get("Name").asString().result();
-		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
+		final Optional<String> name = dynamic.get("Name").asString().result();
+		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
+			final String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
 			String trueDirection;
 			switch (string) {
 				case "down" -> trueDirection = "up";
@@ -55,7 +55,7 @@ public final class NematocystStateFix extends DataFix {
 				case "east" -> trueDirection = "west";
 				case "west" -> trueDirection = "east";
 				default -> trueDirection = "down";
-			}
+			};
 			return dynamicx.remove(OLD_STATE).set(trueDirection, dynamicx.createString("true"));
 		}) : dynamic;
 	}

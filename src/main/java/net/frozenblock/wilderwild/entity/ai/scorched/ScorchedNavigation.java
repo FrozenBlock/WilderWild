@@ -32,12 +32,12 @@ public class ScorchedNavigation extends WallClimberNavigation {
 	}
 
 	@Override
-	protected boolean hasValidPathType(PathType pathType) {
+	protected boolean hasValidPathType(@NotNull PathType pathType) {
 		return pathType == PathType.LAVA || pathType == PathType.DAMAGE_FIRE || pathType == PathType.DANGER_FIRE || super.hasValidPathType(pathType);
 	}
 
 	@Override
-	public boolean isStableDestination(BlockPos pos) {
+	public boolean isStableDestination(@NotNull BlockPos pos) {
 		return this.level.getBlockState(pos).is(Blocks.LAVA) || super.isStableDestination(pos);
 	}
 }

@@ -35,38 +35,37 @@ public class PenguinReturnToWater {
 		MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(
 			instance -> instance.group(
-					instance.present(WWMemoryModuleTypes.WATER_POS),
-					instance.absent(MemoryModuleType.ATTACK_TARGET),
-					instance.absent(MemoryModuleType.WALK_TARGET),
-					instance.registered(MemoryModuleType.LOOK_TARGET)
-				)
-				.apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (serverLevel, pathfinderMob, l) -> {
-					if (pathfinderMob.isInWater()) return false;
-					if (l < returnTimer.getValue()) {
-						returnTimer.setValue(l + 60L);
-						return true;
-					}
-					GlobalPos globalPos = instance.get(waterPos);
-
-					if (!globalPos.dimension().equals(serverLevel.dimension())) {
-						waterPos.erase();
-						return false;
-					}
-
-					PathNavigation pathNavigation = pathfinderMob.getNavigation();
-					BlockPos pos = globalPos.pos();
-
-					lookTarget.set(new BlockPosTracker(pos));
-					walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
-
-					if (pathNavigation.isStuck()) {
-						waterPos.erase();
-						return false;
-					}
-
+				instance.present(WWMemoryModuleTypes.WATER_POS),
+				instance.absent(MemoryModuleType.ATTACK_TARGET),
+				instance.absent(MemoryModuleType.WALK_TARGET),
+				instance.registered(MemoryModuleType.LOOK_TARGET)
+			).apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (serverLevel, pathfinderMob, l) -> {
+				if (pathfinderMob.isInWater()) return false;
+				if (l < returnTimer.getValue()) {
 					returnTimer.setValue(l + 60L);
 					return true;
-				})
+				}
+
+				final GlobalPos globalPos = instance.get(waterPos);
+				if (!globalPos.dimension().equals(serverLevel.dimension())) {
+					waterPos.erase();
+					return false;
+				}
+
+				final PathNavigation pathNavigation = pathfinderMob.getNavigation();
+				final BlockPos pos = globalPos.pos();
+
+				lookTarget.set(new BlockPosTracker(pos));
+				walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
+
+				if (pathNavigation.isStuck()) {
+					waterPos.erase();
+					return false;
+				}
+
+				returnTimer.setValue(l + 60L);
+				return true;
+			})
 		);
 	}
 }

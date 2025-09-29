@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
 import net.frozenblock.wilderwild.WWConstants;
@@ -36,7 +35,6 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -57,6 +55,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -122,14 +121,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	public static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<Integer> BEAK_COOLDOWN = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
 	public static final EntityDataAccessor<Integer> STUCK_TICKS = SynchedEntityData.defineId(Ostrich.class, EntityDataSerializers.INT);
+	@Nullable
+	private EntityReference<Entity> lastAttackCommander;
 	public boolean attackHasCommander;
 	public boolean commanderWasPlayer;
 	private float prevStraightProgress;
 	private float straightProgress;
 	private float prevBeakAnimProgress;
 	private float beakAnimProgress;
-	@Nullable
-	private UUID lastAttackCommander;
 	@Nullable
 	private Vec3 prevBeakPosition;
 	@Nullable
@@ -203,16 +202,16 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	public void customServerAiStep(ServerLevel level) {
-		ProfilerFiller profiler = Profiler.get();
+	public void customServerAiStep(ServerLevel serverLevel) {
+		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("ostrichBrain");
-		Brain<Ostrich> brain = this.getBrain();
-		brain.tick(level, this);
+		final Brain<Ostrich> brain = this.getBrain();
+		brain.tick(serverLevel, this);
 		profiler.pop();
 		profiler.push("ostrichActivityUpdate");
 		OstrichAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep(level);
+		super.customServerAiStep(serverLevel);
 	}
 
 	@Override
@@ -265,9 +264,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		if (this.isAttacking()) {
 			if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) this.cancelAttack(true);
 
-			BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
+			final BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
 			boolean hasAttacked = false;
-			AABB attackBox = this.createAttackBox(1F);
+			final AABB attackBox = this.createAttackBox(1F);
 
 			if (this.isBeakTouchingFluid()) this.cancelAttack(false);
 
@@ -278,12 +277,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 				this.cancelAttack(false);
 			}
 
-			boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
+			final boolean strongEnoughToAttack = this.getBeakAnimProgress(1F) >= 0.2F;
 			if (strongEnoughToAttack) {
-				List<Entity> entities = this.level().getEntities(this, attackBox);
+				final Entity commander = this.getLastAttackCommander();
+				final List<Entity> entities = this.level().getEntities(this, attackBox);
 				for (Entity entity : entities) {
 					if (!this.hasPassenger(entity)) {
-						Entity commander = this.getLastAttackCommander();
 						if (commander != null) {
 							if (!commander.isAlliedTo(entity) && commander != entity) hasAttacked = this.doHurtOnEntity(level, commander, entity);
 						} else {
@@ -328,16 +327,20 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	public boolean doHurtOnEntity(ServerLevel level, @Nullable Entity commander, @NotNull Entity entity) {
-		float beakProgress = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F);
-		float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
-		AttributeInstance knockback = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
-		knockback.addOrUpdateTransientModifier(
-			new AttributeModifier(
-				KNOCKBACK_MODIFIER_UUID,
-				beakProgress * ADDITIONAL_KNOCKBACK_RIDER,
-				AttributeModifier.Operation.ADD_VALUE
-			)
-		);
+		final float beakProgress = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F);
+		final float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
+
+		final AttributeInstance knockback = this.getAttribute(Attributes.ATTACK_KNOCKBACK);
+		if (knockback != null) {
+			knockback.addOrUpdateTransientModifier(
+				new AttributeModifier(
+					KNOCKBACK_MODIFIER_UUID,
+					beakProgress * ADDITIONAL_KNOCKBACK_RIDER,
+					AttributeModifier.Operation.ADD_VALUE
+				)
+			);
+		}
+
 		boolean didHurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
@@ -349,9 +352,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public void swing(@NotNull InteractionHand hand, boolean updateSelf) {
-		if (!this.isAttacking() && this.getBeakCooldown() <= 0 && !this.isStuck()) {
-			this.performAttack(0.6F + (this.random.nextFloat() * 0.4F), null);
-		}
+		if (this.isAttacking() || this.getBeakCooldown() > 0 || this.isStuck()) return;
+		this.performAttack(0.6F + (this.random.nextFloat() * 0.4F), null);
 	}
 
 	public void cancelAttack(boolean successful) {
@@ -371,32 +373,14 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Nullable
 	public Entity getLastAttackCommander() {
-		Entity commander = null;
-		if (this.lastAttackCommander != null && this.level() instanceof ServerLevel serverLevel) {
-			if (this.commanderWasPlayer) {
-				for (Player player : serverLevel.players()) {
-					if (player.getUUID().equals(this.lastAttackCommander)) {
-						commander = player;
-						break;
-					}
-				}
-			} else {
-				for (Entity entity : serverLevel.getAllEntities()) {
-					if (entity.getUUID().equals(this.lastAttackCommander)) {
-						commander = entity;
-						break;
-					}
-				}
-			}
-
-		}
-		return commander;
+		if (this.lastAttackCommander == null) return null;
+		return EntityReference.getEntity(this.lastAttackCommander, this.level());
 	}
 
 	public void setLastAttackCommander(@Nullable Entity entity) {
 		if (entity != null) {
 			this.attackHasCommander = true;
-			this.lastAttackCommander = entity.getUUID();
+			this.lastAttackCommander = EntityReference.of(entity);
 			this.commanderWasPlayer = entity instanceof Player;
 		} else {
 			this.attackHasCommander = false;
@@ -408,8 +392,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@NotNull
 	@Override
 	public AABB getAttackBoundingBox() {
-		float scale = this.getScale();
-		double attackBBOffset = 0.2D * scale;
+		final float scale = this.getScale();
+		final double attackBBOffset = 0.2D * scale;
 		return super.getAttackBoundingBox().inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
 	}
 
@@ -430,8 +414,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public void tickRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
-		Vec2 vec2 = this.getRiddenRotation(player);
-		this.setRot(vec2.y, vec2.x);
+		final Vec2 riddenRotation = this.getRiddenRotation(player);
+		this.setRot(riddenRotation.y, riddenRotation.x);
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 		if (this.isLocalInstanceAuthoritative()) {
 			if (WWEntityConfig.get().ostrich.allowAttack && this.playerJumpPendingScale > 0F) {
@@ -448,7 +432,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public void handleStartJump(int jumpPower) {
-		float powerPercent = ((float) jumpPower) * 0.0125F;
+		final float powerPercent = ((float) jumpPower) * 0.0125F;
 		this.performAttack(powerPercent, this.getFirstPassenger());
 	}
 
@@ -512,9 +496,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public void onPlayerJump(int jumpPower) {
-		if (this.isSaddled() && this.getBeakCooldown() <= 0) {
-			super.onPlayerJump(jumpPower);
-		}
+		if (this.isSaddled() && this.getBeakCooldown() <= 0) super.onPlayerJump(jumpPower);
 	}
 
 	@Override
@@ -541,24 +523,21 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		if (this.isAggressive() && !this.isTamed()) {
-			return InteractionResult.FAIL;
-		}
-		boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
+		if (this.isAggressive() && !this.isTamed()) return InteractionResult.FAIL;
+
+		final boolean isGrownAndTamedWithShiftHeldDown = !this.isBaby() && this.isTamed() && player.isSecondaryUseActive();
 		if (!this.isVehicle() && !isGrownAndTamedWithShiftHeldDown) {
-			ItemStack itemStack = player.getItemInHand(hand);
-			if (!itemStack.isEmpty()) {
-				if (this.isFood(itemStack)) {
-					OstrichAi.removeAttackAndAngerTarget(this);
-					return this.fedFood(player, itemStack);
-				}
+			final ItemStack itemStack = player.getItemInHand(hand);
+			if (!itemStack.isEmpty() && this.isFood(itemStack)) {
+				OstrichAi.removeAttackAndAngerTarget(this);
+				return this.fedFood(player, itemStack);
 			}
 		}
 		return super.mobInteract(player, hand);
 	}
 
 	@Override
-	public void doPlayerRide(Player player) {
+	public void doPlayerRide(@NotNull Player player) {
 		super.doPlayerRide(player);
 		OstrichAi.removeAttackAndAngerTarget(this);
 	}
@@ -566,25 +545,23 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	public boolean handleEating(@NotNull Player player, @NotNull ItemStack stack) {
 		if (!this.isFood(stack)) return false;
-		boolean isHurt = this.getHealth() < this.getMaxHealth();
+
+		final boolean isHurt = this.getHealth() < this.getMaxHealth();
 		if (isHurt) this.heal(2F);
 
-		boolean bl2 = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
-		if (bl2) this.setInLove(player);
+		final boolean canFallInLove = this.isTamed() && this.getAge() == 0 && this.canFallInLove();
+		if (canFallInLove) this.setInLove(player);
 
-		boolean isBaby = this.isBaby();
+		final boolean isBaby = this.isBaby();
 		if (isBaby) {
 			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
 			if (!this.level().isClientSide()) this.ageUp(10);
 		}
 
-		if (!isHurt && !bl2 && !isBaby) return false;
-		if (!this.isSilent()) {
-			SoundEvent soundEvent = this.getEatingSound();
-			if (soundEvent != null) {
-				this.level().playSound(null, this.getX(), this.getY(), this.getZ(), soundEvent, this.getSoundSource(), 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
-			}
-		}
+		if (!isHurt && !canFallInLove && !isBaby) return false;
+
+		final SoundEvent eatingSound = this.getEatingSound();
+		if (eatingSound != null) this.playSound(eatingSound, 1F, 1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 
 		this.gameEvent(GameEvent.EAT);
 		return true;
@@ -609,12 +586,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public boolean causeFallDamage(double fallDistance, float multiplier, @NotNull DamageSource source) {
-		int i = this.calculateFallDamage(fallDistance, multiplier);
-		if (i <= 0) return false;
+		final int fallDage = this.calculateFallDamage(fallDistance, multiplier);
+		if (fallDage <= 0) return false;
 		if (fallDistance >= 6F) {
-			this.hurt(source, (float) i);
+			this.hurt(source, (float) fallDage);
 			if (this.isVehicle()) {
-				for (Entity entity : this.getIndirectPassengers()) entity.hurt(source, (float) i);
+				for (Entity entity : this.getIndirectPassengers()) entity.hurt(source, (float) fallDage);
 			}
 		}
 
@@ -624,43 +601,43 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
-		boolean bl = super.hurtServer(level, source, amount);
-		if (bl && source.getEntity() instanceof LivingEntity livingEntity) OstrichAi.wasHurtBy(level, this, livingEntity);
-		return bl;
+		final boolean wasHurt = super.hurtServer(level, source, amount);
+		if (wasHurt && source.getEntity() instanceof LivingEntity livingEntity) OstrichAi.wasHurtBy(level, this, livingEntity);
+		return wasHurt;
 	}
 
 	@NotNull
 	private Vec3 makeBeakPos() {
-		double scale = this.getScale() * this.getAgeScale();
-		float beakAnimProgress = this.getBeakAnimProgress(0F);
-		Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
-		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
-		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
+		final double scale = this.getScale() * this.getAgeScale();
+		final float beakAnimProgress = this.getBeakAnimProgress(0F);
+		final Vec3 currentPos = this.position().add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
+		final Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, this.getYHeadRot()));
+		final Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
 
-		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
-		Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
+		final Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
+		final Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
 
-		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
-		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
-		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
+		final Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
+		final double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
+		final Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 		return beakPos;
 	}
 
 	@NotNull
 	public List<Vec3> getDebugRenderingPoses(float tickDelta) {
-		List<Vec3> poses = new ArrayList<>();
-		double scale = this.getScale() * this.getAgeScale();
-		float beakAnimProgress = this.getBeakAnimProgress(tickDelta);
-		Vec3 currentPos = this.getPosition(tickDelta).add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
-		Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, Mth.lerp(tickDelta, this.yHeadRotO, this.yHeadRot)));
-		Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
+		final List<Vec3> poses = new ArrayList<>();
+		final double scale = this.getScale() * this.getAgeScale();
+		final float beakAnimProgress = this.getBeakAnimProgress(tickDelta);
+		final Vec3 currentPos = this.getPosition(tickDelta).add(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), 0D);
+		final Vec3 lookOrientation = Vec3.directionFromRotation(new Vec2(0F, Mth.lerp(tickDelta, this.yHeadRotO, this.yHeadRot)));
+		final Vec3 neckBasePos = currentPos.add(lookOrientation.scale(0.475D * scale));
 
-		Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
-		Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
+		final Vec3 headBaseRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 0.275D * scale, (beakAnimProgress * 180D * 0.3D) + 90D);
+		final Vec3 headBasePos = neckBasePos.add(0D, headBaseRotPos.x(), 0D).add(lookOrientation.scale(headBaseRotPos.z()));
 
-		Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
-		double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
-		Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
+		final Vec3 beakRotPos = AdvancedMath.rotateAboutX(Vec3.ZERO, 1.15D * scale, (beakAnimProgress * 180D * 0.7D) + 10D);
+		final double downFactor = (Math.max(0, beakAnimProgress - 0.5) * 0.75D * 1.75D) * scale;
+		final Vec3 beakPos = headBasePos.add(0D, beakRotPos.x() - downFactor, 0D).add(lookOrientation.scale(beakRotPos.z() - downFactor));
 
 		poses.add(neckBasePos);
 		poses.add(headBasePos);
@@ -699,15 +676,15 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	public boolean isBeakTouchingFluid() {
-		Vec3 beakVec = this.getBeakPos();
-		BlockPos beakPos = BlockPos.containing(beakVec);
-		FluidState fluidState = this.getBeakState().getFluidState();
+		final Vec3 beakVec = this.getBeakPos();
+		final BlockPos beakPos = BlockPos.containing(beakVec);
+		final FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), beakPos) + beakPos.getY() >= beakVec.y());
 	}
 
 	public boolean isBeakTouchingCollidingBlock(boolean canGetStuck) {
-		Vec3 beakVec = this.getBeakPos();
-		BlockPos beakPos = BlockPos.containing(beakVec);
+		final Vec3 beakVec = this.getBeakPos();
+		final BlockPos beakPos = BlockPos.containing(beakVec);
 		if (this.beakVoxelShape != null && !this.beakVoxelShape.isEmpty() && this.beakVoxelShape != Shapes.empty()) {
 			AABB collisionShape = this.beakVoxelShape.bounds().move(beakPos);
 			return canGetStuck == this.canGetHeadStuckInState(this.getBeakState()) && collisionShape.contains(beakVec);
@@ -716,9 +693,9 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	public boolean isEyeTouchingFluid() {
-		Vec3 eyeVec = this.getEyePosition();
-		BlockPos eyePos = BlockPos.containing(eyeVec);
-		FluidState fluidState = this.getBeakState().getFluidState();
+		final Vec3 eyeVec = this.getEyePosition();
+		final BlockPos eyePos = BlockPos.containing(eyeVec);
+		final FluidState fluidState = this.getBeakState().getFluidState();
 		return !fluidState.isEmpty() && (fluidState.getHeight(this.level(), eyePos) + eyePos.getY() >= eyeVec.y());
 	}
 
@@ -739,9 +716,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public boolean canMate(@NotNull Animal otherAnimal) {
-		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) {
-			return this.canParent() && ostrich.canParent();
-		}
+		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) return this.canParent() && ostrich.canParent();
 		return false;
 	}
 
@@ -775,7 +750,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	public void actuallyHurt(ServerLevel level, @NotNull DamageSource damageSource, float damageAmount) {
+	public void actuallyHurt(@NotNull ServerLevel level, @NotNull DamageSource damageSource, float damageAmount) {
 		this.emergeBeak();
 		super.actuallyHurt(level, damageSource, damageAmount);
 	}
@@ -848,13 +823,12 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		this.entityData.set(STUCK_TICKS, stuckTicks);
 	}
 
-	@SuppressWarnings("SameParameterValue")
 	private void clampHeadRotationToBody(@NotNull Entity entity, float maxYRot) {
-		float f = entity.getYHeadRot();
-		float g = Mth.wrapDegrees(this.yBodyRot - f);
-		float h = Mth.clamp(Mth.wrapDegrees(this.yBodyRot - f), -maxYRot, maxYRot);
-		float i = f + g - h;
-		entity.setYHeadRot(i);
+		final float yHeadRot = entity.getYHeadRot();
+		final float headToBodyDifference = Mth.wrapDegrees(this.yBodyRot - yHeadRot);
+		final float clampedDifference = Mth.clamp(headToBodyDifference, -maxYRot, maxYRot);
+		final float finalYHeadRot = yHeadRot + headToBodyDifference - clampedDifference;
+		entity.setYHeadRot(finalYHeadRot);
 	}
 
 	@Nullable
@@ -865,8 +839,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	protected @NotNull Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack itemStack, Equippable equippable) {
-		return (equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, itemStack, equippable));
+	protected @NotNull Holder<SoundEvent> getEquipSound(@NotNull EquipmentSlot equipmentSlot, ItemStack stack, @NotNull Equippable equippable) {
+		return equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, stack, equippable);
 	}
 
 	@Nullable
@@ -885,8 +859,8 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	@Override
 	public SoundEvent getAmbientSound() {
 		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
-		return !this.isAggressive() ? WWSounds.ENTITY_OSTRICH_IDLE :
-			this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
+		return WWSounds.ENTITY_OSTRICH_IDLE;
 	}
 
 	@Nullable
@@ -938,30 +912,30 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	public void spawnBlockParticles(boolean beakBury, boolean backwards) {
-		if (!this.level().isClientSide() && this.level() instanceof ServerLevel server && this.beakVoxelShape != null) {
-			if (this.getBeakState().shouldSpawnTerrainParticles() && this.getBeakState().getRenderShape() != RenderShape.INVISIBLE) {
-				Vec3 particlePos = this.getBeakPos();
-				Vec3 deltaBeakPos = particlePos.subtract(this.getPrevBeakPos()).scale(!backwards ? 2D : -2D);
-				BlockHitResult beakHitResult = this.getBeakHitResult(backwards);
+		if (!(this.level() instanceof ServerLevel serverLevel) || this.beakVoxelShape == null) return;
 
-				if (beakHitResult.getType() != HitResult.Type.MISS) {
-					int count = !beakBury ? this.random.nextInt(7, 12) : this.random.nextInt(12, 20);
-					BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, this.getBeakState());
-					Vec3 hitLocation = beakHitResult.getLocation();
-					server.sendParticles(
-						blockParticleOption,
-						hitLocation.x(),
-						hitLocation.y(),
-						hitLocation.z(),
-						count,
-						0D,
-						0D,
-						0D,
-						0.05D + deltaBeakPos.length()
-					);
-				}
-			}
-		}
+		final BlockState beakState = this.getBeakState();
+		if (!beakState.shouldSpawnTerrainParticles() || beakState.getRenderShape() == RenderShape.INVISIBLE) return;
+
+		final Vec3 particlePos = this.getBeakPos();
+		final Vec3 deltaBeakPos = particlePos.subtract(this.getPrevBeakPos()).scale(!backwards ? 2D : -2D);
+		final BlockHitResult beakHitResult = this.getBeakHitResult(backwards);
+		if (beakHitResult.getType() == HitResult.Type.MISS) return;
+
+		final int count = !beakBury ? this.random.nextInt(7, 12) : this.random.nextInt(12, 20);
+		final BlockParticleOption blockParticleOption = new BlockParticleOption(ParticleTypes.BLOCK, beakState);
+		final Vec3 hitLocation = beakHitResult.getLocation();
+		serverLevel.sendParticles(
+			blockParticleOption,
+			hitLocation.x(),
+			hitLocation.y(),
+			hitLocation.z(),
+			count,
+			0D,
+			0D,
+			0D,
+			0.05D + deltaBeakPos.length()
+		);
 	}
 
 	public BlockHitResult getBeakHitResult(boolean backwards) {
@@ -985,7 +959,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		valueOutput.putBoolean("IsAttacking", this.isAttacking());
 		valueOutput.putInt("StuckTicks", this.getStuckTicks());
 		valueOutput.putFloat("BeakAnimProgress", this.beakAnimProgress);
-		if (this.lastAttackCommander != null) valueOutput.store("LastAttackCommander", UUIDUtil.CODEC, this.lastAttackCommander);
+		if (this.lastAttackCommander != null) EntityReference.store(this.lastAttackCommander, valueOutput, "LastAttackCommander");
 		valueOutput.putBoolean("AttackHasCommander", this.attackHasCommander);
 		valueOutput.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
 	}
@@ -999,7 +973,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 		this.setAttacking(valueInput.getBooleanOr("IsAttacking", false));
 		this.setStuckTicks(valueInput.getIntOr("StuckTicks", 0));
 		this.beakAnimProgress = valueInput.getFloatOr("BeakAnimProgress", 0F);
-		valueInput.read("LastAttackCommander", UUIDUtil.CODEC).ifPresent(uuid -> this.lastAttackCommander = uuid);
+		this.lastAttackCommander = EntityReference.read(valueInput, "LastAttackCommander");
 		this.attackHasCommander = valueInput.getBooleanOr("AttackHasCommander", false);
 		this.commanderWasPlayer = valueInput.getBooleanOr("CommanderWasPlayer", false);
 	}

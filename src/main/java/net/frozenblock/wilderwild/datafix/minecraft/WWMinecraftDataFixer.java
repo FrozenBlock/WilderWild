@@ -20,9 +20,12 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.CopperHornInstrumentToTheCopperierAgeFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantComponentizationFix;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBucketVariantComponentizationFix;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -35,8 +38,10 @@ public final class WWMinecraftDataFixer {
 	// 3 is 24w09a (components, display lantern fixes)
 	// 4 is 25w04a (entity components + 25w02a w/ wildflowers)
 	// 5 is 25w05a (bush -> shrub)
+	// 6 is 1.21.9 (datafix bucketed mob variants, migrate copper horn instruments to tca)
+	// 7 is still 1.21.9 (rename copper horns to tca namespace)
 
-	public static final int DATA_VERSION = 5;
+	public static final int DATA_VERSION = 7;
 
 	private WWMinecraftDataFixer() {
 		throw new UnsupportedOperationException("WWMinecraftDataFixer contains only static declarations.");
@@ -81,11 +86,10 @@ public final class WWMinecraftDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
 		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
 
-		// Unimplemented by Mojang currently, waiting for them to implement proper MobBucket component usage.
-		/*
+		Schema schemaV6 = builder.addSchema(5, NamespacedSchema::new);
 		builder.addFixer(
 			new MobBucketVariantComponentizationFix(
-				schemaVFuture,
+				schemaV6,
 				"Crab Bucket Variant componentization fix",
 				WWConstants.id("crab_bucket"),
 				WWConstants.string("crab/variant")
@@ -93,13 +97,22 @@ public final class WWMinecraftDataFixer {
 		);
 		builder.addFixer(
 			new MobBucketVariantComponentizationFix(
-				schemaVFuture,
+				schemaV6,
 				"Jellyfish Bucket Variant componentization fix",
 				WWConstants.id("jellyfish_bucket"),
 				WWConstants.string("jellyfish/variant")
 			)
 		);
-		 */
+		builder.addFixer(new CopperHornInstrumentToTheCopperierAgeFix(schemaV6));
+
+		Schema schemaV7 = builder.addSchema(7, NamespacedSchema::new);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Migrate Copper Horns to The Copperier Age",
+			WWConstants.id("copper_horn"),
+			ResourceLocation.fromNamespaceAndPath("thecopperierage", "copper_horn"),
+			schemaV7
+		);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);

@@ -42,10 +42,10 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 	}
 
 	private static boolean attemptPlace(Penguin entity, @NotNull Level level, Block block, BlockPos placePos) {
-		BlockState blockState = level.getBlockState(placePos);
-		BlockPos belowPos = placePos.below();
-		BlockState belowState = level.getBlockState(belowPos);
-		if (blockState.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
+		final BlockState state = level.getBlockState(placePos);
+		final BlockPos belowPos = placePos.below();
+		final BlockState belowState = level.getBlockState(belowPos);
+		if (state.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
 			BlockState placementState = block.defaultBlockState();
 			level.setBlockAndUpdate(placePos, placementState);
 			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
@@ -75,18 +75,18 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 
 	@Override
 	public void tick(@NotNull ServerLevel level, @NotNull Penguin owner, long gameTime) {
-		if (!owner.isInWater() && owner.onGround()) {
-			BlockPos blockPos = owner.getOnPos().above();
-			if (attemptPlace(owner, level, this.eggBlock, blockPos)) {
+		if (owner.isInWater() || !owner.onGround()) return;
+
+		final BlockPos blockPos = owner.getOnPos().above();
+		if (attemptPlace(owner, level, this.eggBlock, blockPos)) {
+			owner.revokePregnancy();
+			return;
+		}
+
+		for (Direction direction : Direction.Plane.HORIZONTAL) {
+			if (attemptPlace(owner, level, this.eggBlock, blockPos.relative(direction))) {
 				owner.revokePregnancy();
 				return;
-			}
-
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				if (attemptPlace(owner, level, this.eggBlock, blockPos.relative(direction))) {
-					owner.revokePregnancy();
-					return;
-				}
 			}
 		}
 	}

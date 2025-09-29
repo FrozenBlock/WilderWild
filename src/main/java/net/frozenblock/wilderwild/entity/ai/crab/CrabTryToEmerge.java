@@ -38,7 +38,7 @@ public class CrabTryToEmerge {
 			instance.registered(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(MemoryModuleType.NEAREST_PLAYERS)
 		).apply(instance, (isEmerging, underground, digCooldown, players) -> (world, crab, l) -> {
-			Brain<Crab> brain = crab.getBrain();
+			final Brain<Crab> brain = crab.getBrain();
 			if (crab.canEmerge() || !crab.canHideOnGround()) {
 				if (brain.checkMemory(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT) ||
 					(brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent() &&

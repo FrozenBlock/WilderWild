@@ -251,12 +251,6 @@ public final class WWModelHelper {
 		generator.createRotatableColumn(WWBlocks.GEYSER);
 	}
 
-	public static void generateCopperHorn(@NotNull ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/copper_horn_tooting"));
-		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
-	}
-
 	public static void generateMilkweedPod(ItemModelGenerators generator, Item item) {
 		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
 		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/milkweed_pod_blowing"));

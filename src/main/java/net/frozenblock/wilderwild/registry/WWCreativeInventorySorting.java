@@ -21,7 +21,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
-import net.frozenblock.wilderwild.tag.WWInstrumentTags;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -410,9 +409,6 @@ public final class WWCreativeInventorySorting {
 
 		// PENGUIN
 		addBeforeInSpawnEggs(Items.PHANTOM_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
-
-		// HORNS
-		addInstrumentBefore(Items.MUSIC_DISC_13, WWItems.COPPER_HORN, WWInstrumentTags.COPPER_HORNS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		// GABBRO
 		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);

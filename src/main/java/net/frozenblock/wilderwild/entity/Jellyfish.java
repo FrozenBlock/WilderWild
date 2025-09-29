@@ -66,6 +66,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -101,7 +102,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -181,7 +181,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
 		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) return;
-		Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
+		final Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
 		double additionalX = 0D;
 		double additionalZ = 0D;
 		if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
@@ -194,7 +194,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.prevScale = 0F;
 		jellyfish.scale = 0F;
 		level.addFreshEntity(jellyfish);
-		level.broadcastEntityEvent(jellyfish, (byte) 5);
+		level.broadcastEntityEvent(jellyfish, EntityEvent.ARMADILLO_PEEK);
 	}
 
 	public static int getSpeedUpSecondsWhenFeeding(int ticksUntilAdult) {
@@ -216,7 +216,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.setVariant(jellyGroupData.variant.value());
 			jellyfishGroupData = jellyGroupData;
 		} else {
-			Optional<Holder.Reference<JellyfishVariant>> optionalJellyfishVariant = VariantUtils.selectVariantToSpawn(
+			final Optional<Holder.Reference<JellyfishVariant>> optionalJellyfishVariant = VariantUtils.selectVariantToSpawn(
 				SpawnContext.create(level, this.blockPosition()),
 				WilderWildRegistries.JELLYFISH_VARIANT
 			);
@@ -329,7 +329,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		this.stingEntities();
 
-		LivingEntity target = this.getTarget();
+		final LivingEntity target = this.getTarget();
 		if (target != null) {
 			this.getNavigation().stop();
 			this.moveToAccurate(target, 2D);
@@ -368,11 +368,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 				--this.forcedAgeTimer;
 			}
 		} else if (this.isAlive()) {
-			int i = this.getAge();
-			if (i < 0) {
-				this.setAge(++i);
-			} else if (i > 0) {
-				this.setAge(--i);
+			int age = this.getAge();
+			if (age < 0) {
+				this.setAge(++age);
+			} else if (age > 0) {
+				this.setAge(--age);
 			}
 		}
 
@@ -400,22 +400,22 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == (byte) 4) {
+		if (id == EntityEvent.TENDRILS_SHIVER) {
 			this.vanishing = true;
-		} else if (id == (byte) 5) {
+		} else if (id == EntityEvent.ARMADILLO_PEEK) {
 			this.growing = true;
 			this.scale = 0F;
 			this.prevScale = 0F;
-		} else if (id == (byte) 7) {
-			double d = this.random.nextGaussian() * 0.02D;
-			double e = this.random.nextGaussian() * 0.02D;
-			double f = this.random.nextGaussian() * 0.02D;
+		} else if (id == EntityEvent.TAMING_SUCCEEDED) {
+			final double d = this.random.nextGaussian() * 0.02D;
+			final double e = this.random.nextGaussian() * 0.02D;
+			final double f = this.random.nextGaussian() * 0.02D;
 			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
-		} else if (id == (byte) 18) {
+		} else if (id == EntityEvent.IN_LOVE_HEARTS) {
 			for (int i = 0; i < 7; ++i) {
-				double d = this.random.nextGaussian() * 0.02D;
-				double e = this.random.nextGaussian() * 0.02D;
-				double f = this.random.nextGaussian() * 0.02D;
+				final double d = this.random.nextGaussian() * 0.02D;
+				final double e = this.random.nextGaussian() * 0.02D;
+				final double f = this.random.nextGaussian() * 0.02D;
 				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
 			}
 		} else {
@@ -424,37 +424,31 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void stingEntities() {
-		if (this.isAlive() && !this.level().isClientSide()) {
-			List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08D));
-			boolean baby = this.isBaby();
-			float damage = baby ? 1F : 3F;
+		if (!this.isAlive() || !(this.level() instanceof ServerLevel serverLevel)) return;
 
-			int poisonDuration = baby ? POISON_DURATION_IN_SECONDS_BABY : POISON_DURATION_IN_SECONDS;
-			ServerLevel level = (ServerLevel) this.level();
-			for (LivingEntity entity : list) {
-				if (this.targetingConditions.test(level, this, entity)) {
-					if (entity.hurtServer(level, this.damageSources().mobAttack(this), damage)) {
-						entity.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration * 20, 0), this);
-						if (!this.isSilent()) {
-							Player playSoundForExcept = null;
-							if (entity instanceof ServerPlayer player) {
-								playSoundForExcept = player;
-								WWJellyfishStingPacket.sendTo(player, baby);
-							}
-							this.level().playSound(
-								playSoundForExcept,
-								entity.getX(),
-								entity.getY(),
-								entity.getZ(),
-								WWSounds.ENTITY_JELLYFISH_STING,
-								this.getSoundSource(),
-								1F,
-								baby ? STING_PITCH_BABY : STING_PITCH
-							);
-						}
-					}
-				}
-			}
+		final List<LivingEntity> list = serverLevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.08D));
+		final boolean baby = this.isBaby();
+		final float damage = baby ? 1F : 3F;
+		final int poisonDuration = baby ? POISON_DURATION_IN_SECONDS_BABY : POISON_DURATION_IN_SECONDS;
+
+		for (LivingEntity entity : list) {
+			if (!this.targetingConditions.test(serverLevel, this, entity)) continue;
+			if (!entity.hurtServer(serverLevel, this.damageSources().mobAttack(this), damage)) continue;
+
+			entity.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration * 20, 0), this);
+
+			if (this.isSilent()) continue;
+			if (entity instanceof ServerPlayer player) WWJellyfishStingPacket.sendTo(player, baby);
+			serverLevel.playSound(
+				entity,
+				entity.getX(),
+				entity.getY(),
+				entity.getZ(),
+				WWSounds.ENTITY_JELLYFISH_STING,
+				this.getSoundSource(),
+				1F,
+				baby ? STING_PITCH_BABY : STING_PITCH
+			);
 		}
 	}
 
@@ -468,7 +462,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (path != null) this.getNavigation().moveTo(path, speed);
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity, ServerLevel level) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
@@ -519,46 +512,46 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	@NotNull
 	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-		ItemStack itemStack = player.getItemInHand(hand);
-		if (itemStack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
-		if (!itemStack.is(this.getVariant().getReproductionFood())) return InteractionResult.PASS;
+		final ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
+		if (!stack.is(this.getVariant().getReproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
-			itemStack.consume(1, player);
+			stack.consume(1, player);
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
-		} else if (this.canReproduce()) {
-			if (this.level().isClientSide()) return InteractionResult.CONSUME;
-			if (this.level() instanceof ServerLevel serverLevel) {
-				itemStack.consume(1, player);
-				this.fullness += 1;
-				this.ticksSinceSpawn = 0;
-				if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
-					this.spawnChild(serverLevel);
-					this.fullness = 0;
-					this.level().broadcastEntityEvent(this, (byte) 18);
-					this.reproductionCooldown = 6000;
-					this.setCanReproduce(false);
-					return InteractionResult.SUCCESS;
-				} else {
-					this.level().broadcastEntityEvent(this, (byte) 7);
-				}
-				return InteractionResult.SUCCESS;
-			}
 		}
-		return InteractionResult.PASS;
+
+		if (!this.canReproduce()) return InteractionResult.PASS;
+		if (!(this.level() instanceof ServerLevel serverLevel)) return InteractionResult.CONSUME;
+
+		stack.consume(1, player);
+		this.fullness += 1;
+		this.ticksSinceSpawn = 0;
+		if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
+			this.spawnChild(serverLevel);
+			this.fullness = 0;
+			this.level().broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
+			this.reproductionCooldown = 6000;
+			this.setCanReproduce(false);
+			return InteractionResult.SUCCESS;
+		} else {
+			this.level().broadcastEntityEvent(this, EntityEvent.TAMING_SUCCEEDED);
+		}
+		return InteractionResult.SUCCESS;
 	}
 
 	public void spawnChild(ServerLevel level) {
-		Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level, EntitySpawnReason.BREEDING);
+		final Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level, EntitySpawnReason.BREEDING);
 		if (jellyfish == null) return;
+
 		jellyfish.setBaby(true);
-		float bbHeight = this.getBbHeight();
-		Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
+		final float bbHeight = this.getBbHeight();
+		final Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
 		jellyfish.snapTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());
 		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5D));
 		jellyfish.setVariant(this.getVariant());
-		level.broadcastEntityEvent(this, (byte) 18);
+		level.broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
 		if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
 			level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
 		}
@@ -628,27 +621,21 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public boolean isRGB() {
-		var name = this.getName().getString();
+		final String name = this.getName().getString();
 		return this.hasCustomName() && (name.equals("jeb_") || name.equals("AroundTheWorld"));
 	}
 
 	public void ageUp(int amount, boolean forced) {
 		int i;
 		int j = i = this.getAge();
-		if ((i += amount * 20) > 0) {
-			i = 0;
-		}
+		if ((i += amount * 20) > 0) i = 0;
 		int k = i - j;
 		this.setAge(i);
 		if (forced) {
 			this.forcedAge += k;
-			if (this.forcedAgeTimer == 0) {
-				this.forcedAgeTimer = 40;
-			}
+			if (this.forcedAgeTimer == 0) this.forcedAgeTimer = 40;
 		}
-		if (this.getAge() == 0) {
-			this.setAge(this.forcedAge);
-		}
+		if (this.getAge() == 0) this.setAge(this.forcedAge);
 	}
 
 	public void ageUp(int amount) {
@@ -656,25 +643,21 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public int getAge() {
-		if (this.level().isClientSide()) {
-			return this.entityData.get(IS_BABY) ? -1 : 1;
-		}
+		if (this.level().isClientSide()) return this.entityData.get(IS_BABY) ? -1 : 1;
 		return this.age;
 	}
 
 	public void setAge(int age) {
-		int i = this.getAge();
+		final int currentAge = this.getAge();
 		this.age = age;
-		if (i < 0 && age >= 0 || i >= 0 && age < 0) {
+		if (currentAge < 0 && age >= 0 || currentAge >= 0 && age < 0) {
 			this.entityData.set(IS_BABY, age < 0);
 			this.ageBoundaryReached();
 		}
 	}
 
 	public void ageBoundaryReached() {
-		if (!this.isBaby() && this.isPassenger() && this.getVehicle() instanceof Boat boat && !boat.hasEnoughSpaceFor(this)) {
-			this.stopRiding();
-		}
+		if (!this.isBaby() && this.isPassenger() && this.getVehicle() instanceof Boat boat && !boat.hasEnoughSpaceFor(this)) this.stopRiding();
 	}
 
 	@Override
@@ -704,27 +687,24 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public <T> T get(DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) {
-			return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		}
+	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
 		return super.get(dataComponentType);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
 		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.JELLYFISH_VARIANT);
 		super.applyImplicitComponents(dataComponentGetter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
 		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, object).value());
 			return true;
-		} else {
-			return super.applyImplicitComponent(dataComponentType, object);
 		}
+		return super.applyImplicitComponent(dataComponentType, object);
 	}
 
 	@Override
@@ -768,10 +748,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
-
 		VariantUtils.readVariant(valueInput, WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-
 		this.ticksSinceSpawn = valueInput.getIntOr("ticksSinceSpawn", 0);
 		this.setCanReproduce(valueInput.getBooleanOr("canReproduce", false));
 		this.fullness = valueInput.getIntOr("fullness", 0);

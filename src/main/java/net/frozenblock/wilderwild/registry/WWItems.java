@@ -23,10 +23,8 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.item.CoconutItem;
-import net.frozenblock.wilderwild.item.CopperHornItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -34,7 +32,6 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import static net.minecraft.world.item.Items.registerBlock;
@@ -43,7 +40,6 @@ import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.InstrumentComponent;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
@@ -196,21 +192,6 @@ public final class WWItems {
 	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = register("butterfly_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.BUTTERFLY));
 	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.MOOBLOOM));
 	public static final SpawnEggItem PENGUIN_SPAWN_EGG = register("penguin_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.PENGUIN));
-
-	// INSTRUMENT
-	public static final ResourceKey<Instrument> SAX_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("sax_copper_horn"));
-	public static final ResourceKey<Instrument> TUBA_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("tuba_copper_horn"));
-	public static final ResourceKey<Instrument> RECORDER_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("recorder_copper_horn"));
-	public static final ResourceKey<Instrument> FLUTE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("flute_copper_horn"));
-	public static final ResourceKey<Instrument> OBOE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("oboe_copper_horn"));
-	public static final ResourceKey<Instrument> CLARINET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("clarinet_copper_horn"));
-	public static final ResourceKey<Instrument> TRUMPET_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trumpet_copper_horn"));
-	public static final ResourceKey<Instrument> TROMBONE_COPPER_HORN = ResourceKey.create(Registries.INSTRUMENT, WWConstants.id("trombone_copper_horn"));
-
-	public static final CopperHornItem COPPER_HORN = register("copper_horn",
-		CopperHornItem::new,
-		new Item.Properties().stacksTo(1).component(DataComponents.INSTRUMENT, new InstrumentComponent(SAX_COPPER_HORN))
-	);
 
 	private WWItems() {
 		throw new UnsupportedOperationException("WWItems contains only static declarations.");

@@ -300,19 +300,19 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected void playStepSound(BlockPos blockPos, BlockState blockState) {
+	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
 		if (!this.isSliding()) {
 			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP : WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
-		} else {
-			super.playStepSound(blockPos, blockState);
+			return;
 		}
+		super.playStepSound(pos, state);
 	}
 
 	@Override
-	protected void customServerAiStep(ServerLevel serverLevel) {
-		ProfilerFiller profilerFiller = Profiler.get();
+	protected void customServerAiStep(@NotNull ServerLevel serverLevel) {
+		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("penguinBrain");
-		this.getBrain().tick((ServerLevel)this.level(), this);
+		this.getBrain().tick(serverLevel, this);
 		profilerFiller.pop();
 		profilerFiller.push("penguinActivityUpdate");
 		PenguinAi.updateActivity(this);
@@ -321,13 +321,13 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		valueOutput.putString("EntityPose", this.getPose().name());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		valueInput.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {

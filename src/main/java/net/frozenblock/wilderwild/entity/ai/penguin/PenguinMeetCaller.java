@@ -32,16 +32,18 @@ public class PenguinMeetCaller {
 	@Contract(" -> new")
 	public static @NotNull OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(
-			instance -> instance.group(instance.absent(MemoryModuleType.LOOK_TARGET), instance.present(WWMemoryModuleTypes.CALLER))
-				.apply(instance, (lookTarget, callerUUID) -> (serverLevel, livingEntity, l) -> {
-					UUID uuid = instance.get(callerUUID);
-					Optional<LivingEntity> caller = PenguinAi.getCaller(livingEntity, uuid);
-					if (caller.isPresent()) {
-						lookTarget.set(new PenguinCallerTracker(caller.get(), true));
-						return true;
-					}
-					return false;
-				})
+			instance -> instance.group(
+				instance.absent(MemoryModuleType.LOOK_TARGET),
+				instance.present(WWMemoryModuleTypes.CALLER)
+			).apply(instance, (lookTarget, callerUUID) -> (serverLevel, livingEntity, l) -> {
+				final UUID uuid = instance.get(callerUUID);
+				final Optional<LivingEntity> caller = PenguinAi.getCaller(livingEntity, uuid);
+				if (caller.isPresent()) {
+					lookTarget.set(new PenguinCallerTracker(caller.get(), true));
+					return true;
+				}
+				return false;
+			})
 		);
 	}
 }

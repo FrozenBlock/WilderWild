@@ -46,10 +46,10 @@ public final class ScorchedSandStateFix2 extends DataFix {
 	}
 
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
-		Optional<String> optional = dynamic.get("Name").asString().result();
-		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
-			String boolValue = string.equals("1") ? "true" : "false";
+		final Optional<String> name = dynamic.get("Name").asString().result();
+		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
+			final String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
+			final String boolValue = string.equals("1") ? "true" : "false";
 			return dynamicx.remove(STATE).set(NEW_STATE, dynamicx.createString(boolValue));
 		}) : dynamic;
 	}

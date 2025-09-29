@@ -46,9 +46,9 @@ public final class OsseousSculkStateFix extends DataFix {
 	}
 
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
-		Optional<String> optional = dynamic.get("Name").asString().result();
-		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
+		final Optional<String> name = dynamic.get("Name").asString().result();
+		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
+			final String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
 			String direction;
 			switch (string) {
 				case "x" -> direction = "west";

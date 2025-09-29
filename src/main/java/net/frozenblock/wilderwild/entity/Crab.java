@@ -166,9 +166,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
 		this.setPathfindingMalus(PathType.WATER, 0F);
 		this.setPathfindingMalus(PathType.WATER_BORDER, 0F);
-		if (WWEntityConfig.get().unpassableRail) {
-			this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
-		}
+		if (WWEntityConfig.get().unpassableRail) this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 		this.moveControl = new CrabMoveControl(this);
 	}
 
@@ -269,7 +267,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+	protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(MOVE_STATE, MoveState.WALKING.name());
 		builder.define(TARGET_CLIMBING_ANIM_X, 0F);
@@ -289,7 +287,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void aiStep() {
 		this.updateSwingTime();
-		AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+		final AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
 		if (movementSpeed != null) movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
 		super.aiStep();
 	}
@@ -297,10 +295,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void tick() {
 		boolean isClient = this.level().isClientSide();
-		if (this.level() instanceof ServerLevel serverLevel) {
-			VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
-		}
+		if (this.level() instanceof ServerLevel serverLevel) VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
+
 		super.tick();
+
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
 			if (this.horizontalCollision) {
@@ -309,7 +307,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				}
 				Vec3 usedMovement = this.getDeltaMovement();
-				Direction climbedDirection = Direction.getApproximateNearest(usedMovement.x(), 0D, usedMovement.z());
+				final Direction climbedDirection = Direction.getApproximateNearest(usedMovement.x(), 0D, usedMovement.z());
 				this.setClimbingFace(climbedDirection);
 				if (usedMovement.x == 0D && usedMovement.z == 0D) usedMovement = this.prevMovement;
 				this.setTargetClimbAnimX(
@@ -319,7 +317,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.prevMovement = usedMovement;
 
 				if (this.onClimbable()) {
-					Optional<Vec3> potentialNearestWallDifference = this.differenceToWallPos();
+					final Optional<Vec3> potentialNearestWallDifference = this.differenceToWallPos();
 					if (potentialNearestWallDifference.isPresent()) {
 						Vec3 nearestWallDifference = potentialNearestWallDifference.get();
 						Direction wallDirection = Direction.getApproximateNearest(nearestWallDifference.x(), 0D, nearestWallDifference.z());
@@ -366,25 +364,25 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
-		boolean actuallyHurt = super.hurtServer(level, source, amount);
+	public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource source, float amount) {
+		boolean actuallyHurt = super.hurtServer(serverLevel, source, amount);
 		if (actuallyHurt) {
-			if (source.getEntity() instanceof LivingEntity livingEntity) CrabAi.wasHurtBy(level, this, livingEntity);
+			if (source.getEntity() instanceof LivingEntity livingEntity) CrabAi.wasHurtBy(serverLevel, this, livingEntity);
 			if (!this.isDiggingOrEmerging()) CrabAi.setDigCooldown(this);
 		}
 		return actuallyHurt;
 	}
 
 	@Override
-	protected void customServerAiStep(ServerLevel level) {
-		ProfilerFiller profiler = Profiler.get();
+	protected void customServerAiStep(@NotNull ServerLevel serverLevel) {
+		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("crabBrain");
-		this.getBrain().tick(level, this);
+		this.getBrain().tick(serverLevel, this);
 		profiler.pop();
 		profiler.push("crabActivityUpdate");
 		CrabAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep(level);
+		super.customServerAiStep(serverLevel);
 		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
 	}
 
@@ -394,18 +392,18 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Nullable
 	public Vec3 findNearestWall() {
-		BlockPos crabPos = this.blockPosition();
-		ArrayList<Vec3> vecs = new ArrayList<>();
+		final BlockPos crabPos = this.blockPosition();
+		final ArrayList<Vec3> vecs = new ArrayList<>();
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
-			BlockState state = this.level().getBlockState(pos);
-			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
-			if (isWallPosSlowable(pos, state, collisionShape)) {
-				Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
-				if (optionalVec3.isPresent()) {
-					vecs.add(optionalVec3.get());
-				} else if (state.getFluidState().is(FluidTags.WATER)) {
-					vecs.add(pos.getCenter());
-				}
+			final BlockState state = this.level().getBlockState(pos);
+			final VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
+			if (!isWallPosSlowable(pos, state, collisionShape)) continue;
+
+			Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
+			if (optionalVec3.isPresent()) {
+				vecs.add(optionalVec3.get());
+			} else if (state.getFluidState().is(FluidTags.WATER)) {
+				vecs.add(pos.getCenter());
 			}
 		}
 		return getClosestPos(vecs);
@@ -415,9 +413,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public Vec3 getClosestPos(@NotNull List<Vec3> vec3s) {
 		double lowestDistance = Double.MAX_VALUE;
 		Vec3 selectedVec3 = null;
-		Vec3 thisPos = this.getEyePosition();
+		final Vec3 thisPos = this.getEyePosition();
 		for (Vec3 vec3 : vec3s) {
-			double distance = vec3.distanceTo(thisPos);
+			final double distance = vec3.distanceTo(thisPos);
 			if (distance < lowestDistance) {
 				lowestDistance = distance;
 				selectedVec3 = vec3;
@@ -717,27 +715,24 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Nullable
 	@Override
-	public <T> T get(DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.CRAB_VARIANT) {
-			return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		}
+	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.CRAB_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
 		return super.get(dataComponentType);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
 		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.CRAB_VARIANT);
 		super.applyImplicitComponents(dataComponentGetter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
 		if (dataComponentType == WWDataComponents.CRAB_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.CRAB_VARIANT, object).value());
 			return true;
-		} else {
-			return super.applyImplicitComponent(dataComponentType, object);
 		}
+		return super.applyImplicitComponent(dataComponentType, object);
 	}
 
 	@Override
@@ -751,7 +746,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				compoundTag.putLong("HuntingCooldown", brain.getTimeUntilExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN));
 			}
 		});
-		stack.copyFrom(WWDataComponents.CRAB_VARIANT, this);
 	}
 
 	@Override
@@ -786,18 +780,18 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	private void clientDiggingParticles() {
-		RandomSource randomSource = this.getRandom();
-		BlockState blockState = this.getBlockStateOn();
-		if (blockState.getRenderShape() != RenderShape.INVISIBLE) {
-			double y = this.getY();
-			double x = this.getX();
-			double z = this.getZ();
-			ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
-			for (int i = 0; i < 8; ++i) {
-				double particleX = x + Mth.randomBetween(randomSource, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
-				double particleZ = z + Mth.randomBetween(randomSource, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
-				this.level().addParticle(particleOptions, particleX, y, particleZ, 0D, 0D, 0D);
-			}
+		final BlockState state = this.getBlockStateOn();
+		if (state.getRenderShape() == RenderShape.INVISIBLE) return;
+
+		final double y = this.getY();
+		final double x = this.getX();
+		final double z = this.getZ();
+		final RandomSource random = this.getRandom();
+		ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, state);
+		for (int i = 0; i < 8; ++i) {
+			double particleX = x + Mth.randomBetween(random, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
+			double particleZ = z + Mth.randomBetween(random, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
+			this.level().addParticle(particleOptions, particleX, y, particleZ, 0D, 0D, 0D);
 		}
 	}
 
@@ -860,9 +854,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.setDiggingTicks(valueInput.getIntOr("DigTicks", 0));
 
 		valueInput.getString("EntityPose").ifPresent(entityPose -> {
-			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
-				this.setPose(Pose.valueOf(entityPose));
-			}
+			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) this.setPose(Pose.valueOf(entityPose));
 		});
 		this.prevMovement = valueInput.read("PrevMovement", Vec3.CODEC).orElse(Vec3.ZERO);
 		this.cancelMovementToDescend = valueInput.getBooleanOr("CancelMovementToDescend", false);

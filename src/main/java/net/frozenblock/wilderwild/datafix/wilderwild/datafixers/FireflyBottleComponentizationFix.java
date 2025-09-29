@@ -75,7 +75,7 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 
 	@Override
 	public TypeRewriteRule makeRule() {
-		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
+		final Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
 			"Firefly Bottle ItemStack componentization fix",
 			type,
@@ -84,18 +84,15 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 	}
 
 	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type) {
-		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
+		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		return typed -> {
-			Optional<Pair<String, String>> possibleId = typed.getOptional(idFinder);
-			if (possibleId.isPresent()) {
-				String id = possibleId.get().getSecond();
-				String componentName = FIREFLY_BOTTLE_TO_COMPONENT.get(id);
-				if (componentName != null) {
-					return typed.update(
-						DSL.remainderFinder(), dynamic -> fixItemStack(dynamic, componentName)
-					);
-				}
-			}
+			final Optional<Pair<String, String>> possibleId = typed.getOptional(idFinder);
+			if (possibleId.isEmpty()) return typed;
+
+			final String id = possibleId.get().getSecond();
+			final String componentName = FIREFLY_BOTTLE_TO_COMPONENT.get(id);
+			if (componentName != null) return typed.update(DSL.remainderFinder(), dynamic -> fixItemStack(dynamic, componentName));
+
 			return typed;
 		};
 	}

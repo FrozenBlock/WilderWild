@@ -29,7 +29,7 @@ public class PenguinCallerTracker extends EntityTracker {
 	}
 
 	@Override
-	public boolean isVisibleBy(LivingEntity livingEntity) {
+	public boolean isVisibleBy(@NotNull LivingEntity livingEntity) {
 		return this.getEntity().isAlive();
 	}
 

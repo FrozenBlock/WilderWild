@@ -424,17 +424,6 @@
 
   "block.wilderwild.potted_wildflowers": "Potted Wildflowers",
 
-  "item.wilderwild.copper_horn": "Copper Horn",
-  "instrument.wilderwild.clarinet_copper_horn": "Clarinet",
-  "instrument.wilderwild.recorder_copper_horn": "Recorder",
-  "instrument.wilderwild.flute_copper_horn": "Flute",
-  "instrument.wilderwild.oboe_copper_horn": "Oboe",
-  "instrument.wilderwild.sax_copper_horn": "Saxophone",
-  "instrument.wilderwild.trombone_copper_horn": "Trombone",
-  "instrument.wilderwild.trumpet_copper_horn": "Trumpet",
-  "instrument.wilderwild.tuba_copper_horn": "Tuba",
-  "subtitles.item.copper_horn.call": "Copper Horn plays",
-
   "entity.wilderwild.crab": "Crab",
   "item.wilderwild.crab_spawn_egg": "Crab Spawn Egg",
   "item.wilderwild.crab_claw": "Crab Claw",

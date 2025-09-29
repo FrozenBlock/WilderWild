@@ -25,7 +25,6 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
 public class WardenLookControl extends LookControl {
-
 	private final int maxYRotFromCenter;
 
 	public WardenLookControl(@NotNull Warden warden, int maxYRotFromCenter) {
@@ -41,22 +40,23 @@ public class WardenLookControl extends LookControl {
 	public void tick() {
 		if (!WWEntityConfig.WARDEN_SWIMS || !entityTouchingWaterOrLava(this.mob)) {
 			super.tick();
-		} else {
-			if (this.lookAtCooldown > 0) {
-				--this.lookAtCooldown;
-				this.getYRotD().ifPresent(rot -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, rot + 20F, this.yMaxRotSpeed));
-				this.getXRotD().ifPresent(rot -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), rot + 10F, this.xMaxRotAngle)));
-			} else {
-				if (this.mob.getNavigation().isDone()) this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0F, 5F));
-				this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
-			}
+			return;
+		}
 
-			float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
-			if (f < (float) (-this.maxYRotFromCenter)) {
-				this.mob.yBodyRot -= 4F;
-			} else if (f > (float) this.maxYRotFromCenter) {
-				this.mob.yBodyRot += 4F;
-			}
+		if (this.lookAtCooldown > 0) {
+			--this.lookAtCooldown;
+			this.getYRotD().ifPresent(rot -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, rot + 20F, this.yMaxRotSpeed));
+			this.getXRotD().ifPresent(rot -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), rot + 10F, this.xMaxRotAngle)));
+		} else {
+			if (this.mob.getNavigation().isDone()) this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0F, 5F));
+			this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
+		}
+
+		float headToBodyDifference = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
+		if (headToBodyDifference < (float) (-this.maxYRotFromCenter)) {
+			this.mob.yBodyRot -= 4F;
+		} else if (headToBodyDifference > (float) this.maxYRotFromCenter) {
+			this.mob.yBodyRot += 4F;
 		}
 	}
 }

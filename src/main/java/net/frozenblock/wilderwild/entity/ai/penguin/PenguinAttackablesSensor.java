@@ -31,7 +31,7 @@ public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	@Override
-	protected boolean isMatchingEntity(ServerLevel serverLevel, @NotNull LivingEntity attacker, @NotNull LivingEntity target) {
+	protected boolean isMatchingEntity(@NotNull ServerLevel serverLevel, @NotNull LivingEntity attacker, @NotNull LivingEntity target) {
 		return this.isClose(attacker, target) && this.isHuntTarget(attacker, target) && Sensor.isEntityAttackable(serverLevel, attacker, target);
 	}
 

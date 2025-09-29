@@ -36,7 +36,7 @@ public class CrabCanDigSensor extends Sensor<Crab> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull Crab crab) {
-		Brain<?> brain = crab.getBrain();
+		final Brain<?> brain = crab.getBrain();
 		if (crab.canHideOnGround()) {
 			brain.setMemory(WWMemoryModuleTypes.CAN_DIG, true);
 		} else {

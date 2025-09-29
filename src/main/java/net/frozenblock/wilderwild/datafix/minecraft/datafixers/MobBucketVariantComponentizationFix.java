@@ -37,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class MobBucketVariantComponentizationFix extends DataFix {
 	private static final String BUCKET_ENTITY_DATA_FIELD = WWConstants.vanillaId("bucket_entity_data").toString();
-
 	private final String fixName;
 	private final String itemId;
 	private final String newTagField;
@@ -56,7 +55,7 @@ public final class MobBucketVariantComponentizationFix extends DataFix {
 
 	@Override
 	public TypeRewriteRule makeRule() {
-		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
+		final Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
 			this.fixName,
 			type,
@@ -65,8 +64,8 @@ public final class MobBucketVariantComponentizationFix extends DataFix {
 	}
 
 	private @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
-		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
-		OpticFinder<?> components = type.findField("components");
+		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
+		final OpticFinder<?> components = type.findField("components");
 		return typed -> {
 			Optional<Pair<String, String>> optional = typed.getOptional(idFinder);
 			return optional.isPresent() && (optional.get()).getSecond().equals(this.itemId)
@@ -76,17 +75,16 @@ public final class MobBucketVariantComponentizationFix extends DataFix {
 	}
 
 	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
-		OptionalDynamic<?> optionalBottleEntityData = componentData.get(BUCKET_ENTITY_DATA_FIELD);
-		if (optionalBottleEntityData.result().isPresent()) {
-			Dynamic<?> bottleEntityTag = optionalBottleEntityData.result().get();
+		final OptionalDynamic<?> optionalBottleEntityData = componentData.get(BUCKET_ENTITY_DATA_FIELD);
+		if (optionalBottleEntityData.result().isEmpty()) return componentData;
 
-			OptionalDynamic<?> optionalVariant = bottleEntityTag.get("variant");
-			if (optionalVariant.result().isPresent()) {
-				componentData = componentData.set(this.newTagField, optionalVariant.result().get());
-				bottleEntityTag = bottleEntityTag.remove("variant");
-				componentData = componentData.set(BUCKET_ENTITY_DATA_FIELD, bottleEntityTag);
-			}
-		}
+		Dynamic<?> bottleEntityTag = optionalBottleEntityData.result().get();
+		final OptionalDynamic<?> optionalVariant = bottleEntityTag.get("variant");
+		if (optionalVariant.result().isEmpty()) return componentData;
+
+		componentData = componentData.set(this.newTagField, optionalVariant.result().get());
+		bottleEntityTag = bottleEntityTag.remove("variant");
+		componentData = componentData.set(BUCKET_ENTITY_DATA_FIELD, bottleEntityTag);
 
 		return componentData;
 	}

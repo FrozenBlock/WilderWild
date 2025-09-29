@@ -220,43 +220,34 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public void wilderWild$loadFromBottleEntityDataTag(CompoundTag compoundTag) {
+	public void wilderWild$loadFromBottleTag(CompoundTag compoundTag) {
 		WWBottleable.loadDefaultDataFromBottleTag(this, compoundTag);
-	}
-
-	@Override
-	public void wilderWild$loadFromBottleItemStack(@NotNull ItemStack itemStack) {
-		Holder<ButterflyVariant> variant = itemStack.getOrDefault(WWDataComponents.BUTTERFLY_VARIANT, this.registryAccess().getOrThrow(ButterflyVariants.DEFAULT));
-		this.setVariant(variant.value());
 	}
 
 	@Nullable
 	@Override
-	public <T> T get(DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.BUTTERFLY_VARIANT) {
-			return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		}
+	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.BUTTERFLY_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
 		return super.get(dataComponentType);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
 		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.BUTTERFLY_VARIANT);
 		super.applyImplicitComponents(dataComponentGetter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
 		if (dataComponentType == WWDataComponents.BUTTERFLY_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT, object).value());
 			return true;
-		} else {
-			return super.applyImplicitComponent(dataComponentType, object);
 		}
+		return super.applyImplicitComponent(dataComponentType, object);
 	}
 
 	@Override
-	public void wilderWild$onCapture() {
+	public void wilderWild$onBottled() {
 	}
 
 	@Override

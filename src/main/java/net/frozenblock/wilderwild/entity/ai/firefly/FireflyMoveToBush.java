@@ -55,14 +55,13 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 
 	@Override
 	protected void moveMobToBlock() {
-		RandomSource randomSource = this.mob.getRandom();
-
+		final RandomSource random = this.mob.getRandom();
 		this.mob
 			.getNavigation()
 			.moveTo(
-				randomSource.nextInt(-3, 3) + this.blockPos.getX() + 0.5D,
-				randomSource.nextInt(-1, 3) + this.blockPos.getY() + 0.5D,
-				randomSource.nextInt(-3, 3) + this.blockPos.getZ() + 0.5D,
+				random.nextInt(-3, 3) + this.blockPos.getX() + 0.5D,
+				random.nextInt(-1, 3) + this.blockPos.getY() + 0.5D,
+				random.nextInt(-3, 3) + this.blockPos.getZ() + 0.5D,
 				this.speedModifier
 			);
 	}

@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +51,7 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	protected void tick(@NotNull ServerLevel level, @NotNull Jellyfish owner, long gameTime) {
 		super.tick(level, owner, gameTime);
 		if (this.isReachedTarget() && !owner.vanishing) {
-			level.broadcastEntityEvent(owner, (byte) 4);
+			level.broadcastEntityEvent(owner, EntityEvent.TENDRILS_SHIVER);
 			owner.vanishing = true;
 		}
 	}

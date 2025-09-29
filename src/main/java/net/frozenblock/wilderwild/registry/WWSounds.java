@@ -458,14 +458,6 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_COCONUT_LAND = register("item.coconut.land");
 	public static final SoundEvent ITEM_COCONUT_HIT_HEAD = register("item.coconut.hit_head");
 	public static final SoundEvent ITEM_MILKWEED_POD_BLOWN = register("item.milkweed_pod.blow");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_SAX = registerForHolder("item.copper_horn.saxophone");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TUBA = registerForHolder("item.copper_horn.tuba");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_RECORDER = registerForHolder("item.copper_horn.recorder");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_FLUTE = registerForHolder("item.copper_horn.flute");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_OBOE = registerForHolder("item.copper_horn.oboe");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_CLARINET = registerForHolder("item.copper_horn.clarinet");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TRUMPET = registerForHolder("item.copper_horn.trumpet");
-	public static final Holder.Reference<SoundEvent> ITEM_COPPER_HORN_TROMBONE = registerForHolder("item.copper_horn.trombone");
 	public static final SoundEvent ITEM_ENDER_PEARL_LAND = register("item.ender_pearl.land");
 	public static final SoundEvent ITEM_EGG_LAND = register("item.egg.land");
 	public static final SoundEvent ITEM_SNOWBALL_LAND = register("item.snowball.land");

@@ -43,13 +43,13 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
-		AABB aABB = entity.getBoundingBox().inflate(48D, 32D, 48D);
-		List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, aABB, penguin -> penguin != entity && penguin.isAlive());
+		final AABB searchArea = entity.getBoundingBox().inflate(48D, 32D, 48D);
+		final List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, searchArea, penguin -> penguin != entity && penguin.isAlive());
 		penguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
-		Brain<?> brain = entity.getBrain();
+		final Brain<?> brain = entity.getBrain();
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_PENGUINS, penguins);
 
-		List<Penguin> closePenguins = Lists.newArrayList(penguins);
+		final List<Penguin> closePenguins = Lists.newArrayList(penguins);
 		penguins.removeIf(penguin -> entity.distanceTo(penguin) > entity.getAttributeValue(Attributes.FOLLOW_RANGE));
 		closePenguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
 		brain.setMemory(WWMemoryModuleTypes.CLOSE_PENGUINS, closePenguins);

@@ -32,21 +32,19 @@ public class PenguinBoostBoat {
 
 	@Contract(" -> new")
 	public static @NotNull OneShot<LivingEntity> create() {
-		return BehaviorBuilder.create(
-			instance -> instance.group(instance.present(WWMemoryModuleTypes.TRACKED_BOAT))
-				.apply(
-					instance,
-					(trackedBoat) -> (serverLevel, livingEntity, l) -> {
-						Boat boat = instance.get(trackedBoat);
-						if (boat instanceof BoatBoostInterface boatBoostInterface) {
-							if (livingEntity.distanceTo(boat) < MAX_DISTANCE) {
-								boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
-								return true;
-							}
-						}
+		return BehaviorBuilder.create(instance -> instance.group(
+			instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
+			).apply(
+				instance,
+			(trackedBoat) -> (serverLevel, livingEntity, l) -> {
+					final Boat boat = instance.get(trackedBoat);
+					if (boat instanceof BoatBoostInterface boatBoostInterface && livingEntity.distanceTo(boat) < MAX_DISTANCE) {
+						boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
 						return true;
 					}
-				)
+					return true;
+				}
+			)
 		);
 	}
 }

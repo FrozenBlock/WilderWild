@@ -206,38 +206,35 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Nullable
 	@Override
-	public <T> T get(DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.MOOBLOOM_VARIANT) {
-			return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		}
+	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.MOOBLOOM_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
 		return super.get(dataComponentType);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
 		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.MOOBLOOM_VARIANT);
 		super.applyImplicitComponents(dataComponentGetter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
 		if (dataComponentType == WWDataComponents.MOOBLOOM_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT, object).value());
 			return true;
-		} else {
-			return super.applyImplicitComponent(dataComponentType, object);
 		}
+		return super.applyImplicitComponent(dataComponentType, object);
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
+	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
 		valueOutput.putInt("FlowersLeft", this.getFlowersLeft());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
+	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		VariantUtils.readVariant(valueInput, WilderWildRegistries.MOOBLOOM_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));

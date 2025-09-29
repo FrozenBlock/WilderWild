@@ -42,11 +42,9 @@ public interface WWBottleable {
 
 	void wilderWild$saveToBottleTag(ItemStack itemStack);
 
-	void wilderWild$loadFromBottleEntityDataTag(CompoundTag compoundTag);
+	void wilderWild$loadFromBottleTag(CompoundTag compoundTag);
 
-	void wilderWild$loadFromBottleItemStack(ItemStack itemStack);
-
-	void wilderWild$onCapture();
+	void wilderWild$onBottled();
 
 	void wilderWild$onBottleRelease();
 
@@ -78,15 +76,15 @@ public interface WWBottleable {
 	}
 
 	static <T extends LivingEntity & WWBottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
-		ItemStack itemStack = player.getItemInHand(interactionHand);
-		if (itemStack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
-			livingEntity.wilderWild$onCapture();
+		final ItemStack stack = player.getItemInHand(interactionHand);
+		if (stack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
+			livingEntity.wilderWild$onBottled();
 			livingEntity.playSound(livingEntity.wilderWild$getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
 			ItemStack bottleStack = livingEntity.wilderWild$getBottleItemStack();
 			livingEntity.wilderWild$saveToBottleTag(bottleStack);
 
-			Level level = livingEntity.level();
-			if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer)player, bottleStack);
+			final Level level = livingEntity.level();
+			if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer) player, bottleStack);
 
 			player.getItemInHand(interactionHand).consume(1, player);
 
@@ -94,8 +92,7 @@ public interface WWBottleable {
 
 			livingEntity.discard();
 			return Optional.of(InteractionResult.SUCCESS);
-		} else {
-			return Optional.empty();
 		}
+		return Optional.empty();
 	}
 }

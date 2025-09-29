@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -42,10 +41,9 @@ public class FireflySpecificSensor extends Sensor<Firefly> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull Firefly firefly) {
-		Brain<?> brain = firefly.getBrain();
-		ArrayList<Firefly> fireflies = Lists.newArrayList();
-		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
-		for (LivingEntity livingEntity : entities) {
+		final Brain<?> brain = firefly.getBrain();
+		final ArrayList<Firefly> fireflies = Lists.newArrayList();
+		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof Firefly otherFirefly) fireflies.add(otherFirefly);
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES, fireflies);

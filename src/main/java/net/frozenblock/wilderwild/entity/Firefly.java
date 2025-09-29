@@ -240,46 +240,35 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void wilderWild$loadFromBottleEntityDataTag(@NotNull CompoundTag compoundTag) {
+	public void wilderWild$loadFromBottleTag(@NotNull CompoundTag compoundTag) {
 		WWBottleable.loadDefaultDataFromBottleTag(this, compoundTag);
-	}
-
-	@Override
-	public void wilderWild$loadFromBottleItemStack(@NotNull ItemStack itemStack) {
-		Holder<FireflyColor> color = itemStack.getOrDefault(WWDataComponents.FIREFLY_COLOR, this.registryAccess().getOrThrow(FireflyColors.DEFAULT));
-		this.setColor(color.value());
 	}
 
 	@Nullable
 	@Override
-	public <T> T get(DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) {
-			return castComponentValue(dataComponentType, this.getColorAsHolder());
-		}
+	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
+		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) return castComponentValue(dataComponentType, this.getColorAsHolder());
 		return super.get(dataComponentType);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
+	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
 		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.FIREFLY_COLOR);
 		super.applyImplicitComponents(dataComponentGetter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> dataComponentType, T object) {
+	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
 		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) {
 			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, object).value());
 			return true;
-		} else {
-			return super.applyImplicitComponent(dataComponentType, object);
 		}
+		return super.applyImplicitComponent(dataComponentType, object);
 	}
 
 	@Override
-	public void wilderWild$onCapture() {
-		if (this.isSwarmLeader()) {
-			FireflyAi.transferLeadershipToRandomFirefly(this);
-		}
+	public void wilderWild$onBottled() {
+		if (this.isSwarmLeader()) FireflyAi.transferLeadershipToRandomFirefly(this);
 	}
 
 	@Override

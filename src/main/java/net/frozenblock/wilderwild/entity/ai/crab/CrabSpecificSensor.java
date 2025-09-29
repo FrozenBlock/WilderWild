@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -42,10 +41,9 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
-		Brain<?> brain = entity.getBrain();
-		ArrayList<Crab> crabs = Lists.newArrayList();
-		List<LivingEntity> entities = brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of());
-		for (LivingEntity livingEntity : entities) {
+		final Brain<?> brain = entity.getBrain();
+		final ArrayList<Crab> crabs = Lists.newArrayList();
+		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof Crab crab) crabs.add(crab);
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_CRABS, crabs);

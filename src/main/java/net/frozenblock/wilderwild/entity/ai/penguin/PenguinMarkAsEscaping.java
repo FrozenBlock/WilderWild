@@ -33,7 +33,7 @@ public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel serverLevel, @NotNull E penguin) {
+	protected boolean checkExtraStartConditions(@NotNull ServerLevel serverLevel, @NotNull E penguin) {
 		return true;
 	}
 

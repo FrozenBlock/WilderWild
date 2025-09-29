@@ -40,12 +40,10 @@ public class ValidateOrSetHome {
 			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
 		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, entity, l) -> {
 			homeValidateCooldown.set(200);
-			BlockPos homePos = getHome(entity);
-			if (homePos != null && isInHomeDimension(entity)) {
-				if (!isValidHomePos(level, homePos)) {
-					setHomeAtCurrentPos(entity);
-					return true;
-				}
+			final BlockPos homePos = getHome(entity);
+			if (homePos != null && isInHomeDimension(entity) && !isValidHomePos(level, homePos)) {
+				setHomeAtCurrentPos(entity);
+				return true;
 			}
 			return false;
 		}));
@@ -53,7 +51,7 @@ public class ValidateOrSetHome {
 
 	@Nullable
 	private static BlockPos getHome(@NotNull LivingEntity entity) {
-		Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
+		final Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.map(GlobalPos::pos).orElse(null);
 	}
 
@@ -62,12 +60,12 @@ public class ValidateOrSetHome {
 	}
 
 	private static boolean isInHomeDimension(@NotNull LivingEntity entity) {
-		Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
+		final  Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.filter(globalPos -> globalPos.dimension() == entity.level().dimension()).isPresent();
 	}
 
 	private static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
+		final BlockState state = level.getBlockState(pos);
 		if (!state.getFluidState().isEmpty()) return false;
 		if (state.isRedstoneConductor(level, pos)) return false;
 		return state.isAir() || (!state.blocksMotion() && !state.isSolid());

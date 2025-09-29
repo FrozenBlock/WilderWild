@@ -35,46 +35,38 @@ public class PenguinFollowReturnPos {
 		MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(
 			instance -> instance.group(
-					instance.present(WWMemoryModuleTypes.LAND_POS),
-					instance.absent(WWMemoryModuleTypes.DIVE_TICKS),
-					instance.absent(MemoryModuleType.WALK_TARGET),
-					instance.registered(MemoryModuleType.LOOK_TARGET)
-				)
-				.apply(
-					instance,
-					(
-						landPos,
-						diveTicks,
-						walkTarget,
-						lookTarget
-					) -> (serverLevel, pathfinderMob, l) -> {
-						if (pathfinderMob.onGround() && !pathfinderMob.isInWater()) return false;
-						if (l < returnTimer.getValue()) {
-							returnTimer.setValue(l + 60L);
-							return true;
-						}
-						GlobalPos globalPos = instance.get(landPos);
+				instance.present(WWMemoryModuleTypes.LAND_POS),
+				instance.absent(WWMemoryModuleTypes.DIVE_TICKS),
+				instance.absent(MemoryModuleType.WALK_TARGET),
+				instance.registered(MemoryModuleType.LOOK_TARGET)
+			).apply(instance, (landPos, diveTicks, walkTarget, lookTarget) -> (serverLevel, pathfinderMob, l) -> {
+				if (pathfinderMob.onGround() && !pathfinderMob.isInWater()) return false;
 
-						if (!globalPos.dimension().equals(serverLevel.dimension())) {
-							landPos.erase();
-							return false;
-						}
+				if (l < returnTimer.getValue()) {
+					returnTimer.setValue(l + 60L);
+					return true;
+				}
 
-						PathNavigation pathNavigation = pathfinderMob.getNavigation();
-						BlockPos pos = globalPos.pos();
+				final GlobalPos globalPos = instance.get(landPos);
+				if (!globalPos.dimension().equals(serverLevel.dimension())) {
+					landPos.erase();
+					return false;
+				}
 
-						lookTarget.set(new BlockPosTracker(pos));
-						walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
+				final PathNavigation pathNavigation = pathfinderMob.getNavigation();
+				final BlockPos pos = globalPos.pos();
 
-						if (pathNavigation.isStuck()) {
-							landPos.erase();
-							return false;
-						}
+				lookTarget.set(new BlockPosTracker(pos));
+				walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
 
-						returnTimer.setValue(l + 60L);
-						return true;
-					}
-				)
+				if (pathNavigation.isStuck()) {
+					landPos.erase();
+					return false;
+				}
+
+				returnTimer.setValue(l + 60L);
+				return true;
+			})
 		);
 	}
 }

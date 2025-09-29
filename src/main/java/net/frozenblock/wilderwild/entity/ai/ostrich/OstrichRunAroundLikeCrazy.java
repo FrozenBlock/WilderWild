@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -43,16 +44,14 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 
 	@Override
 	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Ostrich owner) {
-		if (!owner.isTamed() && owner.isVehicle()) {
-			Vec3 vec3 = DefaultRandomPos.getPos(owner, 5, 4);
-			if (vec3 == null) return false;
-			this.posX = vec3.x;
-			this.posY = vec3.y;
-			this.posZ = vec3.z;
-			return true;
-		} else {
-			return false;
-		}
+		if (owner.isTamed() || !owner.isVehicle()) return false;
+
+		final Vec3 vec3 = DefaultRandomPos.getPos(owner, 5, 4);
+		if (vec3 == null) return false;
+		this.posX = vec3.x;
+		this.posY = vec3.y;
+		this.posZ = vec3.z;
+		return true;
 	}
 
 	@Override
@@ -67,30 +66,30 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 
 	@Override
 	public void stop(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
-		Brain<?> brain = entity.getBrain();
+		final Brain<?> brain = entity.getBrain();
 		brain.eraseMemory(MemoryModuleType.IS_PANICKING);
 	}
 
 	@Override
 	public void tick(@NotNull ServerLevel level, @NotNull Ostrich owner, long gameTime) {
-		if (!owner.isTamed() && owner.getRandom().nextInt(50) == 0) {
-			Entity passenger = owner.getFirstPassenger();
-			if (passenger == null) return;
+		if (owner.isTamed() || owner.getRandom().nextInt(50) != 0) return;
 
-			if (passenger instanceof Player player) {
-				int i = owner.getTemper();
-				int j = owner.getMaxTemper();
-				if (j > 0 && owner.getRandom().nextInt(j) < i) {
-					owner.tameWithName(player);
-					return;
-				}
-				owner.modifyTemper(5);
+		final Entity passenger = owner.getFirstPassenger();
+		if (passenger == null) return;
+
+		if (passenger instanceof Player player) {
+			int i = owner.getTemper();
+			int j = owner.getMaxTemper();
+			if (j > 0 && owner.getRandom().nextInt(j) < i) {
+				owner.tameWithName(player);
+				return;
 			}
-
-			owner.ejectPassengers();
-			owner.makeMad();
-			level.broadcastEntityEvent(owner, (byte) 6);
+			owner.modifyTemper(5);
 		}
+
+		owner.ejectPassengers();
+		owner.makeMad();
+		level.broadcastEntityEvent(owner, EntityEvent.TAMING_FAILED);
 	}
 
 }

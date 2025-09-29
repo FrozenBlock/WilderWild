@@ -55,6 +55,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -69,6 +70,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -90,7 +92,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
+public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, InventoryCarrier {
 	public static final int SPAWN_CHANCE = 60;
 	private static final double WIND_MULTIPLIER = 1.4D;
 	private static final double WIND_CLAMP = 0.2D;
@@ -102,7 +104,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 	private static final EntityDataAccessor<Float> ITEM_X = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ITEM_Z = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.FLOAT);
-	public NonNullList<ItemStack> inventory;
+	private final SimpleContainer inventory = new SimpleContainer(1);
 	public boolean spawnedFromShears;
 	public boolean isAprilFools;
 	public int ticksSinceActive;
@@ -122,7 +124,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	public Tumbleweed(@NotNull EntityType<Tumbleweed> entityType, @NotNull Level level) {
 		super(entityType, level);
 		this.blocksBuilding = true;
-		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
 	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, @NotNull ServerLevelAccessor level, EntitySpawnReason spawnType, @NotNull BlockPos pos, @NotNull RandomSource random) {
@@ -147,7 +148,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		if (this.inventory.getFirst().isEmpty() && reason == EntitySpawnReason.NATURAL) {
+		if (this.inventory.isEmpty() && reason == EntitySpawnReason.NATURAL) {
 			int diff = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = this.random.nextInt(1, 6);
@@ -178,12 +179,22 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	@Override
 	protected void doPush(@NotNull Entity entity) {
-		boolean isCannonball = this.isCannonball();
+		final boolean isCannonball = this.isCannonball();
 		if (!isCannonball && entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
-		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
+
 		if (isCannonball || entity instanceof Tumbleweed) super.doPush(entity);
-		if (this.level() instanceof ServerLevel level && this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D) && this.isMovingTowards(entity) && !(entity instanceof Tumbleweed)) {
-			boolean hurt = entity.hurtServer(level, this.damageSources().source(isCannonball ? WWDamageTypes.CANNONBALL : WWDamageTypes.TUMBLEWEED, this), isCannonball ? 3F : 2F);
+
+		boolean isSmall = entity.getBoundingBox().getSize() < this.getBoundingBox().getSize() * 0.9D;
+		if (this.level() instanceof ServerLevel serverLevel
+			&& this.getDeltaPos().length() > (isSmall ? 0.2D : 0.3D)
+			&& this.isMovingTowards(entity)
+			&& !(entity instanceof Tumbleweed)
+		) {
+			final boolean hurt = entity.hurtServer(
+				serverLevel,
+				this.damageSources().source(isCannonball ? WWDamageTypes.CANNONBALL : WWDamageTypes.TUMBLEWEED, this),
+				isCannonball ? 3F : 2F
+			);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall && !isCannonball) this.destroy(false);
 		}
@@ -206,11 +217,18 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			this.isTouchingStickingBlock = false;
 		}
 		this.isTouchingStoppingBlock = false;
-		if (this.level() instanceof ServerLevel serverLevel && this.getBlockStateOn().is(BlockTags.CROPS) && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.onGround()) {
+
+		if (this.level() instanceof ServerLevel serverLevel
+			&& this.getBlockStateOn().is(BlockTags.CROPS)
+			&& serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)
+			&& !this.onGround()
+		) {
 			if (WWEntityConfig.get().tumbleweed.tumbleweedDestroysCrops) this.level().destroyBlock(this.blockPosition(), true, this);
 		}
+
 		super.tick();
-		Vec3 deltaPos = this.getDeltaPos();
+
+		final Vec3 deltaPos = this.getDeltaPos();
 		this.setAngles(deltaPos);
 		if (!(this.level() instanceof ServerLevel serverLevel)) {
 			this.itemX = this.getItemX();
@@ -267,7 +285,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 			return;
 		}
 
-		Player entity = this.level().getNearestPlayer(this, -1D);
+		final Player entity = this.level().getNearestPlayer(this, -1D);
 		if (!this.isCannonball()
 			&& !this.requiresCustomPersistence()
 			&& ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM))
@@ -310,30 +328,30 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 
 	public void pickupItem() {
 		if (this.isCannonball()) return;
-		ItemStack inventoryStack = this.inventory.getFirst();
+		final ItemStack inventoryStack = this.inventory.getItem(0);
 		if (inventoryStack.getCount() > 1) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
-		if (this.level() instanceof ServerLevel level && inventoryStack.isEmpty() && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
-			List<ItemEntity> list = this.level().getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
+		if (this.level() instanceof ServerLevel serverLevel && inventoryStack.isEmpty() && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+			List<ItemEntity> list = serverLevel.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
 			for (ItemEntity item : list) {
-				if (this.isMovingTowards(item)) {
-					ItemStack stack = item.getItem();
-					if (!stack.isEmpty()) {
-						this.inventory.set(0, stack.split(1));
-						this.isItemNatural = false;
-						this.randomizeItemOffsets();
-						break;
-					}
-				}
+				if (!this.isMovingTowards(item)) continue;
+
+				final ItemStack stack = item.getItem();
+				if (stack.isEmpty()) continue;
+
+				this.inventory.setItem(0, stack.split(1));
+				this.isItemNatural = false;
+				this.randomizeItemOffsets();
+				break;
 			}
 		}
-		this.setVisibleItem(this.inventory.getFirst());
+		this.setVisibleItem(this.inventory.getItem(0));
 	}
 
 	public void dropItem(boolean killed) {
 		if (!this.isItemNatural || killed) {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.getFirst().split(1)));
+			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.getItem(0).split(1)));
 		}
 	}
 
@@ -345,7 +363,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public void setItem(@NotNull ItemStack stack, boolean natural) {
-		this.inventory.set(0, stack);
+		this.inventory.setItem(0, stack);
 		this.isItemNatural = natural;
 		this.randomizeItemOffsets();
 	}
@@ -489,8 +507,13 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		this.isTouchingStoppingBlock = valueInput.getBooleanOr("IsTouchingStoppingBlock", false);
 		this.lookRot = valueInput.getFloatOr("LookRot", 0F);
 		this.isAprilFools = valueInput.getBooleanOr("IsAprilFools", false);
-		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(valueInput, this.inventory);
+		if (valueInput.contains("Items")) {
+			final NonNullList<ItemStack> oldInventory = NonNullList.withSize(1, ItemStack.EMPTY);
+			ContainerHelper.loadAllItems(valueInput, oldInventory);
+			if (!oldInventory.isEmpty() && !oldInventory.getFirst().isEmpty()) this.inventory.setItem(0, oldInventory.getFirst());
+		} else {
+			this.readInventoryFromTag(valueInput);
+		}
 	}
 
 	@Override
@@ -507,7 +530,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 		valueOutput.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
 		valueOutput.putFloat("LookRot", this.lookRot);
 		valueOutput.putBoolean("IsAprilFools", this.isAprilFools);
-		ContainerHelper.saveAllItems(valueOutput, this.inventory);
+		this.writeInventoryToTag(valueOutput);
 	}
 
 	@Override
@@ -538,24 +561,23 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	}
 
 	public static boolean isDateAprilFools() {
-		LocalDate localDate = LocalDate.now();
+		final LocalDate localDate = LocalDate.now();
 		return localDate.get(ChronoField.MONTH_OF_YEAR) == 4 && localDate.get(ChronoField.DAY_OF_MONTH) == 1;
 	}
 
 	public void spawnBreakParticles() {
-		if (this.level() instanceof ServerLevel level) {
-			level.sendParticles(
-				new BlockParticleOption(ParticleTypes.BLOCK, this.isCannonball() ? Blocks.NETHERITE_BLOCK.defaultBlockState() : WWBlocks.TUMBLEWEED.defaultBlockState()),
-				this.getX(),
-				this.getY(0.6666666666666666D),
-				this.getZ(),
-				20,
-				this.getBbWidth() / 4F,
-				this.getBbHeight() / 4F,
-				this.getBbWidth() / 4F,
-				0.05D
-			);
-		}
+		if (!(this.level() instanceof ServerLevel serverLevel)) return;
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, this.isCannonball() ? Blocks.NETHERITE_BLOCK.defaultBlockState() : WWBlocks.TUMBLEWEED.defaultBlockState()),
+			this.getX(),
+			this.getY(0.6666666666666666D),
+			this.getZ(),
+			20,
+			this.getBbWidth() / 4F,
+			this.getBbHeight() / 4F,
+			this.getBbWidth() / 4F,
+			0.05D
+		);
 	}
 
 	@Override
@@ -624,5 +646,10 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface {
 	@Override
 	public void frozenLib$onSteppedOnBlock(Level level, BlockPos blockPos, @NotNull BlockState blockState) {
 		if (blockState.is(WWBlockTags.STOPS_TUMBLEWEED)) this.isTouchingStoppingBlock = true;
+	}
+
+	@Override
+	public @NotNull SimpleContainer getInventory() {
+		return this.inventory;
 	}
 }

@@ -60,7 +60,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				WWWoodRecipeProvider.buildRecipes(this, exporter);
 				MesogleaRecipeProvider.buildRecipes(this, exporter);
 				FireflyBottleRecipeProvider.buildRecipes(this, exporter, registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
-				CopperHornRecipeProvider.buildRecipes(this, registries, exporter);
 				WWNaturalRecipeProvider.buildRecipes(this, exporter);
 				WWCookRecipeProvider.buildRecipes(this, exporter);
 

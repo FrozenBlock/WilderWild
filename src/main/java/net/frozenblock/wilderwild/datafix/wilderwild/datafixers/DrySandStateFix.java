@@ -45,7 +45,7 @@ public final class DrySandStateFix extends DataFix {
 	}
 
 	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
-		Optional<String> optional = dynamic.get("Name").asString().result();
+		final Optional<String> optional = dynamic.get("Name").asString().result();
 		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
 			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(string));

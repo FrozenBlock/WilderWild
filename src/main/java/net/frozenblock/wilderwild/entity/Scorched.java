@@ -99,13 +99,7 @@ public class Scorched extends Spider {
 	public void tick() {
 		super.tick();
 		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
-			this.addEffect(
-				new MobEffectInstance(
-					WWMobEffects.SCORCHING,
-					200,
-					0
-				)
-			);
+			this.addEffect(new MobEffectInstance(WWMobEffects.SCORCHING, 200, 0));
 		}
 		this.scorchedInLava();
 		this.applyEffectsFromBlocks();
@@ -115,27 +109,25 @@ public class Scorched extends Spider {
 	}
 
 	private void scorchedInLava() {
-		if (this.isInLava()) {
-			CollisionContext collisionContext = CollisionContext.of(this);
-			if (collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true)
-				&& !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)
-			) {
-				this.setOnGround(true);
-			} else {
-				this.addDeltaMovement(LAVA_FLOAT_VECTOR);
-			}
+		if (!this.isInLava()) return;
+
+		final CollisionContext collisionContext = CollisionContext.of(this);
+		if (collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+			this.setOnGround(true);
+		} else {
+			this.addDeltaMovement(LAVA_FLOAT_VECTOR);
 		}
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
+	public boolean doHurtTarget(@NotNull ServerLevel serverLevel, @NotNull Entity entity) {
 		boolean hurtTarget = super.doHurtTarget(serverLevel, entity);
 		if (hurtTarget) entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
 		return hurtTarget;
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState state) {
+	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
 		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA : WWSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
 	}
 
@@ -145,7 +137,7 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	protected @NotNull SoundEvent getHurtSound(DamageSource damageSource) {
+	protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
 		return WWSounds.ENTITY_SCORCHED_HURT;
 	}
 
@@ -155,7 +147,7 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
+	protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
 		this.applyEffectsFromBlocks();
 		if (this.isInLava()) {
 			this.resetFallDistance();
@@ -195,7 +187,7 @@ public class Scorched extends Spider {
 		return level.isUnobstructed(this);
 	}
 
-	public static boolean isDarkEnoughToSpawn(@NotNull ServerLevelAccessor level, BlockPos pos, @NotNull RandomSource random) {
+	public static boolean isDarkEnoughToSpawn(@NotNull ServerLevelAccessor level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (level.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) return false;
 		DimensionType dimensionType = level.dimensionType();
 		int skyLight = level.getLevel().isThundering() ? level.getBrightness(LightLayer.SKY, pos) - 10 : level.getBrightness(LightLayer.SKY, pos);

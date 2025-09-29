@@ -48,22 +48,19 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 
 	@NotNull
 	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
-		OptionalDynamic<?> optionalFireflies = dynamic.get("Fireflies");
-		if (optionalFireflies.result().isPresent()) {
-			List<Dynamic<?>> list = optionalFireflies.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
-				List<Dynamic<?>> newDynamics = Lists.newArrayList();
-			for (Dynamic<?> embeddedDynamic : list) {
-				newDynamics.add(DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
-			}
+		final OptionalDynamic<?> optionalFireflies = dynamic.get("Fireflies");
+		if (optionalFireflies.result().isEmpty()) return dynamic.createList(Stream.empty());
 
-			return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
-		}
-		return dynamic.createList(Stream.empty());
+		final List<Dynamic<?>> oldDynamics = optionalFireflies.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
+		final List<Dynamic<?>> newDynamics = Lists.newArrayList();
+		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
+
+		return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
 	}
 
 	@Override
 	public TypeRewriteRule makeRule() {
-		Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
+		final Type<?> type = this.getInputSchema().getType(References.ITEM_STACK);
 		return this.fixTypeEverywhereTyped(
 			"Display Lantern ItemStack componentization fix",
 			type,
@@ -72,8 +69,8 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 	}
 
 	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
-		OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
-		OpticFinder<?> components = type.findField("components");
+		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
+		final OpticFinder<?> components = type.findField("components");
 		return typed -> {
 			Optional<Pair<String, String>> optional = typed.getOptional(idFinder);
 			return optional.isPresent() && (optional.get()).getSecond().equals(ITEM_ID)
@@ -83,15 +80,14 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 	}
 
 	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
-		OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WWConstants.vanillaId("block_entity_data").toString());
-		if (optionalBlockEntityTag.result().isPresent()) {
-			Dynamic<?> blockEntityTag = optionalBlockEntityTag.result().get();
+		final OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WWConstants.vanillaId("block_entity_data").toString());
+		if (optionalBlockEntityTag.result().isEmpty()) return componentData;
 
-			componentData = componentData.set(WWConstants.string("fireflies"), fixOccupants(blockEntityTag));
-			blockEntityTag = blockEntityTag.remove("Fireflies");
+		Dynamic<?> blockEntityTag = optionalBlockEntityTag.result().get();
+		componentData = componentData.set(WWConstants.string("fireflies"), fixOccupants(blockEntityTag));
+		blockEntityTag = blockEntityTag.remove("Fireflies");
+		componentData = componentData.set(WWConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
 
-			componentData = componentData.set(WWConstants.vanillaId("block_entity_data").toString(), blockEntityTag);
-		}
 		return componentData;
 	}
 

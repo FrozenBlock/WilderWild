@@ -82,39 +82,32 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 
 	@Override
 	public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
-		if (!isEntitySubmergedInWaterOrLava(this.mob)) {
-			return super.getNeighbors(successors, node);
+		if (!isEntitySubmergedInWaterOrLava(this.mob)) return super.getNeighbors(successors, node);
+
+		int neighbors = super.getNeighbors(successors, node);
+		final PathType abovePathType = this.getCachedPathType(node.x, node.y + 1, node.z);
+		final PathType pathType = this.getCachedPathType(node.x, node.y, node.z);
+		int j;
+		if (this.mob.getPathfindingMalus(abovePathType) >= 0F && pathType != PathType.STICKY_HONEY) {
+			j = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
 		} else {
-			int i = super.getNeighbors(successors, node);
-			PathType blockPathTypes = this.getCachedPathType(node.x, node.y + 1, node.z);
-			PathType blockPathTypes2 = this.getCachedPathType(node.x, node.y, node.z);
-			int j;
-			if (this.mob.getPathfindingMalus(blockPathTypes) >= 0.0F && blockPathTypes2 != PathType.STICKY_HONEY) {
-				j = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
-			} else {
-				j = 0;
-			}
-
-			double d = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
-			Node node2 = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), d, Direction.UP, blockPathTypes2);
-			Node node3 = this.findAcceptedNode(node.x, node.y - 1, node.z, j, d, Direction.DOWN, blockPathTypes2);
-			if (this.isVerticalNeighborValid(node2, node)) {
-				successors[i++] = node2;
-			}
-
-			if (this.isVerticalNeighborValid(node3, node) && blockPathTypes2 != PathType.TRAPDOOR) {
-				successors[i++] = node3;
-			}
-
-			for (int k = 0; k < i; ++k) {
-				Node node4 = successors[k];
-				if (node4.type == PathType.WATER && this.prefersShallowSwimming && node4.y < this.mob.level().getSeaLevel() - 10) {
-					++node4.costMalus;
-				}
-			}
-
-			return i;
+			j = 0;
 		}
+
+		final double floorLevel = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
+		final Node aboveNode = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), floorLevel, Direction.UP, pathType);
+		final Node belowNode = this.findAcceptedNode(node.x, node.y - 1, node.z, j, floorLevel, Direction.DOWN, pathType);
+
+		if (this.isVerticalNeighborValid(aboveNode, node)) successors[neighbors++] = aboveNode;
+		if (this.isVerticalNeighborValid(belowNode, node) && pathType != PathType.TRAPDOOR) successors[neighbors++] = belowNode;
+
+		for (int i = 0; i < neighbors; ++i) {
+			final Node successor = successors[i];
+			if (successor.type == PathType.WATER && this.prefersShallowSwimming && successor.y < this.mob.level().getSeaLevel() - 10) {
+				++successor.costMalus;
+			}
+		}
+		return neighbors;
 	}
 
 	private boolean isVerticalNeighborValid(@Nullable Node node, @NotNull Node successor) {
@@ -128,22 +121,18 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 
 	@NotNull
 	@Override
-	public PathType getPathType(PathfindingContext context, int x, int y, int z) {
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		PathType pathNodeType = getPathTypeFromState(context.level(), mutable.set(x, y, z));
+	public PathType getPathType(@NotNull PathfindingContext context, int x, int y, int z) {
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final PathType pathNodeType = getPathTypeFromState(context.level(), mutable.set(x, y, z));
 		if (pathNodeType == PathType.WATER || pathNodeType == PathType.LAVA) {
 			for (Direction direction : Direction.values()) {
-				PathType pathNodeType2 = getPathTypeFromState(context.level(), mutable.set(x, y, z).move(direction));
-				if (pathNodeType2 == PathType.BLOCKED) {
-					return PathType.WATER_BORDER;
-				}
+				final PathType offsetPathType = getPathTypeFromState(context.level(), mutable.set(x, y, z).move(direction));
+				if (offsetPathType == PathType.BLOCKED) return PathType.WATER_BORDER;
 			}
-
 			if (pathNodeType == PathType.WATER) return PathType.WATER;
 			return PathType.LAVA;
-		} else {
-			return getPathTypeStatic(context, mutable);
 		}
+		return getPathTypeStatic(context, mutable);
 	}
 
 	private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {

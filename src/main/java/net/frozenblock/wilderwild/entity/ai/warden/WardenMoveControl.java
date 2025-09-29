@@ -26,7 +26,6 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import org.jetbrains.annotations.NotNull;
 
 public class WardenMoveControl extends MoveControl {
-
 	private final Warden mob;
 	private final float pitchChange;
 	private final float yawChange;
@@ -44,46 +43,44 @@ public class WardenMoveControl extends MoveControl {
 
 	@Override
 	public void tick() {
-		if (!this.mob.isDiggingOrEmerging()) {
-			if (WWEntityConfig.WARDEN_SWIMS && this.touchingWaterOrLava(this.mob)) {
-				if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
-					double d = this.wantedX - this.mob.getX();
-					double e = this.wantedY - this.mob.getY();
-					double f = this.wantedZ - this.mob.getZ();
-					double g = d * d + e * e + f * f;
-					if (g < 2.5000003E-7F) {
-						this.mob.setZza(0F);
-					} else {
-						float h = (float) (Mth.atan2(f, d) * 180F / (float) Math.PI) - 90F;
-						this.mob.setYRot(this.rotlerp(this.mob.getYRot(), h, this.yawChange));
-						this.mob.yBodyRot = this.mob.getYRot();
-						this.mob.yHeadRot = this.mob.getYRot();
-						float i = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-						if (this.touchingWaterOrLava(mob)) {
-							this.mob.setSpeed(i * this.speedInWater);
-							double j = Math.sqrt(d * d + f * f);
-							if (Math.abs(e) > 1.0E-5F || Math.abs(j) > 1.0E-5F) {
-								float k = -((float) (Mth.atan2(e, j) * 180F / (float) Math.PI));
-								k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
-								this.mob.setXRot(this.rotlerp(this.mob.getXRot(), k, 5F));
-							}
-							float k = Mth.cos(this.mob.getXRot() * (float) (Math.PI / 180));
-							float l = Mth.sin(this.mob.getXRot() * (float) (Math.PI / 180));
-							this.mob.zza = k * i;
-							this.mob.yya = -l * i;
-						} else {
-							this.mob.setSpeed(i * this.speedInAir);
-						}
-					}
-				} else {
-					this.mob.setSpeed(0F);
-					this.mob.setXxa(0F);
-					this.mob.setYya(0F);
-					this.mob.setZza(0F);
-				}
+		if (this.mob.isDiggingOrEmerging()) return;
+		if (!WWEntityConfig.WARDEN_SWIMS || !this.touchingWaterOrLava(this.mob)) {
+			super.tick();
+			return;
+		}
+
+		if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
+			final double xDiff = this.wantedX - this.mob.getX();
+			final double yDiff = this.wantedY - this.mob.getY();
+			final double zDiff = this.wantedZ - this.mob.getZ();
+			final double lengthSquared = xDiff * xDiff + yDiff * yDiff + zDiff * zDiff;
+			if (lengthSquared < 2.5000003E-7F) {
+				this.mob.setZza(0F);
 			} else {
-				super.tick();
+				final float yRot = (float) (Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG) - 90F;
+				this.mob.setYRot(this.rotlerp(this.mob.getYRot(), yRot, this.yawChange));
+				this.mob.yBodyRot = this.mob.getYRot();
+				this.mob.yHeadRot = this.mob.getYRot();
+				float movementSpeed = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+				if (this.touchingWaterOrLava(mob)) {
+					this.mob.setSpeed(movementSpeed * this.speedInWater);
+					final double horizontalLengthSquared = Math.sqrt(xDiff * xDiff + zDiff * zDiff);
+					if (Math.abs(yDiff) > 1.0E-5F || Math.abs(horizontalLengthSquared) > 1.0E-5F) {
+						float k = -((float) (Mth.atan2(yDiff, horizontalLengthSquared) * Mth.RAD_TO_DEG));
+						k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
+						this.mob.setXRot(this.rotlerp(this.mob.getXRot(), k, 5F));
+					}
+					this.mob.zza = Mth.cos(this.mob.getXRot() * Mth.DEG_TO_RAD) * movementSpeed;
+					this.mob.yya = -Mth.sin(this.mob.getXRot() * Mth.DEG_TO_RAD) * movementSpeed;
+				} else {
+					this.mob.setSpeed(movementSpeed * this.speedInAir);
+				}
 			}
+		} else {
+			this.mob.setSpeed(0F);
+			this.mob.setXxa(0F);
+			this.mob.setYya(0F);
+			this.mob.setZza(0F);
 		}
 	}
 
