@@ -1,6 +1,11 @@
 {
   "values": [
     "minecraft:wither",
-    "minecraft:ender_dragon"
+    "minecraft:ender_dragon",
+    "minecraft:vex",
+    {
+      "id": "trailiertales:apparition",
+      "required": false
+    }
   ]
 }
