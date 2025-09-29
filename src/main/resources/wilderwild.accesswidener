@@ -57,6 +57,7 @@ accessible method net/minecraft/world/entity/EntityType boatFactory (Ljava/util/
 accessible method net/minecraft/world/entity/EntityType chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
 accessible field net/minecraft/world/entity/LivingEntity swimAmount F
 accessible field net/minecraft/world/entity/LivingEntity swimAmountO F
+accessible method net/minecraft/world/entity/projectile/AbstractArrow isInGround ()Z
 
 # Entity Behaviors
 accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;

@@ -85,6 +85,7 @@ voxelotl:
  - Tube Worms textures.
  - Cannonball Tumbleweed texture.
  - Mojang-Like Crab Textures in 4.1.
+ - Data/Resource Pack icon
 
 Willow/pictochats_:
  - Composer:
