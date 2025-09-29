@@ -50,6 +50,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -219,46 +220,49 @@ public class GeyserBlockEntity extends BlockEntity {
 		final Vec3 movement = Vec3.atLowerCornerOf(direction.getNormal());
 		for (Entity entity : entities) {
 			final AABB boundingBox = entity.getBoundingBox();
-			if (eruption.intersects(boundingBox)) {
-				boolean applyMovement = true;
-				if (entity instanceof Player player) {
-					if (!player.getAbilities().flying) {
-						if (direction == Direction.UP) {
-							Vec3 lastImpactPos = player.currentImpulseImpactPos;
-							Vec3 playerPos = player.position();
-							player.currentImpulseImpactPos = new Vec3(
-								playerPos.x(),
-								lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
-								playerPos.z()
-							);
-							player.setIgnoreFallDamageFromCurrentImpulse(true);
-						}
-					} else {
-						applyMovement = false;
+			if (!eruption.intersects(boundingBox)) continue;
+
+			boolean applyMovement = !entity.getType().is(WWEntityTags.GEYSER_CANNOT_PUSH);
+			if (entity instanceof Player player) {
+				if (player.getAbilities().flying) {
+					applyMovement = false;
+				} else {
+					if (direction == Direction.UP) {
+						Vec3 lastImpactPos = player.currentImpulseImpactPos;
+						Vec3 playerPos = player.position();
+						player.currentImpulseImpactPos = new Vec3(
+							playerPos.x(),
+							lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
+							playerPos.z()
+						);
+						player.setIgnoreFallDamageFromCurrentImpulse(true);
 					}
 				}
+			} else if (entity instanceof AbstractArrow abstractArrow) {
+				if (abstractArrow.inGround) applyMovement = false;
+			}
 
+			if (applyMovement) {
+				final double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance;
+				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
+				final double overallIntensity = intensity * pushIntensity;
+				entity.addDeltaMovement(movement.scale(overallIntensity));
+				entity.hasImpulse = true;
+			}
+
+			if (damagingEruption.intersects(boundingBox)) {
 				if (applyMovement) {
-					final double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance;
-					final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
-					final double overallIntensity = intensity * pushIntensity;
-					final Vec3 deltaMovement = entity.getDeltaMovement().add(movement.scale(overallIntensity));
-					entity.setDeltaMovement(deltaMovement);
-				}
-				if (damagingEruption.intersects(boundingBox)) {
 					if (level instanceof ServerLevel serverLevel) {
-						for (ServerPlayer serverPlayer :serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(geyserStartPos) < GeyserPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+						for (ServerPlayer serverPlayer : serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(geyserStartPos) < GeyserPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
 							WWCriteria.GEYSER_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geyserType);
 						}
 					}
+				}
 
-					double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
-					if (geyserType == GeyserType.LAVA) {
-						if (!entity.fireImmune()) {
-							entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
-							entity.hurt(level.damageSources().inFire(), 1F);
-						}
-					}
+				double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
+				if (geyserType == GeyserType.LAVA && !entity.fireImmune()) {
+					entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
+					entity.hurt(level.damageSources().inFire(), 1F);
 				}
 			}
 		}

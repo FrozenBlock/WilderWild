@@ -57,6 +57,7 @@ extendable method net/minecraft/world/entity/LivingEntity canBreatheUnderwater (
 accessible method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
 accessible field net/minecraft/world/entity/LivingEntity swimAmount F
 accessible field net/minecraft/world/entity/LivingEntity swimAmountO F
+accessible field net/minecraft/world/entity/projectile/AbstractArrow inGround Z
 
 # Entity Behaviors
 accessible field net/minecraft/world/entity/ai/Brain availableBehaviorsByPriority Ljava/util/Map;
