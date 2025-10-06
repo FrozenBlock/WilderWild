@@ -46,7 +46,7 @@ public class SuspendedParticleUnderwaterProviderMixin {
 		SuspendedParticle instance, float r, float g, float b, Operation<Void> original,
 		SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z
 	) {
-		BlockState state = clientLevel.getBlockState(BlockPos.containing(x, y, z));
+		final BlockState state = clientLevel.getBlockState(BlockPos.containing(x, y, z));
 		if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
 			int mesogleaColor = mesogleaBlock.getWaterFogColorOverride();
 			r = ARGB.red(mesogleaColor) / 255F;

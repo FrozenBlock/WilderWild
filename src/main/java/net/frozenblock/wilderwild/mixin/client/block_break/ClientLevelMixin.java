@@ -69,11 +69,11 @@ public abstract class ClientLevelMixin extends Level {
 			return;
 		}
 
-		Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+		final Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
-		FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-		int count = !litter ? this.random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
+		final FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
+		final int count = !litter ? this.random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
 		for (int i = 0; i < count; i++) {
 			this.minecraft.particleEngine.createParticle(
 				FallingLeafUtil.createLeafParticleOptions(fallingLeafData, litter),

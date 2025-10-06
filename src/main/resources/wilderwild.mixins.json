@@ -156,7 +156,6 @@
     "client.shader.RenderPipelinesMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sodium.BlockRendererMixin",
-    "client.sodium.CloudRendererMixin",
     "client.sodium.DefaultMaterialsMixin",
     "client.sodium.DefaultTerrainRenderPassesMixin",
     "client.sodium.FluidRendererMixin",

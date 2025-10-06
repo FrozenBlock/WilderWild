@@ -45,7 +45,7 @@ public class EnderManMixin {
 	public void wilderWild$playStareSound(CallbackInfo info) {
 		if (!WWEntityConfig.get().enderMan.movingStareSound) return;
 		info.cancel();
-		EnderMan enderman = EnderMan.class.cast(this);
+		final EnderMan enderman = EnderMan.class.cast(this);
 		if (enderman.tickCount >= this.lastStareSound + 400) {
 			this.lastStareSound = enderman.tickCount;
 			if (!enderman.isSilent()) wilderWild$playClientEnderManSound(EnderMan.class.cast(this));

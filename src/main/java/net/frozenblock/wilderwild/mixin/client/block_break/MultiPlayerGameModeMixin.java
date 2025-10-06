@@ -79,7 +79,7 @@ public abstract class MultiPlayerGameModeMixin {
 		Level instance, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original,
 		@Share("wilderWild$destroyedState") LocalRef<BlockState> destroyedStateRef
 	) {
-		BlockState destroyedState = destroyedStateRef.get();
+		final BlockState destroyedState = destroyedStateRef.get();
 		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
 			instance.setBlock(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0), flags);
 			return true;
@@ -89,7 +89,7 @@ public abstract class MultiPlayerGameModeMixin {
 			return true;
 		}
 		if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getPlayerMode().isCreative()) {
-			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			final var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.minecraft.player.getMainHandItem()) < 1) EchoGlassBlock.setDamagedState(instance, pos, destroyedState);
 			return true;
 		}

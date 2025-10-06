@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
 import net.caffeinemc.mods.sodium.client.render.frapi.render.AbstractBlockRenderContext;
 import net.fabricmc.api.EnvType;
@@ -49,11 +48,10 @@ public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false, require = 0)
 	public void wilderWild$renderModel(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
-			BlockStateModel snowModel = WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState);
-			this.renderModel(snowModel, snowState, pos, origin);
-		}
+		if (!SnowloggingUtils.isSnowlogged(state)) return;
+		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
+		final BlockStateModel snowModel = WILDERWILD$BLOCK_MODEL_SHAPER.getBlockModel(snowState);
+		this.renderModel(snowModel, snowState, pos, origin);
 	}
 
 }
