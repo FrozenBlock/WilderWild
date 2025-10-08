@@ -128,7 +128,14 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity, InsideBlockEffectApplier applier) {
+	public void entityInside(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Entity entity,
+		InsideBlockEffectApplier insideBlockEffectApplier,
+		boolean bl
+	) {
 		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
 			if (!isGlowing(state) && level instanceof ServerLevel serverLevel) {
 				this.tryChangingState(state, serverLevel, pos);

@@ -99,11 +99,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void entityInside(
-	@NotNull BlockState state,
-	@NotNull Level level,
-	@NotNull BlockPos pos,
-	@NotNull Entity entity,
-	InsideBlockEffectApplier insideBlockEffectApplier
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Entity entity,
+		InsideBlockEffectApplier insideBlockEffectApplier,
+		boolean bl
 	) {
 		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
 			if (entity.getType().equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);

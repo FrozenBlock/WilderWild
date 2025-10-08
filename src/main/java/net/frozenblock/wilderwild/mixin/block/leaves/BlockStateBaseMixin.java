@@ -42,7 +42,7 @@ public abstract class BlockStateBaseMixin {
 	protected abstract BlockState asState();
 
 	@Inject(method = "entityInside", at = @At("HEAD"))
-	public void wilderWild$entityInsideLeafLitter(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, CallbackInfo info) {
+	public void wilderWild$entityInsideLeafLitter(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl, CallbackInfo info) {
 		BlockState state = this.asState();
 		if (!state.is(WWBlockTags.LEAF_LITTERS)) return;
 		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, true);

@@ -182,7 +182,8 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier
+		InsideBlockEffectApplier insideBlockEffectApplier,
+		boolean bl
 	) {
 		if (!level.isClientSide()) return;
 		AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);

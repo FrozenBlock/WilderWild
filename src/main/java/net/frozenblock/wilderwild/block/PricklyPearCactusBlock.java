@@ -96,14 +96,14 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
-
 	@Override
 	public void entityInside(
 		@NotNull BlockState state,
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier
+		InsideBlockEffectApplier insideBlockEffectApplier,
+		boolean bl
 	) {
 		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 		if (!(entity instanceof ItemEntity)) {

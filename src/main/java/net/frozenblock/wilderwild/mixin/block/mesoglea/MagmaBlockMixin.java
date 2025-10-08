@@ -57,10 +57,10 @@ public class MagmaBlockMixin {
 	)
 	public boolean wilderWild$updateShape(
 		boolean original,
-		BlockState blockState,
-		LevelReader levelReader,
+		BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState

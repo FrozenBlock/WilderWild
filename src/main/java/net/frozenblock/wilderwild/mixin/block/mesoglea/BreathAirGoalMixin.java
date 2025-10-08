@@ -30,7 +30,14 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BreathAirGoalMixin {
 	//This should be called BreatheAirGoalMixin bruh
 
-	@WrapOperation(method = "givesAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0))
+	@WrapOperation(
+		method = "givesAir",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			ordinal = 0
+		)
+	)
 	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}

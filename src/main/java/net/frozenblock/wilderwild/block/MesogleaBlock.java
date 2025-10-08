@@ -233,7 +233,8 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier
+		InsideBlockEffectApplier insideBlockEffectApplier,
+		boolean bl
 	) {
 		Optional<Direction> dragDirection = getDragDirection(state);
 		if (this.isPearlescent()) {
@@ -291,7 +292,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
 		VoxelShape shape = Shapes.empty();
 		if (collisionContext instanceof EntityCollisionContext entityCollisionContext) {
 			if (entityCollisionContext.getEntity() != null) {
@@ -301,7 +302,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 					BlockState insideState = entity.getBlockStateOn();
 					if (entity.isInWater() || (insideState.getBlock() instanceof MesogleaBlock)) {
 						for (Direction direction : Direction.values()) {
-							if (direction != Direction.UP && !blockGetter.getFluidState(blockPos.relative(direction)).is(FluidTags.WATER)) {
+							if (direction != Direction.UP && !blockGetter.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
 								shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, JELLYFISH_COLLISION_FROM_SIDE));
 							}
 						}
