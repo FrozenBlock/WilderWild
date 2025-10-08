@@ -157,7 +157,6 @@
     "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$SubSoundMixin",
     "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$UnderwaterAmbientSoundInstanceMixin",
     "client.sodium.BlockRendererMixin",
-    "client.sodium.CloudRendererMixin",
     "client.sodium.DefaultMaterialsMixin",
     "client.sodium.DefaultTerrainRenderPassesMixin",
     "client.sodium.FluidRendererMixin",
