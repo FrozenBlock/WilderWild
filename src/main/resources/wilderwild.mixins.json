@@ -175,6 +175,7 @@
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SuspendedParticleMixin",
     "client.wind.WindParticleMixin",
+    "client.wind.fallingleaves.FallingLeafParticleMixin",
     "datagen.client.BlockModelGeneratorsMixin",
     "snowlogging.client.BlockRenderDispatcherMixin",
     "snowlogging.client.SectionCompilerMixin"
