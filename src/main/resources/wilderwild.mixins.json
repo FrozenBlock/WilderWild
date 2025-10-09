@@ -153,7 +153,6 @@
     "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$SubSoundMixin",
     "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$UnderwaterAmbientSoundInstanceMixin",
     "client.mesoglea.WaterFogEnvironmentMixin",
-    "client.shader.RenderPipelinesMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sodium.BlockRendererMixin",
     "client.sodium.DefaultMaterialsMixin",

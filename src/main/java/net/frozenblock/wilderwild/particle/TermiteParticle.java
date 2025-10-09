@@ -103,7 +103,7 @@ public class TermiteParticle extends SingleQuadParticle {
 
 	@Override
 	protected void extractRotatedQuad(QuadParticleRenderState renderState, @NotNull Camera camera, Quaternionf rotation, float partialTick) {
-		final Vec3 cameraPos = camera.getPosition();
+		final Vec3 cameraPos = camera.position();
 		final float animationProgress = this.age + partialTick;
 		final float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
 		final float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;

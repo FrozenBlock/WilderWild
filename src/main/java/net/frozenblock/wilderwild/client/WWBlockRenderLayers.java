@@ -174,13 +174,13 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.FRAGILE_ICE, ChunkSectionLayer.TRANSLUCENT);
 		BlockRenderLayerMap.putBlock(WWBlocks.ICICLE, ChunkSectionLayer.CUTOUT);
 
-		BlockRenderLayerMap.putBlock(WWBlocks.BAOBAB_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.WILLOW_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.CYPRESS_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.PALM_FRONDS, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
-		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT_MIPPED);
+		BlockRenderLayerMap.putBlock(WWBlocks.BAOBAB_LEAVES, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.WILLOW_LEAVES, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.CYPRESS_LEAVES, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.PALM_FRONDS, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_LEAVES, ChunkSectionLayer.CUTOUT);
 
 		BlockRenderLayerMap.putBlock(WWBlocks.ACACIA_LEAF_LITTER, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.AZALEA_LEAF_LITTER, ChunkSectionLayer.CUTOUT);

@@ -49,8 +49,6 @@ public final class WWMixinsConfig {
 
 	public boolean client_mesoglea = true;
 
-	public boolean client_shader = true;
-
 	public boolean client_shrieker = true;
 
 	public boolean client_block_break = true;

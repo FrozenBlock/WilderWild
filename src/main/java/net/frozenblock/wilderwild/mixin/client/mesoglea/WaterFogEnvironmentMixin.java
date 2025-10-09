@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.fog.environment.WaterFogEnvironment;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -35,14 +36,14 @@ public class WaterFogEnvironmentMixin {
 		method = "getBaseColor",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/biome/Biome;getWaterFogColor()I"
+			target = "Lnet/minecraft/util/CubicSampler;sampleVec3(Ljava/util/function/Function;)Lnet/minecraft/world/phys/Vec3;"
 		)
 	)
-	private int wilderWild$replaceWaterFogColorInMesoglea(
-		int original,
+	private Vec3 wilderWild$replaceWaterFogColorInMesoglea(
+		Vec3 original,
 		ClientLevel level, Camera camera
 	) {
-		if (level.getBlockState(camera.getBlockPosition()).getBlock() instanceof MesogleaBlock mesogleaBlock) return mesogleaBlock.getWaterFogColorOverride();
+		if (level.getBlockState(camera.blockPosition()).getBlock() instanceof MesogleaBlock mesogleaBlock) return Vec3.fromRGB24(mesogleaBlock.getWaterFogColorOverride());
 		return original;
 	}
 

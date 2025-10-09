@@ -162,7 +162,7 @@ public final class SnowyDyingForest extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.@NotNull Builder spawns) {
 		spawns.creatureGenerationProbability(0.07F);
-		BiomeDefaultFeatures.snowySpawns(spawns);
+		BiomeDefaultFeatures.snowySpawns(spawns, false);
 	}
 
 	@Override

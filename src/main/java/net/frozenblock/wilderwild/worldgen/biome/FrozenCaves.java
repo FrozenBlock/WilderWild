@@ -178,7 +178,7 @@ public final class FrozenCaves extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.snowySpawns(spawns);
+		BiomeDefaultFeatures.snowySpawns(spawns, false);
 	}
 
 	@Override

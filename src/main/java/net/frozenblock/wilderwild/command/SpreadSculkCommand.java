@@ -34,7 +34,7 @@ public final class SpreadSculkCommand {
 	public static void register(@NotNull CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(
 			Commands.literal("sculkspread")
-				.requires(source -> source.hasPermission(2))
+				.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 				.executes(
 					context -> spreadSculk(
 						context.getSource(),

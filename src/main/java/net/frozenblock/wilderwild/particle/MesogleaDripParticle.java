@@ -93,10 +93,10 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 
 	@Override
 	public void extract(QuadParticleRenderState renderState, @NotNull Camera camera, float partialTick) {
-		Quaternionf quaternionf = new Quaternionf(0F, 0F, 0F, 0F);
+		final Quaternionf quaternionf = new Quaternionf(0F, 0F, 0F, 0F);
 		quaternionf.set(0F, 0F, 0F, 1F);
-		quaternionf.mul(Axis.YP.rotationDegrees(-camera.getYRot()));
-		quaternionf.mul(Axis.XP.rotationDegrees(camera.getXRot() * (Mth.lerp(partialTick, this.prevXRotMultiplier, this.xRotMultiplier))));
+		quaternionf.mul(Axis.YP.rotationDegrees(-camera.yRot));
+		quaternionf.mul(Axis.XP.rotationDegrees(camera.xRot() * (Mth.lerp(partialTick, this.prevXRotMultiplier, this.xRotMultiplier))));
 		if (this.roll != 0F) quaternionf.mul(Axis.ZP.rotation(Mth.lerp(partialTick, this.oRoll, this.roll)));
 		this.extractRotatedQuad(renderState, camera, quaternionf, partialTick);
 	}

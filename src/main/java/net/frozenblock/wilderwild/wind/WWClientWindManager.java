@@ -57,10 +57,10 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		cloudX += (ClientWindManager.laggedWindX * 0.007D);
 		cloudZ += (ClientWindManager.laggedWindZ * 0.007D);
 
-		Minecraft minecraft = Minecraft.getInstance();
-		ClientLevel level = minecraft.level;
+		final Minecraft minecraft = Minecraft.getInstance();
+		final ClientLevel level = minecraft.level;
 		if (level != null) {
-			BlockPos pos = minecraft.gameRenderer.getMainCamera().getBlockPosition();
+			final BlockPos pos = minecraft.gameRenderer.getMainCamera().blockPosition();
 			this.animateTick(level, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}

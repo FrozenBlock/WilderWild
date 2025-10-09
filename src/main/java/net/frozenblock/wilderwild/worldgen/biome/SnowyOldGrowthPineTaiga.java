@@ -173,7 +173,7 @@ public final class SnowyOldGrowthPineTaiga extends FrozenBiome {
 			.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 3))
 			.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.FOX, 2, 4));
 		BiomeDefaultFeatures.caveSpawns(spawns);
-		BiomeDefaultFeatures.monsters(spawns, 100, 25, 100, false);
+		BiomeDefaultFeatures.monsters(spawns, 100, 25, 0, 100, false);
 	}
 
 	@Override
