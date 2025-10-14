@@ -502,10 +502,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.valueLookupBuilder(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
-			.add(Blocks.LIGHTNING_ROD);
+			.addOptionalTag(BlockTags.LIGHTNING_RODS);
 
 		this.valueLookupBuilder(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)
-			.add(Blocks.LIGHTNING_ROD);
+			.addOptionalTag(BlockTags.LIGHTNING_RODS);
 
 		this.valueLookupBuilder(ConventionalBlockTags.GLASS_BLOCKS)
 			.add(WWBlocks.ECHO_GLASS);
