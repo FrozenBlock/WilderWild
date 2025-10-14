@@ -2,7 +2,7 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "wilderwild:palms_jungle",
+      "feature": "wilderwild:palms_jungle_no_litter",
       "placement": []
     },
     "features": [

@@ -2129,7 +2129,7 @@ public final class WWConfiguredFeatures {
 						0.075F
 					)
 				),
-				PlacementUtils.inlinePlaced(PALMS_JUNGLE.getHolder())
+				PlacementUtils.inlinePlaced(PALMS_JUNGLE_NO_LITTER.getHolder())
 			)
 		);
 
@@ -2848,7 +2848,8 @@ public final class WWConfiguredFeatures {
 		DATURA.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				48,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.DATURA))
 				)
 			)
@@ -2857,7 +2858,8 @@ public final class WWConfiguredFeatures {
 		ROSE_BUSH.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				40,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH))
 				)
 			)
@@ -2866,7 +2868,8 @@ public final class WWConfiguredFeatures {
 		PEONY.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				32,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PEONY))
 				)
 			)
@@ -2875,7 +2878,8 @@ public final class WWConfiguredFeatures {
 		LILAC.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				40,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.LILAC))
 				)
 			)
