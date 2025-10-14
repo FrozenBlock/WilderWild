@@ -2129,7 +2129,7 @@ public final class WWConfiguredFeatures {
 						0.075F
 					)
 				),
-				PlacementUtils.inlinePlaced(PALMS_JUNGLE.getHolder())
+				PlacementUtils.inlinePlaced(PALMS_JUNGLE_NO_LITTER.getHolder())
 			)
 		);
 
