@@ -360,7 +360,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 				}
 			}
 
-			boolean onClimbable = this.onClimbable();
+			boolean onClimbable = !this.isCrabWalking();
 			this.prevClimbAnimX = this.climbAnimX;
 			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
 			this.climbAnimX += ((onClimbable ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
@@ -398,6 +398,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 	@Nullable
 	public Vec3 findNearestWall() {
 		BlockPos crabPos = this.blockPosition();
+		if (this.mainSupportingBlockPos.isPresent() && this.getOnPos().equals(crabPos)) crabPos = crabPos.above();
 		ArrayList<Vec3> vecs = new ArrayList<>();
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
 			BlockState state = this.level().getBlockState(pos);
@@ -612,7 +613,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 
 	@Override
 	public boolean onClimbable() {
-		return this.isCrabClimbing() || this.isCrabDescending();
+		return !this.isCrabWalking();
 	}
 
 	@Override
@@ -630,6 +631,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 
 	public boolean isCrabDescending() {
 		return this.moveState() == MoveState.DESCENDING;
+	}
+
+	public boolean isCrabWalking() {
+		return this.moveState() == MoveState.WALKING;
 	}
 
 	public void setMoveState(@NotNull MoveState state) {
