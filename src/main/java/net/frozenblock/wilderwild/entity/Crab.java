@@ -305,8 +305,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 		super.tick();
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
-			if (this.horizontalCollision) {
-				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
+
+			final boolean inWater = this.isInWater();
+			final boolean isMovingUp = this.getDeltaPos().y() >= 0;
+			if (this.horizontalCollision && !(inWater && !isMovingUp)) {
+				this.setMoveState(isMovingUp ? MoveState.CLIMBING : MoveState.DESCENDING);
 				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				}
@@ -336,7 +339,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
-				if (!this.onGround() && !this.isInWater()) {
+				if (!this.onGround() && !inWater) {
 					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 						this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 					}
@@ -399,15 +402,17 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 	public Vec3 findNearestWall() {
 		BlockPos crabPos = this.blockPosition();
 		if (this.mainSupportingBlockPos.isPresent() && this.getOnPos().equals(crabPos)) crabPos = crabPos.above();
+
+		final boolean inWater = this.isInWater();
 		ArrayList<Vec3> vecs = new ArrayList<>();
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
-			BlockState state = this.level().getBlockState(pos);
-			VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
-			if (isWallPosSlowable(pos, state, collisionShape)) {
-				Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
+			final BlockState state = this.level().getBlockState(pos);
+			final VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
+			if (this.isWallPosSlowable(pos, state, collisionShape)) {
+				final Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
 				if (optionalVec3.isPresent()) {
 					vecs.add(optionalVec3.get());
-				} else if (state.getFluidState().is(FluidTags.WATER)) {
+				} else if (!inWater && state.getFluidState().is(FluidTags.WATER)) {
 					vecs.add(pos.getCenter());
 				}
 			}
@@ -431,9 +436,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, Variant
 	}
 
 	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull BlockState state, @NotNull VoxelShape collisionShape) {
-		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
-			return false;
-		}
+		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) return false;
 		return (!collisionShape.isEmpty() && pos.getY() + collisionShape.min(Direction.Axis.Y) <= this.getEyeY()) || (state.getFluidState().is(FluidTags.WATER));
 	}
 
