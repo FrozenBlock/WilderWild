@@ -22,18 +22,17 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import java.util.Optional;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -60,30 +59,30 @@ public class GrassBlockMixin {
 	@ModifyExpressionValue(
 		method = "performBonemeal",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;",
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/Blocks;SHORT_GRASS:Lnet/minecraft/world/level/block/Block;",
 			ordinal = 0
 		)
 	)
-	public BlockState wilderWild$replaceWithFrozenShortGrass(
-		BlockState original,
+	public Block wilderWild$replaceWithFrozenShortGrass(
+		Block original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		return isSnowy.get() ? WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState() : original;
+		return isSnowy.get() ? WWBlocks.FROZEN_SHORT_GRASS : original;
 	}
 
-	@WrapOperation(
+	@ModifyExpressionValue(
 		method = "performBonemeal",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/core/Registry;get(Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional;"
+			value = "FIELD",
+			target = "Lnet/minecraft/data/worldgen/placement/VegetationPlacements;GRASS_BONEMEAL:Lnet/minecraft/resources/ResourceKey;"
 		)
 	)
-	public Optional<Holder.Reference> wilderWild$replaceWithFrozenGrassFeature(
-		Registry instance, ResourceKey key, Operation<Optional<Holder.Reference>> original,
+	public ResourceKey<PlacedFeature> wilderWild$replaceWithFrozenGrassFeature(
+		ResourceKey<PlacedFeature> original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		return isSnowy.get() ? original.call(instance, WWPlacedFeatures.PATCH_GRASS_FROZEN_BONEMEAL.getKey()) : original.call(instance, key);
+		return isSnowy.get() ? WWPlacedFeatures.PATCH_GRASS_FROZEN_BONEMEAL.getKey() : original;
 	}
 
 	@WrapOperation(
@@ -97,7 +96,7 @@ public class GrassBlockMixin {
 		BlockState instance, Operation<Boolean> original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		boolean originalValue = original.call(instance);
+		final boolean originalValue = original.call(instance);
 		return isSnowy.get() ? originalValue || (WWBlockConfig.SNOWLOGGING && instance.is(Blocks.SNOW)) : originalValue;
 	}
 

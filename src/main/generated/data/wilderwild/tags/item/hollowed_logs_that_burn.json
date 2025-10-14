@@ -13,10 +13,6 @@
       "required": false
     },
     {
-      "id": "#wilderwild:hollowed_crimson_stems",
-      "required": false
-    },
-    {
       "id": "#wilderwild:hollowed_dark_oak_logs",
       "required": false
     },
@@ -34,10 +30,6 @@
     },
     {
       "id": "#wilderwild:hollowed_spruce_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_warped_stems",
       "required": false
     },
     {

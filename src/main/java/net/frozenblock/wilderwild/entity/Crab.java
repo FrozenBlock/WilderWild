@@ -301,8 +301,11 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 		if (!isClient) {
 			this.cancelMovementToDescend = false;
-			if (this.horizontalCollision) {
-				this.setMoveState(this.getDeltaPos().y() >= 0 ? MoveState.CLIMBING : MoveState.DESCENDING);
+
+			final boolean inWater = this.isInWater();
+			final boolean isMovingUp = this.getDeltaPos().y() >= 0;
+			if (this.horizontalCollision && !(inWater && !isMovingUp)) {
+				this.setMoveState(isMovingUp ? MoveState.CLIMBING : MoveState.DESCENDING);
 				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 				}
@@ -332,7 +335,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			} else {
 				this.setMoveState(MoveState.WALKING);
 				this.setTargetClimbAnimX(0F);
-				if (!this.onGround() && !this.isInWater()) {
+				if (!this.onGround() && !inWater) {
 					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
 						this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
 					}
@@ -356,7 +359,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 			}
 
-			boolean onClimbable = this.onClimbable();
+			boolean onClimbable = !this.isCrabWalking();
 			this.prevClimbAnimX = this.climbAnimX;
 			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
 			this.climbAnimX += ((onClimbable ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
@@ -392,18 +395,21 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Nullable
 	public Vec3 findNearestWall() {
-		final BlockPos crabPos = this.blockPosition();
+		BlockPos crabPos = this.blockPosition();
+		if (this.mainSupportingBlockPos.isPresent() && this.getOnPos().equals(crabPos)) crabPos = crabPos.above();
+
+		final boolean inWater = this.isInWater();
 		final ArrayList<Vec3> vecs = new ArrayList<>();
 		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
 			final BlockState state = this.level().getBlockState(pos);
 			final VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
-			if (!isWallPosSlowable(pos, state, collisionShape)) continue;
-
-			Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
-			if (optionalVec3.isPresent()) {
-				vecs.add(optionalVec3.get());
-			} else if (state.getFluidState().is(FluidTags.WATER)) {
-				vecs.add(pos.getCenter());
+			if (this.isWallPosSlowable(pos, state, collisionShape)) {
+				final Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
+				if (optionalVec3.isPresent()) {
+					vecs.add(optionalVec3.get());
+				} else if (!inWater && state.getFluidState().is(FluidTags.WATER)) {
+					vecs.add(pos.getCenter());
+				}
 			}
 		}
 		return getClosestPos(vecs);
@@ -425,9 +431,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	public boolean isWallPosSlowable(@NotNull BlockPos pos, @NotNull BlockState state, @NotNull VoxelShape collisionShape) {
-		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) {
-			return false;
-		}
+		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) return false;
 		return (!collisionShape.isEmpty() && pos.getY() + collisionShape.min(Direction.Axis.Y) <= this.getEyeY()) || (state.getFluidState().is(FluidTags.WATER));
 	}
 
@@ -607,7 +611,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean onClimbable() {
-		return this.isCrabClimbing() || this.isCrabDescending();
+		return !this.isCrabWalking();
 	}
 
 	@Override
@@ -625,6 +629,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public boolean isCrabDescending() {
 		return this.moveState() == MoveState.DESCENDING;
+	}
+
+	public boolean isCrabWalking() {
+		return this.moveState() == MoveState.WALKING;
 	}
 
 	public void setMoveState(@NotNull MoveState state) {
