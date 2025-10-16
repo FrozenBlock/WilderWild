@@ -21,7 +21,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.client.MesogleaWaterFogUtil;
 import net.minecraft.client.Camera;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.FogType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,10 +32,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(Camera.class)
-public class CameraMixin {
+public abstract class CameraMixin {
 
 	@Shadow
 	private Level level;
+
+	@Shadow
+	public abstract FogType getFluidInCamera();
+
+	@Shadow
+	public abstract BlockPos blockPosition();
 
 	@Inject(
 		method = "tick",
@@ -43,7 +51,7 @@ public class CameraMixin {
 		)
 	)
 	private void wilderWild$tickMesogleaWaterFogHandler(CallbackInfo info) {
-		MesogleaWaterFogUtil.tick(this.level, Camera.class.cast(this));
+		MesogleaWaterFogUtil.tick(this.level, this.blockPosition(), this.getFluidInCamera(), false);
 	}
 
 	@Inject(method = "reset", at = @At("HEAD"))

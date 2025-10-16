@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block.impl.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
-import net.minecraft.client.Camera;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -57,23 +57,26 @@ public class MesogleaWaterFogUtil {
 		);
 	}
 
-	public static void tick(@NotNull Level level, Camera camera) {
+	public static void tick(@NotNull Level level, BlockPos pos, FogType fogType, boolean newlyInWaterOverride) {
 		PREV_FOG_STRENGTH = FOG_STRENGTH;
 		PREV_FOG_COLOR = FOG_COLOR;
 		PREV_FOG_TYPE = FOG_TYPE;
-		FOG_TYPE = camera.getFluidInCamera();
+		FOG_TYPE = fogType;
 
-		if (level.getBlockState(camera.blockPosition()).getBlock() instanceof MesogleaBlock mesogleaBlock) {
+		if (level.getBlockState(pos).getBlock() instanceof MesogleaBlock mesogleaBlock) {
 			final Vector3f mesogleaFogColor = ARGB.vector3fFromRGB24(mesogleaBlock.getWaterFogColorOverride());
-			final boolean isNewlyInWater = (FOG_TYPE == FogType.WATER && PREV_FOG_TYPE != FogType.WATER);
-			final boolean isNew = FOG_COLOR.equals(EMPTY_VEC) || FOG_STRENGTH == 0F || isNewlyInWater;
-			if (isNew) {
+
+			if (FOG_COLOR.equals(EMPTY_VEC)) {
 				PREV_FOG_COLOR = FOG_COLOR = mesogleaFogColor;
-				if (isNewlyInWater) PREV_FOG_STRENGTH = FOG_STRENGTH = 1F;
 			} else {
 				FOG_COLOR = FOG_COLOR.add(mesogleaFogColor.sub(FOG_COLOR).mul(0.05F));
 			}
-			FOG_STRENGTH += (1F - FOG_STRENGTH) * 0.05F;
+
+			if (newlyInWaterOverride || (FOG_TYPE == FogType.WATER && PREV_FOG_TYPE != FogType.WATER)) {
+				PREV_FOG_STRENGTH = FOG_STRENGTH = 1F;
+			} else {
+				FOG_STRENGTH += (1F - FOG_STRENGTH) * 0.05F;
+			}
 		} else {
 			FOG_STRENGTH += (0F - FOG_STRENGTH) * 0.05F;
 		}

@@ -24,7 +24,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.client.MesogleaWaterFogUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.fog.environment.WaterFogEnvironment;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.material.FogType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,12 +41,14 @@ public class WaterFogEnvironmentMixin {
 	@ModifyReturnValue(method = "isApplicable", at = @At("RETURN"))
 	public boolean wilderWild$clearMesogleaFogIfNotApplicable(
 		boolean original,
+		@Local(argsOnly = true) FogType fogType,
 		@Local(argsOnly = true) Entity entity
 	) {
 		if (!original) {
 			MesogleaWaterFogUtil.reset();
 		} else if (!WILDERWILD$PREVIOUSLY_APPLICABLE && entity != null) {
-			MesogleaWaterFogUtil.tick(entity.level(), Minecraft.getInstance().gameRenderer.getMainCamera());
+			final BlockPos pos = Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition();
+			MesogleaWaterFogUtil.tick(entity.level(), pos, fogType, true);
 		}
 		WILDERWILD$PREVIOUSLY_APPLICABLE = original;
 		return original;
