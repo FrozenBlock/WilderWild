@@ -36,6 +36,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.Mob;
@@ -219,12 +220,11 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onPlace(BlockState blockState, @NotNull Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
-		if (level.dimensionType().ultraWarm()) {
-			level.destroyBlock(blockPos, false);
-			level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, blockPos, 0);
-			level.playSound(null, blockPos, WWSounds.BLOCK_MESOGLEA_EVAPORATE, SoundSource.BLOCKS, 1F, (1F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
-		}
+	protected void onPlace(BlockState state, @NotNull Level level, BlockPos pos, BlockState replacingState, boolean bl) {
+		if (!level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos)) return;
+		level.destroyBlock(pos, false);
+		level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, pos, 0);
+		level.playSound(null, pos, WWSounds.BLOCK_MESOGLEA_EVAPORATE, SoundSource.BLOCKS, 1F, (1F + level.getRandom().nextFloat() * 0.2F) * 0.7F);
 	}
 
 	@Override

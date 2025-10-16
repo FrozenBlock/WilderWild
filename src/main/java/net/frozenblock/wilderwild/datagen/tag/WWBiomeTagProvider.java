@@ -685,11 +685,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.DEEP_LUKEWARM_OCEAN)
 			.add(Biomes.WARM_OCEAN);
 
-		this.builder(BiomeTags.HAS_CLOSER_WATER_FOG)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.MESOGLEA_CAVES)
-			.addOptional(WWBiomes.FROZEN_CAVES);
-
 		this.builder(BiomeTags.IS_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.PARCHED_FOREST)
@@ -774,13 +769,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.builder(WWBiomeTags.STRAYS_CAN_SPAWN_UNDERGROUND)
 			.addOptional(WWBiomes.FROZEN_CAVES);
-
-		this.builder(BiomeTags.SNOW_GOLEM_MELTS)
-			.addOptional(WWBiomes.ARID_FOREST)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.PARCHED_FOREST)
-			.addOptional(WWBiomes.OASIS)
-			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
 		this.builder(BiomeTags.SPAWNS_SNOW_FOXES)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)

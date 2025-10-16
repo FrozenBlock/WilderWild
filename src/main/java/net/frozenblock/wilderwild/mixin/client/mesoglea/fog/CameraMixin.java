@@ -15,36 +15,40 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.mesoglea;
+package net.frozenblock.wilderwild.mixin.client.mesoglea.fog;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
+import net.frozenblock.wilderwild.block.impl.client.MesogleaWaterFogUtil;
 import net.minecraft.client.Camera;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.fog.environment.WaterFogEnvironment;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(WaterFogEnvironment.class)
-public class WaterFogEnvironmentMixin {
+@Mixin(Camera.class)
+public class CameraMixin {
 
-	@ModifyExpressionValue(
-		method = "getBaseColor",
+	@Shadow
+	private Level level;
+
+	@Inject(
+		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/util/CubicSampler;sampleVec3(Ljava/util/function/Function;)Lnet/minecraft/world/phys/Vec3;"
+			target = "Lnet/minecraft/world/attribute/EnvironmentAttributeProbe;tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/Vec3;)V"
 		)
 	)
-	private Vec3 wilderWild$replaceWaterFogColorInMesoglea(
-		Vec3 original,
-		ClientLevel level, Camera camera
-	) {
-		if (level.getBlockState(camera.blockPosition()).getBlock() instanceof MesogleaBlock mesogleaBlock) return Vec3.fromRGB24(mesogleaBlock.getWaterFogColorOverride());
-		return original;
+	private void wilderWild$tickMesogleaWaterFogHandler(CallbackInfo info) {
+		MesogleaWaterFogUtil.tick(this.level, Camera.class.cast(this));
+	}
+
+	@Inject(method = "reset", at = @At("HEAD"))
+	private void wilderWild$resetMesogleaFog(CallbackInfo info) {
+		MesogleaWaterFogUtil.reset();
 	}
 
 }

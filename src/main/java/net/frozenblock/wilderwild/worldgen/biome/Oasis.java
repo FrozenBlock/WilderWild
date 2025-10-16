@@ -28,22 +28,17 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
-import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
-import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.Music;
-import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
-import net.minecraft.world.level.biome.AmbientMoodSettings;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributeMap;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -63,7 +58,6 @@ public final class Oasis extends FrozenBiome {
 	public static final float DOWNFALL = 0.25F;
 	public static final int WATER_COLOR = 3981763;
 	public static final int WATER_FOG_COLOR = 270131;
-	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final int FOLIAGE_COLOR = 3193611;
 	public static final int OLD_GRASS_COLOR = 8569413;
@@ -95,23 +89,8 @@ public final class Oasis extends FrozenBiome {
 	}
 
 	@Override
-	public int skyColor() {
-		return SKY_COLOR;
-	}
-
-	@Override
-	public int fogColor() {
-		return FOG_COLOR;
-	}
-
-	@Override
 	public int waterColor() {
 		return WATER_COLOR;
-	}
-
-	@Override
-	public int waterFogColor() {
-		return WATER_FOG_COLOR;
 	}
 
 	@Override
@@ -130,28 +109,11 @@ public final class Oasis extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return null;
-	}
-
-	@Override
-	public @Nullable Holder<SoundEvent> ambientLoopSound() {
-		return null;
-	}
-
-	@Override
-	public @NotNull AmbientMoodSettings ambientMoodSettings() {
-		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
-	}
-
-	@Override
-	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
-		return null;
-	}
-
-	@Override
-	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DESERT);
+	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
+		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+		builder.set(EnvironmentAttributes.WATER_FOG_COLOR, WATER_FOG_COLOR);
+		builder.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_DESERT));
+		builder.set(EnvironmentAttributes.SNOW_GOLEM_MELTS, true);
 	}
 
 	@Override

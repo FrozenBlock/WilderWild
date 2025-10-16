@@ -33,8 +33,8 @@ import org.jetbrains.annotations.NotNull;
 public class ChestUtil {
 
 	public static @NotNull Optional<ChestBlockEntity> getCoupledChestBlockEntity(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		ChestType chestType = state.getValue(ChestBlock.TYPE);
+		final BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		final ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.RIGHT) {
 			mutableBlockPos.move(ChestBlock.getConnectedDirection(state));
 		} else if (chestType == ChestType.LEFT) {
@@ -47,7 +47,7 @@ public class ChestUtil {
 	}
 
 	public static @NotNull Optional<StoneChestBlockEntity> getCoupledStoneChestBlockEntity(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		Optional<ChestBlockEntity> possibleCoupledChest = getCoupledChestBlockEntity(level, pos, state);
+		final Optional<ChestBlockEntity> possibleCoupledChest = getCoupledChestBlockEntity(level, pos, state);
 		if (possibleCoupledChest.isPresent()) {
 			if (possibleCoupledChest.get() instanceof StoneChestBlockEntity stoneChestBlockEntity) return Optional.of(stoneChestBlockEntity);
 		}
@@ -55,30 +55,28 @@ public class ChestUtil {
 	}
 
 	public static void updateBubbles(@NotNull BlockState oldState, @NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos currentPos) {
-		if (level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest && chest instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
-			Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, currentPos, state);
+		if (!(level.getBlockEntity(currentPos) instanceof ChestBlockEntity chest && chest instanceof ChestBlockEntityInterface chestBlockEntityInterface)) return;
 
-			if (possibleCoupledChest.isPresent()) {
-				ChestBlockEntity coupledChest = possibleCoupledChest.get();
-				if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) {
-					BlockState otherState = level.getBlockState(coupledChest.getBlockPos());
-					boolean wasLogged = oldState.getFluidState().is(Fluids.WATER);
+		final Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, currentPos, state);
+		if (possibleCoupledChest.isPresent()) {
+			final ChestBlockEntity coupledChest = possibleCoupledChest.get();
+			if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) {
+				final BlockState otherState = level.getBlockState(coupledChest.getBlockPos());
+				final boolean wasLogged = oldState.getFluidState().is(Fluids.WATER);
 
-					if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) {
-						if (!otherState.getFluidState().is(Fluids.WATER)) {
-							chestBlockEntityInterface.wilderWild$setCanBubble(true);
-							coupledChestInterface.wilderWild$setCanBubble(true);
-						} else if (!coupledChestInterface.wilderWild$getCanBubble()) {
-							chestBlockEntityInterface.wilderWild$setCanBubble(false);
-						}
+				if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) {
+					if (!otherState.getFluidState().is(Fluids.WATER)) {
+						chestBlockEntityInterface.wilderWild$setCanBubble(true);
+						coupledChestInterface.wilderWild$setCanBubble(true);
+					} else if (!coupledChestInterface.wilderWild$getCanBubble()) {
+						chestBlockEntityInterface.wilderWild$setCanBubble(false);
 					}
-
 				}
-			} else {
-				boolean wasLogged = oldState.getFluidState().is(Fluids.WATER);
-				if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) chestBlockEntityInterface.wilderWild$setCanBubble(true);
 			}
-			possibleCoupledChest.ifPresent(chestBlockEntity -> chestBlockEntityInterface.wilderWild$syncBubble(chest, chestBlockEntity));
+		} else {
+			boolean wasLogged = oldState.getFluidState().is(Fluids.WATER);
+			if (wasLogged != state.getFluidState().is(Fluids.WATER) && wasLogged) chestBlockEntityInterface.wilderWild$setCanBubble(true);
 		}
+		possibleCoupledChest.ifPresent(chestBlockEntity -> chestBlockEntityInterface.wilderWild$syncBubble(chest, chestBlockEntity));
 	}
 }

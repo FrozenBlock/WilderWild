@@ -42,7 +42,7 @@ public class SnowyBlockUtils {
 	@Contract("_ -> param1")
 	@NotNull
 	public static BlockState getWorldgenSnowyEquivalent(@NotNull BlockState state) {
-		Block block = state.getBlock();
+		final Block block = state.getBlock();
 		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
@@ -50,13 +50,13 @@ public class SnowyBlockUtils {
 	@Contract("_ -> param1")
 	@NotNull
 	public static BlockState getNonSnowyEquivalent(@NotNull BlockState state) {
-		Block block = state.getBlock();
+		final Block block = state.getBlock();
 		if (NON_SNOWY_BLOCK_MAP.containsKey(block)) return NON_SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
 	public static @NotNull BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
-		BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
+		final BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
 		if (!state.equals(snowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {
 				DoublePlantBlock.placeAt(level, snowyEquivalent, pos, Block.UPDATE_CLIENTS);
@@ -68,7 +68,7 @@ public class SnowyBlockUtils {
 	}
 
 	public static @NotNull BlockState replaceWithNonSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
-		BlockState nonSnowyEquivalent = getNonSnowyEquivalent(state);
+		final BlockState nonSnowyEquivalent = getNonSnowyEquivalent(state);
 		if (!state.equals(nonSnowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {
 				DoublePlantBlock.placeAt(level, nonSnowyEquivalent, pos, Block.UPDATE_CLIENTS);

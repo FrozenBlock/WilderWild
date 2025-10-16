@@ -28,19 +28,15 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
-import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
-import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.Music;
-import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.biome.AmbientAdditionsSettings;
-import net.minecraft.world.level.biome.AmbientMoodSettings;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributeMap;
+import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.attribute.modifier.FloatModifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
@@ -62,7 +58,6 @@ public final class FrozenCaves extends FrozenBiome {
 	public static final float DOWNFALL = 0.4F;
 	public static final int WATER_COLOR = 10601471;
 	public static final int WATER_FOG_COLOR = 8168948;
-	public static final int FOG_COLOR = WWSharedWorldgen.STOCK_FOG_COLOR;
 	public static final int SKY_COLOR = OverworldBiomes.calculateSkyColor(TEMP);
 	public static final FrozenCaves INSTANCE = new FrozenCaves();
 
@@ -92,23 +87,8 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	@Override
-	public int skyColor() {
-		return SKY_COLOR;
-	}
-
-	@Override
-	public int fogColor() {
-		return FOG_COLOR;
-	}
-
-	@Override
 	public int waterColor() {
 		return WATER_COLOR;
-	}
-
-	@Override
-	public int waterFogColor() {
-		return WATER_FOG_COLOR;
 	}
 
 	@Override
@@ -127,28 +107,12 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	@Override
-	public @Nullable AmbientParticleSettings ambientParticleSettings() {
-		return null;
-	}
-
-	@Override
-	public @Nullable Holder<SoundEvent> ambientLoopSound() {
-		return null;
-	}
-
-	@Override
-	public @NotNull AmbientMoodSettings ambientMoodSettings() {
-		return AmbientMoodSettings.LEGACY_CAVE_SETTINGS;
-	}
-
-	@Override
-	public @Nullable AmbientAdditionsSettings ambientAdditionsSound() {
-		return null;
-	}
-
-	@Override
-	public @NotNull Music backgroundMusic() {
-		return Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FROZEN_PEAKS);
+	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
+		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+		builder.set(EnvironmentAttributes.WATER_FOG_COLOR, WATER_FOG_COLOR);
+		builder.modify(EnvironmentAttributes.WATER_FOG_RADIUS, FloatModifier.MULTIPLY, 0.75F);
+		builder.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FROZEN_PEAKS));
+		builder.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true);
 	}
 
 	@Override
@@ -184,11 +148,8 @@ public final class FrozenCaves extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateFrozenCaves) {
-			for (float depth : DEPTHS) {
-				this.addFrozenCavesAtDepth(parameters, depth);
-			}
-		}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateFrozenCaves) return;
+		for (float depth : DEPTHS) this.addFrozenCavesAtDepth(parameters, depth);
 	}
 
 	public void addFrozenCavesAtDepth(@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, float depth) {

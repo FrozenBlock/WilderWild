@@ -26,8 +26,10 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.attribute.AmbientParticle;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biomes;
+import java.util.List;
 
 public final class WWBiomeSettings {
 
@@ -36,63 +38,54 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.deepDarkFog) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setFogColor(0);
-				}
+				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.deepDarkFog) return;
+				setFogColor(modificationContext, 0);
 			});
 
 		BiomeModifications.create(WWConstants.id("fog_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesFog) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setFogColor(0);
-				}
+				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesFog) return;
+				setFogColor(modificationContext, 0);
 			});
 
 		BiomeModifications.create(WWConstants.id("fog_mesoglea_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesFog) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setFogColor(0);
-				}
+				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesFog) return;
+				setFogColor(modificationContext, 0);
 			});
 
 		BiomeModifications.create(WWConstants.id("fog_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesFog) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setFogColor(0);
-				}
+				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesFog) return;
+				setFogColor(modificationContext, 0);
 			});
 
 		BiomeModifications.create(WWConstants.id("particles_magmatic_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesParticles) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setParticleConfig(new AmbientParticleSettings(ParticleTypes.LARGE_SMOKE, 0.00123F));
-				}
+				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesParticles) return;
+				modificationContext.getAttributes().set(
+					EnvironmentAttributes.AMBIENT_PARTICLES,
+					List.of(new AmbientParticle(ParticleTypes.LARGE_SMOKE, 0.00123F))
+				);
 			});
 
 		BiomeModifications.create(WWConstants.id("foliage_color_badlands")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().vegetationColors.badlandsFoliage) {
-					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
-					context.setFoliageColor(11445290);
-				}
+				if (!WWAmbienceAndMiscConfig.get().vegetationColors.badlandsFoliage) return;
+				modificationContext.getEffects().setFoliageColor(11445290);
 			});
 
-		WWMusic.playMusic();
+		WWBiomeMusicAndAmbience.playMusic();
 		WWWaterColors.stirWater();
 		WWSpawns.addBugs();
 		WWSpawns.addJellyfish();
@@ -102,5 +95,9 @@ public final class WWBiomeSettings {
 		WWSpawns.addTumbleweed();
 		WWSpawns.addRabbits();
 		WWSpawns.addMooblooms();
+	}
+
+	private static void setFogColor(BiomeModificationContext context, int color) {
+		context.getAttributes().set(EnvironmentAttributes.FOG_COLOR, color);
 	}
 }
