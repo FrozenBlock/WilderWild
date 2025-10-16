@@ -80,7 +80,7 @@ public class MesogleaWaterFogUtil {
 			FOG_STRENGTH += (0F - FOG_STRENGTH) * 0.05F;
 		}
 
-		if (PREV_FOG_STRENGTH <= 0F) reset(false);
+		if (PREV_FOG_STRENGTH <= 0F && FOG_STRENGTH <= 0F) reset(false);
 	}
 
 }
