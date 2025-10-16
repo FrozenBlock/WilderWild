@@ -17,7 +17,10 @@
 
 package net.frozenblock.wilderwild.mixin.client.mesoglea.fog;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,6 +28,8 @@ import net.frozenblock.wilderwild.block.impl.client.MesogleaWaterFogUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.fog.environment.WaterFogEnvironment;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.attribute.EnvironmentAttribute;
+import net.minecraft.world.attribute.EnvironmentAttributeProbe;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.material.FogType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,6 +42,21 @@ public class WaterFogEnvironmentMixin {
 
 	@Unique
 	private static boolean WILDERWILD$PREVIOUSLY_APPLICABLE = false;
+
+	@WrapOperation(
+		method = "setupFog",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/attribute/EnvironmentAttributeProbe;getValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;F)Ljava/lang/Object;"
+		)
+	)
+	public Object wilderWild$drawMesogleaFogCloser(
+		EnvironmentAttributeProbe instance, EnvironmentAttribute<Object> environmentAttribute, float partialTick, Operation<Object> original
+	) {
+		final Object object = original.call(instance, environmentAttribute, partialTick);
+		if (!(object instanceof Float flt)) return object;
+		return MesogleaWaterFogUtil.getModifiedFogDistance(partialTick, flt);
+	}
 
 	@ModifyReturnValue(method = "isApplicable", at = @At("RETURN"))
 	public boolean wilderWild$clearMesogleaFogIfNotApplicable(

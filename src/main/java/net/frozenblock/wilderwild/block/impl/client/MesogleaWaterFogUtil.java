@@ -45,8 +45,13 @@ public class MesogleaWaterFogUtil {
 		if (resetFogType) PREV_FOG_TYPE = FOG_TYPE = FogType.NONE;
 	}
 
+	public static Float getModifiedFogDistance(float partialTick, Float original) {
+		if (PREV_FOG_STRENGTH == 0F && FOG_STRENGTH == 0F) return original;
+		return original * Mth.lerp(Mth.lerp(partialTick, PREV_FOG_STRENGTH, FOG_STRENGTH), 1F, 0.5F);
+	}
+
 	public static int getModifiedColor(float partialTick, int original) {
-		if (PREV_FOG_STRENGTH == 0F) return original;
+		if (PREV_FOG_STRENGTH == 0F && FOG_STRENGTH == 0F) return original;
 		return ARGB.color(
 			new Vec3(
 				ARGB.vector3fFromRGB24(original).lerp(
