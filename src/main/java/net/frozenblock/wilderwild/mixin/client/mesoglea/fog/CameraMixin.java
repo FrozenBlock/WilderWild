@@ -56,7 +56,7 @@ public abstract class CameraMixin {
 
 	@Inject(method = "reset", at = @At("HEAD"))
 	private void wilderWild$resetMesogleaFog(CallbackInfo info) {
-		MesogleaWaterFogUtil.reset();
+		MesogleaWaterFogUtil.reset(true);
 	}
 
 }

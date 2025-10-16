@@ -45,7 +45,7 @@ public class WaterFogEnvironmentMixin {
 		@Local(argsOnly = true) Entity entity
 	) {
 		if (!original) {
-			MesogleaWaterFogUtil.reset();
+			MesogleaWaterFogUtil.reset(true);
 		} else if (!WILDERWILD$PREVIOUSLY_APPLICABLE && entity != null) {
 			final BlockPos pos = Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition();
 			MesogleaWaterFogUtil.tick(entity.level(), pos, fogType, true);

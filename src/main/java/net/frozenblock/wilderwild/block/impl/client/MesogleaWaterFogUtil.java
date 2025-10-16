@@ -39,10 +39,10 @@ public class MesogleaWaterFogUtil {
 	private static FogType PREV_FOG_TYPE = FogType.NONE;
 	private static FogType FOG_TYPE = FogType.NONE;
 
-	public static void reset() {
+	public static void reset(boolean resetFogType) {
 		PREV_FOG_COLOR = FOG_COLOR = new Vector3f(0F, 0F, 0F);
 		PREV_FOG_STRENGTH = FOG_STRENGTH = 0F;
-		PREV_FOG_TYPE = FOG_TYPE = FogType.NONE;
+		if (resetFogType) PREV_FOG_TYPE = FOG_TYPE = FogType.NONE;
 	}
 
 	public static int getModifiedColor(float partialTick, int original) {
@@ -65,7 +65,6 @@ public class MesogleaWaterFogUtil {
 
 		if (level.getBlockState(pos).getBlock() instanceof MesogleaBlock mesogleaBlock) {
 			final Vector3f mesogleaFogColor = ARGB.vector3fFromRGB24(mesogleaBlock.getWaterFogColorOverride());
-
 			if (FOG_COLOR.equals(EMPTY_VEC)) {
 				PREV_FOG_COLOR = FOG_COLOR = mesogleaFogColor;
 			} else {
@@ -81,7 +80,7 @@ public class MesogleaWaterFogUtil {
 			FOG_STRENGTH += (0F - FOG_STRENGTH) * 0.05F;
 		}
 
-		if (PREV_FOG_STRENGTH <= 0F) reset();
+		if (PREV_FOG_STRENGTH <= 0F) reset(false);
 	}
 
 }
