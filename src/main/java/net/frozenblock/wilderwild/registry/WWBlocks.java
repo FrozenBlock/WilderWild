@@ -1370,7 +1370,7 @@ public final class WWBlocks {
 		"baobab_shelf",
 		ShelfBlock::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.WOOD)
+			.mapColor(BAOBAB_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
 			.sound(SoundType.SHELF)
 			.ignitedByLava()
@@ -1487,7 +1487,7 @@ public final class WWBlocks {
 		"willow_shelf",
 		ShelfBlock::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.WOOD)
+			.mapColor(WILLOW_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
 			.sound(SoundType.SHELF)
 			.ignitedByLava()
@@ -1605,7 +1605,7 @@ public final class WWBlocks {
 		"cypress_shelf",
 		ShelfBlock::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.WOOD)
+			.mapColor(CYPRESS_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
 			.sound(SoundType.SHELF)
 			.ignitedByLava()
@@ -1723,7 +1723,7 @@ public final class WWBlocks {
 		"palm_shelf",
 		ShelfBlock::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.WOOD)
+			.mapColor(PALM_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
 			.sound(SoundType.SHELF)
 			.ignitedByLava()
@@ -1846,7 +1846,7 @@ public final class WWBlocks {
 		"maple_shelf",
 		ShelfBlock::new,
 		BlockBehaviour.Properties.of()
-			.mapColor(MapColor.WOOD)
+			.mapColor(MAPLE_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
 			.sound(SoundType.SHELF)
 			.ignitedByLava()
