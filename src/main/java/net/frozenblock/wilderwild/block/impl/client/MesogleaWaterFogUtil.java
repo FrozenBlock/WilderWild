@@ -69,7 +69,7 @@ public class MesogleaWaterFogUtil {
 		FOG_TYPE = fogType;
 
 		if (level.getBlockState(pos).getBlock() instanceof MesogleaBlock mesogleaBlock) {
-			final Vector3f mesogleaFogColor = ARGB.vector3fFromRGB24(mesogleaBlock.getWaterFogColorOverride());
+			final Vector3f mesogleaFogColor = ARGB.vector3fFromRGB24(mesogleaBlock.getWaterFogColorOverride().rgba());
 			if (FOG_COLOR.equals(EMPTY_VEC)) {
 				PREV_FOG_COLOR = FOG_COLOR = mesogleaFogColor;
 			} else {

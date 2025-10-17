@@ -112,6 +112,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -2075,7 +2076,7 @@ public final class WWBlocks {
 			id,
 			properties -> new MesogleaBlock(
 				pearlescent,
-				waterFogColor,
+				new ColorRGBA(waterFogColor),
 				dripParticle,
 				bubbleParticle,
 				bubbleColumnUpParticle,

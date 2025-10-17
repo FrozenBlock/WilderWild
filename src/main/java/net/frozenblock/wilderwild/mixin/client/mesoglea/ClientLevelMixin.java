@@ -21,6 +21,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -33,6 +35,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -55,12 +58,30 @@ public abstract class ClientLevelMixin extends Level {
 			target = "Lnet/minecraft/world/level/material/FluidState;getDripParticle()Lnet/minecraft/core/particles/ParticleOptions;"
 		)
 	)
-	public ParticleOptions wilderWild$replaceWaterFogColorInMesoglea(
+	public ParticleOptions wilderWild$useMesogleaDripParticle(
 		ParticleOptions original,
-		@Local BlockState state
+		@Local BlockState state,
+		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (state.getBlock() instanceof MesogleaBlock) return null;
+		if (state.getBlock() instanceof MesogleaBlock mesoglea) {
+			isMesoglea.set(true);
+			return mesoglea.getDripParticle();
+		}
 		return original;
+	}
+
+	@WrapOperation(
+		method = "doAnimateTick",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"
+		)
+	)
+	public int wilderWild$lessDrippingIfMesoglea(
+		RandomSource instance, int i, Operation<Integer> original,
+		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
+	) {
+		return original.call(instance, isMesoglea.get() ? MesogleaBlock.DRIP_PARTICLE_CHANCE : i);
 	}
 
 	@WrapOperation(

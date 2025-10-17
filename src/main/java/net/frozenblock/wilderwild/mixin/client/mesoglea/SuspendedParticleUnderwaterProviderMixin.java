@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class SuspendedParticleUnderwaterProviderMixin {
 
 	@WrapOperation(
-		method = "Lnet/minecraft/client/particle/SuspendedParticle$UnderwaterProvider;createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
+		method = "createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/particle/SuspendedParticle;setColor(FFF)V"
@@ -48,7 +48,7 @@ public class SuspendedParticleUnderwaterProviderMixin {
 	) {
 		final BlockState state = clientLevel.getBlockState(BlockPos.containing(x, y, z));
 		if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
-			int mesogleaColor = mesogleaBlock.getWaterFogColorOverride();
+			final int mesogleaColor = mesogleaBlock.getWaterFogColorOverride().rgba();
 			r = ARGB.red(mesogleaColor) / 255F;
 			g = ARGB.green(mesogleaColor) / 255F;
 			b  = ARGB.blue(mesogleaColor) / 255F;
