@@ -42,6 +42,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ClientLevel.class)
@@ -74,7 +75,14 @@ public abstract class ClientLevelMixin extends Level {
 		method = "doAnimateTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"
+			target = "Lnet/minecraft/util/RandomSource;nextInt(I)I",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/world/level/material/FluidState;getDripParticle()Lnet/minecraft/core/particles/ParticleOptions;"
+			)
 		)
 	)
 	public int wilderWild$lessDrippingIfMesoglea(
