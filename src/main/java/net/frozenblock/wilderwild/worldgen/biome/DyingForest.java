@@ -131,20 +131,21 @@ public final class DyingForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateDyingForest) {
-			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+		if (!biomeGeneration.generateDyingForest) return;
+
+		final Climate.Parameter temperature = biomeGeneration.generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

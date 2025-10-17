@@ -129,18 +129,17 @@ public final class TemperateRainforest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateTemperateRainforest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					EROSION,
-					point.weirdness(),
-					point.offset()
-				);
-			}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateTemperateRainforest) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				point.continentalness(),
+				EROSION,
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

@@ -124,18 +124,17 @@ public final class MixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateMixedForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateMixedForest) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.TAIGA)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

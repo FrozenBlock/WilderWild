@@ -95,124 +95,131 @@ public final class WWParticleEngine {
 
 		particleRegistry.register(WWParticleTypes.PLANKTON, PlanktonParticle.PlanktonProvider::new);
 		particleRegistry.register(WWParticleTypes.GLOWING_PLANKTON, PlanktonParticle.GlowingProvider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.BPMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.BPMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.BPMesogleaLandProvider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_BLUE, MesogleaDripParticle.PearlescentBlueHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_PEARLESCENT_BLUE, MesogleaDripParticle.PearlescentBlueFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_PEARLESCENT_BLUE, MesogleaDripParticle.LandProvider::new);
 		particleRegistry.register(
-			WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_BLUE,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_BLUE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_BLUE,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_BLUE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_BLUE,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_BLUE)
 		);
-		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_PEARLESCENT_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.PURPLE_PEARLESCENT_HANGING_MESOGLEA, MesogleaDripParticle.PPMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.PURPLE_PEARLESCENT_FALLING_MESOGLEA, MesogleaDripParticle.PPMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.PURPLE_PEARLESCENT_LANDING_MESOGLEA, MesogleaDripParticle.PPMesogleaLandProvider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_BLUE, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_BLUE, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_PURPLE, MesogleaDripParticle.PearlescentPurpleHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_PEARLESCENT_PURPLE, MesogleaDripParticle.PearlescentPurpleFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_PEARLESCENT_PURPLE, MesogleaDripParticle.LandProvider::new);
 		particleRegistry.register(
-			WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(
-			WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_PURPLE,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_PURPLE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.PURPLE_PEARLESCENT_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_HANGING_MESOGLEA, MesogleaDripParticle.BMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_FALLING_MESOGLEA, MesogleaDripParticle.BMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_LANDING_MESOGLEA, MesogleaDripParticle.BMesogleaLandProvider::new);
-		particleRegistry.register(
-			WWParticleTypes.BLUE_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.BLUE_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_PURPLE,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_PURPLE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.BLUE_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.BLUE_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_PURPLE,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_PURPLE)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_PEARLESCENT_PURPLE, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_PURPLE, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_BLUE, MesogleaDripParticle.BlueHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_BLUE, MesogleaDripParticle.BlueFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_BLUE, MesogleaDripParticle.LandProvider::new);
+		particleRegistry.register(
+			WWParticleTypes.MESOGLEA_BUBBLE_BLUE,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_BLUE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.BLUE_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.BLUE_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(WWParticleTypes.BLUE_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.BLUE_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.YELLOW_HANGING_MESOGLEA, MesogleaDripParticle.YMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.YELLOW_FALLING_MESOGLEA, MesogleaDripParticle.YMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.YELLOW_LANDING_MESOGLEA, MesogleaDripParticle.YMesogleaLandProvider::new);
-		particleRegistry.register(
-			WWParticleTypes.YELLOW_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_BLUE,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_BLUE)
 		);
 		particleRegistry.register(
-			WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_BLUE,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_BLUE)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_BLUE, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_BLUE, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_YELLOW, MesogleaDripParticle.YellowHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_YELLOW, MesogleaDripParticle.YellowFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_YELLOW, MesogleaDripParticle.LandProvider::new);
+		particleRegistry.register(
+			WWParticleTypes.MESOGLEA_BUBBLE_YELLOW,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_YELLOW)
 		);
 		particleRegistry.register(
-			WWParticleTypes.YELLOW_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(WWParticleTypes.YELLOW_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.YELLOW_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.LIME_HANGING_MESOGLEA, MesogleaDripParticle.LMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.LIME_FALLING_MESOGLEA, MesogleaDripParticle.LMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.LIME_LANDING_MESOGLEA, MesogleaDripParticle.LMesogleaLandProvider::new);
-		particleRegistry.register(
-			WWParticleTypes.LIME_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.LIME_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_YELLOW,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_YELLOW)
 		);
 		particleRegistry.register(
-			WWParticleTypes.LIME_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.LIME_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_YELLOW,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_YELLOW)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_YELLOW, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_YELLOW, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_LIME, MesogleaDripParticle.LimeHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_LIME, MesogleaDripParticle.LimeFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_LIME, MesogleaDripParticle.LandProvider::new);
+		particleRegistry.register(
+			WWParticleTypes.MESOGLEA_BUBBLE_LIME,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_LIME)
 		);
 		particleRegistry.register(
-			WWParticleTypes.LIME_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.LIME_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(WWParticleTypes.LIME_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.LIME_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.PINK_HANGING_MESOGLEA, MesogleaDripParticle.PMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.PINK_FALLING_MESOGLEA, MesogleaDripParticle.PMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.PINK_LANDING_MESOGLEA, MesogleaDripParticle.PMesogleaLandProvider::new);
-		particleRegistry.register(
-			WWParticleTypes.PINK_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.PINK_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_LIME,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_LIME)
 		);
 		particleRegistry.register(
-			WWParticleTypes.PINK_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.PINK_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_LIME,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_LIME)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_LIME, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_LIME, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_PINK, MesogleaDripParticle.PinkHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_PINK, MesogleaDripParticle.PinkFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_PINK, MesogleaDripParticle.LandProvider::new);
+		particleRegistry.register(
+			WWParticleTypes.MESOGLEA_BUBBLE_PINK,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PINK)
 		);
 		particleRegistry.register(
-			WWParticleTypes.PINK_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.PINK_MESOGLEA_BUBBLE_POP)
-		);
-		particleRegistry.register(WWParticleTypes.PINK_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.PINK_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.RED_HANGING_MESOGLEA, MesogleaDripParticle.RMesogleaHangProvider::new);
-		particleRegistry.register(WWParticleTypes.RED_FALLING_MESOGLEA, MesogleaDripParticle.RMesogleaFallProvider::new);
-		particleRegistry.register(WWParticleTypes.RED_LANDING_MESOGLEA, MesogleaDripParticle.RMesogleaLandProvider::new);
-		particleRegistry.register(
-			WWParticleTypes.RED_MESOGLEA_BUBBLE,
-			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.RED_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PINK,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PINK)
 		);
 		particleRegistry.register(
-			WWParticleTypes.RED_MESOGLEA_BUBBLE_COLUMN_UP,
-			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.RED_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_PINK,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_PINK)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_PINK, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_PINK, MesogleaSplashParticle.Provider::new);
+
+		particleRegistry.register(WWParticleTypes.HANGING_MESOGLEA_RED, MesogleaDripParticle.RedHangProvider::new);
+		particleRegistry.register(WWParticleTypes.FALLING_MESOGLEA_RED, MesogleaDripParticle.RedFallProvider::new);
+		particleRegistry.register(WWParticleTypes.LANDING_MESOGLEA_RED, MesogleaDripParticle.LandProvider::new);
+		particleRegistry.register(
+			WWParticleTypes.MESOGLEA_BUBBLE_RED,
+			(spriteProvider) -> new MesogleaBubbleParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_RED)
 		);
 		particleRegistry.register(
-			WWParticleTypes.RED_MESOGLEA_CURRENT_DOWN,
-			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.RED_MESOGLEA_BUBBLE_POP)
+			WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_RED,
+			(spriteProvider) -> new MesogleaBubbleColumnUpParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_RED)
 		);
-		particleRegistry.register(WWParticleTypes.RED_MESOGLEA_BUBBLE_POP, MesogleaBubblePopParticle.Provider::new);
-		particleRegistry.register(WWParticleTypes.RED_MESOGLEA_SPLASH, MesogleaSplashParticle.Provider::new);
+		particleRegistry.register(
+			WWParticleTypes.CURRENT_DOWN_MESOGLEA_RED,
+			(spriteProvider) -> new MesogleaCurrentDownParticle.Provider(spriteProvider, WWParticleTypes.MESOGLEA_BUBBLE_POP_RED)
+		);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_RED, MesogleaBubblePopParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_RED, MesogleaSplashParticle.Provider::new);
 	}
 }

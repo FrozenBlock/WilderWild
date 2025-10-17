@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -128,22 +129,22 @@ public final class SnowyDyingForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateSnowyDyingForest) {
-			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
-				if (point.weirdness().max() >= 0L) {
-					this.addSurfaceBiome(
-						parameters,
-						generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
-						HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
-			}
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+		if (!biomeGeneration.generateSnowyDyingForest) return;
+
+		final Climate.Parameter temperature = biomeGeneration.generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+			if (FrozenBiomeParameters.isWeird(point)) continue;
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

@@ -141,32 +141,33 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateSnowyDyingMixedForest) {
-			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
-				boolean weird = FrozenBiomeParameters.isWeird(point);
-				this.addSurfaceBiome(
-					parameters,
-					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
-					weird ? HUMIDITY_WEIRD : HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
-			if (WWWorldgenConfig.get().biomeGeneration.generateMapleForest || generateTundra) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_TUNDRA,
-					HUMIDITY_MAPLE,
-					CONTINENTALNESS_MAPLE,
-					EROSION_MAPLE,
-					WEIRDNESS_MAPLE,
-					0F
-				);
-			}
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+		if (!biomeGeneration.generateSnowyDyingMixedForest) return;
+
+		final boolean generateTundra = biomeGeneration.generateTundra;
+		final Climate.Parameter temperature = generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				FrozenBiomeParameters.isWeird(point) ? HUMIDITY_WEIRD : HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
+		}
+		if (biomeGeneration.generateMapleForest || generateTundra) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_TUNDRA,
+				HUMIDITY_MAPLE,
+				CONTINENTALNESS_MAPLE,
+				EROSION_MAPLE,
+				WEIRDNESS_MAPLE,
+				0F
+			);
 		}
 	}
 

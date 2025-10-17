@@ -7,7 +7,7 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "wilderwild:purple_pearlescent_mesoglea",
+        "Name": "wilderwild:pearlescent_purple_mesoglea",
         "Properties": {
           "bubble_direction": "none"
         }

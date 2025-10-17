@@ -465,10 +465,10 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropWhenSilkTouch(WWBlocks.YELLOW_NEMATOCYST);
 		this.dropSelf(WWBlocks.RED_MESOGLEA);
 		this.dropWhenSilkTouch(WWBlocks.RED_NEMATOCYST);
-		this.dropSelf(WWBlocks.BLUE_PEARLESCENT_MESOGLEA);
-		this.dropWhenSilkTouch(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
-		this.dropSelf(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA);
-		this.dropWhenSilkTouch(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
+		this.dropSelf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
+		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
+		this.dropSelf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
+		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
 
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, WWBlocks.VERDANT_FROGLIGHT_GOOP);

@@ -118,25 +118,25 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		this.valueLookupBuilder(WWItemTags.MESOGLEA)
 			.add(WWBlocks.BLUE_MESOGLEA.asItem())
-			.add(WWBlocks.BLUE_PEARLESCENT_MESOGLEA.asItem())
+			.add(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.asItem())
 			.add(WWBlocks.LIME_MESOGLEA.asItem())
 			.add(WWBlocks.PINK_MESOGLEA.asItem())
-			.add(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA.asItem())
+			.add(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.asItem())
 			.add(WWBlocks.RED_MESOGLEA.asItem())
 			.add(WWBlocks.YELLOW_MESOGLEA.asItem());
 
 		this.valueLookupBuilder(WWItemTags.NEMATOCYSTS)
 			.add(WWBlocks.BLUE_NEMATOCYST.asItem())
-			.add(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST.asItem())
+			.add(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.asItem())
 			.add(WWBlocks.LIME_NEMATOCYST.asItem())
 			.add(WWBlocks.PINK_NEMATOCYST.asItem())
-			.add(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST.asItem())
+			.add(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.asItem())
 			.add(WWBlocks.RED_NEMATOCYST.asItem())
 			.add(WWBlocks.YELLOW_NEMATOCYST.asItem());
 
 		this.valueLookupBuilder(WWItemTags.PEARLESCENT_NEMATOCYSTS)
-			.add(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST.asItem())
-			.add(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST.asItem());
+			.add(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.asItem())
+			.add(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.asItem());
 
 		this.valueLookupBuilder(WWItemTags.FROGLIGHT_GOOP)
 			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.asItem())

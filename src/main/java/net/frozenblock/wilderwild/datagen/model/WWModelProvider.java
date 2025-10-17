@@ -163,16 +163,16 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createMesoglea(generator, WWBlocks.PINK_MESOGLEA);
 		WWModelHelper.createMesoglea(generator, WWBlocks.RED_MESOGLEA);
 		WWModelHelper.createMesoglea(generator, WWBlocks.YELLOW_MESOGLEA);
-		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_PEARLESCENT_MESOGLEA);
-		WWModelHelper.createMesoglea(generator, WWBlocks.PURPLE_PEARLESCENT_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
+		WWModelHelper.createMesoglea(generator, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
 
 		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_NEMATOCYST);
 		WWModelHelper.createNematocyst(generator, WWBlocks.LIME_NEMATOCYST);
 		WWModelHelper.createNematocyst(generator, WWBlocks.PINK_NEMATOCYST);
 		WWModelHelper.createNematocyst(generator, WWBlocks.RED_NEMATOCYST);
 		WWModelHelper.createNematocyst(generator, WWBlocks.YELLOW_NEMATOCYST);
-		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
-		WWModelHelper.createNematocyst(generator, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
+		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
 
 		WWModelHelper.createHangingFroglight(generator, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
 		WWModelHelper.createHangingFroglight(generator, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, WWBlocks.VERDANT_FROGLIGHT_GOOP);

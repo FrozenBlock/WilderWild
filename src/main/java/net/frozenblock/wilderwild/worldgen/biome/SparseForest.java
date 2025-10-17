@@ -136,47 +136,47 @@ public final class SparseForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
-		if (worldgenConfig.biomeGeneration.generateSparseForest) {
-			Climate.Parameter temperature = worldgenConfig.biomeGeneration.generateDyingForest ? TEMPERATURE_WITH_DYING_FORESTS : TEMPERATURE;
 
-			this.addSurfaceBiome(
-				parameters,
-				temperature,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_A,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				temperature,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_B,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				temperature,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_C,
-				0F
-			);
-			this.addSurfaceBiome(
-				parameters,
-				temperature,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS_D,
-				0F
-			);
-		}
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+		if (!biomeGeneration.generateSparseForest) return;
+
+		final Climate.Parameter temperature = biomeGeneration.generateDyingForest ? TEMPERATURE_WITH_DYING_FORESTS : TEMPERATURE;
+		this.addSurfaceBiome(
+			parameters,
+			temperature,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_A,
+			0F
+		);
+		this.addSurfaceBiome(
+			parameters,
+			temperature,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_B,
+			0F
+		);
+		this.addSurfaceBiome(
+			parameters,
+			temperature,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_C,
+			0F
+		);
+		this.addSurfaceBiome(
+			parameters,
+			temperature,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_D,
+			0F
+		);
 	}
 
 }

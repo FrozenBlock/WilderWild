@@ -3,7 +3,7 @@
     "minecraft:clay",
     "minecraft:dripstone_block",
     "minecraft:calcite",
-    "wilderwild:purple_pearlescent_mesoglea",
+    "wilderwild:pearlescent_purple_mesoglea",
     {
       "id": "#minecraft:base_stone_overworld",
       "required": false

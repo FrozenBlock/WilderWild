@@ -171,107 +171,107 @@ public final class CypressWetlands extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateCypressWetlands) {
+		if (!WWWorldgenConfig.get().biomeGeneration.generateCypressWetlands) return;
+
+		this.addSurfaceBiome(
+			parameters,
+			TEMPERATURE,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_A,
+			OFFSET
+		);
+		this.addSurfaceBiome(
+			parameters,
+			TEMPERATURE,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_B,
+			OFFSET
+		);
+		this.addSurfaceBiome(
+			parameters,
+			TEMPERATURE,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS_C,
+			OFFSET
+		);
+
+		final List<Climate.ParameterPoint> swampJungleBorders = FrozenBiomeParameters.findBorderParameters(
+			OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
+			OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
+			0.35F
+		);
+
+		swampJungleBorders.forEach(parameterPoint -> {
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
 				WEIRDNESS_A,
-				OFFSET
+				parameterPoint.offset()
 			);
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
 				WEIRDNESS_B,
-				OFFSET
+				parameterPoint.offset()
 			);
 			this.addSurfaceBiome(
 				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
 				WEIRDNESS_C,
-				OFFSET
+				parameterPoint.offset()
 			);
-
-			List<Climate.ParameterPoint> swampJungleBorders = FrozenBiomeParameters.findBorderParameters(
-				OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
-				OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
-				0.35F
+			this.addSurfaceBiome(
+				parameters,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
+				WEIRDNESS_D,
+				parameterPoint.offset()
 			);
-
-			swampJungleBorders.forEach(parameterPoint -> {
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_A,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_B,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_C,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_D,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_E,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_F,
-					parameterPoint.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					parameterPoint.temperature(),
-					parameterPoint.humidity(),
-					parameterPoint.continentalness(),
-					parameterPoint.erosion(),
-					WEIRDNESS_G,
-					parameterPoint.offset()
-				);
-			});
-		}
+			this.addSurfaceBiome(
+				parameters,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
+				WEIRDNESS_E,
+				parameterPoint.offset()
+			);
+			this.addSurfaceBiome(
+				parameters,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
+				WEIRDNESS_F,
+				parameterPoint.offset()
+			);
+			this.addSurfaceBiome(
+				parameters,
+				parameterPoint.temperature(),
+				parameterPoint.humidity(),
+				parameterPoint.continentalness(),
+				parameterPoint.erosion(),
+				WEIRDNESS_G,
+				parameterPoint.offset()
+			);
+		});
 	}
 
 }

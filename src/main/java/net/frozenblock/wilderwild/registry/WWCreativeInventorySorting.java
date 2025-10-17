@@ -312,18 +312,18 @@ public final class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.OSTRICH_EGG, WWBlocks.PENGUIN_EGG);
 
 		// MESOGLEA
-		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.BLUE_PEARLESCENT_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.BLUE_PEARLESCENT_MESOGLEA, WWBlocks.PURPLE_PEARLESCENT_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA, WWBlocks.BLUE_MESOGLEA);
+		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
+		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_MESOGLEA, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
+		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, WWBlocks.BLUE_MESOGLEA);
 		addAfterInNaturalBlocks(WWBlocks.BLUE_MESOGLEA, WWBlocks.PINK_MESOGLEA);
 		addAfterInNaturalBlocks(WWBlocks.PINK_MESOGLEA, WWBlocks.RED_MESOGLEA);
 		addAfterInNaturalBlocks(WWBlocks.RED_MESOGLEA, WWBlocks.YELLOW_MESOGLEA);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MESOGLEA, WWBlocks.LIME_MESOGLEA);
 
 		// NEMATOCYST
-		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST, WWBlocks.BLUE_NEMATOCYST);
+		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
+		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
+		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.BLUE_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.BLUE_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.PINK_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
 		addAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);

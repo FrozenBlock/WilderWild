@@ -56,17 +56,13 @@ public final class WWEntityLootProvider extends FabricEntityLootTableProvider {
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
 			.forEach(reference -> {
-				ResourceLocation id = reference.key().location();
-				ResourceLocation lootTableId = ResourceLocation.fromNamespaceAndPath(
+				final ResourceLocation id = reference.key().location();
+				final String path = id.getPath();
+				final ResourceLocation lootTableId = ResourceLocation.fromNamespaceAndPath(
 					id.getNamespace(),
-					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + id.getPath()
+					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + path
 				);
-				String pearlescentFixedId = id.getPath();
-				if (pearlescentFixedId.contains("pearlescent_")) {
-					pearlescentFixedId = pearlescentFixedId.replace("pearlescent_", "");
-					pearlescentFixedId = pearlescentFixedId + "_pearlescent";
-				}
-				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(pearlescentFixedId + "_nematocyst"))).value();
+				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
 				this.add(
 					WWEntityTypes.JELLYFISH,
 					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),

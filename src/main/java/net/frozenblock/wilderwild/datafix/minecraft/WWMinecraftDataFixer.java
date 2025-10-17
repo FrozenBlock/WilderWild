@@ -40,8 +40,9 @@ public final class WWMinecraftDataFixer {
 	// 5 is 25w05a (bush -> shrub)
 	// 6 is 1.21.9 (datafix bucketed mob variants, migrate copper horn instruments to tca)
 	// 7 is still 1.21.9 (rename copper horns to tca namespace)
+	// 8 is 25w42a (i randomly got annoyed about pearlescent mesoglea/nematocyst naming)
 
-	public static final int DATA_VERSION = 7;
+	public static final int DATA_VERSION = 8;
 
 	private WWMinecraftDataFixer() {
 		throw new UnsupportedOperationException("WWMinecraftDataFixer contains only static declarations.");
@@ -112,6 +113,65 @@ public final class WWMinecraftDataFixer {
 			WWConstants.id("copper_horn"),
 			ResourceLocation.fromNamespaceAndPath("thecopperierage", "copper_horn"),
 			schemaV7
+		);
+
+		Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(
+			builder,
+			"Rename blue_pearlescent_mesoglea to pearlescent_blue_mesoglea",
+			WWConstants.id("blue_pearlescent_mesoglea"),
+			WWConstants.id("pearlescent_blue_mesoglea"),
+			schemaV8
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename blue_pearlescent_mesoglea to pearlescent_blue_mesoglea",
+			WWConstants.id("blue_pearlescent_mesoglea"),
+			WWConstants.id("pearlescent_blue_mesoglea"),
+			schemaV8
+		);
+		SimpleFixes.addBlockRenameFix(
+			builder,
+			"Rename blue_pearlescent_nematocyst to pearlescent_blue_nematocyst",
+			WWConstants.id("blue_pearlescent_nematocyst"),
+			WWConstants.id("pearlescent_blue_nematocyst"),
+			schemaV8
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename blue_pearlescent_nematocyst to pearlescent_blue_nematocyst",
+			WWConstants.id("blue_pearlescent_nematocyst"),
+			WWConstants.id("pearlescent_blue_nematocyst"),
+			schemaV8
+		);
+
+		SimpleFixes.addBlockRenameFix(
+			builder,
+			"Rename purple_pearlescent_mesoglea to pearlescent_purple_mesoglea",
+			WWConstants.id("purple_pearlescent_mesoglea"),
+			WWConstants.id("pearlescent_purple_mesoglea"),
+			schemaV8
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename purple_pearlescent_mesoglea to pearlescent_purple_mesoglea",
+			WWConstants.id("purple_pearlescent_mesoglea"),
+			WWConstants.id("pearlescent_purple_mesoglea"),
+			schemaV8
+		);
+		SimpleFixes.addBlockRenameFix(
+			builder,
+			"Rename purple_pearlescent_nematocyst to pearlescent_purple_nematocyst",
+			WWConstants.id("purple_pearlescent_nematocyst"),
+			WWConstants.id("pearlescent_purple_nematocyst"),
+			schemaV8
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename purple_pearlescent_nematocyst to pearlescent_purple_nematocyst",
+			WWConstants.id("purple_pearlescent_nematocyst"),
+			WWConstants.id("pearlescent_purple_nematocyst"),
+			schemaV8
 		);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);

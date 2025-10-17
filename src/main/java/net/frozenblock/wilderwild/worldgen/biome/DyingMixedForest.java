@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -134,31 +135,33 @@ public final class DyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateDyingMixedForest) {
-			boolean generateTundra = WWWorldgenConfig.get().biomeGeneration.generateTundra;
 
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
-				boolean weird = point.weirdness().max() < 0L;
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
+		if (!biomeGeneration.generateDyingMixedForest) return;
+
+		final boolean generateTundra = biomeGeneration.generateTundra;
+		final Climate.Parameter temperature = generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
+		final Climate.Parameter temperatureWeird = generateTundra ? TEMPERATURE_WEIRD_TUNDRA : TEMPERATURE_WEIRD;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
+			this.addSurfaceBiome(
+				parameters,
+				temperature,
+				HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
+			if (FrozenBiomeParameters.isWeird(point)) {
 				this.addSurfaceBiome(
 					parameters,
-					generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE,
-					HUMIDITY,
+					temperatureWeird,
+					HUMIDITY_WEIRD,
 					point.continentalness(),
 					point.erosion(),
 					point.weirdness(),
 					point.offset()
 				);
-				if (weird) {
-					this.addSurfaceBiome(
-						parameters,
-						generateTundra ? TEMPERATURE_WEIRD_TUNDRA : TEMPERATURE_WEIRD,
-						HUMIDITY_WEIRD,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
 			}
 		}
 	}

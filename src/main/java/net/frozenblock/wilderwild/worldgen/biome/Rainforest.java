@@ -141,39 +141,38 @@ public final class Rainforest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateRainforest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+		if (!WWWorldgenConfig.get().biomeGeneration.generateRainforest) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_A,
+				HUMIDITY_A,
+				CONTINENTALNESS_A,
+				EROSION_A,
+				WEIRDNESS_A,
+				point.offset()
+			);
+			if (point.temperature().equals(Temperature.WARM)) {
 				this.addSurfaceBiome(
 					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_A,
-					CONTINENTALNESS_A,
-					EROSION_A,
-					WEIRDNESS_A,
+					TEMPERATURE_B,
+					HUMIDITY_B,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
 					point.offset()
 				);
-				if (point.temperature().equals(Temperature.WARM)) {
-					this.addSurfaceBiome(
-						parameters,
-						TEMPERATURE_B,
-						HUMIDITY_B,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
-				if (point.temperature().equals(Temperature.NEUTRAL)) {
-					this.addSurfaceBiome(
-						parameters,
-						TEMPERATURE_C,
-						HUMIDITY_C,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
+			}
+			if (point.temperature().equals(Temperature.NEUTRAL)) {
+				this.addSurfaceBiome(
+					parameters,
+					TEMPERATURE_C,
+					HUMIDITY_C,
+					point.continentalness(),
+					point.erosion(),
+					point.weirdness(),
+					point.offset()
+				);
 			}
 		}
 	}

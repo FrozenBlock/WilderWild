@@ -131,20 +131,18 @@ public final class OldGrowthDarkForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				if (FrozenBiomeParameters.isWeird(point)) {
-					this.addSurfaceBiome(
-						parameters,
-						TEMPERATURE,
-						HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
-			}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
+			if (!FrozenBiomeParameters.isWeird(point)) continue;
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

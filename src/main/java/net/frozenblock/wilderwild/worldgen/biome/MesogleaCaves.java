@@ -147,26 +147,25 @@ public final class MesogleaCaves extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateMesogleaCaves) {
-			this.addSemiDeepBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS,
-				OFFSET
-			);
-			this.addUndergroundBiome(
-				parameters,
-				TEMPERATURE,
-				HUMIDITY,
-				CONTINENTALNESS,
-				EROSION,
-				WEIRDNESS,
-				OFFSET
-			);
-		}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateMesogleaCaves) return;
+		this.addSemiDeepBiome(
+			parameters,
+			TEMPERATURE,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS,
+			OFFSET
+		);
+		this.addUndergroundBiome(
+			parameters,
+			TEMPERATURE,
+			HUMIDITY,
+			CONTINENTALNESS,
+			EROSION,
+			WEIRDNESS,
+			OFFSET
+		);
 	}
 
 }

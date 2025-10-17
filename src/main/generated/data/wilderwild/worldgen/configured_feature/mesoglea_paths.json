@@ -24,7 +24,7 @@
           "state_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "wilderwild:blue_pearlescent_mesoglea",
+              "Name": "wilderwild:pearlescent_blue_mesoglea",
               "Properties": {
                 "bubble_direction": "none"
               }
@@ -52,7 +52,7 @@
           "state_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "wilderwild:purple_pearlescent_mesoglea",
+              "Name": "wilderwild:pearlescent_purple_mesoglea",
               "Properties": {
                 "bubble_direction": "none"
               }

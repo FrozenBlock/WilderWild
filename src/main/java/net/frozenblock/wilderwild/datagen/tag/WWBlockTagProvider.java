@@ -277,14 +277,14 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
-			.add(WWBlocks.BLUE_PEARLESCENT_MESOGLEA)
+			.add(WWBlocks.PEARLESCENT_BLUE_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.valueLookupBuilder(WWBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
-			.add(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA)
+			.add(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.valueLookupBuilder(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE)
@@ -416,19 +416,19 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 	private void generateTags() {
 		this.valueLookupBuilder(WWBlockTags.MESOGLEA)
 			.add(WWBlocks.BLUE_MESOGLEA)
-			.add(WWBlocks.BLUE_PEARLESCENT_MESOGLEA)
+			.add(WWBlocks.PEARLESCENT_BLUE_MESOGLEA)
 			.add(WWBlocks.LIME_MESOGLEA)
 			.add(WWBlocks.PINK_MESOGLEA)
-			.add(WWBlocks.PURPLE_PEARLESCENT_MESOGLEA)
+			.add(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA)
 			.add(WWBlocks.RED_MESOGLEA)
 			.add(WWBlocks.YELLOW_MESOGLEA);
 
 		this.valueLookupBuilder(WWBlockTags.NEMATOCYSTS)
 			.add(WWBlocks.BLUE_NEMATOCYST)
-			.add(WWBlocks.BLUE_PEARLESCENT_NEMATOCYST)
+			.add(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST)
 			.add(WWBlocks.LIME_NEMATOCYST)
 			.add(WWBlocks.PINK_NEMATOCYST)
-			.add(WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST)
+			.add(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST)
 			.add(WWBlocks.RED_NEMATOCYST)
 			.add(WWBlocks.YELLOW_NEMATOCYST);
 

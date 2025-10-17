@@ -145,18 +145,17 @@ public final class Oasis extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateOasis) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE,
-					HUMIDITY,
-					CONTINENTALNESS,
-					EROSION,
-					point.weirdness(),
-					OFFSET
-				);
-			}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateOasis) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.MANGROVE_SWAMP)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE,
+				HUMIDITY,
+				CONTINENTALNESS,
+				EROSION,
+				point.weirdness(),
+				OFFSET
+			);
 		}
 	}
 

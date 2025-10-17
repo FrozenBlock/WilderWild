@@ -132,36 +132,35 @@ public final class FlowerField extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateFlowerField) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_A,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_B,
-					HUMIDITY_B,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-				this.addSurfaceBiome(
-					parameters,
-					TEMPERATURE_A,
-					HUMIDITY_AB,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness(),
-					point.offset()
-				);
-			}
+		if (!WWWorldgenConfig.get().biomeGeneration.generateFlowerField) return;
+		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_A,
+				HUMIDITY_A,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_B,
+				HUMIDITY_B,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
+			this.addSurfaceBiome(
+				parameters,
+				TEMPERATURE_A,
+				HUMIDITY_AB,
+				point.continentalness(),
+				point.erosion(),
+				point.weirdness(),
+				point.offset()
+			);
 		}
 	}
 

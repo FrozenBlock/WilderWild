@@ -32,8 +32,8 @@ public final class MesogleaRecipeProvider {
 		mesoglea(provider, WWBlocks.PINK_NEMATOCYST, WWBlocks.PINK_MESOGLEA, exporter);
 		mesoglea(provider, WWBlocks.YELLOW_NEMATOCYST, WWBlocks.YELLOW_MESOGLEA, exporter);
 		mesoglea(provider, WWBlocks.RED_NEMATOCYST, WWBlocks.RED_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.BLUE_PEARLESCENT_NEMATOCYST, WWBlocks.BLUE_PEARLESCENT_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.PURPLE_PEARLESCENT_NEMATOCYST, WWBlocks.PURPLE_PEARLESCENT_MESOGLEA, exporter);
+		mesoglea(provider, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_BLUE_MESOGLEA, exporter);
+		mesoglea(provider, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, exporter);
 	}
 
 	public static void mesoglea(RecipeProvider provider, ItemLike nematocyst, ItemLike mesoglea, RecipeOutput exporter) {
