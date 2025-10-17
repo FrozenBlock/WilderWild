@@ -446,6 +446,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, WWBlocks.OCHRE_FROGLIGHT_GOOP);
 
 		this.dropSelf(WWBlocks.OSTRICH_EGG);
+		this.dropSelf(WWBlocks.PENGUIN_EGG);
 		this.dropSelf(WWBlocks.GEYSER);
 		this.dropWhenSilkTouch(WWBlocks.HANGING_TENDRIL);
 		this.dropWhenSilkTouch(WWBlocks.OSSEOUS_SCULK);
