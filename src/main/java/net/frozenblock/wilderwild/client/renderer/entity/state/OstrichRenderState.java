@@ -23,9 +23,6 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.world.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
-public class OstrichRenderState extends LivingEntityRenderState {
-	public ItemStack saddle = ItemStack.EMPTY;
+public class OstrichRenderState extends AbstractOstrichRenderState {
 	public boolean isInbred;
-	public float beakAnimProgress;
-	public float targetStraightProgress;
 }

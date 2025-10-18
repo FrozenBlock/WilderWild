@@ -284,6 +284,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.JELLYFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.CRAB_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.OSTRICH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.ZOMBIE_OSTRICH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SCORCHED_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.BUTTERFLY_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.MOOBLOOM_SPAWN_EGG, ModelTemplates.FLAT_ITEM);

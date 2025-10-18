@@ -188,6 +188,7 @@ public final class WWItems {
 	public static final MobBucketItem CRAB_BUCKET = register("crab_bucket", properties -> new MobBucketItem(WWEntityTypes.CRAB, Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties), new Item.Properties().stacksTo(1));
 
 	public static final SpawnEggItem OSTRICH_SPAWN_EGG = register("ostrich_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.OSTRICH));
+	public static final SpawnEggItem ZOMBIE_OSTRICH_SPAWN_EGG = register("zombie_ostrich_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.ZOMBIE_OSTRICH));
 	public static final SpawnEggItem SCORCHED_SPAWN_EGG = register("scorched_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.SCORCHED));
 	public static final SpawnEggItem BUTTERFLY_SPAWN_EGG = register("butterfly_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.BUTTERFLY));
 	public static final SpawnEggItem MOOBLOOM_SPAWN_EGG = register("moobloom_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(WWEntityTypes.MOOBLOOM));

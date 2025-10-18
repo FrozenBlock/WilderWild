@@ -15,22 +15,16 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.entity.ai.ostrich;
+package net.frozenblock.wilderwild.client.renderer.entity.state;
 
-import net.frozenblock.wilderwild.entity.AbstractOstrich;
-import net.frozenblock.wilderwild.entity.Ostrich;
-import net.minecraft.world.entity.ai.control.MoveControl;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.world.item.ItemStack;
 
-public class OstrichMoveControl extends MoveControl {
-	private final AbstractOstrich mob;
-
-	public OstrichMoveControl(AbstractOstrich ostrich) {
-		super(ostrich);
-		this.mob = ostrich;
-	}
-
-	@Override
-	public void tick() {
-		if (!this.mob.isStuck()) super.tick();
-	}
+@Environment(EnvType.CLIENT)
+public class AbstractOstrichRenderState extends LivingEntityRenderState {
+	public ItemStack saddle = ItemStack.EMPTY;
+	public float beakAnimProgress;
+	public float targetStraightProgress;
 }

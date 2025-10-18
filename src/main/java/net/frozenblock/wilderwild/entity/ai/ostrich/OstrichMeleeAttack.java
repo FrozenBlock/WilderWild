@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public class OstrichMeleeAttack {
 
 	@Contract("_ -> new")
-	public static @NotNull OneShot<Ostrich> create(int cooldownBetweenAttacks) {
+	public static @NotNull OneShot<AbstractOstrich> create(int cooldownBetweenAttacks) {
 		return BehaviorBuilder.create(instance -> instance.group(
 				instance.registered(MemoryModuleType.LOOK_TARGET),
 				instance.present(MemoryModuleType.ATTACK_TARGET),
@@ -57,7 +58,7 @@ public class OstrichMeleeAttack {
 		);
 	}
 
-	private static boolean isHoldingUsableProjectileWeapon(@NotNull Ostrich ostrich) {
+	private static boolean isHoldingUsableProjectileWeapon(@NotNull AbstractOstrich ostrich) {
 		return ostrich.isHolding(stack -> {
 			final Item item = stack.getItem();
 			return item instanceof ProjectileWeaponItem projectileWeaponItem && ostrich.canFireProjectileWeapon(projectileWeaponItem);

@@ -111,6 +111,20 @@ public final class WWEntityLootProvider extends FabricEntityLootTableProvider {
 		);
 
 		this.add(
+			WWEntityTypes.ZOMBIE_OSTRICH,
+			LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ConstantValue.exactly(1F))
+						.add(
+							LootItem.lootTableItem(Items.ROTTEN_FLESH)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+						)
+				)
+		);
+
+		this.add(
 			WWEntityTypes.SCORCHED,
 			LootTable.lootTable()
 				.withPool(

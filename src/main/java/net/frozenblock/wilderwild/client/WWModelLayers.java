@@ -44,6 +44,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.client.model.BoatModel;
@@ -113,6 +114,7 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(CRAB_MOJANG, CrabModel::createMojangBodyLayer);
 
 		EntityRendererRegistry.register(WWEntityTypes.OSTRICH, OstrichRenderer::new);
+		EntityRendererRegistry.register(WWEntityTypes.ZOMBIE_OSTRICH, UndeadOstrichRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(OSTRICH_BABY, OstrichModel::createBabyBodyLayer);

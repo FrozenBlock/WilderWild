@@ -513,6 +513,9 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.OSTRICH)).triggerInstance())
 						);
+						AdvancementAPI.addCriteria(advancement, "wilderwild:zombie_ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.ZOMBIE_OSTRICH)).triggerInstance())
+						);
 						AdvancementAPI.addCriteria(advancement, "wilderwild:moobloom", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.MOOBLOOM)).triggerInstance())
 						);
@@ -548,12 +551,20 @@ public class FrozenLibIntegration extends ModIntegration {
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:scorched"));
+						AdvancementAPI.addCriteria(advancement, "wilderwild:zombie_ostrich", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.ZOMBIE_OSTRICH)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:zombie_ostrich"));
 					}
 					case "minecraft:adventure/kill_all_mobs" -> {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched"))));
+						AdvancementAPI.addCriteria(advancement, "wilderwild:zombie_ostrich", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.ZOMBIE_OSTRICH)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:zombie_ostrich"))));
 					}
 					default -> {
 					}

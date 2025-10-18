@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Set;
-import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,9 +42,9 @@ public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 	@Override
 	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
 		final Brain<?> brain = entity.getBrain();
-		final ArrayList<Ostrich> ostriches = Lists.newArrayList();
+		final ArrayList<AbstractOstrich> ostriches = Lists.newArrayList();
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
-			if (livingEntity instanceof Ostrich ostrich) ostriches.add(ostrich);
+			if (livingEntity instanceof AbstractOstrich ostrich) ostriches.add(ostrich);
 		}
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES, ostriches);
 	}

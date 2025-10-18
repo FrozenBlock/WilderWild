@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableMap;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class OstrichLayEgg extends Behavior<Ostrich> {
+public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 	private final Block eggBlock;
 
 	public OstrichLayEgg(Block eggBlock) {
@@ -41,7 +42,7 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(Ostrich entity, @NotNull Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(AbstractOstrich entity, @NotNull Level level, Block block, BlockPos placePos) {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
@@ -56,25 +57,25 @@ public class OstrichLayEgg extends Behavior<Ostrich> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Ostrich owner) {
+	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull AbstractOstrich owner) {
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 		return entity.isPregnant();
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void stop(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull Ostrich owner, long gameTime) {
+	public void tick(@NotNull ServerLevel level, @NotNull AbstractOstrich owner, long gameTime) {
 		if (owner.isInWater() || !owner.onGround()) return;
 
 		final BlockPos blockPos = owner.getOnPos().above();

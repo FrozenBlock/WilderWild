@@ -155,6 +155,9 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		this.valueLookupBuilder(WWItemTags.OSTRICH_FOOD)
 			.add(WWBlocks.SHRUB.asItem());
 
+		this.valueLookupBuilder(WWItemTags.ZOMBIE_OSTRICH_FOOD)
+			.add(Items.DEAD_BUSH);
+
 		this.valueLookupBuilder(WWItemTags.PENGUIN_FOOD)
 			.add(Items.INK_SAC, Items.GLOW_INK_SAC);
 

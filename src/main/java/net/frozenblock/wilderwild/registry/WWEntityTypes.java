@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -88,6 +89,14 @@ public final class WWEntityTypes {
 	public static final EntityType<Ostrich> OSTRICH = register(
 		"ostrich",
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
+			.sized(1.1F, 2.3F)
+			.eyeHeight(2.3F) // eye height is hitbox height
+			.clientTrackingRange(10)
+	);
+
+	public static final EntityType<ZombieOstrich> ZOMBIE_OSTRICH = register(
+		"zombie_ostrich",
+		EntityType.Builder.of(ZombieOstrich::new, MobCategory.MONSTER)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10)
@@ -282,6 +291,14 @@ public final class WWEntityTypes {
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Ostrich::checkOstrichSpawnRules
+		);
+
+		FabricDefaultAttributeRegistry.register(ZOMBIE_OSTRICH, ZombieOstrich.createAttributes());
+		SpawnPlacements.register(
+			ZOMBIE_OSTRICH,
+			SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			ZombieOstrich::checkZombieOstrichSpawnRules
 		);
 
 		FabricDefaultAttributeRegistry.register(SCORCHED, Scorched.createAttributes());

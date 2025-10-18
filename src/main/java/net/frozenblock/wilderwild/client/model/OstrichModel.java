@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.client.model;
 
 import java.util.Set;
+import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
@@ -33,7 +34,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
-public class OstrichModel extends EntityModel<OstrichRenderState> {
+public class OstrichModel extends EntityModel<AbstractOstrichRenderState> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 10F, 4F, Set.of("neck"));
 	private static final float NECK_DELAY = 0F;
 	private static final float OLD_NECK_DELAY = 0.0416375F;
@@ -86,25 +87,51 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
-		PartDefinition left_leg = legs.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(86, 44).addBox(-1F, -18F, -1F, 2F, 18F, 2F), PartPose.offset(-3F, 16F, 0F));
-		PartDefinition left_foot = left_leg.addOrReplaceChild("left_foot", CubeListBuilder.create().texOffs(88, 58).addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)), PartPose.offset(0F, 0F, -1F));
-		PartDefinition right_leg = legs.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 44).mirror().addBox(-1F, -18F, -1F, 2F, 18F, 2F).mirror(false), PartPose.offset(3F, 16.0F, 0F));
-		PartDefinition right_foot = right_leg.addOrReplaceChild("right_foot", CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)).mirror(false), PartPose.offset(0F, 0F, -1.0F));
+		PartDefinition legs = partdefinition.addOrReplaceChild(
+			"legs",
+			CubeListBuilder.create(), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
+		PartDefinition left_leg = legs.addOrReplaceChild(
+			"left_leg",
+			CubeListBuilder.create().texOffs(86, 44).addBox(-1F, -18F, -1F, 2F, 18F, 2F), PartPose.offset(-3F, 16F, 0F));
+		PartDefinition left_foot = left_leg.addOrReplaceChild(
+			"left_foot",
+			CubeListBuilder.create().texOffs(88, 58).addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)), PartPose.offset(0F, 0F, -1F));
+		PartDefinition right_leg = legs.addOrReplaceChild(
+			"right_leg",
+			CubeListBuilder.create().texOffs(86, 44).mirror().addBox(-1F, -18F, -1F, 2F, 18F, 2F).mirror(false), PartPose.offset(3F, 16F, 0F));
+		PartDefinition right_foot = right_leg.addOrReplaceChild(
+			"right_foot",
+			CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)).mirror(false), PartPose.offset(0F, 0F, -1F));
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 31).addBox(-6F, -12F, -7F, 12F, 14F, 19F)
+		PartDefinition body = partdefinition.addOrReplaceChild(
+			"body",
+			CubeListBuilder.create().texOffs(0, 31).addBox(-6F, -12F, -7F, 12F, 14F, 19F)
 			.texOffs(24, 31).addBox(-6F, 0F, -7F, 12F, 0F, 19F), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
-		PartDefinition saddle = body.addOrReplaceChild("saddle", CubeListBuilder.create().texOffs(0, 0).addBox(-6F, -12F, -7F, 12F, 12F, 19F, new CubeDeformation(0.5F)), PartPose.ZERO);
-		PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(98, 22).addBox(-1.0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F))
+		PartDefinition saddle = body.addOrReplaceChild(
+			"saddle",
+			CubeListBuilder.create().texOffs(0, 0).addBox(-6F, -12F, -7F, 12F, 12F, 19F, new CubeDeformation(0.5F)), PartPose.ZERO);
+		PartDefinition left_wing = body.addOrReplaceChild(
+			"left_wing",
+			CubeListBuilder.create().texOffs(98, 22).addBox(-1.0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F))
 			.texOffs(98, 44).addBox(-1F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F)), PartPose.offset(-6F, -4F, 5F));
-		PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(98, 22).mirror().addBox(0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F)).mirror(false)
+		PartDefinition right_wing = body.addOrReplaceChild(
+			"right_wing",
+			CubeListBuilder.create().texOffs(98, 22).mirror().addBox(0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F)).mirror(false)
 			.texOffs(98, 44).mirror().addBox(0F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F)).mirror(false), PartPose.offset(6F, -4F, 5F));
 
-		PartDefinition neck_base = body.addOrReplaceChild("neck_base", CubeListBuilder.create().texOffs(81, 9).addBox(-4F, -5F, 0F, 8F, 8F, 6F), PartPose.offset(0F, -4F, 12F));
-		PartDefinition neck = neck_base.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(65, 0).addBox(-2F, -21F, 0F, 4F, 21F, 4F), PartPose.offset(0F, 1F, 4F));
-		PartDefinition beak = neck.addOrReplaceChild("beak", CubeListBuilder.create().texOffs(81, 1).addBox(-2F, -1F, 0F, 4F, 2F, 3F), PartPose.offset(0F, -18F, 4F));
+		PartDefinition neck_base = body.addOrReplaceChild(
+			"neck_base",
+			CubeListBuilder.create().texOffs(81, 9).addBox(-4F, -5F, 0F, 8F, 8F, 6F), PartPose.offset(0F, -4F, 12F));
+		PartDefinition neck = neck_base.addOrReplaceChild(
+			"neck",
+			CubeListBuilder.create().texOffs(65, 0).addBox(-2F, -21F, 0F, 4F, 21F, 4F), PartPose.offset(0F, 1F, 4F));
+		PartDefinition beak = neck.addOrReplaceChild(
+			"beak",
+			CubeListBuilder.create().texOffs(81, 1).addBox(-2F, -1F, 0F, 4F, 2F, 3F), PartPose.offset(0F, -18F, 4F));
 
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(62, 46).addBox(-3F, 0F, -6F, 6F, 12F, 6F)
+		PartDefinition tail = body.addOrReplaceChild(
+			"tail",
+			CubeListBuilder.create().texOffs(62, 46).addBox(-3F, 0F, -6F, 6F, 12F, 6F)
 			.texOffs(62, 40).addBox(-3F, 10F, -6F, 6F, 0F, 6F), PartPose.offset(0F, -7F, -7F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
@@ -147,7 +174,7 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull OstrichRenderState renderState) {
+	public void setupAnim(@NotNull AbstractOstrichRenderState renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.scale = renderState.ageScale;
 
@@ -204,12 +231,4 @@ public class OstrichModel extends EntityModel<OstrichRenderState> {
 		this.neck.yRot += yRot * RAD_065;
 	}
 
-	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-		poseStack.pushPose();
-		poseStack.translate(0, this.yOffset, 0);
-		poseStack.scale(this.scale, this.scale, this.scale);
-		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
-		poseStack.popPose();
-	}*/
 }

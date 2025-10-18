@@ -398,6 +398,7 @@ public final class WWCreativeInventorySorting {
 
 		// OSTRICH
 		addAfterInSpawnEggs(Items.OCELOT_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, WWItems.ZOMBIE_OSTRICH_SPAWN_EGG);
 
 		// SCORCHED
 		addAfterInSpawnEggs(Items.SALMON_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);

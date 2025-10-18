@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableMap;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -31,7 +32,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
+public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	private final float speedMultiplier;
 	private double posX;
 	private double posY;
@@ -43,7 +44,7 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Ostrich owner) {
+	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull AbstractOstrich owner) {
 		if (owner.isTamed() || !owner.isVehicle()) return false;
 
 		final Vec3 vec3 = DefaultRandomPos.getPos(owner, 5, 4);
@@ -55,23 +56,23 @@ public class OstrichRunAroundLikeCrazy extends Behavior<Ostrich> {
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 		return !entity.isTamed() && !entity.getNavigation().isDone() && entity.isVehicle();
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 		entity.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull Ostrich entity, long gameTime) {
+	public void stop(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
 		final Brain<?> brain = entity.getBrain();
 		brain.eraseMemory(MemoryModuleType.IS_PANICKING);
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull Ostrich owner, long gameTime) {
+	public void tick(@NotNull ServerLevel level, @NotNull AbstractOstrich owner, long gameTime) {
 		if (owner.isTamed() || owner.getRandom().nextInt(50) != 0) return;
 
 		final Entity passenger = owner.getFirstPassenger();

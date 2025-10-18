@@ -17,13 +17,13 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
-import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.minecraft.world.entity.ai.control.LookControl;
 
 public class OstrichLookControl extends LookControl {
-	private final Ostrich mob;
+	private final AbstractOstrich mob;
 
-	public OstrichLookControl(Ostrich ostrich) {
+	public OstrichLookControl(AbstractOstrich ostrich) {
 		super(ostrich);
 		this.mob = ostrich;
 	}

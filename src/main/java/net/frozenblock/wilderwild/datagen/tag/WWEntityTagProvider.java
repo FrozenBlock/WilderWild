@@ -175,7 +175,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(WWEntityTypes.BUTTERFLY);
 
 		this.valueLookupBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-			.add(WWEntityTypes.OSTRICH)
+			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH)
 			.add(WWEntityTypes.SCORCHED);
 
 		this.valueLookupBuilder(EntityTypeTags.ARTHROPOD)
@@ -204,6 +204,12 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			);
 
 		this.valueLookupBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
-			.add(WWEntityTypes.OSTRICH);
+			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH);
+
+		this.valueLookupBuilder(EntityTypeTags.ZOMBIES)
+			.add(WWEntityTypes.ZOMBIE_OSTRICH);
+
+		this.valueLookupBuilder(EntityTypeTags.BURN_IN_DAYLIGHT)
+			.add(WWEntityTypes.ZOMBIE_OSTRICH);
 	}
 }

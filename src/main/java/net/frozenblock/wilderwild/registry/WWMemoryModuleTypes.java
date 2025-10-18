@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Ostrich;
@@ -56,7 +57,7 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Boolean> IS_PLAYER_NEARBY = register("is_player_nearby", Codec.BOOL);
 	public static final MemoryModuleType<Boolean> CAN_DIG = register("can_dig", Codec.BOOL);
 	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
-	public static final MemoryModuleType<List<Ostrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
+	public static final MemoryModuleType<List<AbstractOstrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
 	public static final MemoryModuleType<List<Penguin>> NEARBY_PENGUINS = register("nearby_penguins");
 	public static final MemoryModuleType<List<Penguin>> CLOSE_PENGUINS = register("close_penguins");
 	public static final MemoryModuleType<Boat> TRACKED_BOAT = register("tracked_boat");

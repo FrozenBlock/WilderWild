@@ -17,13 +17,14 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 
 public class OstrichBodyRotationControl extends BodyRotationControl {
-	private final Ostrich mob;
+	private final AbstractOstrich mob;
 
-	public OstrichBodyRotationControl(Ostrich ostrich) {
+	public OstrichBodyRotationControl(AbstractOstrich ostrich) {
 		super(ostrich);
 		this.mob = ostrich;
 	}
