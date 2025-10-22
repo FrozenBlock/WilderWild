@@ -34,20 +34,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	private final float speedMultiplier;
+	private final boolean zombie;
 	private double posX;
 	private double posY;
 	private double posZ;
 
-	public OstrichRunAroundLikeCrazy(float speedMultiplier) {
+	public OstrichRunAroundLikeCrazy(float speedMultiplier, boolean zombie) {
 		super(ImmutableMap.of(), 100, 120);
 		this.speedMultiplier = speedMultiplier;
+		this.zombie = zombie;
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull AbstractOstrich owner) {
-		if (owner.isTamed() || !owner.isVehicle()) return false;
+	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich) {
+		if (ostrich.isTamed() || !ostrich.isVehicle() || (this.zombie && ostrich.isMobControlled())) return false;
 
-		final Vec3 vec3 = DefaultRandomPos.getPos(owner, 5, 4);
+		final Vec3 vec3 = DefaultRandomPos.getPos(ostrich, 5, 4);
 		if (vec3 == null) return false;
 		this.posX = vec3.x;
 		this.posY = vec3.y;
@@ -56,41 +58,39 @@ public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
-		return !entity.isTamed() && !entity.getNavigation().isDone() && entity.isVehicle();
+	public boolean canStillUse(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich, long gameTime) {
+		return !ostrich.isTamed() && !ostrich.getNavigation().isDone() && ostrich.isVehicle();
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
-		entity.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
+	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich, long gameTime) {
+		ostrich.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
-		final Brain<?> brain = entity.getBrain();
-		brain.eraseMemory(MemoryModuleType.IS_PANICKING);
+	public void stop(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich, long gameTime) {
+		ostrich.getBrain().eraseMemory(MemoryModuleType.IS_PANICKING);
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull AbstractOstrich owner, long gameTime) {
-		if (owner.isTamed() || owner.getRandom().nextInt(50) != 0) return;
+	public void tick(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich, long gameTime) {
+		if (ostrich.isTamed() || ostrich.getRandom().nextInt(50) != 0) return;
 
-		final Entity passenger = owner.getFirstPassenger();
+		final Entity passenger = ostrich.getFirstPassenger();
 		if (passenger == null) return;
 
 		if (passenger instanceof Player player) {
-			int i = owner.getTemper();
-			int j = owner.getMaxTemper();
-			if (j > 0 && owner.getRandom().nextInt(j) < i) {
-				owner.tameWithName(player);
+			final int maxTemper = ostrich.getMaxTemper();
+			if (maxTemper > 0 && ostrich.getRandom().nextInt(maxTemper) < ostrich.getTemper()) {
+				ostrich.tameWithName(player);
 				return;
 			}
-			owner.modifyTemper(5);
+			ostrich.modifyTemper(5);
 		}
 
-		owner.ejectPassengers();
-		owner.makeMad();
-		level.broadcastEntityEvent(owner, EntityEvent.TAMING_FAILED);
+		ostrich.ejectPassengers();
+		ostrich.makeMad();
+		level.broadcastEntityEvent(ostrich, EntityEvent.TAMING_FAILED);
 	}
 
 }

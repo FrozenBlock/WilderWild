@@ -34,7 +34,7 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
-public class OstrichModel extends EntityModel<AbstractOstrichRenderState> {
+public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityModel<T> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 10F, 4F, Set.of("neck"));
 	private static final float NECK_DELAY = 0F;
 	private static final float OLD_NECK_DELAY = 0.0416375F;
@@ -174,7 +174,7 @@ public class OstrichModel extends EntityModel<AbstractOstrichRenderState> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull AbstractOstrichRenderState renderState) {
+	public void setupAnim(@NotNull T renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.scale = renderState.ageScale;
 

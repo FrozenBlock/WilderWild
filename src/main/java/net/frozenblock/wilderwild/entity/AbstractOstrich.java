@@ -285,9 +285,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 					this.setAttacking(false);
 					this.setTargetBeakAnimProgress(this.getBeakAnimProgress(1F));
 					if (!this.isSilent()) {
-						boolean inbred = this.isInbred();
-						SoundEvent stuckSoundEvent = inbred ? WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK : WWSounds.ENTITY_OSTRICH_BEAK_STUCK;
-						float volume = inbred ? 8F : this.getSoundVolume();
+						final boolean inbred = this.isInbred();
+						final float volume = inbred ? 8F : this.getSoundVolume();
 						this.level().playSound(null, beakBlockPos, this.getBeakStuckSound(), this.getSoundSource(), volume, this.getVoicePitch());
 						if (inbred) ScreenShakeManager.addEntityScreenShake(this, 3.5F, 40, 16F);
 					}

@@ -58,7 +58,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createAnimalAttributes()
 			.add(Attributes.MAX_HEALTH, 20D)
-			.add(Attributes.MOVEMENT_SPEED, 0.325F)
+			.add(Attributes.MOVEMENT_SPEED, 0.275F)
 			.add(Attributes.STEP_HEIGHT, 1.5D)
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
 	}

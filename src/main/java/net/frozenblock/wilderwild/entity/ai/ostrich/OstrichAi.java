@@ -140,7 +140,7 @@ public class OstrichAi {
 				pathfinderMob -> pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES
 			)
 		);
-		builder.add(new OstrichRunAroundLikeCrazy(1.5F));
+		builder.add(new OstrichRunAroundLikeCrazy(1.5F, zombie));
 		builder.add(new LookAtTargetSink(45, 90));
 		builder.add(new MoveToTargetSink());
 		builder.add(new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS));

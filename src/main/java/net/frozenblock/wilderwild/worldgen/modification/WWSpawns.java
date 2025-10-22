@@ -111,7 +111,7 @@ public final class WWSpawns {
 			MobCategory.CREATURE, WWEntityTypes.OSTRICH, 4, 2, 4);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_OSTRICH),
-			MobCategory.MONSTER, WWEntityTypes.ZOMBIE_OSTRICH, 1, 1, 2);
+			MobCategory.MONSTER, WWEntityTypes.ZOMBIE_OSTRICH, 2, 1, 2);
 	}
 
 	public static void addPenguins() {
