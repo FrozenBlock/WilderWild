@@ -172,8 +172,8 @@ public class FrozenLibIntegration extends ModIntegration {
 
 			@Override
 			public boolean test(LivingEntity entity) {
-				if (firstCheck) {
-					firstCheck = false;
+				if (this.firstCheck) {
+					this.firstCheck = false;
 					InteractionHand hand = !entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() ? InteractionHand.MAIN_HAND : !entity.getItemInHand(InteractionHand.OFF_HAND).isEmpty() ? InteractionHand.OFF_HAND : null;
 					if (hand == null) return false;
 
@@ -184,7 +184,8 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 					return false;
 				}
-				var stack = entity.getUseItem();
+
+				final ItemStack stack = entity.getUseItem();
 				if (stack.getItem() instanceof InstrumentItem) {
 					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
 						this.lastStack = stack;
@@ -340,15 +341,15 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		// PALE OAK
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, WWSoundTypes.PALE_OAK_LEAVES, () -> {
-			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
+			final WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
 			return soundConfig.paleOakSounds && soundConfig.leafSounds;
 		});
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, SoundType.AZALEA_LEAVES, () -> {
-			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
+			final WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
 			return !soundConfig.paleOakSounds && soundConfig.leafSounds;
 		});
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAF_LITTER, WWSoundTypes.PALE_OAK_LEAF_LITTER, () -> {
-			WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
+			final WWBlockConfig.BlockSoundsConfig soundConfig = WWBlockConfig.get().blockSounds;
 			return soundConfig.paleOakSounds && soundConfig.leafSounds;
 		});
 		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD, WWSoundTypes.PALE_OAK_WOOD, () -> WWBlockConfig.get().blockSounds.paleOakSounds);

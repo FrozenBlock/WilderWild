@@ -57,19 +57,19 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshDefinition = new MeshDefinition();
-		PartDefinition partDefinition = meshDefinition.getRoot();
+		final MeshDefinition meshDefinition = new MeshDefinition();
+		final PartDefinition root = meshDefinition.getRoot();
 
-		PartDefinition bone = partDefinition.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.ZERO);
+		final PartDefinition bone = root.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.ZERO);
 
 		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -2F, -4F, 8F, 5F, 8F)
 			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
 
-		PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
+		final PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 		makePlaneTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
-		CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25)
+		final CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25)
 			.addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
 		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, 45F * Mth.DEG_TO_RAD, 0F));
 		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, 90F * Mth.DEG_TO_RAD));
@@ -79,8 +79,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	}
 
 	private static void makeTentacles(PartDefinition partDefinition, int amount) {
-		CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13)
-			.addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
+		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
 		for (int i = 0; i < amount; ++i) {
 			float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i, false), tentacle, PartPose.offsetAndRotation(
@@ -96,10 +95,8 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	}
 
 	private static void makePlaneTentacles(PartDefinition partDefinition, int amount) {
-		CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 14)
-			.addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
-		CubeListBuilder altTentacle = CubeListBuilder.create().texOffs(2, 14)
-			.addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
+		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 14).addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
+		final CubeListBuilder altTentacle = CubeListBuilder.create().texOffs(2, 14).addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
 		for (int i = 0; i < amount; ++i) {
 			float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i, true), i % 2 == 0 ? altTentacle : tentacle, PartPose.offsetAndRotation(
@@ -127,17 +124,17 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.tentacleBase.xRot = renderState.tentXRot - renderState.jellyXRot;
 		this.armBase.xRot = renderState.armXRot - renderState.jellyXRot;
 
-		float walkPos = renderState.walkAnimationPos;
-		float walkSpeed = renderState.walkAnimationSpeed;
+		final float walkPos = renderState.walkAnimationPos;
+		final float walkSpeed = renderState.walkAnimationSpeed;
 
-		float animation = walkPos * 2F;
-		float movementDelta = Math.min(walkSpeed * 26.6666667F, 1F);
+		final float animation = walkPos * 2F;
+		final float movementDelta = Math.min(walkSpeed * 26.6666667F, 1F);
 
 		//SQUASH & STRETCH
-		float sin = (float) -Math.sin(animation);
-		float sinIdle = (float) (Math.sin(renderState.ageInTicks * 0.1F) * 0.2F);
-		float squashStretch = 1F + (-sin * 0.25F);
-		float squash = Mth.lerp(movementDelta, sinIdle + 1F, squashStretch);
+		final float sin = (float) -Math.sin(animation);
+		final float sinIdle = (float) (Math.sin(renderState.ageInTicks * 0.1F) * 0.2F);
+		final float squashStretch = 1F + (-sin * 0.25F);
+		final float squash = Mth.lerp(movementDelta, sinIdle + 1F, squashStretch);
 
 		this.body.xScale = squash;
 		this.body.zScale = squash;
@@ -147,14 +144,14 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.armBase.y = this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 1.5F) * 1.5F;
 
 		//ARM SQUASH & STRETCH
-		float armSinIdle = (float) (Math.sin((renderState.ageInTicks * 0.1F) - 1F) * 0.2F);
-		float armSquash = (armSinIdle * 1.25F) + 1F;
+		final float armSinIdle = (float) (Math.sin((renderState.ageInTicks * 0.1F) - 1F) * 0.2F);
+		final float armSquash = (armSinIdle * 1.25F) + 1F;
 
 		this.armBase.xScale = armSquash;
 		this.armBase.zScale = armSquash;
 		this.armBase.yScale = (-armSinIdle * 0.75F) + 0.75F;
 
-		float tentRot = -Mth.rotLerp(
+		final float tentRot = -Mth.rotLerp(
 			movementDelta,
 			(float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI,
 			(float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD

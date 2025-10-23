@@ -27,9 +27,9 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.StoneChestModel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.Material;
@@ -68,7 +68,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 			this.model,
 			this.openness,
 			poseStack,
-			this.material.renderType(RenderType::entitySolid),
+			this.material.renderType(RenderTypes::entitySolid),
 			light,
 			overlay,
 			-1,

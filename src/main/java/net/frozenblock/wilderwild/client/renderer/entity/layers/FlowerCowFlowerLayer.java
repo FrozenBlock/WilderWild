@@ -23,13 +23,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.minecraft.client.model.CowModel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -116,7 +116,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 		BlockStateModel blockStateModel
 	) {
 		if (glowingAndInvisible) {
-			submitNodeCollector.submitBlockModel(poseStack, RenderType.outline(TextureAtlas.LOCATION_BLOCKS), blockStateModel, 0F, 0F, 0F, light, overlay, outlineColor);
+			submitNodeCollector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), blockStateModel, 0F, 0F, 0F, light, overlay, outlineColor);
 			return;
 		}
 		submitNodeCollector.submitBlock(poseStack, blockState, light, overlay, outlineColor);

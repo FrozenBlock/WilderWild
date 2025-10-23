@@ -23,11 +23,11 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.StellaWardenLayer;
 import net.minecraft.client.model.WardenModel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -69,7 +69,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				(wardenRenderState) -> WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE,
 				(warden, animationProgress) -> 1F,
 				bioluminescentModel,
-				RenderType::entityTranslucentEmissive
+				RenderTypes::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -78,7 +78,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				(wardenRenderState) -> WILDERWILD$STELLA_PULSATING_SPOTS_1_TEXTURE,
 				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F) * 0.25F),
 				pulsatingSpotsModel,
-				RenderType::entityTranslucentEmissive
+				RenderTypes::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -87,7 +87,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				(wardenRenderState) -> WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE,
 				(warden, animationProgress) -> Math.max(0F, Mth.cos(animationProgress * 0.045F + Mth.PI) * 0.25F),
 				pulsatingSpotsModel,
-				RenderType::entityTranslucentEmissive
+				RenderTypes::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -96,7 +96,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				(wardenRenderState) -> WILDERWILD$STELLA_TENDRILS_TEXTURE,
 				(warden, animationProgress) -> warden.tendrilAnimation,
 				tendrilsModel,
-				RenderType::entityTranslucentEmissive
+				RenderTypes::entityTranslucentEmissive
 			)
 		);
 		this.addLayer(
@@ -105,7 +105,7 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 				(wardenRenderState) -> WILDERWILD$STELLA_HEART_TEXTURE,
 				(warden, animationProgress) -> warden.heartAnimation,
 				heartModel,
-				RenderType::entityTranslucentEmissive
+				RenderTypes::entityTranslucentEmissive
 			)
 		);
 	}

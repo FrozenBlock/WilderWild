@@ -28,10 +28,11 @@ import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -41,7 +42,7 @@ import org.joml.Quaternionf;
 @Environment(EnvType.CLIENT)
 public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, NoOpModel<FireflyRenderState>> {
 	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/firefly/firefly_base.png");
-	private static final RenderType LAYER = RenderType.entityTranslucent(TEXTURE);
+	private static final RenderType LAYER = RenderTypes.entityTranslucent(TEXTURE);
 
 	private static final float Y_OFFSET = 0.155F;
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
@@ -77,7 +78,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderType.entityTranslucentEmissive(color.resourceTexture().texturePath()),
+				RenderTypes.entityTranslucentEmissive(color.resourceTexture().texturePath()),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, calcColor)
 			);
 
@@ -106,7 +107,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderType.entityTranslucentEmissive(renderState.color.resourceTexture().texturePath()),
+				RenderTypes.entityTranslucentEmissive(renderState.color.resourceTexture().texturePath()),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, renderState.calcColor)
 			);
 

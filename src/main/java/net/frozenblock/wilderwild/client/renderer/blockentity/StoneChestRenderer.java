@@ -29,13 +29,14 @@ import net.frozenblock.wilderwild.client.model.StoneChestModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRenderState;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -108,7 +109,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		openProgress = 1F - openProgress * openProgress * openProgress;
 
 		final Material material = getStoneChestTexture(renderState.hasSculk, renderState.type);
-		final RenderType renderType = material.renderType(RenderType::entityCutout);
+		final RenderType renderType = material.renderType(RenderTypes::entityCutout);
 		final TextureAtlasSprite sprite = this.materials.get(material);
 
 		if (renderState.type != ChestType.SINGLE) {
