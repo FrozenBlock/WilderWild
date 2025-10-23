@@ -747,7 +747,9 @@
   "option.wilderwild.jellyfish_tentacles": "Jellyfish Tentacles",
   "tooltip.wilderwild.jellyfish_tentacles": "Controls the amount of tentacles Jellyfish have.",
   "option.wilderwild.plane_tentacles": "2D Tentacles",
-  "tooltip.wilderwild.plane_tentacles": "Whether Jellyfish should have 2D tentacles.",
+  "tooltip.wilderwild.plane_tentacles": "Whether Jellyfish's tentacles should be 2D.",
+  "option.wilderwild.oral_arm": "Oral Arms",
+  "tooltip.wilderwild.oral_arm": "Whether Jellyfish should render with oral arms.",
 
   "option.wilderwild.lightning": "Lightning Bolt",
   "tooltip.wilderwild.lightning": "Contains options for Lightning Bolts.",
