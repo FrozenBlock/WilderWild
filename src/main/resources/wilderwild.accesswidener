@@ -141,6 +141,7 @@ accessible field net/minecraft/world/level/block/entity/RandomizableContainerBlo
 accessible class net/minecraft/world/level/block/entity/SculkSensorBlockEntity$VibrationUser
 accessible class net/minecraft/world/level/block/entity/SculkShriekerBlockEntity$VibrationUser
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
 
 # Render Types
