@@ -325,10 +325,21 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var oralArm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("oral_arm"), modifiedJellyfish.oralArm)
+				.setDefaultValue(defaultConfig.jellyfish.oralArm)
+				.setSaveConsumer(newValue -> jellyfish.oralArm = newValue)
+				.setTooltip(tooltip("oral_arm"))
+				.build(),
+			jellyfish.getClass(),
+			"oralArm",
+			configInstance
+		);
+
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles
+			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles, oralArm
 		);
 
 		var spawnCrabs = FrozenClothConfig.syncedEntry(

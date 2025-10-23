@@ -112,6 +112,7 @@ public final class WWClientNetworking {
 		ClientPlayNetworking.registerGlobalReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, ctx) -> {
 			ClientLevel clientLevel = ctx.client().level;
 			if (!(clientLevel.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity)) return;
+			stoneChestBlockEntity.prevOpenProgress = packet.prevOpenProgress();
 			stoneChestBlockEntity.openProgress = packet.openProgress();
 			stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
 			stoneChestBlockEntity.cooldownTicks = packet.cooldownTicks();
