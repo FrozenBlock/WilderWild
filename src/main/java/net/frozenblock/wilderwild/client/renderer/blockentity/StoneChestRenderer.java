@@ -158,22 +158,20 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);
 
 		final boolean levelExists = stoneChest.getLevel() != null;
-		BlockState blockState = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
-		renderState.type = blockState.hasProperty(StoneChestBlock.TYPE) ? blockState.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
-		renderState.angle = blockState.getValue(StoneChestBlock.FACING).toYRot();
-		renderState.hasSculk = blockState.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);
+		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		renderState.type = state.hasProperty(StoneChestBlock.TYPE) ? state.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
+		renderState.angle = state.getValue(StoneChestBlock.FACING).toYRot();
+		renderState.hasSculk = state.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);
 
 		DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> neighborCombineResult;
-		if (levelExists && blockState.getBlock() instanceof ChestBlock chestBlock) {
-			neighborCombineResult = chestBlock.combine(blockState, stoneChest.getLevel(), stoneChest.getBlockPos(), true);
+		if (levelExists && state.getBlock() instanceof ChestBlock chestBlock) {
+			neighborCombineResult = chestBlock.combine(state, stoneChest.getLevel(), stoneChest.getBlockPos(), true);
 		} else {
 			neighborCombineResult = DoubleBlockCombiner.Combiner::acceptNone;
 		}
 
 		renderState.open = neighborCombineResult.apply(StoneChestBlock.opennessCombiner(stoneChest)).get(partialTicks);
-		if (renderState.type != ChestType.SINGLE) {
-			renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).applyAsInt(renderState.lightCoords);
-		}
+		if (renderState.type != ChestType.SINGLE) renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).applyAsInt(renderState.lightCoords);
 	}
 
 }
