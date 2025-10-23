@@ -6,3 +6,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue with Stone Chest animations being "snappy" on servers.
 - Added a config option to toggle the oral arms of Jellyfish.
 - Wilder Wild's textures now have defined mipmapping strategies on 25w43a+.
+- Updated the Russian translation, thanks to Taygeta! ([#509](https://github.com/FrozenBlock/WilderWild/pull/509))
