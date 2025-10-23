@@ -28,13 +28,13 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
-public record WWStoneChestLidPacket(BlockPos pos, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
+public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
 	public static final Type<WWStoneChestLidPacket> PACKET_TYPE = new Type<>(WWConstants.id("stone_chest_lid"));
 
 	public static final StreamCodec<FriendlyByteBuf, WWStoneChestLidPacket> CODEC = StreamCodec.ofMember(WWStoneChestLidPacket::write, WWStoneChestLidPacket::new);
 
 	public WWStoneChestLidPacket(@NotNull FriendlyByteBuf buf) {
-		this(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readBoolean());
+		this(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readBoolean());
 	}
 
 	public static void sendToAll(@NotNull StoneChestBlockEntity blockEntity) {
@@ -43,6 +43,7 @@ public record WWStoneChestLidPacket(BlockPos pos, float openProgress, float high
 				player,
 				new WWStoneChestLidPacket(
 					blockEntity.getBlockPos(),
+					blockEntity.prevOpenProgress,
 					blockEntity.openProgress,
 					blockEntity.highestLidPoint,
 					blockEntity.cooldownTicks,
@@ -55,6 +56,7 @@ public record WWStoneChestLidPacket(BlockPos pos, float openProgress, float high
 
 	public void write(@NotNull FriendlyByteBuf buf) {
 		buf.writeBlockPos(this.pos);
+		buf.writeFloat(this.prevOpenProgress);
 		buf.writeFloat(this.openProgress);
 		buf.writeFloat(this.highestLidPoint);
 		buf.writeInt(this.cooldownTicks);
