@@ -169,5 +169,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		for (ModelPart modelPart : invisibleTentacles) {
 			modelPart.visible = false;
 		}
+
+		this.armBase.visible = WWEntityConfig.Client.JELLYFISH_ORAL_ARM;
 	}
 }

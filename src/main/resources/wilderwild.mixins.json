@@ -11,6 +11,7 @@
     "block.cactus.WalkNodeEvaluatorMixin",
     "block.chest.ChestBlockEntityMixin",
     "block.chest.ChestBlockMixin",
+    "block.chest.TransportItemTargetMixin",
     "block.dispenser.ShearsDispenseItemBehaviorMixin",
     "block.fire.BaseFireBlockMixin",
     "block.fire.FireBlockMixin",

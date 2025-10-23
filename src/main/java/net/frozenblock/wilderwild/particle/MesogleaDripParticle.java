@@ -273,7 +273,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.HANGING_MESOGLEA_RED, this.spriteSet.get(random));
+			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_RED, this.spriteSet.get(random));
 		}
 	}
 

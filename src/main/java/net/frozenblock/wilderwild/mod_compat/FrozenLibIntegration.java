@@ -443,123 +443,175 @@ public class FrozenLibIntegration extends ModIntegration {
 			HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
 			HolderGetter<EntityType<?>> entities = registries.lookupOrThrow(Registries.ENTITY_TYPE);
 			Advancement advancement = holder.value();
-			if (WWAmbienceAndMiscConfig.get().modifyAdvancements) {
-				switch (holder.id().toString()) {
-					case "minecraft:adventure/adventuring_time" -> {
-						addBiomeRequirement(advancement, WWBiomes.CYPRESS_WETLANDS, registries);
-						addBiomeRequirement(advancement, WWBiomes.MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.OASIS, registries);
-						addBiomeRequirement(advancement, WWBiomes.WARM_RIVER, registries);
-						addBiomeRequirement(advancement, WWBiomes.WARM_BEACH, registries);
-						addBiomeRequirement(advancement, WWBiomes.FROZEN_CAVES, registries);
-						addBiomeRequirement(advancement, WWBiomes.MESOGLEA_CAVES, registries);
-						addBiomeRequirement(advancement, WWBiomes.MAGMATIC_CAVES, registries);
-						addBiomeRequirement(advancement, WWBiomes.ARID_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.ARID_SAVANNA, registries);
-						addBiomeRequirement(advancement, WWBiomes.PARCHED_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, WWBiomes.SPARSE_BIRCH_JUNGLE, registries);
-						addBiomeRequirement(advancement, WWBiomes.BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, WWBiomes.SEMI_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.DARK_BIRCH_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.FLOWER_FIELD, registries);
-						addBiomeRequirement(advancement, WWBiomes.TEMPERATE_RAINFOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.RAINFOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.DARK_TAIGA, registries);
-						addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_BIRCH_TAIGA, registries);
-						addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_DARK_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, registries);
-						addBiomeRequirement(advancement, WWBiomes.DYING_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.DYING_MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
-						addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
-					}
-					case "minecraft:husbandry/balanced_diet" -> {
+			if (!WWAmbienceAndMiscConfig.get().modifyAdvancements) return;
+			switch (holder.id().toString()) {
+				case "minecraft:adventure/adventuring_time" -> {
+					final WWWorldgenConfig.BiomeGeneration biomeGenerationConfig = WWWorldgenConfig.get().biomeGeneration;
+					if (biomeGenerationConfig.generateCypressWetlands) addBiomeRequirement(advancement, WWBiomes.CYPRESS_WETLANDS, registries);
+					if (biomeGenerationConfig.generateOasis) addBiomeRequirement(advancement, WWBiomes.OASIS, registries);
+					if (biomeGenerationConfig.generateWarmRiver) addBiomeRequirement(advancement, WWBiomes.WARM_RIVER, registries);
+					if (biomeGenerationConfig.generateWarmBeach) addBiomeRequirement(advancement, WWBiomes.WARM_BEACH, registries);
+					if (biomeGenerationConfig.generateFrozenCaves) addBiomeRequirement(advancement, WWBiomes.FROZEN_CAVES, registries);
+					if (biomeGenerationConfig.generateMesogleaCaves) addBiomeRequirement(advancement, WWBiomes.MESOGLEA_CAVES, registries);
+					if (biomeGenerationConfig.generateMagmaticCaves) addBiomeRequirement(advancement, WWBiomes.MAGMATIC_CAVES, registries);
+					if (biomeGenerationConfig.generateAridForest) addBiomeRequirement(advancement, WWBiomes.ARID_FOREST, registries);
+					if (biomeGenerationConfig.generateAridSavanna) addBiomeRequirement(advancement, WWBiomes.ARID_SAVANNA, registries);
+					if (biomeGenerationConfig.generateParchedForest) addBiomeRequirement(advancement, WWBiomes.PARCHED_FOREST, registries);
+					if (biomeGenerationConfig.generateBirchJungle) addBiomeRequirement(advancement, WWBiomes.BIRCH_JUNGLE, registries);
+					if (biomeGenerationConfig.generateSparseBirchJungle) addBiomeRequirement(advancement, WWBiomes.SPARSE_BIRCH_JUNGLE, registries);
+					if (biomeGenerationConfig.generateBirchTaiga) addBiomeRequirement(advancement, WWBiomes.BIRCH_TAIGA, registries);
+					if (biomeGenerationConfig.generateSemiBirchForest) addBiomeRequirement(advancement, WWBiomes.SEMI_BIRCH_FOREST, registries);
+					if (biomeGenerationConfig.generateDarkBirchForest) addBiomeRequirement(advancement, WWBiomes.DARK_BIRCH_FOREST, registries);
+					if (biomeGenerationConfig.generateFlowerField) addBiomeRequirement(advancement, WWBiomes.FLOWER_FIELD, registries);
+					if (biomeGenerationConfig.generateTemperateRainforest) addBiomeRequirement(advancement, WWBiomes.TEMPERATE_RAINFOREST, registries);
+					if (biomeGenerationConfig.generateRainforest) addBiomeRequirement(advancement, WWBiomes.RAINFOREST, registries);
+					if (biomeGenerationConfig.generateDarkTaiga) addBiomeRequirement(advancement, WWBiomes.DARK_TAIGA, registries);
+					if (biomeGenerationConfig.generateOldGrowthBirchTaiga) addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_BIRCH_TAIGA, registries);
+					if (biomeGenerationConfig.generateOldGrowthDarkForest) addBiomeRequirement(advancement, WWBiomes.OLD_GROWTH_DARK_FOREST, registries);
+					if (biomeGenerationConfig.generateOldGrowthSnowyTaiga) addBiomeRequirement(advancement, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, registries);
+					if (biomeGenerationConfig.generateMixedForest) addBiomeRequirement(advancement, WWBiomes.MIXED_FOREST, registries);
+					if (biomeGenerationConfig.generateDyingForest) addBiomeRequirement(advancement, WWBiomes.DYING_FOREST, registries);
+					if (biomeGenerationConfig.generateSnowyDyingForest) addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_FOREST, registries);
+					if (biomeGenerationConfig.generateDyingMixedForest) addBiomeRequirement(advancement, WWBiomes.DYING_MIXED_FOREST, registries);
+					if (biomeGenerationConfig.generateSnowyDyingMixedForest) addBiomeRequirement(advancement, WWBiomes.SNOWY_DYING_MIXED_FOREST, registries);
+					if (biomeGenerationConfig.generateMapleForest) addBiomeRequirement(advancement, WWBiomes.MAPLE_FOREST, registries);
+					if (biomeGenerationConfig.generateSparseForest) addBiomeRequirement(advancement, WWBiomes.SPARSE_FOREST, registries);
+					if (biomeGenerationConfig.generateTundra) addBiomeRequirement(advancement, WWBiomes.TUNDRA, registries);
+				}
+				case "minecraft:husbandry/balanced_diet" -> {
+					final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
+					final WWEntityConfig entityConfig = WWEntityConfig.get();
+
+					if (worldgenConfig.treeGeneration.baobab) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.BAOBAB_NUT)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:baobab_nut"))));
+					}
+
+					if (worldgenConfig.treeGeneration.palm) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:split_coconut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SPLIT_COCONUT)).triggerInstance())
 						);
-						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.CRAB_CLAW)).triggerInstance())
-						);
-						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.COOKED_CRAB_CLAW)).triggerInstance())
-						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:split_coconut"))));
+					}
+
+					if (worldgenConfig.vegetation.cactusGeneration) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.PRICKLY_PEAR)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:prickly_pear"))));
+
 						AdvancementAPI.addCriteria(advancement, "wilderwild:peeled_prickly_pear", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.PEELED_PRICKLY_PEAR)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:peeled_prickly_pear"))));
+					}
+
+					if (entityConfig.crab.spawnCrabs) {
+						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.CRAB_CLAW)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab_claw"))));
+
+						AdvancementAPI.addCriteria(advancement, "wilderwild:cooked_crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.COOKED_CRAB_CLAW)).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:cooked_crab_claw"))));
+					}
+
+					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SCORCHED_EYE)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:baobab_nut"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:split_coconut"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab_claw"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:cooked_crab_claw"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:prickly_pear"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:peeled_prickly_pear"))));
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched_eye"))));
 					}
-					case "minecraft:husbandry/bred_all_animals" -> {
+				}
+				case "minecraft:husbandry/bred_all_animals" -> {
+					final WWEntityConfig entityConfig = WWEntityConfig.get();
+
+					if (entityConfig.crab.spawnCrabs) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.CRAB)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab"))));
+					}
+
+					if (entityConfig.ostrich.spawnOstriches) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.OSTRICH)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:ostrich"))));
+					}
+
+					if (entityConfig.moobloom.spawnMooblooms) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:moobloom", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.MOOBLOOM)).triggerInstance())
 						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:moobloom"))));
+					}
+
+					if (entityConfig.penguin.spawnPenguins) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:penguin", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.PENGUIN)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:ostrich"))));
-						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:moobloom"))));
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:penguin"))));
 					}
-					case "minecraft:husbandry/tactical_fishing" -> {
+
+				}
+				case "minecraft:husbandry/tactical_fishing" -> {
+					final WWEntityConfig entityConfig = WWEntityConfig.get();
+
+					if (entityConfig.crab.spawnCrabs) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)).triggerInstance())
 						);
+					}
+
+					if (entityConfig.jellyfish.spawnJellyfish) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:crab_bucket", "wilderwild:jellyfish_bucket"));
 					}
-					case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
-						if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
-							Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-							MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-							Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+				}
+				case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
+					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
+						Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
+						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
+						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+
+						final WWEntityConfig entityConfig = WWEntityConfig.get();
+						if (entityConfig.crab.spawnCrabs || WWBlockConfig.get().reachBoostBeacon) {
 							map.put(WWMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
-							map.put(WWMobEffects.SCORCHING, new MobEffectsPredicate.MobEffectInstancePredicate());
-							predicate.effectMap = map;
 						}
+
+						if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
+							map.put(WWMobEffects.SCORCHING, new MobEffectsPredicate.MobEffectInstancePredicate());
+						}
+						predicate.effectMap = map;
 					}
-					case "minecraft:adventure/kill_a_mob" -> {
+				}
+				case "minecraft:adventure/kill_a_mob" -> {
+					final WWEntityConfig entityConfig = WWEntityConfig.get();
+					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:scorched"));
 					}
-					case "minecraft:adventure/kill_all_mobs" -> {
+				}
+				case "minecraft:adventure/kill_all_mobs" -> {
+					final WWEntityConfig entityConfig = WWEntityConfig.get();
+					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched"))));
 					}
-					default -> {
-					}
 				}
-
+				default -> {
+				}
 			}
 		});
 
