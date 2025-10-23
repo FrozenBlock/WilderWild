@@ -374,7 +374,7 @@ public class MesogleaDripParticle extends TextureSheetParticle {
 
 		@Override
 		public Particle createParticle(@NotNull SimpleParticleType simpleParticleType, @NotNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
-			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticleTypes.RED_HANGING_MESOGLEA);
+			MesogleaDripParticle.FallAndLandParticle dripParticle = new MesogleaDripParticle.FallAndLandParticle(clientLevel, d, e, f, WWParticleTypes.RED_LANDING_MESOGLEA);
 			dripParticle.pickSprite(this.sprite);
 			return dripParticle;
 		}
