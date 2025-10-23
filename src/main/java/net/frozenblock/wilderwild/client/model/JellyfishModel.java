@@ -194,6 +194,8 @@ public class JellyfishModel<T extends Jellyfish> extends HierarchicalModel<T> {
 		for (ModelPart modelPart : invisibleTentacles) {
 			modelPart.visible = false;
 		}
+
+		this.armBase.visible = WWEntityConfig.Client.JELLYFISH_ORAL_ARM;
 	}
 
 	@Override

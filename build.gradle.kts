@@ -51,7 +51,6 @@ val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
 val fallingleaves_version: String by project
-val particlerain_version: String by project
 
 val biolith_version: String by project
 val run_biolith: String by project
@@ -193,9 +192,9 @@ dependencies {
     // FrozenLib
     if (local_frozenlib) {
         api(project(":FrozenLib", configuration = "namedElements"))
-        modCompileOnly(project(":FrozenLib"))?.let { include(it) }
+        modCompileOnly(project(":FrozenLib"))
     } else
-        modApi("maven.modrinth:frozenlib:$frozenlib_version")?.let { include(it) }
+        modApi("maven.modrinth:frozenlib:$frozenlib_version")
 
     // Simple Copper Pipes
     modCompileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
@@ -210,10 +209,7 @@ dependencies {
     }
 
     // TerraBlender
-    modCompileOnlyApi("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}")
-
-    // Particle Rain
-    modCompileOnly("maven.modrinth:particle-rain:${particlerain_version}")
+    modCompileOnly("maven.modrinth:terrablender:${terrablender_version}")
 
     // Biolith
     if (shouldRunBiolith)
