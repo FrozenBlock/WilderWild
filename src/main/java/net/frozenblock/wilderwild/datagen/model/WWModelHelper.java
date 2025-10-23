@@ -160,32 +160,33 @@ public final class WWModelHelper {
 
 	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, ResourceLocation texture) {
 		generator.createParticleOnlyBlock(stoneChest, particleTexture);
-		Item item = stoneChest.asItem();
-		ResourceLocation resourceLocation2 = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
-		ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(resourceLocation2, new StoneChestSpecialRenderer.Unbaked(texture));
+		final Item item = stoneChest.asItem();
+		final ResourceLocation model = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		final ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(model, new StoneChestSpecialRenderer.Unbaked(texture));
 		generator.itemModelOutput.accept(item, unbaked);
 	}
 
 	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {
-		TextureMapping mesogleaTextureMapping = new TextureMapping();
+		final TextureMapping mesogleaTextureMapping = new TextureMapping();
 		mesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock));
-		ResourceLocation modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
-		MultiVariant multiVariant = BlockModelGenerators.plainVariant(modelId);
+		final ResourceLocation modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
+		final MultiVariant multiVariant = BlockModelGenerators.plainVariant(modelId);
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(mesogleaBlock, multiVariant));
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(mesogleaBlock.asItem()), new DelegatedModel(modelId));
 	}
 
 	public static void createNematocyst(@NotNull BlockModelGenerators generator, @NotNull Block nematocystBlock) {
-		TextureMapping nematocystTextureMapping = new TextureMapping();
+		final TextureMapping nematocystTextureMapping = new TextureMapping();
 		nematocystTextureMapping.put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(nematocystBlock));
 		nematocystTextureMapping.put(TextureSlot.FAN, TextureMapping.getBlockTexture(nematocystBlock, "_outer"));
-		MultiVariant multiVariant = BlockModelGenerators.plainVariant(NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput));
+		final MultiVariant multiVariant = BlockModelGenerators.plainVariant(NEMATOCYST_MODEL.create(nematocystBlock, nematocystTextureMapping, generator.modelOutput));
 
-		Map<Property<Boolean>, VariantMutator> map = FrozenLibModelHelper.selectMultifaceNoUvLockProperties(nematocystBlock.defaultBlockState(), MultifaceBlock::getFaceProperty);
-		ConditionBuilder conditionBuilder = BlockModelGenerators.condition();
+		final Map<Property<Boolean>, VariantMutator> map = FrozenLibModelHelper.selectMultifaceNoUvLockProperties(nematocystBlock.defaultBlockState(), MultifaceBlock::getFaceProperty);
+		final ConditionBuilder conditionBuilder = BlockModelGenerators.condition();
 		map.forEach((property, variantMutator) -> conditionBuilder.term(property, false));
-		MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(nematocystBlock);
+
+		final MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(nematocystBlock);
 		map.forEach((property, variantMutator) -> {
 			multiPartGenerator.with(BlockModelGenerators.condition().term(property, true), multiVariant.with(variantMutator));
 			multiPartGenerator.with(conditionBuilder, multiVariant.with(variantMutator));
@@ -194,21 +195,21 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(multiPartGenerator);
 	}
 
-	public static void createHangingFroglight(@NotNull BlockModelGenerators generator, Block bodyBlock, @NotNull Block headBlock) {
+	public static void createFroglightGoop(@NotNull BlockModelGenerators generator, Block bodyBlock, @NotNull Block headBlock) {
 		generator.registerSimpleFlatItemModel(headBlock.asItem());
 		generator.createCrossBlock(headBlock, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createCrossBlock(bodyBlock, BlockModelGenerators.PlantType.NOT_TINTED);
 	}
 
 	public static void createShelfFungi(@NotNull BlockModelGenerators generator, @NotNull Block shelfFungiBlock) {
-		TextureMapping shelfFungiTextureMapping = new TextureMapping();
+		final TextureMapping shelfFungiTextureMapping = new TextureMapping();
 		shelfFungiTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(shelfFungiBlock));
 		shelfFungiTextureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(shelfFungiBlock, "_bottom"));
 
-		MultiVariant model1 = BlockModelGenerators.plainVariant(SHELF_FUNGI_1_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		MultiVariant model2 = BlockModelGenerators.plainVariant(SHELF_FUNGI_2_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		MultiVariant model3 = BlockModelGenerators.plainVariant(SHELF_FUNGI_3_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		MultiVariant model4 = BlockModelGenerators.plainVariant(SHELF_FUNGI_4_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
+		final MultiVariant model1 = BlockModelGenerators.plainVariant(SHELF_FUNGI_1_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
+		final MultiVariant model2 = BlockModelGenerators.plainVariant(SHELF_FUNGI_2_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
+		final MultiVariant model3 = BlockModelGenerators.plainVariant(SHELF_FUNGI_3_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
+		final MultiVariant model4 = BlockModelGenerators.plainVariant(SHELF_FUNGI_4_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
 
 		generator.registerSimpleFlatItemModel(shelfFungiBlock.asItem());
 		generator.blockStateOutput
@@ -240,7 +241,7 @@ public final class WWModelHelper {
 	}
 
 	public static void createMultifaceBlock(@NotNull BlockModelGenerators generator, Block multifaceBlock) {
-		TextureMapping multifaceTextureMapping = new TextureMapping();
+		final TextureMapping multifaceTextureMapping = new TextureMapping();
 		multifaceTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(multifaceBlock));
 		MULTIFACE_MODEL.create(multifaceBlock, multifaceTextureMapping, generator.modelOutput);
 
@@ -252,9 +253,9 @@ public final class WWModelHelper {
 	}
 
 	public static void generateMilkweedPod(ItemModelGenerators generator, Item item) {
-		ItemModel.Unbaked unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
-		ItemModel.Unbaked unbaked2 = ItemModelUtils.plainModel(WWConstants.id("item/milkweed_pod_blowing"));
-		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
+		final ItemModel.Unbaked model = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+		final ItemModel.Unbaked blowing = ItemModelUtils.plainModel(WWConstants.id("item/milkweed_pod_blowing"));
+		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), blowing, model);
 	}
 
 	public static void generateEchoGlass(@NotNull ItemModelGenerators generator, Item item) {
@@ -273,28 +274,28 @@ public final class WWModelHelper {
 	}
 
 	public static void createUntintedLeafLitter(@NotNull BlockModelGenerators generator, Block block) {
-		MultiVariant multiVariant = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_1.create(block, generator.modelOutput));
-		MultiVariant multiVariant2 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_2.create(block, generator.modelOutput));
-		MultiVariant multiVariant3 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_3.create(block, generator.modelOutput));
-		MultiVariant multiVariant4 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_4.create(block, generator.modelOutput));
+		final MultiVariant litter1 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_1.create(block, generator.modelOutput));
+		final MultiVariant litter2 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_2.create(block, generator.modelOutput));
+		final MultiVariant litter3 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_3.create(block, generator.modelOutput));
+		final MultiVariant litter4 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_4.create(block, generator.modelOutput));
 		generator.registerSimpleFlatItemModel(block);
 		generator.createSegmentedBlock(
 			block,
-			multiVariant,
+			litter1,
 			BlockModelGenerators.LEAF_LITTER_MODEL_1_SEGMENT_CONDITION,
-			multiVariant2,
+			litter2,
 			BlockModelGenerators.LEAF_LITTER_MODEL_2_SEGMENT_CONDITION,
-			multiVariant3,
+			litter3,
 			BlockModelGenerators.LEAF_LITTER_MODEL_3_SEGMENT_CONDITION,
-			multiVariant4,
+			litter4,
 			BlockModelGenerators.LEAF_LITTER_MODEL_4_SEGMENT_CONDITION
 		);
 	}
 
 	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
-		Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
-		MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
-		MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
+		final Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
+		final MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
+		final MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
 		generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
 			.with(BlockModelGenerators.condition().term(BlockStateProperties.NORTH, true), outside)
 			.with(BlockModelGenerators.condition().term(BlockStateProperties.EAST, true), outside.with(BlockModelGenerators.Y_ROT_90).with(BlockModelGenerators.UV_LOCK))
@@ -312,7 +313,7 @@ public final class WWModelHelper {
 	}
 
 	public static void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
-		List<SelectItemModel.SwitchCase<String>> switchCases = new ArrayList<>();
+		final List<SelectItemModel.SwitchCase<String>> switchCases = new ArrayList<>();
 
 		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
 			if (fireflyColor.equals(WWConstants.string("on"))) return;
@@ -341,25 +342,25 @@ public final class WWModelHelper {
 
 	public static void createHibiscus(@NotNull BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.PlantType plantType) {
 		generator.createCrossBlockWithDefaultItem(block, plantType);
-		TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
-		MultiVariant pot = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput));
+		final TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
+		final MultiVariant pot = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput));
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
 	public static void createIcicle(@NotNull BlockModelGenerators generator) {
-		PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> c2 = PropertyDispatch.initial(
+		final PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> dispatch = PropertyDispatch.initial(
 			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
 		);
 
 		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
-			c2.select(Direction.UP, dripstoneThickness, createIcicleVariant(generator, Direction.UP, dripstoneThickness));
+			dispatch.select(Direction.UP, dripstoneThickness, createIcicleVariant(generator, Direction.UP, dripstoneThickness));
 		}
 
 		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
-			c2.select(Direction.DOWN, dripstoneThickness, createIcicleVariant(generator, Direction.DOWN, dripstoneThickness));
+			dispatch.select(Direction.DOWN, dripstoneThickness, createIcicleVariant(generator, Direction.DOWN, dripstoneThickness));
 		}
 
-		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(c2));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(dispatch));
 	}
 
 	private static @NotNull MultiVariant createIcicleVariant(@NotNull BlockModelGenerators generator, @NotNull Direction direction, @NotNull DripstoneThickness dripstoneThickness) {
