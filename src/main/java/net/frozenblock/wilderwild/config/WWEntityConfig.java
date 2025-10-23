@@ -60,6 +60,7 @@ public final class WWEntityConfig {
 					Client.WARDEN_IMPROVED_SNIFF_ANIMATION = config.warden.wardenBedrockSniff;
 					Client.WARDEN_DEATH_ANIMATION = config.warden.wardenDeathAnimation;
 					Client.JELLYFISH_PLANE_TENTACLES = config.jellyfish.planeTentacles;
+					Client.JELLYFISH_ORAL_ARM = config.jellyfish.oralArm;
 				}
 			}
 		}
@@ -78,6 +79,7 @@ public final class WWEntityConfig {
 		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
 		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
 		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
+		public static volatile boolean JELLYFISH_ORAL_ARM = true;
 	}
 
 	@CollapsibleObject
@@ -189,6 +191,8 @@ public final class WWEntityConfig {
 		public int jellyfishTentacles = 8;
 		@EntrySyncData(value = "planeTentacles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean planeTentacles = true;
+		@EntrySyncData(value = "oralArm", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean oralArm = true;
 	}
 
 	public static class CrabConfig {
