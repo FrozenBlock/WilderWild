@@ -23,7 +23,9 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import org.apache.commons.lang3.function.TriConsumer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import java.util.function.BiConsumer;
 
@@ -31,14 +33,33 @@ import java.util.function.BiConsumer;
 public class ItemAttributeModifiersMixin {
 
 	@WrapWithCondition(
-		method = "forEach*",
+		method = {
+			"forEach(Lnet/minecraft/world/entity/EquipmentSlot;Ljava/util/function/BiConsumer;)V",
+			"forEach(Lnet/minecraft/world/entity/EquipmentSlotGroup;Ljava/util/function/BiConsumer;)V"
+		},
 		at = @At(
 			value = "INVOKE",
 			target = "Ljava/util/function/BiConsumer;accept(Ljava/lang/Object;Ljava/lang/Object;)V"
 		)
 	)
 	public boolean wilderWild$fixCrabClawAttributes(BiConsumer instance, Object object1, Object object2) {
-		if (object2 instanceof AttributeModifier attributeModifier) {
+		return wilderWild$canAttributeModifierBeUsed(object2);
+	}
+
+	@WrapWithCondition(
+		method = "forEach(Lnet/minecraft/world/entity/EquipmentSlotGroup;Lorg/apache/commons/lang3/function/TriConsumer;)V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lorg/apache/commons/lang3/function/TriConsumer;accept(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V"
+		)
+	)
+	public boolean wilderWild$fixCrabClawAttributes(TriConsumer instance, Object object1, Object object2, Object object3) {
+		return wilderWild$canAttributeModifierBeUsed(object2);
+	}
+
+	@Unique
+	private static boolean wilderWild$canAttributeModifierBeUsed(Object object) {
+		if (object instanceof AttributeModifier attributeModifier) {
 			final ResourceLocation id = attributeModifier.id();
 			if (id.equals(Crab.BLOCK_REACH_BOOST_MODIFIER_ID)) return WWEntityConfig.CRAB_CLAW_GIVES_REACH;
 			if (id.equals(Crab.ENTITY_REACH_BOOST_MODIFIER_ID)) return WWEntityConfig.CRAB_CLAW_GIVES_REACH && WWEntityConfig.REACH_AFFECTS_ATTACK;
