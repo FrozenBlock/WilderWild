@@ -110,7 +110,7 @@ wet.noodle/Kluski42:
  - Pointed out the inconsistency in dye recipes between Sunflowers and Datura.
  - Fixed a bug not allowing Geysers to erupt when pointed into certain blocks that should let them erupt.
 
-Rebel459
+Rebel459:
  - Revamped music pools in 2.4.5.
  - Revamped music distribution as a whole in 4.0, with new config options.
 
@@ -169,7 +169,10 @@ Xfrtrex:
  - Came up with Firework Rockets being impacted by the wind.
  - Feedback on Scorched not setting the player on fire while attacking.
 
-Lufurrius
+girlilypop/gayasslily:
+ - Asked for Crab Claws to grant reach while held.
+
+Lufurrius:
  - Fixed Hollowed Log UV/rotations in 3.1.
 
 Kokoroto:
@@ -199,12 +202,6 @@ godkyo98:
 
 Osmiooo:
  - French translation.
-
-LudoCrypt:
- - Composer.
-    - Horizon Afoot
-    - Serene Sonder
-    - Dove
 
 Ostrich Sounds:
 Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
