@@ -57,6 +57,7 @@
     "datafix.boat.V4067Mixin",
     "entity.ai.MobMixin",
     "entity.allay.AllayMixin",
+    "entity.crab.ItemAttributeModifiersMixin",
     "entity.crab.LivingEntityMixin",
     "entity.crab.PathNavigationMixin",
     "entity.crab.WallClimberNavigationMixin",
