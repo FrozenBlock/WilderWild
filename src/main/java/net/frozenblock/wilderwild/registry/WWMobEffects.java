@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -41,12 +42,12 @@ public final class WWMobEffects {
 			47784
 		).addAttributeModifier(
 			Attributes.BLOCK_INTERACTION_RANGE,
-			WWConstants.id("block_reach_boost"),
+			Crab.BLOCK_REACH_BOOST_MODIFIER_ID,
 			1.5D,
 			AttributeModifier.Operation.ADD_VALUE
 		).addAttributeModifier(
 			Attributes.ENTITY_INTERACTION_RANGE,
-			WWConstants.id("entity_reach_boost"),
+			Crab.ENTITY_REACH_BOOST_MODIFIER_ID,
 			WWEntityConfig.get().crab.reachAffectsAttack ? 1.5D : 0D,
 			AttributeModifier.Operation.ADD_VALUE
 		)

@@ -733,6 +733,8 @@
   "tooltip.wilderwild.crab_spawn_cap": "Controls the Crab's spawn cap.",
   "option.wilderwild.reach_affects_attack": "Reach Boost Affects Attack Range",
   "tooltip.wilderwild.reach_affects_attack": "Whether the Reach Boost effect will\nimpact the Player's attack range.",
+  "option.wilderwild.crab_claw_gives_reach": "Crab Claws Give Reach Effect",
+  "tooltip.wilderwild.crab_claw_gives_reach": "Whether Crab Claws will grant extended reach while held.",
 
   "option.wilderwild.enderman": "Enderman",
   "tooltip.wilderwild.enderman": "Contains options for the Enderman.",
