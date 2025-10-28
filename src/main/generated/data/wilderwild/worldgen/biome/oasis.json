@@ -18,7 +18,7 @@
   ],
   "downfall": 0.25,
   "effects": {
-    "water_color": 3981763
+    "water_color": "#3cc1c3"
   },
   "features": [
     [],
@@ -137,7 +137,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 50
       },
       {
         "type": "minecraft:creeper",
@@ -168,6 +168,12 @@
         "maxCount": 4,
         "minCount": 4,
         "weight": 80
+      },
+      {
+        "type": "minecraft:parched",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
       }
     ],
     "underground_water_creature": [

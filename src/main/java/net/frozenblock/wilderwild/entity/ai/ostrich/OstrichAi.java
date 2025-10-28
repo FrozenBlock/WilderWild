@@ -65,7 +65,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -232,7 +232,7 @@ public class OstrichAi {
 				return;
 			}
 
-			if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+			if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 				setAngerTargetToNearestTargetablePlayerIfFound(level, ostrich, target);
 				broadcastUniversalAnger(level, ostrich);
 			} else {
@@ -249,7 +249,7 @@ public class OstrichAi {
 		ostrich.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		ostrich.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
-		if (target.getType() == EntityType.PLAYER && level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 			ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}

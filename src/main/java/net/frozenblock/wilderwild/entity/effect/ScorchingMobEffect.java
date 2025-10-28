@@ -34,10 +34,10 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.NotNull;
 
 public class ScorchingMobEffect extends MobEffect {
@@ -69,7 +69,7 @@ public class ScorchingMobEffect extends MobEffect {
 
 	@Override
 	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
-		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))) {
+		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || level.getGameRules().get(GameRules.MOB_GRIEFING))) {
 			this.spawnFireRandomlyAround(entity.level(), entity.getRandom(), entity.getOnPos());
 		}
 	}

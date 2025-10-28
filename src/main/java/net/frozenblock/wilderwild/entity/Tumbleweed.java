@@ -78,7 +78,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -86,6 +85,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -220,7 +220,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 		if (this.level() instanceof ServerLevel serverLevel
 			&& this.getBlockStateOn().is(BlockTags.CROPS)
-			&& serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)
+			&& serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)
 			&& !this.onGround()
 		) {
 			if (WWEntityConfig.get().tumbleweed.tumbleweedDestroysCrops) this.level().destroyBlock(this.blockPosition(), true, this);
@@ -332,7 +332,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 		if (inventoryStack.getCount() > 1) {
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
-		if (this.level() instanceof ServerLevel serverLevel && inventoryStack.isEmpty() && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !this.isRemoved()) {
+		if (this.level() instanceof ServerLevel serverLevel && inventoryStack.isEmpty() && serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && !this.isRemoved()) {
 			List<ItemEntity> list = serverLevel.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
 			for (ItemEntity item : list) {
 				if (!this.isMovingTowards(item)) continue;
@@ -550,7 +550,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	@Override
 	public void die(@NotNull DamageSource damageSource) {
 		super.die(damageSource);
-		if (this.level() instanceof ServerLevel level && level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT) && !damageSource.isCreativePlayer()) {
+		if (this.level() instanceof ServerLevel level && level.getGameRules().get(GameRules.MOB_DROPS) && !damageSource.isCreativePlayer()) {
 			if (isSilkTouchOrShears(damageSource)) level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
 		}
 		this.destroy(true);

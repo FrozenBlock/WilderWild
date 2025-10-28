@@ -17,7 +17,7 @@
   "downfall": 0.8,
   "effects": {
     "grass_color_modifier": "dark_forest",
-    "water_color": 4159204
+    "water_color": "#3f76e4"
   },
   "features": [
     [],

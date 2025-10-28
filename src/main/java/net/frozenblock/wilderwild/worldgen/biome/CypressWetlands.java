@@ -123,7 +123,7 @@ public final class CypressWetlands extends FrozenBiome {
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
 		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
 		builder.set(EnvironmentAttributes.WATER_FOG_COLOR, WATER_FOG_COLOR);
-		builder.modify(EnvironmentAttributes.WATER_FOG_RADIUS, FloatModifier.MULTIPLY, 0.85F);
+		builder.modify(EnvironmentAttributes.WATER_FOG_END_DISTANCE, FloatModifier.MULTIPLY, 0.85F);
 		builder.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST));
 		builder.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true);
 	}

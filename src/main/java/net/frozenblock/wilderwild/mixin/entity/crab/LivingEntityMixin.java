@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class LivingEntityMixin {
 
 	@ModifyExpressionValue(
-		method = "travelInFluid",
+		method = "travelInWater",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/LivingEntity;onClimbable()Z"

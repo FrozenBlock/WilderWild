@@ -89,7 +89,6 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -97,6 +96,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -552,7 +552,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		jellyfish.setDeltaMovement(this.getDeltaMovement().scale(-0.5D));
 		jellyfish.setVariant(this.getVariant());
 		level.broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
-		if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+		if (level.getGameRules().get(GameRules.MOB_DROPS)) {
 			level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
 		}
 		level.addFreshEntityWithPassengers(jellyfish);
