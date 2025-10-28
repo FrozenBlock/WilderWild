@@ -343,10 +343,22 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var crabClawGivesReach = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("crab_claw_gives_reach"), modifiedCrab.crabClawGivesReach)
+				.setDefaultValue(defaultConfig.crab.crabClawGivesReach)
+				.setSaveConsumer(newValue -> crab.crabClawGivesReach = newValue)
+				.setTooltip(tooltip("crab_claw_gives_reach"))
+				.requireRestart()
+				.build(),
+			crab.getClass(),
+			"crabClawGivesReach",
+			configInstance
+		);
+
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
 			tooltip("crab"),
-			spawnCrabs, crabSpawnCap, reachAffectsAttack
+			spawnCrabs, crabSpawnCap, reachAffectsAttack, crabClawGivesReach
 		);
 
 		var spawnOstriches = FrozenClothConfig.syncedEntry(

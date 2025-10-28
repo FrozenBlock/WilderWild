@@ -50,6 +50,8 @@ public final class WWEntityConfig {
 				var config = this.config();
 				WARDEN_SWIMS = config.warden.wardenSwims;
 				FIREFLY_SWARMS = config.firefly.fireflySwarm;
+				REACH_AFFECTS_ATTACK = config.crab.reachAffectsAttack;
+				CRAB_CLAW_GIVES_REACH = config.crab.crabClawGivesReach;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
 					Client.ALLAY_KEYFRAME_DANCE = config.allay.keyframeAllayDance;
@@ -68,6 +70,8 @@ public final class WWEntityConfig {
 
 	public static volatile boolean WARDEN_SWIMS = true;
 	public static volatile boolean FIREFLY_SWARMS = true;
+	public static volatile boolean REACH_AFFECTS_ATTACK = false;
+	public static volatile boolean CRAB_CLAW_GIVES_REACH = false;
 
 	public static final class Client {
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
@@ -204,6 +208,9 @@ public final class WWEntityConfig {
 
 		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;
+
+		@EntrySyncData("crabClawGivesReach")
+		public boolean crabClawGivesReach = false;
 	}
 
 	public static class OstrichConfig {

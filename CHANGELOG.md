@@ -1,12 +1,9 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Increased Wilder Wild's protocol version to 16.
-- FrozenLib is no longer embedded in Wilder Wild, meaning it must be downloaded separately.
-- Wilder Wild's advancement modifications no longer require access to certain features when they are disabled by the mod's config.
-- Fixed an issue with Stone Chest animations being "snappy" on servers.
-- Copper Golems will now completely ignore Stone Chests.
-- Added a config option to toggle the oral arms of Jellyfish.
-- Fixed Dripping Red Mesoglea particles infinitely dripping through blocks one-by-one, all the way into the void.
-- Wilder Wild's textures now have defined mipmapping strategies on 25w43a+.
-- Updated the Russian translation, thanks to Taygeta! ([#509](https://github.com/FrozenBlock/WilderWild/pull/509))
+- Added a config option to grant players extended reach while holding a Crab Claw in either hand.
+  - This is off by default, but can be changed in-game on-the-fly via the config.
+  - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
+- Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
+- Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
+- Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514))
