@@ -303,7 +303,7 @@
   "subtitles.block.hanging_tendril.clicking_stop": "Висячий вусик припиняє клацати",
   "subtitles.particle.floating_sculk_bubble.pop": "Скалкова бульбашка лускає",
 
-  "block.wilderwild.icicle": "Бурілька",
+  "block.wilderwild.icicle": "Бурулька",
   "death.attack.fallingIcicle": "%1$s проткнуто падучою бурулькою",
   "death.attack.fallingIcicle.player": "%1$s проткнуто падучою бурулькою під час битви з %2$s",
   "block.wilderwild.fragile_ice": "Крихка бурулька",
@@ -673,7 +673,7 @@
   "option.wilderwild.podzol_sounds": "Звуки підзолу",
   "tooltip.wilderwild.podzol_sounds": "Чи слід замінити звуки підзолу.",
   "option.wilderwild.sandstone_sounds": "Звуки пісковику",
-  "tooltip.wilderwild.sandstone_sounds": "Чи потрібно замінити звуки пісковиу.",
+  "tooltip.wilderwild.sandstone_sounds": "Чи потрібно замінити звуки пісковику.",
   "option.wilderwild.sapling_sounds": "Звуки паростка",
   "tooltip.wilderwild.sapling_sounds": "Чи слід замінити звуки паростка.",
   "option.wilderwild.sugar_cane_sounds": "Звуки цукрової тростини",
