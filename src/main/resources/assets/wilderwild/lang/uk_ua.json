@@ -230,9 +230,9 @@
   "block.wilderwild.auburn_moss_carpet": "Каштановий моховий покрив",
   "block.wilderwild.auburn_creeping_moss": "Каштановий повзучий мох",
   "block.wilderwild.barnacles": "Вусоногі",
-  "block.wilderwild.brown_shelf_fungi": "Коричневі шельфові гриби",
+  "block.wilderwild.brown_shelf_fungi": "Коричневі настінні гриби",
   "block.wilderwild.cattail": "Рогіз",
-  "block.wilderwild.crimson_shelf_fungi": "Багряні шельфові гриби",
+  "block.wilderwild.crimson_shelf_fungi": "Багряні настінні гриби",
   "block.wilderwild.datura": "Дурман",
   "block.wilderwild.echo_glass": "Скло відлуння",
   "block.wilderwild.flowering_lily_pad": "Квітуче латаття",
@@ -241,7 +241,7 @@
   "block.wilderwild.pale_mushroom": "Блідий гриб",
   "block.wilderwild.potted_pale_mushroom": "Блідий гриб у горщику",
   "block.wilderwild.pale_mushroom_block": "Блок блідого гриба",
-  "block.wilderwild.pale_shelf_fungi": "Бліді шельфові гриби",
+  "block.wilderwild.pale_shelf_fungi": "Бліді настінні гриби",
   "block.wilderwild.pollen": "Пилок",
   "block.wilderwild.potted_prickly_big_dripleaf": "Великий краплелист у горщику",
   "block.wilderwild.potted_prickly_small_dripleaf": "Малий краплелист у горщику",
@@ -254,7 +254,7 @@
   "block.wilderwild.potted_short_dry_grass": "Низька суха трава в горщику",
   "block.wilderwild.potted_tall_dry_grass": "Висока суха трава в горщику",
 
-  "block.wilderwild.red_shelf_fungi": "Червоні шельфові гриби",
+  "block.wilderwild.red_shelf_fungi": "Червоні настінні гриби",
   "block.wilderwild.scorched_sand": "Випалений пісок",
   "block.wilderwild.scorched_red_sand": "Випалений червоний пісок",
   "block.wilderwild.blue_pearlescent_mesoglea": "Синя перламутровий мезоглея",
@@ -420,7 +420,7 @@
 
   "block.wilderwild.tube_worms": "Трубкові черви",
 
-  "block.wilderwild.warped_shelf_fungi": "Химерні шельфові гриби",
+  "block.wilderwild.warped_shelf_fungi": "Химерні настінні гриби",
 
   "block.wilderwild.potted_wildflowers": "Польові квіти у горщику",
 
@@ -949,8 +949,8 @@
   "tooltip.wilderwild.grass_generation": "Генерації світу слід використовувати усталену генерацію трави чи Wilder Wild.",
   "option.wilderwild.dry_grass_generation": "Генерація сухої трави",
   "tooltip.wilderwild.dry_grass_generation": "Генерації світу слід використовувати усталену генерацію сухої трави чи Wilder Wild.",
-  "option.wilderwild.shelf_fungi_generation": "Генерація шельфових грибів",
-  "tooltip.wilderwild.shelf_fungi_generation": "Чи можуть шельфовим грибам генеруватися.",
+  "option.wilderwild.shelf_fungi_generation": "Генерація настінних грибів",
+  "tooltip.wilderwild.shelf_fungi_generation": "Чи можуть генеруватися настінні гриби.",
   "option.wilderwild.mushroom_generation": "Генерація грибів",
   "tooltip.wilderwild.mushroom_generation": "Генерації світу слід використовувати усталену генерацію грибів чи Wilder Wild.",
   "option.wilderwild.pale_mushroom_generation": "Генерація блідих грибів",
@@ -959,8 +959,8 @@
   "tooltip.wilderwild.pollen_generation": "Чи може генеруватися пилок.",
   "option.wilderwild.firefly_bush_generation": "Генерація кущів зі світляками",
   "tooltip.wilderwild.firefly_bush_generation": "Генерації світу слід використовувати усталену генерацію кущів зі світляками чи Wilder Wild.",
-  "option.wilderwild.leaf_litter_generation": "Leaf Litter Generation",
-  "tooltip.wilderwild.leaf_litter_generation": "Whether to use Wilder Wild's or Vanilla's Leaf Litter generation.",
+  "option.wilderwild.leaf_litter_generation": "Генерація опалого листя",
+  "tooltip.wilderwild.leaf_litter_generation": "Генерації світу слід використовувати усталену генерацію опалого листя зі світляками чи Wilder Wild.",
   "option.wilderwild.pumpkin_generation": "Генерація гарбуза",
   "tooltip.wilderwild.pumpkin_generation": "Генерації світу слід використовувати усталену генерацію гарбузів чи Wilder Wild.",
   "option.wilderwild.tumbleweed_generation": "Генерація перекотиполя",
@@ -1344,5 +1344,5 @@
 
   "item.disabled.trailiertales": "Потребує Trailier Tales",
 
-  "modmenu.descriptionTranslation.wilderwild": "Переглядає Wild Update, додаючи функції та покращуючи наявні"
+  "modmenu.descriptionTranslation.wilderwild": "Переглядає Wild Update, додаючи та покращуючи уже наявні функції"
 }
