@@ -1653,9 +1653,9 @@ public final class WWBlocks {
 
 	public static void registerNotSoPlants() {
 		registerBlockBefore(Items.GLOW_LICHEN, "pollen", POLLEN, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(Items.WARPED_FUNGUS, "red_shelf_fungi", RED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(RED_SHELF_FUNGI, "brown_shelf_fungi", BROWN_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockAfter(BROWN_SHELF_FUNGI, "crimson_shelf_fungi", CRIMSON_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.WARPED_FUNGUS, "brown_shelf_fungi", BROWN_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(BROWN_SHELF_FUNGI, "red_shelf_fungi", RED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(RED_SHELF_FUNGI, "crimson_shelf_fungi", CRIMSON_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(CRIMSON_SHELF_FUNGI, "warped_shelf_fungi", WARPED_SHELF_FUNGI, CreativeModeTabs.NATURAL_BLOCKS);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("algae"), ALGAE);
 		Registry.register(BuiltInRegistries.BLOCK, WWConstants.id("plankton"), PLANKTON);
@@ -1665,7 +1665,7 @@ public final class WWBlocks {
 		registerBlockAfter(Items.SEAGRASS, "sea_whip", SEA_WHIP, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(SEA_WHIP, "tube_worms", TUBE_WORMS, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockBefore(Items.SEA_PICKLE, "sea_anemone", SEA_ANEMONE, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlockBefore(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlockAfter(Items.FROGSPAWN, "ostrich_egg", OSTRICH_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(OSTRICH_EGG, "penguin_egg", PENGUIN_EGG, CreativeModeTabs.NATURAL_BLOCKS);
 
 		registerBlockAfter(Blocks.MOSS_CARPET, "auburn_moss_block", AUBURN_MOSS_BLOCK, CreativeModeTabs.NATURAL_BLOCKS);
