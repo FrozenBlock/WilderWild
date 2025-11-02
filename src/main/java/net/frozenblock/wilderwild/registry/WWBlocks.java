@@ -1712,11 +1712,11 @@ public final class WWBlocks {
 		registerBlockBefore(Items.BRICKS, "gabbro", GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
 
 		// TRAILIER TALES
-		registerBlockAfter(GEYSER, "gabbro_stairs", GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(GABBRO, "gabbro_stairs", GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(GABBRO_STAIRS, "gabbro_slab", GABBRO_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(GABBRO_SLAB, "gabbro_wall", GABBRO_WALL, CreativeModeTabs.BUILDING_BLOCKS);
 
-		registerBlockAfter(FrozenBools.HAS_TRAILIERTALES ? GABBRO_WALL : GEYSER, "polished_gabbro", POLISHED_GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(FrozenBools.HAS_TRAILIERTALES ? GABBRO_WALL : GABBRO, "polished_gabbro", POLISHED_GABBRO, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_GABBRO, "polished_gabbro_stairs", POLISHED_GABBRO_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_GABBRO_STAIRS, "polished_gabbro_slab", POLISHED_GABBRO_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
 		registerBlockAfter(POLISHED_GABBRO_SLAB, "polished_gabbro_wall", POLISHED_GABBRO_WALL, CreativeModeTabs.BUILDING_BLOCKS);
