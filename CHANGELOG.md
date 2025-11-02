@@ -16,3 +16,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - The Ostrich Egg and Penguin Egg are now placed after Frogspawn on 1.21.1.
     - Do note this was already fixed on 1.21.2+.
   - Fixed the Gabbro building set being misplaced on 1.21.1.
+  - Moved Sculk building blocks to the very bottom, and added the regular Sculk block alongside them.

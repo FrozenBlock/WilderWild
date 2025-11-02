@@ -1585,10 +1585,12 @@ public final class WWBlocks {
 	}
 
 	public static void registerDeepDark() {
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_slab", SCULK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "sculk_stairs", SCULK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
-		registerBlockAfter(Items.DEEPSLATE_TILE_WALL, "osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
+		FrozenCreativeTabs.addAfter(Items.GLASS, Items.SCULK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(Items.GLASS, "sculk_stairs", SCULK_STAIRS, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(SCULK_STAIRS, "sculk_slab", SCULK_SLAB, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(SCULK_SLAB, "sculk_wall", SCULK_WALL, CreativeModeTabs.BUILDING_BLOCKS);
+		registerBlockAfter(SCULK_WALL, "osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.BUILDING_BLOCKS);
+
 		registerBlockAfter(Items.SCULK, "osseous_sculk", OSSEOUS_SCULK, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlockAfter(Items.SCULK_SENSOR, "hanging_tendril", HANGING_TENDRIL, CreativeModeTabs.NATURAL_BLOCKS);
 		registerBlock("echo_glass", ECHO_GLASS);
