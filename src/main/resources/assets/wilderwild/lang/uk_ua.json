@@ -426,8 +426,8 @@
 
   "entity.wilderwild.crab": "Краб",
   "item.wilderwild.crab_spawn_egg": "Яйце виклику краба",
-  "item.wilderwild.crab_claw": "Крабова клешня",
-  "item.wilderwild.cooked_crab_claw": "Смажена крабова клешня",
+  "item.wilderwild.crab_claw": "Клешня краб",
+  "item.wilderwild.cooked_crab_claw": "Смажена клешня краба",
   "subtitles.entity.crab.idle": "Краб бряжчить",
   "subtitles.entity.crab.attack": "Краб щипає",
   "subtitles.entity.crab.hurt": "Краба поранено",
