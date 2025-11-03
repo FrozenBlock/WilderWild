@@ -12,7 +12,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Shelf Fungi are now placed after all fungi, instead of being placed after both Overworld and Nether fungi.
   - Pollen is now placed before Glow Lichen.
   - Coconut is now placed after the Blue Egg in the 'Combat' category in 1.21.5+.
-  - The Firefly Bottle and Butterfly Bottle are now placed before the Bucket.
+  - The Firefly Bottle and Butterfly Bottle are now placed after the Milk Bucket.
   - Barnacles is now placed before Algae and Plankton.
   - The Ostrich Egg and Penguin Egg are now placed after Frogspawn on 1.21.1.
     - Do note this was already fixed on 1.21.2+.
