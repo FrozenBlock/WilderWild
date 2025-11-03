@@ -21,7 +21,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
@@ -68,16 +67,14 @@ public class TreeFeatureMixin {
 		Util.toShuffledList(foliageSet.stream(), randomSource).forEach(pos -> {
 			final int currentCoconuts = coconutCount.get();
 			if (currentCoconuts >= PalmTreeFeature.MAX_COCONUTS) return;
-			if (level.getRandom().nextFloat() <= PalmTreeFeature.COCONUT_CHANCE || currentCoconuts <= 0) {
-				final BlockState state = level.getBlockState(pos);
-				if (state.hasProperty(BlockStateProperties.DISTANCE) || state.getValue(BlockStateProperties.DISTANCE) > CoconutBlock.VALID_FROND_DISTANCE) return;
+			if (level.getRandom().nextFloat() > PalmTreeFeature.COCONUT_CHANCE && currentCoconuts > 0) return;
 
-				final BlockPos coconutPos = mutable.setWithOffset(pos, 0, -1, 0);
-				if (!level.getBlockState(coconutPos).isAir()) return;
+			final BlockState state = level.getBlockState(pos);
+			if (state.getOptionalValue(BlockStateProperties.DISTANCE).orElse(0) > CoconutBlock.VALID_FROND_DISTANCE) return;
+			if (!level.getBlockState(mutable.setWithOffset(pos, 0, -1, 0)).isAir()) return;
 
-				level.setBlock(coconutPos, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
-				coconutCount.incrementAndGet();
-			}
+			level.setBlock(mutable, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
+			coconutCount.incrementAndGet();
 		});
 		return original;
 	}
