@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "wilderwild:block/maple_sapling"
+    "cross": "wilderwild:block/orange_maple_sapling"
   }
 }

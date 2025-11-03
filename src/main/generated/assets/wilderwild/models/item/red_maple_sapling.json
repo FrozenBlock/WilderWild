@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "wilderwild:block/maple_sapling"
+    "layer0": "wilderwild:block/red_maple_sapling"
   }
 }

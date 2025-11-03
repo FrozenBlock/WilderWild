@@ -363,111 +363,111 @@ public final class WWTreePlaced {
 		// MAPLE
 
 		YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.YELLOW_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		ROUND_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_YELLOW_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		DYING_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_YELLOW_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		YELLOW_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.YELLOW_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		TALL_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_YELLOW_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		TALL_DYING_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_YELLOW_DYING_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		TALL_YELLOW_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_YELLOW_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		SHORT_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_YELLOW_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		BIG_SHRUB_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_YELLOW_MAPLE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING)
 		);
 
 		ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ORANGE_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		ROUND_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_ORANGE_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		DYING_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_ORANGE_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		ORANGE_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.ORANGE_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		TALL_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_ORANGE_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		TALL_DYING_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_ORANGE_DYING_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		TALL_ORANGE_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_ORANGE_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		SHORT_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_ORANGE_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		BIG_SHRUB_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_ORANGE_MAPLE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING)
 		);
 
 		RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.RED_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		ROUND_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ROUND_RED_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		DYING_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_RED_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		RED_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.RED_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		TALL_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_RED_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		TALL_DYING_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_RED_DYING_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		TALL_RED_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_RED_MAPLE_BEES_0004.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		SHORT_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_RED_MAPLE_TREE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		BIG_SHRUB_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_RED_MAPLE.getHolder(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING)
 		);
 
 		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),

@@ -1,6 +1,7 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
+- Bumped Wilder Wild's protocol version to 17.
 - Added a config option to grant players extended reach while holding a Crab Claw in either hand.
   - This is off by default, but can be changed in-game on-the-fly via the config.
   - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
@@ -14,16 +15,40 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
 - Updated the Spanish translation, thanks to Kokoroto!
-- Fixed a few inconsistencies with Wilder Wild's Creative Inventory sorting.
-  - Shelf Fungi are now placed after all fungi, instead of being placed after both Overworld and Nether fungi.
-  - Pollen is now placed before Glow Lichen.
-  - Coconut is now placed after the Blue Egg in the 'Combat' category in 1.21.5+.
-  - The Firefly Bottle and Butterfly Bottle are now placed after the Milk Bucket.
-  - Barnacles is now placed before Algae and Plankton.
-  - The Ostrich Egg and Penguin Egg are now placed after Frogspawn on 1.21.1.
-    - Do note this was already fixed on 1.21.2+.
-  - Fixed the Gabbro building set being misplaced on 1.21.1.
-  - Moved Sculk building blocks to the very bottom, and added the regular Sculk block alongside them.
+
+### Villager Trades
+- Desert Fisherman Villagers now sell Palm Boats instead of Jungle Boats.
+- Fisherman Villagers can now purchase Crab Buckets and Jellyfish Buckets for Emeralds.
+- Wandering Traders can now sell:
+  - Carnations
+  - Hibiscus
+  - Seeding Dandelions
+  - Marigolds
+  - Pasqueflowers
+  - Tumbleweed Stems
+  - Prickly Pears
+  - Icicles
+  - Barnacles
+  - Sea Anemone
+  - Sea Whips
+  - Auburn Moss
+  - Algae
+  - Plankton
+  - Geysers
+- Config options to toggle every single Wilder Wild Villager trade have been introduced.
+- Added a new `entity_villager` mixin config option.
+  - This is only used to swap the Desert Fisherman Villager's Jungle Boat for a Palm Boat.
+
+### Creative Inventory Sorting
+- Shelf Fungi are now placed after all fungi, instead of being placed after both Overworld and Nether fungi.
+- Pollen is now placed before Glow Lichen.
+- Coconut is now placed after the Blue Egg in the 'Combat' category in 1.21.5+.
+- The Firefly Bottle and Butterfly Bottle are now placed after the Milk Bucket.
+- Barnacles is now placed before Algae and Plankton.
+- The Ostrich Egg and Penguin Egg are now placed after Frogspawn on 1.21.1.
+  - Do note this was already fixed on 1.21.2+.
+- Fixed the Gabbro building set being misplaced on 1.21.1.
+- Moved Sculk building blocks to the very bottom, and added the regular Sculk block alongside them.
 
 ### Textures
 - Retextured the Palm Sapling.
