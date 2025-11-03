@@ -244,16 +244,16 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
 
 		// PLANTS
-		addAfterInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
+		addBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
 		addAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
 		addAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.BUSH);
-		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
+		addBeforeInNaturalBlocks(Items.LILY_PAD, WWBlocks.BARNACLES);
+		addAfterInNaturalBlocks(WWBlocks.BARNACLES, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
-		addBeforeInNaturalBlocks(Items.SEAGRASS, WWBlocks.BARNACLES);
 		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
 		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
 		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
@@ -272,9 +272,9 @@ public class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
 
 		// SHELF FUNGI
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
+		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.BROWN_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
-		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.CRIMSON_SHELF_FUNGI);
+		addAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 
 		// SPONGE
@@ -320,10 +320,11 @@ public class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICK_WALL);
 
 		// SCULK
-		addAfterInBuildingBlocks(Items.DEEPSLATE_TILE_WALL, WWBlocks.OSSEOUS_SCULK);
-		addAfterInBuildingBlocks(WWBlocks.OSSEOUS_SCULK, WWBlocks.SCULK_STAIRS);
+		addInBuildingBlocks(Items.SCULK);
+		addAfterInBuildingBlocks(Items.SCULK, WWBlocks.SCULK_STAIRS);
 		addAfterInBuildingBlocks(WWBlocks.SCULK_STAIRS, WWBlocks.SCULK_SLAB);
 		addAfterInBuildingBlocks(WWBlocks.SCULK_SLAB, WWBlocks.SCULK_WALL);
+		addAfterInBuildingBlocks(WWBlocks.SCULK_WALL, WWBlocks.OSSEOUS_SCULK);
 		addAfterInNaturalBlocks(Items.SCULK, WWBlocks.OSSEOUS_SCULK);
 		addAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
 
@@ -345,11 +346,11 @@ public class WWCreativeInventorySorting {
 
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
-		addInToolsAndUtilities(WWItems.FIREFLY_BOTTLE);
+		addBeforeInToolsAndUtilities(Items.BUCKET, WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
 		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
-		addInToolsAndUtilities(WWItems.BUTTERFLY_BOTTLE);
+		addAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
 		addAfterInSpawnEggs(Items.HUSK_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
@@ -405,6 +406,10 @@ public class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 	}
 
+	private static void addInBuildingBlocks(ItemLike item) {
+		FrozenCreativeTabs.add(item, CreativeModeTabs.BUILDING_BLOCKS);
+	}
+
 	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.BUILDING_BLOCKS);
 	}
@@ -439,6 +444,10 @@ public class WWCreativeInventorySorting {
 
 	private static void addInToolsAndUtilities(ItemLike item) {
 		FrozenCreativeTabs.add(item, CreativeModeTabs.TOOLS_AND_UTILITIES);
+	}
+
+	private static void addBeforeInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
 	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
