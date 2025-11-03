@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_light_gray",
+  "dye_color": "light_gray",
   "name": "light_gray",
   "spawn_conditions": [
     {

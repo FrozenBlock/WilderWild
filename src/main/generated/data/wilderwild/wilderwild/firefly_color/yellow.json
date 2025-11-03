@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_yellow",
+  "dye_color": "yellow",
   "name": "yellow",
   "spawn_conditions": [
     {

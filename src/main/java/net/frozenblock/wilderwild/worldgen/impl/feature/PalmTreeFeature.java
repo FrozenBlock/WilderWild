@@ -23,6 +23,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 
 public class PalmTreeFeature extends TreeFeature {
 	public static final float COCONUT_CHANCE = 0.25F;
+	public static final int MAX_COCONUTS = 3;
 
 	public PalmTreeFeature(Codec<TreeConfiguration> codec) {
 		super(codec);
