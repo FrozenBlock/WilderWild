@@ -590,7 +590,6 @@ public final class WWWorldgenConfigGui {
 				.setDefaultValue(defaultTree.newMaples)
 				.setSaveConsumer(newValue -> tree.newMaples = newValue)
 				.setTooltip(tooltip("new_maples"))
-				.requireRestart()
 				.build(),
 			treeClazz,
 			"newMaples",
