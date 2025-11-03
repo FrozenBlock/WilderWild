@@ -7,6 +7,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fireflies can now be dyed in-world by clicking them with a Dye item.
 - Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
 - Palm Trees can now only naturally generate a maximum of three Coconuts.
+- Added the Yellow Maple Sapling, Orange Maple Sapling, and Red Maple Sapling.
+  - This change was made due to community request and feedback, as having only one sapling which grants a random color was not preferred.
+  - The original Maple Sapling will be datafixed into the Yellow Maple Sapling.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
@@ -21,3 +24,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - Do note this was already fixed on 1.21.2+.
   - Fixed the Gabbro building set being misplaced on 1.21.1.
   - Moved Sculk building blocks to the very bottom, and added the regular Sculk block alongside them.
+
+### Textures
+- Retextured the Palm Sapling.
+- Retextured the Gabbro building block set.
+- Updated the Baobab Nut item.
+- Retextured the Jellyfish Bucket.
+- Retextured the Marigold.
+- Retextured the Willow Sapling.
+- Retextured the Spruce Leaf Litter.
+- Retextured the Willow Leaf Litter.
+- Retextured the Maple Sapling.
