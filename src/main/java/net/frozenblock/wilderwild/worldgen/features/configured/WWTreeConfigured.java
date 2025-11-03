@@ -2678,50 +2678,50 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 10, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 14, 1, 1);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder shortYellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 6, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 10, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 14, 1, 1);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortOrangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 6, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder redMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 10, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 14, 1, 1);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortRedMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 6, 1, 2);
+		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
+	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, IntProvider branchStartHeight) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
 			new MapleTrunkPlacer(
@@ -2731,7 +2731,7 @@ public final class WWTreeConfigured {
 				new TrunkBranchPlacement.Builder()
 					.branchChance(0.3F)
 					.maxBranchCount(14)
-					.branchCutoffFromTop(UniformInt.of(2, 5))
+					.branchCutoffFromTop(branchStartHeight)
 					.branchLength(BiasedToBottomInt.of(1, 2))
 					.foliagePlacementChance(1F)
 					.build(),
@@ -2759,11 +2759,6 @@ public final class WWTreeConfigured {
 			),
 			new TwoLayersFeatureSize(1, 0, 0)
 		).ignoreVines();
-	}
-
-	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder roundMapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
-		return mapleBuilder(log, leaves, baseHeight, randomHeight1, randomHeight2);
 	}
 
 	@NotNull

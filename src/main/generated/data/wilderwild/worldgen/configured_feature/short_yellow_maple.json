@@ -132,7 +132,7 @@
       "trunk_branch_placement": {
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
-          "max_inclusive": 5,
+          "max_inclusive": 3,
           "min_inclusive": 2
         },
         "branch_length": {
