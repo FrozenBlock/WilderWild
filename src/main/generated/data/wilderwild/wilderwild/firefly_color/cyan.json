@@ -1,5 +1,6 @@
 {
   "biomes": [],
   "bottle_model_predicate_value": 0.04,
+  "dye_color": "cyan",
   "texture": "wilderwild:entity/firefly/firefly_cyan"
 }
