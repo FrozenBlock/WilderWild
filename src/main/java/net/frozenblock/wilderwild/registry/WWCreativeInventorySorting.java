@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
@@ -139,7 +140,7 @@ public final class WWCreativeInventorySorting {
 		addAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
 		addAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
 		// COCONUT
-		addAfterInCombat(Items.EGG, WWItems.COCONUT);
+		addAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_SAPLING, WWItems.COCONUT);
 		addAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
 
@@ -369,8 +370,7 @@ public final class WWCreativeInventorySorting {
 
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
-		addAfterInToolsAndUtilities(Items.MILK_BUCKET, WWItems.FIREFLY_BOTTLE);
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
 			final ItemStack stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			stack.setCount(1);
 			stack.set(
@@ -380,7 +380,7 @@ public final class WWCreativeInventorySorting {
 					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
 					.getOrThrow(FireflyColors.DEFAULT)
 			);
-			entries.accept(stack);
+			entries.addAfter(Items.MILK_BUCKET, ImmutableList.of(stack), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		});
 
 		// BUTTERFLY
