@@ -346,7 +346,7 @@ public class WWCreativeInventorySorting {
 
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
-		addBeforeInToolsAndUtilities(Items.BUCKET, WWItems.FIREFLY_BOTTLE);
+		addAfterInToolsAndUtilities(Items.MILK_BUCKET, WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
 		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
