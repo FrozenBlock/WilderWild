@@ -41,7 +41,7 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
+	public void createFoliage(
 		LevelSimulatedReader world,
 		FoliageSetter placer,
 		RandomSource random,

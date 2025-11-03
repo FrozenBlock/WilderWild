@@ -28,10 +28,10 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.worldgen.impl.foliage.LegacyMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.NoOpFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.PalmFoliagePlacer;
-import net.frozenblock.wilderwild.worldgen.impl.foliage.RoundMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.SmallBushFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.WindmillPalmFoliagePlacer;
@@ -48,6 +48,7 @@ import net.frozenblock.wilderwild.worldgen.impl.trunk.FallenWithBranchesTrunkPla
 import net.frozenblock.wilderwild.worldgen.impl.trunk.FancyDarkOakTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.JuniperTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.LargeSnappedTrunkPlacer;
+import net.frozenblock.wilderwild.worldgen.impl.trunk.MapleTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.StraightWithBranchesTrunkPlacer;
@@ -59,6 +60,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
+import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -2757,22 +2759,46 @@ public final class WWTreeConfigured {
 	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
-			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
+			new MapleTrunkPlacer(
+				baseHeight,
+				randomHeight1,
+				randomHeight2,
+				new TrunkBranchPlacement.Builder()
+					.branchChance(0.3F)
+					.maxBranchCount(14)
+					.branchCutoffFromTop(UniformInt.of(2, 5))
+					.branchLength(BiasedToBottomInt.of(1, 2))
+					.foliagePlacementChance(1F)
+					.build(),
+				new TrunkBranchPlacement.Builder()
+					.branchChance(0.3F)
+					.branchLength(UniformInt.of(1, 3))
+					.offsetLastLogChance(1F)
+					.minBranchLengthForOffset(1)
+					.foliagePlacementChance(1F)
+					.build(),
+				new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2)
+			),
 			BlockStateProvider.simple(leaves),
-			new MapleFoliagePlacer(UniformInt.of(3, 4), UniformInt.of(0, 2), UniformInt.of(baseHeight - 6, baseHeight - 3)),
+			new MapleFoliagePlacer(
+				ClampedInt.of(UniformInt.of(1, 3), 1, 2),
+				ConstantInt.of(0),
+				3,
+				0.25F,
+				0F,
+				new LegacyMapleFoliagePlacer(
+					UniformInt.of(3, 4),
+					UniformInt.of(0, 2),
+					UniformInt.of(baseHeight - 6, baseHeight - 3)
+				)
+			),
 			new TwoLayersFeatureSize(1, 0, 0)
 		).ignoreVines();
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundMapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
-		return new TreeConfiguration.TreeConfigurationBuilder(
-			BlockStateProvider.simple(log),
-			new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2),
-			BlockStateProvider.simple(leaves),
-			new RoundMapleFoliagePlacer(UniformInt.of(2, 4), UniformInt.of(0, 3), UniformInt.of(baseHeight - 6, baseHeight - 3)),
-			new TwoLayersFeatureSize(1, 0, 1)
-		).ignoreVines();
+		return mapleBuilder(log, leaves, baseHeight, randomHeight1, randomHeight2);
 	}
 
 	@NotNull

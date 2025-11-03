@@ -80,6 +80,10 @@ public class TrunkBranchPlacement {
 		this.foliageRadiusShrink = foliageRadiusShrink;
 	}
 
+	public static Builder builder() {
+		return new Builder();
+	}
+
 	public boolean canPlaceBranch(@NotNull RandomSource random) {
 		return random.nextFloat() <= this.branchChance;
 	}
