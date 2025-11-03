@@ -28,7 +28,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 ### Textures
 - Retextured the Palm Sapling.
 - Retextured the Gabbro building block set.
-- Updated the Baobab Nut item.
+- Retextured the Baobab Nut item.
 - Retextured the Jellyfish Bucket.
 - Retextured the Marigold.
 - Retextured the Willow Sapling.
