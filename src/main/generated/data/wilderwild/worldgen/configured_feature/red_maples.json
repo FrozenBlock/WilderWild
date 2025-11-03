@@ -9,12 +9,8 @@
             "default": "wilderwild:red_maple_bees_checked",
             "features": [
               {
-                "chance": 0.025,
+                "chance": 0.175,
                 "feature": "wilderwild:red_maple_checked"
-              },
-              {
-                "chance": 0.15,
-                "feature": "wilderwild:round_red_maple_checked"
               },
               {
                 "chance": 0.25,

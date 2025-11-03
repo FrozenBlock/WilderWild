@@ -1311,8 +1311,7 @@ public final class WWConfiguredFeatures {
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
 							List.of(
-								new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.025F),
-								new WeightedPlacedFeature(WWTreePlaced.ROUND_YELLOW_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.175F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.getHolder(), 0.25F),
 								new WeightedPlacedFeature(WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1337,8 +1336,7 @@ public final class WWConfiguredFeatures {
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
 							List.of(
-								new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.025F),
-								new WeightedPlacedFeature(WWTreePlaced.ROUND_ORANGE_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.175F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.getHolder(), 0.25F),
 								new WeightedPlacedFeature(WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1363,8 +1361,7 @@ public final class WWConfiguredFeatures {
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
 							List.of(
-								new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.025F),
-								new WeightedPlacedFeature(WWTreePlaced.ROUND_RED_MAPLE_CHECKED.getHolder(), 0.15F),
+								new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.175F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_CHECKED.getHolder(), 0.25F),
 								new WeightedPlacedFeature(WWTreePlaced.DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),
 								new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1395,8 +1392,7 @@ public final class WWConfiguredFeatures {
 		YELLOW_MAPLES_BEES_SAPLING.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_YELLOW_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1411,8 +1407,7 @@ public final class WWConfiguredFeatures {
 		ORANGE_MAPLES_BEES_SAPLING.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_ORANGE_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1427,8 +1422,7 @@ public final class WWConfiguredFeatures {
 		RED_MAPLES_BEES_SAPLING.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_RED_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.getHolder(), 0.37F),
@@ -1454,8 +1448,7 @@ public final class WWConfiguredFeatures {
 		YELLOW_MAPLES_NO_BEES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_YELLOW_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.getHolder(), 0.0785F),
@@ -1469,8 +1462,7 @@ public final class WWConfiguredFeatures {
 		ORANGE_MAPLES_NO_BEES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_ORANGE_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.getHolder(), 0.0785F),
@@ -1484,8 +1476,7 @@ public final class WWConfiguredFeatures {
 		RED_MAPLES_NO_BEES.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.025F),
-					new WeightedPlacedFeature(WWTreePlaced.ROUND_RED_MAPLE_CHECKED.getHolder(), 0.15F),
+					new WeightedPlacedFeature(WWTreePlaced.RED_MAPLE_CHECKED.getHolder(), 0.175F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_RED_MAPLE_CHECKED.getHolder(), 0.25F),
 					new WeightedPlacedFeature(WWTreePlaced.DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),
 					new WeightedPlacedFeature(WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.getHolder(), 0.0785F),

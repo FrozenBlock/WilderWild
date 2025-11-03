@@ -4,12 +4,8 @@
     "default": "wilderwild:orange_maple_bees_checked",
     "features": [
       {
-        "chance": 0.025,
+        "chance": 0.175,
         "feature": "wilderwild:orange_maple_checked"
-      },
-      {
-        "chance": 0.15,
-        "feature": "wilderwild:round_orange_maple_checked"
       },
       {
         "chance": 0.25,

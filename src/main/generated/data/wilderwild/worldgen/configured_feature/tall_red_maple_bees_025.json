@@ -69,8 +69,8 @@
       "alt_foliage_placer": {
         "length": {
           "type": "minecraft:uniform",
-          "max_inclusive": 3,
-          "min_inclusive": 0
+          "max_inclusive": 11,
+          "min_inclusive": 8
         },
         "offset": {
           "type": "minecraft:uniform",
@@ -121,11 +121,11 @@
       "type": "wilderwild:maple_trunk_placer",
       "alt_trunk_placer": {
         "type": "minecraft:straight_trunk_placer",
-        "base_height": 6,
+        "base_height": 14,
         "height_rand_a": 1,
         "height_rand_b": 1
       },
-      "base_height": 6,
+      "base_height": 14,
       "height_rand_a": 1,
       "height_rand_b": 1,
       "lower_trunk_branch_placement": {

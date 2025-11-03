@@ -4,12 +4,8 @@
     "default": "wilderwild:yellow_maple_checked",
     "features": [
       {
-        "chance": 0.025,
+        "chance": 0.175,
         "feature": "wilderwild:yellow_maple_checked"
-      },
-      {
-        "chance": 0.15,
-        "feature": "wilderwild:round_yellow_maple_checked"
       },
       {
         "chance": 0.25,
