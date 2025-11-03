@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -30,6 +31,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -80,10 +82,10 @@ public final class FireflyColors {
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<FireflyColor> bootstrapContext, ResourceKey<FireflyColor> resourceKey, String textureName, float modelPredicate
+		@NotNull BootstrapContext<FireflyColor> bootstrapContext, ResourceKey<FireflyColor> resourceKey, String textureName, Optional<DyeColor> dyeColor, float modelPredicate
 	) {
 		ResourceLocation textureLocation = WWConstants.id("entity/firefly/" + textureName);
-		bootstrapContext.register(resourceKey, new FireflyColor(textureLocation, HolderSet.empty(), modelPredicate));
+		bootstrapContext.register(resourceKey, new FireflyColor(textureLocation, dyeColor, HolderSet.empty(), modelPredicate));
 	}
 
 	public static Holder<FireflyColor> getSpawnVariant(@NotNull RegistryAccess registryAccess, Holder<Biome> holder, RandomSource random) {
@@ -105,22 +107,22 @@ public final class FireflyColors {
 	}
 
 	public static void bootstrap(BootstrapContext<FireflyColor> bootstrapContext) {
-		register(bootstrapContext, ON, "firefly_on", 0F);
-		register(bootstrapContext, BLACK, "firefly_black", 0.01F);
-		register(bootstrapContext, BLUE, "firefly_blue", 0.02F);
-		register(bootstrapContext, BROWN, "firefly_brown", 0.03F);
-		register(bootstrapContext, CYAN, "firefly_cyan", 0.04F);
-		register(bootstrapContext, GRAY, "firefly_gray", 0.05F);
-		register(bootstrapContext, GREEN, "firefly_green", 0.06F);
-		register(bootstrapContext, LIGHT_BLUE, "firefly_light_blue", 0.07F);
-		register(bootstrapContext, LIGHT_GRAY, "firefly_light_gray", 0.08F);
-		register(bootstrapContext, LIME, "firefly_lime", 0.09F);
-		register(bootstrapContext, MAGENTA, "firefly_magenta", 0.10F);
-		register(bootstrapContext, ORANGE, "firefly_orange", 0.11F);
-		register(bootstrapContext, PINK, "firefly_pink", 0.12F);
-		register(bootstrapContext, PURPLE, "firefly_purple", 0.13F);
-		register(bootstrapContext, RED, "firefly_red", 0.14F);
-		register(bootstrapContext, WHITE, "firefly_white", 0.15F);
-		register(bootstrapContext, YELLOW, "firefly_yellow", 0.16F);
+		register(bootstrapContext, ON, "firefly_on", Optional.empty(), 0F);
+		register(bootstrapContext, BLACK, "firefly_black", Optional.of(DyeColor.BLACK), 0.01F);
+		register(bootstrapContext, BLUE, "firefly_blue", Optional.of(DyeColor.BLUE), 0.02F);
+		register(bootstrapContext, BROWN, "firefly_brown", Optional.of(DyeColor.BROWN), 0.03F);
+		register(bootstrapContext, CYAN, "firefly_cyan", Optional.of(DyeColor.CYAN), 0.04F);
+		register(bootstrapContext, GRAY, "firefly_gray", Optional.of(DyeColor.GRAY), 0.05F);
+		register(bootstrapContext, GREEN, "firefly_green", Optional.of(DyeColor.GREEN), 0.06F);
+		register(bootstrapContext, LIGHT_BLUE, "firefly_light_blue", Optional.of(DyeColor.LIGHT_BLUE), 0.07F);
+		register(bootstrapContext, LIGHT_GRAY, "firefly_light_gray", Optional.of(DyeColor.LIGHT_GRAY), 0.08F);
+		register(bootstrapContext, LIME, "firefly_lime", Optional.of(DyeColor.LIME), 0.09F);
+		register(bootstrapContext, MAGENTA, "firefly_magenta", Optional.of(DyeColor.MAGENTA), 0.10F);
+		register(bootstrapContext, ORANGE, "firefly_orange", Optional.of(DyeColor.ORANGE), 0.11F);
+		register(bootstrapContext, PINK, "firefly_pink", Optional.of(DyeColor.PINK), 0.12F);
+		register(bootstrapContext, PURPLE, "firefly_purple", Optional.of(DyeColor.PURPLE), 0.13F);
+		register(bootstrapContext, RED, "firefly_red", Optional.of(DyeColor.RED), 0.14F);
+		register(bootstrapContext, WHITE, "firefly_white", Optional.of(DyeColor.WHITE), 0.15F);
+		register(bootstrapContext, YELLOW, "firefly_yellow", Optional.of(DyeColor.YELLOW), 0.16F);
 	}
 }

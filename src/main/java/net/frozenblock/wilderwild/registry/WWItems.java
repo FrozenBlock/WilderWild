@@ -225,8 +225,8 @@ public final class WWItems {
 
 		registerInstrumentBefore(Items.MUSIC_DISC_13, COPPER_HORN, "copper_horn", WWInstrumentTags.COPPER_HORNS, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, CreativeModeTabs.TOOLS_AND_UTILITIES);
 
-		registerItem(FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
-		registerItem(BUTTERFLY_BOTTLE, "butterfly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(Items.MILK_BUCKET, FIREFLY_BOTTLE, "firefly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
+		registerItemAfter(FIREFLY_BOTTLE, BUTTERFLY_BOTTLE, "butterfly_bottle", CreativeModeTabs.TOOLS_AND_UTILITIES);
 
 		registerItemBefore(Items.LILY_PAD, new PlaceOnWaterBlockItem(WWBlocks.ALGAE, new Item.Properties()), "algae", CreativeModeTabs.NATURAL_BLOCKS);
 		registerItemAfter(WWBlocks.ALGAE, new PlaceOnWaterBlockItem(WWBlocks.PLANKTON, new Item.Properties()), "plankton", CreativeModeTabs.NATURAL_BLOCKS);
