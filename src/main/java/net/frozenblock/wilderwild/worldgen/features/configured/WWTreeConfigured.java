@@ -146,6 +146,7 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> YELLOW_MAPLE_BEES_0004 = register("yellow_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> TALL_YELLOW_MAPLE_BEES_0004 = register("tall_yellow_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SHORT_YELLOW_MAPLE_TREE = register("short_yellow_maple");
+	public static final FrozenLibConfiguredFeature<TreeConfiguration> FULL_YELLOW_MAPLE_TREE = register("full_yellow_maple");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> BIG_SHRUB_YELLOW_MAPLE = register("big_shrub_yellow_maple");
 
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> ORANGE_MAPLE_TREE = register("orange_maple");
@@ -155,6 +156,7 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> ORANGE_MAPLE_BEES_0004 = register("orange_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> TALL_ORANGE_MAPLE_BEES_0004 = register("tall_orange_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SHORT_ORANGE_MAPLE_TREE = register("short_orange_maple");
+	public static final FrozenLibConfiguredFeature<TreeConfiguration> FULL_ORANGE_MAPLE_TREE = register("full_orange_maple");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> BIG_SHRUB_ORANGE_MAPLE = register("big_shrub_orange_maple");
 
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> RED_MAPLE_TREE = register("red_maple");
@@ -164,6 +166,7 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> RED_MAPLE_BEES_0004 = register("red_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> TALL_RED_MAPLE_BEES_0004 = register("tall_red_maple_bees_025");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SHORT_RED_MAPLE_TREE = register("short_red_maple");
+	public static final FrozenLibConfiguredFeature<TreeConfiguration> FULL_RED_MAPLE_TREE = register("full_red_maple");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> BIG_SHRUB_RED_MAPLE = register("big_shrub_red_maple");
 
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> FALLEN_MAPLE_TREE = register("fallen_maple_tree");
@@ -754,6 +757,12 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FULL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			fullYellowMaple().decorators(
+				List.of(SHELF_FUNGUS_0074)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		BIG_SHRUB_YELLOW_MAPLE.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(WWBlocks.MAPLE_LOG),
@@ -820,6 +829,12 @@ public final class WWTreeConfigured {
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
 
+		FULL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			fullOrangeMaple().decorators(
+				List.of(SHELF_FUNGUS_0074)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
 		BIG_SHRUB_ORANGE_MAPLE.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(WWBlocks.MAPLE_LOG),
@@ -882,6 +897,12 @@ public final class WWTreeConfigured {
 
 		SHORT_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			shortRedMaple().decorators(
+				List.of(SHELF_FUNGUS_0074)
+			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+		);
+
+		FULL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
+			fullRedMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
 			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
 		);
@@ -2678,50 +2699,92 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
+		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
+		return tallMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder shortYellowMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
+		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fullYellowMaple() {
+		return fullMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
+		return maple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
+		return tallMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortOrangeMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
+		return shortMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fullOrangeMaple() {
+		return fullMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder redMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 10, 1, 2, UniformInt.of(2, 5));
+		return maple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 14, 1, 1, UniformInt.of(5, 7));
+		return tallMaple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortRedMaple() {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 6, 1, 2, UniformInt.of(2, 3));
+		return shortMaple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, IntProvider branchStartHeight) {
+	private static TreeConfiguration.TreeConfigurationBuilder fullRedMaple() {
+		return fullMaple(WWBlocks.RED_MAPLE_LEAVES);
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder maple(Block leaves) {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 10, 1, 2, UniformInt.of(2, 5));
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder tallMaple(Block leaves) {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 14, 1, 1, UniformInt.of(3, 7));
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder shortMaple(Block leaves) {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 6, 1, 2, UniformInt.of(1, 3));
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder fullMaple(Block leaves) {
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 7, 2, 2, BiasedToBottomInt.of(0, 2));
+	}
+
+	@NotNull
+	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(
+		Block log,
+		Block leaves,
+		int baseHeight,
+		int randomHeight1,
+		int randomHeight2,
+		IntProvider branchStartHeight
+	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
 			new MapleTrunkPlacer(
@@ -2729,27 +2792,28 @@ public final class WWTreeConfigured {
 				randomHeight1,
 				randomHeight2,
 				new TrunkBranchPlacement.Builder()
-					.branchChance(0.3F)
-					.maxBranchCount(14)
+					.branchChance(0.575F)
 					.branchCutoffFromTop(branchStartHeight)
 					.branchLength(BiasedToBottomInt.of(1, 2))
 					.foliagePlacementChance(1F)
+					.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
 					.build(),
 				new TrunkBranchPlacement.Builder()
 					.branchChance(0.3F)
-					.branchLength(UniformInt.of(1, 3))
+					.branchLength(UniformInt.of(1, 2))
 					.offsetLastLogChance(1F)
 					.minBranchLengthForOffset(1)
 					.foliagePlacementChance(1F)
+					.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
 					.build(),
 				new StraightTrunkPlacer(baseHeight, randomHeight1, randomHeight2)
 			),
 			BlockStateProvider.simple(leaves),
 			new MapleFoliagePlacer(
-				ClampedInt.of(UniformInt.of(1, 3), 1, 2),
+				ConstantInt.of(1),
 				ConstantInt.of(0),
 				3,
-				0.25F,
+				0.15F,
 				0F,
 				new LegacyMapleFoliagePlacer(
 					UniformInt.of(3, 4),
@@ -2887,7 +2951,7 @@ public final class WWTreeConfigured {
 					.branchLength(UniformInt.of(2, 3))
 					.offsetLastLogChance(1F)
 					.foliagePlacementChance(1F)
-					.foliageRadiusShrink(1)
+					.foliageRadiusOffset(ConstantInt.of(-1))
 					.build()
 			),
 			BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES),

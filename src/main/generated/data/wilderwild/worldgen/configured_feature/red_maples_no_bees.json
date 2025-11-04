@@ -4,8 +4,12 @@
     "default": "wilderwild:red_maple_checked",
     "features": [
       {
-        "chance": 0.175,
+        "chance": 0.025,
         "feature": "wilderwild:red_maple_checked"
+      },
+      {
+        "chance": 0.15,
+        "feature": "wilderwild:full_red_maple_checked"
       },
       {
         "chance": 0.25,

@@ -17,15 +17,18 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.trunk;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.worldgen.impl.trunk.branch.TrunkBranchPlacement;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -38,6 +41,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jetbrains.annotations.NotNull;
 
 public class MapleTrunkPlacer extends TrunkPlacer {
+	private static final List<Direction> EMPTY = ImmutableList.of();
 	public static final MapCodec<MapleTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
 			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
@@ -69,6 +73,11 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		return WWFeatures.MAPLE_TRUNK_PLACER;
 	}
 
+	private static boolean containsNearbyBranchWithSameDirection(BlockPos pos, Direction direction, int distanceBelow, Map<BlockPos, List<Direction>> branches) {
+		for (int i = 1; i <= distanceBelow; i++) if (branches.getOrDefault(pos.below(i), EMPTY).contains(direction)) return true;
+		return false;
+	}
+
 	@Override
 	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
@@ -83,12 +92,11 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 
 		setDirtAt(level, replacer, random, startPos.below(), config);
 
-		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
 		final int branchCutoffFromTop = this.trunkBranchPlacement.getBranchCutoffFromTop().sample(random);
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final Map<BlockPos, List<Direction>> branches = new Object2ObjectLinkedOpenHashMap<>();
 
-		int extraLogs = 0;
 		for (int currentHeight = 0; currentHeight < height; ++currentHeight) {
 			int worldHeight = startPos.getY() + currentHeight;
 
@@ -96,28 +104,31 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 
 			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), worldHeight, startPos.getZ()), config)
 				&& currentHeight < height - 1
-				&& extraLogs < maxBranchCount
 				&& currentHeight > branchCutoffFromTop
 			) {
+				final BlockPos branchTrunkPos = mutable.immutable();
 				for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 					if (!branchPlacement.canPlaceBranch(random)) continue;
-					if (extraLogs >= maxBranchCount) continue;
+					if (containsNearbyBranchWithSameDirection(branchTrunkPos, direction, 2, branches)) continue;
 
 					branchPlacement.generateExtraBranch(
 						level,
 						replacer,
 						random,
 						config.trunkProvider,
-						mutable.immutable(),
+						branchTrunkPos,
 						direction,
 						foliageAttachments
 					);
-					++extraLogs;
+
+					final List<Direction> branchDirections = branches.computeIfAbsent(branchTrunkPos, pos -> new ArrayList<>());
+					branchDirections.add(direction);
+					branches.put(branchTrunkPos, branchDirections);
 				}
 			}
 		}
 
-		foliageAttachments.add(new FoliagePlacer.FoliageAttachment(startPos.above(height), 0, false));
+		foliageAttachments.add(new FoliagePlacer.FoliageAttachment(startPos.above(height), 1, false));
 		return foliageAttachments;
 	}
 }

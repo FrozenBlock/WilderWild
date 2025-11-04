@@ -65,8 +65,8 @@
       "alt_foliage_placer": {
         "length": {
           "type": "minecraft:uniform",
-          "max_inclusive": 7,
-          "min_inclusive": 4
+          "max_inclusive": 3,
+          "min_inclusive": 0
         },
         "offset": {
           "type": "minecraft:uniform",
@@ -79,20 +79,11 @@
           "min_inclusive": 3
         }
       },
-      "hanging_leaves_chance": 0.25,
+      "hanging_leaves_chance": 0.15,
       "hanging_leaves_extension_chance": 0.0,
       "height": 3,
       "offset": 0,
-      "radius": {
-        "type": "minecraft:clamped",
-        "max_inclusive": 2,
-        "min_inclusive": 1,
-        "source": {
-          "type": "minecraft:uniform",
-          "max_inclusive": 3,
-          "min_inclusive": 1
-        }
-      }
+      "radius": 1
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
@@ -117,40 +108,56 @@
       "type": "wilderwild:maple_trunk_placer",
       "alt_trunk_placer": {
         "type": "minecraft:straight_trunk_placer",
-        "base_height": 10,
+        "base_height": 6,
         "height_rand_a": 1,
         "height_rand_b": 2
       },
-      "base_height": 10,
+      "base_height": 6,
       "height_rand_a": 1,
       "height_rand_b": 2,
       "lower_trunk_branch_placement": {
         "branch_length": {
           "type": "minecraft:uniform",
-          "max_inclusive": 3,
+          "max_inclusive": 2,
           "min_inclusive": 1
         },
         "branch_placement_chance": 0.3,
         "foliage_placement_chance": 1.0,
-        "minimum_branch_length_for_offset": 1,
+        "foliage_radius_offset": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 1,
+          "min_inclusive": 0,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 2,
+            "min_inclusive": 0
+          }
+        },
         "offset_last_log_chance": 1.0
       },
       "trunk_branch_placement": {
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
-          "max_inclusive": 5,
-          "min_inclusive": 2
+          "max_inclusive": 3,
+          "min_inclusive": 1
         },
         "branch_length": {
           "type": "minecraft:biased_to_bottom",
           "max_inclusive": 2,
           "min_inclusive": 1
         },
-        "branch_placement_chance": 0.3,
+        "branch_placement_chance": 0.575,
         "foliage_placement_chance": 1.0,
-        "max_branch_count": 14,
-        "minimum_branch_length_for_offset": 1,
-        "offset_last_log_chance": 0.0
+        "foliage_radius_offset": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 1,
+          "min_inclusive": 0,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 2,
+            "min_inclusive": 0
+          }
+        }
       }
     },
     "trunk_provider": {
