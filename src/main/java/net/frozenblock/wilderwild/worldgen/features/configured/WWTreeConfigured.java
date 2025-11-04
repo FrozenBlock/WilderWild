@@ -2144,7 +2144,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder builder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder builder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2176,7 +2176,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBuilder(
 		Block log,
 		int baseHeight,
 		int firstRandomHeight,
@@ -2205,7 +2205,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenTrunkBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenTrunkBuilder(
 		Block log,
 		Block hollowedLog,
 		int baseHeight,
@@ -2236,7 +2236,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenWillowTrunkBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenWillowTrunkBuilder(
 		Block log,
 		Block hollowedLog,
 		int baseHeight,
@@ -2270,7 +2270,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder darkOakBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder darkOakBuilder(
 		Block log, Block leaves,
 		int baseHeight,
 		int firstRandomHeight,
@@ -2287,7 +2287,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyDarkOakBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyDarkOakBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2319,7 +2319,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2340,7 +2340,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder windmillPalmBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder windmillPalmBuilder(
 		Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2353,7 +2353,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder snappedTrunkBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder snappedTrunkBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2365,7 +2365,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeSnappedTrunkBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder largeSnappedTrunkBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2377,7 +2377,7 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder birch() {
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder birch() {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2393,7 +2393,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder superBirch() {
+	public static TreeConfiguration.TreeConfigurationBuilder superBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2409,7 +2409,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder shortBirch() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2425,7 +2425,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder mediumBirch() {
+	public static TreeConfiguration.TreeConfigurationBuilder mediumBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2440,7 +2440,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBirch() {
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBirch() {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			7,
@@ -2453,7 +2453,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadMediumBirch() {
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder deadMediumBirch() {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			6,
@@ -2467,7 +2467,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
 		return fallenTrunkBuilder(
 			Blocks.BIRCH_LOG,
 			WWBlocks.HOLLOWED_BIRCH_LOG,
@@ -2481,7 +2481,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
 		return fallenTrunkBuilder(
 			Blocks.CHERRY_LOG,
 			WWBlocks.HOLLOWED_CHERRY_LOG,
@@ -2495,12 +2495,21 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
-		return fallenTrunkBuilder(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG, 3, 2, 2, 0F, ConstantInt.of(0), 0.075F).ignoreVines();
+	public static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
+		return fallenTrunkBuilder(
+			WWBlocks.MAPLE_LOG,
+			WWBlocks.HOLLOWED_MAPLE_LOG,
+			3,
+			2,
+			2,
+			0.2F,
+			BiasedToBottomInt.of(1, 2),
+			0.075F
+		).ignoreVines();
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder oak() {
+	public static TreeConfiguration.TreeConfigurationBuilder oak() {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
@@ -2516,7 +2525,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder shortOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortOak() {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
@@ -2532,7 +2541,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 16, 0),
@@ -2543,7 +2552,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancyDeadOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fancyDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 16, 0),
@@ -2554,7 +2563,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
 			new UpwardsBranchingTrunkPlacer(
@@ -2573,7 +2582,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder smallFancyDeadOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder smallFancyDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 8, 2),
@@ -2584,7 +2593,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
 			new UpwardsBranchingTrunkPlacer(
@@ -2603,7 +2612,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
 		return fallenTrunkBuilder(
 			Blocks.OAK_LOG,
 			WWBlocks.HOLLOWED_OAK_LOG,
@@ -2617,7 +2626,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
 		return fallenTrunkBuilder(
 			WWBlocks.CYPRESS_LOG,
 			WWBlocks.CYPRESS_LOG,
@@ -2631,12 +2640,12 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
 		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fancyTallDarkOak() {
+	public static TreeConfiguration.TreeConfigurationBuilder fancyTallDarkOak() {
 		return fancyDarkOakBuilder(
 			Blocks.DARK_OAK_LOG,
 			Blocks.DARK_OAK_LEAVES,
@@ -2651,7 +2660,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder cherry() {
+	public static TreeConfiguration.TreeConfigurationBuilder cherry() {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
 			Blocks.CHERRY_LEAVES,
@@ -2665,7 +2674,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallCherry() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallCherry() {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
 			Blocks.CHERRY_LEAVES,
@@ -2679,7 +2688,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(
+	public static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2698,86 +2707,86 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
 		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
 		return tallMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder shortYellowMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortYellowMaple() {
 		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fullYellowMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder fullYellowMaple() {
 		return fullMaple(WWBlocks.YELLOW_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
 		return maple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
 		return tallMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder shortOrangeMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortOrangeMaple() {
 		return shortMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fullOrangeMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder fullOrangeMaple() {
 		return fullMaple(WWBlocks.ORANGE_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder redMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder redMaple() {
 		return maple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
 		return tallMaple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder shortRedMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder shortRedMaple() {
 		return shortMaple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fullRedMaple() {
+	public static TreeConfiguration.TreeConfigurationBuilder fullRedMaple() {
 		return fullMaple(WWBlocks.RED_MAPLE_LEAVES);
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder maple(Block leaves) {
+	public static TreeConfiguration.TreeConfigurationBuilder maple(Block leaves) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 10, 1, 2, UniformInt.of(2, 5));
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder tallMaple(Block leaves) {
+	public static TreeConfiguration.TreeConfigurationBuilder tallMaple(Block leaves) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 14, 1, 1, UniformInt.of(3, 7));
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder shortMaple(Block leaves) {
+	public static TreeConfiguration.TreeConfigurationBuilder shortMaple(Block leaves) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 6, 1, 2, UniformInt.of(1, 3));
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fullMaple(Block leaves) {
+	public static TreeConfiguration.TreeConfigurationBuilder fullMaple(Block leaves) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 7, 2, 2, BiasedToBottomInt.of(0, 2));
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(
+	public static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2826,7 +2835,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
 		return fallenTrunkBuilder(
 			Blocks.SPRUCE_LOG,
 			WWBlocks.HOLLOWED_SPRUCE_LOG,
@@ -2840,7 +2849,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
 		return fallenTrunkBuilder(
 			WWBlocks.PALM_LOG,
 			WWBlocks.HOLLOWED_PALM_LOG,
@@ -2854,7 +2863,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
 		return fallenTrunkBuilder(
 			Blocks.ACACIA_LOG,
 			WWBlocks.HOLLOWED_ACACIA_LOG,
@@ -2868,7 +2877,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
 		return fallenTrunkBuilder(
 			Blocks.JUNGLE_LOG,
 			WWBlocks.HOLLOWED_JUNGLE_LOG,
@@ -2882,7 +2891,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
 		return fallenTrunkBuilder(
 			Blocks.MANGROVE_LOG,
 			WWBlocks.HOLLOWED_MANGROVE_LOG,
@@ -2896,7 +2905,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenCrimson() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenCrimson() {
 		return fallenTrunkBuilder(
 			Blocks.CRIMSON_STEM,
 			WWBlocks.HOLLOWED_CRIMSON_STEM,
@@ -2910,7 +2919,7 @@ public final class WWTreeConfigured {
 	}
 
 	@NotNull
-	private static TreeConfiguration.TreeConfigurationBuilder fallenWarped() {
+	public static TreeConfiguration.TreeConfigurationBuilder fallenWarped() {
 		return fallenTrunkBuilder(
 			Blocks.WARPED_STEM,
 			WWBlocks.HOLLOWED_WARPED_STEM,
@@ -2924,7 +2933,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeFallenBuilder(
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder largeFallenBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2937,7 +2946,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2) {
+	public static TreeConfiguration.@NotNull TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
 			new WillowTrunkPlacer(

@@ -20,6 +20,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The generation of Maple Trees has been completely overhauled, now sporting a much more natural shape.
   - This change was made after a long time due to community request and feedback, as the old Maple Tree generation did not fit well any other trees in Minecraft.
   - Added a config option to toggle the old shapes of Maple Tree trunks and foliage.
+- Fallen Maple Trees now occasionally generate with branches.
 - Added the `wilderwild:maple_trunk_placer` Trunk Placer, used for the new Maple Tree generation.
   - Contains both a `trunk_branch_placement` and `lower_trunk_branch_placement` field.
     - `lower_trunk_branch_placement` will be used if the current trunk position is less than half of the total trunk height.
