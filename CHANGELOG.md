@@ -6,6 +6,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This is off by default, but can be changed in-game on-the-fly via the config.
   - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
 - Fireflies can now be dyed in-world by clicking them with a Dye item.
+- Loot Tables that are modified by Wilder Wild now only add items if their respective worldgen config options are enabled.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
