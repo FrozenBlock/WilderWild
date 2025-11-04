@@ -27,6 +27,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,13 +37,13 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 			instance.group(
 				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
 				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance),
-				LegacyMapleFoliagePlacer.CODEC.fieldOf("alt_foliage_placer").forGetter(placer -> placer.altFoliagePlacer)
+				FoliagePlacer.CODEC.fieldOf("alt_foliage_placer").forGetter(placer -> placer.altFoliagePlacer)
 			)
 		).apply(instance, MapleFoliagePlacer::new)
 	);
 	private final float hangingLeavesChance;
 	private final float hangingLeavesExtensionChance;
-	private final LegacyMapleFoliagePlacer altFoliagePlacer;
+	private final FoliagePlacer altFoliagePlacer;
 
 	public MapleFoliagePlacer(
 		IntProvider radius,
@@ -50,7 +51,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 		int height,
 		float hangingLeavesChance,
 		float hangingLeavesExtensionChance,
-		LegacyMapleFoliagePlacer altFoliagePlacer
+		FoliagePlacer altFoliagePlacer
 	) {
 		super(radius, offset, height);
 		this.hangingLeavesChance = hangingLeavesChance;
@@ -84,8 +85,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 				trunkHeight,
 				foliageAttachment,
 				this.altFoliagePlacer.foliageHeight(random, trunkHeight, config),
-				this.altFoliagePlacer.foliageRadius(random, trunkHeight),
-				this.altFoliagePlacer.offset(random)
+				this.altFoliagePlacer.foliageRadius(random, trunkHeight)
 			);
 			return;
 		}

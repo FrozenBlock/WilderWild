@@ -67,6 +67,7 @@
     "foliage_placer": {
       "type": "wilderwild:maple_foliage_placer",
       "alt_foliage_placer": {
+        "type": "wilderwild:legacy_maple_foliage_placer",
         "length": {
           "type": "minecraft:uniform",
           "max_inclusive": 11,
