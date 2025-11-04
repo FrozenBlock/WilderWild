@@ -6,7 +6,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This is off by default, but can be changed in-game on-the-fly via the config.
   - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
 - Fireflies can now be dyed in-world by clicking them with a Dye item.
-- Loot Tables that are modified by Wilder Wild now only add items if their respective worldgen config options are enabled.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
@@ -35,7 +34,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The `foliage_radius_shrink` field of Wilder Wild's Trunk Branch Placement has been renamed to `foliage_radius_offset`, and now uses an Integer Provider instead of an Integer.
 - The `offset_last_log_chance`, `minimum_branch_length_for_offset`, `foliage_placement_chance`, and `foliage_radius_offset` fields of Wilder Wild's Trunk Branch Placement are now all optional.
 
-### Villager Trades
+### Trades & Loot Tables
 - Desert Fisherman Villagers now sell Palm Boats instead of Jungle Boats.
 - Fisherman Villagers can now purchase Crab Buckets and Jellyfish Buckets for Emeralds.
 - Wandering Traders can now sell:
@@ -57,6 +56,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Config options to toggle every single Wilder Wild Villager trade have been introduced.
 - Added a new `entity_villager` mixin config option.
   - This is only used to swap the Desert Fisherman Villager's Jungle Boat for a Palm Boat.
+- Loot Tables that are modified by Wilder Wild now only add items if their respective worldgen config options are enabled.
+- Prickly Pears can now be found within Chests in Desert Villages.
 
 ### Creative Inventory Sorting
 - Shelf Fungi are now placed after all fungi, instead of being placed after both Overworld and Nether fungi.

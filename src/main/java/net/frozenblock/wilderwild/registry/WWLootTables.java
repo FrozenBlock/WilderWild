@@ -143,20 +143,35 @@ public final class WWLootTables {
 		});
 		//DESERT VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.get().structure.newDesertVillages) {
-				tableBuilder.modifyPools(builder -> {
-					builder.add(
-						LootItem.lootTableItem(WWItems.COCONUT)
-							.setWeight(2)
-							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
-					).add(
-						LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem())
-							.setWeight(2)
-							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
-					);
-				});
+			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
+				final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
+
+				if (worldgenConfig.structure.newDesertVillages || worldgenConfig.treeGeneration.palm) {
+					tableBuilder.modifyPools(builder -> {
+						builder.add(
+							LootItem.lootTableItem(WWItems.COCONUT)
+								.setWeight(2)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						).add(
+							LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem())
+								.setWeight(2)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						);
+					});
+				}
+
+				if (worldgenConfig.vegetation.cactusGeneration) {
+					tableBuilder.modifyPools(builder -> {
+						builder.add(
+							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)
+								.setWeight(1)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
+						);
+					});
+				}
 			}
 		});
 		//OSSEOUS SCULK
