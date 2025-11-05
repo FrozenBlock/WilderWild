@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -113,6 +114,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	) {
 		if (!MobSpawnType.isSpawner(spawnType) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (MobSpawnType.ignoresLightRequirements(spawnType)) return true;
+		if (level.getBiome(pos).is(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN) && random.nextInt(30) != 0) return false;
 		return level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
 	}
 

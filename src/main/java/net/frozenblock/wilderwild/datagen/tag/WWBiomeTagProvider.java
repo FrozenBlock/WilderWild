@@ -493,20 +493,23 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BUTTERFLY)
 			.add(Biomes.MEADOW)
-			.add(Biomes.FLOWER_FOREST)
-			.add(Biomes.SUNFLOWER_PLAINS)
-			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
+			.addOptional(WWBiomes.TUNDRA)
+			.addOptionalTag(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)
+			.addOptionalTag(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN)
+			.add(Biomes.SWAMP);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.BUTTERFLY_MONARCH)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.add(Biomes.SWAMP)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
@@ -535,6 +538,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.MEADOW)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.add(Biomes.SWAMP)
 			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
