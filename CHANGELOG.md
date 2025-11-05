@@ -12,6 +12,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Butterflies now rarely spawn in Swamps.
 - Moobloom parents of the same flower color no longer attempt to produce offspring with a "mixed" color.
   - This was unintentional behavior, and allowed players to obtain Mooblooms of the same color but different flowers.
+- Mooblooms can now properly render double-tall blocks.
+  - A new `top_flower_block_state` field has been added for Moobloom variants.
+    - This is an optional field, and is not present by default.
+    - Takes a block state, just like the `flower_block_state` field.
+    - When present, will render as the top-half of the block on Mooblooms.
+    - Double-tall blocks will be scaled slightly smaller than single blocks on Mooblooms.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))

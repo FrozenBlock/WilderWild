@@ -66,6 +66,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.Util;
@@ -267,6 +268,13 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 
 	public void decrementFlowersLeft() {
 		this.setFlowersLeft(this.getFlowersLeft() - 1);
+	}
+
+	@Override
+	public AABB getBoundingBoxForCulling() {
+		final AABB boundingBox = super.getBoundingBoxForCulling();
+		if (this.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		return boundingBox;
 	}
 
 	@Nullable
