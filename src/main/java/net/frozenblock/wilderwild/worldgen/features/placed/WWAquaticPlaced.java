@@ -97,6 +97,7 @@ public final class WWAquaticPlaced {
 		);
 
 		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL.getHolder(),
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome()
