@@ -1072,9 +1072,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.WARM_BEACH);
 
-		this.getOrCreateTagBuilder(WWBiomeTags.HAS_CATTAIL_MUD)
-			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
-
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_BARNACLES_COMMON)
 			.add(Biomes.STONY_SHORE);
 
