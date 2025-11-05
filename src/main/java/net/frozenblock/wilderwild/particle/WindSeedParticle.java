@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class WindSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
+	private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 	private final int timeBetweenSpawns;
 
 	WindSeedParticle(ClientLevel level, double x, double y, double z, int timeBetweenSpawns, int spawnAttempts) {
@@ -52,7 +53,7 @@ public class WindSeedParticle extends NoRenderParticle {
 				this.pos.getX(), this.pos.getY(), this.pos.getZ(),
 				2,
 				this.random,
-				new BlockPos.MutableBlockPos(),
+				mutablePos,
 				0.75F,
 				false
 			);

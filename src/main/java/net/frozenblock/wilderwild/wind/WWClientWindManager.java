@@ -125,7 +125,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		spawnWindParticle(level, horizontalWind, wind, 0.0015D, x, y, z);
 
 		if (!allowAdditional) return;
-		final int additionalSpawnAttempts = (int) Math.min(horizontalWind * 6, 6);
+		final int additionalSpawnAttempts = (int)horizontalWind + random.nextInt((int) Math.clamp(horizontalWind * 8D, 3D, 9D));
 		if (additionalSpawnAttempts <= 0) return;
 		level.addParticle(
 			new WindSeedParticleOptions(10 - ((int) Math.min((horizontalWind * 9D), 9D)), additionalSpawnAttempts),
