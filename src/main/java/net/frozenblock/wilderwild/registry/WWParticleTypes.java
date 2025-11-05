@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WindSeedParticleOptions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -56,6 +57,9 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType LEAF_CLUSTER_SPAWNER = register("leaf_cluster");
 	public static final SimpleParticleType CHEST_BUBBLE_SPAWNER = register("chest_bubbles");
 	public static final SimpleParticleType SHRIEKER_BUBBLE_SPAWNER = register("shrieker_bubbles");
+	public static final ParticleType<WindSeedParticleOptions> WIND_SPAWNER = register(
+		"wind_spawner", false, particleType -> WindSeedParticleOptions.CODEC, particleType -> WindSeedParticleOptions.STREAM_CODEC
+	);
 	public static final SimpleParticleType BLUE_PEARLESCENT_HANGING_MESOGLEA = register("blue_pearlescent_hanging_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_FALLING_MESOGLEA = register("blue_pearlescent_falling_mesoglea_drip");
 	public static final SimpleParticleType BLUE_PEARLESCENT_LANDING_MESOGLEA = register("blue_pearlescent_landing_mesoglea_drip");

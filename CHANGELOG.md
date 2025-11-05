@@ -18,6 +18,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - Takes a block state, just like the `flower_block_state` field.
     - When present, will render as the top-half of the block on Mooblooms.
     - Double-tall blocks will be scaled slightly smaller than single blocks on Mooblooms.
+- Wind Particles can now spawn in clusters.
+  - The more intense the wind, the higher the chance for other Wind Particles to spawn near another Wind Particle!
+  - This feature was added to make Wind Particles feel more like part of the game's ambience, opposed to one-off particles that randomly appear.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
