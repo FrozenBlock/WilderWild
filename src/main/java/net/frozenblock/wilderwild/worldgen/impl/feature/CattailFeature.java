@@ -64,12 +64,11 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 			final int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
 			if (oceanFloorY >= maxHeight - 1) continue;
 
-			bottomBlockPos.set(newX, oceanFloorY, newZ);
-			BlockState bottomState = level.getBlockState(bottomBlockPos);
+			final BlockState bottomState = level.getBlockState(bottomBlockPos.set(newX, oceanFloorY, newZ));
 			boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
+			final BlockState topState = level.getBlockState(topBlockPos.setWithOffset(bottomBlockPos, Direction.UP));
+
 			BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState();
-			topBlockPos.setWithOffset(bottomBlockPos, Direction.UP);
-			BlockState topState = level.getBlockState(topBlockPos);
 			if ((bottomState.isAir() || bottomStateIsWater)
 				&& topState.isAir()
 				&& bottomPlaceState.canSurvive(level, bottomBlockPos)
