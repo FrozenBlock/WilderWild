@@ -53,7 +53,7 @@ public class WindSeedParticle extends NoRenderParticle {
 				2,
 				this.random,
 				new BlockPos.MutableBlockPos(),
-				0.5F,
+				0.75F,
 				false
 			);
 		}
