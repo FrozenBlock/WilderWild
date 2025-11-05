@@ -284,6 +284,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature CYPRESS_WETLANDS_FLOWERS_TALL = register("cypress_wetlands_flowers_tall");
 	public static final FrozenLibPlacedFeature MILKWEED = register("milkweed");
 	public static final FrozenLibPlacedFeature MILKWEED_RARE = register("milkweed_rare");
+	public static final FrozenLibPlacedFeature MILKWEED_SWAMP = register("milkweed_swamp");
 	public static final FrozenLibPlacedFeature HIBISCUS = register("hibiscus");
 	public static final FrozenLibPlacedFeature HIBISCUS_JUNGLE = register("hibiscus_jungle");
 	public static final FrozenLibPlacedFeature HIBISCUS_SPARSE_JUNGLE = register("hibiscus_sparse_jungle");
@@ -1729,6 +1730,13 @@ public final class WWPlacedFeatures {
 
 		MILKWEED_RARE.makeAndSetHolder(WWConfiguredFeatures.MILKWEED.getHolder(),
 			RarityFilter.onAverageOnceEvery(36),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED.getHolder(),
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

@@ -231,6 +231,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_BIRCH_FLOWERS = bind("feature/has_birch_flowers");
 	public static final TagKey<Biome> HAS_CYPRESS_FLOWERS = bind("feature/has_cypress_flowers");
 	public static final TagKey<Biome> HAS_RARE_MILKWEED = bind("feature/has_rare_milkweed");
+	public static final TagKey<Biome> HAS_SWAMP_MILKWEED = bind("feature/has_swamp_milkweed");
 	public static final TagKey<Biome> HAS_MYCELIUM_GROWTH = bind("feature/has_mycelium_growth");
 	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS = bind("feature/has_large_fern_and_grass");
 	public static final TagKey<Biome> HAS_LARGE_FERN_AND_GRASS_RARE = bind("feature/has_large_fern_and_grass_rare");

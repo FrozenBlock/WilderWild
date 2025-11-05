@@ -1514,6 +1514,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST);
 
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SWAMP_MILKWEED)
+			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_MYCELIUM_GROWTH)
 			.add(Biomes.MUSHROOM_FIELDS);
 
