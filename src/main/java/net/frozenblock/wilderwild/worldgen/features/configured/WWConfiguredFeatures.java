@@ -211,6 +211,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_BIRCH = WWFeatureUtils.register("flower_birch");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_MEADOW = WWFeatureUtils.register("flower_meadow");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MILKWEED = WWFeatureUtils.register("milkweed");
+	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> MILKWEED_SWAMP = WWFeatureUtils.register("milkweed_swamp");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> HIBISCUS = WWFeatureUtils.register("hibiscus");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> HIBISCUS_JUNGLE = WWFeatureUtils.register("hibiscus_jungle");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_FLOWER_FIELD = WWFeatureUtils.register("flower_flower_field");
@@ -2029,6 +2030,16 @@ public final class WWConfiguredFeatures {
 		MILKWEED.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(
 				20,
+				PlacementUtils.onlyWhenEmpty(
+					Feature.SIMPLE_BLOCK,
+					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED))
+				)
+			)
+		);
+
+		MILKWEED_SWAMP.makeAndSetHolder(Feature.FLOWER,
+			FeatureUtils.simpleRandomPatchConfiguration(
+				32,
 				PlacementUtils.onlyWhenEmpty(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED))

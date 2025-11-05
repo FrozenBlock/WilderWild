@@ -1735,7 +1735,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED.getHolder(),
+		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED_SWAMP.getHolder(),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
