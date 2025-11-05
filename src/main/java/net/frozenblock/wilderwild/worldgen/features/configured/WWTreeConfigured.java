@@ -277,7 +277,7 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> FALLEN_WARPED_FUNGI = register("fallen_warped_fungi");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SNAPPED_WARPED_FUNGI = register("snapped_warped_fungi");
 	//DECORATOR
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(
 		0.09F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -291,7 +291,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(
 		0.074F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -305,7 +305,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(
 		0.054F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -319,7 +319,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(
 		0.03F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -333,7 +333,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074_ONLY_BROWN = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074_ONLY_BROWN = new ShelfFungiTreeDecorator(
 		0.074F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -342,7 +342,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator SHELF_FUNGUS_00975_ONLY_RED = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_00975_ONLY_RED = new ShelfFungiTreeDecorator(
 		0.0975F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -351,7 +351,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new ShelfFungiTreeDecorator(
 		0.0875F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -365,7 +365,7 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new ShelfFungiTreeDecorator(
+	public static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new ShelfFungiTreeDecorator(
 		0.0875F,
 		0.25F,
 		new RandomizedIntStateProvider(
@@ -379,28 +379,28 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
-	private static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
-	private static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
-	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_03 = new HeightBasedVineTreeDecorator(1F, 260, 0.3F);
-	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTreeDecorator(1F, 260, 0.5F);
-	private static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
-	private static final HeightBasedVineTreeDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
-	private static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
-	private static final AboveLogsTreeDecorator MOSS_CYPRESS = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_SPRUCE_PALM = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_BIRCH = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_OAK = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_JUNGLE_DARK_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_CHERRY = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final AboveLogsTreeDecorator MOSS_MOSSY = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	private static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
-	private static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
-	private static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
-	private static final BeehiveDecorator BEES = new BeehiveDecorator(1F);
-	private static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
-	private static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
-	private static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
+	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
+	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
+	public static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
+	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_03 = new HeightBasedVineTreeDecorator(1F, 260, 0.3F);
+	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTreeDecorator(1F, 260, 0.5F);
+	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
+	public static final HeightBasedVineTreeDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
+	public static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
+	public static final AboveLogsTreeDecorator MOSS_CYPRESS = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_SPRUCE_PALM = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_BIRCH = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_OAK = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_JUNGLE_DARK_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_CHERRY = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final AboveLogsTreeDecorator MOSS_MOSSY = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+	public static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
+	public static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
+	public static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
+	public static final BeehiveDecorator BEES = new BeehiveDecorator(1F);
+	public static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
+	public static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
+	public static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
 
 	private WWTreeConfigured() {
 		throw new UnsupportedOperationException("WWTreeConfigured contains only static declarations.");
