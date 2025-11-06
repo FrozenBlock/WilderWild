@@ -736,7 +736,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.PARCHED_FOREST)
 			.addOptional(WWBiomes.ARID_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
@@ -1480,9 +1479,11 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.SPARSE_FOREST);
+
+		this.getOrCreateTagBuilder(WWBiomeTags.HAS_FOREST_SHRUB_COMMON)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST);
 
 		this.getOrCreateTagBuilder(WWBiomeTags.HAS_SHRUB)
 			.add(Biomes.WINDSWEPT_SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.SAVANNA)

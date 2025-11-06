@@ -333,6 +333,10 @@ public final class WWTreeGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_FOREST.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FOREST_SHRUB_COMMON)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS_FOREST_COMMON.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHRUB)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHRUBS.getKey());
 						}

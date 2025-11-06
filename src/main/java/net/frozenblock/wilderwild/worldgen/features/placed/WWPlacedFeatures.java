@@ -37,6 +37,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.treePlacement;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -91,6 +92,7 @@ public final class WWPlacedFeatures {
 	//TREES
 	public static final FrozenLibPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenLibPlacedFeature SHRUBS_FOREST = register("shrubs_forest");
+	public static final FrozenLibPlacedFeature SHRUBS_FOREST_COMMON = register("shrubs_forest_common");
 	public static final FrozenLibPlacedFeature SHRUBS = register("shrubs");
 	public static final FrozenLibPlacedFeature SHRUBS_WATER = register("shrubs_water");
 	public static final FrozenLibPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
@@ -522,7 +524,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FALLEN_DARK_OAK_COMMON_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_DARK_OAKS.getHolder(),
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
@@ -556,6 +558,16 @@ public final class WWPlacedFeatures {
 
 		SHRUBS_FOREST.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
 			PlacementUtils.countExtra(1, 0.2F, 1),
+			InSquarePlacement.spread(),
+			TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+			BiomeFilter.biome(),
+			WWPlacementUtils.SHRUB_CLEARING_FILTER
+		);
+
+		SHRUBS_FOREST_COMMON.makeAndSetHolder(WWConfiguredFeatures.SHRUBS.getHolder(),
+			PlacementUtils.countExtra(5, 0.2F, 1),
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -641,37 +653,23 @@ public final class WWPlacedFeatures {
 		);
 
 		DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(16), InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			VegetationPlacements.treePlacementBase(CountPlacement.of(16))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(17),
-			InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			VegetationPlacements.treePlacementBase(CountPlacement.of(UniformInt.of(30, 32)))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_BIRCH_FOREST_VEGETATION.getHolder(),
-			CountPlacement.of(14), InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		DARK_TAIGA_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
-			CountPlacement.of(14),
-			InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		TREES_BIRCH.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH.getHolder(),

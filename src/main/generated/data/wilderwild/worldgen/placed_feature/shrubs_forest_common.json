@@ -1,12 +1,20 @@
 {
-  "feature": "wilderwild:old_growth_dark_forest_vegetation",
+  "feature": "wilderwild:shrubs",
   "placement": [
     {
       "type": "minecraft:count",
       "count": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 32,
-        "min_inclusive": 30
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": 5,
+            "weight": 4
+          },
+          {
+            "data": 6,
+            "weight": 1
+          }
+        ]
       }
     },
     {
@@ -21,13 +29,25 @@
       "heightmap": "OCEAN_FLOOR"
     },
     {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:oak_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    },
+    {
       "type": "minecraft:biome"
     },
     {
       "type": "frozenlib:noise_filter",
       "fade_distance": 0.2,
       "maxThresh": 1.0,
-      "min_threshold": 0.625,
+      "min_threshold": 0.69,
       "must_be_inside": false,
       "noise_scale": 0.0065,
       "noise_type": "XORO",
