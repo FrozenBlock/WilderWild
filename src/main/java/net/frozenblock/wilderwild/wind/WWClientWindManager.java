@@ -24,7 +24,7 @@ import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.lib.worldgen.heightmap.api.FrozenHeightmaps;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.particle.options.WindSeedParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -95,41 +95,41 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		int posX, int posY, int posZ,
 		int range,
 		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos blockPos,
+		@NotNull BlockPos.MutableBlockPos mutable,
 		float chanceScale,
 		boolean allowAdditional
 	) {
-		int highestPossibleY = posY + range;
-		int x = posX + random.nextIntBetweenInclusive(-range, range);
+		final int highestPossibleY = posY + range;
+		final int x = posX + random.nextIntBetweenInclusive(-range, range);
 		int y = posY;
-		int z = posZ + random.nextIntBetweenInclusive(-range, range);
-		blockPos.set(x, y, z);
+		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
+		mutable.set(x, y, z);
 
-		blockPos.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, blockPos));
-		int heightmapY = blockPos.getY();
+		mutable.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, mutable));
+		final int heightmapY = mutable.getY();
 		if (heightmapY > highestPossibleY) return;
 
 		if (heightmapY < posY - range) {
 			y += random.nextInt(range) - random.nextInt(range);
 		} else {
-			double differenceInPoses = highestPossibleY - heightmapY;
+			final double differenceInPoses = highestPossibleY - heightmapY;
 			if (random.nextDouble() >= (differenceInPoses / (range * 2D))) return;
 			y = random.nextIntBetweenInclusive(heightmapY, highestPossibleY);
 		}
-		blockPos.set(x, y, z);
+		mutable.set(x, y, z);
 
-		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
-		double horizontalWind = wind.horizontalDistance();
+		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(mutable), 1D, 2D, 2D);
+		final double horizontalWind = wind.horizontalDistance();
 		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency() * chanceScale)) return;
 
-		spawnWindParticle(level, horizontalWind, wind, 0.0015D, x, y, z);
+		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z);
 
 		if (!allowAdditional) return;
-		final int additionalSpawnAttempts = 3 + random.nextInt((int) Math.clamp(horizontalWind * 9D, 0D, 8D) + 1);
+		final int additionalSpawnAttempts = 1 + random.nextInt((int) Math.clamp(horizontalWind * 9D, 0D, 8D) + 1);
 		if (additionalSpawnAttempts <= 0) return;
 		level.addParticle(
-			new WindSeedParticleOptions(10 - ((int) Math.min((horizontalWind * 9D), 9D)), additionalSpawnAttempts),
-			x + 0.5D, y + 0.5D, z + 0.5D,
+			new WindClusterSeedParticleOptions(random.nextIntBetweenInclusive(10, 17), additionalSpawnAttempts),
+			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
 			0D, 0D, 0D
 		);
 	}
@@ -150,12 +150,12 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) return;
 
-		spawnWindParticle(level, windLength, wind, 0.003D, x, y, z);
+		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z);
 	}
 
-	private static void spawnWindParticle(ClientLevel level, double windStrength, Vec3 wind, double windYScale, int x, int y, int z) {
+	private static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z) {
 		level.addParticle(
-			new WindParticleOptions((int) (10D + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
+			new WindParticleOptions((int) (minLifespan + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
 			x + 0.5D, y + 0.5D, z + 0.5D,
 			0D, 0D, 0D
 		);

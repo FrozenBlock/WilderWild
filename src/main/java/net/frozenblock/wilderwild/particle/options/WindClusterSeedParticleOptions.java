@@ -28,23 +28,23 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
-public class WindSeedParticleOptions implements ParticleOptions {
-	public static final MapCodec<WindSeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
+public class WindClusterSeedParticleOptions implements ParticleOptions {
+	public static final MapCodec<WindClusterSeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		instance.group(
-			ExtraCodecs.POSITIVE_INT.fieldOf("time_between_spawns").forGetter(WindSeedParticleOptions::timeBetweenSpawns),
-			ExtraCodecs.POSITIVE_INT.fieldOf("spawn_attempts").forGetter(WindSeedParticleOptions::spawnAttempts)
-		).apply(instance, WindSeedParticleOptions::new)
+			ExtraCodecs.POSITIVE_INT.fieldOf("time_between_spawns").forGetter(WindClusterSeedParticleOptions::timeBetweenSpawns),
+			ExtraCodecs.POSITIVE_INT.fieldOf("spawn_attempts").forGetter(WindClusterSeedParticleOptions::spawnAttempts)
+		).apply(instance, WindClusterSeedParticleOptions::new)
 	);
-	public static final StreamCodec<RegistryFriendlyByteBuf, WindSeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
-		ByteBufCodecs.VAR_INT, WindSeedParticleOptions::timeBetweenSpawns,
-		ByteBufCodecs.VAR_INT, WindSeedParticleOptions::spawnAttempts,
-		WindSeedParticleOptions::new
+	public static final StreamCodec<RegistryFriendlyByteBuf, WindClusterSeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
+		ByteBufCodecs.VAR_INT, WindClusterSeedParticleOptions::timeBetweenSpawns,
+		ByteBufCodecs.VAR_INT, WindClusterSeedParticleOptions::spawnAttempts,
+		WindClusterSeedParticleOptions::new
 	);
 
 	private final int timeBetweenSpawns;
 	private final int spawnAttempts;
 
-	public WindSeedParticleOptions(int timeBetweenSpawns, int spawnAttempts) {
+	public WindClusterSeedParticleOptions(int timeBetweenSpawns, int spawnAttempts) {
 		this.timeBetweenSpawns = timeBetweenSpawns;
 		this.spawnAttempts = spawnAttempts;
 	}
@@ -52,7 +52,7 @@ public class WindSeedParticleOptions implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<?> getType() {
-		return WWParticleTypes.WIND_SPAWNER;
+		return WWParticleTypes.WIND_CLUSTER;
 	}
 
 	public int timeBetweenSpawns() {

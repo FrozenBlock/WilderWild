@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.particle.options.WindSeedParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
@@ -30,12 +30,12 @@ import net.minecraft.core.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class WindSeedParticle extends NoRenderParticle {
+public class WindClusterSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
 	private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 	private final int timeBetweenSpawns;
 
-	WindSeedParticle(ClientLevel level, double x, double y, double z, int timeBetweenSpawns, int spawnAttempts) {
+	WindClusterSeedParticle(ClientLevel level, double x, double y, double z, int timeBetweenSpawns, int spawnAttempts) {
 		super(level, x, y, z, 0D, 0D, 0D);
 		this.pos = BlockPos.containing(x, y, z);
 		this.timeBetweenSpawns = timeBetweenSpawns;
@@ -60,11 +60,11 @@ public class WindSeedParticle extends NoRenderParticle {
 		}
 	}
 
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WindSeedParticleOptions> {
+	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WindClusterSeedParticleOptions> {
 		@Override
 		@NotNull
-		public Particle createParticle(@NotNull WindSeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			return new WindSeedParticle(level, x, y, z, options.timeBetweenSpawns(), options.spawnAttempts());
+		public Particle createParticle(@NotNull WindClusterSeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+			return new WindClusterSeedParticle(level, x, y, z, options.timeBetweenSpawns(), options.spawnAttempts());
 		}
 	}
 }
