@@ -55,7 +55,7 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 				2,
 				this.random,
 				mutablePos,
-				WWAmbienceAndMiscConfig.WIND_CLUSTER_FREQUENCY,
+				WWAmbienceAndMiscConfig.getWindClusterFrequency(),
 				false
 			);
 		}

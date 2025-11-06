@@ -87,8 +87,8 @@ public final class WWAmbienceAndMiscConfig {
 		return ((double) WIND_DISTURBANCE_PARTICLE_FREQUENCY) * 0.01D;
 	}
 
-	public static double getWindClusterFrequency() {
-		return ((double) WIND_CLUSTER_FREQUENCY) * 0.01D;
+	public static float getWindClusterFrequency() {
+		return WIND_CLUSTER_FREQUENCY * 0.01F;
 	}
 
 	public static double getParticleWindIntensity() {
