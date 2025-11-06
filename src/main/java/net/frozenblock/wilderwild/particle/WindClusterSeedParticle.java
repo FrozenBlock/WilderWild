@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -54,7 +55,7 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 				2,
 				this.random,
 				mutablePos,
-				0.5F,
+				WWAmbienceAndMiscConfig.WIND_CLUSTER_FREQUENCY,
 				false
 			);
 		}

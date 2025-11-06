@@ -21,6 +21,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Wind Particles can now spawn in clusters.
   - The more intense the wind, the higher the chance for Wind Particles to spawn near another Wind Particle!
   - This feature was added to make Wind Particles feel more like part of the game's ambience, opposed to one-off particles that randomly appear.
+  - Added config options to control whether clusters can spawn, the max amount of Wind Particles per cluster, and the relative chance for a Wind Particle to spawn in a cluster.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))

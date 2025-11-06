@@ -1223,6 +1223,12 @@
   "tooltip.wilderwild.wind_disturbance_particle_frequency": "The frequency at which Wind Disturbance particles should spawn.\nMore intense Wind Disturbances lead to more particles.\nThis is a percentage.",
   "option.wilderwild.wind_disturbance_particle_spawn_attempts": "Wind Disturbance Particle Spawn Attempts",
   "tooltip.wilderwild.wind_disturbance_particle_spawn_attempts": "The number of times per tick a Wind Disturbance Particle will attempt to spawn.",
+  "option.wilderwild.wind_clusters": "Wind Clusters",
+  "tooltip.wilderwild.wind_clusters": "Whether Wind Particles can spawn in clusters.",
+  "option.wilderwild.wind_cluster_max_spawn_attempts": "Max Wind Cluster Particles",
+  "tooltip.wilderwild.wind_cluster_max_spawn_attempts": "The maximum amount of Wind Particles that can spawn in a cluster.",
+  "option.wilderwild.wind_cluster_frequency": "Wind Cluster Particle Frequency",
+  "tooltip.wilderwild.wind_cluster_frequency": "The relative chance for a Wind Particle to spawn in a cluster.",
 
   "option.wilderwild.leaf_particles": "Leaf Particles",
   "tooltip.wilderwild.leaf_particles": "Contains options for Leaf Particles.",

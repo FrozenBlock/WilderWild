@@ -122,14 +122,14 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		final double horizontalWind = wind.horizontalDistance();
 		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency() * chanceScale)) return;
 
-		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z);
+		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z, random);
 
-		if (!allowAdditional) return;
-		final int additionalSpawnAttempts = 1 + random.nextInt((int) Math.clamp(horizontalWind * 9D, 0D, 8D) + 1);
+		if (!allowAdditional || !WWAmbienceAndMiscConfig.WIND_CLUSTERS) return;
+		final int additionalSpawnAttempts = Math.min(1 + random.nextInt((int) Math.clamp(horizontalWind * 9D, 0D, 8D) + 1), WWAmbienceAndMiscConfig.WIND_CLUSTER_MAX_SPAWN_ATTEMPTS);
 		if (additionalSpawnAttempts <= 0) return;
 		level.addParticle(
 			new WindClusterSeedParticleOptions(random.nextIntBetweenInclusive(10, 17), additionalSpawnAttempts),
-			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
+			x + 0.5D, y + 0.5D, z + 0.5D,
 			0D, 0D, 0D
 		);
 	}
@@ -150,13 +150,13 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) return;
 
-		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z);
+		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z, random);
 	}
 
-	private static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z) {
+	private static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z, RandomSource random) {
 		level.addParticle(
 			new WindParticleOptions((int) (minLifespan + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
-			x + 0.5D, y + 0.5D, z + 0.5D,
+			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
 			0D, 0D, 0D
 		);
 	}
