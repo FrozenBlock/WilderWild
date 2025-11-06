@@ -54,7 +54,7 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 				2,
 				this.random,
 				mutablePos,
-				0.75F,
+				0.5F,
 				false
 			);
 		}
