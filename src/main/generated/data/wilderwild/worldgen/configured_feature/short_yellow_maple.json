@@ -134,7 +134,7 @@
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
           "max_inclusive": 3,
-          "min_inclusive": 1
+          "min_inclusive": 0
         },
         "branch_length": {
           "type": "minecraft:biased_to_bottom",

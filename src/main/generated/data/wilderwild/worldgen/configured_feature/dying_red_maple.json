@@ -140,7 +140,7 @@
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
           "max_inclusive": 5,
-          "min_inclusive": 2
+          "min_inclusive": 1
         },
         "branch_length": {
           "type": "minecraft:biased_to_bottom",

@@ -2767,17 +2767,17 @@ public final class WWTreeConfigured {
 
 	@NotNull
 	public static TreeConfiguration.TreeConfigurationBuilder maple(Block leaves) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 10, 1, 2, UniformInt.of(2, 5));
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 10, 1, 2, UniformInt.of(1, 5));
 	}
 
 	@NotNull
 	public static TreeConfiguration.TreeConfigurationBuilder tallMaple(Block leaves) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 14, 1, 1, UniformInt.of(3, 7));
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 14, 1, 1, UniformInt.of(2, 7));
 	}
 
 	@NotNull
 	public static TreeConfiguration.TreeConfigurationBuilder shortMaple(Block leaves) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 6, 1, 2, UniformInt.of(1, 3));
+		return mapleBuilder(WWBlocks.MAPLE_LOG, leaves, 6, 1, 2, UniformInt.of(0, 3));
 	}
 
 	@NotNull
