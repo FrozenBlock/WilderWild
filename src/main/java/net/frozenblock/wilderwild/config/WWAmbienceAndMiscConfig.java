@@ -107,8 +107,8 @@ public final class WWAmbienceAndMiscConfig {
 	public static volatile int WIND_DISTURBANCE_PARTICLE_FREQUENCY = 90;
 	public static volatile int WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = 100;
 	public static volatile boolean WIND_CLUSTERS = true;
-	public static volatile int WIND_CLUSTER_FREQUENCY = 50;
-	public static volatile int WIND_CLUSTER_MAX_SPAWN_ATTEMPTS = 10;
+	public static volatile int WIND_CLUSTER_FREQUENCY = 20;
+	public static volatile int WIND_CLUSTER_MAX_SPAWN_ATTEMPTS = 6;
 	public static volatile int PARTICLE_WIND_MOVEMENT = 100;
 	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
 
@@ -290,10 +290,10 @@ public final class WWAmbienceAndMiscConfig {
 		public boolean windClusters = true;
 
 		@EntrySyncData(value = "windClusterFrequency", behavior = SyncBehavior.UNSYNCABLE)
-		public int windClusterFrequency = 50;
+		public int windClusterFrequency = 20;
 
 		@EntrySyncData(value = "windClusterMaxSpawnAttempts", behavior = SyncBehavior.UNSYNCABLE)
-		public int windClusterMaxSpawnAttempts = 10;
+		public int windClusterMaxSpawnAttempts = 6;
 
 		@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 		public int particleWindMovement = 100;

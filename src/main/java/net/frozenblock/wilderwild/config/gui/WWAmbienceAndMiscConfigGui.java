@@ -110,7 +110,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("wind_clusters"))
 			.build();
 
-		var windClusterMaxSpawnAttempts = entryBuilder.startIntSlider(text("wind_cluster_max_spawn_attempts"), wind.windClusterMaxSpawnAttempts, 1, 20)
+		var windClusterMaxSpawnAttempts = entryBuilder.startIntSlider(text("wind_cluster_max_spawn_attempts"), wind.windClusterMaxSpawnAttempts, 1, 10)
 			.setDefaultValue(defaultConfig.wind.windClusterMaxSpawnAttempts)
 			.setSaveConsumer(newValue -> wind.windClusterMaxSpawnAttempts = newValue)
 			.setTooltip(tooltip("wind_cluster_max_spawn_attempts"))
