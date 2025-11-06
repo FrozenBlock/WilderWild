@@ -80,7 +80,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 
 		if (WWAmbienceAndMiscConfig.WIND_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos, 1F, true);
+				spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos, true);
 			}
 		}
 		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
@@ -96,7 +96,6 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		int range,
 		@NotNull RandomSource random,
 		@NotNull BlockPos.MutableBlockPos mutable,
-		float chanceScale,
 		boolean allowAdditional
 	) {
 		final int highestPossibleY = posY + range;
@@ -120,7 +119,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 
 		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(mutable), 1D, 2D, 2D);
 		final double horizontalWind = wind.horizontalDistance();
-		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency() * chanceScale)) return;
+		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency())) return;
 
 		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z, random);
 

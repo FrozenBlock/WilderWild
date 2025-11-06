@@ -48,14 +48,13 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 		this.age++;
 		if (this.age >= this.lifetime) this.remove();
 
-		if ((this.age & this.timeBetweenSpawns) == 0) {
+		if ((this.age & this.timeBetweenSpawns) == 0 && this.random.nextFloat() < WWAmbienceAndMiscConfig.getWindClusterFrequency()) {
 			WWClientWindManager.spawnAmbientWindParticles(
 				this.level,
 				this.pos.getX(), this.pos.getY(), this.pos.getZ(),
 				2,
 				this.random,
 				mutablePos,
-				WWAmbienceAndMiscConfig.getWindClusterFrequency(),
 				false
 			);
 		}
