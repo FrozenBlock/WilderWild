@@ -22,9 +22,17 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.datafixers.util.Pair;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -49,6 +57,54 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Unique
 	private WWWorldgenConfig wilderWild$worldgenConfig;
+
+	@Inject(
+		method = "addBiomes",
+		at = @At("HEAD")
+	)
+	public void wilderWild$saveDupedParamsA(
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo info,
+		@Local(argsOnly = true) LocalRef<Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>>> argConsumer,
+		@Share("wilderWild$injectionMap") LocalRef<Map<ResourceKey<Biome>, Pair<List<Climate.ParameterPoint>, AtomicInteger>>> injectionMap
+	) {
+		final Map<ResourceKey<Biome>, Pair<List<Climate.ParameterPoint>, AtomicInteger>> map = new Object2ObjectOpenHashMap<>();
+		final Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> modifiedConsumer = (Pair<Climate.ParameterPoint, ResourceKey<Biome>> pair) -> {
+			final Climate.ParameterPoint parameterPoint = pair.getFirst();
+			final ResourceKey<Biome> key = pair.getSecond();
+
+			final Pair<List<Climate.ParameterPoint>, AtomicInteger> injectionPair = map.getOrDefault(key, Pair.of(new ArrayList<>(), new AtomicInteger()));
+			final List<Climate.ParameterPoint> list = injectionPair.getFirst();
+			if (!list.contains(parameterPoint)) {
+				list.add(parameterPoint);
+				consumer.accept(pair);
+			} else {
+				injectionPair.getSecond().incrementAndGet();
+			}
+			map.put(key, injectionPair);
+		};
+		argConsumer.set(modifiedConsumer);
+		injectionMap.set(map);
+
+		if (!WWConstants.UNSTABLE_LOGGING) return;
+		map.forEach((key, pair) -> {
+			WWConstants.log(pair.getSecond().get() + " duplicate parameters from biome " + key.location() + " have been saved!", true);
+		});
+	}
+
+	@Inject(
+		method = "addBiomes",
+		at = @At("TAIL")
+	)
+	public void wilderWild$saveDupedParamsB(
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo info,
+		@Share("wilderWild$injectionMap") LocalRef<Map<ResourceKey<Biome>, Pair<List<Climate.ParameterPoint>, AtomicInteger>>> injectionMap
+	) {
+
+		if (!WWConstants.UNSTABLE_LOGGING) return;
+		injectionMap.get().forEach((key, pair) -> {
+			WWConstants.log(pair.getSecond().get() + " duplicate parameters from biome " + key.location() + " have been saved!", true);
+		});
+	}
 
 	@Shadow
 	@Final
