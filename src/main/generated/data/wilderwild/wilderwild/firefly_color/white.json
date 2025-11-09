@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_white",
+  "dye_color": "white",
   "name": "white",
   "spawn_conditions": [
     {

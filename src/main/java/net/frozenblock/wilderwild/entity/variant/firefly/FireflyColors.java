@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -26,6 +27,7 @@ import net.minecraft.core.ClientAsset;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,10 +79,11 @@ public final class FireflyColors {
 		@NotNull BootstrapContext<FireflyColor> bootstrapContext,
 		ResourceKey<FireflyColor> resourceKey,
 		String name,
+		Optional<DyeColor> dyeColor,
 		int spawnPriority
 	) {
 		String texturePath = "entity/firefly/firefly_" + name;
-		register(bootstrapContext, resourceKey, texturePath, name, spawnPriority);
+		register(bootstrapContext, resourceKey, texturePath, name, dyeColor, spawnPriority);
 	}
 
 	private static void register(
@@ -88,9 +91,10 @@ public final class FireflyColors {
 		ResourceKey<FireflyColor> resourceKey,
 		String texturePath,
 		String name,
+		Optional<DyeColor> dyeColor,
 		int spawnPriority
 	) {
-		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset.ResourceTexture(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name));
+		bootstrapContext.register(resourceKey, new FireflyColor(new ClientAsset.ResourceTexture(WWConstants.id(texturePath)), SpawnPrioritySelectors.fallback(spawnPriority), name, dyeColor));
 	}
 
 	@Contract(pure = true)
@@ -99,22 +103,22 @@ public final class FireflyColors {
 	}
 
 	public static void bootstrap(BootstrapContext<FireflyColor> bootstrapContext) {
-		register(bootstrapContext, ON, "on", 1);
-		register(bootstrapContext, BLACK, "black", 0);
-		register(bootstrapContext, BLUE, "blue", 0);
-		register(bootstrapContext, BROWN, "brown", 0);
-		register(bootstrapContext, CYAN, "cyan", 0);
-		register(bootstrapContext, GRAY, "gray", 0);
-		register(bootstrapContext, GREEN, "green", 0);
-		register(bootstrapContext, LIGHT_BLUE, "light_blue", 0);
-		register(bootstrapContext, LIGHT_GRAY, "light_gray", 0);
-		register(bootstrapContext, LIME, "lime", 0);
-		register(bootstrapContext, MAGENTA, "magenta", 0);
-		register(bootstrapContext, ORANGE, "orange", 0);
-		register(bootstrapContext, PINK, "pink", 0);
-		register(bootstrapContext, PURPLE, "purple", 0);
-		register(bootstrapContext, RED, "red", 0);
-		register(bootstrapContext, WHITE, "white", 0);
-		register(bootstrapContext, YELLOW, "yellow", 0);
+		register(bootstrapContext, ON, "on", Optional.empty(), 1);
+		register(bootstrapContext, BLACK, "black", Optional.of(DyeColor.BLACK), 0);
+		register(bootstrapContext, BLUE, "blue", Optional.of(DyeColor.BLUE), 0);
+		register(bootstrapContext, BROWN, "brown", Optional.of(DyeColor.BROWN), 0);
+		register(bootstrapContext, CYAN, "cyan", Optional.of(DyeColor.CYAN), 0);
+		register(bootstrapContext, GRAY, "gray", Optional.of(DyeColor.GRAY), 0);
+		register(bootstrapContext, GREEN, "green", Optional.of(DyeColor.GREEN), 0);
+		register(bootstrapContext, LIGHT_BLUE, "light_blue", Optional.of(DyeColor.LIGHT_BLUE), 0);
+		register(bootstrapContext, LIGHT_GRAY, "light_gray", Optional.of(DyeColor.LIGHT_GRAY), 0);
+		register(bootstrapContext, LIME, "lime", Optional.of(DyeColor.LIME), 0);
+		register(bootstrapContext, MAGENTA, "magenta", Optional.of(DyeColor.MAGENTA), 0);
+		register(bootstrapContext, ORANGE, "orange", Optional.of(DyeColor.ORANGE), 0);
+		register(bootstrapContext, PINK, "pink", Optional.of(DyeColor.PINK), 0);
+		register(bootstrapContext, PURPLE, "purple", Optional.of(DyeColor.PURPLE), 0);
+		register(bootstrapContext, RED, "red", Optional.of(DyeColor.RED), 0);
+		register(bootstrapContext, WHITE, "white", Optional.of(DyeColor.WHITE), 0);
+		register(bootstrapContext, YELLOW, "yellow", Optional.of(DyeColor.YELLOW), 0);
 	}
 }
