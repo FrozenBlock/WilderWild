@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
@@ -142,7 +143,7 @@ public final class WWCreativeInventorySorting {
 		addAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
 		addAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
 		// COCONUT
-		addAfterInCombat(Items.EGG, WWItems.COCONUT);
+		addAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
 		addAfterInNaturalBlocks(WWBlocks.CYPRESS_SAPLING, WWItems.COCONUT);
 		addAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
 
@@ -265,16 +266,16 @@ public final class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
 
 		// PLANTS
-		addAfterInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
+		addBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
 		addAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
 		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
 		addAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
 		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.SHRUB);
-		addBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.ALGAE);
+		addBeforeInNaturalBlocks(Items.LILY_PAD, WWBlocks.BARNACLES);
+		addAfterInNaturalBlocks(WWBlocks.BARNACLES, WWItems.ALGAE);
 		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
-		addBeforeInNaturalBlocks(Items.SEAGRASS, WWBlocks.BARNACLES);
 		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
 		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
 		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
@@ -294,9 +295,9 @@ public final class WWCreativeInventorySorting {
 		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
 
 		// SHELF FUNGI
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.BROWN_SHELF_FUNGI);
+		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.BROWN_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
-		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.CRIMSON_SHELF_FUNGI);
+		addAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI);
 		addAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 
 		// PALE MUSHROOMS
@@ -347,10 +348,11 @@ public final class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICK_WALL);
 
 		// SCULK
-		addAfterInBuildingBlocks(Items.DEEPSLATE_TILE_WALL, WWBlocks.OSSEOUS_SCULK);
-		addAfterInBuildingBlocks(WWBlocks.OSSEOUS_SCULK, WWBlocks.SCULK_STAIRS);
+		addInBuildingBlocks(Items.SCULK);
+		addAfterInBuildingBlocks(Items.SCULK, WWBlocks.SCULK_STAIRS);
 		addAfterInBuildingBlocks(WWBlocks.SCULK_STAIRS, WWBlocks.SCULK_SLAB);
 		addAfterInBuildingBlocks(WWBlocks.SCULK_SLAB, WWBlocks.SCULK_WALL);
+		addAfterInBuildingBlocks(WWBlocks.SCULK_WALL, WWBlocks.OSSEOUS_SCULK);
 		addAfterInNaturalBlocks(Items.SCULK, WWBlocks.OSSEOUS_SCULK);
 		addAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
 
@@ -373,18 +375,21 @@ public final class WWCreativeInventorySorting {
 		// FIREFLY
 		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
-			var stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+			final ItemStack stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			stack.setCount(1);
 			stack.set(
 				WWDataComponents.FIREFLY_COLOR,
-				entries.getContext().holders().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getOrThrow(FireflyColors.DEFAULT)
+				entries.getContext()
+					.holders()
+					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+					.getOrThrow(FireflyColors.DEFAULT)
 			);
-			entries.accept(stack);
+			entries.addAfter(Items.MILK_BUCKET, ImmutableList.of(stack), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 		});
 
 		// BUTTERFLY
 		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
-		addInToolsAndUtilities(WWItems.BUTTERFLY_BOTTLE);
+		addAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
 		addAfterInSpawnEggs(Items.HUSK_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
@@ -437,6 +442,10 @@ public final class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 	}
 
+	private static void addInBuildingBlocks(ItemLike item) {
+		FrozenCreativeTabs.add(item, CreativeModeTabs.BUILDING_BLOCKS);
+	}
+
 	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.BUILDING_BLOCKS);
 	}
@@ -471,6 +480,10 @@ public final class WWCreativeInventorySorting {
 
 	private static void addInToolsAndUtilities(ItemLike item) {
 		FrozenCreativeTabs.add(item, CreativeModeTabs.TOOLS_AND_UTILITIES);
+	}
+
+	private static void addBeforeInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
 	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {

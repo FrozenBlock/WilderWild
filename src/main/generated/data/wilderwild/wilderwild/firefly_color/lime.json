@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/firefly/firefly_lime",
+  "dye_color": "lime",
   "name": "lime",
   "spawn_conditions": [
     {
