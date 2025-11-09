@@ -37,6 +37,9 @@ import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+import java.util.Optional;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.ChatFormatting;
 
@@ -45,13 +48,15 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 		instance -> instance.group(
 			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(FireflyColor::spawnConditions),
-			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
+			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
+			DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
 		).apply(instance, FireflyColor::new)
 	);
 	public static final Codec<FireflyColor> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::assetInfo),
-			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name)
+			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
+			DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
 		).apply(instance, FireflyColor::new)
 	);
 	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
@@ -60,15 +65,17 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 	private final ClientAsset clientAsset;
 	private final SpawnPrioritySelectors spawnConditions;
 	private final String name;
+	private final Optional<DyeColor> dyeColor;
 
-	public FireflyColor(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name) {
+	public FireflyColor(ClientAsset clientAsset, SpawnPrioritySelectors spawnConditions, String name, Optional<DyeColor> dyeColor) {
 		this.clientAsset = clientAsset;
 		this.spawnConditions = spawnConditions;
 		this.name = name;
+		this.dyeColor = dyeColor;
 	}
 
-	private FireflyColor(ClientAsset clientAsset, String name) {
-		this(clientAsset, SpawnPrioritySelectors.EMPTY, name);
+	private FireflyColor(ClientAsset clientAsset, String name, Optional<DyeColor> dyeColor) {
+		this(clientAsset, SpawnPrioritySelectors.EMPTY, name, dyeColor);
 	}
 
 	@NotNull
@@ -80,8 +87,19 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 		return this.spawnConditions;
 	}
 
+	public Optional<DyeColor> dyeColor() {
+		return this.dyeColor;
+	}
+
 	public String name() {
 		return this.name;
+	}
+
+	public static Optional<FireflyColor> getByDyeColor(RegistryAccess registryAccess, @NotNull DyeColor dyeColor) {
+		return registryAccess.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+			.stream()
+			.filter(fireflyColor -> fireflyColor.dyeColor().orElse(null) == dyeColor)
+			.findAny();
 	}
 
 	@Override

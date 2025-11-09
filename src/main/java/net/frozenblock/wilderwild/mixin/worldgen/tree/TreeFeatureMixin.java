@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -59,39 +59,37 @@ public class TreeFeatureMixin {
 		@Local WorldGenLevel level,
 		@Local RandomSource randomSource
 	) {
-		if (TreeFeature.class.cast(this) instanceof PalmTreeFeature) {
-			if (original.isPresent() && original.get()) {
-				BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-				AtomicBoolean hasPlacedCoconut = new AtomicBoolean();
-				Util.toShuffledList(foliageSet.stream(), randomSource).forEach(pos -> {
-					if (level.getRandom().nextFloat() <= PalmTreeFeature.COCONUT_CHANCE || !hasPlacedCoconut.get()) {
-						BlockState blockState = level.getBlockState(pos);
-						if (!blockState.hasProperty(BlockStateProperties.DISTANCE) || blockState.getValue(BlockStateProperties.DISTANCE) <= CoconutBlock.VALID_FROND_DISTANCE) {
-							BlockPos coconutPos = mutablePos.setWithOffset(pos, 0, -1, 0);
-							if (level.getBlockState(coconutPos).isAir()) {
-								level.setBlock(coconutPos, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
-								hasPlacedCoconut.set(true);
-							}
-						}
-					}
-				});
-			}
-		}
+		if (!(TreeFeature.class.cast(this) instanceof PalmTreeFeature)) return original;
+		if (original.isEmpty() || !original.get()) return original;
+
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final AtomicInteger coconutCount = new AtomicInteger();
+		Util.toShuffledList(foliageSet.stream(), randomSource).forEach(pos -> {
+			final int currentCoconuts = coconutCount.get();
+			if (currentCoconuts >= PalmTreeFeature.MAX_COCONUTS) return;
+			if (level.getRandom().nextFloat() > PalmTreeFeature.COCONUT_CHANCE && currentCoconuts > 0) return;
+
+			final BlockState state = level.getBlockState(pos);
+			if (state.getOptionalValue(BlockStateProperties.DISTANCE).orElse(0) > CoconutBlock.VALID_FROND_DISTANCE) return;
+			if (!level.getBlockState(mutable.setWithOffset(pos, 0, -1, 0)).isAir()) return;
+
+			level.setBlock(mutable, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
+			coconutCount.incrementAndGet();
+		});
 		return original;
 	}
 
-	@ModifyVariable(method = "method_49238", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-	private static BlockState wilderWild$setTermiteEdibleA(BlockState state) {
-		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
-	}
-
-	@ModifyVariable(method = "method_35364", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-	private static BlockState wilderWild$setTermiteEdibleB(BlockState state) {
-		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
-	}
-
-	@ModifyVariable(method = "method_43162", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-	private static BlockState wilderWild$setTermiteEdibleC(BlockState state) {
+	@ModifyVariable(
+		method = {
+			"method_49238",
+			"method_35364",
+			"method_43162"
+		},
+		at = @At("HEAD"),
+		ordinal = 0,
+		argsOnly = true
+	)
+	private static BlockState wilderWild$setTermiteEdible(BlockState state) {
 		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
 
