@@ -101,6 +101,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createHibiscus(generator, WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		WWModelHelper.createHibiscus(generator, WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 
+
+		WWModelHelper.createBush(generator);
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
 		generator.createFlowerBed(WWBlocks.PHLOX);
 		generator.createFlowerBed(WWBlocks.LANTANAS);
@@ -199,7 +201,6 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(WWBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);

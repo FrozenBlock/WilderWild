@@ -1,0 +1,9 @@
+{
+  "parent": "wilderwild:block/template_bush_double",
+  "textures": {
+    "bottom": "wilderwild:block/bush_stage2_bottom",
+    "layer0": "wilderwild:block/bush_stage2_bottom_overlay",
+    "layer1": "wilderwild:block/bush_stage2_top_overlay",
+    "top": "wilderwild:block/bush_stage2_top"
+  }
+}

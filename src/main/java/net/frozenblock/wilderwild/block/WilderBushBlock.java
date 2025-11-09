@@ -64,11 +64,11 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 	public static final float ALMOST_FULLY_GROWN_GROWTH_CHANCE = 0.75F;
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final float ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE = 0.45F;
-	public static final int MAX_AGE = 2;
-	public static final int ALMOST_MAX_AGE = 1;
+	public static final int MAX_AGE = 3;
+	public static final int ALMOST_MAX_AGE = 2;
 	public static final int MIN_AGE = 0;
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final MapCodec<WilderBushBlock> CODEC = simpleCodec(WilderBushBlock::new);
 
 	public WilderBushBlock(@NotNull BlockBehaviour.Properties properties) {
@@ -287,12 +287,12 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@NotNull
 	public BlockState setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean particles) {
-		BlockState setState = state.setValue(BlockStateProperties.AGE_2, age);
+		BlockState setState = state.setValue(AGE, age);
 		level.setBlockAndUpdate(pos, setState);
 		BlockPos movedPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this)) {
-			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_2, age));
+			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
 			if (particles) {
 				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
 			}

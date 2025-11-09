@@ -23,6 +23,7 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ColumnWithDiskFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -249,18 +250,21 @@ public final class WWConfiguredFeatures {
 
 	public static final SimpleWeightedRandomList<BlockState> OASIS_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
 		.add(Blocks.DEAD_BUSH.defaultBlockState(), 8)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 3)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> JUNGLE_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 5)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> SPARSE_JUNGLE_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 3)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 6)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 3)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 2)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> FROZEN_VEGETATION_TAIGA_POOL = SimpleWeightedRandomList.<BlockState>builder()
@@ -288,21 +292,24 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SPARSE_BUSH = WWFeatureUtils.register("sparse_bush");
 
 	public static final SimpleWeightedRandomList<BlockState> FLOWER_FIELD_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 2)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 5)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 4)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 4)
 		.build();
 
 	public static final SimpleWeightedRandomList<BlockState> BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 5)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 6)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 2)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 2)
 		.build();
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FLOWER_FIELD_BUSH = WWFeatureUtils.register("flower_field_bush");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> GENERIC_BUSH = WWFeatureUtils.register("bush");
 
 	public static final SimpleWeightedRandomList<BlockState> DESERT_BUSH_POOL = SimpleWeightedRandomList.<BlockState>builder()
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 0), 1)
-		.add(WWBlocks.BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_2, 1), 4)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 0), 1)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 1), 3)
+		.add(WWBlocks.BUSH.defaultBlockState().setValue(WilderBushBlock.AGE, 2), 3)
 		.build();
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> DESERT_BUSH = WWFeatureUtils.register("desert_bush");
