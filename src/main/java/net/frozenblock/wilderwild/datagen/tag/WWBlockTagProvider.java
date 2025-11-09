@@ -389,9 +389,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE)
-			.add(Blocks.MUD);
-
 		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
 			.addOptionalTag(BlockTags.DIRT);

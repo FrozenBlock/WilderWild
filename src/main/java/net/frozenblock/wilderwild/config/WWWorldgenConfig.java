@@ -54,6 +54,7 @@ public final class WWWorldgenConfig {
 				BIRCH_BRANCHES = config.treeGeneration.birchBranches;
 				OAK_BRANCHES = config.treeGeneration.oakBranches;
 				DARK_OAK_BRANCHES = config.treeGeneration.darkOakBranches;
+				NEW_MAPLES = config.treeGeneration.newMaples;
 				NEW_WITCH_HUTS = config.structure.newWitchHuts;
 			}
 		}
@@ -65,6 +66,7 @@ public final class WWWorldgenConfig {
 	public static volatile boolean BIRCH_BRANCHES = true;
 	public static volatile boolean OAK_BRANCHES = true;
 	public static volatile boolean DARK_OAK_BRANCHES = true;
+	public static volatile boolean NEW_MAPLES = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
 	@CollapsibleObject
@@ -268,6 +270,9 @@ public final class WWWorldgenConfig {
 
 		@EntrySyncData("darkOakBranches")
 		public boolean darkOakBranches = true;
+
+		@EntrySyncData("newMaples")
+		public boolean newMaples = true;
 	}
 
 	public static class AquaticGeneration {

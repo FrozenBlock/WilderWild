@@ -18,8 +18,10 @@
 package net.frozenblock.wilderwild.mixin.worldgen.biome;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -43,6 +46,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
+
+	@Unique
+	private WWWorldgenConfig wilderWild$worldgenConfig;
 
 	@Shadow
 	@Final
@@ -68,8 +74,9 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$injectBiomes(CallbackInfo info) {
+		this.wilderWild$worldgenConfig = WWWorldgenConfig.get();
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomePlacement.modifyJunglePlacement) {
+		if (this.wilderWild$worldgenConfig.biomePlacement.modifyJunglePlacement) {
 			MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
 			MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
 		}
@@ -78,7 +85,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
 	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomePlacement.modifyStonyShorePlacement) {
+		if (this.wilderWild$worldgenConfig.biomePlacement.modifyStonyShorePlacement) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 				this.addSurfaceBiome(
 					parameters,
@@ -97,7 +104,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "addMidSlice", at = @At("TAIL"))
 	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomePlacement.modifyCherryGrovePlacement) {
+		if (this.wilderWild$worldgenConfig.biomePlacement.modifyCherryGrovePlacement) {
 			this.addSurfaceBiome(
 				parameters,
 				WWSharedWorldgen.CherryGrove.TEMPERATURE,
@@ -114,9 +121,24 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) {
+		if (this.wilderWild$worldgenConfig.biomeGeneration.generateWarmBeach && temperature == 3) {
 			info.setReturnValue(WWBiomes.WARM_BEACH);
 		}
+	}
+
+	@ModifyReturnValue(
+		method = {"pickMiddleBiome", "pickPlateauBiome"},
+		at = @At("RETURN")
+	)
+	private ResourceKey<Biome> wilderWild$injectOldGrowthDarkForest(
+		ResourceKey<Biome> original,
+		@Local(argsOnly = true) Climate.Parameter parameter
+	) {
+		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return original;
+		if (this.wilderWild$worldgenConfig.biomeGeneration.generateOldGrowthDarkForest && original.equals(Biomes.DARK_FOREST)) {
+			if (parameter.max() >= 0L) return WWBiomes.OLD_GROWTH_DARK_FOREST;
+		}
+		return original;
 	}
 
 	@WrapOperation(
@@ -142,10 +164,10 @@ public final class OverworldBiomeBuilderMixin {
 			operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 			return;
 		}
-		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.get().biomeGeneration.generateWarmRiver) {
+		if (biomeKey.equals(Biomes.RIVER) && this.wilderWild$worldgenConfig.biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
 			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
-			Climate.Parameter jungleHumidity = WWWorldgenConfig.get().biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
+			Climate.Parameter jungleHumidity = this.wilderWild$worldgenConfig.biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
 			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 		}
 		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
@@ -170,10 +192,10 @@ public final class OverworldBiomeBuilderMixin {
 		ResourceKey<Biome> biomeKey,
 		Operation<Void> operation
 	) {
-		if (biomeKey.equals(Biomes.SWAMP) && WWWorldgenConfig.get().biomePlacement.modifySwampPlacement) {
+		if (biomeKey.equals(Biomes.SWAMP) && this.wilderWild$worldgenConfig.biomePlacement.modifySwampPlacement) {
 			temperature = WWSharedWorldgen.Swamp.TEMPERATURE;
 			humidity = WWSharedWorldgen.Swamp.HUMIDITY;
-		} else if (biomeKey.equals(Biomes.MANGROVE_SWAMP) && WWWorldgenConfig.get().biomePlacement.modifyMangroveSwampPlacement) {
+		} else if (biomeKey.equals(Biomes.MANGROVE_SWAMP) && this.wilderWild$worldgenConfig.biomePlacement.modifyMangroveSwampPlacement) {
 			temperature = WWSharedWorldgen.MangroveSwamp.TEMPERATURE;
 			humidity = WWSharedWorldgen.MangroveSwamp.HUMIDITY;
 		}
@@ -190,7 +212,7 @@ public final class OverworldBiomeBuilderMixin {
 		require = 0
 	)
 	private int wilderWild$fixWindsweptSavannaTemperature(int original) {
-		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
+		return this.wilderWild$worldgenConfig.biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
 
 	@ModifyExpressionValue(
@@ -202,7 +224,7 @@ public final class OverworldBiomeBuilderMixin {
 		require = 0
 	)
 	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
-		return WWWorldgenConfig.get().biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
+		return this.wilderWild$worldgenConfig.biomePlacement.modifyWindsweptSavannaPlacement ? 2 : original;
 	}
 
 }

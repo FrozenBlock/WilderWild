@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:round_yellow_maple",
+  "feature": "wilderwild:full_yellow_maple",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

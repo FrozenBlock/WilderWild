@@ -1,12 +1,12 @@
 {
-  "feature": "wilderwild:round_red_maple",
+  "feature": "wilderwild:full_orange_maple",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "wilderwild:red_maple_sapling",
+          "Name": "wilderwild:orange_maple_sapling",
           "Properties": {
             "stage": "0"
           }

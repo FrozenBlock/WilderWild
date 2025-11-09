@@ -46,7 +46,11 @@ public final class WWSpawns {
 				double butterflyLimit = 0.15D;
 				int butterflyWeight = 2;
 
-				if (!selectionContext.hasTag(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)) {
+				if (selectionContext.hasTag(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN)) {
+					butterflyCharge = 2.75D;
+					butterflyLimit = 0.015D;
+					butterflyWeight = 1;
+				} else if (!selectionContext.hasTag(WWBiomeTags.BUTTERFLY_COMMON_SPAWN)) {
 					butterflyCharge = 1.35D;
 					butterflyLimit = 0.075D;
 					butterflyWeight = 1;

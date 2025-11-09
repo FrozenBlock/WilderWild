@@ -6,17 +6,57 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This is off by default, but can be changed in-game on-the-fly via the config.
   - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
 - Fireflies can now be dyed in-world by clicking them with a Dye item.
-- Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
-- Palm Trees can now only naturally generate a maximum of three Coconuts.
-- Added the Yellow Maple Sapling, Orange Maple Sapling, and Red Maple Sapling.
-  - This change was made due to community request and feedback, as having only one sapling which grants a random color was not preferred.
-  - The original Maple Sapling will be datafixed into the Yellow Maple Sapling.
+- Cattails now generate closer together, and generate more Cattails per-patch on average.
+- Cattail patches can that generate on Mud when not near water have been removed.
+- Milkweed now generate more commonly in Swamps and Mangrove Swamps.
+- Butterflies now rarely spawn in Swamps.
+- Moobloom parents of the same flower color no longer attempt to produce offspring with a "mixed" color.
+  - This was unintentional behavior, and allowed players to obtain Mooblooms of the same color but different flowers.
+- Mooblooms can now properly render double-tall blocks.
+  - A new `top_flower_block_state` field has been added for Moobloom variants.
+    - This is an optional field, and is not present by default.
+    - Takes a block state, just like the `flower_block_state` field.
+    - When present, will render as the top-half of the block on Mooblooms.
+    - Double-tall blocks will be scaled slightly smaller than single blocks on Mooblooms.
+- Wind Particles can now spawn in clusters.
+  - The more intense the wind, the higher the chance for Wind Particles to spawn near another Wind Particle!
+  - This feature was added to make Wind Particles feel more like part of the game's ambience, opposed to one-off particles that randomly appear.
+  - Added config options to control whether clusters can spawn, the max amount of Wind Particles per cluster, and the relative chance for a Wind Particle to spawn in a cluster.
+- Updated the Old Growth Dark Forest.
+  - The amount of trees has been drastically increased.
+  - "Big Shrub/Bush" features generate more frequently.
+  - Fallen Dark Oak Trees generate slightly more frequently.
+  - Increased the amount of space Old Growth Dark Forests take up.
+  - Beta Beaches can no longer generate in Old Growth Dark Forests.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
 - Updated the Spanish translation, thanks to Kokoroto!
 
-### Villager Trades
+### Tree Changes
+- Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
+- Palm Trees can now only naturally generate a maximum of three Coconuts.
+- Added the Yellow Maple Sapling, Orange Maple Sapling, and Red Maple Sapling.
+  - This change was made due to community request and feedback, as having only one sapling which grants a random color was not preferred.
+  - The original Maple Sapling will be datafixed into the Yellow Maple Sapling.
+- The generation of Maple Trees has been completely overhauled, now sporting a much more natural shape.
+  - This change was made after a long time due to community request and feedback, as the old Maple Tree generation did not fit well any other trees in Minecraft.
+  - Added a config option to toggle the old shapes of Maple Tree trunks and foliage.
+- Fallen Maple Trees now occasionally generate with branches.
+- Added the `wilderwild:maple_trunk_placer` Trunk Placer, used for the new Maple Tree generation.
+  - Contains both a `trunk_branch_placement` and `lower_trunk_branch_placement` field.
+    - `lower_trunk_branch_placement` will be used if the current trunk position is less than half of the total trunk height.
+  - The `alt_trunk_placer` field contains an alternate Trunk Placer, which will be used if the new Maple Tree generation is disabled.
+- Renamed the old `wilderwild:maple_foliage_placer` Foliage Placer to `wilderwild:legacy_maple_foliage_placer`.
+- Removed the `wilderwild:round_maple_foliage_placer` Foliage Placer.
+- Added the `wilderwild:maple_foliage_placer` Foliage Placer, used for the new Maple Tree generation.
+  - Generates much like Oak and Birch foliage but with hanging leaves on the bottom, similar to Cherry foliage.
+  - The `hanging_leaves_chance` and `hanging_leaves_extension_chance` dictate the chances for hanging leaves blocks to generate, then to be extended upon generation respectively.
+  - The `alt_foliage_placer` field contains an alternate Foliage Placer, which will be used if the new Maple Tree generation is disabled.
+- The `foliage_radius_shrink` field of Wilder Wild's Trunk Branch Placement has been renamed to `foliage_radius_offset`, and now uses an Integer Provider instead of an Integer.
+- The `offset_last_log_chance`, `minimum_branch_length_for_offset`, `foliage_placement_chance`, and `foliage_radius_offset` fields of Wilder Wild's Trunk Branch Placement are now all optional.
+
+### Trades & Loot Tables
 - Desert Fisherman Villagers now sell Palm Boats instead of Jungle Boats.
 - Fisherman Villagers can now purchase Crab Buckets and Jellyfish Buckets for Emeralds.
 - Wandering Traders can now sell:
@@ -38,6 +78,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Config options to toggle every single Wilder Wild Villager trade have been introduced.
 - Added a new `entity_villager` mixin config option.
   - This is only used to swap the Desert Fisherman Villager's Jungle Boat for a Palm Boat.
+- Loot Tables that are modified by Wilder Wild now only add items if their respective worldgen config options are enabled.
+- Prickly Pears can now be found within Chests in Desert Villages.
 
 ### Creative Inventory Sorting
 - Shelf Fungi are now placed after all fungi, instead of being placed after both Overworld and Nether fungi.

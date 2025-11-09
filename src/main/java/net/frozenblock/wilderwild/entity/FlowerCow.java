@@ -66,6 +66,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.Util;
@@ -269,6 +270,13 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 		this.setFlowersLeft(this.getFlowersLeft() - 1);
 	}
 
+	@Override
+	public AABB getBoundingBoxForCulling() {
+		final AABB boundingBox = super.getBoundingBoxForCulling();
+		if (this.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		return boundingBox;
+	}
+
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
 		FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(serverLevel);
@@ -284,22 +292,31 @@ public class FlowerCow extends Cow implements Shearable, VariantHolder<MoobloomV
 	}
 
 	private @NotNull MoobloomVariant getOffspringVariant(@NotNull FlowerCow otherFlowerCow) {
-		MoobloomVariant moobloomVariant = this.getVariant();
-		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
+		final MoobloomVariant moobloomVariant = this.getVariant();
+		final MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
 
-		BlockState flowerBlock = moobloomVariant.getFlowerBlockState();
-		BlockState otherFlowerBlock = otherMoobloomVariant.getFlowerBlockState();
+		final BlockState flowerBlock = moobloomVariant.getFlowerBlockState();
+		final BlockState otherFlowerBlock = otherMoobloomVariant.getFlowerBlockState();
 
-		Optional<DyeColor> dyeColor = getDyeColorFromFlower(this.level(), flowerBlock.getBlock());
-		Optional<DyeColor> otherDyeColor = getDyeColorFromFlower(this.level(), otherFlowerBlock.getBlock());
+		final Optional<DyeColor> dyeColor = getDyeColorFromFlower(this.level(), flowerBlock.getBlock());
+		final Optional<DyeColor> otherDyeColor = getDyeColorFromFlower(this.level(), otherFlowerBlock.getBlock());
 
-		if (dyeColor.isPresent() && otherDyeColor.isPresent()) {
-			DyeColor outputDyeColor = getCombinedDyeColor(this.level(), dyeColor.get(), otherDyeColor.get());
-			Stream<MoobloomVariant> variantStream = this.level().registryAccess().registryOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).stream();
-			for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
-				Block variantFlower = registeredVariant.getFlowerBlockState().getBlock();
-				Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(this.level(), variantFlower);
-				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) return registeredVariant;
+		returnCombinedColor: {
+			if (dyeColor.isPresent() && otherDyeColor.isPresent()) {
+				final DyeColor thisColor = dyeColor.get();
+				final DyeColor otherColor = otherDyeColor.get();
+				if (thisColor == otherColor) break returnCombinedColor;
+
+				final DyeColor outputDyeColor = getCombinedDyeColor(this.level(), dyeColor.get(), otherDyeColor.get());
+				if (outputDyeColor == thisColor || outputDyeColor == otherColor) break returnCombinedColor;
+
+				final Stream<MoobloomVariant> variantStream = this.level().registryAccess().registryOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).stream();
+				for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
+					final Block variantFlower = registeredVariant.getFlowerBlockState().getBlock();
+					final Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(this.level(), variantFlower);
+					if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor))
+						return registeredVariant;
+				}
 			}
 		}
 

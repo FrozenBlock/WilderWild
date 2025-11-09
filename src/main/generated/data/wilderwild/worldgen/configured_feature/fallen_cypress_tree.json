@@ -89,14 +89,11 @@
       "trunk_branch_placement": {
         "branch_length": 1,
         "branch_placement_chance": 0.0,
-        "foliage_placement_chance": 0.0,
         "max_branch_count": {
           "type": "minecraft:uniform",
           "max_inclusive": 2,
           "min_inclusive": 1
-        },
-        "minimum_branch_length_for_offset": 1,
-        "offset_last_log_chance": 0.0
+        }
       }
     },
     "trunk_provider": {
