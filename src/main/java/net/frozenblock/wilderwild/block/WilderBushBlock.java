@@ -84,6 +84,10 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 		return state.getValue(AGE) == ALMOST_MAX_AGE;
 	}
 
+	public static boolean isNotFullyGrown(@NotNull BlockState state) {
+		return state.getValue(AGE) < MAX_AGE;
+	}
+
 	public static boolean isMinimumAge(@NotNull BlockState state) {
 		return state.getValue(AGE) == MIN_AGE;
 	}
@@ -208,7 +212,7 @@ public class WilderBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isMinimumAge(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir()) || isFullyGrown(state);
+		return isNotFullyGrown(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir());
 	}
 
 	@Override
