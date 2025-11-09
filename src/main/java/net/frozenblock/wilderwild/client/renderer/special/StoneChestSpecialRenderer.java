@@ -34,14 +34,14 @@ import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.MaterialSet;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
-	public static final ResourceLocation STONE_CHEST_TEXTURE = WWConstants.id("stone");
+	public static final Identifier STONE_CHEST_TEXTURE = WWConstants.id("stone");
 	private final MaterialSet materials;
 	private final StoneChestModel model;
 	private final Material material;
@@ -86,16 +86,16 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public record Unbaked(ResourceLocation texture, float openness) implements SpecialModelRenderer.Unbaked {
+	public record Unbaked(Identifier texture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<StoneChestSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				ResourceLocation.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
+				Identifier.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
 				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
 			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);
 
-		public Unbaked(ResourceLocation resourceLocation) {
-			this(resourceLocation, 0F);
+		public Unbaked(Identifier identifier) {
+			this(identifier, 0F);
 		}
 
 		@Override

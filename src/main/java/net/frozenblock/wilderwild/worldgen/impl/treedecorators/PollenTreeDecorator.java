@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class PollenTreeDecorator extends TreeDecorator {
 	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

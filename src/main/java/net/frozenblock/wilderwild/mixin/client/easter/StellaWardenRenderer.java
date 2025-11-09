@@ -28,7 +28,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.warden.Warden;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,15 +41,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WardenRenderer.class)
 public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRenderState, WardenModel> {
 	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_bioluminescent_overlay.png");
+	private static final Identifier WILDERWILD$STELLA_BIOLUMINESCENT_LAYER_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_bioluminescent_overlay.png");
 	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_HEART_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_heart.png");
+	private static final Identifier WILDERWILD$STELLA_HEART_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_heart.png");
 	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_TENDRILS_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_tendrils.png");
+	private static final Identifier WILDERWILD$STELLA_TENDRILS_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_tendrils.png");
 	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_PULSATING_SPOTS_1_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_pulsating_spots_1.png");
+	private static final Identifier WILDERWILD$STELLA_PULSATING_SPOTS_1_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_pulsating_spots_1.png");
 	@Unique
-	private static final ResourceLocation WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_pulsating_spots_2.png");
+	private static final Identifier WILDERWILD$STELLA_PULSATING_SPOTS_2_TEXTURE = WWConstants.id("textures/entity/warden/stella_warden_pulsating_spots_2.png");
 
 	public StellaWardenRenderer(EntityRendererProvider.Context context, WardenModel entityModel, float f) {
 		super(context, entityModel, f);

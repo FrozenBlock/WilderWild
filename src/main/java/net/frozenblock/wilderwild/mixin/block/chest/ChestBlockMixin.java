@@ -60,7 +60,7 @@ public class ChestBlockMixin {
 			if (
 				sourceChest.lootTable != null
 				&& state.getFluidState().is(Fluids.WATER)
-				&& sourceChest.lootTable.location().getPath().toLowerCase().contains("shipwreck")
+				&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
 				&& level.random.nextInt(0, 3) == 1
 			) {
 				if (WWEntityConfig.get().jellyfish.spawnJellyfish) Jellyfish.spawnFromChest(level, state, pos, true);

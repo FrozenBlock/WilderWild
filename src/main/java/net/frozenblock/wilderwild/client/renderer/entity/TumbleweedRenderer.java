@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
@@ -41,8 +41,8 @@ import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRenderState, TumbleweedModel> {
-	private static final ResourceLocation TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
-	private static final ResourceLocation CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
+	private static final Identifier TUMBLEWEED_LOCATION = WWConstants.id("textures/entity/tumbleweed/tumbleweed.png");
+	private static final Identifier CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
 	private final ItemModelResolver itemModelResolver;
 
 	public TumbleweedRenderer(@NotNull Context context) {
@@ -81,7 +81,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull TumbleweedRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull TumbleweedRenderState renderState) {
 		return renderState.isCannonball ? CANNONBALL_LOCATION : TUMBLEWEED_LOCATION;
 	}
 

@@ -33,15 +33,15 @@ import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
-	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
-	private static final ResourceLocation OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
+	private static final Identifier OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final Identifier OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private final EntityModel<OstrichRenderState> normalModel;
 	private final EntityModel<OstrichRenderState> normalBabyModel;
@@ -89,7 +89,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull OstrichRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;
 	}
 

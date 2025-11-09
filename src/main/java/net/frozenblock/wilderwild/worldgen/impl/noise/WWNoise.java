@@ -114,7 +114,7 @@ public class WWNoise {
 		double firstAmplitude,
 		double... amplitudes
 	) {
-		WWConstants.log("Registering noise " + key.location(), true);
+		WWConstants.log("Registering noise " + key.identifier(), true);
 		return entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }

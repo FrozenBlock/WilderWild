@@ -109,7 +109,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
@@ -1934,7 +1934,7 @@ public final class WWBlocks {
 		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
 	}
 	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
-		ResourceLocation id = WWConstants.id(path);
+		Identifier id = WWConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
@@ -1944,14 +1944,14 @@ public final class WWBlocks {
 		return registered;
 	}
 
-	private static <T extends Block> T doRegister(ResourceLocation id, T block) {
+	private static <T extends Block> T doRegister(Identifier id, T block) {
 		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
 			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
 		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
-	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
+	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, Identifier id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 

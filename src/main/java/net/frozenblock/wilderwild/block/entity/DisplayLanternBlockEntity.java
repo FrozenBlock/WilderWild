@@ -45,7 +45,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -175,7 +175,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		return this.fireflies;
 	}
 
-	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull ResourceLocation color, @NotNull String name) {
+	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull Identifier color, @NotNull String name) {
 		RandomSource random = levelAccessor.getRandom();
 		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
 		var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
@@ -249,7 +249,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	public static class Occupant {
 		public static final Codec<Occupant> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Vec3.CODEC.fieldOf("pos").forGetter(Occupant::getPos),
-			ResourceLocation.CODEC.fieldOf("color").forGetter(Occupant::getColor),
+			Identifier.CODEC.fieldOf("color").forGetter(Occupant::getColor),
 			Codec.STRING.fieldOf("custom_name").orElse("").forGetter(Occupant::getCustomName),
 			Codec.INT.fieldOf("age").forGetter(Occupant::getAge),
 			Codec.DOUBLE.fieldOf("y").forGetter(Occupant::getY)
@@ -257,7 +257,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
 			FrozenByteBufCodecs.VEC3, Occupant::getPos,
-			ResourceLocation.STREAM_CODEC, Occupant::getColor,
+			Identifier.STREAM_CODEC, Occupant::getColor,
 			ByteBufCodecs.STRING_UTF8, Occupant::getCustomName,
 			ByteBufCodecs.INT, Occupant::getAge,
 			ByteBufCodecs.DOUBLE, Occupant::getY,
@@ -265,14 +265,14 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		);
 
 		public Vec3 pos;
-		public ResourceLocation color;
+		public Identifier color;
 		public String customName;
 		public int age;
 		public double y;
 
 		private Optional<FireflyColor> colorForRendering = Optional.empty();
 
-		public Occupant(@NotNull Vec3 pos, @NotNull ResourceLocation color, @NotNull String customName, int age, double y) {
+		public Occupant(@NotNull Vec3 pos, @NotNull Identifier color, @NotNull String customName, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
@@ -296,7 +296,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		}
 
 		@NotNull
-		public ResourceLocation getColor() {
+		public Identifier getColor() {
 			return this.color;
 		}
 

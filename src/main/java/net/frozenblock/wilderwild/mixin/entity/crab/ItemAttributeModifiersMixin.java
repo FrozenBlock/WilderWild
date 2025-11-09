@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.crab;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.apache.commons.lang3.function.TriConsumer;
@@ -60,7 +60,7 @@ public class ItemAttributeModifiersMixin {
 	@Unique
 	private static boolean wilderWild$canAttributeModifierBeUsed(Object object) {
 		if (object instanceof AttributeModifier attributeModifier) {
-			final ResourceLocation id = attributeModifier.id();
+			final Identifier id = attributeModifier.id();
 			if (id.equals(Crab.BLOCK_REACH_BOOST_MODIFIER_ID)) return WWEntityConfig.CRAB_CLAW_GIVES_REACH;
 			if (id.equals(Crab.ENTITY_REACH_BOOST_MODIFIER_ID)) return WWEntityConfig.CRAB_CLAW_GIVES_REACH && WWEntityConfig.REACH_AFFECTS_ATTACK;
 		}

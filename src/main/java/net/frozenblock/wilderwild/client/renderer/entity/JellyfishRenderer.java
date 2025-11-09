@@ -29,14 +29,14 @@ import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
-	private static final ResourceLocation WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
+	private static final Identifier WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 
 	public JellyfishRenderer(@NotNull Context context) {
 		super(context, new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
@@ -72,7 +72,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull JellyfishRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull JellyfishRenderState renderState) {
 		if (renderState.isRGB) return WHITE_TEXTURE;
 		return renderState.variant.resourceTexture().texturePath();
 	}

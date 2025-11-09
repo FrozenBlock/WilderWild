@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -54,11 +54,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 
 	@NotNull
 	private TagKey<Block> getTag(String id) {
-		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 	@NotNull private ResourceKey<Block> getKey(String namespace, String path) {
-		return ResourceKey.create(this.registryKey, ResourceLocation.fromNamespaceAndPath(namespace, path));
+		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	private void generateCompat() {

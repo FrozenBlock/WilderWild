@@ -40,7 +40,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -98,8 +98,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
-	public static final @NotNull ResourceLocation ATTACK_MODIFIER_UUID = WWConstants.id("additional_damage_rider");
-	public static final @NotNull ResourceLocation KNOCKBACK_MODIFIER_UUID = WWConstants.id("additional_knockback_rider");
+	public static final @NotNull Identifier ATTACK_MODIFIER_UUID = WWConstants.id("additional_damage_rider");
+	public static final @NotNull Identifier KNOCKBACK_MODIFIER_UUID = WWConstants.id("additional_knockback_rider");
 	public static final int BEAK_COOLDOWN_TICKS = 30;
 	public static final int BEAK_COOLDOWN_TICKS_SUCCESSFUL_HIT = 20;
 	public static final int BEAK_STUCK_TICKS = 36;
@@ -427,7 +427,7 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 
 	@Override
 	public void executeRidersJump(float playerJumpPendingScale, @NotNull Vec3 travelVector) {
-		this.hasImpulse = true;
+		this.needsSync = true;
 	}
 
 	@Override

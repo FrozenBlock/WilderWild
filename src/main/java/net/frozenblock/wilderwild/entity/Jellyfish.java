@@ -50,7 +50,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -116,7 +116,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
-	public static final @NotNull ResourceLocation JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
+	public static final @NotNull Identifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
@@ -166,7 +166,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(VARIANT, JellyfishVariants.DEFAULT.location().toString());
+		builder.define(VARIANT, JellyfishVariants.DEFAULT.identifier().toString());
 		builder.define(CAN_REPRODUCE, false);
 		builder.define(IS_BABY, false);
 	}
@@ -584,8 +584,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return new ItemStack(WWItems.JELLYFISH_BUCKET);
 	}
 
-	public ResourceLocation getVariantLocation() {
-		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
 	public JellyfishVariant getVariantByLocation() {
@@ -604,7 +604,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull ResourceLocation variant) {
+	public void setVariant(@NotNull Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 
@@ -672,14 +672,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public @NotNull Optional<ResourceKey<LootTable>> getLootTable() {
-		ResourceLocation resourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
-		ResourceLocation variantLocation = this.getVariantLocation();
+		Identifier identifier = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
+		Identifier variantLocation = this.getVariantLocation();
 		return Optional.of(
 			ResourceKey.create(
 				Registries.LOOT_TABLE,
-				ResourceLocation.fromNamespaceAndPath(
+				Identifier.fromNamespaceAndPath(
 					variantLocation.getNamespace(),
-					"entities/" + resourceLocation.getPath() + "_" + variantLocation.getPath()
+					"entities/" + identifier.getPath() + "_" + variantLocation.getPath()
 				)
 			)
 		);

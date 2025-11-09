@@ -78,16 +78,16 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.BredAnimalsTrigger;
-import net.minecraft.advancements.critereon.ConsumeItemTrigger;
-import net.minecraft.advancements.critereon.EffectsChangedTrigger;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.FilledBucketTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.KilledTrigger;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.MobEffectsPredicate;
-import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.advancements.criterion.BredAnimalsTrigger;
+import net.minecraft.advancements.criterion.ConsumeItemTrigger;
+import net.minecraft.advancements.criterion.EffectsChangedTrigger;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.FilledBucketTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.KilledTrigger;
+import net.minecraft.advancements.criterion.LocationPredicate;
+import net.minecraft.advancements.criterion.MobEffectsPredicate;
+import net.minecraft.advancements.criterion.PlayerTrigger;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -96,7 +96,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -129,18 +129,18 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraft.ChatFormatting;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final ResourceLocation INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
-	public static final ResourceLocation ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
-	public static final ResourceLocation GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
-	public static final ResourceLocation GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
+	public static final Identifier INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
+	public static final Identifier ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
+	public static final Identifier GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
+	public static final Identifier GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
 	}
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull Holder<Biome> holder) {
-		AdvancementAPI.addCriteria(advancement, holder.unwrapKey().orElseThrow().location().toString(), inBiome(holder));
-		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().location().toString()))));
+		AdvancementAPI.addCriteria(advancement, holder.unwrapKey().orElseThrow().identifier().toString(), inBiome(holder));
+		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().identifier().toString()))));
 	}
 
 	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key, HolderLookup.@NotNull Provider registries) {
@@ -381,7 +381,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (WWWorldgenConfig.get().structure.decayTrailRuins) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.TRAIL_RUINS.location(),
+				BuiltinStructures.TRAIL_RUINS.identifier(),
 				new RuleProcessor(
 					ImmutableList.of(
 						new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
@@ -390,7 +390,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				)
 			);
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.TRAIL_RUINS.location(),
+				BuiltinStructures.TRAIL_RUINS.identifier(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
 						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
@@ -403,7 +403,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (WWWorldgenConfig.get().structure.newDesertVillages) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.VILLAGE_DESERT.location(),
+				BuiltinStructures.VILLAGE_DESERT.identifier(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
 						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_BUTTON),
@@ -617,7 +617,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		if (WWBlockConfig.get().stoneChest.addStoneChests) {
 			StructureProcessorApi.addProcessor(
-				BuiltinStructures.ANCIENT_CITY.location(),
+				BuiltinStructures.ANCIENT_CITY.identifier(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
 						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.CHEST), AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST)

@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderSt
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -50,7 +50,7 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(@NotNull ButterflyRenderState renderState) {
+	public @NotNull Identifier getTextureLocation(@NotNull ButterflyRenderState renderState) {
 		return renderState.texture;
 	}
 }

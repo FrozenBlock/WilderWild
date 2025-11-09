@@ -21,7 +21,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +43,7 @@ public final class WWGameEvents {
 
 	@NotNull
 	private static Reference<GameEvent> register(@NotNull String path, int notificationRadius) {
-		ResourceLocation key = WWConstants.id(path);
+		Identifier key = WWConstants.id(path);
 		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
 	}
 }

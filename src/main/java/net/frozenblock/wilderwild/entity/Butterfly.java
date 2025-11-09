@@ -38,7 +38,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -171,7 +171,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(FROM_BOTTLE, false);
-		builder.define(VARIANT, ButterflyVariants.DEFAULT.location().toString());
+		builder.define(VARIANT, ButterflyVariants.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -269,8 +269,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		return this.getBrain().hasMemoryValue(MemoryModuleType.HOME);
 	}
 
-	public ResourceLocation getVariantLocation() {
-		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
 	public ButterflyVariant getVariantByLocation() {
@@ -289,7 +289,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull ResourceLocation variant) {
+	public void setVariant(@NotNull Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 

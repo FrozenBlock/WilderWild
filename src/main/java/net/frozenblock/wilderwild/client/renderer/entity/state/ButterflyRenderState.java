@@ -21,13 +21,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class ButterflyRenderState extends LivingEntityRenderState {
-	private static final ResourceLocation DEFAULT_TEXTURE = WWConstants.id("textures/entity/butterfly/butterfly_monarch.png");
+	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/butterfly/butterfly_monarch.png");
 	public float downProgress;
 	public float groundProgress;
 	public float flyingXRot;
-	public ResourceLocation texture = DEFAULT_TEXTURE;
+	public Identifier texture = DEFAULT_TEXTURE;
 }

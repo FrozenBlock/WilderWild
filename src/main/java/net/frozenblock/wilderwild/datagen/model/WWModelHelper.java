@@ -51,7 +51,7 @@ import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
@@ -143,7 +143,7 @@ public final class WWModelHelper {
 		hollowedTextureMapping.put(TextureSlot.INSIDE, insideTextureMapping.get(TextureSlot.SIDE));
 		hollowedTextureMapping.put(TextureSlot.END, endTextureMapping.get(TextureSlot.END));
 
-		ResourceLocation verticalModelLocation = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
+		Identifier verticalModelLocation = VERTICAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput);
 		MultiVariant verticalModel = BlockModelGenerators.plainVariant(verticalModelLocation);
 		MultiVariant horizontalModel = BlockModelGenerators.plainVariant(HORIZONTAL_HOLLOWED_LOG_MODEL.create(hollowedLog, hollowedTextureMapping, generator.modelOutput));
 
@@ -158,10 +158,10 @@ public final class WWModelHelper {
 		generator.registerSimpleItemModel(hollowedLog, verticalModelLocation);
 	}
 
-	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, ResourceLocation texture) {
+	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, Identifier texture) {
 		generator.createParticleOnlyBlock(stoneChest, particleTexture);
 		final Item item = stoneChest.asItem();
-		final ResourceLocation model = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
+		final Identifier model = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
 		final ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(model, new StoneChestSpecialRenderer.Unbaked(texture));
 		generator.itemModelOutput.accept(item, unbaked);
 	}
@@ -169,7 +169,7 @@ public final class WWModelHelper {
 	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {
 		final TextureMapping mesogleaTextureMapping = new TextureMapping();
 		mesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock));
-		final ResourceLocation modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
+		final Identifier modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
 		final MultiVariant multiVariant = BlockModelGenerators.plainVariant(modelId);
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(mesogleaBlock, multiVariant));
@@ -317,8 +317,8 @@ public final class WWModelHelper {
 
 		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
 			if (fireflyColor.equals(WWConstants.string("on"))) return;
-			String color = ResourceLocation.parse(fireflyColor).getPath();
-			ResourceLocation modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
+			String color = Identifier.parse(fireflyColor).getPath();
+			Identifier modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
 
 			switchCases.add(
 				ItemModelUtils.when(
@@ -370,7 +370,7 @@ public final class WWModelHelper {
 	}
 
 	public static void createFragileIce(@NotNull BlockModelGenerators generator) {
-		ResourceLocation leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
 
 		generator.blockStateOutput
 			.accept(
@@ -399,7 +399,7 @@ public final class WWModelHelper {
 		TextureMapping seaAnemoneTextureMapping = new TextureMapping();
 		seaAnemoneTextureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemoneBlock, "_stem"));
 		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
-		ResourceLocation modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
+		Identifier modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
 
 		MultiVariant variant = BlockModelGenerators.plainVariant(modelId);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, variant));
@@ -413,15 +413,15 @@ public final class WWModelHelper {
 
 	public static void createAlgae(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
-		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		Identifier model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		MultiVariant variant = BlockModelGenerators.plainVariant(model);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, variant));
 	}
 
 	public static void createPlankton(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
-		ResourceLocation model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
-		ResourceLocation glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
+		Identifier model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		Identifier glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(
@@ -442,10 +442,10 @@ public final class WWModelHelper {
 
 	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
-		ResourceLocation singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		generator.blockStateOutput
 			.accept(
 				MultiVariantGenerator.dispatch(WWBlocks.TUBE_WORMS)
@@ -462,12 +462,12 @@ public final class WWModelHelper {
 	public static void createCattail(@NotNull BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.CATTAIL.asItem());
 
-		ResourceLocation topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 
-		ResourceLocation swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		ResourceLocation swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(

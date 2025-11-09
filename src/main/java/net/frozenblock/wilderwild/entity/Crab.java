@@ -56,7 +56,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -123,8 +123,8 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 
 public class Crab extends Animal implements VibrationSystem, Bucketable {
-	public static final ResourceLocation BLOCK_REACH_BOOST_MODIFIER_ID = WWConstants.id("block_reach_boost");
-	public static final ResourceLocation ENTITY_REACH_BOOST_MODIFIER_ID = WWConstants.id("entity_reach_boost");
+	public static final Identifier BLOCK_REACH_BOOST_MODIFIER_ID = WWConstants.id("block_reach_boost");
+	public static final Identifier ENTITY_REACH_BOOST_MODIFIER_ID = WWConstants.id("entity_reach_boost");
 	private static final double REACH_BOOST = 3D;
 	public static final ItemAttributeModifiers ATTRIBUTE_MODIFIERS = ItemAttributeModifiers.builder()
 		.add(
@@ -301,7 +301,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		builder.define(DIGGING_TICKS, 0);
 		builder.define(FROM_BUCKET, false);
 		builder.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
-		builder.define(VARIANT, CrabVariants.DEFAULT.location().toString());
+		builder.define(VARIANT, CrabVariants.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -832,8 +832,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("ditto");
 	}
 
-	public ResourceLocation getVariantLocation() {
-		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
 	public CrabVariant getVariantByLocation() {
@@ -852,7 +852,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull ResourceLocation variant) {
+	public void setVariant(@NotNull Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 

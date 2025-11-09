@@ -34,14 +34,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, NoOpModel<FireflyRenderState>> {
-	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/firefly/firefly_base.png");
+	private static final Identifier TEXTURE = WWConstants.id("textures/entity/firefly/firefly_base.png");
 	private static final RenderType LAYER = RenderTypes.entityTranslucent(TEXTURE);
 
 	private static final float Y_OFFSET = 0.155F;
@@ -136,7 +136,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(@NotNull FireflyRenderState renderState) {
+	public @NotNull Identifier getTextureLocation(@NotNull FireflyRenderState renderState) {
 		return renderState.color.resourceTexture().texturePath();
 	}
 

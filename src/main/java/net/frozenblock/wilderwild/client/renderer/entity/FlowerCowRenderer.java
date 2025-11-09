@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -54,7 +54,7 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(@NotNull FlowerCowRenderState renderState) {
+	public @NotNull Identifier getTextureLocation(@NotNull FlowerCowRenderState renderState) {
 		return renderState.texture;
 	}
 }

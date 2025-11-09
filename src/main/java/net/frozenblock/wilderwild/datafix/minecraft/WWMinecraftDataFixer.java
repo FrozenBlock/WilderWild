@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternCom
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBucketVariantComponentizationFix;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
@@ -111,7 +111,7 @@ public final class WWMinecraftDataFixer {
 			builder,
 			"Migrate Copper Horns to The Copperier Age",
 			WWConstants.id("copper_horn"),
-			ResourceLocation.fromNamespaceAndPath("thecopperierage", "copper_horn"),
+			Identifier.fromNamespaceAndPath("thecopperierage", "copper_horn"),
 			schemaV7
 		);
 

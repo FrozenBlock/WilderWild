@@ -21,7 +21,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -515,8 +515,8 @@ public final class WWSounds {
 	}
 
 	@NotNull
-	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull ResourceLocation resourceLocation) {
-		return registerForHolder(resourceLocation, resourceLocation);
+	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull Identifier identifier) {
+		return registerForHolder(identifier, identifier);
 	}
 
 	@NotNull
@@ -526,8 +526,8 @@ public final class WWSounds {
 	}
 
 	@NotNull
-	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull ResourceLocation resourceLocation, @NotNull ResourceLocation resourceLocation2) {
-		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));
+	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull Identifier identifier, @NotNull Identifier identifier2) {
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier2));
 	}
 
 	public static void init() {

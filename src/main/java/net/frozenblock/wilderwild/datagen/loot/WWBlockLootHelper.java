@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.datagen.loot;
 
 import java.util.stream.IntStream;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
@@ -177,7 +177,7 @@ public class WWBlockLootHelper {
 										.when(
 											LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
 												.setProperties(
-													net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties()
+													net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties()
 														.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
 												)
 										)

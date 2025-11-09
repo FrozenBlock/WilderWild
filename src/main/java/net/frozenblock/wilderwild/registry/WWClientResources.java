@@ -26,7 +26,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +70,7 @@ public final class WWClientResources {
 
 		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
-			public ResourceLocation getFabricId() {
+			public Identifier getFabricId() {
 				return WWConstants.id("resource_pack_value_setters");
 			}
 

@@ -183,7 +183,7 @@ public class StoneChestBlock extends ChestBlock {
 					if (lootTable != null
 						&& state.hasProperty(BlockStateProperties.WATERLOGGED)
 						&& state.getValue(BlockStateProperties.WATERLOGGED)
-						&& lootTable.location().getPath().toLowerCase().contains("shipwreck")
+						&& lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
 					) {
 						Jellyfish.spawnFromChest(level, state, pos, true);
 					}

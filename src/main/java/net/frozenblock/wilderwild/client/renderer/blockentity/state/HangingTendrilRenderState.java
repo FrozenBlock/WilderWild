@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.client.renderer.blockentity.state;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class HangingTendrilRenderState extends BlockEntityRenderState {
-	public ResourceLocation texture;
+	public Identifier texture;
 }

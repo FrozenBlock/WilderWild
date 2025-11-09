@@ -30,7 +30,7 @@ import com.mojang.serialization.OptionalDynamic;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +44,7 @@ public final class MobBucketVariantComponentizationFix extends DataFix {
 	public MobBucketVariantComponentizationFix(
 		Schema outputSchema,
 		String fixName,
-		@NotNull ResourceLocation itemId,
+		@NotNull Identifier itemId,
 		String newTagField
 	) {
         super(outputSchema, false);
