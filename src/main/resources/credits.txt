@@ -61,8 +61,9 @@ Zhen:
  - Retextured Datura in 4.0.
  - Updated & Animated Cattail textures in 4.1.
  - Marigold texture.
- - Retextured Jellyfish Bucket in 4.1.5.
- - Retextured Spruce & Willow Leaf Litters in 4.1.5.
+ - Retextured Jellyfish Bucket in 4.2.
+ - Recolored Spruce Leaf Litter in 4.2.
+ - Retextured Echo Glass in 4.2.
  - Composer:
     - Frozen Blocks
     - Pressure
@@ -180,7 +181,7 @@ Kokoroto:
  - Spanish translation.
  - Updated Spanish translation as of 3.0.9.
  - Updated Spanish translation as of 3.0.10.
- - Updated Spanish translation as of 4.1.5.
+ - Updated Spanish translation as of 4.2.
  - Begged for Clovers for two years, before they finally got added in 4.0.
  - Feedback about Coconuts being too readily available.
 
@@ -191,7 +192,7 @@ demorogabrtz:
  - Brazilian Portuguese translation.
 
 StarmanMine142:
- - The even newer Ukranian translation! (4.1.5).
+ - The even newer Ukranian translation! (4.2).
 
 unroman:
  - Ukranian translation.

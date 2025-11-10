@@ -106,3 +106,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Maple Sapling.
 - Retextured the Shrub.
 - Retextured Maple Leaf Litters.
+- Retextured Echo Glass.
