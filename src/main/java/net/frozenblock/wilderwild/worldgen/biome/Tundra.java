@@ -113,8 +113,8 @@ public final class Tundra extends FrozenBiome {
 	public static final int GRASS_COLOR_BLUE_GREENISH = 10990217;
 	public static final int GRASS_COLOR_BROWN = 15712649;
 	public static final int GRASS_COLOR_RED = 14909535;
-	//public static final int FOLIAGE_COLOR = 14995819;
-	public static final int FOLIAGE_COLOR = Integer.parseInt("bcbc58", 16);
+	public static final int FOLIAGE_COLOR = 14995819;
+	//public static final int FOLIAGE_COLOR = Integer.parseInt("bcbc58", 16);
 	//15648619;
 	public static final Tundra INSTANCE = new Tundra();
 
