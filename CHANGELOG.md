@@ -28,6 +28,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Fallen Dark Oak Trees generate slightly more frequently.
   - Increased the amount of space Old Growth Dark Forests take up.
   - Beta Beaches can no longer generate in Old Growth Dark Forests.
+- Fixed the Shrub's textures being flipped on its model.
+- The Shrub's break particles now only use its leaves overlay, instead of its stem and branches.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
@@ -103,3 +105,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Spruce Leaf Litter.
 - Retextured the Willow Leaf Litter.
 - Retextured the Maple Sapling.
+- Retextured the Shrub.
