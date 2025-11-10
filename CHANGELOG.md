@@ -30,6 +30,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Beta Beaches can no longer generate in Old Growth Dark Forests.
 - Fixed the Shrub's textures being flipped on its model.
 - The Shrub's break particles now only use its leaves overlay, instead of its stem and branches.
+- Updated the foliage colors of the Maple Forest and Tundra biomes.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
