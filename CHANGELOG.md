@@ -102,7 +102,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Jellyfish Bucket.
 - Retextured the Marigold.
 - Retextured the Willow Sapling.
-- Retextured the Spruce Leaf Litter.
-- Retextured the Willow Leaf Litter.
+- Recolored the Spruce Leaf Litter.
 - Retextured the Maple Sapling.
 - Retextured the Shrub.
+- Retextured Maple Leaf Litters.
