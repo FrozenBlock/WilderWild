@@ -86,31 +86,33 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(RANDOM_TICK_CHANCE) == 0) {
-			if (isFullyGrown(state)) {
-				if (random.nextInt(SNAP_CHANCE) == 0) {
-					level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-					Tumbleweed weed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
-					level.addFreshEntity(weed);
-					weed.setPos(Vec3.atBottomCenterOf(pos));
-					int diff = level.getDifficulty().getId();
-					if (level.getRandom().nextInt(diff == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / diff)) == 0) {
-						weed.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
-					}
-					level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
-					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-					level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-				}
-			} else {
-				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-			}
+		if (random.nextInt(RANDOM_TICK_CHANCE) != 0) return;
+
+		if (!isFullyGrown(state)) {
+			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
+			return;
 		}
+
+		if (random.nextInt(SNAP_CHANCE) != 0) return;
+		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
+
+		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
+		level.addFreshEntity(tumbleweed);
+		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
+
+		final int difficulty = level.getDifficulty().getId();
+		if (level.getRandom().nextInt(difficulty == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / difficulty)) == 0) {
+			tumbleweed.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
+		}
+		level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
+		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
 	@NotNull
 	@Override
-	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		return blockState.getValue(AGE) < AGE_FOR_SOLID_COLLISION ? Shapes.empty() : super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext);
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
+		return state.getValue(AGE) < AGE_FOR_SOLID_COLLISION ? Shapes.empty() : super.getCollisionShape(state, level, pos, collisionContext);
 	}
 
 	@NotNull
@@ -149,16 +151,13 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 	}
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
-		if (isFullyGrown(state)) {
-			if (!level.isClientSide()) {
-				Tumbleweed.spawnFromShears(level, pos);
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-				level.gameEvent(entity, GameEvent.SHEAR, pos);
-			}
-			return true;
-		}
-		return false;
+		if (!isFullyGrown(state)) return false;
+		if (level.isClientSide()) return true;
+		Tumbleweed.spawnFromShears(level, pos);
+		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		return true;
 	}
 
 	@Override

@@ -124,7 +124,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	protected static boolean isReplaceableOrWater(BlockState blockState, @NotNull FluidState fluidState) {
-		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8 && blockState.canBeReplaced();
+		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL && blockState.canBeReplaced();
 	}
 
 }

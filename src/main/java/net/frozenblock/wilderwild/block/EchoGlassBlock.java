@@ -81,45 +81,42 @@ public class EchoGlassBlock extends TransparentBlock {
 			0.5F,
 			0.9F + level.random.nextFloat() * 0.2F
 		);
-		if (level instanceof ServerLevel serverLevel) {
-			serverLevel.sendParticles(
-				new BlockParticleOption(ParticleTypes.BLOCK, blockState),
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5D,
-				pos.getZ() + 0.5D,
-				level.random.nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
-				0.3F,
-				0.3F,
-				0.3F,
-				0.05D
-			);
-		}
+		if (!(level instanceof ServerLevel serverLevel)) return ;
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, blockState),
+			pos.getX() + 0.5D,
+			pos.getY() + 0.5D,
+			pos.getZ() + 0.5D,
+			level.random.nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
+			0.3F,
+			0.3F,
+			0.3F,
+			0.05D
+		);
 	}
 
 	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
-		BlockState state = level.getBlockState(pos);
-		if (!state.hasProperty(DAMAGE)) return;
+		final BlockState state = level.getBlockState(pos);
+		final int damage = state.getOptionalValue(DAMAGE).orElse(0);
+		if (damage <= 0) return;
 
-		int damage = state.getValue(DAMAGE);
-		if (damage > 0) {
-			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, damage - 1));
-			level.playSound(
-				null,
-				pos,
-				WWSounds.BLOCK_ECHO_GLASS_REPAIR,
-				SoundSource.BLOCKS,
-				1F,
-				level.random.nextFloat() * 0.1F + 0.9F
-			);
-		}
+		level.setBlockAndUpdate(pos, state.setValue(DAMAGE, damage - 1));
+		level.playSound(
+			null,
+			pos,
+			WWSounds.BLOCK_ECHO_GLASS_REPAIR,
+			SoundSource.BLOCKS,
+			1F,
+			level.random.nextFloat() * 0.1F + 0.9F
+		);
 	}
 
-	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
-			mutableBlockPos.setWithOffset(blockPos, direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			mutable.setWithOffset(pos, direction);
+			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutable) : level.getBrightness(LightLayer.BLOCK, mutable);
 			finalLight = Math.max(finalLight, newLight);
 		}
 		return finalLight;
@@ -157,21 +154,21 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+		final var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 		if (canDamage(state) && EnchantmentHelper.getItemEnchantmentLevel(silkTouch, player.getMainHandItem()) < 1 && !player.isCreative()) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			player.causeFoodExhaustion(0.005F);
-		} else {
-			super.playerDestroy(level, player, pos, state, blockEntity, stack);
-			level.playSound(
-				null,
-				pos,
-				SoundEvents.GLASS_BREAK,
-				SoundSource.BLOCKS,
-				0.9F,
-				level.random.nextFloat() * 0.1F + 0.8F
-			);
+			return;
 		}
+		super.playerDestroy(level, player, pos, state, blockEntity, stack);
+		level.playSound(
+			null,
+			pos,
+			SoundEvents.GLASS_BREAK,
+			SoundSource.BLOCKS,
+			0.9F,
+			level.random.nextFloat() * 0.1F + 0.8F
+		);
 	}
 
 	@Override
@@ -181,10 +178,10 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	protected ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
-		ItemStack superStack = super.getCloneItemStack(levelReader, blockPos, blockState, bl);
-		int damage = blockState.getValue(WWBlockStateProperties.DAMAGE);
-		if (damage != 0) ItemBlockStateTagUtils.setProperty(superStack, WWBlockStateProperties.DAMAGE, damage);
-		return superStack;
+	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean bl) {
+		final ItemStack stack = super.getCloneItemStack(level, pos, state, bl);
+		final int damage = state.getValue(WWBlockStateProperties.DAMAGE);
+		if (damage != 0) ItemBlockStateTagUtils.setProperty(stack, WWBlockStateProperties.DAMAGE, damage);
+		return stack;
 	}
 }

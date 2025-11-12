@@ -47,6 +47,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.BIOME)));
 		WWConstants.log("Adding finalized noises to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.NOISE)));
+		WWConstants.log("Adding finalized timelines to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.TIMELINE)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);

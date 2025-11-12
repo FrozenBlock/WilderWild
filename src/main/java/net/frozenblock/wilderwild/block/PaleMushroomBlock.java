@@ -17,13 +17,13 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.CreakingHeartBlock;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -40,37 +40,32 @@ public class PaleMushroomBlock extends MushroomBlock {
 		super(resourceKey, properties);
 	}
 
-	public static boolean isNight(@NotNull Level level) {
-		return level.dimensionType().natural() && CreakingHeartBlock.isNaturalNight(level);
+	public static boolean isActive(@NotNull Level level, BlockPos pos) {
+		return level.environmentAttributes().getValue(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, pos);
 	}
 
 	@Override
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (isNight(level)) {
-			int i = pos.getX();
-			int j = pos.getY();
-			int k = pos.getZ();
-			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-			for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
-				if (random.nextFloat() >= 0.25F) continue;
-				mutable.set(
-					i + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
-					j + Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
-					k + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
-				);
-				BlockState blockState = level.getBlockState(mutable);
-				if (!blockState.isCollisionShapeFullBlock(level, mutable) && !level.isRainingAt(mutable)) {
-					level.addParticle(
-						WWParticleTypes.PALE_SPORE,
-						mutable.getX() + random.nextDouble(),
-						mutable.getY() + random.nextDouble(),
-						mutable.getZ() + random.nextDouble(),
-						0D,
-						0D,
-						0D
-					);
-				}
-			}
+		if (!isActive(level, pos)) return;
+
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
+			if (random.nextFloat() >= 0.25F) continue;
+			mutable.setWithOffset(
+				pos,
+				Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
+				Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
+				Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+			);
+			final BlockState insideState = level.getBlockState(mutable);
+			if (insideState.isCollisionShapeFullBlock(level, mutable) || level.isRainingAt(mutable)) continue;
+			level.addParticle(
+				WWParticleTypes.PALE_SPORE,
+				mutable.getX() + random.nextDouble(),
+				mutable.getY() + random.nextDouble(),
+				mutable.getZ() + random.nextDouble(),
+				0D, 0D, 0D
+			);
 		}
 	}
 

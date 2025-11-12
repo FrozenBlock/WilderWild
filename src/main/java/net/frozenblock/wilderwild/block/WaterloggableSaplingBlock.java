@@ -74,11 +74,11 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		boolean canSkip = false;
 		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
 			if (!canSkip) {
-				if (level.getBlockState(mutableBlockPos.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
+				if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
 					if (i == WATER_SEARCH_RANGE) return false;
 				} else {
 					canSkip = true;
@@ -90,24 +90,24 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-		boolean bl = fluidState.getType() == Fluids.WATER;
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, bl);
+		final FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+		final boolean isWater = fluidState.getType() == Fluids.WATER;
+		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, isWater);
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@NotNull

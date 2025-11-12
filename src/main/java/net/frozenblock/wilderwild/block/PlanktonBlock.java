@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -85,45 +87,39 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+	public void animateTick(BlockState state, Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-		boolean glowing = isGlowing(blockState);
-		ParticleOptions particle = glowing ? WWParticleTypes.GLOWING_PLANKTON : WWParticleTypes.PLANKTON;
-		float particleChance = glowing ? PARTICLE_SPAWN_CHANCE_GLOWING : PARTICLE_SPAWN_CHANCE;
+		final boolean glowing = isGlowing(state);
+		final ParticleOptions particle = glowing ? WWParticleTypes.GLOWING_PLANKTON : WWParticleTypes.PLANKTON;
+		final float particleChance = glowing ? PARTICLE_SPAWN_CHANCE_GLOWING : PARTICLE_SPAWN_CHANCE;
 
-		if (random.nextFloat() <= particleChance) {
-			BlockPos randomPos = new BlockPos(
-				blockPos.getX() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
-				blockPos.getY(),
-				blockPos.getZ() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+		if (random.nextFloat() > particleChance) return;
+		final BlockPos randomPos = new BlockPos(
+			pos.getX() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
+			pos.getY(),
+			pos.getZ() + Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
+		);
+		mutable.set(randomPos);
+		int maxPossibleDepth = 0;
+
+		for (int steps = 1; steps <= PARTICLE_SPAWN_SEARCH_DISTANCE; steps++) {
+			mutable.move(Direction.DOWN);
+			final BlockState particlePosState = level.getBlockState(mutable);
+			if (!particlePosState.is(Blocks.WATER) || particlePosState.getFluidState().getAmount() != FluidState.AMOUNT_FULL) break;
+			maxPossibleDepth += 1;
+		}
+
+		mutable.set(randomPos);
+		if (maxPossibleDepth > 0) {
+			mutable.move(Direction.DOWN, random.nextIntBetweenInclusive(1, maxPossibleDepth));
+			level.addParticle(
+				particle,
+				mutable.getX() + random.nextDouble(),
+				mutable.getY() + random.nextDouble(),
+				mutable.getZ() + random.nextDouble(),
+				0D, 0D, 0D
 			);
-			mutable.set(randomPos);
-			int maxPossibleDepth = 0;
-
-			for (int steps = 1; steps <= PARTICLE_SPAWN_SEARCH_DISTANCE; steps++) {
-				mutable.move(Direction.DOWN);
-				BlockState particlePosState = level.getBlockState(mutable);
-				if (particlePosState.is(Blocks.WATER) && particlePosState.getFluidState().getAmount() == 8) {
-					maxPossibleDepth += 1;
-				} else {
-					break;
-				}
-			}
-
-			mutable.set(randomPos);
-			if (maxPossibleDepth > 0) {
-				mutable.move(Direction.DOWN, random.nextIntBetweenInclusive(1, maxPossibleDepth));
-				level.addParticle(
-					particle,
-					mutable.getX() + random.nextDouble(),
-					mutable.getY() + random.nextDouble(),
-					mutable.getZ() + random.nextDouble(),
-					0D,
-					0D,
-					0D
-				);
-			}
 		}
 	}
 
@@ -136,29 +132,26 @@ public class PlanktonBlock extends AlgaeBlock {
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
-		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
-			if (!isGlowing(state) && level instanceof ServerLevel serverLevel) {
-				this.tryChangingState(state, serverLevel, pos);
-			}
-		}
+		if (entity.getY() > pos.getY() + SHAPE.max(Direction.Axis.Y)) return;
+		if (!(level instanceof ServerLevel serverLevel) || isGlowing(state)) return;
+		this.tryChangingState(state, serverLevel, pos);
 	}
 
 	public static boolean isGlowing(@NotNull BlockState blockState) {
 		return blockState.getValue(GLOWING);
 	}
 
-	private void tryChangingState(BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos) {
-		if (!serverLevel.dimensionType().natural()) return;
-		if (serverLevel.isBrightOutside() != isGlowing(blockState)) return;
-		boolean setGlowing = !isGlowing(blockState);
-		serverLevel.setBlock(blockPos, blockState.setValue(GLOWING, setGlowing), UPDATE_ALL);
-		serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState));
-		BlockPos.betweenClosed(blockPos.offset(-3, -2, -3), blockPos.offset(3, 2, 3)).forEach((blockPos2) -> {
-			BlockState foundState = serverLevel.getBlockState(blockPos2);
-			if (foundState == blockState) {
-				int delay = (int) (Math.sqrt(blockPos.distSqr(blockPos2)) * 5F);
-				serverLevel.scheduleTick(blockPos2, blockState.getBlock(), delay);
-			}
+	private void tryChangingState(BlockState state, @NotNull ServerLevel level, BlockPos pos) {
+		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.PLANKTON_GLOWING, pos);
+		if (shouldGlow == isGlowing(state)) return;
+
+		level.setBlockAndUpdate(pos, state.setValue(GLOWING, shouldGlow));
+		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
+		BlockPos.betweenClosed(pos.offset(-3, -2, -3), pos.offset(3, 2, 3)).forEach(blockPos2 -> {
+			final BlockState foundState = level.getBlockState(blockPos2);
+			if (foundState != state) return;
+			int delay = (int) (Math.sqrt(pos.distSqr(blockPos2)) * 5F);
+			level.scheduleTick(blockPos2, state.getBlock(), delay);
 		});
 	}
 
