@@ -22,6 +22,7 @@ import java.util.function.Function;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
@@ -175,7 +176,7 @@ public final class WWItems {
 	// FOOD
 	public static final Item PRICKLY_PEAR = registerBlock(WWBlocks.PRICKLY_PEAR_CACTUS, ((block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR)), new Item.Properties().food(WWFood.PRICKLY_PEAR));
 	public static final Item PEELED_PRICKLY_PEAR = register("peeled_prickly_pear", Item::new, new Item.Properties().food(Foods.APPLE));
-	public static final Item CRAB_CLAW = register("crab_claw", Item::new, new Item.Properties().food(WWFood.CRAB_CLAW));
+	public static final Item CRAB_CLAW = register("crab_claw", Item::new, new Item.Properties().food(WWFood.CRAB_CLAW).attributes(Crab.ATTRIBUTE_MODIFIERS));
 	public static final Item COOKED_CRAB_CLAW = register("cooked_crab_claw", Item::new, new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));
 	public static final Item SCORCHED_EYE = register("scorched_eye", Item::new, new Item.Properties().food(WWFood.SCORCHED_EYE, WWFood.SCORCHED_EYE_CONSUMABLE));
 	public static final Item FERMENTED_SCORCHED_EYE = register("fermented_scorched_eye", Item::new, new Item.Properties());

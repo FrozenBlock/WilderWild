@@ -21,14 +21,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderState extends LivingEntityRenderState {
-	private static final ResourceLocation DEFAULT_TEXTURE = WWConstants.id("textures/entity/moobloom/moobloom_dandelion.png");
+	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/moobloom/moobloom_dandelion.png");
 	public int flowers;
-	public ResourceLocation texture = DEFAULT_TEXTURE;
+	public Identifier texture = DEFAULT_TEXTURE;
 	public BlockState flowerBlockState = Blocks.AIR.defaultBlockState();
 }

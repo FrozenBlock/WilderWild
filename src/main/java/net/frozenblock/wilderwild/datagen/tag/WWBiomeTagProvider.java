@@ -25,7 +25,7 @@ import net.frozenblock.lib.tag.api.FrozenBiomeTags;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -51,7 +51,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
 	@NotNull
 	private TagKey<Biome> getTag(String id) {
-		return TagKey.create(this.registryKey, ResourceLocation.parse(id));
+		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
 	private void generateCompat() {

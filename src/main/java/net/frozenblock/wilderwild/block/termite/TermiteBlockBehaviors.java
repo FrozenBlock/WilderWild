@@ -32,7 +32,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -98,7 +98,7 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		ResourceLocation edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
 			createKey(edibleBlockLocation.getPath()),
@@ -116,7 +116,7 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		ResourceLocation edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
 			createKey(edibleBlockLocation.getPath()),
@@ -134,7 +134,7 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		ResourceLocation edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
 			createKey(edibleBlockLocation.getPath()),
@@ -151,7 +151,7 @@ public final class TermiteBlockBehaviors {
 		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		Block edibleBlock
 	) {
-		ResourceLocation edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
 			createKey(edibleBlockLocation.getPath()),

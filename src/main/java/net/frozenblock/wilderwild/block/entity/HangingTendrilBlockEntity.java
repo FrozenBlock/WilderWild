@@ -25,7 +25,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
@@ -70,7 +70,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int activeTicks;
 
 	//CLIENT ONLY
-	private ResourceLocation texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
+	private Identifier texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 
 	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
@@ -122,7 +122,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 	}
 
-	public ResourceLocation getClientTexture() {
+	public Identifier getClientTexture() {
 		return this.texture;
 	}
 

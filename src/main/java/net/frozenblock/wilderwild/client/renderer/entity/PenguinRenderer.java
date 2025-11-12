@@ -26,14 +26,14 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderStat
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel<PenguinRenderState>> {
-	private static final ResourceLocation TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
-	private static final ResourceLocation LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");
+	private static final Identifier TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
+	private static final Identifier LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");
 
 	public PenguinRenderer(EntityRendererProvider.Context context) {
 		super(
@@ -63,7 +63,7 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(@NotNull PenguinRenderState livingEntityRenderState) {
+	public @NotNull Identifier getTextureLocation(@NotNull PenguinRenderState livingEntityRenderState) {
 		return livingEntityRenderState.isLinux ? LINUX : TEXTURE;
 	}
 }

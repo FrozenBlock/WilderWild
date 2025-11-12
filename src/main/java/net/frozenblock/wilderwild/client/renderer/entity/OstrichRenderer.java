@@ -32,12 +32,13 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
-	private static final ResourceLocation OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final Identifier OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final Identifier OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private final EntityModel<OstrichRenderState> normalModel;
 	private final EntityModel<OstrichRenderState> normalBabyModel;
@@ -45,7 +46,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 	private final EntityModel<OstrichRenderState> inbredBabyModel;
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
-		super(context, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
+		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
 
 		this.normalModel = this.adultModel;
 		this.normalBabyModel = this.babyModel;
@@ -59,8 +60,8 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 				context.getEquipmentRenderer(),
 				WWEquipmentClientInfo.OSTRICH_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
-				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
-				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
 			)
 		);
 	}
@@ -85,7 +86,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull OstrichRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;
 	}
 

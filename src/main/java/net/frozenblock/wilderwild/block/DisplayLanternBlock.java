@@ -118,7 +118,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
 							String name = "";
 							if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
-							lantern.addFirefly(level, colorData.unwrapKey().orElseThrow().location(), name);
+							lantern.addFirefly(level, colorData.unwrapKey().orElseThrow().identifier(), name);
 							player.getItemInHand(hand).consume(1, player);
 							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
 							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));

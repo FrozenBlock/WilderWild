@@ -158,59 +158,56 @@ public class StoneChestBlock extends ChestBlock {
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
 		if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-		if (level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest) {
-			if (stoneChest.closing) return InteractionResult.FAIL;
+		if (!(level.getBlockEntity(pos) instanceof StoneChestBlockEntity stoneChest)) return InteractionResult.CONSUME;
+		if (stoneChest.closing) return InteractionResult.FAIL;
 
-			if (canInteract(level, pos)) {
-				MenuProvider namedScreenHandlerFactory = this.getMenuProvider(state, level, pos);
-				if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && namedScreenHandlerFactory != null) {
-					player.openMenu(namedScreenHandlerFactory);
-					player.awardStat(this.getOpenChestStat());
-					PiglinAi.angerNearbyPiglins((ServerLevel) level, player, true);
-				} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
-					MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
-					boolean first = stoneChest.openProgress == 0F;
-					if (lidCheck == null) {
-						if (stoneChest.openProgress < MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK) {
-							stoneChest.setLid(stoneChest.openProgress + LIFT_AMOUNT);
-						} else {
-							return InteractionResult.PASS;
-						}
-					} else {
-						stoneChest.liftLid(LIFT_AMOUNT);
-					}
-
-					if (first) {
-						((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
-						ResourceKey<LootTable> lootTable = stoneChest.lootTable;
-						if (lootTable != null
-							&& state.hasProperty(BlockStateProperties.WATERLOGGED)
-							&& state.getValue(BlockStateProperties.WATERLOGGED)
-							&& lootTable.location().getPath().toLowerCase().contains("shipwreck")
-						) {
-							Jellyfish.spawnFromChest(level, state, pos, true);
-						}
-					}
-					StoneChestBlockEntity.playSound(
-						level,
-						pos,
-						state,
-						first ? WWSounds.BLOCK_STONE_CHEST_OPEN : WWSounds.BLOCK_STONE_CHEST_LIFT,
-						first ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER,
-						0.35F
-					);
-					level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
+		if (canInteract(level, pos)) {
+			final MenuProvider menuProvider = this.getMenuProvider(state, level, pos);
+			if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && menuProvider != null) {
+				player.openMenu(menuProvider);
+				player.awardStat(this.getOpenChestStat());
+				PiglinAi.angerNearbyPiglins((ServerLevel) level, player, true);
+			} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
+				final MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
+				final boolean first = stoneChest.openProgress == 0F;
+				if (lidCheck == null) {
+					if (stoneChest.openProgress >= MAX_LIFT_AMOUNT_UNDER_SOLID_BLOCK) return InteractionResult.PASS;
+					stoneChest.setLid(stoneChest.openProgress + LIFT_AMOUNT);
+				} else {
+					stoneChest.liftLid(LIFT_AMOUNT);
 				}
+
+				if (first) {
+					((ChestBlockEntityInterface) stoneChest).wilderWild$bubble(level, pos, state);
+					final ResourceKey<LootTable> lootTable = stoneChest.lootTable;
+					if (lootTable != null
+						&& state.hasProperty(BlockStateProperties.WATERLOGGED)
+						&& state.getValue(BlockStateProperties.WATERLOGGED)
+						&& lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
+					) {
+						Jellyfish.spawnFromChest(level, state, pos, true);
+					}
+				}
+				StoneChestBlockEntity.playSound(
+					level,
+					pos,
+					state,
+					first ? WWSounds.BLOCK_STONE_CHEST_OPEN : WWSounds.BLOCK_STONE_CHEST_LIFT,
+					first ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER,
+					0.35F
+				);
+				level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
 			}
-
-			Optional<StoneChestBlockEntity> possibleCoupledStoneChest = ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state);
-			possibleCoupledStoneChest.ifPresent(otherStoneChest -> {
-				if (otherStoneChest instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
-					chestBlockEntityInterface.wilderWild$syncBubble(stoneChest, otherStoneChest);
-				}
-			});
-			stoneChest.syncLidValuesAndUpdate(possibleCoupledStoneChest.orElse(null));
 		}
+
+		Optional<StoneChestBlockEntity> possibleCoupledStoneChest = ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state);
+		possibleCoupledStoneChest.ifPresent(otherStoneChest -> {
+			if (otherStoneChest instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
+				chestBlockEntityInterface.wilderWild$syncBubble(stoneChest, otherStoneChest);
+			}
+		});
+		stoneChest.syncLidValuesAndUpdate(possibleCoupledStoneChest.orElse(null));
+
 		return InteractionResult.CONSUME;
 	}
 

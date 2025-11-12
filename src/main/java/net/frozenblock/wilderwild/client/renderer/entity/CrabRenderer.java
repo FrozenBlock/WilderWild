@@ -31,13 +31,13 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
-	private static final ResourceLocation CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
+	private static final Identifier CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
 
 	private final CrabModel normalModel = this.getModel();
 	private final CrabModel mojangModel;
@@ -82,7 +82,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull CrabRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull CrabRenderState renderState) {
 		if (renderState.isDitto) return CRAB_DITTO_LOCATION;
 		return WWConstants.MOJANG_CRABS ? renderState.mojangTexture : renderState.texture;
 	}

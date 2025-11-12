@@ -40,9 +40,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -68,6 +70,9 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -187,7 +192,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		builder.define(AGE, 0);
 		builder.define(ANIM_SCALE, 1.5F);
 		builder.define(PREV_ANIM_SCALE, 1.5F);
-		builder.define(COLOR, FireflyColors.DEFAULT.location().toString());
+		builder.define(COLOR, FireflyColors.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -198,6 +203,29 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	@NotNull
 	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+		final ItemStack stack = player.getItemInHand(hand);
+		final Item item = stack.getItem();
+		if (item instanceof DyeItem dyeItem) {
+			applyColor: {
+				final Optional<DyeColor> optionalFireflyDyeColor = this.getVariant().dyeColor();
+				if (optionalFireflyDyeColor.isPresent()) {
+					final DyeColor fireflyDyeColor = optionalFireflyDyeColor.get();
+					if (fireflyDyeColor == dyeItem.getDyeColor()) break applyColor;
+				}
+
+				final Optional<FireflyColor> newFireflyColor = FireflyColor.getByDyeColor(this.registryAccess(), dyeItem.getDyeColor());
+				if (newFireflyColor.isEmpty()) break applyColor;
+
+				if (!this.level().isClientSide()) {
+					this.setColor(newFireflyColor.get());
+					stack.shrink(1);
+				}
+
+				this.level().playSound(player, this, SoundEvents.DYE_USE, SoundSource.PLAYERS, 1F, 1F);
+				return InteractionResult.SUCCESS;
+			}
+		}
+
 		return WWBottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
@@ -314,8 +342,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		this.entityData.set(PREV_ANIM_SCALE, value);
 	}
 
-	public ResourceLocation getColorLocation() {
-		return ResourceLocation.parse(this.entityData.get(COLOR));
+	public Identifier getColorLocation() {
+		return Identifier.parse(this.entityData.get(COLOR));
 	}
 
 	public FireflyColor getColorByLocation() {
@@ -334,7 +362,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		this.entityData.set(COLOR, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getKey(color)).toString());
 	}
 
-	public void setColor(@NotNull ResourceLocation color) {
+	public void setColor(@NotNull Identifier color) {
 		this.entityData.set(COLOR, color.toString());
 	}
 
@@ -490,7 +518,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 		this.getColorAsHolder()
 			.unwrapKey()
-			.ifPresent(resourceKey -> valueOutput.putString("color", resourceKey.location().toString()));
+			.ifPresent(resourceKey -> valueOutput.putString("color", resourceKey.identifier().toString()));
 
 		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
 		valueOutput.putInt("flickerAge", this.getFlickerAge());
@@ -502,8 +530,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 
-		valueInput.getString("color").flatMap(string -> Optional.ofNullable(ResourceLocation.tryParse(string))
-				.map(resourceLocation -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, resourceLocation))
+		valueInput.getString("color").flatMap(string -> Optional.ofNullable(Identifier.tryParse(string))
+				.map(identifier -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, identifier))
 				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
 		).ifPresent(reference -> this.setColor(reference.value()));
 

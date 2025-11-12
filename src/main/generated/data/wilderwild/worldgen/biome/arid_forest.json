@@ -17,7 +17,7 @@
   ],
   "downfall": 0.05,
   "effects": {
-    "water_color": 4159204
+    "water_color": "#3f76e4"
   },
   "features": [
     [],
@@ -75,9 +75,9 @@
       "wilderwild:arid_forest_trees",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_bush",
       "minecraft:flower_warm",
       "minecraft:patch_grass_savanna",
+      "minecraft:patch_bush",
       "minecraft:patch_dry_grass_desert",
       "minecraft:patch_dead_bush_2",
       "minecraft:brown_mushroom_normal",
@@ -141,7 +141,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 50
       },
       {
         "type": "minecraft:creeper",
@@ -172,6 +172,12 @@
         "maxCount": 4,
         "minCount": 4,
         "weight": 80
+      },
+      {
+        "type": "minecraft:parched",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
       }
     ],
     "underground_water_creature": [

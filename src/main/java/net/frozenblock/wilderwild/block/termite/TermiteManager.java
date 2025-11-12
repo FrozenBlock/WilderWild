@@ -54,7 +54,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class TermiteManager {
 	public static final int TERMITE_COUNT_ASLEEP = 1;

@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -59,13 +59,13 @@ public final class WWConstants {
 	}
 
 	@NotNull
-	public static ResourceLocation id(@NotNull String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static Identifier id(@NotNull String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	@NotNull
-	public static ResourceLocation vanillaId(@NotNull String path) {
-		return ResourceLocation.withDefaultNamespace(path);
+	public static Identifier vanillaId(@NotNull String path) {
+		return Identifier.withDefaultNamespace(path);
 	}
 
 	@NotNull

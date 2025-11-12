@@ -144,7 +144,7 @@ public final class WWBiomes {
 	}
 
 	private static void register(@NotNull BootstrapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
-		WWConstants.log("Registering biome " + key.location(), true);
+		WWConstants.log("Registering biome " + key.identifier(), true);
 		entries.register(key, biome);
 	}
 }

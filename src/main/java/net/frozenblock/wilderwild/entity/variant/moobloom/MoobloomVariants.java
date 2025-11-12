@@ -40,7 +40,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> DANDELION = createKey("dandelion");

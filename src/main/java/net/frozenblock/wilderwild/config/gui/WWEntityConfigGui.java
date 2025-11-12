@@ -325,10 +325,21 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var oralArm = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("oral_arm"), modifiedJellyfish.oralArm)
+				.setDefaultValue(defaultConfig.jellyfish.oralArm)
+				.setSaveConsumer(newValue -> jellyfish.oralArm = newValue)
+				.setTooltip(tooltip("oral_arm"))
+				.build(),
+			jellyfish.getClass(),
+			"oralArm",
+			configInstance
+		);
+
 		var jellyfishCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("jellyfish"),
 			false,
 			tooltip("jellyfish"),
-			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles
+			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles, oralArm
 		);
 
 		var spawnCrabs = FrozenClothConfig.syncedEntry(
@@ -366,10 +377,22 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var crabClawGivesReach = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("crab_claw_gives_reach"), modifiedCrab.crabClawGivesReach)
+				.setDefaultValue(defaultConfig.crab.crabClawGivesReach)
+				.setSaveConsumer(newValue -> crab.crabClawGivesReach = newValue)
+				.setTooltip(tooltip("crab_claw_gives_reach"))
+				.requireRestart()
+				.build(),
+			crab.getClass(),
+			"crabClawGivesReach",
+			configInstance
+		);
+
 		var crabCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("crab"),
 			false,
 			tooltip("crab"),
-			spawnCrabs, crabSpawnCap, reachAffectsAttack
+			spawnCrabs, crabSpawnCap, reachAffectsAttack, crabClawGivesReach
 		);
 
 		var spawnOstriches = FrozenClothConfig.syncedEntry(

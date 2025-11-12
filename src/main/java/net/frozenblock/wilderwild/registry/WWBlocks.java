@@ -109,7 +109,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
@@ -1934,7 +1934,7 @@ public final class WWBlocks {
 		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
 	}
 	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
-		ResourceLocation id = WWConstants.id(path);
+		Identifier id = WWConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));
 	}
 
@@ -1944,14 +1944,14 @@ public final class WWBlocks {
 		return registered;
 	}
 
-	private static <T extends Block> T doRegister(ResourceLocation id, T block) {
+	private static <T extends Block> T doRegister(Identifier id, T block) {
 		if (BuiltInRegistries.BLOCK.getOptional(id).isEmpty()) {
 			return Registry.register(BuiltInRegistries.BLOCK, id, block);
 		}
 		throw new IllegalArgumentException("Block with id " + id + " is already in the block registry.");
 	}
 
-	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, ResourceLocation id) {
+	private static <T extends Block> T makeBlock(Function<Properties, T> function, Properties properties, Identifier id) {
 		return function.apply(properties.setId(ResourceKey.create(Registries.BLOCK, id)));
 	}
 
@@ -2702,7 +2702,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.CHERRY_LOG, HOLLOWED_CHERRY_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.SPRUCE_LOG, HOLLOWED_SPRUCE_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.DARK_OAK_LOG, HOLLOWED_DARK_OAK_LOG);
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.JUNGLE_LOG, HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.JUNGLE_LOG, HOLLOWED_JUNGLE_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.ACACIA_LOG, HOLLOWED_ACACIA_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.MANGROVE_LOG, HOLLOWED_MANGROVE_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.PALE_OAK_LOG, HOLLOWED_PALE_OAK_LOG);
@@ -2719,7 +2719,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_CHERRY_LOG, STRIPPED_HOLLOWED_CHERRY_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_SPRUCE_LOG, STRIPPED_HOLLOWED_SPRUCE_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_DARK_OAK_LOG, STRIPPED_HOLLOWED_DARK_OAK_LOG);
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_JUNGLE_LOG, STRIPPED_HOLLOWED_OAK_LOG);
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_JUNGLE_LOG, STRIPPED_HOLLOWED_JUNGLE_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG);
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG);
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_PALE_OAK_LOG, STRIPPED_HOLLOWED_PALE_OAK_LOG);

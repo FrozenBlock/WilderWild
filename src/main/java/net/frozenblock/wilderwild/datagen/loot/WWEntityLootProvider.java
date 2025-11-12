@@ -28,7 +28,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -56,9 +56,9 @@ public final class WWEntityLootProvider extends FabricEntityLootTableProvider {
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
 			.forEach(reference -> {
-				final ResourceLocation id = reference.key().location();
+				final Identifier id = reference.key().identifier();
 				final String path = id.getPath();
-				final ResourceLocation lootTableId = ResourceLocation.fromNamespaceAndPath(
+				final Identifier lootTableId = Identifier.fromNamespaceAndPath(
 					id.getNamespace(),
 					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + path
 				);

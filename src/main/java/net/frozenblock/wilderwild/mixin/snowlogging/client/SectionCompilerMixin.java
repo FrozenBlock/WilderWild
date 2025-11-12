@@ -27,7 +27,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
@@ -50,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SectionCompilerMixin {
 
 	@Shadow
-	protected abstract BufferBuilder getOrBeginLayer(Map<RenderType, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, ChunkSectionLayer chunkSectionLayer);
+	protected abstract BufferBuilder getOrBeginLayer(Map<ChunkSectionLayer, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, ChunkSectionLayer chunkSectionLayer);
 
 	@Shadow
 	@Final
@@ -71,16 +70,16 @@ public abstract class SectionCompilerMixin {
 		SectionBufferBuilderPack sectionBufferBuilderPack,
 		CallbackInfoReturnable<SectionCompiler.Results> info,
 		@Local PoseStack poseStack,
-		@Local Map<RenderType, BufferBuilder> map,
+		@Local Map<ChunkSectionLayer, BufferBuilder> map,
 		@Local RandomSource randomSource,
 		@Local List<BlockModelPart> list,
 		@Local(ordinal = 2) BlockPos blockPos3,
 		@Local BlockState blockState
 	) {
 		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
-		BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-		ChunkSectionLayer chunkSectionLayer = ItemBlockRenderTypes.getChunkRenderType(snowState);
-		BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, chunkSectionLayer);
+		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
+		final ChunkSectionLayer chunkSectionLayer = ItemBlockRenderTypes.getChunkRenderType(snowState);
+		final BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, chunkSectionLayer);
 		randomSource.setSeed(snowState.getSeed(blockPos3));
 		this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
 		poseStack.pushPose();

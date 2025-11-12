@@ -28,14 +28,14 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
 		instance.group(
-			ResourceLocation.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
+			Identifier.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
 			Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),
 			Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
 			Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
@@ -47,7 +47,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		).apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWFallingLeavesParticleOptions> STREAM_CODEC = StreamCodec.composite(
-		ResourceLocation.STREAM_CODEC, WWFallingLeavesParticleOptions::getParticleId,
+		Identifier.STREAM_CODEC, WWFallingLeavesParticleOptions::getParticleId,
 		Vec3.STREAM_CODEC, WWFallingLeavesParticleOptions::getVelocity,
 		ByteBufCodecs.INT, WWFallingLeavesParticleOptions::getTextureSize,
 		ByteBufCodecs.FLOAT, WWFallingLeavesParticleOptions::getGravityScale,
@@ -60,7 +60,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	);
 
 	private final ParticleType<WWFallingLeavesParticleOptions> type;
-	private final ResourceLocation particleId;
+	private final Identifier particleId;
 	private final Vec3 velocity;
 	private final int textureSize;
 	private final float gravityScale;
@@ -142,7 +142,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	}
 
 	private @NotNull static WWFallingLeavesParticleOptions createCodecParticleOptions(
-		ResourceLocation particleId,
+		Identifier particleId,
 		Vec3 velocity,
 		int textureSize,
 		float gravityScale,
@@ -190,7 +190,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		return this.type;
 	}
 
-	public ResourceLocation getParticleId() {
+	public Identifier getParticleId() {
 		return particleId;
 	}
 

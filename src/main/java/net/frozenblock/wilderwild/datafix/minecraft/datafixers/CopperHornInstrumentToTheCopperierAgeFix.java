@@ -24,7 +24,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.OptionalDynamic;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 public final class CopperHornInstrumentToTheCopperierAgeFix extends DataFix {
-	private static final String INSTRUMENT_DATA_FIELD = ResourceLocation.withDefaultNamespace("instrument").toString();
+	private static final String INSTRUMENT_DATA_FIELD = Identifier.withDefaultNamespace("instrument").toString();
 	private static final String ITEM_ID = WWConstants.id("copper_horn").toString();
 
 	public CopperHornInstrumentToTheCopperierAgeFix(Schema outputSchema) {

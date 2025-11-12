@@ -245,7 +245,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
-				entity.hasImpulse = true;
+				entity.needsSync = true;
 			}
 
 			if (damagingEruption.intersects(boundingBox)) {

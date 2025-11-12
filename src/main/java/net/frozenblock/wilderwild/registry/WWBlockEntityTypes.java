@@ -33,7 +33,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public final class WWBlockEntityTypes {
 	private WWBlockEntityTypes() {

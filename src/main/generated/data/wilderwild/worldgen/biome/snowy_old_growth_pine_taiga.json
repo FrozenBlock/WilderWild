@@ -16,9 +16,9 @@
   ],
   "downfall": 0.4,
   "effects": {
-    "foliage_color": 6332795,
-    "grass_color": 8434839,
-    "water_color": 4159204
+    "foliage_color": "#60a17b",
+    "grass_color": "#80b497",
+    "water_color": "#3f76e4"
   },
   "features": [
     [],

@@ -28,7 +28,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class AboveLogsTreeDecorator extends TreeDecorator {
 	public static final MapCodec<AboveLogsTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

@@ -25,7 +25,7 @@ import net.frozenblock.lib.block.client.entity.SpecialModelRenderersEntrypoint;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 public class WWSpecialModelRenderers implements SpecialModelRenderersEntrypoint {
 
 	@Override
-	public void registerSpecialModelRenderers(ExtraCodecs.@NotNull LateBoundIdMapper<ResourceLocation, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
+	public void registerSpecialModelRenderers(ExtraCodecs.@NotNull LateBoundIdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
 		mapper.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 

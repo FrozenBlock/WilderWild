@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.shape.FrozenShapes;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
@@ -55,7 +56,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -79,11 +80,13 @@ import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -96,6 +99,7 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -119,6 +123,27 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 
 public class Crab extends Animal implements VibrationSystem, Bucketable {
+	public static final Identifier BLOCK_REACH_BOOST_MODIFIER_ID = WWConstants.id("block_reach_boost");
+	public static final Identifier ENTITY_REACH_BOOST_MODIFIER_ID = WWConstants.id("entity_reach_boost");
+	private static final double REACH_BOOST = 3D;
+	public static final ItemAttributeModifiers ATTRIBUTE_MODIFIERS = ItemAttributeModifiers.builder()
+		.add(
+			Attributes.BLOCK_INTERACTION_RANGE,
+			new AttributeModifier(
+				BLOCK_REACH_BOOST_MODIFIER_ID,
+				REACH_BOOST,
+				AttributeModifier.Operation.ADD_VALUE),
+			EquipmentSlotGroup.HAND
+		)
+		.add(
+			Attributes.ENTITY_INTERACTION_RANGE,
+			new AttributeModifier(
+				ENTITY_REACH_BOOST_MODIFIER_ID,
+				REACH_BOOST,
+				AttributeModifier.Operation.ADD_VALUE),
+			EquipmentSlotGroup.HAND
+		)
+		.build();
 	public static final float MAX_TARGET_DISTANCE = 16F;
 	public static final double MOVEMENT_SPEED = 0.16;
 	public static final float STEP_HEIGHT = 0.2F;
@@ -276,7 +301,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		builder.define(DIGGING_TICKS, 0);
 		builder.define(FROM_BUCKET, false);
 		builder.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
-		builder.define(VARIANT, CrabVariants.DEFAULT.location().toString());
+		builder.define(VARIANT, CrabVariants.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -807,8 +832,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("ditto");
 	}
 
-	public ResourceLocation getVariantLocation() {
-		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
 	public CrabVariant getVariantByLocation() {
@@ -827,7 +852,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull ResourceLocation variant) {
+	public void setVariant(@NotNull Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 

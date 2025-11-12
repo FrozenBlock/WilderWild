@@ -51,6 +51,8 @@ public final class WWEntityConfig {
 				WARDEN_SWIMS = config.warden.wardenSwims;
 				FIREFLY_SWARMS = config.firefly.fireflySwarm;
 				FIREFLY_SWARMS_BUSH = config.firefly.fireflySwarmsBush;
+				REACH_AFFECTS_ATTACK = config.crab.reachAffectsAttack;
+				CRAB_CLAW_GIVES_REACH = config.crab.crabClawGivesReach;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 					Client.SPAWN_FIREFLY_PARTICLES = config.firefly.spawnFireflyParticles;
 					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
@@ -62,6 +64,7 @@ public final class WWEntityConfig {
 					Client.WARDEN_IMPROVED_SNIFF_ANIMATION = config.warden.wardenBedrockSniff;
 					Client.WARDEN_DEATH_ANIMATION = config.warden.wardenDeathAnimation;
 					Client.JELLYFISH_PLANE_TENTACLES = config.jellyfish.planeTentacles;
+					Client.JELLYFISH_ORAL_ARM = config.jellyfish.oralArm;
 				}
 			}
 		}
@@ -70,6 +73,8 @@ public final class WWEntityConfig {
 	public static volatile boolean WARDEN_SWIMS = true;
 	public static volatile boolean FIREFLY_SWARMS = true;
 	public static volatile boolean FIREFLY_SWARMS_BUSH = true;
+	public static volatile boolean REACH_AFFECTS_ATTACK = false;
+	public static volatile boolean CRAB_CLAW_GIVES_REACH = false;
 
 	public static final class Client {
 		public static volatile boolean SPAWN_FIREFLY_PARTICLES = false;
@@ -82,6 +87,7 @@ public final class WWEntityConfig {
 		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
 		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
 		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
+		public static volatile boolean JELLYFISH_ORAL_ARM = true;
 	}
 
 	@CollapsibleObject
@@ -200,6 +206,8 @@ public final class WWEntityConfig {
 		public int jellyfishTentacles = 8;
 		@EntrySyncData(value = "planeTentacles", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean planeTentacles = true;
+		@EntrySyncData(value = "oralArm", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean oralArm = true;
 	}
 
 	public static class CrabConfig {
@@ -211,6 +219,9 @@ public final class WWEntityConfig {
 
 		@EntrySyncData("reachAffectsAttack")
 		public boolean reachAffectsAttack = false;
+
+		@EntrySyncData("crabClawGivesReach")
+		public boolean crabClawGivesReach = false;
 	}
 
 	public static class OstrichConfig {

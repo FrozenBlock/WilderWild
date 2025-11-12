@@ -37,7 +37,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -71,7 +71,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 public class FlowerCow extends AbstractCow implements Shearable {
 	public static final int MAX_FLOWERS = 4;
@@ -121,7 +121,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(VARIANT, MoobloomVariants.DEFAULT.location().toString());
+		builder.define(VARIANT, MoobloomVariants.DEFAULT.identifier().toString());
 		builder.define(FLOWERS_LEFT, MAX_FLOWERS);
 	}
 
@@ -241,8 +241,8 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		valueInput.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
 	}
 
-	public ResourceLocation getVariantLocation() {
-		return ResourceLocation.parse(this.entityData.get(VARIANT));
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
 	public MoobloomVariant getVariantByLocation() {
@@ -265,7 +265,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull ResourceLocation variant) {
+	public void setVariant(@NotNull Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 

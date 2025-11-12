@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
@@ -369,7 +369,7 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 					this.applyExplosionDecay(
 						WWBlocks.COCONUT,
 						LootPool.lootPool()
-							.setRolls(UniformGenerator.between(3F, 4F))
+							.setRolls(UniformGenerator.between(1F, 4F))
 							.when(
 								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.COCONUT)
 									.setProperties(

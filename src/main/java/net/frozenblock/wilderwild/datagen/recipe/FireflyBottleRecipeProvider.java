@@ -33,7 +33,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -106,16 +106,16 @@ public final class FireflyBottleRecipeProvider {
 		RecipeProvider provider,
 		RecipeOutput recipeOutput,
 		@NotNull List<Item> dyes,
-		List<ResourceLocation> fireflyColors,
+		List<Identifier> fireflyColors,
 		HolderLookup.RegistryLookup<FireflyColor> registryLookup
 	) {
 		for(int i = 0; i < dyes.size(); ++i) {
 			Item dye = dyes.get(i);
-			ResourceLocation outputColor = fireflyColors.get(i);
+			Identifier outputColor = fireflyColors.get(i);
 
 			List<Ingredient> possibleIngredients = new ArrayList<>();
 
-			for (ResourceLocation fireflyColor : fireflyColors) {
+			for (Identifier fireflyColor : fireflyColors) {
 				if (fireflyColor.equals(outputColor)) continue;
 
 				possibleIngredients.add(DefaultCustomIngredients.components(
@@ -146,7 +146,7 @@ public final class FireflyBottleRecipeProvider {
 
 	private static void fireflyBottle(
 		@NotNull RecipeProvider provider,
-		@NotNull ResourceLocation fireflyColor,
+		@NotNull Identifier fireflyColor,
 		Item dye,
 		RecipeOutput exporter,
 		HolderLookup.@NotNull RegistryLookup<FireflyColor> registryLookup

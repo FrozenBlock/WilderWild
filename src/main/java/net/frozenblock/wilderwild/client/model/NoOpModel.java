@@ -23,15 +23,15 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class NoOpModel<T extends EntityRenderState> extends EntityModel<T> {
 
 	public NoOpModel(@NotNull ModelPart root) {
-		super(root, RenderType::entityCutoutNoCull);
+		super(root, RenderTypes::entityCutoutNoCull);
 	}
 
 	@NotNull

@@ -112,7 +112,7 @@ public final class Tundra extends FrozenBiome {
 	public Tundra() {
 		super();
 		FrozenGrassColorModifiers.addGrassColorModifier(
-			this.getKey().location(),
+			this.getKey().identifier(),
 			(x, y, grassColor) -> {
 				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
 				if (noise < -0.5D) return GRASS_COLOR_BROWN;

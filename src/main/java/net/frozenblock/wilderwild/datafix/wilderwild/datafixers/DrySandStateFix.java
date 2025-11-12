@@ -23,7 +23,7 @@ import com.mojang.datafixers.TypeRewriteRule;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
 import java.util.Optional;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +34,7 @@ public final class DrySandStateFix extends DataFix {
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, @NotNull ResourceLocation blockId) {
+	public DrySandStateFix(Schema outputSchema, String name, @NotNull Identifier blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 

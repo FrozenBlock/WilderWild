@@ -10,7 +10,7 @@
     "minecraft:gameplay/increased_fire_burnout": true,
     "minecraft:visual/sky_color": "#78a7ff",
     "minecraft:visual/water_fog_color": "#457872",
-    "minecraft:visual/water_fog_radius": {
+    "minecraft:visual/water_fog_end_distance": {
       "argument": 0.85,
       "modifier": "multiply"
     }
@@ -22,9 +22,9 @@
   ],
   "downfall": 0.7,
   "effects": {
-    "foliage_color": 5877296,
-    "grass_color": 7979098,
-    "water_color": 4552818
+    "foliage_color": "#59ae30",
+    "grass_color": "#79c05a",
+    "water_color": "#457872"
   },
   "features": [
     [],

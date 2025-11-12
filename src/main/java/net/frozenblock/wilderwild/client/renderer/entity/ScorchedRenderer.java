@@ -29,12 +29,12 @@ import net.frozenblock.wilderwild.entity.Scorched;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState, ScorchedModel> {
-	private static final ResourceLocation SCORCHED_LOCATION = WWConstants.id("textures/entity/scorched/scorched.png");
+	private static final Identifier SCORCHED_LOCATION = WWConstants.id("textures/entity/scorched/scorched.png");
 	private static final float SCALE = 0.9F;
 
 	public ScorchedRenderer(EntityRendererProvider.Context context) {
@@ -54,7 +54,7 @@ public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState,
 	}
 
 	@Override
-	public @NotNull ResourceLocation getTextureLocation(@NotNull ScorchedRenderState renderState) {
+	public @NotNull Identifier getTextureLocation(@NotNull ScorchedRenderState renderState) {
 		return SCORCHED_LOCATION;
 	}
 
