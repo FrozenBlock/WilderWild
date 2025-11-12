@@ -31,9 +31,9 @@ import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.util.Util;
 
 public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->

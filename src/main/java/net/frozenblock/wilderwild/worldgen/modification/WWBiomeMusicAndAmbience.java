@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.worldgen.modification;
 
+import java.util.List;
+import java.util.Optional;
 import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -34,8 +36,6 @@ import net.minecraft.world.attribute.AmbientSounds;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biomes;
-import java.util.List;
-import java.util.Optional;
 
 public final class WWBiomeMusicAndAmbience {
 

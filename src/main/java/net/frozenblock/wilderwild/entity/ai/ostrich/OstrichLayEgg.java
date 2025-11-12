@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
-import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

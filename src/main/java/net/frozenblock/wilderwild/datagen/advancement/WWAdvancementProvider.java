@@ -164,6 +164,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 								HolderSet.direct(
 									EntityType.CHICKEN.builtInRegistryHolder(),
 									WWEntityTypes.OSTRICH.builtInRegistryHolder(),
+									WWEntityTypes.ZOMBIE_OSTRICH.builtInRegistryHolder(),
 									WWEntityTypes.PENGUIN.builtInRegistryHolder()
 								)
 							)

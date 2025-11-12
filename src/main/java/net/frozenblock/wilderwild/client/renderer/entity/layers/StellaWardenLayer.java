@@ -21,11 +21,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.minecraft.client.model.WardenModel;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 

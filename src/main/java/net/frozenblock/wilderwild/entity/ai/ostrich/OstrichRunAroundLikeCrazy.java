@@ -19,11 +19,9 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
-import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;

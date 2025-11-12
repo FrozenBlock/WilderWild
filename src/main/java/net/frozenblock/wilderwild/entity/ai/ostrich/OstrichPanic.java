@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import java.util.function.Function;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
-import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;

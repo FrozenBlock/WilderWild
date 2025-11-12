@@ -85,11 +85,6 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
-	public int getMaxTemper() {
-		return 150;
-	}
-
-	@Override
 	public boolean canMate(@NotNull Animal otherAnimal) {
 		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) return this.canParent() && ostrich.canParent();
 		return false;

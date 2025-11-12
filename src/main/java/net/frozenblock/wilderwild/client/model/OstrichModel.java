@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.client.model;
 
 import java.util.Set;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
-import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
