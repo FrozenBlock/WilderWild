@@ -124,6 +124,11 @@ public class ZombieOstrich extends AbstractOstrich {
 		return this.getFirstPassenger() instanceof Mob;
 	}
 
+	@Override
+	public boolean canUseSlot(EquipmentSlot slot) {
+		return true;
+	}
+
 	@Nullable
 	@Override
 	public ZombieOstrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
