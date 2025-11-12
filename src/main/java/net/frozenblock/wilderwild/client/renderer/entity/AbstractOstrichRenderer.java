@@ -44,8 +44,8 @@ public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S exten
 				context.getEquipmentRenderer(),
 				WWEquipmentClientInfo.OSTRICH_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
-				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
-				new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
 			)
 		);
 	}

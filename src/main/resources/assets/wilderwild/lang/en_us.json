@@ -793,6 +793,8 @@
   "tooltip.wilderwild.ostrich": "Contains options for the Ostrich.",
   "option.wilderwild.spawn_ostriches": "Spawn Ostriches",
   "tooltip.wilderwild.spawn_ostriches": "Whether Ostriches can spawn.",
+  "option.wilderwild.spawn_zombie_ostriches": "Spawn Zombie Ostriches",
+  "tooltip.wilderwild.spawn_zombie_ostriches": "Whether Zombie Ostriches can spawn.",
   "option.wilderwild.allow_ostrich_attack": "Ostrich Peck Attack",
   "tooltip.wilderwild.allow_ostrich_attack": "Whether the Ostrich's peck attack can be used.",
 

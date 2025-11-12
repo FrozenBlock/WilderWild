@@ -228,6 +228,9 @@ public final class WWEntityConfig {
 		@EntrySyncData("spawnOstriches")
 		public boolean spawnOstriches = true;
 
+		@EntrySyncData("spawnZombieOstriches")
+		public boolean spawnZombieOstriches = true;
+
 		@EntrySyncData("allowAttack")
 		public boolean allowAttack = true;
 	}

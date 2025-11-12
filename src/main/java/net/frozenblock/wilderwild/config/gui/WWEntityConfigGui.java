@@ -406,6 +406,17 @@ public final class WWEntityConfigGui {
 			configInstance
 		);
 
+		var spawnZombieOstriches = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("spawn_zombie_ostriches"), modifiedOstrich.spawnZombieOstriches)
+				.setDefaultValue(defaultConfig.ostrich.spawnZombieOstriches)
+				.setSaveConsumer(newValue -> ostrich.spawnZombieOstriches = newValue)
+				.setTooltip(tooltip("spawn_zombie_ostriches"))
+				.build(),
+			ostrich.getClass(),
+			"spawnZombieOstriches",
+			configInstance
+		);
+
 		var ostrichAttack = FrozenClothConfig.syncedEntry(
 			entryBuilder.startBooleanToggle(text("allow_ostrich_attack"), modifiedOstrich.allowAttack)
 				.setDefaultValue(defaultConfig.ostrich.allowAttack)
@@ -420,7 +431,7 @@ public final class WWEntityConfigGui {
 		var ostrichCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("ostrich"),
 			false,
 			tooltip("ostrich"),
-			spawnOstriches, ostrichAttack
+			spawnOstriches, spawnZombieOstriches, ostrichAttack
 		);
 
 		var spawnScorched = FrozenClothConfig.syncedEntry(

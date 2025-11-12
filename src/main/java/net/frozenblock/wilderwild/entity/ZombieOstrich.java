@@ -70,7 +70,7 @@ public class ZombieOstrich extends AbstractOstrich {
 		@NotNull BlockPos pos,
 		RandomSource random
 	) {
-		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
+		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnZombieOstriches) return false;
 		return Monster.checkMonsterSpawnRules(ostrich, level, spawnType, pos, random);
 	}
 

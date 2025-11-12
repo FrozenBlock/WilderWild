@@ -29,15 +29,15 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich, AbstractOstrichRenderState, EntityModel<AbstractOstrichRenderState>> {
-	private static final ResourceLocation ZOMBIE_OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_zombie.png");
+	private static final Identifier ZOMBIE_OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_zombie.png");
 
 	public UndeadOstrichRenderer(EntityRendererProvider.Context context) {
-		super(context, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
+		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 
 	@Override
 	@NotNull
-	public ResourceLocation getTextureLocation(@NotNull AbstractOstrichRenderState renderState) {
+	public Identifier getTextureLocation(@NotNull AbstractOstrichRenderState renderState) {
 		return ZOMBIE_OSTRICH_LOCATION;
 	}
 
