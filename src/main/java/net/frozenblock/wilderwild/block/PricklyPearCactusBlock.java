@@ -106,9 +106,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		boolean bl
 	) {
 		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
-		if (!(entity instanceof ItemEntity)) {
-			entity.hurt(level.damageSources().cactus(), DAMAGE);
-		}
+		if (!(entity instanceof ItemEntity)) entity.hurt(level.damageSources().cactus(), DAMAGE);
 	}
 
 	@Override
@@ -142,11 +140,9 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		@NotNull InteractionHand hand,
 		@NotNull BlockHitResult hit
 	) {
-		if (isFullyGrown(state)) {
-			onPlayerPick(level, pos, state, player, hand, stack);
-			return InteractionResult.SUCCESS;
-		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		onPlayerPick(level, pos, state, player, hand, stack);
+		return InteractionResult.SUCCESS;
 	}
 
 	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
@@ -155,14 +151,14 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
-		if (!level.isClientSide()) {
-			boolean shears = stack.is(Items.SHEARS);
-			onPricklyPearPick(level, pos, state, shears, stack, player);
-			if (shears) {
-				stack.hurtAndBreak(1, player, hand);
-			} else {
-				player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
-			}
+		if (level.isClientSide()) return;
+
+		final boolean shears = stack.is(Items.SHEARS);
+		onPricklyPearPick(level, pos, state, shears, stack, player);
+		if (shears) {
+			stack.hurtAndBreak(1, player, hand);
+		} else {
+			player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
 		}
 	}
 

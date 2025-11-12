@@ -34,6 +34,7 @@ import net.frozenblock.wilderwild.datagen.tag.WWDamageTypeTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWEntityTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
+import net.frozenblock.wilderwild.datagen.tag.WWTimelineTagProvider;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
@@ -41,6 +42,7 @@ import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.core.RegistrySetBuilder;
@@ -71,6 +73,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWItemTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
 		pack.addProvider(WWGameEventTagProvider::new);
+		pack.addProvider(WWTimelineTagProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
@@ -85,6 +88,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
+		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);

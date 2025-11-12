@@ -1,0 +1,41 @@
+{
+  "period_ticks": 24000,
+  "tracks": {
+    "wilderwild:gameplay/pale_mushroom_active": {
+      "keyframes": [
+        {
+          "ticks": 12600,
+          "value": true
+        },
+        {
+          "ticks": 23401,
+          "value": false
+        }
+      ]
+    },
+    "wilderwild:gameplay/plankton_glowing": {
+      "keyframes": [
+        {
+          "ticks": 12600,
+          "value": true
+        },
+        {
+          "ticks": 23401,
+          "value": false
+        }
+      ]
+    },
+    "wilderwild:gameplay/sea_anemone_glowing": {
+      "keyframes": [
+        {
+          "ticks": 12600,
+          "value": false
+        },
+        {
+          "ticks": 23401,
+          "value": true
+        }
+      ]
+    }
+  }
+}

@@ -186,7 +186,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	private static boolean canExistIn(BlockState state) {
-		return isColumnSupportingMesoglea(state) && state.getFluidState().getAmount() >= 8 && state.getFluidState().isSource();
+		return isColumnSupportingMesoglea(state) && state.getFluidState().getAmount() >= FluidState.AMOUNT_FULL && state.getFluidState().isSource();
 	}
 
 	@NotNull

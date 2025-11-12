@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,25 +66,34 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return blockState.isFaceSturdy(blockGetter, blockPos, Direction.UP) && !blockState.is(Blocks.MAGMA_BLOCK) && !blockState.is(WWBlocks.GEYSER);
+	protected boolean mayPlaceOn(@NotNull BlockState state, BlockGetter level, BlockPos pos) {
+		return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(Blocks.MAGMA_BLOCK) && !state.is(WWBlocks.GEYSER);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		return this.isValidWaterToReplace(blockPlaceContext.getLevel(), blockPlaceContext.getClickedPos()) ? super.getStateForPlacement(blockPlaceContext) : null;
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		return this.isValidWaterToReplace(context.getLevel(), context.getClickedPos()) ? super.getStateForPlacement(context) : null;
 	}
 
 	@Override
-	protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
-		BlockState updatedShape = super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
-		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+	protected BlockState updateShape(
+		BlockState state,
+		LevelReader level,
+		ScheduledTickAccess scheduledTickAccess,
+		BlockPos pos,
+		Direction direction,
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
+	) {
+		final BlockState updatedShape = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		return updatedShape;
 	}
 
@@ -93,9 +103,9 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (this.tryChangingState(blockState, serverLevel, blockPos, randomSource)) {
-			serverLevel.sendParticles(
+	protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
+		if (this.tryChangingState(state, level, blockPos, randomSource)) {
+			level.sendParticles(
 				ParticleTypes.BUBBLE,
 				blockPos.getX() + 0.5D,
 				blockPos.getY() + 0.5125D,
@@ -108,18 +118,18 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 			);
 		}
 
-		super.randomTick(blockState, serverLevel, blockPos, randomSource);
+		super.randomTick(state, level, blockPos, randomSource);
 	}
 
 	@Override
-	protected void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (this.tryChangingState(blockState, serverLevel, blockPos, randomSource)) {
+	protected void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (this.tryChangingState(blockState, serverLevel, pos, random)) {
 			serverLevel.sendParticles(
 				ParticleTypes.BUBBLE,
-				blockPos.getX() + 0.5D,
-				blockPos.getY() + 0.5125D,
-				blockPos.getZ() + 0.5D,
-				randomSource.nextInt(1, 3),
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5125D,
+				pos.getZ() + 0.5D,
+				random.nextInt(1, 3),
 				0D,
 				0D,
 				0D,
@@ -127,48 +137,47 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 			);
 		}
 
-		super.tick(blockState, serverLevel, blockPos, randomSource);
+		super.tick(blockState, serverLevel, pos, random);
 	}
 
-	public static boolean isGlowing(@NotNull BlockState blockState) {
-		return blockState.getValue(GLOWING);
+	public static boolean isGlowing(@NotNull BlockState state) {
+		return state.getValue(GLOWING);
 	}
 
-	private boolean tryChangingState(BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (!serverLevel.dimensionType().natural()) return false;
-		if (serverLevel.isBrightOutside() == isGlowing(blockState)) return false;
-		boolean setGlowing = !isGlowing(blockState);
-		serverLevel.setBlock(blockPos, blockState.setValue(GLOWING, setGlowing), UPDATE_ALL);
-		serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(blockState));
-		BlockPos.betweenClosed(blockPos.offset(-3, -2, -3), blockPos.offset(3, 2, 3)).forEach((blockPos2) -> {
-			BlockState foundState = serverLevel.getBlockState(blockPos2);
-			if (foundState == blockState) {
-				double distance = Math.sqrt(blockPos.distSqr(blockPos2));
-				int delay = randomSource.nextIntBetweenInclusive((int) (distance * 40D), (int) (distance * 60D));
-				serverLevel.scheduleTick(blockPos2, blockState.getBlock(), delay);
-			}
+	private boolean tryChangingState(BlockState state, @NotNull ServerLevel level, BlockPos pos, RandomSource random) {
+		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING, pos);
+		if (shouldGlow == isGlowing(state)) return false;
+
+		level.setBlockAndUpdate(pos, state.setValue(GLOWING, shouldGlow));
+		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
+		BlockPos.betweenClosed(pos.offset(-3, -2, -3), pos.offset(3, 2, 3)).forEach(blockPos2 -> {
+			final BlockState foundState = level.getBlockState(blockPos2);
+			if (foundState != state) return;
+			final double distance = Math.sqrt(pos.distSqr(blockPos2));
+			final int delay = random.nextIntBetweenInclusive((int) (distance * 40D), (int) (distance * 60D));
+			level.scheduleTick(blockPos2, state.getBlock(), delay);
 		});
 		return true;
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
+	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
+	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader levelReader, BlockPos blockPos) {
-		BlockState blockState = levelReader.getBlockState(blockPos);
-		FluidState fluidState = blockState.getFluidState();
+	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+		final BlockState blockState = level.getBlockState(pos);
+		final FluidState fluidState = blockState.getFluidState();
 		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 }
