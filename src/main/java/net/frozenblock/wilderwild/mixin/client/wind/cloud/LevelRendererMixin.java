@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.wind;
+package net.frozenblock.wilderwild.mixin.client.wind.cloud;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -38,7 +38,7 @@ public class LevelRendererMixin {
 		method = "renderLevel",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;FIF)V"
+			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;JFIF)V"
 		)
 	)
 	public void wilderWild$changeCloudPosition(
@@ -46,6 +46,7 @@ public class LevelRendererMixin {
 		FrameGraphBuilder frameGraphBuilder,
 		CloudStatus cloudStatus,
 		Vec3 vec3,
+		long gameTime,
 		float ticks,
 		int cloudColor,
 		float cloudHeight,
@@ -61,7 +62,7 @@ public class LevelRendererMixin {
 			vec3 = new Vec3(cameraX, cameraY, cameraZ);
 		}
 
-		original.call(instance, frameGraphBuilder, cloudStatus, vec3, ticks, cloudColor, cloudHeight);
+		original.call(instance, frameGraphBuilder, cloudStatus, vec3, gameTime, ticks, cloudColor, cloudHeight);
 	}
 
 }
