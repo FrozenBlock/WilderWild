@@ -22,6 +22,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Set;
+import java.util.function.Consumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
@@ -38,6 +39,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
@@ -79,10 +81,10 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void getExtents(@NotNull Set<Vector3f> set) {
+	public void getExtents(@NotNull Consumer<Vector3fc> consumer) {
 		PoseStack poseStack = new PoseStack();
 		this.model.setupAnim(this.openness);
-		this.model.root().getExtentsForGui(poseStack, set);
+		this.model.root().getExtentsForGui(poseStack, consumer);
 	}
 
 	@Environment(EnvType.CLIENT)

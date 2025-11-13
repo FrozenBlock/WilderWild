@@ -373,7 +373,7 @@ public final class WWCreativeInventorySorting {
 		addBeforeInBuildingBlocks(Items.GLASS, WWBlocks.NULL_BLOCK);
 
 		// FIREFLY
-		addAfterInSpawnEggs(Items.EVOKER_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
+		addBeforeInSpawnEggs(Items.FOX_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
 			final ItemStack stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			stack.setCount(1);
@@ -388,25 +388,27 @@ public final class WWCreativeInventorySorting {
 		});
 
 		// BUTTERFLY
-		addAfterInSpawnEggs(Items.BREEZE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.BEE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
 		addAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
-		addAfterInSpawnEggs(Items.HUSK_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.GLOW_SQUID_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
 		addAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
 
 		// CRAB
-		addBeforeInSpawnEggs(Items.CREEPER_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.COD_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
 		addAfterInToolsAndUtilities(WWItems.JELLYFISH_BUCKET, WWItems.CRAB_BUCKET);
 		addBeforeInFoodAndDrinks(Items.COD, WWItems.CRAB_CLAW);
 		addAfterInFoodAndDrinks(WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW);
 
 		// OSTRICH
-		addAfterInSpawnEggs(Items.OCELOT_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.MULE_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
+
+		// ZOMBIE OSTRICH
 		addAfterInSpawnEggs(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, WWItems.ZOMBIE_OSTRICH_SPAWN_EGG);
 
 		// SCORCHED
-		addAfterInSpawnEggs(Items.SALMON_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
+		addBeforeInSpawnEggs(Items.SPIDER_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
 		addAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
 		addAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
 
@@ -414,7 +416,7 @@ public final class WWCreativeInventorySorting {
 		addBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
 
 		// PENGUIN
-		addBeforeInSpawnEggs(Items.PHANTOM_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
+		addAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
 		// GABBRO
 		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
