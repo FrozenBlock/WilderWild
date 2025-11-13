@@ -28,8 +28,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class OstrichPanic extends AnimalPanic<AbstractOstrich> {
 
-	public OstrichPanic(float f, Function<PathfinderMob, TagKey<DamageType>> shouldPanic) {
-		super(f, shouldPanic);
+	public OstrichPanic(float speedMultiplier, Function<PathfinderMob, TagKey<DamageType>> shouldPanic) {
+		super(speedMultiplier, shouldPanic);
+	}
+
+	@Override
+	protected boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich ostrich) {
+		return super.checkExtraStartConditions(level, ostrich) && !ostrich.isMobControlled();
 	}
 
 	@Override
