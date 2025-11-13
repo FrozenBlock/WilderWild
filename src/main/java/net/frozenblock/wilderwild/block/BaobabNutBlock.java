@@ -89,15 +89,15 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, 2);
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(AGE, 2);
 	}
 
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 offset = state.getOffset(pos);
-		VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
+		final Vec3 offset = state.getOffset(pos);
+		final VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
 		return voxelShape.move(offset.x, offset.y, offset.z);
 	}
 
@@ -119,7 +119,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
 	}
 
@@ -144,8 +144,8 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
-		return isHanging(blockState) ? super.getCollisionShape(blockState, blockGetter, blockPos, collisionContext) : Shapes.empty();
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
+		return isHanging(state) ? super.getCollisionShape(state, level, pos, collisionContext) : Shapes.empty();
 	}
 
 	@NotNull

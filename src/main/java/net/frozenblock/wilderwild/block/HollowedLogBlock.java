@@ -139,24 +139,23 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	}
 
 	public static void hollowEffects(@NotNull Level level, @NotNull Direction face, @NotNull BlockState state, @NotNull BlockPos pos, boolean isStem) {
-		if (level instanceof ServerLevel serverLevel) {
-			double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
-			double offsetY = Math.abs(face.getStepY()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
-			double offsetZ = Math.abs(face.getStepZ()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
-			serverLevel.sendParticles(
-				new BlockParticleOption(ParticleTypes.BLOCK, state),
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5D,
-				pos.getZ() + 0.5D,
-				level.random.nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
-				0.1625D + offsetX,
-				0.1625D + offsetY,
-				0.1625D + offsetZ,
-				0.05D
-			);
-			SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED_AXE : WWSounds.LOG_HOLLOWED_AXE;
-			level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
-		}
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		final double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
+		final double offsetY = Math.abs(face.getStepY()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
+		final double offsetZ = Math.abs(face.getStepZ()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, state),
+			pos.getX() + 0.5D,
+			pos.getY() + 0.5D,
+			pos.getZ() + 0.5D,
+			level.random.nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
+			0.1625D + offsetX,
+			0.1625D + offsetY,
+			0.1625D + offsetZ,
+			0.05D
+		);
+		final SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED_AXE : WWSounds.LOG_HOLLOWED_AXE;
+		level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
 	}
 
 	@NotNull

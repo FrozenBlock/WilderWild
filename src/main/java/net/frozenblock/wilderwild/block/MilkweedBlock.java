@@ -91,49 +91,46 @@ public class MilkweedBlock extends TallFlowerBlock {
 		if (age > MAX_AGE) return;
 
 		level.setBlockAndUpdate(pos, state.setValue(AGE, age));
-		boolean isUpper = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER;
+		final boolean isUpper = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER;
 		boolean hasSecondState = false;
-		BlockPos movedPos = isUpper ? pos.below() : pos.above();
-		BlockState secondState = level.getBlockState(movedPos);
-		if (secondState.is(block)) {
-			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
+		final BlockPos movedPos = isUpper ? pos.below() : pos.above();
+		final BlockState movedState = level.getBlockState(movedPos);
+		if (movedState.is(block)) {
+			level.setBlockAndUpdate(movedPos, movedState.setValue(AGE, age));
 			hasSecondState = true;
 		}
 
-		if (spawnParticles && level instanceof ServerLevel serverLevel) {
-			int particles = (int) (serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS_ON_RUSTLE, MAX_SEEDS_ON_RUSTLE) * 0.5D);
-			double firstYHeight = isUpper ? 0.3D : 0.5D;
-			double firstYOffset = isUpper ? 0.3D : 0.5D;
-			Vec3 offset = state.getOffset(pos);
-			serverLevel.sendParticles(
-				SeedParticleOptions.unControlled(true),
-				pos.getX() + 0.5D + offset.x,
-				pos.getY() + firstYHeight,
-				pos.getZ() + 0.5D + offset.z,
-				particles,
-				0.1D,
-				firstYOffset,
-				0.1D,
-				0D
-			);
+		if (!spawnParticles || !(level instanceof ServerLevel serverLevel)) return;
+		final int particles = (int) (serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS_ON_RUSTLE, MAX_SEEDS_ON_RUSTLE) * 0.5D);
+		final double firstYHeight = isUpper ? 0.3D : 0.5D;
+		final double firstYOffset = isUpper ? 0.3D : 0.5D;
+		Vec3 offset = state.getOffset(pos);
+		serverLevel.sendParticles(
+			SeedParticleOptions.unControlled(true),
+			pos.getX() + 0.5D + offset.x,
+			pos.getY() + firstYHeight,
+			pos.getZ() + 0.5D + offset.z,
+			particles,
+			0.1D,
+			firstYOffset,
+			0.1D,
+			0D
+		);
 
-			if (hasSecondState) {
-				double secondYHeight = isUpper ? -0.5D : 1.3D;
-				double secondYOffset = isUpper ? 0.3D : 0.5D;
-
-				serverLevel.sendParticles(
-					SeedParticleOptions.unControlled(true),
-					pos.getX() + 0.5D,
-					pos.getY() + secondYHeight,
-					pos.getZ() + 0.5D,
-					particles,
-					0.2D,
-					secondYOffset,
-					0.2D,
-					0D
-				);
-			}
-		}
+		if (!hasSecondState) return;
+		final double secondYHeight = isUpper ? -0.5D : 1.3D;
+		final double secondYOffset = isUpper ? 0.3D : 0.5D;
+		serverLevel.sendParticles(
+			SeedParticleOptions.unControlled(true),
+			pos.getX() + 0.5D,
+			pos.getY() + secondYHeight,
+			pos.getZ() + 0.5D,
+			particles,
+			0.2D,
+			secondYOffset,
+			0.2D,
+			0D
+		);
 	}
 
 	@Override
@@ -150,33 +147,34 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		if (stack.is(Items.BONE_MEAL)) {
-			return InteractionResult.TRY_WITH_EMPTY_HAND;
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult
+	) {
+		if (stack.is(Items.BONE_MEAL)) return InteractionResult.TRY_WITH_EMPTY_HAND;
+		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		if (!(level instanceof ServerLevel)) return InteractionResult.SUCCESS;
+		if (stack.is(Items.SHEARS)) {
+			stack.hurtAndBreak(1, player, hand);
+			player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+			onShear(level, pos, state, stack, player);
+		} else {
+			this.pickAndSpawnSeeds(level, state, pos);
 		}
-		if (isFullyGrown(state)) {
-			if (level instanceof ServerLevel) {
-				if (stack.is(Items.SHEARS)) {
-					stack.hurtAndBreak(1, player, hand);
-					player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
-					onShear(level, pos, state, stack, player);
-				} else {
-					this.pickAndSpawnSeeds(level, state, pos);
-				}
-			}
-			return InteractionResult.SUCCESS;
-		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
 	@NotNull
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
-		if (isFullyGrown(state)) {
-			if (level instanceof ServerLevel) this.pickAndSpawnSeeds(level, state, pos);
-			return InteractionResult.SUCCESS;
-		}
-		return super.useWithoutItem(state, level, pos, entity, hitResult);
+		if (!isFullyGrown(state)) return super.useWithoutItem(state, level, pos, entity, hitResult);
+		if (level instanceof ServerLevel) this.pickAndSpawnSeeds(level, state, pos);
+		return InteractionResult.SUCCESS;
 	}
 
 	public void pickAndSpawnSeeds(@NotNull Level level, BlockState state, BlockPos pos) {

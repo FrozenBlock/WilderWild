@@ -122,30 +122,30 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		this.splashParticle = splashParticle;
 	}
 
-	public static boolean isMesoglea(@NotNull BlockState blockState) {
-		return blockState.hasProperty(BUBBLE_DIRECTION) && blockState.getBlock() instanceof MesogleaBlock;
+	public static boolean isMesoglea(@NotNull BlockState state) {
+		return state.hasProperty(BUBBLE_DIRECTION) && state.getBlock() instanceof MesogleaBlock;
 	}
 
-	public static boolean isColumnSupportingMesoglea(BlockState blockState) {
-		return isMesoglea(blockState) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
+	public static boolean isColumnSupportingMesoglea(BlockState state) {
+		return isMesoglea(state) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
 	}
 
-	public static boolean hasBubbleColumn(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) != BubbleDirection.NONE;
+	public static boolean hasBubbleColumn(BlockState state) {
+		return isColumnSupportingMesoglea(state) && state.getValue(BUBBLE_DIRECTION) != BubbleDirection.NONE;
 	}
 
-	public static boolean isDraggingDown(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) && blockState.getValue(BUBBLE_DIRECTION) == BubbleDirection.DOWN;
+	public static boolean isDraggingDown(BlockState state) {
+		return isColumnSupportingMesoglea(state) && state.getValue(BUBBLE_DIRECTION) == BubbleDirection.DOWN;
 	}
 
-	public static Optional<Direction> getDragDirection(BlockState blockState) {
-		return isColumnSupportingMesoglea(blockState) ? blockState.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
+	public static Optional<Direction> getDragDirection(BlockState state) {
+		return isColumnSupportingMesoglea(state) ? state.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
 	}
 
 	public static boolean canColumnSurvive(@NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockState blockState = level.getBlockState(pos.below());
+		final BlockState state = level.getBlockState(pos.below());
 		return WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS && (
-			blockState.is(Blocks.BUBBLE_COLUMN) || blockState.is(Blocks.MAGMA_BLOCK) || blockState.is(Blocks.SOUL_SAND) || hasBubbleColumn(blockState)
+			state.is(Blocks.BUBBLE_COLUMN) || state.is(Blocks.MAGMA_BLOCK) || state.is(Blocks.SOUL_SAND) || hasBubbleColumn(state)
 		);
 	}
 
@@ -156,15 +156,15 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState mesoglea, BlockState state) {
 		if (!canExistIn(mesoglea)) return;
 		level.setBlock(pos, getColumnState(mesoglea, state), UPDATE_CLIENTS);
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable().move(Direction.UP);
+		final BlockPos.MutableBlockPos mutable = pos.mutable().move(Direction.UP);
 		BlockState mutableState;
 		while (true) {
-			mutableState = level.getBlockState(mutableBlockPos);
+			mutableState = level.getBlockState(mutable);
 			if (canExistIn(mutableState)) {
-				if (!level.setBlock(mutableBlockPos, getColumnState(mutableState, state), UPDATE_CLIENTS)) return;
-				mutableBlockPos.move(Direction.UP);
+				if (!level.setBlock(mutable, getColumnState(mutableState, state), UPDATE_CLIENTS)) return;
+				mutable.move(Direction.UP);
 			} else {
-				BubbleColumnBlock.updateColumn(level, mutableBlockPos, state);
+				BubbleColumnBlock.updateColumn(level, mutable, state);
 				return;
 			}
 		}
@@ -296,7 +296,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
 		VoxelShape shape = Shapes.empty();
 		if (!(collisionContext instanceof EntityCollisionContext entityCollisionContext)) return shape;
 		if (entityCollisionContext.getEntity() == null) return shape;
@@ -307,9 +307,8 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 		if (entity.isInWater() || (entity.getInBlockState().getBlock() instanceof MesogleaBlock)) {
 			for (Direction direction : Direction.values()) {
-				if (direction != Direction.UP && !blockGetter.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
-					shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, JELLYFISH_COLLISION_FROM_SIDE));
-				}
+				if (direction == Direction.UP || level.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) continue;
+				shape = Shapes.or(shape, FrozenShapes.makePlaneFromDirection(direction, JELLYFISH_COLLISION_FROM_SIDE));
 			}
 		}
 
@@ -317,7 +316,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected @NotNull VoxelShape getBlockSupportShape(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+	protected @NotNull VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return Shapes.block();
 	}
 
@@ -325,7 +324,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		super.animateTick(state, level, pos, random);
 
-		Optional<Direction> optionalDragDirection = getDragDirection(state);
+		final Optional<Direction> optionalDragDirection = getDragDirection(state);
 		if (optionalDragDirection.isEmpty()) return;
 
 		final double x = pos.getX();
@@ -380,8 +379,8 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		final BlockState state = blockPlaceContext.getLevel().getBlockState(blockPlaceContext.getClickedPos());
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		final BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 		return this.defaultBlockState()
 			.setValue(
 				BUBBLE_DIRECTION,
@@ -431,7 +430,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	@NotNull
-	public FluidState getFluidState(@NotNull BlockState blockState) {
+	public FluidState getFluidState(@NotNull BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 

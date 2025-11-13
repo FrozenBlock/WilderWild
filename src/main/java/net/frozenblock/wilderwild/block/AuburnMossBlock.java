@@ -48,26 +48,26 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader levelReader, @NotNull BlockPos blockPos, BlockState blockState) {
-		BlockState aboveState = levelReader.getBlockState(blockPos.above());
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, BlockState state) {
+		final BlockState aboveState = level.getBlockState(pos.above());
 		return aboveState.isAir() || aboveState.is(Blocks.WATER);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel serverLevel, RandomSource randomSource, @NotNull BlockPos blockPos, BlockState blockState) {
-		BlockPos abovePos = blockPos.above();
-		ResourceKey<ConfiguredFeature<?, ?>> featureKey = serverLevel.getBlockState(abovePos).is(Blocks.WATER)
+	public void performBonemeal(@NotNull ServerLevel level, RandomSource random, @NotNull BlockPos pos, BlockState state) {
+		BlockPos abovePos = pos.above();
+		ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
 			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
 
-		serverLevel.registryAccess()
+		level.registryAccess()
 			.lookup(Registries.CONFIGURED_FEATURE)
 			.flatMap(registry -> registry.get(featureKey))
-			.ifPresent(reference -> reference.value().place(serverLevel, serverLevel.getChunkSource().getGenerator(), randomSource, abovePos));
+			.ifPresent(reference -> reference.value().place(level, level.getChunkSource().getGenerator(), random, abovePos));
 	}
 
 	@Override

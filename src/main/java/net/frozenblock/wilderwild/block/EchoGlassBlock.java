@@ -63,16 +63,16 @@ public class EchoGlassBlock extends TransparentBlock {
 		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < 3;
 	}
 
-	public static void setDamagedState(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState blockState) {
-		level.setBlockAndUpdate(pos, blockState.cycle(DAMAGE));
+	public static void setDamagedState(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+		level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos, BlockState blockState, boolean shouldDrop) {
-		if (!canDamage(blockState)) {
+	public static void damage(@NotNull Level level, @NotNull BlockPos pos, BlockState dtate, boolean shouldDrop) {
+		if (!canDamage(dtate)) {
 			level.destroyBlock(pos, shouldDrop);
 			return;
 		}
-		setDamagedState(level, pos, blockState);
+		setDamagedState(level, pos, dtate);
 		level.playSound(
 			null,
 			pos,
@@ -83,7 +83,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		);
 		if (!(level instanceof ServerLevel serverLevel)) return ;
 		serverLevel.sendParticles(
-			new BlockParticleOption(ParticleTypes.BLOCK, blockState),
+			new BlockParticleOption(ParticleTypes.BLOCK, dtate),
 			pos.getX() + 0.5D,
 			pos.getY() + 0.5D,
 			pos.getZ() + 0.5D,
@@ -129,7 +129,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	protected boolean propagatesSkylightDown(BlockState blockState) {
+	protected boolean propagatesSkylightDown(BlockState state) {
 		return false;
 	}
 

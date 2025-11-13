@@ -18,9 +18,9 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -39,6 +39,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -106,90 +107,92 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hit
 	) {
 		if (level.isClientSide()) return InteractionResult.SUCCESS;
-		BlockEntity entity = level.getBlockEntity(pos);
-		if (entity instanceof DisplayLanternBlockEntity lantern) {
-			if (lantern.invEmpty()) {
-				if (stack.has(WWDataComponents.FIREFLY_COLOR)) {
-					Holder<FireflyColor> colorData = stack.get(WWDataComponents.FIREFLY_COLOR);
-					if (colorData != null) {
-						if (lantern.getFireflies().size() < MAX_FIREFLIES) {
-							String name = "";
-							if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
-							lantern.addFirefly(level, colorData.unwrapKey().orElseThrow().identifier(), name);
-							player.getItemInHand(hand).consume(1, player);
-							player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
-							level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-							level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-							lantern.markForUpdate();
-							level.updateNeighbourForOutputSignal(pos, this);
-							return InteractionResult.SUCCESS;
-						}
-					}
-				} else if (stack.is(Items.GLASS_BOTTLE)) {
-					if (!lantern.getFireflies().isEmpty()) {
-						DisplayLanternBlockEntity.Occupant fireflyInLantern = lantern.getFireflies().get(AdvancedMath.random().nextInt(lantern.getFireflies().size()));
-						level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
-						player.getItemInHand(hand).consume(1, player);
-						ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-						bottleStack.set(
-							WWDataComponents.FIREFLY_COLOR,
-							level.registryAccess()
-								.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
-								.get(fireflyInLantern.getColor()).orElseThrow()
-						);
-						if (!Objects.equals(fireflyInLantern.customName, "")) {
-							bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
-						}
-						player.getInventory().placeItemBackInInventory(bottleStack);
-						((DisplayLanternBlockEntity) entity).removeFirefly(fireflyInLantern);
-						level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(lantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-						lantern.markForUpdate();
-						level.updateNeighbourForOutputSignal(pos, this);
-						return InteractionResult.SUCCESS;
-					}
-				}
-				if (!stack.isEmpty() && lantern.noFireflies()) {
-					int light = 0;
-					if (stack.getItem() instanceof BlockItem blockItem) {
-						light = blockItem.getBlock().defaultBlockState().getLightEmission();
-					} else if (stack.isEnchanted()) {
-						light = (int) Math.round(stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5D);
-					}
-					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
-					lantern.inventory.set(0, stack.split(1));
-					lantern.markForUpdate();
-					level.updateNeighbourForOutputSignal(pos, this);
-					return InteractionResult.SUCCESS;
-				}
-			} else if (lantern.noFireflies()) {
-				Optional<ItemStack> stack1 = lantern.inventory.stream().findFirst();
-				if (stack1.isPresent()) {
-					popResource(level, pos, stack1.get());
-					lantern.inventory.clear();
-					lantern.markForUpdate();
+		if (!(level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern)) return InteractionResult.TRY_WITH_EMPTY_HAND;
+
+		if (!displayLantern.invEmpty()) {
+			if (displayLantern.noFireflies()) {
+				final Optional<ItemStack> lanternStack = displayLantern.inventory.stream().findFirst();
+				if (lanternStack.isPresent()) {
+					popResource(level, pos, lanternStack.get());
+					displayLantern.inventory.clear();
+					displayLantern.markForUpdate();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
 					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
 			}
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
+		}
+
+		final List<DisplayLanternBlockEntity.Occupant> fireflies = displayLantern.getFireflies();
+		if (stack.has(WWDataComponents.FIREFLY_COLOR)) {
+			final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
+			if (fireflyColor != null && fireflies.size() < MAX_FIREFLIES) {
+				String name = "";
+				if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
+				displayLantern.addFirefly(level, fireflyColor.unwrapKey().orElseThrow().identifier(), name);
+				player.getItemInHand(hand).consume(1, player);
+				player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+				displayLantern.markForUpdate();
+				level.updateNeighbourForOutputSignal(pos, this);
+				return InteractionResult.SUCCESS;
+			}
+		} else if (stack.is(Items.GLASS_BOTTLE)) {
+			if (!fireflies.isEmpty()) {
+				final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.random);
+				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+				player.getItemInHand(hand).consume(1, player);
+				final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+				bottleStack.set(
+					WWDataComponents.FIREFLY_COLOR,
+					level.registryAccess()
+						.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+						.get(fireflyInLantern.getColor()).orElseThrow()
+				);
+				if (!Objects.equals(fireflyInLantern.customName, "")) bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
+				player.getInventory().placeItemBackInInventory(bottleStack);
+				displayLantern.removeFirefly(fireflyInLantern);
+				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+				displayLantern.markForUpdate();
+				level.updateNeighbourForOutputSignal(pos, this);
+				return InteractionResult.SUCCESS;
+			}
+		}
+		if (!stack.isEmpty() && displayLantern.noFireflies()) {
+			int light = 0;
+			if (stack.getItem() instanceof BlockItem blockItem) {
+				light = blockItem.getBlock().defaultBlockState().getLightEmission();
+			} else if (stack.isEnchanted()) {
+				light = (int) Math.round(stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5D);
+			}
+			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
+			displayLantern.inventory.set(0, stack.split(1));
+			displayLantern.markForUpdate();
+			level.updateNeighbourForOutputSignal(pos, this);
+			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-		for (Direction direction : ctx.getNearestLookingDirections()) {
-			if (direction.getAxis() == Direction.Axis.Y) {
-				BlockState blockState = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
-				if (blockState.canSurvive(ctx.getLevel(), ctx.getClickedPos())) {
-					return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-				}
-			}
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+		for (Direction direction : context.getNearestLookingDirections()) {
+			if (direction.getAxis() != Direction.Axis.Y) continue;
+			final BlockState state = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
+			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 		}
 		return null;
 	}
@@ -213,37 +216,35 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	@NotNull
-	public RenderShape getRenderShape(@NotNull BlockState blockState) {
+	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		if (attachedDirection(blockState).getOpposite() == direction && !blockState.canSurvive(levelReader, blockPos)) {
-			BlockEntity entity = levelReader.getBlockEntity(blockPos);
-			if (entity instanceof DisplayLanternBlockEntity lanternEntity) lanternEntity.spawnFireflies();
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(level, pos)) {
+			if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lanternEntity) lanternEntity.spawnFireflies();
 			return Blocks.AIR.defaultBlockState();
 		}
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, @NotNull ServerLevel level, BlockPos pos, boolean bl) {
-		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
-			for (ItemStack item : lantern.inventory) popResource(level, pos, item);
-			lantern.inventory.clear();
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		if (!(level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern)) return;
+		for (ItemStack item : displayLantern.inventory) popResource(level, pos, item);
+		displayLantern.inventory.clear();
+		level.updateNeighbourForOutputSignal(pos, this);
 	}
 
 	@Override
@@ -284,12 +285,10 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
 		if (!level.isClientSide() && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
-			var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, stack) == 0) {
-				lanternEntity.spawnFireflies(level);
-			}
+			final var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, stack) == 0) lanternEntity.spawnFireflies(level);
 		}
 		super.playerDestroy(level, player, pos, state, blockEntity, stack);
 	}

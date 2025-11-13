@@ -31,7 +31,7 @@ public class FrozenDoublePlantBlock extends DoublePlantBlock {
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(Blocks.SNOW_BLOCK);
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return super.mayPlaceOn(state, level, pos) || state.is(Blocks.SNOW_BLOCK);
 	}
 }

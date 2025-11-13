@@ -45,8 +45,8 @@ public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleW
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
-		return blockState.getFluidState().isEmpty();
+	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+		return state.getFluidState().isEmpty();
 	}
 
 	@Override

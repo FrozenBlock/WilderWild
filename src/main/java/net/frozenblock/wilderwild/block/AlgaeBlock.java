@@ -68,33 +68,36 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
+	protected VoxelShape getEntityInsideCollisionShape(BlockState state, BlockGetter level, BlockPos pos, Entity entity) {
+		return SHAPE;
+	}
+
+	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		FluidState belowFluidState = level.getFluidState(pos.below());
-		FluidState thisFluidState = level.getFluidState(pos);
+		final FluidState belowFluidState = level.getFluidState(pos.below());
+		final FluidState thisFluidState = level.getFluidState(pos);
 		return belowFluidState.getType() == Fluids.WATER && thisFluidState.getType() == Fluids.EMPTY;
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
 		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos blockPos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		return !this.canSurvive(blockState, levelReader, blockPos)
+		return !this.canSurvive(blockState, level, blockPos)
 			? Blocks.AIR.defaultBlockState()
-			: super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+			: super.updateShape(blockState, level, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (!this.canSurvive(state, level, pos)) {
-			level.destroyBlock(pos, false);
-		}
+		if (!this.canSurvive(state, level, pos)) level.destroyBlock(pos, false);
 	}
 
 	@Override
@@ -106,14 +109,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
-		if (entity.getY() <= pos.getY() + SHAPE.max(Direction.Axis.Y)) {
-			if (entity.getType().equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);
-
-			if (!entity.getType().is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
-				if (entity instanceof Player player && player.getAbilities().flying) return;
-				entity.resetFallDistance();
-				entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));
-			}
+		final EntityType<?> entityType = entity.getType();
+		if (entityType.equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);
+		if (!entityType.is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
+			if (entity instanceof Player player && player.getAbilities().flying) return;
+			entity.resetFallDistance();
+			entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));
 		}
 	}
 
@@ -134,19 +135,19 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
-			mutableBlockPos.setWithOffset(pos, direction);
-			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) {
-				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutableBlockPos, 0);
-				level.setBlockAndUpdate(mutableBlockPos, this.defaultBlockState());
+			mutable.setWithOffset(pos, direction);
+			if (level.getBlockState(mutable).isAir() && this.canSurvive(this.defaultBlockState(), level, mutable)) {
+				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutable, 0);
+				level.setBlockAndUpdate(mutable, this.defaultBlockState());
 				return;
 			}
 		}
 	}
 
-	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance, int threshold) {
-		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
+	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos pos, int distance, int threshold) {
+		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, -distance, -distance), pos.offset(distance, distance, distance)).iterator();
 		int count = 0;
 		while (count < threshold) {
 			if (!posesToCheck.hasNext()) return false;
