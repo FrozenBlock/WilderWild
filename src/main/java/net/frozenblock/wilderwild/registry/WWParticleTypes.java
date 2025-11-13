@@ -399,14 +399,14 @@ public final class WWParticleTypes {
 		WWConstants.logWithModId("Registering Particles for", WWConstants.UNSTABLE_LOGGING);
 	}
 
-	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier location) {
+	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier identifier) {
 		return register(
-			location, false, particleType -> WWFallingLeavesParticleOptions.CODEC, particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
+			identifier, false, particleType -> WWFallingLeavesParticleOptions.CODEC, particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
 		);
 	}
 
 	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(
-		Identifier location,
+		Identifier identifier,
 		Block sourceBlock,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
@@ -415,7 +415,7 @@ public final class WWParticleTypes {
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(location);
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(identifier);
 
 		FallingLeafUtil.registerLeaves(
 			sourceBlock,
@@ -433,14 +433,14 @@ public final class WWParticleTypes {
 	}
 
 	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafLitterParticle(
-		Identifier location,
+		Identifier identifier,
 		Block litterBlock,
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(location);
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(identifier);
 
 		FallingLeafUtil.registerLeaves(
 			litterBlock,
