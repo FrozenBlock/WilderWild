@@ -269,16 +269,16 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		return this.getBrain().hasMemoryValue(MemoryModuleType.HOME);
 	}
 
-	public Identifier getVariantLocation() {
+	public Identifier getVariantIdentifier() {
 		return Identifier.parse(this.entityData.get(VARIANT));
 	}
 
-	public ButterflyVariant getVariantByLocation() {
-		return this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getValue(this.getVariantLocation());
+	public ButterflyVariant getVariantByIdentifier() {
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getValue(this.getVariantIdentifier());
 	}
 
 	public Holder<ButterflyVariant> getVariantAsHolder() {
-		return this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(this.getVariantLocation()).orElseThrow();
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(this.getVariantIdentifier()).orElseThrow();
 	}
 
 	public ButterflyVariant getVariantForRendering() {
@@ -294,7 +294,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	public ButterflyVariant getVariant() {
-		return this.getVariantByLocation();
+		return this.getVariantByIdentifier();
 	}
 
 	@Override

@@ -98,10 +98,10 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
-			createKey(edibleBlockLocation.getPath()),
+			createKey(edibleBlockIdentifier.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
@@ -116,10 +116,10 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
-			createKey(edibleBlockLocation.getPath()),
+			createKey(edibleBlockIdentifier.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
@@ -134,10 +134,10 @@ public final class TermiteBlockBehaviors {
 		Block edibleBlock,
 		@NotNull Block outputBlock
 	) {
-		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
 			bootstrapContext,
-			createKey(edibleBlockLocation.getPath()),
+			createKey(edibleBlockIdentifier.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
