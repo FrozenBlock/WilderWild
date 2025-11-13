@@ -133,6 +133,11 @@ public class ZombieOstrich extends AbstractOstrich {
 		return true;
 	}
 
+	@Override
+	public float chargeSpeedModifier() {
+		return 1.75F;
+	}
+
 	@Nullable
 	@Override
 	public ZombieOstrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
