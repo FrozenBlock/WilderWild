@@ -98,7 +98,7 @@ public class SnowloggingUtils {
 	@Nullable
 	public static BlockState onUpdateShape(BlockState state, LevelReader level, BlockPos pos) {
 		if (isSnowlogged(state)) {
-			BlockState snowEquivalent = getSnowEquivalent(state);
+			final BlockState snowEquivalent = getSnowEquivalent(state);
 			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
 				if (level instanceof LevelAccessor levelAccessor) {
 					levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
@@ -126,21 +126,17 @@ public class SnowloggingUtils {
 	}
 
 	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
-		if (isSnowlogged(state)) {
-			if (level.getBrightness(LightLayer.BLOCK, pos) > 11) {
-				Block.dropResources(getSnowEquivalent(state), level, pos);
-				level.setBlockAndUpdate(pos, state.setValue(SNOW_LAYERS, 0));
-			}
-		}
+		if (!isSnowlogged(state)) return;
+		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return;
+		Block.dropResources(getSnowEquivalent(state), level, pos);
+		level.setBlockAndUpdate(pos, state.setValue(SNOW_LAYERS, 0));
 	}
 
 	public static boolean isOriginalBlockCovered(BlockState state, BlockGetter level, BlockPos pos) {
-		if (isSnowlogged(state)) {
-			VoxelShape blockShape = state.getShape(level, pos);
-			VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
-			return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
-		}
-		return false;
+		if (!isSnowlogged(state)) return false;
+		final VoxelShape blockShape = state.getShape(level, pos);
+		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
+		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
 
 }

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.block.impl.StairsSlabWallSculkBehaviour;
+import net.frozenblock.wilderwild.block.impl.SculkBuildingBlockBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkSlabBlock extends SlabBlock implements StairsSlabWallSculkBehaviour {
+public class SculkSlabBlock extends SlabBlock implements SculkBuildingBlockBehaviour {
 	public static final MapCodec<SculkSlabBlock> CODEC = simpleCodec(SculkSlabBlock::new);
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 

@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.block.impl.StairsSlabWallSculkBehaviour;
+import net.frozenblock.wilderwild.block.impl.SculkBuildingBlockBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkWallBlock extends WallBlock implements StairsSlabWallSculkBehaviour {
+public class SculkWallBlock extends WallBlock implements SculkBuildingBlockBehaviour {
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
 	public SculkWallBlock(@NotNull Properties properties) {

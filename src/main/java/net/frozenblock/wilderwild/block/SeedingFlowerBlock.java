@@ -38,6 +38,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -46,10 +47,10 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -175,6 +176,11 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
+	protected VoxelShape getEntityInsideCollisionShape(BlockState state, BlockGetter level, BlockPos pos, Entity entity) {
+		return this.getShape(state, level, pos, CollisionContext.of(entity));
+	}
+
+	@Override
 	public void entityInside(
 		@NotNull BlockState state,
 		@NotNull Level level,
@@ -184,9 +190,6 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		boolean bl
 	) {
 		if (!level.isClientSide()) return;
-		final AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
-		if (!shape.intersects(entity.getBoundingBox())) return;
-
 		final Vec3 movement = entity.getDeltaMovement();
 		final double horizontalDistance = movement.horizontalDistance();
 		final double horizontalVelocity = horizontalDistance * 1.9D;
@@ -201,7 +204,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	@NotNull
 	@Override
 	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-		if (level instanceof ServerLevel server) this.spawnSeedsFrom(server, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
+		if (level instanceof ServerLevel serverLevel) this.spawnSeedsFrom(serverLevel, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 		return super.playerWillDestroy(level, pos, state, player);
 	}
 }

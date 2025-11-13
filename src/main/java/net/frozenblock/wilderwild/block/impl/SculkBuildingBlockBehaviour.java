@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public interface StairsSlabWallSculkBehaviour extends SculkBehaviour {
+public interface SculkBuildingBlockBehaviour extends SculkBehaviour {
 
 	default boolean supportsSculkGrowths() {
 		return true;

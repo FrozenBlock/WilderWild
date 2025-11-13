@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.block.impl.StairsSlabWallSculkBehaviour;
+import net.frozenblock.wilderwild.block.impl.SculkBuildingBlockBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkStairBlock extends StairBlock implements StairsSlabWallSculkBehaviour {
+public class SculkStairBlock extends StairBlock implements SculkBuildingBlockBehaviour {
 	public static final MapCodec<SculkStairBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("base_state").forGetter((sculkStairBlock) -> sculkStairBlock.baseState),
 		propertiesCodec()

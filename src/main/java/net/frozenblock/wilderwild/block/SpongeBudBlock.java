@@ -70,8 +70,8 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 
-	public SpongeBudBlock(@NotNull Properties settings) {
-		super(settings);
+	public SpongeBudBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(FACING, Direction.NORTH)
 			.setValue(WATERLOGGED, false)
@@ -95,25 +95,23 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		@NotNull BlockPos pos,
 		@NotNull Player player,
 		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hit
+		@NotNull BlockHitResult hitResult
 	) {
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, hand);
 			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
-		int age = state.getValue(AGE);
-		if (age > 0) {
-			level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
-			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			if (level instanceof ServerLevel serverLevel) dropSpongeBud(serverLevel, stack, state, null, entity, pos);
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
-			return true;
-		}
-		return false;
+		final int age = state.getValue(AGE);
+		if (age <= 0) return false;
+		level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		if (level instanceof ServerLevel serverLevel) dropSpongeBud(serverLevel, stack, state, null, entity, pos);
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		return true;
 	}
 
 	public static void dropSpongeBud(
@@ -144,40 +142,44 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
+		final BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
 
-		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
+		boolean waterlogged = insideState.getValueOrElse(BlockStateProperties.WATERLOGGED, false);
 		if (!waterlogged) waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 
 		for (Direction direction : context.getNearestLookingDirections()) {
-			BlockState blockState;
+			BlockState state;
 			if (direction.getAxis() == Direction.Axis.Y) {
-				blockState = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, context.getHorizontalDirection()).setValue(WATERLOGGED, waterlogged);
+				state = this.defaultBlockState()
+					.setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+					.setValue(FACING, context.getHorizontalDirection())
+					.setValue(WATERLOGGED, waterlogged);
 			} else {
-				blockState = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, waterlogged);
+				state = this.defaultBlockState()
+					.setValue(FACE, AttachFace.WALL)
+					.setValue(FACING, direction.getOpposite())
+					.setValue(WATERLOGGED, waterlogged);
 			}
 
-			if (blockState.canSurvive(context.getLevel(), context.getClickedPos())) return blockState;
+			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state;
 		}
 		return null;
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) {
-			scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		}
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -202,9 +204,9 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public @NotNull SoundType getSoundType(@NotNull BlockState blockState) {
-		if (blockState.getValue(WATERLOGGED)) return SoundType.WET_SPONGE;
-		return super.getSoundType(blockState);
+	public @NotNull SoundType getSoundType(@NotNull BlockState state) {
+		if (state.getValue(WATERLOGGED)) return SoundType.WET_SPONGE;
+		return super.getSoundType(state);
 	}
 
 	@Override
@@ -214,9 +216,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(20) == 0 && state.getValue(AGE) < MAX_AGE && state.getValue(WATERLOGGED)) {
-			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-		}
+		if (random.nextInt(20) == 0 && state.getValue(AGE) < MAX_AGE && state.getValue(WATERLOGGED)) level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 
 	public BlockState randomBlockState(@NotNull RandomSource random) {

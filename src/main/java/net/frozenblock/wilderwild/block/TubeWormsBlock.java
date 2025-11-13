@@ -64,73 +64,71 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return (blockState.isFaceSturdy(blockGetter, blockPos, Direction.UP) || blockState.is(this))
-			&& !blockState.is(Blocks.MAGMA_BLOCK)
-			&& !blockState.is(WWBlocks.GEYSER);
+	protected boolean mayPlaceOn(@NotNull BlockState state, BlockGetter level, BlockPos pos) {
+		return (state.isFaceSturdy(level, pos, Direction.UP) || state.is(this))
+			&& !state.is(Blocks.MAGMA_BLOCK)
+			&& !state.is(WWBlocks.GEYSER);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		BlockState blockState = super.getStateForPlacement(blockPlaceContext);
-		if (blockState != null) {
-			Level level = blockPlaceContext.getLevel();
-			BlockPos blockPos = blockPlaceContext.getClickedPos();
-			if (this.isValidWaterToReplace(level, blockPos)) {
-				BlockState belowState = level.getBlockState(blockPos.below());
-				if (belowState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
-				return blockState;
-			}
-		}
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		final BlockState state = super.getStateForPlacement(context);
+		if (state == null) return null;
 
-		return null;
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
+		if (!this.isValidWaterToReplace(level, pos)) return null;
+
+		final BlockState belowState = level.getBlockState(pos.below());
+		if (belowState.is(this)) return state.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
+		return state;
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-		return super.canSurvive(blockState, levelReader, blockPos) && this.isValidWaterToSurvive(levelReader, blockPos);
+	public boolean canSurvive(@NotNull BlockState blockState, LevelReader level, BlockPos pos) {
+		return super.canSurvive(blockState, level, pos) && this.isValidWaterToSurvive(level, pos);
 	}
 
 	@Override
-	protected void tick(@NotNull BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		if (!blockState.canSurvive(serverLevel, blockPos)) serverLevel.destroyBlock(blockPos, true);
+	protected void tick(@NotNull BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (!blockState.canSurvive(level, pos)) level.destroyBlock(pos, true);
 	}
 
 	@Override
 	protected BlockState updateShape(
-		BlockState blockState,
-		LevelReader levelReader,
+		BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
-		BlockPos blockPos2,
-		BlockState blockState2,
-		RandomSource randomSource
+		BlockPos neighborPos,
+		BlockState neighborState,
+		RandomSource random
 	) {
-		if (direction == Direction.DOWN && !blockState.canSurvive(levelReader, blockPos)) scheduledTickAccess.scheduleTick(blockPos, this, 1);
-		scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+		if (direction == Direction.DOWN && !state.canSurvive(level, pos)) scheduledTickAccess.scheduleTick(pos, this, 1);
+		scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
 		if (direction == Direction.UP) {
-			TubeWormsPart tubeWormsPart = blockState.getValue(TUBE_WORMS_PART);
-			BlockState aboveState = levelReader.getBlockState(blockPos.above());
+			final TubeWormsPart tubeWormsPart = state.getValue(TUBE_WORMS_PART);
+			final BlockState aboveState = level.getBlockState(pos.above());
 
 			if (tubeWormsPart == TubeWormsPart.TOP) {
-				if (aboveState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.MIDDLE);
+				if (aboveState.is(this)) return state.setValue(TUBE_WORMS_PART, TubeWormsPart.MIDDLE);
 			} else if (tubeWormsPart == TubeWormsPart.SINGLE) {
-				if (aboveState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.BOTTOM);
+				if (aboveState.is(this)) return state.setValue(TUBE_WORMS_PART, TubeWormsPart.BOTTOM);
 			} else if (tubeWormsPart == TubeWormsPart.MIDDLE) {
-				if (!aboveState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
+				if (!aboveState.is(this)) return state.setValue(TUBE_WORMS_PART, TubeWormsPart.TOP);
 			} if (tubeWormsPart == TubeWormsPart.BOTTOM) {
-				if (!aboveState.is(this)) return blockState.setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE);
+				if (!aboveState.is(this)) return state.setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE);
 			}
 		}
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, blockPos2, blockState2, randomSource);
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -139,28 +137,28 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
+	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
+	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader levelReader, BlockPos blockPos) {
-		BlockState blockState = levelReader.getBlockState(blockPos);
-		FluidState fluidState = blockState.getFluidState();
-		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
+	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		final FluidState fluidState = state.getFluidState();
+		return state.canBeReplaced() && fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 
-	private boolean isValidWaterToSurvive(@NotNull LevelReader levelReader, BlockPos blockPos) {
-		FluidState fluidState = levelReader.getFluidState(blockPos);
+	private boolean isValidWaterToSurvive(@NotNull LevelReader level, BlockPos pos) {
+		final FluidState fluidState = level.getFluidState(pos);
 		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 }

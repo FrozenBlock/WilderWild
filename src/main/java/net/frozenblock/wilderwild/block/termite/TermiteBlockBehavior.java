@@ -93,17 +93,15 @@ public final class TermiteBlockBehavior {
 
 	@Override
 	public boolean equals(Object object) {
-		if (object == this) {
-			return true;
-		} else {
-			return object instanceof TermiteBlockBehavior termiteBlockBehavior && Objects.equals(this.edibleBlocks, termiteBlockBehavior.getEdibleBlocks())
-				&& Objects.equals(this.outputBlock, termiteBlockBehavior.getOutputBlock())
-				&& Objects.equals(this.copyProperties, termiteBlockBehavior.copyProperties())
-				&& Objects.equals(this.destroysBlock(), termiteBlockBehavior.destroysBlock())
-				&& Objects.equals(this.naturalTermiteUsable, termiteBlockBehavior.naturalTermiteUsable())
-				&& Objects.equals(this.playerPlacedTermiteUsable, termiteBlockBehavior.playerPlacedTermiteUsable())
-				&& Objects.equals(this.eatSound, termiteBlockBehavior.getEatSound());
-		}
+		if (object == this) return true;
+		return object instanceof TermiteBlockBehavior termiteBlockBehavior
+			&& Objects.equals(this.edibleBlocks, termiteBlockBehavior.getEdibleBlocks())
+			&& Objects.equals(this.outputBlock, termiteBlockBehavior.getOutputBlock())
+			&& Objects.equals(this.copyProperties, termiteBlockBehavior.copyProperties())
+			&& Objects.equals(this.destroysBlock(), termiteBlockBehavior.destroysBlock())
+			&& Objects.equals(this.naturalTermiteUsable, termiteBlockBehavior.naturalTermiteUsable())
+			&& Objects.equals(this.playerPlacedTermiteUsable, termiteBlockBehavior.playerPlacedTermiteUsable())
+			&& Objects.equals(this.eatSound, termiteBlockBehavior.getEatSound());
 	}
 
 	@Override

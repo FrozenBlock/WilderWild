@@ -47,7 +47,6 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -71,7 +70,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final MapCodec<ShrubBlock> CODEC = simpleCodec(ShrubBlock::new);
 
-	public ShrubBlock(@NotNull BlockBehaviour.Properties properties) {
+	public ShrubBlock(@NotNull Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, MIN_AGE).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
@@ -93,23 +92,18 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	private static void preventDropFromBottomPart(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Player player) {
-		BlockPos blockPos;
-		BlockState blockState;
-		DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-		if (doubleBlockHalf == DoubleBlockHalf.UPPER
-			&& (blockState = level.getBlockState(blockPos = pos.below())).is(state.getBlock())
-			&& blockState.getValue(HALF) == DoubleBlockHalf.LOWER
-		) {
-			BlockState setState = blockState.hasProperty(BlockStateProperties.WATERLOGGED) &&
-				blockState.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+		final DoubleBlockHalf half = state.getValue(HALF);
+		if (half != DoubleBlockHalf.UPPER) return;
 
-			if (setState.isAir() && setState.getFluidState().isEmpty() && SnowloggingUtils.isSnowlogged(state)) {
-				setState = SnowloggingUtils.getSnowEquivalent(state);
-			}
+		final BlockPos belowPos = pos.below();
+		final BlockState belowState = level.getBlockState(belowPos);
+		if (!belowState.is(state.getBlock()) || belowState.getValue(HALF) != DoubleBlockHalf.LOWER) return;
 
-			level.setBlock(blockPos, setState, 35);
-			level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
-		}
+		BlockState setState = belowState.getFluidState().createLegacyBlock();
+		if (setState.getFluidState().isEmpty() && SnowloggingUtils.isSnowlogged(state)) setState = SnowloggingUtils.getSnowEquivalent(state);
+
+		level.setBlock(belowPos, setState, 35);
+		level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, belowPos, getId(belowState));
 	}
 
 	@NotNull
@@ -136,11 +130,11 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		RandomSource random
 	) {
 		if (isFullyGrown(state)) {
-			DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
-			if (!(direction.getAxis() != Direction.Axis.Y || doubleBlockHalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || neighborState.is(this) && neighborState.getValue(HALF) != doubleBlockHalf)) {
+			final DoubleBlockHalf half = state.getValue(HALF);
+			if (!(direction.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (direction == Direction.UP) || neighborState.is(this) && neighborState.getValue(HALF) != half)) {
 				return Blocks.AIR.defaultBlockState();
 			}
-			if (doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos)) {
+			if (half == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos)) {
 				return Blocks.AIR.defaultBlockState();
 			}
 		}
@@ -301,10 +295,8 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		@NotNull ItemStack stack
 	) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) {
-				super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-			}
+			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 		} else {
 			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, stack);
 		}
@@ -312,19 +304,15 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	@NotNull
 	public BlockState setAgeOnBothHalves(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, int age, boolean particles) {
-		BlockState setState = state.setValue(BlockStateProperties.AGE_2, age);
+		final BlockState setState = state.setValue(BlockStateProperties.AGE_2, age);
 		level.setBlockAndUpdate(pos, setState);
-		BlockPos movedPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
-		BlockState secondState = level.getBlockState(movedPos);
+		final BlockPos movedPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
+		final BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_2, age));
-			if (particles) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
-			}
+			if (particles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
 		}
-		if (particles) {
-			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-		}
+		if (particles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 		return setState;
 	}
 
@@ -333,10 +321,9 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 			level.setBlockAndUpdate(pos, level.getFluidState(pos).createLegacyBlock());
 			return;
 		}
-		BlockPos movedPos = pos.above();
-		BlockState secondState = level.getBlockState(movedPos);
-		if (secondState.is(this) && !isLower(secondState) && !isFullyGrown(secondState)) {
-			level.setBlockAndUpdate(movedPos, level.getFluidState(movedPos).createLegacyBlock());
-		}
+		final BlockPos movedPos = pos.above();
+		final BlockState secondState = level.getBlockState(movedPos);
+		if (!secondState.is(this) || isLower(secondState) || isFullyGrown(secondState)) return;
+		level.setBlockAndUpdate(movedPos, level.getFluidState(movedPos).createLegacyBlock());
 	}
 }

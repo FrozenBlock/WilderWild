@@ -69,48 +69,52 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	}
 
 	@Override
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult
+	) {
 		if (stack.is(Items.SHEARS)) {
 			onShear(level, pos, player);
 			stack.hurtAndBreak(1, player, hand);
 			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	public static boolean onShear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
-		if (!level.isClientSide()) {
-			Tumbleweed.spawnFromShears(level, pos);
-			level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
-		}
+		if (level.isClientSide()) return true;
+		Tumbleweed.spawnFromShears(level, pos);
+		level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
 		return true;
 	}
 
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockState state =  SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
-		if (state != null) {
-			FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-			boolean waterlogged = fluidState.getType() == Fluids.WATER;
-			return state.setValue(WATERLOGGED, waterlogged);
-		}
-		return null;
+		final BlockState state = SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
+		if (state == null) return null;
+		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+		return state.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override

@@ -65,18 +65,18 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 		@NotNull SculkSpreader spreader,
 		boolean shouldConvertToBlock
 	) {
-		BlockPos cursorPos = cursor.getPos();
-		int i = cursor.getCharge();
-		if (i != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
-			boolean bl = cursorPos.closerThan(catalystPos, spreader.noGrowthRadius());
-			BlockState placeState = switchBlockStates(level.getBlockState(cursorPos));
-			if (!bl && placeState != null) {
-				level.setBlock(cursorPos, placeState, Block.UPDATE_ALL);
-				clearSculkVeins(level, cursorPos);
+		final BlockPos pos = cursor.getPos();
+		final int charge = cursor.getCharge();
+		if (charge != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
+			final boolean isTooClose = pos.closerThan(catalystPos, spreader.noGrowthRadius());
+			BlockState placeState = switchBlockStates(level.getBlockState(pos));
+			if (!isTooClose && placeState != null) {
+				level.setBlock(pos, placeState, Block.UPDATE_ALL);
+				clearSculkVeins(level, pos);
 			}
-			return random.nextInt(spreader.additionalDecayRate()) != 0 ? i : i - (bl ? 1 : SculkBlock.getDecayPenalty(spreader, cursorPos, catalystPos, i));
+			return random.nextInt(spreader.additionalDecayRate()) != 0 ? charge : charge - (isTooClose ? 1 : SculkBlock.getDecayPenalty(spreader, pos, catalystPos, charge));
 		}
-		return i;
+		return charge;
 	}
 
 	@Override
