@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import java.util.Optional;
+import java.util.function.Function;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
@@ -45,12 +46,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OsseousSculkBlock extends Block implements SculkBehaviour {
+	private static final Function<BlockState, Boolean> TOP_SEARCH_CONDITION = OsseousSculkBlock::isSafeToReplace;
+	private static final Function<BlockState, Boolean> BOTTOM_SEARCH_CONDITION = state -> state.is(Blocks.SCULK);
+	private static final int GROWTH_COST = 1;
 	public static final int GROWTH_CHANCE = 2;
-	public static final float HANGING_TENDRIL_CHANCE = 0.7F;
-	public static final float HANGING_TENDRIL_WORLDGEN_CHANCE = 0.6F;
+	public static final float HANGING_TENDRIL_CHANCE = 0.3F;
+	public static final float HANGING_TENDRIL_WORLDGEN_CHANCE = 0.4F;
 	public static final int CATALYST_GROWTH_CHANCE = 15;
 	public static final int SCULK_CONVERSION_CHANCE = 15;
-	public static final float RIB_CAGE_CHANCE = 0.8F;
+	public static final float RIB_CAGE_CHANCE = 0.2F;
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
@@ -58,41 +62,6 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public OsseousSculkBlock(@NotNull Properties settings) {
 		super(settings);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
-	}
-
-	public static Direction getDir(@NotNull Direction.Axis axis, @NotNull RandomSource random) {
-		if (axis == Direction.Axis.X) return random.nextBoolean() ? Direction.EAST : Direction.WEST;
-		return random.nextBoolean() ? Direction.NORTH : Direction.SOUTH;
-	}
-
-	@NotNull
-	public static Direction.Axis getRandomAxisForBranch(@NotNull RandomSource random) {
-		return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
-	}
-
-	public static boolean isSafeToReplace(@NotNull BlockState state) {
-		return state.is(Blocks.SCULK_VEIN) || state.canBeReplaced();
-	}
-
-	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		BlockState stateReplace;
-		Direction oppositeDirection;
-		for (Direction direction : UPDATE_SHAPE_ORDER) {
-			stateReplace = level.getBlockState(mutable.setWithOffset(pos, direction));
-			oppositeDirection = direction.getOpposite();
-			BlockState stateSetTo = null;
-			if (stateReplace.is(Blocks.SCULK_VEIN)) {
-				stateSetTo = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-			} else if (stateReplace.isAir() && stateReplace.getFluidState().isEmpty()) {
-				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
-			} else if (stateReplace.getBlock() == Blocks.WATER) {
-				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true)
-					.setValue(BlockStateProperties.WATERLOGGED, true);
-			}
-
-			if (stateSetTo != null) level.setBlock(mutable, stateSetTo, UPDATE_ALL);
-		}
 	}
 
 	@NotNull
@@ -110,9 +79,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	@Override
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-		if (dropExperience) {
-			this.tryDropExperience(level, pos, stack, EXPERIENCE);
-		}
+		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
 	}
 
 	@Override
@@ -126,58 +93,50 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	) {
 		final boolean isWorldGeneration = spreader.isWorldGeneration();
 		final int cursorCharge = cursor.getCharge();
-		final int cost = 1;
 		final BlockPos pos = cursor.getPos();
-		if (isWorldGeneration || (cursorCharge != 0 && random.nextInt(GROWTH_CHANCE) == 0)) {
-			if (isWorldGeneration || !pos.closerThan(catalystPos, spreader.noGrowthRadius())) {
-				final Optional<BlockPos> possibleTopPos = getTop(level, pos);
-				if (possibleTopPos.isEmpty()) return cursorCharge;
-				final BlockPos topPos = possibleTopPos.get();
-				final BlockPos.MutableBlockPos mutable = topPos.mutable();
-				final BlockState state = level.getBlockState(topPos);
-				final Direction direction = state.getValue(FACING);
+		if (!isWorldGeneration && !(cursorCharge != 0 && random.nextInt(GROWTH_CHANCE) == 0)) return cursorCharge;
+		if (!isWorldGeneration && pos.closerThan(catalystPos, spreader.noGrowthRadius())) return cursorCharge;
 
-				if (!Direction.Plane.VERTICAL.test(direction)) return cursorCharge;
-				BlockState offsetState = level.getBlockState(mutable.move(direction));
-				if (offsetState.canBeReplaced() || offsetState.getBlock() == Blocks.SCULK_VEIN) {
-					final BlockState growthState = getGrowthState(random, direction);
+		final Optional<BlockPos> possibleTopPos = getPillarEnd(level, pos, true);
+		if (possibleTopPos.isEmpty()) return cursorCharge;
+		final BlockPos topPos = possibleTopPos.get();
+		final BlockPos.MutableBlockPos mutable = topPos.mutable();
+		final BlockState topState = level.getBlockState(topPos);
+		final Direction direction = topState.getValue(FACING);
 
-					if (growthState.getBlock() == this && direction == Direction.DOWN && random.nextDouble() > RIB_CAGE_CHANCE) {
-						final Direction nextDirection = getDir(getRandomAxisForBranch(random), random);
-						if (isSafeToReplace(level.getBlockState(mutable.setWithOffset(topPos, nextDirection)))) {
-							BlockState ribState = this.defaultBlockState().setValue(FACING, nextDirection);
-							level.setBlock(mutable, ribState, UPDATE_ALL);
-							playPlaceSound(level, mutable, ribState);
-							if (WWBlockConfig.HANGING_TENDRIL_GENERATION
-								&& isSafeToReplace(level.getBlockState(mutable.move(Direction.DOWN)))
-								&& random.nextFloat() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)
-							) {
-								final BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
-								level.setBlock(mutable, tendrilState, UPDATE_ALL);
-							}
-						}
-					}
+		if (!Direction.Plane.VERTICAL.test(direction)) return cursorCharge;
+		final BlockState offsetState = level.getBlockState(mutable.move(direction));
+		if (!offsetState.canBeReplaced() && offsetState.getBlock() != Blocks.SCULK_VEIN) return cursorCharge;
 
-					level.setBlock(mutable.setWithOffset(topPos, direction), growthState, UPDATE_ALL);
-					playPlaceSound(level, mutable, growthState);
-					workOnBottom(level, mutable, random);
-					if (!isWorldGeneration) return Math.max(0, cursorCharge - cost);
-				}
-			}
+		final BlockState growthState = getGrowthState(random, direction);
+		placeRib: {
+			if (growthState.getBlock() != this || direction != Direction.DOWN || random.nextFloat() > RIB_CAGE_CHANCE) break placeRib;
+
+			final Direction nextDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+			if (!isSafeToReplace(level.getBlockState(mutable.setWithOffset(topPos, nextDirection)))) break placeRib;
+
+			final BlockState ribState = this.defaultBlockState().setValue(FACING, nextDirection);
+			level.setBlock(mutable, ribState, UPDATE_ALL);
+			playPlaceSound(level, mutable, ribState);
+
+			if (!WWBlockConfig.HANGING_TENDRIL_GENERATION || random.nextFloat() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)) break placeRib;
+			if (!isSafeToReplace(level.getBlockState(mutable.move(Direction.DOWN)))) break placeRib;
+
+			final BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
+			level.setBlock(mutable, tendrilState, UPDATE_ALL);
+			playPlaceSound(level, mutable, tendrilState);
 		}
+
+		level.setBlock(mutable.setWithOffset(topPos, direction), growthState, UPDATE_ALL);
+		playPlaceSound(level, mutable, growthState);
+		convertBottomToSculk(level, mutable, random);
+		if (!isWorldGeneration) return Math.max(0, cursorCharge - GROWTH_COST);
 		return cursorCharge;
 	}
 
 	private static void playPlaceSound(@NotNull LevelAccessor level, BlockPos pos, @NotNull BlockState state) {
-		SoundType soundType = state.getSoundType();
-		level.playSound(
-			null,
-			pos,
-			soundType.getPlaceSound(),
-			SoundSource.BLOCKS,
-			soundType.getVolume(),
-			soundType.getPitch() * 0.8F
-		);
+		final SoundType soundType = state.getSoundType();
+		level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch() * 0.8F);
 	}
 
 	private BlockState getGrowthState(@NotNull RandomSource random, @NotNull Direction direction) {
@@ -186,29 +145,27 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		return state;
 	}
 
-	private void workOnBottom(@NotNull LevelAccessor level, @NotNull BlockPos topPos, RandomSource random) {
-		final Optional<BlockPos> possibleBottom = getBottom(level, topPos);
+	private void convertBottomToSculk(@NotNull LevelAccessor level, @NotNull BlockPos topPos, RandomSource random) {
+		final Optional<BlockPos> possibleBottom = getPillarEnd(level, topPos, false);
 		if (possibleBottom.isEmpty()) return;
 		final BlockPos bottom = possibleBottom.get();
 		final BlockState bottomState = level.getBlockState(bottom);
 		if (bottomState.is(this) && random.nextInt(0, SCULK_CONVERSION_CHANCE) == 0) this.convertToSculk(level, bottom);
 	}
 
-
 	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		final BlockState state = level.getBlockState(mutable);
 		if (!state.is(this)) return;
+
 		BlockState stateReplace;
 		Direction oppositeDirection;
-		for (Direction direction : UPDATE_SHAPE_ORDER) {
+		for (Direction direction : Direction.values()) {
 			stateReplace = level.getBlockState(mutable.setWithOffset(pos, direction));
 			oppositeDirection = direction.getOpposite();
 			if (stateReplace.is(Blocks.SCULK_VEIN)) {
 				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
-				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
-					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-				}
+				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) stateReplace = stateReplace.getFluidState().createLegacyBlock();
 				level.setBlock(mutable, stateReplace, UPDATE_ALL);
 			} else if (stateReplace.is(this) && stateReplace.hasProperty(FACING) && stateReplace.getValue(FACING) == direction) {
 				placeVeinsAround(level, mutable.mutable());
@@ -219,41 +176,45 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		level.setBlock(pos, Blocks.SCULK.defaultBlockState(), UPDATE_ALL);
 	}
 
-	public Optional<BlockPos> getTop(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
+	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.values()) {
+			final BlockState replacingState = level.getBlockState(mutable.setWithOffset(pos, direction));
+			final Direction oppositeDirection = direction.getOpposite();
 
-		BlockState blockState = level.getBlockState(mutableBlockPos);
-		if (blockState.getBlock() != this) return Optional.empty();
-
-		for (int i = 0; i < 32; i++) {
-			if (blockState.getBlock() == this) {
-				BlockState offsetState = level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING)));
-				if (offsetState.canBeReplaced() || offsetState.getBlock() == Blocks.SCULK_VEIN) return Optional.of(mutableBlockPos.immutable());
-				mutableBlockPos.set(mutableBlockPos2);
-				blockState = level.getBlockState(mutableBlockPos);
-			} else {
-				return Optional.empty();
+			BlockState stateSetTo = null;
+			if (replacingState.is(Blocks.SCULK_VEIN)) {
+				stateSetTo = replacingState.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+			} else if (replacingState.isAir() && replacingState.getFluidState().isEmpty()) {
+				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true);
+			} else if (replacingState.getBlock() == Blocks.WATER) {
+				stateSetTo = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(oppositeDirection), true)
+					.setValue(BlockStateProperties.WATERLOGGED, true);
 			}
+
+			if (stateSetTo != null) level.setBlock(mutable, stateSetTo, UPDATE_ALL);
 		}
-		return Optional.empty();
 	}
 
-	public Optional<BlockPos> getBottom(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
+	public static boolean isSafeToReplace(@NotNull BlockState state) {
+		return state.canBeReplaced() || state.is(Blocks.SCULK_VEIN);
+	}
 
-		BlockState blockState = level.getBlockState(mutableBlockPos);
-		if (blockState.getBlock() != this) return Optional.empty();
+	public Optional<BlockPos> getPillarEnd(@NotNull LevelAccessor level, @NotNull BlockPos pos, boolean top) {
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
+		final BlockPos.MutableBlockPos searchingMutable = pos.mutable();
 
+		BlockState state = level.getBlockState(mutable);
+		if (state.getBlock() != this) return Optional.empty();
+
+		final int directionSteps = top ? 1 : -1;
+		final Function<BlockState, Boolean> searchCondition = top ? TOP_SEARCH_CONDITION : BOTTOM_SEARCH_CONDITION;
 		for (int i = 0; i < 32; i++) {
-			if (blockState.getBlock() == this) {
-				if (level.getBlockState(mutableBlockPos2.move(blockState.getValue(FACING), -1)).is(Blocks.SCULK)) return Optional.of(mutableBlockPos.immutable());
-				mutableBlockPos.set(mutableBlockPos2);
-				blockState = level.getBlockState(mutableBlockPos);
-			} else {
-				return Optional.empty();
-			}
+			if (state.getBlock() != this) return Optional.empty();
+			final BlockState searchingState = level.getBlockState(searchingMutable.move(state.getValue(FACING), directionSteps));
+			if (searchCondition.apply(searchingState)) return Optional.of(mutable.immutable());
+			mutable.set(searchingMutable);
+			state = searchingState;
 		}
 		return Optional.empty();
 	}
