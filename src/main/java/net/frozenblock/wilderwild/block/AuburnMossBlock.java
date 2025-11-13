@@ -60,8 +60,8 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, RandomSource random, @NotNull BlockPos pos, BlockState state) {
-		BlockPos abovePos = pos.above();
-		ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
+		final BlockPos abovePos = pos.above();
+		final ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
 			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
 
 		level.registryAccess()

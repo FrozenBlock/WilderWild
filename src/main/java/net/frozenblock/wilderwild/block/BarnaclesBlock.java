@@ -29,8 +29,8 @@ public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleW
 	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public BarnaclesBlock(@NotNull Properties settings) {
-		super(settings);
+	public BarnaclesBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@NotNull

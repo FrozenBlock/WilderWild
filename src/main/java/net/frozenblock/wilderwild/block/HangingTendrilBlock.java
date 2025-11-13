@@ -80,8 +80,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 
-	public HangingTendrilBlock(@NotNull Properties settings) {
-		super(settings);
+	public HangingTendrilBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(PHASE, SculkSensorPhase.INACTIVE)
 			.setValue(WATERLOGGED, false)
@@ -93,10 +93,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0));
-		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
-		}
-
+		if (!state.getValue(WATERLOGGED)) level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 	}
 
@@ -247,7 +244,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(PHASE, POWER, WATERLOGGED, TWITCHING, WRINGING_OUT);
 	}
 
@@ -288,13 +285,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		if (hangingTendril.getStoredXP() <= 0) return InteractionResult.PASS;
 
 		level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-		level.playSound(null,
-			pos,
-			WWSounds.BLOCK_HANGING_TENDRIL_WRING,
-			SoundSource.BLOCKS,
-			1F,
-			level.getRandom().nextFloat() * 0.1F + 0.9F
-		);
+		level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_WRING, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
 		hangingTendril.ringOutTicksLeft = RING_OUT_TICKS;
 		return InteractionResult.SUCCESS;
 	}

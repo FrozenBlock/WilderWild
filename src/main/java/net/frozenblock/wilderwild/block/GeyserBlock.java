@@ -64,8 +64,8 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
-	public GeyserBlock(@NotNull Properties settings) {
-		super(settings);
+	public GeyserBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any()
 			.setValue(GEYSER_TYPE, GeyserType.NONE)
 			.setValue(GEYSER_STAGE, GeyserStage.DORMANT)

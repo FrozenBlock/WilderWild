@@ -54,8 +54,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final int MAX_AGE = 3;
 
-	public MilkweedBlock(@NotNull Properties settings) {
-		super(settings);
+	public MilkweedBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	public static boolean isFullyGrown(@NotNull BlockState state) {
@@ -73,9 +73,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0, false);
 	}
 
-	public static void dropMilkweed(
-		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
-	) {
+	public static void dropMilkweed(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_MILKWEED,
@@ -141,9 +139,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (random.nextInt(GROWTH_CHANCE) == 0 && isLower(state) && !isFullyGrown(state)) {
-			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1, false);
-		}
+		if (random.nextInt(GROWTH_CHANCE) != 0 || !isLower(state) || isFullyGrown(state)) return;
+		setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1, false);
 	}
 
 	@Override

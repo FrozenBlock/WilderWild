@@ -32,8 +32,8 @@ public class MyceliumGrowthBlock extends VegetationBlock {
 	protected static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 7D, 14D);
 	public static final MapCodec<MyceliumGrowthBlock> CODEC = simpleCodec(MyceliumGrowthBlock::new);
 
-	public MyceliumGrowthBlock(BlockBehaviour.Properties settings) {
-		super(settings);
+	public MyceliumGrowthBlock(BlockBehaviour.Properties properties) {
+		super(properties);
 	}
 
 	@Override

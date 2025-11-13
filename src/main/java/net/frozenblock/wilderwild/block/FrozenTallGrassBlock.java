@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenTallGrassBlock extends TallGrassBlock {
 
-	public FrozenTallGrassBlock(@NotNull Properties settings) {
-		super(settings);
+	public FrozenTallGrassBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@Override

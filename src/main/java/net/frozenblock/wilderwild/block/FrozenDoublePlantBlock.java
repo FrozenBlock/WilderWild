@@ -26,8 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenDoublePlantBlock extends DoublePlantBlock {
 
-	public FrozenDoublePlantBlock(@NotNull Properties settings) {
-		super(settings);
+	public FrozenDoublePlantBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@Override

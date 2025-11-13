@@ -66,9 +66,9 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final boolean isSand;
 
 	public ScorchedBlock(
-		@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, boolean isSand, @NotNull Properties settings
+		@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, boolean isSand, @NotNull Properties properties
 	) {
-		super(settings);
+		super(properties);
 		this.wetState = wetState;
 		this.canBrush = canBrush;
 		this.brushSound = brushSound;
@@ -129,8 +129,8 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	@Nullable
-	public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		return new ScorchedBlockEntity(blockPos, blockState);
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new ScorchedBlockEntity(pos, state);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 
 	@Override
 	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		Fluid fluid = DripstoneDripApi.getDripstoneFluid(level, pos);
+		final Fluid fluid = DripstoneDripApi.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
 			if (random.nextBoolean()) scorch(state, level, pos);
 		} else if (fluid == Fluids.WATER) {
@@ -150,15 +150,9 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!this.isSand) return;
-		AmbientDesertBlockSoundsPlayer.playAmbientSandSounds(level, blockPos, randomSource);
-	}
-
-	@Override
-	@NotNull
-	public RenderShape getRenderShape(@NotNull BlockState blockState) {
-		return RenderShape.MODEL;
+		AmbientDesertBlockSoundsPlayer.playAmbientSandSounds(level, pos, random);
 	}
 }
 

@@ -26,8 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenBushBlock extends BushBlock {
 
-	public FrozenBushBlock(@NotNull Properties settings) {
-		super(settings);
+	public FrozenBushBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@Override

@@ -62,8 +62,8 @@ public class BaobabNutBlock extends SaplingBlock {
 		Block.box(7D, 3D, 7D, 9D, 16D, 9), Block.box(2D, 0D, 2D, 14D, 12D, 14D)
 	};
 
-	public BaobabNutBlock(TreeGrower treeGrower, @NotNull BlockBehaviour.Properties settings) {
-		super(treeGrower, settings);
+	public BaobabNutBlock(TreeGrower treeGrower, @NotNull BlockBehaviour.Properties properties) {
+		super(treeGrower, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 

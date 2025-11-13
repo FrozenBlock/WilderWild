@@ -43,8 +43,8 @@ import org.jetbrains.annotations.Nullable;
 public class CattailBlock extends WaterloggableTallFlowerBlock {
 	public static final BooleanProperty SWAYING = WWBlockStateProperties.SWAYING;
 
-	public CattailBlock(@NotNull Properties settings) {
-		super(settings);
+	public CattailBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(SWAYING, false));
 	}
 
@@ -88,9 +88,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return super.mayPlaceOn(state, level, pos)
-			|| state.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
-			|| state.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
+		return super.mayPlaceOn(state, level, pos) || state.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE) || state.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
 	}
 
 	@Override

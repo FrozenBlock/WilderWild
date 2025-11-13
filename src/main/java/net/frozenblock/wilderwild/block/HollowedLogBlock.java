@@ -102,8 +102,8 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	);
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
-	public HollowedLogBlock(@NotNull Properties settings) {
-		super(settings);
+	public HollowedLogBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 

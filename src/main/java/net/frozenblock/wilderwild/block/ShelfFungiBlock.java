@@ -84,8 +84,8 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 	private final ResourceKey<LootTable> shearingLootTable;
 
-	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties settings) {
-		super(settings);
+	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties properties) {
+		super(properties);
 		this.shearingLootTable = shearingLootTable;
 		this.registerDefaultState(
 			this.stateDefinition.any().
@@ -103,9 +103,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 
 	@NotNull
 	public static AttachFace getFace(@NotNull Direction direction) {
-		if (direction.getAxis() == Direction.Axis.Y) {
-			return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
-		}
+		if (direction.getAxis() == Direction.Axis.Y) return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
 		return AttachFace.WALL;
 	}
 
@@ -122,24 +120,30 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 
 	@Override
 	@NotNull
-	public InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+	public InteractionResult useItemOn(
+		@NotNull ItemStack stack,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult
+	) {
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, hand);
 			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
-		int stage = state.getValue(STAGE);
-		if (stage > 1) {
-			level.setBlockAndUpdate(pos, state.setValue(STAGE, stage - 1));
-			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			if (level instanceof ServerLevel serverLevel) dropShelfFungi(serverLevel, stack, state, null, entity, pos);
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
-			return true;
-		}
-		return false;
+		final int stage = state.getValue(STAGE);
+		if (stage <= 1) return false;
+		level.setBlockAndUpdate(pos, state.setValue(STAGE, stage - 1));
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		if (level instanceof ServerLevel serverLevel) dropShelfFungi(serverLevel, stack, state, null, entity, pos);
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		return true;
 	}
 
 	public static void dropShelfFungi(
@@ -176,7 +180,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
+		final BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) return insideState.setValue(STAGE, Math.min(MAX_STAGE, insideState.getValue(STAGE) + 1));
 
 		boolean waterlogged = insideState.hasProperty(BlockStateProperties.WATERLOGGED) ? insideState.getValue(BlockStateProperties.WATERLOGGED) : false;
@@ -196,17 +200,17 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -272,7 +276,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);

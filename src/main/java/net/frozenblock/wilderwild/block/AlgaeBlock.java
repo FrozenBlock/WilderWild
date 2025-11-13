@@ -51,8 +51,8 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 
-	public AlgaeBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(settings);
+	public AlgaeBlock(@NotNull BlockBehaviour.Properties properties) {
+		super(properties);
 	}
 
 	@NotNull
@@ -84,15 +84,15 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		@NotNull BlockState blockState,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		return !this.canSurvive(blockState, level, blockPos)
+		return !this.canSurvive(blockState, level, pos)
 			? Blocks.AIR.defaultBlockState()
-			: super.updateShape(blockState, level, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, random);
+			: super.updateShape(blockState, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -120,10 +120,10 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			mutableBlockPos.setWithOffset(pos, direction);
-			if (level.getBlockState(mutableBlockPos).isAir() && this.canSurvive(this.defaultBlockState(), level, mutableBlockPos)) return true;
+			mutable.setWithOffset(pos, direction);
+			if (level.getBlockState(mutable).isAir() && this.canSurvive(this.defaultBlockState(), level, mutable)) return true;
 		}
 		return false;
 	}
@@ -138,16 +138,15 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 			mutable.setWithOffset(pos, direction);
-			if (level.getBlockState(mutable).isAir() && this.canSurvive(this.defaultBlockState(), level, mutable)) {
-				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutable, 0);
-				level.setBlockAndUpdate(mutable, this.defaultBlockState());
-				return;
-			}
+			if (!level.getBlockState(mutable).isAir() || !this.canSurvive(this.defaultBlockState(), level, mutable)) continue;
+			level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, mutable, 0);
+			level.setBlockAndUpdate(mutable, this.defaultBlockState());
+			return;
 		}
 	}
 
 	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos pos, int distance, int threshold) {
-		Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, -distance, -distance), pos.offset(distance, distance, distance)).iterator();
+		final Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, -distance, -distance), pos.offset(distance, distance, distance)).iterator();
 		int count = 0;
 		while (count < threshold) {
 			if (!posesToCheck.hasNext()) return false;

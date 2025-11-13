@@ -36,8 +36,8 @@ public class AuburnCreepingMossBlock extends MultifaceSpreadeableBlock implement
 	public static final MapCodec<AuburnCreepingMossBlock> CODEC = simpleCodec(AuburnCreepingMossBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public AuburnCreepingMossBlock(@NotNull Properties settings) {
-		super(settings);
+	public AuburnCreepingMossBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 

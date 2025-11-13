@@ -44,14 +44,12 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 5;
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new PollenSpreaderConfig());
 
-	public PollenBlock(@NotNull Properties settings) {
-		super(settings);
+	public PollenBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	public static boolean canAttachToNoWater(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite())
-			|| Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite())
-			&& !level.getBlockState(pos).is(Blocks.WATER);
+		return canAttachTo(level, direction, pos, state) && !level.getBlockState(pos).is(Blocks.WATER);
 	}
 
 	@NotNull
@@ -62,16 +60,13 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		boolean bl = false;
 		if (level.getBlockState(pos).is(Blocks.WATER)) return false;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : DIRECTIONS) {
-			if (hasFace(state, direction)) {
-				if (!canAttachToNoWater(level, direction, mutableBlockPos.setWithOffset(pos, direction), level.getBlockState(mutableBlockPos))) return false;
-				bl = true;
-			}
+			if (!hasFace(state, direction)) continue;
+			return canAttachToNoWater(level, direction, mutable.setWithOffset(pos, direction), level.getBlockState(mutable));
 		}
-		return bl;
+		return false;
 	}
 
 	@Override
@@ -80,9 +75,9 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	}
 
 	@Override
-	public boolean isValidStateForPlacement(BlockGetter view, @NotNull BlockState state, BlockPos pos, Direction dir) {
+	public boolean isValidStateForPlacement(BlockGetter level, @NotNull BlockState state, BlockPos pos, Direction direction) {
 		if (!state.getFluidState().isEmpty()) return false;
-		return super.isValidStateForPlacement(view, state, pos, dir);
+		return super.isValidStateForPlacement(level, state, pos, direction);
 	}
 
 	@Override
@@ -116,13 +111,14 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	}
 
 	public class PollenSpreaderConfig extends MultifaceSpreader.DefaultSpreaderConfig {
+
 		public PollenSpreaderConfig() {
 			super(PollenBlock.this);
 		}
 
 		@Override
-		public boolean stateCanBeReplaced(BlockGetter view, BlockPos posA, BlockPos posB, Direction dir, @NotNull BlockState state) {
-			return state.getFluidState().isEmpty() && super.stateCanBeReplaced(view, posA, posB, dir, state);
+		public boolean stateCanBeReplaced(BlockGetter view, BlockPos posA, BlockPos posB, Direction direction, @NotNull BlockState state) {
+			return state.getFluidState().isEmpty() && super.stateCanBeReplaced(view, posA, posB, direction, state);
 		}
 	}
 }

@@ -54,8 +54,8 @@ public class PlanktonBlock extends AlgaeBlock {
 	public static final float PARTICLE_SPAWN_CHANCE = 0.5F;
 	public static final float PARTICLE_SPAWN_CHANCE_GLOWING = 0.75F;
 
-	public PlanktonBlock(@NotNull BlockBehaviour.Properties settings) {
-		super(settings);
+	public PlanktonBlock(@NotNull BlockBehaviour.Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(GLOWING, Boolean.FALSE));
 	}
 

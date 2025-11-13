@@ -66,7 +66,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
+	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -107,13 +107,9 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 		if (this.tryChangingState(state, level, blockPos, randomSource)) {
 			level.sendParticles(
 				ParticleTypes.BUBBLE,
-				blockPos.getX() + 0.5D,
-				blockPos.getY() + 0.5125D,
-				blockPos.getZ() + 0.5D,
+				blockPos.getX() + 0.5D, blockPos.getY() + 0.5125D, blockPos.getZ() + 0.5D,
 				randomSource.nextInt(1, 3),
-				0D,
-				0D,
-				0D,
+				0D, 0D, 0D,
 				0.05D
 			);
 		}
@@ -122,22 +118,18 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected void tick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (this.tryChangingState(blockState, serverLevel, pos, random)) {
-			serverLevel.sendParticles(
+	protected void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		if (this.tryChangingState(state, level, pos, random)) {
+			level.sendParticles(
 				ParticleTypes.BUBBLE,
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5125D,
-				pos.getZ() + 0.5D,
+				pos.getX() + 0.5D, pos.getY() + 0.5125D, pos.getZ() + 0.5D,
 				random.nextInt(1, 3),
-				0D,
-				0D,
-				0D,
+				0D, 0D, 0D,
 				0.05D
 			);
 		}
 
-		super.tick(blockState, serverLevel, pos, random);
+		super.tick(state, level, pos, random);
 	}
 
 	public static boolean isGlowing(@NotNull BlockState state) {

@@ -31,8 +31,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class BaobabLeavesBlock extends TintedParticleLeavesBlock implements BonemealableBlock {
 
-	public BaobabLeavesBlock(float leafParticleChance, @NotNull BlockBehaviour.Properties settings) {
-		super(leafParticleChance, settings);
+	public BaobabLeavesBlock(float leafParticleChance, @NotNull BlockBehaviour.Properties properties) {
+		super(leafParticleChance, properties);
 	}
 
 	@Override

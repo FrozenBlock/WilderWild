@@ -50,7 +50,7 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 		return this.nonFloweringBlock;
 	}
 
-	public boolean canShearIntoOriginalBlock(LevelReader world, BlockPos pos, BlockState state) {
+	public boolean canShearIntoOriginalBlock(LevelReader level, BlockPos pos, BlockState state) {
 		return WWBlockConfig.get().flower.shearFloweringLilypads;
 	}
 
@@ -76,18 +76,16 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 		@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
-		if (!level.isClientSide()) {
-			onShear(level, pos, state, player);
-			stack.hurtAndBreak(1, player, hand);
-		}
+		if (level.isClientSide()) return;
+		onShear(level, pos, state, player);
+		stack.hurtAndBreak(1, player, hand);
 	}
 
 	public void onShear(@NotNull Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
-		if (!level.isClientSide()) {
-			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
-		}
+		if (level.isClientSide()) return;
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
 	}
 }

@@ -78,8 +78,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	};
 	private final TreeGrower treeGrower;
 
-	public CoconutBlock(TreeGrower treeGrower, @NotNull Properties settings) {
-		super(settings);
+	public CoconutBlock(TreeGrower treeGrower, @NotNull Properties properties) {
+		super(properties);
 		this.treeGrower = treeGrower;
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(HANGING, false));
 	}
@@ -154,7 +154,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	@NotNull
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		Vec3 vec3d = state.getOffset(pos);
+		final Vec3 vec3d = state.getOffset(pos);
 		VoxelShape voxelShape;
 		if (!state.getValue(HANGING)) {
 			voxelShape = SHAPES[3];

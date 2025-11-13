@@ -59,8 +59,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 
-	public OsseousSculkBlock(@NotNull Properties settings) {
-		super(settings);
+	public OsseousSculkBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
 	}
 

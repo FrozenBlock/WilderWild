@@ -74,9 +74,9 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		@NotNull Holder<MobEffect> suspiciousStewEffect,
 		int effectDuration,
 		Block nonSeedingFlower,
-		@NotNull Properties settings
+		@NotNull Properties properties
 	) {
-		super(suspiciousStewEffect, effectDuration, settings);
+		super(suspiciousStewEffect, effectDuration, properties);
 		this.nonSeedingFlower = nonSeedingFlower;
 	}
 
@@ -112,44 +112,42 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		@NotNull BlockPos pos,
 		@NotNull Player player,
 		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hit
+		@NotNull BlockHitResult hitResult
 	) {
 		if (this.canShearIntoOriginalFlower(level, pos, state) && stack.is(Items.SHEARS)) {
 			onPlayerShear(level, pos, state, player, hand, stack);
 			return InteractionResult.SUCCESS;
 		}
-		return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
 	public void onPlayerShear(
 		@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
-		if (!level.isClientSide()) {
-			onShear(level, pos, state, player);
-			stack.hurtAndBreak(1, player, hand);
-		}
+		if (level.isClientSide()) return;
+		onShear(level, pos, state, player);
+		stack.hurtAndBreak(1, player, hand);
 	}
 
 	public void onShear(@NotNull Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
-		if (!level.isClientSide()) {
-			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
-			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
-		}
+		if (level.isClientSide()) return;
+		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
+		this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
+		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+		level.gameEvent(entity, GameEvent.SHEAR, pos);
 	}
 
-	public void spawnSeedsFrom(@NotNull Level level, BlockPos pos, @NotNull BlockState blockState, int minSeeds, int maxSeeds, Vec3 velocity) {
-		Vec3 offset = blockState.getOffset(pos);
+	public void spawnSeedsFrom(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int minSeeds, int maxSeeds, Vec3 velocity) {
+		final Vec3 offset = state.getOffset(pos);
 
-		double x = pos.getX() + 0.5D + offset.x;
-		double y = pos.getY() + SEED_SPAWN_HEIGHT;
-		double z = pos.getZ() + 0.5D + offset.z;
-		int count = level.getRandom().nextIntBetweenInclusive(minSeeds, maxSeeds);
+		final double x = pos.getX() + 0.5D + offset.x;
+		final double y = pos.getY() + SEED_SPAWN_HEIGHT;
+		final double z = pos.getZ() + 0.5D + offset.z;
+		final int count = level.getRandom().nextIntBetweenInclusive(minSeeds, maxSeeds);
 
-		SeedParticleOptions options = velocity != null
+		final SeedParticleOptions options = velocity != null
 			? SeedParticleOptions.controlled(false, velocity.x, 0.3D, velocity.z)
 			: SeedParticleOptions.unControlled(false);
 
@@ -186,17 +184,17 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		boolean bl
 	) {
 		if (!level.isClientSide()) return;
-		AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
-		if (shape.intersects(entity.getBoundingBox())) {
-			Vec3 movement = entity.getDeltaMovement();
-			double horizontalDistance = movement.horizontalDistance();
-			double horizontalVelocity = horizontalDistance * 1.9D;
+		final AABB shape = this.getShape(state, level, pos, CollisionContext.of(entity)).bounds().move(pos);
+		if (!shape.intersects(entity.getBoundingBox())) return;
 
-			if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
-				int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
-				int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
-				this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));
-			}
+		final Vec3 movement = entity.getDeltaMovement();
+		final double horizontalDistance = movement.horizontalDistance();
+		final double horizontalVelocity = horizontalDistance * 1.9D;
+
+		if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
+			final int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
+			final int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
+			this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));
 		}
 	}
 

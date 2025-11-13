@@ -89,8 +89,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5D, 0D, 5D, 11D, 7D, 11.0D), Block.box(6D, 7D, 6D, 10D, 8D, 10D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5D, 2D, 5D, 11D, 9D, 11.0D), Block.box(6D, 9D, 6D, 10D, 10D, 10D));
 
-	public DisplayLanternBlock(@NotNull Properties settings) {
-		super(settings.pushReaction(PushReaction.DESTROY));
+	public DisplayLanternBlock(@NotNull Properties properties) {
+		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
@@ -210,7 +210,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		Direction direction = attachedDirection(state).getOpposite();
+		final Direction direction = attachedDirection(state).getOpposite();
 		return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
 	}
 
@@ -279,8 +279,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	protected int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos, Direction direction) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof DisplayLanternBlockEntity displayLanternBlockEntity) return displayLanternBlockEntity.getComparatorOutput();
+		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern) return displayLantern.getComparatorOutput();
 		return 0;
 	}
 

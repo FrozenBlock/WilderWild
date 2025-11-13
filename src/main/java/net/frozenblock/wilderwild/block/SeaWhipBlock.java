@@ -56,55 +56,55 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return blockState.isFaceSturdy(blockGetter, blockPos, Direction.UP) && !blockState.is(Blocks.MAGMA_BLOCK) && !blockState.is(WWBlocks.GEYSER);
+	protected boolean mayPlaceOn(@NotNull BlockState blockState, BlockGetter level, BlockPos pos) {
+		return blockState.isFaceSturdy(level, pos, Direction.UP) && !blockState.is(Blocks.MAGMA_BLOCK) && !blockState.is(WWBlocks.GEYSER);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext blockPlaceContext) {
-		return this.isValidWaterToReplace(blockPlaceContext.getLevel(), blockPlaceContext.getClickedPos()) ? super.getStateForPlacement(blockPlaceContext) : null;
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		return this.isValidWaterToReplace(context.getLevel(), context.getClickedPos()) ? super.getStateForPlacement(context) : null;
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		BlockState updatedShape = super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
-		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
+		final BlockState updatedShape = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		return updatedShape;
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
+	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
+	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader levelReader, BlockPos blockPos) {
-		BlockState blockState = levelReader.getBlockState(blockPos);
-		FluidState fluidState = blockState.getFluidState();
-		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
+	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		final FluidState fluidState = state.getFluidState();
+		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 }
