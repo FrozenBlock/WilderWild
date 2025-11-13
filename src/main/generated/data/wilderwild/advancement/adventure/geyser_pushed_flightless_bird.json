@@ -12,6 +12,7 @@
               "type": [
                 "minecraft:chicken",
                 "wilderwild:ostrich",
+                "wilderwild:zombie_ostrich",
                 "wilderwild:penguin"
               ],
               "movement": {

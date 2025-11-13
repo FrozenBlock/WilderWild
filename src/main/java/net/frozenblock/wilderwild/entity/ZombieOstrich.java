@@ -28,6 +28,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -41,6 +43,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -60,7 +63,7 @@ public class ZombieOstrich extends AbstractOstrich {
 			.add(Attributes.MAX_HEALTH, 20D)
 			.add(Attributes.MOVEMENT_SPEED, 0.275F)
 			.add(Attributes.STEP_HEIGHT, 1.5D)
-			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
+			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE_ZOMBIE);
 	}
 
 	public static boolean checkZombieOstrichSpawnRules(
@@ -115,13 +118,14 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public int getMaxTemper() {
-		return 200;
+	public boolean isMobControlled() {
+		return this.getFirstPassenger() instanceof Mob;
 	}
 
 	@Override
-	public boolean isMobControlled() {
-		return this.getFirstPassenger() instanceof Mob;
+	public InteractionResult interact(Player player, InteractionHand hand) {
+		this.setPersistenceRequired();
+		return super.interact(player, hand);
 	}
 
 	@Override

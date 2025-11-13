@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.layer;
+package net.frozenblock.wilderwild.mixin.client.equipment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,12 +61,16 @@ public class LayerTypeMixin {
 		)
 	)
 	private static void wilderWild$addCustomLayerType(CallbackInfo info) {
-		var types = new ArrayList<>(Arrays.asList($VALUES));
+		final var types = new ArrayList<>(Arrays.asList($VALUES));
 		var last = types.get(types.size() - 1);
 
-		var ostrichSaddle = wilderWild$newType("WILDERWILD_OSTRICH_SADDLE", last.ordinal() + 1, "wilderwildOstrich");
+		final var ostrichSaddle = wilderWild$newType("WILDERWILD_OSTRICH_SADDLE", last.ordinal() + 1, "wilderwild_ostrich_saddle");
 		WWEquipmentClientInfo.OSTRICH_SADDLE = ostrichSaddle;
 		types.add(ostrichSaddle);
+
+		final var ostrichZombieSaddle = wilderWild$newType("WILDERWILD_OSTRICH_ZOMBIE_SADDLE", last.ordinal() + 1, "wilderwild_ostrich_zombie_saddle");
+		WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE = ostrichZombieSaddle;
+		types.add(ostrichZombieSaddle);
 
 		$VALUES = types.toArray(new EquipmentClientInfo.LayerType[0]);
 	}

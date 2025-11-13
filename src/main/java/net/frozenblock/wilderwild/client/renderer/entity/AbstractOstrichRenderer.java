@@ -19,15 +19,11 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
-import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
@@ -37,17 +33,6 @@ public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S exten
 
 	public AbstractOstrichRenderer(EntityRendererProvider.Context context, M adultModel, M babyModel) {
 		super(context, adultModel, babyModel, 0.75F);
-
-		this.addLayer(
-			new SimpleEquipmentLayer<>(
-				this,
-				context.getEquipmentRenderer(),
-				WWEquipmentClientInfo.OSTRICH_SADDLE,
-				ostrichRenderState -> ostrichRenderState.saddle,
-				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
-				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
-			)
-		);
 	}
 
 	@Override

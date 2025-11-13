@@ -99,6 +99,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	public static final int BEAK_STUCK_TICKS = 36;
 	public static final int BEAK_STUCK_TICKS_AGGRESSIVE = 20;
 	public static final float MAX_ATTACK_DAMAGE = 6F;
+	public static final float MAX_ATTACK_DAMAGE_ZOMBIE = 7.5F;
 	public static final float ADDITIONAL_DAMAGE_RIDER = 1F;
 	public static final float ADDITIONAL_KNOCKBACK_RIDER = 0.5F;
 	public static final double ATTACK_BOX_WIDTH = 0.5F;
@@ -314,7 +315,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 			);
 		}
 
-		boolean didHurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
+		final boolean didHurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
 		if (!didHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
 		} else if (entity instanceof LivingEntity livingEntity) {
@@ -458,8 +459,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Override
 	public boolean canJump() {
-		final boolean hasPlayerPassenger = this.getFirstPassenger() instanceof Player;
-		return (!hasPlayerPassenger || WWEntityConfig.get().ostrich.allowAttack) && !this.refuseToMove() && super.canJump();
+		return (this.isMobControlled() || WWEntityConfig.get().ostrich.allowAttack) && !this.refuseToMove() && super.canJump();
 	}
 
 	@Override
@@ -889,13 +889,9 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		final Vec3 hitLocation = beakHitResult.getLocation();
 		serverLevel.sendParticles(
 			blockParticleOption,
-			hitLocation.x(),
-			hitLocation.y(),
-			hitLocation.z(),
+			hitLocation.x(), hitLocation.y(), hitLocation.z(),
 			count,
-			0D,
-			0D,
-			0D,
+			0D, 0D, 0D,
 			0.05D + deltaBeakPos.length()
 		);
 	}

@@ -19,11 +19,18 @@ package net.frozenblock.wilderwild.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class WWEquipmentClientInfo {
 	public static EquipmentClientInfo.LayerType OSTRICH_SADDLE;
+	public static EquipmentClientInfo.LayerType OSTRICH_ZOMBIE_SADDLE;
+
+	private static final Identifier SADDLE_LOCATION = WWConstants.id("saddle");
+	public static final EquipmentClientInfo.Layer OSTRICH_SADDLE_LAYER = new EquipmentClientInfo.Layer(SADDLE_LOCATION);
+	public static final EquipmentClientInfo.Layer OSTRICH_ZOMBIE_SADDLE_LAYER = new EquipmentClientInfo.Layer(SADDLE_LOCATION);
 
 	static {
 		EquipmentClientInfo.LayerType.values();

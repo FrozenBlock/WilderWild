@@ -38,7 +38,6 @@ import org.jetbrains.annotations.NotNull;
 @Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
 	private static final Identifier OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
-	private static final Identifier OSTRICH_SADDLE_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_saddle.png");
 
 	private final EntityModel<OstrichRenderState> normalModel;
 	private final EntityModel<OstrichRenderState> normalBabyModel;

@@ -21,6 +21,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
@@ -28,6 +29,7 @@ import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +40,17 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 
 	public UndeadOstrichRenderer(EntityRendererProvider.Context context) {
 		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
+
+		this.addLayer(
+			new SimpleEquipmentLayer<>(
+				this,
+				context.getEquipmentRenderer(),
+				WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE,
+				ostrichRenderState -> ostrichRenderState.saddle,
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
+				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
+			)
+		);
 	}
 
 	@Override
