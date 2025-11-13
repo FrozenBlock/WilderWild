@@ -32,9 +32,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The Shrub's break particles now only use its leaves overlay, instead of its stem and branches.
 - Updated the foliage colors of the Maple Forest biome.
 - Added new Timeline events for Wilder Wild.
+  - `wilderwild:gameplay/pale_mushroom_active` controls when Pale Mushroom Blocks, Pale Mushrooms, and Pale Shelf Fungi can emit particles. This is true at nighttime and false in daytime.
   - `wilderwild:gameplay/plankton_glowing` controls when Plankton can glow or not. This is true at nighttime and false in daytime.
   - `wilderwild:gameplay/sea_anemone_glowing` controls when Sea Anemone can glow or not. This is false at nighttime and true in daytime.
-  - `wilderwild:gameplay/pale_mushroom_active` controls when Pale Mushroom Blocks, Pale Mushrooms, and Pale Shelf Fungi can emit particles. This is true at nighttime and false in daytime.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
