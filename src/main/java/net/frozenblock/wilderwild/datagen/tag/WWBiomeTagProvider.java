@@ -617,6 +617,10 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.HAS_OSTRICH)
 			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA);
 
+		this.builder(WWBiomeTags.HAS_ZOMBIE_OSTRICH)
+			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
+			.addOptional(WWBiomes.ARID_SAVANNA);
+
 		this.builder(WWBiomeTags.HAS_PENGUIN)
 			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN);
 

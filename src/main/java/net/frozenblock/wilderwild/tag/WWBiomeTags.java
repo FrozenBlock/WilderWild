@@ -33,6 +33,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MOOBLOOM = bind("entity/spawn/moobloom");
 	public static final TagKey<Biome> HAS_CRAB = bind("entity/spawn/crab");
 	public static final TagKey<Biome> HAS_OSTRICH = bind("entity/spawn/ostrich");
+	public static final TagKey<Biome> HAS_ZOMBIE_OSTRICH = bind("entity/spawn/zombie_ostrich");
 	public static final TagKey<Biome> HAS_PENGUIN = bind("entity/spawn/penguin");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("entity/spawn/tumbleweed");
 

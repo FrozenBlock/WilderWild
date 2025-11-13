@@ -110,7 +110,7 @@ public final class WWSpawns {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_OSTRICH),
 			MobCategory.CREATURE, WWEntityTypes.OSTRICH, 4, 2, 4);
 
-		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_OSTRICH),
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_ZOMBIE_OSTRICH),
 			MobCategory.MONSTER, WWEntityTypes.ZOMBIE_OSTRICH, 2, 1, 2);
 	}
 
