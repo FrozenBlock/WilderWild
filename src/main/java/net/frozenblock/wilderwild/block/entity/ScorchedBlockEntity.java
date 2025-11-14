@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.NotNull;
 
 public class ScorchedBlockEntity extends BlockEntity {
 	private static final int RESET_DELAY = 40;
@@ -34,8 +33,8 @@ public class ScorchedBlockEntity extends BlockEntity {
 	private long brushCountResetsAtTick;
 	private long coolDownEndsAtTick;
 
-	public ScorchedBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		super(WWBlockEntityTypes.SCORCHED_BLOCK, blockPos, blockState);
+	public ScorchedBlockEntity(BlockPos pos, BlockState state) {
+		super(WWBlockEntityTypes.SCORCHED_BLOCK, pos, state);
 	}
 
 	public boolean brush(long l) {

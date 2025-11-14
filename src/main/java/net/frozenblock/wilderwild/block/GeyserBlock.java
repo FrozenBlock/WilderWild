@@ -39,7 +39,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -51,7 +50,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GeyserBlock extends BaseEntityBlock {
@@ -64,7 +62,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
-	public GeyserBlock(@NotNull Properties properties) {
+	public GeyserBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any()
 			.setValue(GEYSER_TYPE, GeyserType.NONE)
@@ -75,7 +73,6 @@ public class GeyserBlock extends BaseEntityBlock {
 		);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends GeyserBlock> codec() {
 		return CODEC;
@@ -83,12 +80,12 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new GeyserBlockEntity(pos, state);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(GEYSER_TYPE, GEYSER_STAGE, FACING, NATURAL, POWERED);
 	}
 
@@ -98,7 +95,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NotNull BlockState state, Level level, BlockPos pos, Direction direction) {
+	protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
 		final GeyserStage stage = state.getValue(GEYSER_STAGE);
 		if (stage == GeyserStage.DORMANT) return 0;
 		if (stage == GeyserStage.ACTIVE) return 5;
@@ -107,7 +104,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final Direction direction = context.getNearestLookingDirection().getOpposite();
@@ -138,12 +135,12 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
-		@NotNull Direction direction,
+		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
@@ -155,11 +152,11 @@ public class GeyserBlock extends BaseEntityBlock {
 		return state;
 	}
 
-	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull BlockState state, @NotNull BlockPos pos) {
+	public static GeyserType getGeyserTypeForPos(LevelReader level, BlockState state, BlockPos pos) {
 		return getGeyserTypeForPos(level, state.getValue(FACING), pos);
 	}
 
-	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull Direction direction, @NotNull BlockPos pos) {
+	public static GeyserType getGeyserTypeForPos(LevelReader level, Direction direction, BlockPos pos) {
 		final BlockPos checkPos = pos.relative(direction);
 		final BlockState checkState = level.getBlockState(checkPos);
 		if (!BlowingHelper.canBlowingPassThrough(level, checkPos, checkState, direction)) return GeyserType.NONE;
@@ -174,13 +171,13 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		final GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
 		if (geyserType != state.getValue(GEYSER_TYPE)) level.setBlockAndUpdate(pos, state.setValue(GEYSER_TYPE, geyserType));
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		final GeyserType geyserType = state.getValue(GEYSER_TYPE);
 		if (!isActive(geyserType)) return;
 
@@ -213,14 +210,8 @@ public class GeyserBlock extends BaseEntityBlock {
 		}
 	}
 
-	@NotNull
-	@Override
-	public RenderShape getRenderShape(@NotNull BlockState state) {
-		return RenderShape.MODEL;
-	}
-
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
 			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
@@ -230,8 +221,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		return geyserType != GeyserType.NONE;
 	}
 
-	@NotNull
-	public static Vec3 getParticleVelocity(@NotNull Direction direction, @NotNull RandomSource random, double min, double max) {
+	public static Vec3 getParticleVelocity(Direction direction, RandomSource random, double min, double max) {
 		final double difference = max - min;
 		final double velocity = min + (random.nextDouble() * difference);
 		final double x = direction.getStepX() * velocity;
@@ -240,12 +230,10 @@ public class GeyserBlock extends BaseEntityBlock {
 		return new Vec3(x, y, z);
 	}
 
-	@NotNull
-	public static Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, @NotNull Vec3 vec3, @NotNull RandomSource random, double max) {
+	public static Vec3 getVelocityFromDistance(BlockPos pos, Direction direction, Vec3 vec3, RandomSource random, double max) {
 		return vec3.subtract(getParticlePosWithoutRandom(pos, direction, random)).scale(random.nextDouble() * max);
 	}
 
-	@NotNull
 	public static Vec3 getParticlePosWithoutRandom(BlockPos pos, Direction direction, RandomSource random) {
 		return Vec3.atLowerCornerOf(pos).add(
 			getParticleOffsetX(direction, random, false),
@@ -254,7 +242,6 @@ public class GeyserBlock extends BaseEntityBlock {
 		);
 	}
 
-	@NotNull
 	public static Vec3 getParticlePos(BlockPos pos, Direction direction, RandomSource random) {
 		return Vec3.atLowerCornerOf(pos).add(
 			getParticleOffsetX(direction, random, true),
@@ -263,11 +250,11 @@ public class GeyserBlock extends BaseEntityBlock {
 		);
 	}
 
-	private static double getRandomParticleOffset(@NotNull RandomSource random) {
+	private static double getRandomParticleOffset(RandomSource random) {
 		return random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D);
 	}
 
-	private static double getParticleOffsetX(@NotNull Direction direction, RandomSource random, boolean useRandom) {
+	private static double getParticleOffsetX(Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
 			case UP, DOWN, SOUTH, NORTH -> 0.5D + (useRandom ? getRandomParticleOffset(random) : 0D);
 			case EAST -> 1.05D;
@@ -275,7 +262,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		};
 	}
 
-	private static double getParticleOffsetY(@NotNull Direction direction, RandomSource random, boolean useRandom) {
+	private static double getParticleOffsetY(Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
 			case DOWN -> -0.05D;
 			case UP -> 1.05D;
@@ -283,7 +270,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		};
 	}
 
-	private static double getParticleOffsetZ(@NotNull Direction direction, RandomSource random, boolean useRandom) {
+	private static double getParticleOffsetZ(Direction direction, RandomSource random, boolean useRandom) {
 		return switch (direction) {
 			case UP, DOWN, EAST, WEST -> 0.5D + (useRandom ? getRandomParticleOffset(random) : 0D);
 			case NORTH -> -0.05D;

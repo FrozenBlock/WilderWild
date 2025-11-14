@@ -26,7 +26,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
@@ -62,7 +61,7 @@ public class MesogleaWaterFogUtil {
 		);
 	}
 
-	public static void tick(@NotNull Level level, BlockPos pos, FogType fogType, boolean newlyInWaterOverride) {
+	public static void tick(Level level, BlockPos pos, FogType fogType, boolean newlyInWaterOverride) {
 		PREV_FOG_STRENGTH = FOG_STRENGTH;
 		PREV_FOG_COLOR = FOG_COLOR;
 		PREV_FOG_TYPE = FOG_TYPE;

@@ -57,7 +57,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FallingLeafUtil {
@@ -133,7 +132,7 @@ public class FallingLeafUtil {
 		if (leafParticleData != null) (isLitter ? PARTICLE_TO_LITTER_PARTICLE_DATA : PARTICLE_TO_LEAF_PARTICLE_DATA).put(leafParticle, leafParticleData);
 	}
 
-	public static @NotNull Optional<FallingLeafData> getFallingLeafData(Block block) {
+	public static Optional<FallingLeafData> getFallingLeafData(Block block) {
 		return Optional.ofNullable(LEAVES_TO_FALLING_LEAF_DATA.get(block));
 	}
 
@@ -145,7 +144,7 @@ public class FallingLeafUtil {
 		return PARTICLE_TO_LITTER_PARTICLE_DATA.getOrDefault(leafParticle, getLeafParticleData(leafParticle));
 	}
 
-	public static void onRandomTick(@NotNull BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		final Optional<FallingLeafData> optionalFallingLeafData = getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
@@ -174,7 +173,7 @@ public class FallingLeafUtil {
 		));
 	}
 
-	public static void sendLeafClusterParticle(@NotNull ServerLevel level, @NotNull BlockPos pos) {
+	public static void sendLeafClusterParticle(ServerLevel level, BlockPos pos) {
 		level.sendParticles(
 			WWParticleTypes.LEAF_CLUSTER_SPAWNER,
 			pos.getX(), pos.getY(), pos.getZ(),
@@ -184,7 +183,7 @@ public class FallingLeafUtil {
 		);
 	}
 
-	public static boolean isSafePosToPlaceLitter(@NotNull Level level, BlockPos pos, @NotNull BlockState stateToReplace, Block leafLitterBlock) {
+	public static boolean isSafePosToPlaceLitter(Level level, BlockPos pos, BlockState stateToReplace, Block leafLitterBlock) {
 		if (stateToReplace.is(Blocks.SNOW) || SnowloggingUtils.isSnowlogged(stateToReplace)) return false;
 		if ((stateToReplace.isAir() || stateToReplace.canBeReplaced() || stateToReplace.is(leafLitterBlock)) && stateToReplace.getFluidState().isEmpty()) {
 			return leafLitterBlock.canSurvive(leafLitterBlock.defaultBlockState(), level, pos);
@@ -192,7 +191,7 @@ public class FallingLeafUtil {
 		return false;
 	}
 
-	public static boolean addFallingLeafParticles(@NotNull BlockState state, Level level, BlockPos pos, RandomSource random) {
+	public static boolean addFallingLeafParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!WWAmbienceAndMiscConfig.Client.USE_WILDER_WILD_FALLING_LEAVES) return false;
 
 		final Optional<FallingLeafData> optionalFallingLeafData = getFallingLeafData(state.getBlock());
@@ -212,10 +211,10 @@ public class FallingLeafUtil {
 	}
 
 	public static void trySpawnWalkParticles(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
 		boolean checkCollision
 	) {
 		if (checkCollision) {
@@ -239,7 +238,7 @@ public class FallingLeafUtil {
 		spawnWalkingParticles(level, pos, state, movement);
 	}
 
-	private static void spawnWalkingParticles(@NotNull Level level, BlockPos pos, @NotNull BlockState state, Vec3 velocity) {
+	private static void spawnWalkingParticles(Level level, BlockPos pos, BlockState state, Vec3 velocity) {
 		boolean litter = false;
 		if (state.is(WWBlockTags.LEAF_LITTERS)) {
 			litter = true;
@@ -265,9 +264,9 @@ public class FallingLeafUtil {
 	}
 
 	public static void trySendExplosionParticles(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
+		BlockState state,
+		Level level,
+		BlockPos pos,
 		Explosion explosion
 	) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
@@ -300,7 +299,7 @@ public class FallingLeafUtil {
 		WWLeavesExplosionParticlePacket.sendToAll(state, pos, difference.scale((leafPower * leafPower) * 0.2D), validDirections, count.get(), serverLevel);
 	}
 
-	public static void clientSpawnExplosionParticlesFromPacket(Level level, @NotNull WWLeavesExplosionParticlePacket packet) {
+	public static void clientSpawnExplosionParticlesFromPacket(Level level, WWLeavesExplosionParticlePacket packet) {
 		if (!WWAmbienceAndMiscConfig.Client.EXPLOSION_LEAF_PARTICLES) return;
 
 		final BlockState state = packet.state();
@@ -357,12 +356,12 @@ public class FallingLeafUtil {
 		}
 	}
 
-	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(@NotNull FallingLeafData fallingLeafData, boolean isLitter) {
+	public static WWFallingLeavesParticleOptions createLeafParticleOptions(FallingLeafData fallingLeafData, boolean isLitter) {
 		return createLeafParticleOptions(fallingLeafData, isLitter, gravity -> gravity);
 	}
 
-	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(
-		@NotNull FallingLeafData fallingLeafData, boolean isLitter, @NotNull Function<Float, Float> gravityModifier
+	public static WWFallingLeavesParticleOptions createLeafParticleOptions(
+		FallingLeafData fallingLeafData, boolean isLitter, Function<Float, Float> gravityModifier
 	) {
 		final ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
 		final LeafParticleData leafParticleData = isLitter ? getLitterOrLeafParticleData(leafParticle) : getLeafParticleData(leafParticle);
@@ -376,20 +375,20 @@ public class FallingLeafUtil {
 		);
 	}
 
-	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(
-		@NotNull FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter
+	public static WWFallingLeavesParticleOptions createLeafParticleOptions(
+		FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter
 	) {
 		return createLeafParticleOptions(fallingLeafData, velocity, isLitter, false, gravity -> gravity);
 	}
 
-	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(
-		@NotNull FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter, @NotNull Function<Float, Float> gravityModifier
+	public static WWFallingLeavesParticleOptions createLeafParticleOptions(
+		FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter, Function<Float, Float> gravityModifier
 	) {
 		return createLeafParticleOptions(fallingLeafData, velocity, isLitter, false, gravityModifier);
 	}
 
-	public static @NotNull WWFallingLeavesParticleOptions createLeafParticleOptions(
-		@NotNull FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter, boolean useGroundSupportingMovement, @NotNull Function<Float, Float> gravityModifier
+	public static WWFallingLeavesParticleOptions createLeafParticleOptions(
+		FallingLeafData fallingLeafData, Vec3 velocity, boolean isLitter, boolean useGroundSupportingMovement, Function<Float, Float> gravityModifier
 	) {
 		final ParticleType<WWFallingLeavesParticleOptions> leafParticle = fallingLeafData.particle();
 		final LeafParticleData leafParticleData = isLitter ? getLitterOrLeafParticleData(leafParticle) : getLeafParticleData(leafParticle);
@@ -432,12 +431,12 @@ public class FallingLeafUtil {
 		public static final Codec<LeafMovementType> CODEC = StringRepresentable.fromEnum(LeafMovementType::values);
 		public static final StreamCodec<ByteBuf, LeafMovementType> STREAM_CODEC = new StreamCodec<>() {
 			@Override
-			public @NotNull LeafMovementType decode(ByteBuf byteBuf) {
+			public LeafMovementType decode(ByteBuf byteBuf) {
 				return LeafMovementType.valueOf(ByteBufCodecs.STRING_UTF8.decode(byteBuf));
 			}
 
 			@Override
-			public void encode(ByteBuf byteBuf, @NotNull LeafMovementType leafMovementType) {
+			public void encode(ByteBuf byteBuf, LeafMovementType leafMovementType) {
 				ByteBufCodecs.STRING_UTF8.encode(byteBuf, leafMovementType.name());
 			}
 		};
@@ -475,7 +474,7 @@ public class FallingLeafUtil {
 		}
 
 		@Override
-		public @NotNull String getSerializedName() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}

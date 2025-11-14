@@ -33,36 +33,35 @@ import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
-	public static void clearSculkVeins(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+	public static void clearSculkVeins(LevelAccessor level, BlockPos pos) {
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		BlockState stateReplace;
 		Direction oppositeDirection;
 		for (Direction direction : BlockBehaviour.UPDATE_SHAPE_ORDER) {
-			stateReplace = level.getBlockState(mutableBlockPos.move(direction));
+			stateReplace = level.getBlockState(mutable.move(direction));
 			oppositeDirection = direction.getOpposite();
 			if (stateReplace.is(Blocks.SCULK_VEIN)) {
 				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
 				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
 					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 				}
-				level.setBlock(mutableBlockPos, stateReplace, Block.UPDATE_ALL);
+				level.setBlock(mutable, stateReplace, Block.UPDATE_ALL);
 			}
-			mutableBlockPos.move(oppositeDirection);
+			mutable.move(oppositeDirection);
 		}
 	}
 
 	@Override
 	public int attemptUseCharge(
-		@NotNull SculkSpreader.ChargeCursor cursor,
-		@NotNull LevelAccessor level,
-		@NotNull BlockPos catalystPos,
-		@NotNull RandomSource random,
-		@NotNull SculkSpreader spreader,
+		SculkSpreader.ChargeCursor cursor,
+		LevelAccessor level,
+		BlockPos catalystPos,
+		RandomSource random,
+		SculkSpreader spreader,
 		boolean shouldConvertToBlock
 	) {
 		final BlockPos pos = cursor.getPos();
@@ -80,10 +79,8 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 	}
 
 	@Override
-	public boolean attemptSpreadVein(
-		@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing
-	) {
-		BlockState placeState = switchBlockStates(level.getBlockState(pos));
+	public boolean attemptSpreadVein(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
+		final BlockState placeState = switchBlockStates(level.getBlockState(pos));
 		if (placeState != null) {
 			level.setBlock(pos, placeState, Block.UPDATE_ALL);
 			clearSculkVeins(level, pos);
@@ -93,10 +90,10 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 	}
 
 	@Nullable
-	private BlockState switchBlockStates(@NotNull BlockState blockState) {
-		if (blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(blockState);
-		if (blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(blockState);
-		if (blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || blockState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(blockState);
+	private BlockState switchBlockStates(BlockState state) {
+		if (state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(state);
+		if (state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(state);
+		if (state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(state);
 		return null;
 	}
 

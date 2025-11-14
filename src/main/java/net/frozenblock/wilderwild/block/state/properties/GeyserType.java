@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public enum GeyserType implements StringRepresentable {
 	NONE("none", SoundEvents.EMPTY),
@@ -55,7 +54,6 @@ public enum GeyserType implements StringRepresentable {
 	}
 
 	@Override
-	@NotNull
 	public String getSerializedName() {
 		return this.name;
 	}

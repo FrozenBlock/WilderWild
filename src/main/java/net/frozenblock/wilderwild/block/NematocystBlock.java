@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
-import org.jetbrains.annotations.NotNull;
 
 public class NematocystBlock extends FaceClusterSpreadableBlock {
 	public static final int HEIGHT = 7;
@@ -35,41 +34,38 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
-	public NematocystBlock(int height, int xzOffset, @NotNull Properties properties) {
+	public NematocystBlock(int height, int xzOffset, Properties properties) {
 		super(height, xzOffset, properties);
 	}
 
-	public NematocystBlock(@NotNull Properties properties) {
+	public NematocystBlock(Properties properties) {
 		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.DESTROY));
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends MultifaceSpreadeableBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
 	public NematocystSpreader getSpreader() {
 		return this.spreader;
 	}
 
 	public static class NematocystSpreader extends MultifaceSpreader {
 
-		public NematocystSpreader(@NotNull NematocystBlock block) {
+		public NematocystSpreader(NematocystBlock block) {
 			super(block);
 		}
 
 		@Override
-		@NotNull
 		public Optional<SpreadPos> getSpreadFromFaceTowardDirection(
-			@NotNull BlockState state,
-			@NotNull BlockGetter level,
-			@NotNull BlockPos pos,
-			@NotNull Direction spreadDirection,
-			@NotNull Direction face,
-			@NotNull MultifaceSpreader.SpreadPredicate predicate
+			BlockState state,
+			BlockGetter level,
+			BlockPos pos,
+			Direction spreadDirection,
+			Direction face,
+			MultifaceSpreader.SpreadPredicate predicate
 		) {
 			if (face.getAxis() == spreadDirection.getAxis()) return Optional.empty();
 			if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {

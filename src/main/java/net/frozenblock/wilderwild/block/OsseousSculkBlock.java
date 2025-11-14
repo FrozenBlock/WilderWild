@@ -42,7 +42,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OsseousSculkBlock extends Block implements SculkBehaviour {
@@ -59,12 +58,11 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 
-	public OsseousSculkBlock(@NotNull Properties properties) {
+	public OsseousSculkBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends OsseousSculkBlock> codec() {
 		return CODEC;
@@ -72,23 +70,23 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context).setValue(FACING, context.getClickedFace());
 	}
 
 	@Override
-	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
 		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
 	}
 
 	@Override
 	public int attemptUseCharge(
-		@NotNull SculkSpreader.ChargeCursor cursor,
-		@NotNull LevelAccessor level,
-		@NotNull BlockPos catalystPos,
-		@NotNull RandomSource random,
-		@NotNull SculkSpreader spreader,
+		SculkSpreader.ChargeCursor cursor,
+		LevelAccessor level,
+		BlockPos catalystPos,
+		RandomSource random,
+		SculkSpreader spreader,
 		boolean shouldConvertBlocks
 	) {
 		final boolean isWorldGeneration = spreader.isWorldGeneration();
@@ -134,18 +132,18 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		return cursorCharge;
 	}
 
-	private static void playPlaceSound(@NotNull LevelAccessor level, BlockPos pos, @NotNull BlockState state) {
+	private static void playPlaceSound(LevelAccessor level, BlockPos pos, BlockState state) {
 		final SoundType soundType = state.getSoundType();
 		level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch() * 0.8F);
 	}
 
-	private BlockState getGrowthState(@NotNull RandomSource random, @NotNull Direction direction) {
+	private BlockState getGrowthState(RandomSource random, Direction direction) {
 		BlockState state = this.defaultBlockState().setValue(FACING, direction);
 		if (direction == Direction.UP && random.nextInt(CATALYST_GROWTH_CHANCE) == 0) state = Blocks.SCULK_CATALYST.defaultBlockState();
 		return state;
 	}
 
-	private void convertBottomToSculk(@NotNull LevelAccessor level, @NotNull BlockPos topPos, RandomSource random) {
+	private void convertBottomToSculk(LevelAccessor level, BlockPos topPos, RandomSource random) {
 		final Optional<BlockPos> possibleBottom = getPillarEnd(level, topPos, false);
 		if (possibleBottom.isEmpty()) return;
 		final BlockPos bottom = possibleBottom.get();
@@ -153,7 +151,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		if (bottomState.is(this) && random.nextInt(0, SCULK_CONVERSION_CHANCE) == 0) this.convertToSculk(level, bottom);
 	}
 
-	public void convertToSculk(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+	public void convertToSculk(LevelAccessor level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		final BlockState state = level.getBlockState(mutable);
 		if (!state.is(this)) return;
@@ -176,7 +174,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		level.setBlock(pos, Blocks.SCULK.defaultBlockState(), UPDATE_ALL);
 	}
 
-	public static void placeVeinsAround(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+	public static void placeVeinsAround(LevelAccessor level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.values()) {
 			final BlockState replacingState = level.getBlockState(mutable.setWithOffset(pos, direction));
@@ -196,11 +194,11 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		}
 	}
 
-	public static boolean isSafeToReplace(@NotNull BlockState state) {
+	public static boolean isSafeToReplace(BlockState state) {
 		return state.canBeReplaced() || state.is(Blocks.SCULK_VEIN);
 	}
 
-	public Optional<BlockPos> getPillarEnd(@NotNull LevelAccessor level, @NotNull BlockPos pos, boolean top) {
+	public Optional<BlockPos> getPillarEnd(LevelAccessor level, BlockPos pos, boolean top) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		final BlockPos.MutableBlockPos searchingMutable = pos.mutable();
 
@@ -219,14 +217,13 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 		return Optional.empty();
 	}
 
-	@NotNull
 	@Override
-	public BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
+	public BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 }

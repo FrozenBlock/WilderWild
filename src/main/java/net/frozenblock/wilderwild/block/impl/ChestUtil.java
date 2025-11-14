@@ -28,11 +28,10 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 
 public class ChestUtil {
 
-	public static @NotNull Optional<ChestBlockEntity> getCoupledChestBlockEntity(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static Optional<ChestBlockEntity> getCoupledChestBlockEntity(LevelReader level, BlockPos pos, BlockState state) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		final ChestType chestType = state.getValue(ChestBlock.TYPE);
 		if (chestType == ChestType.RIGHT) {
@@ -46,13 +45,13 @@ public class ChestUtil {
 		return Optional.empty();
 	}
 
-	public static @NotNull Optional<StoneChestBlockEntity> getCoupledStoneChestBlockEntity(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static Optional<StoneChestBlockEntity> getCoupledStoneChestBlockEntity(LevelAccessor level, BlockPos pos, BlockState state) {
 		final Optional<ChestBlockEntity> possibleCoupledChest = getCoupledChestBlockEntity(level, pos, state);
 		if (possibleCoupledChest.isPresent() && possibleCoupledChest.get() instanceof StoneChestBlockEntity stoneChest) return Optional.of(stoneChest);
 		return Optional.empty();
 	}
 
-	public static void updateBubbles(@NotNull BlockState oldState, @NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public static void updateBubbles(BlockState oldState, BlockState state, LevelReader level, BlockPos pos) {
 		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity chest && chest instanceof ChestBlockEntityInterface chestInterface)) return;
 
 		final Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);

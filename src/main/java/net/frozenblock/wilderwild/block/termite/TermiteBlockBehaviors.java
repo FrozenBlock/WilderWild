@@ -38,17 +38,16 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class TermiteBlockBehaviors {
 
-	private static @NotNull ResourceKey<TermiteBlockBehavior> createKey(String string) {
+	private static ResourceKey<TermiteBlockBehavior> createKey(String string) {
 		return ResourceKey.create(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, WWConstants.id(string));
 	}
 
 	public static void register(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		ResourceKey<TermiteBlockBehavior> resourceKey,
 		Block edibleBlock,
 		@Nullable Block outputBlock,
@@ -71,7 +70,7 @@ public final class TermiteBlockBehaviors {
 	}
 
 	public static void register(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		ResourceKey<TermiteBlockBehavior> resourceKey,
 		TagKey<Block> edibleBlocks,
 		@Nullable Block outputBlock,
@@ -94,9 +93,9 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerPlayerOnly(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		Block edibleBlock,
-		@NotNull Block outputBlock
+		Block outputBlock
 	) {
 		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
@@ -112,9 +111,9 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerNaturalAndPlayer(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		Block edibleBlock,
-		@NotNull Block outputBlock
+		Block outputBlock
 	) {
 		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
@@ -130,9 +129,9 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerHollowed(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		Block edibleBlock,
-		@NotNull Block outputBlock
+		Block outputBlock
 	) {
 		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
@@ -148,7 +147,7 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerBreakable(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		Block edibleBlock
 	) {
 		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
@@ -165,7 +164,7 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerBreakable(
-		@NotNull BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
 		String name,
 		TagKey<Block> edibleBlocks
 	) {
@@ -181,7 +180,7 @@ public final class TermiteBlockBehaviors {
 		);
 	}
 
-	public static Optional<Holder<TermiteBlockBehavior>> getTermiteBlockBehavior(@NotNull RegistryAccess registryAccess, Block edibleBlock, boolean isNatural) {
+	public static Optional<Holder<TermiteBlockBehavior>> getTermiteBlockBehavior(RegistryAccess registryAccess, Block edibleBlock, boolean isNatural) {
 		Registry<TermiteBlockBehavior> registry = registryAccess.lookupOrThrow(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR);
 		List<Holder.Reference<TermiteBlockBehavior>> behaviors = registry.listElements()
 			.filter(reference -> {

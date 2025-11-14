@@ -33,7 +33,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -41,7 +40,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class PlanktonBlock extends AlgaeBlock {
 	public static final MapCodec<PlanktonBlock> CODEC = simpleCodec(PlanktonBlock::new);
@@ -54,25 +52,23 @@ public class PlanktonBlock extends AlgaeBlock {
 	public static final float PARTICLE_SPAWN_CHANCE = 0.5F;
 	public static final float PARTICLE_SPAWN_CHANCE_GLOWING = 0.75F;
 
-	public PlanktonBlock(@NotNull BlockBehaviour.Properties properties) {
+	public PlanktonBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any().setValue(GLOWING, Boolean.FALSE));
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends PlanktonBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!this.canSurvive(state, level, pos)) {
 			level.destroyBlock(pos, false);
 			return;
@@ -87,7 +83,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		final boolean glowing = isGlowing(state);
@@ -124,24 +120,17 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void entityInside(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier,
-		boolean bl
-	) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
 		if (entity.getY() > pos.getY() + SHAPE.max(Direction.Axis.Y)) return;
 		if (!(level instanceof ServerLevel serverLevel) || isGlowing(state)) return;
 		this.tryChangingState(state, serverLevel, pos);
 	}
 
-	public static boolean isGlowing(@NotNull BlockState blockState) {
+	public static boolean isGlowing(BlockState blockState) {
 		return blockState.getValue(GLOWING);
 	}
 
-	private void tryChangingState(BlockState state, @NotNull ServerLevel level, BlockPos pos) {
+	private void tryChangingState(BlockState state, ServerLevel level, BlockPos pos) {
 		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.PLANKTON_GLOWING, pos);
 		if (shouldGlow == isGlowing(state)) return;
 
@@ -156,7 +145,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(GLOWING);
 	}
 }

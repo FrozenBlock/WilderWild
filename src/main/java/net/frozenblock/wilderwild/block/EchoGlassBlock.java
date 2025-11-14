@@ -45,7 +45,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EchoGlassBlock extends TransparentBlock {
@@ -54,20 +53,20 @@ public class EchoGlassBlock extends TransparentBlock {
 	public static final IntegerProperty DAMAGE = WWBlockStateProperties.DAMAGE;
 	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
-	public EchoGlassBlock(@NotNull Properties properties) {
+	public EchoGlassBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(DAMAGE, 0));
 	}
 
-	public static boolean canDamage(@NotNull BlockState state) {
+	public static boolean canDamage(BlockState state) {
 		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < 3;
 	}
 
-	public static void setDamagedState(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public static void setDamagedState(Level level, BlockPos pos, BlockState state) {
 		level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
 	}
 
-	public static void damage(@NotNull Level level, @NotNull BlockPos pos, BlockState dtate, boolean shouldDrop) {
+	public static void damage(Level level, BlockPos pos, BlockState dtate, boolean shouldDrop) {
 		if (!canDamage(dtate)) {
 			level.destroyBlock(pos, shouldDrop);
 			return;
@@ -84,7 +83,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		);
 	}
 
-	public static void heal(@NotNull Level level, @NotNull BlockPos pos) {
+	public static void heal(Level level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final int damage = state.getOptionalValue(DAMAGE).orElse(0);
 		if (damage <= 0) return;
@@ -93,7 +92,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_REPAIR, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.1F + 0.9F);
 	}
 
-	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos pos) {
+	public static int getLightLevel(Level level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
@@ -104,7 +103,6 @@ public class EchoGlassBlock extends TransparentBlock {
 		return finalLight;
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends EchoGlassBlock> codec() {
 		return CODEC;
@@ -121,12 +119,12 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(DAMAGE);
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (getLightLevel(level, pos) <= 8) {
 			if (random.nextBoolean()) heal(level, pos);
 		} else {
@@ -135,7 +133,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		final var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 		if (canDamage(state) && EnchantmentHelper.getItemEnchantmentLevel(silkTouch, player.getMainHandItem()) < 1 && !player.isCreative()) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
@@ -147,7 +145,7 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
 		super.onProjectileHit(level, state, hit, projectile);
 		damage(level, hit.getBlockPos(), state, true);
 	}

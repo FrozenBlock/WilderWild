@@ -50,7 +50,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TumbleweedPlantBlock extends DryVegetationBlock implements BonemealableBlock {
@@ -69,22 +68,22 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		Block.box(1D, 0D, 1D, 15D, 14D, 15D)
 	};
 
-	public TumbleweedPlantBlock(@NotNull Properties properties) {
+	public TumbleweedPlantBlock(Properties properties) {
 		super(properties);
 	}
 
-	public static boolean isFullyGrown(@NotNull BlockState state) {
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	public static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends TumbleweedPlantBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(RANDOM_TICK_CHANCE) != 0) return;
 
 		if (!isFullyGrown(state)) {
@@ -108,47 +107,45 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(AGE) < AGE_FOR_SOLID_COLLISION ? Shapes.empty() : super.getCollisionShape(state, level, pos, context);
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPES[state.getValue(AGE)];
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(WWBlockTags.SHRUB_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return !isFullyGrown(state);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 
 	@Override
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, player)) {
 			stack.hurtAndBreak(1, player, hand);
@@ -157,7 +154,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		if (!isFullyGrown(state)) return false;
 		if (level.isClientSide()) return true;
 		Tumbleweed.spawnFromShears(level, pos);
@@ -168,7 +165,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
 	}

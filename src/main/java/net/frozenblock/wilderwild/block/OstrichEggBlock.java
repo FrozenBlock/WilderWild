@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
@@ -47,33 +46,31 @@ public class OstrichEggBlock extends Block {
 	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 	private static final VoxelShape SHAPE = Block.box(5D, 0D, 5D, 11D, 8D, 11D);
 
-	public OstrichEggBlock(BlockBehaviour.Properties properties) {
+	public OstrichEggBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0));
 	}
 
-	public static boolean isSafeToHatch(@NotNull Level level, @NotNull BlockPos belowPos) {
+	public static boolean isSafeToHatch(Level level, BlockPos belowPos) {
 		return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends OstrichEggBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(HATCH);
 	}
 
-	@NotNull
 	@Override
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
-	public int getHatchLevel(@NotNull BlockState state) {
+	public int getHatchLevel(BlockState state) {
 		return state.getValue(HATCH);
 	}
 
@@ -82,7 +79,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!shouldUpdateHatchLevel(level, pos)) return;
 		if (this.isReadyToHatch(state)) {
 			this.hatchOstrichEgg(level, pos, random);
@@ -93,28 +90,28 @@ public class OstrichEggBlock extends Block {
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		super.onPlace(state, level, pos, oldState, movedByPiston);
 		level.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, pos, 0);
 	}
 
-	private boolean shouldUpdateHatchLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+	private boolean shouldUpdateHatchLevel(Level level, BlockPos blockPos) {
 		if (!isSafeToHatch(level, blockPos.below())) return false;
 		if (level.isBrightOutside()) return level.getRandom().nextInt(17) == 0;
 		return level.getRandom().nextInt(300) == 0;
 	}
 
-	private void hatchOstrichEgg(@NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	private void hatchOstrichEgg(ServerLevel level, BlockPos pos, RandomSource random) {
 		level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		this.destroyBlock(level, pos);
 		this.spawnOstrich(level, pos, random);
 	}
 
-	private void destroyBlock(@NotNull Level level, BlockPos pos) {
+	private void destroyBlock(Level level, BlockPos pos) {
 		level.destroyBlock(pos, false);
 	}
 
-	private void spawnOstrich(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	private void spawnOstrich(ServerLevel level, BlockPos pos, RandomSource random) {
 		final Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 		if (ostrich == null) return;
 		ostrich.setBaby(true);
@@ -127,7 +124,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+	public boolean isPathfindable(BlockState state, PathComputationType type) {
 		return false;
 	}
 }

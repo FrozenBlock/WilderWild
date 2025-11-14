@@ -48,7 +48,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterloggedBlock {
@@ -57,12 +56,11 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(1D, 0D, 1D, 15D, 14D, 15D);
 
-	public TumbleweedBlock(@NotNull Properties properties) {
+	public TumbleweedBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends TumbleweedBlock> codec() {
 		return CODEC;
@@ -70,13 +68,13 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 
 	@Override
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (stack.is(Items.SHEARS)) {
 			onShear(level, pos, player);
@@ -86,7 +84,7 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(@NotNull Level level, BlockPos pos, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @Nullable Entity entity) {
 		if (level.isClientSide()) return true;
 		Tumbleweed.spawnFromShears(level, pos);
 		level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -95,7 +93,7 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState state = SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
 		if (state == null) return null;
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
@@ -103,8 +101,8 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -118,25 +116,22 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	}
 
 	@Override
-	@NotNull
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return COLLISION_SHAPE;
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(WATERLOGGED);
 	}

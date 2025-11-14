@@ -42,7 +42,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
@@ -64,9 +63,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public final SoundEvent brushCompletedSound;
 	public final boolean isSand;
 
-	public ScorchedBlock(
-		@NotNull BlockState wetState, boolean canBrush, @NotNull SoundEvent brushSound, @NotNull SoundEvent brushCompletedSound, boolean isSand, @NotNull Properties properties
-	) {
+	public ScorchedBlock(BlockState wetState, boolean canBrush, SoundEvent brushSound, SoundEvent brushCompletedSound, boolean isSand, Properties properties) {
 		super(properties);
 		this.wetState = wetState;
 		this.canBrush = canBrush;
@@ -76,11 +73,11 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.fillScorchMap(this.wetState, this.defaultBlockState());
 	}
 
-	public static boolean canScorch(@NotNull BlockState state) {
+	public static boolean canScorch(BlockState state) {
 		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
 	}
 
-	public static void scorch(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+	public static void scorch(BlockState state, Level level, BlockPos pos) {
 		state = stateWithoutDusting(state);
 		if (!canScorch(state)) return;
 
@@ -88,11 +85,11 @@ public class ScorchedBlock extends BaseEntityBlock {
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
-	public static boolean canHydrate(@NotNull BlockState state) {
+	public static boolean canHydrate(BlockState state) {
 		return HYDRATE_MAP.containsKey(stateWithoutDusting(state));
 	}
 
-	public static void hydrate(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos) {
+	public static void hydrate(BlockState state, Level level, BlockPos pos) {
 		state = stateWithoutDusting(state);
 		if (!canHydrate(state)) return;
 
@@ -100,12 +97,10 @@ public class ScorchedBlock extends BaseEntityBlock {
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
-	@NotNull
-	private static BlockState stateWithoutDusting(@NotNull BlockState state) {
+	private static BlockState stateWithoutDusting(BlockState state) {
 		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends ScorchedBlock> codec() {
 		return CODEC;
@@ -117,28 +112,28 @@ public class ScorchedBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(DUSTED);
 	}
 
 	@Override
-	public void handlePrecipitation(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Biome.@NotNull Precipitation precipitation) {
+	public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
 		if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < RAIN_HYDRATION_CHANCE) hydrate(state, level, pos);
 	}
 
 	@Override
 	@Nullable
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ScorchedBlockEntity(pos, state);
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (level.getFluidState(pos.above()).is(FluidTags.WATER)) hydrate(state, level, pos);
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		final Fluid fluid = DripstoneDripApi.getDripstoneFluid(level, pos);
 		if (fluid == Fluids.LAVA) {
 			if (random.nextBoolean()) scorch(state, level, pos);

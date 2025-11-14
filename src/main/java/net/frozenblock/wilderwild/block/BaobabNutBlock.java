@@ -32,7 +32,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.TreeGrower;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -43,7 +42,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabNutBlock extends SaplingBlock {
@@ -62,52 +60,50 @@ public class BaobabNutBlock extends SaplingBlock {
 		Block.box(7D, 3D, 7D, 9D, 16D, 9), Block.box(2D, 0D, 2D, 14D, 12D, 14D)
 	};
 
-	public BaobabNutBlock(TreeGrower treeGrower, @NotNull BlockBehaviour.Properties properties) {
+	public BaobabNutBlock(TreeGrower treeGrower, Properties properties) {
 		super(treeGrower, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(HANGING, false));
 	}
 
-	private static boolean isHanging(@NotNull BlockState state) {
+	private static boolean isHanging(BlockState state) {
 		return state.getValue(HANGING);
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	private static boolean isFullyGrown(@NotNull BlockState state) {
+	private static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends BaobabNutBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(STAGE, AGE, HANGING);
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(AGE, 2);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		final Vec3 offset = state.getOffset(pos);
 		final VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
 		return voxelShape.move(offset.x, offset.y, offset.z);
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		return state.is(this) && (isHanging(state) ? level.getBlockState(pos.above()).is(WWBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos));
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) < 9) return;
 		if (!isHanging(state)) {
 			if (random.nextInt(7) == 0) this.advanceTree(level, pos, state, random);
@@ -119,17 +115,17 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return state.is(this) && isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		if (state.is(this) && isHanging(state) && !isFullyGrown(state)) {
 			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		} else {
@@ -138,22 +134,19 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public void onProjectileHit(@NotNull Level world, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
+	public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
 		world.destroyBlock(hit.getBlockPos(), true, projectile);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext collisionContext) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
 		return isHanging(state) ? super.getCollisionShape(state, level, pos, collisionContext) : Shapes.empty();
 	}
 
-	@NotNull
 	public BlockState getDefaultHangingState() {
 		return getHangingState(0);
 	}
 
-	@NotNull
 	public BlockState getHangingState(int age) {
 		return this.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
 	}

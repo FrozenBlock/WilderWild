@@ -30,25 +30,23 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.NotNull;
 
 public class AuburnMossBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AuburnMossBlock> CODEC = simpleCodec(AuburnMossBlock::new);
 
 	@Override
-	public @NotNull MapCodec<AuburnMossBlock> codec() {
+	public MapCodec<AuburnMossBlock> codec() {
 		return CODEC;
 	}
 
-	public AuburnMossBlock(BlockBehaviour.Properties properties) {
+	public AuburnMossBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		final BlockState aboveState = level.getBlockState(pos.above());
 		return aboveState.isAir() || aboveState.is(Blocks.WATER);
 	}
@@ -59,7 +57,7 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, RandomSource random, @NotNull BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		final BlockPos abovePos = pos.above();
 		final ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
 			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
@@ -71,7 +69,7 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public BonemealableBlock.@NotNull Type getType() {
+	public BonemealableBlock.Type getType() {
 		return BonemealableBlock.Type.NEIGHBOR_SPREADER;
 	}
 }

@@ -46,7 +46,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockContainer {
@@ -55,7 +54,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
 
-	public SeaAnemoneBlock(@NotNull Properties properties) {
+	public SeaAnemoneBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(GLOWING, false));
 	}
@@ -66,18 +65,18 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(Blocks.MAGMA_BLOCK) && !state.is(WWBlocks.GEYSER);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.isValidWaterToReplace(context.getLevel(), context.getClickedPos()) ? super.getStateForPlacement(context) : null;
 	}
 
@@ -98,12 +97,12 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(GLOWING);
 	}
 
 	@Override
-	protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource randomSource) {
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
 		if (this.tryChangingState(state, level, blockPos, randomSource)) {
 			level.sendParticles(
 				ParticleTypes.BUBBLE,
@@ -118,7 +117,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (this.tryChangingState(state, level, pos, random)) {
 			level.sendParticles(
 				ParticleTypes.BUBBLE,
@@ -132,11 +131,11 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 		super.tick(state, level, pos, random);
 	}
 
-	public static boolean isGlowing(@NotNull BlockState state) {
+	public static boolean isGlowing(BlockState state) {
 		return state.getValue(GLOWING);
 	}
 
-	private boolean tryChangingState(BlockState state, @NotNull ServerLevel level, BlockPos pos, RandomSource random) {
+	private boolean tryChangingState(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING, pos);
 		if (shouldGlow == isGlowing(state)) return false;
 
@@ -163,11 +162,11 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	protected FluidState getFluidState(BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
 		final BlockState blockState = level.getBlockState(pos);
 		final FluidState fluidState = blockState.getFluidState();
 		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;

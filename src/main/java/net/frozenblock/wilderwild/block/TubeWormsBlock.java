@@ -45,7 +45,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContainer {
@@ -53,23 +52,23 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
 	public static final MapCodec<TubeWormsBlock> CODEC = simpleCodec(TubeWormsBlock::new);
 
-	public TubeWormsBlock(@NotNull Properties properties) {
+	public TubeWormsBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE));
 	}
 
 	@Override
-	public @NotNull MapCodec<TubeWormsBlock> codec() {
+	public MapCodec<TubeWormsBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return (state.isFaceSturdy(level, pos, Direction.UP) || state.is(this))
 			&& !state.is(Blocks.MAGMA_BLOCK)
 			&& !state.is(WWBlocks.GEYSER);
@@ -77,7 +76,7 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState state = super.getStateForPlacement(context);
 		if (state == null) return null;
 
@@ -91,12 +90,12 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState blockState, LevelReader level, BlockPos pos) {
+	public boolean canSurvive(BlockState blockState, LevelReader level, BlockPos pos) {
 		return super.canSurvive(blockState, level, pos) && this.isValidWaterToSurvive(level, pos);
 	}
 
 	@Override
-	protected void tick(@NotNull BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random) {
+	protected void tick(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!blockState.canSurvive(level, pos)) level.destroyBlock(pos, true);
 	}
 
@@ -132,7 +131,7 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(TUBE_WORMS_PART);
 	}
 
@@ -147,17 +146,17 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	protected FluidState getFluidState(BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
 		return state.canBeReplaced() && fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}
 
-	private boolean isValidWaterToSurvive(@NotNull LevelReader level, BlockPos pos) {
+	private boolean isValidWaterToSurvive(LevelReader level, BlockPos pos) {
 		final FluidState fluidState = level.getFluidState(pos);
 		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
 	}

@@ -25,17 +25,16 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class SculkWallBlock extends WallBlock implements SculkBuildingBlockBehaviour {
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-	public SculkWallBlock(@NotNull Properties properties) {
+	public SculkWallBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
-	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
 		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
 	}

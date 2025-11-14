@@ -25,7 +25,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
-import org.jetbrains.annotations.NotNull;
 
 public class PaleShelfFungiBlock extends ShelfFungiBlock {
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
@@ -34,12 +33,12 @@ public class PaleShelfFungiBlock extends ShelfFungiBlock {
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
-	public PaleShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties properties) {
+	public PaleShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, Properties properties) {
 		super(shearingLootTable, properties);
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!PaleMushroomBlock.isActive(level, pos)) return;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();

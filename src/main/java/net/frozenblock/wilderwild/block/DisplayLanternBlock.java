@@ -76,7 +76,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
@@ -89,31 +88,29 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5D, 0D, 5D, 11D, 7D, 11.0D), Block.box(6D, 7D, 6D, 10D, 8D, 10D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5D, 2D, 5D, 11D, 9D, 11.0D), Block.box(6D, 9D, 6D, 10D, 10D, 10D));
 
-	public DisplayLanternBlock(@NotNull Properties properties) {
+	public DisplayLanternBlock(Properties properties) {
 		super(properties.pushReaction(PushReaction.DESTROY));
 		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
-	private static Direction attachedDirection(@NotNull BlockState state) {
+	private static Direction attachedDirection(BlockState state) {
 		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends DisplayLanternBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hit
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hit
 	) {
 		if (level.isClientSide()) return InteractionResult.SUCCESS;
 		if (!(level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern)) return InteractionResult.TRY_WITH_EMPTY_HAND;
@@ -187,7 +184,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() != Direction.Axis.Y) continue;
@@ -198,31 +195,29 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(HANGING) ? HANGING_SHAPE : STANDING_SHAPE;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(HANGING, WATERLOGGED, DISPLAY_LIGHT);
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final Direction direction = attachedDirection(state).getOpposite();
 		return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
 	}
 
 	@Override
-	@NotNull
-	public RenderShape getRenderShape(@NotNull BlockState state) {
+	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -240,7 +235,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, @NotNull ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
 		if (!(level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern)) return;
 		for (ItemStack item : displayLantern.inventory) popResource(level, pos, item);
 		displayLantern.inventory.clear();
@@ -248,37 +243,36 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	@NotNull
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+	public boolean isPathfindable(BlockState state, PathComputationType type) {
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new DisplayLanternBlockEntity(pos, state);
 	}
 
 	@Override
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
 			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
 	}
 
 	@Override
-	public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos, Direction direction) {
+	protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
 		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern) return displayLantern.getComparatorOutput();
 		return 0;
 	}

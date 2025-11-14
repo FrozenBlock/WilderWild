@@ -41,7 +41,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -52,7 +51,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PricklyPearCactusBlock extends VegetationBlock implements BonemealableBlock {
@@ -65,42 +63,41 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(3D, 0D, 3D, 13D, 13D, 13D);
 
-	public PricklyPearCactusBlock(@NotNull BlockBehaviour.Properties properties) {
+	public PricklyPearCactusBlock(Properties properties) {
 		super(properties);
 	}
 
-	public static boolean isFullyGrown(@NotNull BlockState state) {
+	public static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends PricklyPearCactusBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return !isFullyGrown(state);
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (level.getRawBrightness(pos, 0) < 9 || isFullyGrown(state) || random.nextInt(GROWTH_CHANCE) != 0) return;
 		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return OUTLINE_SHAPE;
 	}
+
 	@Override
 	public void entityInside(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
@@ -109,47 +106,46 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+	public boolean isPathfindable(BlockState state, PathComputationType type) {
 		return false;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return state.is(BlockTags.SAND) || state.is(BlockTags.DIRT);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 
 	@Override
-	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 		onPlayerPick(level, pos, state, player, hand, stack);
 		return InteractionResult.SUCCESS;
 	}
 
-	private static void basePick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
+	private static void basePick(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
 		if (level instanceof ServerLevel serverLevel) dropPricklyPear(serverLevel, stack, state, null, entity, pos);
 	}
 
-	public static void onPlayerPick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack) {
+	public static void onPlayerPick(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack stack) {
 		if (level.isClientSide()) return;
 
 		final boolean shears = stack.is(Items.SHEARS);
@@ -161,7 +157,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		}
 	}
 
-	public static void onPricklyPearPick(@NotNull Level level, BlockPos pos, BlockState state, boolean shears, ItemStack stack, @Nullable Entity entity) {
+	public static void onPricklyPearPick(Level level, BlockPos pos, BlockState state, boolean shears, ItemStack stack, @Nullable Entity entity) {
 		basePick(level, pos, state, stack, entity);
 		if (level.isClientSide()) return;
 		if (shears) {
@@ -186,7 +182,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
 	}

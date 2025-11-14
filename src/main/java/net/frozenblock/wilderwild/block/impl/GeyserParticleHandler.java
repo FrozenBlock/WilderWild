@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class GeyserParticleHandler {
 	public static final float DORMANT_BUBBLE_CHANCE = 0.0195F;
@@ -71,7 +70,7 @@ public class GeyserParticleHandler {
 	public static final int VENT_MAX_PARTICLE_SPAWN_HEIGHT = 7;
 	public static final int VENT_PARTICLE_SPAWN_ATTEMPTS = 6;
 
-	public static void spawnDormantParticles(@NotNull Level level, BlockPos pos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+	public static void spawnDormantParticles(Level level, BlockPos pos, GeyserType geyserType, Direction direction, RandomSource random) {
 		if (!geyserType.isWater() || random.nextFloat() > DORMANT_BUBBLE_CHANCE) return;
 		final Vec3 particlePos = GeyserBlock.getParticlePos(pos, direction, random);
 		final Vec3 particleVelocity = GeyserBlock.getParticleVelocity(direction, random, DORMANT_BUBBLE_MIN_VELOCITY, DORMANT_BUBBLE_MAX_VELOCITY);
@@ -82,7 +81,7 @@ public class GeyserParticleHandler {
 		);
 	}
 
-	public static void spawnActiveParticles(@NotNull Level level, BlockPos pos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+	public static void spawnActiveParticles(Level level, BlockPos pos, GeyserType geyserType, Direction direction, RandomSource random) {
 		if (geyserType.isWater()) {
 			if (random.nextFloat() > ACTIVE_BUBBLE_CHANCE) return;
 			int count = random.nextInt(MIN_ACTIVE_BUBBLES, MAX_ACTIVE_BUBBLES);
@@ -151,7 +150,7 @@ public class GeyserParticleHandler {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void spawnEruptionParticles(@NotNull Level level, BlockPos pos, @NotNull GeyserType geyserType, Direction direction, RandomSource random) {
+	public static void spawnEruptionParticles(Level level, BlockPos pos, GeyserType geyserType, Direction direction, RandomSource random) {
 		final Minecraft client = Minecraft.getInstance();
 		final ParticleStatus particleStatus = client.options.particles().get();
 		final ParticleEngine particleEngine = client.particleEngine;

@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
@@ -49,30 +48,29 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		propertiesCodec()
 	).apply(instance, WaterloggableSaplingBlock::new));
 
-	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties properties) {
+	public WaterloggableSaplingBlock(TreeGrower grower, Properties properties) {
 		super(grower, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends WaterloggableSaplingBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(WATERLOGGED);
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState floor, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState floor, BlockGetter level, BlockPos pos) {
 		return super.mayPlaceOn(floor, level, pos) || floor.is(Blocks.CLAY) || floor.is(Blocks.MUD) || floor.is(Blocks.SAND);
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
 			if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
@@ -85,14 +83,14 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -105,9 +103,8 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
-	@NotNull
 	@Override
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 }

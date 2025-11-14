@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class FroglightGoopBlock extends GrowingPlantHeadBlock implements FroglightTypeHolder {
 	public static final MapCodec<FroglightGoopBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -53,21 +52,21 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 	}
 
 	@Override
-	public @NotNull MapCodec<FroglightGoopBlock> codec() {
+	public MapCodec<FroglightGoopBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public @NotNull FroglightType getFroglightType() {
+	public FroglightType getFroglightType() {
 		return this.froglightType;
 	}
 
 	@Override
-	protected @NotNull Block getBodyBlock() {
+	protected Block getBodyBlock() {
 		return this.froglightType.getBodyBlock();
 	}
 
-	public static void growFromFroglight(@NotNull BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	public static void growFromFroglight(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() > GROWTH_FROM_FROGLIGHT_CHANCE || !WWBlockConfig.get().froglightGoopGrowth) return;
 
 		final Optional<FroglightType> optionalType = FroglightType.getFromBaseBlock(state.getBlock());
@@ -103,7 +102,7 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 	}
 
 	@Override
-	protected boolean canGrowInto(@NotNull BlockState state) {
+	protected boolean canGrowInto(BlockState state) {
 		return state.isAir();
 	}
 }

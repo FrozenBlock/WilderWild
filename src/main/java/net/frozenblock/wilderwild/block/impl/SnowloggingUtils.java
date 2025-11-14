@@ -36,7 +36,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
@@ -66,7 +65,7 @@ public class SnowloggingUtils {
 		return supportsSnowlogging(state) && state.getFluidState().isEmpty();
 	}
 
-	public static int getSnowLayers(@NotNull BlockState state) {
+	public static int getSnowLayers(BlockState state) {
 		return state.getValue(SNOW_LAYERS);
 	}
 
@@ -74,7 +73,6 @@ public class SnowloggingUtils {
 		return state != null && supportsSnowlogging(state) && getSnowLayers(state) > 0;
 	}
 
-	@NotNull
 	public static BlockState getSnowEquivalent(BlockState state) {
 		return Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, Math.max(1, getSnowLayers(state)));
 	}
@@ -109,7 +107,7 @@ public class SnowloggingUtils {
 		return state;
 	}
 
-	public static BlockState getSnowPlacementState(BlockState state, @NotNull BlockPlaceContext context) {
+	public static BlockState getSnowPlacementState(BlockState state, BlockPlaceContext context) {
 		return getSnowloggedState(state, context.getLevel().getBlockState(context.getClickedPos()));
 	}
 

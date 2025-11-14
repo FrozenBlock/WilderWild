@@ -33,7 +33,6 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -52,7 +51,7 @@ public final class WWFluidRendering {
 			}
 
 			@Override
-			public void renderFluid(BlockPos pos, BlockAndTintGetter level, VertexConsumer vertexConsumer, @NotNull BlockState state, FluidState fluidState) {
+			public void renderFluid(BlockPos pos, BlockAndTintGetter level, VertexConsumer vertexConsumer, BlockState state, FluidState fluidState) {
 				if (!(state.getBlock() instanceof MesogleaBlock)) {
 					waterHandler.renderFluid(pos, level, vertexConsumer, state, fluidState);
 					return;

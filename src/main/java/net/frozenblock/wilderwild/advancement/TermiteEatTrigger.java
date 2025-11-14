@@ -30,19 +30,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.TriggerInstance> {
 	public static final double TRIGGER_DISTANCE_FROM_PLAYER = Mth.square(10D);
 
 	@Override
-	@NotNull
 	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player, ServerLevel level, @NotNull BlockPos pos, boolean playerPlaced) {
+	public void trigger(ServerPlayer player, ServerLevel level, BlockPos pos, boolean playerPlaced) {
 		this.trigger(player, conditions -> conditions.matches(level, pos, playerPlaced));
 	}
 
@@ -55,17 +53,14 @@ public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.
 			).apply(instance, TriggerInstance::new)
 		);
 
-		@NotNull
 		public static Criterion<TriggerInstance> termiteEat(boolean playerPlaced) {
 			return termiteEat((BlockPredicate) null, playerPlaced);
 		}
 
-		@NotNull
-		public static Criterion<TriggerInstance> termiteEat(@NotNull BlockPredicate.Builder builder, boolean playerPlaced) {
+		public static Criterion<TriggerInstance> termiteEat(BlockPredicate.Builder builder, boolean playerPlaced) {
 			return termiteEat(builder.build(), playerPlaced);
 		}
 
-		@NotNull
 		public static Criterion<TriggerInstance> termiteEat(@Nullable BlockPredicate block, boolean playerPlaced) {
 			return WWCriteria.TERMITE_EAT.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(block), playerPlaced));
 		}
