@@ -171,10 +171,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	@Override
 	public float getOpenNess(float partialTick) {
-		return this.getOpenProgress(partialTick);
-	}
-
-	public float getOpenProgress(float partialTick) {
 		return Mth.lerp(partialTick, this.prevOpenProgress, this.openProgress);
 	}
 
