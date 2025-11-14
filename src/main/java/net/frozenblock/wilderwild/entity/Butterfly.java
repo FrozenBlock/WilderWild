@@ -133,7 +133,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	public SpawnGroupData finalizeSpawn(
 		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData
 	) {
-		boolean shouldSetHome = shouldSetHome(reason);
+		final boolean shouldSetHome = shouldSetHome(reason);
 		if (shouldSetHome) {
 			ButterflyAi.rememberHome(this, this.blockPosition());
 		} else {
@@ -143,7 +143,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		if (spawnData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
 			this.setVariant(butterflySpawnGroupData.type.value());
 		} else {
-			Optional<Holder.Reference<ButterflyVariant>> optionalButterflyVariant = VariantUtils.selectVariantToSpawn(
+			final Optional<Holder.Reference<ButterflyVariant>> optionalButterflyVariant = VariantUtils.selectVariantToSpawn(
 				SpawnContext.create(level, this.blockPosition()),
 				WilderWildRegistries.BUTTERFLY_VARIANT
 			);
@@ -157,13 +157,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
-		return reason == EntitySpawnReason.DISPENSER
-			|| reason == EntitySpawnReason.BUCKET;
+		return reason == EntitySpawnReason.DISPENSER || reason == EntitySpawnReason.BUCKET;
 	}
 
 	@Override
 	public int decreaseAirSupply(int currentAir) {
-		int newSupply = super.decreaseAirSupply(currentAir);
+		final int newSupply = super.decreaseAirSupply(currentAir);
 		return newSupply == currentAir - 1 ? newSupply - 1 : newSupply;
 	}
 
@@ -357,7 +356,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}
 
-		Vec3 deltaMovement = this.getDeltaMovement();
+		final Vec3 deltaMovement = this.getDeltaMovement();
 		float targetFlyingXRot = (float) Math.clamp(deltaMovement.y * 10F, -1F, 1F);
 		this.prevFlyingXRot = this.flyingXRot;
 		this.flyingXRot += (targetFlyingXRot - this.flyingXRot) * 0.1F;
@@ -383,7 +382,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Override
 	protected void customServerAiStep(ServerLevel serverLevel) {
-		ProfilerFiller profilerFiller = Profiler.get();
+		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("butterflyBrain");
 		this.getBrain().tick((ServerLevel) this.level(), this);
 		profilerFiller.pop();

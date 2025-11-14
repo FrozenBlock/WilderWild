@@ -31,7 +31,6 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -79,9 +78,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if (this.ticksToStopTwitching <= 0) {
-			level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
-		}
+		if (this.ticksToStopTwitching <= 0) level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
+
 		--this.ticksToStopTwitching;
 		if (this.ringOutTicksLeft >= 0) {
 			--this.ringOutTicksLeft;
@@ -89,7 +87,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 			state = state.setValue(HangingTendrilBlock.WRINGING_OUT, false);
 			level.setBlockAndUpdate(pos, state);
 			if (this.storedXP > 0) {
-				int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
+				final int droppedXP = this.storedXP > 1 ? (int) (this.storedXP * MILK_XP_PERCENTAGE) : 1;
 				ExperienceOrb.award((ServerLevel) level, Vec3.atBottomCenterOf(pos), droppedXP);
 				this.storedXP = this.storedXP - droppedXP;
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
@@ -102,15 +100,15 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		} else if (state.getValue(HangingTendrilBlock.PHASE) == SculkSensorPhase.ACTIVE) {
 			this.activeTicks += 1;
 		}
-		VibrationSystem.Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
+		Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
 	public void clientTick(@NotNull Level level, @NotNull BlockState state) {
 		if (!level.isClientSide()) return;
-		boolean twitching = this.ticksToStopTwitching > 0;
-		boolean milking = this.ringOutTicksLeft > 0;
-		boolean active = !SculkSensorBlock.canActivate(state);
-		long time = level.getGameTime();
+		final boolean twitching = this.ticksToStopTwitching > 0;
+		final boolean milking = this.ringOutTicksLeft > 0;
+		final boolean active = !SculkSensorBlock.canActivate(state);
+		final long time = level.getGameTime();
 		if (milking) {
 			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((time / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
 		} else if (active) {
@@ -251,28 +249,25 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 			@Nullable GameEvent.Context context
 		) {
 			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
-			BlockState state = level.getBlockState(HangingTendrilBlockEntity.this.getBlockPos());
+			final BlockState state = level.getBlockState(HangingTendrilBlockEntity.this.getBlockPos());
 			return state.getBlock() instanceof HangingTendrilBlock && HangingTendrilBlock.canActivate(state) && !state.getValue(HangingTendrilBlock.WRINGING_OUT);
 		}
 
 		@Override
 		public void onReceiveVibration(
-			@NotNull ServerLevel world,
+			@NotNull ServerLevel level,
 			@NotNull BlockPos pos,
 			@NotNull Holder<GameEvent> gameEvent,
 			@Nullable Entity entity,
 			@Nullable Entity entity2,
 			float f
 		) {
-			BlockState blockState = HangingTendrilBlockEntity.this.getBlockState();
-			if (SculkSensorBlock.canActivate(blockState)) {
-				HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));
-				int i = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
-				Block block = blockState.getBlock();
-				if (block instanceof HangingTendrilBlock hangingTendrilBlock) {
-					hangingTendrilBlock.activate(entity, world, this.blockPos, blockState, gameEvent, i, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
-				}
-			}
+			final BlockState state = HangingTendrilBlockEntity.this.getBlockState();
+			if (!SculkSensorBlock.canActivate(state)) return;
+			HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));
+			final int redstoneStrength = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
+			if (!(state.getBlock() instanceof HangingTendrilBlock hangingTendril)) return;
+			hangingTendril.activate(entity, level, this.blockPos, state, gameEvent, redstoneStrength, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
 		}
 
 		@Override

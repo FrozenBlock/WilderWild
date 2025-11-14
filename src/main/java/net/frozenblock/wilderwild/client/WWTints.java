@@ -36,14 +36,14 @@ public final class WWTints {
 			WWBlocks.FLOWERING_LILY_PAD
 		);
 
-		BlockColor flowerBedProvider = (blockState, blockAndTintGetter, blockPos, i) -> {
+		final BlockColor flowerBedProvider = (blockState, blockAndTintGetter, blockPos, i) -> {
 			if (i != 0) return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
 			return -1;
 		};
-		BlockColor grassTintProvider = (blockState, blockAndTintGetter, blockPos, i) ->
+		final BlockColor grassTintProvider = (blockState, blockAndTintGetter, blockPos, i) ->
 			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
 
-		BlockColor dryFoliageProvider = (blockState, blockAndTintGetter, blockPos, i) ->
+		final BlockColor dryFoliageProvider = (blockState, blockAndTintGetter, blockPos, i) ->
 			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageDryFoliageColor(blockAndTintGetter, blockPos) : DryFoliageColor.FOLIAGE_DRY_DEFAULT;
 
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PINK_PETALS);

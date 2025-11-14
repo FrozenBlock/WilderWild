@@ -81,7 +81,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private static void makeTentacles(PartDefinition partDefinition, int amount) {
 		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
 		for (int i = 0; i < amount; ++i) {
-			float rot = i * Mth.PI * 2F /  amount;
+			final float rot = i * Mth.PI * 2F /  amount;
 			partDefinition.addOrReplaceChild(createTentacleName(i, false), tentacle, PartPose.offsetAndRotation(
 					Mth.cos(rot) * 2.5F,
 					0F,
@@ -113,7 +113,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 
 	@NotNull
 	private static String createTentacleName(int number, boolean plane) {
-		String tentacle = !plane ? "tentacle" : "tentacle_plane";
+		final String tentacle = !plane ? "tentacle" : "tentacle_plane";
 		return tentacle + number;
 	}
 

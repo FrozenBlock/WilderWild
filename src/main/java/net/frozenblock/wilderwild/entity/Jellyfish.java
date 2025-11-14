@@ -49,8 +49,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -155,11 +155,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (EntitySpawnReason.isSpawner(spawnReason)) return true;
 		if (!WWEntityConfig.get().jellyfish.spawnJellyfish) return false;
 
-		Holder<Biome> biome = level.getBiome(pos);
+		final Holder<Biome> biome = level.getBiome(pos);
 		if (biome.is(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) {
 			if (level.getRawBrightness(pos, 0) <= 7 && random.nextInt(level.getRawBrightness(pos, 0) + 3) >= 1) return true;
 		}
-		int seaLevel = level.getSeaLevel();
+		final int seaLevel = level.getSeaLevel();
 		return (random.nextInt(0, SPAWN_CHANCE) == 0 && pos.getY() <= seaLevel && pos.getY() >= seaLevel - SPAWN_HEIGHT_NORMAL_SEA_OFFSET);
 	}
 
@@ -317,12 +317,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		if (this.isInWater()) {
 			this.heal(0.02F);
-			Vec3 vec3 = this.getDeltaMovement();
-			if (vec3.horizontalDistance() > 0.005) {
-				this.yBodyRot += (float) ((-(Mth.atan2(vec3.x, vec3.z)) * Mth.RAD_TO_DEG - this.yBodyRot) * 0.1F);
+			final Vec3 deltaMovement = this.getDeltaMovement();
+			if (deltaMovement.horizontalDistance() > 0.005) {
+				this.yBodyRot += (float) ((-(Mth.atan2(deltaMovement.x, deltaMovement.z)) * Mth.RAD_TO_DEG - this.yBodyRot) * 0.1F);
 				this.setYRot(this.yBodyRot);
 			}
-			this.xBodyRot += (float) ((-(Mth.atan2(vec3.horizontalDistance(), vec3.y)) * Mth.RAD_TO_DEG - this.xBodyRot) * 0.1F);
+			this.xBodyRot += (float) ((-(Mth.atan2(deltaMovement.horizontalDistance(), deltaMovement.y)) * Mth.RAD_TO_DEG - this.xBodyRot) * 0.1F);
 		} else {
 			this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
 		}
@@ -357,12 +357,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 				if (this.forcedAgeTimer % 4 == 0) {
 					this.level().addParticle(
 						ParticleTypes.HAPPY_VILLAGER,
-						this.getRandomX(1D),
-						this.getRandomY(),
-						this.getRandomZ(1D),
-						0D,
-						0D,
-						0D
+						this.getRandomX(1D), this.getRandomY(), this.getRandomZ(1D),
+						0D, 0D, 0D
 					);
 				}
 				--this.forcedAgeTimer;
@@ -388,7 +384,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 				&& !this.isRemoved()
 		);
 
-		AttributeInstance movementSpeed = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
+		final AttributeInstance movementSpeed = this.getAttributes().getInstance(Attributes.MOVEMENT_SPEED);
 		if (movementSpeed != null) {
 			if (this.isBaby()) {
 				movementSpeed.addOrUpdateTransientModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY);
@@ -441,9 +437,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			if (entity instanceof ServerPlayer player) WWJellyfishStingPacket.sendTo(player, baby);
 			serverLevel.playSound(
 				entity,
-				entity.getX(),
-				entity.getY(),
-				entity.getZ(),
+				entity.getX(), entity.getY(), entity.getZ(),
 				WWSounds.ENTITY_JELLYFISH_STING,
 				this.getSoundSource(),
 				1F,
@@ -458,7 +452,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void moveToAccurate(@NotNull Entity entity, double speed) {
-		Path path = this.getNavigation().createPath(entity, 0);
+		final Path path = this.getNavigation().createPath(entity, 0);
 		if (path != null) this.getNavigation().moveTo(path, speed);
 	}
 
@@ -480,7 +474,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
-		ProfilerFiller profiler = Profiler.get();
+		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("jellyfishBrain");
 		this.getBrain().tick(level, this);
 		profiler.pop();
@@ -567,14 +561,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
-		if (super.hurtServer(level, source, amount)) {
-			if (level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
-				LivingEntity target = this.getLastHurtByMob();
-				if (this.canTargetEntity(target, level)) this.setAttackTarget(target);
-			}
-			return true;
+		if (!super.hurtServer(level, source, amount)) return false;
+		if (level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+			final LivingEntity target = this.getLastHurtByMob();
+			if (this.canTargetEntity(target, level)) this.setAttackTarget(target);
 		}
-		return false;
+		return true;
 	}
 
 
@@ -672,14 +664,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public @NotNull Optional<ResourceKey<LootTable>> getLootTable() {
-		Identifier identifier = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
-		Identifier variantLocation = this.getVariantLocation();
+		final Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
+		final Identifier variantId = this.getVariantLocation();
 		return Optional.of(
 			ResourceKey.create(
 				Registries.LOOT_TABLE,
 				Identifier.fromNamespaceAndPath(
-					variantLocation.getNamespace(),
-					"entities/" + identifier.getPath() + "_" + variantLocation.getPath()
+					variantId.getNamespace(),
+					"entities/" + id.getPath() + "_" + variantId.getPath()
 				)
 			)
 		);

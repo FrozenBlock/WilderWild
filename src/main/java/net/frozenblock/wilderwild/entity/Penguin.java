@@ -214,8 +214,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public boolean killedEntity(ServerLevel serverLevel, LivingEntity livingEntity, DamageSource source) {
-		boolean killed = super.killedEntity(serverLevel, livingEntity, source);
+	public boolean killedEntity(ServerLevel level, LivingEntity entity, DamageSource source) {
+		final boolean killed = super.killedEntity(level, entity, source);
 		if (this.getBrain().isActive(Activity.FIGHT)) PenguinAi.addCallMemoryIfPenguinsClose(this);
 		return killed;
 	}
@@ -278,7 +278,7 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected @Nullable SoundEvent getHurtSound(DamageSource damageSource) {
+	protected @Nullable SoundEvent getHurtSound(DamageSource source) {
 		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT : WWSounds.ENTITY_PENGUIN_HURT;
 	}
 
@@ -309,15 +309,15 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected void customServerAiStep(@NotNull ServerLevel serverLevel) {
+	protected void customServerAiStep(@NotNull ServerLevel level) {
 		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("penguinBrain");
-		this.getBrain().tick(serverLevel, this);
+		this.getBrain().tick(level, this);
 		profilerFiller.pop();
 		profilerFiller.push("penguinActivityUpdate");
 		PenguinAi.updateActivity(this);
 		profilerFiller.pop();
-		super.customServerAiStep(serverLevel);
+		super.customServerAiStep(level);
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	public void tickClient() {
 		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
-			int termiteID = termite.getID();
+			final int termiteID = termite.getID();
 			if (clientTermiteIDs.contains(termiteID) && !this.prevClientTermiteIDs.contains(termiteID)) {
 				addTermiteSound(this, termiteID, termite.getEating());
 			}
@@ -61,9 +61,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		this.prevClientTermiteIDs.clear();
 		this.prevClientTermiteIDs.addAll(this.clientTermiteIDs);
 		this.clientTermiteIDs.clear();
-		for (TermiteManager.Termite termite : this.termiteManager.termites()) {
-			this.clientTermiteIDs.add(termite.getID());
-		}
+		for (TermiteManager.Termite termite : this.termiteManager.termites()) this.clientTermiteIDs.add(termite.getID());
 	}
 
 	private void markForUpdate() {
@@ -96,7 +94,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 
 	@Environment(EnvType.CLIENT)
 	public static void addTermiteSound(TermiteMoundBlockEntity mound, int termiteID, boolean eating) {
-		Minecraft client = Minecraft.getInstance();
+		final Minecraft client = Minecraft.getInstance();
 		if (client.level == null) return;
 		if (eating) {
 			client.getSoundManager().play(new TermiteEatingSoundInstance<>(mound, termiteID));

@@ -70,22 +70,21 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
 			poseStack.popPose();
-		} else {
-			for (DisplayLanternRenderState.Occupant occupant : renderState.occupants) {
-				FireflyRenderer.submitFireflyWithoutRenderState(
-					poseStack,
-					submitNodeCollector,
-					cameraRenderState.orientation,
-					occupant.color,
-					occupant.calcColor,
-					1F,
-					occupant.x,
-					occupant.y,
-					occupant.z,
-					renderState.lightCoords,
-					OverlayTexture.NO_OVERLAY
-				);
-			}
+		}
+		for (DisplayLanternRenderState.Occupant occupant : renderState.occupants) {
+			FireflyRenderer.submitFireflyWithoutRenderState(
+				poseStack,
+				submitNodeCollector,
+				cameraRenderState.orientation,
+				occupant.color,
+				occupant.calcColor,
+				1F,
+				occupant.x,
+				occupant.y,
+				occupant.z,
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY
+			);
 		}
 	}
 

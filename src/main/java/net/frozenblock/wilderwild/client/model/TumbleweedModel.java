@@ -44,7 +44,7 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 
 	@NotNull
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
+		final MeshDefinition meshdefinition = new MeshDefinition();
 
 		PartDefinition body = meshdefinition.getRoot().addOrReplaceChild(
 			"body",
@@ -67,9 +67,9 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	public void setupAnim(TumbleweedRenderState renderState) {
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
 			this.tumbleweed.xRot = renderState.tumbleRot;
-		} else {
-			this.tumbleweed.xRot = -renderState.pitch;
-			this.tumbleweed.zRot = renderState.roll;
+			return;
 		}
+		this.tumbleweed.xRot = -renderState.pitch;
+		this.tumbleweed.zRot = renderState.roll;
 	}
 }

@@ -211,7 +211,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 					0.05D
 				);
 				if (otherStoneChest != null) {
-					BlockPos otherPos = otherStoneChest.worldPosition;
+					final BlockPos otherPos = otherStoneChest.worldPosition;
 					server.sendParticles(
 						new BlockParticleOption(ParticleTypes.BLOCK, state),
 						otherPos.getX() + 0.5D,

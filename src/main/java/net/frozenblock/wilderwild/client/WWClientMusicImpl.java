@@ -39,7 +39,7 @@ public final class WWClientMusicImpl {
 	public static void init() {
 		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
 
-		Function<Long, Float> dyingPitchShifting = l -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
+		final Function<Long, Float> dyingPitchShifting = l -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
 			(0.98F + Mth.sin((float) ((l * Math.PI) / 1200F)) * 0.025F) : 1F;
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.identifier(), dyingPitchShifting);

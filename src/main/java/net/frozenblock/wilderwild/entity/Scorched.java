@@ -121,7 +121,7 @@ public class Scorched extends Spider {
 
 	@Override
 	public boolean doHurtTarget(@NotNull ServerLevel serverLevel, @NotNull Entity entity) {
-		boolean hurtTarget = super.doHurtTarget(serverLevel, entity);
+		final boolean hurtTarget = super.doHurtTarget(serverLevel, entity);
 		if (hurtTarget) entity.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
 		return hurtTarget;
 	}
