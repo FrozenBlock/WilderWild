@@ -152,11 +152,11 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	public void extractRenderState(
 		@NotNull T stoneChest,
 		@NotNull StoneChestRenderState renderState,
-		float partialTick,
+		float partialTicks,
 		@NotNull Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
-		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTick, cameraPos, crumblingOverlay);
+		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);
 
 		final boolean levelExists = stoneChest.getLevel() != null;
 		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
@@ -171,7 +171,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 			neighborCombineResult = DoubleBlockCombiner.Combiner::acceptNone;
 		}
 
-		renderState.open = stoneChest.getOpenNess(partialTick);
+		renderState.open = neighborCombineResult.apply(StoneChestBlock.opennessCombiner(stoneChest)).get(partialTicks);
 		if (renderState.type != ChestType.SINGLE) renderState.lightCoords = neighborCombineResult.apply(new BrightnessCombiner<>()).applyAsInt(renderState.lightCoords);
 	}
 
