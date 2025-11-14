@@ -50,6 +50,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
+	protected static final VoxelShape ENTITY_INSIDE_SHAPE = Block.box(0D, -0.5D, 0D, 16D, 0D, 16D);
 
 	public AlgaeBlock(@NotNull BlockBehaviour.Properties properties) {
 		super(properties);
@@ -69,7 +70,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 
 	@Override
 	protected VoxelShape getEntityInsideCollisionShape(BlockState state, BlockGetter level, BlockPos pos, Entity entity) {
-		return SHAPE;
+		return ENTITY_INSIDE_SHAPE;
 	}
 
 	@Override
