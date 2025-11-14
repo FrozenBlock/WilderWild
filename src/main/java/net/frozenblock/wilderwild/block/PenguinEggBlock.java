@@ -82,14 +82,13 @@ public class PenguinEggBlock extends Block {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (shouldUpdateHatchLevel(level, pos)) {
-			if (!this.isReadyToHatch(state)) {
-				level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
-				level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
-			} else {
-				this.hatchPenguinEgg(level, pos, random);
-			}
+		if (!shouldUpdateHatchLevel(level, pos)) return;
+		if (this.isReadyToHatch(state)) {
+			this.hatchPenguinEgg(level, pos, random);
+			return;
 		}
+		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 	}
 
 	@Override
@@ -114,18 +113,14 @@ public class PenguinEggBlock extends Block {
 	}
 
 	private void spawnPenguin(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		Penguin penguin = WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
-		if (penguin != null) {
-			penguin.setBaby(true);
-			penguin.snapTo(
-				pos.getX() + 0.5D,
-				pos.getY(),
-				pos.getZ() + 0.5D,
-				random.nextInt(1, 361),
-				0F
-			);
-			level.addFreshEntity(penguin);
-		}
+		final Penguin penguin = WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
+		if (penguin == null) return;
+		penguin.setBaby(true);
+		penguin.snapTo(
+			pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D,
+			random.nextFloat() * 360F, 0F
+		);
+		level.addFreshEntity(penguin);
 	}
 
 	@Override

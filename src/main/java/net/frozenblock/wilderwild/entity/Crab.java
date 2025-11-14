@@ -263,7 +263,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			if (crabGroupData.getGroupSize() >= 2) this.setAge(-24000);
 			this.setVariant(crabGroupData.type.value());
 		} else {
-			Optional<Holder.Reference<CrabVariant>> optionalCrabVariant = VariantUtils.selectVariantToSpawn(
+			final Optional<Holder.Reference<CrabVariant>> optionalCrabVariant = VariantUtils.selectVariantToSpawn(
 				SpawnContext.create(level, this.blockPosition()),
 				WilderWildRegistries.CRAB_VARIANT
 			);
@@ -319,7 +319,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void tick() {
-		boolean isClient = this.level().isClientSide();
+		final boolean isClient = this.level().isClientSide();
 		if (this.level() instanceof ServerLevel serverLevel) VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
 
 		super.tick();
@@ -347,10 +347,10 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				if (this.onClimbable()) {
 					final Optional<Vec3> potentialNearestWallDifference = this.differenceToWallPos();
 					if (potentialNearestWallDifference.isPresent()) {
-						Vec3 nearestWallDifference = potentialNearestWallDifference.get();
-						Direction wallDirection = Direction.getApproximateNearest(nearestWallDifference.x(), 0D, nearestWallDifference.z());
+						final Vec3 nearestWallDifference = potentialNearestWallDifference.get();
+						final Direction wallDirection = Direction.getApproximateNearest(nearestWallDifference.x(), 0D, nearestWallDifference.z());
 
-						Vec3 climbOffset = new Vec3(wallDirection.getStepX(), 0D, wallDirection.getStepZ());
+						final Vec3 climbOffset = new Vec3(wallDirection.getStepX(), 0D, wallDirection.getStepZ());
 						this.lookControl.setLookAt(this.getEyePosition().add(climbOffset));
 						this.setYRot(wallDirection.toYRot());
 						this.setYHeadRot(wallDirection.toYRot());
@@ -384,7 +384,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				}
 			}
 
-			boolean onClimbable = !this.isCrabWalking();
+			final boolean onClimbable = !this.isCrabWalking();
 			this.prevClimbAnimX = this.climbAnimX;
 			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
 			this.climbAnimX += ((onClimbable ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;

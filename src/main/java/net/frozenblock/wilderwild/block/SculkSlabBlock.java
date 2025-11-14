@@ -18,28 +18,22 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.impl.SculkBuildingBlockBehaviour;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SculkBehaviour;
-import net.minecraft.world.level.block.SculkBlock;
-import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
+public class SculkSlabBlock extends SlabBlock implements SculkBuildingBlockBehaviour {
 	public static final MapCodec<SculkSlabBlock> CODEC = simpleCodec(SculkSlabBlock::new);
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-	public SculkSlabBlock(@NotNull Properties settings) {
-		super(settings);
+	public SculkSlabBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@NotNull
@@ -52,19 +46,5 @@ public class SculkSlabBlock extends SlabBlock implements SculkBehaviour {
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
 		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
-	}
-
-	@Override
-	public int attemptUseCharge(@NotNull SculkSpreader.ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreader, boolean shouldConvertToBlock) {
-		BlockPos cursorPos = cursor.getPos();
-		BlockState blockState = level.getBlockState(cursor.getPos());
-		if ((blockState.isFaceSturdy(level, cursorPos, Direction.UP) || blockState.isFaceSturdy(level, cursorPos, Direction.DOWN)) && Blocks.SCULK instanceof SculkBlock sculkBlock) {
-			return sculkBlock.attemptUseCharge(cursor, level, catalystPos, random, spreader, shouldConvertToBlock);
-		}
-		int i = cursor.getCharge();
-		if (i != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
-			return random.nextInt(spreader.additionalDecayRate()) != 0 ? i : i - (cursorPos.closerThan(catalystPos, spreader.noGrowthRadius()) ? 1 : SculkBlock.getDecayPenalty(spreader, cursorPos, catalystPos, i));
-		}
-		return i;
 	}
 }

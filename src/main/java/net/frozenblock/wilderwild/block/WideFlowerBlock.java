@@ -37,7 +37,7 @@ public class WideFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(@NotNull BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
+	protected @NotNull VoxelShape getShape(@NotNull BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		final Vec3 offset = state.getOffset(pos);
 		return WIDE_SHAPE.move(offset.x, offset.y, offset.z);
 	}

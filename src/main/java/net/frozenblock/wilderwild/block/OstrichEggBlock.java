@@ -83,14 +83,13 @@ public class OstrichEggBlock extends Block {
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (shouldUpdateHatchLevel(level, pos)) {
-			if (!this.isReadyToHatch(state)) {
-				level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
-				level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
-			} else {
-				this.hatchOstrichEgg(level, pos, random);
-			}
+		if (!shouldUpdateHatchLevel(level, pos)) return;
+		if (this.isReadyToHatch(state)) {
+			this.hatchOstrichEgg(level, pos, random);
+			return;
 		}
+		level.playSound(null, pos, WWSounds.BLOCK_OSTRICH_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 	}
 
 	@Override
@@ -116,19 +115,15 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
-		Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
-		if (ostrich != null) {
-			ostrich.setBaby(true);
-			ostrich.snapTo(
-				pos.getX() + 0.5D,
-				pos.getY(),
-				pos.getZ() + 0.5D,
-				random.nextInt(1, 361),
-				0F
-			);
-			ostrich.setTamed(true);
-			level.addFreshEntity(ostrich);
-		}
+		final Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
+		if (ostrich == null) return;
+		ostrich.setBaby(true);
+		ostrich.snapTo(
+			pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D,
+			random.nextFloat() * 360F, 0F
+		);
+		ostrich.setTamed(true);
+		level.addFreshEntity(ostrich);
 	}
 
 	@Override

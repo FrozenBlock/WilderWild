@@ -73,18 +73,18 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	public int age;
 	private boolean firstTick;
 
-	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
-		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, blockState);
-		this.hanging = blockState.getValue(BlockStateProperties.HANGING);
+	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, state);
+		this.hanging = state.getValue(BlockStateProperties.HANGING);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
 	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
-		boolean hasFireflies = !this.fireflies.isEmpty();
+		final boolean hasFireflies = !this.fireflies.isEmpty();
 		if (!this.firstTick) {
 			this.firstTick = true;
 			if (hasFireflies) {
-				BlockState state = this.getBlockState();
+				final BlockState state = this.getBlockState();
 				level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
 			}
 		}
@@ -95,9 +95,8 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 
 	public void clientTick(Level level) {
 		this.age += 1;
-		if (!this.fireflies.isEmpty()) {
-			for (Occupant firefly : this.fireflies) firefly.tick(level);
-		}
+		if (this.fireflies.isEmpty()) return;
+		for (Occupant firefly : this.fireflies) firefly.tick(level);
 	}
 
 	public boolean isHanging() {
@@ -154,7 +153,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
 		super.applyImplicitComponents(dataComponentGetter);
 		this.fireflies.clear();
-		List<Occupant> occupants = dataComponentGetter.getOrDefault(WWDataComponents.FIREFLIES, List.of());
+		final List<Occupant> occupants = dataComponentGetter.getOrDefault(WWDataComponents.FIREFLIES, List.of());
 		this.fireflies.addAll(occupants);
 	}
 
@@ -175,14 +174,13 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		return this.fireflies;
 	}
 
-	public void addFirefly(@NotNull LevelAccessor levelAccessor, @NotNull Identifier color, @NotNull String name) {
-		RandomSource random = levelAccessor.getRandom();
-		Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
-		var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
+	public void addFirefly(@NotNull LevelAccessor level, @NotNull Identifier color, @NotNull String name) {
+		final RandomSource random = level.getRandom();
+		final Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
+		final var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
 		this.fireflies.add(firefly);
-		if (this.level != null) {
-			this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-		}
+		if (this.level == null) return;
+		this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public void removeFirefly(@NotNull Occupant firefly) {
@@ -199,28 +197,24 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	private void doFireflySpawns(@NotNull Level level) {
-		double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
+		final double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
-			Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
-			if (entity != null) {
-				entity.snapTo(
-					this.worldPosition.getX() + firefly.pos.x,
-					this.worldPosition.getY() + firefly.y + extraHeight + 0.07D,
-					this.worldPosition.getZ() + firefly.pos.z,
-					0F,
-					0F
-				);
-				entity.wilderWild$setFromBottle(true);
-				if (level.addFreshEntity(entity)) {
-					FireflyAi.rememberHome(entity, entity.blockPosition());
-					entity.setColor(firefly.color);
-					entity.setAnimScale(1F);
-					if (!Objects.equals(firefly.customName, "")) {
-						entity.setCustomName(Component.nullToEmpty(firefly.customName));
-					}
-				} else {
-					WWConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
-				}
+			final Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
+			if (entity == null) continue;
+			entity.snapTo(
+				this.worldPosition.getX() + firefly.pos.x,
+				this.worldPosition.getY() + firefly.y + extraHeight + 0.07D,
+				this.worldPosition.getZ() + firefly.pos.z,
+				0F, 0F
+			);
+			entity.wilderWild$setFromBottle(true);
+			if (level.addFreshEntity(entity)) {
+				FireflyAi.rememberHome(entity, entity.blockPosition());
+				entity.setColor(firefly.color);
+				entity.setAnimScale(1F);
+				if (!Objects.equals(firefly.customName, "")) entity.setCustomName(Component.nullToEmpty(firefly.customName));
+			} else {
+				WWConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 			}
 		}
 	}
@@ -283,11 +277,10 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		public void tick(Level level) {
 			this.age += 1;
 			this.y = Math.sin(this.age * 0.03D) * 0.15D;
-			if (this.colorForRendering.isEmpty()) {
-				this.colorForRendering = level.registryAccess()
-					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
-					.getOptional(this.color);
-			}
+			if (this.colorForRendering.isPresent()) return;
+			this.colorForRendering = level.registryAccess()
+				.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+				.getOptional(this.color);
 		}
 
 		@NotNull

@@ -102,9 +102,9 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
-		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
-		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
-		Direction direction = state.getValue(GeyserBlock.FACING);
+		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
+		final GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		final Direction direction = state.getValue(GeyserBlock.FACING);
 		boolean natural = state.getValue(GeyserBlock.NATURAL);
 
 		if (!this.hasRunFirstCheck) {
@@ -125,9 +125,7 @@ public class GeyserBlockEntity extends BlockEntity {
 				this.handleEruption(level, pos, geyserType, direction, natural);
 			}
 			this.ticksUntilNextEvent -= 1;
-			if (this.ticksUntilNextEvent <= 0) {
-				this.advanceStage(level, pos, state, geyserStage, natural, random);
-			}
+			if (this.ticksUntilNextEvent <= 0) this.advanceStage(level, pos, state, geyserStage, natural, random);
 		} else {
 			this.setDormant(level, pos, state, random);
 		}
@@ -152,7 +150,7 @@ public class GeyserBlockEntity extends BlockEntity {
 
 		Optional<BlockPos> cutoffPos = Optional.empty();
 		Optional<BlockPos> damageCutoffPos = Optional.empty();
-		BlockPos.MutableBlockPos mutablePos = pos.mutable();
+		final BlockPos.MutableBlockPos mutablePos = pos.mutable();
 
 		for (int i = 0; i < (vent ? VENT_DISTANCE_IN_BLOCKS : ERUPTION_DISTANCE_IN_BLOCKS); i++) {
 			if (!level.hasChunkAt(mutablePos.move(direction))) continue;
@@ -160,9 +158,9 @@ public class GeyserBlockEntity extends BlockEntity {
 			final BlockState state = level.getBlockState(mutablePos);
 			if (!BlowingHelper.canBlowingPassThrough(level, mutablePos, state, direction)) break;
 
-			boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
-			boolean mismatchesWater = geyserType.isWater() && !state.getFluidState().is(Fluids.WATER);
-			boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
+			final boolean mismatchesAir = geyserType == GeyserType.AIR && !state.getFluidState().isEmpty();
+			final boolean mismatchesWater = geyserType.isWater() && !state.getFluidState().is(Fluids.WATER);
+			final boolean mismatchesLava = geyserType == GeyserType.LAVA && !state.getFluidState().is(Fluids.LAVA);
 			if (mismatchesAir || mismatchesWater || mismatchesLava) {
 				if (cutoffPos.isEmpty()) cutoffPos = Optional.of(mutablePos.immutable());
 			}
@@ -257,7 +255,7 @@ public class GeyserBlockEntity extends BlockEntity {
 					}
 				}
 
-				double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
+				final double damageIntensity = Math.max((eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance, eruptionDistance * 0.1D);
 				if (geyserType == GeyserType.LAVA && !entity.fireImmune()) {
 					entity.igniteForTicks((int) (FIRE_TICKS_MAX * damageIntensity));
 					entity.hurt(level.damageSources().inFire(), 1F);
@@ -328,10 +326,10 @@ public class GeyserBlockEntity extends BlockEntity {
 
 	private boolean canErupt(Level level, BlockPos pos, boolean natural, RandomSource random) {
 		if (!natural) return true;
-		final Vec3 gesyerCenter = Vec3.atCenterOf(pos);
-		final Player player = level.getNearestPlayer(gesyerCenter.x(), gesyerCenter.y(), gesyerCenter.z(), -1D, entity -> !entity.isSpectator() && entity.isAlive());
+		final Vec3 center = Vec3.atCenterOf(pos);
+		final Player player = level.getNearestPlayer(center.x(), center.y(), center.z(), -1D, entity -> !entity.isSpectator() && entity.isAlive());
 		if (player != null) {
-			final double distance = player.distanceToSqr(gesyerCenter);
+			final double distance = player.distanceToSqr(center);
 			if (Math.sqrt(distance) <= 48) return random.nextInt(((int) (distance * 1.5D)) + 5) == 0;
 		}
 		return false;
@@ -356,16 +354,16 @@ public class GeyserBlockEntity extends BlockEntity {
 
 	@Environment(EnvType.CLIENT)
 	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
-		GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
-		GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
-		Direction direction = state.getValue(GeyserBlock.FACING);
-		boolean natural = state.getValue(GeyserBlock.NATURAL);
-		if (GeyserBlock.isActive(geyserType)) {
-			if (geyserStage == GeyserStage.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
-				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-				this.handleEruption(level, pos, geyserType, direction, natural);
-				GeyserParticleHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
-			}
+		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
+		if (!GeyserBlock.isActive(geyserType)) return;
+
+		final GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		final Direction direction = state.getValue(GeyserBlock.FACING);
+		final boolean natural = state.getValue(GeyserBlock.NATURAL);
+		if (geyserStage == GeyserStage.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
+			this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
+			this.handleEruption(level, pos, geyserType, direction, natural);
+			GeyserParticleHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
 		}
 	}
 

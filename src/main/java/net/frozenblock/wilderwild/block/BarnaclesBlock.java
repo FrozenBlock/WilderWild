@@ -29,8 +29,8 @@ public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleW
 	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public BarnaclesBlock(@NotNull Properties settings) {
-		super(settings);
+	public BarnaclesBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@NotNull
@@ -45,8 +45,8 @@ public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleW
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
-		return blockState.getFluidState().isEmpty();
+	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+		return state.getFluidState().isEmpty();
 	}
 
 	@Override

@@ -62,91 +62,84 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
 	}
 
-	private void crackOrDestroy(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
-		int age = blockState.getValue(AGE);
-		if (age < 2) {
-			level.setBlock(blockPos, blockState.setValue(AGE, age + 1), UPDATE_CLIENTS);
-			SoundType soundType = this.getSoundType(blockState);
-			level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.1F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
-			if (level instanceof ServerLevel serverLevel) {
-				serverLevel.sendParticles(
-					new BlockParticleOption(ParticleTypes.BLOCK, blockState),
-					blockPos.getX() + 0.5D,
-					blockPos.getY() + 0.5D,
-					blockPos.getZ() + 0.5D,
-					level.random.nextInt(20, 30),
-					0.3F,
-					0.3F,
-					0.3F,
-					0.05D
-				);
-			}
-		} else {
-			level.destroyBlock(blockPos, false);
+	private void crackOrDestroy(@NotNull BlockState state, Level level, BlockPos pos) {
+		final int age = state.getValue(AGE);
+		if (age >= 2) {
+			level.destroyBlock(pos, false);
+			return;
 		}
+
+		level.setBlock(pos, state.setValue(AGE, age + 1), UPDATE_CLIENTS);
+		final SoundType soundType = this.getSoundType(state);
+		level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.1F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		if (!(level instanceof ServerLevel serverLevel)) return ;
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, state),
+			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+			level.random.nextInt(20, 30),
+			0.3F, 0.3F, 0.3F,
+			0.05D
+		);
 	}
 
-	public void scheduleCrackIfNotScheduled(@NotNull Level level, BlockPos blockPos) {
-		if (!level.getBlockTicks().hasScheduledTick(blockPos, this)) level.scheduleTick(blockPos, this, DELAY_BETWEEN_CRACKS);
+	public void scheduleCrackIfNotScheduled(@NotNull Level level, BlockPos pos) {
+		if (!level.getBlockTicks().hasScheduledTick(pos, this)) level.scheduleTick(pos, this, DELAY_BETWEEN_CRACKS);
 	}
 
 	@Override
-	protected void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		this.crackOrDestroy(blockState, serverLevel, blockPos);
+	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		this.crackOrDestroy(state, level, pos);
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, boolean bl) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		for (Direction direction : UPDATE_SHAPE_ORDER) {
-			mutableBlockPos.setWithOffset(blockPos, direction);
-			if (serverLevel.getBlockState(mutableBlockPos).is(this)) {
-				if (serverLevel.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) this.scheduleShatter(serverLevel, mutableBlockPos, blockState, serverLevel.getRandom());
-			}
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+		final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		for (Direction direction : Direction.values()) {
+			mutableBlockPos.setWithOffset(pos, direction);
+			if (!level.getBlockState(mutableBlockPos).is(this)) continue;
+			if (level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) this.scheduleShatter(level, mutableBlockPos, state, level.getRandom());
 		}
-		super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, bl);
+		super.affectNeighborsAfterRemoval(state, level, pos, bl);
 	}
 
 	@Override
-	protected void randomTick(@NotNull BlockState blockState, @NotNull ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
-		if (randomSource.nextFloat() <= 0.075F) {
-			IcicleUtils.growIcicleOnRandomTick(serverLevel, blockPos);
-		} else {
-			this.heal(blockState, serverLevel, blockPos);
+	protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+		if (random.nextFloat() <= 0.075F) {
+			IcicleUtils.growIcicleOnRandomTick(level, pos);
+			return;
 		}
+		this.heal(state, level, pos);
 	}
 
 	@Override
-	public void stepOn(Level level, BlockPos blockPos, BlockState blockState, @NotNull Entity entity) {
-		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, blockPos);
+	public void stepOn(Level level, BlockPos pos, BlockState state, @NotNull Entity entity) {
+		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, pos);
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, double fallDistance) {
-		super.fallOn(level, blockState, blockPos, entity, fallDistance);
-		if (!entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) {
-			if (fallDistance >= 4F) {
-				level.destroyBlock(blockPos, false);
-				if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
-			}
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
+		super.fallOn(level, state, pos, entity, fallDistance);
+		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) return;
+		if (fallDistance >= 4F) {
+			level.destroyBlock(pos, false);
+			if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
 		}
 	}
 
 	@Override
-	protected void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, @NotNull Projectile projectile) {
-		if (!projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) {
-			double velocity = projectile.getDeltaMovement().length();
-			if (velocity >= 1.6D) level.destroyBlock(blockHitResult.getBlockPos(), false);
-		}
+	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, @NotNull Projectile projectile) {
+		if (projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
+		final double velocity = projectile.getDeltaMovement().length();
+		if (velocity >= 1.6D) level.destroyBlock(hitResult.getBlockPos(), false);
 	}
 
-	public void scheduleShatter(@NotNull Level level, BlockPos blockPos, @NotNull BlockState blockState, RandomSource randomSource) {
-		level.setBlock(blockPos, blockState.setValue(AGE, 2), UPDATE_CLIENTS);
-		level.scheduleTick(blockPos, this, SHEET_SHATTER_DELAY.sample(randomSource));
+	public void scheduleShatter(@NotNull Level level, BlockPos pos, @NotNull BlockState state, RandomSource random) {
+		level.setBlock(pos, state.setValue(AGE, 2), UPDATE_CLIENTS);
+		level.scheduleTick(pos, this, SHEET_SHATTER_DELAY.sample(random));
 	}
 
-	private void heal(@NotNull BlockState blockState, Level level, BlockPos blockPos) {
-		if (blockState.getValue(AGE) > 0) level.setBlock(blockPos, blockState.setValue(AGE, 0), UPDATE_CLIENTS);
+	private void heal(@NotNull BlockState state, Level level, BlockPos pos) {
+		if (state.getValue(AGE) > 0) level.setBlock(pos, state.setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 
 	@Override

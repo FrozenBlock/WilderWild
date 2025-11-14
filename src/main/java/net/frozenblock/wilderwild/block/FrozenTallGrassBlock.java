@@ -30,20 +30,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenTallGrassBlock extends TallGrassBlock {
 
-	public FrozenTallGrassBlock(@NotNull Properties settings) {
-		super(settings);
+	public FrozenTallGrassBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(Blocks.SNOW_BLOCK);
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return super.mayPlaceOn(state, level, pos) || state.is(Blocks.SNOW_BLOCK);
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, @NotNull BlockState blockState) {
-		DoublePlantBlock doublePlantBlock = (blockState.is(WWBlocks.FROZEN_FERN) ? WWBlocks.FROZEN_LARGE_FERN : WWBlocks.FROZEN_TALL_GRASS);
-		if (doublePlantBlock.defaultBlockState().canSurvive(serverLevel, blockPos) && serverLevel.isEmptyBlock(blockPos.above())) {
-			DoublePlantBlock.placeAt(serverLevel, doublePlantBlock.defaultBlockState(), blockPos, UPDATE_CLIENTS);
-		}
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, @NotNull BlockState blockState) {
+		final DoublePlantBlock doublePlantBlock = (blockState.is(WWBlocks.FROZEN_FERN) ? WWBlocks.FROZEN_LARGE_FERN : WWBlocks.FROZEN_TALL_GRASS);
+		if (!doublePlantBlock.defaultBlockState().canSurvive(level, pos) || !level.isEmptyBlock(pos.above())) return;
+		DoublePlantBlock.placeAt(level, doublePlantBlock.defaultBlockState(), pos, UPDATE_CLIENTS);
 	}
 }

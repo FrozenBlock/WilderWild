@@ -41,8 +41,8 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public AuburnMossCarpetBlock(@NotNull Properties settings) {
-		super(settings);
+	public AuburnMossCarpetBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
@@ -54,41 +54,41 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		@NotNull Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
-	public boolean canSurvive(BlockState blockState, @NotNull LevelReader levelReader, @NotNull BlockPos blockPos) {
-		boolean canSurvive = super.canSurvive(blockState, levelReader, blockPos);
-		if (blockState.getValue(WATERLOGGED)) return canSurvive && !levelReader.getFluidState(blockPos.below()).is(FluidTags.WATER);
+	public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		final boolean canSurvive = super.canSurvive(state, level, pos);
+		if (state.getValue(WATERLOGGED)) return canSurvive && !level.getFluidState(pos.below()).is(FluidTags.WATER);
 		return canSurvive;
 	}
 
 	@Override
-	public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-		BlockState state = super.getStateForPlacement(blockPlaceContext);
-		if (state != null) return state.setValue(WATERLOGGED, blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos()).getType() == Fluids.WATER);
+	public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+		final BlockState state = super.getStateForPlacement(context);
+		if (state != null) return state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
 		return state;
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState blockState) {
-		return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
+	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
-		return blockState.getFluidState().isEmpty();
+	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+		return state.getFluidState().isEmpty();
 	}
 
 	@Override

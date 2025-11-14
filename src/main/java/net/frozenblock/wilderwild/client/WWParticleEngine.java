@@ -44,7 +44,7 @@ import net.frozenblock.wilderwild.registry.WWParticleTypes;
 public final class WWParticleEngine {
 
 	public static void init() {
-		ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
+		final ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
 
 		particleRegistry.register(WWParticleTypes.LEAF_CLUSTER_SPAWNER, LeafClusterSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.OAK_LEAVES, WWFallingLeavesParticle.Provider::new);

@@ -34,8 +34,8 @@ public class PaleShelfFungiBlock extends ShelfFungiBlock {
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
-	public PaleShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties settings) {
-		super(shearingLootTable, settings);
+	public PaleShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties properties) {
+		super(shearingLootTable, properties);
 	}
 
 	@Override

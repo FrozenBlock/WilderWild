@@ -50,12 +50,13 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 	@Override
 	protected int getModelTint(@NotNull JellyfishRenderState renderState) {
-		return !renderState.isRGB ? super.getModelTint(renderState)
+		return !renderState.isRGB
+			? super.getModelTint(renderState)
 			: ARGB.color(
-			(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
-		);
+				(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
+				(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+				(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+			);
 	}
 
 	@Override

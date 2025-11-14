@@ -86,9 +86,8 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 
 	@Override
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if (level.getRawBrightness(pos, 0) >= 9 && !isFullyGrown(state) && random.nextInt(GROWTH_CHANCE) == 0) {
-			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-		}
+		if (level.getRawBrightness(pos, 0) < 9 || isFullyGrown(state) || random.nextInt(GROWTH_CHANCE) != 0) return;
+		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 
 	@Override
@@ -138,9 +137,9 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		@NotNull BlockPos pos,
 		@NotNull Player player,
 		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hit
+		@NotNull BlockHitResult hitResult
 	) {
-		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hit);
+		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 		onPlayerPick(level, pos, state, player, hand, stack);
 		return InteractionResult.SUCCESS;
 	}
@@ -174,9 +173,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		}
 	}
 
-	public static void dropPricklyPear(
-		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
-	) {
+	public static void dropPricklyPear(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_PRICKLY_PEAR,

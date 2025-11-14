@@ -68,13 +68,13 @@ public class FallingLeafTicker extends SilentTicker {
 			if (level instanceof ServerLevel serverLevel) {
 				this.yd -= 0.04D;
 				this.setPos(vec3.add(0D, this.yd, 0D));
-				BlockHitResult hitResult = this.createHitResultFromMovement(level, vec3);
+				final BlockHitResult hitResult = this.createHitResultFromMovement(level, vec3);
 				if (hitResult.getType() != HitResult.Type.MISS) {
-					BlockPos hitPos = hitResult.getBlockPos();
-					BlockPos placePos = hitPos.above();
-					BlockState stateToReplace = level.getBlockState(placePos);
+					final BlockPos hitPos = hitResult.getBlockPos();
+					final BlockPos placePos = hitPos.above();
+					final BlockState stateToReplace = level.getBlockState(placePos);
 					if (FallingLeafUtil.isSafePosToPlaceLitter(level, placePos, stateToReplace, this.leafLitter)) {
-						BlockState litterState = getPlacementStateForLitter(this.leafLitter, stateToReplace, random);
+						final BlockState litterState = getPlacementStateForLitter(this.leafLitter, stateToReplace, random);
 						level.setBlockAndUpdate(placePos, litterState);
 						serverLevel.sendParticles(
 							new BlockParticleOption(ParticleTypes.BLOCK, litterState),
@@ -85,7 +85,7 @@ public class FallingLeafTicker extends SilentTicker {
 							0.3D, 0D, 0.3D,
 							0.05D
 						);
-						SoundType soundType = litterState.getSoundType();
+						final SoundType soundType = litterState.getSoundType();
 						level.playSound(
 							null,
 							placePos,

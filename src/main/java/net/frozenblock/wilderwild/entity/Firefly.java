@@ -164,8 +164,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
-		return reason == EntitySpawnReason.DISPENSER
-			|| reason == EntitySpawnReason.BUCKET;
+		return reason == EntitySpawnReason.DISPENSER || reason == EntitySpawnReason.BUCKET;
 	}
 
 	@Override
@@ -405,7 +404,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	@NotNull
 	protected PathNavigation createNavigation(@NotNull Level level) {
-		FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
+		final FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
 		birdNavigation.setCanOpenDoors(false);
 		birdNavigation.setCanFloat(true);
 		birdNavigation.getNodeEvaluator().setCanPassDoors(true);
@@ -486,7 +485,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
-		ProfilerFiller profiler = Profiler.get();
+		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("fireflyBrain");
 		this.getBrain().tick(level, this);
 		profiler.pop();

@@ -80,8 +80,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 
-	public HangingTendrilBlock(@NotNull Properties settings) {
-		super(settings);
+	public HangingTendrilBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(PHASE, SculkSensorPhase.INACTIVE)
 			.setValue(WATERLOGGED, false)
@@ -93,10 +93,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static void deactivate(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0));
-		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
-		}
-
+		if (!state.getValue(WATERLOGGED)) level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 	}
 
@@ -116,15 +113,15 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		BlockPos blockPos = pos.above();
-		BlockState blockState = level.getBlockState(blockPos);
+		final BlockPos blockPos = pos.above();
+		final BlockState blockState = level.getBlockState(blockPos);
 		return blockState.isFaceSturdy(level, blockPos, Direction.DOWN);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		BlockPos blockPos = ctx.getClickedPos();
-		FluidState fluidState = ctx.getLevel().getFluidState(blockPos);
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		final BlockPos blockPos = context.getClickedPos();
+		final FluidState fluidState = context.getLevel().getFluidState(blockPos);
 		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
@@ -132,29 +129,28 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
-		} else if (SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE) {
-			BlockEntity entity = level.getBlockEntity(pos);
-			if (entity instanceof HangingTendrilBlockEntity wigglyTendril) {
-				level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
-				wigglyTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(TWITCH_MIN_TICKS, TWITCH_MAX_TICKS);
-			}
+			return;
 		}
+		if (SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE) return;
+		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return;
+		level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
+		hangingTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(TWITCH_MIN_TICKS, TWITCH_MAX_TICKS);
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (!blockState.canSurvive(levelReader, blockPos)) scheduledTickAccess.scheduleTick(blockPos, this, 1);
-		if (blockState.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelReader));
-		return super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, neighborPos, neighborState, randomSource);
+		if (!state.canSurvive(level, pos)) scheduledTickAccess.scheduleTick(pos, this, 1);
+		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -232,26 +228,23 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		int frequency
 	) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power));
-		boolean tendrilsCarryEvents = WWBlockConfig.get().sculk.tendrilsCarryEvents;
+		final boolean tendrilsCarryEvents = WWBlockConfig.get().sculk.tendrilsCarryEvents;
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, level, pos, frequency);
 		level.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
-		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(
-				null,
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5D,
-				pos.getZ() + 0.5D,
-				WWSounds.BLOCK_HANGING_TENDRIL_CLICKING,
-				SoundSource.BLOCKS,
-				1F,
-				level.random.nextFloat() * 0.2F + 0.8F
-			);
-		}
+		if (state.getValue(WATERLOGGED)) return;
+		level.playSound(
+			null,
+			pos,
+			WWSounds.BLOCK_HANGING_TENDRIL_CLICKING,
+			SoundSource.BLOCKS,
+			1F,
+			level.random.nextFloat() * 0.2F + 0.8F
+		);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, net.minecraft.world.level.block.state.BlockState> builder) {
+	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(PHASE, POWER, WATERLOGGED, TWITCHING, WRINGING_OUT);
 	}
 
@@ -262,10 +255,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public int getAnalogOutputSignal(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Direction direction) {
-		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingEntity) {
-			return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingEntity.getLastVibrationFrequency() : 0;
-		}
-		return 0;
+		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return 0;
+		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.ACTIVE ? hangingTendril.getLastVibrationFrequency() : 0;
 	}
 
 	@Override
@@ -281,44 +272,38 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean bl) {
 		super.spawnAfterBreak(state, level, pos, stack, bl);
-		if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendrilBlockEntity) {
-			if (hangingTendrilBlockEntity.getStoredXP() > 0) this.popExperience(level, pos, hangingTendrilBlockEntity.getStoredXP());
-		}
+		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return;
+		if (hangingTendril.getStoredXP() > 0) this.popExperience(level, pos, hangingTendril.getStoredXP());
 	}
 
 	@Override
 	@NotNull
 	public InteractionResult useWithoutItem(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hit) {
-		if (SculkSensorBlock.canActivate(state) && !state.getValue(WRINGING_OUT)) {
-			if (level.isClientSide()) return InteractionResult.SUCCESS;
-			if (level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity tendrilEntity) {
-				if (tendrilEntity.getStoredXP() > 0) {
-					level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-					level.playSound(null,
-						pos,
-						WWSounds.BLOCK_HANGING_TENDRIL_WRING,
-						SoundSource.BLOCKS,
-						1F,
-						level.getRandom().nextFloat() * 0.1F + 0.9F
-					);
-					tendrilEntity.ringOutTicksLeft = RING_OUT_TICKS;
-					return InteractionResult.SUCCESS;
-				}
-			}
-		}
-		return InteractionResult.PASS;
+		if (!SculkSensorBlock.canActivate(state) || state.getValue(WRINGING_OUT)) return InteractionResult.PASS;
+		if (level.isClientSide()) return InteractionResult.SUCCESS;
+		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return InteractionResult.PASS;
+		if (hangingTendril.getStoredXP() <= 0) return InteractionResult.PASS;
+
+		level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
+		level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_WRING, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+		hangingTendril.ringOutTicksLeft = RING_OUT_TICKS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public int attemptUseCharge(SculkSpreader.@NotNull ChargeCursor cursor, @NotNull LevelAccessor level, @NotNull BlockPos catalystPos, @NotNull RandomSource random, @NotNull SculkSpreader spreadManager, boolean shouldConvertToBlock) {
-		if (level.getBlockEntity(cursor.getPos()) instanceof HangingTendrilBlockEntity tendrilEntity) {
-			int storedXP = tendrilEntity.getStoredXP();
-			if (storedXP < MAX_STORED_XP) {
-				int xpSwapAmount = Math.min(cursor.getCharge(), 2);
-				tendrilEntity.setStoredXP(storedXP + xpSwapAmount);
-				return cursor.getCharge() - xpSwapAmount;
-			}
-		}
-		return cursor.getCharge();
+	public int attemptUseCharge(
+		SculkSpreader.ChargeCursor cursor,
+		LevelAccessor level,
+		BlockPos catalystPos,
+		RandomSource random,
+		SculkSpreader spreadManager,
+		boolean shouldConvertToBlock
+	) {
+		if (!(level.getBlockEntity(cursor.getPos()) instanceof HangingTendrilBlockEntity tendrilEntity)) return cursor.getCharge();
+		final int storedXP = tendrilEntity.getStoredXP();
+		if (storedXP >= MAX_STORED_XP) return cursor.getCharge();
+		final int xpSwapAmount = Math.min(cursor.getCharge(), 2);
+		tendrilEntity.setStoredXP(storedXP + xpSwapAmount);
+		return cursor.getCharge() - xpSwapAmount;
 	}
 }

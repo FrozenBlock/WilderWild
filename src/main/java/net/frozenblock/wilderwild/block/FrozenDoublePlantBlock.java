@@ -26,12 +26,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class FrozenDoublePlantBlock extends DoublePlantBlock {
 
-	public FrozenDoublePlantBlock(@NotNull Properties settings) {
-		super(settings);
+	public FrozenDoublePlantBlock(@NotNull Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(Blocks.SNOW_BLOCK);
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return super.mayPlaceOn(state, level, pos) || state.is(Blocks.SNOW_BLOCK);
 	}
 }

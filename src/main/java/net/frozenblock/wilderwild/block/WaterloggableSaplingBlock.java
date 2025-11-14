@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -50,8 +49,8 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 		propertiesCodec()
 	).apply(instance, WaterloggableSaplingBlock::new));
 
-	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties settings) {
-		super(grower, settings);
+	public WaterloggableSaplingBlock(@NotNull TreeGrower grower, @NotNull Properties properties) {
+		super(grower, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
 	}
 
@@ -75,24 +74,20 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
-		boolean canSkip = false;
 		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
-			if (!canSkip) {
-				if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
-					if (i == WATER_SEARCH_RANGE) return false;
-				} else {
-					canSkip = true;
-				}
+			if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
+				if (i == WATER_SEARCH_RANGE) return false;
+			} else {
+				break;
 			}
 		}
 		return super.canSurvive(state, level, pos);
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext ctx) {
-		final FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
-		final boolean isWater = fluidState.getType() == Fluids.WATER;
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(WATERLOGGED, isWater);
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+		return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override

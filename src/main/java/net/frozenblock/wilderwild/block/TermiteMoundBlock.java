@@ -32,7 +32,6 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -49,8 +48,8 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public static final int MAX_TICK_DELAY = 150;
 	public static final int MIN_AWAKE_LIGHT_LEVEL = 7;
 
-	public TermiteMoundBlock(@NotNull Properties settings) {
-		super(settings);
+	public TermiteMoundBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(
 			this.stateDefinition.any()
 				.setValue(WWBlockStateProperties.NATURAL, false)
@@ -112,10 +111,10 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
 
-	public BlockState evaluateMoundBlockStateAtPosition(@NotNull BlockState moundState, Level level, BlockPos pos) {
-		boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
-		boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		return moundState
+	public BlockState evaluateMoundBlockStateAtPosition(@NotNull BlockState state, Level level, BlockPos pos) {
+		final boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
+		final boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
+		return state
 			.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken)
 			.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
 	}
@@ -129,20 +128,14 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
-			mutableBlockPos.setWithOffset(blockPos, direction);
-			int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutableBlockPos) : level.getBrightness(LightLayer.BLOCK, mutableBlockPos);
+			mutable.setWithOffset(blockPos, direction);
+			final int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutable) : level.getBrightness(LightLayer.BLOCK, mutable);
 			finalLight = Math.max(finalLight, newLight);
 		}
 		return finalLight;
-	}
-
-	@Override
-	@NotNull
-	public RenderShape getRenderShape(@NotNull BlockState blockState) {
-		return RenderShape.MODEL;
 	}
 
 	@Nullable
@@ -161,7 +154,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public static @NotNull BlockState setTermiteEdibleIfPossible(@NotNull BlockState state) {
-		if (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) return state.setValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
-		return state;
+		return state.trySetValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 	}
 }

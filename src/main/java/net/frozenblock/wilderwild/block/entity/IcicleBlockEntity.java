@@ -71,7 +71,7 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	}
 
 	@NotNull
-	public VibrationSystem.User createVibrationUser() {
+	public User createVibrationUser() {
 		return new IcicleBlockEntity.VibrationUser(this.getBlockPos());
 	}
 
@@ -133,14 +133,14 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 
 		@Override
 		public void onReceiveVibration(
-			@NotNull ServerLevel world,
+			@NotNull ServerLevel level,
 			@NotNull BlockPos pos,
 			@NotNull Holder<GameEvent> gameEvent,
 			@Nullable Entity entity,
 			@Nullable Entity entity2,
 			float f
 		) {
-			if (IcicleBlockEntity.this.getBlockState().getBlock() instanceof IcicleBlock icicleBlock) icicleBlock.triggerFall(world, this.blockPos);
+			if (IcicleBlockEntity.this.getBlockState().getBlock() instanceof IcicleBlock icicleBlock) icicleBlock.triggerFall(level, this.blockPos);
 		}
 
 		@Override

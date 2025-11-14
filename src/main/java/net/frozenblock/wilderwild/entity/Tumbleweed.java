@@ -149,11 +149,11 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
 		if (this.inventory.isEmpty() && reason == EntitySpawnReason.NATURAL) {
-			int diff = difficulty.getDifficulty().getId();
+			final int diff = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, diff == 0 ? 32 : (27 / diff)) == 0) {
 				int tagSelector = this.random.nextInt(1, 6);
-				TagKey<Item> itemTag = tagSelector <= 1 ? WWItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WWItemTags.TUMBLEWEED_MEDIUM : WWItemTags.TUMBLEWEED_COMMON;
-				ItemLike itemLike = TagUtils.getRandomEntry(this.random, itemTag);
+				final TagKey<Item> itemTag = tagSelector <= 1 ? WWItemTags.TUMBLEWEED_RARE : tagSelector <= 3 ? WWItemTags.TUMBLEWEED_MEDIUM : WWItemTags.TUMBLEWEED_COMMON;
+				final ItemLike itemLike = TagUtils.getRandomEntry(this.random, itemTag);
 				if (itemLike != null) this.setItem(new ItemStack(itemLike), true);
 			} else if (this.random.nextInt(TUMBLEWEED_PLANT_ITEM_CHANCE) == 0) {
 				this.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
@@ -171,10 +171,10 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	public static void spawnFromShears(@NotNull Level level, BlockPos pos) {
 		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_SHEAR, SoundSource.BLOCKS, 1F, 1F);
-		Tumbleweed weed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
-		level.addFreshEntity(weed);
-		weed.setPos(Vec3.atBottomCenterOf(pos));
-		weed.spawnedFromShears = true;
+		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
+		level.addFreshEntity(tumbleweed);
+		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
+		tumbleweed.spawnedFromShears = true;
 	}
 
 	@Override
@@ -250,7 +250,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 		this.prevPitch = this.pitch;
 		this.prevRoll = this.roll;
 		this.prevTumble = this.tumble;
-		float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * ROTATION_AMOUNT);
+		final float yRotAmount = (float) ((Math.abs(deltaPos.y) * 0.5F) * ROTATION_AMOUNT);
 		this.pitch -= (float) (deltaPos.z * ROTATION_AMOUNT);
 		this.roll -= (float) (deltaPos.x * ROTATION_AMOUNT);
 		this.pitch += yRotAmount;
@@ -303,9 +303,9 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 		if (this.isCannonball()) return;
 
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
-			WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
-			Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
-			double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
+			final WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
+			final Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
+			final double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
 
 			Vec3 deltaMovement = this.getDeltaMovement();
 			deltaMovement = deltaMovement.add((windVec.x * 0.2D), 0D, (windVec.z * 0.2D));
@@ -333,7 +333,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), inventoryStack.split(inventoryStack.getCount() - 1)));
 		}
 		if (this.level() instanceof ServerLevel serverLevel && inventoryStack.isEmpty() && serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && !this.isRemoved()) {
-			List<ItemEntity> list = serverLevel.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
+			final List<ItemEntity> list = serverLevel.getEntitiesOfClass(ItemEntity.class, this.getBoundingBox().inflate(0.15D));
 			for (ItemEntity item : list) {
 				if (!this.isMovingTowards(item)) continue;
 
@@ -350,9 +350,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	}
 
 	public void dropItem(boolean killed) {
-		if (!this.isItemNatural || killed) {
-			this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.getItem(0).split(1)));
-		}
+		if (this.isItemNatural && !killed) return;
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getEyeY(), this.getZ(), this.inventory.getItem(0).split(1)));
 	}
 
 	public void destroy(boolean killed) {
@@ -432,7 +431,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Override
 	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-		boolean isCannonball = this.isCannonball();
+		final boolean isCannonball = this.isCannonball();
 		this.playSound(
 			isCannonball ? WWSounds.ENTITY_TUMBLEWEED_CANNONBALL_ROLL : WWSounds.ENTITY_TUMBLEWEED_BOUNCE,
 			0.2F,
@@ -463,11 +462,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 		return new ClientboundAddEntityPacket(
 			this.getId(),
 			this.getUUID(),
-			this.getX(),
-			this.getY(),
-			this.getZ(),
-			this.pitch,
-			this.roll,
+			this.getX(), this.getY(), this.getZ(),
+			this.pitch, this.roll,
 			this.getType(),
 			0,
 			this.getDeltaMovement(),
@@ -477,19 +473,19 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Override
 	public void recreateFromPacket(@NotNull ClientboundAddEntityPacket packet) {
-		double d = packet.getX();
-		double e = packet.getY();
-		double f = packet.getZ();
+		final double x = packet.getX();
+		final double y = packet.getY();
+		final double z = packet.getZ();
 		this.roll = packet.getYRot();
 		this.pitch = packet.getXRot();
-		this.syncPacketPositionCodec(d, e, f);
+		this.syncPacketPositionCodec(x, y, z);
 		this.yBodyRot = packet.getYHeadRot();
 		this.tumble = packet.getYHeadRot();
 		this.yBodyRotO = this.yBodyRot;
 		this.yHeadRotO = this.yHeadRot;
 		this.setId(packet.getId());
 		this.setUUID(packet.getUUID());
-		this.absSnapTo(d, e, f, 0, 0);
+		this.absSnapTo(x, y, z, 0, 0);
 		this.setDeltaMovement(packet.getMovement());
 	}
 

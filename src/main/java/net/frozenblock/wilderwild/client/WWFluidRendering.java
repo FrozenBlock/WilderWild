@@ -60,14 +60,7 @@ public final class WWFluidRendering {
 				if (!WWBlockConfig.Client.MESOGLEA_FLUID) return;
 
 				final TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(state);
-				LiquidRenderUtils.tesselateWithSingleTexture(
-					level,
-					pos,
-					vertexConsumer,
-					state,
-					fluidState,
-					sprite
-				);
+				LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, state, fluidState, sprite);
 			}
 
 			// Delegate all other methods to the original

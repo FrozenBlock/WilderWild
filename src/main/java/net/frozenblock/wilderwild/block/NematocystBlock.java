@@ -63,15 +63,19 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 
 		@Override
 		@NotNull
-		public Optional<SpreadPos> getSpreadFromFaceTowardDirection(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction spreadDirection, @NotNull Direction face, @NotNull MultifaceSpreader.SpreadPredicate predicate) {
-			if (face.getAxis() == spreadDirection.getAxis()) {
-				return Optional.empty();
-			} else if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {
+		public Optional<SpreadPos> getSpreadFromFaceTowardDirection(
+			@NotNull BlockState state,
+			@NotNull BlockGetter level,
+			@NotNull BlockPos pos,
+			@NotNull Direction spreadDirection,
+			@NotNull Direction face,
+			@NotNull MultifaceSpreader.SpreadPredicate predicate
+		) {
+			if (face.getAxis() == spreadDirection.getAxis()) return Optional.empty();
+			if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {
 				for (MultifaceSpreader.SpreadType spreadType : this.config.getSpreadTypes()) {
-					MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, face, spreadDirection);
-					if (predicate.test(level, pos, spreadPos)) {
-						return Optional.of(spreadPos);
-					}
+					final MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, face, spreadDirection);
+					if (predicate.test(level, pos, spreadPos)) return Optional.of(spreadPos);
 				}
 			}
 			return Optional.empty();

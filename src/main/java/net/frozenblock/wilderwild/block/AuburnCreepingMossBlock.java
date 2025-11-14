@@ -36,8 +36,8 @@ public class AuburnCreepingMossBlock extends MultifaceSpreadeableBlock implement
 	public static final MapCodec<AuburnCreepingMossBlock> CODEC = simpleCodec(AuburnCreepingMossBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public AuburnCreepingMossBlock(@NotNull Properties settings) {
-		super(settings);
+	public AuburnCreepingMossBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
@@ -53,8 +53,8 @@ public class AuburnCreepingMossBlock extends MultifaceSpreadeableBlock implement
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState blockState) {
-		return blockState.getFluidState().isEmpty();
+	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+		return state.getFluidState().isEmpty();
 	}
 
 	@Override
@@ -64,17 +64,17 @@ public class AuburnCreepingMossBlock extends MultifaceSpreadeableBlock implement
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
-		return Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(blockState, levelReader, blockPos, direction.getOpposite()));
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+		return Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-		this.spreader.spreadFromRandomFaceTowardRandomDirection(blockState, serverLevel, blockPos, randomSource);
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+		this.spreader.spreadFromRandomFaceTowardRandomDirection(state, level, pos, random);
 	}
 }

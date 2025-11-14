@@ -64,8 +64,8 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final MapCodec<GeyserBlock> CODEC = simpleCodec(GeyserBlock::new);
 
-	public GeyserBlock(@NotNull Properties settings) {
-		super(settings);
+	public GeyserBlock(@NotNull Properties properties) {
+		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any()
 			.setValue(GEYSER_TYPE, GeyserType.NONE)
 			.setValue(GEYSER_STAGE, GeyserStage.DORMANT)
@@ -98,12 +98,12 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected int getAnalogOutputSignal(@NotNull BlockState state, Level world, BlockPos pos, Direction direction) {
-		GeyserStage stage = state.getValue(GEYSER_STAGE);
+	protected int getAnalogOutputSignal(@NotNull BlockState state, Level level, BlockPos pos, Direction direction) {
+		final GeyserStage stage = state.getValue(GEYSER_STAGE);
 		if (stage == GeyserStage.DORMANT) return 0;
 		if (stage == GeyserStage.ACTIVE) return 5;
 		if (stage == GeyserStage.ERUPTING) return 15;
-		return super.getAnalogOutputSignal(state, world, pos, direction);
+		return super.getAnalogOutputSignal(state, level, pos, direction);
 	}
 
 	@Override
@@ -122,38 +122,37 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
-		if (!level.isClientSide()) {
-			boolean hasNeighborSignal = level.hasNeighborSignal(blockPos);
-			if (hasNeighborSignal != blockState.getValue(POWERED)) {
-				BlockState newState = blockState.setValue(POWERED, hasNeighborSignal);
-				if (hasNeighborSignal) {
-					boolean erupting = blockState.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
-					if (!erupting && isActive(blockState.getValue(GEYSER_TYPE))) {
-						newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
-					}
-				}
-				level.setBlockAndUpdate(blockPos, newState);
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
+		if (level.isClientSide()) return;
+		final boolean hasNeighborSignal = level.hasNeighborSignal(pos);
+		if (hasNeighborSignal == state.getValue(POWERED)) return;
+
+		BlockState newState = state.setValue(POWERED, hasNeighborSignal);
+		if (hasNeighborSignal) {
+			final boolean erupting = state.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
+			if (!erupting && isActive(state.getValue(GEYSER_TYPE))) {
+				newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
 			}
 		}
+		level.setBlockAndUpdate(pos, newState);
 	}
 
 	@Override
 	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
-		LevelReader levelReader,
+		@NotNull BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		@NotNull Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		if (direction.getAxis() == blockState.getValue(FACING).getAxis()) {
-			GeyserType geyserType = getGeyserTypeForPos(levelReader, blockState, blockPos);
-			if (geyserType != blockState.getValue(GEYSER_TYPE)) blockState = blockState.setValue(GEYSER_TYPE, geyserType);
+		if (direction.getAxis() == state.getValue(FACING).getAxis()) {
+			final GeyserType geyserType = getGeyserTypeForPos(level, state, pos);
+			if (geyserType != state.getValue(GEYSER_TYPE)) state = state.setValue(GEYSER_TYPE, geyserType);
 		}
-		return blockState;
+		return state;
 	}
 
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -163,16 +162,15 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static GeyserType getGeyserTypeForPos(@NotNull LevelReader level, @NotNull Direction direction, @NotNull BlockPos pos) {
 		final BlockPos checkPos = pos.relative(direction);
 		final BlockState checkState = level.getBlockState(checkPos);
-		if (BlowingHelper.canBlowingPassThrough(level, checkPos, checkState, direction)) {
-			final FluidState fluidState = checkState.getFluidState();
-			if (fluidState.is(FluidTags.WATER)) {
-				if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
-				return GeyserType.WATER;
-			}
-			if (fluidState.is(FluidTags.LAVA)) return GeyserType.LAVA;
-			return GeyserType.AIR;
+		if (!BlowingHelper.canBlowingPassThrough(level, checkPos, checkState, direction)) return GeyserType.NONE;
+
+		final FluidState fluidState = checkState.getFluidState();
+		if (fluidState.is(FluidTags.WATER)) {
+			if (level.getBlockState(pos.relative(direction.getOpposite())).is(Blocks.MAGMA_BLOCK)) return GeyserType.HYDROTHERMAL_VENT;
+			return GeyserType.WATER;
 		}
-		return GeyserType.NONE;
+		if (fluidState.is(FluidTags.LAVA)) return GeyserType.LAVA;
+		return GeyserType.AIR;
 	}
 
 	@Override
@@ -182,20 +180,20 @@ public class GeyserBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
-		final GeyserType geyserType = blockState.getValue(GEYSER_TYPE);
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		final GeyserType geyserType = state.getValue(GEYSER_TYPE);
 		if (!isActive(geyserType)) return;
 
-		final Direction direction = blockState.getValue(FACING);
-		final boolean natural = blockState.getValue(NATURAL);
-		final GeyserStage stage = blockState.getValue(GEYSER_STAGE);
-		GeyserParticleHandler.spawnBaseGeyserParticles(level, blockPos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
+		final Direction direction = state.getValue(FACING);
+		final boolean natural = state.getValue(NATURAL);
+		final GeyserStage stage = state.getValue(GEYSER_STAGE);
+		GeyserParticleHandler.spawnBaseGeyserParticles(level, pos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
 
 		if (geyserType == GeyserType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
 			level.playLocalSound(
-				blockPos.getX() + 0.5D,
-				blockPos.getY() + 0.5D,
-				blockPos.getZ() + 0.5D,
+				pos.getX() + 0.5D,
+				pos.getY() + 0.5D,
+				pos.getZ() + 0.5D,
 				WWSounds.BLOCK_GEYSER_VENT_AMBIENT,
 				SoundSource.BLOCKS,
 				0.325F,
@@ -205,19 +203,19 @@ public class GeyserBlock extends BaseEntityBlock {
 		}
 
 		if (stage == GeyserStage.DORMANT) {
-			GeyserParticleHandler.spawnDormantParticles(level, blockPos, geyserType, direction, random);
+			GeyserParticleHandler.spawnDormantParticles(level, pos, geyserType, direction, random);
 		} else if (stage == GeyserStage.ACTIVE) {
-			GeyserParticleHandler.spawnActiveParticles(level, blockPos, geyserType, direction, random);
+			GeyserParticleHandler.spawnActiveParticles(level, pos, geyserType, direction, random);
 		}
 
 		if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
-			level.playLocalSound(blockPos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
+			level.playLocalSound(pos, WWSounds.BLOCK_GEYSER_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 		}
 	}
 
 	@NotNull
 	@Override
-	public RenderShape getRenderShape(@NotNull BlockState blockState) {
+	public RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 

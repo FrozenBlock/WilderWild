@@ -44,18 +44,18 @@ public class LeavesWithLitterBlock extends LeavesBlock {
 	}
 
 	@Override
-	protected boolean isRandomlyTicking(@NotNull BlockState blockState) {
-		return !blockState.getValue(PERSISTENT);
+	protected boolean isRandomlyTicking(@NotNull BlockState state) {
+		return !state.getValue(PERSISTENT);
 	}
 
 	@Override
-	protected void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-		FallingLeafUtil.onRandomTick(blockState, serverLevel, blockPos, randomSource);
-		super.randomTick(blockState, serverLevel, blockPos, randomSource);
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		FallingLeafUtil.onRandomTick(state, level, pos, random);
+		super.randomTick(state, level, pos, random);
 	}
 
 	@Override
-	protected void spawnFallingLeavesParticle(Level level, BlockPos blockPos, RandomSource randomSource) {
+	protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
 
 	}
 }

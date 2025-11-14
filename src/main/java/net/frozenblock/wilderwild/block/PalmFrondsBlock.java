@@ -30,8 +30,8 @@ import org.jetbrains.annotations.NotNull;
 public class PalmFrondsBlock extends TintedParticleLeavesBlock implements BonemealableBlock {
 	public static final int BONEMEAL_DISTANCE = CoconutBlock.VALID_FROND_DISTANCE;
 
-	public PalmFrondsBlock(float leafParticleChance, @NotNull Properties settings) {
-		super(leafParticleChance, settings);
+	public PalmFrondsBlock(float leafParticleChance, @NotNull Properties properties) {
+		super(leafParticleChance, properties);
 	}
 
 	@Override
