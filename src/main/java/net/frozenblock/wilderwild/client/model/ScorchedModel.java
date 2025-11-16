@@ -24,7 +24,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedModel extends EntityModel<ScorchedRenderState> {
@@ -115,7 +114,7 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		this.leftFrontLeg.y -= yPos * lavaProgress;
 	}
 
-	private void spiderAnim(@NotNull LivingEntityRenderState renderState) {
+	private void spiderAnim(LivingEntityRenderState renderState) {
 		this.head.yRot = renderState.yRot * Mth.DEG_TO_RAD;
 		this.head.xRot = renderState.xRot * Mth.DEG_TO_RAD;
 		float f = renderState.walkAnimationPos * 0.6662F;

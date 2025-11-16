@@ -27,12 +27,11 @@ import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderState, WardenModel> {
 
 	public StellaWardenLayer(
-		@NotNull RenderLayerParent<WardenRenderState, WardenModel> context,
+		RenderLayerParent<WardenRenderState, WardenModel> context,
 		Function<WardenRenderState, Identifier> texture,
 		AlphaFunction<WardenRenderState> alphaFunction,
 		WardenModel model,

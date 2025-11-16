@@ -26,24 +26,28 @@ import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FallingParticle extends SingleQuadParticle {
 	private final SpriteSet spriteSet;
 
-	FallingParticle(@NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, @NotNull SpriteSet spriteSet) {
+	FallingParticle(
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zSpeed,
+		SpriteSet spriteSet
+	) {
 		this(level, x, y, z, spriteSet);
 		this.xd *= 0.1D;
 		this.yd *= 0.1D;
 		this.zd *= 0.1D;
-		this.xd += xSpeed;
-		this.yd += ySpeed;
+		this.xd += xd;
+		this.yd += yd;
 		this.zd += zSpeed;
 		this.lifetime = level.random.nextInt(4, 8);
 	}
 
-	public FallingParticle(@NotNull ClientLevel level, double x, double y, double z, @NotNull SpriteSet spriteSet) {
+	public FallingParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
 		super(level, x, y, z, 0D, 0D, 0D, spriteSet.first());
 		this.spriteSet = spriteSet;
 		this.setSpriteFromAge(spriteSet);
@@ -62,16 +66,15 @@ public class FallingParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.TRANSLUCENT;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType particleOptions,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random

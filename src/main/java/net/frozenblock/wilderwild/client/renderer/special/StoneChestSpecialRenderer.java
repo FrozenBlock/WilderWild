@@ -36,7 +36,6 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
@@ -56,15 +55,15 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 
 	@Override
 	public void submit(
-		ItemDisplayContext itemDisplayContext,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
+		ItemDisplayContext context,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
 		int light,
 		int overlay,
 		boolean bl,
 		int outlineColor
 	) {
-		submitNodeCollector.submitModel(
+		collector.submitModel(
 			this.model,
 			this.openness,
 			poseStack,
@@ -79,7 +78,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	}
 
 	@Override
-	public void getExtents(@NotNull Consumer<Vector3fc> consumer) {
+	public void getExtents(Consumer<Vector3fc> consumer) {
 		PoseStack poseStack = new PoseStack();
 		this.model.setupAnim(this.openness);
 		this.model.root().getExtentsForGui(poseStack, consumer);
@@ -99,12 +98,12 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public @NotNull MapCodec<StoneChestSpecialRenderer.Unbaked> type() {
+		public MapCodec<StoneChestSpecialRenderer.Unbaked> type() {
 			return MAP_CODEC;
 		}
 
 		@Override
-		public @NotNull SpecialModelRenderer<?> bake(@NotNull BakingContext bakingContext) {
+		public SpecialModelRenderer<?> bake(BakingContext bakingContext) {
 			StoneChestModel stoneChestModel = new StoneChestModel(bakingContext.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
 			Material material = new Material(Sheets.CHEST_SHEET, this.texture.withPrefix("entity/stone_chest/"));
 			return new StoneChestSpecialRenderer(bakingContext.materials(), stoneChestModel, material, this.openness);

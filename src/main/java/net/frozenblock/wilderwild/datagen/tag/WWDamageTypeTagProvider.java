@@ -26,16 +26,15 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
 
-	public WWDamageTypeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public WWDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, Registries.DAMAGE_TYPE, registries);
 	}
 
 	@Override
-	public void addTags(@NotNull HolderLookup.Provider arg) {
+	public void addTags(HolderLookup.Provider arg) {
 		this.builder(DamageTypeTags.NO_ANGER)
 			.add(WWDamageTypes.TUMBLEWEED)
 			.add(WWDamageTypes.CANNONBALL)

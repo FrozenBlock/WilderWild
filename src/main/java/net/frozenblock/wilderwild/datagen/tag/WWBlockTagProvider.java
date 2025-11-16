@@ -31,16 +31,15 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
-	public WWBlockTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public WWBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.generateSounds();
 		this.generateCompat();
 		this.generateLib();
@@ -52,12 +51,11 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.generateWoods();
 	}
 
-	@NotNull
 	private TagKey<Block> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
-	@NotNull private ResourceKey<Block> getKey(String namespace, String path) {
+	private ResourceKey<Block> getKey(String namespace, String path) {
 		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 

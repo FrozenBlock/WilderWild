@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantC
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBucketVariantComponentizationFix;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
@@ -48,7 +47,7 @@ public final class WWMinecraftDataFixer {
 		throw new UnsupportedOperationException("WWMinecraftDataFixer contains only static declarations.");
 	}
 
-	public static void applyDataFixes(final @NotNull ModContainer mod) {
+	public static void applyDataFixes(final ModContainer mod) {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
 		var builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);

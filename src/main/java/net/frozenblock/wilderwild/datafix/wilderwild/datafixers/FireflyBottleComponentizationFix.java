@@ -33,7 +33,6 @@ import java.util.function.UnaryOperator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 
 public final class FireflyBottleComponentizationFix extends DataFix {
 
@@ -61,7 +60,7 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 		.put(WWConstants.string("yellow_firefly_bottle"), WWConstants.string("yellow"))
 		.build();
 
-	private static Dynamic<?> fixItemStack(@NotNull Dynamic<?> dynamic, String fireflyColor) {
+	private static Dynamic<?> fixItemStack(Dynamic<?> dynamic, String fireflyColor) {
 		return dynamic.set(
 			"components",
 			dynamic.emptyMap()
@@ -83,7 +82,7 @@ public final class FireflyBottleComponentizationFix extends DataFix {
 		);
 	}
 
-	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type) {
+	private static UnaryOperator<Typed<?>> createFixer(Type<?> type) {
 		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		return typed -> {
 			final Optional<Pair<String, String>> possibleId = typed.getOptional(idFinder);

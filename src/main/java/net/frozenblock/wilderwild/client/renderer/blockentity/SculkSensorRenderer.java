@@ -42,7 +42,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -57,15 +56,14 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	private final ModelPart tendril3;
 	private final ModelPart tendril4;
 
-	public SculkSensorRenderer(@NotNull Context ctx) {
-		this.root = ctx.bakeLayer(WWModelLayers.SCULK_SENSOR);
+	public SculkSensorRenderer(Context context) {
+		this.root = context.bakeLayer(WWModelLayers.SCULK_SENSOR);
 		this.tendril1 = this.root.getChild("tendril1");
 		this.tendril2 = this.root.getChild("tendril2");
 		this.tendril3 = this.root.getChild("tendril3");
 		this.tendril4 = this.root.getChild("tendril4");
 	}
 
-	@NotNull
 	public static LayerDefinition getTexturedModelData() {
 		final MeshDefinition modelData = new MeshDefinition();
 		final PartDefinition root = modelData.getRoot();
@@ -92,10 +90,10 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 
 	@Override
 	public void submit(
-		@NotNull SculkSensorRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		SculkSensorRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraRenderState
 	) {
 		if (!renderState.active) return;
 
@@ -109,7 +107,7 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		this.tendril3.xRot = xRot;
 		this.tendril4.xRot = xRot;
 
-		submitNodeCollector.submitModelPart(
+		collector.submitModelPart(
 			this.root,
 			poseStack,
 			ACTIVE_SENSOR_LAYER,
@@ -122,16 +120,16 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	}
 
 	@Override
-	public @NotNull SculkSensorRenderState createRenderState() {
+	public SculkSensorRenderState createRenderState() {
 		return new SculkSensorRenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		@NotNull T sculkSensor,
-		@NotNull SculkSensorRenderState renderState,
+		T sculkSensor,
+		SculkSensorRenderState renderState,
 		float partialTicks,
-		@NotNull Vec3 cameraPos,
+		Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderer.super.extractRenderState(sculkSensor, renderState, partialTicks, cameraPos, crumblingOverlay);

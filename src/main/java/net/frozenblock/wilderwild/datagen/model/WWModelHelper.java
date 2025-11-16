@@ -60,7 +60,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.Property;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWModelHelper {
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
@@ -125,15 +124,15 @@ public final class WWModelHelper {
 		TextureSlot.TOP
 	);
 
-	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideAndEndSource, Block insideSource) {
+	public static void createHollowedLog(BlockModelGenerators generator, Block hollowedLog, Block sideAndEndSource, Block insideSource) {
 		createHollowedLog(generator, hollowedLog, sideAndEndSource, insideSource, sideAndEndSource);
 	}
 
-	public static void createStrippedHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideSource, Block insideAndEndSource) {
+	public static void createStrippedHollowedLog(BlockModelGenerators generator, Block hollowedLog, Block sideSource, Block insideAndEndSource) {
 		createHollowedLog(generator, hollowedLog, sideSource, insideAndEndSource, insideAndEndSource);
 	}
 
-	public static void createHollowedLog(@NotNull BlockModelGenerators generator, Block hollowedLog, Block sideSource, Block insideSource, Block endSource) {
+	public static void createHollowedLog(BlockModelGenerators generator, Block hollowedLog, Block sideSource, Block insideSource, Block endSource) {
 		TextureMapping sideTextureMapping = TextureMapping.logColumn(sideSource);
 		TextureMapping insideTextureMapping = TextureMapping.logColumn(insideSource);
 		TextureMapping endTextureMapping = TextureMapping.logColumn(endSource);
@@ -158,7 +157,7 @@ public final class WWModelHelper {
 		generator.registerSimpleItemModel(hollowedLog, verticalModelLocation);
 	}
 
-	public static void createStoneChest(@NotNull BlockModelGenerators generator, Block stoneChest, Block particleTexture, Identifier texture) {
+	public static void createStoneChest(BlockModelGenerators generator, Block stoneChest, Block particleTexture, Identifier texture) {
 		generator.createParticleOnlyBlock(stoneChest, particleTexture);
 		final Item item = stoneChest.asItem();
 		final Identifier model = ModelTemplates.CHEST_INVENTORY.create(item, TextureMapping.particle(particleTexture), generator.modelOutput);
@@ -166,7 +165,7 @@ public final class WWModelHelper {
 		generator.itemModelOutput.accept(item, unbaked);
 	}
 
-	public static void createMesoglea(@NotNull BlockModelGenerators generator, Block mesogleaBlock) {
+	public static void createMesoglea(BlockModelGenerators generator, Block mesogleaBlock) {
 		final TextureMapping mesogleaTextureMapping = new TextureMapping();
 		mesogleaTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(mesogleaBlock));
 		final Identifier modelId = MESOGLEA_MODEL.create(mesogleaBlock, mesogleaTextureMapping, generator.modelOutput);
@@ -176,7 +175,7 @@ public final class WWModelHelper {
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(mesogleaBlock.asItem()), new DelegatedModel(modelId));
 	}
 
-	public static void createNematocyst(@NotNull BlockModelGenerators generator, @NotNull Block nematocystBlock) {
+	public static void createNematocyst(BlockModelGenerators generator, Block nematocystBlock) {
 		final TextureMapping nematocystTextureMapping = new TextureMapping();
 		nematocystTextureMapping.put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(nematocystBlock));
 		nematocystTextureMapping.put(TextureSlot.FAN, TextureMapping.getBlockTexture(nematocystBlock, "_outer"));
@@ -195,13 +194,13 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(multiPartGenerator);
 	}
 
-	public static void createFroglightGoop(@NotNull BlockModelGenerators generator, Block bodyBlock, @NotNull Block headBlock) {
+	public static void createFroglightGoop(BlockModelGenerators generator, Block bodyBlock, Block headBlock) {
 		generator.registerSimpleFlatItemModel(headBlock.asItem());
 		generator.createCrossBlock(headBlock, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createCrossBlock(bodyBlock, BlockModelGenerators.PlantType.NOT_TINTED);
 	}
 
-	public static void createShelfFungi(@NotNull BlockModelGenerators generator, @NotNull Block shelfFungiBlock) {
+	public static void createShelfFungi(BlockModelGenerators generator, Block shelfFungiBlock) {
 		final TextureMapping shelfFungiTextureMapping = new TextureMapping();
 		shelfFungiTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(shelfFungiBlock));
 		shelfFungiTextureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(shelfFungiBlock, "_bottom"));
@@ -240,7 +239,7 @@ public final class WWModelHelper {
 			);
 	}
 
-	public static void createMultifaceBlock(@NotNull BlockModelGenerators generator, Block multifaceBlock) {
+	public static void createMultifaceBlock(BlockModelGenerators generator, Block multifaceBlock) {
 		final TextureMapping multifaceTextureMapping = new TextureMapping();
 		multifaceTextureMapping.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(multifaceBlock));
 		MULTIFACE_MODEL.create(multifaceBlock, multifaceTextureMapping, generator.modelOutput);
@@ -248,7 +247,7 @@ public final class WWModelHelper {
 		generator.createMultiface(multifaceBlock);
 	}
 
-	public static void createGeyser(@NotNull BlockModelGenerators generator) {
+	public static void createGeyser(BlockModelGenerators generator) {
 		generator.createRotatableColumn(WWBlocks.GEYSER);
 	}
 
@@ -258,7 +257,7 @@ public final class WWModelHelper {
 		generator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), blowing, model);
 	}
 
-	public static void generateEchoGlass(@NotNull ItemModelGenerators generator, Item item) {
+	public static void generateEchoGlass(ItemModelGenerators generator, Item item) {
 		generator.itemModelOutput.accept(
 			item,
 			ItemModelUtils.selectBlockItemProperty(
@@ -273,7 +272,7 @@ public final class WWModelHelper {
 		);
 	}
 
-	public static void createUntintedLeafLitter(@NotNull BlockModelGenerators generator, Block block) {
+	public static void createUntintedLeafLitter(BlockModelGenerators generator, Block block) {
 		final MultiVariant litter1 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_1.create(block, generator.modelOutput));
 		final MultiVariant litter2 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_2.create(block, generator.modelOutput));
 		final MultiVariant litter3 = BlockModelGenerators.plainVariant(TexturedModel.LEAF_LITTER_3.create(block, generator.modelOutput));
@@ -292,7 +291,7 @@ public final class WWModelHelper {
 		);
 	}
 
-	public static void generatePaleMushroomBlock(@NotNull BlockModelGenerators generator) {
+	public static void generatePaleMushroomBlock(BlockModelGenerators generator) {
 		final Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
 		final MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
 		final MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
@@ -312,7 +311,7 @@ public final class WWModelHelper {
 		generator.registerSimpleItemModel(block, TexturedModel.CUBE.createWithSuffix(block, "_inventory", generator.modelOutput));
 	}
 
-	public static void generateFireflyBottles(@NotNull ItemModelGenerators generator) {
+	public static void generateFireflyBottles(ItemModelGenerators generator) {
 		final List<SelectItemModel.SwitchCase<String>> switchCases = new ArrayList<>();
 
 		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
@@ -340,14 +339,14 @@ public final class WWModelHelper {
 		);
 	}
 
-	public static void createHibiscus(@NotNull BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.PlantType plantType) {
+	public static void createHibiscus(BlockModelGenerators generator, Block block, Block pottedBlock, BlockModelGenerators.PlantType plantType) {
 		generator.createCrossBlockWithDefaultItem(block, plantType);
 		final TextureMapping textureMapping = TextureMapping.singleSlot(TextureSlot.PLANT, TextureMapping.getBlockTexture(pottedBlock));
 		final MultiVariant pot = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(pottedBlock, textureMapping, generator.modelOutput));
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
-	public static void createIcicle(@NotNull BlockModelGenerators generator) {
+	public static void createIcicle(BlockModelGenerators generator) {
 		final PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> dispatch = PropertyDispatch.initial(
 			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
 		);
@@ -363,13 +362,13 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(dispatch));
 	}
 
-	private static @NotNull MultiVariant createIcicleVariant(@NotNull BlockModelGenerators generator, @NotNull Direction direction, @NotNull DripstoneThickness dripstoneThickness) {
+	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, DripstoneThickness dripstoneThickness) {
 		String string = "_" + direction.getSerializedName() + "_" + dripstoneThickness.getSerializedName();
 		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE, string));
 		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
 	}
 
-	public static void createFragileIce(@NotNull BlockModelGenerators generator) {
+	public static void createFragileIce(BlockModelGenerators generator) {
 		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
 
 		generator.blockStateOutput
@@ -395,7 +394,7 @@ public final class WWModelHelper {
 		generator.itemModelOutput.accept(WWBlocks.FRAGILE_ICE.asItem(), ItemModelUtils.plainModel(leastCrackedModelId));
 	}
 
-	public static void createSeaAnemone(@NotNull BlockModelGenerators generator, Block seaAnemoneBlock) {
+	public static void createSeaAnemone(BlockModelGenerators generator, Block seaAnemoneBlock) {
 		TextureMapping seaAnemoneTextureMapping = new TextureMapping();
 		seaAnemoneTextureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemoneBlock, "_stem"));
 		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
@@ -406,19 +405,19 @@ public final class WWModelHelper {
 		generator.registerSimpleFlatItemModel(seaAnemoneBlock.asItem());
 	}
 
-	public static void createSeaWhip(@NotNull BlockModelGenerators generator) {
+	public static void createSeaWhip(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
 		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.PlantType.NOT_TINTED);
 	}
 
-	public static void createAlgae(@NotNull BlockModelGenerators generator) {
+	public static void createAlgae(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
 		Identifier model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		MultiVariant variant = BlockModelGenerators.plainVariant(model);
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, variant));
 	}
 
-	public static void createPlankton(@NotNull BlockModelGenerators generator) {
+	public static void createPlankton(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
 		Identifier model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		Identifier glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
@@ -440,7 +439,7 @@ public final class WWModelHelper {
 			);
 	}
 
-	public static void createTubeWorms(@NotNull BlockModelGenerators generator) {
+	public static void createTubeWorms(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
 		Identifier singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		Identifier topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
@@ -459,7 +458,7 @@ public final class WWModelHelper {
 			);
 	}
 
-	public static void createCattail(@NotNull BlockModelGenerators generator) {
+	public static void createCattail(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.CATTAIL.asItem());
 
 		Identifier topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);

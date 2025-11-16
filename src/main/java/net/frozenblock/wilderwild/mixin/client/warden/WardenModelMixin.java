@@ -243,20 +243,20 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 					!warden.hasPose(Pose.EMERGING)
 						&& !warden.hasPose(Pose.DIGGING)
 						&& !warden.hasPose(Pose.DYING)
-						&& !wilderWarden.wilderWild$getSwimmingDyingAnimationState().isStarted()
-						&& !wilderWarden.wilderWild$getKirbyDeathAnimationState().isStarted(),
+						&& !wilderWarden.wilderWild$swimmingDyingAnimationState().isStarted()
+						&& !wilderWarden.wilderWild$kirbyDeathAnimationState().isStarted(),
 					wilderWild$swimAmount.get(),
 					wilderWild$wadeAmount.get()
 				);
 			}
 			if (this.wilderWild$dyingAnimation != null) {
-				this.wilderWild$dyingAnimation.apply(wilderWarden.wilderWild$getDyingAnimationState(), warden.ageInTicks);
+				this.wilderWild$dyingAnimation.apply(wilderWarden.wilderWild$dyingAnimationState(), warden.ageInTicks);
 			}
 			if (this.wilderWild$waterDyingAnimation != null) {
-				this.wilderWild$waterDyingAnimation.apply(wilderWarden.wilderWild$getSwimmingDyingAnimationState(), warden.ageInTicks);
+				this.wilderWild$waterDyingAnimation.apply(wilderWarden.wilderWild$swimmingDyingAnimationState(), warden.ageInTicks);
 			}
 			if (this.wilderWild$kirbyDyingAnimation != null) {
-				this.wilderWild$kirbyDyingAnimation.apply(wilderWarden.wilderWild$getKirbyDeathAnimationState(), warden.ageInTicks);
+				this.wilderWild$kirbyDyingAnimation.apply(wilderWarden.wilderWild$kirbyDeathAnimationState(), warden.ageInTicks);
 			}
 		}
 	}

@@ -20,7 +20,5 @@ package net.frozenblock.wilderwild.client.animation.definitions.impl;
 import net.minecraft.world.entity.AnimationState;
 
 public interface WilderAllay {
-
-	AnimationState wilderWild$getDancingAnimationState();
-
+	AnimationState wilderWild$dancingAnimationState();
 }

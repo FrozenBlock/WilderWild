@@ -47,12 +47,11 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
-	public void onInitializeDataGenerator(@NotNull FabricDataGenerator dataGenerator) {
+	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
 		FeatureFlagApi.rebuild();
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
@@ -80,7 +79,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void buildRegistry(@NotNull RegistrySetBuilder registryBuilder) {
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		WWConstants.logWithModId("Generating dynamic registries for", WWConstants.UNSTABLE_LOGGING);
 
 		registryBuilder.add(Registries.DAMAGE_TYPE, WWDamageTypes::bootstrap);
@@ -100,7 +99,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public @NotNull String getEffectiveModId() {
+	public String getEffectiveModId() {
 		return WWConstants.MOD_ID;
 	}
 }

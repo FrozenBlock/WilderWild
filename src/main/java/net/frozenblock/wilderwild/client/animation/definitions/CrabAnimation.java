@@ -26,7 +26,6 @@ import net.minecraft.client.animation.KeyframeAnimations;
 
 @Environment(EnvType.CLIENT)
 public final class CrabAnimation {
-
 	public static final AnimationDefinition CRAB_DIG = AnimationDefinition.Builder.withLength(4.75F)
 		.addAnimation("body",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,

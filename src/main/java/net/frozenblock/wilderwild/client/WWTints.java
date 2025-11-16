@@ -36,15 +36,15 @@ public final class WWTints {
 			WWBlocks.FLOWERING_LILY_PAD
 		);
 
-		final BlockColor flowerBedProvider = (blockState, blockAndTintGetter, blockPos, i) -> {
-			if (i != 0) return blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
+		final BlockColor flowerBedProvider = (state, level, pos, index) -> {
+			if (index != 0) return level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor();
 			return -1;
 		};
-		final BlockColor grassTintProvider = (blockState, blockAndTintGetter, blockPos, i) ->
-			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos) : GrassColor.getDefaultColor();
+		final BlockColor grassTintProvider = (state, level, pos, index) ->
+			level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor();
 
-		final BlockColor dryFoliageProvider = (blockState, blockAndTintGetter, blockPos, i) ->
-			blockAndTintGetter != null && blockPos != null ? BiomeColors.getAverageDryFoliageColor(blockAndTintGetter, blockPos) : DryFoliageColor.FOLIAGE_DRY_DEFAULT;
+		final BlockColor dryFoliageProvider = (state, level, pos, index) ->
+			level != null && pos != null ? BiomeColors.getAverageDryFoliageColor(level, pos) : DryFoliageColor.FOLIAGE_DRY_DEFAULT;
 
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_PINK_PETALS);
 		ColorProviderRegistry.BLOCK.register(flowerBedProvider, WWBlocks.POTTED_WILDFLOWERS);

@@ -26,7 +26,6 @@ import net.minecraft.client.animation.KeyframeAnimations;
 
 @Environment(EnvType.CLIENT)
 public final class WWAllayAnimation {
-
 	public static final AnimationDefinition ALLAY_DANCING = AnimationDefinition.Builder.withLength(2.75F).looping()
 		.addAnimation(
 			"head",

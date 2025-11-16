@@ -27,7 +27,6 @@ import net.minecraft.client.animation.KeyframeAnimations;
 // Animations by DaDolphin! Edited by AViewFromTheTop.
 @Environment(EnvType.CLIENT)
 public class PenguinAnimation {
-
 	public static final AnimationDefinition PENGUIN_LAY_DOWN = AnimationDefinition.Builder.withLength(0.6635F)
 		.addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
 			new Keyframe(0F, KeyframeAnimations.degreeVec(0F, 0F, 0F), AnimationChannel.Interpolations.CATMULLROM)

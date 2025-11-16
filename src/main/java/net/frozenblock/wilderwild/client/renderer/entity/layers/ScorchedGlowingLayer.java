@@ -26,7 +26,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedGlowingLayer extends EyesLayer<ScorchedRenderState, ScorchedModel> {
@@ -36,7 +35,6 @@ public class ScorchedGlowingLayer extends EyesLayer<ScorchedRenderState, Scorche
 		super(renderLayerParent);
 	}
 
-	@NotNull
 	@Override
 	public RenderType renderType() {
 		return SCORCHED_GLOWING;

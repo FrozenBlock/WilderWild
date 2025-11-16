@@ -22,24 +22,23 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
 
 @Environment(EnvType.CLIENT)
-public class TermiteEatingSoundInstance<T extends TermiteMoundBlockEntity> extends TermiteSoundInstance<T> {
+public class TermiteEatingSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTermiteSoundInstance<T> {
 
 	public TermiteEatingSoundInstance(T mound, int termiteID) {
 		super(mound, termiteID, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS);
 	}
 
 	@Override
-	protected AbstractTickableSoundInstance getAlternativeSoundInstance() {
+	protected AbstractTermiteSoundInstance<T> getAlternativeSoundInstance() {
 		return new TermiteIdleSoundInstance<>(this.mound, this.termiteID);
 	}
 
 	@Override
 	protected boolean shouldSwitchSounds() {
-		TermiteManager.Termite termite = this.getTermite();
+		final TermiteManager.Termite termite = this.getTermite();
 		if (termite != null) return !termite.getEating();
 		return false;
 	}

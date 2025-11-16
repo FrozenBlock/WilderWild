@@ -27,11 +27,10 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWMainConfigGui {
 
-	public static Screen buildScreen(@NotNull Screen parent) {
+	public static Screen buildScreen(Screen parent) {
 		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
 			WWBlockConfig.INSTANCE.save();
@@ -44,15 +43,15 @@ public final class WWMainConfigGui {
 
 		ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
 
-		var block = configBuilder.getOrCreateCategory(text("block"));
+		final var block = configBuilder.getOrCreateCategory(text("block"));
 		WWBlockConfigGui.setupEntries(block, entryBuilder);
-		var entity = configBuilder.getOrCreateCategory(text("entity"));
+		final var entity = configBuilder.getOrCreateCategory(text("entity"));
 		WWEntityConfigGui.setupEntries(entity, entryBuilder);
-		var item = configBuilder.getOrCreateCategory(text("item"));
+		final var item = configBuilder.getOrCreateCategory(text("item"));
 		WWItemConfigGui.setupEntries(item, entryBuilder);
-		var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
+		final var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
 		WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
-		var misc = configBuilder.getOrCreateCategory(text("misc"));
+		final var misc = configBuilder.getOrCreateCategory(text("misc"));
 		WWAmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
 		return configBuilder.build();
 	}

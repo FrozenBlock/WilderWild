@@ -27,7 +27,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
@@ -53,7 +52,8 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	private final ModelPart tail;
 	private float scale;
 	private float yOffset;
-	public OstrichInbredModel(@NotNull ModelPart root) {
+
+	public OstrichInbredModel(ModelPart root) {
 		super(root);
 
 		this.legs = root.getChild("legs");
@@ -74,7 +74,6 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		this.tail = this.body.getChild("tail");
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -295,12 +294,11 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	@NotNull
 	public static LayerDefinition createBabyBodyLayer() {
 		return createBodyLayer().apply(OstrichModel.BABY_TRANSFORMER);
 	}
 
-	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
+	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
 
@@ -389,7 +387,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	}
 
 	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		poseStack.pushPose();
 		poseStack.translate(0, this.yOffset, 0);
 		poseStack.scale(this.scale, this.scale, this.scale);

@@ -26,14 +26,14 @@ import net.minecraft.world.level.ItemLike;
 
 public final class MesogleaRecipeProvider {
 
-	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
-		mesoglea(provider, WWBlocks.BLUE_NEMATOCYST, WWBlocks.BLUE_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.LIME_NEMATOCYST, WWBlocks.LIME_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.PINK_NEMATOCYST, WWBlocks.PINK_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.YELLOW_NEMATOCYST, WWBlocks.YELLOW_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.RED_NEMATOCYST, WWBlocks.RED_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_BLUE_MESOGLEA, exporter);
-		mesoglea(provider, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, exporter);
+	static void buildRecipes(RecipeProvider provider, RecipeOutput output) {
+		mesoglea(provider, WWBlocks.BLUE_NEMATOCYST, WWBlocks.BLUE_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.LIME_NEMATOCYST, WWBlocks.LIME_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.PINK_NEMATOCYST, WWBlocks.PINK_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.YELLOW_NEMATOCYST, WWBlocks.YELLOW_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.RED_NEMATOCYST, WWBlocks.RED_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_BLUE_MESOGLEA, output);
+		mesoglea(provider, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, output);
 	}
 
 	public static void mesoglea(RecipeProvider provider, ItemLike nematocyst, ItemLike mesoglea, RecipeOutput exporter) {

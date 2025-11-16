@@ -33,7 +33,7 @@ public class AllayRenderStateMixin implements WilderAllay {
 	private final AnimationState dancingAnimationState = new AnimationState();
 
 	@Override
-	public AnimationState wilderWild$getDancingAnimationState() {
+	public AnimationState wilderWild$dancingAnimationState() {
 		return this.dancingAnimationState;
 	}
 }

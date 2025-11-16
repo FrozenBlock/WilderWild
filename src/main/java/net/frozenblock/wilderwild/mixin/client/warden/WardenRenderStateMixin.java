@@ -43,17 +43,17 @@ public class WardenRenderStateMixin implements WilderWarden, SwimmingWardenState
 	private float wadingProgress;
 
 	@Override
-	public AnimationState wilderWild$getDyingAnimationState() {
+	public AnimationState wilderWild$dyingAnimationState() {
 		return this.dyingAnimationState;
 	}
 
 	@Override
-	public AnimationState wilderWild$getSwimmingDyingAnimationState() {
+	public AnimationState wilderWild$swimmingDyingAnimationState() {
 		return this.swimmingDyingAnimationState;
 	}
 
 	@Override
-	public AnimationState wilderWild$getKirbyDeathAnimationState() {
+	public AnimationState wilderWild$kirbyDeathAnimationState() {
 		return this.kirbyDeathAnimationState;
 	}
 
@@ -63,7 +63,7 @@ public class WardenRenderStateMixin implements WilderWarden, SwimmingWardenState
 	}
 
 	@Override
-	public void wilderWild$setIsStella(boolean value) {
+	public void wilderWild$setStella(boolean value) {
 		this.isStella = value;
 	}
 

@@ -27,16 +27,15 @@ import net.minecraft.data.tags.GameEventTagsProvider;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWGameEventTagProvider extends GameEventTagsProvider {
 
-	public WWGameEventTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public WWGameEventTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.tag(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT)
 			.add(GameEvent.EXPLODE.key())
 			.add(GameEvent.PRIME_FUSE.key())

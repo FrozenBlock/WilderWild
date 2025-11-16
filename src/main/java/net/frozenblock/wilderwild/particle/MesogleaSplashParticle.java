@@ -27,13 +27,17 @@ import net.minecraft.client.particle.WaterDropParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaSplashParticle extends WaterDropParticle {
 
-	public MesogleaSplashParticle(ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, TextureAtlasSprite sprite) {
-		super(clientLevel, x, y, z, sprite);
+	public MesogleaSplashParticle(
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
+		TextureAtlasSprite sprite
+	) {
+		super(level, x, y, z, sprite);
 		this.gravity = 0.04F;
 		if (yd == 0D && (xd != 0D || zd != 0D)) {
 			this.xd = xd;
@@ -47,16 +51,11 @@ public class MesogleaSplashParticle extends WaterDropParticle {
 		return 240;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+		@Override
 		public Particle createParticle(
-			SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random

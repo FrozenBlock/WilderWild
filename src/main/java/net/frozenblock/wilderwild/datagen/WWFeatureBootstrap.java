@@ -31,11 +31,10 @@ import net.frozenblock.wilderwild.worldgen.features.placed.WWTreePlaced;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWFeatureBootstrap {
 
-	public static void bootstrapConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreeConfigured.registerTreeConfigured(entries);
@@ -45,7 +44,7 @@ public final class WWFeatureBootstrap {
 		WWConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 
-	public static void bootstrapPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
 		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreePlaced.registerTreePlaced();

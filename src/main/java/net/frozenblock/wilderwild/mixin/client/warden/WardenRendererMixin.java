@@ -36,11 +36,11 @@ public class WardenRendererMixin {
 		WilderWarden wilderWarden = (WilderWarden) warden;
 		WilderWarden wilderRenderState = (WilderWarden) renderState;
 
-		wilderRenderState.wilderWild$getDyingAnimationState().copyFrom(wilderWarden.wilderWild$getDyingAnimationState());
-		wilderRenderState.wilderWild$getSwimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$getSwimmingDyingAnimationState());
-		wilderRenderState.wilderWild$getKirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$getKirbyDeathAnimationState());
+		wilderRenderState.wilderWild$dyingAnimationState().copyFrom(wilderWarden.wilderWild$dyingAnimationState());
+		wilderRenderState.wilderWild$swimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$swimmingDyingAnimationState());
+		wilderRenderState.wilderWild$kirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$kirbyDeathAnimationState());
 		wilderRenderState.wilderWild$setDeathTicks(wilderWarden.wilderWild$getDeathTicks());
-		wilderRenderState.wilderWild$setIsStella(wilderWarden.wilderWild$isStella());
+		wilderRenderState.wilderWild$setStella(wilderWarden.wilderWild$isStella());
 
 		// check if disabled in mixins config
 		if (warden instanceof SwimmingWardenInterface swimmingWarden) {

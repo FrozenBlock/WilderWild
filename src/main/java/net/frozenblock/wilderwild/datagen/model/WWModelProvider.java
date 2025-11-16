@@ -32,7 +32,6 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWModelProvider extends FabricModelProvider {
@@ -42,7 +41,7 @@ public final class WWModelProvider extends FabricModelProvider {
 	}
 
 	@Override
-	public void generateBlockStateModels(@NotNull BlockModelGenerators generator) {
+	public void generateBlockStateModels(BlockModelGenerators generator) {
 		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.FAMILY_BAOBAB);
 		generator.woodProvider(WWBlocks.BAOBAB_LOG).logWithHorizontal(WWBlocks.BAOBAB_LOG).wood(WWBlocks.BAOBAB_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(WWBlocks.STRIPPED_BAOBAB_LOG).wood(WWBlocks.STRIPPED_BAOBAB_WOOD);
@@ -234,7 +233,7 @@ public final class WWModelProvider extends FabricModelProvider {
 	}
 
 	@Override
-	public void generateItemModels(@NotNull ItemModelGenerators generator) {
+	public void generateItemModels(ItemModelGenerators generator) {
 		generator.generateFlatItem(WWBlocks.SHRUB.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);

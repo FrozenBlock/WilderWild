@@ -50,7 +50,6 @@ import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -66,20 +65,18 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	private final StoneChestModel doubleLeftModel;
 	private final StoneChestModel doubleRightModel;
 
-	public StoneChestRenderer(@NotNull BlockEntityRendererProvider.Context context) {
+	public StoneChestRenderer(BlockEntityRendererProvider.Context context) {
 		this.materials = context.materials();
 		this.singleModel = new StoneChestModel(context.bakeLayer(WWModelLayers.STONE_CHEST));
 		this.doubleLeftModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT));
 		this.doubleRightModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT));
 	}
 
-	@NotNull
-	public static Material getStoneChestTexture(boolean sculk, @NotNull ChestType type) {
+	public static Material getStoneChestTexture(boolean sculk, ChestType type) {
 		return !sculk ? getStoneChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getStoneChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
 	}
 
-	@NotNull
-	private static Material getStoneChestTexture(@NotNull ChestType type, @NotNull Material single, @NotNull Material left, @NotNull Material right) {
+	private static Material getStoneChestTexture(ChestType type, Material single, Material left, Material right) {
 		return switch (type) {
 			case LEFT -> left;
 			case RIGHT -> right;
@@ -87,17 +84,16 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		};
 	}
 
-	@NotNull
-	public static Material getStoneChestTextureId(@NotNull String variant) {
+	public static Material getStoneChestTextureId(String variant) {
 		return new Material(Sheets.CHEST_SHEET, WWConstants.id("entity/stone_chest/" + variant));
 	}
 
 	@Override
 	public void submit(
-		@NotNull StoneChestRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		StoneChestRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraRenderState
 	) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
@@ -113,7 +109,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		final TextureAtlasSprite sprite = this.materials.get(material);
 
 		if (renderState.type != ChestType.SINGLE) {
-			submitNodeCollector.submitModel(
+			collector.submitModel(
 				renderState.type == ChestType.LEFT ? this.doubleLeftModel : this.doubleRightModel,
 				openProgress,
 				poseStack,
@@ -126,7 +122,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 				renderState.breakProgress
 			);
 		} else {
-			submitNodeCollector.submitModel(
+			collector.submitModel(
 				this.singleModel,
 				openProgress,
 				poseStack,
@@ -144,16 +140,16 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	}
 
 	@Override
-	public @NotNull StoneChestRenderState createRenderState() {
+	public StoneChestRenderState createRenderState() {
 		return new StoneChestRenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		@NotNull T stoneChest,
-		@NotNull StoneChestRenderState renderState,
+		T stoneChest,
+		StoneChestRenderState renderState,
 		float partialTicks,
-		@NotNull Vec3 cameraPos,
+		Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);

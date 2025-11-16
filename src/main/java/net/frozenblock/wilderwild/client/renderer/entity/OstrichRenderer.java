@@ -30,12 +30,11 @@ import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
@@ -48,7 +47,7 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 	private final EntityModel<OstrichRenderState> inbredModel;
 	private final EntityModel<OstrichRenderState> inbredBabyModel;
 
-	public OstrichRenderer(EntityRendererProvider.Context context) {
+	public OstrichRenderer(Context context) {
 		super(context, new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel(context.bakeLayer(WWModelLayers.OSTRICH_BABY)), 0.75F);
 
 		this.normalModel = this.adultModel;
@@ -71,10 +70,10 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 
 	@Override
 	public void submit(
-		@NotNull OstrichRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		OstrichRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState cameraRenderState
 	) {
 		if (renderState.isInbred) {
 			this.adultModel = this.inbredModel;
@@ -88,27 +87,25 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 
 
 	@Override
-	@NotNull
-	public Identifier getTextureLocation(@NotNull OstrichRenderState renderState) {
+	public Identifier getTextureLocation(OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;
 	}
 
 	@Override
-	@NotNull
 	public OstrichRenderState createRenderState() {
 		return new OstrichRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Ostrich entity, @NotNull OstrichRenderState renderState, float partialTick) {
-		super.extractRenderState(entity, renderState, partialTick);
+	public void extractRenderState(Ostrich ostrich, OstrichRenderState renderState, float partialTick) {
+		super.extractRenderState(ostrich, renderState, partialTick);
 		renderState.walkAnimationPos *= 1.65F;
 		renderState.walkAnimationSpeed = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);
 
-		renderState.isInbred = entity.isInbred();
-		renderState.beakAnimProgress = entity.getBeakAnimProgress(partialTick);
-		renderState.targetStraightProgress = entity.getTargetStraightProgress(partialTick);
-		renderState.saddle = entity.getItemBySlot(EquipmentSlot.SADDLE);
+		renderState.isInbred = ostrich.isInbred();
+		renderState.beakAnimProgress = ostrich.getBeakAnimProgress(partialTick);
+		renderState.targetStraightProgress = ostrich.getTargetStraightProgress(partialTick);
+		renderState.saddle = ostrich.getItemBySlot(EquipmentSlot.SADDLE);
 	}
 }
 

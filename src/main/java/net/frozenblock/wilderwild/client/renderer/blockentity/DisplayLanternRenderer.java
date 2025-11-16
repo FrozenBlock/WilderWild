@@ -37,29 +37,27 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T, DisplayLanternRenderState> {
 	private final ItemModelResolver itemModelResolver;
 
-	public DisplayLanternRenderer(@NotNull Context ctx) {
-		ctx.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
-		this.itemModelResolver = ctx.itemModelResolver();
+	public DisplayLanternRenderer(Context context) {
+		context.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
+		this.itemModelResolver = context.itemModelResolver();
 	}
 
-	@NotNull
 	public static LayerDefinition getTexturedModelData() {
 		return LayerDefinition.create(new MeshDefinition(), 16, 16);
 	}
 
 	@Override
 	public void submit(
-		@NotNull DisplayLanternRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		DisplayLanternRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraRenderState
 	) {
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
@@ -67,14 +65,14 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			poseStack.scale(0.7F, 0.7F, 0.7F);
 			poseStack.mulPose(Axis.YP.rotation(renderState.age / 20F));
 
-			renderState.item.submit(poseStack, submitNodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+			renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
 			poseStack.popPose();
 		}
 		for (DisplayLanternRenderState.Occupant occupant : renderState.occupants) {
 			FireflyRenderer.submitFireflyWithoutRenderState(
 				poseStack,
-				submitNodeCollector,
+				collector,
 				cameraRenderState.orientation,
 				occupant.color,
 				occupant.calcColor,
@@ -89,16 +87,16 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 	}
 
 	@Override
-	public @NotNull DisplayLanternRenderState createRenderState() {
+	public DisplayLanternRenderState createRenderState() {
 		return new DisplayLanternRenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		@NotNull T displayLantern,
-		@NotNull DisplayLanternRenderState renderState,
+		T displayLantern,
+		DisplayLanternRenderState renderState,
 		float partialTicks,
-		@NotNull Vec3 cameraPos,
+		Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		BlockEntityRenderer.super.extractRenderState(displayLantern, renderState, partialTicks, cameraPos, crumblingOverlay);

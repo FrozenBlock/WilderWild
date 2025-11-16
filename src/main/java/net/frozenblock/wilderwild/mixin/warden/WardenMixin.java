@@ -95,19 +95,19 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Unique
 	@Override
-	public AnimationState wilderWild$getDyingAnimationState() {
+	public AnimationState wilderWild$dyingAnimationState() {
 		return this.wilderWild$dyingAnimationState;
 	}
 
 	@Unique
 	@Override
-	public AnimationState wilderWild$getSwimmingDyingAnimationState() {
+	public AnimationState wilderWild$swimmingDyingAnimationState() {
 		return this.wilderWild$swimmingDyingAnimationState;
 	}
 
 	@Unique
 	@Override
-	public AnimationState wilderWild$getKirbyDeathAnimationState() {
+	public AnimationState wilderWild$kirbyDeathAnimationState() {
 		return this.wilderWild$kirbyDeathAnimationState;
 	}
 
@@ -226,7 +226,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			warden.zza = 0;
 		}
 		if (this.wilderWild$hasDeathAnimation() && warden.getPose() == Pose.DYING) {
-			this.clientDiggingParticles(this.wilderWild$getDyingAnimationState());
+			this.clientDiggingParticles(this.wilderWild$dyingAnimationState());
 		}
 		if ((warden.isInWater() || warden.isInLava())
 			&& (!warden.isEyeInFluid(FluidTags.WATER) || !warden.isEyeInFluid(FluidTags.LAVA))
@@ -272,9 +272,9 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Unique
 	private AnimationState wilderWild$getDeathAnimationForSituation() {
-		return this.wilderWild$isStella() ? this.wilderWild$getKirbyDeathAnimationState()
+		return this.wilderWild$isStella() ? this.wilderWild$kirbyDeathAnimationState()
 			: (Warden.class.cast(this) instanceof SwimmingWardenInterface swim && swim.wilderWild$isSubmergedInWaterOrLava()
-			? this.wilderWild$getSwimmingDyingAnimationState() : this.wilderWild$getDyingAnimationState());
+			? this.wilderWild$swimmingDyingAnimationState() : this.wilderWild$dyingAnimationState());
 	}
 
 	@Unique

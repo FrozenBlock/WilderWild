@@ -31,7 +31,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PlanktonParticle extends SingleQuadParticle {
@@ -61,13 +60,9 @@ public class PlanktonParticle extends SingleQuadParticle {
 	private float glowingB = 0F;
 
 	PlanktonParticle(
-		@NotNull ClientLevel level,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		TextureAtlasSprite sprite
 	) {
 		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
@@ -102,9 +97,9 @@ public class PlanktonParticle extends SingleQuadParticle {
 		this.oRoll = this.roll;
 		this.roll = this.roll + this.rotSpeed / 20F;
 
-		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-		FluidState fluidState = this.level.getFluidState(blockPos);
-		if (blockPos.getY() + fluidState.getHeight(this.level, blockPos) < this.y) {
+		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
+		final FluidState fluidState = this.level.getFluidState(pos);
+		if (pos.getY() + fluidState.getHeight(this.level, pos) < this.y) {
 			this.lifetime = this.age;
 		}
 
@@ -122,7 +117,7 @@ public class PlanktonParticle extends SingleQuadParticle {
 
 	@Override
 	public float getQuadSize(float partialTicks) {
-		float scale = Mth.lerp(partialTicks, this.prevScale, this.scale);
+		final float scale = Mth.lerp(partialTicks, this.prevScale, this.scale);
 		if (this.glowing) {
 			this.rCol = Mth.lerp(scale, this.baseR, this.glowingR);
 			this.gCol = Mth.lerp(scale, this.baseG, this.glowingG);
@@ -156,22 +151,20 @@ public class PlanktonParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.TRANSLUCENT;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record PlanktonProvider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record PlanktonProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
+			final PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
 			planktonParticle.xd = 0D;
 			planktonParticle.yd = -0.02D;
 			planktonParticle.zd = 0D;
@@ -186,18 +179,16 @@ public class PlanktonParticle extends SingleQuadParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record GlowingProvider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record GlowingProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
+			final PlanktonParticle planktonParticle = new PlanktonParticle(level, x, y, z, 0D, 0D, 0D, this.spriteSet.get(random));
 			planktonParticle.xd = 0D;
 			planktonParticle.yd = -0.02D;
 			planktonParticle.zd = 0D;

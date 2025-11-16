@@ -23,25 +23,24 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderState;
 import net.frozenblock.wilderwild.entity.Butterfly;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderState, ButterflyModel> {
 
-	public ButterflyRenderer(EntityRendererProvider.Context context) {
+	public ButterflyRenderer(Context context) {
 		super(context, new ButterflyModel(context.bakeLayer(WWModelLayers.BUTTERFLY)), 0.25F);
 	}
 
 	@Override
-	public @NotNull ButterflyRenderState createRenderState() {
+	public ButterflyRenderState createRenderState() {
 		return new ButterflyRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Butterfly butterfly, @NotNull ButterflyRenderState renderState, float partialTick) {
+	public void extractRenderState(Butterfly butterfly, ButterflyRenderState renderState, float partialTick) {
 		super.extractRenderState(butterfly, renderState, partialTick);
 		renderState.downProgress = butterfly.getDownProgress(partialTick);
 		renderState.groundProgress = butterfly.getGroundProgress(partialTick);
@@ -50,7 +49,7 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 	}
 
 	@Override
-	public @NotNull Identifier getTextureLocation(@NotNull ButterflyRenderState renderState) {
+	public Identifier getTextureLocation(ButterflyRenderState renderState) {
 		return renderState.texture;
 	}
 }

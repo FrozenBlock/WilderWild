@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class DisplayLanternRenderState extends BlockEntityRenderState {
@@ -35,7 +34,7 @@ public class DisplayLanternRenderState extends BlockEntityRenderState {
 	public ItemStackRenderState item = new ItemStackRenderState();
 	public List<Occupant> occupants;
 
-	public void extractOccupants(@NotNull DisplayLanternBlockEntity displayLantern, float partialTicks) {
+	public void extractOccupants(DisplayLanternBlockEntity displayLantern, float partialTicks) {
 		ArrayList<Occupant> occupants = new ArrayList<>();
 		displayLantern.getFireflies().forEach(occupant -> {
 			if (!occupant.canRender()) return;

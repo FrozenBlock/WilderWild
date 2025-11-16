@@ -27,7 +27,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	private static final float FLAP_SPEED = 1.375F;
@@ -53,7 +52,7 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	private final ModelPart leftAntenna;
 	private final ModelPart rightAntenna;
 
-	public ButterflyModel(@NotNull ModelPart root) {
+	public ButterflyModel(ModelPart root) {
 		super(root);
 		this.root = root;
 		this.body = root.getChild("body");
@@ -65,7 +64,7 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 		this.rightAntenna = this.antennae.getChild("right_antenna");
 	}
 
-	public static @NotNull LayerDefinition createBodyLayer() {
+	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 		final PartDefinition root = meshdefinition.getRoot();
 
@@ -113,7 +112,7 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull ButterflyRenderState renderState) {
+	public void setupAnim(ButterflyRenderState renderState) {
 		super.setupAnim(renderState);
 
 		final float animation = (renderState.ageInTicks * 0.75F) + (renderState.walkAnimationPos * 0.85F);

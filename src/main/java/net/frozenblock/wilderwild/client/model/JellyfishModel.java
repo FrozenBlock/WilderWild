@@ -32,7 +32,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel extends EntityModel<JellyfishRenderState> {
@@ -45,7 +44,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private final ModelPart[] tentacles = new ModelPart[JELLYFISH_TENTACLES];
 	private final ModelPart[] planeTentacles = new ModelPart[JELLYFISH_TENTACLES];
 
-	public JellyfishModel(@NotNull ModelPart root) {
+	public JellyfishModel(ModelPart root) {
 		super(root, FrozenLibRenderTypes::entityTranslucentEmissiveFixed);
 		this.bone = root.getChild("bone");
 		this.body = this.bone.getChild("body");
@@ -55,7 +54,6 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		Arrays.setAll(this.planeTentacles, i -> tentacleBase.getChild(createTentacleName(i, true)));
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshDefinition = new MeshDefinition();
 		final PartDefinition root = meshDefinition.getRoot();
@@ -111,14 +109,13 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		}
 	}
 
-	@NotNull
 	private static String createTentacleName(int number, boolean plane) {
 		final String tentacle = !plane ? "tentacle" : "tentacle_plane";
 		return tentacle + number;
 	}
 
 	@Override
-	public void setupAnim(@NotNull JellyfishRenderState renderState) {
+	public void setupAnim(JellyfishRenderState renderState) {
 		super.setupAnim(renderState);
 		this.bone.xRot = renderState.jellyXRot;
 		this.tentacleBase.xRot = renderState.tentXRot - renderState.jellyXRot;

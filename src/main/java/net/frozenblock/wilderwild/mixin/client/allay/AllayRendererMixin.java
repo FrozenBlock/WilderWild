@@ -55,6 +55,6 @@ public class AllayRendererMixin {
 		WilderAllay wilderAllay = (WilderAllay) allay;
 		WilderAllay wilderRenderState = (WilderAllay) renderState;
 
-		wilderRenderState.wilderWild$getDancingAnimationState().copyFrom(wilderAllay.wilderWild$getDancingAnimationState());
+		wilderRenderState.wilderWild$dancingAnimationState().copyFrom(wilderAllay.wilderWild$dancingAnimationState());
 	}
 }

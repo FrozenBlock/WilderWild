@@ -32,70 +32,66 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
 	private static final Identifier WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 
-	public JellyfishRenderer(@NotNull Context context) {
+	public JellyfishRenderer(Context context) {
 		super(context, new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
 	}
 
 	@Override
-	protected void setupRotations(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float g) {
+	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float rotationYaw, float g) {
 		super.setupRotations(renderState, poseStack, rotationYaw, g);
 		poseStack.translate(0F, -1F * renderState.ageScale, 0F);
 	}
 
 	@Override
-	protected int getModelTint(@NotNull JellyfishRenderState renderState) {
-		return !renderState.isRGB
-			? super.getModelTint(renderState)
-			: ARGB.color(
-				(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
-				(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
-				(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
-			);
+	protected int getModelTint(JellyfishRenderState renderState) {
+		if (renderState.isRGB) return ARGB.color(
+			(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+		);
+		return super.getModelTint(renderState);
 	}
 
 	@Override
-	protected void scale(@NotNull JellyfishRenderState renderState, @NotNull PoseStack poseStack) {
+	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
 		super.scale(renderState, poseStack);
 		poseStack.scale(0.8F, 0.8F, 0.8F);
 		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
 	}
 
 	@Override
-	protected int getBlockLightLevel(@NotNull Jellyfish jellyfish, @NotNull BlockPos blockPos) {
+	protected int getBlockLightLevel(Jellyfish jellyfish, BlockPos pos) {
 		return 15;
 	}
 
 	@Override
-	@NotNull
-	public Identifier getTextureLocation(@NotNull JellyfishRenderState renderState) {
+	public Identifier getTextureLocation(JellyfishRenderState renderState) {
 		if (renderState.isRGB) return WHITE_TEXTURE;
 		return renderState.variant.resourceTexture().texturePath();
 	}
 
 	@Override
-	@NotNull
 	public JellyfishRenderState createRenderState() {
 		return new JellyfishRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Jellyfish entity, @NotNull JellyfishRenderState renderState, float partialTick) {
-		super.extractRenderState(entity, renderState, partialTick);
+	public void extractRenderState(Jellyfish jellyfish, JellyfishRenderState renderState, float partialTick) {
+		super.extractRenderState(jellyfish, renderState, partialTick);
 
-		renderState.tickCount = entity.tickCount;
-		renderState.isRGB = entity.isRGB();
-		renderState.variant = entity.getVariantForRendering();
+		renderState.tickCount = jellyfish.tickCount;
+		renderState.isRGB = jellyfish.isRGB();
+		renderState.variant = jellyfish.getVariantForRendering();
 		renderState.windTime = (ClientWindManager.time + partialTick) * 0.05F;
 
-		renderState.jellyXRot = -(entity.xRot1 + partialTick * (entity.xBodyRot - entity.xRot1)) * Mth.DEG_TO_RAD;
-		renderState.tentXRot = -(entity.xRot6 + partialTick * (entity.xRot5 - entity.xRot6)) * Mth.DEG_TO_RAD;
-		renderState.armXRot = -(entity.xRot9 + partialTick * (entity.xRot8 - entity.xRot9)) * Mth.DEG_TO_RAD;
-		renderState.jellyScale = (entity.prevScale + partialTick * (entity.scale - entity.prevScale)) * entity.getAgeScale();
+		renderState.jellyXRot = -(jellyfish.xRot1 + partialTick * (jellyfish.xBodyRot - jellyfish.xRot1)) * Mth.DEG_TO_RAD;
+		renderState.tentXRot = -(jellyfish.xRot6 + partialTick * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
+		renderState.armXRot = -(jellyfish.xRot9 + partialTick * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
+		renderState.jellyScale = (jellyfish.prevScale + partialTick * (jellyfish.scale - jellyfish.prevScale)) * jellyfish.getAgeScale();
 	}
 }

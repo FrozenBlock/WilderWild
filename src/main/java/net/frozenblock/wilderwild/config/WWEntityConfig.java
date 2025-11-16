@@ -31,7 +31,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWEntityConfig {
-
 	public static final Config<WWEntityConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -47,7 +46,7 @@ public final class WWEntityConfig {
 
 			@Override
 			public void onSync(WWEntityConfig syncInstance) {
-				var config = this.config();
+				final var config = this.config();
 				WARDEN_SWIMS = config.warden.wardenSwims;
 				FIREFLY_SWARMS = config.firefly.fireflySwarm;
 				FIREFLY_SWARMS_BUSH = config.firefly.fireflySwarmsBush;

@@ -27,11 +27,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.SculkSpreader;
-import org.jetbrains.annotations.NotNull;
 
 public final class SpreadSculkCommand {
 
-	public static void register(@NotNull CommandDispatcher<CommandSourceStack> dispatcher) {
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(
 			Commands.literal("sculkspread")
 				.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
@@ -76,19 +75,17 @@ public final class SpreadSculkCommand {
 		);
 	}
 
-	private static int spreadSculk(@NotNull CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
-		SculkSpreader sculkSpreader = worldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
+	private static int spreadSculk(CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
+		final SculkSpreader sculkSpreader = worldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
 		sculkSpreader.addCursors(pos, charge);
-		ServerLevel level = source.getLevel();
+		final ServerLevel level = source.getLevel();
 
 		while (!sculkSpreader.getCursors().isEmpty()) sculkSpreader.updateCursors(level, pos, level.getRandom(), true);
 
 		source.sendSuccess(
 			() -> Component.translatable(
 				worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success",
-				pos.getX(),
-				pos.getY(),
-				pos.getZ(),
+				pos.getX(), pos.getY(), pos.getZ(),
 				charge
 			),
 			true

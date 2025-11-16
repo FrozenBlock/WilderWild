@@ -30,7 +30,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
@@ -70,7 +69,6 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 	private final boolean isFastFalling;
 	private final boolean controlVelUponSpawn;
 
-	@NotNull
 	public static WWFallingLeavesParticleOptions create(
 		ParticleType<WWFallingLeavesParticleOptions> type,
 		int textureSize,
@@ -84,10 +82,9 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		);
 	}
 
-	@NotNull
 	public static WWFallingLeavesParticleOptions createControlledVelocity(
 		ParticleType<WWFallingLeavesParticleOptions> type,
-		@NotNull Vec3 velocity,
+		Vec3 velocity,
 		int textureSize,
 		float gravityScale,
 		float windScale,
@@ -99,7 +96,6 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		);
 	}
 
-	@NotNull
 	public static WWFallingLeavesParticleOptions createFastFalling(
 		ParticleType<WWFallingLeavesParticleOptions> type,
 		int textureSize,
@@ -112,9 +108,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 
 	private WWFallingLeavesParticleOptions(
 		ParticleType<WWFallingLeavesParticleOptions> type,
-		double xSpeed,
-		double ySpeed,
-		double zSpeed,
+		double xSpeed, double ySpeed, double zSpeed,
 		int textureSize,
 		float gravityScale,
 		boolean isFastFalling,
@@ -127,9 +121,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 
 	private WWFallingLeavesParticleOptions(
 		ParticleType<WWFallingLeavesParticleOptions> type,
-		double xSpeed,
-		double ySpeed,
-		double zSpeed,
+		double xSpeed, double ySpeed, double zSpeed,
 		int textureSize,
 		float gravityScale,
 		boolean isFastFalling,
@@ -141,7 +133,7 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		this(type, new Vec3(xSpeed, ySpeed, zSpeed), textureSize, gravityScale, isFastFalling, controlVelUponSpawn, windScale, isLitter, leafMovementType);
 	}
 
-	private @NotNull static WWFallingLeavesParticleOptions createCodecParticleOptions(
+	private static WWFallingLeavesParticleOptions createCodecParticleOptions(
 		Identifier particleId,
 		Vec3 velocity,
 		int textureSize,
@@ -184,7 +176,6 @@ public class WWFallingLeavesParticleOptions implements ParticleOptions {
 		this.leafMovementType = leafMovementType;
 	}
 
-	@NotNull
 	@Override
 	public ParticleType<?> getType() {
 		return this.type;

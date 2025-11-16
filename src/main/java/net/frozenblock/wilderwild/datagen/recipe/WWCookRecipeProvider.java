@@ -32,23 +32,23 @@ import net.minecraft.world.level.ItemLike;
 
 public final class WWCookRecipeProvider {
 
-	static void buildRecipes(RecipeProvider provider, RecipeOutput exporter) {
+	static void buildRecipes(RecipeProvider provider, RecipeOutput output) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
 			.unlockedBy("has_crab_claw", provider.has(WWItems.CRAB_CLAW))
-			.save(exporter);
-		cookRecipes(provider, exporter, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
-		cookRecipes(provider, exporter, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+			.save(output);
+		cookRecipes(provider, output, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
+		cookRecipes(provider, output, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
 
 		/*
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
 			.unlockedBy("has_yellow_maple_leaves", provider.has(WWBlocks.YELLOW_MAPLE_LEAVES))
-			.save(exporter);
+			.save(output);
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.ORANGE_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
 			.unlockedBy("has_orange_maple_leaves", provider.has(WWBlocks.ORANGE_MAPLE_LEAVES))
-			.save(exporter);
+			.save(output);
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWBlocks.RED_MAPLE_LEAVES), RecipeCategory.MISC, WWBlocks.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
 			.unlockedBy("has_red_maple_leaves", provider.has(WWBlocks.RED_MAPLE_LEAVES))
-			.save(exporter);
+			.save(output);
 		 */
 	}
 

@@ -25,16 +25,14 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class NoOpModel<T extends EntityRenderState> extends EntityModel<T> {
 
-	public NoOpModel(@NotNull ModelPart root) {
+	public NoOpModel(ModelPart root) {
 		super(root, RenderTypes::entityCutoutNoCull);
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		return LayerDefinition.create(new MeshDefinition(), 16, 16);
 	}

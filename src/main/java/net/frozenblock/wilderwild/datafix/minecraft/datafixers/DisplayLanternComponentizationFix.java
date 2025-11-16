@@ -33,15 +33,14 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.util.datafix.fixes.References;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class DisplayLanternComponentizationFix extends DataFix {
+
 	public DisplayLanternComponentizationFix(Schema outputSchema) {
 		super(outputSchema, true);
 	}
 
-	@NotNull
-	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
+	private static Dynamic<?> fixOccupants(Dynamic<?> dynamic) {
 		List<Dynamic<?>> oldDynamics = dynamic.get("Fireflies").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		dynamic = dynamic.remove("Fireflies");
 
@@ -51,15 +50,13 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 		return dynamic.set("fireflies", dynamic.createList(newDynamics.stream()));
 	}
 
-	@NotNull
-	static Dynamic<?> fixOccupant(@NotNull Dynamic<?> dynamic) {
+	static Dynamic<?> fixOccupant(Dynamic<?> dynamic) {
 		dynamic = fixOccupantColor(dynamic);
 		dynamic = dynamic.renameField("customName", "custom_name");
 		return dynamic;
 	}
 
-	@NotNull
-	private static Dynamic<?> fixOccupantColor(@NotNull Dynamic<?> dynamic) {
+	private static Dynamic<?> fixOccupantColor(Dynamic<?> dynamic) {
 		final List<Dynamic<?>> color = dynamic.get("color").orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		String colorID = WWConstants.string("on");
 		if (!color.isEmpty()) colorID = ((StringTag) color.getFirst().getValue()).asString().orElse(colorID);
@@ -80,7 +77,7 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 	}
 
 	@Contract("_ -> new")
-	private @NotNull Typed<?> fix(@NotNull Typed<?> typed) {
+	private Typed<?> fix(Typed<?> typed) {
 		return typed.update(
 			DSL.remainderFinder(),
 			DisplayLanternComponentizationFix::fixOccupants

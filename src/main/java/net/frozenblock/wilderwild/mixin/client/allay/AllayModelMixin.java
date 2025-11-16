@@ -63,7 +63,7 @@ public abstract class AllayModelMixin extends EntityModel<AllayRenderState> impl
 	)
 	private void wilderWild$runKeyframeDance(AllayRenderState renderState, CallbackInfo info) {
 		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && renderState instanceof WilderAllay wilderAllay && this.wilderWild$dancingAnimation != null) {
-			this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$getDancingAnimationState(), renderState.ageInTicks);
+			this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$dancingAnimationState(), renderState.ageInTicks);
 		}
 	}
 }

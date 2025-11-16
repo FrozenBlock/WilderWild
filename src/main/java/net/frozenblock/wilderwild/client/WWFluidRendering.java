@@ -46,8 +46,8 @@ public final class WWFluidRendering {
 			private final Minecraft minecraft = Minecraft.getInstance();
 
 			@Override
-			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
-				return waterHandler.getFluidSprites(view, pos, state);
+			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
+				return waterHandler.getFluidSprites(level, pos, fluidState);
 			}
 
 			@Override
@@ -65,8 +65,8 @@ public final class WWFluidRendering {
 			// Delegate all other methods to the original
 
 			@Override
-			public int getFluidColor(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState state) {
-				return isMesoglea(level, pos) ? 0xFFFFFFFF : waterHandler.getFluidColor(level, pos, state);
+			public int getFluidColor(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
+				return isMesoglea(level, pos) ? 0xFFFFFFFF : waterHandler.getFluidColor(level, pos, fluidState);
 			}
 		};
 

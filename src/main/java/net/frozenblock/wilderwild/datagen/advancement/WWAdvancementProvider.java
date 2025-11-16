@@ -62,12 +62,12 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
-		HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
-		AdvancementHolder adventure = Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/root"));
-		AdvancementHolder husbandry = Advancement.Builder.advancement().build(WWConstants.vanillaId("husbandry/root"));
+		final HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+		final AdvancementHolder adventure = Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/root"));
+		final AdvancementHolder husbandry = Advancement.Builder.advancement().build(WWConstants.vanillaId("husbandry/root"));
 
-		HolderLookup.RegistryLookup<Block> blockRegistryLookup = registries.lookupOrThrow(Registries.BLOCK);
-		HolderLookup.RegistryLookup<EntityType<?>> entityTypeRegistryLookup = registries.lookupOrThrow(Registries.ENTITY_TYPE);
+		final HolderLookup.RegistryLookup<Block> blocks = registries.lookupOrThrow(Registries.BLOCK);
+		final HolderLookup.RegistryLookup<EntityType<?>> entityTypes = registries.lookupOrThrow(Registries.ENTITY_TYPE);
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -141,7 +141,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("termite_ate_block", TermiteEatTrigger.TriggerInstance.termiteEat(BlockPredicate.Builder.block().of(blockRegistryLookup, BlockTags.OVERWORLD_NATURAL_LOGS), true))
+			.addCriterion("termite_ate_block", TermiteEatTrigger.TriggerInstance.termiteEat(BlockPredicate.Builder.block().of(blocks, BlockTags.OVERWORLD_NATURAL_LOGS), true))
 			.save(writer, WWConstants.string("adventure/use_termite_on_tree"));
 
 		AdvancementHolder geyserPushedFlightlessBird = Advancement.Builder.advancement()
