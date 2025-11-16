@@ -43,7 +43,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -74,20 +73,20 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			this.openersCounter = new ContainerOpenersCounter() {
 
 				@Override
-				protected void onOpen(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				protected void onOpen(Level level, BlockPos pos, BlockState state) {
 				}
 
 				@Override
-				protected void onClose(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+				protected void onClose(Level level, BlockPos pos, BlockState state) {
 				}
 
 				@Override
-				protected void openerCountChanged(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int count, int openCount) {
+				protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int count, int openCount) {
 					stoneChestBlockEntity.signalOpenCount(level, pos, state, count, openCount);
 				}
 
 				@Override
-				public boolean isOwnContainer(@NotNull Player player) {
+				public boolean isOwnContainer(Player player) {
 					if (player.containerMenu instanceof ChestMenu chest) {
 						Container inventory = chest.getContainer();
 						return inventory == stoneChestBlockEntity || inventory instanceof CompoundContainer container && container.contains(stoneChestBlockEntity);
@@ -119,30 +118,25 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public void wilderWild$bubble(Level level, BlockPos pos, BlockState state) {
 		if (level == null) return;
-		if (this.wilderWild$canBubble && state.getOptionalValue(BlockStateProperties.WATERLOGGED).orElse(false)) {
-			wilderWild$sendBubbleSeedParticle(level, pos);
-			this.wilderWild$canBubble = false;
-			Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
-			possibleCoupledChest.ifPresent(coupledChest -> {
-				wilderWild$sendBubbleSeedParticle(level, coupledChest.getBlockPos());
-				if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) coupledChestInterface.wilderWild$setCanBubble(false);
-			});
-		}
+		if (!this.wilderWild$canBubble || !state.getValueOrElse(BlockStateProperties.WATERLOGGED, false)) return;
+		wilderWild$sendBubbleSeedParticle(level, pos);
+		this.wilderWild$canBubble = false;
+		final Optional<ChestBlockEntity> possibleCoupledChest = ChestUtil.getCoupledChestBlockEntity(level, pos, state);
+		possibleCoupledChest.ifPresent(coupledChest -> {
+			wilderWild$sendBubbleSeedParticle(level, coupledChest.getBlockPos());
+			if (coupledChest instanceof ChestBlockEntityInterface coupledChestInterface) coupledChestInterface.wilderWild$setCanBubble(false);
+		});
 	}
 
 	@Unique
 	private static void wilderWild$sendBubbleSeedParticle(Level level, BlockPos pos) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
-		Vec3 centerPos = Vec3.atCenterOf(pos);
+		final Vec3 centerPos = Vec3.atCenterOf(pos);
 		serverLevel.sendParticles(
 			WWParticleTypes.CHEST_BUBBLE_SPAWNER,
-			centerPos.x(),
-			centerPos.y(),
-			centerPos.z(),
+			centerPos.x(), centerPos.y(), centerPos.z(),
 			1,
-			0D,
-			0D,
-			0D,
+			0D, 0D, 0D,
 			0D
 		);
 	}
@@ -150,22 +144,17 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	@Override
 	public void wilderWild$bubbleBurst(BlockState state) {
-		ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (chest.getLevel() instanceof ServerLevel server && WWBlockConfig.get().chestBubbling) {
-			BlockPos pos = chest.getBlockPos();
-			if (state.getFluidState().is(Fluids.WATER) && this.wilderWild$getCanBubble()) {
-				server.sendParticles(
-					ParticleTypes.BUBBLE,
-					pos.getX() + 0.5D,
-					pos.getY() + 0.625D,
-					pos.getZ() + 0.5D,
-					server.random.nextInt(18, 25),
-					0.21875D,
-					0D,
-					0.21875D,
-					0.25D
-				);
-			}
+		final ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
+		if (!(chest.getLevel() instanceof ServerLevel serverLevel) || !WWBlockConfig.get().chestBubbling) return;
+		final BlockPos pos = chest.getBlockPos();
+		if (state.getFluidState().is(Fluids.WATER) && this.wilderWild$getCanBubble()) {
+			serverLevel.sendParticles(
+				ParticleTypes.BUBBLE,
+				pos.getX() + 0.5D, pos.getY() + 0.625D, pos.getZ() + 0.5D,
+				serverLevel.random.nextInt(18, 25),
+				0.21875D, 0D, 0.21875D,
+				0.25D
+			);
 		}
 	}
 
@@ -194,11 +183,10 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Unique
 	@Override
 	public void wilderWild$syncBubble(ChestBlockEntity chest1, ChestBlockEntity chest2) {
-		if (chest1 instanceof ChestBlockEntityInterface chest1Interface && chest2 instanceof ChestBlockEntityInterface chest2Interface) {
-			if (!chest1Interface.wilderWild$getCanBubble() || !chest2Interface.wilderWild$getCanBubble()) {
-				chest1Interface.wilderWild$setCanBubble(false);
-				chest2Interface.wilderWild$setCanBubble(false);
-			}
+		if (!(chest1 instanceof ChestBlockEntityInterface chest1Interface) || !(chest2 instanceof ChestBlockEntityInterface chest2Interface)) return;
+		if (!chest1Interface.wilderWild$getCanBubble() || !chest2Interface.wilderWild$getCanBubble()) {
+			chest1Interface.wilderWild$setCanBubble(false);
+			chest2Interface.wilderWild$setCanBubble(false);
 		}
 	}
 

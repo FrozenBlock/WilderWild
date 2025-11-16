@@ -133,9 +133,9 @@ public class ButterflyAi {
 	}
 
 	private static Optional<PositionTracker> getHomeTarget(LivingEntity butterfly) {
-		Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
+		final Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
-			GlobalPos globalPos = home.get();
+			final GlobalPos globalPos = home.get();
 			if (shouldGoTowardsHome(butterfly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
 		}
 
@@ -145,7 +145,7 @@ public class ButterflyAi {
 	private static Optional<PositionTracker> getLookTarget(LivingEntity butterfly) {
 		return butterfly.getBrain().getMemory(MemoryModuleType.LOOK_TARGET);
 	}
-	
+
 	private static BlockPos randomPosAround(BlockPos pos, Level level) {
 		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
 	}

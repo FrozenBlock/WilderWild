@@ -48,9 +48,9 @@ public abstract class BubbleColumnBlockMixin extends Block {
 	}
 
 	@Inject(method = "getColumnState", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$getColumnState(BlockState blockState, CallbackInfoReturnable<BlockState> info) {
+	private static void wilderWild$getColumnState(BlockState state, CallbackInfoReturnable<BlockState> info) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(blockState);
+		Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(state);
 		dragDirection.ifPresent(direction -> info.setReturnValue(
 			Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
 		));
@@ -85,17 +85,17 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		BlockState fluid,
 		BlockState state,
 		CallbackInfo info,
-		@Local(ordinal = 0) BlockPos.MutableBlockPos mutableBlockPos
+		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable
 	) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		BlockState mutableState = level.getBlockState(mutableBlockPos);
+		final BlockState mutableState = level.getBlockState(mutable);
 		if (canExistIn(mutableState)) return;
-		MesogleaBlock.updateColumn(level, mutableBlockPos, state);
+		MesogleaBlock.updateColumn(level, mutable, state);
 		info.cancel();
 	}
 
 	@Shadow
-	private static boolean canExistIn(BlockState blockState) {
+	private static boolean canExistIn(BlockState state) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild BubbleColumnBlockMixin.");
 	}
 
@@ -113,18 +113,18 @@ public abstract class BubbleColumnBlockMixin extends Block {
 		)
 	)
 	public void wilderWild$updateShape(
-		BlockState blockState,
-		LevelReader levelReader,
+		BlockState state,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource,
+		RandomSource random,
 		CallbackInfoReturnable<BlockState> info
 	) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		if (MesogleaBlock.hasBubbleColumn(neighborState)) scheduledTickAccess.scheduleTick(blockPos, BubbleColumnBlock.class.cast(this), 5);
+		if (MesogleaBlock.hasBubbleColumn(neighborState)) scheduledTickAccess.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
 	}
 
 }

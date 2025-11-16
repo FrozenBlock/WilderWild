@@ -42,9 +42,7 @@ public class EntityMixin {
 			target = "Lnet/minecraft/world/level/Level;gameEvent(Lnet/minecraft/core/Holder;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/level/gameevent/GameEvent$Context;)V"
 		)
 	)
-	private void wilderWild$bigFallGameEvent(
-		Level instance, Holder holder, Vec3 vec3, GameEvent.Context context, Operation<Void> original
-	) {
+	private void wilderWild$bigFallGameEvent(Level instance, Holder holder, Vec3 vec3, GameEvent.Context context, Operation<Void> original) {
 		original.call(instance, holder, vec3, context);
 		if (this.fallDistance >= 4F) original.call(instance, WWGameEvents.BIG_FALL, vec3, context);
 	}

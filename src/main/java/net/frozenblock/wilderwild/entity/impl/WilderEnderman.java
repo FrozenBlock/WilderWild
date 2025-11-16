@@ -18,10 +18,7 @@
 package net.frozenblock.wilderwild.entity.impl;
 
 public interface WilderEnderman {
-
 	void wilderWild$setCanPlayLoopingSound(boolean bl);
-
 	boolean wilderWild$getCanPlayLoopingSound();
-
 	void wilderWild$createAngerLoop();
 }

@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -61,7 +62,8 @@ public class GrassBlockMixin {
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/world/level/block/Blocks;SHORT_GRASS:Lnet/minecraft/world/level/block/Block;",
-			ordinal = 0
+			ordinal = 0,
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public Block wilderWild$replaceWithFrozenShortGrass(
@@ -75,7 +77,8 @@ public class GrassBlockMixin {
 		method = "performBonemeal",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/data/worldgen/placement/VegetationPlacements;GRASS_BONEMEAL:Lnet/minecraft/resources/ResourceKey;"
+			target = "Lnet/minecraft/data/worldgen/placement/VegetationPlacements;GRASS_BONEMEAL:Lnet/minecraft/resources/ResourceKey;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public ResourceKey<PlacedFeature> wilderWild$replaceWithFrozenGrassFeature(

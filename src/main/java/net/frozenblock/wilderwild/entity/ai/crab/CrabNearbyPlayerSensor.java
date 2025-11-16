@@ -25,18 +25,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class CrabNearbyPlayerSensor extends Sensor<Crab> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(MemoryModuleType.NEAREST_PLAYERS, WWMemoryModuleTypes.IS_PLAYER_NEARBY);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull Crab crab) {
+	protected void doTick(ServerLevel level, Crab crab) {
 		final Brain<?> brain = crab.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_PLAYERS) && !brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty()) {
 			brain.setMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY, true);

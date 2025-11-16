@@ -59,9 +59,9 @@ public abstract class ParticleMixin {
 		if (!(Particle.class.cast(this) instanceof WilderDripSuspendedParticleInterface dripSuspendedParticleInterface)) return;
 		if (!dripSuspendedParticleInterface.wilderWild$usesWind()) return;
 
-		final BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-		final FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
-		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + blockPos.getY()) >= this.y) return;
+		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
+		final FluidState fluidState = this.level.getBlockState(pos).getFluidState();
+		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, pos) + pos.getY()) >= this.y) return;
 
 		final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());

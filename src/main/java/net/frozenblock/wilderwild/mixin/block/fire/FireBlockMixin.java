@@ -26,7 +26,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -50,12 +49,12 @@ public class FireBlockMixin {
 	}
 
 	@Unique
-	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() <= 0.0125F) ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
-	public void wilderWild$magmaSmoke(BlockState blockState, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
+	public void wilderWild$magmaSmoke(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
 		if (!WWBlockConfig.FIRE_MAGMA_PARTICLES || !level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK)) return;
 		if (random.nextFloat() <= 0.05F) {
 			level.sendParticles(

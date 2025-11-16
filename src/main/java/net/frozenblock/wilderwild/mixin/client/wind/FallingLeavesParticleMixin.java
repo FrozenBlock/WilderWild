@@ -178,21 +178,20 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;onGround:Z"
 		)
 	)
-	public boolean wilderWild$bounceOnFloorIfAllowed(boolean onGround) {
-		if (FallingLeavesParticle.class.cast(this) instanceof WWFallingLeavesParticle wwParticle) {
-			if (onGround && wwParticle.bounceOnFloor && !(this.xd == 0D || this.zd == 0D)) {
-				this.yd += (Math.abs(this.xd) + Math.abs(this.zd)) * 0.5D;
-				this.xd *= 0.5D;
-				this.zd *= 0.5D;
-				this.stoppedByCollision = false;
-				this.flowAway = false;
-				this.swirl = false;
-				this.rotSpeed = this.rotSpeed + this.spinAcceleration / 10F;
-				if (wwParticle.isLitter) this.yd *= 0.75D;
-				return false;
-			}
+	public boolean wilderWild$bounceOnFloorIfAllowed(boolean original) {
+		if (!(FallingLeavesParticle.class.cast(this) instanceof WWFallingLeavesParticle wwParticle)) return original;
+		if (original && wwParticle.bounceOnFloor && !(this.xd == 0D || this.zd == 0D)) {
+			this.yd += (Math.abs(this.xd) + Math.abs(this.zd)) * 0.5D;
+			this.xd *= 0.5D;
+			this.zd *= 0.5D;
+			this.stoppedByCollision = false;
+			this.flowAway = false;
+			this.swirl = false;
+			this.rotSpeed = this.rotSpeed + this.spinAcceleration / 10F;
+			if (wwParticle.isLitter) this.yd *= 0.75D;
+			return false;
 		}
-		return onGround;
+		return original;
 	}
 
 }

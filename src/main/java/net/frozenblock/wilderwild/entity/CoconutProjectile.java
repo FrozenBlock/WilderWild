@@ -38,33 +38,31 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.NotNull;
 
 public class CoconutProjectile extends ThrowableItemProjectile {
 	public static final float ENTITY_SPLIT_CHANCE = 0.7F;
 
-	public CoconutProjectile(@NotNull EntityType<? extends CoconutProjectile> entityType, @NotNull Level level) {
+	public CoconutProjectile(EntityType<? extends CoconutProjectile> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public CoconutProjectile(@NotNull Level level, @NotNull LivingEntity shooter, ItemStack stack) {
+	public CoconutProjectile(Level level, LivingEntity shooter, ItemStack stack) {
 		super(WWEntityTypes.COCONUT, shooter, level, stack);
 	}
 
-	public CoconutProjectile(@NotNull Level level, double x, double y, double z, ItemStack stack) {
+	public CoconutProjectile(Level level, double x, double y, double z, ItemStack stack) {
 		super(WWEntityTypes.COCONUT, x, y, z, level, stack);
 	}
 
 	@Override
-	@NotNull
 	protected Item getDefaultItem() {
 		return WWItems.COCONUT;
 	}
 
 	@Override
-	protected void onHitEntity(@NotNull EntityHitResult result) {
-		super.onHitEntity(result);
-		final Entity entity = result.getEntity();
+	protected void onHitEntity(EntityHitResult hitResult) {
+		super.onHitEntity(hitResult);
+		final Entity entity = hitResult.getEntity();
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 
 		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT)
@@ -88,10 +86,10 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void onHitBlock(@NotNull BlockHitResult result) {
-		super.onHitBlock(result);
+	protected void onHitBlock(BlockHitResult hitResult) {
+		super.onHitBlock(hitResult);
 		final Level level = this.level();
-		if (level.getBlockState(result.getBlockPos()).is(WWBlockTags.SPLITS_COCONUT)) {
+		if (level.getBlockState(hitResult.getBlockPos()).is(WWBlockTags.SPLITS_COCONUT)) {
 			this.splitAndDiscard();
 			return;
 		}

@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 
@@ -33,21 +32,13 @@ public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(@NotNull ServerLevel serverLevel, @NotNull E penguin) {
+	protected boolean canStillUse(ServerLevel level, E penguin, long gameTime) {
 		return true;
 	}
 
 	@Override
-	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return true;
-	}
-
-	@Override
-	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long gameTime) {
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.ESCAPING, Unit.INSTANCE);
 	}
 
-	@Override
-	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-	}
 }

@@ -29,7 +29,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.Target;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WardenNodeEvaluator extends WalkNodeEvaluator {
@@ -42,7 +41,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	@Override
-	public void prepare(@NotNull PathNavigationRegion level, @NotNull Mob mob) {
+	public void prepare(PathNavigationRegion level, Mob mob) {
 		super.prepare(level, mob);
 		mob.setPathfindingMalus(PathType.WATER, 0F);
 		this.oldWalkableCost = mob.getPathfindingMalus(PathType.WALKABLE);
@@ -59,7 +58,6 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	@Override
-	@NotNull
 	public Node getStart() {
 		return !this.isEntityTouchingWaterOrLava(this.mob)
 			? super.getStart()
@@ -73,7 +71,6 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	@Override
-	@NotNull
 	public Target getTarget(double x, double y, double z) {
 		return !this.isEntitySubmergedInWaterOrLava(this.mob)
 			? super.getTarget(x, y, z)
@@ -81,7 +78,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	@Override
-	public int getNeighbors(Node @NotNull [] successors, @NotNull Node node) {
+	public int getNeighbors(Node[] successors, Node node) {
 		if (!isEntitySubmergedInWaterOrLava(this.mob)) return super.getNeighbors(successors, node);
 
 		int neighbors = super.getNeighbors(successors, node);
@@ -110,7 +107,7 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		return neighbors;
 	}
 
-	private boolean isVerticalNeighborValid(@Nullable Node node, @NotNull Node successor) {
+	private boolean isVerticalNeighborValid(@Nullable Node node, Node successor) {
 		return this.isNeighborValid(node, successor) && (node != null && node.type == PathType.WATER);
 	}
 
@@ -119,9 +116,8 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		return true;
 	}
 
-	@NotNull
 	@Override
-	public PathType getPathType(@NotNull PathfindingContext context, int x, int y, int z) {
+	public PathType getPathType(PathfindingContext context, int x, int y, int z) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final PathType pathNodeType = getPathTypeFromState(context.level(), mutable.set(x, y, z));
 		if (pathNodeType == PathType.WATER || pathNodeType == PathType.LAVA) {
@@ -135,11 +131,11 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		return getPathTypeStatic(context, mutable);
 	}
 
-	private boolean isEntityTouchingWaterOrLava(@NotNull Entity entity) {
+	private boolean isEntityTouchingWaterOrLava(Entity entity) {
 		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
-	private boolean isEntitySubmergedInWaterOrLava(@NotNull Entity entity) {
+	private boolean isEntitySubmergedInWaterOrLava(Entity entity) {
 		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 	}
 }

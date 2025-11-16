@@ -44,9 +44,9 @@ public abstract class DefaultTerrainRenderPassesMixin {
 		require = 0
 	)
 	private static TerrainRenderPass wilderwild$allowFragmentDiscardOnTranslucent(
-		ChunkSectionLayer chunkSectionLayer, boolean isTranslucent, boolean allowFragmentDiscard, Operation<TerrainRenderPass> original
+		ChunkSectionLayer layer, boolean isTranslucent, boolean allowFragmentDiscard, Operation<TerrainRenderPass> original
 	) {
-		return original.call(chunkSectionLayer, isTranslucent, true);
+		return original.call(layer, isTranslucent, true);
 	}
 
 }

@@ -28,62 +28,58 @@ import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class WardenNavigation extends GroundPathNavigation {
+	private final Warden warden;
 
-	private final Warden mob;
-
-	public WardenNavigation(@NotNull Warden mob, @NotNull Level level) {
-		super(mob, level);
-		this.mob = mob;
+	public WardenNavigation(Warden warden, Level level) {
+		super(warden, level);
+		this.warden = warden;
 	}
 
 	@Override
-	@NotNull
 	public PathFinder createPathFinder(int range) {
 		this.nodeEvaluator = new WardenNodeEvaluator(false);
 		this.nodeEvaluator.setCanPassDoors(true);
 		return new PathFinder(this.nodeEvaluator, range) {
-			private static boolean entitySubmergedInWaterOrLava(@NotNull Entity entity) {
+			private static boolean entitySubmergedInWaterOrLava(Entity entity) {
 				return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 			}
 
 			@Override
-			public float distance(@NotNull Node a, @NotNull Node b) {
-				return WWEntityConfig.WARDEN_SWIMS && this.entitySubmergedInWaterOrLava(mob) ? a.distanceTo(b) : a.distanceToXZ(b);
+			public float distance(Node a, Node b) {
+				return WWEntityConfig.WARDEN_SWIMS && this.entitySubmergedInWaterOrLava(warden) ? a.distanceTo(b) : a.distanceToXZ(b);
 			}
 		};
 	}
 
 	@Override
-	@NotNull
 	protected Vec3 getTempMobPos() {
-		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? new Vec3(this.mob.getX(), this.mob.getY(0.5), this.mob.getZ()) : super.getTempMobPos();
+		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? new Vec3(this.warden.getX(), this.warden.getY(0.5), this.warden.getZ()) : super.getTempMobPos();
 	}
 
 	@Override
-	protected double getGroundY(@NotNull Vec3 pos) {
-		BlockPos blockPos = BlockPos.containing(pos);
+	protected double getGroundY(Vec3 pos) {
+		final BlockPos blockPos = BlockPos.containing(pos);
 		return WWEntityConfig.WARDEN_SWIMS && (this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir()) ? pos.y : WardenNodeEvaluator.getFloorLevel(this.level, blockPos);
 	}
 
 	@Override
-	protected boolean canMoveDirectly(@NotNull Vec3 origin, @NotNull Vec3 target) {
-		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? isClearForMovementBetween(this.mob, origin, target, false) : super.canMoveDirectly(origin, target);
+	protected boolean canMoveDirectly(Vec3 origin, Vec3 target) {
+		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? isClearForMovementBetween(this.warden, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
 
 	@Override
-	protected boolean hasValidPathType(@NotNull PathType pathType) {
-		return WWEntityConfig.WARDEN_SWIMS ? pathType != PathType.OPEN : super.hasValidPathType(pathType);
+	protected boolean hasValidPathType(PathType type) {
+		return WWEntityConfig.WARDEN_SWIMS ? type != PathType.OPEN : super.hasValidPathType(type);
 	}
 
 	@Override
 	protected boolean canUpdatePath() {
-		return super.canUpdatePath() || (this.mob.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
+		return super.canUpdatePath() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
 	}
 
 	public boolean isInLiquid() {
-		return this.mob.isInLiquid() || (this.mob.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
+		return this.warden.isInLiquid() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
 	}
 }

@@ -38,7 +38,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
-import org.jetbrains.annotations.NotNull;
 
 public class ScorchingMobEffect extends MobEffect {
 	private final float chanceToScorch;
@@ -59,55 +58,52 @@ public class ScorchingMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void onMobHurt(ServerLevel level, @NotNull LivingEntity livingEntity, int i, DamageSource damageSource, float f) {
-		RandomSource random = livingEntity.getRandom();
-		if (random.nextFloat() <= this.chanceToScorch && damageSource.getDirectEntity() != null) {
-			int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
-			damageSource.getDirectEntity().igniteForSeconds(fireTicks);
-		}
+	public void onMobHurt(ServerLevel level, LivingEntity entity, int i, DamageSource damageSource, float f) {
+		final RandomSource random = entity.getRandom();
+		if (random.nextFloat() > this.chanceToScorch || damageSource.getDirectEntity() == null) return;
+		final int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
+		damageSource.getDirectEntity().igniteForSeconds(fireTicks);
 	}
 
 	@Override
 	public void onMobRemoved(ServerLevel level, LivingEntity entity, int amplifier, Entity.RemovalReason reason) {
-		if (reason == Entity.RemovalReason.KILLED && (entity instanceof Player || level.getGameRules().get(GameRules.MOB_GRIEFING))) {
-			this.spawnFireRandomlyAround(entity.level(), entity.getRandom(), entity.getOnPos());
-		}
+		if (reason != Entity.RemovalReason.KILLED || !(entity instanceof Player || level.getGameRules().get(GameRules.MOB_GRIEFING))) return;
+		this.spawnFireRandomlyAround(entity.level(), entity.getRandom(), entity.getOnPos());
 	}
 
 	private void spawnFireRandomlyAround(Level level, RandomSource random, BlockPos pos) {
-		if (level instanceof ServerLevel serverLevel) {
-			Set<BlockPos> set = Sets.newHashSet();
-			int i = this.maxFires.applyAsInt(random);
-			Iterator<BlockPos> poses = BlockPos.randomInCube(random, 15, pos, 1).iterator();
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		final Set<BlockPos> set = Sets.newHashSet();
+		int fires = this.maxFires.applyAsInt(random);
+		Iterator<BlockPos> poses = BlockPos.randomInCube(random, 15, pos, 1).iterator();
 
-			BlockPos blockPos;
-			while (poses.hasNext()) {
-				blockPos = poses.next();
-				BlockPos blockPos2 = blockPos.below();
-				BlockState blockState = level.getBlockState(blockPos);
-				if (!set.contains(blockPos)
-					&& blockState.canBeReplaced()
-					&& blockState.getFluidState().isEmpty()
-					&& level.getBlockState(blockPos2).isFaceSturdy(level, blockPos2, Direction.UP)
-				) {
-					set.add(blockPos.immutable());
-					if (set.size() >= i) break;
-				}
+		BlockPos blockPos;
+		while (poses.hasNext()) {
+			blockPos = poses.next();
+			BlockPos otherPos = blockPos.below();
+			BlockState blockState = level.getBlockState(blockPos);
+			if (!set.contains(blockPos)
+				&& blockState.canBeReplaced()
+				&& blockState.getFluidState().isEmpty()
+				&& level.getBlockState(otherPos).isFaceSturdy(level, otherPos, Direction.UP)
+			) {
+				set.add(blockPos.immutable());
+				if (set.size() >= fires) break;
 			}
+		}
 
-			poses = set.iterator();
-			while (poses.hasNext()) {
-				blockPos = poses.next();
-				BlockState fireState;
-				if (level.getBlockState(blockPos.below()).is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
-					fireState = Blocks.SOUL_FIRE.defaultBlockState();
-				} else {
-					fireState = Blocks.FIRE.defaultBlockState();
-				}
-				if (fireState.canSurvive(level, blockPos)) {
-					level.setBlockAndUpdate(blockPos, fireState);
-					WWScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
-				}
+		poses = set.iterator();
+		while (poses.hasNext()) {
+			blockPos = poses.next();
+			BlockState fireState;
+			if (level.getBlockState(blockPos.below()).is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
+				fireState = Blocks.SOUL_FIRE.defaultBlockState();
+			} else {
+				fireState = Blocks.FIRE.defaultBlockState();
+			}
+			if (fireState.canSurvive(level, blockPos)) {
+				level.setBlockAndUpdate(blockPos, fireState);
+				WWScorchingFirePlacePacket.sendToAll(serverLevel, blockPos);
 			}
 		}
 	}

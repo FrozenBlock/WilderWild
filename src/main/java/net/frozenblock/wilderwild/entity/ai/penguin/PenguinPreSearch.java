@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 
@@ -33,23 +32,15 @@ public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(@NotNull ServerLevel serverLevel, @NotNull E penguin) {
+	protected boolean checkExtraStartConditions(ServerLevel level, E penguin) {
 		return !penguin.isTouchingWaterOrSwimming() && PenguinAi.hasNearbyPenguins(penguin);
 	}
 
 	@Override
-	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return false;
-	}
-
-	@Override
-	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long gameTime) {
 		PenguinAi.addCallMemoryIfPenguinsClose(penguin);
 		penguin.stopInPlace();
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH, Unit.INSTANCE);
 	}
 
-	@Override
-	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-	}
 }

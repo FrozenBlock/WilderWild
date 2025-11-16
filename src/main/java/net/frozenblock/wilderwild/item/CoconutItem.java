@@ -34,26 +34,23 @@ import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
 
 public class CoconutItem extends BlockItem implements ProjectileItem {
 
-	public CoconutItem(@NotNull Block block, @NotNull Properties properties) {
+	public CoconutItem(Block block, Properties properties) {
 		super(block, properties);
 	}
 
-	@NotNull
 	@Override
-	public InteractionResult useOn(@NotNull UseOnContext context) {
+	public InteractionResult useOn(UseOnContext context) {
 		InteractionResult interactionResult = super.useOn(context);
 		if (interactionResult == InteractionResult.FAIL) return InteractionResult.PASS;
 		return interactionResult;
 	}
 
 	@Override
-	@NotNull
-	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-		ItemStack itemStack = player.getItemInHand(usedHand);
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		final ItemStack stack = player.getItemInHand(hand);
 		level.playSound(
 			player,
 			player.getX(),
@@ -64,20 +61,18 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
 		);
-		itemStack.consume(1, player);
-		if (!level.isClientSide()) Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, itemStack, player, 0F, 0.8F, 1.4F);
+		stack.consume(1, player);
+		if (!level.isClientSide()) Projectile.spawnProjectileFromRotation(CoconutProjectile::new, (ServerLevel) level, stack, player, 0F, 0.8F, 1.4F);
 		player.awardStat(Stats.ITEM_USED.get(this));
 		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	@NotNull
-	public Projectile asProjectile(Level level, @NotNull Position position, ItemStack stack, Direction direction) {
+	public Projectile asProjectile(Level level, Position position, ItemStack stack, Direction direction) {
 		return new CoconutProjectile(level, position.x(), position.y(), position.z(), stack);
 	}
 
 	@Override
-	@NotNull
 	public DispenseConfig createDispenseConfig() {
 		return DispenseConfig.builder().uncertainty(9F).power(0.75F).build();
 	}

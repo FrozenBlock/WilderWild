@@ -27,37 +27,32 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichMeleeAttack {
 
 	@Contract("_ -> new")
-	public static @NotNull OneShot<Ostrich> create(int cooldownBetweenAttacks) {
+	public static OneShot<Ostrich> create(int cooldownBetweenAttacks) {
 		return BehaviorBuilder.create(instance -> instance.group(
-				instance.registered(MemoryModuleType.LOOK_TARGET),
-				instance.present(MemoryModuleType.ATTACK_TARGET),
-				instance.absent(MemoryModuleType.ATTACK_COOLING_DOWN),
-				instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES)
-			).apply(
-				instance,
-				(lookTarget, attackTarget, attackCoolingDown, nearestEntities) -> (world, ostrich, l) -> {
-					final LivingEntity livingEntity = instance.get(attackTarget);
-					if (!isHoldingUsableProjectileWeapon(ostrich)
-						&& ostrich.isWithinMeleeAttackRange(livingEntity)
-						&& instance.get(nearestEntities).contains(livingEntity)
-					) {
-						lookTarget.set(new EntityTracker(livingEntity, true));
-						ostrich.swing(InteractionHand.MAIN_HAND);
-						attackCoolingDown.setWithExpiry(true, cooldownBetweenAttacks);
-						return true;
-					}
-					return false;
-				}
-			)
-		);
+			instance.registered(MemoryModuleType.LOOK_TARGET),
+			instance.present(MemoryModuleType.ATTACK_TARGET),
+			instance.absent(MemoryModuleType.ATTACK_COOLING_DOWN),
+			instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES))
+		.apply(instance, (lookTarget, attackTarget, attackCoolingDown, nearestEntities) -> (level, ostrich, l) -> {
+			final LivingEntity target = instance.get(attackTarget);
+			if (!isHoldingUsableProjectileWeapon(ostrich)
+				&& ostrich.isWithinMeleeAttackRange(target)
+				&& instance.get(nearestEntities).contains(target)
+			) {
+				lookTarget.set(new EntityTracker(target, true));
+				ostrich.swing(InteractionHand.MAIN_HAND);
+				attackCoolingDown.setWithExpiry(true, cooldownBetweenAttacks);
+				return true;
+			}
+			return false;
+		}));
 	}
 
-	private static boolean isHoldingUsableProjectileWeapon(@NotNull Ostrich ostrich) {
+	private static boolean isHoldingUsableProjectileWeapon(Ostrich ostrich) {
 		return ostrich.isHolding(stack -> {
 			final Item item = stack.getItem();
 			return item instanceof ProjectileWeaponItem projectileWeaponItem && ostrich.canFireProjectileWeapon(projectileWeaponItem);

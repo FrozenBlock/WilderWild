@@ -29,18 +29,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_OSTRICHES, MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(ServerLevel level, LivingEntity entity) {
 		final Brain<?> brain = entity.getBrain();
 		final ArrayList<Ostrich> ostriches = Lists.newArrayList();
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {

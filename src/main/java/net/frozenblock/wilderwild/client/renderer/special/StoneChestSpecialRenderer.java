@@ -88,7 +88,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	public record Unbaked(Identifier texture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<StoneChestSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				Identifier.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
+				Identifier.CODEC.fieldOf("resourceTexture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
 				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
 			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);

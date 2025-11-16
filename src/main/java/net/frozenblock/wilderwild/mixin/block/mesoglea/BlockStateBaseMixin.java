@@ -39,9 +39,8 @@ public abstract class BlockStateBaseMixin {
 
 	@Inject(at = @At("HEAD"), method = "handleNeighborChanged")
 	public void wilderWild$neighborChanged(Level level, BlockPos pos, Block block, Orientation orientation, boolean bl, CallbackInfo info) {
-		if (this.asState().getBlock() instanceof BubbleColumnBlock bubbleColumnBlock && !level.isClientSide() && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			level.scheduleTick(pos, bubbleColumnBlock, 5);
-		}
+		if (!(this.asState().getBlock() instanceof BubbleColumnBlock bubbleColumn) || level.isClientSide() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		level.scheduleTick(pos, bubbleColumn, 5);
 	}
 
 }

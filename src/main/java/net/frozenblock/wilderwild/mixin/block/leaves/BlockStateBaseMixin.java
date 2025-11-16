@@ -49,9 +49,7 @@ public abstract class BlockStateBaseMixin {
 	}
 
 	@Inject(method = "onExplosionHit", at = @At("HEAD"))
-	public void wilderWild$createLeafParticlesOnExplosionHit(
-		ServerLevel level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer, CallbackInfo info
-	) {
+	public void wilderWild$createLeafParticlesOnExplosionHit(ServerLevel level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> biConsumer, CallbackInfo info) {
 		FallingLeafUtil.trySendExplosionParticles(this.asState(), level, pos, explosion);
 	}
 

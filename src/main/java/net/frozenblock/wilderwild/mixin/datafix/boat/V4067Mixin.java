@@ -43,7 +43,7 @@ public abstract class V4067Mixin {
 		)
 	)
 	public Map<String, Supplier<TypeTemplate>> wilderWild$registerEntities(V4067 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
-		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
+		final Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.registerSimple(map, "wilderwild:baobab_boat");
 		schema.registerSimple(map, "wilderwild:cypress_boat");
 		schema.registerSimple(map, "wilderwild:palm_boat");

@@ -28,44 +28,40 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import org.apache.commons.lang3.mutable.MutableLong;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinReturnToWater {
-	public static @NotNull BehaviorControl<PathfinderMob> create(float speedModifier) {
-		MutableLong returnTimer = new MutableLong(0L);
-		return BehaviorBuilder.create(
-			instance -> instance.group(
-				instance.present(WWMemoryModuleTypes.WATER_POS),
-				instance.absent(MemoryModuleType.ATTACK_TARGET),
-				instance.absent(MemoryModuleType.WALK_TARGET),
-				instance.registered(MemoryModuleType.LOOK_TARGET)
-			).apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (serverLevel, pathfinderMob, l) -> {
-				if (pathfinderMob.isInWater()) return false;
-				if (l < returnTimer.getValue()) {
-					returnTimer.setValue(l + 60L);
-					return true;
-				}
-
-				final GlobalPos globalPos = instance.get(waterPos);
-				if (!globalPos.dimension().equals(serverLevel.dimension())) {
-					waterPos.erase();
-					return false;
-				}
-
-				final PathNavigation pathNavigation = pathfinderMob.getNavigation();
-				final BlockPos pos = globalPos.pos();
-
-				lookTarget.set(new BlockPosTracker(pos));
-				walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
-
-				if (pathNavigation.isStuck()) {
-					waterPos.erase();
-					return false;
-				}
-
+	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
+		final MutableLong returnTimer = new MutableLong(0L);
+		return BehaviorBuilder.create(instance -> instance.group(
+			instance.present(WWMemoryModuleTypes.WATER_POS),
+			instance.absent(MemoryModuleType.ATTACK_TARGET),
+			instance.absent(MemoryModuleType.WALK_TARGET),
+			instance.registered(MemoryModuleType.LOOK_TARGET)
+		).apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (level, penguin, l) -> {
+			if (penguin.isInWater()) return false;
+			if (l < returnTimer.getValue()) {
 				returnTimer.setValue(l + 60L);
 				return true;
-			})
-		);
+			}
+
+			final GlobalPos globalPos = instance.get(waterPos);
+			if (!globalPos.dimension().equals(level.dimension())) {
+				waterPos.erase();
+				return false;
+			}
+
+			final BlockPos pos = globalPos.pos();
+			lookTarget.set(new BlockPosTracker(pos));
+			walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
+
+			final PathNavigation pathNavigation = penguin.getNavigation();
+			if (pathNavigation.isStuck()) {
+				waterPos.erase();
+				return false;
+			}
+
+			returnTimer.setValue(l + 60L);
+			return true;
+		}));
 	}
 }

@@ -25,18 +25,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	private final int returnDistance;
 
-	public FireflyMoveToBush(@NotNull Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange, int returnDistance) {
+	public FireflyMoveToBush(Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange, int returnDistance) {
 		super(firefly, speedModifier, searchRange, verticalSearchRange);
 		this.returnDistance = returnDistance;
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly firefly) {
+	public boolean checkExtraStartConditions(ServerLevel level, Firefly firefly) {
 		return WWEntityConfig.FIREFLY_SWARMS_BUSH
 			&& !firefly.hasHome()
 			&& super.checkExtraStartConditions(level, firefly)
@@ -44,7 +43,7 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		return level.getBlockState(pos).is(Blocks.FIREFLY_BUSH);
 	}
 
@@ -67,7 +66,6 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
 	}

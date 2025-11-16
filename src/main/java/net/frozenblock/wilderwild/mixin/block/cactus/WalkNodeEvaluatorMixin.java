@@ -46,8 +46,8 @@ public class WalkNodeEvaluatorMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState blockState, Block block, Operation<Boolean> operation) {
-		return operation.call(blockState, block) || operation.call(blockState, WWBlocks.PRICKLY_PEAR_CACTUS);
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Block block, Operation<Boolean> operation) {
+		return operation.call(state, block) || operation.call(state, WWBlocks.PRICKLY_PEAR_CACTUS);
 	}
 
 }

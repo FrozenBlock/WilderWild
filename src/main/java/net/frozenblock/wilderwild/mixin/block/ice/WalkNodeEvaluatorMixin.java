@@ -46,8 +46,8 @@ public class WalkNodeEvaluatorMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithIcicle(BlockState blockState, Block block, Operation<Boolean> operation) {
-		return operation.call(blockState, block) || operation.call(blockState, WWBlocks.ICICLE);
+	private static boolean wilderWild$getBlockPathTypeRawWithIcicle(BlockState state, Block block, Operation<Boolean> operation) {
+		return operation.call(state, block) || operation.call(state, WWBlocks.ICICLE);
 	}
 
 }

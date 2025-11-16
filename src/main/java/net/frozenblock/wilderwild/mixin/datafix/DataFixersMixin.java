@@ -49,7 +49,7 @@ public class DataFixersMixin {
 		)
 	)
 	private static Schema wilderWild$addFixers3438(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
-		Schema schema = original.call(builder, version, factory);
+		final Schema schema = original.call(builder, version, factory);
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("display_lantern"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched_block"), References.BLOCK_ENTITY));
@@ -76,7 +76,7 @@ public class DataFixersMixin {
 		remap = false
 	)
 	private static Schema wilderWild$addFixers3328(DataFixerBuilder builder, int version, BiFunction<Integer, Schema, Schema> factory, Operation<Schema> original) {
-		Schema schema = original.call(builder, version, factory);
+		final Schema schema = original.call(builder, version, factory);
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("jellyfish"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
 		builder.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));

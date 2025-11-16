@@ -20,20 +20,20 @@ package net.frozenblock.wilderwild.entity.ai.penguin;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinCallerTracker extends EntityTracker {
 
-	public PenguinCallerTracker(Entity entity, boolean bl) {
-		super(entity, bl);
+	public PenguinCallerTracker(Entity entity, boolean trackEyeHeight) {
+		super(entity, trackEyeHeight);
 	}
 
 	@Override
-	public boolean isVisibleBy(@NotNull LivingEntity livingEntity) {
+	public boolean isVisibleBy(LivingEntity entity) {
 		return this.getEntity().isAlive();
 	}
 
-	public @NotNull String toString() {
+	@Override
+	public String toString() {
 		return "PenguinCallerTracker for " + this.getEntity();
 	}
 }

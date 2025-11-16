@@ -29,7 +29,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");
@@ -41,12 +40,12 @@ public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> DUSKWING = createKey("duskwing");
 	public static final ResourceKey<ButterflyVariant> DEFAULT = MONARCH;
 
-	private static @NotNull ResourceKey<ButterflyVariant> createKey(String string) {
+	private static ResourceKey<ButterflyVariant> createKey(String string) {
 		return ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, WWConstants.id(string));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<ButterflyVariant> bootstrapContext,
+		BootstrapContext<ButterflyVariant> bootstrapContext,
 		ResourceKey<ButterflyVariant> resourceKey,
 		String name,
 		TagKey<Biome> biomeTag
@@ -56,7 +55,7 @@ public final class ButterflyVariants {
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<ButterflyVariant> bootstrapContext,
+		BootstrapContext<ButterflyVariant> bootstrapContext,
 		ResourceKey<ButterflyVariant> resourceKey,
 		String texturePath,
 		String name,

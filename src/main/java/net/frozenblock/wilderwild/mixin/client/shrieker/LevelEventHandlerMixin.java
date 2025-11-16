@@ -52,33 +52,25 @@ public class LevelEventHandlerMixin {
 		require = 0
 	)
 	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
-		if (this.level != null && WWBlockConfig.get().sculk.shriekerGargling) {
-			if (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
-				double x = (double) pos.getX() + 0.5D;
-				double y = (double) pos.getY() + SculkShriekerBlock.TOP_Y;
-				double z = (double) pos.getZ() + 0.5D;
+		if (this.level != null && WWBlockConfig.get().sculk.shriekerGargling && original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER)) {
+			final double x = (double) pos.getX() + 0.5D;
+			final double y = (double) pos.getY() + SculkShriekerBlock.TOP_Y;
+			final double z = (double) pos.getZ() + 0.5D;
 
-				this.level.playLocalSound(
-					x,
-					y,
-					z,
-					WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
-					SoundSource.BLOCKS,
-					2.0F,
-					0.6F + this.level.random.nextFloat() * 0.4F,
-					false
-				);
+			this.level.playLocalSound(
+				x, y, z,
+				WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+				SoundSource.BLOCKS,
+				2.0F,
+				0.6F + this.level.random.nextFloat() * 0.4F,
+				false
+			);
 
-				this.level.addParticle(
-					WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER,
-					x,
-					y,
-					z,
-					0D,
-					0D,
-					0D
-				);
-			}
+			this.level.addParticle(
+				WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER,
+				x, y, z,
+				0D, 0D, 0D
+			);
 		}
 		return original;
 	}

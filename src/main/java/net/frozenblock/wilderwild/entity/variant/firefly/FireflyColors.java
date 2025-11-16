@@ -29,7 +29,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class FireflyColors {
 	public static final ResourceKey<FireflyColor> ON = createKey("on");
@@ -71,12 +70,12 @@ public final class FireflyColors {
 		.add(WWConstants.string("yellow"))
 		.build();
 
-	private static @NotNull ResourceKey<FireflyColor> createKey(String string) {
-		return ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id(string));
+	private static ResourceKey<FireflyColor> createKey(String path) {
+		return ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id(path));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<FireflyColor> bootstrapContext,
+		BootstrapContext<FireflyColor> bootstrapContext,
 		ResourceKey<FireflyColor> resourceKey,
 		String name,
 		Optional<DyeColor> dyeColor,
@@ -87,7 +86,7 @@ public final class FireflyColors {
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<FireflyColor> bootstrapContext,
+		BootstrapContext<FireflyColor> bootstrapContext,
 		ResourceKey<FireflyColor> resourceKey,
 		String texturePath,
 		String name,
@@ -98,7 +97,7 @@ public final class FireflyColors {
 	}
 
 	@Contract(pure = true)
-	public static @NotNull Stream<String> getVanillaColors() {
+	public static Stream<String> getVanillaColors() {
 		return VANILLA_FIREFLY_COLORS.stream();
 	}
 

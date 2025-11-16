@@ -50,9 +50,9 @@ public class FluidRendererMixin {
 	@Inject(method = "render", at = @At(value = "HEAD"), require = 0)
 	private void wilderWild$renderMesoglea(
 		LevelSlice level,
-		BlockState blockState,
+		BlockState state,
 		FluidState fluidState,
-		BlockPos blockPos,
+		BlockPos pos,
 		BlockPos offset,
 		TranslucentGeometryCollector collector,
 		ChunkModelBuilder meshBuilder,
@@ -62,7 +62,7 @@ public class FluidRendererMixin {
 		CallbackInfo info,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (blockState.getBlock() instanceof MesogleaBlock) isMesoglea.set(blockState.getBlock() instanceof MesogleaBlock);
+		if (state.getBlock() instanceof MesogleaBlock) isMesoglea.set(state.getBlock() instanceof MesogleaBlock);
 	}
 
 	@WrapOperation(
@@ -76,14 +76,14 @@ public class FluidRendererMixin {
 	private boolean wilderWild$isMesoglea(
 		DefaultFluidRenderer instance,
 		BlockAndTintGetter level,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
-		BlockState blockState,
+		BlockState state,
 		FluidState fluidState,
 		Operation<Boolean> original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
 		if (isMesoglea.get()) return true;
-		return original.call(instance, level, blockPos, direction, blockState, fluidState);
+		return original.call(instance, level, pos, direction, state, fluidState);
 	}
 }

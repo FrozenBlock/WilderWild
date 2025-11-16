@@ -44,13 +44,11 @@ public class SlimeMixin {
 		cancellable = true
 	)
 	private static void wilderWild$spawnInAlgae(
-		EntityType<Slime> type, @NotNull LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
+		EntityType<Slime> type, @NotNull LevelAccessor level, EntitySpawnReason reason, BlockPos pos, @NotNull RandomSource random, CallbackInfoReturnable<Boolean> info
 	) {
-		if (level.getBrightness(LightLayer.BLOCK, pos) <= random.nextInt(7)) {
-			if ((EntitySpawnReason.ignoresLightRequirements(spawnReason) || random.nextInt(5) == 0) && AlgaeBlock.hasNearbyAlgae(level, pos, 1, 3)) {
-				info.setReturnValue(true);
-			}
-		}
+		if (level.getBrightness(LightLayer.BLOCK, pos) > random.nextInt(7)) return;
+		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || random.nextInt(5) == 0) || !AlgaeBlock.hasNearbyAlgae(level, pos, 1, 3)) return;
+		info.setReturnValue(true);
 	}
 
 }

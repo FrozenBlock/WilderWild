@@ -33,6 +33,7 @@ public class AllayMixin implements WilderAllay {
 
 	@Unique
 	private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
+
 	@Shadow
 	private float dancingAnimationTicks;
 

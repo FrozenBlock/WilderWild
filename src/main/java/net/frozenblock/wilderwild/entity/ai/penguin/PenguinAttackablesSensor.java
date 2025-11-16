@@ -23,7 +23,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
@@ -31,20 +30,19 @@ public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	@Override
-	protected boolean isMatchingEntity(@NotNull ServerLevel serverLevel, @NotNull LivingEntity attacker, @NotNull LivingEntity target) {
-		return this.isClose(attacker, target) && this.isHuntTarget(attacker, target) && Sensor.isEntityAttackable(serverLevel, attacker, target);
+	protected boolean isMatchingEntity(ServerLevel level, LivingEntity attacker, LivingEntity target) {
+		return this.isClose(attacker, target) && this.isHuntTarget(attacker, target) && Sensor.isEntityAttackable(level, attacker, target);
 	}
 
-	private boolean isHuntTarget(@NotNull LivingEntity attacker, LivingEntity target) {
+	private boolean isHuntTarget(LivingEntity attacker, LivingEntity target) {
 		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WWEntityTags.PENGUIN_HUNT_TARGETS);
 	}
 
-	private boolean isClose(LivingEntity attacker, @NotNull LivingEntity target) {
+	private boolean isClose(LivingEntity attacker, LivingEntity target) {
 		return target.distanceToSqr(attacker) <= 64D;
 	}
 
 	@Override
-	@NotNull
 	protected MemoryModuleType<LivingEntity> getMemory() {
 		return MemoryModuleType.NEAREST_ATTACKABLE;
 	}

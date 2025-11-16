@@ -32,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class MilkweedPodItem extends Item {
 	public static final double SHOOT_DISTANCE_FROM_EYE = -0.1D;
@@ -40,20 +39,17 @@ public class MilkweedPodItem extends Item {
 	public static final int MIN_SEEDS = 5;
 	public static final int MAX_SEEDS = 20;
 
-	public MilkweedPodItem(@NotNull Properties settings) {
-		super(settings);
+	public MilkweedPodItem(Properties properties) {
+		super(properties);
 	}
 
 	@Override
-	@NotNull
-	public InteractionResult use(@NotNull Level level, @NotNull Player user, @NotNull InteractionHand hand) {
-		ItemStack itemStack = user.getItemInHand(hand);
-		itemStack.consume(1, user);
+	public InteractionResult use(Level level, Player user, InteractionHand hand) {
+		final ItemStack stack = user.getItemInHand(hand);
+		stack.consume(1, user);
 		level.playSound(
 			user,
-			user.getX(),
-			user.getY(),
-			user.getZ(),
+			user.getX(), user.getY(), user.getZ(),
 			WWSounds.ITEM_MILKWEED_POD_BLOWN,
 			SoundSource.NEUTRAL,
 			0.25F,
@@ -61,18 +57,16 @@ public class MilkweedPodItem extends Item {
 		);
 		user.startUsingItem(hand);
 		if (level instanceof ServerLevel serverLevel) {
-			user.getCooldowns().addCooldown(itemStack, 40);
-			float pitch = user.getXRot();
-			float yaw = user.getYRot();
-			float f = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
-			float g = -Mth.sin((pitch) * Mth.DEG_TO_RAD) + 0.035F;
-			float h = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
+			user.getCooldowns().addCooldown(stack, 40);
+			final float pitch = user.getXRot();
+			final float yaw = user.getYRot();
+			final float xd = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
+			final float yd = -Mth.sin((pitch) * Mth.DEG_TO_RAD) + 0.035F;
+			final float zd = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD) * 1.5F;
 			Vec3 spawnPos = user.getEyePosition().add(0, SHOOT_DISTANCE_FROM_EYE, 0);
 			serverLevel.sendParticles(
-				SeedParticleOptions.controlled(true, f, g, h),
-				spawnPos.x(),
-				spawnPos.y(),
-				spawnPos.z(),
+				SeedParticleOptions.controlled(true, xd, yd, zd),
+				spawnPos.x(), spawnPos.y(), spawnPos.z(),
 				serverLevel.getRandom().nextIntBetweenInclusive(MIN_SEEDS, MAX_SEEDS),
 				0D,
 				PARTICLE_Y_OFFSET,
@@ -87,13 +81,12 @@ public class MilkweedPodItem extends Item {
 
 
 	@Override
-	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 20;
 	}
 
 	@Override
-	@NotNull
-	public ItemUseAnimation getUseAnimation(@NotNull ItemStack stack) {
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
 		return ItemUseAnimation.TOOT_HORN;
 	}
 }

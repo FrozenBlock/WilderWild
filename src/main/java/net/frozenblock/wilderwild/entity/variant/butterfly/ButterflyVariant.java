@@ -37,10 +37,12 @@ import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.ChatFormatting;
 
-public final class ButterflyVariant implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+public record ButterflyVariant(
+	ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name
+) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
@@ -57,42 +59,23 @@ public final class ButterflyVariant implements TooltipProvider, PriorityProvider
 	public static final Codec<Holder<ButterflyVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.BUTTERFLY_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ButterflyVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT);
 
-	private final ClientAsset.ResourceTexture resourceTexture;
-	private final SpawnPrioritySelectors spawnConditions;
-	private final String name;
-
 	public ButterflyVariant(ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name) {
 		this.resourceTexture = resourceTexture;
 		this.spawnConditions = spawnConditions;
 		this.name = name;
 	}
 
-	private ButterflyVariant(ClientAsset.ResourceTexture resourceTexture, String name) {
-		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name);
-	}
-
-	@NotNull
-	public ClientAsset.ResourceTexture resourceTexture() {
-		return this.resourceTexture;
-	}
-
-	public SpawnPrioritySelectors spawnConditions() {
-		return this.spawnConditions;
-	}
-
-	public String name() {
-		return this.name;
+	private ButterflyVariant(ClientAsset.ResourceTexture texture, String name) {
+		this(texture, SpawnPrioritySelectors.EMPTY, name);
 	}
 
 	@Override
-	public void addToTooltip(Item.TooltipContext tooltipContext, @NotNull Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
-		ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-		consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + this.name).withStyle(chatFormattings));
+	public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter getter) {
+		consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + this.name).withStyle(CHAT_FORMATTINGS));
 	}
 
 	@Override
-	public @NotNull List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> selectors() {
+	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();
 	}
-
 }

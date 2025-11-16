@@ -33,29 +33,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 public interface WWBottleable {
 	boolean wilderWild$fromBottle();
-
 	void wilderWild$setFromBottle(boolean bl);
-
-	void wilderWild$saveToBottleTag(ItemStack itemStack);
-
-	void wilderWild$loadFromBottleTag(CompoundTag compoundTag);
-
+	void wilderWild$saveToBottleTag(ItemStack stack);
+	void wilderWild$loadFromBottleTag(CompoundTag tag);
 	void wilderWild$onBottled();
-
 	void wilderWild$onBottleRelease();
-
 	ItemStack wilderWild$getBottleItemStack();
-
 	SoundEvent wilderWild$getBottleCatchSound();
 
 	@Deprecated
-	static void saveDefaultDataToBottleTag(@NotNull Mob mob, @NotNull ItemStack itemStack) {
-		itemStack.set(DataComponents.CUSTOM_NAME, mob.getCustomName());
-		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA, itemStack, compoundTag -> {
+	static void saveDefaultDataToBottleTag(Mob mob, ItemStack stack) {
+		stack.set(DataComponents.CUSTOM_NAME, mob.getCustomName());
+		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA, stack, compoundTag -> {
 			if (mob.isNoAi()) compoundTag.putBoolean("NoAI", mob.isNoAi());
 			if (mob.isSilent()) compoundTag.putBoolean("Silent", mob.isSilent());
 			if (mob.isNoGravity()) compoundTag.putBoolean("NoGravity", mob.isNoGravity());
@@ -66,33 +58,31 @@ public interface WWBottleable {
 	}
 
 	@Deprecated
-	static void loadDefaultDataFromBottleTag(@NotNull Mob mob, @NotNull CompoundTag compoundTag) {
-		compoundTag.getBoolean("NoAI").ifPresent(mob::setNoAi);
-		compoundTag.getBoolean("Silent").ifPresent(mob::setSilent);
-		compoundTag.getBoolean("NoGravity").ifPresent(mob::setNoGravity);
-		compoundTag.getBoolean("Glowing").ifPresent(mob::setGlowingTag);
-		compoundTag.getBoolean("Invulnerable").ifPresent(mob::setInvulnerable);
-		compoundTag.getFloat("Health").ifPresent(mob::setHealth);
+	static void loadDefaultDataFromBottleTag(Mob mob, CompoundTag tag) {
+		tag.getBoolean("NoAI").ifPresent(mob::setNoAi);
+		tag.getBoolean("Silent").ifPresent(mob::setSilent);
+		tag.getBoolean("NoGravity").ifPresent(mob::setNoGravity);
+		tag.getBoolean("Glowing").ifPresent(mob::setGlowingTag);
+		tag.getBoolean("Invulnerable").ifPresent(mob::setInvulnerable);
+		tag.getFloat("Health").ifPresent(mob::setHealth);
 	}
 
-	static <T extends LivingEntity & WWBottleable> Optional<InteractionResult> bottleMobPickup(@NotNull Player player, InteractionHand interactionHand, T livingEntity) {
-		final ItemStack stack = player.getItemInHand(interactionHand);
-		if (stack.getItem() == Items.GLASS_BOTTLE && livingEntity.isAlive()) {
-			livingEntity.wilderWild$onBottled();
-			livingEntity.playSound(livingEntity.wilderWild$getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
-			ItemStack bottleStack = livingEntity.wilderWild$getBottleItemStack();
-			livingEntity.wilderWild$saveToBottleTag(bottleStack);
+	static <T extends LivingEntity & WWBottleable> Optional<InteractionResult> bottleMobPickup(Player player, InteractionHand hand, T entity) {
+		final ItemStack stack = player.getItemInHand(hand);
+		if (!stack.is(Items.GLASS_BOTTLE) || !entity.isAlive()) return Optional.empty();
 
-			final Level level = livingEntity.level();
-			if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer) player, bottleStack);
+		entity.wilderWild$onBottled();
+		entity.playSound(entity.wilderWild$getBottleCatchSound(), 1F, player.getRandom().nextFloat() * 0.2F + 0.8F);
+		ItemStack bottleStack = entity.wilderWild$getBottleItemStack();
+		entity.wilderWild$saveToBottleTag(bottleStack);
 
-			player.getItemInHand(interactionHand).consume(1, player);
+		final Level level = entity.level();
+		if (!level.isClientSide()) WWCriteria.MOB_BOTTLE.trigger((ServerPlayer) player, bottleStack);
 
-			player.getInventory().placeItemBackInInventory(bottleStack);
+		player.getItemInHand(hand).consume(1, player);
+		player.getInventory().placeItemBackInInventory(bottleStack);
 
-			livingEntity.discard();
-			return Optional.of(InteractionResult.SUCCESS);
-		}
-		return Optional.empty();
+		entity.discard();
+		return Optional.of(InteractionResult.SUCCESS);
 	}
 }

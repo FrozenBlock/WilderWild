@@ -47,7 +47,7 @@ public class TurtleMixin implements TurtleCooldownInterface {
 
 	@Inject(method = "registerGoals", at = @At("TAIL"))
 	public void wilderWild$registerGoals(CallbackInfo info) {
-		Turtle turtle = Turtle.class.cast(this);
+		final Turtle turtle = Turtle.class.cast(this);
 		turtle.goalSelector.addGoal(3, new MeleeAttackGoal(turtle, 1D, true));
 		turtle.targetSelector.addGoal(10, new TurtleNearestAttackableGoal<>(turtle, Jellyfish.class, false));
 	}

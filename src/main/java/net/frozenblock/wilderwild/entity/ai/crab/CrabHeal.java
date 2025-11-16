@@ -24,20 +24,19 @@ import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class CrabHeal {
 
 	@Contract(" -> new")
-	public static @NotNull BehaviorControl<Crab> create() {
+	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND),
 			instance.present(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS)
-		).apply(instance, (underground, digCooldown, healCooldown) -> (world, crab, l) -> {
+		).apply(instance, (underground, digCooldown, healCooldown) -> (level, crab, l) -> {
 			final Brain<Crab> brain = crab.getBrain();
 			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).isPresent()) {
-				int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
+				final int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
 				if (cooldownTicks > 0) {
 					healCooldown.setWithExpiry(cooldownTicks - 1, 5L);
 					return true;

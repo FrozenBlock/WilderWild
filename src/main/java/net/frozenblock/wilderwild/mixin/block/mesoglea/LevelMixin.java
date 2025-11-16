@@ -41,10 +41,10 @@ public class LevelMixin {
 		)
 	)
 	public FluidState wilderWild$preventMesogleaFromMakingWaterOnRemove(
-		Level instance, BlockPos blockPos, Operation<FluidState> original
+		Level instance, BlockPos pos, Operation<FluidState> original
 	) {
-		FluidState fluidState = original.call(instance, blockPos);
-		if (fluidState.is(Fluids.WATER) && instance.getBlockState(blockPos).getBlock() instanceof MesogleaBlock) return Fluids.EMPTY.defaultFluidState();
+		final FluidState fluidState = original.call(instance, pos);
+		if (fluidState.is(Fluids.WATER) && instance.getBlockState(pos).getBlock() instanceof MesogleaBlock) return Fluids.EMPTY.defaultFluidState();
 		return fluidState;
 	}
 

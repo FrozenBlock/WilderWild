@@ -54,7 +54,7 @@ public class EnderManMixin {
 
 	@Unique
 	private static void wilderWild$playClientEnderManSound(@NotNull EnderMan enderMan) {
-		Minecraft client = Minecraft.getInstance();
+		final Minecraft client = Minecraft.getInstance();
 		if (client.level == null || !enderMan.isAlive()) return;
 		client.getSoundManager().play(
 			new RestrictedMovingSound<>(

@@ -30,7 +30,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -106,10 +105,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		)
 	)
 	public FluidState wilderWild$saveBlockState(
-		Level instance, BlockPos blockPos, Operation<FluidState> original,
+		Level instance, BlockPos pos, Operation<FluidState> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		BlockState state = instance.getBlockState(blockPos);
+		BlockState state = instance.getBlockState(pos);
 		blockStateRef.set(state);
 		return state.getFluidState();
 	}
@@ -123,13 +122,13 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	)
 	public double wilderWild$setReplacementParticlesIfMesoglea(
 		double original,
-		@Local BlockPos.MutableBlockPos blockPos,
+		@Local BlockPos.MutableBlockPos mutable,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef,
 		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock) {
 			this.wilderWild$setTouchingMesoglea(true);
-			double distance = this.distanceToSqr(Vec3.atCenterOf(blockPos));
+			final double distance = this.distanceToSqr(Vec3.atCenterOf(mutable));
 			if (distance < closestPosDistanceRef.get()) {
 				closestPosDistanceRef.set(distance);
 				this.wilderWild$replacementSplashParticle = mesogleaBlock.getSplashParticle();
@@ -149,10 +148,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		)
 	)
 	public void wilderWild$replaceBubbleParticles(
-		Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original
+		Level instance, ParticleOptions options, double d, double e, double f, double g, double h, double i, Operation<Void> original
 	) {
-		if (this.wilderWild$replacementBubbleParticle != null) particleOptions = this.wilderWild$replacementBubbleParticle;
-		original.call(instance, particleOptions, d, e, f, g, h, i);
+		if (this.wilderWild$replacementBubbleParticle != null) options = this.wilderWild$replacementBubbleParticle;
+		original.call(instance, options, d, e, f, g, h, i);
 	}
 
 	@WrapOperation(
@@ -164,10 +163,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		)
 	)
 	public void wilderWild$replaceSplashParticles(
-		Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original
+		Level instance, ParticleOptions options, double d, double e, double f, double g, double h, double i, Operation<Void> original
 	) {
-		if (this.wilderWild$replacementSplashParticle != null) particleOptions = this.wilderWild$replacementSplashParticle;
-		original.call(instance, particleOptions, d, e, f, g, h, i);
+		if (this.wilderWild$replacementSplashParticle != null) options = this.wilderWild$replacementSplashParticle;
+		original.call(instance, options, d, e, f, g, h, i);
 	}
 
 	@Unique

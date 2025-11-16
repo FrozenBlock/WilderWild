@@ -24,16 +24,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichPanic extends AnimalPanic<Ostrich> {
 
-	public OstrichPanic(float f, Function<PathfinderMob, TagKey<DamageType>> shouldPanic) {
-		super(f, shouldPanic);
+	public OstrichPanic(float speedMultiplier, Function<PathfinderMob, TagKey<DamageType>> shouldPanic) {
+		super(speedMultiplier, shouldPanic);
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Ostrich ostrich, long gameTime) {
+	public void start(ServerLevel level, Ostrich ostrich, long gameTime) {
 		ostrich.emergeBeak();
 		super.start(level, ostrich, gameTime);
 	}

@@ -51,10 +51,8 @@ public class AllayRendererMixin {
 		method = "extractRenderState(Lnet/minecraft/world/entity/animal/allay/Allay;Lnet/minecraft/client/renderer/entity/state/AllayRenderState;F)V",
 		at = @At("TAIL")
 	)
-	private void extractAnimation(Allay allay, AllayRenderState renderState, float partialTick, CallbackInfo ci) {
-		WilderAllay wilderAllay = (WilderAllay) allay;
-		WilderAllay wilderRenderState = (WilderAllay) renderState;
-
+	private void extractAnimation(Allay allay, AllayRenderState renderState, float partialTick, CallbackInfo info) {
+		if (!(allay instanceof WilderAllay wilderAllay) || !(renderState instanceof WilderAllay wilderRenderState)) return;
 		wilderRenderState.wilderWild$dancingAnimationState().copyFrom(wilderAllay.wilderWild$dancingAnimationState());
 	}
 }

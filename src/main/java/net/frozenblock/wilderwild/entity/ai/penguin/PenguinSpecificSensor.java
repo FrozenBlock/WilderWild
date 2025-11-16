@@ -31,18 +31,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_PENGUINS, WWMemoryModuleTypes.CLOSE_PENGUINS);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(ServerLevel level, LivingEntity entity) {
 		final AABB searchArea = entity.getBoundingBox().inflate(48D, 32D, 48D);
 		final List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, searchArea, penguin -> penguin != entity && penguin.isAlive());
 		penguins.sort(Comparator.comparingDouble(entity::distanceToSqr));

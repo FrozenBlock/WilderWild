@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class NectarFallProviderMixin {
 
 	@ModifyReturnValue(
-		method = "Lnet/minecraft/client/particle/DripParticle$NectarFallProvider;createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
+		method = "createParticle(Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/util/RandomSource;)Lnet/minecraft/client/particle/Particle;",
 		at = @At("RETURN")
 	)
 	private static Particle wilderWild$setUsesWindAndFixColor(Particle original) {

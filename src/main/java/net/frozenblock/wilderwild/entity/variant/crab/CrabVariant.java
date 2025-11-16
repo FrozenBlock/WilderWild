@@ -33,7 +33,9 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import org.jetbrains.annotations.NotNull;
 
-public final class CrabVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
+public record CrabVariant(
+	ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture, SpawnPrioritySelectors spawnConditions
+) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<CrabVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::resourceTexture),
@@ -50,38 +52,24 @@ public final class CrabVariant implements PriorityProvider<SpawnContext, SpawnCo
 	public static final Codec<Holder<CrabVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.CRAB_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<CrabVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.CRAB_VARIANT);
 
-	private final ClientAsset.ResourceTexture resourceTexture;
-	private final ClientAsset.ResourceTexture mojangResourceTexture;
-	private final SpawnPrioritySelectors spawnConditions;
-
-
-	public CrabVariant(ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture, SpawnPrioritySelectors spawnConditions) {
-		this.resourceTexture = resourceTexture;
-		this.mojangResourceTexture = mojangResourceTexture;
-		this.spawnConditions = spawnConditions;
-	}
-
 	private CrabVariant(ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture) {
 		this(resourceTexture, mojangResourceTexture, SpawnPrioritySelectors.EMPTY);
 	}
 
+	@Override
 	@NotNull
 	public ClientAsset.ResourceTexture resourceTexture() {
 		return this.resourceTexture;
 	}
 
+	@Override
 	@NotNull
 	public ClientAsset.ResourceTexture mojangResourceTexture() {
 		return this.mojangResourceTexture;
 	}
 
-	public SpawnPrioritySelectors spawnConditions() {
-		return this.spawnConditions;
-	}
-
 	@Override
-	public @NotNull List<Selector<SpawnContext, SpawnCondition>> selectors() {
+	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();
 	}
-
 }
