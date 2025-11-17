@@ -49,7 +49,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientNetworking {
@@ -72,9 +71,9 @@ public final class WWClientNetworking {
 
 	public static void receiveJellyfishStingPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWJellyfishStingPacket.PACKET_TYPE, (packet, ctx) -> {
-			Player player = Minecraft.getInstance().player;
-			ClientLevel clientLevel = ctx.client().level;
-			clientLevel.playSound(
+			final Player player = Minecraft.getInstance().player;
+			final ClientLevel level = ctx.client().level;
+			level.playSound(
 				player,
 				player.getX(),
 				player.getY(),
@@ -89,28 +88,28 @@ public final class WWClientNetworking {
 
 	public static void receiveLightningStrikePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWLightningStrikePacket.PACKET_TYPE, (packet, ctx) -> {
-			BlockState blockState = Block.stateById(packet.blockStateId());
-			if (blockState.isAir()) return;
+			final BlockState state = Block.stateById(packet.blockStateId());
+			if (state.isAir()) return;
 
-			Minecraft minecraft = Minecraft.getInstance();
-			ClientLevel clientLevel = ctx.client().level;
-			RandomSource random = clientLevel.getRandom();
+			final Minecraft minecraft = Minecraft.getInstance();
+			final ClientLevel level = ctx.client().level;
+			final RandomSource random = level.getRandom();
 
 			WWEntityConfig.LightningConfig lightningConfig = WWEntityConfig.get().lightning;
 			if (lightningConfig.lightningBlockParticles) {
-				lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
+				lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), state, random, minecraft.particleEngine);
 			}
 			if (lightningConfig.lightningSmokeParticles) {
-				lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), blockState, random, minecraft.particleEngine);
+				lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), state, random, minecraft.particleEngine);
 			}
 		});
 	}
 
 	public static void receiveStoneChestLidPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, ctx) -> {
-			ClientLevel level = ctx.client().level;
+			final ClientLevel level = ctx.client().level;
 			if (!(level.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity)) return;
-			
+
 			stoneChestBlockEntity.prevOpenProgress = packet.prevOpenProgress();
 			stoneChestBlockEntity.openProgress = packet.openProgress();
 			stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
@@ -122,49 +121,49 @@ public final class WWClientNetworking {
 
 	public static void receiveScorchingFirePlacePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWScorchingFirePlacePacket.PACKET_TYPE, (packet, ctx) -> {
-			ClientLevel clientLevel = ctx.client().level;
-			RandomSource randomSource = clientLevel.random;
-			BlockPos pos = packet.pos();
+			final ClientLevel level = ctx.client().level;
+			final RandomSource random = level.random;
+			final BlockPos pos = packet.pos();
 			for (int particles = 0; particles < 10; ++particles) {
-				clientLevel.addParticle(
+				level.addParticle(
 					ParticleTypes.LARGE_SMOKE,
-					(double)pos.getX() + randomSource.nextDouble(),
-					(double)pos.getY() + randomSource.nextDouble(),
-					(double)pos.getZ() + randomSource.nextDouble(),
-					randomSource.nextGaussian() * 0.04D,
-					randomSource.nextGaussian() * 0.05D,
-					randomSource.nextGaussian() * 0.04D
+					(double)pos.getX() + random.nextDouble(),
+					(double)pos.getY() + random.nextDouble(),
+					(double)pos.getZ() + random.nextDouble(),
+					random.nextGaussian() * 0.04D,
+					random.nextGaussian() * 0.05D,
+					random.nextGaussian() * 0.04D
 				);
 			}
 
-			clientLevel.playLocalSound(
+			level.playLocalSound(
 				pos,
 				WWSounds.BLOCK_FIRE_IGNITE,
 				SoundSource.BLOCKS,
 				0.5F,
-				(randomSource.nextFloat() - randomSource.nextFloat()) * 0.2F + 1F,
+				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F,
 				true
 			);
 		});
 	}
 
-	private static void lightningBlockParticles(int tickCount, double x, double y, double z, @NotNull BlockState blockState, @NotNull RandomSource random, @NotNull ParticleEngine particleEngine) {
-		if (blockState.is(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)) return;
+	private static void lightningBlockParticles(int tickCount, double x, double y, double z, BlockState state, RandomSource random, ParticleEngine particleEngine) {
+		if (state.is(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)) return;
 
-		boolean first = tickCount == 0;
-		double calmDownAge = Math.max(1, tickCount - 6D);
-		Vec3 origin = new Vec3(x, y, z);
-		int particles = first ? random.nextInt(25, 40) : random.nextInt(5, 15);
-		double rotAngle = 360D / (double) particles;
+		final boolean first = tickCount == 0;
+		final double calmDownAge = Math.max(1, tickCount - 6D);
+		final Vec3 origin = new Vec3(x, y, z);
+		final int particles = first ? random.nextInt(25, 40) : random.nextInt(5, 15);
+		final double rotAngle = 360D / (double) particles;
 		double angle = random.nextDouble() * 360D;
-		ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, blockState);
-		if (blockState.is(Blocks.WATER)) {
+		ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, state);
+		if (state.is(Blocks.WATER)) {
 			particleOptions = ParticleTypes.SPLASH;
-		} else if (blockState.is(Blocks.LAVA)) {
+		} else if (state.is(Blocks.LAVA)) {
 			particleOptions = ParticleTypes.LAVA;
 		}
-		double speedMultiplier = first ? 1.5D : 1D;
-		double speedMultiplierY = first ? 1.13D : 1D;
+		final double speedMultiplier = first ? 1.5D : 1D;
+		final double speedMultiplierY = first ? 1.13D : 1D;
 
 		for (int a = 0; a < particles; a++) {
 			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(
@@ -172,10 +171,10 @@ public final class WWClientNetworking {
 				0.4D,
 				angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D))
 			);
-			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
-			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
+			final double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D);
+			final double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D);
 
-			Particle blockParticle = particleEngine.createParticle(particleOptions, x + dirX, y, z + dirZ, 0D, 0D, 0D);
+			final Particle blockParticle = particleEngine.createParticle(particleOptions, x + dirX, y, z + dirZ, 0D, 0D, 0D);
 			if (blockParticle != null) {
 				blockParticle.xd = ((dirX * 0.8D) / calmDownAge) * speedMultiplier;
 				blockParticle.yd = ((0.4D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
@@ -183,7 +182,7 @@ public final class WWClientNetworking {
 			}
 
 			if (random.nextBoolean()) {
-				Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
+				final Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
 				if (particle2 != null) {
 					particle2.xd = ((dirX * 0.2D) / calmDownAge) * speedMultiplier;
 					particle2.yd = ((0.5D / calmDownAge) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
@@ -200,19 +199,19 @@ public final class WWClientNetworking {
 		double x,
 		double y,
 		double z,
-		@NotNull BlockState blockState,
-		@NotNull RandomSource random,
-		@NotNull ParticleEngine particleEngine
+		BlockState state,
+		RandomSource random,
+		ParticleEngine particleEngine
 	) {
-		if (blockState.is(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)) return;
+		if (state.is(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)) return;
 
-		boolean first = tickCount == 0;
-		Vec3 origin = new Vec3(x, y, z);
-		int particles = random.nextInt(2, 15);
-		double rotAngle = 360D / (double) particles;
+		final boolean first = tickCount == 0;
+		final Vec3 origin = new Vec3(x, y, z);
+		final int particles = random.nextInt(2, 15);
+		final double rotAngle = 360D / (double) particles;
 		double angle = random.nextDouble() * 360D;
-		double speedMultiplier = first ? 1.5D : 1D;
-		double speedMultiplierY = first ? 1.13D : 1D;
+		final double speedMultiplier = first ? 1.5D : 1D;
+		final double speedMultiplierY = first ? 1.13D : 1D;
 
 		for (int a = 0; a < particles; a++) {
 			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(
@@ -220,11 +219,11 @@ public final class WWClientNetworking {
 				0.4D,
 				angle + (((random.nextDouble() * rotAngle) * 0.35D) * (random.nextBoolean() ? 1D : -1D))
 			);
-			double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
-			double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
+			final double dirX = (offsetPos.x - origin.x) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
+			final double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
 
 			if (random.nextBoolean()) {
-				Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
+				final Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
 				if (particle2 != null) {
 					particle2.xd = ((dirX * 0.2D)) * speedMultiplier;
 					particle2.yd = ((0.5D / (double) tickCount) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
@@ -238,8 +237,8 @@ public final class WWClientNetworking {
 
 	public static void receiveLeavesExplosionPacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWLeavesExplosionParticlePacket.PACKET_TYPE, (packet, ctx) -> {
-			ClientLevel clientLevel = ctx.client().level;
-			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(clientLevel, packet);
+			final ClientLevel level = ctx.client().level;
+			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(level, packet);
 		});
 	}
 }

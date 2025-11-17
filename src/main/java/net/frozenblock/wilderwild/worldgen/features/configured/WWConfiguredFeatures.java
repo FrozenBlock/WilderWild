@@ -70,7 +70,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWConfiguredFeatures {
 	// FALLEN TREES
@@ -472,7 +471,7 @@ public final class WWConfiguredFeatures {
 		throw new UnsupportedOperationException("WWConfiguredFeatures contains only static declarations.");
 	}
 
-	public static void registerConfiguredFeatures(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 

@@ -51,7 +51,6 @@ import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomes {
 	// Main Biomes
@@ -100,7 +99,7 @@ public final class WWBiomes {
 	public static void init() {
 	}
 
-	public static void bootstrap(@NotNull BootstrapContext<Biome> context) {
+	public static void bootstrap(BootstrapContext<Biome> context) {
 		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
 
 		// MAIN BIOMES
@@ -143,7 +142,7 @@ public final class WWBiomes {
 		register(context, SNOWY_OLD_GROWTH_PINE_TAIGA, SnowyOldGrowthPineTaiga.INSTANCE.create(context));
 	}
 
-	private static void register(@NotNull BootstrapContext<Biome> entries, @NotNull ResourceKey<Biome> key, @NotNull Biome biome) {
+	private static void register(BootstrapContext<Biome> entries, ResourceKey<Biome> key, Biome biome) {
 		WWConstants.log("Registering biome " + key.identifier(), true);
 		entries.register(key, biome);
 	}

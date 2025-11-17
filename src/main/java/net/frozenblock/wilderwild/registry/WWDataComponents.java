@@ -32,7 +32,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.component.CustomData;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWDataComponents {
 	public static final DataComponentType<List<DisplayLanternBlockEntity.Occupant>> FIREFLIES = register(
@@ -69,7 +68,7 @@ public final class WWDataComponents {
 
 	public static void init() {}
 
-	private static <T> @NotNull DataComponentType<T> register(String id, @NotNull UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
+	private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
 		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WWConstants.id(id), unaryOperator.apply(DataComponentType.builder()).build());
 	}
 }

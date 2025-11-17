@@ -36,7 +36,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
@@ -53,30 +52,30 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.FANCY_DARK_OAK_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int freeTreeHeight,
-		@NotNull BlockPos pos,
-		@NotNull TreeConfiguration config
+		BlockPos pos,
+		TreeConfiguration config
 	) {
 		int r;
 		int q;
-		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-		BlockPos blockPos = pos.below();
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, blockPos, config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, blockPos.east(), config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, blockPos.south(), config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, blockPos.south().east(), config);
-		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+
+		final ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
+		final BlockPos belowPos = pos.below();
+		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos, config);
+		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.east(), config);
+		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.south(), config);
+		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.south().east(), config);
+
+		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
 		int extraLogs = 0;
 		int i = freeTreeHeight - random.nextInt(4);
@@ -95,14 +94,14 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 				--j;
 			}
 			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, l + q, o))) continue;
-			boolean placedWest = this.placeLog(level, replacer, random, blockPos2, config);
-			boolean placedEast = this.placeLog(level, replacer, random, blockPos2.east(), config);
-			boolean placedSouth = this.placeLog(level, replacer, random, blockPos2.south(), config);
-			boolean placedSouthEast = this.placeLog(level, replacer, random, blockPos2.east().south(), config);
+			final boolean placedWest = this.placeLog(level, replacer, random, blockPos2, config);
+			final boolean placedEast = this.placeLog(level, replacer, random, blockPos2.east(), config);
+			final boolean placedSouth = this.placeLog(level, replacer, random, blockPos2.south(), config);
+			final boolean placedSouthEast = this.placeLog(level, replacer, random, blockPos2.east().south(), config);
 			if (extraLogs < maxBranchCount && this.trunkBranchPlacement.canPlaceBranch(random) && (q * 3) > freeTreeHeight) {
-				Direction branchDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				BlockPos.MutableBlockPos branchPos = blockPos2.mutable();
-				ArrayList<BlockPos> possiblePoses = new ArrayList<>();
+				final Direction branchDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+				final BlockPos.MutableBlockPos branchPos = blockPos2.mutable();
+				final ArrayList<BlockPos> possiblePoses = new ArrayList<>();
 				if (branchDirection == Direction.NORTH) {
 					if (placedWest) possiblePoses.add(blockPos2);
 					if (placedEast) possiblePoses.add(blockPos2.east());

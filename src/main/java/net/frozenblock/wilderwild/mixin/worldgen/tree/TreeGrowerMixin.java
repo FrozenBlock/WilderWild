@@ -65,7 +65,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
 	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (!WWWorldgenConfig.get().treeGeneration.treeGeneration) return;
-		TreeGrower treeGrower = TreeGrower.class.cast(this);
+		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
 			if (random.nextInt(10) == 0) {
@@ -78,6 +78,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		}
+
 		if (treeGrower == TreeGrower.SPRUCE) {
 			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
 		}
@@ -127,7 +128,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
 	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
 		if (!WWWorldgenConfig.get().treeGeneration.treeGeneration) return;
-		TreeGrower treeGrower = TreeGrower.class.cast(this);
+		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.SPRUCE) {
 			if (random.nextFloat() < 0.25F) {

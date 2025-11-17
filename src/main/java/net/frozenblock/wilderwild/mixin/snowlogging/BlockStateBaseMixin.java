@@ -67,8 +67,8 @@ public abstract class BlockStateBaseMixin {
 		at = @At("RETURN")
 	)
 	public VoxelShape wilderWild$getCollisionShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getCollisionShape(level, pos, context));
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getCollisionShape(level, pos, context));
 		return original;
 	}
 
@@ -77,36 +77,36 @@ public abstract class BlockStateBaseMixin {
 		at = @At("RETURN")
 	)
 	public VoxelShape wilderWild$getShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return SnowloggingUtils.getSnowEquivalent(blockState).getShape(level, pos, context);
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return SnowloggingUtils.getSnowEquivalent(state).getShape(level, pos, context);
 		return original;
 	}
 
 	@ModifyReturnValue(method = "getVisualShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getVisualShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getVisualShape(level, pos, context));
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getVisualShape(level, pos, context));
 		return original;
 	}
 
 	@ModifyReturnValue(method = "getInteractionShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getInteractionShape(VoxelShape original, BlockGetter level, BlockPos pos) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getInteractionShape(level, pos));
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getInteractionShape(level, pos));
 		return original;
 	}
 
 	@ModifyReturnValue(method = "getBlockSupportShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getBlockSupportShape(VoxelShape original, BlockGetter level, BlockPos pos) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getBlockSupportShape(level, pos));
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getBlockSupportShape(level, pos));
 		return original;
 	}
 
 	@ModifyReturnValue(method = "getOcclusionShape", at = @At("RETURN"))
 	public VoxelShape wilderWild$getOcclusionShape(VoxelShape original) {
-		BlockState blockState = this.asState();
-		if (SnowloggingUtils.isSnowlogged(blockState)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(blockState).getOcclusionShape());
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getOcclusionShape());
 		return original;
 	}
 
@@ -118,19 +118,18 @@ public abstract class BlockStateBaseMixin {
 
 	@ModifyReturnValue(method = "getDrops", at = @At("RETURN"))
 	public List<ItemStack> wilderWild$getDrops(List<ItemStack> original, LootParams.Builder lootParams) {
-		BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state) && !(lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player)) {
-			List<ItemStack> finalList = new ArrayList<>(original);
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			finalList.addAll(snowEquivalent.getDrops(lootParams));
-			return finalList;
-		}
-		return original;
+		final BlockState state = this.asState();
+		if (!SnowloggingUtils.isSnowlogged(state) || (lootParams.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player)) return original;
+
+		final List<ItemStack> finalList = new ArrayList<>(original);
+		final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+		finalList.addAll(snowEquivalent.getDrops(lootParams));
+		return finalList;
 	}
 
 	@ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
 	public float wilderWild$getDestroySpeed(float original, BlockGetter level, BlockPos pos) {
-		BlockState state = this.asState();
+		final BlockState state = this.asState();
 		if (SnowloggingUtils.isSnowlogged(state)) return SnowloggingUtils.getSnowDestroySpeed(state, level, pos);
 		return original;
 	}
@@ -142,12 +141,12 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;getDestroyProgress(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F"
 		)
 	)
-	public float wilderWild$getDestroyProgress(Block instance, BlockState state, Player player, BlockGetter blockGetter, BlockPos pos, Operation<Float> original) {
+	public float wilderWild$getDestroyProgress(Block instance, BlockState state, Player player, BlockGetter level, BlockPos pos, Operation<Float> original) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			state = SnowloggingUtils.getSnowEquivalent(state);
 			instance = state.getBlock();
 		}
-		return original.call(instance, state, player, blockGetter, pos);
+		return original.call(instance, state, player, level, pos);
 	}
 
 	@WrapOperation(
@@ -157,38 +156,31 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;randomTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V"
 		)
 	)
-	public void wilderWild$randomTick(Block instance, BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource, Operation<Void> original) {
-		SnowloggingUtils.onRandomTick(blockState, serverLevel, blockPos);
-		original.call(instance, blockState, serverLevel, blockPos, randomSource);
+	public void wilderWild$randomTick(Block instance, BlockState state, ServerLevel level, BlockPos pos, RandomSource random, Operation<Void> original) {
+		SnowloggingUtils.onRandomTick(state, level, pos);
+		original.call(instance, state, level, pos, random);
 	}
 
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
-			info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
-		}
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
 	}
 
 	@Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$useWithoutItem(Level level, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) {
-			info.setReturnValue(InteractionResult.PASS);
-		}
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) info.setReturnValue(InteractionResult.PASS);
 	}
 
 	@Inject(method = "attack", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$attack(Level level, BlockPos pos, Player player, CallbackInfo info) {
-		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, pos)) {
-			info.cancel();
-		}
+		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, pos)) info.cancel();
 	}
 
 	@Inject(method = "canBeReplaced(Lnet/minecraft/world/item/context/BlockPlaceContext;)Z", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$canBeReplaced(BlockPlaceContext context, CallbackInfoReturnable<Boolean> info) {
 		BlockState state;
-		if (SnowloggingUtils.isItemSnow(context.getItemInHand()) && SnowloggingUtils.supportsSnowlogging(state = this.asState())) {
-			info.setReturnValue(SnowloggingUtils.canBeReplacedWithSnow(state, context));
-		}
+		if (!SnowloggingUtils.isItemSnow(context.getItemInHand()) || !SnowloggingUtils.supportsSnowlogging(state = this.asState())) return;
+		info.setReturnValue(SnowloggingUtils.canBeReplacedWithSnow(state, context));
 	}
 
 	@WrapOperation(
@@ -201,29 +193,29 @@ public abstract class BlockStateBaseMixin {
 	public BlockState wilderWild$updateShape(
 		Block instance,
 		BlockState state,
-		LevelReader levelReader,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource,
+		RandomSource random,
 		Operation<BlockState> original
 	) {
-		BlockState newState = original.call(
+		final BlockState newState = original.call(
 			instance,
-			SnowloggingUtils.onUpdateShape(state, levelReader, blockPos),
-			levelReader,
+			SnowloggingUtils.onUpdateShape(state, level, pos),
+			level,
 			scheduledTickAccess,
-			blockPos,
+			pos,
 			direction,
 			neighborPos,
 			neighborState,
-			randomSource
+			random
 		);
 		BlockState snowEquivalent;
 		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state)
-			&& Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), levelReader, blockPos)) {
+			&& Blocks.SNOW.canSurvive((snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)), level, pos)) {
 			state = snowEquivalent;
 		} else {
 			state = newState;
@@ -238,8 +230,8 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;propagatesSkylightDown(Lnet/minecraft/world/level/block/state/BlockState;)Z"
 		)
 	)
-	public boolean wilderWild$cacheSnowloggedPropogatesSkylightDown(Block instance, BlockState blockState, Operation<Boolean> original) {
-		return original.call(instance, blockState) && !(SnowloggingUtils.isSnowlogged(blockState) && SnowloggingUtils.getSnowLayers(blockState) >= SnowloggingUtils.MAX_LAYERS);
+	public boolean wilderWild$cacheSnowloggedPropogatesSkylightDown(Block instance, BlockState state, Operation<Boolean> original) {
+		return original.call(instance, state) && !(SnowloggingUtils.isSnowlogged(state) && SnowloggingUtils.getSnowLayers(state) >= SnowloggingUtils.MAX_LAYERS);
 	}
 
 	@WrapOperation(
@@ -249,8 +241,8 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;useShapeForLightOcclusion(Lnet/minecraft/world/level/block/state/BlockState;)Z"
 		)
 	)
-	public boolean wilderWild$useShapeForLightOcclusion(Block instance, BlockState blockState, Operation<Boolean> original) {
-		return original.call(instance, blockState) || SnowloggingUtils.isSnowlogged(blockState);
+	public boolean wilderWild$useShapeForLightOcclusion(Block instance, BlockState state, Operation<Boolean> original) {
+		return original.call(instance, state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
 	@ModifyExpressionValue(
@@ -261,8 +253,7 @@ public abstract class BlockStateBaseMixin {
 		)
 	)
 	public boolean wilderWild$canOcclude(boolean original) {
-		BlockState blockState = this.asState();
-		return original || SnowloggingUtils.isSnowlogged(blockState);
+		return original || SnowloggingUtils.isSnowlogged(this.asState());
 	}
 
 	@WrapOperation(
@@ -272,9 +263,9 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;getSoundType(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;"
 		)
 	)
-	public SoundType wilderWild$getSoundType(Block instance, BlockState blockState, Operation<SoundType> original) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) return SnowloggingUtils.getSnowEquivalent(blockState).getSoundType();
-		return original.call(instance, blockState);
+	public SoundType wilderWild$getSoundType(Block instance, BlockState state, Operation<SoundType> original) {
+		if (SnowloggingUtils.isSnowlogged(state)) return SnowloggingUtils.getSnowEquivalent(state).getSoundType();
+		return original.call(instance, state);
 	}
 
 }

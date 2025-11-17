@@ -35,36 +35,31 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 
-	public SpongeBudFeature(@NotNull Codec<SpongeBudFeatureConfig> codec) {
+	public SpongeBudFeature(Codec<SpongeBudFeatureConfig> codec) {
 		super(codec);
 	}
 
 	public static boolean generate(
-		@NotNull WorldGenLevel level,
-		@NotNull BlockPos pos,
-		@NotNull BlockState state,
-		@NotNull SpongeBudFeatureConfig config,
-		@NotNull List<Direction> directions
+		WorldGenLevel level,
+		BlockPos pos,
+		BlockState state,
+		SpongeBudFeatureConfig config,
+		List<Direction> directions
 	) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (Direction direction : directions) {
-			BlockState blockState = level.getBlockState(mutableBlockPos.setWithOffset(pos, direction));
-			if (blockState.is(config.canPlaceOn)) {
-				BlockState blockState2 = getStateForPlacement(level.getRandom(), state, level, pos, direction);
-				if (blockState2 == null) return false;
-
-				if (blockState2.getValue(SpongeBudBlock.WATERLOGGED)) {
-					level.setBlock(pos, blockState2, Block.UPDATE_ALL);
-					level.getChunk(pos).markPosForPostprocessing(pos);
-					return true;
-				}
-			}
+			BlockState offsetState = level.getBlockState(mutable.setWithOffset(pos, direction));
+			if (!offsetState.is(config.canPlaceOn)) continue;
+			final BlockState placementState = getStateForPlacement(level.getRandom(), state, level, pos, direction);
+			if (placementState == null) return false;
+			if (!placementState.getValue(SpongeBudBlock.WATERLOGGED)) continue;
+			level.setBlock(pos, placementState, Block.UPDATE_ALL);
+			level.getChunk(pos).markPosForPostprocessing(pos);
+			return true;
 		}
 		return false;
 	}
@@ -72,67 +67,64 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 	@Nullable
 	private static BlockState getStateForPlacement(
 		RandomSource random,
-		@NotNull BlockState currentState,
-		@NotNull BlockGetter level,
-		@NotNull BlockPos pos,
-		@NotNull Direction lookingDirection
+		BlockState currentState,
+		BlockGetter level,
+		BlockPos pos,
+		Direction lookingDirection
 	) {
-		Block sponge = WWBlocks.SPONGE_BUD;
-		if (!isValidStateForPlacement(level, pos, lookingDirection)) {
-			return null;
+		if (!isValidStateForPlacement(level, pos, lookingDirection)) return null;
+
+		BlockState state;
+		if (currentState.is(WWBlocks.SPONGE_BUD)) {
+			state = currentState;
+		} else if (currentState.getFluidState().isSourceOfType(Fluids.WATER)) {
+			state = WWBlocks.SPONGE_BUD.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
 		} else {
-			BlockState blockState;
-			if (currentState.is(sponge)) {
-				blockState = currentState;
-			} else if (currentState.getFluidState().isSourceOfType(Fluids.WATER)) {
-				blockState = sponge.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
-			} else {
-				blockState = sponge.defaultBlockState();
-			}
-
-			if (lookingDirection.getAxis() == Direction.Axis.Y) {
-				blockState = blockState
-					.setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
-					.setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
-			} else {
-				blockState = blockState.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
-					.setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
-			}
-
-			return blockState.setValue(SpongeBudBlock.AGE, random.nextInt(SpongeBudBlock.MAX_AGE));
+			state = WWBlocks.SPONGE_BUD.defaultBlockState();
 		}
+
+		if (lookingDirection.getAxis() == Direction.Axis.Y) {
+			state = state
+				.setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+				.setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
+		} else {
+			state = state.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
+				.setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
+		}
+
+		return state.setValue(SpongeBudBlock.AGE, random.nextInt(SpongeBudBlock.MAX_AGE));
 	}
 
-	private static boolean isValidStateForPlacement(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
-		BlockPos blockPos = pos.relative(direction);
-		return canAttachTo(level, direction, blockPos, level.getBlockState(blockPos));
+	private static boolean isValidStateForPlacement(BlockGetter level, BlockPos pos, Direction direction) {
+		final BlockPos offsetPos = pos.relative(direction);
+		return canAttachTo(level, direction, offsetPos, level.getBlockState(offsetPos));
 	}
 
-	private static boolean canAttachTo(@NotNull BlockGetter level, @NotNull Direction direction, @NotNull BlockPos pos, @NotNull BlockState state) {
+	private static boolean canAttachTo(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
 		return Block.isFaceFull(state.getBlockSupportShape(level, pos), direction.getOpposite())
 			|| Block.isFaceFull(state.getCollisionShape(level, pos), direction.getOpposite());
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<SpongeBudFeatureConfig> context) {
-		WorldGenLevel worldGenLevel = context.level();
-		BlockPos blockPos = context.origin();
-		RandomSource randomSource = context.random();
-		SpongeBudFeatureConfig config = context.config();
+	public boolean place(FeaturePlaceContext<SpongeBudFeatureConfig> context) {
+		final WorldGenLevel level = context.level();
+		final BlockPos origin = context.origin();
+		final RandomSource random = context.random();
+		final SpongeBudFeatureConfig config = context.config();
 
-		if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(worldGenLevel, blockPos)) return false;
-		List<Direction> directions = config.shuffleDirections(randomSource);
-		if (generate(worldGenLevel, blockPos, worldGenLevel.getBlockState(blockPos), config, directions)) return true;
+		if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, origin)) return false;
+		final List<Direction> directions = config.shuffleDirections(random);
+		if (generate(level, origin, level.getBlockState(origin), config, directions)) return true;
 
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
+		final BlockPos.MutableBlockPos mutable = origin.mutable();
 		for (Direction direction : directions) {
-			mutableBlockPos.set(blockPos);
-			List<Direction> directions2 = config.shuffleDirections(randomSource, direction.getOpposite());
+			mutable.set(origin);
+			final List<Direction> directions2 = config.shuffleDirections(random, direction.getOpposite());
 			for (int i = 0; i < config.searchRange; ++i) {
-				mutableBlockPos.setWithOffset(blockPos, direction);
-				BlockState blockState = worldGenLevel.getBlockState(mutableBlockPos);
-				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(worldGenLevel, mutableBlockPos) && !blockState.is(WWBlocks.SPONGE_BUD)) break;
-				if (generate(worldGenLevel, mutableBlockPos, blockState, config, directions2)) return true;
+				mutable.setWithOffset(origin, direction);
+				BlockState state = level.getBlockState(mutable);
+				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, mutable) && !state.is(WWBlocks.SPONGE_BUD)) break;
+				if (generate(level, mutable, state, config, directions2)) return true;
 			}
 		}
 		return false;

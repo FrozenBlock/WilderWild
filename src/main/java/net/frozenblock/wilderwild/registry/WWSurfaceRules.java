@@ -30,11 +30,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
 
-	@NotNull
 	public static SurfaceRules.RuleSource cypressSurfaceRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.CYPRESS_WETLANDS),
@@ -62,7 +60,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(Block fallingBlock, Block safeBlock) {
 		SurfaceRules.RuleSource fallingBlockSource = FrozenSurfaceRules.makeStateRule(fallingBlock);
 		SurfaceRules.RuleSource safeBlockSource = FrozenSurfaceRules.makeStateRule(safeBlock);
@@ -95,7 +92,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource warmRiverRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.WARM_RIVER),
@@ -112,7 +108,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource desertAndBeachRules() {
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
@@ -150,7 +145,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource warmBeachRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.WARM_BEACH),
@@ -158,7 +152,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource oasisRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.OASIS),
@@ -166,7 +159,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource aridGrass() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
@@ -207,7 +199,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource aridRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
@@ -215,7 +206,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
@@ -245,7 +235,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.OLD_GROWTH_DARK_FOREST),
@@ -263,7 +252,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource temperateRainforestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.TEMPERATE_RAINFOREST),
@@ -289,7 +277,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource rainforestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.RAINFOREST),
@@ -307,7 +294,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource dyingForestRules() {
 		return SurfaceRules.ifTrue(
 				SurfaceRules.isBiome(WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
@@ -329,7 +315,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource mapleForestRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.MAPLE_FOREST),
@@ -357,7 +342,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource tundraRules() {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.TUNDRA),
@@ -389,7 +373,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource gravelBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_GRAVEL),
@@ -409,7 +392,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource sandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_SAND),
@@ -429,7 +411,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
 		return SurfaceRules.ifTrue(
 			FrozenSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
@@ -449,7 +430,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource betaBeaches() {
 		return SurfaceRules.ifTrue(
 			BetaBeachConditionSource.betaBeachConditionSource(),
@@ -462,7 +442,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@Override
-	public void addOverworldSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
+	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
 				betaBeaches(),
@@ -484,7 +464,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
-	@NotNull
 	public static SurfaceRules.RuleSource snowUnderMountains() {
 		return SurfaceRules.ifTrue(
 			SnowUnderMountainConditionSource.snowUnderMountainConditionSource(),
@@ -504,7 +483,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@Override
-	public void addOverworldNoPrelimSurfaceRules(@NotNull List<SurfaceRules.RuleSource> context) {
+	public void addOverworldNoPrelimSurfaceRules(List<SurfaceRules.RuleSource> context) {
 		context.add(
 			snowUnderMountains()
 		);

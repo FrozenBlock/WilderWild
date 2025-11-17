@@ -49,7 +49,6 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class CypressWetlands extends FrozenBiome {
@@ -105,7 +104,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Integer foliageColorOverride() {
+	public Integer foliageColorOverride() {
 		return FOLIAGE_COLOR;
 	}
 
@@ -115,7 +114,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Integer grassColorOverride() {
+	public Integer grassColorOverride() {
 		return GRASS_COLOR;
 	}
 
@@ -129,7 +128,7 @@ public final class CypressWetlands extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SEAGRASS_CYPRESS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS_SPARSE.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FLOWER_PLACED.getKey());
@@ -142,13 +141,13 @@ public final class CypressWetlands extends FrozenBiome {
 		this.addCypressVegetation(features);
 	}
 
-	public void addCypressPaths(@NotNull BiomeGenerationSettings.Builder builder) {
+	public void addCypressPaths(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_SAND_PATH.getKey());
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_GRAVEL_PATH.getKey());
 		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH.getKey());
 	}
 
-	public void addCypressVegetation(@NotNull BiomeGenerationSettings.Builder builder) {
+	public void addCypressVegetation(BiomeGenerationSettings.Builder builder) {
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_WATERLILY);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE_SWAMP);
 		builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);

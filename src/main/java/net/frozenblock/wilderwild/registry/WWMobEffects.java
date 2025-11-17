@@ -31,10 +31,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWMobEffects {
-
 	public static final Reference<MobEffect> REACH_BOOST = register(
 		"reach_boost",
 		new MobEffect(
@@ -73,7 +71,7 @@ public final class WWMobEffects {
 		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
 	}
 
-	private static @NotNull Reference<MobEffect> register(String id, MobEffect entry) {
-		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(id), entry);
+	private static Reference<MobEffect> register(String path, MobEffect entry) {
+		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(path), entry);
 	}
 }

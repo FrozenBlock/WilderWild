@@ -37,6 +37,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWWorldgen {
+
 	private WWWorldgen() {
 		throw new UnsupportedOperationException("WWWorldgen contains only static declarations.");
 	}
@@ -51,7 +52,7 @@ public final class WWWorldgen {
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 
-		WWTreeDecorators.generateTreeDecorators();
+		WWTreeDecorators.init();
 		WWTreeGeneration.generateTrees();
 		WWVegetationGeneration.generateMushroom();
 		WWVegetationGeneration.generatePumpkin();

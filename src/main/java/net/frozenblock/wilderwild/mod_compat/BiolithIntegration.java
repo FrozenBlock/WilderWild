@@ -42,7 +42,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class BiolithIntegration extends ModIntegration {
 
@@ -52,9 +51,9 @@ public class BiolithIntegration extends ModIntegration {
 
 	@Override
 	public void init() {
-		WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
-		WWWorldgenConfig.BiomeGeneration biomeGeneration = worldgenConfig.biomeGeneration;
-		WWWorldgenConfig.BiomePlacement biomePlacement = worldgenConfig.biomePlacement;
+		final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
+		final WWWorldgenConfig.BiomeGeneration biomeGeneration = worldgenConfig.biomeGeneration;
+		final WWWorldgenConfig.BiomePlacement biomePlacement = worldgenConfig.biomePlacement;
 
 		// VANILLA BIOMES
 
@@ -983,7 +982,7 @@ public class BiolithIntegration extends ModIntegration {
 	}
 
 	@Contract("_, _ -> new")
-	private static @NotNull Criterion atEdgeOf(ResourceKey<Biome> biome, float max) {
+	private static Criterion atEdgeOf(ResourceKey<Biome> biome, float max) {
 		return allOf(
 			CriterionBuilder.ratioMax(RatioTargets.EDGE, max),
 			CriterionBuilder.neighbor(biome)
@@ -991,20 +990,16 @@ public class BiolithIntegration extends ModIntegration {
 	}
 
 	@SafeVarargs
-	private static @NotNull Criterion atEdgeOfAny(float max, ResourceKey<Biome> @NotNull ... biomes) {
-		List<Criterion> criterions = new ArrayList<>();
-		for (ResourceKey<Biome> biome : biomes) {
-			criterions.add(atEdgeOf(biome, max));
-		}
+	private static Criterion atEdgeOfAny(float max, ResourceKey<Biome> ... biomes) {
+		final List<Criterion> criterions = new ArrayList<>();
+		for (ResourceKey<Biome> biome : biomes) criterions.add(atEdgeOf(biome, max));
 		return anyOf(criterions);
 	}
 
 	@SafeVarargs
-	private static @NotNull Criterion neighboringAny(ResourceKey<Biome> @NotNull ... biomes) {
-		List<Criterion> criterions = new ArrayList<>();
-		for (ResourceKey<Biome> biome : biomes) {
-			criterions.add(CriterionBuilder.neighbor(biome));
-		}
+	private static Criterion neighboringAny(ResourceKey<Biome> ... biomes) {
+		final List<Criterion> criterions = new ArrayList<>();
+		for (ResourceKey<Biome> biome : biomes) criterions.add(CriterionBuilder.neighbor(biome));
 		return anyOf(criterions);
 	}
 

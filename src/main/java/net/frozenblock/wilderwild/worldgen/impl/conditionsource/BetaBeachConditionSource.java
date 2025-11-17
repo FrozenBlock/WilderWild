@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import org.jetbrains.annotations.NotNull;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
 	public static final BetaBeachConditionSource INSTANCE = new BetaBeachConditionSource();
@@ -31,22 +30,19 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 	BetaBeachConditionSource() {
 	}
 
-	@NotNull
 	public static BetaBeachConditionSource betaBeachConditionSource() {
 		return INSTANCE;
 	}
 
 	@Override
-	@NotNull
 	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
-	public SurfaceRules.Condition apply(@NotNull SurfaceRules.Context context) {
+	public SurfaceRules.Condition apply(SurfaceRules.Context context) {
 		class BetaBeachCondition extends SurfaceRules.LazyYCondition {
-			BetaBeachCondition(@NotNull SurfaceRules.Context context) {
+			BetaBeachCondition(SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -59,7 +55,6 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 	}
 
 	@Override
-	@NotNull
 	public String toString() {
 		return "BiomeConditionSource[BetaBeach]";
 	}

@@ -30,7 +30,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class MapleFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
@@ -38,7 +37,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 	);
 
 	@Contract("_ -> new")
-	protected static <P extends MapleFoliagePlacer> Products.@NotNull P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> mapleFoliagePlacerParts(
+	protected static <P extends MapleFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> mapleFoliagePlacerParts(
 		RecordCodecBuilder.Instance<P> instance
 	) {
 		return foliagePlacerParts(instance).and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length));
@@ -52,38 +51,38 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.MAPLE_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader world,
+		LevelSimulatedReader level,
 		FoliagePlacer.FoliageSetter placer,
-		@NotNull RandomSource random,
+		RandomSource random,
 		TreeConfiguration config,
 		int trunkHeight,
-		FoliagePlacer.@NotNull FoliageAttachment node,
+		FoliagePlacer.FoliageAttachment node,
 		int foliageHeight,
 		int radius,
 		int offset
 	) {
-		BlockPos blockPos = node.pos();
-		int totalHeight = offset + foliageHeight;
+		final BlockPos pos = node.pos();
+		final int totalHeight = offset + foliageHeight;
 		int currentHeight = totalHeight;
 
 		for (int l = offset; l >= -foliageHeight; l--) {
-			this.placeLeavesInCircle(world, placer, random, config, blockPos, radius, l, node.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
+			this.placeLeavesInCircle(level, placer, random, config, pos, radius, l, node.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
 			currentHeight -= 1;
 		}
 	}
 
 	protected void placeLeavesInCircle(
-		LevelSimulatedReader world,
+		LevelSimulatedReader level,
 		FoliagePlacer.FoliageSetter placer,
-		@NotNull RandomSource random,
+		RandomSource random,
 		TreeConfiguration config,
-		BlockPos centerPos,
+		BlockPos pos,
 		int providedRadius,
 		int y,
 		boolean giantTrunk,
@@ -91,16 +90,15 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		int currentHeight,
 		int trunkHeight
 	) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		double radius = providedRadius + ((random.nextDouble() - this.getRandomRadiusShrink()) * 0.4D);
-		double increment = radius * 0.05D;
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final double radius = providedRadius + ((random.nextDouble() - this.getRandomRadiusShrink()) * 0.4D);
+		final double increment = radius * 0.05D;
 
-		for (double j = -radius; j <= radius; j += increment) {
-			for (double k = -radius; k <= radius; k += increment) {
-				if (!this.shouldSkipMapleLocationSigned(j, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) {
-					mutableBlockPos.setWithOffset(centerPos, (int) j, y, (int) k);
-					tryPlaceLeaf(world, placer, random, config, mutableBlockPos);
-				}
+		for (double x = -radius; x <= radius; x += increment) {
+			for (double z = -radius; z <= radius; z += increment) {
+				if (this.shouldSkipMapleLocationSigned(x, z, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) continue;
+				mutable.setWithOffset(pos, (int) x, y, (int) z);
+				tryPlaceLeaf(level, placer, random, config, mutable);
 			}
 		}
 	}
@@ -109,9 +107,7 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		return -0.5D;
 	}
 
-	protected boolean shouldSkipMapleLocationSigned(
-		double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight
-	) {
+	protected boolean shouldSkipMapleLocationSigned(double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight) {
 		double i;
 		double j;
 		if (giantTrunk) {
@@ -125,29 +121,22 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 		return this.shouldSkipMapleLocation(i, j, radius, totalHeight, currentHeight, trunkHeight);
 	}
 
-	protected boolean shouldSkipMapleLocation(
-		 double xDistance, double zDistance, double radius, int totalHeight, int currentHeight, int trunkHeight
-	) {
-		double mapleFunction = this.getMapleFoliageFunction(totalHeight, currentHeight, radius, currentHeight <= trunkHeight);
-		double distance = new Vec3(xDistance, 0, zDistance).horizontalDistance();
+	protected boolean shouldSkipMapleLocation(double xDistance, double zDistance, double radius, int totalHeight, int currentHeight, int trunkHeight) {
+		final double mapleFunction = this.getMapleFoliageFunction(totalHeight, currentHeight, radius, currentHeight <= trunkHeight);
+		final double distance = new Vec3(xDistance, 0, zDistance).horizontalDistance();
 		return distance > mapleFunction && distance > 0.4D;
 	}
 
-	protected double getMapleFoliageFunction(
-		double totalHeight,
-		double height,
-		double radius,
-		boolean hot
-	) {
-		double flippedHeight = totalHeight - height;
-		double functionHeight = totalHeight - 1D;
+	protected double getMapleFoliageFunction(double totalHeight, double height, double radius, boolean hot) {
+		final double flippedHeight = totalHeight - height;
+		final double functionHeight = totalHeight - 1D;
 
-		double functionInput = flippedHeight + (height / functionHeight);
-		double functionNumerator = (functionInput * functionInput) * Math.PI;
-		double functionDenominator = (functionHeight * functionHeight) + (functionHeight * 2.5D) + (totalHeight * radius);
-		double function = Math.sin(functionNumerator / functionDenominator);
-		double finalFunction = function * (radius * 0.75D) + 0.45D;
-		double min = hot ? 1.2D : 0D;
+		final double functionInput = flippedHeight + (height / functionHeight);
+		final double functionNumerator = (functionInput * functionInput) * Math.PI;
+		final double functionDenominator = (functionHeight * functionHeight) + (functionHeight * 2.5D) + (totalHeight * radius);
+		final double function = Math.sin(functionNumerator / functionDenominator);
+		final double finalFunction = function * (radius * 0.75D) + 0.45D;
+		final double min = hot ? 1.2D : 0D;
 
 		return Math.max(finalFunction, min);
 	}

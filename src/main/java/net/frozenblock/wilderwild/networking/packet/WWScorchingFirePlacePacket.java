@@ -26,14 +26,12 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
 
 public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPayload {
 	public static final Type<WWScorchingFirePlacePacket> PACKET_TYPE = new Type<>(WWConstants.id("scorching_fire_place"));
-
 	public static final StreamCodec<FriendlyByteBuf, WWScorchingFirePlacePacket> CODEC = StreamCodec.ofMember(WWScorchingFirePlacePacket::write, WWScorchingFirePlacePacket::new);
 
-	public WWScorchingFirePlacePacket(@NotNull FriendlyByteBuf buf) {
+	public WWScorchingFirePlacePacket(FriendlyByteBuf buf) {
 		this(buf.readBlockPos());
 	}
 
@@ -43,11 +41,10 @@ public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPa
 		}
 	}
 
-	public void write(@NotNull FriendlyByteBuf buf) {
+	public void write(FriendlyByteBuf buf) {
 		buf.writeBlockPos(this.pos());
 	}
 
-	@NotNull
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

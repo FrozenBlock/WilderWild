@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.schedule.Activity;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWActivities {
 	public static final Activity STAND_UP = register("stand_up");
@@ -39,7 +38,7 @@ public final class WWActivities {
 	public static void init() {
 	}
 
-	private static @NotNull Activity register(String string) {
+	private static Activity register(String string) {
 		return Registry.register(BuiltInRegistries.ACTIVITY, string, new Activity(WWConstants.safeString(string)));
 	}
 }

@@ -22,7 +22,6 @@ import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -49,7 +48,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	}
 
 	@Override
-	public boolean shouldApplyMixin(String targetClassName, @NotNull String mixinClassName) {
+	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
 
 		if (mixinClassName.contains("client.sodium.")) {

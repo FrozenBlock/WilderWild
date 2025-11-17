@@ -35,9 +35,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jetbrains.annotations.NotNull;
 
-public class TrunkBranchPlacement {
+public record TrunkBranchPlacement(
+	float branchChance,
+	IntProvider maxBranchCount,
+	IntProvider branchCutoffFromTop,
+	IntProvider branchLength,
+	float offsetLastLogChance,
+	int minBranchLengthForOffset,
+	float foliagePlacementChance,
+	int foliageRadiusShrink
+) {
 	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			Codec.floatRange(0F, 1F).fieldOf("branch_placement_chance").forGetter(trunkPlacer -> trunkPlacer.branchChance),
@@ -51,36 +59,7 @@ public class TrunkBranchPlacement {
 		).apply(instance, TrunkBranchPlacement::new)
 	);
 
-	private final float branchChance;
-	private final IntProvider maxBranchCount;
-	private final IntProvider branchCutoffFromTop;
-	private final IntProvider branchLength;
-	private final float offsetLastLogChance;
-	private final int minBranchLengthForOffset;
-	private final float foliagePlacementChance;
-	private final int foliageRadiusShrink;
-
-	public TrunkBranchPlacement(
-		float branchChance,
-		@NotNull IntProvider maxBranchCount,
-		@NotNull IntProvider branchCutoffFromTop,
-		@NotNull IntProvider branchLength,
-		float offsetLastLogChance,
-		int minBranchLengthForOffset,
-		float foliagePlacementChance,
-		int foliageRadiusShrink
-	) {
-		this.branchChance = branchChance;
-		this.maxBranchCount = maxBranchCount;
-		this.branchCutoffFromTop = branchCutoffFromTop;
-		this.branchLength = branchLength;
-		this.offsetLastLogChance = offsetLastLogChance;
-		this.minBranchLengthForOffset = minBranchLengthForOffset;
-		this.foliagePlacementChance = foliagePlacementChance;
-		this.foliageRadiusShrink = foliageRadiusShrink;
-	}
-
-	public boolean canPlaceBranch(@NotNull RandomSource random) {
+	public boolean canPlaceBranch(RandomSource random) {
 		return random.nextFloat() <= this.branchChance;
 	}
 
@@ -88,88 +67,80 @@ public class TrunkBranchPlacement {
 		return this.maxBranchCount.sample(random);
 	}
 
-	public IntProvider getBranchCutoffFromTop() {
-		return this.branchCutoffFromTop;
-	}
-
 	public int getBranchLength(RandomSource random) {
 		return this.branchLength.sample(random);
 	}
 
-	public boolean canOffsetLastLog(@NotNull RandomSource random, int length) {
+	public boolean canOffsetLastLog(RandomSource random, int length) {
 		return random.nextFloat() <= this.offsetLastLogChance && length > this.minBranchLengthForOffset;
 	}
 
-	public boolean canPlaceFoliage(@NotNull RandomSource random) {
+	public boolean canPlaceFoliage(RandomSource random) {
 		return random.nextFloat() <= this.foliagePlacementChance;
 	}
 
-	public int getFoliageRadiusShrink() {
-		return this.foliageRadiusShrink;
-	}
-
 	public void generateExtraBranchForFallenLog(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockStateProvider blockStateProvider,
-		@NotNull BlockPos startPos,
-		@NotNull Direction direction,
-		@NotNull Direction trunkDirection
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockStateProvider stateProvider,
+		BlockPos startPos,
+		Direction direction,
+		Direction trunkDirection
 	) {
-		BlockPos.MutableBlockPos branchPos = startPos.mutable();
-		int totalLength = this.getBranchLength(random);
+		final BlockPos.MutableBlockPos branchPos = startPos.mutable();
+		final int totalLength = this.getBranchLength(random);
 		boolean hasPassedConfigCheck = false;
 
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(startPos, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
 
-			boolean canOffsetLog = length == totalLength && this.canOffsetLastLog(random, length);
+			final boolean canOffsetLog = length == totalLength && this.canOffsetLastLog(random, length);
 			if (canOffsetLog) branchPos.move(trunkDirection);
 
-			if (TreeFeature.validTreePos(level, branchPos)) {
-				BlockState logState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
-				if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
-					hasPassedConfigCheck = true;
-					replacer.accept(branchPos, logState);
-				} else {
-					return;
-				}
+			if (!TreeFeature.validTreePos(level, branchPos)) continue;
+
+			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
+			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+				hasPassedConfigCheck = true;
+				replacer.accept(branchPos, logState);
+			} else {
+				return;
 			}
 		}
 	}
 
 	public void generateExtraBranch(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockStateProvider blockStateProvider,
-		@NotNull BlockPos startPos,
-		@NotNull Direction direction,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockStateProvider stateProvider,
+		BlockPos startPos,
+		Direction direction,
 		List<FoliagePlacer.FoliageAttachment> foliageAttachments
 	) {
-		BlockPos.MutableBlockPos branchPos = startPos.mutable();
-		int totalLength = this.getBranchLength(random);
+		final BlockPos.MutableBlockPos branchPos = startPos.mutable();
+		final int totalLength = this.getBranchLength(random);
 		boolean hasPassedConfigCheck = false;
 
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(startPos, direction.getStepX() * length, 0, direction.getStepZ() * length);
 
-			boolean isLastLog = length == totalLength;
-			boolean placeUpwards = isLastLog && this.canOffsetLastLog(random, length);
+			final boolean isLastLog = length == totalLength;
+			final boolean placeUpwards = isLastLog && this.canOffsetLastLog(random, length);
 			if (placeUpwards) branchPos.move(Direction.UP);
 
-			if (TreeFeature.validTreePos(level, branchPos)) {
-				BlockState logState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
-				if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
-					hasPassedConfigCheck = true;
-					replacer.accept(branchPos, logState);
-					if (isLastLog && this.canPlaceFoliage(random)) {
-						foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), -this.getFoliageRadiusShrink(), false));
-					}
-				} else {
-					return;
+			if (!TreeFeature.validTreePos(level, branchPos)) continue;
+
+			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
+			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+				hasPassedConfigCheck = true;
+				replacer.accept(branchPos, logState);
+				if (isLastLog && this.canPlaceFoliage(random)) {
+					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), -this.foliageRadiusShrink(), false));
 				}
+			} else {
+				return;
 			}
 		}
 	}
@@ -192,7 +163,8 @@ public class TrunkBranchPlacement {
 		private float foliagePlacementChance = 0F;
 		private int foliageRadiusShrink = 0;
 
-		public Builder() {}
+		public Builder() {
+		}
 
 		public Builder branchChance(float branchChance) {
 			this.branchChance = branchChance;

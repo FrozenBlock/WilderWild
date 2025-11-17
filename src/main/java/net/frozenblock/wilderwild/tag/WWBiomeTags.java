@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomeTags {
 	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
@@ -369,8 +368,7 @@ public final class WWBiomeTags {
 		throw new UnsupportedOperationException("WWBiomeTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<Biome> bind(@NotNull String path) {
+	private static TagKey<Biome> bind(String path) {
 		return TagKey.create(Registries.BIOME, WWConstants.id(path));
 	}
 }

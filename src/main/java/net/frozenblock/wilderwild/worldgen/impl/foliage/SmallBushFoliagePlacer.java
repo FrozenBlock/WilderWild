@@ -29,7 +29,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 	public static final MapCodec<SmallBushFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
@@ -41,31 +40,31 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.SMALL_BUSH_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader levelSimulatedReader,
-		FoliagePlacer.FoliageSetter foliageSetter,
-		RandomSource randomSource,
-		TreeConfiguration treeConfiguration,
+		LevelSimulatedReader level,
+		FoliagePlacer.FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
 		int i,
-		FoliagePlacer.@NotNull FoliageAttachment foliageAttachment,
+		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int j,
 		int k,
 		int l
 	) {
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		BlockPos logPos = foliageAttachment.pos().below();
+		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+		final BlockPos logPos = foliageAttachment.pos().below();
 		for (Direction direction : Direction.values()) {
 			if (direction == Direction.DOWN) continue;
-			mutableBlockPos.setWithOffset(logPos, direction);
-			tryPlaceLeaf(levelSimulatedReader, foliageSetter, randomSource, treeConfiguration, mutableBlockPos);
+			pos.setWithOffset(logPos, direction);
+			tryPlaceLeaf(level, placer, random, config, pos);
 		}
 
-		super.createFoliage(levelSimulatedReader, foliageSetter, randomSource, treeConfiguration, i, foliageAttachment, j, k, l);
+		super.createFoliage(level, placer, random, config, i, foliageAttachment, j, k, l);
 	}
 }
 

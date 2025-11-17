@@ -114,9 +114,7 @@ public final class OverworldBiomeBuilderMixin {
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) {
-			info.setReturnValue(WWBiomes.WARM_BEACH);
-		}
+		if (WWWorldgenConfig.get().biomeGeneration.generateWarmBeach && temperature == 3) info.setReturnValue(WWBiomes.WARM_BEACH);
 	}
 
 	@WrapOperation(

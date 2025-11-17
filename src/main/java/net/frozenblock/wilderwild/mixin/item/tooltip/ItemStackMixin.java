@@ -29,7 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -55,32 +54,28 @@ public abstract class ItemStackMixin {
 		)
 	)
 	public void wilderWild$addDetailsToTooltip(
-		Item.TooltipContext tooltipContext,
-		TooltipDisplay tooltipDisplay,
-		@Nullable Player player,
-		TooltipFlag tooltipFlag,
+		Item.TooltipContext context,
+		TooltipDisplay display,
+		Player player,
+		TooltipFlag flag,
 		Consumer<Component> consumer,
 		CallbackInfo info
 	) {
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR, context, display, consumer, flag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT, context, display, consumer, flag);
 	}
 
 	@Unique
 	public <T extends TooltipProvider> void wilderWild$addToTooltipFromHolder(
-		DataComponentType<Holder<T>> dataComponentType,
-		Item.TooltipContext tooltipContext,
-		TooltipDisplay tooltipDisplay,
+		DataComponentType<Holder<T>> type,
+		Item.TooltipContext context,
+		TooltipDisplay display,
 		Consumer<Component> consumer,
-		TooltipFlag tooltipFlag
+		TooltipFlag flag
 	) {
-		Holder<T> possibleVariantHolder = ItemStack.class.cast(this).get(dataComponentType);
-
-		if (possibleVariantHolder != null && possibleVariantHolder.value() instanceof TooltipProvider tooltipProvider) {
-			if (tooltipDisplay.shows(dataComponentType)) {
-				tooltipProvider.addToTooltip(tooltipContext, consumer, tooltipFlag, this.components);
-			}
-		}
+		final Holder<T> possibleVariantHolder = ItemStack.class.cast(this).get(type);
+		if (possibleVariantHolder == null || !(possibleVariantHolder.value() instanceof TooltipProvider tooltipProvider) || !(display.shows(type))) return;
+		tooltipProvider.addToTooltip(context, consumer, flag, this.components);
 	}
 
 }

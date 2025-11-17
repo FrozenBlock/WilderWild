@@ -43,7 +43,6 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class FrozenCaves extends FrozenBiome {
@@ -116,7 +115,7 @@ public final class FrozenCaves extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
@@ -152,14 +151,14 @@ public final class FrozenCaves extends FrozenBiome {
 		for (float depth : DEPTHS) this.addFrozenCavesAtDepth(parameters, depth);
 	}
 
-	public void addFrozenCavesAtDepth(@NotNull Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, float depth) {
+	public void addFrozenCavesAtDepth(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, float depth) {
 		Pair<Climate.ParameterPoint, Climate.ParameterPoint> biomeParameters = this.makeParametersAt(depth);
 		parameters.accept(Pair.of(biomeParameters.getFirst(), this.getKey()));
 		parameters.accept(Pair.of(biomeParameters.getSecond(), this.getKey()));
 	}
 
 	@Contract("_ -> new")
-	public @NotNull Pair<Climate.ParameterPoint, Climate.ParameterPoint> makeParametersAt(float depth) {
+	public Pair<Climate.ParameterPoint, Climate.ParameterPoint> makeParametersAt(float depth) {
 		return Pair.of(
 			Climate.parameters(
 				TEMPERATURE,

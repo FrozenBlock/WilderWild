@@ -41,16 +41,15 @@ public class BlockItemMixin {
 		)
 	)
 	public SoundType wilderWild$place(BlockState instance, Operation<SoundType> original) {
-		return (WWBlockConfig.canSnowlog() && (instance.hasProperty(SnowloggingUtils.SNOW_LAYERS) && instance.getValue(SnowloggingUtils.SNOW_LAYERS) > 0)) ?
-			original.call(SnowloggingUtils.getSnowEquivalent(instance)) : original.call(instance);
+		return (WWBlockConfig.canSnowlog() && instance.getValueOrElse(SnowloggingUtils.SNOW_LAYERS, 0) > 0)
+			? original.call(SnowloggingUtils.getSnowEquivalent(instance))
+			: original.call(instance);
 	}
 
 	@Inject(method = "getPlaceSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getPlaceSound(BlockState state, CallbackInfoReturnable<SoundEvent> info) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (state.hasProperty(SnowloggingUtils.SNOW_LAYERS) && state.getValue(SnowloggingUtils.SNOW_LAYERS) > 0) {
-			info.setReturnValue(SnowloggingUtils.getSnowEquivalent(state).getSoundType().getPlaceSound());
-		}
+		if (state.getValueOrElse(SnowloggingUtils.SNOW_LAYERS, 0) > 0) info.setReturnValue(SnowloggingUtils.getSnowEquivalent(state).getSoundType().getPlaceSound());
 	}
 
 }

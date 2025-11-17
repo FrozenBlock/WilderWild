@@ -50,7 +50,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
@@ -119,7 +118,7 @@ public final class WWCavePlaced {
 		throw new UnsupportedOperationException("WWCavePlaced contains only static declarations.");
 	}
 
-	public static void registerCavePlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 

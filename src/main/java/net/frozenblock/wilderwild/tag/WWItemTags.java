@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWItemTags {
 	public static final TagKey<Item> JELLYFISH_FOOD = bind("jellyfish_food");
@@ -70,8 +69,7 @@ public final class WWItemTags {
 		throw new UnsupportedOperationException("WWItemTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<Item> bind(@NotNull String path) {
+	private static TagKey<Item> bind(String path) {
 		return TagKey.create(Registries.ITEM, WWConstants.id(path));
 	}
 }

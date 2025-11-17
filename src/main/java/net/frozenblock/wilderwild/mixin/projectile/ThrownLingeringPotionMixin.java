@@ -32,10 +32,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ThrownLingeringPotionMixin {
 
 	@Inject(method = "onHitAsPotion", at = @At("HEAD"))
-	public void wilderWild$onHitAsPotion(ServerLevel serverLevel, ItemStack itemStack, HitResult hitResult, CallbackInfo info) {
-		if (WWItemConfig.get().projectileLandingSounds.potionLandingSounds) {
-			ThrownLingeringPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (serverLevel.getRandom().nextFloat() * 0.2F));
-		}
+	public void wilderWild$onHitAsPotion(ServerLevel level, ItemStack stack, HitResult hitResult, CallbackInfo info) {
+		if (!WWItemConfig.get().projectileLandingSounds.potionLandingSounds) return;
+		ThrownLingeringPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (level.getRandom().nextFloat() * 0.2F));
 	}
 
 }

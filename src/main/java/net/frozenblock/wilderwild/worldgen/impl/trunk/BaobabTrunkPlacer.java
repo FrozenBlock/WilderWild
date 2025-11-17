@@ -52,33 +52,33 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	protected final BlockStateProvider innerTrunkProvider;
 
-	public BaobabTrunkPlacer(int i, int j, int k, @NotNull BlockStateProvider innerTrunkProvider) {
+	public BaobabTrunkPlacer(int i, int j, int k, BlockStateProvider innerTrunkProvider) {
 		super(i, j, k);
 		this.innerTrunkProvider = innerTrunkProvider;
 	}
 
 	private void terraformBelow(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config,
-		@NotNull List<BlockPos> logPoses,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos startPos,
+		TreeConfiguration config,
+		List<BlockPos> logPoses,
 		boolean dirt
 	) {
-		BlockPos.MutableBlockPos pos = startPos.mutable();
+		final BlockPos.MutableBlockPos mutable = startPos.mutable();
 		for (int y = 0; y < 4; y++) {
 			if (y == 2 && random.nextFloat() <= 0.175F) return;
 			if (y == 3 && random.nextFloat() <= 0.45F) return;
-			pos.setWithOffset(startPos, 0, -y, 0);
+			mutable.setWithOffset(startPos, 0, -y, 0);
 
-			boolean hasGrassOrMycelium = level.isStateAtPosition(pos, state -> state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM));
-			if (this.validTreePos(level, pos) || hasGrassOrMycelium) {
+			final boolean hasGrassOrMycelium = level.isStateAtPosition(mutable, state -> state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM));
+			if (this.validTreePos(level, mutable) || hasGrassOrMycelium) {
 				if (dirt || hasGrassOrMycelium) {
-					setDirtAt(level, replacer, random, pos, config, logPoses);
+					setDirtAt(level, replacer, random, mutable, config, logPoses);
 					if (hasGrassOrMycelium) return;
 				} else {
-					this.placeLogIfFree(level, replacer, random, pos, config, logPoses);
+					this.placeLogIfFree(level, replacer, random, mutable, config, logPoses);
 				}
 			} else {
 				break;
@@ -87,17 +87,16 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private static void setDirtAt(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		BlockPos pos,
-		@NotNull TreeConfiguration config,
+		TreeConfiguration config,
 		List<BlockPos> logPoses
 	) {
-		if (config.forceDirt || !isDirt(level, pos)) {
-			replacer.accept(pos, config.dirtProvider.getState(random, pos));
-			logPoses.add(pos.immutable());
-		}
+		if (!config.forceDirt && isDirt(level, pos)) return;
+		replacer.accept(pos, config.dirtProvider.getState(random, pos));
+		logPoses.add(pos.immutable());
 	}
 
 	@Override
@@ -109,169 +108,164 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@Override
 	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		BlockPos.MutableBlockPos dirtPos = new BlockPos.MutableBlockPos();
-		BlockPos center = new BlockPos(startPos.getX() - 1, startPos.getY(), startPos.getZ() - 1);
-		List<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-		List<BlockPos> placedLogs = Lists.newArrayList();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos dirtPos = new BlockPos.MutableBlockPos();
+		final BlockPos center = new BlockPos(startPos.getX() - 1, startPos.getY(), startPos.getZ() - 1);
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final List<BlockPos> placedLogs = Lists.newArrayList();
 
 		for (int x = 0; x < 4; x++) { // X
 			for (int z = 0; z < 4; z++) { // Z
 				terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z), config, placedLogs, true);
-				for (int y = 0; y <= height; y++) {
-					setLog(level, replacer, random, mutable, config, center, x, y, z, placedLogs);
+
+				for (int y = 0; y <= height; y++) setLog(level, replacer, random, mutable, config, center, x, y, z, placedLogs);
+
+				if (AdvancedMath.squareBetween(x, z, 1, 2)) continue; // only sides
+
+				final boolean x0 = x == 0;
+				final boolean x3 = x == 3;
+				Direction dir1 = Direction.WEST;
+				Direction dir2 = null;
+				if (x0) {
+					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
+						this.setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
+						this.setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 1, -1, z), config, placedLogs, false);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 2, -1, z), config, placedLogs, false);
+					}
+				} else if (x3) {
+					dir1 = Direction.EAST;
+					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
+						this.setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
+						this.setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 1, -1, z), config, placedLogs, false);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 2, -1, z), config, placedLogs, false);
+					}
+				}
+				if (z == 0) {
+					dir1 = Direction.NORTH;
+					if (x0) {
+						dir2 = Direction.WEST;
+					} else if (x3) {
+						dir2 = Direction.EAST;
+					}
+					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
+						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
+						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 1), config, placedLogs, false);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 2), config, placedLogs, false);
+					}
+				} else if (z == 3) {
+					dir1 = Direction.SOUTH;
+					if (x0) {
+						dir2 = Direction.WEST;
+					} else if (x3) {
+						dir2 = Direction.EAST;
+					}
+					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
+						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
+						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 1), config, placedLogs, false);
+						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 2), config, placedLogs, false);
+					}
 				}
 
-				if (!AdvancedMath.squareBetween(x, z, 1, 2)) { // only sides
-					boolean x0 = x == 0;
-					boolean x3 = x == 3;
-					Direction dir1 = Direction.WEST;
-					Direction dir2 = null;
-					if (x0) {
-						if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-							this.setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
-							this.setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 1, -1, z), config, placedLogs, false);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 2, -1, z), config, placedLogs, false);
-						}
-					} else if (x3) {
-						dir1 = Direction.EAST;
-						if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-							this.setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
-							this.setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 1, -1, z), config, placedLogs, false);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 2, -1, z), config, placedLogs, false);
-						}
-					}
-					if (z == 0) {
-						dir1 = Direction.NORTH;
-						if (x0) {
-							dir2 = Direction.WEST;
-						} else if (x3) {
-							dir2 = Direction.EAST;
-						}
-						if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-							this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
-							this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 1), config, placedLogs, false);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 2), config, placedLogs, false);
-						}
-					} else if (z == 3) {
-						dir1 = Direction.SOUTH;
-						if (x0) {
-							dir2 = Direction.WEST;
-						} else if (x3) {
-							dir2 = Direction.EAST;
-						}
-						if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-							this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
-							this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 1), config, placedLogs, false);
-							this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 2), config, placedLogs, false);
-						}
-					}
+				if (random.nextFloat() <= BRANCH_CHANCE_TOP_ADDITIONAL) {
+					FoliagePlacer.FoliageAttachment attachment = this.generateBranch(
+						dir1,
+						dir2,
+						1F / 4F,
+						height,
+						height / 4,
+						4,
+						level,
+						replacer,
+						random,
+						mutable,
+						config,
+						center,
+						x,
+						z,
+						placedLogs
+					);
+					if (attachment != null) foliageAttachments.add(attachment);
+				}
 
-					if (random.nextFloat() <= BRANCH_CHANCE_TOP_ADDITIONAL) {
-						FoliagePlacer.FoliageAttachment attachment = this.generateBranch(
-							dir1,
-							dir2,
-							1F / 4F,
-							height,
-							height / 4,
-							4,
-							level,
-							replacer,
-							random,
-							mutable,
-							config,
-							center,
-							x,
-							z,
-							placedLogs
-						);
-						if (attachment != null) list.add(attachment);
-					}
-
-					if (random.nextFloat() <= BRANCH_CHANCE) {
-						float min = 1F / 3F, max = 1F;
-						float p = ((random.nextFloat() * (max - min)) + min);
-						FoliagePlacer.FoliageAttachment attachment = this.generateBranch(
-							dir1,
-							dir2,
-							p,
-							height,
-							height,
-							4,
-							level,
-							replacer,
-							random,
-							mutable,
-							config,
-							center,
-							x,
-							z,
-							placedLogs
-						);
-						if (attachment != null) list.add(attachment);
-					}
+				if (random.nextFloat() <= BRANCH_CHANCE) {
+					float min = 1F / 3F, max = 1F;
+					float p = ((random.nextFloat() * (max - min)) + min);
+					FoliagePlacer.FoliageAttachment attachment = this.generateBranch(
+						dir1,
+						dir2,
+						p,
+						height,
+						height,
+						4,
+						level,
+						replacer,
+						random,
+						mutable,
+						config,
+						center,
+						x,
+						z,
+						placedLogs
+					);
+					if (attachment != null) foliageAttachments.add(attachment);
 				}
 			}
 		}
 
-		BlockPos.MutableBlockPos placedLogPos = startPos.mutable();
+		final BlockPos.MutableBlockPos placedLogPos = startPos.mutable();
 		for (BlockPos pos : placedLogs) {
 			boolean isSurrounded = true;
 			for (Direction dir : Direction.values()) {
 				placedLogPos.setWithOffset(pos, dir);
-				if (!placedLogs.contains(placedLogPos)) {
-					isSurrounded = false;
-				}
+				if (!placedLogs.contains(placedLogPos)) isSurrounded = false;
 			}
 			if (isSurrounded && level.isStateAtPosition(pos, state -> !state.is(BlockTags.DIRT))) {
 				replacer.accept(pos, this.innerTrunkProvider.getState(random, pos));
 			}
 		}
 
-		return list;
+		return foliageAttachments;
 	}
 
 	@Nullable
 	private FoliagePlacer.FoliageAttachment generateBranch(
-		@NotNull Direction direction,
+		Direction direction,
 		@Nullable Direction direction2,
 		float yEquation,
 		int h,
 		int minh,
 		int maxLength,
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos mutable,
-		@NotNull TreeConfiguration config,
-		@NotNull BlockPos startPos,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos.MutableBlockPos mutable,
+		TreeConfiguration config,
+		BlockPos startPos,
 		int x,
 		int z,
-		@NotNull List<BlockPos> logPoses
+		List<BlockPos> logPoses
 	) {
-		int height = (int) ((random.nextDouble() * (h - minh)) + minh);
-		BlockPos.MutableBlockPos prevFPos = startPos.mutable();
-		BlockPos.MutableBlockPos fPos = startPos.mutable();
-		BlockPos.MutableBlockPos fPos2 = startPos.mutable();
+		final int height = (int) ((random.nextDouble() * (h - minh)) + minh);
+		final BlockPos.MutableBlockPos prevFPos = startPos.mutable();
+		final BlockPos.MutableBlockPos fPos = startPos.mutable();
+		final BlockPos.MutableBlockPos fPos2 = startPos.mutable();
 
 		for (int length = 1; length <= maxLength; length++) {
 			int eq = (int) Math.floor(yEquation * length);
 			prevFPos.set(fPos);
 			fPos.set(startPos).move(direction, length);
-			if (direction2 != null) {
-				fPos.move(direction2, length);
-			}
+			if (direction2 != null) fPos.move(direction2, length);
 			this.placeLogIfFree(
 				level,
 				replacer,
@@ -281,46 +275,43 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				state -> state.trySetValue(RotatedPillarBlock.AXIS, this.getLogAxis(prevFPos, fPos)),
 				logPoses
 			);
-			if (length == maxLength) {
-				return new FoliagePlacer.FoliageAttachment(fPos2.setWithOffset(fPos, x, height + eq + 1, z), 0, true);
-			}
+			if (length == maxLength) return new FoliagePlacer.FoliageAttachment(fPos2.setWithOffset(fPos, x, height + eq + 1, z), 0, true);
 		}
 		return null;
 	}
 
 	private void placeLogIfFree(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos pos,
-		@NotNull TreeConfiguration config,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos.MutableBlockPos pos,
+		TreeConfiguration config,
 		Function<BlockState, BlockState> propertySetter,
-		@NotNull List<BlockPos> logPoses
+		List<BlockPos> logPoses
 	) {
-		if (this.isFree(level, pos)) {
-			this.placeLog(level, blockSetter, random, pos, config, propertySetter);
-			logPoses.add(pos.immutable());
-		}
+		if (!this.isFree(level, pos)) return;
+		this.placeLog(level, replacer, random, pos, config, propertySetter);
+		logPoses.add(pos.immutable());
 	}
 
 	private void placeLogIfFree(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos pos,
-		@NotNull TreeConfiguration config,
-		@NotNull List<BlockPos> logPoses
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos.MutableBlockPos pos,
+		TreeConfiguration config,
+		List<BlockPos> logPoses
 	) {
-		this.placeLogIfFree(level, blockSetter, random, pos, config, Function.identity(), logPoses);
+		this.placeLogIfFree(level, replacer, random, pos, config, Function.identity(), logPoses);
 	}
 
 	private void setLogs(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos pos,
-		@NotNull TreeConfiguration config,
-		@NotNull BlockPos startPos,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos.MutableBlockPos pos,
+		TreeConfiguration config,
+		BlockPos startPos,
 		int x,
 		int y,
 		int z,
@@ -333,12 +324,12 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void setLog(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos pos,
-		@NotNull TreeConfiguration config,
-		@NotNull BlockPos startPos,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockPos.MutableBlockPos pos,
+		TreeConfiguration config,
+		BlockPos startPos,
 		int x,
 		int y,
 		int z,
@@ -349,13 +340,13 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	@NotNull
-	private Direction.Axis getLogAxis(@NotNull BlockPos pos, @NotNull BlockPos otherPos) {
+	private Direction.Axis getLogAxis(BlockPos pos, BlockPos otherPos) {
 		Direction.Axis axis = Direction.Axis.Y;
-		int i = Math.abs(otherPos.getX() - pos.getX());
-		int j = Math.abs(otherPos.getZ() - pos.getZ());
-		int k = Math.max(i, j);
-		if (k > 0) {
-			if (i == k) {
+		final int xDifference = Math.abs(otherPos.getX() - pos.getX());
+		final int zDifference = Math.abs(otherPos.getZ() - pos.getZ());
+		final int maxDifference = Math.max(xDifference, zDifference);
+		if (maxDifference > 0) {
+			if (xDifference == maxDifference) {
 				axis = Direction.Axis.X;
 			} else {
 				axis = Direction.Axis.Z;

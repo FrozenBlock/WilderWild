@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.worldgen.features.placed.WWAquaticPlaced;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWAquaticGeneration {
+
 	private WWAquaticGeneration() {
 		throw new UnsupportedOperationException("WWAquaticGeneration contains only static declarations.");
 	}

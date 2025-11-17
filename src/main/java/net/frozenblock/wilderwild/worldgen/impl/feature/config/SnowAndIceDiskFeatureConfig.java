@@ -22,8 +22,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class SnowAndIceDiskFeatureConfig implements FeatureConfiguration {
-	public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+public record SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) implements FeatureConfiguration {
+	public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius),
 			IntProvider.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
@@ -32,15 +32,4 @@ public class SnowAndIceDiskFeatureConfig implements FeatureConfiguration {
 		).apply(instance, SnowAndIceDiskFeatureConfig::new)
 	);
 
-	public final IntProvider radius;
-	public final IntProvider iceRadius;
-	public final float placementChance;
-	public final float fadeStartDistancePercent;
-
-	public SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) {
-		this.radius = radius;
-		this.iceRadius = iceRadius;
-		this.placementChance = placementChance;
-		this.fadeStartDistancePercent = fadeStartDistancePercent;
-	}
 }

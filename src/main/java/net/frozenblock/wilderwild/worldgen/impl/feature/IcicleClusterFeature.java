@@ -34,125 +34,110 @@ import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import org.jetbrains.annotations.NotNull;
 
 public class IcicleClusterFeature extends Feature<IcicleClusterConfig> {
 
-	public IcicleClusterFeature(@NotNull Codec<IcicleClusterConfig> codec) {
+	public IcicleClusterFeature(Codec<IcicleClusterConfig> codec) {
 		super(codec);
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<IcicleClusterConfig> context) {
-		WorldGenLevel worldGenLevel = context.level();
-		BlockPos blockPos = context.origin();
-		IcicleClusterConfig config = context.config();
-		RandomSource randomSource = context.random();
-		if (!IcicleUtils.isEmptyOrWater(worldGenLevel, blockPos)) return false;
+	public boolean place(FeaturePlaceContext<IcicleClusterConfig> context) {
+		final WorldGenLevel level = context.level();
+		final BlockPos origin = context.origin();
+		final IcicleClusterConfig config = context.config();
+		final RandomSource random = context.random();
 
-		int height = config.height.sample(randomSource);
-		float g = config.density.sample(randomSource);
-		int j = config.radius.sample(randomSource);
-		int k = config.radius.sample(randomSource);
+		if (!IcicleUtils.isEmptyOrWater(level, origin)) return false;
 
-		for (int l = -j; l <= j; l++) {
-			for (int m = -k; m <= k; m++) {
-				double icicleChance = this.getChanceOfIcicle(j, k, l, m, config);
-				BlockPos blockPos2 = blockPos.offset(l, 0, m);
-				this.placeColumn(worldGenLevel, randomSource, blockPos2, l, m, icicleChance, height, g, config);
+		final int height = config.height().sample(random);
+		final float density = config.density().sample(random);
+		final int xRadius = config.radius().sample(random);
+		final int zRadius = config.radius().sample(random);
+
+		for (int x = -xRadius; x <= xRadius; x++) {
+			for (int z = -zRadius; z <= zRadius; z++) {
+				double icicleChance = this.getChanceOfIcicle(xRadius, zRadius, x, z, config);
+				final BlockPos pos = origin.offset(x, 0, z);
+				this.placeColumn(level, random, pos, x, z, icicleChance, height, density, config);
 			}
 		}
 		return true;
 	}
 
-	private void placeColumn(
-		WorldGenLevel worldGenLevel,
-		RandomSource randomSource,
-		BlockPos blockPos,
-		int i,
-		int j,
-		double icicleChance,
-		int height,
-		float g,
-		@NotNull IcicleClusterConfig icicleClusterConfig
-	) {
-		Optional<Column> optional = Column.scan(
-			worldGenLevel, blockPos, icicleClusterConfig.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, DripstoneUtils::isNeitherEmptyNorWater
-		);
-		if (optional.isPresent()) {
-			OptionalInt optionalInt = optional.get().getCeiling();
-			OptionalInt optionalInt2 = optional.get().getFloor();
-			if (optionalInt.isPresent() || optionalInt2.isPresent()) {
-				Column column = optional.get();
+	private void placeColumn(WorldGenLevel level, RandomSource random, BlockPos pos, int x, int z, double icicleChance, int height, float density, IcicleClusterConfig config) {
+		final Optional<Column> optionalColumn = Column.scan(level, pos, config.floorToCeilingSearchRange(), DripstoneUtils::isEmptyOrWater, DripstoneUtils::isNeitherEmptyNorWater);
+		if (optionalColumn.isEmpty()) return;
 
-				OptionalInt optionalInt3 = column.getFloor();
-				boolean canPlaceIcicleA = randomSource.nextDouble() < icicleChance;
-				int o;
-				if (optionalInt.isPresent() && canPlaceIcicleA && !this.isLava(worldGenLevel, blockPos.atY(optionalInt.getAsInt()))) {
-					int m = icicleClusterConfig.iceLayerThickness.sample(randomSource);
-					this.replaceBlocksWithIceBlocks(worldGenLevel, blockPos.atY(optionalInt.getAsInt()), m, Direction.UP);
-					int n = optionalInt3.isPresent() ? Math.min(height, optionalInt.getAsInt() - optionalInt3.getAsInt()) : height;
+		final Column column = optionalColumn.get();
+		final OptionalInt ceiling = column.getCeiling();
+		final OptionalInt floor = column.getFloor();
+		if (ceiling.isEmpty() && floor.isEmpty()) return;
 
-					o = this.getIcicleHeight(randomSource, i, j, g, n, icicleClusterConfig);
-				} else {
-					o = 0;
-				}
+		final boolean canPlaceIcicleA = random.nextDouble() < icicleChance;
+		int icicleHeight;
+		if (ceiling.isPresent() && canPlaceIcicleA && !this.isLava(level, pos.atY(ceiling.getAsInt()))) {
+			final int thickness = config.iceLayerThickness().sample(random);
+			this.replaceBlocksWithIceBlocks(level, pos.atY(ceiling.getAsInt()), thickness, Direction.UP);
+			int floorOrHeight = floor.isPresent() ? Math.min(height, ceiling.getAsInt() - floor.getAsInt()) : height;
 
-				int w;
-				int p;
-				if (optionalInt.isPresent() && optionalInt3.isPresent() && optionalInt.getAsInt() - o <= optionalInt3.getAsInt()) {
-					int q = optionalInt3.getAsInt();
-					int r = optionalInt.getAsInt();
-					int s = Math.max(r - o, q + 1);
-					int t = Math.min(q, r - 1);
-					int u = Mth.randomBetweenInclusive(randomSource, s, t + 1);
-					int v = u - 1;
-					p = r - u;
-					w = v - q;
-				} else {
-					p = o;
-					w = 0;
-				}
-
-				boolean bl4 = randomSource.nextBoolean() && p > 0 && w > 0 && column.getHeight().isPresent() && p + w == column.getHeight().getAsInt();
-
-				if (optionalInt.isPresent()) IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt.getAsInt() - 1), Direction.DOWN, p, bl4);
-				if (optionalInt3.isPresent()) IcicleUtils.growIcicle(worldGenLevel, blockPos.atY(optionalInt3.getAsInt() + 1), Direction.UP, w, bl4);
-			}
+			icicleHeight = this.getIcicleHeight(random, x, z, density, floorOrHeight, config);
+		} else {
+			icicleHeight = 0;
 		}
+
+		int w;
+		int p;
+		if (ceiling.isPresent() && floor.isPresent() && ceiling.getAsInt() - icicleHeight <= floor.getAsInt()) {
+			final int floorHeight = floor.getAsInt();
+			final int ceilingHeight = ceiling.getAsInt();
+			final int s = Math.max(ceilingHeight - icicleHeight, floorHeight + 1);
+			final int t = Math.min(floorHeight, ceilingHeight - 1);
+			final int u = Mth.randomBetweenInclusive(random, s, t + 1);
+			final int v = u - 1;
+			p = ceilingHeight - u;
+			w = v - floorHeight;
+		} else {
+			p = icicleHeight;
+			w = 0;
+		}
+
+		boolean bl4 = random.nextBoolean() && p > 0 && w > 0 && column.getHeight().isPresent() && p + w == column.getHeight().getAsInt();
+
+		if (ceiling.isPresent()) IcicleUtils.growIcicle(level, pos.atY(ceiling.getAsInt() - 1), Direction.DOWN, p, bl4);
+		if (floor.isPresent()) IcicleUtils.growIcicle(level, pos.atY(floor.getAsInt() + 1), Direction.UP, w, bl4);
 	}
 
-	private boolean isLava(@NotNull LevelReader levelReader, BlockPos blockPos) {
-		return levelReader.getBlockState(blockPos).is(Blocks.LAVA);
+	private boolean isLava(LevelReader level, BlockPos pos) {
+		return level.getBlockState(pos).is(Blocks.LAVA);
 	}
 
-	private int getIcicleHeight(@NotNull RandomSource randomSource, int i, int j, float f, int k, IcicleClusterConfig icicleClusterConfig) {
-		if (randomSource.nextFloat() > f) return 0;
-		int l = Math.abs(i) + Math.abs(j);
-		float g = Mth.clampedMap(l, 0F, icicleClusterConfig.maxDistanceFromCenterAffectingHeightBias, (float) k / 2F, 0F);
-		return (int)randomBetweenBiased(randomSource, 0F, (float)k, g, (float)icicleClusterConfig.heightDeviation);
+	private int getIcicleHeight(RandomSource random, int x, int z, float density, int height, IcicleClusterConfig config) {
+		if (random.nextFloat() > density) return 0;
+		final int distance = Math.abs(x) + Math.abs(z);
+		final float clampedDistance = Mth.clampedMap(distance, 0F, config.maxDistanceFromCenterAffectingHeightBias(), (float) height / 2F, 0F);
+		return (int)randomBetweenBiased(random, 0F, (float)height, clampedDistance, (float) config.heightDeviation());
 	}
 
-	private void replaceBlocksWithIceBlocks(WorldGenLevel worldGenLevel, @NotNull BlockPos blockPos, int i, Direction direction) {
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-
+	private void replaceBlocksWithIceBlocks(WorldGenLevel level, BlockPos pos, int i, Direction direction) {
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (int j = 0; j < i; j++) {
-			if (!IcicleUtils.placeIceBlockIfPossible(worldGenLevel, mutableBlockPos)) return;
-			mutableBlockPos.move(direction);
+			if (!IcicleUtils.placeIceBlockIfPossible(level, mutable)) return;
+			mutable.move(direction);
 		}
 	}
 
-	private double getChanceOfIcicle(int i, int j, int k, int l, @NotNull IcicleClusterConfig icicleClusterConfig) {
+	private double getChanceOfIcicle(int i, int j, int k, int l, IcicleClusterConfig config) {
 		return Mth.clampedMap(
 			(float)Math.min(i - Math.abs(k), j - Math.abs(l)),
 			0F,
-			(float)icicleClusterConfig.maxDistanceFromEdgeAffectingChanceOfIcicle,
-			icicleClusterConfig.chanceOfIcicleAtMaxDistanceFromCenter,
+			(float) config.maxDistanceFromEdgeAffectingChanceOfIcicle(),
+                config.chanceOfIcicleAtMaxDistanceFromCenter(),
 			1F
 		);
 	}
 
-	private static float randomBetweenBiased(RandomSource randomSource, float f, float g, float h, float i) {
-		return ClampedNormalFloat.sample(randomSource, h, i, f, g);
+	private static float randomBetweenBiased(RandomSource random, float f, float g, float h, float i) {
+		return ClampedNormalFloat.sample(random, h, i, f, g);
 	}
 }

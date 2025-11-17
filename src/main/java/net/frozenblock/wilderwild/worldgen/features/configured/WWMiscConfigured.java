@@ -35,7 +35,6 @@ import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;

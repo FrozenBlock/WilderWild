@@ -26,35 +26,33 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
 
 public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
 	public static final Type<WWStoneChestLidPacket> PACKET_TYPE = new Type<>(WWConstants.id("stone_chest_lid"));
-
 	public static final StreamCodec<FriendlyByteBuf, WWStoneChestLidPacket> CODEC = StreamCodec.ofMember(WWStoneChestLidPacket::write, WWStoneChestLidPacket::new);
 
-	public WWStoneChestLidPacket(@NotNull FriendlyByteBuf buf) {
+	public WWStoneChestLidPacket(FriendlyByteBuf buf) {
 		this(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readBoolean());
 	}
 
-	public static void sendToAll(@NotNull StoneChestBlockEntity blockEntity) {
-		for (ServerPlayer player : PlayerLookup.tracking(blockEntity)) {
+	public static void sendToAll(StoneChestBlockEntity stoneChest) {
+		for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
 			ServerPlayNetworking.send(
 				player,
 				new WWStoneChestLidPacket(
-					blockEntity.getBlockPos(),
-					blockEntity.prevOpenProgress,
-					blockEntity.openProgress,
-					blockEntity.highestLidPoint,
-					blockEntity.cooldownTicks,
-					blockEntity.stillLidTicks,
-					blockEntity.closing
+					stoneChest.getBlockPos(),
+					stoneChest.prevOpenProgress,
+					stoneChest.openProgress,
+					stoneChest.highestLidPoint,
+					stoneChest.cooldownTicks,
+					stoneChest.stillLidTicks,
+					stoneChest.closing
 				)
 			);
 		}
 	}
 
-	public void write(@NotNull FriendlyByteBuf buf) {
+	public void write(FriendlyByteBuf buf) {
 		buf.writeBlockPos(this.pos);
 		buf.writeFloat(this.prevOpenProgress);
 		buf.writeFloat(this.openProgress);
@@ -64,7 +62,6 @@ public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float 
 		buf.writeBoolean(this.closing);
 	}
 
-	@NotNull
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

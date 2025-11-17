@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(FlowerBedBlock.class)
 public abstract class FlowerBedBlockMixin {
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}

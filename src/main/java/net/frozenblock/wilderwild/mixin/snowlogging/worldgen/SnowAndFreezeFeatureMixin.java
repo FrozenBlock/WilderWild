@@ -46,10 +46,8 @@ public class SnowAndFreezeFeatureMixin {
 		)
 	)
 	public boolean wilderWild$place(WorldGenLevel instance, BlockPos pos, BlockState state, int i, Operation<Boolean> original) {
-		BlockState blockState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(instance, instance.getBlockState(pos), pos);
-		if (SnowloggingUtils.canSnowlog(blockState) && !SnowloggingUtils.isSnowlogged(blockState)) {
-			return original.call(instance, pos, blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), i);
-		}
+		final BlockState snowyState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(instance, instance.getBlockState(pos), pos);
+		if (SnowloggingUtils.canSnowlog(snowyState) && !SnowloggingUtils.isSnowlogged(snowyState)) state = snowyState.setValue(SnowloggingUtils.SNOW_LAYERS, 1);
 		return original.call(instance, pos, state, i);
 	}
 

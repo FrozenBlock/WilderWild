@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.Util;
 
 public class HeightBasedVineTreeDecorator extends TreeDecorator {
@@ -50,27 +49,26 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WWTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context context) {
-		RandomSource random = context.random();
+	public void place(Context context) {
+		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
-		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		final ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
 		poses.addAll(context.roots());
 		Util.shuffle(poses, random);
-		BlockState vineState = Blocks.VINE.defaultBlockState();
+		final BlockState vineState = Blocks.VINE.defaultBlockState();
 
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : poses) {
 			if (pos.getY() > this.maxHeight) continue;
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
-				context.setBlock(mutableBlockPos, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutable, vineState.setValue(VineBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), true));
 			}
 		}
 	}

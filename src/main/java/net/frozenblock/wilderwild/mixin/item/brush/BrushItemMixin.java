@@ -36,7 +36,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -80,11 +79,11 @@ public class BrushItemMixin {
 		)
 	)
 	public void wilderWild$playBrushSound(
-		Level instance, Entity player, BlockPos blockPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
+		Level instance, Entity player, BlockPos blposckPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
 		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) soundEvent = scorchedBlock.brushSound;
-		original.call(instance, player, blockPos, soundEvent, soundSource);
+		original.call(instance, player, blposckPos, soundEvent, soundSource);
 	}
 
 	@Inject(
@@ -97,28 +96,27 @@ public class BrushItemMixin {
 		cancellable = true
 	)
 	public void wilderWild$brushScorchedBlocks(
-		Level level, LivingEntity livingEntity2, ItemStack itemStack, int i, CallbackInfo info,
+		Level level, LivingEntity entity, ItemStack stack, int i, CallbackInfo info,
 		@Share("wilderWild$hitResultRef") LocalRef<BlockHitResult> hitResultRef,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
 	) {
-		if (this.wilderWild$brushScorchedBlocks(level, livingEntity2, itemStack, hitResultRef.get(), blockStateRef.get())) info.cancel();
+		if (this.wilderWild$brushScorchedBlocks(level, entity, stack, hitResultRef.get(), blockStateRef.get())) info.cancel();
 	}
 
 	@Unique
 	private boolean wilderWild$brushScorchedBlocks(
-		@NotNull Level level, LivingEntity livingEntity, @NotNull ItemStack stack, BlockHitResult hitResult, BlockState blockState
+		Level level, LivingEntity entity, ItemStack stack, BlockHitResult hitResult, BlockState state
 	) {
-		if (!level.isClientSide() && livingEntity instanceof Player player) {
-			if (level.getBlockEntity(hitResult.getBlockPos()) instanceof ScorchedBlockEntity scorchedBlockEntity
-				&& blockState.getBlock() instanceof ScorchedBlock scorchedBlock
-				&& scorchedBlock.canBrush
-			) {
-				if (scorchedBlockEntity.brush(level.getGameTime())) {
-					EquipmentSlot equipmentSlot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-					stack.hurtAndBreak(1, livingEntity, equipmentSlot);
-				}
-				return true;
+		if (level.isClientSide() || !(entity instanceof Player player)) return false;
+		if (level.getBlockEntity(hitResult.getBlockPos()) instanceof ScorchedBlockEntity scorchedBlockEntity
+			&& state.getBlock() instanceof ScorchedBlock scorchedBlock
+			&& scorchedBlock.canBrush
+		) {
+			if (scorchedBlockEntity.brush(level.getGameTime())) {
+				final EquipmentSlot slot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
+				stack.hurtAndBreak(1, entity, slot);
 			}
+			return true;
 		}
 		return false;
 	}

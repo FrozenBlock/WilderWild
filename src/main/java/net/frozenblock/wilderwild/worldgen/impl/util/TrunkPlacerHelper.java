@@ -25,24 +25,23 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jetbrains.annotations.NotNull;
 
 public class TrunkPlacerHelper {
 
-	public static @NotNull BlockState getLogBlockState(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BlockStateProvider blockStateProvider,
-		@NotNull BlockPos branchPos,
-		@NotNull Direction direction,
-		@NotNull RandomSource random
+	public static BlockState getLogBlockState(
+		LevelSimulatedReader level,
+		BlockStateProvider stateProvider,
+		BlockPos branchPos,
+		Direction direction,
+		RandomSource random
 	) {
-		BlockState state = blockStateProvider.getState(random, branchPos).trySetValue(BlockStateProperties.AXIS, direction.getAxis());
+		BlockState state = stateProvider.getState(random, branchPos).trySetValue(BlockStateProperties.AXIS, direction.getAxis());
 		if (state.hasProperty(BlockStateProperties.WATERLOGGED)) state = state.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, branchPos));
 		return state;
 	}
 
-	public static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
-		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
+	public static boolean isWaterAt(LevelSimulatedReader level, BlockPos pos) {
+		return level.isFluidAtPosition(pos, fluidState -> fluidState.is(FluidTags.WATER));
 	}
 
 }

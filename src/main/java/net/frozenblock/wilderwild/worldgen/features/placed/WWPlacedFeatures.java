@@ -56,7 +56,6 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWPlacedFeatures {
 	// FALLEN TREES
@@ -341,7 +340,7 @@ public final class WWPlacedFeatures {
 		throw new UnsupportedOperationException("WWPlacedFeatures contains only static declarations.");
 	}
 
-	public static void registerPlacedFeatures(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void registerPlacedFeatures(BootstrapContext<PlacedFeature> entries) {
 
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 

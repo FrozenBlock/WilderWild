@@ -41,7 +41,6 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class OldGrowthBirchTaiga extends FrozenBiome {
@@ -105,7 +104,7 @@ public final class OldGrowthBirchTaiga extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OLD_GROWTH_BIRCH_TAIGA_TREES.getKey());
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addFerns(features);

@@ -28,7 +28,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWPotions {
 	public static final Reference<Potion> REACH = register("reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 3600)));
@@ -54,7 +53,7 @@ public final class WWPotions {
 		});
 	}
 
-	private static @NotNull Reference<Potion> register(String key, Potion potion) {
-		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(key), potion);
+	private static Reference<Potion> register(String path, Potion potion) {
+		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(path), potion);
 	}
 }

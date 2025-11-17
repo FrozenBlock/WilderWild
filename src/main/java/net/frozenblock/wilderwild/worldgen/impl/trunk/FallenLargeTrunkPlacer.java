@@ -42,7 +42,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public class FallenLargeTrunkPlacer extends TrunkPlacer {
@@ -71,43 +70,41 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		this.stumpPlacementChance = stumpPlacementChance;
 	}
 
-	private static boolean isWaterAt(@NotNull LevelSimulatedReader level, @NotNull BlockPos blockpos) {
+	private static boolean isWaterAt(LevelSimulatedReader level, BlockPos blockpos) {
 		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.FALLEN_LARGE_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
-		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
-		Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         if (isWaterAt(level, startPos) && this.successInWaterChance <= random.nextFloat()) return foliageAttachments;
 
-		Pair<List<BlockPos>, Optional<Direction>> posesAndOffset = this.getAllSectionPoses(level, startPos, random, trunkDirection);
+		final Pair<List<BlockPos>, Optional<Direction>> posesAndOffset = this.getAllSectionPoses(level, startPos, random, trunkDirection);
 		for (BlockPos blockPos : posesAndOffset.getFirst()) {
 			this.placeLog(level, replacer, random, blockPos, config, (state) -> state.trySetValue(RotatedPillarBlock.AXIS, trunkDirection.getAxis()));
 		}
 
-		Optional<Direction> optionalOffsetDirection = posesAndOffset.getSecond();
+		final Optional<Direction> optionalOffsetDirection = posesAndOffset.getSecond();
 		if (optionalOffsetDirection.isPresent() && this.stumpPlacementChance <= random.nextFloat()) {
-			Direction offsetDirection = optionalOffsetDirection.get();
-			List<BlockPos> stumpPoses = findStumpPoses(level, random, startPos, trunkDirection, offsetDirection);
+			final Direction offsetDirection = optionalOffsetDirection.get();
+			final List<BlockPos> stumpPoses = findStumpPoses(level, random, startPos, trunkDirection, offsetDirection);
 
-			BlockPos.MutableBlockPos stumpPos = new BlockPos.MutableBlockPos();
+			final BlockPos.MutableBlockPos stumpPos = new BlockPos.MutableBlockPos();
 			for (BlockPos blockPos : stumpPoses) {
-				int stumpHeight = STUMP_HEIGHT.sample(random);
+				final int stumpHeight = STUMP_HEIGHT.sample(random);
 				for (int i = 0; i < stumpHeight; i++) {
 					this.placeLog(level, replacer, random, stumpPos.setWithOffset(blockPos, 0, i, 0), config);
 				}
@@ -117,16 +114,11 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		return foliageAttachments;
 	}
 
-	@NotNull
-	private Pair<List<BlockPos>, Optional<Direction>> getAllSectionPoses(
-		@NotNull LevelSimulatedReader level,
-		BlockPos startPos,
-		@NotNull RandomSource random,
-		Direction trunkDirection
-	) {
-		List<BlockPos> poses = Lists.newArrayList();
+	private Pair<List<BlockPos>, Optional<Direction>> getAllSectionPoses(LevelSimulatedReader level, BlockPos startPos, RandomSource random, Direction trunkDirection) {
+		final List<BlockPos> poses = Lists.newArrayList();
+		final List<BlockPos> firstPoses = getSectionPoses(true, level, random, startPos, this.minHeight, this.maxHeight, trunkDirection);
+
 		Optional<Direction> optionalOffsetDirection = Optional.empty();
-		List<BlockPos> firstPoses = getSectionPoses(true, level, random, startPos, this.minHeight, this.maxHeight, trunkDirection);
 		if (!firstPoses.isEmpty()) {
 			Direction.Axis axis = trunkDirection.getAxis();
 			if (axis == Direction.Axis.X) {
@@ -134,11 +126,11 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 			} else if (axis == Direction.Axis.Z) {
 				axis = Direction.Axis.X;
 			}
-			Direction secondOffset = AdvancedMath.randomDir(axis);
-			List<BlockPos> secondPoses = getSectionPoses(true, level, random, startPos.relative(secondOffset), this.minHeight, this.maxHeight, trunkDirection);
+			final Direction secondOffset = AdvancedMath.randomDir(axis);
+			final List<BlockPos> secondPoses = getSectionPoses(true, level, random, startPos.relative(secondOffset), this.minHeight, this.maxHeight, trunkDirection);
 			if (!secondPoses.isEmpty()) {
-				List<BlockPos> thirdPoses = getSectionPoses(false, level, random, startPos.relative(Direction.UP), this.minHeight, this.maxHeight, trunkDirection);
-				List<BlockPos> fourthPoses = getSectionPoses(false, level, random, startPos.relative(Direction.UP).relative(secondOffset), this.minHeight, this.maxHeight, trunkDirection);
+				final List<BlockPos> thirdPoses = getSectionPoses(false, level, random, startPos.relative(Direction.UP), this.minHeight, this.maxHeight, trunkDirection);
+				final List<BlockPos> fourthPoses = getSectionPoses(false, level, random, startPos.relative(Direction.UP).relative(secondOffset), this.minHeight, this.maxHeight, trunkDirection);
 
                 poses.addAll(firstPoses);
                 poses.addAll(secondPoses);
@@ -151,26 +143,25 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		return Pair.of(poses, optionalOffsetDirection);
 	}
 
-	@NotNull
 	private static List<BlockPos> getSectionPoses(
 		boolean requiresUnderneath,
-		@NotNull LevelSimulatedReader level,
-		@NotNull RandomSource random,
-		@NotNull BlockPos startPos,
+		LevelSimulatedReader level,
+		RandomSource random,
+		BlockPos startPos,
 		int minHeight,
 		int maxHeight,
-		@NotNull Direction trunkDirection
+		Direction trunkDirection
 	) {
-		List<BlockPos> finalizedPoses = Lists.newArrayList();
-		int height = random.nextIntBetweenInclusive(minHeight, maxHeight);
-		int differenceFromMaxHeight = maxHeight - height;
-		int directionOffset = differenceFromMaxHeight <= 0 ? 0 : random.nextIntBetweenInclusive(0, maxHeight - height);
+		final List<BlockPos> finalizedPoses = Lists.newArrayList();
+		final int height = random.nextIntBetweenInclusive(minHeight, maxHeight);
+		final int differenceFromMaxHeight = maxHeight - height;
+		final int directionOffset = differenceFromMaxHeight <= 0 ? 0 : random.nextIntBetweenInclusive(0, maxHeight - height);
 
 		startPos = startPos.relative(trunkDirection, directionOffset);
-		BlockPos endPos = startPos.relative(trunkDirection, height);
-		BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
+		final BlockPos endPos = startPos.relative(trunkDirection, height);
+		final BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
 
-		Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
+		final Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
 		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
 
@@ -179,7 +170,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 			return finalizedPoses;
 		}
 
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos blockPos : poses) {
 			mutable.set(blockPos);
 			if (TreeFeature.validTreePos(level, mutable)) {
@@ -204,18 +195,18 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		return List.of();
 	}
 
-	private static @NotNull List<BlockPos> findStumpPoses(
+	private static List<BlockPos> findStumpPoses(
 		LevelSimulatedReader level,
-		@NotNull RandomSource random,
-		@NotNull BlockPos pos,
-		@NotNull Direction trunkDirection,
+		RandomSource random,
+		BlockPos pos,
+		Direction trunkDirection,
 		Direction offsetDirection
 	) {
 		for (int i = 0; i < STUMP_GEN_ATTEMPTS; i++) {
-			int distance = STUMP_DISTANCE_FROM_TRUNK.sample(random);
-			Direction stumpSearchDirection = trunkDirection.getOpposite();
-			BlockPos searchStartPos = pos.relative(stumpSearchDirection, 1 + distance);
-			BlockPos.MutableBlockPos stumpPos = searchStartPos.mutable();
+			final int distance = STUMP_DISTANCE_FROM_TRUNK.sample(random);
+			final Direction stumpSearchDirection = trunkDirection.getOpposite();
+			final BlockPos searchStartPos = pos.relative(stumpSearchDirection, 1 + distance);
+			final BlockPos.MutableBlockPos stumpPos = searchStartPos.mutable();
 
 			List<BlockPos> initialStumpPoses = getStumpPosesIfPossible(level, stumpPos, stumpSearchDirection, offsetDirection);
 			if (!initialStumpPoses.isEmpty()) return initialStumpPoses;
@@ -237,17 +228,16 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		return List.of();
 	}
 
-	@NotNull
 	private static @Unmodifiable List<BlockPos> getStumpPosesIfPossible(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BlockPos pos,
-		@NotNull Direction stumpSearchDirection,
+		LevelSimulatedReader level,
+		BlockPos pos,
+		Direction stumpSearchDirection,
 		Direction offsetDirection
 	) {
-		List<BlockPos> finalizedPoses = Lists.newArrayList();
+		final List<BlockPos> finalizedPoses = Lists.newArrayList();
 
-		BlockPos.MutableBlockPos stumpPos = pos.mutable();
-		BlockPos.MutableBlockPos belowStumpPos = stumpPos.mutable().move(Direction.DOWN);
+		final BlockPos.MutableBlockPos stumpPos = pos.mutable();
+		final BlockPos.MutableBlockPos belowStumpPos = stumpPos.mutable().move(Direction.DOWN);
 
 		if (canPlaceStumpAtPos(level, belowStumpPos, stumpPos)) {
 			finalizedPoses.add(stumpPos.immutable());
@@ -282,18 +272,18 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		return finalizedPoses;
 	}
 
-	private static boolean canPlaceStumpAtPos(LevelSimulatedReader level, @NotNull BlockPos floorPos, BlockPos pos) {
+	private static boolean canPlaceStumpAtPos(LevelSimulatedReader level, BlockPos floorPos, BlockPos pos) {
 		return isPosSolidGround(level, floorPos)
 			&& level.isStateAtPosition(floorPos, blockState -> blockState.is(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON))
 			&& TreeFeature.validTreePos(level, pos)
 			&& isFreeWithinStumpHeight(level, pos);
 	}
 
-	private static boolean isPosSolidGround(LevelSimulatedReader level, @NotNull BlockPos pos) {
+	private static boolean isPosSolidGround(LevelSimulatedReader level, BlockPos pos) {
 		return !TreeFeature.validTreePos(level, pos) && !TreeFeature.isAirOrLeaves(level, pos);
 	}
 
-	private static boolean isFreeWithinStumpHeight(LevelSimulatedReader level, @NotNull BlockPos pos) {
+	private static boolean isFreeWithinStumpHeight(LevelSimulatedReader level, BlockPos pos) {
 		BlockPos.MutableBlockPos mutablePos = pos.mutable();
 		for (int i = 0; i < STUMP_MAX_SEARCH_NEGATIVE_Y; i++) {
 			if (!TreeFeature.validTreePos(level, mutablePos)) return false;

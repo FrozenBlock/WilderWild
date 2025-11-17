@@ -34,7 +34,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.FluidState;
-import org.jetbrains.annotations.NotNull;
 
 public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 	private static final IntProvider HEIGHT_PROVIDER = BiasedToBottomInt.of(0, 3);
@@ -45,63 +44,55 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		LevelAccessor levelAccessor = featurePlaceContext.level();
+	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
+		final LevelAccessor level = featurePlaceContext.level();
 		BlockPos blockPos = featurePlaceContext.origin();
-		RandomSource randomSource = featurePlaceContext.random();
+		final RandomSource random = featurePlaceContext.random();
 
-		BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-		int height = HEIGHT_PROVIDER.sample(randomSource);
-		mutableBlockPos.move(Direction.UP, height);
+		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
+		final int height = HEIGHT_PROVIDER.sample(random);
+		mutable.move(Direction.UP, height);
 
-		if (isValidWaterToReplaceAt(levelAccessor, mutableBlockPos)) {
-			levelAccessor.setBlock(mutableBlockPos, WWBlocks.GEYSER.defaultBlockState(), Block.UPDATE_CLIENTS);
-			levelAccessor.setBlock(mutableBlockPos.move(Direction.DOWN), Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
-			mutableBlockPos.move(Direction.UP);
+		if (isValidWaterToReplaceAt(level, mutable)) {
+			level.setBlock(mutable, WWBlocks.GEYSER.defaultBlockState(), Block.UPDATE_CLIENTS);
+			level.setBlock(mutable.move(Direction.DOWN), Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
+			mutable.move(Direction.UP);
 		} else {
 			return false;
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (randomSource.nextFloat() <= 0.25F) {
-				mutableBlockPos.move(direction);
-				if (isValidBlockToReplaceAt(levelAccessor, mutableBlockPos)) {
-					levelAccessor.setBlock(mutableBlockPos, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
-				}
-				mutableBlockPos.move(direction.getOpposite());
-			}
+			if (random.nextFloat() > 0.25F) continue;
+			mutable.move(direction);
+			if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+			mutable.move(direction.getOpposite());
 		}
 
 		for (int i = 0; i < Math.max(height - 1, 1); i++) {
-			blockPos = mutableBlockPos.move(Direction.DOWN).immutable();
+			blockPos = mutable.move(Direction.DOWN).immutable();
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				mutableBlockPos.move(direction);
-				if (isValidBlockToReplaceAt(levelAccessor, mutableBlockPos)) {
-					levelAccessor.setBlock(mutableBlockPos, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
-				}
-				mutableBlockPos.move(direction.getOpposite());
-				if (isValidBlockToReplaceAt(levelAccessor, mutableBlockPos)) {
-					levelAccessor.setBlock(mutableBlockPos, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
-				}
+				mutable.move(direction);
+				if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+
+				mutable.move(direction.getOpposite());
+				if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 			}
 		}
 
-		mutableBlockPos.setWithOffset(blockPos, Direction.DOWN);
-		blockPos = mutableBlockPos.immutable();
+		mutable.setWithOffset(blockPos, Direction.DOWN);
+		blockPos = mutable.immutable();
 
 		for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
-			mutableBlockPos.setWithOffset(blockPos, 0, -i, 0);
-			if (levelAccessor.getBlockState(mutableBlockPos).is(WWBlocks.GABBRO)) {
-				levelAccessor.setBlock(mutableBlockPos, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
-			}
+			mutable.setWithOffset(blockPos, 0, -i, 0);
+			if (level.getBlockState(mutable).is(WWBlocks.GABBRO)) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
 
-		mutableBlockPos.set(blockPos);
+		mutable.set(blockPos);
 		for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, 0 ,-1), blockPos.offset(1, 0 ,1))) {
 			for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
-				mutableBlockPos.setWithOffset(pos, 0, -i, 0);
-				if (isValidWaterToReplaceAt(levelAccessor, mutableBlockPos)) {
-					levelAccessor.setBlock(mutableBlockPos, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+				mutable.setWithOffset(pos, 0, -i, 0);
+				if (isValidWaterToReplaceAt(level, mutable)) {
+					level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
 				} else {
 					break;
 				}
@@ -111,20 +102,20 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 		return true;
 	}
 
-	protected static boolean isValidWaterToReplaceAt(@NotNull LevelAccessor levelAccessor, BlockPos pos) {
-		BlockState blockState = levelAccessor.getBlockState(pos);
-		FluidState fluidState = blockState.getFluidState();
-		return isReplaceableOrWater(blockState, fluidState);
+	protected static boolean isValidWaterToReplaceAt(LevelAccessor level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		final FluidState fluidState = state.getFluidState();
+		return isReplaceableOrWater(state, fluidState);
 	}
 
-	protected static boolean isValidBlockToReplaceAt(@NotNull LevelAccessor levelAccessor, BlockPos pos) {
-		BlockState blockState = levelAccessor.getBlockState(pos);
-		FluidState fluidState = blockState.getFluidState();
-		return blockState.is(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE) || isReplaceableOrWater(blockState, fluidState);
+	protected static boolean isValidBlockToReplaceAt(LevelAccessor level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		final FluidState fluidState = state.getFluidState();
+		return state.is(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE) || isReplaceableOrWater(state, fluidState);
 	}
 
-	protected static boolean isReplaceableOrWater(BlockState blockState, @NotNull FluidState fluidState) {
-		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL && blockState.canBeReplaced();
+	protected static boolean isReplaceableOrWater(BlockState state, FluidState fluidState) {
+		return fluidState.is(FluidTags.WATER) && fluidState.getAmount() == FluidState.AMOUNT_FULL && state.canBeReplaced();
 	}
 
 }

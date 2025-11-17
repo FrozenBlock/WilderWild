@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.Util;
 
 public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
@@ -49,25 +48,24 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WWTreeDecorators.HEIGHT_BASED_COBWEB_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context context) {
-		RandomSource random = context.random();
+	public void place(Context context) {
+		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
-		BlockState blockState = Blocks.COBWEB.defaultBlockState();
-		List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
+		final BlockState cobwebState = Blocks.COBWEB.defaultBlockState();
+		final List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
 
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : logs) {
 			if (pos.getY() > this.maxHeight) continue;
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
-				context.setBlock(mutableBlockPos, blockState);
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutable, cobwebState);
 			}
 		}
 	}

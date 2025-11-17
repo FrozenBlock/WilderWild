@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -78,10 +77,10 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			shift = At.Shift.BEFORE
 		)
 	)
-	private static void wilderWild$stopParticles(Warden warden, ServerLevel serverLevel, LivingEntity livingEntity, CallbackInfo info,
+	private static void wilderWild$stopParticles(Warden warden, ServerLevel level, LivingEntity entity, CallbackInfo info,
 		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 3) Vec3 vec34
 	) {
-		BlockPos hitPos = wilderWild$isOccluded(serverLevel, vec3, vec34);
+		BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
 		if (hitPos != null) ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
 	}
 
@@ -94,18 +93,18 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		cancellable = true
 	)
 	private static void wilderWild$tick(
-		Warden warden, ServerLevel level, LivingEntity livingEntity, CallbackInfo info,
+		Warden warden, ServerLevel level, LivingEntity entity, CallbackInfo info,
 		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 1) Vec3 vec32, @Local(ordinal = 2) Vec3 vec33
 	) {
 		for (int i = 1; i < Mth.floor(vec32.length()) + 7; ++i) {
-			Vec3 vec34 = vec3.add(vec33.scale(i));
-			BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
-			if (hitPos != null) {
-				i = Mth.floor(vec32.length()) + 10;
-				info.cancel();
-				BlockState hitState = level.getBlockState(hitPos);
-				if (hitState.getBlock() instanceof EchoGlassBlock) EchoGlassBlock.damage(level, hitPos, hitState, false);
-			}
+			final Vec3 vec34 = vec3.add(vec33.scale(i));
+			final BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
+			if (hitPos == null) continue;
+
+			i = Mth.floor(vec32.length()) + 10;
+			info.cancel();
+			final BlockState hitState = level.getBlockState(hitPos);
+			if (hitState.getBlock() instanceof EchoGlassBlock) EchoGlassBlock.damage(level, hitPos, hitState, false);
 		}
 	}
 
@@ -123,14 +122,14 @@ public class SonicBoomMixin implements WilderSonicBoom {
 
 	@Unique
 	@Nullable
-	private static BlockPos wilderWild$isOccluded(@NotNull Level level, @NotNull Vec3 start, @NotNull Vec3 end) {
-		Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
-		Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
+	private static BlockPos wilderWild$isOccluded(Level level, Vec3 start, Vec3 end) {
+		final Vec3 vec3d = new Vec3((double) Mth.floor(start.x) + 0.5D, (double) Mth.floor(start.y) + 0.5D, (double) Mth.floor(start.z) + 0.5D);
+		final Vec3 vec3d2 = new Vec3((double) Mth.floor(end.x) + 0.5D, (double) Mth.floor(end.y) + 0.5D, (double) Mth.floor(end.z) + 0.5D);
 		BlockPos hitPos = null;
 		boolean blocked = true;
 		for (Direction direction : Direction.values()) {
-			Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
-			BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(WWBlocks.ECHO_GLASS)));
+			final Vec3 vec3d3 = vec3d.relative(direction, 9.999999747378752E-6D);
+			final BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, vec3d2, (state) -> state.is(WWBlocks.ECHO_GLASS)));
 			if (hit.getType() != HitResult.Type.BLOCK) {
 				blocked = false;
 			} else {

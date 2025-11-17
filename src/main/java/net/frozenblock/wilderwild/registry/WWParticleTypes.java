@@ -37,7 +37,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
@@ -399,14 +398,17 @@ public final class WWParticleTypes {
 		WWConstants.logWithModId("Registering Particles for", WWConstants.UNSTABLE_LOGGING);
 	}
 
-	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier identifier) {
+	private static ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier id) {
 		return register(
-			identifier, false, particleType -> WWFallingLeavesParticleOptions.CODEC, particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
+			id,
+			false,
+			particleType -> WWFallingLeavesParticleOptions.CODEC,
+			particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
 		);
 	}
 
-	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(
-		Identifier identifier,
+	private static ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(
+		Identifier id,
 		Block sourceBlock,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
@@ -415,7 +417,7 @@ public final class WWParticleTypes {
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(identifier);
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
 
 		FallingLeafUtil.registerLeaves(
 			sourceBlock,
@@ -432,15 +434,15 @@ public final class WWParticleTypes {
 		return leafParticle;
 	}
 
-	private static @NotNull ParticleType<WWFallingLeavesParticleOptions> createLeafLitterParticle(
-		Identifier identifier,
+	private static ParticleType<WWFallingLeavesParticleOptions> createLeafLitterParticle(
+		Identifier id,
 		Block litterBlock,
 		int textureSize,
 		float particleGravityScale,
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(identifier);
+		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
 
 		FallingLeafUtil.registerLeaves(
 			litterBlock,
@@ -457,40 +459,35 @@ public final class WWParticleTypes {
 		return leafParticle;
 	}
 
-	@NotNull
-	private static SimpleParticleType register(@NotNull String name, boolean alwaysShow) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WWConstants.id(name), FabricParticleTypes.simple(alwaysShow));
+	private static SimpleParticleType register(String path, boolean alwaysShow) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WWConstants.id(path), FabricParticleTypes.simple(alwaysShow));
 	}
 
-	@NotNull
-	private static SimpleParticleType register(@NotNull String name) {
-		return register(name, false);
+	private static SimpleParticleType register(String path) {
+		return register(path, false);
 	}
 
-	@NotNull
 	private static <T extends ParticleOptions> ParticleType<T> register(
-		String string,
+		String path,
 		boolean alwaysShow,
 		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return register(WWConstants.id(string), alwaysShow, function, function2);
+		return register(WWConstants.id(path), alwaysShow, function, function2);
 	}
 
-	@NotNull
 	private static <T extends ParticleOptions> ParticleType<T> register(
-		Identifier identifier,
+		Identifier id,
 		boolean alwaysShow,
 		Function<ParticleType<T>, MapCodec<T>> function,
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
 	) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, identifier, new ParticleType<T>(alwaysShow) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, id, new ParticleType<T>(alwaysShow) {
 			@Override
-			public @NotNull MapCodec<T> codec() {
+			public MapCodec<T> codec() {
 				return function.apply(this);
 			}
 
-			@NotNull
 			@Override
 			public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec() {
 				return function2.apply(this);

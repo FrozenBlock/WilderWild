@@ -34,9 +34,9 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.vehicle.Boat;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWMemoryModuleTypes {
+
 	private WWMemoryModuleTypes() {
 		throw new UnsupportedOperationException("WWMemoryModuleTypes contains only static declarations.");
 	}
@@ -74,14 +74,12 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<UUID> CALLER = register("caller", UUIDUtil.CODEC);
 	public static final MemoryModuleType<Unit> ESCAPING = register("escaping", Unit.CODEC);
 
-	@NotNull
-	private static <U> MemoryModuleType<U> register(String identifier, Codec<U> codec) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(identifier), new MemoryModuleType<>(Optional.of(codec)));
+	private static <U> MemoryModuleType<U> register(String path, Codec<U> codec) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(path), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
-	@NotNull
-	private static <U> MemoryModuleType<U> register(String identifier) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(identifier), new MemoryModuleType<>(Optional.empty()));
+	private static <U> MemoryModuleType<U> register(String path) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(path), new MemoryModuleType<>(Optional.empty()));
 	}
 
 }

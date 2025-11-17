@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -52,12 +51,10 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
 	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean worldgen) {
-		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) {
-			return worldgen
-				? state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
-				: state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE);
-		}
-		return false;
+		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) return false;
+		return worldgen
+			? state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
+			: state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE);
 	}
 
 	@Inject(
@@ -70,9 +67,7 @@ public class SculkSpreaderChargeCursorMixin {
 		cancellable = true
 	)
 	private static void wilderWild$isMovementUnobstructed(LevelAccessor level, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> info) {
-		if (wilderWild$isReplaceableBuildingBlock(level.getBlockState(spreadPos), false)) {
-			info.setReturnValue(true);
-		}
+		if (wilderWild$isReplaceableBuildingBlock(level.getBlockState(spreadPos), false)) info.setReturnValue(true);
 	}
 
 	@Inject(
@@ -85,59 +80,53 @@ public class SculkSpreaderChargeCursorMixin {
 	)
 	private static void wilderWild$getValidMovementPos(
 		LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> info,
-		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable, @Local(ordinal = 1) BlockPos.MutableBlockPos mutable2
+		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable1, @Local(ordinal = 1) BlockPos.MutableBlockPos mutable2
 	) {
-		BlockState state = level.getBlockState(mutable2);
-		if (wilderWild$isReplaceableBuildingBlock(state, false) && isMovementUnobstructed(level, pos, mutable2)) {
-			mutable.set(mutable2);
-			if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) {
-				info.cancel();
-			}
-			info.setReturnValue(mutable.equals(pos) ? null : mutable);
-		}
+		final BlockState state = level.getBlockState(mutable2);
+		if (!wilderWild$isReplaceableBuildingBlock(state, false) || !isMovementUnobstructed(level, pos, mutable2)) return;
+		mutable1.set(mutable2);
+		if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) info.cancel();
+		info.setReturnValue(mutable1.equals(pos) ? null : mutable1);
 	}
 
 	@Unique
-	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, @NotNull BlockPos fromPos, BlockPos toPos) {
+	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, BlockPos fromPos, BlockPos toPos) {
 		if (fromPos.distManhattan(toPos) == 1) return true;
-		BlockState cheatState = level.getBlockState(toPos);
+		final BlockState cheatState = level.getBlockState(toPos);
 
-		boolean isSpreadableStoneChest = cheatState.is(WWBlocks.STONE_CHEST) && !cheatState.getValue(WWBlockStateProperties.HAS_SCULK);
+		final boolean isSpreadableStoneChest = cheatState.is(WWBlocks.STONE_CHEST) && !cheatState.getValue(WWBlockStateProperties.HAS_SCULK);
 		if (wilderWild$isReplaceableBuildingBlock(cheatState, true) || isSpreadableStoneChest) return true;
 
-		BlockPos blockPos = toPos.subtract(fromPos);
-		Direction direction = Direction.fromAxisAndDirection(Direction.Axis.X, blockPos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-		Direction direction2 = Direction.fromAxisAndDirection(Direction.Axis.Y, blockPos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-		Direction direction3 = Direction.fromAxisAndDirection(Direction.Axis.Z, blockPos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
-		if (blockPos.getX() == 0) return isUnobstructed(level, fromPos, direction2) || isUnobstructed(level, fromPos, direction3);
-		if (blockPos.getY() == 0) return isUnobstructed(level, fromPos, direction) || isUnobstructed(level, fromPos, direction3);
+		final BlockPos pos = toPos.subtract(fromPos);
+		final Direction direction = Direction.fromAxisAndDirection(Direction.Axis.X, pos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		final Direction direction2 = Direction.fromAxisAndDirection(Direction.Axis.Y, pos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		final Direction direction3 = Direction.fromAxisAndDirection(Direction.Axis.Z, pos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		if (pos.getX() == 0) return isUnobstructed(level, fromPos, direction2) || isUnobstructed(level, fromPos, direction3);
+		if (pos.getY() == 0) return isUnobstructed(level, fromPos, direction) || isUnobstructed(level, fromPos, direction3);
 		return isUnobstructed(level, fromPos, direction) || isUnobstructed(level, fromPos, direction2);
 	}
 
 	@Unique
-	@NotNull
-	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, @NotNull BlockPos pos, RandomSource random) {
-		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		BlockPos.MutableBlockPos mutableBlockPos2 = pos.mutable();
+	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, BlockPos pos, RandomSource random) {
+		final BlockPos.MutableBlockPos mutable1 = pos.mutable();
+		final BlockPos.MutableBlockPos mutable2 = pos.mutable();
 		for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
-			mutableBlockPos2.setWithOffset(pos, vec3i);
-			BlockState blockState = level.getBlockState(mutableBlockPos2);
+			final BlockState state = level.getBlockState(mutable2.setWithOffset(pos, vec3i));
 			boolean canReturn = false;
-			BlockState state = level.getBlockState(mutableBlockPos2);
-			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutableBlockPos2)) {
-				mutableBlockPos.set(mutableBlockPos2);
+			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutable2)) {
+				mutable1.set(mutable2);
 				canReturn = true;
-				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutableBlockPos2)) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
+				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) return mutable1.equals(pos) ? null : mutable1;
 			}
 
-			if (canReturn) return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
+			if (canReturn) return mutable1.equals(pos) ? null : mutable1;
 
-			if (!(blockState.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutableBlockPos2)) continue;
-			mutableBlockPos.set(mutableBlockPos2);
-			if (!SculkVeinBlock.hasSubstrateAccess(level, blockState, mutableBlockPos2)) continue;
+			if (!(state.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutable2)) continue;
+			mutable1.set(mutable2);
+			if (!SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) continue;
 			break;
 		}
-		return mutableBlockPos.equals(pos) ? null : mutableBlockPos;
+		return mutable1.equals(pos) ? null : mutable1;
 	}
 
 	//SHADOWS
@@ -192,11 +181,11 @@ public class SculkSpreaderChargeCursorMixin {
 		)
 	)
 	private BlockPos wilderWild$newValidMovementPos(
-		LevelAccessor levelAccessor, BlockPos blockPos, RandomSource random, Operation<BlockPos> operation,
+		LevelAccessor level, BlockPos pos, RandomSource random, Operation<BlockPos> operation,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
-		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(levelAccessor, blockPos, random);
-		return operation.call(levelAccessor, blockPos, random);
+		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(level, pos, random);
+		return operation.call(level, pos, random);
 	}
 
 }

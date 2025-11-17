@@ -36,7 +36,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WarmBeach extends FrozenBiome {
@@ -96,7 +95,7 @@ public final class WarmBeach extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
@@ -114,7 +113,7 @@ public final class WarmBeach extends FrozenBiome {
 	}
 
 	@Override
-	public void addSpawns(MobSpawnSettings.@NotNull Builder spawns) {
+	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
 		spawns.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 2, 5));
 	}

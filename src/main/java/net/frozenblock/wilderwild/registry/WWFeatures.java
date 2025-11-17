@@ -76,7 +76,6 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWFeatures {
 	public static final TrunkPlacerType<StraightWithBranchesTrunkPlacer> STRAIGHT_WITH_BRANCHES_TRUNK_PLACER = registerTrunk("straight_with_branches_trunk_placer", StraightWithBranchesTrunkPlacer.CODEC);
@@ -120,23 +119,19 @@ public final class WWFeatures {
 	public static void init() {
 	}
 
-	@NotNull
-	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(@NotNull String id, @NotNull MapCodec<P> codec) {
+	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, MapCodec<P> codec) {
 		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WWConstants.id(id), new TrunkPlacerType<>(codec));
 	}
 
-	@NotNull
-	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(@NotNull String id, @NotNull MapCodec<P> codec) {
+	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, MapCodec<P> codec) {
 		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WWConstants.id(id), new FoliagePlacerType<>(codec));
 	}
 
-	@NotNull
-	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(@NotNull String id, @NotNull T feature) {
+	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(String id, T feature) {
 		return Registry.register(BuiltInRegistries.FEATURE, WWConstants.id(id), feature);
 	}
 
-	@NotNull
-	private static <P extends RootPlacer> RootPlacerType<P> register(@NotNull String id, @NotNull MapCodec<P> mapCodec) {
+	private static <P extends RootPlacer> RootPlacerType<P> register(String id, MapCodec<P> mapCodec) {
 		return Registry.register(BuiltInRegistries.ROOT_PLACER_TYPE, WWConstants.id(id), new RootPlacerType<>(mapCodec));
 	}
 }

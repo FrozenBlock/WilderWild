@@ -43,10 +43,8 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWItems {
-
 	// BOATS
 	public static final BoatItem BAOBAB_BOAT = register("baobab_boat",
 		properties -> new BoatItem(WWEntityTypes.BAOBAB_BOAT, properties),
@@ -220,7 +218,7 @@ public final class WWItems {
 		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT));
 	}
 
-	private static @NotNull <T extends Item> T register(String name, @NotNull Function<Item.Properties, Item> function, Item.@NotNull Properties properties) {
+	private static <T extends Item> T register(String name, Function<Item.Properties, Item> function, Item.Properties properties) {
 		return (T) Items.registerItem(ResourceKey.create(Registries.ITEM, WWConstants.id(name)), function, properties);
 	}
 }

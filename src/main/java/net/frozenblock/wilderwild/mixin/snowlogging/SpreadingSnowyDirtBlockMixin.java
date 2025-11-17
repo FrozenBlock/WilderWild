@@ -42,9 +42,9 @@ public class SpreadingSnowyDirtBlockMixin {
 		cancellable = true
 	)
 	private static void wilderWild$canBeGrassFirstCheck(
-		BlockState state, LevelReader levelReader, BlockPos pos, CallbackInfoReturnable<Boolean> info,
-		@Local(ordinal = 1) BlockState blockState
+		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
+		@Local(ordinal = 1) BlockState state1
 	) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) info.setReturnValue(true);
+		if (SnowloggingUtils.isSnowlogged(state1)) info.setReturnValue(true);
 	}
 }

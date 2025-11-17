@@ -26,7 +26,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWPlacementUtils {
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.625D, 1D, 0.2D, false, false, false);
@@ -37,23 +36,20 @@ public final class WWPlacementUtils {
 		throw new UnsupportedOperationException("WWPlacementUtils contains only static declarations.");
 	}
 
-	@NotNull
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
-		@NotNull String id, Holder<ConfiguredFeature<FC, ?>> configured, @NotNull List<PlacementModifier> modifiers
+		String id, Holder<ConfiguredFeature<FC, ?>> configured, List<PlacementModifier> modifiers
 	) {
 		return new FrozenLibPlacedFeature(WWConstants.id(id)).makeAndSetHolder((Holder) configured, modifiers);
 	}
 
-	@NotNull
 	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
-		@NotNull String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, @NotNull PlacementModifier... modifiers
+		String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, PlacementModifier... modifiers
 	) {
 		return register(id, registryEntry, List.of(modifiers));
 	}
 
-	@NotNull
-	public static FrozenLibPlacedFeature register(@NotNull String id) {
+	public static FrozenLibPlacedFeature register(String id) {
 		return new FrozenLibPlacedFeature(WWConstants.id(id));
 	}
 

@@ -33,7 +33,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -50,22 +49,20 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.LARGE_SNAPPED_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 0), height);
@@ -83,23 +80,23 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void placeQuarter(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull TreeConfiguration config,
-		@NotNull BlockPos.MutableBlockPos pos,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		TreeConfiguration config,
+		BlockPos.MutableBlockPos pos,
 		int height
 	) {
-		int newHeight = height + this.additionalHeight.sample(random);
+		final int newHeight = height + this.additionalHeight.sample(random);
 		for (int i = 0; i < newHeight; ++i) this.placeLog(level, replacer, random, config, pos.move(Direction.UP));
 	}
 
 	private void placeLog(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
-		@NotNull RandomSource random,
-		@NotNull TreeConfiguration config,
-		@NotNull BlockPos.MutableBlockPos pos
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> blockSetter,
+		RandomSource random,
+		TreeConfiguration config,
+		BlockPos.MutableBlockPos pos
 	) {
 		this.placeLogIfFree(level, blockSetter, random, pos, config);
 	}

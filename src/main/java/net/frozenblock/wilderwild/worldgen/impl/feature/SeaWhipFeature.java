@@ -29,7 +29,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 public class SeaWhipFeature extends Feature<NoneFeatureConfiguration> {
 	private static final int SEARCH_RANGE = 6;
@@ -39,19 +38,20 @@ public class SeaWhipFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
+	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
+		final RandomSource random = featurePlaceContext.random();
+		final WorldGenLevel level = featurePlaceContext.level();
+		final BlockPos origin = featurePlaceContext.origin();
+		final int x = random.nextInt(SEARCH_RANGE) - random.nextInt(SEARCH_RANGE);
+		final int z = random.nextInt(SEARCH_RANGE) - random.nextInt(SEARCH_RANGE);
+		final int heightmapY = level.getHeight(Heightmap.Types.OCEAN_FLOOR, origin.getX() + x, origin.getZ() + z);
+		final BlockPos pos = new BlockPos(origin.getX() + x, heightmapY, origin.getZ() + z);
+
 		boolean generated = false;
-		RandomSource randomSource = featurePlaceContext.random();
-		WorldGenLevel worldGenLevel = featurePlaceContext.level();
-		BlockPos blockPos = featurePlaceContext.origin();
-		int i = randomSource.nextInt(SEARCH_RANGE) - randomSource.nextInt(SEARCH_RANGE);
-		int j = randomSource.nextInt(SEARCH_RANGE) - randomSource.nextInt(SEARCH_RANGE);
-		int k = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
-		BlockPos blockPos2 = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
-		if (worldGenLevel.getBlockState(blockPos2).is(Blocks.WATER)) {
-			BlockState blockState = WWBlocks.SEA_WHIP.defaultBlockState();
-			if (blockState.canSurvive(worldGenLevel, blockPos2)) {
-				worldGenLevel.setBlock(blockPos2, blockState, Block.UPDATE_CLIENTS);
+		if (level.getBlockState(pos).is(Blocks.WATER)) {
+			final BlockState state = WWBlocks.SEA_WHIP.defaultBlockState();
+			if (state.canSurvive(level, pos)) {
+				level.setBlock(pos, state, Block.UPDATE_CLIENTS);
 				generated = true;
 			}
 		}

@@ -81,7 +81,6 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWCaveConfigured {
 	// MESOGLEA CAVES
@@ -159,7 +158,7 @@ public final class WWCaveConfigured {
 		throw new UnsupportedOperationException("WWCaveConfigured contains only static declarations.");
 	}
 
-	public static void registerCaveConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerCaveConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);

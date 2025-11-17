@@ -30,7 +30,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class SimpleCopperPipesIntegration extends ModIntegration {
 
@@ -61,9 +60,8 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		}
 	}
 
-	@NotNull
 	@Contract("_, _ -> new")
-	public static Vec3 getOutputPosition(@NotNull Position position, @NotNull Direction direction) {
+	public static Vec3 getOutputPosition(Position position, Direction direction) {
 		return new Vec3(
 			position.x(),
 			position.y() - (direction.getAxis() == Direction.Axis.Y ? 0.125D : 0.15625D),
@@ -71,15 +69,14 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		);
 	}
 
-	@NotNull
-	public static Vec3 getVelocity(@NotNull RandomSource random, @NotNull Direction direction, double randomRange, int i) {
-		double xzRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
-		double yRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
+	public static Vec3 getVelocity(RandomSource random, Direction direction, double randomRange, int i) {
+		final double xzRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
+		final double yRandom = random.nextDouble() * (randomRange * 2D) - randomRange;
 
-		Direction.Axis axis = direction.getAxis();
-		double velX = axis == Direction.Axis.X ? (i * direction.getStepX() * 2D) : (axis == Direction.Axis.Z ? (yRandom * 0.1D) : (xzRandom * 0.1D));
-		double velY = axis == Direction.Axis.Y ? (i * direction.getStepY() * 2D) : (xzRandom * 0.1D);
-		double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (yRandom * 0.1D);
+		final Direction.Axis axis = direction.getAxis();
+		final double velX = axis == Direction.Axis.X ? (i * direction.getStepX() * 2D) : (axis == Direction.Axis.Z ? (yRandom * 0.1D) : (xzRandom * 0.1D));
+		final double velY = axis == Direction.Axis.Y ? (i * direction.getStepY() * 2D) : (xzRandom * 0.1D);
+		final double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (yRandom * 0.1D);
 		return new Vec3(velX, velY, velZ);
 	}
 

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 
 public final class WWVillagers {
+
 	private WWVillagers() {
 		throw new UnsupportedOperationException("WWVillagers contains only static declarations.");
 	}

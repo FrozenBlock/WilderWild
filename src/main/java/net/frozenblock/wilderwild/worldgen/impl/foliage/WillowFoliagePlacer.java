@@ -28,17 +28,16 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class WillowFoliagePlacer extends BlobFoliagePlacer {
-	public static final MapCodec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> blobParts(instance)
+	public static final MapCodec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		blobParts(instance)
 			.and(
 				instance.group(
 					Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
-					Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance))
-			)
-			.apply(instance, WillowFoliagePlacer::new)
+					Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance)
+				)
+			).apply(instance, WillowFoliagePlacer::new)
 	);
 	private final float hangingLeavesChance;
 	private final float hangingLeavesExtensionChance;
@@ -56,56 +55,56 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.WILLOW_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader levelSimulatedReader,
-		FoliagePlacer.FoliageSetter foliageSetter,
-		RandomSource randomSource,
-		TreeConfiguration treeConfiguration,
+		LevelSimulatedReader level,
+		FoliagePlacer.FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
 		int i,
-		FoliagePlacer.FoliageAttachment foliageAttachment,
+		FoliagePlacer.FoliageAttachment node,
 		int j,
 		int k,
 		int l
 	) {
 		for (int yOffset = l; yOffset >= l - j; yOffset--) {
-			int n = k + foliageAttachment.radiusOffset() - 1 - yOffset;
+			int n = k + node.radiusOffset() - 1 - yOffset;
 			if (yOffset <= l - j) {
 				this.placeLeavesRowWithHangingLeavesBelow(
-					levelSimulatedReader,
-					foliageSetter,
-					randomSource,
-					treeConfiguration,
-					foliageAttachment.pos(),
+					level,
+					placer,
+					random,
+					config,
+					node.pos(),
 					n,
 					yOffset,
-					foliageAttachment.doubleTrunk(),
+					node.doubleTrunk(),
 					this.hangingLeavesChance,
 					this.hangingLeavesExtensionChance
 				);
 			} else {
 				this.placeLeavesRow(
-					levelSimulatedReader,
-					foliageSetter,
-					randomSource,
-					treeConfiguration,
-					foliageAttachment.pos(),
+					level,
+					placer,
+					random,
+					config,
+					node.pos(),
 					n,
 					yOffset,
-					foliageAttachment.doubleTrunk()
+					node.doubleTrunk()
 				);
 			}
 		}
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(RandomSource randomSource, int x, int y, int z, int radius, boolean doubleTrunk) {
-		boolean isCorner = x == radius && z == radius;
-		if (y > 0) return isCorner && randomSource.nextBoolean();
+	protected boolean shouldSkipLocation(RandomSource random, int x, int y, int z, int radius, boolean doubleTrunk) {
+		final boolean isCorner = x == radius && z == radius;
+		if (y > 0) return isCorner && random.nextBoolean();
 		return isCorner;
 	}
 }

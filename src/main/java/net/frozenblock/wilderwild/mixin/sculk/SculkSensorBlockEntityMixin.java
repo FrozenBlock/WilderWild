@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -59,23 +58,19 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At("TAIL")
 	)
-	private void wilderWild$init(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
-		if (blockEntityType == BlockEntityType.CALIBRATED_SCULK_SENSOR && blockState.getBlock() instanceof CalibratedSculkSensorBlock) {
-			this.wilderWild$facing = blockState.getValue(CalibratedSculkSensorBlock.FACING);
-		}
+	private void wilderWild$init(BlockEntityType type, BlockPos pos, BlockState state, CallbackInfo info) {
+		if (type != BlockEntityType.CALIBRATED_SCULK_SENSOR || !(state.getBlock() instanceof CalibratedSculkSensorBlock)) return;
+		this.wilderWild$facing = state.getValueOrElse(CalibratedSculkSensorBlock.FACING, Direction.NORTH);
 	}
 
 	@Unique
 	@Override
-	public void wilderWild$tickClient(Level level, BlockPos pos, @NotNull BlockState state) {
-		if (state.hasProperty(CalibratedSculkSensorBlock.FACING)) {
-			this.wilderWild$facing = state.getValue(CalibratedSculkSensorBlock.FACING);
-		}
+	public void wilderWild$tickClient(Level level, BlockPos pos, BlockState state) {
+		this.wilderWild$facing = state.getValueOrElse(CalibratedSculkSensorBlock.FACING, Direction.NORTH);
+
 		this.wilderWild$prevActive = this.wilderWild$active;
 		this.wilderWild$active = SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE;
-		if (this.wilderWild$active && !this.wilderWild$prevActive) {
-			this.wilderWild$animTicks = 10;
-		}
+		if (this.wilderWild$active && !this.wilderWild$prevActive) this.wilderWild$animTicks = 10;
 
 		this.wilderWild$prevAnimTicks = this.wilderWild$animTicks;
 		this.wilderWild$animTicks = Math.max(0, this.wilderWild$animTicks - 1);

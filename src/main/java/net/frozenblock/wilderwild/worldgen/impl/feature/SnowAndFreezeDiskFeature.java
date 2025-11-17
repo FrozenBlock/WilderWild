@@ -72,7 +72,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 		boolean coldEnough = !biome.warmEnoughToRain(s, level.getSeaLevel());
 		if (coldEnough) {
 			RandomSource random = level.getRandom();
-			int radius = config.radius.sample(random);
+			int radius = config.radius().sample(random);
 			//DISK
 			BlockPos.MutableBlockPos mutableDisk = s.mutable();
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
@@ -85,8 +85,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
 						BlockState state = level.getBlockState(mutableDisk);
 						if (state.getBlock() != Blocks.SNOW) {
-							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent);
-							if (random.nextFloat() < config.placementChance && ((!fade || random.nextBoolean()) && canPlaceSnow(level, mutableDisk))) {
+							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent());
+							if (random.nextFloat() < config.placementChance() && ((!fade || random.nextBoolean()) && canPlaceSnow(level, mutableDisk))) {
 								BlockState belowState = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 								if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 									level.setBlock(mutableDisk2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
@@ -102,7 +102,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 
 		if (coldEnough) {
 			RandomSource random = level.getRandom();
-			int radius = config.iceRadius.sample(random);
+			int radius = config.iceRadius().sample(random);
 			//DISK
 			BlockPos.MutableBlockPos mutableDisk = s.mutable();
 			BlockPos.MutableBlockPos mutableDisk2 = new BlockPos.MutableBlockPos();
@@ -115,8 +115,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 						mutableDisk.set(x, level.getHeight(Types.MOTION_BLOCKING, x, z), z);
 						BlockState state = level.getBlockState(mutableDisk2.set(mutableDisk).move(Direction.DOWN));
 						if (state.getBlock() != Blocks.ICE) {
-							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent);
-							if (random.nextFloat() < config.placementChance && ((!fade || random.nextBoolean()) && canPlaceIce(level, mutableDisk2))) {
+							boolean fade = !mutableDisk.closerThan(s, radius * config.fadeStartDistancePercent());
+							if (random.nextFloat() < config.placementChance() && ((!fade || random.nextBoolean()) && canPlaceIce(level, mutableDisk2))) {
 								level.setBlock(mutableDisk2, iceState, Block.UPDATE_CLIENTS);
 							}
 						}
