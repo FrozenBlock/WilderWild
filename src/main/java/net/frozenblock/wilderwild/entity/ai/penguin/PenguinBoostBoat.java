@@ -22,8 +22,7 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
-import net.minecraft.world.entity.vehicle.Boat;
-import org.jetbrains.annotations.Contract;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 
 public class PenguinBoostBoat {
 	private static final double MAX_DISTANCE = 3D;

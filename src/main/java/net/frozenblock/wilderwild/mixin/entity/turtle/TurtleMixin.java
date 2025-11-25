@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.entity.impl.TurtleCooldownInterface;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;

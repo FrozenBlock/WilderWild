@@ -55,7 +55,7 @@ public class OstrichMeleeAttack {
 	private static boolean isHoldingUsableProjectileWeapon(Ostrich ostrich) {
 		return ostrich.isHolding(stack -> {
 			final Item item = stack.getItem();
-			return item instanceof ProjectileWeaponItem projectileWeaponItem && ostrich.canFireProjectileWeapon(projectileWeaponItem);
+			return item instanceof ProjectileWeaponItem projectileWeaponItem && ostrich.canUseNonMeleeWeapon(stack);
 		});
 	}
 }

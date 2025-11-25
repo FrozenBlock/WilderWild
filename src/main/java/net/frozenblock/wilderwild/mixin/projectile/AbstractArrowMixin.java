@@ -21,7 +21,7 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -42,7 +42,7 @@ public class AbstractArrowMixin {
 		method = "onHitBlock",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;getWeaponItem()Lnet/minecraft/world/item/ItemStack;",
+			target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;getWeaponItem()Lnet/minecraft/world/item/ItemStack;",
 			ordinal = 0
 		)
 	)

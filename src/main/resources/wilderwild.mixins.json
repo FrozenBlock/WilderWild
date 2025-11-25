@@ -151,8 +151,6 @@
     "client.mesoglea.LocalPlayerMixin",
     "client.mesoglea.SuspendedParticleUnderwaterProviderMixin",
     "client.mesoglea.UnderwaterAmbientSoundHandlerMixin",
-    "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$SubSoundMixin",
-    "client.mesoglea.UnderwaterAmbientSoundInstancesMixin$UnderwaterAmbientSoundInstanceMixin",
     "client.mesoglea.fog.CameraMixin",
     "client.mesoglea.fog.WaterFogEnvironmentMixin",
     "client.shrieker.LevelEventHandlerMixin",

@@ -51,7 +51,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.animal.AbstractCow;
+import net.minecraft.world.entity.animal.cow.AbstractCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;

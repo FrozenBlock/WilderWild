@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.animation.KeyframeAnimation;
-import net.minecraft.client.model.AllayModel;
+import net.minecraft.client.model.animal.allay.AllayModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import org.objectweb.asm.Opcodes;
@@ -49,7 +49,7 @@ public class AllayModelMixin {
 		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/AllayRenderState;)V",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/model/AllayModel;right_wing:Lnet/minecraft/client/model/geom/ModelPart;",
+			target = "Lnet/minecraft/client/model/animal/allay/AllayModel;right_wing:Lnet/minecraft/client/model/geom/ModelPart;",
 			opcode = Opcodes.GETFIELD,
 			ordinal = 0
 		),

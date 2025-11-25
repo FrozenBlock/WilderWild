@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
-import net.minecraft.client.model.WardenModel;
+import net.minecraft.client.model.monster.warden.WardenModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;

@@ -32,8 +32,8 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.WardenModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.monster.warden.WardenModel;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
@@ -136,7 +136,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		method = "setupAnim*",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/model/WardenModel;diggingAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
+			target = "Lnet/minecraft/client/model/monster/warden/WardenModel;diggingAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
 		),
 		require = 0
 	)
@@ -149,7 +149,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		method = "setupAnim*",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/model/WardenModel;emergeAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
+			target = "Lnet/minecraft/client/model/monster/warden/WardenModel;emergeAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
 		),
 		require = 0
 	)
@@ -162,7 +162,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		method = "setupAnim*",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/model/WardenModel;sniffAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
+			target = "Lnet/minecraft/client/model/monster/warden/WardenModel;sniffAnimation:Lnet/minecraft/client/animation/KeyframeAnimation;"
 		),
 		require = 0
 	)
@@ -175,7 +175,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WardenRenderState;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/model/WardenModel;animateHeadLookTarget(FF)V"
+			target = "Lnet/minecraft/client/model/monster/warden/WardenModel;animateHeadLookTarget(FF)V"
 		),
 		require = 0
 	)
@@ -204,7 +204,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/WardenRenderState;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/model/WardenModel;animateWalk(FF)V"
+			target = "Lnet/minecraft/client/model/monster/warden/WardenModel;animateWalk(FF)V"
 		),
 		require = 0
 	)

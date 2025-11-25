@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerL
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;

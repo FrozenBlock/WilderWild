@@ -71,7 +71,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.Equippable;
@@ -385,10 +385,10 @@ public class Ostrich extends AbstractHorse implements PlayerRideableJumping {
 	}
 
 	@Override
-	public AABB getAttackBoundingBox() {
+	protected AABB getAttackBoundingBox(double attackReach) {
 		final float scale = this.getScale();
 		final double attackBBOffset = 0.2D * scale;
-		return super.getAttackBoundingBox().inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
+		return super.getAttackBoundingBox(attackReach).inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
 	}
 
 	@Override
