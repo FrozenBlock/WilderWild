@@ -79,22 +79,21 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 
 	@Override
 	public void getExtents(Consumer<Vector3fc> consumer) {
-		PoseStack poseStack = new PoseStack();
+		final PoseStack poseStack = new PoseStack();
 		this.model.setupAnim(this.openness);
 		this.model.root().getExtentsForGui(poseStack, consumer);
 	}
 
-	@Environment(EnvType.CLIENT)
 	public record Unbaked(Identifier texture, float openness) implements SpecialModelRenderer.Unbaked {
 		public static final MapCodec<StoneChestSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
-				Identifier.CODEC.fieldOf("resourceTexture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
+				Identifier.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
 				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
 			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);
 
-		public Unbaked(Identifier identifier) {
-			this(identifier, 0F);
+		public Unbaked(Identifier texture) {
+			this(texture, 0F);
 		}
 
 		@Override
@@ -104,9 +103,9 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 
 		@Override
 		public SpecialModelRenderer<?> bake(BakingContext bakingContext) {
-			StoneChestModel stoneChestModel = new StoneChestModel(bakingContext.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
-			Material material = new Material(Sheets.CHEST_SHEET, this.texture.withPrefix("entity/stone_chest/"));
-			return new StoneChestSpecialRenderer(bakingContext.materials(), stoneChestModel, material, this.openness);
+			final StoneChestModel model = new StoneChestModel(bakingContext.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
+			final Material material = new Material(Sheets.CHEST_SHEET, this.texture.withPrefix("entity/stone_chest/"));
+			return new StoneChestSpecialRenderer(bakingContext.materials(), model, material, this.openness);
 		}
 	}
 }
