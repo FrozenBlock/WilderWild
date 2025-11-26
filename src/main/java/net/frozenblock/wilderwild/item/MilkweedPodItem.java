@@ -56,6 +56,7 @@ public class MilkweedPodItem extends Item {
 			0.9F + (level.random.nextFloat() * 0.2F)
 		);
 		user.startUsingItem(hand);
+
 		if (level instanceof ServerLevel serverLevel) {
 			user.getCooldowns().addCooldown(stack, 40);
 			final float pitch = user.getXRot();
@@ -74,11 +75,10 @@ public class MilkweedPodItem extends Item {
 				0D
 			);
 		}
-		user.awardStat(Stats.ITEM_USED.get(this));
 
+		user.awardStat(Stats.ITEM_USED.get(this));
 		return InteractionResult.CONSUME;
 	}
-
 
 	@Override
 	public int getUseDuration(ItemStack stack, LivingEntity entity) {

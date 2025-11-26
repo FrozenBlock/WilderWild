@@ -211,5 +211,4 @@ public final class WWDataFixer {
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
 
-
 }

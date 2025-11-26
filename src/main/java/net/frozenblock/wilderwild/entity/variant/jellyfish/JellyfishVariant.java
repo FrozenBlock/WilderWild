@@ -66,7 +66,6 @@ public record JellyfishVariant(
 		return this.resourceTexture;
 	}
 
-
 	@Override
 	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();

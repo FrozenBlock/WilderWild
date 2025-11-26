@@ -497,7 +497,6 @@ public final class WWCreativeInventorySorting {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.INGREDIENTS);
 	}
 
-
 	private static void addBeforeInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
 	}

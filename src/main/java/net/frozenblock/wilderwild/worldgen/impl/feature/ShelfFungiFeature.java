@@ -44,30 +44,28 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 		ShelfFungiFeatureConfig config,
 		RandomSource random
 	) {
-		MutableBlockPos mutable = pos.mutable();
+		final MutableBlockPos mutable = pos.mutable();
 
 		Direction placementDirection = null;
 		for (Direction direction : Direction.values()) {
-			BlockState state = level.getBlockState(mutable.setWithOffset(pos, direction));
+			final BlockState state = level.getBlockState(mutable.setWithOffset(pos, direction));
 			if (!state.is(config.canPlaceOn)) continue;
-			if (direction.getAxis() == Direction.Axis.Y) {
-				placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-			} else {
-				placementDirection = direction.getOpposite();
-			}
+			placementDirection = direction.getAxis() == Direction.Axis.Y ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : direction.getOpposite();
 			break;
 		}
 
-		if (placementDirection != null) {
-			level.setBlock(pos, config.fungus.defaultBlockState()
+		if (placementDirection == null) return false;
+
+		level.setBlock(
+			pos,
+			config.fungus.defaultBlockState()
 				.setValue(ShelfFungiBlock.FACING, placementDirection)
 				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
-				.setValue(ShelfFungiBlock.STAGE, random.nextInt(3) + 1), Block.UPDATE_ALL);
-			level.getChunk(pos).markPosForPostprocessing(pos);
-			return true;
-		}
-
-		return false;
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
+			Block.UPDATE_ALL
+		);
+		level.getChunk(pos).markPosForPostprocessing(pos);
+		return true;
 	}
 
 	private static boolean isAirOrWater(BlockState state) {

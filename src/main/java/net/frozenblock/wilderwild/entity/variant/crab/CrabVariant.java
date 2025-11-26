@@ -31,7 +31,6 @@ import net.minecraft.world.entity.variant.PriorityProvider;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
-import org.jetbrains.annotations.NotNull;
 
 public record CrabVariant(
 	ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture, SpawnPrioritySelectors spawnConditions
@@ -57,13 +56,11 @@ public record CrabVariant(
 	}
 
 	@Override
-	@NotNull
 	public ClientAsset.ResourceTexture resourceTexture() {
 		return this.resourceTexture;
 	}
 
 	@Override
-	@NotNull
 	public ClientAsset.ResourceTexture mojangResourceTexture() {
 		return this.mojangResourceTexture;
 	}

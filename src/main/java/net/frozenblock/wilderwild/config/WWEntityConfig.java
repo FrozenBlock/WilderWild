@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -248,7 +247,6 @@ public final class WWEntityConfig {
 		@EntrySyncData("spawnPenguins")
 		public boolean spawnPenguins = true;
 	}
-
 
 	public static class TumbleweedConfig {
 		@EntrySyncData("spawnTumbleweed")

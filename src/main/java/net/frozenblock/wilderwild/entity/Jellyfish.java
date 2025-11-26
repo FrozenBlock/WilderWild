@@ -556,7 +556,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return true;
 	}
 
-
 	@Override
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(WWItems.JELLYFISH_BUCKET);

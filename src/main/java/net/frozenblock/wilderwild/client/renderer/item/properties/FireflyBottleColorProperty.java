@@ -39,8 +39,9 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 		Codec.STRING
 	);
 
+	@Nullable
 	@Override
-	public @Nullable String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int i, ItemDisplayContext context) {
+	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int i, ItemDisplayContext context) {
 		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
 		if (fireflyColor != null) return fireflyColor.value().name();
 		return null;
@@ -55,6 +56,5 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 	public Type<? extends SelectItemModelProperty<String>, String> type() {
 		return TYPE;
 	}
-
 
 }

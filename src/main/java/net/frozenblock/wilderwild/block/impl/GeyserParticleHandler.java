@@ -116,7 +116,6 @@ public class GeyserParticleHandler {
 			}
 		}
 
-
 		if (geyserType == GeyserType.LAVA) {
 			if (random.nextFloat() <= ACTIVE_LAVA_CHANCE) {
 				int count = random.nextInt(MIN_ACTIVE_LAVA, MAX_ACTIVE_LAVA);

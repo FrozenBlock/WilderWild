@@ -182,7 +182,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.PACKED_MUD);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.PACKED_MUD);
 
-
 				// MOSSY MUD BRICKS
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICKS)

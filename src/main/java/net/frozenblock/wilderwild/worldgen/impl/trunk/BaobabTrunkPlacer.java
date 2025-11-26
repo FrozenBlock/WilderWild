@@ -38,7 +38,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabTrunkPlacer extends TrunkPlacer {
@@ -73,15 +72,13 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 			mutable.setWithOffset(startPos, 0, -y, 0);
 
 			final boolean hasGrassOrMycelium = level.isStateAtPosition(mutable, state -> state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM));
-			if (this.validTreePos(level, mutable) || hasGrassOrMycelium) {
-				if (dirt || hasGrassOrMycelium) {
-					setDirtAt(level, replacer, random, mutable, config, logPoses);
-					if (hasGrassOrMycelium) return;
-				} else {
-					this.placeLogIfFree(level, replacer, random, mutable, config, logPoses);
-				}
+			if (!this.validTreePos(level, mutable) && !hasGrassOrMycelium) break;
+
+			if (dirt || hasGrassOrMycelium) {
+				setDirtAt(level, replacer, random, mutable, config, logPoses);
+				if (hasGrassOrMycelium) return;
 			} else {
-				break;
+				this.placeLogIfFree(level, replacer, random, mutable, config, logPoses);
 			}
 		}
 	}
@@ -100,13 +97,11 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.BAOBAB_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		LevelSimulatedReader level,
 		BiConsumer<BlockPos, BlockState> replacer,
@@ -199,8 +194,8 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				}
 
 				if (random.nextFloat() <= BRANCH_CHANCE) {
-					float min = 1F / 3F, max = 1F;
-					float p = ((random.nextFloat() * (max - min)) + min);
+					final float min = 1F / 3F, max = 1F;
+					final float p = ((random.nextFloat() * (max - min)) + min);
 					FoliagePlacer.FoliageAttachment attachment = this.generateBranch(
 						dir1,
 						dir2,
@@ -339,20 +334,12 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		this.placeLogIfFree(level, replacer, random, pos, config, logPoses);
 	}
 
-	@NotNull
 	private Direction.Axis getLogAxis(BlockPos pos, BlockPos otherPos) {
 		Direction.Axis axis = Direction.Axis.Y;
 		final int xDifference = Math.abs(otherPos.getX() - pos.getX());
 		final int zDifference = Math.abs(otherPos.getZ() - pos.getZ());
 		final int maxDifference = Math.max(xDifference, zDifference);
-		if (maxDifference > 0) {
-			if (xDifference == maxDifference) {
-				axis = Direction.Axis.X;
-			} else {
-				axis = Direction.Axis.Z;
-			}
-		}
-
+		if (maxDifference > 0) axis = xDifference == maxDifference ? Direction.Axis.X : Direction.Axis.Z;
 		return axis;
 	}
 }

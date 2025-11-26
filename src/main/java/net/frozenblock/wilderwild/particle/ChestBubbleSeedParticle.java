@@ -59,7 +59,6 @@ public class ChestBubbleSeedParticle extends NoRenderParticle {
 			return;
 		}
 
-
 		double additionalX = 0.5D;
 		double additionalZ = 0.5D;
 		if (state.getValueOrElse(BlockStateProperties.CHEST_TYPE, ChestType.SINGLE) != ChestType.SINGLE) {
@@ -83,7 +82,6 @@ public class ChestBubbleSeedParticle extends NoRenderParticle {
 				this.random.nextGaussian() * 0.2D
 			);
 		}
-
 
 		this.age++;
 		if (this.age == this.lifetime) this.remove();

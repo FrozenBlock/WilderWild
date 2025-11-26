@@ -178,7 +178,6 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		}
 	}
 
-
 	private boolean canRandomFall(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() > 0.075F || !level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) return false;
 		final Vec3 centerPos = Vec3.atCenterOf(pos);

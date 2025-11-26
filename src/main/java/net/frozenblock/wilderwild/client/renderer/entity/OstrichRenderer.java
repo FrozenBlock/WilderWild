@@ -85,7 +85,6 @@ public class OstrichRenderer extends AgeableMobRenderer<Ostrich, OstrichRenderSt
 		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 	}
 
-
 	@Override
 	public Identifier getTextureLocation(OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;

@@ -63,7 +63,6 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR)));
 	}
 
-
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
 		return (HolderLookup.RegistryLookup<T>) getter;
 	}

@@ -37,19 +37,16 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 public class WillowTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		trunkPlacerParts(instance)
-			.and(
-				instance.group(
-					IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
-					Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
-					TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
-				)
-			).apply(instance, WillowTrunkPlacer::new));
+	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> trunkPlacerParts(instance).and(
+		instance.group(
+			IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
+			Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
+			TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
+		)
+	).apply(instance, WillowTrunkPlacer::new));
 	private final IntProvider trunkSplitHeight;
 	private final float branchSplitGapChance;
 	private final TrunkBranchPlacement trunkBranchPlacement;
-
 
 	public WillowTrunkPlacer(
 		int baseHeight,

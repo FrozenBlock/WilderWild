@@ -30,7 +30,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,18 +52,17 @@ public class LightningBoltMixin {
 		@Share("wilderWild$strikePos") LocalRef<BlockPos> strikePosLocalRef,
 		@Share("wilderWild$strikeState") LocalRef<BlockState> strikeStateLocalRef
 	) {
-		if (LightningBolt.class.cast(this).level() instanceof ServerLevel serverLevel) {
-			BlockPos blockPos = this.getStrikePosition();
-			BlockState state = serverLevel.getBlockState(blockPos);
-			WWLightningStrikePacket.sendToAll(
-				LightningBolt.class.cast(this),
-				state,
-				this.wilderWild$age
-			);
-			this.wilderWild$age += 1;
-			strikePosLocalRef.set(blockPos);
-			strikeStateLocalRef.set(state);
-		}
+		if (!(LightningBolt.class.cast(this).level() instanceof ServerLevel level)) return;
+		final BlockPos pos = this.getStrikePosition();
+		final BlockState state = level.getBlockState(pos);
+		WWLightningStrikePacket.sendToAll(
+			LightningBolt.class.cast(this),
+			state,
+			this.wilderWild$age
+		);
+		this.wilderWild$age += 1;
+		strikePosLocalRef.set(pos);
+		strikeStateLocalRef.set(state);
 	}
 
 	@Inject(
@@ -83,13 +81,18 @@ public class LightningBoltMixin {
 	}
 
 	@Unique
-	private void wilderWild$scorchSand(@NotNull LightningBolt bolt, BlockPos strikePos, BlockState strikeState) {
-		if (this.visualOnly || !(bolt.level() instanceof ServerLevel serverLevel) || !WWEntityConfig.get().lightning.lightningScorchesSand || !strikeState.is(BlockTags.SAND)) return;
-		final ChunkGenerator chunkGenerator = serverLevel.getChunkSource().getGenerator();
-		final RandomSource random = serverLevel.getRandom();
-		WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, random, strikePos);
-		WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(serverLevel).place(serverLevel, chunkGenerator, random, strikePos);
-		ScorchedBlock.scorch(strikeState, serverLevel, strikePos);
+	private void wilderWild$scorchSand(LightningBolt bolt, BlockPos strikePos, BlockState strikeState) {
+		if (this.visualOnly
+			|| !(bolt.level() instanceof ServerLevel level)
+			|| !WWEntityConfig.get().lightning.lightningScorchesSand
+			|| !strikeState.is(BlockTags.SAND)
+		) return;
+
+		final ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
+		final RandomSource random = level.getRandom();
+		WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(level).place(level, chunkGenerator, random, strikePos);
+		WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(level).place(level, chunkGenerator, random, strikePos);
+		ScorchedBlock.scorch(strikeState, level, strikePos);
 	}
 
 	@Shadow

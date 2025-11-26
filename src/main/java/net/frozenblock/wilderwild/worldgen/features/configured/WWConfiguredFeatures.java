@@ -431,7 +431,6 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 3)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
-
 	public static final WeightedList<BlockState> GRASS_AND_FERN_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 11)
 		.add(Blocks.FERN.defaultBlockState(), 1)
@@ -444,7 +443,6 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.FERN.defaultBlockState(), 4)
 		.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
 		.build();
-
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_GRASS_AND_GRASS_WATER = WWFeatureUtils.register("tall_grass_and_grass_water");
 
@@ -2615,7 +2613,6 @@ public final class WWConfiguredFeatures {
 			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()))
 		);
 
-
 		SNAPPED_DARK_OAKS.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
 			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder()))
 		);
@@ -2842,7 +2839,6 @@ public final class WWConfiguredFeatures {
 				)
 			)
 		);
-
 
 		DATURA.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(

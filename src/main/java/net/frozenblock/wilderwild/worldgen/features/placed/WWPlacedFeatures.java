@@ -1288,7 +1288,6 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-
 		JUNGLE_SHRUB_PLACED.makeAndSetHolder(WWConfiguredFeatures.JUNGLE_SHRUB,
 			CountPlacement.of(3),
 			InSquarePlacement.spread(),

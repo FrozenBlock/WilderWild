@@ -135,7 +135,6 @@ public final class WWBiomeMusicAndAmbience {
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_DESERTS);
 			});
 
-
 		BiomeModifications.create(WWConstants.id("modify_music_snowy")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),

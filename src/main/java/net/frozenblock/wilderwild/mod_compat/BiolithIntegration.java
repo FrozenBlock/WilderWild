@@ -351,7 +351,6 @@ public class BiolithIntegration extends ModIntegration {
 			BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.FLOWER_FIELD, criterionB);
 			BiomePlacement.addSubOverworld(Biomes.MEADOW, WWBiomes.FLOWER_FIELD, criterionB);
 
-
 			Criterion criterionC = allOf(
 				CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.2F, -0.075F),
 				CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.3675F, -0.3125F)
@@ -649,7 +648,6 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-
 
 			if (biomePlacement.modifyTundraPlacement) {
 				/*

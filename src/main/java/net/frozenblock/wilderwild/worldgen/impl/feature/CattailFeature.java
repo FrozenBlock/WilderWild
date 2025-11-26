@@ -34,16 +34,15 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import org.jetbrains.annotations.NotNull;
 
 public class CattailFeature extends Feature<CattailFeatureConfig> {
 
-	public CattailFeature(@NotNull Codec<CattailFeatureConfig> codec) {
+	public CattailFeature(Codec<CattailFeatureConfig> codec) {
 		super(codec);
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<CattailFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<CattailFeatureConfig> context) {
 		boolean generated = false;
 		RandomSource random = context.random();
 		WorldGenLevel level = context.level();

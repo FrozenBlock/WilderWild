@@ -101,7 +101,6 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		return original.call(instance, setPos, setState, flags);
 	}
 
-
 	@Inject(method = "playerDestroy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo info) {
 		if (!SnowloggingUtils.isSnowlogged(state)) return;

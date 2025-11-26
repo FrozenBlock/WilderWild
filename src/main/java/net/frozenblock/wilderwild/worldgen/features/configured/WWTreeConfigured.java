@@ -1047,7 +1047,6 @@ public final class WWTreeConfigured {
 			fancyOak().decorators(List.of(SHELF_FUNGUS_0054)).build()
 		);
 
-
 		FANCY_DYING_OAK.makeAndSetHolders(Feature.TREE,
 			fancyOak().decorators(
 				List.of(
@@ -2147,7 +2146,6 @@ public final class WWTreeConfigured {
 				)
 			).build()
 		);
-
 
 		//MANGROVE
 		MANGROVE.makeAndSetHolders(Feature.TREE,
