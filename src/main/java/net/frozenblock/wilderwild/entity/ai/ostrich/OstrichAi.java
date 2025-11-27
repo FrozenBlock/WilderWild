@@ -113,7 +113,6 @@ public class OstrichAi {
 		MemoryModuleType.ATTACK_COOLING_DOWN
 	);
 
-
 	public static Brain.Provider<AbstractOstrich> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 	}

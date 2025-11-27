@@ -32,7 +32,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich, AbstractOstrichRenderState, EntityModel<AbstractOstrichRenderState>> {
@@ -55,30 +54,27 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 
 	@Override
 	public void submit(
-		@NotNull AbstractOstrichRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		AbstractOstrichRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
-		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
+		super.submit(renderState, poseStack, collector, cameraState);
 	}
-
-
+	
 	@Override
-	@NotNull
-	public Identifier getTextureLocation(@NotNull AbstractOstrichRenderState renderState) {
+	public Identifier getTextureLocation(AbstractOstrichRenderState renderState) {
 		return ZOMBIE_OSTRICH_LOCATION;
 	}
 
 	@Override
-	@NotNull
 	public AbstractOstrichRenderState createRenderState() {
 		return new AbstractOstrichRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull ZombieOstrich entity, @NotNull AbstractOstrichRenderState renderState, float partialTick) {
-		super.extractRenderState(entity, renderState, partialTick);
+	public void extractRenderState(ZombieOstrich ostrich, AbstractOstrichRenderState renderState, float partialTick) {
+		super.extractRenderState(ostrich, renderState, partialTick);
 	}
 }
 
