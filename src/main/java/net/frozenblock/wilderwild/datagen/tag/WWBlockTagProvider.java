@@ -1451,7 +1451,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(this.getKey("terrestria","tiny_cactus"))
 			.addOptional(this.getKey("terrestria","saguaro_cactus_sapling"))
 			.addOptional(this.getKey("terrestria","saguaro_cactus"));
-		
+
 		this.builder(WWBlockTags.SOUND_SAPLING)
 			.add(Blocks.ACACIA_SAPLING.builtInRegistryHolder().key())
 			.add(Blocks.BIRCH_SAPLING.builtInRegistryHolder().key())
