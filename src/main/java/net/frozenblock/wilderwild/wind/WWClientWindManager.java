@@ -24,6 +24,7 @@ import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.lib.worldgen.heightmap.api.FrozenHeightmaps;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -69,64 +70,70 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		ClientLevel level = minecraft.level;
 		if (level != null) {
 			BlockPos pos = minecraft.gameRenderer.getMainCamera().getBlockPosition();
-			this.animateTick(level, pos.getX(), pos.getY(), pos.getZ());
+			animateTick(level, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 
-	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
+	public static void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
 		RandomSource randomSource = level.random;
 		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
 		if (WWAmbienceAndMiscConfig.WIND_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos, true);
 			}
 		}
 		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
 			}
 		}
 	}
 
-	public void spawnAmbientWindParticles(
-		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
+	public static void spawnAmbientWindParticles(
+		@NotNull ClientLevel level,
+		int posX, int posY, int posZ,
+		int range,
+		@NotNull RandomSource random,
+		@NotNull BlockPos.MutableBlockPos mutable,
+		boolean allowAdditional
 	) {
-		int highestPossibleY = posY + range;
-		int x = posX + random.nextIntBetweenInclusive(-range, range);
+		final int highestPossibleY = posY + range;
+		final int x = posX + random.nextIntBetweenInclusive(-range, range);
 		int y = posY;
-		int z = posZ + random.nextIntBetweenInclusive(-range, range);
-		blockPos.set(x, y, z);
+		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
+		mutable.set(x, y, z);
 
-		blockPos.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, blockPos));
-		int heightmapY = blockPos.getY();
+		mutable.set(level.getHeightmapPos(FrozenHeightmaps.MOTION_BLOCKING_NO_LEAVES_SYNCED, mutable));
+		final int heightmapY = mutable.getY();
 		if (heightmapY > highestPossibleY) return;
 
 		if (heightmapY < posY - range) {
 			y += random.nextInt(range) - random.nextInt(range);
 		} else {
-			double differenceInPoses = highestPossibleY - heightmapY;
+			final double differenceInPoses = highestPossibleY - heightmapY;
 			if (random.nextDouble() >= (differenceInPoses / (range * 2D))) return;
 			y = random.nextIntBetweenInclusive(heightmapY, highestPossibleY);
 		}
-		blockPos.set(x, y, z);
+		mutable.set(x, y, z);
 
-		Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 2D, 2D);
-		double horizontalWind = wind.horizontalDistance();
+		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(mutable), 1D, 2D, 2D);
+		final double horizontalWind = wind.horizontalDistance();
 		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency())) return;
 
+		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z, random);
+
+		if (!allowAdditional || !WWAmbienceAndMiscConfig.WIND_CLUSTERS) return;
+		final int additionalSpawnAttempts = Math.min((int) (horizontalWind * 6D), WWAmbienceAndMiscConfig.WIND_CLUSTER_MAX_SPAWN_ATTEMPTS);
+		if (additionalSpawnAttempts <= 0) return;
 		level.addParticle(
-			new WindParticleOptions((int) (10D + (horizontalWind * 30D)), wind.x * 0.01D, wind.y * 0.0015D, wind.z * 0.01D),
-			x,
-			y,
-			z,
-			0D,
-			0D,
-			0D
+			new WindClusterSeedParticleOptions(random.nextIntBetweenInclusive(10, 17), additionalSpawnAttempts),
+			x + 0.5D, y + 0.5D, z + 0.5D,
+			0D, 0D, 0D
 		);
 	}
 
-	public void spawnDisturbanceWindParticles(
+	public static void spawnDisturbanceWindParticles(
 		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
 	) {
 		int x = posX + random.nextIntBetweenInclusive(-range, range);
@@ -142,14 +149,14 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) return;
 
+		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z, random);
+	}
+
+	private static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z, RandomSource random) {
 		level.addParticle(
-			new WindParticleOptions((int) (10D + (windLength * 30D)), wind.x * 0.01D, wind.y * 0.003D, wind.z * 0.01D),
-			x,
-			y,
-			z,
-			0D,
-			0D,
-			0D
+			new WindParticleOptions((int) (minLifespan + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
+			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
+			0D, 0D, 0D
 		);
 	}
 

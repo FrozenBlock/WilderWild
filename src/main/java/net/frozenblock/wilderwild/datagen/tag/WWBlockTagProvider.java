@@ -389,9 +389,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY);
 
-		this.getOrCreateTagBuilder(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE)
-			.add(Blocks.MUD);
-
 		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
 			.addOptionalTag(BlockTags.DIRT);
@@ -902,7 +899,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_WILLOW_SAPLING)
 			.add(WWBlocks.POTTED_CYPRESS_SAPLING)
 			.add(WWBlocks.POTTED_COCONUT)
-			.add(WWBlocks.POTTED_MAPLE_SAPLING)
+			.add(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, WWBlocks.POTTED_RED_MAPLE_SAPLING)
 			.add(WWBlocks.POTTED_BUSH)
 			.add(WWBlocks.POTTED_BIG_DRIPLEAF)
 			.add(WWBlocks.POTTED_SMALL_DRIPLEAF)
@@ -1115,7 +1112,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING);
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
 
 		this.getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
 			.add(WWBlocks.BAOBAB_SIGN)
@@ -1333,7 +1330,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.PALM_FRONDS)
-			.add(WWBlocks.MAPLE_SAPLING)
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING)
 			.add(WWBlocks.BUSH)
 
 			.addOptional(ResourceLocation.fromNamespaceAndPath("betterend", "pythadendron_sapling"))

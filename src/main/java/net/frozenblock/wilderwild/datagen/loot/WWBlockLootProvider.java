@@ -152,10 +152,12 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.add(WWBlocks.MAPLE_DOOR, this::createDoorTable);
 		this.dropSelf(WWBlocks.MAPLE_SIGN);
 		this.dropSelf(WWBlocks.MAPLE_HANGING_SIGN);
-		this.dropSelf(WWBlocks.MAPLE_SAPLING);
-		this.add(WWBlocks.YELLOW_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWBlocks.ORANGE_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWBlocks.RED_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.dropSelf(WWBlocks.YELLOW_MAPLE_SAPLING);
+		this.dropSelf(WWBlocks.ORANGE_MAPLE_SAPLING);
+		this.dropSelf(WWBlocks.RED_MAPLE_SAPLING);
+		this.add(WWBlocks.YELLOW_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.YELLOW_MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.ORANGE_MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.RED_MAPLE_LEAVES, block -> this.createLeavesDrops(block, WWBlocks.RED_MAPLE_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
 
 		this.dropSelf(WWBlocks.HOLLOWED_ACACIA_LOG);
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
@@ -398,7 +400,9 @@ public final class WWBlockLootProvider extends FabricBlockLootTableProvider {
 		this.dropPottedContents(WWBlocks.POTTED_COCONUT);
 		this.dropPottedContents(WWBlocks.POTTED_WILLOW_SAPLING);
 		this.dropPottedContents(WWBlocks.POTTED_CYPRESS_SAPLING);
-		this.dropPottedContents(WWBlocks.POTTED_MAPLE_SAPLING);
+		this.dropPottedContents(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING);
+		this.dropPottedContents(WWBlocks.POTTED_ORANGE_MAPLE_SAPLING);
+		this.dropPottedContents(WWBlocks.POTTED_RED_MAPLE_SAPLING);
 		this.dropPottedContents(WWBlocks.POTTED_CARNATION);
 		this.dropPottedContents(WWBlocks.POTTED_MARIGOLD);
 		this.dropPottedContents(WWBlocks.POTTED_PASQUEFLOWER);

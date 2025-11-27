@@ -251,11 +251,23 @@ public final class WWBlocks {
 	);
 	public static final Block POTTED_COCONUT = Blocks.flowerPot(COCONUT);
 
-	public static final SaplingBlock MAPLE_SAPLING = new SaplingBlock(
-		WWTreeGrowers.MAPLE,
+	public static final SaplingBlock YELLOW_MAPLE_SAPLING = new SaplingBlock(
+		WWTreeGrowers.YELLOW_MAPLE,
 		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_MAPLE_SAPLING = Blocks.flowerPot(MAPLE_SAPLING);
+	public static final Block POTTED_YELLOW_MAPLE_SAPLING = Blocks.flowerPot(YELLOW_MAPLE_SAPLING);
+
+	public static final SaplingBlock ORANGE_MAPLE_SAPLING = new SaplingBlock(
+		WWTreeGrowers.ORANGE_MAPLE,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_ORANGE_MAPLE_SAPLING = Blocks.flowerPot(ORANGE_MAPLE_SAPLING);
+
+	public static final SaplingBlock RED_MAPLE_SAPLING = new SaplingBlock(
+		WWTreeGrowers.RED_MAPLE,
+		BlockBehaviour.Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_RED_MAPLE_SAPLING = Blocks.flowerPot(RED_MAPLE_SAPLING);
 
 	public static final WaterloggableSaplingBlock WILLOW_SAPLING = new WaterloggableSaplingBlock(
 		WWTreeGrowers.WILLOW,
@@ -1507,8 +1519,12 @@ public final class WWBlocks {
 		registerBlock("coconut", COCONUT);
 		registerBlock("potted_coconut", POTTED_COCONUT);
 
-		registerBlockAfter(Items.CHERRY_SAPLING, "maple_sapling", MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
-		registerBlock("potted_maple_sapling", POTTED_MAPLE_SAPLING);
+		registerBlockAfter(Items.CHERRY_SAPLING, "yellow_maple_sapling", YELLOW_MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_yellow_maple_sapling", POTTED_YELLOW_MAPLE_SAPLING);
+		registerBlockAfter(YELLOW_MAPLE_SAPLING, "orange_maple_sapling", ORANGE_MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_orange_maple_sapling", POTTED_ORANGE_MAPLE_SAPLING);
+		registerBlockAfter(ORANGE_MAPLE_SAPLING, "red_maple_sapling", RED_MAPLE_SAPLING, CreativeModeTabs.NATURAL_BLOCKS);
+		registerBlock("potted_red_maple_sapling", POTTED_RED_MAPLE_SAPLING);
 
 		registerBlock("baobab_sign", BAOBAB_SIGN);
 		registerBlock("baobab_wall_sign", BAOBAB_WALL_SIGN);
@@ -2091,7 +2107,9 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(WILLOW_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
@@ -2368,7 +2386,9 @@ public final class WWBlocks {
 		registry.add(MAPLE_FENCE.asItem(), 300);
 		registry.add(WWItems.MAPLE_SIGN, 300);
 		registry.add(WWItems.MAPLE_HANGING_SIGN, 800);
-		registry.add(MAPLE_SAPLING.asItem(), 100);
+		registry.add(YELLOW_MAPLE_SAPLING.asItem(), 100);
+		registry.add(ORANGE_MAPLE_SAPLING.asItem(), 100);
+		registry.add(RED_MAPLE_SAPLING.asItem(), 100);
 
 		registry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 		registry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);

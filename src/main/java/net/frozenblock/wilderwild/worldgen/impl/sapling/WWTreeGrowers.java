@@ -79,15 +79,39 @@ public final class WWTreeGrowers {
 		}
 	};
 
-	public static final TreeGrower MAPLE = new TreeGrower(
-		WWConstants.string("maple"),
+	public static final TreeGrower YELLOW_MAPLE = new TreeGrower(
+		WWConstants.string("yellow_maple"),
 		Optional.empty(),
 		Optional.empty(),
 		Optional.empty()
 	) {
 		@Override
 		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
-			return bees ? WWConfiguredFeatures.MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.MAPLES_NO_BEES.getKey();
+			return bees ? WWConfiguredFeatures.YELLOW_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.YELLOW_MAPLES_NO_BEES.getKey();
+		}
+	};
+
+	public static final TreeGrower ORANGE_MAPLE = new TreeGrower(
+		WWConstants.string("orange_maple"),
+		Optional.empty(),
+		Optional.empty(),
+		Optional.empty()
+	) {
+		@Override
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
+			return bees ? WWConfiguredFeatures.ORANGE_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.ORANGE_MAPLES_NO_BEES.getKey();
+		}
+	};
+
+	public static final TreeGrower RED_MAPLE = new TreeGrower(
+		WWConstants.string("red_maple"),
+		Optional.empty(),
+		Optional.empty(),
+		Optional.empty()
+	) {
+		@Override
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
+			return bees ? WWConfiguredFeatures.RED_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.RED_MAPLES_NO_BEES.getKey();
 		}
 	};
 

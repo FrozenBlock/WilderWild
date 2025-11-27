@@ -2,6 +2,7 @@
   "values": [
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
+    "minecraft:swamp",
     {
       "id": "wilderwild:flower_field",
       "required": false
