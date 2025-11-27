@@ -46,12 +46,12 @@ import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.FragileIceBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBlock;
+import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.FrozenBushBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
 import net.frozenblock.wilderwild.block.GeyserBlock;
-import net.frozenblock.wilderwild.block.FroglightGoopBlock;
-import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
@@ -284,6 +284,7 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
+
 	public static final WaterloggableSaplingBlock CYPRESS_SAPLING = register("cypress_sapling",
 		properties -> new WaterloggableSaplingBlock(WWTreeGrowers.CYPRESS, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
@@ -302,12 +303,30 @@ public final class WWBlocks {
 		Blocks.flowerPotProperties()
 	);
 
-	public static final SaplingBlock MAPLE_SAPLING = register("maple_sapling",
-		properties -> new SaplingBlock(WWTreeGrowers.MAPLE, properties),
+	public static final SaplingBlock YELLOW_MAPLE_SAPLING = register("yellow_maple_sapling",
+		properties -> new SaplingBlock(WWTreeGrowers.YELLOW_MAPLE, properties),
 		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
 	);
-	public static final Block POTTED_MAPLE_SAPLING = registerWithoutItem("potted_maple_sapling",
-		properties -> new FlowerPotBlock(MAPLE_SAPLING, properties),
+	public static final Block POTTED_YELLOW_MAPLE_SAPLING = registerWithoutItem("potted_yellow_maple_sapling",
+		properties -> new FlowerPotBlock(YELLOW_MAPLE_SAPLING, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final SaplingBlock ORANGE_MAPLE_SAPLING = register("orange_maple_sapling",
+		properties -> new SaplingBlock(WWTreeGrowers.ORANGE_MAPLE, properties),
+		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_ORANGE_MAPLE_SAPLING = registerWithoutItem("potted_orange_maple_sapling",
+		properties -> new FlowerPotBlock(ORANGE_MAPLE_SAPLING, properties),
+		Blocks.flowerPotProperties()
+	);
+
+	public static final SaplingBlock RED_MAPLE_SAPLING = register("red_maple_sapling",
+		properties -> new SaplingBlock(WWTreeGrowers.RED_MAPLE, properties),
+		Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	);
+	public static final Block POTTED_RED_MAPLE_SAPLING = registerWithoutItem("potted_red_maple_sapling",
+		properties -> new FlowerPotBlock(RED_MAPLE_SAPLING, properties),
 		Blocks.flowerPotProperties()
 	);
 
@@ -2249,7 +2268,9 @@ public final class WWBlocks {
 		CompostingChanceRegistry.INSTANCE.add(WILLOW_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_SAPLING, 0.3F);
+		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_SAPLING, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
 		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostingChanceRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
@@ -2561,10 +2582,9 @@ public final class WWBlocks {
 			builder.add(MAPLE_FENCE.asItem(), 300);
 			builder.add(WWItems.MAPLE_SIGN, 300);
 			builder.add(WWItems.MAPLE_HANGING_SIGN, 800);
-			builder.add(MAPLE_SAPLING.asItem(), 100);
-			builder.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.asItem(), 100);
-			builder.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.asItem(), 100);
-			builder.add(WWBlocks.RED_MAPLE_LEAF_LITTER.asItem(), 100);
+			builder.add(YELLOW_MAPLE_SAPLING.asItem(), 100);
+			builder.add(ORANGE_MAPLE_SAPLING.asItem(), 100);
+			builder.add(RED_MAPLE_SAPLING.asItem(), 100);
 
 			builder.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 			builder.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);

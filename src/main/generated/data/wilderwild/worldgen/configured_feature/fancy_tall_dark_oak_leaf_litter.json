@@ -400,7 +400,6 @@
           "max_inclusive": 2,
           "min_inclusive": 1
         },
-        "minimum_branch_length_for_offset": 1,
         "offset_last_log_chance": 1.0
       }
     },
