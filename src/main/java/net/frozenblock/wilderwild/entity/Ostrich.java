@@ -38,8 +38,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class Ostrich extends AbstractOstrich {
 
@@ -47,7 +45,6 @@ public class Ostrich extends AbstractOstrich {
 		super(entityType, level);
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createAnimalAttributes()
 			.add(Attributes.MAX_HEALTH, 20D)
@@ -56,21 +53,14 @@ public class Ostrich extends AbstractOstrich {
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
 	}
 
-	public static boolean checkOstrichSpawnRules(
-		EntityType<? extends Ostrich> ostrich,
-		@NotNull ServerLevelAccessor level,
-		EntitySpawnReason spawnType,
-		@NotNull BlockPos pos,
-		RandomSource random
-	) {
-		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
-		return Animal.checkAnimalSpawnRules(ostrich, level, spawnType, pos, random);
+	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
+		return Animal.checkAnimalSpawnRules(ostrich, level, reason, pos, random);
 	}
 
-	@NotNull
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<AbstractOstrich> makeBrain(@NotNull Dynamic<?> dynamic) {
+	public Brain<AbstractOstrich> makeBrain(Dynamic<?> dynamic) {
 		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(dynamic), false);
 	}
 
@@ -85,25 +75,22 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
-	public boolean canMate(@NotNull Animal otherAnimal) {
+	public boolean canMate(Animal otherAnimal) {
 		if (otherAnimal != this && otherAnimal instanceof Ostrich ostrich) return this.canParent() && ostrich.canParent();
 		return false;
 	}
 
-	@Nullable
 	@Override
-	public Ostrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
+	public Ostrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getEatingSound() {
 		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
 		return WWSounds.ENTITY_OSTRICH_EAT;
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getAngrySound() {
 		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
@@ -115,7 +102,6 @@ public class Ostrich extends AbstractOstrich {
 		return !this.isAggressive() ? super.getAmbientSoundInterval() : 50;
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
 		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
@@ -123,14 +109,12 @@ public class Ostrich extends AbstractOstrich {
 		return WWSounds.ENTITY_OSTRICH_IDLE;
 	}
 
-	@Nullable
 	@Override
-	public SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+	public SoundEvent getHurtSound(DamageSource source) {
 		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_HURT;
 		return WWSounds.ENTITY_OSTRICH_HURT;
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getDeathSound() {
 		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_DEATH;
@@ -150,7 +134,7 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
-	public void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public void playStepSound(BlockPos pos, BlockState state) {
 		if (this.isInbred()) {
 			this.playSound(WWSounds.ENTITY_OSTRICH_INBRED_STEP, 0.5F, 0.9F + this.random.nextFloat() * 0.2F);
 			return;

@@ -407,7 +407,7 @@ public final class WWEntityConfigGui {
 		);
 
 		var spawnZombieOstriches = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("spawn_zombie_ostriches"), modifiedOstrich.spawnZombieOstriches)
+			builder.startBooleanToggle(text("spawn_zombie_ostriches"), modifiedOstrich.spawnZombieOstriches)
 				.setDefaultValue(defaultConfig.ostrich.spawnZombieOstriches)
 				.setSaveConsumer(newValue -> ostrich.spawnZombieOstriches = newValue)
 				.setTooltip(tooltip("spawn_zombie_ostriches"))

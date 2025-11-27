@@ -371,11 +371,6 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public float getWaterSlowDown() {
-		return 0.96F;
-	}
-
-	@Override
 	public boolean canSprint() {
 		return false;
 	}
@@ -428,6 +423,15 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	public boolean isStuck() {
 		return this.getStuckTicks() > 0;
+	}
+
+	public boolean isPlayerPassengerUsingItem() {
+		return this.getFirstPassenger() instanceof Player player && player.isUsingItem();
+	}
+
+	@Override
+	public LivingEntity getControllingPassenger() {
+		return this.isPlayerPassengerUsingItem() ? null : super.getControllingPassenger();
 	}
 
 	@Override
@@ -706,13 +710,11 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		super.actuallyHurt(level, damageSource, damageAmount);
 	}
 
-	@NotNull
 	@Override
 	public Vec3 getLeashOffset() {
 		return new Vec3(0D, DIMENSION_PERCENTAGE_AT_NECK * this.getEyeHeight(), this.getBbWidth() * 0.5D);
 	}
 
-	@NotNull
 	@Override
 	public BodyRotationControl createBodyControl() {
 		return new OstrichBodyRotationControl(this);
@@ -813,7 +815,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Nullable
 	@Override
-	public SoundEvent getHurtSound(DamageSource damageSource) {
+	public SoundEvent getHurtSound(DamageSource source) {
 		return WWSounds.ENTITY_OSTRICH_HURT;
 	}
 
@@ -841,7 +843,6 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		this.playSound(WWSounds.ENTITY_OSTRICH_STEP, 0.1F, 0.9F + this.random.nextFloat() * 0.2F);
 	}
 
-	@NotNull
 	@Override
 	public Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float scale) {
 		return new Vec3(0D, dimensions.height() * 0.775D, dimensions.width() * -0.1D).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
