@@ -148,6 +148,10 @@ public final class WWVegetationGeneration {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED_RARE.getKey());
 						}
 
+						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_MILKWEED)) {
+							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MILKWEED_SWAMP.getKey());
+						}
+
 						if (biomeSelectionContext.hasTag(WWBiomeTags.MEADOW)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_MEADOW.getKey());
 						}
@@ -274,8 +278,8 @@ public final class WWVegetationGeneration {
 				});
 	}
 
-	public static void generateBush() {
-		BiomeModifications.create(WWConstants.id("bush_generation"))
+	public static void generateShrub() {
+		BiomeModifications.create(WWConstants.id("shrub_generation"))
 			.add(ModificationPhase.ADDITIONS,
 				BiomeSelectors.all(),
 				(biomeSelectionContext, context) -> {

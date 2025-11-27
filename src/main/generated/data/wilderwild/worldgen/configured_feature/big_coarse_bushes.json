@@ -1,6 +1,6 @@
 {
   "type": "minecraft:simple_random_selector",
   "config": {
-    "features": "wilderwild:big_bush_coarse_checked"
+    "features": "wilderwild:large_bush_coarse_checked"
   }
 }

@@ -61,7 +61,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
+	public void createFoliage(
 		LevelSimulatedReader world,
 		FoliagePlacer.FoliageSetter placer,
 		RandomSource random,

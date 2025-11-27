@@ -27,6 +27,16 @@
                   }
                 },
                 "weight": 5
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:shrub",
+                  "Properties": {
+                    "age": "2",
+                    "half": "lower"
+                  }
+                },
+                "weight": 5
               }
             ]
           }

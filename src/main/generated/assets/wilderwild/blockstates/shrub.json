@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,half=lower": {
+      "model": "wilderwild:block/shrub_stage0"
+    },
+    "age=0,half=upper": {
+      "model": "wilderwild:block/shrub_stage0"
+    },
+    "age=1,half=lower": {
+      "model": "wilderwild:block/shrub_stage1"
+    },
+    "age=1,half=upper": {
+      "model": "wilderwild:block/shrub_stage1"
+    },
+    "age=2,half=lower": {
+      "model": "wilderwild:block/shrub_stage2"
+    },
+    "age=2,half=upper": {
+      "model": "wilderwild:block/shrub_stage2"
+    },
+    "age=3,half=lower": {
+      "model": "wilderwild:block/shrub_stage3_bottom"
+    },
+    "age=3,half=upper": {
+      "model": "wilderwild:block/shrub_stage3_top"
+    }
+  }
+}

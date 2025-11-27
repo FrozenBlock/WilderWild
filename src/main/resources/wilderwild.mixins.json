@@ -78,6 +78,7 @@
     "entity.tumbleweed.LivingEntityMixin",
     "entity.tumbleweed.ServerExplosionMixin",
     "entity.turtle.TurtleMixin",
+    "entity.villager.VillagerTradesMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "item.tooltip.ItemStackMixin",

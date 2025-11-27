@@ -402,9 +402,6 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY);
 
-		this.valueLookupBuilder(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE)
-			.add(Blocks.MUD);
-
 		this.valueLookupBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
 			.addOptionalTag(BlockTags.DIRT);
@@ -953,8 +950,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.POTTED_WILLOW_SAPLING)
 			.add(WWBlocks.POTTED_CYPRESS_SAPLING)
 			.add(WWBlocks.POTTED_COCONUT)
-			.add(WWBlocks.POTTED_MAPLE_SAPLING)
+			.add(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, WWBlocks.POTTED_RED_MAPLE_SAPLING)
 			.add(WWBlocks.POTTED_SHRUB)
+			.add(WWBlocks.POTTED_BUSH)
 			.add(WWBlocks.POTTED_BIG_DRIPLEAF)
 			.add(WWBlocks.POTTED_SMALL_DRIPLEAF)
 			.add(WWBlocks.POTTED_SHORT_GRASS)
@@ -1214,7 +1212,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_SAPLING)
 			.add(WWBlocks.CYPRESS_SAPLING)
 			.add(WWBlocks.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING);
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
 
 		this.valueLookupBuilder(BlockTags.STANDING_SIGNS)
 			.add(WWBlocks.BAOBAB_SIGN)
@@ -1453,7 +1451,7 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.addOptional(this.getKey("terrestria","tiny_cactus"))
 			.addOptional(this.getKey("terrestria","saguaro_cactus_sapling"))
 			.addOptional(this.getKey("terrestria","saguaro_cactus"));
-
+		
 		this.builder(WWBlockTags.SOUND_SAPLING)
 			.add(Blocks.ACACIA_SAPLING.builtInRegistryHolder().key())
 			.add(Blocks.BIRCH_SAPLING.builtInRegistryHolder().key())
@@ -1465,7 +1463,9 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 			.add(WWBlocks.WILLOW_SAPLING.builtInRegistryHolder().key())
 			.add(WWBlocks.CYPRESS_SAPLING.builtInRegistryHolder().key())
 			.add(WWBlocks.PALM_FRONDS.builtInRegistryHolder().key())
-			.add(WWBlocks.MAPLE_SAPLING.builtInRegistryHolder().key())
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING.builtInRegistryHolder().key())
+			.add(WWBlocks.ORANGE_MAPLE_SAPLING.builtInRegistryHolder().key())
+			.add(WWBlocks.RED_MAPLE_SAPLING.builtInRegistryHolder().key())
 			.add(WWBlocks.SHRUB.builtInRegistryHolder().key())
 			.add(Blocks.PALE_OAK_SAPLING.builtInRegistryHolder().key())
 

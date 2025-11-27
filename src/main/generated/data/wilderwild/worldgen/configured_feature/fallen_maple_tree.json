@@ -97,10 +97,12 @@
       "success_in_water_chance": 0.8,
       "trunk_branch_placement": {
         "branch_length": 1,
-        "branch_placement_chance": 0.0,
-        "foliage_placement_chance": 0.0,
-        "minimum_branch_length_for_offset": 1,
-        "offset_last_log_chance": 0.0
+        "branch_placement_chance": 0.2,
+        "max_branch_count": {
+          "type": "minecraft:biased_to_bottom",
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        }
       }
     },
     "trunk_provider": {

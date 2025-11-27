@@ -28,7 +28,9 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.AABB;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
@@ -39,7 +41,14 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	public @NotNull FlowerCowRenderState createRenderState() {
+	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow) {
+		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow);
+		if (flowerCow.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		return boundingBox;
+	}
+
+	@Override
+	public FlowerCowRenderState createRenderState() {
 		return new FlowerCowRenderState();
 	}
 
@@ -48,13 +57,16 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		super.extractRenderState(flowerCow, renderState, partialTick);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
-		MoobloomVariant variant = flowerCow.getVariantForRendering();
+		final MoobloomVariant variant = flowerCow.getVariantForRendering();
 		renderState.texture = variant.assetInfo().texturePath();
 		renderState.flowerBlockState = variant.getFlowerBlockState();
+		renderState.topFlowerBlockState = variant.isDoubleBlock()
+			? renderState.flowerBlockState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER)
+			: null;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull FlowerCowRenderState renderState) {
+	public ResourceLocation getTextureLocation(FlowerCowRenderState renderState) {
 		return renderState.texture;
 	}
 }
