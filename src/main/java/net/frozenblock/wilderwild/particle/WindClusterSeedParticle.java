@@ -28,12 +28,12 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.RandomSource;
 
 @Environment(EnvType.CLIENT)
 public class WindClusterSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
-	private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+	private final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 	private final int timeBetweenSpawns;
 
 	WindClusterSeedParticle(ClientLevel level, double x, double y, double z, int timeBetweenSpawns, int spawnAttempts) {
@@ -54,16 +54,21 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 				this.pos.getX(), this.pos.getY(), this.pos.getZ(),
 				2,
 				this.random,
-				mutablePos,
+				mutable,
 				false
 			);
 		}
 	}
 
-	public record Provider(@NotNull SpriteSet spriteProvider) implements ParticleProvider<WindClusterSeedParticleOptions> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<WindClusterSeedParticleOptions> {
 		@Override
-		@NotNull
-		public Particle createParticle(@NotNull WindClusterSeedParticleOptions options, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		public Particle createParticle(
+			WindClusterSeedParticleOptions options,
+			ClientLevel level,
+			double x, double y, double z,
+			double xd, double yd, double zd,
+			RandomSource random
+		) {
 			return new WindClusterSeedParticle(level, x, y, z, options.timeBetweenSpawns(), options.spawnAttempts());
 		}
 	}

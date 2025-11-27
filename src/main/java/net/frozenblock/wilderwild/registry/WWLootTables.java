@@ -19,10 +19,10 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
