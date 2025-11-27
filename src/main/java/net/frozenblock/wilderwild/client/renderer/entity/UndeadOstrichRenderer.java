@@ -61,7 +61,7 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 	) {
 		super.submit(renderState, poseStack, collector, cameraState);
 	}
-	
+
 	@Override
 	public Identifier getTextureLocation(AbstractOstrichRenderState renderState) {
 		return ZOMBIE_OSTRICH_LOCATION;
