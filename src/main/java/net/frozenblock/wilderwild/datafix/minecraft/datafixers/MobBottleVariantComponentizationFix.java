@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 
 public final class MobBottleVariantComponentizationFix extends DataFix {
 	private static final String BOTTLE_ENTITY_DATA_FIELD = WWConstants.id("bottle_entity_data").toString();
@@ -45,7 +44,7 @@ public final class MobBottleVariantComponentizationFix extends DataFix {
 	public MobBottleVariantComponentizationFix(
 		Schema outputSchema,
 		String fixName,
-		@NotNull Identifier itemId,
+		Identifier itemId,
 		String oldTagField,
 		String newTagField
 	) {
@@ -66,7 +65,7 @@ public final class MobBottleVariantComponentizationFix extends DataFix {
 		);
 	}
 
-	private @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+	private UnaryOperator<Typed<?>> createFixer(Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
 		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		final OpticFinder<?> components = type.findField("components");
 		return typed -> {
@@ -77,7 +76,7 @@ public final class MobBottleVariantComponentizationFix extends DataFix {
 		};
 	}
 
-	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
+	private Dynamic<?> fixItemStack(Dynamic<?> componentData) {
 		final OptionalDynamic<?> optionalBottleEntityData = componentData.get(BOTTLE_ENTITY_DATA_FIELD);
 		if (optionalBottleEntityData.result().isEmpty()) return componentData;
 

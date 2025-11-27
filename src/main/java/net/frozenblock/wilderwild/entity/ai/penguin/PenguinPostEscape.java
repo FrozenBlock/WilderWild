@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 
@@ -32,26 +31,13 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(@NotNull ServerLevel serverLevel, @NotNull E penguin) {
-		return true;
-	}
-
-	@Override
-	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-		return false;
-	}
-
-	@Override
-	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long gameTime) {
 		if (!penguin.isBaby()) PenguinAi.addCallMemoryIfPenguinsClose(penguin);
 		penguin.stopInPlace();
 
-		Brain<Penguin> brain = penguin.getBrain();
+		final Brain<Penguin> brain = penguin.getBrain();
 		brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
 		brain.eraseMemory(WWMemoryModuleTypes.ESCAPING);
 	}
 
-	@Override
-	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
-	}
 }

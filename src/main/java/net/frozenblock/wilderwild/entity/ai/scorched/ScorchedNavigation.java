@@ -23,21 +23,20 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
-import org.jetbrains.annotations.NotNull;
 
 public class ScorchedNavigation extends WallClimberNavigation {
 
-	public ScorchedNavigation(@NotNull Scorched mob, @NotNull Level level) {
-		super(mob, level);
+	public ScorchedNavigation(Scorched scorched, Level level) {
+		super(scorched, level);
 	}
 
 	@Override
-	protected boolean hasValidPathType(@NotNull PathType pathType) {
-		return pathType == PathType.LAVA || pathType == PathType.DAMAGE_FIRE || pathType == PathType.DANGER_FIRE || super.hasValidPathType(pathType);
+	protected boolean hasValidPathType(PathType type) {
+		return type == PathType.LAVA || type == PathType.DAMAGE_FIRE || type == PathType.DANGER_FIRE || super.hasValidPathType(type);
 	}
 
 	@Override
-	public boolean isStableDestination(@NotNull BlockPos pos) {
+	public boolean isStableDestination(BlockPos pos) {
 		return this.level.getBlockState(pos).is(Blocks.LAVA) || super.isStableDestination(pos);
 	}
 }

@@ -41,31 +41,29 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class MobBottleItem extends Item {
 	private final EntityType<? extends Mob> type;
 	private final SoundEvent releaseSound;
 
-	public MobBottleItem(EntityType<? extends Mob> type, SoundEvent releaseSound, @NotNull Properties settings) {
-		super(settings);
+	public MobBottleItem(EntityType<? extends Mob> type, SoundEvent releaseSound, Properties properties) {
+		super(properties);
 		this.type = type;
 		this.releaseSound = releaseSound;
 	}
 
-	@NotNull
 	@Override
-	public InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (level instanceof ServerLevel serverLevel && player.getAbilities().mayBuild) {
 			final float pitch = player.getXRot();
 			final float yaw = player.getYRot();
 			final float xMovement = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
 			final float yMovement = -Mth.sin((pitch) * Mth.DEG_TO_RAD);
 			final float zMovement = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
-			final ItemStack stack = player.getItemInHand(interactionHand);
+			final ItemStack stack = player.getItemInHand(hand);
 			final Vec3 playerEyePos = player.getEyePosition();
 
-			Mob mob = this.type.create(
+			final Mob mob = this.type.create(
 				serverLevel,
 				EntityType.createDefaultStackConfig(serverLevel, stack, null),
 				BlockPos.containing(playerEyePos),
@@ -86,7 +84,7 @@ public class MobBottleItem extends Item {
 				mob.snapTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
 				serverLevel.addFreshEntityWithPassengers(mob);
 
-				if (!player.getAbilities().instabuild) player.setItemInHand(interactionHand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+				if (!player.getAbilities().instabuild) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 				serverLevel.playSound(
 					null,
@@ -102,18 +100,16 @@ public class MobBottleItem extends Item {
 
 			serverLevel.gameEvent(player, GameEvent.ENTITY_PLACE, playerEyePos);
 		}
-		return ItemUtils.startUsingInstantly(level, player, interactionHand);
+		return ItemUtils.startUsingInstantly(level, player, hand);
 	}
 
-	@NotNull
 	@Override
-	public ItemUseAnimation getUseAnimation(@NotNull ItemStack stack) {
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
 		return ItemUseAnimation.NONE;
 	}
 
 	@Override
-	public int getUseDuration(@NotNull ItemStack stack, @NotNull LivingEntity livingEntity) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 1;
 	}
-
 }

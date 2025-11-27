@@ -42,13 +42,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ZombieOstrich extends AbstractOstrich {
@@ -57,7 +56,6 @@ public class ZombieOstrich extends AbstractOstrich {
 		super(entityType, level);
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createAnimalAttributes()
 			.add(Attributes.MAX_HEALTH, 20D)
@@ -66,39 +64,30 @@ public class ZombieOstrich extends AbstractOstrich {
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE_ZOMBIE);
 	}
 
-	public static boolean checkZombieOstrichSpawnRules(
-		EntityType<? extends ZombieOstrich> ostrich,
-		@NotNull ServerLevelAccessor level,
-		EntitySpawnReason spawnType,
-		@NotNull BlockPos pos,
-		RandomSource random
-	) {
-		if (!EntitySpawnReason.isSpawner(spawnType) && !WWEntityConfig.get().ostrich.spawnZombieOstriches) return false;
-		return Monster.checkMonsterSpawnRules(ostrich, level, spawnType, pos, random);
+	public static boolean checkZombieOstrichSpawnRules(EntityType<? extends ZombieOstrich> ostrich, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().ostrich.spawnZombieOstriches) return false;
+		return Monster.checkMonsterSpawnRules(ostrich, level, reason, pos, random);
 	}
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(
-		ServerLevelAccessor level, DifficultyInstance difficultyInstance, EntitySpawnReason reason, @Nullable SpawnGroupData spawnGroupData
-	) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnGroupData) {
 		if (reason == EntitySpawnReason.NATURAL) {
 			final Zombie zombie = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.JOCKEY);
 			if (zombie != null) {
 				zombie.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0F);
-				zombie.finalizeSpawn(level, difficultyInstance, reason, null);
+				zombie.finalizeSpawn(level, difficulty, reason, null);
 				zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
 				zombie.startRiding(this, false, false);
 			}
 		}
 
-		return super.finalizeSpawn(level, difficultyInstance, reason, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, reason, spawnGroupData);
 	}
 
-	@NotNull
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<AbstractOstrich> makeBrain(@NotNull Dynamic<?> dynamic) {
+	public Brain<AbstractOstrich> makeBrain(Dynamic<?> dynamic) {
 		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(dynamic), true);
 	}
 
@@ -108,7 +97,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public boolean isFood(@NotNull ItemStack stack) {
+	public boolean isFood(ItemStack stack) {
 		return stack.is(WWItemTags.ZOMBIE_OSTRICH_FOOD);
 	}
 
@@ -140,26 +129,23 @@ public class ZombieOstrich extends AbstractOstrich {
 
 	@Nullable
 	@Override
-	public ZombieOstrich getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
+	public ZombieOstrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return WWEntityTypes.ZOMBIE_OSTRICH.create(level, EntitySpawnReason.BREEDING);
 	}
 
 	// TODO: CUSTOM SOUNDS
 
-	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
 		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
 		return WWSounds.ENTITY_OSTRICH_IDLE;
 	}
 
-	@Nullable
 	@Override
-	public SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+	public SoundEvent getHurtSound(DamageSource source) {
 		return WWSounds.ENTITY_OSTRICH_HURT;
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getDeathSound() {
 		return WWSounds.ENTITY_OSTRICH_DEATH;

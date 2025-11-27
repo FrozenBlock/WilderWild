@@ -21,23 +21,20 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import org.jetbrains.annotations.NotNull;
 
 public record WWWindPacket(double cloudX, double cloudZ) implements CustomPacketPayload {
 	public static final Type<WWWindPacket> PACKET_TYPE = new Type<>(WWConstants.id("wind_extension_sync"));
-
 	public static final StreamCodec<FriendlyByteBuf, WWWindPacket> CODEC = StreamCodec.ofMember(WWWindPacket::write, WWWindPacket::new);
 
-	public WWWindPacket(@NotNull FriendlyByteBuf buf) {
+	public WWWindPacket(FriendlyByteBuf buf) {
 		this(buf.readDouble(), buf.readDouble());
 	}
 
-	public void write(@NotNull FriendlyByteBuf buf) {
+	public void write(FriendlyByteBuf buf) {
 		buf.writeDouble(this.cloudX);
 		buf.writeDouble(this.cloudZ);
 	}
 
-	@NotNull
 	@Override
 	public Type<?> type() {
 		return PACKET_TYPE;

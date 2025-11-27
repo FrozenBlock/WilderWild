@@ -24,18 +24,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class CrabCanDigSensor extends Sensor<Crab> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return Set.of(WWMemoryModuleTypes.CAN_DIG);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull Crab crab) {
+	protected void doTick(ServerLevel level, Crab crab) {
 		final Brain<?> brain = crab.getBrain();
 		if (crab.canHideOnGround()) {
 			brain.setMemory(WWMemoryModuleTypes.CAN_DIG, true);

@@ -22,29 +22,22 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
-import net.minecraft.world.entity.vehicle.Boat;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 
 public class PenguinBoostBoat {
 	private static final double MAX_DISTANCE = 3D;
 	private static final int BOOST_TICKS = 100;
 
-	@Contract(" -> new")
-	public static @NotNull OneShot<LivingEntity> create() {
+	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
-			).apply(
-				instance,
-			(trackedBoat) -> (serverLevel, livingEntity, l) -> {
-					final Boat boat = instance.get(trackedBoat);
-					if (boat instanceof BoatBoostInterface boatBoostInterface && livingEntity.distanceTo(boat) < MAX_DISTANCE) {
-						boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
-						return true;
-					}
-					return true;
-				}
-			)
-		);
+		).apply(instance, (trackedBoat) -> (level, penguin, l) -> {
+			final Boat boat = instance.get(trackedBoat);
+			if (boat instanceof BoatBoostInterface boatBoostInterface && penguin.distanceTo(boat) < MAX_DISTANCE) {
+				boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
+				return true;
+			}
+			return true;
+		}));
 	}
 }

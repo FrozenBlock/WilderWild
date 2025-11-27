@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class SnowyBlockUtils {
 	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
@@ -40,22 +39,20 @@ public class SnowyBlockUtils {
 	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 
 	@Contract("_ -> param1")
-	@NotNull
-	public static BlockState getWorldgenSnowyEquivalent(@NotNull BlockState state) {
+	public static BlockState getWorldgenSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
 	@Contract("_ -> param1")
-	@NotNull
-	public static BlockState getNonSnowyEquivalent(@NotNull BlockState state) {
+	public static BlockState getNonSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (NON_SNOWY_BLOCK_MAP.containsKey(block)) return NON_SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
-	public static @NotNull BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
+	public static BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
 		final BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
 		if (!state.equals(snowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {
@@ -67,7 +64,7 @@ public class SnowyBlockUtils {
 		return snowyEquivalent;
 	}
 
-	public static @NotNull BlockState replaceWithNonSnowyEquivalent(WorldGenLevel level, @NotNull BlockState state, BlockPos pos) {
+	public static BlockState replaceWithNonSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
 		final BlockState nonSnowyEquivalent = getNonSnowyEquivalent(state);
 		if (!state.equals(nonSnowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {

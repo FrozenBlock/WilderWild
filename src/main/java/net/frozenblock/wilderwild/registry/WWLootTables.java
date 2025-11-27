@@ -29,7 +29,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
@@ -148,7 +147,7 @@ public final class WWLootTables {
 		});
 	}
 
-	private static @NotNull ResourceKey<LootTable> register(String path) {
+	private static ResourceKey<LootTable> register(String path) {
 		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(path));
 	}
 }

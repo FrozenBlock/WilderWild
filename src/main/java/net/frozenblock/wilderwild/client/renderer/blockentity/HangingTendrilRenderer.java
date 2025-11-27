@@ -29,44 +29,40 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Con
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T, HangingTendrilRenderState> {
 
-	public HangingTendrilRenderer(@NotNull Context ctx) {
+	public HangingTendrilRenderer(Context ctx) {
 		super(ctx);
 	}
 
-	@NotNull
 	public static LayerDefinition getTexturedModelData() {
 		return BillboardBlockEntityRenderer.getTexturedModelData();
 	}
 
 	@Override
-	@NotNull
-	public ModelPart getRoot(@NotNull Context ctx) {
-		return ctx.bakeLayer(WWModelLayers.HANGING_TENDRIL);
+	public ModelPart getRoot(Context context) {
+		return context.bakeLayer(WWModelLayers.HANGING_TENDRIL);
 	}
 
 	@Override
-	@NotNull
-	public Identifier getTexture(@NotNull HangingTendrilRenderState renderState) {
+	public Identifier getTexture(HangingTendrilRenderState renderState) {
 		return renderState.texture;
 	}
 
 	@Override
-	public @NotNull HangingTendrilRenderState createRenderState() {
+	public HangingTendrilRenderState createRenderState() {
 		return new HangingTendrilRenderState();
 	}
 
 	@Override
 	public void extractRenderState(
-		@NotNull T hangingTendril,
-		@NotNull HangingTendrilRenderState renderState,
+		T hangingTendril,
+		HangingTendrilRenderState renderState,
 		float partialTicks,
-		@NotNull Vec3 cameraPos,
+		Vec3 cameraPos,
 		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
 	) {
 		super.extractRenderState(hangingTendril, renderState, partialTicks, cameraPos, crumblingOverlay);

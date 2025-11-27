@@ -24,11 +24,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Util;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.Util;
 
 public class AboveLogsTreeDecorator extends TreeDecorator {
 	public static final MapCodec<AboveLogsTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -48,24 +47,23 @@ public class AboveLogsTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WWTreeDecorators.ABOVE_LOGS_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context context) {
-		RandomSource random = context.random();
+	public void place(Context context) {
+		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
-		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		final ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
 		poses.addAll(context.leaves());
 		Util.shuffle(poses, random);
 
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : poses) {
-			if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, Direction.UP))) continue;
-			context.setBlock(mutableBlockPos, this.blockStateProvider.getState(random, mutableBlockPos));
+			if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, Direction.UP))) continue;
+			context.setBlock(mutable, this.blockStateProvider.getState(random, mutable));
 		}
 	}
 }

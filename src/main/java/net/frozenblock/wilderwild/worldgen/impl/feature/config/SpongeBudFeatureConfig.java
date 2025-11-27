@@ -21,7 +21,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
-import java.util.Objects;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
@@ -31,7 +30,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class SpongeBudFeatureConfig implements FeatureConfiguration {
-	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
 			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
@@ -55,21 +54,12 @@ public class SpongeBudFeatureConfig implements FeatureConfiguration {
 		this.placeOnWalls = placeOnWalls;
 		this.canPlaceOn = canPlaceOn;
 		this.directions = new ObjectArrayList<>(6);
-		if (placeOnCeiling) {
-			this.directions.add(Direction.UP);
-		}
-
-		if (placeOnFloor) {
-			this.directions.add(Direction.DOWN);
-		}
+		if (placeOnCeiling) this.directions.add(Direction.UP);
+		if (placeOnFloor) this.directions.add(Direction.DOWN);
 
 		if (placeOnWalls) {
-			Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
-			ObjectArrayList<Direction> var10001 = this.directions;
-			Objects.requireNonNull(var10001);
-			var10000.forEach(var10001::add);
+			for (Direction direction : Direction.Plane.HORIZONTAL) this.directions.add(direction);
 		}
-
 	}
 
 	public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {

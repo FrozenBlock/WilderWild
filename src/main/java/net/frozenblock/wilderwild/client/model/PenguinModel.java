@@ -32,7 +32,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class PenguinModel<T extends PenguinRenderState> extends EntityModel<PenguinRenderState> {
@@ -49,7 +48,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 	private final KeyframeAnimation standUpAnimation;
 	private final KeyframeAnimation callAnimation;
 
-	public PenguinModel(@NotNull ModelPart root) {
+	public PenguinModel(ModelPart root) {
 		super(root);
 		this.body = root.getChild("body");
 		this.torso = this.body.getChild("torso");
@@ -65,7 +64,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.callAnimation = PenguinAnimation.PENGUIN_CALL.bake(root);
 	}
 
-	public static @NotNull LayerDefinition createBodyLayer() {
+	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 		final PartDefinition root = meshdefinition.getRoot();
 
@@ -128,7 +127,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public static @NotNull LayerDefinition createBabyBodyLayer() {
+	public static LayerDefinition createBabyBodyLayer() {
 		return createBodyLayer().apply(BABY_TRANSFORMER);
 	}
 

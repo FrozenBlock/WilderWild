@@ -46,11 +46,11 @@ import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.CowModel;
-import net.minecraft.client.model.SpiderModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.monster.spider.SpiderModel;
+import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -152,7 +152,6 @@ public final class WWModelLayers {
 		EntityModelLayerRegistry.registerModelLayer(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
 		EntityModelLayerRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
-
 
 		// BOATS
 		EntityRenderers.register(WWEntityTypes.BAOBAB_BOAT, context -> new BoatRenderer(context, BAOBAB_BOAT));

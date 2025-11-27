@@ -41,11 +41,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.ChestBoat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWEntityTypes {
 	public static final EntityType<Firefly> FIREFLY = register(
@@ -330,7 +329,7 @@ public final class WWEntityTypes {
 		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
 	}
 
-	private static <T extends Entity> @NotNull EntityType<T> register(String string, EntityType.@NotNull Builder<T> builder) {
+	private static <T extends Entity> EntityType<T> register(String string, EntityType.Builder<T> builder) {
 		ResourceKey<EntityType<?>> resourceKey = ResourceKey.create(Registries.ENTITY_TYPE, WWConstants.id(string));
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE, resourceKey, builder.build(resourceKey));
 	}

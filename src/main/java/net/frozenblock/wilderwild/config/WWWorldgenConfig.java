@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditi
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
 
 public final class WWWorldgenConfig {
-
 	public static final Config<WWWorldgenConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -45,7 +44,7 @@ public final class WWWorldgenConfig {
 
 			@Override
 			public void onSync(WWWorldgenConfig sync) {
-				var config = this.config();
+				final var config = this.config();
 				BetaBeachConditionSource.GENERATE = config.betaBeaches;
 				SnowUnderMountainConditionSource.GENERATE = config.snowUnderMountains;
 				GENERATE_POLLEN = config.vegetation.pollen;

@@ -27,18 +27,17 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class FireflyLeaderSensor extends Sensor<Firefly> {
 	private static final double NON_LEADER_MAX_DISTANCE = 6D;
+
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_FIREFLIES, WWMemoryModuleTypes.IS_SWARM_LEADER, WWMemoryModuleTypes.SWARM_LEADER_TRACKER);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull Firefly firefly) {
+	protected void doTick(ServerLevel level, Firefly firefly) {
 		final Brain<Firefly> brain = firefly.getBrain();
 		if (!firefly.hasHome()) {
 			if (!firefly.isSwarmLeader()) {

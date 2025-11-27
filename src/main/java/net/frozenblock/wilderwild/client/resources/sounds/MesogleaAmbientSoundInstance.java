@@ -52,26 +52,24 @@ public class MesogleaAmbientSoundInstance extends AbstractTickableSoundInstance 
 		ALT_SOUNDS.removeIf(Objects::isNull);
 		ALT_SOUNDS.removeIf(AbstractTickableSoundInstance::isStopped);
 
-		if (!this.player.isRemoved() && this.fade >= 0) {
-			boolean isUnderwater = this.player.isUnderWater();
-			boolean inMesoglea = this.player instanceof PlayerInMesogleaInterface mesogleaInterface && mesogleaInterface.wilderWild$wasPlayerInMesoglea();
-			if (isUnderwater && inMesoglea) {
-				this.fade++;
-			} else {
-				if (isUnderwater) {
-					if (ALT_SOUNDS.isEmpty()) {
-						AbstractTickableSoundInstance underwaterSound = new UnderwaterAmbientSoundInstances.UnderwaterAmbientSoundInstance(this.player);
-						Minecraft.getInstance().getSoundManager().playDelayed(underwaterSound, 1);
-						ALT_SOUNDS.add(underwaterSound);
-					}
-				}
-				this.fade -= 2;
-			}
-
-			this.fade = Math.min(this.fade, FADE_DURATION);
-			this.volume = Math.max(0F, Math.min((float) this.fade / FADE_DURATION, 1F));
-		} else {
+		if (this.player.isRemoved() || this.fade < 0) {
 			this.stop();
+			return;
 		}
+
+		final boolean isUnderwater = this.player.isUnderWater();
+		final boolean inMesoglea = this.player instanceof PlayerInMesogleaInterface mesogleaInterface && mesogleaInterface.wilderWild$wasPlayerInMesoglea();
+		if (isUnderwater && inMesoglea) {
+			this.fade++;
+		} else {
+			if (isUnderwater && ALT_SOUNDS.isEmpty()) {
+				final AbstractTickableSoundInstance underwaterSound = new UnderwaterAmbientSoundInstances.UnderwaterAmbientSoundInstance(this.player);
+				Minecraft.getInstance().getSoundManager().playDelayed(underwaterSound, 1);
+				ALT_SOUNDS.add(underwaterSound);
+			}
+			this.fade -= 2;
+		}
+		this.fade = Math.min(this.fade, FADE_DURATION);
+		this.volume = Math.max(0F, Math.min((float) this.fade / FADE_DURATION, 1F));
 	}
 }

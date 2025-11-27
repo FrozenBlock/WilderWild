@@ -26,7 +26,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWMixinsConfig {
-
 	public static final Config<WWMixinsConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,

@@ -25,7 +25,6 @@ import com.mojang.serialization.Dynamic;
 import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
-import org.jetbrains.annotations.NotNull;
 
 public final class NematocystStateFix extends DataFix {
 	private static final String OLD_STATE = "facing";
@@ -33,7 +32,7 @@ public final class NematocystStateFix extends DataFix {
 	private final String name;
 	private final String blockId;
 
-	public NematocystStateFix(Schema outputSchema, String name, @NotNull Identifier blockId) {
+	public NematocystStateFix(Schema outputSchema, String name, Identifier blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
@@ -43,7 +42,7 @@ public final class NematocystStateFix extends DataFix {
 		this.blockId = blockId;
 	}
 
-	private Dynamic<?> fix(@NotNull Dynamic<?> dynamic) {
+	private Dynamic<?> fix(Dynamic<?> dynamic) {
 		final Optional<String> name = dynamic.get("Name").asString().result();
 		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			final String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);

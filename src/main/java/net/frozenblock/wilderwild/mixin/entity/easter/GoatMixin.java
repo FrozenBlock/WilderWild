@@ -30,7 +30,7 @@ public class GoatMixin {
 
 	@Unique
 	private boolean wilderWild$isTreetrain1() {
-		String string = ChatFormatting.stripFormatting(Goat.class.cast(this).getName().getString());
+		final String string = ChatFormatting.stripFormatting(Goat.class.cast(this).getName().getString());
 		return string.equalsIgnoreCase("Treetrain1") || string.equalsIgnoreCase("Treetrain");
 	}
 

@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -45,8 +44,7 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		if (WWBlockConfig.SHRIEKER_OUTLINE) return WILDERRWILD$SHAPE;
 		return super.getShape(state, level, pos, context);
 	}

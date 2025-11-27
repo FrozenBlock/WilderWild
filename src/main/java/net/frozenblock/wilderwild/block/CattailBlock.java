@@ -37,19 +37,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CattailBlock extends WaterloggableTallFlowerBlock {
 	public static final BooleanProperty SWAYING = WWBlockStateProperties.SWAYING;
 
-	public CattailBlock(@NotNull Properties properties) {
+	public CattailBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(SWAYING, false));
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		BlockState blockState = super.getStateForPlacement(context);
 		if (blockState == null) return null;
 
@@ -58,7 +57,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 	}
 
 	@Override
-	public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		final BlockPos abovePos = pos.above();
 		final BlockState topState = copyWaterloggedFrom(level, abovePos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER))
 			.setValue(SWAYING, state.getValue(WATERLOGGED));
@@ -66,8 +65,8 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -87,7 +86,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
 		return super.mayPlaceOn(state, level, pos) || state.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE) || state.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
 	}
 

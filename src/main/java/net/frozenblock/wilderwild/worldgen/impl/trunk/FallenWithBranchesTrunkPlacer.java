@@ -42,7 +42,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	private static final IntProvider STUMP_DISTANCE_FROM_TRUNK = UniformInt.of(1, 3);
@@ -83,37 +82,35 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.FALLEN_WITH_BRANCHES_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
-		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		BlockStateProvider blockStateProvider = (WWWorldgenConfig.GENERATED_HOLLOWED_FALLEN_TREES && random.nextFloat() <= this.hollowedLogChance)
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockStateProvider stateProvider = (WWWorldgenConfig.GENERATED_HOLLOWED_FALLEN_TREES && random.nextFloat() <= this.hollowedLogChance)
 			? this.hollowedTrunkProvider
 			: config.trunkProvider;
-		int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
-		Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		final int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
+		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
 
 		if (TrunkPlacerHelper.isWaterAt(level, startPos) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
 
-		BlockPos endPos = startPos.relative(trunkDirection, height);
-		BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
+		final BlockPos endPos = startPos.relative(trunkDirection, height);
+		final BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
 		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
-		Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
+		final Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
 		for (BlockPos blockPos : poses) {
 			mutable.set(blockPos);
 			if (TreeFeature.validTreePos(level, mutable)) {
@@ -133,15 +130,15 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) height) > 0.5D) {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
-				this.placeLog(level, replacer, random, blockStateProvider, mutable, trunkDirection);
+				this.placeLog(level, replacer, random, stateProvider, mutable, trunkDirection);
 				if (this.trunkBranchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
-					Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
+					final Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 					if (trunkDirection.getAxis() != branchDirection.getAxis()) {
 						this.trunkBranchPlacement.generateExtraBranchForFallenLog(
 							level,
 							replacer,
 							random,
-							blockStateProvider,
+							stateProvider,
 							mutable,
 							branchDirection,
 							trunkDirection
@@ -153,9 +150,9 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		}
 
 		if (random.nextFloat() <= this.stumpPlacementChance) {
-			Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, startPos, trunkDirection);
+			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, startPos, trunkDirection);
 			if (optionalStumpPos.isPresent()) {
-				BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
+				final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
 				this.placeLog(level, replacer, random, stumpPos, config);
 				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, replacer, random, stumpPos.move(Direction.UP), config);
 			}
@@ -166,16 +163,16 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 
 	private Optional<BlockPos.MutableBlockPos> findStumpPos(
 		LevelSimulatedReader level,
-		@NotNull RandomSource random,
-		@NotNull BlockPos pos,
-		@NotNull Direction trunkDirection
+		RandomSource random,
+		BlockPos pos,
+		Direction trunkDirection
 	) {
-		int distance = STUMP_DISTANCE_FROM_TRUNK.sample(random);
-		Direction stumpSearchDirection = trunkDirection.getOpposite();
+		final int distance = STUMP_DISTANCE_FROM_TRUNK.sample(random);
+		final Direction stumpSearchDirection = trunkDirection.getOpposite();
 		pos = pos.relative(stumpSearchDirection, 1 + distance);
-		BlockPos.MutableBlockPos stumpPos = pos.mutable();
-		BlockPos.MutableBlockPos belowStumpPos = stumpPos.mutable().move(Direction.DOWN);
-		BlockPos.MutableBlockPos aboveStumpPos = stumpPos.mutable().move(Direction.UP);
+		final BlockPos.MutableBlockPos stumpPos = pos.mutable();
+		final BlockPos.MutableBlockPos belowStumpPos = stumpPos.mutable().move(Direction.DOWN);
+		final BlockPos.MutableBlockPos aboveStumpPos = stumpPos.mutable().move(Direction.UP);
 
 		if (canPlaceStumpAtPos(level, belowStumpPos, stumpPos, aboveStumpPos)) return Optional.of(stumpPos);
 
@@ -195,30 +192,30 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		return Optional.empty();
 	}
 
-	private static boolean canPlaceStumpAtPos(LevelSimulatedReader level, @NotNull BlockPos floorPos, BlockPos pos, BlockPos abovePos) {
+	private static boolean canPlaceStumpAtPos(LevelSimulatedReader level, BlockPos floorPos, BlockPos pos, BlockPos abovePos) {
 		return isPosSolidGround(level, floorPos)
 			&& level.isStateAtPosition(floorPos, blockState -> blockState.is(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON))
 			&& TreeFeature.validTreePos(level, pos)
 			&& TreeFeature.validTreePos(level, abovePos);
 	}
 
-	private static boolean isPosSolidGround(LevelSimulatedReader level, @NotNull BlockPos pos) {
+	private static boolean isPosSolidGround(LevelSimulatedReader level, BlockPos pos) {
 		return !TreeFeature.validTreePos(level, pos) && !TreeFeature.isAirOrLeaves(level, pos);
 	}
 
 	private void placeLog(
 		LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
-		@NotNull BlockStateProvider blockStateProvider,
-		@NotNull BlockPos.MutableBlockPos pos,
-		@NotNull Direction trunkDirection
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		BlockStateProvider blockStateProvider,
+		BlockPos.MutableBlockPos pos,
+		Direction trunkDirection
 	) {
-		BlockState placementState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, pos, trunkDirection, random);
+		final BlockState placementState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, pos, trunkDirection, random);
 		replacer.accept(pos, placementState);
 	}
 
-	private static void setBelowAndAbovePoses(BlockPos pos, BlockPos.@NotNull MutableBlockPos belowPos, BlockPos.@NotNull MutableBlockPos abovePos) {
+	private static void setBelowAndAbovePoses(BlockPos pos, BlockPos.MutableBlockPos belowPos, BlockPos.MutableBlockPos abovePos) {
 		belowPos.setWithOffset(pos, Direction.DOWN);
 		abovePos.setWithOffset(pos, Direction.UP);
 	}

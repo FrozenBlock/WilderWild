@@ -49,7 +49,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenBiome {
@@ -156,7 +155,7 @@ public final class Tundra extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Integer foliageColorOverride() {
+	public Integer foliageColorOverride() {
 		return FOLIAGE_COLOR;
 	}
 
@@ -166,7 +165,7 @@ public final class Tundra extends FrozenBiome {
 	}
 
 	@Override
-	public @NotNull Integer grassColorOverride() {
+	public Integer grassColorOverride() {
 		return GRASS_COLOR_MAPLE;
 	}
 
@@ -176,7 +175,7 @@ public final class Tundra extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);

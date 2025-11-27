@@ -26,17 +26,15 @@ import net.minecraft.advancements.criterion.ContextAwarePredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
 
 public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<FragileIceFallOntoAndBreakTrigger.TriggerInstance> {
 
 	@Override
-	@NotNull
 	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player) {
+	public void trigger(ServerPlayer player) {
 		this.trigger(player, TriggerInstance::matches);
 	}
 
@@ -47,7 +45,6 @@ public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<Fr
 			).apply(instance, TriggerInstance::new)
 		);
 
-		@NotNull
 		public static Criterion<TriggerInstance> fragileIceBreak() {
 			return WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.createCriterion(new TriggerInstance(Optional.empty()));
 		}

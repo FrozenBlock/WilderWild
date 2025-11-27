@@ -31,7 +31,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWBlockConfig {
-
 	public static final Config<WWBlockConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -47,7 +46,7 @@ public final class WWBlockConfig {
 
 			@Override
 			public void onSync(WWBlockConfig syncInstance) {
-				var config = this.config();
+				final var config = this.config();
 				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
 				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
 				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");

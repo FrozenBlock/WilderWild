@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_GRASS = bind("sound/grass");
@@ -206,8 +205,7 @@ public final class WWBlockTags {
 		throw new UnsupportedOperationException("WWBlockTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<Block> bind(@NotNull String path) {
+	private static TagKey<Block> bind(String path) {
 		return TagKey.create(Registries.BLOCK, WWConstants.id(path));
 	}
 }

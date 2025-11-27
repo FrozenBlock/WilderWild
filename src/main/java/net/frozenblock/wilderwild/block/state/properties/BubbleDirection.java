@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block.state.properties;
 import java.util.Optional;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public enum BubbleDirection implements StringRepresentable {
 	NONE("none", Optional.empty()),
@@ -41,7 +40,6 @@ public enum BubbleDirection implements StringRepresentable {
 	}
 
 	@Override
-	@NotNull
 	public String getSerializedName() {
 		return this.name;
 	}

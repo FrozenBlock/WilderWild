@@ -22,11 +22,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class FrozenBushBlock extends BushBlock {
 
-	public FrozenBushBlock(@NotNull Properties properties) {
+	public FrozenBushBlock(Properties properties) {
 		super(properties);
 	}
 

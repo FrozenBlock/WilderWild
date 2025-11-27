@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.GrowingPlantBodyBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class FroglightGoopBodyBlock extends GrowingPlantBodyBlock implements FroglightTypeHolder {
 	public static final MapCodec<FroglightGoopBodyBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -47,17 +46,17 @@ public class FroglightGoopBodyBlock extends GrowingPlantBodyBlock implements Fro
 	}
 
 	@Override
-	public @NotNull MapCodec<FroglightGoopBodyBlock> codec() {
+	public MapCodec<FroglightGoopBodyBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public @NotNull FroglightType getFroglightType() {
+	public FroglightType getFroglightType() {
 		return this.froglightType;
 	}
 
 	@Override
-	protected @NotNull GrowingPlantHeadBlock getHeadBlock() {
+	protected GrowingPlantHeadBlock getHeadBlock() {
 		return (GrowingPlantHeadBlock) this.froglightType.getHeadBlock();
 	}
 

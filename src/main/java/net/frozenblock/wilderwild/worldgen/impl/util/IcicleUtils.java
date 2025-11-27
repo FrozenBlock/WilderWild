@@ -31,12 +31,11 @@ import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
-import org.jetbrains.annotations.NotNull;
 
 public class IcicleUtils {
 
-	public static boolean isEmptyOrWater(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
-		return levelAccessor.isStateAtPosition(blockPos, DripstoneUtils::isEmptyOrWater);
+	public static boolean isEmptyOrWater(LevelAccessor level, BlockPos pos) {
+		return level.isStateAtPosition(pos, DripstoneUtils::isEmptyOrWater);
 	}
 
 	public static void buildBaseToTipColumn(Direction direction, int length, boolean merge, Consumer<BlockState> consumer) {
@@ -48,50 +47,47 @@ public class IcicleUtils {
 		if (length >= 1) consumer.accept(createIcicle(direction, merge ? DripstoneThickness.TIP_MERGE : DripstoneThickness.TIP));
 	}
 
-	public static boolean growIcicle(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull Direction direction, int i, boolean merge) {
-		if (isIcicleBase(levelAccessor.getBlockState(blockPos.relative(direction.getOpposite())))) {
-			BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
-			buildBaseToTipColumn(direction, i, merge, blockState -> {
-				if (blockState.is(WWBlocks.ICICLE)) blockState = blockState.setValue(IcicleBlock.WATERLOGGED, levelAccessor.isWaterAt(mutableBlockPos));
+	public static boolean growIcicle(LevelAccessor level, BlockPos pos, Direction direction, int i, boolean merge) {
+		if (!isIcicleBase(level.getBlockState(pos.relative(direction.getOpposite())))) return false;
 
-				levelAccessor.setBlock(mutableBlockPos, blockState, Block.UPDATE_CLIENTS);
-				mutableBlockPos.move(direction);
-			});
-			return true;
-		}
-		return false;
+		BlockPos.MutableBlockPos mutable = pos.mutable();
+		buildBaseToTipColumn(direction, i, merge, state -> {
+			if (state.is(WWBlocks.ICICLE)) state = state.setValue(IcicleBlock.WATERLOGGED, level.isWaterAt(mutable));
+
+			level.setBlock(mutable, state, Block.UPDATE_CLIENTS);
+			mutable.move(direction);
+		});
+		return true;
 	}
 
-	public static boolean placeIceBlockIfPossible(@NotNull LevelAccessor levelAccessor, BlockPos blockPos) {
-		BlockState blockState = levelAccessor.getBlockState(blockPos);
-		if (blockState.is(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)) {
-			levelAccessor.setBlock(blockPos, WWBlocks.FRAGILE_ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
-			return true;
-		}
-		return false;
+	public static boolean placeIceBlockIfPossible(LevelAccessor level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		if (!state.is(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)) return false;
+		level.setBlock(pos, WWBlocks.FRAGILE_ICE.defaultBlockState(), Block.UPDATE_CLIENTS);
+		return true;
 	}
 
-	private static @NotNull BlockState createIcicle(Direction direction, DripstoneThickness icicleThickness) {
+	private static BlockState createIcicle(Direction direction, DripstoneThickness thickness) {
 		return WWBlocks.ICICLE
 			.defaultBlockState()
 			.setValue(PointedDripstoneBlock.TIP_DIRECTION, direction)
-			.setValue(PointedDripstoneBlock.THICKNESS, icicleThickness);
+			.setValue(PointedDripstoneBlock.THICKNESS, thickness);
 	}
 
-	public static boolean isIcicleBase(@NotNull BlockState blockState) {
-		return blockState.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) || blockState.is(BlockTags.ICE) || blockState.is(WWBlockTags.CAVE_ICE_REPLACEABLE);
+	public static boolean isIcicleBase(BlockState state) {
+		return state.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) || state.is(BlockTags.ICE) || state.is(WWBlockTags.CAVE_ICE_REPLACEABLE);
 	}
 
-	public static boolean growIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
-		BlockPos belowPos = blockPos.below();
-		BlockState belowState = serverLevel.getBlockState(belowPos);
-		if (belowState.isAir()) return IcicleUtils.growIcicle(serverLevel, belowPos, Direction.DOWN, 1, false);
+	public static boolean growIcicleOnRandomTick(ServerLevel level, BlockPos pos) {
+		final BlockPos belowPos = pos.below();
+		final BlockState belowState = level.getBlockState(belowPos);
+		if (belowState.isAir()) return IcicleUtils.growIcicle(level, belowPos, Direction.DOWN, 1, false);
 		return false;
 	}
 
-	public static boolean spreadIcicleOnRandomTick(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
-		BlockState blockState = serverLevel.getBlockState(blockPos);
-		if (IcicleBlock.canSpreadTo(blockState)) return growIcicleOnRandomTick(serverLevel, blockPos);
+	public static boolean spreadIcicleOnRandomTick(ServerLevel level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		if (IcicleBlock.canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
 		return false;
 	}
 }

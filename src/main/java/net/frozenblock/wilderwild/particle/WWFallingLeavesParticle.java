@@ -36,7 +36,6 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WWFallingLeavesParticle extends FallingLeavesParticle {
@@ -45,7 +44,7 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	public final boolean isLitter;
 
 	public WWFallingLeavesParticle(
-		ClientLevel world,
+		ClientLevel level,
 		double x, double y, double z,
 		float gravityScale,
 		float windBig,
@@ -56,20 +55,20 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		ParticleType<WWFallingLeavesParticleOptions> particleType,
 		TextureAtlasSprite sprite
 	) {
-		super(world, x, y, z, sprite, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
+		super(level, x, y, z, sprite, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
 		this.bounceOnFloor = leafMovementType.bounceOnFloor();
 		this.isLitter = isLitter;
 
-		FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
+		final FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;
 		if (leafParticleData != null) {
-			Block leavesBlock = leafParticleData.leavesBlock();
-			BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);
+			final Block leavesBlock = leafParticleData.leavesBlock();
+			final BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);
 			if (blockColor != null) {
-				BlockPos particlePos = BlockPos.containing(x, y, z);
-				color = world.getBlockTint(particlePos, isLitter ? BiomeColors.DRY_FOLIAGE_COLOR_RESOLVER : BiomeColors.FOLIAGE_COLOR_RESOLVER);
+				final BlockPos particlePos = BlockPos.containing(x, y, z);
+				color = level.getBlockTint(particlePos, isLitter ? BiomeColors.DRY_FOLIAGE_COLOR_RESOLVER : BiomeColors.FOLIAGE_COLOR_RESOLVER);
 				try {
-					color = blockColor.getColor(leavesBlock.defaultBlockState(), world, particlePos, 0);
+					color = blockColor.getColor(leavesBlock.defaultBlockState(), level, particlePos, 0);
 				} catch (Exception ignored) {}
 			}
 		}
@@ -78,17 +77,16 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		this.gCol = ARGB.green(color) / 255F;
 	}
 
-	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<WWFallingLeavesParticleOptions> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<WWFallingLeavesParticleOptions> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull WWFallingLeavesParticleOptions options,
-			@NotNull ClientLevel level,
+			WWFallingLeavesParticleOptions options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
+			final WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
 				level,
 				x, y, z,
 				0.25F * options.getGravityScale(),

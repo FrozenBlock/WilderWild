@@ -36,7 +36,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class JuniperTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -57,10 +56,10 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		@NotNull IntProvider branchCount,
-		@NotNull IntProvider branchHorizontalLength,
-		@NotNull UniformInt branchStartOffsetFromTop,
-		@NotNull IntProvider branchEndOffsetFromTop
+		IntProvider branchCount,
+		IntProvider branchHorizontalLength,
+		UniformInt branchStartOffsetFromTop,
+		IntProvider branchEndOffsetFromTop
 	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.branchCount = branchCount;
@@ -71,47 +70,50 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.JUNIPER_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(@NotNull LevelSimulatedReader level, @NotNull BiConsumer<BlockPos, BlockState> blockSetter, @NotNull RandomSource random, int freeTreeHeight, @NotNull BlockPos pos, @NotNull TreeConfiguration config) {
-		JuniperTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
+		int freeTreeHeight,
+		BlockPos pos,
+		TreeConfiguration config
+	) {
+		JuniperTrunkPlacer.setDirtAt(level, replacer, random, pos.below(), config);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
 		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
-		if (j >= i) {
-			++j;
-		}
-		int branchCount = this.branchCount.sample(random);
-		boolean isThreeBranches = branchCount == 3;
-		boolean moreThanOneBranch = branchCount >= 2;
-		int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
-		for (int m = 0; m < l; ++m) this.placeLog(level, blockSetter, random, pos.above(m), config);
+		if (j >= i) ++j;
 
-		ArrayList<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
-		if (isThreeBranches) list.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
+		final int branchCount = this.branchCount.sample(random);
+		final boolean isThreeBranches = branchCount == 3;
+		final boolean moreThanOneBranch = branchCount >= 2;
+		final int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
+		for (int m = 0; m < l; ++m) this.placeLog(level, replacer, random, pos.above(m), config);
 
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = new ArrayList<>();
+		if (isThreeBranches) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
+
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
-		list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutableBlockPos));
-		ArrayList<Direction> allDirsMF = new ArrayList<>();
+		foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutable));
 
+		final ArrayList<Direction> allDirsMF = new ArrayList<>();
 		for (Direction d : Direction.Plane.HORIZONTAL) if (d != direction) allDirsMF.add(d);
 
-		Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
+		final Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
 			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
-			list.add(this.generateBranch(level, blockSetter, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutableBlockPos));
+			foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutable));
 		}
-		return list;
+		return foliageAttachments;
 	}
 
-	@NotNull
-	private FoliagePlacer.FoliageAttachment generateBranch(@NotNull LevelSimulatedReader world, @NotNull BiConsumer<BlockPos, BlockState> biConsumer, @NotNull RandomSource random, int i, @NotNull BlockPos pos, @NotNull TreeConfiguration treeConfiguration, @NotNull Function<BlockState, BlockState> function, @NotNull Direction direction, int j, boolean bl, @NotNull BlockPos.MutableBlockPos mutablePos) {
+	private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
 		int o;
 		mutablePos.set(pos).move(Direction.UP, j);
 		int k = i - 1 + this.branchEndOffsetFromTop.sample(random);

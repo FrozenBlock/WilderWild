@@ -25,7 +25,6 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class NoOpFoliagePlacer extends FoliagePlacer {
 	public static final NoOpFoliagePlacer INSTANCE = new NoOpFoliagePlacer();
@@ -36,31 +35,23 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.NO_OP_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader world,
-		FoliageSetter placer,
-		RandomSource random,
-		TreeConfiguration config,
-		int trunkHeight,
-		@NotNull FoliageAttachment node,
-		int foliageHeight,
-		int radius,
-		int offset
+		LevelSimulatedReader level, FoliageSetter placer, RandomSource random, TreeConfiguration config, int trunkHeight, FoliageAttachment node, int foliageHeight, int radius, int offset
 	) {
 	}
 
 	@Override
-	public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
+	public int foliageHeight(RandomSource random, int i, TreeConfiguration config) {
 		return 0;
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
+	protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
 		return true;
 	}
 }

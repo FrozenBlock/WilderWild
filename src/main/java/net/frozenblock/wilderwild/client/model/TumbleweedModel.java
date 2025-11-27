@@ -29,24 +29,22 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	private final ModelPart body;
 	private final ModelPart tumbleweed;
 
-	public TumbleweedModel(@NotNull ModelPart root) {
+	public TumbleweedModel(ModelPart root) {
 		super(root, RenderTypes::entityCutoutNoCull);
 		this.body = root.getChild("body");
 		this.tumbleweed = this.body.getChild("tumbleweed");
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 
-		PartDefinition body = meshdefinition.getRoot().addOrReplaceChild(
+		final PartDefinition body = meshdefinition.getRoot().addOrReplaceChild(
 			"body",
 			CubeListBuilder.create(),
 			PartPose.offset(0F, -3.8F, 0F)

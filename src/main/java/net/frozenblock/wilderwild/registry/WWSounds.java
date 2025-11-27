@@ -23,10 +23,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWSounds {
-
 	//AMBIENT
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_LOOP = registerForHolder("ambient.deep_dark.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_DEEP_DARK_ADDITIONS = registerForHolder("ambient.deep_dark.additions");
@@ -509,25 +507,21 @@ public final class WWSounds {
 		throw new UnsupportedOperationException("WWSounds contains only static declarations.");
 	}
 
-	@NotNull
-	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull String string) {
-		return registerForHolder(WWConstants.id(string));
+	private static Holder.Reference<SoundEvent> registerForHolder(String path) {
+		return registerForHolder(WWConstants.id(path));
 	}
 
-	@NotNull
-	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull Identifier identifier) {
-		return registerForHolder(identifier, identifier);
+	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id) {
+		return registerForHolder(id, id);
 	}
 
-	@NotNull
-	public static SoundEvent register(@NotNull String path) {
+	public static SoundEvent register(String path) {
 		var id = WWConstants.id(path);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
 	}
 
-	@NotNull
-	private static Holder.Reference<SoundEvent> registerForHolder(@NotNull Identifier identifier, @NotNull Identifier identifier2) {
-		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, identifier, SoundEvent.createVariableRangeEvent(identifier2));
+	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id, Identifier id2) {
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id2));
 	}
 
 	public static void init() {

@@ -32,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWCreativeInventorySorting {
 
@@ -501,7 +500,6 @@ public final class WWCreativeInventorySorting {
 		FrozenCreativeTabs.addAfter(comparedItem, item, CreativeModeTabs.INGREDIENTS);
 	}
 
-
 	private static void addBeforeInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.addBefore(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
 	}
@@ -524,10 +522,10 @@ public final class WWCreativeInventorySorting {
 
 	@SafeVarargs
 	private static void addInstrumentBefore(
-		@NotNull Item comparedItem,
-		@NotNull Item instrument,
-		@NotNull TagKey<Instrument> tagKey,
-		@NotNull ResourceKey<CreativeModeTab>... tabs
+		Item comparedItem,
+		Item instrument,
+		TagKey<Instrument> tagKey,
+		ResourceKey<CreativeModeTab>... tabs
 	) {
 		FrozenCreativeTabs.addInstrumentBefore(comparedItem, instrument, tagKey, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
 	}

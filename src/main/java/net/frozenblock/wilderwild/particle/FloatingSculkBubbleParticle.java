@@ -32,7 +32,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FloatingSculkBubbleParticle extends RisingParticle {
@@ -43,16 +42,14 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	private float targetInflation = 2F;
 
 	protected FloatingSculkBubbleParticle(
-		@NotNull ClientLevel clientLevel,
-		double x,
-		double y,
-		double z,
+		ClientLevel level,
+		double x, double y, double z,
 		double size,
 		int maxAge,
-		@NotNull Vec3 velocity,
-		@NotNull SpriteSet spriteSet
+		Vec3 velocity,
+		SpriteSet spriteSet
 	) {
-		super(clientLevel, x, y, z, 0D, 0D, 0D, spriteSet.first());
+		super(level, x, y, z, 0D, 0D, 0D, spriteSet.first());
 		this.spriteSet = spriteSet;
 		this.setSpriteFromAge(spriteSet);
 		this.xd = velocity.x();
@@ -69,27 +66,26 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.TRANSLUCENT;
 	}
 
 	@Override
-	public void setSpriteFromAge(@NotNull SpriteSet spriteSet) {
-		if (!this.removed) {
-			int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
-			this.setSprite(spriteSet.get(i, 7));
-		}
+	public void setSpriteFromAge(SpriteSet spriteSet) {
+		if (this.removed) return;
+		final int i = this.age < 3 ? this.age : (this.age < this.stayInflatedTime ? 3 : this.age - (this.stayInflatedTime) + 4);
+		this.setSprite(spriteSet.get(i, 7));
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
+		final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;
-		int flateAge = this.age - (this.stayInflatedTime) + 4;
+		final int inflationAge = this.age - (this.stayInflatedTime) + 4;
 		switch (this.age) {
 			case 1 -> {
 				this.currentInflation = 0;
@@ -128,7 +124,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 				this.targetInflation = 1F;
 			}
 			default -> {
-				switch (flateAge) {
+				switch (inflationAge) {
 					case 3 -> {
 						this.currentInflation = 1F;
 						this.targetInflation = 1.3F;
@@ -162,7 +158,14 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		}
 
 		if (this.age == this.stayInflatedTime + 1) {
-			this.level.playLocalSound(this.x, this.y, this.z, WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP, SoundSource.NEUTRAL, 0.4F, this.level.random.nextFloat() * 0.2F + 0.8F, false);
+			this.level.playLocalSound(
+				this.x, this.y, this.z,
+				WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP,
+				SoundSource.NEUTRAL,
+				0.4F,
+				this.level.random.nextFloat() * 0.2F + 0.8F,
+				false
+			);
 			this.setParticleSpeed(0D, 0D, 0D);
 		}
 		this.setSpriteFromAge(this.spriteSet);
@@ -173,25 +176,16 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		return this.quadSize * Mth.lerp(partialTick, this.currentInflation, this.targetInflation);
 	}
 
-	public static class Provider implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<FloatingSculkBubbleParticleOptions> {
 		@Override
 		public Particle createParticle(
-			@NotNull FloatingSculkBubbleParticleOptions options,
-			@NotNull ClientLevel level,
+			FloatingSculkBubbleParticleOptions options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			FloatingSculkBubbleParticle bubble = new FloatingSculkBubbleParticle(level, x, y, z, options.getSize(), options.getMaxAge(), options.getVelocity(), this.spriteSet);
-			bubble.setAlpha(1F);
-			return bubble;
+			return new FloatingSculkBubbleParticle(level, x, y, z, options.size(), options.maxAge(), options.velocity(), this.spriteSet);
 		}
 	}
-
 }

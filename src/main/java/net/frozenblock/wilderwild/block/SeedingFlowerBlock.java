@@ -51,7 +51,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeedingFlowerBlock extends FlowerBlock {
@@ -72,10 +71,10 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	private final Block nonSeedingFlower;
 
 	public SeedingFlowerBlock(
-		@NotNull Holder<MobEffect> suspiciousStewEffect,
+		Holder<MobEffect> suspiciousStewEffect,
 		int effectDuration,
 		Block nonSeedingFlower,
-		@NotNull Properties properties
+		Properties properties
 	) {
 		super(suspiciousStewEffect, effectDuration, properties);
 		this.nonSeedingFlower = nonSeedingFlower;
@@ -91,7 +90,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
-	public @NotNull MapCodec<? extends SeedingFlowerBlock> codec() {
+	public MapCodec<? extends SeedingFlowerBlock> codec() {
 		return CODEC;
 	}
 
@@ -99,21 +98,20 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		return this.nonSeedingFlower;
 	}
 
-	public boolean canShearIntoOriginalFlower(LevelReader world, BlockPos pos, BlockState state) {
+	public boolean canShearIntoOriginalFlower(LevelReader level, BlockPos pos, BlockState state) {
 		if (this == WWBlocks.SEEDING_DANDELION) return WWBlockConfig.get().flower.shearSeedingDandelions;
 		return true;
 	}
 
 	@Override
-	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (this.canShearIntoOriginalFlower(level, pos, state) && stack.is(Items.SHEARS)) {
 			onPlayerShear(level, pos, state, player, hand, stack);
@@ -123,7 +121,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	public void onPlayerShear(
-		@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull Player player, @NotNull InteractionHand hand, @NotNull ItemStack stack
+		Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
@@ -131,7 +129,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		stack.hurtAndBreak(1, player, hand);
 	}
 
-	public void onShear(@NotNull Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
+	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
@@ -140,7 +138,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		level.gameEvent(entity, GameEvent.SHEAR, pos);
 	}
 
-	public void spawnSeedsFrom(@NotNull Level level, BlockPos pos, @NotNull BlockState state, int minSeeds, int maxSeeds, Vec3 velocity) {
+	public void spawnSeedsFrom(Level level, BlockPos pos, BlockState state, int minSeeds, int maxSeeds, Vec3 velocity) {
 		final Vec3 offset = state.getOffset(pos);
 
 		final double x = pos.getX() + 0.5D + offset.x;
@@ -171,7 +169,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() <= SEED_SPAWN_CHANCE) this.spawnSeedsFrom(level, pos, state, MIN_SEEDS, MAX_SEEDS, null);
 	}
 
@@ -182,10 +180,10 @@ public class SeedingFlowerBlock extends FlowerBlock {
 
 	@Override
 	public void entityInside(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
@@ -201,9 +199,8 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		}
 	}
 
-	@NotNull
 	@Override
-	public BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		if (level instanceof ServerLevel serverLevel) this.spawnSeedsFrom(serverLevel, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 		return super.playerWillDestroy(level, pos, state, player);
 	}

@@ -59,7 +59,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
@@ -84,7 +83,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 	private final ResourceKey<LootTable> shearingLootTable;
 
-	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, @NotNull Properties properties) {
+	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, Properties properties) {
 		super(properties);
 		this.shearingLootTable = shearingLootTable;
 		this.registerDefaultState(
@@ -101,33 +100,30 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
 	}
 
-	@NotNull
-	public static AttachFace getFace(@NotNull Direction direction) {
+	public static AttachFace getFace(Direction direction) {
 		if (direction.getAxis() == Direction.Axis.Y) return direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR;
 		return AttachFace.WALL;
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	private static boolean isFullyGrown(@NotNull BlockState state) {
+	private static boolean isFullyGrown(BlockState state) {
 		return state.getValue(STAGE) == MAX_STAGE;
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends ShelfFungiBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, hand);
@@ -136,7 +132,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
 		final int stage = state.getValue(STAGE);
 		if (stage <= 1) return false;
 		level.setBlockAndUpdate(pos, state.setValue(STAGE, stage - 1));
@@ -147,7 +143,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	public static void dropShelfFungi(
-		ServerLevel level, ItemStack stack, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
+		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
 	) {
 		if (!(state.getBlock() instanceof  ShelfFungiBlock shelfFungiBlock)) return;
 		dropFromBlockInteractLootTable(
@@ -166,20 +162,20 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 	@Override
-	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(STAGE) < MAX_STAGE || super.canBeReplaced(state, context);
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) return insideState.setValue(STAGE, Math.min(MAX_STAGE, insideState.getValue(STAGE) + 1));
 
@@ -199,8 +195,8 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -214,14 +210,12 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	@Override
-	@NotNull
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return switch (state.getValue(FACE)) {
 			case FLOOR -> FLOOR_SHAPE;
 			case WALL -> switch (state.getValue(FACING)) {
@@ -234,12 +228,12 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 		};
 	}
 
-	public boolean isMaxAge(@NotNull BlockState state) {
+	public boolean isMaxAge(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(level.getMaxLocalRawBrightness(pos) + GROWTH_BRIGHTNESS_OFFSET) == 1) {
 			if (!isMaxAge(state)) {
 				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
@@ -250,17 +244,17 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return !isFullyGrown(state);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 
@@ -274,7 +268,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	}
 
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);

@@ -31,14 +31,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Vec3 velocity, List<Direction> directions, int count) implements CustomPacketPayload {
 	public static final Type<WWLeavesExplosionParticlePacket> PACKET_TYPE = new Type<>(WWConstants.id("leaves_explosion"));
-
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWLeavesExplosionParticlePacket> CODEC = StreamCodec.ofMember(WWLeavesExplosionParticlePacket::write, WWLeavesExplosionParticlePacket::new);
 
-	public WWLeavesExplosionParticlePacket(@NotNull RegistryFriendlyByteBuf buf) {
+	public WWLeavesExplosionParticlePacket(RegistryFriendlyByteBuf buf) {
 		this(buf.readById(Block::stateById), buf.readBlockPos(), buf.readVec3(), buf.readList(Direction.STREAM_CODEC), buf.readVarInt());
 	}
 
@@ -51,7 +49,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 		}
 	}
 
-	public void write(@NotNull RegistryFriendlyByteBuf buf) {
+	public void write(RegistryFriendlyByteBuf buf) {
 		buf.writeById(Block::getId, this.state);
 		buf.writeBlockPos(this.pos);
 		buf.writeVec3(this.velocity);
@@ -59,7 +57,6 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 		buf.writeVarInt(this.count);
 	}
 
-	@NotNull
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

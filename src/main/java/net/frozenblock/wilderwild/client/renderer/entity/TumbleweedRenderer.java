@@ -36,7 +36,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
@@ -45,17 +44,17 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	private static final Identifier CANNONBALL_LOCATION = WWConstants.id("textures/entity/tumbleweed/cannonball.png");
 	private final ItemModelResolver itemModelResolver;
 
-	public TumbleweedRenderer(@NotNull Context context) {
+	public TumbleweedRenderer(Context context) {
 		super(context, new TumbleweedModel(context.bakeLayer(WWModelLayers.TUMBLEWEED)), 0.6F);
 		this.itemModelResolver = context.getItemModelResolver();
 	}
 
 	@Override
 	public void submit(
-		@NotNull TumbleweedRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		TumbleweedRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector submitNodeCollector,
+		CameraRenderState cameraRenderState
 	) {
 		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
 
@@ -74,33 +73,31 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	protected void setupRotations(@NotNull TumbleweedRenderState renderState, @NotNull PoseStack poseStack, float rotationYaw, float scale) {
+	protected void setupRotations(TumbleweedRenderState renderState, PoseStack poseStack, float rotationYaw, float scale) {
 		poseStack.translate(0D, -1.3D, 0D);
 		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 	}
 
 	@Override
-	@NotNull
-	public Identifier getTextureLocation(@NotNull TumbleweedRenderState renderState) {
+	public Identifier getTextureLocation(TumbleweedRenderState renderState) {
 		return renderState.isCannonball ? CANNONBALL_LOCATION : TUMBLEWEED_LOCATION;
 	}
 
 	@Override
-	@NotNull
 	public TumbleweedRenderState createRenderState() {
 		return new TumbleweedRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Tumbleweed entity, @NotNull TumbleweedRenderState renderState, float partialTick) {
-		super.extractRenderState(entity, renderState, partialTick);
-		renderState.tumbleRot = Mth.lerp(partialTick, entity.prevTumble, entity.tumble) * Mth.DEG_TO_RAD;
-		renderState.itemX = entity.itemX;
-		renderState.itemZ = entity.itemZ;
-		renderState.pitch = -Mth.lerp(partialTick, entity.prevPitch, entity.pitch) * Mth.DEG_TO_RAD;
-		renderState.roll = Mth.lerp(partialTick, entity.prevRoll, entity.roll) * Mth.DEG_TO_RAD;
-		renderState.isCannonball = entity.isCannonball();
-		this.itemModelResolver.updateForLiving(renderState.item, entity.getVisibleItem(), ItemDisplayContext.GROUND, entity);
-		renderState.level = entity.level();
+	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState renderState, float partialTick) {
+		super.extractRenderState(tumbleweed, renderState, partialTick);
+		renderState.tumbleRot = Mth.lerp(partialTick, tumbleweed.prevTumble, tumbleweed.tumble) * Mth.DEG_TO_RAD;
+		renderState.itemX = tumbleweed.itemX;
+		renderState.itemZ = tumbleweed.itemZ;
+		renderState.pitch = -Mth.lerp(partialTick, tumbleweed.prevPitch, tumbleweed.pitch) * Mth.DEG_TO_RAD;
+		renderState.roll = Mth.lerp(partialTick, tumbleweed.prevRoll, tumbleweed.roll) * Mth.DEG_TO_RAD;
+		renderState.isCannonball = tumbleweed.isCannonball();
+		this.itemModelResolver.updateForLiving(renderState.item, tumbleweed.getVisibleItem(), ItemDisplayContext.GROUND, tumbleweed);
+		renderState.level = tumbleweed.level();
 	}
 }

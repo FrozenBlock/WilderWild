@@ -38,7 +38,6 @@ import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -48,47 +47,43 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	private final User vibrationUser = this.createVibrationUser();
 	private Data vibrationData;
 
-	public IcicleBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public IcicleBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.ICICLE, pos, state);
 		this.vibrationData = new Data();
 		this.vibrationListener = new Listener(this);
 	}
 
-	public void serverTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void serverTick(Level level, BlockPos pos, BlockState state) {
 		Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.vibrationData = valueInput.read("listener", Data.CODEC).orElseGet(Data::new);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		valueOutput.store("listener", Data.CODEC, this.vibrationData);
 	}
 
-	@NotNull
 	public User createVibrationUser() {
 		return new IcicleBlockEntity.VibrationUser(this.getBlockPos());
 	}
 
 	@Override
-	@NotNull
 	public Listener getListener() {
 		return this.vibrationListener;
 	}
 
 	@Override
-	@NotNull
 	public Data getVibrationData() {
 		return this.vibrationData;
 	}
 
 	@Override
-	@NotNull
 	public User getVibrationUser() {
 		return this.vibrationUser;
 	}
@@ -109,21 +104,20 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 		}
 
 		@Override
-		@NotNull
 		public PositionSource getPositionSource() {
 			return this.positionSource;
 		}
 
 		@Override
-		public @NotNull TagKey<GameEvent> getListenableEvents() {
+		public TagKey<GameEvent> getListenableEvents() {
 			return WWGameEventTags.MAKES_ICICLE_FALL;
 		}
 
 		@Override
 		public boolean canReceiveVibration(
-			@NotNull ServerLevel level,
-			@NotNull BlockPos pos,
-			@NotNull Holder<GameEvent> gameEvent,
+			ServerLevel level,
+			BlockPos pos,
+			Holder<GameEvent> gameEvent,
 			@Nullable GameEvent.Context context
 		) {
 			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
@@ -133,9 +127,9 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 
 		@Override
 		public void onReceiveVibration(
-			@NotNull ServerLevel level,
-			@NotNull BlockPos pos,
-			@NotNull Holder<GameEvent> gameEvent,
+			ServerLevel level,
+			BlockPos pos,
+			Holder<GameEvent> gameEvent,
 			@Nullable Entity entity,
 			@Nullable Entity entity2,
 			float f

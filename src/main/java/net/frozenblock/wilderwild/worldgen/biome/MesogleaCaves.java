@@ -39,7 +39,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MesogleaCaves extends FrozenBiome {
@@ -110,7 +109,7 @@ public final class MesogleaCaves extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
 		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.MESOGLEA_CAVES_STONE_POOL.getKey());

@@ -28,34 +28,27 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
-public class SeedParticleOptions implements ParticleOptions {
+public record SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 velocity) implements ParticleOptions {
 	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		instance.group(
 			Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
-			Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::isControlled),
-			Vec3.CODEC.fieldOf("velocity").forGetter(SeedParticleOptions::getVelocity)
+			Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::controlled),
+			Vec3.CODEC.fieldOf("velocity").forGetter(SeedParticleOptions::velocity)
 		).apply(instance, SeedParticleOptions::new)
 	);
 	public static final StreamCodec<RegistryFriendlyByteBuf, SeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.BOOL, SeedParticleOptions::isMilkweed,
-		ByteBufCodecs.BOOL, SeedParticleOptions::isControlled,
-		Vec3.STREAM_CODEC, SeedParticleOptions::getVelocity,
+		ByteBufCodecs.BOOL, SeedParticleOptions::controlled,
+		Vec3.STREAM_CODEC, SeedParticleOptions::velocity,
 		SeedParticleOptions::new
 	);
 
-	private final boolean isMilkweed;
-	private final boolean controlled;
-	private final Vec3 velocity;
-
-	@NotNull
 	@Contract(value = "_, _, _, _ -> new", pure = true)
 	public static SeedParticleOptions controlled(boolean isMilkweed, double xSpeed, double ySpeed, double zSpeed) {
 		return new SeedParticleOptions(isMilkweed, true, xSpeed, ySpeed, zSpeed);
 	}
 
-	@NotNull
 	@Contract(value = "_ -> new", pure = true)
 	public static SeedParticleOptions unControlled(boolean isMilkweed) {
 		return new SeedParticleOptions(isMilkweed, false, 0F, 0F, 0F);
@@ -65,28 +58,8 @@ public class SeedParticleOptions implements ParticleOptions {
 		this(isMilkweed, controlled, new Vec3(xSpeed, ySpeed, zSpeed));
 	}
 
-	private SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 velocity) {
-		this.isMilkweed = isMilkweed;
-		this.controlled = controlled;
-		this.velocity = velocity;
-	}
-
-	@NotNull
 	@Override
 	public ParticleType<?> getType() {
 		return WWParticleTypes.SEED;
 	}
-
-	public boolean isMilkweed() {
-		return this.isMilkweed;
-	}
-
-	public boolean isControlled() {
-		return this.controlled;
-	}
-
-	public Vec3 getVelocity() {
-		return this.velocity;
-	}
-
 }

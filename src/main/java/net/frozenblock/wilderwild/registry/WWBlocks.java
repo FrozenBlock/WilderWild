@@ -161,7 +161,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBlocks {
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
@@ -1962,7 +1961,6 @@ public final class WWBlocks {
 		Items.registerBlock(block, itemSupplier);
 	}
 
-	@NotNull
 	public static Properties hollowedLogProperties(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
 		return Properties.of()
 			.mapColor(state -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
@@ -1972,12 +1970,10 @@ public final class WWBlocks {
 			.ignitedByLava();
 	}
 
-	@NotNull
 	public static Properties hollowedLogProperties(MapColor topMapColor, MapColor sideMapColor) {
 		return hollowedLogProperties(topMapColor, sideMapColor, WWSoundTypes.HOLLOWED_LOG);
 	}
 
-	@NotNull
 	public static Properties hollowedStemProperties(MapColor mapColor) {
 		return Properties.of()
 			.mapColor(state -> mapColor)
@@ -1986,7 +1982,6 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.HOLLOWED_STEM);
 	}
 
-	@NotNull
 	public static Properties strippedHollowedLogProperties(MapColor mapColor, SoundType soundType) {
 		return Properties.of()
 			.mapColor(state -> mapColor)
@@ -1996,12 +1991,10 @@ public final class WWBlocks {
 			.ignitedByLava();
 	}
 
-	@NotNull
 	public static Properties strippedHollowedLogProperties(MapColor mapColor) {
 		return strippedHollowedLogProperties(mapColor, WWSoundTypes.HOLLOWED_LOG);
 	}
 
-	@NotNull
 	public static Properties strippedHollowedStemProperties(MapColor mapColor) {
 		return Properties.of()
 			.mapColor(state -> mapColor)
@@ -2010,11 +2003,10 @@ public final class WWBlocks {
 			.sound(WWSoundTypes.HOLLOWED_STEM);
 	}
 
-	@NotNull
 	public static LeafLitterBlock leafLitter(
 		String id,
 		Block sourceBlock,
-		@NotNull ParticleType<WWFallingLeavesParticleOptions> particleType,
+		ParticleType<WWFallingLeavesParticleOptions> particleType,
 		float litterChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
@@ -2026,11 +2018,10 @@ public final class WWBlocks {
 		);
 	}
 
-	@NotNull
 	public static LeafLitterBlock leafLitter(
 		String id,
 		Block sourceBlock,
-		@NotNull ParticleType<WWFallingLeavesParticleOptions> particleType,
+		ParticleType<WWFallingLeavesParticleOptions> particleType,
 		float litterChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
@@ -2056,19 +2047,18 @@ public final class WWBlocks {
 		return leafLitterBlock;
 	}
 
-	private static @NotNull LeafLitterBlock createLeafLitter(String id, SoundType soundType) {
+	private static LeafLitterBlock createLeafLitter(String id, SoundType soundType) {
 		return register(id, LeafLitterBlock::new, Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundType));
 	}
 
-	@NotNull
 	public static MesogleaBlock mesoglea(
 		String id,
-		@NotNull MapColor mapColor,
-		@NotNull ParticleOptions dripParticle,
-		@NotNull ParticleOptions bubbleParticle,
-		@NotNull ParticleOptions bubbleColumnUpParticle,
-		@NotNull ParticleOptions currentDownParticle,
-		@NotNull ParticleOptions splashParticle,
+		MapColor mapColor,
+		ParticleOptions dripParticle,
+		ParticleOptions bubbleParticle,
+		ParticleOptions bubbleColumnUpParticle,
+		ParticleOptions currentDownParticle,
+		ParticleOptions splashParticle,
 		boolean pearlescent,
 		int waterFogColor
 	) {
@@ -2097,8 +2087,7 @@ public final class WWBlocks {
 		);
 	}
 
-	@NotNull
-	public static Properties nematocystProperties(@NotNull MapColor mapColor) {
+	public static Properties nematocystProperties(MapColor mapColor) {
 		return Properties.of()
 			.mapColor(mapColor)
 			.noCollision()
@@ -2107,7 +2096,6 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY);
 	}
 
-	@NotNull
 	public static FroglightGoopBodyBlock froglightGoopBody(String id, FroglightType froglightType, Block froglightBlock) {
 		return register(
 			id,
@@ -2116,7 +2104,6 @@ public final class WWBlocks {
 		);
 	}
 
-	@NotNull
 	public static FroglightGoopBlock froglightGoop(String id, FroglightType froglightType, Block froglightBlock) {
 		return register(
 			id,
@@ -2125,7 +2112,7 @@ public final class WWBlocks {
 		);
 	}
 
-	private static BlockBehaviour.@NotNull Properties froglightGoopProperties(@NotNull Block froglightBlock) {
+	private static BlockBehaviour.Properties froglightGoopProperties(Block froglightBlock) {
 		return BlockBehaviour.Properties.of()
 			.mapColor(froglightBlock.defaultMapColor())
 			.randomTicks()
@@ -2182,13 +2169,18 @@ public final class WWBlocks {
 	private static void registerDispenses() {
 		DispenserBlock.registerBehavior(TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			@Override
-			@NotNull
-			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
-				Level level = source.level();
-				Direction direction = source.state().getValue(DispenserBlock.FACING);
-				Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
-				Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ()).normalize().add(level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D), level.random.triangle(0D, 0.0172275D * 6D)).scale(1.1D);
+			public ItemStack execute(BlockSource source, ItemStack stack) {
+				final Level level = source.level();
+				final Direction direction = source.state().getValue(DispenserBlock.FACING);
+				final Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+				final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
+				final Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ())
+					.normalize()
+					.add(
+						level.random.triangle(0D, 0.0172275D * 6D),
+						level.random.triangle(0D, 0.0172275D * 6D),
+						level.random.triangle(0D, 0.0172275D * 6D)
+					).scale(1.1D);
 				tumbleweed.setDeltaMovement(vec3);
 				tumbleweed.setPos(position);
 				level.addFreshEntity(tumbleweed);
@@ -2292,7 +2284,7 @@ public final class WWBlocks {
 
 	private static void registerFlammability() {
 		WWConstants.logWithModId("Registering Flammability for", WWConstants.UNSTABLE_LOGGING);
-		var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
+		final var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(POLLEN, 60, 100);
 		flammableBlockRegistry.add(SEEDING_DANDELION, 60, 100);
 		flammableBlockRegistry.add(CARNATION, 60, 100);
@@ -2659,8 +2651,8 @@ public final class WWBlocks {
 
 				@Override
 				public void performBoneMeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-					BlockPos blockPos = pos.above();
-					Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
+					final BlockPos blockPos = pos.above();
+					final Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
 						.lookupOrThrow(Registries.PLACED_FEATURE)
 						.get(WWMiscPlaced.MYCELIUM_GROWTH_BONEMEAL.getKey());
 

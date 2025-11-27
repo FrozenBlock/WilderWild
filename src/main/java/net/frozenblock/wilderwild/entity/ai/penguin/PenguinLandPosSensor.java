@@ -27,18 +27,16 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinLandPosSensor extends Sensor<LivingEntity> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(WWMemoryModuleTypes.LAND_POS, MemoryModuleType.IS_IN_WATER, WWMemoryModuleTypes.DIVE_TICKS);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(ServerLevel level, LivingEntity entity) {
 		final Brain<?> brain = entity.getBrain();
 		if (brain.checkMemory(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)

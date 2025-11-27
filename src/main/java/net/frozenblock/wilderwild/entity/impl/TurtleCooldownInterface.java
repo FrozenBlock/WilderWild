@@ -18,9 +18,6 @@
 package net.frozenblock.wilderwild.entity.impl;
 
 public interface TurtleCooldownInterface {
-
 	int wilderWild$getAttackCooldown();
-
 	void wilderWild$setAttackCooldown(int i);
-
 }

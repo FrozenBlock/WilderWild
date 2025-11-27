@@ -29,20 +29,18 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 
 	@Override
-	@NotNull
 	public Set<MemoryModuleType<?>> requires() {
 		return ImmutableSet.of(WWMemoryModuleTypes.TRACKED_BOAT);
 	}
 
 	@Override
-	protected void doTick(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
+	protected void doTick(ServerLevel level, LivingEntity entity) {
 		final Brain<?> brain = entity.getBrain();
 
 		if (entity.isPassenger()) {
@@ -50,7 +48,7 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 			return;
 		}
 
-		AABB searchArea = entity.getBoundingBox().inflate(16D, 16D, 16D);
+		final AABB searchArea = entity.getBoundingBox().inflate(16D, 16D, 16D);
 		final List<Boat> boats = level.getEntitiesOfClass(
 			Boat.class,
 			searchArea,

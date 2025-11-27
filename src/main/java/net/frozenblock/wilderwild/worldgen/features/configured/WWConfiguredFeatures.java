@@ -70,7 +70,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWConfiguredFeatures {
 	// FALLEN TREES
@@ -432,7 +431,6 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 3)
 		.add(Blocks.FERN.defaultBlockState(), 1)
 		.build();
-
 	public static final WeightedList<BlockState> GRASS_AND_FERN_POOL = WeightedList.<BlockState>builder()
 		.add(Blocks.SHORT_GRASS.defaultBlockState(), 11)
 		.add(Blocks.FERN.defaultBlockState(), 1)
@@ -445,7 +443,6 @@ public final class WWConfiguredFeatures {
 		.add(Blocks.FERN.defaultBlockState(), 4)
 		.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
 		.build();
-
 
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> TALL_GRASS_AND_GRASS_WATER = WWFeatureUtils.register("tall_grass_and_grass_water");
 
@@ -472,7 +469,7 @@ public final class WWConfiguredFeatures {
 		throw new UnsupportedOperationException("WWConfiguredFeatures contains only static declarations.");
 	}
 
-	public static void registerConfiguredFeatures(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
@@ -2616,7 +2613,6 @@ public final class WWConfiguredFeatures {
 			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.SNAPPED_CHERRY_CHECKED.getHolder()))
 		);
 
-
 		SNAPPED_DARK_OAKS.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
 			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.getHolder()))
 		);
@@ -2843,7 +2839,6 @@ public final class WWConfiguredFeatures {
 				)
 			)
 		);
-
 
 		DATURA.makeAndSetHolder(Feature.FLOWER,
 			FeatureUtils.simpleRandomPatchConfiguration(

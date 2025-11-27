@@ -33,7 +33,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<StraightWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -47,37 +46,37 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		@NotNull TrunkBranchPlacement trunkBranchPlacement
+		TrunkBranchPlacement trunkBranchPlacement
 	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.trunkBranchPlacement = trunkBranchPlacement;
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.STRAIGHT_WITH_BRANCHES_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
 		setDirtAt(level, replacer, random, startPos.below(), config);
-		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
-		int branchCutoffFromTop = this.trunkBranchPlacement.getBranchCutoffFromTop().sample(random);
+
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
+		final int branchCutoffFromTop = this.trunkBranchPlacement.branchCutoffFromTop().sample(random);
+
 		int extraLogs = 0;
 		for (int i = 0; i < height; ++i) {
-			int j = startPos.getY() + i;
-			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config)
+			final int y = startPos.getY() + i;
+			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), config)
 				&& i < height - 1
 				&& this.trunkBranchPlacement.canPlaceBranch(random)
 				&& extraLogs < maxBranchCount
@@ -94,7 +93,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 				);
 				++extraLogs;
 			}
-			if (i == height - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.set(startPos.getX(), j + 1, startPos.getZ()), 0, false));
+			if (i == height - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.set(startPos.getX(), y + 1, startPos.getZ()), 0, false));
 		}
 
 		return foliageAttachments;

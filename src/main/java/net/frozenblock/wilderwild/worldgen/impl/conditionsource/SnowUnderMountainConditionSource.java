@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import org.jetbrains.annotations.NotNull;
 
 public final class SnowUnderMountainConditionSource implements SurfaceRules.ConditionSource {
 	public static final SnowUnderMountainConditionSource INSTANCE = new SnowUnderMountainConditionSource();
@@ -31,22 +30,19 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 	SnowUnderMountainConditionSource() {
 	}
 
-	@NotNull
 	public static SnowUnderMountainConditionSource snowUnderMountainConditionSource() {
 		return INSTANCE;
 	}
 
 	@Override
-	@NotNull
 	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
-	public SurfaceRules.Condition apply(@NotNull SurfaceRules.Context context) {
+	public SurfaceRules.Condition apply(SurfaceRules.Context context) {
 		class SnowUnderMountainCondition extends SurfaceRules.LazyYCondition {
-			SnowUnderMountainCondition(@NotNull SurfaceRules.Context context) {
+			SnowUnderMountainCondition(SurfaceRules.Context context) {
 				super(context);
 			}
 
@@ -59,7 +55,6 @@ public final class SnowUnderMountainConditionSource implements SurfaceRules.Cond
 	}
 
 	@Override
-	@NotNull
 	public String toString() {
 		return "BiomeConditionSource[SnowUnderMountain]";
 	}

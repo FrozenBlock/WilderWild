@@ -33,38 +33,35 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SeedParticle extends SingleQuadParticle {
+	private double windIntensity = 0.5D;
 
 	SeedParticle(
-		@NotNull ClientLevel level,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		TextureAtlasSprite sprite
 	) {
 		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
+		this.xd = xd;
+		this.yd = yd;
+		this.zd = zd;
 		this.hasPhysics = true;
 		this.friction = 1F;
-		this.gravity = 0F;
+		this.gravity = 0.01F;
 	}
-
-	private double windIntensity = 0.5D;
 
 	@Override
 	public void tick() {
 		super.tick();
 		if (this.x == this.xo && this.y == this.yo && this.z == this.zo) this.age += 5;
-		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
-		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
+		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
+		final FluidState fluidState = this.level.getBlockState(pos).getFluidState();
+		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, pos) + (float) pos.getY()) >= this.y) {
 			this.yd = Math.clamp(this.yd + 0.003D, -0.01D, 0.025D);
 			this.xd *= 0.7D;
 			this.zd *= 0.7D;
@@ -73,40 +70,39 @@ public class SeedParticle extends SingleQuadParticle {
 			this.age += 2;
 			return;
 		}
-		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		double multY = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+		final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
+		final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
+		final Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-		this.xd += wind.x() * multXZ;
-		this.yd += Math.max(((wind.y() * 0.4D) + 0.1D), 0.1D) * multY;
-		this.zd += wind.z() * multXZ;
+		this.xd += wind.x() * horizontalWindScale;
+		this.yd += Math.max(((wind.y() * 0.4D) + 0.1D), 0.1D) * verticalWindScale;
+		this.zd += wind.z() * horizontalWindScale;
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SeedParticleOptions> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SeedParticleOptions> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SeedParticleOptions options,
-			@NotNull ClientLevel level,
+			SeedParticleOptions options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			final Vec3 controlledVelocity = options.getVelocity();
-			final double windex = options.isControlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D;
-			final double windZ = options.isControlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D;
-			SeedParticle seedParticle = new SeedParticle(level, x, y, z, windex, 0.3D, windZ, this.spriteSet.get(random));
+			final Vec3 controlledVelocity = options.velocity();
+			final SeedParticle seedParticle = new SeedParticle(
+				level,
+				x, y, z,
+				(options.controlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D) + random.triangle(0D, 0.8D) / 17D,
+				options.controlled() ? controlledVelocity.y / 17D : 0D,
+				(options.controlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D) + random.triangle(0D, 0.8D) / 17D,
+				this.spriteSet.get(random)
+			);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 200, 500);
-			seedParticle.gravity = 0.01F;
-			seedParticle.xd = (windex + random.triangle(0D, 0.8D)) / 17D;
-			seedParticle.zd = (windZ + random.triangle(0D, 0.8D)) / 17D;
-			seedParticle.yd = options.isControlled() ? controlledVelocity.y / 17D : 0D;
 			seedParticle.setColor(250F / 255F, 250F / 255F, 250F / 255F);
 			return seedParticle;
 		}

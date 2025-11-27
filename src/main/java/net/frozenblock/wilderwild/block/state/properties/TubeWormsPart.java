@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block.state.properties;
 
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public enum TubeWormsPart implements StringRepresentable {
 	SINGLE("single"),
@@ -38,7 +37,6 @@ public enum TubeWormsPart implements StringRepresentable {
 	}
 
 	@Override
-	@NotNull
 	public String getSerializedName() {
 		return this.name;
 	}

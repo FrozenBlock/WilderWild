@@ -28,18 +28,16 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.TriggerInstance> {
 
 	@Override
-	@NotNull
 	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
+	public void trigger(ServerPlayer player, ItemStack stack) {
 		this.trigger(player, conditions -> conditions.matches(stack));
 	}
 
@@ -51,17 +49,14 @@ public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.Tr
 			).apply(instance, TriggerInstance::new)
 		);
 
-		@NotNull
 		public static Criterion<TriggerInstance> mobBottle() {
 			return mobBottle((ItemPredicate) null);
 		}
 
-		@NotNull
-		public static Criterion<TriggerInstance> mobBottle(@NotNull ItemPredicate.Builder builder) {
+		public static Criterion<TriggerInstance> mobBottle(ItemPredicate.Builder builder) {
 			return mobBottle(builder.build());
 		}
 
-		@NotNull
 		public static Criterion<TriggerInstance> mobBottle(@Nullable ItemPredicate item) {
 			return WWCriteria.MOB_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
 		}

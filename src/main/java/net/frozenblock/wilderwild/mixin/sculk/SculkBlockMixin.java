@@ -37,14 +37,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -73,19 +71,17 @@ public class SculkBlockMixin {
 
 	@Inject(method = "canPlaceGrowth", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$canPlaceGrowth(LevelAccessor level, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
-		if (!level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) {
-			info.setReturnValue(false);
-		}
+		if (!level.getBlockState(pos).isFaceSturdy(level, pos, Direction.UP)) info.setReturnValue(false);
 	}
 
 	@Unique
-	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, @NotNull BlockPos pos) {
+	private static boolean wilderWild$ancientCityOrPillarNearby(LevelAccessor level, BlockPos pos) {
 		int foundCancellingBlocks = 0;
-		Iterator<BlockPos> poses = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
+		final Iterator<BlockPos> poses = BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 2, 2)).iterator();
 		while (true) {
 			if (!poses.hasNext()) return false;
-			BlockState blockState2 = level.getBlockState(poses.next());
-			if (blockState2.is(WWBlockTags.ANCIENT_CITY_BLOCKS)) ++foundCancellingBlocks;
+			final BlockState state = level.getBlockState(poses.next());
+			if (state.is(WWBlockTags.ANCIENT_CITY_BLOCKS)) ++foundCancellingBlocks;
 			if (foundCancellingBlocks >= WILDERWILD$OSSEOUS_SCULK_WORLDGEN_CANCELLING_BLOCK_COUNT) return true;
 		}
 	}
@@ -109,7 +105,7 @@ public class SculkBlockMixin {
 		boolean original,
 		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
-		BlockPos blockPos,
+		BlockPos pos,
 		RandomSource random,
 		SculkSpreader spreader,
 		boolean bl,
@@ -130,7 +126,7 @@ public class SculkBlockMixin {
 		LevelAccessor level,
 		BlockPos catalystPos,
 		RandomSource random,
-		@NotNull SculkSpreader spreader,
+		SculkSpreader spreader,
 		boolean shouldConvertBlocks,
 		CallbackInfoReturnable<Integer> info,
 		@Local(ordinal = 0) int chargeAmount,
@@ -146,10 +142,10 @@ public class SculkBlockMixin {
 		placementPos.set(null);
 		placementState.set(null);
 		additionalGrowthCost.set(null);
-		boolean isWorldgen = spreader.isWorldGeneration();
+		final boolean isWorldgen = spreader.isWorldGeneration();
 
 		if (placingBelow.get()) {
-			BlockPos belowCharge = chargePos.below();
+			final BlockPos belowCharge = chargePos.below();
 			BlockState newPlacementState = null;
 			if (this.wilderWild$canPlaceOsseousSculk) {
 				newPlacementState = WWBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.FACING, Direction.DOWN);
@@ -165,13 +161,13 @@ public class SculkBlockMixin {
 		}
 
 		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) {
-			BlockState chargePosState = level.getBlockState(chargePos);
-			if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargePosState));
-			} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargePosState));
-			} else if ((isWorldgen && chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargePosState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargePosState));
+			final BlockState chargeState = level.getBlockState(chargePos);
+			if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargeState));
+			} else if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargeState));
+			} else if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
+				placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargeState));
 			}
 		}
 
@@ -214,7 +210,7 @@ public class SculkBlockMixin {
 		Operation<Void> original, @Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos, @Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placedPos.get() != null && placedState.get()!= null) {
-			SoundType soundType = placedState.get().getSoundType();
+			final SoundType soundType = placedState.get().getSoundType();
 			pos = placedPos.get();
 			soundEvent = soundType.getPlaceSound();
 			volume = soundType.getVolume();
@@ -234,7 +230,7 @@ public class SculkBlockMixin {
 	private void wilderWild$handlePlacement(
 		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
-		BlockPos blockPos,
+		BlockPos pos,
 		RandomSource random,
 		SculkSpreader spreader,
 		boolean shouldConvertBlocks,
@@ -245,13 +241,14 @@ public class SculkBlockMixin {
 		if (placedPos.get() == null || placedState.get() == null) return;
 
 		if (spreader.isWorldGeneration() && placedState.get().getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
-			int growthAttempts = random.nextInt(WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MIN, WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MAX);
+			final int growthAttempts = random.nextInt(WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MIN, WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MAX);
 			for (int a = 0; a < growthAttempts; a++) {
 				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, shouldConvertBlocks);
 			}
 		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS) || placedState.get().is(WWBlocks.SCULK_SLAB) || placedState.get().is(WWBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
 		}
+
 		placedPos.set(null);
 		placedState.set(null);
 	}
@@ -267,7 +264,7 @@ public class SculkBlockMixin {
 		int original,
 		@Share("wilderWild$additionalGrowthCost") LocalRef<Integer> additionalGrowthCost
 	) {
-		Integer additional = additionalGrowthCost.get();
+		final Integer additional = additionalGrowthCost.get();
 		return additional != null ? original + additional : original;
 	}
 
@@ -281,31 +278,30 @@ public class SculkBlockMixin {
 	)
 	private void wilderWild$getRandomGrowthState(
 		LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, CallbackInfoReturnable<BlockState> info,
-		@Local(ordinal = 0) BlockState blockState
+		@Local(ordinal = 0) BlockState state
 	) {
-		if (this.wilderWild$canPlaceOsseousSculk && !blockState.is(Blocks.SCULK_SHRIEKER)) {
-			blockState = WWBlocks.OSSEOUS_SCULK.defaultBlockState();
-			info.setReturnValue(
-				blockState.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty()
-					? blockState.setValue(BlockStateProperties.WATERLOGGED, true)
-					: blockState
-			);
-		}
+		if (!this.wilderWild$canPlaceOsseousSculk || state.is(Blocks.SCULK_SHRIEKER)) return;
+		state = WWBlocks.OSSEOUS_SCULK.defaultBlockState();
+		info.setReturnValue(
+			state.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty()
+				? state.setValue(BlockStateProperties.WATERLOGGED, true)
+				: state
+		);
 	}
 
 	@Unique
-	private boolean wilderWild$canPlaceGrowthBelow(@NotNull LevelAccessor level, @NotNull BlockPos pos, boolean isWorldGen, LocalBooleanRef placingBelow) {
+	private boolean wilderWild$canPlaceGrowthBelow(LevelAccessor level, BlockPos pos, boolean isWorldGen, LocalBooleanRef placingBelow) {
 		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION && !WWBlockConfig.HANGING_TENDRIL_GENERATION) return false;
 		this.wilderWild$canPlaceOsseousSculk = wilderWild$canPlaceOsseousSculk(pos, isWorldGen, level);
+
 		if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.DOWN)) {
-			BlockState blockState = level.getBlockState(pos.below());
-			Block block = blockState.getBlock();
+			final BlockState state = level.getBlockState(pos.below());
 
-			boolean isBlockStateReplaceable = blockState.canBeReplaced()
-				|| (this.wilderWild$canPlaceOsseousSculk && block == Blocks.LAVA)
-				|| blockState.is(Blocks.SCULK_VEIN);
+			final boolean isBlockStateReplaceable = state.canBeReplaced()
+				|| (this.wilderWild$canPlaceOsseousSculk && state.is(Blocks.LAVA))
+				|| state.is(Blocks.SCULK_VEIN);
 
-			boolean canPlaceBelow = this.wilderWild$canPlaceOsseousSculk ? isBlockStateReplaceable
+			final boolean canPlaceBelow = this.wilderWild$canPlaceOsseousSculk ? isBlockStateReplaceable
 				: WWBlockConfig.HANGING_TENDRIL_GENERATION && isBlockStateReplaceable;
 
 			if (canPlaceBelow && level.getRandom().nextFloat() >= WILDERWILD$BELOW_GROWTH_CHANCE) {
@@ -313,6 +309,7 @@ public class SculkBlockMixin {
 				return true;
 			}
 		}
+
 		placingBelow.set(false);
 		return false;
 	}

@@ -26,18 +26,17 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public final class CrabVariants {
 	public static final ResourceKey<CrabVariant> CRAB = createKey("crab");
 	public static final ResourceKey<CrabVariant> DEFAULT = CRAB;
 
-	private static @NotNull ResourceKey<CrabVariant> createKey(String string) {
-		return ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, WWConstants.id(string));
+	private static ResourceKey<CrabVariant> createKey(String path) {
+		return ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, WWConstants.id(path));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<CrabVariant> bootstrapContext,
+		BootstrapContext<CrabVariant> bootstrapContext,
 		ResourceKey<CrabVariant> resourceKey,
 		String textureName,
 		HolderSet<Biome> holderSet

@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlock extends BaseEntityBlock {
@@ -48,7 +47,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public static final int MAX_TICK_DELAY = 150;
 	public static final int MIN_AWAKE_LIGHT_LEVEL = 7;
 
-	public TermiteMoundBlock(@NotNull Properties properties) {
+	public TermiteMoundBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
 			this.stateDefinition.any()
@@ -58,7 +57,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends TermiteMoundBlock> codec() {
 		return CODEC;
@@ -66,18 +64,18 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new TermiteMoundBlockEntity(pos, state);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(WWBlockStateProperties.NATURAL, WWBlockStateProperties.TERMITES_AWAKE, WWBlockStateProperties.CAN_SPAWN_TERMITE);
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos blockPos,
@@ -95,7 +93,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		level.scheduleTick(pos, this, level.random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 	}
 
@@ -105,13 +103,13 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		BlockState evaluatedState = this.evaluateMoundBlockStateAtPosition(state, level, pos);
 		if (evaluatedState != state) level.setBlockAndUpdate(pos, evaluatedState);
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}
 
-	public BlockState evaluateMoundBlockStateAtPosition(@NotNull BlockState state, Level level, BlockPos pos) {
+	public BlockState evaluateMoundBlockStateAtPosition(BlockState state, Level level, BlockPos pos) {
 		final boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		final boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
 		return state
@@ -119,15 +117,15 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
 	}
 
-	public static boolean canTermitesWaken(@NotNull Level level, @NotNull BlockPos pos) {
+	public static boolean canTermitesWaken(Level level, BlockPos pos) {
 		return !shouldTermitesSleep(level, getLightLevel(level, pos));
 	}
 
-	public static boolean shouldTermitesSleep(@NotNull Level level, int light) {
+	public static boolean shouldTermitesSleep(Level level, int light) {
 		return level.isDarkOutside() && light < MIN_AWAKE_LIGHT_LEVEL;
 	}
 
-	public static int getLightLevel(@NotNull Level level, @NotNull BlockPos blockPos) {
+	public static int getLightLevel(Level level, BlockPos blockPos) {
 		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
@@ -139,7 +137,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) ->
 				blockEntity.tickServer(
@@ -153,7 +151,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			: createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
 	}
 
-	public static @NotNull BlockState setTermiteEdibleIfPossible(@NotNull BlockState state) {
+	public static BlockState setTermiteEdibleIfPossible(BlockState state) {
 		return state.trySetValue(WWBlockStateProperties.TERMITE_EDIBLE, true);
 	}
 }

@@ -50,7 +50,6 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlockEntity extends ChestBlockEntity {
@@ -71,11 +70,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public boolean closing;
 	protected long updateTime;
 
-	public StoneChestBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-		super(WWBlockEntityTypes.STONE_CHEST, blockPos, blockState);
+	public StoneChestBlockEntity(BlockPos pos, BlockState state) {
+		super(WWBlockEntityTypes.STONE_CHEST, pos, state);
 	}
 
-	public static void serverStoneTick(@NotNull Level level, BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
+	public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity stoneChest) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 
 		final long gameTime = level.getGameTime();
@@ -100,7 +99,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		stoneChest.syncLidValuesAndUpdate(coupledStoneChest);
 	}
 
-	public static void clientStoneTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull StoneChestBlockEntity stoneChest) {
+	public static void clientStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity stoneChest) {
 		final long gameTime = level.getGameTime();
 		if (gameTime == stoneChest.updateTime) return;
 
@@ -119,11 +118,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public static void playSound(
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull BlockState state,
-		@NotNull SoundEvent soundEvent,
-		@NotNull SoundEvent waterloggedSoundEvent,
+		Level level,
+		BlockPos pos,
+		BlockState state,
+		SoundEvent soundEvent,
+		SoundEvent waterloggedSoundEvent,
 		float volume
 	) {
 		final ChestType chestType = state.getValue(ChestBlock.TYPE);
@@ -150,7 +149,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.openProgress = valueInput.getFloatOr("openProgress", 0F);
 		this.highestLidPoint = valueInput.getFloatOr("highestLidPoint", 0F);
@@ -160,7 +159,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		valueOutput.putFloat("openProgress", this.openProgress);
 		valueOutput.putFloat("highestLidPoint", this.highestLidPoint);
@@ -171,10 +170,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 	@Override
 	public float getOpenNess(float partialTick) {
-		return this.getOpenProgress(partialTick);
-	}
-
-	public float getOpenProgress(float partialTick) {
 		return Mth.lerp(partialTick, this.prevOpenProgress, this.openProgress);
 	}
 
@@ -196,7 +191,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return (int) (this.openProgress * 30F);
 	}
 
-	public void onLidSlam(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
+	public void onLidSlam(Level level, BlockPos pos, BlockState state, @Nullable StoneChestBlockEntity otherStoneChest) {
 		if (level instanceof ServerLevel server) {
 			if (this.highestLidPoint > 0.2F) {
 				server.sendParticles(
@@ -233,7 +228,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public boolean stillValid(@NotNull Player player) {
+	public boolean stillValid(Player player) {
 		if (this.level == null || this.level.getBlockEntity(this.worldPosition) != this) return false;
 		return super.stillValid(player) && !this.closing && this.openProgress >= 0.3;
 	}
@@ -247,7 +242,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		if (shouldSend) WWStoneChestLidPacket.sendToAll(this);
 	}
 
-	private void syncValues(@NotNull StoneChestBlockEntity otherStoneChest) {
+	private void syncValues(StoneChestBlockEntity otherStoneChest) {
 		if (otherStoneChest.openProgress != this.openProgress && this.level != null) {
 			this.level.updateNeighbourForOutputSignal(otherStoneChest.getBlockPos(), otherStoneChest.getBlockState().getBlock());
 		}
@@ -265,13 +260,11 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		return this.saveWithoutMetadata(provider);
 	}
 
-	@NotNull
 	@Override
 	protected Component getDefaultName() {
 		return Component.translatable("container.stone_chest");
@@ -292,7 +285,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		}
 	}
 
-	@NotNull
 	public ArrayList<ItemStack> nonAncientItems() {
 		final ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
@@ -301,8 +293,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		}
 		return items;
 	}
-
-	@NotNull
 	public ArrayList<ItemStack> ancientItems() {
 		final ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
@@ -312,7 +302,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		return items;
 	}
 
-	private static void spawnBreakParticles(@NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
+	private static void spawnBreakParticles(Level level, ItemStack stack, BlockPos pos) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		serverLevel.sendParticles(
 			new ItemParticleOption(ParticleTypes.ITEM, stack),

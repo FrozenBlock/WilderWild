@@ -24,33 +24,29 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWFeatureUtils {
+
 	private WWFeatureUtils() {
 		throw new UnsupportedOperationException("WWFeatureUtils contains only static declarations.");
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(@NotNull String id, @NotNull Feature<NoneFeatureConfiguration> feature) {
+	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(String id, Feature<NoneFeatureConfiguration> feature) {
 		return register(id, feature, FeatureConfiguration.NONE);
 	}
 
-	@NotNull
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC> register(@NotNull String id, F feature, @NotNull FC config) {
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC> register(String id, F feature, FC config) {
 		FrozenLibConfiguredFeature<FC> frozen = new FrozenLibConfiguredFeature<>(WWConstants.id(id));
 		frozen.makeAndSetHolder(feature, config);
 		return frozen;
 	}
 
-	@NotNull
-	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(@NotNull String id) {
+	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(String id) {
 		return new FrozenLibConfiguredFeature<>(WWConstants.id(id));
 	}
 
-	@NotNull
 	public static FrozenLibConfiguredTreeFeature registerTree(
-		@NotNull String id,
+		String id,
 		Block leafLitterBlock,
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB

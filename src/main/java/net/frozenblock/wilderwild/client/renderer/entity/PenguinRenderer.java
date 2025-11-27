@@ -25,9 +25,8 @@ import net.frozenblock.wilderwild.client.model.PenguinModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
@@ -35,7 +34,7 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	private static final Identifier TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
 	private static final Identifier LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");
 
-	public PenguinRenderer(EntityRendererProvider.Context context) {
+	public PenguinRenderer(Context context) {
 		super(
 			context,
 			new PenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN)),
@@ -45,12 +44,12 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	}
 
 	@Override
-	public @NotNull PenguinRenderState createRenderState() {
+	public PenguinRenderState createRenderState() {
 		return new PenguinRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Penguin penguin, @NotNull PenguinRenderState renderState, float partialTick) {
+	public void extractRenderState(Penguin penguin, PenguinRenderState renderState, float partialTick) {
 		super.extractRenderState(penguin, renderState, partialTick);
 		renderState.movementDelta = Math.min(renderState.walkAnimationSpeed * 5F, 1F);
 		renderState.swimAmount = penguin.getSwimAmount(partialTick);
@@ -63,7 +62,7 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	}
 
 	@Override
-	public @NotNull Identifier getTextureLocation(@NotNull PenguinRenderState livingEntityRenderState) {
+	public Identifier getTextureLocation(PenguinRenderState livingEntityRenderState) {
 		return livingEntityRenderState.isLinux ? LINUX : TEXTURE;
 	}
 }

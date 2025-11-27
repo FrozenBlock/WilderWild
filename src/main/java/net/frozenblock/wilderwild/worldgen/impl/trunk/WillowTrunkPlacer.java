@@ -35,29 +35,24 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class WillowTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		trunkPlacerParts(instance)
-			.and(
-				instance.group(
-					IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
-					Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
-					TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
-				)
-			).apply(instance, WillowTrunkPlacer::new));
-
+	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> trunkPlacerParts(instance).and(
+		instance.group(
+			IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
+			Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
+			TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
+		)
+	).apply(instance, WillowTrunkPlacer::new));
 	private final IntProvider trunkSplitHeight;
 	private final float branchSplitGapChance;
 	private final TrunkBranchPlacement trunkBranchPlacement;
-
 
 	public WillowTrunkPlacer(
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		@NotNull IntProvider trunkSplitHeight,
+		IntProvider trunkSplitHeight,
 		float branchSplitGapChance,
 		TrunkBranchPlacement trunkBranchPlacement
 	) {
@@ -68,25 +63,23 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.WILLOW_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
 		setDirtAt(level, replacer, random, startPos.below(), config);
-		List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		BlockPos.MutableBlockPos branchMutable = new BlockPos.MutableBlockPos();
+		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos branchMutable = new BlockPos.MutableBlockPos();
 		int splitHeight = this.trunkSplitHeight.sample(random);
 
 		int xOffset = 0;
@@ -94,29 +87,29 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 		for (int i = 0; i < height; ++i) {
 			mutable.setWithOffset(startPos, xOffset, i, zOffset);
 			if (i == splitHeight) {
-				Direction splitDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				BlockPos splitPos = mutable.immutable();
+				final Direction splitDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+				final BlockPos splitPos = mutable.immutable();
 				xOffset += splitDirection.getStepX();
 				zOffset += splitDirection.getStepZ();
 				mutable.setWithOffset(startPos, xOffset, i, zOffset);
 
 				for (Direction branchDirection : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
-					if (this.trunkBranchPlacement.canPlaceBranch(random)) {
-						if (random.nextFloat() <= this.branchSplitGapChance && splitDirection != branchDirection) {
-							branchMutable.set(splitPos);
-						} else {
-							branchMutable.set(mutable);
-						}
-						this.trunkBranchPlacement.generateExtraBranch(
-							level,
-							replacer,
-							random,
-							config.trunkProvider,
-							branchMutable.immutable(),
-							branchDirection,
-							foliageAttachments
-						);
+					if (!this.trunkBranchPlacement.canPlaceBranch(random)) continue;
+
+					if (random.nextFloat() <= this.branchSplitGapChance && splitDirection != branchDirection) {
+						branchMutable.set(splitPos);
+					} else {
+						branchMutable.set(mutable);
 					}
+					this.trunkBranchPlacement.generateExtraBranch(
+						level,
+						replacer,
+						random,
+						config.trunkProvider,
+						branchMutable.immutable(),
+						branchDirection,
+						foliageAttachments
+					);
 				}
 			}
 

@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungiTreeDecorator extends TreeDecorator {
 	public static final MapCodec<ShelfFungiTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -50,26 +49,25 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WWTreeDecorators.SHELF_FUNGI_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context context) {
+	public void place(Context context) {
 		if (!WWWorldgenConfig.GENERATE_SHELF_FUNGI) return;
 
-		RandomSource random = context.random();
+		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : context.logs()) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
-				BlockState state = this.blockStateProvider.getState(random, mutableBlockPos)
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
+				final BlockState state = this.blockStateProvider.getState(random, mutable)
 					.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
 					.setValue(ShelfFungiBlock.FACING, direction);
-				context.setBlock(mutableBlockPos, state);
+				context.setBlock(mutable, state);
 			}
 		}
 	}

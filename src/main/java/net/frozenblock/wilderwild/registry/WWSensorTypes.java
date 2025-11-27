@@ -39,9 +39,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWSensorTypes {
+
 	private WWSensorTypes() {
 		throw new UnsupportedOperationException("WWSensorTypes contains only static declarations.");
 	}
@@ -66,9 +66,8 @@ public final class WWSensorTypes {
 	public static final SensorType<PenguinWaterPosSensor> WATER_POS_SENSOR = register("water_pos_sensor", PenguinWaterPosSensor::new);
 	public static final SensorType<PenguinTrackedBoatSensor> TRACKED_BOAT_SENSOR = register("tracked_boat_sensor", PenguinTrackedBoatSensor::new);
 
-	@NotNull
-	private static <U extends Sensor<?>> SensorType<U> register(String key, Supplier<U> sensorSupplier) {
-		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WWConstants.id(key), new SensorType<>(sensorSupplier));
+	private static <U extends Sensor<?>> SensorType<U> register(String path, Supplier<U> sensorSupplier) {
+		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WWConstants.id(path), new SensorType<>(sensorSupplier));
 	}
 
 }

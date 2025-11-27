@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.AbstractHugeMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 
@@ -34,59 +33,58 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 	}
 
 	@Override
-	protected int getTreeHeight(@NotNull RandomSource randomSource) {
-		return randomSource.nextInt(3) + 4;
+	protected int getTreeHeight(RandomSource random) {
+		return random.nextInt(3) + 4;
 	}
 
 	@Override
 	protected void makeCap(
-		LevelAccessor levelAccessor,
-		RandomSource randomSource,
-		BlockPos blockPos,
+		LevelAccessor level,
+		RandomSource random,
+		BlockPos pos,
 		int height,
-		BlockPos.MutableBlockPos mutableBlockPos,
-		HugeMushroomFeatureConfiguration hugeMushroomFeatureConfiguration
+		BlockPos.MutableBlockPos mutable,
+		HugeMushroomFeatureConfiguration config
 	) {
-		int top = height + 1;
-		int bottom = height - 2;
-		for (int j = bottom; j <= top; j++) {
-			int radius = j < top ? hugeMushroomFeatureConfiguration.foliageRadius : hugeMushroomFeatureConfiguration.foliageRadius - 1;
-			int withinRadius = hugeMushroomFeatureConfiguration.foliageRadius - 2;
+		final int top = height + 1;
+		final int bottom = height - 2;
+		for (int y = bottom; y <= top; y++) {
+			final int radius = y < top ? config.foliageRadius : config.foliageRadius - 1;
+			final int withinRadius = config.foliageRadius - 2;
 
-			for (int m = -radius; m <= radius; m++) {
-				for (int n = -radius; n <= radius; n++) {
-					boolean onNegX = m == -radius;
-					boolean onPosX = m == radius;
-					boolean onNegZ = n == -radius;
-					boolean onPosZ = n == radius;
-					boolean onX = onNegX || onPosX;
-					boolean onZ = onNegZ || onPosZ;
-					boolean onCorner = onX && onZ;
-					boolean onEdge = onX || onZ;
-					if (j >= top || ((onX != onZ) || (j == height && !onCorner))) {
-						if ((j != bottom || randomSource.nextFloat() <= 0.25F)) {
-							mutableBlockPos.setWithOffset(blockPos, m, j, n);
-							if (!levelAccessor.getBlockState(mutableBlockPos).isSolidRender()) {
-								BlockState blockState = hugeMushroomFeatureConfiguration.capProvider.getState(randomSource, blockPos);
-								if (blockState.hasProperty(HugeMushroomBlock.WEST)
-									&& blockState.hasProperty(HugeMushroomBlock.EAST)
-									&& blockState.hasProperty(HugeMushroomBlock.NORTH)
-									&& blockState.hasProperty(HugeMushroomBlock.SOUTH)
-									&& blockState.hasProperty(HugeMushroomBlock.UP)
-								) {
-									boolean hasUpState = j >= top || (onEdge && j == height);
-									blockState = blockState
-										.setValue(HugeMushroomBlock.UP, hasUpState)
-										.setValue(HugeMushroomBlock.WEST, m < -withinRadius)
-										.setValue(HugeMushroomBlock.EAST, m > withinRadius)
-										.setValue(HugeMushroomBlock.NORTH, n < -withinRadius)
-										.setValue(HugeMushroomBlock.SOUTH, n > withinRadius);
-								}
+			for (int x = -radius; x <= radius; x++) {
+				for (int z = -radius; z <= radius; z++) {
+					final boolean onNegX = x == -radius;
+					final boolean onPosX = x == radius;
+					final boolean onNegZ = z == -radius;
+					final boolean onPosZ = z == radius;
+					final boolean onX = onNegX || onPosX;
+					final boolean onZ = onNegZ || onPosZ;
+					final boolean onCorner = onX && onZ;
+					final boolean onEdge = onX || onZ;
 
-								this.setBlock(levelAccessor, mutableBlockPos, blockState);
-							}
-						}
+					if (!(y >= top || ((onX != onZ) || (y == height && !onCorner)))) continue;
+					if (!(y != bottom || random.nextFloat() <= 0.25F)) continue;
+
+					mutable.setWithOffset(pos, x, y, z);
+					if (level.getBlockState(mutable).isSolidRender()) continue;
+
+					BlockState state = config.capProvider.getState(random, pos);
+					if (state.hasProperty(HugeMushroomBlock.WEST)
+						&& state.hasProperty(HugeMushroomBlock.EAST)
+						&& state.hasProperty(HugeMushroomBlock.NORTH)
+						&& state.hasProperty(HugeMushroomBlock.SOUTH)
+						&& state.hasProperty(HugeMushroomBlock.UP)
+					) {
+						final boolean hasUpState = y >= top || (onEdge && y == height);
+						state = state
+							.setValue(HugeMushroomBlock.UP, hasUpState)
+							.setValue(HugeMushroomBlock.WEST, x < -withinRadius)
+							.setValue(HugeMushroomBlock.EAST, x > withinRadius)
+							.setValue(HugeMushroomBlock.NORTH, z < -withinRadius)
+							.setValue(HugeMushroomBlock.SOUTH, z > withinRadius);
 					}
+					this.setBlock(level, mutable, state);
 				}
 			}
 		}

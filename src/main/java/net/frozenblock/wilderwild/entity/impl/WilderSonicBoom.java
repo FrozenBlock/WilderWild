@@ -18,8 +18,6 @@
 package net.frozenblock.wilderwild.entity.impl;
 
 public interface WilderSonicBoom {
-
 	boolean wilderWild$particlesEnded();
-
 	void wilderWild$endParticles();
 }

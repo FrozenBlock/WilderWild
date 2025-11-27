@@ -22,7 +22,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
@@ -32,7 +32,6 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowModel> {
@@ -47,7 +46,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 
 	@Override
 	public void submit(
-		@NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector, int light, @NotNull FlowerCowRenderState renderState, float f, float g
+		PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, FlowerCowRenderState renderState, float f, float g
 	) {
 		if (renderState.isBaby) return;
 
@@ -57,8 +56,8 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 		final int flowersLeft = renderState.flowers;
 		final int outlineColor = renderState.outlineColor;
 		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
-		final BlockState blockState = renderState.flowerBlockState;
-		final BlockStateModel blockStateModel = this.blockRenderer.getBlockModel(blockState);
+		final BlockState state = renderState.flowerBlockState;
+		final BlockStateModel model = this.blockRenderer.getBlockModel(state);
 
 		// BACK MIDDLE
 		if (flowersLeft >= 1) {
@@ -66,7 +65,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			poseStack.translate(0F, -0.35F, 0.5F);
 			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, blockState, overlay, blockStateModel);
+			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
 			poseStack.popPose();
 		}
 
@@ -77,7 +76,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			poseStack.mulPose(Axis.YP.rotationDegrees(-32));
 			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, blockState, overlay, blockStateModel);
+			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
 			poseStack.popPose();
 		}
 
@@ -88,7 +87,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			poseStack.mulPose(Axis.YP.rotationDegrees(112));
 			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, blockState, overlay, blockStateModel);
+			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
 			poseStack.popPose();
 		}
 
@@ -100,7 +99,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
 			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, blockState, overlay, blockStateModel);
+			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
 			poseStack.popPose();
 		}
 	}
@@ -111,14 +110,14 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 		int light,
 		boolean glowingAndInvisible,
 		int outlineColor,
-		BlockState blockState,
+		BlockState state,
 		int overlay,
-		BlockStateModel blockStateModel
+		BlockStateModel model
 	) {
 		if (glowingAndInvisible) {
-			submitNodeCollector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), blockStateModel, 0F, 0F, 0F, light, overlay, outlineColor);
+			submitNodeCollector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), model, 0F, 0F, 0F, light, overlay, outlineColor);
 			return;
 		}
-		submitNodeCollector.submitBlock(poseStack, blockState, light, overlay, outlineColor);
+		submitNodeCollector.submitBlock(poseStack, state, light, overlay, outlineColor);
 	}
 }

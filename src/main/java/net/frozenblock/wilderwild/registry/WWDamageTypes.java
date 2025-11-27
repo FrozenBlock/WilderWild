@@ -23,7 +23,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWDamageTypes {
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
@@ -35,7 +34,7 @@ public final class WWDamageTypes {
 	public static void init() {
 	}
 
-	public static void bootstrap(@NotNull BootstrapContext<DamageType> context) {
+	public static void bootstrap(BootstrapContext<DamageType> context) {
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
 		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
 		context.register(CANNONBALL, new DamageType("cannonball", DamageScaling.ALWAYS, 0.1F));
@@ -43,8 +42,7 @@ public final class WWDamageTypes {
 		context.register(FALLING_ICICLE, new DamageType("fallingIcicle", 0.1F));
 	}
 
-	@NotNull
-	private static ResourceKey<DamageType> bind(@NotNull String path) {
+	private static ResourceKey<DamageType> bind(String path) {
 		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(path));
 	}
 }

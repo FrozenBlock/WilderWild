@@ -33,7 +33,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
@@ -67,10 +66,10 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 
 	@Override
 	public void submit(
-		@NotNull OstrichRenderState renderState,
-		@NotNull PoseStack poseStack,
-		@NotNull SubmitNodeCollector submitNodeCollector,
-		@NotNull CameraRenderState cameraRenderState
+		OstrichRenderState renderState,
+		PoseStack poseStack,
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
 		if (renderState.isInbred) {
 			this.adultModel = this.inbredModel;
@@ -79,26 +78,23 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 			this.adultModel = this.normalModel;
 			this.babyModel = this.normalBabyModel;
 		}
-		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
+		super.submit(renderState, poseStack, collector, cameraState);
 	}
 
-
 	@Override
-	@NotNull
-	public Identifier getTextureLocation(@NotNull OstrichRenderState renderState) {
+	public Identifier getTextureLocation(OstrichRenderState renderState) {
 		return OSTRICH_LOCATION;
 	}
 
 	@Override
-	@NotNull
 	public OstrichRenderState createRenderState() {
 		return new OstrichRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull Ostrich entity, @NotNull OstrichRenderState renderState, float partialTick) {
-		super.extractRenderState(entity, renderState, partialTick);
-		renderState.isInbred = entity.isInbred();
+	public void extractRenderState(Ostrich ostrich, OstrichRenderState renderState, float partialTick) {
+		super.extractRenderState(ostrich, renderState, partialTick);
+		renderState.isInbred = ostrich.isInbred();
 	}
 }
 

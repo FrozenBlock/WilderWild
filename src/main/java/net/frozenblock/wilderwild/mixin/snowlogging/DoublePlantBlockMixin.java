@@ -72,14 +72,12 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		)
 	)
 	public boolean wilderWild$playerWillDestroy(boolean original, Level level, BlockPos pos, BlockState state, Player player) {
-		boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
-		if (!original && !player.isCreative() && !snowlogged) {
-			if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-				BlockPos belowPos = pos.below();
-				BlockState belowState = level.getBlockState(belowPos);
-				if (SnowloggingUtils.isSnowlogged(belowState)) {
-					Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
-				}
+		final boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
+		if (!original && !player.isCreative() && !snowlogged && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
+			final BlockPos belowPos = pos.below();
+			final BlockState belowState = level.getBlockState(belowPos);
+			if (SnowloggingUtils.isSnowlogged(belowState)) {
+				Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
 			}
 		}
 		return original || snowlogged;
@@ -103,14 +101,12 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		return original.call(instance, setPos, setState, flags);
 	}
 
-
 	@Inject(method = "playerDestroy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			info.cancel();
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-		}
+		if (!SnowloggingUtils.isSnowlogged(state)) return;
+		info.cancel();
+		final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+		if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))

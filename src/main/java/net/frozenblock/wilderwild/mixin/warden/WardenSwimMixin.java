@@ -45,7 +45,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -69,12 +68,12 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Unique
-	private static boolean wilderWild$touchingLiquidOrSwimming(@NotNull Entity entity) {
+	private static boolean wilderWild$touchingLiquidOrSwimming(Entity entity) {
 		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
 	@Unique
-	private static boolean wilderWild$submergedOrSwimming(@NotNull Entity entity) {
+	private static boolean wilderWild$submergedOrSwimming(Entity entity) {
 		return entity.isEyeInFluid(FluidTags.WATER) || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 	}
 
@@ -86,16 +85,18 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	public void wilderWild$tickWading(CallbackInfo info) {
-		Warden warden = Warden.class.cast(this);
+		final Warden warden = Warden.class.cast(this);
 		this.wilderWild$previousWadeAmount = this.wilderWild$wadeAmount;
 		this.wilderWild$wadeAmount += ((wilderWild$touchingLiquidOrSwimming(warden) ? 1F : 0F) - this.wilderWild$wadeAmount) * 0.175F;
 	}
 
+	@Unique
 	@Override
 	public float wilderWild$getWadingProgress(float tickDelta) {
 		return Mth.lerp(tickDelta, this.wilderWild$previousWadeAmount, this.wilderWild$wadeAmount);
 	}
 
+	@Unique
 	@Override
 	public boolean isVisuallySwimming() {
 		return this.wilderWild$newSwimming || super.isVisuallySwimming();
@@ -106,9 +107,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		info.setReturnValue(new WardenNavigation(Warden.class.cast(this), level));
 	}
 
+	@Unique
 	@Override
-	public void travel(@NotNull Vec3 travelVector) {
-		Warden warden = Warden.class.cast(this);
+	public void travel(Vec3 travelVector) {
+		final Warden warden = Warden.class.cast(this);
 		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava() && WWEntityConfig.WARDEN_SWIMS) {
 			this.moveRelative(this.getSpeed(), travelVector);
 			this.move(MoverType.SELF, this.getDeltaMovement());
@@ -125,8 +127,8 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$wardenEntity(EntityType<? extends Monster> entityType, Level level, CallbackInfo info) {
-		Warden wardenEntity = Warden.class.cast(this);
+	private void wilderWild$init(EntityType<? extends Monster> type, Level level, CallbackInfo info) {
+		final Warden wardenEntity = Warden.class.cast(this);
 		wardenEntity.setPathfindingMalus(PathType.WATER, 0F);
 		wardenEntity.setPathfindingMalus(PathType.POWDER_SNOW, -1F);
 		wardenEntity.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1F);
@@ -134,42 +136,46 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		this.lookControl = new WardenLookControl(wardenEntity, 10);
 	}
 
+	@Unique
 	@Override
 	public boolean canBreatheUnderwater() {
 		return WWEntityConfig.WARDEN_SWIMS;
 	}
 
+	@Unique
 	@Override
 	public boolean isPushedByFluid() {
 		return !WWEntityConfig.WARDEN_SWIMS;
 	}
 
+	@Unique
 	@Override
-	@NotNull
 	public SoundEvent getSwimSound() {
 		return WWEntityConfig.WARDEN_SWIMS ? WWSounds.ENTITY_WARDEN_SWIM : super.getSwimSound();
 	}
 
+	@Unique
 	@Override
-	public void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
+	public void jumpInLiquid(TagKey<Fluid> fluid) {
 		if (WWEntityConfig.WARDEN_SWIMS && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
-			Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-			Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
-			LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
+			final Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+			final Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
+			final LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
 			if (target != null && (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) super.jumpInLiquid(fluid);
 		} else {
 			super.jumpInLiquid(fluid);
 		}
 	}
 
+	@Unique
 	@Override
 	protected boolean updateInWaterStateAndDoFluidPushing() {
 		if (!WWEntityConfig.WARDEN_SWIMS) return super.updateInWaterStateAndDoFluidPushing();
-		Warden warden = Warden.class.cast(this);
+		final Warden warden = Warden.class.cast(this);
 		this.fluidHeight.clear();
 		warden.updateInWaterStateAndDoWaterCurrentPushing();
-		boolean bl = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-		return this.wilderWild$isTouchingWaterOrLava() || bl;
+		final boolean updateFluids = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
+		return this.wilderWild$isTouchingWaterOrLava() || updateFluids;
 	}
 
 	@Inject(method = "getDefaultDimensions", at = @At("RETURN"), cancellable = true)
@@ -190,14 +196,14 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	@Override
 	public boolean wilderWild$isTouchingWaterOrLava() {
-		Warden warden = Warden.class.cast(this);
+		final Warden warden = Warden.class.cast(this);
 		return warden.isInWater() || warden.isInLava();
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isSubmergedInWaterOrLava() {
-		Warden warden = Warden.class.cast(this);
+		final Warden warden = Warden.class.cast(this);
 		return warden.isEyeInFluid(FluidTags.WATER) || warden.isEyeInFluid(FluidTags.LAVA);
 	}
 }

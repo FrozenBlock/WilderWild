@@ -49,10 +49,8 @@ public class WaterFogEnvironmentMixin {
 			target = "Lnet/minecraft/world/attribute/EnvironmentAttributeProbe;getValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;F)Ljava/lang/Object;"
 		)
 	)
-	public Object wilderWild$drawMesogleaFogCloser(
-		EnvironmentAttributeProbe instance, EnvironmentAttribute<Object> environmentAttribute, float partialTick, Operation<Object> original
-	) {
-		final Object object = original.call(instance, environmentAttribute, partialTick);
+	public Object wilderWild$drawMesogleaFogCloser(EnvironmentAttributeProbe instance, EnvironmentAttribute<Object> attribute, float partialTick, Operation<Object> original) {
+		final Object object = original.call(instance, attribute, partialTick);
 		if (!(object instanceof Float flt)) return object;
 		return MesogleaWaterFogUtil.getModifiedFogDistance(partialTick, flt);
 	}

@@ -63,7 +63,6 @@ import net.minecraft.world.level.redstone.Redstone;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner {
 	public static final int MAX_FIREFLY_AGE = 20;
@@ -73,13 +72,13 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	public int age;
 	private boolean firstTick;
 
-	public DisplayLanternBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public DisplayLanternBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, state);
 		this.hanging = state.getValue(BlockStateProperties.HANGING);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}
 
-	public void serverTick(@NotNull Level level, @NotNull BlockPos pos) {
+	public void serverTick(Level level, BlockPos pos) {
 		final boolean hasFireflies = !this.fireflies.isEmpty();
 		if (!this.firstTick) {
 			this.firstTick = true;
@@ -113,7 +112,6 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		return this.saveWithoutMetadata(provider);
@@ -132,7 +130,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.fireflies.clear();
 		valueInput.read("fireflies", Occupant.LIST_CODEC).ifPresent(this.fireflies::addAll);
@@ -142,7 +140,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		valueOutput.store("fireflies", Occupant.LIST_CODEC, this.fireflies);
 		ContainerHelper.saveAllItems(valueOutput, this.inventory);
@@ -169,12 +167,11 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		valueOutput.discard("fireflies");
 	}
 
-	@NotNull
 	public List<Occupant> getFireflies() {
 		return this.fireflies;
 	}
 
-	public void addFirefly(@NotNull LevelAccessor level, @NotNull Identifier color, @NotNull String name) {
+	public void addFirefly(LevelAccessor level, Identifier color, String name) {
 		final RandomSource random = level.getRandom();
 		final Vec3 newVec = new Vec3(0.5D + (0.15D - random.nextDouble() * 0.3D), 0D, 0.5D + (0.15D - random.nextDouble() * 0.3D));
 		final var firefly = new Occupant(newVec, color, name, random.nextInt(MAX_FIREFLY_AGE), 0D);
@@ -183,7 +180,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
-	public void removeFirefly(@NotNull Occupant firefly) {
+	public void removeFirefly(Occupant firefly) {
 		this.fireflies.remove(firefly);
 	}
 
@@ -192,11 +189,11 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		if (!this.level.isClientSide()) this.spawnFireflies(this.level);
 	}
 
-	public void spawnFireflies(@NotNull Level level) {
+	public void spawnFireflies(Level level) {
 		if (!this.getFireflies().isEmpty()) this.doFireflySpawns(level);
 	}
 
-	private void doFireflySpawns(@NotNull Level level) {
+	private void doFireflySpawns(Level level) {
 		final double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
 			final Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
@@ -226,12 +223,12 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public @NotNull Level level() {
+	public Level level() {
 		return this.level;
 	}
 
 	@Override
-	public @NotNull Vec3 position() {
+	public Vec3 position() {
 		return this.getBlockPos().getCenter();
 	}
 
@@ -266,7 +263,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 
 		private Optional<FireflyColor> colorForRendering = Optional.empty();
 
-		public Occupant(@NotNull Vec3 pos, @NotNull Identifier color, @NotNull String customName, int age, double y) {
+		public Occupant(Vec3 pos, Identifier color, String customName, int age, double y) {
 			this.pos = pos;
 			this.color = color;
 			this.customName = customName;
@@ -283,12 +280,10 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 				.getOptional(this.color);
 		}
 
-		@NotNull
 		public Vec3 getPos() {
 			return this.pos;
 		}
 
-		@NotNull
 		public Identifier getColor() {
 			return this.color;
 		}
@@ -301,7 +296,6 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 			return this.colorForRendering.get();
 		}
 
-		@NotNull
 		public String getCustomName() {
 			return this.customName;
 		}

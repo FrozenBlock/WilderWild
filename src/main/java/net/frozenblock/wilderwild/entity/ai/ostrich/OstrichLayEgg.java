@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 	private final Block eggBlock;
@@ -41,53 +40,51 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(AbstractOstrich entity, @NotNull Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(AbstractOstrich ostrich, Level level, Block block, BlockPos placePos) {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
-		if (state.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
-			BlockState placementState = block.defaultBlockState();
-			level.setBlockAndUpdate(placePos, placementState);
-			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
-			level.playSound(null, entity, WWSounds.ENTITY_OSTRICH_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
-			return true;
-		}
-		return false;
-	}
+		if (!state.isAir() || !belowState.isFaceSturdy(level, belowPos, Direction.UP)) return false;
 
-	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull AbstractOstrich owner) {
+		final BlockState placementState = block.defaultBlockState();
+		level.setBlockAndUpdate(placePos, placementState);
+		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(ostrich, placementState));
+		level.playSound(null, ostrich, WWSounds.ENTITY_OSTRICH_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
-		return entity.isPregnant();
+	public boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich ostrich) {
+		return true;
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
+	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+		return ostrich.isPregnant();
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull AbstractOstrich entity, long gameTime) {
+	public void start(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull AbstractOstrich owner, long gameTime) {
-		if (owner.isInWater() || !owner.onGround()) return;
+	public void stop(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	}
 
-		final BlockPos blockPos = owner.getOnPos().above();
-		if (attemptPlace(owner, level, this.eggBlock, blockPos)) {
-			owner.revokePregnancy();
+	@Override
+	public void tick(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+		if (ostrich.isInWater() || !ostrich.onGround()) return;
+
+		final BlockPos pos = ostrich.getOnPos().above();
+		if (attemptPlace(ostrich, level, this.eggBlock, pos)) {
+			ostrich.revokePregnancy();
 			return;
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (attemptPlace(owner, level, this.eggBlock, blockPos.relative(direction))) {
-				owner.revokePregnancy();
-				return;
-			}
+			if (!attemptPlace(ostrich, level, this.eggBlock, pos.relative(direction))) continue;
+			ostrich.revokePregnancy();
+			return;
 		}
 	}
 

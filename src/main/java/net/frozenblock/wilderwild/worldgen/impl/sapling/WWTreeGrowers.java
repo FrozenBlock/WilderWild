@@ -32,13 +32,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWTreeGrowers {
+
 	public static final TreeGrower BAOBAB = new BaobabTreeGrower(WWConstants.string("baobab")) {
 		@Override
-		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(@NotNull RandomSource random) {
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
 			return random.nextFloat() < 0.856F ? WWTreeConfigured.BAOBAB.getKey() : WWTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
@@ -50,13 +50,13 @@ public final class WWTreeGrowers {
 		Optional.empty()
 	) {
 		@Override
-		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
+		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean flowers) {
 			if ((Object) this instanceof TreeGrowerInterface treeGrowerInterface) {
-				ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
-				BlockPos pos = treeGrowerInterface.wilderWild$getPos();
+				final ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
+				final BlockPos pos = treeGrowerInterface.wilderWild$getPos();
 				if (level != null && pos != null) {
 					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeConfigured.SWAMP_CYPRESS.getKey();
-					Holder<Biome> biome = level.getBiome(pos);
+					final Holder<Biome> biome = level.getBiome(pos);
 					if (biome.is(BiomeTags.IS_BADLANDS)) return WWTreeConfigured.JUNIPER.getKey();
 				}
 			}
@@ -72,10 +72,12 @@ public final class WWTreeGrowers {
 		Optional.empty()
 	) {
 		@Override
-		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean flowers) {
-			return random.nextDouble() > 0.4 ? WWTreeConfigured.PALM.getKey()
-				: random.nextDouble() > 0.3 ? WWTreeConfigured.TALL_PALM.getKey()
-				: WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
+		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean flowers) {
+			return random.nextDouble() > 0.4
+				? WWTreeConfigured.PALM.getKey()
+					: random.nextDouble() > 0.3
+					? WWTreeConfigured.TALL_PALM.getKey()
+					: WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
 		}
 	};
 
@@ -98,7 +100,7 @@ public final class WWTreeGrowers {
 		Optional.empty()
 	) {
 		@Override
-		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
+		protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
 			return random.nextFloat() <= 0.25F ?
 				random.nextFloat() <= 0.35F ? WWTreeConfigured.WILLOW_TALLER.getKey() : WWTreeConfigured.WILLOW_TALL.getKey()
 				: WWTreeConfigured.WILLOW.getKey();

@@ -23,7 +23,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWTreeDecorators {
 	public static final TreeDecoratorType<ShelfFungiTreeDecorator> SHELF_FUNGI_TREE_DECORATOR = register("shelf_fungi_tree_decorator", ShelfFungiTreeDecorator.CODEC);
@@ -32,12 +31,10 @@ public final class WWTreeDecorators {
 	public static final TreeDecoratorType<PollenTreeDecorator> POLLEN_TREE_DECORATOR = register("pollen_tree_decorator", PollenTreeDecorator.CODEC);
 	public static final TreeDecoratorType<AboveLogsTreeDecorator> ABOVE_LOGS_TREE_DECORATOR = register("above_logs_tree_decorator", AboveLogsTreeDecorator.CODEC);
 
-	public static void generateTreeDecorators() {
-		//Just to ensure the class is loaded.
+	public static void init() {
 	}
 
-	@NotNull
-	private static <P extends TreeDecorator> TreeDecoratorType<P> register(@NotNull String id, @NotNull MapCodec<P> codec) {
+	private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, MapCodec<P> codec) {
 		return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WWConstants.id(id), new TreeDecoratorType<P>(codec));
 	}
 }

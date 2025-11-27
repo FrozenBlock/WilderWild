@@ -27,14 +27,11 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ValidateOrSetHome {
 
-	@Contract(" -> new")
-	public static @NotNull BehaviorControl<LivingEntity> create() {
+	public static BehaviorControl<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(MemoryModuleType.HOME),
 			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
@@ -50,21 +47,21 @@ public class ValidateOrSetHome {
 	}
 
 	@Nullable
-	private static BlockPos getHome(@NotNull LivingEntity entity) {
+	private static BlockPos getHome(LivingEntity entity) {
 		final Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.map(GlobalPos::pos).orElse(null);
 	}
 
-	private static void setHomeAtCurrentPos(@NotNull LivingEntity entity) {
+	private static void setHomeAtCurrentPos(LivingEntity entity) {
 		entity.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(entity.level().dimension(), entity.blockPosition()));
 	}
 
-	private static boolean isInHomeDimension(@NotNull LivingEntity entity) {
+	private static boolean isInHomeDimension(LivingEntity entity) {
 		final  Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.filter(globalPos -> globalPos.dimension() == entity.level().dimension()).isPresent();
 	}
 
-	private static boolean isValidHomePos(@NotNull Level level, @NotNull BlockPos pos) {
+	private static boolean isValidHomePos(Level level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		if (!state.getFluidState().isEmpty()) return false;
 		if (state.isRedstoneConductor(level, pos)) return false;

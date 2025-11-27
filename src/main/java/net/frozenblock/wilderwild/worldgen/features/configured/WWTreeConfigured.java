@@ -118,7 +118,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPl
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWTreeConfigured {
 	// BIRCH
@@ -1047,7 +1046,6 @@ public final class WWTreeConfigured {
 		FANCY_OAK.makeAndSetHolders(Feature.TREE,
 			fancyOak().decorators(List.of(SHELF_FUNGUS_0054)).build()
 		);
-
 
 		FANCY_DYING_OAK.makeAndSetHolders(Feature.TREE,
 			fancyOak().decorators(
@@ -2149,7 +2147,6 @@ public final class WWTreeConfigured {
 			).build()
 		);
 
-
 		//MANGROVE
 		MANGROVE.makeAndSetHolders(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
@@ -2302,7 +2299,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder builder(
+	private static TreeConfiguration.TreeConfigurationBuilder builder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2334,7 +2331,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder deadBuilder(
 		Block log,
 		int baseHeight,
 		int firstRandomHeight,
@@ -2363,7 +2360,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenTrunkBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder fallenTrunkBuilder(
 		Block log,
 		Block hollowedLog,
 		int baseHeight,
@@ -2396,7 +2393,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fallenWillowTrunkBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder fallenWillowTrunkBuilder(
 		Block log,
 		Block hollowedLog,
 		int baseHeight,
@@ -2432,7 +2429,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder darkOakBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder darkOakBuilder(
 		Block log, Block leaves,
 		int baseHeight,
 		int firstRandomHeight,
@@ -2449,7 +2446,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyDarkOakBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder fancyDarkOakBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2481,7 +2478,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder palmBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder palmBuilder(
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2502,7 +2499,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder windmillPalmBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder windmillPalmBuilder(
 		Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2515,7 +2512,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder snappedTrunkBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder snappedTrunkBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2527,7 +2524,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeSnappedTrunkBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder largeSnappedTrunkBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -2539,7 +2536,7 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder birch() {
+	private static TreeConfiguration.TreeConfigurationBuilder birch() {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2554,7 +2551,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder superBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
@@ -2570,7 +2566,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
@@ -2586,7 +2581,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder mediumBirch() {
 		return builder(
 			Blocks.BIRCH_LOG,
@@ -2602,7 +2596,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadBirch() {
+	private static TreeConfiguration.TreeConfigurationBuilder deadBirch() {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			7,
@@ -2615,7 +2609,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder deadMediumBirch() {
+	private static TreeConfiguration.TreeConfigurationBuilder deadMediumBirch() {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			6,
@@ -2628,7 +2622,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenBirch() {
 		return fallenTrunkBuilder(
 			Blocks.BIRCH_LOG,
@@ -2643,7 +2636,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCherry() {
 		return fallenTrunkBuilder(
 			Blocks.CHERRY_LOG,
@@ -2658,7 +2650,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMaple() {
 		return fallenTrunkBuilder(
 			WWBlocks.MAPLE_LOG,
@@ -2672,7 +2663,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder oak() {
 		return builder(
 			Blocks.OAK_LOG,
@@ -2688,7 +2678,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortOak() {
 		return builder(
 			Blocks.OAK_LOG,
@@ -2704,7 +2693,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -2715,7 +2703,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -2726,7 +2713,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancySemiDeadOak(HolderGetter<Block> blocks) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -2745,7 +2731,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder smallFancyDeadOak() {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -2756,7 +2741,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder smallFancySemiDeadOak(HolderGetter<Block> blocks) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -2775,7 +2759,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenOak() {
 		return fallenTrunkBuilder(
 			Blocks.OAK_LOG,
@@ -2790,7 +2773,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCypress() {
 		return fallenTrunkBuilder(
 			WWBlocks.CYPRESS_LOG,
@@ -2805,12 +2787,10 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
 		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyTallDarkOak() {
 		return fancyDarkOakBuilder(
 			Blocks.DARK_OAK_LOG,
@@ -2825,7 +2805,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder cherry() {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
@@ -2839,7 +2818,6 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallCherry() {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
@@ -2853,7 +2831,6 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder cherryBuilder(
 		Block log,
 		Block leaves,
@@ -2872,19 +2849,19 @@ public final class WWTreeConfigured {
 			new TwoLayersFeatureSize(1, 0, 2)).ignoreVines();
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
+	private static TreeConfiguration.TreeConfigurationBuilder paleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 6, 2, 1);
 		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb, leafLitter);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
+	private static TreeConfiguration.TreeConfigurationBuilder tallPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = paleOakBuilder(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4);
 		appendPaleOakDecorators(builder, paleMoss, creaking, cobweb, leafLitter);
 		return builder;
 	}
 
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
+	private static TreeConfiguration.TreeConfigurationBuilder fancyPaleOak(boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		TreeConfiguration.TreeConfigurationBuilder builder = fancyPaleOakBuilder(
 			Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_LEAVES, 8, 3, 4, 1F, UniformInt.of(1, 2), UniformInt.of(1, 4)
 		);
@@ -2903,7 +2880,6 @@ public final class WWTreeConfigured {
 		builder.decorators(ImmutableList.copyOf(treeDecorators));
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder paleOakBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -2914,7 +2890,6 @@ public final class WWTreeConfigured {
 		).decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F))).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fancyPaleOakBuilder(
 		Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2, float branchChance, IntProvider maxBranchCount, IntProvider branchLength
 	) {
@@ -2938,12 +2913,10 @@ public final class WWTreeConfigured {
 		).decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F))).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder yellowMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 10, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallYellowMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 14, 1, 1);
 	}
@@ -2952,52 +2925,42 @@ public final class WWTreeConfigured {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 6, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundYellowMaple() {
 		return roundMapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.YELLOW_MAPLE_LEAVES, 7, 2, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder orangeMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 10, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallOrangeMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 14, 1, 1);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortOrangeMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 6, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundOrangeMaple() {
 		return roundMapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.ORANGE_MAPLE_LEAVES, 7, 2, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder redMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 10, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder tallRedMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 6, 1, 1);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder shortRedMaple() {
 		return mapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 6, 1, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundRedMaple() {
 		return roundMapleBuilder(WWBlocks.MAPLE_LOG, WWBlocks.RED_MAPLE_LEAVES, 7, 2, 2);
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder mapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -3008,7 +2971,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder roundMapleBuilder(Block log, Block leaves, int baseHeight, int randomHeight1, int randomHeight2) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(log),
@@ -3019,7 +2981,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenSpruce() {
 		return fallenTrunkBuilder(
 			Blocks.SPRUCE_LOG,
@@ -3034,7 +2995,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenPalm() {
 		return fallenTrunkBuilder(
 			WWBlocks.PALM_LOG,
@@ -3049,7 +3009,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
 		return fallenTrunkBuilder(
 			Blocks.ACACIA_LOG,
@@ -3064,7 +3023,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenJungle() {
 		return fallenTrunkBuilder(
 			Blocks.JUNGLE_LOG,
@@ -3079,7 +3037,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenMangrove() {
 		return fallenTrunkBuilder(
 			Blocks.MANGROVE_LOG,
@@ -3094,7 +3051,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenCrimson() {
 		return fallenTrunkBuilder(
 			Blocks.CRIMSON_STEM,
@@ -3109,7 +3065,6 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	@NotNull
 	private static TreeConfiguration.TreeConfigurationBuilder fallenWarped() {
 		return fallenTrunkBuilder(
 			Blocks.WARPED_STEM,
@@ -3125,7 +3080,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder largeFallenBuilder(
+	private static TreeConfiguration.TreeConfigurationBuilder largeFallenBuilder(
 		Block log, int baseHeight, int firstRHeight, int secondRHeight
 	) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
@@ -3138,7 +3093,7 @@ public final class WWTreeConfigured {
 	}
 
 	@Contract("_, _, _, _ -> new")
-	private static TreeConfiguration.@NotNull TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2, HolderGetter<Block> blocks) {
+	private static TreeConfiguration.TreeConfigurationBuilder willow(int height, int randomHeight1, int randomHeight2, HolderGetter<Block> blocks) {
 		return new TreeConfiguration.TreeConfigurationBuilder(
 			BlockStateProvider.simple(WWBlocks.WILLOW_LOG),
 			new WillowTrunkPlacer(
@@ -3182,53 +3137,43 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerBirch(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerBirch(String id) {
 		return registerTree(id, WWBlocks.BIRCH_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerOak(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerOak(String id) {
 		return registerTree(id, Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerDarkOak(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerDarkOak(String id) {
 		return registerTree(id, WWBlocks.DARK_OAK_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerWillow(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerWillow(String id) {
 		return registerTree(id, WWBlocks.WILLOW_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerSpruce(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerSpruce(String id) {
 		return registerTree(id, WWBlocks.SPRUCE_LEAF_LITTER, 48, 4, 2, 75, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerBaobab(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerBaobab(String id) {
 		return registerTree(id, WWBlocks.BAOBAB_LEAF_LITTER, 175, 8, 3, 280, 6, 3);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerPalm(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerPalm(String id) {
 		return registerTree(id, WWBlocks.PALM_FROND_LITTER, 32, 4, 2, 68, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerCypress(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerCypress(String id) {
 		return registerTree(id, WWBlocks.CYPRESS_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerJungle(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerJungle(String id) {
 		return registerTree(id, WWBlocks.JUNGLE_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
 	}
 
-	@NotNull
-	public static FrozenLibConfiguredTreeFeature registerMangrove(@NotNull String id) {
+	public static FrozenLibConfiguredTreeFeature registerMangrove(String id) {
 		return registerTree(id, WWBlocks.MANGROVE_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
 	}
 }

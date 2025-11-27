@@ -31,7 +31,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class SnappedTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<SnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
@@ -43,26 +42,24 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.SNAPPED_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> replacer,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> replacer,
+		RandomSource random,
 		int height,
-		@NotNull BlockPos startPos,
-		@NotNull TreeConfiguration config
+		BlockPos startPos,
+		TreeConfiguration config
 	) {
 		setDirtAt(level, replacer, random, startPos.below(), config);
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < height; ++i) {
-			int j = startPos.getY() + i;
-			this.placeLog(level, replacer, random, mutable.set(startPos.getX(), j, startPos.getZ()), config);
+			final int y = startPos.getY() + i;
+			this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), config);
 		}
 		return Lists.newArrayList();
 	}

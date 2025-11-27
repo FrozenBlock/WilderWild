@@ -26,7 +26,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class JellyfishTemptGoal extends Goal {
@@ -56,13 +55,9 @@ public class JellyfishTemptGoal extends Goal {
 		return this.player != null;
 	}
 
-	private boolean shouldFollow(@NotNull LivingEntity entity, ServerLevel level) {
-		final HolderSet<Item> tag = this.mob.getVariant().getReproductionFood();
+	private boolean shouldFollow(LivingEntity entity, ServerLevel level) {
+		final HolderSet<Item> tag = this.mob.getVariant().reproductionFood();
 		return entity.getMainHandItem().is(tag) || entity.getOffhandItem().is(tag);
-	}
-
-	@Override
-	public void start() {
 	}
 
 	@Override
@@ -76,7 +71,7 @@ public class JellyfishTemptGoal extends Goal {
 	public void tick() {
 		if (this.player == null) return;
 		this.mob.getLookControl().setLookAt(this.player, this.mob.getMaxHeadYRot() + 20, this.mob.getMaxHeadXRot());
-		if (this.mob.distanceToSqr(this.player) < 6.25) {
+		if (this.mob.distanceToSqr(this.player) < 6.25D) {
 			this.mob.getNavigation().stop();
 		} else {
 			this.mob.moveToAccurate(this.player, this.speedModifier);

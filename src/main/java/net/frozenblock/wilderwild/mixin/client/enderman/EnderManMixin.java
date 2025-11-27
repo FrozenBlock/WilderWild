@@ -26,7 +26,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.monster.EnderMan;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,8 +52,8 @@ public class EnderManMixin {
 	}
 
 	@Unique
-	private static void wilderWild$playClientEnderManSound(@NotNull EnderMan enderMan) {
-		Minecraft client = Minecraft.getInstance();
+	private static void wilderWild$playClientEnderManSound(EnderMan enderMan) {
+		final Minecraft client = Minecraft.getInstance();
 		if (client.level == null || !enderMan.isAlive()) return;
 		client.getSoundManager().play(
 			new RestrictedMovingSound<>(

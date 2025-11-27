@@ -23,9 +23,7 @@ import net.frozenblock.wilderwild.client.animation.definitions.WWAllayAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.animation.KeyframeAnimation;
-import net.minecraft.client.model.AllayModel;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.animal.allay.AllayModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import org.objectweb.asm.Opcodes;
@@ -37,14 +35,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(AllayModel.class)
-public abstract class AllayModelMixin extends EntityModel<AllayRenderState> implements ArmedModel {
+public class AllayModelMixin {
 
 	@Unique
 	private KeyframeAnimation wilderWild$dancingAnimation;
-
-	protected AllayModelMixin(ModelPart modelPart) {
-		super(modelPart);
-	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	public void wilderWild$init(ModelPart root, CallbackInfo info) {
@@ -55,15 +49,14 @@ public abstract class AllayModelMixin extends EntityModel<AllayRenderState> impl
 		method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/AllayRenderState;)V",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/model/AllayModel;right_wing:Lnet/minecraft/client/model/geom/ModelPart;",
+			target = "Lnet/minecraft/client/model/animal/allay/AllayModel;right_wing:Lnet/minecraft/client/model/geom/ModelPart;",
 			opcode = Opcodes.GETFIELD,
 			ordinal = 0
 		),
 		require = 0
 	)
 	private void wilderWild$runKeyframeDance(AllayRenderState renderState, CallbackInfo info) {
-		if (WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE && renderState instanceof WilderAllay wilderAllay && this.wilderWild$dancingAnimation != null) {
-			this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$getDancingAnimationState(), renderState.ageInTicks);
-		}
+		if (!WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE || !(renderState instanceof WilderAllay wilderAllay) || this.wilderWild$dancingAnimation == null) return;
+		this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$dancingAnimationState(), renderState.ageInTicks);
 	}
 }

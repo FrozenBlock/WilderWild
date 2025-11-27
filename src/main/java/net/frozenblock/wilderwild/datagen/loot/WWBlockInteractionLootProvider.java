@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.datagen.loot;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -33,7 +31,8 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
@@ -44,8 +43,8 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableP
 	}
 
 	@Override
-	public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-		HolderLookup.Provider registryLookup = this.registries.join();
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		final HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
 			WWLootTables.SHEAR_MILKWEED,

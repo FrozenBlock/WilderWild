@@ -29,34 +29,33 @@ import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jetbrains.annotations.NotNull;
 
 public class WaterCoverFeature extends Feature<WaterCoverFeatureConfig> {
 
-	public WaterCoverFeature(@NotNull Codec<WaterCoverFeatureConfig> codec) {
+	public WaterCoverFeature(Codec<WaterCoverFeatureConfig> codec) {
 		super(codec);
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<WaterCoverFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<WaterCoverFeatureConfig> context) {
 		boolean generated = false;
-		BlockPos blockPos = context.origin();
-		WorldGenLevel level = context.level();
-		BlockPos s = blockPos.atY(level.getHeight(Types.MOTION_BLOCKING_NO_LEAVES, blockPos.getX(), blockPos.getZ()));
-		int y = s.getY();
-		RandomSource random = level.getRandom();
-		int radius = context.config().radius().sample(random);
-		BlockStateProvider stateProvider = context.config().blockStateProvider();
+		final BlockPos origin = context.origin();
+		final WorldGenLevel level = context.level();
+		final BlockPos heightmapPos = origin.atY(level.getHeight(Types.MOTION_BLOCKING_NO_LEAVES, origin.getX(), origin.getZ()));
+		final int y = heightmapPos.getY();
+		final RandomSource random = level.getRandom();
+		final int radius = context.config().radius().sample(random);
+		final BlockStateProvider stateProvider = context.config().blockStateProvider();
 		//DISK
-		BlockPos.MutableBlockPos mutableDisk = s.mutable();
-		int bx = s.getX();
-		int bz = s.getZ();
+		final BlockPos.MutableBlockPos mutableDisk = heightmapPos.mutable();
+		final int bx = heightmapPos.getX();
+		final int bz = heightmapPos.getZ();
 		for (int x = bx - radius; x <= bx + radius; x++) {
 			for (int z = bz - radius; z <= bz + radius; z++) {
 				double distance = ((bx - x) * (bx - x) + ((bz - z) * (bz - z)));
 				if (distance < radius * radius) {
 					mutableDisk.set(x, y, z);
-					boolean fade = !mutableDisk.closerThan(s, radius * 0.8D);
+					boolean fade = !mutableDisk.closerThan(heightmapPos, radius * 0.8D);
 					boolean hasGeneratedThisRound = false;
 					if (level.getBlockState(mutableDisk.move(Direction.DOWN)).is(Blocks.WATER) && level.getBlockState(mutableDisk.move(Direction.UP)).isAir()) {
 						if (random.nextFloat() > 0.2F) {
@@ -97,8 +96,8 @@ public class WaterCoverFeature extends Feature<WaterCoverFeatureConfig> {
 	private boolean placeBlock(
 		WorldGenLevel level,
 		BlockStateProvider stateProvider,
-		@NotNull RandomSource random,
-		@NotNull BlockPos.MutableBlockPos mutableDisk,
+		RandomSource random,
+		BlockPos.MutableBlockPos mutableDisk,
 		boolean fade
 	) {
 		if (random.nextFloat() > 0.2F) {

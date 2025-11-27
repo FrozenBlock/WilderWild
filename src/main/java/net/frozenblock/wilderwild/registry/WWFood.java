@@ -34,7 +34,6 @@ public final class WWFood {
 		.nutrition(3)
 		.saturationModifier(0.8F)
 		.build();
-
 	public static final Consumable SCORCHED_EYE_CONSUMABLE = Consumables.defaultFood()
 		.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F))
 		.build();

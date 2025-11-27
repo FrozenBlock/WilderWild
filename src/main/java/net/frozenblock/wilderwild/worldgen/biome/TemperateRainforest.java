@@ -42,7 +42,6 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class TemperateRainforest extends FrozenBiome {
@@ -108,7 +107,7 @@ public final class TemperateRainforest extends FrozenBiome {
 	}
 
 	@Override
-	public void addFeatures(@NotNull BiomeGenerationSettings.Builder features) {
+	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TEMPERATE_RAINFOREST_TREES.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());

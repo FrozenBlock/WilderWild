@@ -25,16 +25,14 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import org.jetbrains.annotations.NotNull;
-
 final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
-	WWRegistryProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	WWRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
 	@Override
-	protected void configure(@NotNull HolderLookup.Provider registries, @NotNull Entries entries) {
+	protected void configure(HolderLookup.Provider registries, Entries entries) {
 		WWConstants.log("Adding finalized damage types to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.DAMAGE_TYPE)));
 		WWConstants.log("Adding finalized instruments to datagen", true);
@@ -65,13 +63,11 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR)));
 	}
 
-
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {
 		return (HolderLookup.RegistryLookup<T>) getter;
 	}
 
 	@Override
-	@NotNull
 	public String getName() {
 		return "Wilder Wild Dynamic Registries";
 	}

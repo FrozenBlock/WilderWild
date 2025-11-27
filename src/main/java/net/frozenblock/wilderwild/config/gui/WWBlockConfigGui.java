@@ -26,40 +26,40 @@ import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWBlockConfigGui {
+
 	private WWBlockConfigGui() {
-		throw new UnsupportedOperationException("BlockConfigGui contains only static declarations.");
+		throw new UnsupportedOperationException("WWBlockConfigGui contains only static declarations.");
 	}
 
-	public static void setupEntries(@NotNull ConfigCategory category, @NotNull ConfigEntryBuilder entryBuilder) {
-		var config = WWBlockConfig.get(true);
-		var modifiedConfig = WWBlockConfig.getWithSync();
-		Class<? extends WWBlockConfig> clazz = config.getClass();
-		Config<?> configInstance = WWBlockConfig.INSTANCE;
-		var defaultConfig = WWBlockConfig.INSTANCE.defaultInstance();
-		var blockSounds = config.blockSounds;
-		var modifiedBlockSounds = modifiedConfig.blockSounds;
-		var stoneChest = config.stoneChest;
-		var modifiedStoneChest = modifiedConfig.stoneChest;
-		var termite = config.termite;
-		var modifiedTermite = modifiedConfig.termite;
-		var snowlogging = config.snowlogging;
-		var modifiedSnowlogging = modifiedConfig.snowlogging;
-		var fire = config.fire;
-		var modifiedFire = modifiedConfig.fire;
-		var mesoglea = config.mesoglea;
-		var modifiedMesoglea = modifiedConfig.mesoglea;
-		var sculk = config.sculk;
-		var modifiedSculk = modifiedConfig.sculk;
-		var flower = config.flower;
-		var modifiedFlower = modifiedConfig.flower;
+	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
+		final var config = WWBlockConfig.get(true);
+		final var modifiedConfig = WWBlockConfig.getWithSync();
+		final Class<? extends WWBlockConfig> clazz = config.getClass();
+		final Config<?> configInstance = WWBlockConfig.INSTANCE;
+		final var defaultConfig = WWBlockConfig.INSTANCE.defaultInstance();
+		final var blockSounds = config.blockSounds;
+		final var modifiedBlockSounds = modifiedConfig.blockSounds;
+		final var stoneChest = config.stoneChest;
+		final var modifiedStoneChest = modifiedConfig.stoneChest;
+		final var termite = config.termite;
+		final var modifiedTermite = modifiedConfig.termite;
+		final var snowlogging = config.snowlogging;
+		final var modifiedSnowlogging = modifiedConfig.snowlogging;
+		final var fire = config.fire;
+		final var modifiedFire = modifiedConfig.fire;
+		final var mesoglea = config.mesoglea;
+		final var modifiedMesoglea = modifiedConfig.mesoglea;
+		final var sculk = config.sculk;
+		final var modifiedSculk = modifiedConfig.sculk;
+		final var flower = config.flower;
+		final var modifiedFlower = modifiedConfig.flower;
 
 		var reachBoostBeacon = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("reach_boost_beacon"), modifiedConfig.reachBoostBeacon)
+				builder.startBooleanToggle(text("reach_boost_beacon"), modifiedConfig.reachBoostBeacon)
 					.setDefaultValue(defaultConfig.reachBoostBeacon)
 					.setSaveConsumer(newValue -> config.reachBoostBeacon = newValue)
 					.setTooltip(tooltip("reach_boost_beacon"))
@@ -73,7 +73,7 @@ public final class WWBlockConfigGui {
 
 		var pollenParticles = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
+				builder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
 					.setDefaultValue(defaultConfig.pollenParticles)
 					.setSaveConsumer(newValue -> config.pollenParticles = newValue)
 					.setTooltip(tooltip("pollen_particles"))
@@ -86,7 +86,7 @@ public final class WWBlockConfigGui {
 
 		var logHollowing = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("log_hollowing"), modifiedConfig.logHollowing)
+				builder.startBooleanToggle(text("log_hollowing"), modifiedConfig.logHollowing)
 					.setDefaultValue(defaultConfig.logHollowing)
 					.setSaveConsumer(newValue -> config.logHollowing = newValue)
 					.setTooltip(tooltip("log_hollowing"))
@@ -99,7 +99,7 @@ public final class WWBlockConfigGui {
 
 		var cactusPlacement = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("cactus_placement"), modifiedConfig.cactusPlacement)
+				builder.startBooleanToggle(text("cactus_placement"), modifiedConfig.cactusPlacement)
 					.setDefaultValue(defaultConfig.cactusPlacement)
 					.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
 					.setTooltip(tooltip("cactus_placement"))
@@ -112,7 +112,7 @@ public final class WWBlockConfigGui {
 
 		var newReinforcedDeepslate = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("new_reinforced_deepslate"), modifiedConfig.newReinforcedDeepslate)
+				builder.startBooleanToggle(text("new_reinforced_deepslate"), modifiedConfig.newReinforcedDeepslate)
 					.setDefaultValue(defaultConfig.newReinforcedDeepslate)
 					.setSaveConsumer(newValue -> config.newReinforcedDeepslate = newValue)
 					.setTooltip(tooltip("new_reinforced_deepslate"))
@@ -125,7 +125,7 @@ public final class WWBlockConfigGui {
 
 		var froglightGoopGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("froglight_goop_growth"), modifiedConfig.froglightGoopGrowth)
+				builder.startBooleanToggle(text("froglight_goop_growth"), modifiedConfig.froglightGoopGrowth)
 					.setDefaultValue(defaultConfig.froglightGoopGrowth)
 					.setSaveConsumer(newValue -> config.froglightGoopGrowth = newValue)
 					.setTooltip(tooltip("froglight_goop_growth"))
@@ -138,7 +138,7 @@ public final class WWBlockConfigGui {
 
 		var frostedIceCracking = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
+				builder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
 					.setDefaultValue(defaultConfig.frostedIceCracking)
 					.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
 					.setTooltip(tooltip("frosted_ice_cracking"))
@@ -151,7 +151,7 @@ public final class WWBlockConfigGui {
 
 		var chestBubbling = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("chest_bubbling"), modifiedConfig.chestBubbling)
+				builder.startBooleanToggle(text("chest_bubbling"), modifiedConfig.chestBubbling)
 					.setDefaultValue(defaultConfig.chestBubbling)
 					.setSaveConsumer(newValue -> config.chestBubbling = newValue)
 					.setTooltip(tooltip("chest_bubbling"))
@@ -164,7 +164,7 @@ public final class WWBlockConfigGui {
 
 		var thickBigFungusGrowth = category.addEntry(
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
+				builder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
 					.setDefaultValue(defaultConfig.thickBigFungusGrowth)
 					.setSaveConsumer(newValue -> config.thickBigFungusGrowth = newValue)
 					.setTooltip(tooltip("thick_big_fungus_growth"))
@@ -176,7 +176,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var shriekerGargling = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("shrieker_gargling"), modifiedSculk.shriekerGargling)
+			builder.startBooleanToggle(text("shrieker_gargling"), modifiedSculk.shriekerGargling)
 				.setDefaultValue(defaultConfig.sculk.shriekerGargling)
 				.setSaveConsumer(newValue -> sculk.shriekerGargling = newValue)
 				.setTooltip(tooltip("shrieker_gargling"))
@@ -187,7 +187,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var shriekerOutline = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("shrieker_outline"), modifiedSculk.shriekerOutline)
+			builder.startBooleanToggle(text("shrieker_outline"), modifiedSculk.shriekerOutline)
 				.setDefaultValue(defaultConfig.sculk.shriekerOutline)
 				.setSaveConsumer(newValue -> sculk.shriekerOutline = newValue)
 				.setTooltip(tooltip("shrieker_outline"))
@@ -198,7 +198,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var billboardTendrils = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("billboard_tendrils"), modifiedSculk.billboardTendrils)
+			builder.startBooleanToggle(text("billboard_tendrils"), modifiedSculk.billboardTendrils)
 				.setDefaultValue(defaultConfig.sculk.billboardTendrils)
 				.setSaveConsumer(newValue -> sculk.billboardTendrils = newValue)
 				.setTooltip(tooltip("billboard_tendrils"))
@@ -209,7 +209,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var tendrilsCarryEvents = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("tendrils_carry_events"), modifiedSculk.tendrilsCarryEvents)
+			builder.startBooleanToggle(text("tendrils_carry_events"), modifiedSculk.tendrilsCarryEvents)
 				.setDefaultValue(defaultConfig.sculk.tendrilsCarryEvents)
 				.setSaveConsumer(newValue -> sculk.tendrilsCarryEvents = newValue)
 				.setTooltip(tooltip("tendrils_carry_events"))
@@ -220,7 +220,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var tendrilGeneration = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("hanging_tendril_generation"), modifiedSculk.tendrilGeneration)
+			builder.startBooleanToggle(text("hanging_tendril_generation"), modifiedSculk.tendrilGeneration)
 				.setDefaultValue(defaultConfig.sculk.tendrilGeneration)
 				.setSaveConsumer(newValue -> sculk.tendrilGeneration = newValue)
 				.setTooltip(tooltip("hanging_tendril_generation"))
@@ -231,7 +231,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var osseousSculkGeneration = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("osseous_sculk_generation"), modifiedSculk.osseousSculkGeneration)
+			builder.startBooleanToggle(text("osseous_sculk_generation"), modifiedSculk.osseousSculkGeneration)
 				.setDefaultValue(defaultConfig.sculk.osseousSculkGeneration)
 				.setSaveConsumer(newValue -> sculk.osseousSculkGeneration = newValue)
 				.setTooltip(tooltip("osseous_sculk_generation"))
@@ -242,7 +242,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var sculkBuildingBlocksGeneration = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("sculk_building_blocks_generation"), modifiedSculk.sculkBuildingBlocksGeneration)
+			builder.startBooleanToggle(text("sculk_building_blocks_generation"), modifiedSculk.sculkBuildingBlocksGeneration)
 				.setDefaultValue(defaultConfig.sculk.sculkBuildingBlocksGeneration)
 				.setSaveConsumer(newValue -> sculk.sculkBuildingBlocksGeneration = newValue)
 				.setTooltip(tooltip("sculk_building_blocks_generation"))
@@ -252,7 +252,7 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var sculkCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("sculk"),
+		var sculkCategory = FrozenClothConfig.createSubCategory(builder, category, text("sculk"),
 			false,
 			tooltip("sculk"),
 			shriekerGargling, shriekerOutline,
@@ -262,7 +262,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var mesogleaFluid = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_fluid"), modifiedMesoglea.mesogleaFluid)
+			builder.startBooleanToggle(text("mesoglea_fluid"), modifiedMesoglea.mesogleaFluid)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaFluid)
 				.setSaveConsumer(newValue -> mesoglea.mesogleaFluid = newValue)
 				.setTooltip(tooltip("mesoglea_fluid"))
@@ -273,7 +273,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedMesoglea.mesogleaBubbleColumns)
+			builder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedMesoglea.mesogleaBubbleColumns)
 				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
 				.setSaveConsumer(newValue -> mesoglea.mesogleaBubbleColumns = newValue)
 				.setTooltip(tooltip("mesoglea_bubble_columns"))
@@ -283,14 +283,14 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var mesogleaCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("mesoglea"),
+		var mesogleaCategory = FrozenClothConfig.createSubCategory(builder, category, text("mesoglea"),
 			false,
 			tooltip("mesoglea"),
 			mesogleaBubbleColumns, mesogleaFluid
 		);
 
 		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
+			builder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
 				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
 				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
 				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
@@ -302,7 +302,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var maxTermiteDistance = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
+			builder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
 				.setDefaultValue(defaultConfig.termite.maxDistance)
 				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
 				.setTooltip(tooltip("max_termite_distance"))
@@ -313,7 +313,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var maxNaturalTermiteDistance = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
+			builder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
 				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
 				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
 				.setTooltip(tooltip("max_natural_termite_distance"))
@@ -323,14 +323,14 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var termiteCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("termite"),
+		var termiteCategory = FrozenClothConfig.createSubCategory(builder, category, text("termite"),
 			false,
 			tooltip("termite"),
 			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
 		);
 
 		var bonemealDandelions = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("bone_meal_dandelions"), modifiedFlower.bonemealDandelions)
+			builder.startBooleanToggle(text("bone_meal_dandelions"), modifiedFlower.bonemealDandelions)
 				.setDefaultValue(defaultConfig.flower.bonemealDandelions)
 				.setSaveConsumer(newValue -> flower.bonemealDandelions = newValue)
 				.setTooltip(tooltip("bone_meal_dandelions"))
@@ -341,7 +341,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var shearSeedingDandelions = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("shear_seeding_dandelions"), modifiedFlower.shearSeedingDandelions)
+			builder.startBooleanToggle(text("shear_seeding_dandelions"), modifiedFlower.shearSeedingDandelions)
 				.setDefaultValue(defaultConfig.flower.shearSeedingDandelions)
 				.setSaveConsumer(newValue -> flower.shearSeedingDandelions = newValue)
 				.setTooltip(tooltip("shear_seeding_dandelions"))
@@ -352,7 +352,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var bonemealLilypads = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("bone_meal_lilypads"), modifiedFlower.bonemealLilypads)
+			builder.startBooleanToggle(text("bone_meal_lilypads"), modifiedFlower.bonemealLilypads)
 				.setDefaultValue(defaultConfig.flower.bonemealLilypads)
 				.setSaveConsumer(newValue -> flower.bonemealLilypads = newValue)
 				.setTooltip(tooltip("bone_meal_lilypads"))
@@ -363,7 +363,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var shearFloweringLilypads = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("shear_flowering_lilypads"), modifiedFlower.shearFloweringLilypads)
+			builder.startBooleanToggle(text("shear_flowering_lilypads"), modifiedFlower.shearFloweringLilypads)
 				.setDefaultValue(defaultConfig.flower.shearFloweringLilypads)
 				.setSaveConsumer(newValue -> flower.shearFloweringLilypads = newValue)
 				.setTooltip(tooltip("shear_flowering_lilypads"))
@@ -373,14 +373,14 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var flowerCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("flower"),
+		var flowerCategory = FrozenClothConfig.createSubCategory(builder, category, text("flower"),
 			false,
 			tooltip("flower"),
 			bonemealDandelions, shearSeedingDandelions, bonemealLilypads, shearFloweringLilypads
 		);
 
 		var stoneChestTimer = FrozenClothConfig.syncedEntry(
-			entryBuilder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
+			builder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
 				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
 				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
 				.setTooltip(tooltip("stone_chest_timer"))
@@ -391,7 +391,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var addStoneChests = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("add_stone_chests"), modifiedStoneChest.addStoneChests)
+			builder.startBooleanToggle(text("add_stone_chests"), modifiedStoneChest.addStoneChests)
 				.setDefaultValue(defaultConfig.stoneChest.addStoneChests)
 				.setSaveConsumer(newValue -> stoneChest.addStoneChests = newValue)
 				.requireRestart()
@@ -402,14 +402,14 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var stoneChestCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("stone_chest"),
+		var stoneChestCategory = FrozenClothConfig.createSubCategory(builder, category, text("stone_chest"),
 			false,
 			tooltip("stone_chest"),
 			stoneChestTimer, addStoneChests
 		);
 
 		var allowSnowlogging = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("allow_snowlogging"), modifiedSnowlogging.snowlogging)
+			builder.startBooleanToggle(text("allow_snowlogging"), modifiedSnowlogging.snowlogging)
 				.setDefaultValue(defaultConfig.snowlogging.snowlogging)
 				.setSaveConsumer(newValue -> snowlogging.snowlogging = newValue)
 				.setTooltip(tooltip("allow_snowlogging"))
@@ -421,7 +421,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var snowlogWalls = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("snowlog_walls"), modifiedSnowlogging.snowlogWalls)
+			builder.startBooleanToggle(text("snowlog_walls"), modifiedSnowlogging.snowlogWalls)
 				.setDefaultValue(defaultConfig.snowlogging.snowlogWalls)
 				.setSaveConsumer(newValue -> snowlogging.snowlogWalls = newValue)
 				.setTooltip(tooltip("snowlog_walls"))
@@ -433,7 +433,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var naturalSnowlogging = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("natural_snowlogging"), modifiedSnowlogging.naturalSnowlogging)
+			builder.startBooleanToggle(text("natural_snowlogging"), modifiedSnowlogging.naturalSnowlogging)
 				.setDefaultValue(defaultConfig.snowlogging.naturalSnowlogging)
 				.setSaveConsumer(newValue -> snowlogging.naturalSnowlogging = newValue)
 				.setTooltip(tooltip("natural_snowlogging"))
@@ -443,7 +443,7 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var snowloggingCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("snowlogging"),
+		var snowloggingCategory = FrozenClothConfig.createSubCategory(builder, category, text("snowlogging"),
 			false,
 			tooltip("snowlogging"),
 			allowSnowlogging, snowlogWalls, naturalSnowlogging
@@ -451,7 +451,7 @@ public final class WWBlockConfigGui {
 
 		var extraMagmaParticles =
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("extra_magma_particles"), modifiedFire.extraMagmaParticles)
+				builder.startBooleanToggle(text("extra_magma_particles"), modifiedFire.extraMagmaParticles)
 					.setDefaultValue(defaultConfig.fire.extraMagmaParticles)
 					.setSaveConsumer(newValue -> config.fire.extraMagmaParticles = newValue)
 					.setTooltip(tooltip("extra_magma_particles"))
@@ -463,7 +463,7 @@ public final class WWBlockConfigGui {
 
 		var soulFireSounds =
 			FrozenClothConfig.syncedEntry(
-				entryBuilder.startBooleanToggle(text("soul_fire_sounds"), modifiedFire.soulFireSounds)
+				builder.startBooleanToggle(text("soul_fire_sounds"), modifiedFire.soulFireSounds)
 					.setDefaultValue(defaultConfig.fire.soulFireSounds)
 					.setSaveConsumer(newValue -> config.fire.soulFireSounds = newValue)
 					.setTooltip(tooltip("soul_fire_sounds"))
@@ -473,14 +473,14 @@ public final class WWBlockConfigGui {
 				configInstance
 			);
 
-		var fireCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("fire"),
+		var fireCategory = FrozenClothConfig.createSubCategory(builder, category, text("fire"),
 			false,
 			tooltip("snowlogging"),
 			extraMagmaParticles, soulFireSounds
 		);
 
 		var cactusSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
+			builder.startBooleanToggle(text("cactus_sounds"), modifiedBlockSounds.cactusSounds)
 				.setDefaultValue(defaultConfig.blockSounds.cactusSounds)
 				.setSaveConsumer(newValue -> blockSounds.cactusSounds = newValue)
 				.setTooltip(tooltip("cactus_sounds"))
@@ -491,7 +491,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var claySounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("clay_sounds"), modifiedBlockSounds.claySounds)
+			builder.startBooleanToggle(text("clay_sounds"), modifiedBlockSounds.claySounds)
 				.setDefaultValue(defaultConfig.blockSounds.claySounds)
 				.setSaveConsumer(newValue -> blockSounds.claySounds = newValue)
 				.setTooltip(tooltip("clay_sounds"))
@@ -502,7 +502,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var coarseDirtSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("coarse_dirt_sounds"), modifiedBlockSounds.coarseDirtSounds)
+			builder.startBooleanToggle(text("coarse_dirt_sounds"), modifiedBlockSounds.coarseDirtSounds)
 				.setDefaultValue(defaultConfig.blockSounds.coarseDirtSounds)
 				.setSaveConsumer(newValue -> blockSounds.coarseDirtSounds = newValue)
 				.setTooltip(tooltip("coarse_dirt_sounds"))
@@ -513,7 +513,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var deadBushSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("dead_bush_sounds"), modifiedBlockSounds.deadBushSounds)
+			builder.startBooleanToggle(text("dead_bush_sounds"), modifiedBlockSounds.deadBushSounds)
 				.setDefaultValue(defaultConfig.blockSounds.deadBushSounds)
 				.setSaveConsumer(newValue -> blockSounds.deadBushSounds = newValue)
 				.setTooltip(tooltip("dead_bush_sounds"))
@@ -524,7 +524,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var flowerSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("flower_sounds"), modifiedBlockSounds.flowerSounds)
+			builder.startBooleanToggle(text("flower_sounds"), modifiedBlockSounds.flowerSounds)
 				.setDefaultValue(defaultConfig.blockSounds.flowerSounds)
 				.setSaveConsumer(newValue -> blockSounds.flowerSounds = newValue)
 				.setTooltip(tooltip("flower_sounds"))
@@ -535,7 +535,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var grassSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("grass_sounds"), modifiedBlockSounds.grassSounds)
+			builder.startBooleanToggle(text("grass_sounds"), modifiedBlockSounds.grassSounds)
 				.setDefaultValue(defaultConfig.blockSounds.grassSounds)
 				.setSaveConsumer(newValue -> blockSounds.grassSounds = newValue)
 				.setTooltip(tooltip("grass_sounds"))
@@ -546,7 +546,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var magmaSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("magma_sounds"), modifiedBlockSounds.magmaSounds)
+			builder.startBooleanToggle(text("magma_sounds"), modifiedBlockSounds.magmaSounds)
 				.setDefaultValue(defaultConfig.blockSounds.magmaSounds)
 				.setSaveConsumer(newValue -> blockSounds.magmaSounds = newValue)
 				.setTooltip(tooltip("magma_sounds"))
@@ -557,7 +557,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var saplingSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("sapling_sounds"), modifiedBlockSounds.saplingSounds)
+			builder.startBooleanToggle(text("sapling_sounds"), modifiedBlockSounds.saplingSounds)
 				.setDefaultValue(defaultConfig.blockSounds.saplingSounds)
 				.setSaveConsumer(newValue -> blockSounds.saplingSounds = newValue)
 				.setTooltip(tooltip("sapling_sounds"))
@@ -568,7 +568,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var gravelSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("gravel_sounds"), modifiedBlockSounds.gravelSounds)
+			builder.startBooleanToggle(text("gravel_sounds"), modifiedBlockSounds.gravelSounds)
 				.setDefaultValue(defaultConfig.blockSounds.gravelSounds)
 				.setSaveConsumer(newValue -> blockSounds.gravelSounds = newValue)
 				.setTooltip(tooltip("gravel_sounds"))
@@ -579,7 +579,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var iceSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("ice_sounds"), modifiedBlockSounds.iceSounds)
+			builder.startBooleanToggle(text("ice_sounds"), modifiedBlockSounds.iceSounds)
 				.setDefaultValue(defaultConfig.blockSounds.iceSounds)
 				.setSaveConsumer(newValue -> blockSounds.iceSounds = newValue)
 				.setTooltip(tooltip("ice_sounds"))
@@ -590,7 +590,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var frostedIceSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("frosted_ice_sounds"), modifiedBlockSounds.frostedIceSounds)
+			builder.startBooleanToggle(text("frosted_ice_sounds"), modifiedBlockSounds.frostedIceSounds)
 				.setDefaultValue(defaultConfig.blockSounds.frostedIceSounds)
 				.setSaveConsumer(newValue -> blockSounds.frostedIceSounds = newValue)
 				.setTooltip(tooltip("frosted_ice_sounds"))
@@ -601,7 +601,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var leafSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("leaf_sounds"), modifiedBlockSounds.leafSounds)
+			builder.startBooleanToggle(text("leaf_sounds"), modifiedBlockSounds.leafSounds)
 				.setDefaultValue(defaultConfig.blockSounds.leafSounds)
 				.setSaveConsumer(newValue -> blockSounds.leafSounds = newValue)
 				.setTooltip(tooltip("leaf_sounds"))
@@ -612,7 +612,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var lilyPadSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("lily_pad_sounds"), modifiedBlockSounds.lilyPadSounds)
+			builder.startBooleanToggle(text("lily_pad_sounds"), modifiedBlockSounds.lilyPadSounds)
 				.setDefaultValue(defaultConfig.blockSounds.lilyPadSounds)
 				.setSaveConsumer(newValue -> blockSounds.lilyPadSounds = newValue)
 				.setTooltip(tooltip("lily_pad_sounds"))
@@ -623,7 +623,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var melonSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
+			builder.startBooleanToggle(text("melon_sounds"), modifiedBlockSounds.melonSounds)
 				.setDefaultValue(defaultConfig.blockSounds.melonSounds)
 				.setSaveConsumer(newValue -> blockSounds.melonSounds = newValue)
 				.setTooltip(tooltip("melon_sounds"))
@@ -634,7 +634,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var mossSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("moss_sounds"), modifiedBlockSounds.mossSounds)
+			builder.startBooleanToggle(text("moss_sounds"), modifiedBlockSounds.mossSounds)
 				.setDefaultValue(defaultConfig.blockSounds.mossSounds)
 				.setSaveConsumer(newValue -> blockSounds.mossSounds = newValue)
 				.setTooltip(tooltip("moss_sounds"))
@@ -645,7 +645,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var mushroomBlockSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
+			builder.startBooleanToggle(text("mushroom_block_sounds"), modifiedBlockSounds.mushroomBlockSounds)
 				.setDefaultValue(defaultConfig.blockSounds.mushroomBlockSounds)
 				.setSaveConsumer(newValue -> blockSounds.mushroomBlockSounds = newValue)
 					.setTooltip(tooltip("mushroom_block_sounds"))
@@ -656,7 +656,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var podzolSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("podzol_sounds"), modifiedBlockSounds.podzolSounds)
+			builder.startBooleanToggle(text("podzol_sounds"), modifiedBlockSounds.podzolSounds)
 				.setDefaultValue(defaultConfig.blockSounds.podzolSounds)
 				.setSaveConsumer(newValue -> blockSounds.podzolSounds = newValue)
 				.setTooltip(tooltip("podzol_sounds"))
@@ -667,7 +667,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var paleOakSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("pale_oak_sounds"), modifiedBlockSounds.paleOakSounds)
+			builder.startBooleanToggle(text("pale_oak_sounds"), modifiedBlockSounds.paleOakSounds)
 				.setDefaultValue(defaultConfig.blockSounds.paleOakSounds)
 				.setSaveConsumer(newValue -> blockSounds.paleOakSounds = newValue)
 				.setTooltip(tooltip("pale_oak_sounds"))
@@ -678,7 +678,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var reinforcedDeepslateSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("reinforced_deepslate_sounds"), modifiedBlockSounds.reinforcedDeepslateSounds)
+			builder.startBooleanToggle(text("reinforced_deepslate_sounds"), modifiedBlockSounds.reinforcedDeepslateSounds)
 				.setDefaultValue(defaultConfig.blockSounds.reinforcedDeepslateSounds)
 				.setSaveConsumer(newValue -> blockSounds.reinforcedDeepslateSounds = newValue)
 				.setTooltip(tooltip("reinforced_deepslate_sounds"))
@@ -689,7 +689,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var sandstoneSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("sandstone_sounds"), modifiedBlockSounds.sandstoneSounds)
+			builder.startBooleanToggle(text("sandstone_sounds"), modifiedBlockSounds.sandstoneSounds)
 				.setDefaultValue(defaultConfig.blockSounds.sandstoneSounds)
 				.setSaveConsumer(newValue -> blockSounds.sandstoneSounds = newValue)
 				.setTooltip(tooltip("sandstone_sounds"))
@@ -700,7 +700,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var sugarCaneSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("sugar_cane_sounds"), modifiedBlockSounds.sugarCaneSounds)
+			builder.startBooleanToggle(text("sugar_cane_sounds"), modifiedBlockSounds.sugarCaneSounds)
 				.setDefaultValue(defaultConfig.blockSounds.sugarCaneSounds)
 				.setSaveConsumer(newValue -> blockSounds.sugarCaneSounds = newValue)
 				.setTooltip(tooltip("sugar_cane_sounds"))
@@ -711,7 +711,7 @@ public final class WWBlockConfigGui {
 		);
 
 		var witherRoseSounds = FrozenClothConfig.syncedEntry(
-			entryBuilder.startBooleanToggle(text("wither_rose_sounds"), modifiedBlockSounds.witherRoseSounds)
+			builder.startBooleanToggle(text("wither_rose_sounds"), modifiedBlockSounds.witherRoseSounds)
 				.setDefaultValue(defaultConfig.blockSounds.witherRoseSounds)
 				.setSaveConsumer(newValue -> blockSounds.witherRoseSounds = newValue)
 				.setTooltip(tooltip("wither_rose_sounds"))
@@ -721,7 +721,7 @@ public final class WWBlockConfigGui {
 			configInstance
 		);
 
-		var blockSoundsCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("block_sounds"),
+		var blockSoundsCategory = FrozenClothConfig.createSubCategory(builder, category, text("block_sounds"),
 			false,
 			tooltip("block_sounds"),
 			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds, flowerSounds, frostedIceSounds,
@@ -730,6 +730,5 @@ public final class WWBlockConfigGui {
 			sugarCaneSounds, witherRoseSounds
 		);
 	}
-
 
 }

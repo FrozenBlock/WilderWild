@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface BlockGetterMixin {
 
 	@Shadow
-	BlockState getBlockState(BlockPos var1);
+	BlockState getBlockState(BlockPos pos);
 
 	@Inject(method = "clip", at = @At("HEAD"))
 	default void wilderWild$setClipInMesoglea(ClipContext context, CallbackInfoReturnable<BlockHitResult> info) {
@@ -65,13 +65,12 @@ public interface BlockGetterMixin {
 		BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation,
 		ClipContext context
 	) {
-		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext) {
-			if (entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
-				&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
-				&& state.getBlock() instanceof MesogleaBlock
-			) {
-				shape = Shapes.empty();
-			}
+		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext
+			&& entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
+			&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
+			&& state.getBlock() instanceof MesogleaBlock
+		) {
+			shape = Shapes.empty();
 		}
 		return operation.call(instance, startVec, endVec, pos, shape, state);
 	}

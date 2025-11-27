@@ -23,20 +23,19 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRe
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.world.entity.EquipmentSlot;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
 public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S extends AbstractOstrichRenderState, M extends EntityModel<? super S>> extends AgeableMobRenderer<T, S, M> {
 
-	public AbstractOstrichRenderer(EntityRendererProvider.Context context, M adultModel, M babyModel) {
+	public AbstractOstrichRenderer(Context context, M adultModel, M babyModel) {
 		super(context, adultModel, babyModel, 0.75F);
 	}
 
 	@Override
-	public void extractRenderState(@NotNull T entity, @NotNull S renderState, float partialTick) {
+	public void extractRenderState(T entity, S renderState, float partialTick) {
 		super.extractRenderState(entity, renderState, partialTick);
 		renderState.walkAnimationPos *= 1.65F;
 		renderState.walkAnimationSpeed = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);

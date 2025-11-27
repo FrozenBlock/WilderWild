@@ -59,7 +59,6 @@ import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WWVillagers;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
-import org.jetbrains.annotations.NotNull;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
@@ -116,7 +115,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	}
 
 	@Override
-	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
+	public void newCategories(ArrayList<FrozenMobCategory> context) {
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), WWEntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), WWEntityConfig.get().butterfly.butterflySpawnCap, true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WWEntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));

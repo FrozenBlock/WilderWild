@@ -35,19 +35,18 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
 
 public class TermiteMoundBlockEntity extends BlockEntity {
 	public final TermiteManager termiteManager;
 	public final IntArrayList clientTermiteIDs = new IntArrayList();
 	public final IntArrayList prevClientTermiteIDs = new IntArrayList();
 
-	public TermiteMoundBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.TERMITE_MOUND, pos, state);
 		this.termiteManager = new TermiteManager();
 	}
 
-	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
+	public void tickServer(Level level, BlockPos pos, boolean natural, boolean awake, boolean canSpawn) {
 		this.termiteManager.tick(level, pos, natural, awake, canSpawn, this::markForUpdate);
 	}
 
@@ -74,20 +73,19 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		return this.saveWithoutMetadata(provider);
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		this.termiteManager.saveAdditional(valueOutput);
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.termiteManager.load(valueInput);
 	}

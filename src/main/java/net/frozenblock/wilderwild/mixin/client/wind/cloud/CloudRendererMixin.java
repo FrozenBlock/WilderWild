@@ -32,12 +32,12 @@ import org.spongepowered.asm.mixin.Mixin;
 public class CloudRendererMixin {
 
 	@WrapMethod(method = "render")
-	public void wilderWild$render(int cloudColor, CloudStatus cloudStatus, float cloudHeight, Vec3 vec3, long gameTime, float partialTick, Operation<Void> original) {
+	public void wilderWild$render(int cloudColor, CloudStatus status, float cloudHeight, Vec3 vec3, long gameTime, float partialTick, Operation<Void> original) {
 		if (WWClientWindManager.shouldUseWind()) {
 			gameTime = 0L;
 			partialTick = 0F;
 		}
-		original.call(cloudColor, cloudStatus, cloudHeight, vec3, gameTime, partialTick);
+		original.call(cloudColor, status, cloudHeight, vec3, gameTime, partialTick);
 	}
 
 }

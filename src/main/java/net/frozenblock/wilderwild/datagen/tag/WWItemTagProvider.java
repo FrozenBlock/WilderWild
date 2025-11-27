@@ -32,25 +32,23 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-	public WWItemTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public WWItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
-	@NotNull
 	private TagKey<Item> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}
 
-	@NotNull private ResourceKey<Item> getKey(String namespace, String path) {
+	private ResourceKey<Item> getKey(String namespace, String path) {
 		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.valueLookupBuilder(ItemTags.STAIRS)
 			.add(WWBlocks.SCULK_STAIRS.asItem())
 			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS.asItem())

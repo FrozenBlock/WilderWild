@@ -28,7 +28,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class CrabModel extends EntityModel<CrabRenderState> {
@@ -53,7 +52,7 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 	private final KeyframeAnimation diggingAnimation;
 	private final KeyframeAnimation emergingAnimation;
 
-	public CrabModel(@NotNull ModelPart root) {
+	public CrabModel(ModelPart root) {
 		super(root);
 
 		this.body = root.getChild("body");
@@ -77,7 +76,6 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		this.emergingAnimation = CrabAnimation.CRAB_EMERGE.bake(root);
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 		final PartDefinition root = meshdefinition.getRoot();
@@ -167,7 +165,6 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
-	@NotNull
 	public static LayerDefinition createMojangBodyLayer() {
 		final MeshDefinition meshdefinition = new MeshDefinition();
 		final PartDefinition root = meshdefinition.getRoot();
@@ -268,13 +265,13 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 		return LayerDefinition.create(meshdefinition, 48, 48);
 	}
 
-	private static void bobClaw(@NotNull ModelPart modelPart, float ageInTicks, float multiplier) {
+	private static void bobClaw(ModelPart modelPart, float ageInTicks, float multiplier) {
 		modelPart.zRot += multiplier * (Mth.cos(ageInTicks * 0.09F) * 0.05F + 0.05F);
 		modelPart.yRot += multiplier * (Mth.sin(ageInTicks * 0.067F) * 0.05F);
 	}
 
 	@Override
-	public void setupAnim(@NotNull CrabRenderState renderState) {
+	public void setupAnim(CrabRenderState renderState) {
 		super.setupAnim(renderState);
 		this.root.y = 23.9F;
 

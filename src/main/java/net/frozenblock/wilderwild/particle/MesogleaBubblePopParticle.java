@@ -26,13 +26,17 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubblePopParticle extends BubblePopParticle {
 
-	protected MesogleaBubblePopParticle(ClientLevel clientLevel, double d, double e, double f, double g, double h, double i, SpriteSet spriteSet) {
-		super(clientLevel, d, e, f, g, h, i, spriteSet);
+	protected MesogleaBubblePopParticle(
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
+		SpriteSet spriteSet
+	) {
+		super(level, x, y, z, xd, yd, zd, spriteSet);
 	}
 
 	@Override
@@ -40,16 +44,11 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 		return 240;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-
-		public Provider(SpriteSet spriteSet) {
-			this.spriteSet = spriteSet;
-		}
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+		@Override
 		public Particle createParticle(
-			SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
@@ -57,5 +56,4 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 			return new MesogleaBubblePopParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 		}
 	}
-
 }

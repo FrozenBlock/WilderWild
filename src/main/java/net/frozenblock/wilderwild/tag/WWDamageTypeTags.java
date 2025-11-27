@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWDamageTypeTags {
 	public static final TagKey<DamageType> EMPTY = bind("empty");
@@ -30,8 +29,7 @@ public final class WWDamageTypeTags {
 		throw new UnsupportedOperationException("WWDamageTypeTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<DamageType> bind(@NotNull String path) {
+	private static TagKey<DamageType> bind(String path) {
 		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(path));
 	}
 }

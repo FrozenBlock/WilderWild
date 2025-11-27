@@ -30,19 +30,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GeyserPushMobTrigger extends SimpleCriterionTrigger<GeyserPushMobTrigger.TriggerInstance> {
 	public static final double TRIGGER_DISTANCE_FROM_PLAYER = Mth.square(16D);
 
 	@Override
-	@NotNull
 	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(@NotNull ServerPlayer player, Entity entity, boolean playerPlaced, GeyserType geyserType) {
+	public void trigger(ServerPlayer player, Entity entity, boolean playerPlaced, GeyserType geyserType) {
 		LootContext pushedMob = EntityPredicate.createContext(player, entity);
 		this.trigger(player, conditions -> conditions.matches(pushedMob, playerPlaced, geyserType));
 	}
@@ -62,7 +60,6 @@ public class GeyserPushMobTrigger extends SimpleCriterionTrigger<GeyserPushMobTr
 			).apply(instance, TriggerInstance::new)
 		);
 
-		@NotNull
 		public static Criterion<TriggerInstance> geyserPushMob(Optional<EntityPredicate> pushedMob, boolean playerPlaced, @Nullable GeyserType geyserType) {
 			return WWCriteria.GEYSER_PUSH_MOB_TRIGGER.createCriterion(
 				new TriggerInstance(Optional.empty(), EntityPredicate.wrap(pushedMob), playerPlaced, Optional.ofNullable(geyserType))

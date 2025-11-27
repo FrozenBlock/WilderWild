@@ -27,10 +27,10 @@ import net.minecraft.world.level.block.Block;
 public record WillowRootPlacement(HolderSet<Block> canGrowThrough, int maxRootWidth, int maxRootLength, float randomSkewChance) {
 	public static final Codec<WillowRootPlacement> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-				RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_grow_through").forGetter(willowRootPlacement -> willowRootPlacement.canGrowThrough),
-				Codec.intRange(1, 12).fieldOf("max_root_width").forGetter(willowRootPlacement -> willowRootPlacement.maxRootWidth),
-				Codec.intRange(1, 64).fieldOf("max_root_length").forGetter(willowRootPlacement -> willowRootPlacement.maxRootLength),
-				Codec.floatRange(0F, 1F).fieldOf("random_skew_chance").forGetter(willowRootPlacement -> willowRootPlacement.randomSkewChance)
-			).apply(instance, WillowRootPlacement::new)
+			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_grow_through").forGetter(willowRootPlacement -> willowRootPlacement.canGrowThrough),
+			Codec.intRange(1, 12).fieldOf("max_root_width").forGetter(willowRootPlacement -> willowRootPlacement.maxRootWidth),
+			Codec.intRange(1, 64).fieldOf("max_root_length").forGetter(willowRootPlacement -> willowRootPlacement.maxRootLength),
+			Codec.floatRange(0F, 1F).fieldOf("random_skew_chance").forGetter(willowRootPlacement -> willowRootPlacement.randomSkewChance)
+		).apply(instance, WillowRootPlacement::new)
 	);
 }

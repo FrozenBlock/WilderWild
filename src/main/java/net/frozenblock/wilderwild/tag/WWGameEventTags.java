@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWGameEventTags {
 	public static final TagKey<GameEvent> CRAB_CAN_DETECT = bind("crab_can_detect");
@@ -32,8 +31,7 @@ public final class WWGameEventTags {
 		throw new UnsupportedOperationException("WWGameEventTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<GameEvent> bind(@NotNull String path) {
+	private static TagKey<GameEvent> bind(String path) {
 		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(path));
 	}
 }

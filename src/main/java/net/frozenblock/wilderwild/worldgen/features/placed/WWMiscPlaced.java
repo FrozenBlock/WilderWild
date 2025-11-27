@@ -47,7 +47,6 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
@@ -156,7 +155,7 @@ public final class WWMiscPlaced {
 		throw new UnsupportedOperationException("WWMiscPlaced contains only static declarations.");
 	}
 
-	public static void registerMiscPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 

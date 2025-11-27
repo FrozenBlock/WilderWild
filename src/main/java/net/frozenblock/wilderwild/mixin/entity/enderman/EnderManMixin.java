@@ -83,7 +83,7 @@ public abstract class EnderManMixin implements WilderEnderman {
 	public void wilderWild$createAngerLoop() {
 		if (!WWEntityConfig.get().enderMan.angerLoopSound || !this.wilderWild$canPlayLoopingSound) return;
 		this.wilderWild$canPlayLoopingSound = false;
-		EnderMan enderMan = EnderMan.class.cast(this);
+		final EnderMan enderMan = EnderMan.class.cast(this);
 		FrozenLibSoundPackets.createAndSendMovingRestrictionLoopingSound(
 			enderMan.level(),
 			enderMan,

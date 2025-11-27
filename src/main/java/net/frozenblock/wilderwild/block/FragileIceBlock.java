@@ -37,13 +37,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 
 public class FragileIceBlock extends HalfTransparentBlock {
 	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
@@ -53,16 +51,16 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	public static final int DELAY_BETWEEN_CRACKS = 20;
 
 	@Override
-	public @NotNull MapCodec<FragileIceBlock> codec() {
+	public MapCodec<FragileIceBlock> codec() {
 		return CODEC;
 	}
 
-	public FragileIceBlock(BlockBehaviour.Properties properties) {
+	public FragileIceBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
 	}
 
-	private void crackOrDestroy(@NotNull BlockState state, Level level, BlockPos pos) {
+	private void crackOrDestroy(BlockState state, Level level, BlockPos pos) {
 		final int age = state.getValue(AGE);
 		if (age >= 2) {
 			level.destroyBlock(pos, false);
@@ -82,7 +80,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		);
 	}
 
-	public void scheduleCrackIfNotScheduled(@NotNull Level level, BlockPos pos) {
+	public void scheduleCrackIfNotScheduled(Level level, BlockPos pos) {
 		if (!level.getBlockTicks().hasScheduledTick(pos, this)) level.scheduleTick(pos, this, DELAY_BETWEEN_CRACKS);
 	}
 
@@ -103,7 +101,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() <= 0.075F) {
 			IcicleUtils.growIcicleOnRandomTick(level, pos);
 			return;
@@ -112,7 +110,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public void stepOn(Level level, BlockPos pos, BlockState state, @NotNull Entity entity) {
+	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
 		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, pos);
 	}
 
@@ -127,23 +125,23 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, @NotNull Projectile projectile) {
+	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
 		if (projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
 		final double velocity = projectile.getDeltaMovement().length();
 		if (velocity >= 1.6D) level.destroyBlock(hitResult.getBlockPos(), false);
 	}
 
-	public void scheduleShatter(@NotNull Level level, BlockPos pos, @NotNull BlockState state, RandomSource random) {
+	public void scheduleShatter(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		level.setBlock(pos, state.setValue(AGE, 2), UPDATE_CLIENTS);
 		level.scheduleTick(pos, this, SHEET_SHATTER_DELAY.sample(random));
 	}
 
-	private void heal(@NotNull BlockState state, Level level, BlockPos pos) {
+	private void heal(BlockState state, Level level, BlockPos pos) {
 		if (state.getValue(AGE) > 0) level.setBlock(pos, state.setValue(AGE, 0), UPDATE_CLIENTS);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
 	}
 }

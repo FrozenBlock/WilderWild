@@ -23,34 +23,31 @@ import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public BarnaclesBlock(@NotNull Properties properties) {
+	public BarnaclesBlock(Properties properties) {
 		super(properties);
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends BarnaclesBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+	public boolean propagatesSkylightDown(BlockState state) {
 		return state.getFluidState().isEmpty();
 	}
 
 	@Override
-	@NotNull
 	public MultifaceSpreader getSpreader() {
 		return this.spreader;
 	}

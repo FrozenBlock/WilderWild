@@ -79,7 +79,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		)
 	)
 	public void wilderWild$setMyceliumGrowths(
-		BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo info,
+		BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Local(ordinal = 1) BlockState defaultState,
 		@Share("wilderWild$aboveState") LocalRef<BlockState> aboveStateRef,
 		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef
@@ -88,7 +88,7 @@ public class SpreadingSnowyDirtBlockMixin {
 		BlockState aboveState = aboveStateRef.get();
 		BlockPos abovePos = abovePosRef.get();
 		if (aboveState != null && abovePos != null && aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) {
-			world.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
+			level.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
 		}
 	}
 }

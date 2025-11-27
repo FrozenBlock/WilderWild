@@ -28,12 +28,11 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.Util;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.util.Util;
 
 public final class WWBlockEntityTypes {
 	private WWBlockEntityTypes() {
@@ -44,8 +43,7 @@ public final class WWBlockEntityTypes {
 		WWConstants.logWithModId("Registering BlockEntities for", WWConstants.UNSTABLE_LOGGING);
 	}
 
-	@NotNull
-	private static <T extends BlockEntity> BlockEntityType<T> register(@NotNull String path, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
+	private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
 		Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), new BlockEntityType<>(builder, Set.of(blocks)));
 	}

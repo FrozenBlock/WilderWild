@@ -29,12 +29,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientResources {
+
 	private WWClientResources() {
-		throw new UnsupportedOperationException("WWResources contains only static declarations.");
+		throw new UnsupportedOperationException("WWClientResources contains only static declarations.");
 	}
 
 	public static void register(ModContainer container) {
@@ -75,7 +75,7 @@ public final class WWClientResources {
 			}
 
 			@Override
-			public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
+			public void onResourceManagerReload(ResourceManager resourceManager) {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {
 					if (packResources.knownPackInfo().isPresent()) {
 						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));

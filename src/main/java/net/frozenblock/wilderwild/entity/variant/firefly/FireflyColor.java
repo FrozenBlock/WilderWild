@@ -40,10 +40,12 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.ChatFormatting;
 
-public final class FireflyColor implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+public record FireflyColor(
+	ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name, Optional<DyeColor> dyeColor
+) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
@@ -62,40 +64,16 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
 
-	private final ClientAsset.ResourceTexture resourceTexture;
-	private final SpawnPrioritySelectors spawnConditions;
-	private final String name;
-	private final Optional<DyeColor> dyeColor;
-
-	public FireflyColor(ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name, Optional<DyeColor> dyeColor) {
-		this.resourceTexture = resourceTexture;
-		this.spawnConditions = spawnConditions;
-		this.name = name;
-		this.dyeColor = dyeColor;
-	}
-
 	private FireflyColor(ClientAsset.ResourceTexture resourceTexture, String name, Optional<DyeColor> dyeColor) {
 		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name, dyeColor);
 	}
 
-	@NotNull
+	@Override
 	public ClientAsset.ResourceTexture resourceTexture() {
 		return this.resourceTexture;
 	}
 
-	public SpawnPrioritySelectors spawnConditions() {
-		return this.spawnConditions;
-	}
-
-	public Optional<DyeColor> dyeColor() {
-		return this.dyeColor;
-	}
-
-	public String name() {
-		return this.name;
-	}
-
-	public static Optional<FireflyColor> getByDyeColor(RegistryAccess registryAccess, @NotNull DyeColor dyeColor) {
+	public static Optional<FireflyColor> getByDyeColor(RegistryAccess registryAccess, DyeColor dyeColor) {
 		return registryAccess.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
 			.stream()
 			.filter(fireflyColor -> fireflyColor.dyeColor().orElse(null) == dyeColor)
@@ -103,15 +81,13 @@ public final class FireflyColor implements TooltipProvider, PriorityProvider<Spa
 	}
 
 	@Override
-	public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+	public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter getter) {
 		if (this.name.equals("on")) return;
-
-		ChatFormatting[] chatFormattings = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-		consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + this.name).withStyle(chatFormattings));
+		consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + this.name).withStyle(CHAT_FORMATTINGS));
 	}
 
 	@Override
-	public @NotNull List<Selector<SpawnContext, SpawnCondition>> selectors() {
+	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();
 	}
 }

@@ -31,7 +31,6 @@ import net.minecraft.client.animation.KeyframeAnimations;
  */
 @Environment(EnvType.CLIENT)
 public final class WWWardenAnimation {
-
 	public static final AnimationDefinition WARDEN_DIG = AnimationDefinition.Builder.withLength(5.167667F)
 		.addAnimation("body",
 			new AnimationChannel(AnimationChannel.Targets.POSITION,

@@ -27,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.NotNull;
 
 public class PaleMushroomBlock extends MushroomBlock {
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
@@ -40,12 +39,12 @@ public class PaleMushroomBlock extends MushroomBlock {
 		super(resourceKey, properties);
 	}
 
-	public static boolean isActive(@NotNull Level level, BlockPos pos) {
+	public static boolean isActive(Level level, BlockPos pos) {
 		return level.environmentAttributes().getValue(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, pos);
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!isActive(level, pos)) return;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();

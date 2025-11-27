@@ -32,43 +32,42 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class LeafClusterSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
 
-	LeafClusterSeedParticle(ClientLevel world, double d, double e, double f) {
-		super(world, d, e, f, 0D, 0D, 0D);
+	LeafClusterSeedParticle(ClientLevel level, double x, double y, double z) {
+		super(level, x, y, z, 0D, 0D, 0D);
 		this.lifetime = 5;
-		this.pos = BlockPos.containing(d, e, f);
+		this.pos = BlockPos.containing(x, y, z);
 	}
 
 	@Override
 	public void tick() {
-		int leafCount = this.random.nextInt(4) + 1;
-		Optional<FallingLeafUtil.FallingLeafData> fallingLeafData = FallingLeafUtil.getFallingLeafData(this.level.getBlockState(this.pos).getBlock());
-		if (fallingLeafData.isPresent()) {
-			ParticleType<WWFallingLeavesParticleOptions> particle = fallingLeafData.get().particle();
-			for (int i = 0; i < leafCount; i++) {
-				FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLitterOrLeafParticleData(particle);
-				WWFallingLeavesParticleOptions leafParticleOptions = WWFallingLeavesParticleOptions.createFastFalling(particle, leafParticleData.textureSize(), true);
-				ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, leafParticleOptions);
-			}
-		} else {
+		final Optional<FallingLeafUtil.FallingLeafData> fallingLeafData = FallingLeafUtil.getFallingLeafData(this.level.getBlockState(this.pos).getBlock());
+		if (fallingLeafData.isEmpty()) {
 			this.remove();
 			return;
 		}
+
+		final ParticleType<WWFallingLeavesParticleOptions> particle = fallingLeafData.get().particle();
+		final int leafCount = this.random.nextInt(4) + 1;
+		for (int i = 0; i < leafCount; i++) {
+			final FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLitterOrLeafParticleData(particle);
+			final WWFallingLeavesParticleOptions options = WWFallingLeavesParticleOptions.createFastFalling(particle, leafParticleData.textureSize(), true);
+			ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, options);
+		}
+
 		this.age++;
 		if (this.age == this.lifetime) this.remove();
 	}
 
-	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType options,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random

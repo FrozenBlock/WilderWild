@@ -28,7 +28,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import org.jetbrains.annotations.NotNull;
 
 public class IcicleFeature extends Feature<IcicleConfig> {
 
@@ -37,46 +36,49 @@ public class IcicleFeature extends Feature<IcicleConfig> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<IcicleConfig> featurePlaceContext) {
-		LevelAccessor levelAccessor = featurePlaceContext.level();
-		BlockPos blockPos = featurePlaceContext.origin();
-		RandomSource randomSource = featurePlaceContext.random();
-		IcicleConfig icicleConfig = featurePlaceContext.config();
-		Optional<Direction> optional = getTipDirection(levelAccessor, blockPos, randomSource);
-		if (optional.isEmpty()) return false;
-		BlockPos blockPos2 = blockPos.relative(optional.get().getOpposite());
-		if (icicleConfig.placeIceBlocks) createPatchOfIceBlocks(levelAccessor, randomSource, blockPos2, icicleConfig);
+	public boolean place(FeaturePlaceContext<IcicleConfig> featurePlaceContext) {
+		final LevelAccessor level = featurePlaceContext.level();
+		final BlockPos origin = featurePlaceContext.origin();
+		final RandomSource random = featurePlaceContext.random();
+		final IcicleConfig config = featurePlaceContext.config();
 
-		int i = randomSource.nextFloat() < icicleConfig.chanceOfTallerIcicle && DripstoneUtils.isEmptyOrWater(levelAccessor.getBlockState(blockPos.relative(optional.get())))
+		final Optional<Direction> tipDirection = getTipDirection(level, origin, random);
+		if (tipDirection.isEmpty()) return false;
+
+		final BlockPos offsetPos = origin.relative(tipDirection.get().getOpposite());
+		if (config.placeIceBlocks()) createPatchOfIceBlocks(level, random, offsetPos, config);
+
+		int i = random.nextFloat() < config.chanceOfTallerIcicle() && DripstoneUtils.isEmptyOrWater(level.getBlockState(origin.relative(tipDirection.get())))
 			? 2 : 1;
-		IcicleUtils.growIcicle(levelAccessor, blockPos, optional.get(), i, false);
+		IcicleUtils.growIcicle(level, origin, tipDirection.get(), i, false);
 		return true;
 	}
 
-	private static Optional<Direction> getTipDirection(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, RandomSource randomSource) {
-		boolean bl = IcicleUtils.isIcicleBase(levelAccessor.getBlockState(blockPos.above()));
-		boolean bl2 = IcicleUtils.isIcicleBase(levelAccessor.getBlockState(blockPos.below()));
-		if (bl && bl2) return Optional.of(randomSource.nextBoolean() ? Direction.DOWN : Direction.UP);
-		if (bl) return Optional.of(Direction.DOWN);
-		return bl2 ? Optional.of(Direction.UP) : Optional.empty();
+	private static Optional<Direction> getTipDirection(LevelAccessor level, BlockPos pos, RandomSource random) {
+		final boolean isBaseAbove = IcicleUtils.isIcicleBase(level.getBlockState(pos.above()));
+		final boolean isBaseBelow = IcicleUtils.isIcicleBase(level.getBlockState(pos.below()));
+		if (isBaseAbove && isBaseBelow) return Optional.of(random.nextBoolean() ? Direction.DOWN : Direction.UP);
+		if (isBaseAbove) return Optional.of(Direction.DOWN);
+		return isBaseBelow ? Optional.of(Direction.UP) : Optional.empty();
 	}
 
-	private static void createPatchOfIceBlocks(LevelAccessor levelAccessor, RandomSource randomSource, BlockPos blockPos, IcicleConfig icicleConfig) {
-		IcicleUtils.placeIceBlockIfPossible(levelAccessor, blockPos);
+	private static void createPatchOfIceBlocks(LevelAccessor level, RandomSource random, BlockPos pos, IcicleConfig config) {
+		IcicleUtils.placeIceBlockIfPossible(level, pos);
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (!(randomSource.nextFloat() > icicleConfig.chanceOfDirectionalSpread)) {
-				BlockPos blockPos2 = blockPos.relative(direction);
-				IcicleUtils.placeIceBlockIfPossible(levelAccessor, blockPos2);
-				if (!(randomSource.nextFloat() > icicleConfig.chanceOfSpreadRadius2)) {
-					BlockPos blockPos3 = blockPos2.relative(Direction.getRandom(randomSource));
-					IcicleUtils.placeIceBlockIfPossible(levelAccessor, blockPos3);
-					if (!(randomSource.nextFloat() > icicleConfig.chanceOfSpreadRadius3)) {
-						BlockPos blockPos4 = blockPos3.relative(Direction.getRandom(randomSource));
-						IcicleUtils.placeIceBlockIfPossible(levelAccessor, blockPos4);
-					}
-				}
-			}
+			if (random.nextFloat() > config.chanceOfDirectionalSpread()) continue;
+
+			final BlockPos offsetPos = pos.relative(direction);
+			IcicleUtils.placeIceBlockIfPossible(level, offsetPos);
+
+			if (random.nextFloat() > config.chanceOfSpreadRadius2()) continue;
+
+			final BlockPos randomPos = offsetPos.relative(Direction.getRandom(random));
+			IcicleUtils.placeIceBlockIfPossible(level, randomPos);
+			if (random.nextFloat() > config.chanceOfSpreadRadius3()) continue;
+
+			final BlockPos moreRandomPos = randomPos.relative(Direction.getRandom(random));
+			IcicleUtils.placeIceBlockIfPossible(level, moreRandomPos);
 		}
 	}
 }

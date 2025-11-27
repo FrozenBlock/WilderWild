@@ -36,9 +36,7 @@ public class ServerExplosionMixin {
 			target = "Lnet/minecraft/world/entity/Entity;push(Lnet/minecraft/world/phys/Vec3;)V"
 		)
 	)
-	public void wilderWild$cannonballsReactMore(
-		Entity instance, Vec3 vec3, Operation<Void> original
-	) {
+	public void wilderWild$cannonballsReactMore(Entity instance, Vec3 vec3, Operation<Void> original) {
 		if (instance instanceof Tumbleweed tumbleweed && tumbleweed.isCannonball()) vec3 = vec3.scale(8D);
 		original.call(instance, vec3);
 	}

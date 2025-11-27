@@ -30,16 +30,15 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 
-	public WWBiomeTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture registries) {
+	public WWBiomeTagProvider(FabricDataOutput output, CompletableFuture registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.generateCompat();
 		this.generateBiomeTags();
 		this.generateClimateAndVegetationTags();
@@ -49,7 +48,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.generateMusicPoolTags();
 	}
 
-	@NotNull
 	private TagKey<Biome> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
 	}

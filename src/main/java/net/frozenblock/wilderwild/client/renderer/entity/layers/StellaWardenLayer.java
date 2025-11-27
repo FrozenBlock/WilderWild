@@ -20,19 +20,18 @@ package net.frozenblock.wilderwild.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
-import net.minecraft.client.model.WardenModel;
+import net.minecraft.client.model.monster.warden.WardenModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderState, WardenModel> {
 
 	public StellaWardenLayer(
-		@NotNull RenderLayerParent<WardenRenderState, WardenModel> context,
+		RenderLayerParent<WardenRenderState, WardenModel> context,
 		Function<WardenRenderState, Identifier> texture,
 		AlphaFunction<WardenRenderState> alphaFunction,
 		WardenModel model,

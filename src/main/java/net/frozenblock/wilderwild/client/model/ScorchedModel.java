@@ -24,7 +24,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class ScorchedModel extends EntityModel<ScorchedRenderState> {
@@ -68,14 +67,14 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		float yPos = 1F;
 		float headProgress = Mth.clamp(((renderState.xRot + 25F) / 45F) * 2F, 0F, 1F);
 		this.head.y += yPos * 3F * lavaProgress;
-		this.head.xRot -= (float) (12.5F + (Math.sin(Mth.PI + ageInTicks * 0.0375F) * 6.25)) * lavaProgToRad * headProgress;
-		this.head.zRot += (float) (Math.sin(Mth.PI - ageInTicks * 0.05F) * 7.5F) * lavaProgToRad * headProgress;
+		this.head.xRot -= (12.5F + (Mth.sin(Mth.PI + ageInTicks * 0.0375F) * 6.25F)) * lavaProgToRad * headProgress;
+		this.head.zRot += (Mth.sin(Mth.PI - ageInTicks * 0.05F) * 7.5F) * lavaProgToRad * headProgress;
 
 		this.body0.y += yPos * 1.5F * lavaProgress;
-		this.body0.zRot += (float) (Math.sin(Mth.HALF_PI -ageInTicks * 0.05F) * 7.5F) * lavaProgToRad;
+		this.body0.zRot += (Mth.sin(Mth.HALF_PI -ageInTicks * 0.05F) * 7.5F) * lavaProgToRad;
 
-		this.body1.xRot += (float) (12.5F + (Math.sin(ageInTicks * 0.0375F) * 6.25)) * lavaProgToRad;
-		this.body1.zRot += (float) (Math.sin(-ageInTicks * 0.05F) * 7.5F) * lavaProgToRad;
+		this.body1.xRot += (12.5F + (Mth.sin(ageInTicks * 0.0375F) * 6.25F)) * lavaProgToRad;
+		this.body1.zRot += (Mth.sin(-ageInTicks * 0.05F) * 7.5F) * lavaProgToRad;
 
 		float easyLimbSwing = walkPos * 0.6662F * 0.75F;
 		float yRotA = (0.7853982F) - (Mth.cos(easyLimbSwing) * 0.8F * walkSpeed);
@@ -115,7 +114,7 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		this.leftFrontLeg.y -= yPos * lavaProgress;
 	}
 
-	private void spiderAnim(@NotNull LivingEntityRenderState renderState) {
+	private void spiderAnim(LivingEntityRenderState renderState) {
 		this.head.yRot = renderState.yRot * Mth.DEG_TO_RAD;
 		this.head.xRot = renderState.xRot * Mth.DEG_TO_RAD;
 		float f = renderState.walkAnimationPos * 0.6662F;

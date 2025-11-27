@@ -33,7 +33,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaCurrentDownParticle extends SingleQuadParticle {
@@ -41,17 +40,13 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 	private float angle;
 
 	protected MesogleaCurrentDownParticle(
-		@NotNull ClientLevel clientLevel,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		ParticleOptions popParticle,
 		TextureAtlasSprite sprite
 	) {
-		super(clientLevel, x, y, z, xd, yd, zd, sprite);
+		super(level, x, y, z, xd, yd, zd, sprite);
 		this.popParticle = popParticle;
 		this.lifetime = (int)(Math.random() * 60D) + 30;
 		this.hasPhysics = false;
@@ -75,23 +70,21 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 		this.zo = this.z;
 		if (this.age++ >= this.lifetime) {
 			this.remove();
-		} else {
-			this.xd = this.xd + (0.6D * Mth.cos(this.angle));
-			this.zd = this.zd + (0.6D * Mth.sin(this.angle));
-			this.xd *= 0.07;
-			this.zd *= 0.07;
-			this.move(this.xd, this.yd, this.zd);
-			if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER) || this.onGround) this.age += 1;
-			this.angle += 0.08F;
+			return;
 		}
+		this.xd = this.xd + (0.6D * Mth.cos(this.angle));
+		this.zd = this.zd + (0.6D * Mth.sin(this.angle));
+		this.xd *= 0.07;
+		this.zd *= 0.07;
+		this.move(this.xd, this.yd, this.zd);
+		if (!this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER) || this.onGround) this.age += 1;
+		this.angle += 0.08F;
 	}
 
 	@Override
 	public void remove() {
 		this.level.playLocalSound(
-			this.x,
-			this.y,
-			this.z,
+			this.x, this.y, this.z,
 			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
 			0.025F,
@@ -100,34 +93,22 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 		);
 		this.level.addParticle(
 			this.popParticle,
-			this.x,
-			this.y,
-			this.z,
-			this.xd,
-			this.yd,
-			this.zd
+			this.x, this.y, this.z,
+			this.xd, this.yd, this.zd
 		);
 		super.remove();
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-		private final ParticleOptions popParticle;
-
-		public Provider(SpriteSet spriteSet, ParticleOptions popParticle) {
-			this.spriteSet = spriteSet;
-			this.popParticle = popParticle;
-		}
-
+	public record Provider(SpriteSet spriteSet, ParticleOptions popParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
@@ -135,5 +116,4 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 			return new MesogleaCurrentDownParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
 		}
 	}
-
 }

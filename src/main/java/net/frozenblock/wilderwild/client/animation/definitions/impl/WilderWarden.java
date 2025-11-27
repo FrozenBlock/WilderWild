@@ -20,19 +20,11 @@ package net.frozenblock.wilderwild.client.animation.definitions.impl;
 import net.minecraft.world.entity.AnimationState;
 
 public interface WilderWarden {
-
-	AnimationState wilderWild$getDyingAnimationState();
-
-	AnimationState wilderWild$getSwimmingDyingAnimationState();
-
-	AnimationState wilderWild$getKirbyDeathAnimationState();
-
+	AnimationState wilderWild$dyingAnimationState();
+	AnimationState wilderWild$swimmingDyingAnimationState();
+	AnimationState wilderWild$kirbyDeathAnimationState();
 	boolean wilderWild$isStella();
-
-	default void wilderWild$setIsStella(boolean value) {}
-
+	default void wilderWild$setStella(boolean value) {}
 	void wilderWild$setDeathTicks(int i);
-
 	int wilderWild$getDeathTicks();
-
 }

@@ -36,12 +36,11 @@ import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableConditio
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import org.jetbrains.annotations.NotNull;
 
 public class WWBlockLootHelper {
 
 	public static void makeNonSaplingLeavesLoot(
-		@NotNull BlockLootSubProvider lootProvider, Block leavesBlock, HolderLookup.@NotNull RegistryLookup<Enchantment> registryLookup
+		BlockLootSubProvider lootProvider, Block leavesBlock, HolderLookup.RegistryLookup<Enchantment> enchantments
 	) {
 		lootProvider.add(leavesBlock,
 			LootTable.lootTable()
@@ -64,13 +63,13 @@ public class WWBlockLootHelper {
 											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
 										)
 								)
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), BlockLootSubProvider.NORMAL_LEAVES_STICK_CHANCES))
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), BlockLootSubProvider.NORMAL_LEAVES_STICK_CHANCES))
 						)
 				)
 		);
 	}
 
-	public static void makeShelfFungiLoot(@NotNull BlockLootSubProvider lootProvider, Block shelfFungiBlock, ItemLike dropWithoutShearsOrSilkTouch) {
+	public static void makeShelfFungiLoot(BlockLootSubProvider lootProvider, Block shelfFungiBlock, ItemLike dropWithoutShearsOrSilkTouch) {
 		lootProvider.add(shelfFungiBlock,
 			LootTable.lootTable()
 				.withPool(
@@ -145,7 +144,7 @@ public class WWBlockLootHelper {
 		);
 	}
 
-	public static void makeShearsOrSilkTouchRequiredLoot(@NotNull BlockLootSubProvider lootProvider, Block block) {
+	public static void makeShearsOrSilkTouchRequiredLoot(BlockLootSubProvider lootProvider, Block block) {
 		lootProvider.add(block,
 			LootTable.lootTable()
 				.withPool(
@@ -156,13 +155,13 @@ public class WWBlockLootHelper {
 		);
 	}
 
-	public static void makeHangingFroglightLoot(@NotNull BlockLootSubProvider lootProvider, Block bodyBlock, Block headBlock) {
+	public static void makeHangingFroglightLoot(BlockLootSubProvider lootProvider, Block bodyBlock, Block headBlock) {
 		final LootTable.Builder builder = lootProvider.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock));
 		lootProvider.add(bodyBlock, builder);
 		lootProvider.add(headBlock, builder);
 	}
 
-	public static void createShearsOrSilkTouchRequiredSegmentedBlockDrops(@NotNull BlockLootSubProvider lootProvider, Block block) {
+	public static void createShearsOrSilkTouchRequiredSegmentedBlockDrops(BlockLootSubProvider lootProvider, Block block) {
 		lootProvider.add(block,
 			block instanceof SegmentableBlock segmentableBlock
 				? LootTable.lootTable()

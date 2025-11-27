@@ -19,6 +19,5 @@ package net.frozenblock.wilderwild.entity.impl;
 
 public interface PlayerInMesogleaInterface {
 	void wilderWild$setPlayerInMesoglea(boolean inMesoglea);
-
 	boolean wilderWild$wasPlayerInMesoglea();
 }

@@ -27,13 +27,12 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WWSpecialModelRenderers implements SpecialModelRenderersEntrypoint {
 
 	@Override
-	public void registerSpecialModelRenderers(ExtraCodecs.@NotNull LateBoundIdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
+	public void registerSpecialModelRenderers(ExtraCodecs.LateBoundIdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> mapper) {
 		mapper.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 

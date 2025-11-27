@@ -38,13 +38,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 public class AlgaeBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
@@ -52,19 +50,17 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	protected static final VoxelShape ENTITY_INSIDE_SHAPE = Block.box(0D, -0.5D, 0D, 16D, 0D, 16D);
 
-	public AlgaeBlock(@NotNull BlockBehaviour.Properties properties) {
+	public AlgaeBlock(Properties properties) {
 		super(properties);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends AlgaeBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -74,15 +70,15 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final FluidState belowFluidState = level.getFluidState(pos.below());
 		final FluidState thisFluidState = level.getFluidState(pos);
 		return belowFluidState.getType() == Fluids.WATER && thisFluidState.getType() == Fluids.EMPTY;
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState blockState,
+	protected BlockState updateShape(
+		BlockState blockState,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -97,16 +93,16 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!this.canSurvive(state, level, pos)) level.destroyBlock(pos, false);
 	}
 
 	@Override
 	public void entityInside(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
@@ -120,7 +116,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			mutable.setWithOffset(pos, direction);
@@ -130,12 +126,12 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 			mutable.setWithOffset(pos, direction);
@@ -146,7 +142,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		}
 	}
 
-	public static boolean hasNearbyAlgae(@NotNull LevelAccessor level, @NotNull BlockPos pos, int distance, int threshold) {
+	public static boolean hasNearbyAlgae(LevelAccessor level, BlockPos pos, int distance, int threshold) {
 		final Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, -distance, -distance), pos.offset(distance, distance, distance)).iterator();
 		int count = 0;
 		while (count < threshold) {

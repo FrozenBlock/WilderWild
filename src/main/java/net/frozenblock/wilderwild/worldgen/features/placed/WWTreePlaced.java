@@ -141,7 +141,6 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = WWPlacementUtils.register("fallen_oak_no_moss_checked");
 	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_oak_checked");
 
-
 	//DARK OAK
 	public static final FrozenLibPlacedTreeFeature DARK_OAK_CHECKED = WWTreeConfigured.DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature TALL_DARK_OAK_CHECKED = WWTreeConfigured.TALL_DARK_OAK.toPlacedFeature();

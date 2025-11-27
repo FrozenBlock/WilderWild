@@ -56,7 +56,6 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -71,7 +70,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWaterloggedBlock {
@@ -88,7 +86,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	private static final VoxelShape MIDDLE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 	private static final VoxelShape BASE_SHAPE = Block.box(3D, 0D, 3D, 13D, 16D, 13D);
 
-	public IcicleBlock(BlockBehaviour.Properties properties) {
+	public IcicleBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
 			this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, DripstoneThickness.TIP).setValue(WATERLOGGED, false)
@@ -96,24 +94,24 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+	protected MapCodec<? extends BaseEntityBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(TIP_DIRECTION, THICKNESS, WATERLOGGED);
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos blockPos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos blockPos) {
 		return isValidIciclePlacement(level, blockPos, state.getValue(TIP_DIRECTION));
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess tickAccess,
 		BlockPos pos,
@@ -137,14 +135,14 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected void onProjectileHit(@NotNull Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
+	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
 		if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return;
 		final BlockPos blockPos = hitResult.getBlockPos();
 		if (!projectile.mayInteract(serverLevel, blockPos) || !projectile.mayBreak(serverLevel) || projectile.getDeltaMovement().length() <= 0.4D) return;
 		level.destroyBlock(blockPos, true);
 	}
 
-	public void triggerFall(@NotNull Level level, @NotNull BlockPos blockPos) {
+	public void triggerFall(Level level, BlockPos blockPos) {
 		level.scheduleTick(blockPos, this, DELAY_BEFORE_FALLING);
 	}
 
@@ -158,7 +156,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!isHangingIcicleStartPos(state, level, pos)) return;
 		if (random.nextFloat() <= 0.165F) {
 			growIcicleIfPossible(state, level, pos);
@@ -169,7 +167,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		}
 	}
 
-	public static void placeIciclesNearby(@NotNull ServerLevel level, @NotNull BlockPos blockPos, int distance, int maxNewIcicles) {
+	public static void placeIciclesNearby(ServerLevel level, BlockPos blockPos, int distance, int maxNewIcicles) {
 		if (!canGrow(level.getBlockState(blockPos.above()), level.getBlockState(blockPos.above(2)))) return;
 		final Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance)).iterator();
 		int count = 0;
@@ -180,8 +178,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		}
 	}
 
-
-	private boolean canRandomFall(ServerLevel level, BlockPos pos, @NotNull RandomSource random) {
+	private boolean canRandomFall(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() > 0.075F || !level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) return false;
 		final Vec3 centerPos = Vec3.atCenterOf(pos);
 		final Player player = level.getNearestPlayer(TARGETING_CONDITIONS, centerPos.x(), centerPos.y(), centerPos.z());
@@ -195,7 +192,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final LevelAccessor level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final Direction direction = context.getNearestLookingVerticalDirection().getOpposite();
@@ -215,7 +212,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	protected FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
@@ -225,7 +222,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(@NotNull BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		final DripstoneThickness thickness = state.getValue(THICKNESS);
 		VoxelShape voxelShape;
 		if (thickness == DripstoneThickness.TIP_MERGE) {
@@ -245,7 +242,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return this.getShape(state, level, pos, context);
 	}
 
@@ -260,16 +257,16 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	public void onBrokenAfterFall(@NotNull Level level, BlockPos pos, @NotNull FallingBlockEntity fallingBlock) {
+	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(fallingBlock.getBlockState()));
 	}
 
 	@Override
-	public @NotNull DamageSource getFallDamageSource(@NotNull Entity entity) {
+	public DamageSource getFallDamageSource(Entity entity) {
 		return entity.damageSources().source(WWDamageTypes.FALLING_ICICLE, entity);
 	}
 
-	private static void spawnFallingIcicle(BlockState blockState, ServerLevel serverLevel, @NotNull BlockPos blockPos) {
+	private static void spawnFallingIcicle(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos) {
 		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
 		BlockState blockState2 = blockState;
 
@@ -288,7 +285,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@VisibleForTesting
-	public static void growIcicleIfPossible(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos) {
+	public static void growIcicleIfPossible(BlockState state, ServerLevel level, BlockPos pos) {
 		final BlockState aboveState = level.getBlockState(pos.above(1));
 		final BlockState aboveTwiceState = level.getBlockState(pos.above(2));
 		if (!canGrow(aboveState, aboveTwiceState)) return;
@@ -301,7 +298,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		grow(level, tipPos, Direction.DOWN);
 	}
 
-	public static void grow(@NotNull ServerLevel level, @NotNull BlockPos pos, Direction direction) {
+	public static void grow(ServerLevel level, BlockPos pos, Direction direction) {
 		final BlockPos offsetPos = pos.relative(direction);
 		final BlockState offsetState = level.getBlockState(offsetPos);
 		if (isUnmergedTipWithDirection(offsetState, direction.getOpposite())) {
@@ -311,7 +308,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		}
 	}
 
-	private static void createIcicle(@NotNull LevelAccessor level, BlockPos pos, Direction direction, DripstoneThickness thickness) {
+	private static void createIcicle(LevelAccessor level, BlockPos pos, Direction direction, DripstoneThickness thickness) {
 		final BlockState blockState = WWBlocks.ICICLE
 			.defaultBlockState()
 			.setValue(TIP_DIRECTION, direction)
@@ -320,7 +317,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		level.setBlock(pos, blockState, UPDATE_ALL);
 	}
 
-	private static void createMergedTips(@NotNull BlockState state, LevelAccessor level, BlockPos pos) {
+	private static void createMergedTips(BlockState state, LevelAccessor level, BlockPos pos) {
 		final boolean isUp = state.getValue(TIP_DIRECTION) == Direction.UP;
 		createIcicle(level, isUp ? pos.above() : pos, Direction.DOWN, DripstoneThickness.TIP_MERGE);
 		createIcicle(level, isUp ? pos : pos.below(), Direction.UP, DripstoneThickness.TIP_MERGE);
@@ -343,7 +340,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return direction.getOpposite();
 	}
 
-	private static DripstoneThickness calculateIcicleThickness(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull Direction direction, boolean bl) {
+	private static DripstoneThickness calculateIcicleThickness(LevelReader level, BlockPos pos, Direction direction, boolean bl) {
 		final Direction oppositeDirection = direction.getOpposite();
 		final BlockState state = level.getBlockState(pos.relative(direction));
 		if (isIcicleWithDirection(state, oppositeDirection)) {
@@ -363,7 +360,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return isHangingIcicle(state) && state.getValue(THICKNESS) == DripstoneThickness.TIP && !state.getValue(WATERLOGGED);
 	}
 
-	public static boolean canTipGrow(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos) {
+	public static boolean canTipGrow(BlockState state, ServerLevel level, BlockPos pos) {
 		Direction direction = state.getValue(TIP_DIRECTION);
 		BlockPos blockPos2 = pos.relative(direction);
 		BlockState blockState2 = level.getBlockState(blockPos2);
@@ -371,13 +368,13 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return blockState2.isAir() || isUnmergedTipWithDirection(blockState2, direction.getOpposite());
 	}
 
-	private static boolean isValidIciclePlacement(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull Direction direction) {
+	private static boolean isValidIciclePlacement(LevelReader level, BlockPos pos, Direction direction) {
 		final BlockPos offsetPos = pos.relative(direction.getOpposite());
 		final BlockState offsetState = level.getBlockState(offsetPos);
 		return offsetState.isFaceSturdy(level, offsetPos, direction) || isIcicleWithDirection(offsetState, direction);
 	}
 
-	private static boolean isTip(@NotNull BlockState state, boolean bl) {
+	private static boolean isTip(BlockState state, boolean bl) {
 		if (!state.is(WWBlocks.ICICLE)) return false;
 		final DripstoneThickness thickness = state.getValue(THICKNESS);
 		return thickness == DripstoneThickness.TIP || bl && thickness == DripstoneThickness.TIP_MERGE;
@@ -404,19 +401,19 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return false;
 	}
 
-	private static boolean isIcicleWithDirection(@NotNull BlockState state, Direction direction) {
+	private static boolean isIcicleWithDirection(BlockState state, Direction direction) {
 		return state.is(WWBlocks.ICICLE) && state.getValue(TIP_DIRECTION) == direction;
 	}
 
-	public static boolean canGrow(@NotNull BlockState state, BlockState aboveState) {
+	public static boolean canGrow(BlockState state, BlockState aboveState) {
 		return state.is(WWBlocks.FRAGILE_ICE) || (state.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) && isValidWaterForGrowing(aboveState));
 	}
 
-	public static boolean canSpreadTo(@NotNull BlockState state) {
+	public static boolean canSpreadTo(BlockState state) {
 		return state.is(WWBlocks.FRAGILE_ICE) || state.is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER);
 	}
 
-	public static boolean isValidWaterForGrowing(@NotNull BlockState state) {
+	public static boolean isValidWaterForGrowing(BlockState state) {
 		return state.is(Blocks.WATER) && state.getFluidState().isSource();
 	}
 
@@ -447,12 +444,12 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	protected @NotNull RenderShape getRenderShape(BlockState state) {
+	protected RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, BlockState state, BlockEntityType<T> type) {
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide()
 			? createTickerHelper(type, WWBlockEntityTypes.ICICLE, (worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex))
 			: null;

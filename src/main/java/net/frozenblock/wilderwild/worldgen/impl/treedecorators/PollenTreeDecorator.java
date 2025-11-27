@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jetbrains.annotations.NotNull;
 
 public class PollenTreeDecorator extends TreeDecorator {
 	public static final MapCodec<PollenTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -51,30 +50,29 @@ public class PollenTreeDecorator extends TreeDecorator {
 	}
 
 	@Override
-	@NotNull
 	protected TreeDecoratorType<?> type() {
 		return WWTreeDecorators.POLLEN_TREE_DECORATOR;
 	}
 
 	@Override
-	public void place(@NotNull Context context) {
+	public void place(Context context) {
 		if (!WWWorldgenConfig.GENERATE_POLLEN) return;
 
-		RandomSource random = context.random();
+		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
-		ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
+		final ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
 		poses.addAll(context.leaves());
 		Util.shuffle(poses, random);
-		BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
+		final BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
 
 		int placedPollen = 0;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : poses) {
 			if (placedPollen >= this.maxCount) return;
 			for (Direction direction : Direction.values()) {
-				if (random.nextFloat() > this.placementChance || !context.isAir(mutableBlockPos.setWithOffset(pos, direction))) continue;
-				context.setBlock(mutableBlockPos, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
+				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
+				context.setBlock(mutable, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
 				placedPollen += 1;
 			}
 		}

@@ -23,7 +23,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWGameEvents {
 	public static final Reference<GameEvent> BIG_FALL = register("big_fall");
@@ -36,13 +35,11 @@ public final class WWGameEvents {
 		WWConstants.logWithModId("Registering GameEvents for", WWConstants.UNSTABLE_LOGGING);
 	}
 
-	@NotNull
-	private static Reference<GameEvent> register(@NotNull String path) {
+	private static Reference<GameEvent> register(String path) {
 		return register(path, 16);
 	}
 
-	@NotNull
-	private static Reference<GameEvent> register(@NotNull String path, int notificationRadius) {
+	private static Reference<GameEvent> register(String path, int notificationRadius) {
 		Identifier key = WWConstants.id(path);
 		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
 	}

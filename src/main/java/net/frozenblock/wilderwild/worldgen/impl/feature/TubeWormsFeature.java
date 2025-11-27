@@ -32,7 +32,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
 
@@ -41,32 +40,31 @@ public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		WorldGenLevel worldGenLevel = featurePlaceContext.level();
-		BlockPos blockPos = featurePlaceContext.origin();
-		RandomSource random = featurePlaceContext.random();
-		int k = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR, blockPos.getX(), blockPos.getZ());
-		BlockPos blockPos2 = new BlockPos(blockPos.getX(), k, blockPos.getZ());
-		if (worldGenLevel.getBlockState(blockPos2).is(Blocks.WATER)) {
-			BlockState blockState = WWBlocks.TUBE_WORMS.defaultBlockState();
-			BlockPos.MutableBlockPos mutableBlockPos = blockPos2.mutable();
-			BlockPos.MutableBlockPos mutablePlacePos = blockPos2.mutable();
-			if (blockState.canSurvive(worldGenLevel, mutableBlockPos)) {
-				if (random.nextFloat() <= 0.5F && worldGenLevel.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
-					if (random.nextFloat() <= 0.25F && worldGenLevel.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
-						worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
-						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.MIDDLE), Block.UPDATE_CLIENTS);
-						worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
-						return true;
-					}
-					worldGenLevel.setBlock(mutablePlacePos, blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
-					worldGenLevel.setBlock(mutablePlacePos.move(Direction.UP), blockState.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
-					return true;
-				}
-				worldGenLevel.setBlock(mutablePlacePos, blockState, Block.UPDATE_CLIENTS);
+	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
+		final WorldGenLevel level = featurePlaceContext.level();
+		final BlockPos origin = featurePlaceContext.origin();
+		final RandomSource random = featurePlaceContext.random();
+		final int heightmapY = level.getHeight(Heightmap.Types.OCEAN_FLOOR, origin.getX(), origin.getZ());
+		final BlockPos heightmapPos = new BlockPos(origin.getX(), heightmapY, origin.getZ());
+		if (!level.getBlockState(heightmapPos).is(Blocks.WATER)) return false;
+
+		final BlockState state = WWBlocks.TUBE_WORMS.defaultBlockState();
+		final BlockPos.MutableBlockPos mutableBlockPos = heightmapPos.mutable();
+		final BlockPos.MutableBlockPos mutablePlacePos = heightmapPos.mutable();
+		if (!state.canSurvive(level, mutableBlockPos)) return false;
+
+		if (random.nextFloat() <= 0.5F && level.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
+			if (random.nextFloat() <= 0.25F && level.getBlockState(mutableBlockPos.move(Direction.UP)).is(Blocks.WATER)) {
+				level.setBlock(mutablePlacePos, state.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
+				level.setBlock(mutablePlacePos.move(Direction.UP), state.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.MIDDLE), Block.UPDATE_CLIENTS);
+				level.setBlock(mutablePlacePos.move(Direction.UP), state.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
 				return true;
 			}
+			level.setBlock(mutablePlacePos, state.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.BOTTOM), Block.UPDATE_CLIENTS);
+			level.setBlock(mutablePlacePos.move(Direction.UP), state.setValue(TubeWormsBlock.TUBE_WORMS_PART, TubeWormsPart.TOP), Block.UPDATE_CLIENTS);
+			return true;
 		}
-		return false;
+		level.setBlock(mutablePlacePos, state, Block.UPDATE_CLIENTS);
+		return true;
 	}
 }

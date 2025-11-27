@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -49,7 +48,7 @@ public class VegetationBlockMixin extends Block {
 
 	@Unique
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
@@ -73,9 +72,9 @@ public class VegetationBlockMixin extends Block {
 
 	@Unique
 	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
-			BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
+			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
 			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
 		} else {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);

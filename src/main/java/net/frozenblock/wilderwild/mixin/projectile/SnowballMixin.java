@@ -19,8 +19,7 @@ package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,20 +37,10 @@ public class SnowballMixin {
 			ordinal = 0
 		)
 	)
-	public void wilderWild$onHit(HitResult result, CallbackInfo info) {
-		if (WWItemConfig.get().projectileLandingSounds.snowballLandingSounds) {
-			Snowball snowball = Snowball.class.cast(this);
-			snowball.level().playSound(
-				null,
-				snowball.getX(),
-				snowball.getY(),
-				snowball.getZ(),
-				WWSounds.ITEM_SNOWBALL_LAND,
-				SoundSource.BLOCKS,
-				0.3F,
-				0.85F + (snowball.getRandom().nextFloat() * 0.2F)
-			);
-		}
+	public void wilderWild$onHit(HitResult hitResult, CallbackInfo info) {
+		if (!WWItemConfig.get().projectileLandingSounds.snowballLandingSounds) return;
+		final Snowball snowball = Snowball.class.cast(this);
+		snowball.playSound(WWSounds.ITEM_SNOWBALL_LAND, 0.3F, 0.85F + (snowball.getRandom().nextFloat() * 0.2F));
 	}
 
 }

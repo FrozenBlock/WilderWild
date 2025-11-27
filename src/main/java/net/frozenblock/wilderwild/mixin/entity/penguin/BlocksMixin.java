@@ -32,12 +32,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlocksMixin {
 
 	@Inject(method = "method_26128", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$allowPenguinSpawnA(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
+	private static void wilderWild$allowPenguinSpawnA(BlockState state, BlockGetter level, BlockPos pos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
 		if (entityType == WWEntityTypes.PENGUIN) info.setReturnValue(true);
 	}
 
 	@Inject(method = "method_26132", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$allowPenguinSpawnB(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
+	private static void wilderWild$allowPenguinSpawnB(BlockState state, BlockGetter level, BlockPos pos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
 		if (entityType == WWEntityTypes.PENGUIN) info.setReturnValue(true);
 	}
 

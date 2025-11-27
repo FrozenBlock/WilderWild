@@ -35,24 +35,19 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	private final ParticleOptions popParticle;
 
 	protected MesogleaBubbleColumnUpParticle(
-		@NotNull ClientLevel clientLevel,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		ParticleOptions popParticle,
 		TextureAtlasSprite sprite
 	) {
-		super(clientLevel, x, y, z, xd, yd, zd, sprite);
+		super(level, x, y, z, xd, yd, zd, sprite);
 		this.popParticle = popParticle;
 	}
 
@@ -62,14 +57,14 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
+		final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
@@ -81,9 +76,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	@Override
 	public void remove() {
 		this.level.playLocalSound(
-			this.x,
-			this.y,
-			this.z,
+			this.x, this.y, this.z,
 			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
 			0.025F,
@@ -92,29 +85,17 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 		);
 		this.level.addParticle(
 			this.popParticle,
-			this.x,
-			this.y,
-			this.z,
-			this.xd,
-			this.yd,
-			this.zd
+			this.x, this.y, this.z,
+			this.xd, this.yd, this.zd
 		);
 		super.remove();
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-		private final ParticleOptions popParticle;
-
-		public Provider(SpriteSet spriteSet, ParticleOptions popParticle) {
-			this.spriteSet = spriteSet;
-			this.popParticle = popParticle;
-		}
-
+	public record Provider(SpriteSet spriteSet, ParticleOptions popParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
@@ -122,5 +103,4 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 			return new MesogleaBubbleColumnUpParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
 		}
 	}
-
 }

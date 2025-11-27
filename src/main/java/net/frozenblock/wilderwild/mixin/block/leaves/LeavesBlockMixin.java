@@ -43,10 +43,10 @@ public abstract class LeavesBlockMixin extends Block {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$fallingLeafParticles(
-		BlockState state, Level world, BlockPos pos, RandomSource random, CallbackInfo info,
+		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
 	) {
-		boolean hasCustomParticles = FallingLeafUtil.addFallingLeafParticles(state, world, pos, random);
+		final boolean hasCustomParticles = FallingLeafUtil.addFallingLeafParticles(state, level, pos, random);
 		usingCustomFallingLeaves.set(hasCustomParticles);
 	}
 
@@ -58,7 +58,7 @@ public abstract class LeavesBlockMixin extends Block {
 		)
 	)
 	public boolean wilderWild$fallingLeafParticles(
-		LeavesBlock instance, Level level, BlockPos blockPos, RandomSource randomSource, BlockState blockState, BlockPos blockPos2,
+		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState state, BlockPos pos2,
 		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
 	) {
 		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);

@@ -20,11 +20,12 @@ package net.frozenblock.wilderwild.registry;
 import java.util.Map;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 
 public final class WWVillagers {
+
 	private WWVillagers() {
 		throw new UnsupportedOperationException("WWVillagers contains only static declarations.");
 	}

@@ -24,37 +24,36 @@ import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerL
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
 
-	public FlowerCowRenderer(EntityRendererProvider.Context context) {
+	public FlowerCowRenderer(Context context) {
 		super(context, new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM)), new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM_BABY)), 0.7F);
 		this.addLayer(new FlowerCowFlowerLayer(this, context.getBlockRenderDispatcher()));
 	}
 
 	@Override
-	public @NotNull FlowerCowRenderState createRenderState() {
+	public FlowerCowRenderState createRenderState() {
 		return new FlowerCowRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NotNull FlowerCow flowerCow, @NotNull FlowerCowRenderState renderState, float partialTick) {
+	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState renderState, float partialTick) {
 		super.extractRenderState(flowerCow, renderState, partialTick);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
 		final MoobloomVariant variant = flowerCow.getVariantForRendering();
 		renderState.texture = variant.resourceTexture().texturePath();
-		renderState.flowerBlockState = variant.getFlowerBlockState();
+		renderState.flowerBlockState = variant.flowerBlockState();
 	}
 
 	@Override
-	public @NotNull Identifier getTextureLocation(@NotNull FlowerCowRenderState renderState) {
+	public Identifier getTextureLocation(FlowerCowRenderState renderState) {
 		return renderState.texture;
 	}
 }

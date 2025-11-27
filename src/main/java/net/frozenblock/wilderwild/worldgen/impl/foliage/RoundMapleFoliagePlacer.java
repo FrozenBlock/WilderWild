@@ -22,7 +22,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import org.jetbrains.annotations.NotNull;
 
 public class RoundMapleFoliagePlacer extends MapleFoliagePlacer {
 	public static final MapCodec<RoundMapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
@@ -34,7 +33,7 @@ public class RoundMapleFoliagePlacer extends MapleFoliagePlacer {
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.ROUND_MAPLE_FOLIAGE_PLACER;
 	}
 
@@ -44,15 +43,10 @@ public class RoundMapleFoliagePlacer extends MapleFoliagePlacer {
 	}
 
 	@Override
-	protected double getMapleFoliageFunction(
-		double totalHeight,
-		double height,
-		double radius,
-		boolean hot
-	) {
-		double function = Math.sin(((height * Math.PI) + (totalHeight * 0.5F)) / totalHeight);
-		double finalFunction = (function * (radius - 1)) + 1D;
-		double min = hot ? 1.2D : 0D;
+	protected double getMapleFoliageFunction(double totalHeight, double height, double radius, boolean hot) {
+		final double function = Math.sin(((height * Math.PI) + (totalHeight * 0.5F)) / totalHeight);
+		final double finalFunction = (function * (radius - 1)) + 1D;
+		final double min = hot ? 1.2D : 0D;
 
 		return Math.max(finalFunction, min);
 	}

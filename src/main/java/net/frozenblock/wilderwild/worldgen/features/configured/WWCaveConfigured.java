@@ -81,7 +81,6 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWCaveConfigured {
 	// MESOGLEA CAVES
@@ -159,7 +158,7 @@ public final class WWCaveConfigured {
 		throw new UnsupportedOperationException("WWCaveConfigured contains only static declarations.");
 	}
 
-	public static void registerCaveConfigured(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerCaveConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
@@ -249,14 +248,14 @@ public final class WWCaveConfigured {
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
 							.within(0.5125D, 0.5875D)
-							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
+							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_PATH_REPLACEABLE))
 							.within(-0.5875D, -0.5125D)
-							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
+							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build()
 					).build(),
 				12
@@ -482,9 +481,9 @@ public final class WWCaveConfigured {
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.275D, -0.15D)
-							.searchingBlockPredicate(
+							.searchingPredicate(
 								BlockPredicate.allOf(
 									TouchingBlockPredicate.exposedTo(
 										BlockPredicate.allOf(
@@ -499,9 +498,9 @@ public final class WWCaveConfigured {
 							).scheduleTickOnPlacement()
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.31D, -0.115D)
-							.searchingBlockPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
+							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
 							.build()
 
 					).build(),
@@ -521,8 +520,8 @@ public final class WWCaveConfigured {
 							.placementChance(0.7F)
 							.chanceToChooseInInnerRing(0.7F)
 							.outerRingStartPercentage(0.75F)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -541,8 +540,8 @@ public final class WWCaveConfigured {
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.5F)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -596,7 +595,7 @@ public final class WWCaveConfigured {
 									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
 										.placementChance(0.7F)
 										.outerRingStartPercentage(0.5F)
-										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 										.build()
 								).build(),
 							Optional.empty(),
@@ -632,8 +631,8 @@ public final class WWCaveConfigured {
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.75F)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
-							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
+							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
@@ -687,7 +686,7 @@ public final class WWCaveConfigured {
 									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 										.placementChance(0.7F)
 										.outerRingStartPercentage(0.75F)
-										.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 										.build()
 								).build(),
 							Optional.empty(),
@@ -878,39 +877,39 @@ public final class WWCaveConfigured {
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
 							.within(-1D, -0.7D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
 							.within(-0.7D, -0.6D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
 							.within(-0.6D, 0.2D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
 							.within(0.2D, 0.25D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
 							.within(0.25D, 0.6D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
 							.within(0.6D, 0.7D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build(),
 						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
 							.within(0.7D, 1D)
-							.searchingBlockPredicate(iceSearchPredicate)
+							.searchingPredicate(iceSearchPredicate)
 							.build()
 					).build(),
 				8
@@ -928,8 +927,8 @@ public final class WWCaveConfigured {
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.5F)
-							.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.searchingBlockPredicate(TouchingBlockPredicate.exposed())
+							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),

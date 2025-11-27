@@ -32,59 +32,58 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		winePalmCodec(instance).apply(instance, WindmillPalmFoliagePlacer::new)
 	);
 
-	public WindmillPalmFoliagePlacer(@NotNull IntProvider radius) {
+	public WindmillPalmFoliagePlacer(IntProvider radius) {
 		super(radius, ConstantInt.of(0));
 	}
 
 	@Contract("_ -> new")
-	protected static <P extends WindmillPalmFoliagePlacer> Products.@NotNull P1<RecordCodecBuilder.Mu<P>, IntProvider> winePalmCodec(RecordCodecBuilder.@NotNull Instance<P> instance) {
+	protected static <P extends WindmillPalmFoliagePlacer> Products.P1<RecordCodecBuilder.Mu<P>, IntProvider> winePalmCodec(RecordCodecBuilder.Instance<P> instance) {
 		return instance.group(IntProvider.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius));
 	}
 
 	@Override
-	protected @NotNull FoliagePlacerType<?> type() {
+	protected FoliagePlacerType<?> type() {
 		return WWFeatures.WINDMILL_PALM_FOLIAGE_PLACER;
 	}
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader world,
+		LevelSimulatedReader level,
 		FoliagePlacer.FoliageSetter placer,
 		RandomSource random,
 		TreeConfiguration config,
 		int trunkHeight,
-		FoliagePlacer.@NotNull FoliageAttachment node,
+		FoliagePlacer.FoliageAttachment node,
 		int foliageHeight,
 		int radius,
 		int offset
 	) {
-		BlockPos bottomPos = node.pos().below(radius);
-		int totalHeight = (radius * 2) + 1;
+		final BlockPos bottomPos = node.pos().below(radius);
+		final int totalHeight = (radius * 2) + 1;
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 		for (int currentHeight = 0; currentHeight < totalHeight; currentHeight++) {
 			double currentRadius = (Math.abs(Math.sin((currentHeight * Math.PI) / totalHeight)) * (radius - 0.5D)) + 1D;
-			BlockPos centerPos = bottomPos.above(currentHeight);
-			Vec3 center = Vec3.atCenterOf(centerPos);
+			final BlockPos centerPos = bottomPos.above(currentHeight);
+			final Vec3 center = Vec3.atCenterOf(centerPos);
 			if (currentRadius <= 1D) {
-				tryPlaceLeaf(world, placer, random, config, centerPos);
+				tryPlaceLeaf(level, placer, random, config, centerPos);
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					tryPlaceLeaf(world, placer, random, config, mutablePos.setWithOffset(centerPos, direction));
+					tryPlaceLeaf(level, placer, random, config, mutable.setWithOffset(centerPos, direction));
 				}
 			} else {
 				for (int xOff = -radius; xOff <= radius; ++xOff) {
 					for (int zOff = -radius; zOff <= radius; ++zOff) {
-						mutablePos.setWithOffset(centerPos, xOff, 0, zOff);
-						Vec3 placePosCenter = Vec3.atCenterOf(mutablePos);
+						mutable.setWithOffset(centerPos, xOff, 0, zOff);
+						final Vec3 placePosCenter = Vec3.atCenterOf(mutable);
 						if (!placePosCenter.closerThan(center, currentRadius)) continue;
-						tryPlaceLeaf(world, placer, random, config, mutablePos);
+						tryPlaceLeaf(level, placer, random, config, mutable);
 					}
 				}
 			}
@@ -92,12 +91,12 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	public int foliageHeight(@NotNull RandomSource randomSource, int i, @NotNull TreeConfiguration treeConfiguration) {
+	public int foliageHeight(RandomSource random, int i, TreeConfiguration config) {
 		return 0;
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
+	protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
 		return false;
 	}
 }

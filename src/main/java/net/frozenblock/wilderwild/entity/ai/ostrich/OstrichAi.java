@@ -67,7 +67,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gamerules.GameRules;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OstrichAi {
@@ -114,13 +113,12 @@ public class OstrichAi {
 		MemoryModuleType.ATTACK_COOLING_DOWN
 	);
 
-	@NotNull
+
 	public static Brain.Provider<AbstractOstrich> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 	}
 
-	@NotNull
-	public static Brain<?> makeBrain(@NotNull AbstractOstrich ostrich, @NotNull Brain<AbstractOstrich> brain, boolean zombie) {
+	public static Brain<?> makeBrain(AbstractOstrich ostrich, Brain<AbstractOstrich> brain, boolean zombie) {
 		initCoreActivity(brain, zombie);
 		initIdleActivity(brain, zombie);
 		initFightActivity(ostrich, brain);
@@ -130,7 +128,7 @@ public class OstrichAi {
 		return brain;
 	}
 
-	private static void initCoreActivity(@NotNull Brain<AbstractOstrich> brain, boolean zombie) {
+	private static void initCoreActivity(Brain<AbstractOstrich> brain, boolean zombie) {
 		final ImmutableList.Builder<BehaviorControl<? super AbstractOstrich>> builder = ImmutableList.builder();
 		builder.add(new Swim<>(0.8F));
 		if (!zombie) builder.add(new OstrichLayEgg(WWBlocks.OSTRICH_EGG));
@@ -151,7 +149,7 @@ public class OstrichAi {
 		brain.addActivity(Activity.CORE, 0, builder.build());
 	}
 
-	private static void initIdleActivity(@NotNull Brain<AbstractOstrich> brain, boolean zombie) {
+	private static void initIdleActivity(Brain<AbstractOstrich> brain, boolean zombie) {
 		final ImmutableList.Builder<Pair<Integer, ? extends BehaviorControl<? super AbstractOstrich>>> builder = ImmutableList.builder();
 		builder.add(Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))));
 		if (!zombie) builder.add(Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)));
@@ -195,7 +193,7 @@ public class OstrichAi {
 		brain.addActivity(Activity.IDLE, builder.build());
 	}
 
-	private static void initFightActivity(@NotNull AbstractOstrich ostrich, @NotNull Brain<AbstractOstrich> brain) {
+	private static void initFightActivity(AbstractOstrich ostrich, Brain<AbstractOstrich> brain) {
 		brain.addActivityAndRemoveMemoryWhenStopped(
 			Activity.FIGHT,
 			10,
@@ -212,21 +210,20 @@ public class OstrichAi {
 		);
 	}
 
-	public static void updateActivity(@NotNull AbstractOstrich ostrich) {
+	public static void updateActivity(AbstractOstrich ostrich) {
 		ostrich.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	private static boolean isTarget(@NotNull AbstractOstrich ostrich, @NotNull LivingEntity livingEntity) {
-		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == livingEntity).isPresent();
+	private static boolean isTarget(AbstractOstrich ostrich, LivingEntity entity) {
+		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == entity).isPresent();
 	}
 
-	private static void onTargetInvalid(ServerLevel level, @NotNull AbstractOstrich ostrich, @NotNull LivingEntity target) {
+	private static void onTargetInvalid(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
 		if (ostrich.getTarget() == target) removeAttackAndAngerTarget(ostrich);
 		ostrich.getNavigation().stop();
 	}
 
-	@NotNull
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, @NotNull AbstractOstrich ostrich) {
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, AbstractOstrich ostrich) {
 		final Brain<AbstractOstrich> brain = ostrich.getBrain();
 		final Optional<LivingEntity> angryAt = BehaviorUtils.getLivingEntityFromUUIDMemory(ostrich, MemoryModuleType.ANGRY_AT);
 		if (angryAt.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, angryAt.get())) return angryAt;
@@ -238,7 +235,7 @@ public class OstrichAi {
 		return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
 	}
 
-	public static void wasHurtBy(ServerLevel level, @NotNull AbstractOstrich ostrich, LivingEntity target) {
+	public static void wasHurtBy(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
 		if (!ostrich.canTargetEntity(target)) return;
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) return;
 		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(ostrich, target, 4.0)) return;
@@ -257,7 +254,7 @@ public class OstrichAi {
 		}
 	}
 
-	public static void setAngerTarget(ServerLevel level, @NotNull AbstractOstrich ostrich, LivingEntity target) {
+	public static void setAngerTarget(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
 		if (ostrich.isBaby()) return;
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) return;
 
@@ -280,12 +277,14 @@ public class OstrichAi {
 		);
 	}
 
-	public static void broadcastAngerTarget(ServerLevel level, @NotNull AbstractOstrich ostrich, LivingEntity target) {
+	public static void broadcastAngerTarget(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
 		final Optional<List<AbstractOstrich>> nearbyAbstractOstriches = getNearbyAbstractOstriches(ostrich);
-		nearbyAbstractOstriches.ifPresent(ostriches -> ostriches.forEach(listedAbstractOstrich -> setAngerTargetIfCloserThanCurrent(level, listedAbstractOstrich, target)));
+		nearbyAbstractOstriches.ifPresent(ostriches -> ostriches.forEach(
+			listedAbstractOstrich -> setAngerTargetIfCloserThanCurrent(level, listedAbstractOstrich, target)
+		));
 	}
 
-	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, @NotNull AbstractOstrich ostrich, LivingEntity currentTarget) {
+	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, AbstractOstrich ostrich, LivingEntity currentTarget) {
 		final Optional<LivingEntity> optional = getAngerTarget(ostrich);
 		final LivingEntity livingEntity = BehaviorUtils.getNearestTarget(ostrich, optional, currentTarget);
 		if (optional.isPresent() && optional.get() == livingEntity) return;
@@ -299,36 +298,33 @@ public class OstrichAi {
 		} else {
 			setAngerTarget(level, ostrich, currentTarget);
 		}
-
 	}
 
-	@NotNull
-	private static Optional<List<AbstractOstrich>> getNearbyAbstractOstriches(@NotNull AbstractOstrich ostrich) {
+	private static Optional<List<AbstractOstrich>> getNearbyAbstractOstriches(AbstractOstrich ostrich) {
 		return ostrich.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES);
 	}
 
-	public static Optional<Player> getNearestVisibleTargetablePlayer(@NotNull AbstractOstrich ostrich) {
+	public static Optional<Player> getNearestVisibleTargetablePlayer(AbstractOstrich ostrich) {
 		return ostrich.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) ? ostrich.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) : Optional.empty();
 	}
 
-	@NotNull
-	private static Optional<LivingEntity> getAngerTarget(@NotNull AbstractOstrich ostrich) {
+	private static Optional<LivingEntity> getAngerTarget(AbstractOstrich ostrich) {
 		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
-	public static void removeAttackAndAngerTarget(@NotNull AbstractOstrich ostrich) {
-		Brain<AbstractOstrich> brain = ostrich.getBrain();
+	public static void removeAttackAndAngerTarget(AbstractOstrich ostrich) {
+		final Brain<AbstractOstrich> brain = ostrich.getBrain();
 		brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		brain.eraseMemory(MemoryModuleType.ANGRY_AT);
 		brain.eraseMemory(MemoryModuleType.UNIVERSAL_ANGER);
 	}
 
-	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
+	private static float getSpeedModifierChasing(@Nullable LivingEntity entity) {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
 	}
 
 	public static Predicate<ItemStack> getTemptations() {
-		return itemStack -> itemStack.is(WWItemTags.OSTRICH_FOOD);
+		return stack -> stack.is(WWItemTags.OSTRICH_FOOD);
 	}
 
 }

@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = bind("can_swim_in_algae");
@@ -43,8 +42,7 @@ public final class WWEntityTags {
 		throw new UnsupportedOperationException("WWEntityTags contains only static declarations.");
 	}
 
-	@NotNull
-	private static TagKey<EntityType<?>> bind(@NotNull String path) {
+	private static TagKey<EntityType<?>> bind(String path) {
 		return TagKey.create(Registries.ENTITY_TYPE, WWConstants.id(path));
 	}
 }

@@ -55,7 +55,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock {
@@ -70,7 +69,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
 
-	public SpongeBudBlock(@NotNull Properties properties) {
+	public SpongeBudBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any()
 			.setValue(FACING, Direction.NORTH)
@@ -80,22 +79,20 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		);
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends SpongeBudBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	@NotNull
 	public InteractionResult useItemOn(
-		@NotNull ItemStack stack,
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult
+		ItemStack stack,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		InteractionHand hand,
+		BlockHitResult hitResult
 	) {
 		if (stack.is(Items.SHEARS) && onShear(level, pos, state, stack, player)) {
 			stack.hurtAndBreak(1, player, hand);
@@ -104,7 +101,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @NotNull BlockState state, ItemStack stack, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
 		final int age = state.getValue(AGE);
 		if (age <= 0) return false;
 		level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
@@ -129,19 +126,19 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, WATERLOGGED);
 	}
 
 	@Override
-	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(AGE) < MAX_AGE || super.canBeReplaced(state, context);
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
 		if (insideState.is(this)) return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
 
@@ -168,8 +165,8 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -183,14 +180,12 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	@NotNull
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return switch (state.getValue(FACE)) {
 			case FLOOR -> FLOOR_SHAPE;
 			case WALL -> switch (state.getValue(FACING)) {
@@ -204,7 +199,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public @NotNull SoundType getSoundType(@NotNull BlockState state) {
+	public SoundType getSoundType(BlockState state) {
 		if (state.getValue(WATERLOGGED)) return SoundType.WET_SPONGE;
 		return super.getSoundType(state);
 	}
@@ -215,11 +210,11 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(20) == 0 && state.getValue(AGE) < MAX_AGE && state.getValue(WATERLOGGED)) level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 
-	public BlockState randomBlockState(@NotNull RandomSource random) {
+	public BlockState randomBlockState(RandomSource random) {
 		return this.defaultBlockState()
 			.setValue(AGE, random.nextInt(MAX_AGE))
 			.setValue(FACE, Util.getRandom(AttachFace.values(), random))

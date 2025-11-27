@@ -30,27 +30,17 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.storage.WritableLevelData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ClientLevel.class)
-public abstract class ClientLevelMixin extends Level {
-
-	protected ClientLevelMixin(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, RegistryAccess registryAccess, Holder<DimensionType> holder, boolean bl, boolean bl2, long l, int i) {
-		super(writableLevelData, resourceKey, registryAccess, holder, bl, bl2, l, i);
-	}
+public class ClientLevelMixin {
 
 	@ModifyExpressionValue(
 		method = "doAnimateTick",
@@ -102,11 +92,12 @@ public abstract class ClientLevelMixin extends Level {
 	private Particle wilderWild$replaceWithMesogleaParticles(
 		ParticleEngine instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Particle> original
 	) {
+		final ClientLevel level = ClientLevel.class.cast(this);
 		if (particleOptions.equals(ParticleTypes.BUBBLE)) {
-			BlockState state = this.getBlockState(BlockPos.containing(d, e, f));
+			final BlockState state = level.getBlockState(BlockPos.containing(d, e, f));
 			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getBubbleParticle();
 		} else if (particleOptions.equals(ParticleTypes.SPLASH)) {
-			BlockState state = this.getBlockState(BlockPos.containing(d, e, f));
+			final BlockState state = level.getBlockState(BlockPos.containing(d, e, f));
 			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getSplashParticle();
 		}
 

@@ -28,7 +28,6 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
@@ -38,14 +37,14 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 	protected LivingEntity target;
 	protected TargetingConditions targetConditions;
 
-	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> targetClass, boolean mustSee) {
+	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, boolean mustSee) {
 		this(mob, targetClass, 10, mustSee, false, null);
 	}
 
-	public TurtleNearestAttackableGoal(@NotNull Mob mob, @NotNull Class<T> targetClass, int i, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector predicate) {
+	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, int randomInterval, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector predicate) {
 		super(mob, mustSee, mustReach);
 		this.targetType = targetClass;
-		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(i);
+		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(randomInterval);
 		this.setFlags(EnumSet.of(Goal.Flag.TARGET));
 		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
 	}
@@ -57,18 +56,25 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 		return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
 	}
 
-	@NotNull
 	protected AABB getTargetSearchArea(double d) {
 		return this.mob.getBoundingBox().inflate(d, 4.0, d);
 	}
 
 	protected void findTarget() {
-		this.target = this.targetType == Player.class || this.targetType == ServerPlayer.class ? getServerLevel(this.mob).getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()) : getServerLevel(this.mob).getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+		this.target = this.targetType == Player.class
+			|| this.targetType == ServerPlayer.class
+			? getServerLevel(this.mob).getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ())
+			: getServerLevel(this.mob).getNearestEntity(
+				this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true),
+				this.targetConditions,
+				this.mob,
+				this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()
+			);
 	}
 
 	@Override
 	public void start() {
-		if (this.mob instanceof TurtleCooldownInterface turtleCooldownInterface) turtleCooldownInterface.wilderWild$setAttackCooldown(2400);
+		if (this.mob instanceof TurtleCooldownInterface cooldownInterface) cooldownInterface.wilderWild$setAttackCooldown(2400);
 		this.mob.setTarget(this.target);
 		super.start();
 	}

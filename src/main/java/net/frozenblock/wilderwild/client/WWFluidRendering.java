@@ -33,7 +33,6 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -47,12 +46,12 @@ public final class WWFluidRendering {
 			private final Minecraft minecraft = Minecraft.getInstance();
 
 			@Override
-			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter view, @Nullable BlockPos pos, FluidState state) {
-				return waterHandler.getFluidSprites(view, pos, state);
+			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
+				return waterHandler.getFluidSprites(level, pos, fluidState);
 			}
 
 			@Override
-			public void renderFluid(BlockPos pos, BlockAndTintGetter level, VertexConsumer vertexConsumer, @NotNull BlockState state, FluidState fluidState) {
+			public void renderFluid(BlockPos pos, BlockAndTintGetter level, VertexConsumer vertexConsumer, BlockState state, FluidState fluidState) {
 				if (!(state.getBlock() instanceof MesogleaBlock)) {
 					waterHandler.renderFluid(pos, level, vertexConsumer, state, fluidState);
 					return;
@@ -66,8 +65,8 @@ public final class WWFluidRendering {
 			// Delegate all other methods to the original
 
 			@Override
-			public int getFluidColor(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState state) {
-				return isMesoglea(level, pos) ? 0xFFFFFFFF : waterHandler.getFluidColor(level, pos, state);
+			public int getFluidColor(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
+				return isMesoglea(level, pos) ? 0xFFFFFFFF : waterHandler.getFluidColor(level, pos, fluidState);
 			}
 		};
 

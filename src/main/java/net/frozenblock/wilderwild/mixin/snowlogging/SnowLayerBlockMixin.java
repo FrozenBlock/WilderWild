@@ -53,15 +53,14 @@ public abstract class SnowLayerBlockMixin {
 	)
 	public void wilderWild$getStateForPlacement(
 		BlockPlaceContext context, CallbackInfoReturnable<BlockState> info,
-		@Local BlockState blockState
+		@Local BlockState state
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (SnowloggingUtils.supportsSnowlogging(blockState)) {
-			int layers = SnowloggingUtils.getSnowLayers(blockState);
-			if (layers < SnowloggingUtils.MAX_LAYERS) {
-				BlockState placementState = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, layers + 1);
-				info.setReturnValue(placementState);
-			}
+		if (!SnowloggingUtils.supportsSnowlogging(state)) return;
+		final int layers = SnowloggingUtils.getSnowLayers(state);
+		if (layers < SnowloggingUtils.MAX_LAYERS) {
+			final BlockState placementState = state.setValue(SnowloggingUtils.SNOW_LAYERS, layers + 1);
+			info.setReturnValue(placementState);
 		}
 	}
 
@@ -72,16 +71,16 @@ public abstract class SnowLayerBlockMixin {
 	)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (useContext.getItemInHand().getItem() instanceof BlockItem blockItem && SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState())) {
-			BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
-			if (SnowloggingUtils.isSnowlogged(placementState)) {
-				Level level = useContext.getLevel();
-				BlockPos pos = useContext.getClickedPos();
-				VoxelShape blockShape = placementState.getShape(level, pos);
-				VoxelShape snowLayerShape = state.getShape(level, pos);
-				if (blockShape.max(Direction.Axis.Y) >= snowLayerShape.max(Direction.Axis.Y)) info.setReturnValue(true);
-			}
-		}
+		if (!(useContext.getItemInHand().getItem() instanceof BlockItem blockItem) || !(SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState()))) return;
+
+		final BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
+		if (!SnowloggingUtils.isSnowlogged(placementState)) return;
+
+		final Level level = useContext.getLevel();
+		final BlockPos pos = useContext.getClickedPos();
+		final VoxelShape blockShape = placementState.getShape(level, pos);
+		final VoxelShape snowLayerShape = state.getShape(level, pos);
+		if (blockShape.max(Direction.Axis.Y) >= snowLayerShape.max(Direction.Axis.Y)) info.setReturnValue(true);
 	}
 
 	@Inject(
@@ -99,10 +98,9 @@ public abstract class SnowLayerBlockMixin {
 		@Local(ordinal = 1) BlockState supportState
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (SnowloggingUtils.isSnowlogged(supportState)) {
-			int layers = SnowloggingUtils.getSnowLayers(supportState);
-			if (layers == SnowloggingUtils.MAX_LAYERS) info.setReturnValue(true);
-		}
+		if (!SnowloggingUtils.isSnowlogged(supportState)) return;
+		final int layers = SnowloggingUtils.getSnowLayers(supportState);
+		if (layers == SnowloggingUtils.MAX_LAYERS) info.setReturnValue(true);
 	}
 
 }

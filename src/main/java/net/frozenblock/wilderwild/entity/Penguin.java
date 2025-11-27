@@ -65,7 +65,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.ChatFormatting;
 
@@ -87,25 +86,22 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected Brain.@NotNull Provider<Penguin> brainProvider() {
+	protected Brain.Provider<Penguin> brainProvider() {
 		return PenguinAi.brainProvider();
 	}
 
-	@NotNull
 	@Override
 	@SuppressWarnings("unchecked")
 	public Brain<Penguin> getBrain() {
 		return (Brain<Penguin>) super.getBrain();
 	}
 
-	@NotNull
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<Penguin> makeBrain(@NotNull Dynamic<?> dynamic) {
+	public Brain<Penguin> makeBrain(Dynamic<?> dynamic) {
 		return (Brain<Penguin>) PenguinAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 12D)
 			.add(Attributes.MOVEMENT_SPEED, 1D)
@@ -115,19 +111,13 @@ public class Penguin extends Animal {
 			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.5D);
 	}
 
-	public static boolean checkPenguinSpawnRules(
-		EntityType<? extends Penguin> entityType,
-		LevelAccessor level,
-		EntitySpawnReason spawnReason,
-		BlockPos pos,
-		RandomSource random
-	) {
+	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> entityType, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (!WWEntityConfig.get().penguin.spawnPenguins) return false;
 		return level.getBlockState(pos.below()).is(WWBlockTags.PENGUINS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
 	}
 
 	@Override
-	protected @NotNull PathNavigation createNavigation(Level level) {
+	protected PathNavigation createNavigation(Level level) {
 		return new AmphibiousPathNavigation(this, level);
 	}
 
@@ -141,9 +131,9 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void setSwimming(boolean bl) {
-		super.setSwimming(bl);
-		if (bl) this.setPose(Pose.STANDING);
+	public void setSwimming(boolean swimming) {
+		super.setSwimming(swimming);
+		if (swimming) this.setPose(Pose.STANDING);
 	}
 
 	@Override
@@ -161,8 +151,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public boolean isFood(@NotNull ItemStack itemStack) {
-		return itemStack.is(WWItemTags.PENGUIN_FOOD);
+	public boolean isFood(ItemStack stack) {
+		return stack.is(WWItemTags.PENGUIN_FOOD);
 	}
 
 	public boolean hasAttackTarget() {
@@ -170,7 +160,7 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void spawnChildFromBreeding(@NotNull ServerLevel level, @NotNull Animal mate) {
+	public void spawnChildFromBreeding(ServerLevel level, Animal mate) {
 		this.finalizeSpawnChildFromBreeding(level, mate, null);
 		this.getBrain().setMemory(MemoryModuleType.IS_PREGNANT, Unit.INSTANCE);
 	}
@@ -185,7 +175,7 @@ public class Penguin extends Animal {
 
 	@Nullable
 	@Override
-	public Penguin getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
+	public Penguin getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
 	}
 
@@ -214,8 +204,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public boolean killedEntity(ServerLevel level, LivingEntity entity, DamageSource source) {
-		final boolean killed = super.killedEntity(level, entity, source);
+	public boolean killedEntity(ServerLevel level, LivingEntity target, DamageSource source) {
+		final boolean killed = super.killedEntity(level, target, source);
 		if (this.getBrain().isActive(Activity.FIGHT)) PenguinAi.addCallMemoryIfPenguinsClose(this);
 		return killed;
 	}
@@ -267,7 +257,7 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
+	public EntityDimensions getDefaultDimensions(Pose pose) {
 		EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
 		return this.isSliding() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
 	}
@@ -300,7 +290,7 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+	protected void playStepSound(BlockPos pos, BlockState state) {
 		if (!this.isSliding()) {
 			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP : WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
 			return;
@@ -309,7 +299,7 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected void customServerAiStep(@NotNull ServerLevel level) {
+	protected void customServerAiStep(ServerLevel level) {
 		final ProfilerFiller profilerFiller = Profiler.get();
 		profilerFiller.push("penguinBrain");
 		this.getBrain().tick(level, this);
@@ -321,13 +311,13 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		valueOutput.putString("EntityPose", this.getPose().name());
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		valueInput.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {

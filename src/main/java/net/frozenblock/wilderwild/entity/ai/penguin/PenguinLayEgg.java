@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinLayEgg extends Behavior<Penguin> {
 	private final Block eggBlock;
@@ -41,53 +40,52 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(Penguin entity, @NotNull Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(Penguin penguin, Level level, Block block, BlockPos placePos) {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
 		if (state.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
-			BlockState placementState = block.defaultBlockState();
+			final BlockState placementState = block.defaultBlockState();
 			level.setBlockAndUpdate(placePos, placementState);
-			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(entity, placementState));
-			level.playSound(null, entity, entity.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG : WWSounds.ENTITY_PENGUIN_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
+			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(penguin, placementState));
+			level.playSound(null, penguin, penguin.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG : WWSounds.ENTITY_PENGUIN_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Penguin owner) {
+	public boolean checkExtraStartConditions(ServerLevel level, Penguin owner) {
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
-		return entity.isPregnant();
+	public boolean canStillUse(ServerLevel level, Penguin penguin, long gameTime) {
+		return penguin.isPregnant();
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
+	public void start(ServerLevel level, Penguin penguin, long gameTime) {
 	}
 
 	@Override
-	public void stop(@NotNull ServerLevel level, @NotNull Penguin entity, long gameTime) {
+	public void stop(ServerLevel level, Penguin penguin, long gameTime) {
 	}
 
 	@Override
-	public void tick(@NotNull ServerLevel level, @NotNull Penguin owner, long gameTime) {
-		if (owner.isInWater() || !owner.onGround()) return;
+	public void tick(ServerLevel level, Penguin penguin, long gameTime) {
+		if (penguin.isInWater() || !penguin.onGround()) return;
 
-		final BlockPos blockPos = owner.getOnPos().above();
-		if (attemptPlace(owner, level, this.eggBlock, blockPos)) {
-			owner.revokePregnancy();
+		final BlockPos pos = penguin.getOnPos().above();
+		if (attemptPlace(penguin, level, this.eggBlock, pos)) {
+			penguin.revokePregnancy();
 			return;
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (attemptPlace(owner, level, this.eggBlock, blockPos.relative(direction))) {
-				owner.revokePregnancy();
-				return;
-			}
+			if (!attemptPlace(penguin, level, this.eggBlock, pos.relative(direction))) continue;
+			penguin.revokePregnancy();
+			return;
 		}
 	}
 

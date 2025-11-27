@@ -31,70 +31,66 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import org.jetbrains.annotations.NotNull;
 
 public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 
-	public ShelfFungiFeature(@NotNull Codec<ShelfFungiFeatureConfig> codec) {
+	public ShelfFungiFeature(Codec<ShelfFungiFeatureConfig> codec) {
 		super(codec);
 	}
 
 	public static boolean generate(
-		@NotNull WorldGenLevel level,
-		@NotNull BlockPos pos,
-		@NotNull ShelfFungiFeatureConfig config,
-		@NotNull RandomSource random
+		WorldGenLevel level,
+		BlockPos pos,
+		ShelfFungiFeatureConfig config,
+		RandomSource random
 	) {
-		MutableBlockPos mutable = pos.mutable();
+		final MutableBlockPos mutable = pos.mutable();
 
 		Direction placementDirection = null;
 		for (Direction direction : Direction.values()) {
-			BlockState blockState = level.getBlockState(mutable.setWithOffset(pos, direction));
-			if (blockState.is(config.canPlaceOn)) {
-				if (direction.getAxis() == Direction.Axis.Y) {
-					placementDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				} else {
-					placementDirection = direction.getOpposite();
-				}
-				break;
-			}
+			final BlockState state = level.getBlockState(mutable.setWithOffset(pos, direction));
+			if (!state.is(config.canPlaceOn)) continue;
+			placementDirection = direction.getAxis() == Direction.Axis.Y ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : direction.getOpposite();
+			break;
 		}
 
-		if (placementDirection != null) {
-			level.setBlock(pos, config.fungus.defaultBlockState()
+		if (placementDirection == null) return false;
+
+		level.setBlock(
+			pos,
+			config.fungus.defaultBlockState()
 				.setValue(ShelfFungiBlock.FACING, placementDirection)
 				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
-				.setValue(ShelfFungiBlock.STAGE, random.nextInt(3) + 1), Block.UPDATE_ALL);
-			level.getChunk(pos).markPosForPostprocessing(pos);
-			return true;
-		}
-
-		return false;
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
+			Block.UPDATE_ALL
+		);
+		level.getChunk(pos).markPosForPostprocessing(pos);
+		return true;
 	}
 
-	private static boolean isAirOrWater(@NotNull BlockState state) {
+	private static boolean isAirOrWater(BlockState state) {
 		return state.isAir() || state.is(Blocks.WATER);
 	}
 
 	@Override
-	public boolean place(@NotNull FeaturePlaceContext<ShelfFungiFeatureConfig> context) {
-		WorldGenLevel structureWorldAccess = context.level();
-		RandomSource abstractRandom = context.random();
-		BlockPos blockPos = context.origin().above(abstractRandom.nextInt(0, 4));
-		ShelfFungiFeatureConfig shelfFungusFeatureConfig = context.config();
+	public boolean place(FeaturePlaceContext<ShelfFungiFeatureConfig> context) {
+		final WorldGenLevel level = context.level();
+		final RandomSource random = context.random();
+		final BlockPos pos = context.origin().above(random.nextInt(0, 4));
+		final ShelfFungiFeatureConfig config = context.config();
 
-		if (!isAirOrWater(structureWorldAccess.getBlockState(blockPos))) return false;
-		List<Direction> list = shelfFungusFeatureConfig.shuffleDirections(abstractRandom);
-		if (generate(structureWorldAccess, blockPos, shelfFungusFeatureConfig, abstractRandom)) return true;
+		if (!isAirOrWater(level.getBlockState(pos))) return false;
 
-		MutableBlockPos mutable = blockPos.mutable();
+		final List<Direction> list = config.shuffleDirections(random);
+		if (generate(level, pos, config, random)) return true;
+
+		final MutableBlockPos mutable = pos.mutable();
 		for (Direction direction : list) {
-			mutable.set(blockPos);
-			for (int i = 0; i < shelfFungusFeatureConfig.searchRange; ++i) {
-				mutable.setWithOffset(blockPos, direction);
-				BlockState blockState = structureWorldAccess.getBlockState(mutable);
-				if (!isAirOrWater(blockState) && !blockState.is(shelfFungusFeatureConfig.fungus)) break;
-				if (generate(structureWorldAccess, mutable, shelfFungusFeatureConfig, abstractRandom)) return true;
+			for (int i = 0; i < config.searchRange; ++i) {
+				mutable.setWithOffset(pos, direction);
+				final BlockState state = level.getBlockState(mutable);
+				if (!isAirOrWater(state) && !state.is(config.fungus)) break;
+				if (generate(level, mutable, config, random)) return true;
 			}
 		}
 		return false;

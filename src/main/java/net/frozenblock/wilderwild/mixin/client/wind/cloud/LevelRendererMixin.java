@@ -44,7 +44,7 @@ public class LevelRendererMixin {
 	public void wilderWild$changeCloudPosition(
 		LevelRenderer instance,
 		FrameGraphBuilder frameGraphBuilder,
-		CloudStatus cloudStatus,
+		CloudStatus status,
 		Vec3 vec3,
 		long gameTime,
 		float ticks,
@@ -62,7 +62,7 @@ public class LevelRendererMixin {
 			vec3 = new Vec3(cameraX, cameraY, cameraZ);
 		}
 
-		original.call(instance, frameGraphBuilder, cloudStatus, vec3, gameTime, ticks, cloudColor, cloudHeight);
+		original.call(instance, frameGraphBuilder, status, vec3, gameTime, ticks, cloudColor, cloudHeight);
 	}
 
 }

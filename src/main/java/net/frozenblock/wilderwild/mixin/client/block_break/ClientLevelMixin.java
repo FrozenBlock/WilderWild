@@ -26,14 +26,9 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.Level;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.storage.WritableLevelData;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -43,15 +38,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ClientLevel.class)
-public abstract class ClientLevelMixin extends Level {
+public class ClientLevelMixin {
 
 	@Shadow
 	@Final
 	private Minecraft minecraft;
-
-	protected ClientLevelMixin(WritableLevelData writableLevelData, ResourceKey<Level> resourceKey, RegistryAccess registryAccess, Holder<DimensionType> holder, boolean bl, boolean bl2, long l, int i) {
-		super(writableLevelData, resourceKey, registryAccess, holder, bl, bl2, l, i);
-	}
 
 	@Inject(
 		method = "addDestroyBlockEffect",
@@ -72,17 +63,18 @@ public abstract class ClientLevelMixin extends Level {
 		final Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
+		final RandomSource random = ClientLevel.class.cast(this).getRandom();
 		final FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-		final int count = !litter ? this.random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
+		final int count = !litter ? random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
 		for (int i = 0; i < count; i++) {
 			this.minecraft.particleEngine.createParticle(
 				FallingLeafUtil.createLeafParticleOptions(fallingLeafData, litter),
-				pos.getX() + 0.5D + this.random.nextDouble() * 0.25D,
-				pos.getY() + (!litter ? 0.5D + this.random.nextDouble() * 0.25D : 0.1D),
-				pos.getZ() + 0.5D + this.random.nextDouble() * 0.25D,
-				this.random.nextGaussian() * 0.05D,
-				!litter ? this.random.nextGaussian() * 0.025D : (this.random.nextDouble() * 0.015D + 0.01D),
-				this.random.nextGaussian() * 0.05D
+				pos.getX() + 0.5D + random.nextDouble() * 0.25D,
+				pos.getY() + (!litter ? 0.5D + random.nextDouble() * 0.25D : 0.1D),
+				pos.getZ() + 0.5D + random.nextDouble() * 0.25D,
+				random.nextGaussian() * 0.05D,
+				!litter ? random.nextGaussian() * 0.025D : (random.nextDouble() * 0.015D + 0.01D),
+				random.nextGaussian() * 0.05D
 			);
 		}
 	}

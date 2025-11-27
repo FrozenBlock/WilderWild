@@ -46,8 +46,8 @@ public interface SpawnUtilStrategyMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState blockState, Block block, Operation<Boolean> operation) {
-		return operation.call(blockState, block) || operation.call(blockState, WWBlocks.FRAGILE_ICE);
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Block block, Operation<Boolean> operation) {
+		return operation.call(state, block) || operation.call(state, WWBlocks.FRAGILE_ICE);
 	}
 
 }

@@ -30,7 +30,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityModel<T> {
@@ -44,146 +43,200 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 	private static final float RAD_065 = Mth.DEG_TO_RAD * 0.65F;
 
 	private final ModelPart legs;
-	private final ModelPart left_leg;
-	private final ModelPart left_foot;
-	private final ModelPart right_leg;
-	private final ModelPart right_foot;
+	private final ModelPart leftLeg;
+	private final ModelPart leftFoot;
+	private final ModelPart rightLeg;
+	private final ModelPart rightFoot;
 	private final ModelPart body;
 	private final ModelPart saddle;
-	private final ModelPart left_wing;
-	private final ModelPart right_wing;
-	private final ModelPart neck_base;
+	private final ModelPart leftWing;
+	private final ModelPart rightWing;
+	private final ModelPart neckBase;
 	private final ModelPart neck;
 	private final ModelPart beak;
 	private final ModelPart tail;
-	private float scale;
-	private float yOffset;
 
-	public OstrichModel(@NotNull ModelPart root) {
+	public OstrichModel(ModelPart root) {
 		super(root);
 
 		this.legs = root.getChild("legs");
 
-		this.left_leg = this.legs.getChild("left_leg");
-		this.left_foot = this.left_leg.getChild("left_foot");
-		this.right_leg = this.legs.getChild("right_leg");
-		this.right_foot = this.right_leg.getChild("right_foot");
+		this.leftLeg = this.legs.getChild("left_leg");
+		this.leftFoot = this.leftLeg.getChild("left_foot");
+		this.rightLeg = this.legs.getChild("right_leg");
+		this.rightFoot = this.rightLeg.getChild("right_foot");
 
 		this.body = root.getChild("body");
 		this.saddle = this.body.getChild("saddle");
-		this.left_wing = this.body.getChild("left_wing");
-		this.right_wing = this.body.getChild("right_wing");
+		this.leftWing = this.body.getChild("left_wing");
+		this.rightWing = this.body.getChild("right_wing");
 
-		this.neck_base = this.body.getChild("neck_base");
-		this.neck = this.neck_base.getChild("neck");
+		this.neckBase = this.body.getChild("neck_base");
+		this.neck = this.neckBase.getChild("neck");
 		this.beak = this.neck.getChild("beak");
 
 		this.tail = this.body.getChild("tail");
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
-		PartDefinition partdefinition = meshdefinition.getRoot();
+		final MeshDefinition meshdefinition = new MeshDefinition();
+		final PartDefinition root = meshdefinition.getRoot();
 
-		PartDefinition legs = partdefinition.addOrReplaceChild(
+		final PartDefinition legs = root.addOrReplaceChild(
 			"legs",
-			CubeListBuilder.create(), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
-		PartDefinition left_leg = legs.addOrReplaceChild(
+			CubeListBuilder.create(),
+			PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F)
+		);
+
+		final PartDefinition leftLeg = legs.addOrReplaceChild(
 			"left_leg",
-			CubeListBuilder.create().texOffs(86, 44).addBox(-1F, -18F, -1F, 2F, 18F, 2F), PartPose.offset(-3F, 16F, 0F));
-		PartDefinition left_foot = left_leg.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(86, 44)
+				.addBox(-1F, -18F, -1F, 2F, 18F, 2F),
+			PartPose.offset(-3F, 16F, 0F)
+		);
+		leftLeg.addOrReplaceChild(
 			"left_foot",
-			CubeListBuilder.create().texOffs(88, 58).addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)), PartPose.offset(0F, 0F, -1F));
-		PartDefinition right_leg = legs.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(88, 58)
+				.addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)),
+			PartPose.offset(0F, 0F, -1F)
+		);
+
+		final PartDefinition rightLeg = legs.addOrReplaceChild(
 			"right_leg",
-			CubeListBuilder.create().texOffs(86, 44).mirror().addBox(-1F, -18F, -1F, 2F, 18F, 2F).mirror(false), PartPose.offset(3F, 16F, 0F));
-		PartDefinition right_foot = right_leg.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(86, 44)
+				.mirror()
+				.addBox(-1F, -18F, -1F, 2F, 18F, 2F)
+				.mirror(false),
+			PartPose.offset(3F, 16F, 0F)
+		);
+		rightLeg.addOrReplaceChild(
 			"right_foot",
-			CubeListBuilder.create().texOffs(88, 58).mirror().addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F)).mirror(false), PartPose.offset(0F, 0F, -1F));
+			CubeListBuilder.create()
+				.texOffs(88, 58)
+				.mirror()
+				.addBox(-2F, 0F, 0F, 4F, 0F, 6F, new CubeDeformation(0.005F))
+				.mirror(false),
+			PartPose.offset(0F, 0F, -1F)
+		);
 
-		PartDefinition body = partdefinition.addOrReplaceChild(
+		final PartDefinition body = root.addOrReplaceChild(
 			"body",
-			CubeListBuilder.create().texOffs(0, 31).addBox(-6F, -12F, -7F, 12F, 14F, 19F)
-			.texOffs(24, 31).addBox(-6F, 0F, -7F, 12F, 0F, 19F), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
-		PartDefinition saddle = body.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(0, 31)
+				.addBox(-6F, -12F, -7F, 12F, 14F, 19F)
+			.texOffs(24, 31)
+				.addBox(-6F, 0F, -7F, 12F, 0F, 19F), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
+		body.addOrReplaceChild(
 			"saddle",
-			CubeListBuilder.create().texOffs(0, 0).addBox(-6F, -12F, -7F, 12F, 12F, 19F, new CubeDeformation(0.5F)), PartPose.ZERO);
-		PartDefinition left_wing = body.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(0, 0)
+				.addBox(-6F, -12F, -7F, 12F, 12F, 19F, new CubeDeformation(0.5F)),
+			PartPose.ZERO
+		);
+		body.addOrReplaceChild(
 			"left_wing",
-			CubeListBuilder.create().texOffs(98, 22).addBox(-1.0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F))
-			.texOffs(98, 44).addBox(-1F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F)), PartPose.offset(-6F, -4F, 5F));
-		PartDefinition right_wing = body.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(98, 22)
+				.addBox(-1.0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F))
+				.texOffs(98, 44)
+				.addBox(-1F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F)),
+			PartPose.offset(-6F, -4F, 5F)
+		);
+		body.addOrReplaceChild(
 			"right_wing",
-			CubeListBuilder.create().texOffs(98, 22).mirror().addBox(0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F)).mirror(false)
-			.texOffs(98, 44).mirror().addBox(0F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F)).mirror(false), PartPose.offset(6F, -4F, 5F));
+			CubeListBuilder.create()
+				.texOffs(98, 22)
+				.mirror()
+				.addBox(0F, -4F, -14F, 1F, 8F, 14F, new CubeDeformation(-0.001F))
+				.mirror(false)
+				.texOffs(98, 44)
+				.mirror()
+				.addBox(0F, 1F, -14F, 1F, 0F, 14F, new CubeDeformation(-0.001F))
+				.mirror(false),
+			PartPose.offset(6F, -4F, 5F)
+		);
 
-		PartDefinition neck_base = body.addOrReplaceChild(
+		final PartDefinition neckBase = body.addOrReplaceChild(
 			"neck_base",
-			CubeListBuilder.create().texOffs(81, 9).addBox(-4F, -5F, 0F, 8F, 8F, 6F), PartPose.offset(0F, -4F, 12F));
-		PartDefinition neck = neck_base.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(81, 9)
+				.addBox(-4F, -5F, 0F, 8F, 8F, 6F),
+			PartPose.offset(0F, -4F, 12F)
+		);
+		final PartDefinition neck = neckBase.addOrReplaceChild(
 			"neck",
-			CubeListBuilder.create().texOffs(65, 0).addBox(-2F, -21F, 0F, 4F, 21F, 4F), PartPose.offset(0F, 1F, 4F));
-		PartDefinition beak = neck.addOrReplaceChild(
+			CubeListBuilder.create()
+				.texOffs(65, 0)
+				.addBox(-2F, -21F, 0F, 4F, 21F, 4F),
+			PartPose.offset(0F, 1F, 4F)
+		);
+		neck.addOrReplaceChild(
 			"beak",
-			CubeListBuilder.create().texOffs(81, 1).addBox(-2F, -1F, 0F, 4F, 2F, 3F), PartPose.offset(0F, -18F, 4F));
+			CubeListBuilder.create()
+				.texOffs(81, 1)
+				.addBox(-2F, -1F, 0F, 4F, 2F, 3F),
+			PartPose.offset(0F, -18F, 4F)
+		);
 
-		PartDefinition tail = body.addOrReplaceChild(
+		body.addOrReplaceChild(
 			"tail",
-			CubeListBuilder.create().texOffs(62, 46).addBox(-3F, 0F, -6F, 6F, 12F, 6F)
-			.texOffs(62, 40).addBox(-3F, 10F, -6F, 6F, 0F, 6F), PartPose.offset(0F, -7F, -7F));
+			CubeListBuilder.create()
+				.texOffs(62, 46)
+				.addBox(-3F, 0F, -6F, 6F, 12F, 6F)
+				.texOffs(62, 40)
+				.addBox(-3F, 10F, -6F, 6F, 0F, 6F),
+			PartPose.offset(0F, -7F, -7F)
+		);
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	@NotNull
 	public static LayerDefinition createBabyBodyLayer() {
 		return createBodyLayer().apply(BABY_TRANSFORMER);
 	}
 
-	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
-		float fastAngle = limbSwing * 0.3331F + animOffset;
-		float angleSin = Math.sin(-fastAngle);
+	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
+		final float fastAngle = limbSwing * 0.3331F + animOffset;
+		final float angleSin = Math.sin(-fastAngle);
 
-		float angleSinSwingAmount = angleSin * limbSwingAmount;
-		float legZ = angleSinSwingAmount * 11F;
+		final float angleSinSwingAmount = angleSin * limbSwingAmount;
+		final float legZ = angleSinSwingAmount * 11F;
 
-		float earlyAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.3331F));
-		float earlyAngleSinSwingAmount = earlyAngleSin * limbSwingAmount;
-		float onlyPositiveEarlyAngleSinSwingAmount = Math.max(earlyAngleSinSwingAmount, 0F);
-		float legY = onlyPositiveEarlyAngleSinSwingAmount * 6F;
+		final float earlyAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.3331F));
+		final float earlyAngleSinSwingAmount = earlyAngleSin * limbSwingAmount;
+		final float onlyPositiveEarlyAngleSinSwingAmount = Math.max(earlyAngleSinSwingAmount, 0F);
+		final float legY = onlyPositiveEarlyAngleSinSwingAmount * 6F;
 
 		leg.xRot -= Math.sin(fastAngle) * limbSwingAmount * 0.5F;
 		leg.y -= legY;
 		leg.z += legZ;
 
-		float earlierAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.6662F));
-		float earlierAngleSinSwingAmount = earlierAngleSin * limbSwingAmount;
-		float earlierLegY = onlyPositiveEarlyAngleSinSwingAmount * 5F;
-		float additionalFoot = Math.min(earlierLegY, 1F) * earlierAngleSinSwingAmount;
+		final float earlierAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.6662F));
+		final float earlierAngleSinSwingAmount = earlierAngleSin * limbSwingAmount;
+		final float earlierLegY = onlyPositiveEarlyAngleSinSwingAmount * 5F;
+		final float additionalFoot = Math.min(earlierLegY, 1F) * earlierAngleSinSwingAmount;
 		foot.xRot -= leg.xRot;
 		foot.xRot -= additionalFoot;
 
-		float laterAngleSin = Math.sin(-fastAngle + (Mth.PI * 0.3331F));
-		float laterAngleSinSwingAmount = laterAngleSin * limbSwingAmount;
-		float onlyPositiveLaterAngleSinSwingAmount = Math.max(laterAngleSinSwingAmount, 0F);
-		float laterLegY = onlyPositiveLaterAngleSinSwingAmount * 5F;
-		float additionalLateFoot = Math.min(laterLegY, 1F) * laterAngleSinSwingAmount;
+		final float laterAngleSin = Math.sin(-fastAngle + (Mth.PI * 0.3331F));
+		final float laterAngleSinSwingAmount = laterAngleSin * limbSwingAmount;
+		final float onlyPositiveLaterAngleSinSwingAmount = Math.max(laterAngleSinSwingAmount, 0F);
+		final float laterLegY = onlyPositiveLaterAngleSinSwingAmount * 5F;
+		final float additionalLateFoot = Math.min(laterLegY, 1F) * laterAngleSinSwingAmount;
 		foot.y -= additionalLateFoot;
 	}
 
 	@Override
-	public void setupAnim(@NotNull T renderState) {
+	public void setupAnim(T renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.scale = renderState.ageScale;
 
 		if (renderState.isBaby) {
 			this.neck.xScale = 1.5F;
 			this.neck.yScale = 1.5F;
 			this.neck.zScale = 1.5F;
-			this.yOffset = 0.75F;
-		} else {
-			this.yOffset = 0F;
 		}
 
 		this.saddle.visible = !renderState.saddle.isEmpty();
@@ -191,20 +244,20 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		float walkSpeed = renderState.walkAnimationSpeed;
 
 		// LEGS
-		animateLeg(this.left_leg, this.left_foot, walkPos, walkSpeed, Mth.PI);
-		animateLeg(this.right_leg, this.right_foot, walkPos, walkSpeed, 0F);
+		animateLeg(this.leftLeg, this.leftFoot, walkPos, walkSpeed, Mth.PI);
+		animateLeg(this.rightLeg, this.rightFoot, walkPos, walkSpeed, 0F);
 
 		// BODY
-		float fastAngleBody = walkPos * 0.3331F;
-		float angleSinBody = Math.sin(-fastAngleBody);
-		float angleSinSwingAmountBody = (angleSinBody * walkSpeed) * 0.175F;
+		final float fastAngleBody = walkPos * 0.3331F;
+		final float angleSinBody = Math.sin(-fastAngleBody);
+		final float angleSinSwingAmountBody = (angleSinBody * walkSpeed) * 0.175F;
 		this.body.zRot += angleSinSwingAmountBody;
 
 		// NECK
-		float beakAnimProgress = renderState.beakAnimProgress;
-		float rotation = beakAnimProgress * -Mth.PI;
+		final float beakAnimProgress = renderState.beakAnimProgress;
+		final float rotation = beakAnimProgress * -Mth.PI;
 
-		this.neck_base.xRot = rotation * 0.3F;
+		this.neckBase.xRot = rotation * 0.3F;
 		this.neck.xRot = rotation * 0.7F;
 
 		float yRot = renderState.yRot;
@@ -212,22 +265,21 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		xRot = Mth.lerp(renderState.targetStraightProgress, renderState.xRot, Math.min(xRot, 0F));
 		xRot = Mth.lerp(beakAnimProgress, xRot, 0F);
 
-		float fastAngleNeckBase = walkPos * 0.3331F + NECK_DELAY;
-		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
-		float angleSinSwingAmountNeckBase = (angleSinNeckBase * walkSpeed) * NECK_BASE_SWING;
-		this.neck_base.zRot += angleSinSwingAmountNeckBase;
+		final float fastAngleNeckBase = walkPos * 0.3331F + NECK_DELAY;
+		final float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
+		final float angleSinSwingAmountNeckBase = (angleSinNeckBase * walkSpeed) * NECK_BASE_SWING;
+		this.neckBase.zRot += angleSinSwingAmountNeckBase;
 
-		float fastAngleNeck = walkPos * 0.3331F + NECK_DELAY;
-		float angleSinNeck = Math.sin(-fastAngleNeck);
-		float angleSinSwingAmountNeck = (angleSinNeck * walkSpeed) * NECK_SWING;
+		final float fastAngleNeck = walkPos * 0.3331F + NECK_DELAY;
+		final float angleSinNeck = Math.sin(-fastAngleNeck);
+		final float angleSinSwingAmountNeck = (angleSinNeck * walkSpeed) * NECK_SWING;
 		this.neck.zRot += angleSinSwingAmountNeck;
 
 		this.neck.xRot += (walkSpeed * RAD_5);
 
-		this.neck_base.xRot -= xRot * RAD_025;
-		this.neck_base.yRot += yRot * RAD_025;
+		this.neckBase.xRot -= xRot * RAD_025;
+		this.neckBase.yRot += yRot * RAD_025;
 		this.neck.xRot -= xRot * RAD_065;
 		this.neck.yRot += yRot * RAD_065;
 	}
-
 }

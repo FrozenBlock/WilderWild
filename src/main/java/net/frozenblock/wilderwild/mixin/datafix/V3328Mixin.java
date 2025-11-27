@@ -42,7 +42,7 @@ public class V3328Mixin {
 		)
 	)
 	public Map<String, Supplier<TypeTemplate>> wilderWild$registerEntities(V3328 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
-		Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
+		final Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
 		schema.registerSimple(
 			map,
 			WWConstants.string("jellyfish")

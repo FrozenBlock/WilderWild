@@ -25,27 +25,26 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class PalmFrondsBlock extends TintedParticleLeavesBlock implements BonemealableBlock {
 	public static final int BONEMEAL_DISTANCE = CoconutBlock.VALID_FROND_DISTANCE;
 
-	public PalmFrondsBlock(float leafParticleChance, @NotNull Properties properties) {
+	public PalmFrondsBlock(float leafParticleChance, Properties properties) {
 		super(leafParticleChance, properties);
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return level.getBlockState(pos.below()).isAir() && (state.getValue(DISTANCE) <= BONEMEAL_DISTANCE || state.getValue(PERSISTENT));
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
 		return true;
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

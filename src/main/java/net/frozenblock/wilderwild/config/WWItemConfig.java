@@ -27,7 +27,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWItemConfig {
-
 	public static final Config<WWItemConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,

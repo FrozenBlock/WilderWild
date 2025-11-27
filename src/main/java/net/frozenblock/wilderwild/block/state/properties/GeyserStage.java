@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block.state.properties;
 
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public enum GeyserStage implements StringRepresentable {
 	DORMANT("dormant"),
@@ -37,7 +36,6 @@ public enum GeyserStage implements StringRepresentable {
 	}
 
 	@Override
-	@NotNull
 	public String getSerializedName() {
 		return this.name;
 	}

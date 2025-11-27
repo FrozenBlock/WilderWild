@@ -30,10 +30,10 @@ import org.spongepowered.asm.mixin.Unique;
 public class AllayRenderStateMixin implements WilderAllay {
 
 	@Unique
-	private final AnimationState dancingAnimationState = new AnimationState();
+	private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
 
 	@Override
-	public AnimationState wilderWild$getDancingAnimationState() {
-		return this.dancingAnimationState;
+	public AnimationState wilderWild$dancingAnimationState() {
+		return this.wilderWild$dancingAnimationState;
 	}
 }

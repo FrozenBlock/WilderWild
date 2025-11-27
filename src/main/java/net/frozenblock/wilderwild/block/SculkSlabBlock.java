@@ -26,24 +26,22 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class SculkSlabBlock extends SlabBlock implements SculkBuildingBlockBehaviour {
 	public static final MapCodec<SculkSlabBlock> CODEC = simpleCodec(SculkSlabBlock::new);
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
 
-	public SculkSlabBlock(@NotNull Properties properties) {
+	public SculkSlabBlock(Properties properties) {
 		super(properties);
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends SculkSlabBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public void spawnAfterBreak(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull ItemStack stack, boolean dropExperience) {
+	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
 		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
 		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
 	}

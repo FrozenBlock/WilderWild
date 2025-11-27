@@ -22,17 +22,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.monster.warden.Warden;
-import org.jetbrains.annotations.NotNull;
 
 public class WardenLookControl extends LookControl {
 	private final int maxYRotFromCenter;
 
-	public WardenLookControl(@NotNull Warden warden, int maxYRotFromCenter) {
+	public WardenLookControl(Warden warden, int maxYRotFromCenter) {
 		super(warden);
 		this.maxYRotFromCenter = maxYRotFromCenter;
 	}
 
-	private static boolean entityTouchingWaterOrLava(@NotNull Entity entity) {
+	private static boolean entityTouchingWaterOrLava(Entity entity) {
 		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
 	}
 
@@ -52,7 +51,7 @@ public class WardenLookControl extends LookControl {
 			this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
 		}
 
-		float headToBodyDifference = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
+		final float headToBodyDifference = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
 		if (headToBodyDifference < (float) (-this.maxYRotFromCenter)) {
 			this.mob.yBodyRot -= 4F;
 		} else if (headToBodyDifference > (float) this.maxYRotFromCenter) {

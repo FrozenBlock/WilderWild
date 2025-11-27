@@ -41,29 +41,28 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import org.jetbrains.annotations.NotNull;
 
 public class FallingLeafTicker extends SilentTicker {
 	private double yd = -0.05D;
 	private Block leafLitter;
 
-	public FallingLeafTicker(@NotNull EntityType<?> entityType, @NotNull Level level) {
+	public FallingLeafTicker(EntityType<?> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public FallingLeafTicker(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos) {
+	public FallingLeafTicker(EntityType<?> entityType, Level level, BlockPos pos) {
 		super(entityType, level);
 		this.snapTo(Vec3.atBottomCenterOf(pos));
 	}
 
-	public static void createAndSpawn(@NotNull EntityType<?> entityType, @NotNull Level level, @NotNull BlockPos pos, Block leafLitter) {
+	public static void createAndSpawn(EntityType<?> entityType, Level level, BlockPos pos, Block leafLitter) {
 		FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(entityType, level, pos);
 		fallingLeafTicker.leafLitter = leafLitter;
 		level.addFreshEntity(fallingLeafTicker);
 	}
 
 	@Override
-	public void tick(@NotNull Level level, @NotNull Vec3 vec3, @NotNull BlockPos pos, int ticks) {
+	public void tick(Level level, Vec3 vec3, BlockPos pos, int ticks) {
 		if (vec3.y > level.getMinY() && this.leafLitter != null) {
 			if (level instanceof ServerLevel serverLevel) {
 				this.yd -= 0.04D;
@@ -103,8 +102,8 @@ public class FallingLeafTicker extends SilentTicker {
 		this.discard();
 	}
 
-	public @NotNull BlockHitResult createHitResultFromMovement(@NotNull Level world, Vec3 vec3) {
-		return world.clip(
+	public BlockHitResult createHitResultFromMovement(Level level, Vec3 vec3) {
+		return level.clip(
 			new ClipContext(
 				vec3,
 				vec3.add(0D, this.yd, 0D),
@@ -131,14 +130,14 @@ public class FallingLeafTicker extends SilentTicker {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		valueOutput.store("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec(), this.leafLitter);
 		valueOutput.putDouble("LeafFallVelocity", this.yd);
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		this.yd = valueInput.getDoubleOr("LeafFallVelocity", -0.05D);
 		this.leafLitter = valueInput.read("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec()).orElse(null);

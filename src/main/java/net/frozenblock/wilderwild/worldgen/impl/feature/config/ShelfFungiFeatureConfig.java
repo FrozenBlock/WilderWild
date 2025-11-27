@@ -22,7 +22,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
-import java.util.Objects;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.Direction;
@@ -36,7 +35,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class ShelfFungiFeatureConfig implements FeatureConfiguration {
-	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
 				.flatXmap(ShelfFungiFeatureConfig::validateBlock, DataResult::success)
@@ -66,21 +65,11 @@ public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 		this.placeOnWalls = placeOnWalls;
 		this.canPlaceOn = canPlaceOn;
 		this.directions = new ObjectArrayList<>(6);
-		if (placeOnCeiling) {
-			this.directions.add(Direction.UP);
-		}
-
-		if (placeOnFloor) {
-			this.directions.add(Direction.DOWN);
-		}
-
+		if (placeOnCeiling) this.directions.add(Direction.UP);
+		if (placeOnFloor) this.directions.add(Direction.DOWN);
 		if (placeOnWalls) {
-			Direction.Plane var10000 = Direction.Plane.HORIZONTAL;
-			ObjectArrayList<Direction> var10001 = this.directions;
-			Objects.requireNonNull(var10001);
-			var10000.forEach(var10001::add);
+			for (Direction direction : Direction.Plane.HORIZONTAL) this.directions.add(direction);
 		}
-
 	}
 
 	private static DataResult<ShelfFungiBlock> validateBlock(Block block) {

@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 
 public final class CopperHornInstrumentToTheCopperierAgeFix extends DataFix {
 	private static final String INSTRUMENT_DATA_FIELD = Identifier.withDefaultNamespace("instrument").toString();
@@ -53,7 +52,7 @@ public final class CopperHornInstrumentToTheCopperierAgeFix extends DataFix {
 		);
 	}
 
-	private @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+	private UnaryOperator<Typed<?>> createFixer(Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
 		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		final OpticFinder<?> components = type.findField("components");
 		return typed -> {
@@ -64,11 +63,11 @@ public final class CopperHornInstrumentToTheCopperierAgeFix extends DataFix {
 		};
 	}
 
-	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
+	private Dynamic<?> fixItemStack(Dynamic<?> componentData) {
 		final OptionalDynamic<?> optionalInstrument = componentData.get(INSTRUMENT_DATA_FIELD);
 		if (optionalInstrument.result().isEmpty()) return componentData;
 
-		Dynamic<?> instrument = optionalInstrument.result().get();
+		final Dynamic<?> instrument = optionalInstrument.result().get();
 		String instrumentID = instrument.asString("");
 		if (!instrumentID.startsWith(WWConstants.MOD_ID)) return componentData;
 

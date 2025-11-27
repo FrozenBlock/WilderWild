@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

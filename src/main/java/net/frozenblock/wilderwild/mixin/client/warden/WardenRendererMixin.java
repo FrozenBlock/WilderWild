@@ -32,22 +32,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WardenRendererMixin {
 
 	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/warden/Warden;Lnet/minecraft/client/renderer/entity/state/WardenRenderState;F)V", at = @At("TAIL"))
-	private void extractWilderWarden(Warden warden, WardenRenderState renderState, float partialTick, CallbackInfo ci) {
-		WilderWarden wilderWarden = (WilderWarden) warden;
-		WilderWarden wilderRenderState = (WilderWarden) renderState;
-
-		wilderRenderState.wilderWild$getDyingAnimationState().copyFrom(wilderWarden.wilderWild$getDyingAnimationState());
-		wilderRenderState.wilderWild$getSwimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$getSwimmingDyingAnimationState());
-		wilderRenderState.wilderWild$getKirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$getKirbyDeathAnimationState());
+	private void extractWilderWarden(Warden warden, WardenRenderState renderState, float partialTick, CallbackInfo info) {
+		if (!(warden instanceof WilderWarden wilderWarden) || !(renderState instanceof WilderWarden wilderRenderState)) return;
+		wilderRenderState.wilderWild$dyingAnimationState().copyFrom(wilderWarden.wilderWild$dyingAnimationState());
+		wilderRenderState.wilderWild$swimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$swimmingDyingAnimationState());
+		wilderRenderState.wilderWild$kirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$kirbyDeathAnimationState());
 		wilderRenderState.wilderWild$setDeathTicks(wilderWarden.wilderWild$getDeathTicks());
-		wilderRenderState.wilderWild$setIsStella(wilderWarden.wilderWild$isStella());
+		wilderRenderState.wilderWild$setStella(wilderWarden.wilderWild$isStella());
 
-		// check if disabled in mixins config
-		if (warden instanceof SwimmingWardenInterface swimmingWarden) {
-			SwimmingWardenState swimmingWardenState = (SwimmingWardenState) wilderRenderState;
-
-			swimmingWardenState.wilderWild$setSwimAmount(warden.getSwimAmount(partialTick));
-			swimmingWardenState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTick));
-		}
+		if (!(warden instanceof SwimmingWardenInterface swimmingWarden) || !(renderState instanceof SwimmingWardenState swimmingRenderState)) return;
+		swimmingRenderState.wilderWild$setSwimAmount(warden.getSwimAmount(partialTick));
+		swimmingRenderState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTick));
 	}
 }

@@ -25,7 +25,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.projectile.ThrownEnderpearl;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEnderpearl;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,23 +42,23 @@ public class ThrownEnderpearlMixin {
 			target = "Lnet/minecraft/server/level/ServerPlayer;resetFallDistance()V"
 		)
 	)
-	public void wilderWild$onHitWithServerPlayer
-		(HitResult result, CallbackInfo info,
-		 @Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) ServerPlayer owner
-		) {
-		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) {
-			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
-			if (!pearl.isSilent()) {
-				float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
-				level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
-				FrozenLibSoundPackets.createAndSendLocalPlayerSound(
-					owner,
-					BuiltInRegistries.SOUND_EVENT.get(WWSounds.ITEM_ENDER_PEARL_LAND.location()).orElseThrow(),
-					0.6F,
-					pitch
-				);
-			}
-		}
+	public void wilderWild$onHitWithServerPlayer(
+		HitResult hitResult, CallbackInfo info,
+		@Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) ServerPlayer owner
+	) {
+		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
+
+		final ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
+		if (pearl.isSilent()) return;
+
+		final float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
+		level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
+		FrozenLibSoundPackets.createAndSendLocalPlayerSound(
+			owner,
+			BuiltInRegistries.SOUND_EVENT.get(WWSounds.ITEM_ENDER_PEARL_LAND.location()).orElseThrow(),
+			0.6F,
+			pitch
+		);
 	}
 
 	@Inject(
@@ -72,21 +72,19 @@ public class ThrownEnderpearlMixin {
 		HitResult result, CallbackInfo info,
 		@Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Entity owner
 	) {
-		if (WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) {
-			ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
-			if (!pearl.isSilent()) {
-				level.playSound(
-					null,
-					pearl.getX(),
-					pearl.getY(),
-					pearl.getZ(),
-					WWSounds.ITEM_ENDER_PEARL_LAND,
-					owner.getSoundSource(),
-					0.6F,
-					0.85F + (level.random.nextFloat() * 0.2F)
-				);
-			}
-		}
+		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
+
+		final ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
+		if (pearl.isSilent()) return;
+
+		level.playSound(
+			null,
+			pearl.getX(), pearl.getY(), pearl.getZ(),
+			WWSounds.ITEM_ENDER_PEARL_LAND,
+			owner.getSoundSource(),
+			0.6F,
+			0.85F + (level.random.nextFloat() * 0.2F)
+		);
 	}
 
 }

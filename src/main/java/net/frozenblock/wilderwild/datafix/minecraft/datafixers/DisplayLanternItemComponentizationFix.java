@@ -37,7 +37,6 @@ import java.util.stream.Stream;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.jetbrains.annotations.NotNull;
 
 public final class DisplayLanternItemComponentizationFix extends DataFix {
 	private static final String ITEM_ID = WWConstants.string("display_lantern");
@@ -46,8 +45,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
         super(outputSchema, false);
     }
 
-	@NotNull
-	private static Dynamic<?> fixOccupants(@NotNull Dynamic<?> dynamic) {
+	private static Dynamic<?> fixOccupants(Dynamic<?> dynamic) {
 		final OptionalDynamic<?> optionalFireflies = dynamic.get("Fireflies");
 		if (optionalFireflies.result().isEmpty()) return dynamic.createList(Stream.empty());
 
@@ -68,7 +66,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 		);
 	}
 
-	private static @NotNull UnaryOperator<Typed<?>> createFixer(@NotNull Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
+	private static UnaryOperator<Typed<?>> createFixer(Type<?> type, UnaryOperator<Dynamic<?>> unaryOperator) {
 		final OpticFinder<Pair<String, String>> idFinder = DSL.fieldFinder("id", DSL.named(References.ITEM_NAME.typeName(), NamespacedSchema.namespacedString()));
 		final OpticFinder<?> components = type.findField("components");
 		return typed -> {
@@ -79,7 +77,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 		};
 	}
 
-	private Dynamic<?> fixItemStack(@NotNull Dynamic<?> componentData) {
+	private Dynamic<?> fixItemStack(Dynamic<?> componentData) {
 		final OptionalDynamic<?> optionalBlockEntityTag = componentData.get(WWConstants.vanillaId("block_entity_data").toString());
 		if (optionalBlockEntityTag.result().isEmpty()) return componentData;
 

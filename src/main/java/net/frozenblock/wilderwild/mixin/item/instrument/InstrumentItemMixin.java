@@ -48,21 +48,20 @@ public final class InstrumentItemMixin {
 		Level level, Entity player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
 	) {
 		if (WWItemConfig.get().restrictInstrumentSound) {
-			if (!level.isClientSide()) {
-				FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
-					level,
-					player,
-					BuiltInRegistries.SOUND_EVENT.get(soundEvent.location()).orElseThrow(),
-					soundSource,
-					volume,
-					pitch,
-					FrozenLibIntegration.INSTRUMENT_SOUND_PREDICATE,
-					true
-				);
-			}
-		} else {
-			original.call(level, player, entity, soundEvent, soundSource, volume, pitch);
+			if (level.isClientSide()) return;
+			FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
+				level,
+				player,
+				BuiltInRegistries.SOUND_EVENT.get(soundEvent.location()).orElseThrow(),
+				soundSource,
+				volume,
+				pitch,
+				FrozenLibIntegration.INSTRUMENT_SOUND_PREDICATE,
+				true
+			);
+			return;
 		}
+		original.call(level, player, entity, soundEvent, soundSource, volume, pitch);
 	}
 
 	@WrapWithCondition(

@@ -85,7 +85,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable {
@@ -98,7 +97,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	private Optional<FireflyColor> fireflyColor = Optional.empty();
 
-	public Firefly(@NotNull EntityType<? extends Firefly> entityType, @NotNull Level level) {
+	public Firefly(EntityType<? extends Firefly> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(PathType.LAVA, -1F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
@@ -111,20 +110,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
 		return -level.getPathfindingCostFromLightLevels(pos);
 	}
 
-	public static boolean checkFireflySpawnRules(
-		@NotNull EntityType<Firefly> type, @NotNull LevelAccessor level, EntitySpawnReason reason, @NotNull BlockPos pos, @NotNull RandomSource random
-	) {
+	public static boolean checkFireflySpawnRules(EntityType<Firefly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
 		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)) return false;
 		if (!WWEntityConfig.get().firefly.firefliesNeedBush) return true;
 		return ((int)(random.nextDouble() * getNearbyFireflyBushCount(level, pos, 3))) >= 1;
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
 			.add(Attributes.MAX_HEALTH, 1D)
@@ -135,10 +131,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(
-		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData
-	) {
-		boolean shouldSetHome = shouldSetHome(reason);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+		final boolean shouldSetHome = shouldSetHome(reason);
 		if (shouldSetHome) {
 			FireflyAi.rememberHome(this, this.blockPosition());
 		} else {
@@ -200,29 +194,27 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	@NotNull
-	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		final Item item = stack.getItem();
-		if (item instanceof DyeItem dyeItem) {
-			applyColor: {
-				final Optional<DyeColor> optionalFireflyDyeColor = this.getVariant().dyeColor();
-				if (optionalFireflyDyeColor.isPresent()) {
-					final DyeColor fireflyDyeColor = optionalFireflyDyeColor.get();
-					if (fireflyDyeColor == dyeItem.getDyeColor()) break applyColor;
-				}
-
-				final Optional<FireflyColor> newFireflyColor = FireflyColor.getByDyeColor(this.registryAccess(), dyeItem.getDyeColor());
-				if (newFireflyColor.isEmpty()) break applyColor;
-
-				if (!this.level().isClientSide()) {
-					this.setColor(newFireflyColor.get());
-					stack.shrink(1);
-				}
-
-				this.level().playSound(player, this, SoundEvents.DYE_USE, SoundSource.PLAYERS, 1F, 1F);
-				return InteractionResult.SUCCESS;
+		applyColor : {
+			if (!(item instanceof DyeItem dyeItem)) break applyColor;
+			final Optional<DyeColor> optionalFireflyDyeColor = this.getVariant().dyeColor();
+			if (optionalFireflyDyeColor.isPresent()) {
+				final DyeColor fireflyDyeColor = optionalFireflyDyeColor.get();
+				if (fireflyDyeColor == dyeItem.getDyeColor()) break applyColor;
 			}
+
+			final Optional<FireflyColor> newFireflyColor = FireflyColor.getByDyeColor(this.registryAccess(), dyeItem.getDyeColor());
+			if (newFireflyColor.isEmpty()) break applyColor;
+
+			if (!this.level().isClientSide()) {
+				this.setColor(newFireflyColor.get());
+				stack.shrink(1);
+			}
+
+			this.level().playSound(player, this, SoundEvents.DYE_USE, SoundSource.PLAYERS, 1F, 1F);
+			return InteractionResult.SUCCESS;
 		}
 
 		return WWBottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
@@ -239,14 +231,12 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	@NotNull
 	protected Brain.Provider<Firefly> brainProvider() {
 		return FireflyAi.brainProvider();
 	}
 
 	@Override
-	@NotNull
-	protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
+	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
 		return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
@@ -261,36 +251,36 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void wilderWild$saveToBottleTag(ItemStack itemStack) {
-		WWBottleable.saveDefaultDataToBottleTag(this, itemStack);
-		itemStack.copyFrom(WWDataComponents.FIREFLY_COLOR, this);
+	public void wilderWild$saveToBottleTag(ItemStack stack) {
+		WWBottleable.saveDefaultDataToBottleTag(this, stack);
+		stack.copyFrom(WWDataComponents.FIREFLY_COLOR, this);
 	}
 
 	@Override
-	public void wilderWild$loadFromBottleTag(@NotNull CompoundTag compoundTag) {
-		WWBottleable.loadDefaultDataFromBottleTag(this, compoundTag);
+	public void wilderWild$loadFromBottleTag(CompoundTag tag) {
+		WWBottleable.loadDefaultDataFromBottleTag(this, tag);
 	}
 
 	@Nullable
 	@Override
-	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) return castComponentValue(dataComponentType, this.getColorAsHolder());
-		return super.get(dataComponentType);
+	public <T> T get(DataComponentType<? extends T> type) {
+		if (type == WWDataComponents.FIREFLY_COLOR) return castComponentValue(type, this.getColorAsHolder());
+		return super.get(type);
 	}
 
 	@Override
-	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
-		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.FIREFLY_COLOR);
-		super.applyImplicitComponents(dataComponentGetter);
+	protected void applyImplicitComponents(DataComponentGetter getter) {
+		this.applyImplicitComponentIfPresent(getter, WWDataComponents.FIREFLY_COLOR);
+		super.applyImplicitComponents(getter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
-		if (dataComponentType == WWDataComponents.FIREFLY_COLOR) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+		if (type == WWDataComponents.FIREFLY_COLOR) {
 			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, object).value());
 			return true;
 		}
-		return super.applyImplicitComponent(dataComponentType, object);
+		return super.applyImplicitComponent(type, object);
 	}
 
 	@Override
@@ -357,11 +347,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		return this.fireflyColor.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getValue(FireflyColors.DEFAULT));
 	}
 
-	public void setColor(@NotNull FireflyColor color) {
+	public void setColor(FireflyColor color) {
 		this.entityData.set(COLOR, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getKey(color)).toString());
 	}
 
-	public void setColor(@NotNull Identifier color) {
+	public void setColor(Identifier color) {
 		this.entityData.set(COLOR, color.toString());
 	}
 
@@ -375,7 +365,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	@NotNull
 	public Brain<Firefly> getBrain() {
 		return (Brain<Firefly>) super.getBrain();
 	}
@@ -402,8 +391,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	@NotNull
-	protected PathNavigation createNavigation(@NotNull Level level) {
+	protected PathNavigation createNavigation(Level level) {
 		final FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
 		birdNavigation.setCanOpenDoors(false);
 		birdNavigation.setCanFloat(true);
@@ -412,31 +400,30 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void travel(@NotNull Vec3 travelVector) {
-		if (this.isEffectiveAi() || this.isLocalInstanceAuthoritative()) {
-			if (this.isAlive()) {
-				if (this.isInWater()) {
-					this.moveRelative(0.01F, travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929D));
-				} else if (this.isInLava()) {
-					this.moveRelative(0.01F, travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
-				} else {
-					this.moveRelative(this.getSpeed(), travelVector);
-					this.move(MoverType.SELF, this.getDeltaMovement());
-					this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
-				}
-			} else {
-				super.travel(travelVector);
-			}
+	public void travel(Vec3 travelVector) {
+		if (!this.isEffectiveAi() && !this.isLocalInstanceAuthoritative()) return;
+		if (!this.isAlive()) {
+			super.travel(travelVector);
+			return;
+		}
+		if (this.isInWater()) {
+			this.moveRelative(0.01F, travelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929D));
+		} else if (this.isInLava()) {
+			this.moveRelative(0.01F, travelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+		} else {
+			this.moveRelative(this.getSpeed(), travelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
 		}
 	}
 
-	public static int getNearbyFireflyBushCount(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, int distance) {
+	public static int getNearbyFireflyBushCount(LevelAccessor level, BlockPos origin, int distance) {
 		int count = 0;
-		Iterable<BlockPos> posesToCheck = BlockPos.betweenClosed(blockPos.offset(-distance, -distance, -distance), blockPos.offset(distance, distance, distance));
+		Iterable<BlockPos> posesToCheck = BlockPos.betweenClosed(origin.offset(-distance, -distance, -distance), origin.offset(distance, distance, distance));
 		for (BlockPos pos : posesToCheck) {
 			if (level.getBlockState(pos).is(Blocks.FIREFLY_BUSH)) count += 1;
 		}
@@ -444,20 +431,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+	protected void playStepSound(BlockPos pos, BlockState state) {
 	}
 
 	@Override
-	protected void checkFallDamage(double heightDifference, boolean onGround, @NotNull BlockState state, @NotNull BlockPos landedPosition) {
+	protected void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
-		return null;
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return WWSounds.ENTITY_FIREFLY_HURT;
 	}
 
@@ -472,7 +454,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		if (!this.isAlive()) this.setNoGravity(false);
 
 		this.setFlickerAge(this.getFlickerAge() + 1);
-		float animScale = this.getAnimScale();
+		final float animScale = this.getAnimScale();
 		this.setPrevAnimScale(animScale);
 		if (animScale < 1.5F) this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 
@@ -506,13 +488,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void die(DamageSource damageSource) {
+	public void die(DamageSource source) {
 		if (this.isSwarmLeader()) FireflyAi.transferLeadershipToRandomFirefly(this);
-		super.die(damageSource);
+		super.die(source);
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 
 		this.getColorAsHolder()
@@ -526,7 +508,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 
 		valueInput.getString("color").flatMap(string -> Optional.ofNullable(Identifier.tryParse(string))
@@ -546,23 +528,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
 		return false;
 	}
 
 	@Override
-	protected void doPush(@NotNull Entity entity) {
+	protected void doPush(Entity entity) {
 	}
 
 	@Override
 	protected void pushEntities() {
 	}
 
-	public static class FireflySpawnGroupData implements SpawnGroupData {
-		public final Holder<FireflyColor> color;
-
-		public FireflySpawnGroupData(Holder<FireflyColor> holder) {
-			this.color = holder;
-		}
+	public record FireflySpawnGroupData(Holder<FireflyColor> color) implements SpawnGroupData {
 	}
 }

@@ -34,19 +34,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class PaleFogParticle extends SingleQuadParticle {
 
 	PaleFogParticle(
-		@NotNull ClientLevel level,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		boolean large,
 		TextureAtlasSprite sprite
 	) {
@@ -70,9 +65,9 @@ public class PaleFogParticle extends SingleQuadParticle {
 	public void tick() {
 		super.tick();
 
-		BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
-		FluidState fluidState = this.level.getBlockState(blockPos).getFluidState();
-		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, blockPos) + (float) blockPos.getY()) >= this.y) {
+		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
+		final FluidState fluidState = this.level.getBlockState(pos).getFluidState();
+		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, pos) + (float) pos.getY()) >= this.y) {
 			this.yd = Math.clamp(this.yd + 0.003D, -0.01D, 0.025D);
 			this.xd *= 0.7D;
 			this.zd *= 0.7D;
@@ -82,14 +77,14 @@ public class PaleFogParticle extends SingleQuadParticle {
 			return;
 		}
 
-		double multXZ = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
-		this.xd += wind.x() * multXZ;
-		this.zd += wind.z() * multXZ;
+		final double windScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
+		final Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity() * windScale);
+		this.xd += wind.x();
+		this.zd += wind.z();
 
-		float ageProgress = (float) this.age / this.lifetime;
-		float alphaScale = ageProgress * 0.0095F;
+		final float ageProgress = (float) this.age / this.lifetime;
+		final float alphaScale = ageProgress * 0.0095F;
 		this.alpha += -this.alpha * alphaScale;
 
 		if (this.alpha <= 0.06F) this.remove();
@@ -100,18 +95,16 @@ public class PaleFogParticle extends SingleQuadParticle {
 		return Layer.TRANSLUCENT;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record LargeFactory(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record LargeFactory(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType options,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, true, this.spriteSet.get(random));
+			final PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, true, this.spriteSet.get(random));
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			seedParticle.gravity = 0.005F;
 			seedParticle.alpha = 0.5F;
@@ -119,18 +112,16 @@ public class PaleFogParticle extends SingleQuadParticle {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record SmallFactory(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record SmallFactory(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType options,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, false, this.spriteSet.get(random));
+			final PaleFogParticle seedParticle = new PaleFogParticle(level, x, y, z, 0D, 0D, 0D, false, this.spriteSet.get(random));
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 250, 500);
 			seedParticle.gravity = 0.005F;
 			seedParticle.alpha = 0.6F;

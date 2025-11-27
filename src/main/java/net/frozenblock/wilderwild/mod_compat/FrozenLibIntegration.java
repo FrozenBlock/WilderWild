@@ -125,7 +125,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMa
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.ChatFormatting;
 
 public class FrozenLibIntegration extends ModIntegration {
@@ -138,16 +137,15 @@ public class FrozenLibIntegration extends ModIntegration {
 		super("frozenlib");
 	}
 
-	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull Holder<Biome> holder) {
+	private static void addBiomeRequirement(Advancement advancement, Holder<Biome> holder) {
 		AdvancementAPI.addCriteria(advancement, holder.unwrapKey().orElseThrow().identifier().toString(), inBiome(holder));
 		AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(holder.unwrapKey().orElseThrow().identifier().toString()))));
 	}
 
-	private static void addBiomeRequirement(@NotNull Advancement advancement, @NotNull ResourceKey<Biome> key, HolderLookup.@NotNull Provider registries) {
+	private static void addBiomeRequirement(Advancement advancement, ResourceKey<Biome> key, HolderLookup.Provider registries) {
 		addBiomeRequirement(advancement, registries.lookupOrThrow(Registries.BIOME).getOrThrow(key));
 	}
 
-	@NotNull
 	private static Criterion<PlayerTrigger.TriggerInstance> inBiome(Holder<Biome> holder) {
 		return PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(holder));
 	}

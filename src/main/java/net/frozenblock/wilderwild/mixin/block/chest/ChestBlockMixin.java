@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -55,43 +54,38 @@ public class ChestBlockMixin {
 			shift = At.Shift.BEFORE
 		)
 	)
-	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> info) {
-		if (level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest && sourceChest instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
-			if (
-				sourceChest.lootTable != null
-				&& state.getFluidState().is(Fluids.WATER)
-				&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
-				&& level.random.nextInt(0, 3) == 1
-			) {
-				if (WWEntityConfig.get().jellyfish.spawnJellyfish) Jellyfish.spawnFromChest(level, state, pos, true);
-			}
-			chestBlockEntityInterface.wilderWild$bubble(level, pos, state);
+	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
+		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) || !(sourceChest instanceof ChestBlockEntityInterface chestInterface)) return;
+		if (sourceChest.lootTable != null
+			&& state.getFluidState().is(Fluids.WATER)
+			&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
+			&& level.random.nextInt(0, 3) == 1
+		) {
+			if (WWEntityConfig.get().jellyfish.spawnJellyfish) Jellyfish.spawnFromChest(level, state, pos, true);
 		}
+		chestInterface.wilderWild$bubble(level, pos, state);
 	}
 
 	@ModifyReturnValue(method = "updateShape", at = @At(value = "RETURN"))
 	public BlockState wilderWild$updateShape(
 		BlockState original,
 		BlockState oldState,
-		LevelReader levelReader,
+		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
-		BlockPos blockPos,
+		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
-		RandomSource randomSource
+		RandomSource random
 	) {
-		ChestUtil.updateBubbles(oldState, oldState, levelReader, blockPos);
+		ChestUtil.updateBubbles(oldState, oldState, level, pos);
 		return original;
 	}
 
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At(value = "RETURN"))
-	public BlockState wilderWild$getStateForPlacement(
-		BlockState original,
-		BlockPlaceContext blockPlaceContext
-	) {
-		Level level = blockPlaceContext.getLevel();
-		BlockPos pos = blockPlaceContext.getClickedPos();
+	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
 		ChestUtil.getCoupledChestBlockEntity(level, pos, original).ifPresent(coupledChest -> {
 			if (coupledChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
 				&& level.getBlockEntity(pos) instanceof ChestBlockEntity chest
@@ -111,7 +105,7 @@ public class ChestBlockMixin {
 			target = "Lnet/minecraft/world/Containers;updateNeighboursAfterDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
 		)
 	)
-	public void wilderWild$onRemove(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, boolean isMoving, CallbackInfo info) {
+	public void wilderWild$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}

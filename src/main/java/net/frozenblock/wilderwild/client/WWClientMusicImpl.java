@@ -30,7 +30,6 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientMusicImpl {
@@ -79,7 +78,7 @@ public final class WWClientMusicImpl {
 		return musicDownloadGroup;
 	}
 
-	private static void addMusicDownloadInfo(@NotNull FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
+	private static void addMusicDownloadInfo(FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
 		downloadGroup.add(
 			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/" + trackName + MUSIC_PACK_SUFFIX + ".json",
 			"ww_" + trackName

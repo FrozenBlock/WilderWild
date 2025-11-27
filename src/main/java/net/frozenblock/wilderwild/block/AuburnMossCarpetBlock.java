@@ -34,31 +34,29 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public AuburnMossCarpetBlock(@NotNull Properties properties) {
+	public AuburnMossCarpetBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends AuburnMossCarpetBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
-		@NotNull Direction direction,
+		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
@@ -68,7 +66,7 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final boolean canSurvive = super.canSurvive(state, level, pos);
 		if (state.getValue(WATERLOGGED)) return canSurvive && !level.getFluidState(pos.below()).is(FluidTags.WATER);
 		return canSurvive;
@@ -82,17 +80,17 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	protected FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+	public boolean propagatesSkylightDown(BlockState state) {
 		return state.getFluidState().isEmpty();
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED);
 	}
 }

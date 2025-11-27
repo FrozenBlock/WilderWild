@@ -28,7 +28,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWWindManager extends WindManagerExtension {
 	private static final String WW_WIND_MANAGER_EXTENSION_FILE_ID = createSaveId(WWConstants.id("clouds"));
@@ -52,7 +51,7 @@ public final class WWWindManager extends WindManagerExtension {
 	public WWWindManager() {
 	}
 
-	public static @NotNull WWWindManager createFromCodec(double cloudX, double cloudZ) {
+	public static WWWindManager createFromCodec(double cloudX, double cloudZ) {
 		WWWindManager manager = new WWWindManager();
 		manager.cloudX = cloudX;
 		manager.cloudZ = cloudZ;
@@ -87,7 +86,7 @@ public final class WWWindManager extends WindManagerExtension {
 
 	@Contract("_ -> new")
 	@Override
-	public @NotNull CustomPacketPayload syncPacket(WindSyncPacket packet) {
+	public CustomPacketPayload syncPacket(WindSyncPacket packet) {
 		return new WWWindPacket(this.cloudX, this.cloudZ);
 	}
 }

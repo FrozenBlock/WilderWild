@@ -31,7 +31,6 @@ import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public final class JellyfishVariants {
 	public static final ResourceKey<JellyfishVariant> BLUE = createKey("blue");
@@ -43,12 +42,12 @@ public final class JellyfishVariants {
 	public static final ResourceKey<JellyfishVariant> PEARLESCENT_PURPLE = createKey("pearlescent_purple");
 	public static final ResourceKey<JellyfishVariant> DEFAULT = PINK;
 
-	private static @NotNull ResourceKey<JellyfishVariant> createKey(String string) {
-		return ResourceKey.create(WilderWildRegistries.JELLYFISH_VARIANT, WWConstants.id(string));
+	private static ResourceKey<JellyfishVariant> createKey(String path) {
+		return ResourceKey.create(WilderWildRegistries.JELLYFISH_VARIANT, WWConstants.id(path));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<JellyfishVariant> bootstrapContext,
+		BootstrapContext<JellyfishVariant> bootstrapContext,
 		ResourceKey<JellyfishVariant> resourceKey,
 		String name,
 		boolean pearlescent,

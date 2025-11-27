@@ -23,21 +23,15 @@ import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class SetTrackedBoatLookTarget {
-
-	@Contract(" -> new")
-	public static @NotNull OneShot<LivingEntity> create() {
-		return BehaviorBuilder.create(
-			instance -> instance.group(
-				instance.absent(MemoryModuleType.LOOK_TARGET),
-				instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
-			).apply(instance, (lookTarget, trackedBoat) -> (serverLevel, livingEntity, l) -> {
-				lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
-				return true;
-			})
-		);
+	public static OneShot<LivingEntity> create() {
+		return BehaviorBuilder.create(instance -> instance.group(
+			instance.absent(MemoryModuleType.LOOK_TARGET),
+			instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
+		).apply(instance, (lookTarget, trackedBoat) -> (level, penguin, l) -> {
+			lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
+			return true;
+		}));
 	}
 }

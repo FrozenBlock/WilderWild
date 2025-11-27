@@ -42,7 +42,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -67,7 +67,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock {
@@ -109,7 +108,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		ParticleOptions bubbleColumnUpParticle,
 		ParticleOptions currentDownParticle,
 		ParticleOptions splashParticle,
-		@NotNull Properties properties
+		Properties properties
 	) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
@@ -122,7 +121,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		this.splashParticle = splashParticle;
 	}
 
-	public static boolean isMesoglea(@NotNull BlockState state) {
+	public static boolean isMesoglea(BlockState state) {
 		return state.hasProperty(BUBBLE_DIRECTION) && state.getBlock() instanceof MesogleaBlock;
 	}
 
@@ -142,7 +141,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		return isColumnSupportingMesoglea(state) ? state.getValue(BUBBLE_DIRECTION).direction : Optional.empty();
 	}
 
-	public static boolean canColumnSurvive(@NotNull LevelReader level, @NotNull BlockPos pos) {
+	public static boolean canColumnSurvive(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos.below());
 		return WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS && (
 			state.is(Blocks.BUBBLE_COLUMN) || state.is(Blocks.MAGMA_BLOCK) || state.is(Blocks.SOUL_SAND) || hasBubbleColumn(state)
@@ -170,8 +169,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		}
 	}
 
-	@NotNull
-	private static BlockState getColumnState(@NotNull BlockState mesogleaState, @NotNull BlockState state) {
+	private static BlockState getColumnState(BlockState mesogleaState, BlockState state) {
 		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
 			//Remember, state is for the block below.
 			if (state.is(Blocks.BUBBLE_COLUMN)) {
@@ -189,7 +187,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		return isColumnSupportingMesoglea(state) && state.getFluidState().getAmount() >= FluidState.AMOUNT_FULL && state.getFluidState().isSource();
 	}
 
-	@NotNull
 	@Override
 	protected MapCodec<? extends MesogleaBlock> codec() {
 		return CODEC;
@@ -224,7 +221,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onPlace(BlockState state, @NotNull Level level, BlockPos pos, BlockState replacingState, boolean bl) {
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState replacingState, boolean bl) {
 		if (!level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos)) return;
 		level.destroyBlock(pos, false);
 		level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, pos, 0);
@@ -233,10 +230,10 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	public void entityInside(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Entity entity,
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
 		InsideBlockEffectApplier insideBlockEffectApplier,
 		boolean bl
 	) {
@@ -286,17 +283,14 @@ public class MesogleaBlock extends HalfTransparentBlock {
 				pos.getY() + 1D,
 				pos.getZ() + level.random.nextDouble(),
 				1,
-				0D,
-				0.01D,
-				0D,
+				0D, 0.01D, 0D,
 				0.2
 			);
 		}
 	}
 
 	@Override
-	@NotNull
-	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		VoxelShape shape = Shapes.empty();
 		if (!(context instanceof EntityCollisionContext entityCollisionContext)) return shape;
 		if (entityCollisionContext.getEntity() == null) return shape;
@@ -316,12 +310,12 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected @NotNull VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
+	protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
 		return Shapes.block();
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		super.animateTick(state, level, pos, random);
 
 		final Optional<Direction> optionalDragDirection = getDragDirection(state);
@@ -373,13 +367,13 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public int getLightBlock(@NotNull BlockState state) {
+	public int getLightBlock(BlockState state) {
 		return LIGHT_BLOCK;
 	}
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 		return this.defaultBlockState()
 			.setValue(
@@ -393,10 +387,10 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
+	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		@NotNull ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
@@ -422,31 +416,29 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
 		updateColumn(level, pos, state, level.getBlockState(pos.below()));
 		BubbleColumnBlock.updateColumn(level, pos.above(), state);
 	}
 
 	@Override
-	@NotNull
-	public FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(BUBBLE_DIRECTION);
 	}
 
 	@Override
-	public boolean skipRendering(@NotNull BlockState state, @NotNull BlockState neighborState, @NotNull Direction direction) {
+	public boolean skipRendering(BlockState state, BlockState neighborState, Direction direction) {
 		return neighborState.is(this);
 	}
 
 	@Override
-	@NotNull
-	public RenderShape getRenderShape(@NotNull BlockState state) {
+	public RenderShape getRenderShape(BlockState state) {
 		return WWBlockConfig.Client.MESOGLEA_FLUID ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 }

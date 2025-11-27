@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -59,24 +58,22 @@ public class HugeFungusFeatureMixin {
 		newPos.set(context.origin());
 		if (original) return true;
 		if (context.config().planted && WWBlockConfig.get().thickBigFungusGrowth) {
-			Level level = (Level) context.level();
-			BlockPos pos = context.origin();
-			Block fungus = level.getBlockState(pos).getBlock();
+			final WorldGenLevel level = context.level();
+			final BlockPos pos = context.origin();
+			final Block fungus = level.getBlockState(pos).getBlock();
 			if (wilderWild$canGrowThickFungus(level, pos, fungus)) {
 				newPos.set(pos);
 				wilderWild$clearFungi(level, pos);
 				return true;
-			} else {
-				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					BlockPos adjacentPos = pos.relative(direction);
-					if (level.getBlockState(adjacentPos).is(fungus)) {
-						if (wilderWild$canGrowThickFungus(level, adjacentPos, fungus)) {
-							newPos.set(adjacentPos);
-							wilderWild$clearFungi(level, adjacentPos);
-							return true;
-						}
-					}
-				}
+			}
+
+			for (Direction direction : Direction.Plane.HORIZONTAL) {
+				final BlockPos offsetPos = pos.relative(direction);
+				if (!level.getBlockState(offsetPos).is(fungus)) continue;
+				if (!wilderWild$canGrowThickFungus(level, offsetPos, fungus)) continue;
+				newPos.set(offsetPos);
+				wilderWild$clearFungi(level, offsetPos);
+				return true;
 			}
 		}
 		return false;
@@ -110,7 +107,7 @@ public class HugeFungusFeatureMixin {
 	 * @return if the blocks on all horizontal sides match the center block
 	 */
 	@Unique
-	private boolean wilderWild$canGrowThickFungus(Level level, BlockPos pos, Block fungus) {
+	private boolean wilderWild$canGrowThickFungus(WorldGenLevel level, BlockPos pos, Block fungus) {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			if (!level.getBlockState(pos.relative(direction)).is(fungus)) return false;
 		}
@@ -119,12 +116,12 @@ public class HugeFungusFeatureMixin {
 
 	/**
 	 * Sets the given block and each horizontally adjacent block to air.
-	 * Should be used only after using{@link #wilderWild$canGrowThickFungus(Level, BlockPos, Block) canGrowThickFungus}.
+	 * Should be used only after using{@link #wilderWild$canGrowThickFungus(WorldGenLevel, BlockPos, Block) canGrowThickFungus}.
 	 *
 	 * @param pos position of the center fungus.
 	 */
 	@Unique
-	private void wilderWild$clearFungi(Level level, BlockPos pos) {
+	private void wilderWild$clearFungi(WorldGenLevel level, BlockPos pos) {
 		level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_INVISIBLE);
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			level.setBlock(pos.relative(direction), Blocks.AIR.defaultBlockState(), Block.UPDATE_INVISIBLE);
@@ -132,7 +129,7 @@ public class HugeFungusFeatureMixin {
 	}
 
 	/**
-	 * Gives access to the variable bl in{@link HugeFungusFeature#placeStem(WorldGenLevel, RandomSource, HugeFungusConfiguration, BlockPos, int, boolean) placeStem},
+	 * Gives access to the variable bl in HugeFungusFeature$placeStem.,
 	 * stored in {@code isCorner}.
 	 *
 	 * @param original
@@ -158,26 +155,27 @@ public class HugeFungusFeatureMixin {
 	 */
 	@ModifyExpressionValue(
 		method = "placeStem",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z")
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"
+		)
 	)
 	public boolean wilderWild$placeStemShouldPreserve(
 		boolean original, WorldGenLevel level, RandomSource random,
 		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
 		shouldPlace.set(true);
-		if (WWBlockConfig.get().thickBigFungusGrowth) {
-			if (isCorner.get()) {
-				if (random.nextFloat() < 0.1F) {
-					// mark for destruction and place corner block
-					return false;
-				} else {
-					// don't place corner block
-					shouldPlace.set(false);
-					return true;
-				}
-			}
+		if (!WWBlockConfig.get().thickBigFungusGrowth) return original;
+		if (!isCorner.get()) return original;
+
+		if (random.nextFloat() < 0.1F) {
+			// mark for destruction and place corner block
+			return false;
+		} else {
+			// don't place corner block
+			shouldPlace.set(false);
+			return true;
 		}
-		return original;
 	}
 
 	/**
@@ -193,10 +191,10 @@ public class HugeFungusFeatureMixin {
 		)
 	)
 	public boolean wilderWild$placeStemAttemptPlace(
-		WorldGenLevel instance, BlockPos pos, BlockState blockState, int flag, Operation<Boolean> original,
+		WorldGenLevel instance, BlockPos pos, BlockState state, int flag, Operation<Boolean> original,
 		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
 		if (!shouldPlace.get()) return false;
-		return original.call(instance, pos, blockState, flag);
+		return original.call(instance, pos, state, flag);
 	}
 }

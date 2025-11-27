@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public interface SculkBuildingBlockBehaviour extends SculkBehaviour {
 
@@ -36,11 +35,11 @@ public interface SculkBuildingBlockBehaviour extends SculkBehaviour {
 
 	@Override
 	default int attemptUseCharge(
-		@NotNull SculkSpreader.ChargeCursor cursor,
-		@NotNull LevelAccessor level,
-		@NotNull BlockPos catalystPos,
-		@NotNull RandomSource random,
-		@NotNull SculkSpreader spreader,
+		SculkSpreader.ChargeCursor cursor,
+		LevelAccessor level,
+		BlockPos catalystPos,
+		RandomSource random,
+		SculkSpreader spreader,
 		boolean shouldConvertToBlock
 	) {
 		final BlockPos pos = cursor.getPos();

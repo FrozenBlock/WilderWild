@@ -28,72 +28,83 @@ import org.spongepowered.asm.mixin.Unique;
 public class WardenRenderStateMixin implements WilderWarden, SwimmingWardenState {
 
 	@Unique
-	private final AnimationState dyingAnimationState = new AnimationState();
+	private final AnimationState wilderWild$dyingAnimationState = new AnimationState();
 	@Unique
-	private final AnimationState swimmingDyingAnimationState = new AnimationState();
+	private final AnimationState wilderWild$swimmingDyingAnimationState = new AnimationState();
 	@Unique
-	private final AnimationState kirbyDeathAnimationState = new AnimationState();
+	private final AnimationState wilderWild$kirbyDeathAnimationState = new AnimationState();
 	@Unique
-	private boolean isStella;
+	private boolean wilderWild$isStella;
 	@Unique
-	private int deathTicks;
+	private int wilderWild$deathTicks;
 	@Unique
-	private float swimAmount;
+	private float wilderWild$swimAmount;
 	@Unique
-	private float wadingProgress;
+	private float wilderWild$wadingProgress;
 
+	@Unique
 	@Override
-	public AnimationState wilderWild$getDyingAnimationState() {
-		return this.dyingAnimationState;
+	public AnimationState wilderWild$dyingAnimationState() {
+		return this.wilderWild$dyingAnimationState;
 	}
 
+	@Unique
 	@Override
-	public AnimationState wilderWild$getSwimmingDyingAnimationState() {
-		return this.swimmingDyingAnimationState;
+	public AnimationState wilderWild$swimmingDyingAnimationState() {
+		return this.wilderWild$swimmingDyingAnimationState;
 	}
 
+	@Unique
 	@Override
-	public AnimationState wilderWild$getKirbyDeathAnimationState() {
-		return this.kirbyDeathAnimationState;
+	public AnimationState wilderWild$kirbyDeathAnimationState() {
+		return this.wilderWild$kirbyDeathAnimationState;
 	}
 
+	@Unique
 	@Override
 	public boolean wilderWild$isStella() {
-		return this.isStella;
+		return this.wilderWild$isStella;
 	}
 
+	@Unique
 	@Override
-	public void wilderWild$setIsStella(boolean value) {
-		this.isStella = value;
+	public void wilderWild$setStella(boolean isStella) {
+		this.wilderWild$isStella = isStella;
 	}
 
+	@Unique
 	@Override
 	public void wilderWild$setDeathTicks(int i) {
-		this.deathTicks = i;
+		this.wilderWild$deathTicks = i;
 	}
 
+	@Unique
 	@Override
 	public int wilderWild$getDeathTicks() {
-		return this.deathTicks;
+		return this.wilderWild$deathTicks;
 	}
 
+	@Unique
 	@Override
 	public float wilderWild$getSwimAmount() {
-		return this.swimAmount;
+		return this.wilderWild$swimAmount;
 	}
 
+	@Unique
 	@Override
 	public float wilderWild$getWadingProgress() {
-		return this.wadingProgress;
+		return this.wilderWild$wadingProgress;
 	}
 
+	@Unique
 	@Override
 	public void wilderWild$setSwimAmount(float amount) {
-		this.swimAmount = amount;
+		this.wilderWild$swimAmount = amount;
 	}
 
+	@Unique
 	@Override
 	public void wilderWild$setWadingProgress(float progress) {
-		this.wadingProgress = progress;
+		this.wilderWild$wadingProgress = progress;
 	}
 }

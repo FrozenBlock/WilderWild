@@ -27,6 +27,7 @@ plugins {
     idea
     `java-library`
     java
+    checkstyle
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -115,6 +116,11 @@ loom {
             ideConfigGenerated(true)
         }
     }
+}
+
+checkstyle {
+    configFile = rootProject.file("checkstyle.xml")
+    toolVersion = "10.20.2"
 }
 
 val includeModImplementation by configurations.creating

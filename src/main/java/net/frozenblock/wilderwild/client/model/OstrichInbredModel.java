@@ -27,7 +27,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
@@ -40,41 +39,39 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	private static final float RAD_065 = Mth.DEG_TO_RAD * 0.65F;
 
 	private final ModelPart legs;
-	private final ModelPart left_leg;
-	private final ModelPart left_foot;
-	private final ModelPart right_leg;
-	private final ModelPart right_foot;
+	private final ModelPart leftLeg;
+	private final ModelPart leftFoot;
+	private final ModelPart rightLeg;
+	private final ModelPart rightFoot;
 	private final ModelPart body;
-	private final ModelPart left_wing;
-	private final ModelPart right_wing;
-	private final ModelPart neck_base;
+	private final ModelPart leftWing;
+	private final ModelPart rightWing;
+	private final ModelPart neckBase;
 	private final ModelPart neck;
 	private final ModelPart beak;
 	private final ModelPart tail;
-	private float scale;
-	private float yOffset;
-	public OstrichInbredModel(@NotNull ModelPart root) {
+
+	public OstrichInbredModel(ModelPart root) {
 		super(root);
 
 		this.legs = root.getChild("legs");
 
-		this.left_leg = this.legs.getChild("left_leg");
-		this.left_foot = this.left_leg.getChild("left_foot");
-		this.right_leg = this.legs.getChild("right_leg");
-		this.right_foot = this.right_leg.getChild("right_foot");
+		this.leftLeg = this.legs.getChild("left_leg");
+		this.leftFoot = this.leftLeg.getChild("left_foot");
+		this.rightLeg = this.legs.getChild("right_leg");
+		this.rightFoot = this.rightLeg.getChild("right_foot");
 
 		this.body = root.getChild("body");
-		this.left_wing = this.body.getChild("left_wing");
-		this.right_wing = this.body.getChild("right_wing");
+		this.leftWing = this.body.getChild("left_wing");
+		this.rightWing = this.body.getChild("right_wing");
 
-		this.neck_base = this.body.getChild("neck_base");
-		this.neck = this.neck_base.getChild("neck");
+		this.neckBase = this.body.getChild("neck_base");
+		this.neck = this.neckBase.getChild("neck");
 		this.beak = this.neck.getChild("beak");
 
 		this.tail = this.body.getChild("tail");
 	}
 
-	@NotNull
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -295,12 +292,11 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	@NotNull
 	public static LayerDefinition createBabyBodyLayer() {
 		return createBodyLayer().apply(OstrichModel.BABY_TRANSFORMER);
 	}
 
-	private static void animateLeg(@NotNull ModelPart leg, @NotNull ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
+	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
 		float fastAngle = limbSwing * 0.3331F + animOffset;
 		float angleSin = Math.sin(-fastAngle);
 
@@ -337,20 +333,15 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		float walkPos = renderState.walkAnimationPos;
 		float walkSpeed = renderState.walkAnimationSpeed;
 
-		this.scale = renderState.ageScale;
-
 		if (renderState.isBaby) {
 			this.neck.xScale = 1.5F;
 			this.neck.yScale = 1.5F;
 			this.neck.zScale = 1.5F;
-			this.yOffset = 0.75F;
-		} else {
-			this.yOffset = 0F;
 		}
 
 		// LEGS
-		animateLeg(this.left_leg, this.left_foot, walkPos, walkSpeed, Mth.PI);
-		animateLeg(this.right_leg, this.right_foot, walkPos, walkSpeed, 0F);
+		animateLeg(this.leftLeg, this.leftFoot, walkPos, walkSpeed, Mth.PI);
+		animateLeg(this.rightLeg, this.rightFoot, walkPos, walkSpeed, 0F);
 
 		// BODY
 		float fastAngleBody = walkPos * 0.3331F;
@@ -362,7 +353,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		float beakAnimProgress = renderState.beakAnimProgress;
 		float rotation = beakAnimProgress * -Mth.PI;
 
-		this.neck_base.xRot = rotation * 0.3F;
+		this.neckBase.xRot = rotation * 0.3F;
 		this.neck.xRot = rotation * 0.7F;
 
 		float xRot = renderState.xRot;
@@ -373,7 +364,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		float fastAngleNeckBase = walkPos * 0.3331F + NECK_DELAY;
 		float angleSinNeckBase = Math.sin(-fastAngleNeckBase);
 		float angleSinSwingAmountNeckBase = (angleSinNeckBase * walkSpeed) * NECK_BASE_SWING;
-		this.neck_base.zRot += angleSinSwingAmountNeckBase;
+		this.neckBase.zRot += angleSinSwingAmountNeckBase;
 
 		float fastAngleNeck = walkPos * 0.3331F + NECK_DELAY;
 		float angleSinNeck = Math.sin(-fastAngleNeck);
@@ -382,18 +373,9 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 
 		this.neck.xRot += (walkSpeed * RAD_5);
 
-		this.neck_base.xRot -= xRot * RAD_025;
-		this.neck_base.yRot += yRot * RAD_025;
+		this.neckBase.xRot -= xRot * RAD_025;
+		this.neckBase.yRot += yRot * RAD_025;
 		this.neck.xRot -= xRot * RAD_065;
 		this.neck.yRot += yRot * RAD_065;
 	}
-
-	/*@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-		poseStack.pushPose();
-		poseStack.translate(0, this.yOffset, 0);
-		poseStack.scale(this.scale, this.scale, this.scale);
-		this.root().render(poseStack, buffer, packedLight, packedOverlay, color);
-		poseStack.popPose();
-	}*/
 }

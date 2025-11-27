@@ -32,24 +32,19 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class MesogleaBubbleParticle extends SingleQuadParticle {
 	private final ParticleOptions popParticle;
 
 	protected MesogleaBubbleParticle(
-		@NotNull ClientLevel clientLevel,
-		double x,
-		double y,
-		double z,
-		double xd,
-		double yd,
-		double zd,
+		ClientLevel level,
+		double x, double y, double z,
+		double xd, double yd, double zd,
 		ParticleOptions popParticle,
 		TextureAtlasSprite sprite
 	) {
-		super(clientLevel, x, y, z, xd, yd, zd, sprite);
+		super(level, x, y, z, xd, yd, zd, sprite);
 		this.popParticle = popParticle;
 		this.gravity = -0.125F;
 		this.friction = 0.85F;
@@ -75,9 +70,7 @@ public class MesogleaBubbleParticle extends SingleQuadParticle {
 	@Override
 	public void remove() {
 		this.level.playLocalSound(
-			this.x,
-			this.y,
-			this.z,
+			this.x, this.y, this.z,
 			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
 			SoundSource.NEUTRAL,
 			0.05F,
@@ -97,23 +90,15 @@ public class MesogleaBubbleParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
-		private final SpriteSet spriteSet;
-		private final ParticleOptions popParticle;
-
-		public Provider(SpriteSet spriteSet, ParticleOptions popParticle) {
-			this.spriteSet = spriteSet;
-			this.popParticle = popParticle;
-		}
-
+	public record Provider(SpriteSet spriteSet, ParticleOptions popParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
-			@NotNull SimpleParticleType simpleParticleType,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
@@ -121,5 +106,4 @@ public class MesogleaBubbleParticle extends SingleQuadParticle {
 			return new MesogleaBubbleParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
 		}
 	}
-
 }

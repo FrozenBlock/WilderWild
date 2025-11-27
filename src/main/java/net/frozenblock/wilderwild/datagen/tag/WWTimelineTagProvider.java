@@ -23,16 +23,15 @@ import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TimelineTagsProvider;
 import net.minecraft.tags.TimelineTags;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWTimelineTagProvider extends TimelineTagsProvider {
 
-	public WWTimelineTagProvider(@NotNull FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registries) {
+	public WWTimelineTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
-	protected void addTags(@NotNull HolderLookup.Provider arg) {
+	protected void addTags(HolderLookup.Provider arg) {
 		this.tag(TimelineTags.IN_OVERWORLD)
 			.add(WWTimelines.WILDERWILD_DAY);
 	}

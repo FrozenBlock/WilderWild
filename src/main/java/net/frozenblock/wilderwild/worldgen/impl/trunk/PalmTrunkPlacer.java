@@ -34,7 +34,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 public class PalmTrunkPlacer extends TrunkPlacer {
@@ -47,28 +46,27 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 	}
 
 	@Override
-	@NotNull
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.PALM_TRUNK_PLACER;
 	}
 
 	@Override
-	@NotNull
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		@NotNull LevelSimulatedReader level,
-		@NotNull BiConsumer<BlockPos, BlockState> blockSetter,
-		@NotNull RandomSource random,
+		LevelSimulatedReader level,
+		BiConsumer<BlockPos, BlockState> blockSetter,
+		RandomSource random,
 		int freeTreeHeight,
-		@NotNull BlockPos pos,
-		@NotNull TreeConfiguration config
+		BlockPos pos,
+		TreeConfiguration config
 	) {
 		PalmTrunkPlacer.setDirtAt(level, blockSetter, random, pos.below(), config);
-		ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-		Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		Vector3f offset = direction.step();
+
+		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		final Vector3f offset = direction.step();
 		int i = freeTreeHeight - random.nextInt(4) - 1;
 		int j = 4 - random.nextInt(3);
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		double x = pos.getX();
 		double z = pos.getZ();
 		OptionalInt optionalInt = OptionalInt.empty();
@@ -79,13 +77,13 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 				z += offset.z();
 				--j;
 			}
-			if (!this.placeLog(level, blockSetter, random, mutableBlockPos.set(x, n, z), config)) continue;
+			if (!this.placeLog(level, blockSetter, random, mutable.set(x, n, z), config)) continue;
 			optionalInt = OptionalInt.of(n + 1);
 		}
 		if (optionalInt.isPresent()) {
-			list.add(new FoliagePlacer.FoliageAttachment(BlockPos.containing(x, optionalInt.getAsInt(), z), 1, false));
+			foliageAttachments.add(new FoliagePlacer.FoliageAttachment(BlockPos.containing(x, optionalInt.getAsInt(), z), 1, false));
 		}
-		return list;
+		return foliageAttachments;
 	}
 }
 

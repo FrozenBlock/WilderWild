@@ -44,7 +44,6 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Provider<VibrationSystem.Listener>, VibrationSystem {
@@ -71,13 +70,13 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	//CLIENT ONLY
 	private Identifier texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 
-	public HangingTendrilBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
 		this.vibrationData = new VibrationSystem.Data();
 		this.vibrationListener = new VibrationSystem.Listener(this);
 	}
 
-	public void serverTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void serverTick(Level level, BlockPos pos, BlockState state) {
 		if (this.ticksToStopTwitching <= 0) level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
 
 		--this.ticksToStopTwitching;
@@ -103,7 +102,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
-	public void clientTick(@NotNull Level level, @NotNull BlockState state) {
+	public void clientTick(Level level, BlockState state) {
 		if (!level.isClientSide()) return;
 		final boolean twitching = this.ticksToStopTwitching > 0;
 		final boolean milking = this.ringOutTicksLeft > 0;
@@ -145,7 +144,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@NotNull
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
@@ -156,7 +154,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.lastVibrationFrequency = valueInput.getIntOr("last_vibration_frequency", 0);
 		this.ticksToStopTwitching = valueInput.getIntOr("ticksToStopTwitching", 0);
@@ -168,7 +166,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		valueOutput.putInt("last_vibration_frequency", this.lastVibrationFrequency);
 		if (this.storedXP > 0) valueOutput.putInt("storedXP", this.storedXP);
@@ -183,7 +181,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		if (this.ringOutTicksLeft > 0) valueOutput.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 	}
 
-	@NotNull
 	public VibrationSystem.User createVibrationUser() {
 		return new HangingTendrilBlockEntity.VibrationUser(this.getBlockPos());
 	}
@@ -197,19 +194,16 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	@NotNull
 	public Listener getListener() {
 		return this.vibrationListener;
 	}
 
 	@Override
-	@NotNull
 	public Data getVibrationData() {
 		return this.vibrationData;
 	}
 
 	@Override
-	@NotNull
 	public User getVibrationUser() {
 		return this.vibrationUser;
 	}
@@ -231,7 +225,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		@NotNull
 		public PositionSource getPositionSource() {
 			return this.positionSource;
 		}
@@ -243,9 +236,9 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 
 		@Override
 		public boolean canReceiveVibration(
-			@NotNull ServerLevel level,
-			@NotNull BlockPos pos,
-			@NotNull Holder<GameEvent> gameEvent,
+			ServerLevel level,
+			BlockPos pos,
+			Holder<GameEvent> gameEvent,
 			@Nullable GameEvent.Context context
 		) {
 			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
@@ -255,9 +248,9 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 
 		@Override
 		public void onReceiveVibration(
-			@NotNull ServerLevel level,
-			@NotNull BlockPos pos,
-			@NotNull Holder<GameEvent> gameEvent,
+			ServerLevel level,
+			BlockPos pos,
+			Holder<GameEvent> gameEvent,
 			@Nullable Entity entity,
 			@Nullable Entity entity2,
 			float f

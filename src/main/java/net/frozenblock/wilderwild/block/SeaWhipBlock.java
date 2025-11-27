@@ -39,41 +39,40 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContainer {
 	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
 
-	public SeaWhipBlock(@NotNull Properties properties) {
+	public SeaWhipBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
-	public @NotNull MapCodec<SeaWhipBlock> codec() {
+	public MapCodec<SeaWhipBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	protected boolean mayPlaceOn(@NotNull BlockState blockState, BlockGetter level, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState blockState, BlockGetter level, BlockPos pos) {
 		return blockState.isFaceSturdy(level, pos, Direction.UP) && !blockState.is(Blocks.MAGMA_BLOCK) && !blockState.is(WWBlocks.GEYSER);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.isValidWaterToReplace(context.getLevel(), context.getClickedPos()) ? super.getStateForPlacement(context) : null;
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(
-		@NotNull BlockState state,
+	protected BlockState updateShape(
+		BlockState state,
 		LevelReader level,
 		ScheduledTickAccess scheduledTickAccess,
 		BlockPos pos,
@@ -98,11 +97,11 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 	}
 
 	@Override
-	protected @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	protected FluidState getFluidState(BlockState state) {
 		return Fluids.WATER.getSource(false);
 	}
 
-	private boolean isValidWaterToReplace(@NotNull LevelReader level, BlockPos pos) {
+	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
 		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;

@@ -42,17 +42,15 @@ public class RotatedPillarBlockMixin {
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (FrozenBools.IS_DATAGEN || !WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) return;
-		BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
+		final BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
 		if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$appendFalseTermiteEdibleToState(BlockBehaviour.Properties properties, CallbackInfo info) {
 		if (FrozenBools.IS_DATAGEN) return;
-		RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
-		BlockState defaultBlockState = rotatedPillarBlock.defaultBlockState();
-		if (defaultBlockState.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)) {
-			rotatedPillarBlock.registerDefaultState(defaultBlockState.setValue(WWBlockStateProperties.TERMITE_EDIBLE, false));
-		}
+		final RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
+		final BlockState defaultBlockState = rotatedPillarBlock.defaultBlockState();
+		rotatedPillarBlock.registerDefaultState(defaultBlockState.trySetValue(WWBlockStateProperties.TERMITE_EDIBLE, false));
 	}
 }

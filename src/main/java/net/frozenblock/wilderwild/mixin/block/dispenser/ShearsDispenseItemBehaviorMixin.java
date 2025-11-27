@@ -34,7 +34,6 @@ import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,7 +48,7 @@ public class ShearsDispenseItemBehaviorMixin {
 			target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	private boolean wilderWild$execute(ServerLevel serverLevel, ItemStack itemStack, BlockPos pos, @NotNull Operation<Boolean> operation) {
+	private boolean wilderWild$execute(ServerLevel serverLevel, ItemStack itemStack, BlockPos pos, Operation<Boolean> operation) {
 		if (operation.call(serverLevel, itemStack, pos)) return true;
 
 		BlockState state = serverLevel.getBlockState(pos);
@@ -65,71 +64,65 @@ public class ShearsDispenseItemBehaviorMixin {
 	}
 
 	@Unique
-	private static boolean wilderWild$tryShearMilkweed(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.MILKWEED && MilkweedBlock.isFullyGrown(blockState)) {
-			MilkweedBlock.onShear(level, pos, blockState, itemStack, null);
+	private static boolean wilderWild$tryShearMilkweed(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() != WWBlocks.MILKWEED || !MilkweedBlock.isFullyGrown(state)) return false;
+		MilkweedBlock.onShear(level, pos, state, stack, null);
+		return true;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearPricklyPear(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() != WWBlocks.PRICKLY_PEAR_CACTUS || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
+		PricklyPearCactusBlock.onPricklyPearPick(level, pos, state, true, stack, null);
+		return true;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearShelfFungi(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() instanceof ShelfFungiBlock) return ShelfFungiBlock.onShear(level, pos, state, stack, null);
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearSpongeBud(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() == WWBlocks.SPONGE_BUD) return SpongeBudBlock.onShear(level, pos, state, stack, null);
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearTumbleweed(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() == WWBlocks.TUMBLEWEED) return TumbleweedBlock.onShear(level, pos, null);
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearTumbleweedStem(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() == WWBlocks.TUMBLEWEED_PLANT) return TumbleweedPlantBlock.onShear(level, pos, state, null);
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearShrub(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (state.getBlock() instanceof ShrubBlock shrubBlock) return shrubBlock.onShear(level, pos, state, stack, null);
+		return false;
+	}
+
+	@Unique
+	private static boolean wilderWild$tryShearSeedingFlower(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
+		if (!(state.getBlock() instanceof SeedingFlowerBlock seedingFlower)) return false;
+		if (seedingFlower.canShearIntoOriginalFlower(level, pos, state)) {
+			seedingFlower.onShear(level, pos, state, null);
 			return true;
 		}
 		return false;
 	}
 
 	@Unique
-	private static boolean wilderWild$tryShearPricklyPear(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.PRICKLY_PEAR_CACTUS && PricklyPearCactusBlock.isFullyGrown(blockState)) {
-			PricklyPearCactusBlock.onPricklyPearPick(level, pos, blockState, true, itemStack, null);
+	private static boolean wilderWild$tryShearFloweringLilypad(BlockState blockState, ServerLevel level, ItemStack itemStack, BlockPos pos) {
+		if (!(blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlily)) return false;
+		if (floweringWaterlily.canShearIntoOriginalBlock(level, pos, blockState)) {
+			floweringWaterlily.onShear(level, pos, blockState, null);
 			return true;
-		}
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearShelfFungi(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() instanceof ShelfFungiBlock) return ShelfFungiBlock.onShear(level, pos, blockState, itemStack, null);
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearSpongeBud(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.SPONGE_BUD) return SpongeBudBlock.onShear(level, pos, blockState, itemStack, null);
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearTumbleweed(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.TUMBLEWEED) return TumbleweedBlock.onShear(level, pos, null);
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearTumbleweedStem(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() == WWBlocks.TUMBLEWEED_PLANT) return TumbleweedPlantBlock.onShear(level, pos, blockState, null);
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearShrub(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() instanceof ShrubBlock shrubBlock) return shrubBlock.onShear(level, pos, blockState, itemStack, null);
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearSeedingFlower(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() instanceof SeedingFlowerBlock seedingFlowerBlock) {
-			if (seedingFlowerBlock.canShearIntoOriginalFlower(level, pos, blockState)) {
-				seedingFlowerBlock.onShear(level, pos, blockState, null);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Unique
-	private static boolean wilderWild$tryShearFloweringLilypad(@NotNull BlockState blockState, @NotNull ServerLevel level, ItemStack itemStack, BlockPos pos) {
-		if (blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlilyBlock) {
-			if (floweringWaterlilyBlock.canShearIntoOriginalBlock(level, pos, blockState)) {
-				floweringWaterlilyBlock.onShear(level, pos, blockState, null);
-				return true;
-			}
 		}
 		return false;
 	}

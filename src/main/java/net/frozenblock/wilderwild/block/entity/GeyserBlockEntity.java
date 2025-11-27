@@ -47,7 +47,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -60,7 +60,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 public class GeyserBlockEntity extends BlockEntity {
 	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
@@ -87,7 +86,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	private int ticksUntilNextEvent;
 	private float eruptionProgress;
 
-	public GeyserBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+	public GeyserBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.GEYSER, pos, state);
 	}
 
@@ -101,7 +100,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		return super.triggerEvent(eventId, data);
 	}
 
-	public void tickServer(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
+	public void tickServer(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		final GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
 		final Direction direction = state.getValue(GeyserBlock.FACING);
@@ -131,9 +130,8 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 	}
 
-	@NotNull
 	@Contract("_, _ -> new")
-	private static AABB aabb(@NotNull BlockPos startPos, @NotNull BlockPos endPos) {
+	private static AABB aabb(BlockPos startPos, BlockPos endPos) {
 		return new AABB(
 			Math.min(startPos.getX(), endPos.getX()),
 			Math.min(startPos.getY(), endPos.getY()),
@@ -144,7 +142,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	private void handleEruption(Level level, @NotNull BlockPos pos, GeyserType geyserType, Direction direction, boolean natural) {
+	private void handleEruption(Level level, BlockPos pos, GeyserType geyserType, Direction direction, boolean natural) {
 		final BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		final boolean vent = geyserType == GeyserType.HYDROTHERMAL_VENT;
 
@@ -293,8 +291,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		}
 	}
 
-	@NotNull
-	private AABB getPossibleEruptionBoundingBox(@NotNull BlockPos pos, @NotNull BlockPos maxEndPos) {
+	private AABB getPossibleEruptionBoundingBox(BlockPos pos, BlockPos maxEndPos) {
 		final double xDifference = maxEndPos.getX() - pos.getX();
 		final double yDifference = maxEndPos.getY() - pos.getY();
 		final double zDifference = maxEndPos.getZ() - pos.getZ();
@@ -312,7 +309,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	public void advanceStage(Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
+	public void advanceStage(Level level, BlockPos pos, BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
 		if (geyserStage == GeyserStage.ERUPTING || !natural) {
 			this.eruptionProgress = 0F;
 			this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
@@ -343,7 +340,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
 	}
 
-	public void setStageAndCooldown(@NotNull Level level, BlockPos pos, @NotNull BlockState state, GeyserStage geyserStage, RandomSource random) {
+	public void setStageAndCooldown(Level level, BlockPos pos, BlockState state, GeyserStage geyserStage, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage));
 		if (geyserStage == GeyserStage.ACTIVE) {
 			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
@@ -353,7 +350,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void tickClient(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, RandomSource random) {
+	public void tickClient(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		if (!GeyserBlock.isActive(geyserType)) return;
 
@@ -368,7 +365,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull ValueOutput valueOutput) {
+	protected void saveAdditional(ValueOutput valueOutput) {
 		super.saveAdditional(valueOutput);
 		valueOutput.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
 		valueOutput.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
@@ -376,7 +373,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(@NotNull ValueInput valueInput) {
+	public void loadAdditional(ValueInput valueInput) {
 		super.loadAdditional(valueInput);
 		this.hasRunFirstCheck = valueInput.getBooleanOr("HasRunFirstCheck", false);
 		this.ticksUntilNextEvent = valueInput.getIntOr("TicksUntilNextEvent", 0);
@@ -384,7 +381,7 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private static void addWindDisturbanceToClient(@NotNull WindDisturbance windDisturbance) {
+	private static void addWindDisturbanceToClient(WindDisturbance windDisturbance) {
 		ClientWindManager.addWindDisturbance(windDisturbance);
 	}
 

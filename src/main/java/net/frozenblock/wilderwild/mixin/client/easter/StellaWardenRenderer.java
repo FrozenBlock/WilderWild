@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.StellaWardenLayer;
-import net.minecraft.client.model.WardenModel;
+import net.minecraft.client.model.monster.warden.WardenModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;

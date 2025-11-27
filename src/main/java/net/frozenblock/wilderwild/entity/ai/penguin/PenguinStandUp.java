@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import org.jetbrains.annotations.NotNull;
 
 public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 
@@ -39,19 +38,19 @@ public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected boolean canStillUse(ServerLevel level, E penguin, long gameTime) {
 		return true;
 	}
 
 	@Override
-	protected void start(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long gameTime) {
 		final boolean swimming = penguin.isSwimming();
 		penguin.setPose(swimming ? Pose.STANDING : Pose.EMERGING);
 		if (!swimming) penguin.stopInPlace();
 	}
 
 	@Override
-	protected void stop(@NotNull ServerLevel level, @NotNull E penguin, long gameTime) {
+	protected void stop(ServerLevel level, E penguin, long gameTime) {
 		if (penguin.hasPose(Pose.EMERGING)) penguin.setPose(Pose.STANDING);
 	}
 }

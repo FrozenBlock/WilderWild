@@ -24,26 +24,25 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelReader;
-import org.jetbrains.annotations.NotNull;
 
 public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
-	public FireflyHide(@NotNull Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange) {
+	public FireflyHide(Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange) {
 		super(firefly, speedModifier, searchRange, verticalSearchRange);
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull Firefly firefly) {
+	public boolean checkExtraStartConditions(ServerLevel level, Firefly firefly) {
 		return firefly.shouldHide() && super.checkExtraStartConditions(level, firefly);
 	}
 
 	@Override
-	public boolean canStillUse(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
+	public boolean canStillUse(ServerLevel level, Firefly firefly, long gameTime) {
 		return firefly.shouldHide() && super.canStillUse(level, firefly, gameTime);
 	}
 
 	@Override
-	protected void tick(@NotNull ServerLevel level, @NotNull Firefly firefly, long gameTime) {
+	protected void tick(ServerLevel level, Firefly firefly, long gameTime) {
 		super.tick(level, firefly, gameTime);
 		if (this.isReachedTarget()) {
 			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 0.9F + level.random.nextFloat() * 0.2F);
@@ -52,7 +51,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		return level.getBlockState(pos).is(WWBlockTags.FIREFLY_HIDEABLE_BLOCKS);
 	}
 
@@ -69,7 +68,6 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	@NotNull
 	protected BlockPos getMoveToTarget() {
 		return this.blockPos;
 	}

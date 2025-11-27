@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record WaterCoverFeatureConfig(BlockStateProvider blockStateProvider, IntProvider radius) implements FeatureConfiguration {
-	public static final Codec<WaterCoverFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
+	public static final Codec<WaterCoverFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			BlockStateProvider.CODEC.fieldOf("state").forGetter(config -> config.blockStateProvider),
 			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius)

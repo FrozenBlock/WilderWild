@@ -28,7 +28,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestModel extends Model<Float> {
@@ -41,7 +40,6 @@ public class StoneChestModel extends Model<Float> {
 		this.lid = modelPart.getChild(LID);
 	}
 
-	@NotNull
 	public static LayerDefinition createSingleBodyLayer() {
 		final MeshDefinition modelData = new MeshDefinition();
 		final PartDefinition root = modelData.getRoot();
@@ -50,7 +48,6 @@ public class StoneChestModel extends Model<Float> {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	@NotNull
 	public static LayerDefinition createDoubleBodyRightLayer() {
 		final MeshDefinition modelData = new MeshDefinition();
 		final PartDefinition root = modelData.getRoot();
@@ -59,7 +56,6 @@ public class StoneChestModel extends Model<Float> {
 		return LayerDefinition.create(modelData, 64, 64);
 	}
 
-	@NotNull
 	public static LayerDefinition createDoubleBodyLeftLayer() {
 		final MeshDefinition modelData = new MeshDefinition();
 		final PartDefinition root = modelData.getRoot();
@@ -69,7 +65,7 @@ public class StoneChestModel extends Model<Float> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull Float liftProgress) {
+	public void setupAnim(Float liftProgress) {
 		super.setupAnim(liftProgress);
 		this.lid.xRot = -(liftProgress * Mth.HALF_PI);
 	}

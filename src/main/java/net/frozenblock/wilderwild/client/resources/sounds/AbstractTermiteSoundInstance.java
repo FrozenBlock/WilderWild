@@ -30,12 +30,12 @@ import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public abstract class TermiteSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTickableSoundInstance {
+public abstract class AbstractTermiteSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTickableSoundInstance {
 	protected final T mound;
 	protected final int termiteID;
 	private boolean initialTermiteCheck;
 
-	public TermiteSoundInstance(T mound, int termiteID, SoundEvent sound, SoundSource category) {
+	public AbstractTermiteSoundInstance(T mound, int termiteID, SoundEvent sound, SoundSource category) {
 		super(sound, category, SoundInstance.createUnseededRandom());
 		this.mound = mound;
 		this.looping = true;
@@ -47,12 +47,8 @@ public abstract class TermiteSoundInstance<T extends TermiteMoundBlockEntity> ex
 
 	@Nullable
 	public TermiteManager.Termite getTermite() {
-		if (this.mound != null && !this.mound.isRemoved()) {
-			for (TermiteManager.Termite termite : this.mound.termiteManager.termites()) {
-				if (termite.getID() == this.termiteID) return termite;
-			}
-		}
-		return null;
+		if (this.mound == null || this.mound.isRemoved()) return null;
+		return this.mound.termiteManager.termites().stream().filter(termite -> termite.getID() == this.termiteID).findFirst().orElse(null);
 	}
 
 	@Override
@@ -62,14 +58,8 @@ public abstract class TermiteSoundInstance<T extends TermiteMoundBlockEntity> ex
 
 	@Override
 	public void tick() {
-		TermiteManager.Termite termite = this.getTermite();
-
-		if (termite != null) {
-			BlockPos pos = termite.getPos();
-			this.x = pos.getX();
-			this.y = pos.getY();
-			this.z = pos.getZ();
-		} else {
+		final TermiteManager.Termite termite = this.getTermite();
+		if (termite == null) {
 			if (!this.initialTermiteCheck) {
 				this.initialTermiteCheck = true;
 			} else {
@@ -78,13 +68,18 @@ public abstract class TermiteSoundInstance<T extends TermiteMoundBlockEntity> ex
 			return;
 		}
 
+		final BlockPos pos = termite.getPos();
+		this.x = pos.getX();
+		this.y = pos.getY();
+		this.z = pos.getZ();
+
 		if (this.shouldSwitchSounds() && !this.isStopped()) {
 			Minecraft.getInstance().getSoundManager().queueTickingSound(this.getAlternativeSoundInstance());
 			this.stop();
 		}
 	}
 
-	protected abstract AbstractTickableSoundInstance getAlternativeSoundInstance();
+	protected abstract AbstractTermiteSoundInstance<T> getAlternativeSoundInstance();
 
 	protected abstract boolean shouldSwitchSounds();
 }

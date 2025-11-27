@@ -33,12 +33,13 @@ public class AllayMixin implements WilderAllay {
 
 	@Unique
 	private final AnimationState wilderWild$dancingAnimationState = new AnimationState();
+
 	@Shadow
 	private float dancingAnimationTicks;
 
 	@Unique
 	@Override
-	public AnimationState wilderWild$getDancingAnimationState() {
+	public AnimationState wilderWild$dancingAnimationState() {
 		return this.wilderWild$dancingAnimationState;
 	}
 
@@ -51,8 +52,8 @@ public class AllayMixin implements WilderAllay {
 		)
 	)
 	private void wilderWild$animateDance(CallbackInfo info) {
-		this.wilderWild$getDancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
-		this.wilderWild$getDancingAnimationState().stop();
+		this.wilderWild$dancingAnimationState().startIfStopped((int) this.dancingAnimationTicks);
+		this.wilderWild$dancingAnimationState().stop();
 	}
 
 	@Inject(
@@ -71,7 +72,7 @@ public class AllayMixin implements WilderAllay {
 		)
 	)
 	private void wilderWild$stopDance(CallbackInfo info) {
-		this.wilderWild$getDancingAnimationState().stop();
+		this.wilderWild$dancingAnimationState().stop();
 	}
 
 }

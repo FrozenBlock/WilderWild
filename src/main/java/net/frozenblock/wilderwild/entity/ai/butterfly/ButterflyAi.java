@@ -46,7 +46,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 public class ButterflyAi {
 	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSOR_TYPES = List.of(
@@ -66,17 +65,15 @@ public class ButterflyAi {
 	private ButterflyAi() {
 	}
 
-	@NotNull
 	public static Brain.Provider<Butterfly> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 	}
 
-	public static void setNatural(@NotNull Butterfly butterfly) {
+	public static void setNatural(Butterfly butterfly) {
 		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, true);
 	}
 
-	@NotNull
-	public static Brain<?> makeBrain(@NotNull Butterfly butterfly, @NotNull Brain<Butterfly> brain) {
+	public static Brain<?> makeBrain(Butterfly butterfly, Brain<Butterfly> brain) {
 		addCoreActivities(brain);
 		addIdleActivities(butterfly, brain);
 		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
@@ -85,7 +82,7 @@ public class ButterflyAi {
 		return brain;
 	}
 
-	private static void addCoreActivities(@NotNull Brain<Butterfly> brain) {
+	private static void addCoreActivities(Brain<Butterfly> brain) {
 		brain.addActivity(
 			Activity.CORE,
 			0,
@@ -99,7 +96,7 @@ public class ButterflyAi {
 		);
 	}
 
-	private static void addIdleActivities(@NotNull Butterfly butterfly, @NotNull Brain<Butterfly> brain) {
+	private static void addIdleActivities(Butterfly butterfly, Brain<Butterfly> brain) {
 		brain.addActivity(
 			Activity.IDLE,
 			ImmutableList.of(
@@ -123,36 +120,33 @@ public class ButterflyAi {
 		);
 	}
 
-	public static void updateActivities(@NotNull Butterfly butterfly) {
+	public static void updateActivities(Butterfly butterfly) {
 		butterfly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
 	}
 
-	public static void rememberHome(@NotNull LivingEntity butterfly, @NotNull BlockPos pos) {
+	public static void rememberHome(LivingEntity butterfly, BlockPos pos) {
 		butterfly.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(butterfly.level().dimension(), pos));
 	}
 
-	private static boolean shouldGoTowardsHome(@NotNull LivingEntity butterfly, @NotNull GlobalPos pos) {
+	private static boolean shouldGoTowardsHome(LivingEntity butterfly, GlobalPos pos) {
 		return ((Butterfly) butterfly).hasHome() && butterfly.level().dimension() == pos.dimension();
 	}
 
-	@NotNull
-	private static Optional<PositionTracker> getHomeTarget(@NotNull LivingEntity butterfly) {
-		Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
+	private static Optional<PositionTracker> getHomeTarget(LivingEntity butterfly) {
+		final Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
-			GlobalPos globalPos = home.get();
+			final GlobalPos globalPos = home.get();
 			if (shouldGoTowardsHome(butterfly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
 		}
 
 		return Optional.empty();
 	}
 
-	@NotNull
-	private static Optional<PositionTracker> getLookTarget(@NotNull LivingEntity butterfly) {
+	private static Optional<PositionTracker> getLookTarget(LivingEntity butterfly) {
 		return butterfly.getBrain().getMemory(MemoryModuleType.LOOK_TARGET);
 	}
 
-	@NotNull
-	private static BlockPos randomPosAround(@NotNull BlockPos pos, @NotNull Level level) {
+	private static BlockPos randomPosAround(BlockPos pos, Level level) {
 		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
 	}
 }

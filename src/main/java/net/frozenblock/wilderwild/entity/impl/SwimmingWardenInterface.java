@@ -18,11 +18,7 @@
 package net.frozenblock.wilderwild.entity.impl;
 
 public interface SwimmingWardenInterface {
-
 	boolean wilderWild$isTouchingWaterOrLava();
-
 	boolean wilderWild$isSubmergedInWaterOrLava();
-
 	float wilderWild$getWadingProgress(float tickDelta);
-
 }

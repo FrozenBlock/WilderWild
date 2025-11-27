@@ -33,7 +33,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
@@ -54,7 +53,12 @@ public class TermiteParticle extends SingleQuadParticle {
 	private float scale = 0F;
 	private float targetScale = 0F;
 
-	public TermiteParticle(@NotNull ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite, RandomSource random) {
+	public TermiteParticle(
+		ClientLevel level,
+		double x, double y, double z,
+		TextureAtlasSprite sprite,
+		RandomSource random
+	) {
 		super(level, x, y, z, sprite);
 		this.hasPhysics = false;
 		this.x = x;
@@ -97,12 +101,12 @@ public class TermiteParticle extends SingleQuadParticle {
 		return (float) Math.sin(((progress + offset) * Math.PI) / spinSpeed);
 	}
 
-	private float rotate(@NotNull TermiteRotationType rotation, float progress, float offset, float spinSpeed) {
+	private float rotate(TermiteRotationType rotation, float progress, float offset, float spinSpeed) {
 		return rotation == TermiteRotationType.COS ? cos(progress, offset, spinSpeed) : sin(progress, offset, spinSpeed);
 	}
 
 	@Override
-	protected void extractRotatedQuad(QuadParticleRenderState renderState, @NotNull Camera camera, Quaternionf rotation, float partialTick) {
+	protected void extractRotatedQuad(QuadParticleRenderState renderState, Camera camera, Quaternionf rotation, float partialTick) {
 		final Vec3 cameraPos = camera.position();
 		final float animationProgress = this.age + partialTick;
 		final float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
@@ -124,13 +128,8 @@ public class TermiteParticle extends SingleQuadParticle {
 		return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;
 	}
 
-	@NotNull
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
-		return BlockPos.containing(
-			x + cos,
-			y + sin,
-			z + aCos
-		);
+		return BlockPos.containing(x + cos, y + sin, z + aCos);
 	}
 
 	@Override
@@ -139,7 +138,7 @@ public class TermiteParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected @NotNull Layer getLayer() {
+	protected Layer getLayer() {
 		return Layer.TRANSLUCENT;
 	}
 
@@ -148,14 +147,11 @@ public class TermiteParticle extends SingleQuadParticle {
 		SIN
 	}
 
-	@Environment(EnvType.CLIENT)
-	public record Provider(@NotNull SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
-		@NotNull
 		public Particle createParticle(
-			@NotNull SimpleParticleType termiteParticleOptions,
-			@NotNull ClientLevel level,
+			SimpleParticleType options,
+			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random

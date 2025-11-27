@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -31,7 +30,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWEntityConfig {
-
 	public static final Config<WWEntityConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -47,7 +45,7 @@ public final class WWEntityConfig {
 
 			@Override
 			public void onSync(WWEntityConfig syncInstance) {
-				var config = this.config();
+				final var config = this.config();
 				WARDEN_SWIMS = config.warden.wardenSwims;
 				FIREFLY_SWARMS = config.firefly.fireflySwarm;
 				FIREFLY_SWARMS_BUSH = config.firefly.fireflySwarmsBush;
@@ -252,7 +250,6 @@ public final class WWEntityConfig {
 		@EntrySyncData("spawnPenguins")
 		public boolean spawnPenguins = true;
 	}
-
 
 	public static class TumbleweedConfig {
 		@EntrySyncData("spawnTumbleweed")

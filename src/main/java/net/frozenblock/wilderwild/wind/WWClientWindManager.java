@@ -32,7 +32,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientWindManager implements ClientWindManagerExtension {
@@ -65,24 +64,24 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		}
 	}
 
-	public void animateTick(@NotNull ClientLevel level, int posX, int posY, int posZ) {
-		RandomSource randomSource = level.random;
-		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+	public void animateTick(ClientLevel level, int posX, int posY, int posZ) {
+		final RandomSource random = level.random;
+		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
 		if (WWAmbienceAndMiscConfig.WIND_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				this.spawnAmbientWindParticles(level, posX, posY, posZ, 48, random, pos);
 			}
 		}
 		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS; ++i) {
-				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, randomSource, mutableBlockPos);
+				this.spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, random, pos);
 			}
 		}
 	}
 
 	public void spawnAmbientWindParticles(
-		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
+		ClientLevel level, int posX, int posY, int posZ, int range, RandomSource random, BlockPos.MutableBlockPos blockPos
 	) {
 		int highestPossibleY = posY + range;
 		int x = posX + random.nextIntBetweenInclusive(-range, range);
@@ -119,7 +118,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 	}
 
 	public void spawnDisturbanceWindParticles(
-		@NotNull ClientLevel level, int posX, int posY, int posZ, int range, @NotNull RandomSource random, @NotNull BlockPos.MutableBlockPos blockPos
+		ClientLevel level, int posX, int posY, int posZ, int range, RandomSource random, BlockPos.MutableBlockPos blockPos
 	) {
 		int x = posX + random.nextIntBetweenInclusive(-range, range);
 		int y = posY + random.nextIntBetweenInclusive(-range, range);
@@ -153,9 +152,9 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 	}
 
 	@Override
-	public void receiveSyncPacket(@NotNull FriendlyByteBuf byteBuf, @NotNull Minecraft minecraft) {
-		double cloudX = byteBuf.readDouble();
-		double cloudZ = byteBuf.readDouble();
+	public void receiveSyncPacket(FriendlyByteBuf byteBuf, Minecraft minecraft) {
+		final double cloudX = byteBuf.readDouble();
+		final double cloudZ = byteBuf.readDouble();
 
 		minecraft.execute(() -> {
 			if (minecraft.level != null) {

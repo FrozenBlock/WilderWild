@@ -85,7 +85,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -102,7 +102,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Jellyfish extends NoFlopAbstractFish {
@@ -116,7 +115,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
-	public static final @NotNull Identifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
+	public static final Identifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
@@ -144,14 +143,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private int forcedAgeTimer;
 	private Optional<JellyfishVariant> jellyfishVariant = Optional.empty();
 
-	public Jellyfish(@NotNull EntityType<? extends Jellyfish> entityType, @NotNull Level level) {
+	public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
 		super(entityType, level);
 		this.getNavigation().setCanFloat(false);
 	}
 
-	public static boolean checkJellyfishSpawnRules(
-		@NotNull EntityType<Jellyfish> type, @NotNull ServerLevelAccessor level, @NotNull EntitySpawnReason spawnReason, @NotNull BlockPos pos, @NotNull RandomSource random
-	) {
+	public static boolean checkJellyfishSpawnRules(EntityType<Jellyfish> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
 		if (EntitySpawnReason.isSpawner(spawnReason)) return true;
 		if (!WWEntityConfig.get().jellyfish.spawnJellyfish) return false;
 
@@ -171,7 +168,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 		builder.define(IS_BABY, false);
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
 			.add(Attributes.MAX_HEALTH, 8D)
@@ -179,7 +175,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
 	}
 
-	public static void spawnFromChest(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, boolean checkConfig) {
+	public static void spawnFromChest(Level level, BlockState state, BlockPos pos, boolean checkConfig) {
 		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) return;
 		final Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
 		double additionalX = 0D;
@@ -208,9 +204,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(
-		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData
-	) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
 		JellyfishGroupData jellyfishGroupData = null;
 		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant.value());
@@ -234,7 +228,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (IS_BABY.equals(key)) this.refreshDimensions();
 		if (VARIANT.equals(key)) this.jellyfishVariant = Optional.of(this.getVariant());
 		super.onSyncedDataUpdated(key);
@@ -246,13 +240,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	@NotNull
 	protected SoundEvent getSwimSound() {
 		return WWSounds.ENTITY_JELLYFISH_SWIM;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
 		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
 	}
 
@@ -272,19 +265,16 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	@NotNull
 	public Brain.Provider<Jellyfish> brainProvider() {
 		return Brain.provider(JellyfishAi.MEMORY_TYPES, JellyfishAi.SENSOR_TYPES);
 	}
 
 	@Override
-	@NotNull
-	protected Brain<Jellyfish> makeBrain(@NotNull Dynamic<?> dynamic) {
+	protected Brain<Jellyfish> makeBrain(Dynamic<?> dynamic) {
 		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
 	@Override
-	@NotNull
 	public Brain<Jellyfish> getBrain() {
 		return (Brain<Jellyfish>) super.getBrain();
 	}
@@ -295,8 +285,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.getTargetFromBrain();
 	}
 
-	public void setAttackTarget(LivingEntity entity) {
-		this.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, entity, 60L);
+	public void setAttackTarget(LivingEntity target) {
+		this.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, target, 60L);
 	}
 
 	@Override
@@ -395,27 +385,27 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void handleEntityEvent(byte id) {
-		if (id == EntityEvent.TENDRILS_SHIVER) {
+	public void handleEntityEvent(byte event) {
+		if (event == EntityEvent.TENDRILS_SHIVER) {
 			this.vanishing = true;
-		} else if (id == EntityEvent.ARMADILLO_PEEK) {
+		} else if (event == EntityEvent.ARMADILLO_PEEK) {
 			this.growing = true;
 			this.scale = 0F;
 			this.prevScale = 0F;
-		} else if (id == EntityEvent.TAMING_SUCCEEDED) {
-			final double d = this.random.nextGaussian() * 0.02D;
-			final double e = this.random.nextGaussian() * 0.02D;
-			final double f = this.random.nextGaussian() * 0.02D;
-			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
-		} else if (id == EntityEvent.IN_LOVE_HEARTS) {
+		} else if (event == EntityEvent.TAMING_SUCCEEDED) {
+			final double xd = this.random.nextGaussian() * 0.02D;
+			final double yd = this.random.nextGaussian() * 0.02D;
+			final double zd = this.random.nextGaussian() * 0.02D;
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), xd, yd, zd);
+		} else if (event == EntityEvent.IN_LOVE_HEARTS) {
 			for (int i = 0; i < 7; ++i) {
-				final double d = this.random.nextGaussian() * 0.02D;
-				final double e = this.random.nextGaussian() * 0.02D;
-				final double f = this.random.nextGaussian() * 0.02D;
-				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), d, e, f);
+				final double xd = this.random.nextGaussian() * 0.02D;
+				final double yd = this.random.nextGaussian() * 0.02D;
+				final double zd = this.random.nextGaussian() * 0.02D;
+				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), xd, yd, zd);
 			}
 		} else {
-			super.handleEntityEvent(id);
+			super.handleEntityEvent(event);
 		}
 	}
 
@@ -447,11 +437,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void onOffspringSpawnedFromEgg(@NotNull Player player, @NotNull Mob child) {
+	protected void onOffspringSpawnedFromEgg(Player player, Mob child) {
 		if (child instanceof Jellyfish jellyfish) jellyfish.setVariant(this.getVariant());
 	}
 
-	public void moveToAccurate(@NotNull Entity entity, double speed) {
+	public void moveToAccurate(Entity entity, double speed) {
 		final Path path = this.getNavigation().createPath(entity, 0);
 		if (path != null) this.getNavigation().moveTo(path, speed);
 	}
@@ -498,17 +488,15 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	@NotNull
 	public SoundEvent getPickupSound() {
 		return WWSounds.ITEM_BUCKET_FILL_JELLYFISH;
 	}
 
 	@Override
-	@NotNull
-	public InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
-		if (!stack.is(this.getVariant().getReproductionFood())) return InteractionResult.PASS;
+		if (!stack.is(this.getVariant().reproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
 			stack.consume(1, player);
@@ -552,15 +540,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 		level.addFreshEntityWithPassengers(jellyfish);
 	}
 
-	@NotNull
-	private Vec3 rotateVector(@NotNull Vec3 vector) {
+	private Vec3 rotateVector(Vec3 vector) {
 		Vec3 vec3 = vector.xRot(this.xRot1 * Mth.DEG_TO_RAD);
 		vec3 = vec3.yRot(-this.yBodyRotO * Mth.DEG_TO_RAD);
 		return vec3;
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		if (!super.hurtServer(level, source, amount)) return false;
 		if (level.getDifficulty() != Difficulty.PEACEFUL && !this.isNoAi() && this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
 			final LivingEntity target = this.getLastHurtByMob();
@@ -569,9 +556,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return true;
 	}
 
-
 	@Override
-	@NotNull
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(WWItems.JELLYFISH_BUCKET);
 	}
@@ -592,11 +577,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.jellyfishVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getValue(JellyfishVariants.DEFAULT));
 	}
 
-	public void setVariant(@NotNull JellyfishVariant variant) {
+	public void setVariant(JellyfishVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull Identifier variant) {
+	public void setVariant(Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 
@@ -608,8 +593,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.entityData.get(CAN_REPRODUCE);
 	}
 
-	public void setCanReproduce(boolean bl) {
-		this.entityData.set(CAN_REPRODUCE, bl);
+	public void setCanReproduce(boolean canReproduce) {
+		this.entityData.set(CAN_REPRODUCE, canReproduce);
 	}
 
 	public boolean isRGB() {
@@ -618,13 +603,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void ageUp(int amount, boolean forced) {
-		int i;
-		int j = i = this.getAge();
-		if ((i += amount * 20) > 0) i = 0;
-		int k = i - j;
-		this.setAge(i);
+		int increasedAge;
+		int age = increasedAge = this.getAge();
+		if ((increasedAge += amount * 20) > 0) increasedAge = 0;
+		int ageDifference = increasedAge - age;
+		this.setAge(increasedAge);
 		if (forced) {
-			this.forcedAge += k;
+			this.forcedAge += ageDifference;
 			if (this.forcedAgeTimer == 0) this.forcedAgeTimer = 40;
 		}
 		if (this.getAge() == 0) this.setAge(this.forcedAge);
@@ -663,7 +648,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public @NotNull Optional<ResourceKey<LootTable>> getLootTable() {
+	public Optional<ResourceKey<LootTable>> getLootTable() {
 		final Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
 		final Identifier variantId = this.getVariantLocation();
 		return Optional.of(
@@ -679,28 +664,28 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		return super.get(dataComponentType);
+	public <T> T get(DataComponentType<? extends T> type) {
+		if (type == WWDataComponents.JELLYFISH_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		return super.get(type);
 	}
 
 	@Override
-	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
-		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.JELLYFISH_VARIANT);
-		super.applyImplicitComponents(dataComponentGetter);
+	protected void applyImplicitComponents(DataComponentGetter getter) {
+		this.applyImplicitComponentIfPresent(getter, WWDataComponents.JELLYFISH_VARIANT);
+		super.applyImplicitComponents(getter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
-		if (dataComponentType == WWDataComponents.JELLYFISH_VARIANT) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+		if (type == WWDataComponents.JELLYFISH_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, object).value());
 			return true;
 		}
-		return super.applyImplicitComponent(dataComponentType, object);
+		return super.applyImplicitComponent(type, object);
 	}
 
 	@Override
-	public void saveToBucketTag(@NotNull ItemStack stack) {
+	public void saveToBucketTag(ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		stack.copyFrom(WWDataComponents.JELLYFISH_VARIANT, this);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
@@ -714,18 +699,18 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-		Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-		compoundTag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
-		this.fullness = compoundTag.getIntOr("fullness", 0);
-		this.reproductionCooldown = compoundTag.getIntOr("reproductionCooldown", 0);
-		this.setAge(compoundTag.getIntOr("age", 0));
-		this.forcedAge = compoundTag.getIntOr("forcedAge", 0);
-		this.setBaby(compoundTag.getBooleanOr("isBaby", false));
+	public void loadFromBucketTag(CompoundTag tag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, tag);
+		tag.getBoolean("canReproduce").ifPresent(this::setCanReproduce);
+		this.fullness = tag.getIntOr("fullness", 0);
+		this.reproductionCooldown = tag.getIntOr("reproductionCooldown", 0);
+		this.setAge(tag.getIntOr("age", 0));
+		this.forcedAge = tag.getIntOr("forcedAge", 0);
+		this.setBaby(tag.getBooleanOr("isBaby", false));
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
 		valueOutput.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
@@ -738,7 +723,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		VariantUtils.readVariant(valueInput, WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));

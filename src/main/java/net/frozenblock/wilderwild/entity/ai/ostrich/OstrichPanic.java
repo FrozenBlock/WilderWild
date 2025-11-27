@@ -24,7 +24,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
-import org.jetbrains.annotations.NotNull;
 
 public class OstrichPanic extends AnimalPanic<AbstractOstrich> {
 
@@ -38,7 +37,7 @@ public class OstrichPanic extends AnimalPanic<AbstractOstrich> {
 	}
 
 	@Override
-	public void start(@NotNull ServerLevel level, @NotNull AbstractOstrich ostrich, long gameTime) {
+	public void start(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
 		ostrich.emergeBeak();
 		super.start(level, ostrich, gameTime);
 	}

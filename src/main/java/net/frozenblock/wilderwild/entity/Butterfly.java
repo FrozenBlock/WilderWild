@@ -78,7 +78,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable {
@@ -94,7 +93,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	private float groundProgress;
 	private Optional<ButterflyVariant> butterflyVariant = Optional.empty();
 
-	public Butterfly(@NotNull EntityType<? extends Butterfly> entityType, @NotNull Level level) {
+	public Butterfly(EntityType<? extends Butterfly> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(PathType.LAVA, -1F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
@@ -105,13 +104,13 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public float getWalkTargetValue(BlockPos blockPos, @NotNull LevelReader levelReader) {
-		float bonus = levelReader.getBlockState(blockPos).is(BlockTags.FLOWERS) ? 7F : 0F;
-		return levelReader.getPathfindingCostFromLightLevels(blockPos) + bonus;
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		final float bonus = level.getBlockState(pos).is(BlockTags.FLOWERS) ? 7F : 0F;
+		return level.getPathfindingCostFromLightLevels(pos) + bonus;
 	}
 
 	public static boolean checkButterflySpawnRules(
-		@NotNull EntityType<Butterfly> type, @NotNull LevelAccessor level, EntitySpawnReason reason, @NotNull BlockPos pos, @NotNull RandomSource random
+		EntityType<Butterfly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random
 	) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
 		if (EntitySpawnReason.ignoresLightRequirements(reason)) return true;
@@ -119,7 +118,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		return level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
 	}
 
-	@NotNull
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
 			.add(Attributes.MAX_HEALTH, 2D)
@@ -130,9 +128,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(
-		@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData
-	) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
 		final boolean shouldSetHome = shouldSetHome(reason);
 		if (shouldSetHome) {
 			ButterflyAi.rememberHome(this, this.blockPosition());
@@ -180,8 +176,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	@NotNull
-	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		return WWBottleable.bottleMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
@@ -191,14 +186,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	@NotNull
 	protected Brain.Provider<Butterfly> brainProvider() {
 		return ButterflyAi.brainProvider();
 	}
 
 	@Override
-	@NotNull
-	protected Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
+	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
 		return ButterflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
 	}
 
@@ -213,36 +206,36 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public void wilderWild$saveToBottleTag(ItemStack itemStack) {
-		WWBottleable.saveDefaultDataToBottleTag(this, itemStack);
-		itemStack.copyFrom(WWDataComponents.BUTTERFLY_VARIANT, this);
+	public void wilderWild$saveToBottleTag(ItemStack stack) {
+		WWBottleable.saveDefaultDataToBottleTag(this, stack);
+		stack.copyFrom(WWDataComponents.BUTTERFLY_VARIANT, this);
 	}
 
 	@Override
-	public void wilderWild$loadFromBottleTag(CompoundTag compoundTag) {
-		WWBottleable.loadDefaultDataFromBottleTag(this, compoundTag);
+	public void wilderWild$loadFromBottleTag(CompoundTag tag) {
+		WWBottleable.loadDefaultDataFromBottleTag(this, tag);
 	}
 
 	@Nullable
 	@Override
-	public <T> T get(@NotNull DataComponentType<? extends T> dataComponentType) {
-		if (dataComponentType == WWDataComponents.BUTTERFLY_VARIANT) return castComponentValue(dataComponentType, this.getVariantAsHolder());
-		return super.get(dataComponentType);
+	public <T> T get(DataComponentType<? extends T> type) {
+		if (type == WWDataComponents.BUTTERFLY_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		return super.get(type);
 	}
 
 	@Override
-	protected void applyImplicitComponents(@NotNull DataComponentGetter dataComponentGetter) {
-		this.applyImplicitComponentIfPresent(dataComponentGetter, WWDataComponents.BUTTERFLY_VARIANT);
-		super.applyImplicitComponents(dataComponentGetter);
+	protected void applyImplicitComponents(DataComponentGetter getter) {
+		this.applyImplicitComponentIfPresent(getter, WWDataComponents.BUTTERFLY_VARIANT);
+		super.applyImplicitComponents(getter);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(@NotNull DataComponentType<T> dataComponentType, @NotNull T object) {
-		if (dataComponentType == WWDataComponents.BUTTERFLY_VARIANT) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+		if (type == WWDataComponents.BUTTERFLY_VARIANT) {
 			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT, object).value());
 			return true;
 		}
-		return super.applyImplicitComponent(dataComponentType, object);
+		return super.applyImplicitComponent(type, object);
 	}
 
 	@Override
@@ -284,11 +277,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		return this.butterflyVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getValue(ButterflyVariants.DEFAULT));
 	}
 
-	public void setVariant(@NotNull ButterflyVariant variant) {
+	public void setVariant(ButterflyVariant variant) {
 		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getKey(variant)).toString());
 	}
 
-	public void setVariant(@NotNull Identifier variant) {
+	public void setVariant(Identifier variant) {
 		this.entityData.set(VARIANT, variant.toString());
 	}
 
@@ -302,7 +295,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	@NotNull
 	public Brain<Butterfly> getBrain() {
 		return (Brain<Butterfly>) super.getBrain();
 	}
@@ -313,8 +305,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	@NotNull
-	protected PathNavigation createNavigation(@NotNull Level level) {
+	protected PathNavigation createNavigation(Level level) {
 		FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
 		birdNavigation.setCanOpenDoors(false);
 		birdNavigation.setCanFloat(true);
@@ -323,20 +314,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+	protected void playStepSound(BlockPos pos, BlockState state) {
 	}
 
 	@Override
-	protected void checkFallDamage(double heightDifference, boolean onGround, @NotNull BlockState state, @NotNull BlockPos landedPosition) {
+	protected void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
-		return null;
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return WWSounds.ENTITY_BUTTERFLY_HURT;
 	}
 
@@ -403,14 +389,14 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public void addAdditionalSaveData(@NotNull ValueOutput valueOutput) {
+	public void addAdditionalSaveData(ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
 		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
 	}
 
 	@Override
-	public void readAdditionalSaveData(@NotNull ValueInput valueInput) {
+	public void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		VariantUtils.readVariant(valueInput, WilderWildRegistries.BUTTERFLY_VARIANT)
 			.ifPresent(butterflyVariantHolder -> this.setVariant(butterflyVariantHolder.value()));
@@ -418,12 +404,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float damageMultiplier, @NotNull DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
 		return false;
 	}
 
 	@Override
-	protected void doPush(@NotNull Entity entity) {
+	protected void doPush(Entity entity) {
 	}
 
 	@Override

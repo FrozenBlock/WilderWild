@@ -27,9 +27,9 @@ import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWSharedWorldgen {
+
 	private WWSharedWorldgen() {
 		throw new UnsupportedOperationException("WWSharedWorldgen contains only static declarations.");
 	}
@@ -84,7 +84,7 @@ public final class WWSharedWorldgen {
 		}
 	}
 
-	public static void addBasicFeatures(@NotNull BiomeGenerationSettings.Builder builder, boolean commonSprings) {
+	public static void addBasicFeatures(BiomeGenerationSettings.Builder builder, boolean commonSprings) {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);

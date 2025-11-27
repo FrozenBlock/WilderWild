@@ -30,35 +30,32 @@ import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 
 public class AuburnCreepingMossBlock extends MultifaceSpreadeableBlock implements BonemealableBlock, SimpleWaterloggedBlock {
 	public static final MapCodec<AuburnCreepingMossBlock> CODEC = simpleCodec(AuburnCreepingMossBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
-	public AuburnCreepingMossBlock(@NotNull Properties properties) {
+	public AuburnCreepingMossBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
-	@NotNull
 	@Override
 	public MapCodec<? extends AuburnCreepingMossBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
 		return !context.getItemInHand().is(state.getBlock().asItem()) || super.canBeReplaced(state, context);
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState state) {
+	public boolean propagatesSkylightDown(BlockState state) {
 		return state.getFluidState().isEmpty();
 	}
 
 	@Override
-	@NotNull
 	public MultifaceSpreader getSpreader() {
 		return this.spreader;
 	}

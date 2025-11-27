@@ -29,7 +29,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -40,26 +39,22 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 		Codec.STRING
 	);
 
+	@Nullable
 	@Override
-	public @Nullable String get(
-		@NotNull ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i, ItemDisplayContext itemDisplayContext
-	) {
-		Holder<FireflyColor> fireflyColor = itemStack.get(WWDataComponents.FIREFLY_COLOR);
-		if (fireflyColor != null) {
-			return fireflyColor.value().name();
-		}
+	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int i, ItemDisplayContext context) {
+		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
+		if (fireflyColor != null) return fireflyColor.value().name();
 		return null;
 	}
 
 	@Override
-	public @NotNull Codec<String> valueCodec() {
+	public Codec<String> valueCodec() {
 		return Codec.STRING;
 	}
 
 	@Override
-	public @NotNull Type<? extends SelectItemModelProperty<String>, String> type() {
+	public Type<? extends SelectItemModelProperty<String>, String> type() {
 		return TYPE;
 	}
-
 
 }

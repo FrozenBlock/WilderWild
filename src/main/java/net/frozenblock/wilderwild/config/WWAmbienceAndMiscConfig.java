@@ -28,7 +28,6 @@ import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWAmbienceAndMiscConfig {
-
 	public static final Config<WWAmbienceAndMiscConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -44,7 +43,7 @@ public final class WWAmbienceAndMiscConfig {
 
 			@Override
 			public void onSync(WWAmbienceAndMiscConfig syncInstance) {
-				var config = this.config();
+				final var config = this.config();
 				CLOUD_MOVEMENT = config.wind.cloudMovement;
 				WIND_PARTICLES = config.wind.windParticles;
 				WIND_PARTICLE_FREQUENCY = config.wind.windParticleFrequency;

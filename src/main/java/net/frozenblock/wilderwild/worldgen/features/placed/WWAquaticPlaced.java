@@ -36,7 +36,6 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
-import org.jetbrains.annotations.NotNull;
 
 public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("cattail");
@@ -77,7 +76,7 @@ public final class WWAquaticPlaced {
 		throw new UnsupportedOperationException("WWAquaticPlaced contains only static declarations.");
 	}
 
-	public static void registerAquaticPlaced(@NotNull BootstrapContext<PlacedFeature> entries) {
+	public static void registerAquaticPlaced(BootstrapContext<PlacedFeature> entries) {
 		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
