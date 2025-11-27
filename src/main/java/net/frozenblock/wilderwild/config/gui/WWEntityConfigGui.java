@@ -66,6 +66,8 @@ public final class WWEntityConfigGui {
 		var modifiedTumbleweed = modifiedConfig.tumbleweed;
 		var warden = config.warden;
 		var modifiedWarden = modifiedConfig.warden;
+		var villager = config.villager;
+		var modifiedVillager = modifiedConfig.villager;
 
 		var unpassableRail = category.addEntry(
 			FrozenClothConfig.syncedEntry(
@@ -632,6 +634,250 @@ public final class WWEntityConfigGui {
 			false,
 			tooltip("warden"),
 			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDeathAnimation, wardenImprovedEmerge, wardenEmergesFromCommand, wardenEmergesFromEgg, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils
+		);
+
+		var willowSaplingTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("willow_sapling_trade"), modifiedVillager.wanderingWillowSaplingTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingWillowSaplingTrade)
+				.setSaveConsumer(newValue -> villager.wanderingWillowSaplingTrade = newValue)
+				.setTooltip(tooltip("willow_sapling_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingWillowSaplingTrade",
+			configInstance
+		);
+		var cypressSaplingTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("cypress_sapling_trade"), modifiedVillager.wanderingCypressSaplingTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingCypressSaplingTrade)
+				.setSaveConsumer(newValue -> villager.wanderingCypressSaplingTrade = newValue)
+				.setTooltip(tooltip("cypress_sapling_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingCypressSaplingTrade",
+			configInstance
+		);
+		var baobabNutTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("baobab_nut_trade"), modifiedVillager.wanderingBaobabNutTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingBaobabNutTrade)
+				.setSaveConsumer(newValue -> villager.wanderingBaobabNutTrade = newValue)
+				.setTooltip(tooltip("baobab_nut_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingBaobabNutTrade",
+			configInstance
+		);
+		var coconutTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("coconut_trade"), modifiedVillager.wanderingCoconutTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingCoconutTrade)
+				.setSaveConsumer(newValue -> villager.wanderingCoconutTrade = newValue)
+				.setTooltip(tooltip("coconut_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingCoconutTrade",
+			configInstance
+		);
+		var mapleSaplingTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("maple_sapling_trade"), modifiedVillager.wanderingMapleSaplingTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingMapleSaplingTrade)
+				.setSaveConsumer(newValue -> villager.wanderingMapleSaplingTrade = newValue)
+				.setTooltip(tooltip("maple_sapling_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingMapleSaplingTrade",
+			configInstance
+		);
+		var carnationTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("carnation_trade"), modifiedVillager.wanderingCarnationTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingCarnationTrade)
+				.setSaveConsumer(newValue -> villager.wanderingCarnationTrade = newValue)
+				.setTooltip(tooltip("carnation_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingCarnationTrade",
+			configInstance
+		);
+		var hibiscusTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("hibiscus_trade"), modifiedVillager.wanderingHibiscusTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingHibiscusTrade)
+				.setSaveConsumer(newValue -> villager.wanderingHibiscusTrade = newValue)
+				.setTooltip(tooltip("hibiscus_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingHibiscusTrade",
+			configInstance
+		);
+		var seedingDandelionTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("seeding_dandelion_trade"), modifiedVillager.wanderingSeedingDandelionTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingSeedingDandelionTrade)
+				.setSaveConsumer(newValue -> villager.wanderingSeedingDandelionTrade = newValue)
+				.setTooltip(tooltip("seeding_dandelion_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingSeedingDandelionTrade",
+			configInstance
+		);
+		var marigoldTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("marigold_trade"), modifiedVillager.wanderingMarigoldTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingMarigoldTrade)
+				.setSaveConsumer(newValue -> villager.wanderingMarigoldTrade = newValue)
+				.setTooltip(tooltip("marigold_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingMarigoldTrade",
+			configInstance
+		);
+		var pasqueflowerTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("pasqueflower_trade"), modifiedVillager.wanderingPasqueflowerTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingPasqueflowerTrade)
+				.setSaveConsumer(newValue -> villager.wanderingPasqueflowerTrade = newValue)
+				.setTooltip(tooltip("pasqueflower_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingPasqueflowerTrade",
+			configInstance
+		);
+		var pricklyPearTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("prickly_pear_trade"), modifiedVillager.wanderingPricklyPearTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingPricklyPearTrade)
+				.setSaveConsumer(newValue -> villager.wanderingPricklyPearTrade = newValue)
+				.setTooltip(tooltip("prickly_pear_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingPricklyPearTrade",
+			configInstance
+		);
+		var tumbleweedTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("tumbleweed_trade"), modifiedVillager.wanderingTumbleweedTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingTumbleweedTrade)
+				.setSaveConsumer(newValue -> villager.wanderingTumbleweedTrade = newValue)
+				.setTooltip(tooltip("tumbleweed_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingTumbleweedTrade",
+			configInstance
+		);
+		var icicleTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("icicle_trade"), modifiedVillager.wanderingIcicleTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingIcicleTrade)
+				.setSaveConsumer(newValue -> villager.wanderingIcicleTrade = newValue)
+				.setTooltip(tooltip("icicle_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingIcicleTrade",
+			configInstance
+		);
+		var barnaclesTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("barnacles_trade"), modifiedVillager.wanderingBarnaclesTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingBarnaclesTrade)
+				.setSaveConsumer(newValue -> villager.wanderingBarnaclesTrade = newValue)
+				.setTooltip(tooltip("barnacles_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingBarnaclesTrade",
+			configInstance
+		);
+		var seaAnemoneTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sea_anemone_trade"), modifiedVillager.wanderingSeaAnemoneTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingSeaAnemoneTrade)
+				.setSaveConsumer(newValue -> villager.wanderingSeaAnemoneTrade = newValue)
+				.setTooltip(tooltip("sea_anemone_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingSeaAnemoneTrade",
+			configInstance
+		);
+		var seaWhipTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("sea_whip_trade"), modifiedVillager.wanderingSeaWhipTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingSeaWhipTrade)
+				.setSaveConsumer(newValue -> villager.wanderingSeaWhipTrade = newValue)
+				.setTooltip(tooltip("sea_whip_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingSeaWhipTrade",
+			configInstance
+		);
+		var algaeTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("algae_trade"), modifiedVillager.wanderingAlgaeTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingAlgaeTrade)
+				.setSaveConsumer(newValue -> villager.wanderingAlgaeTrade = newValue)
+				.setTooltip(tooltip("algae_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingAlgaeTrade",
+			configInstance
+		);
+		var planktonTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("plankton_trade"), modifiedVillager.wanderingPlanktonTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingPlanktonTrade)
+				.setSaveConsumer(newValue -> villager.wanderingPlanktonTrade = newValue)
+				.setTooltip(tooltip("plankton_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingPlanktonTrade",
+			configInstance
+		);
+		var auburnMossTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("auburn_moss_trade"), modifiedVillager.wanderingAuburnMossTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingAuburnMossTrade)
+				.setSaveConsumer(newValue -> villager.wanderingAuburnMossTrade = newValue)
+				.setTooltip(tooltip("auburn_moss_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingAuburnMossTrade",
+			configInstance
+		);
+		var geyserTrade = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("geyser_trade"), modifiedVillager.wanderingGeyserTrade)
+				.setDefaultValue(defaultConfig.villager.wanderingGeyserTrade)
+				.setSaveConsumer(newValue -> villager.wanderingGeyserTrade = newValue)
+				.setTooltip(tooltip("geyser_trade"))
+				.build(),
+			villager.getClass(),
+			"wanderingGeyserTrade",
+			configInstance
+		);
+
+		var desertPalmBoat = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("desert_palm_boat"), modifiedVillager.fishermanDesertPalmBoat)
+				.setDefaultValue(defaultConfig.villager.fishermanDesertPalmBoat)
+				.setSaveConsumer(newValue -> villager.fishermanDesertPalmBoat = newValue)
+				.setTooltip(tooltip("desert_palm_boat"))
+				.build(),
+			villager.getClass(),
+			"fishermanDesertPalmBoat",
+			configInstance
+		);
+		var crabForEmeralds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("crab_for_emeralds"), modifiedVillager.fishermanCrabForEmeralds)
+				.setDefaultValue(defaultConfig.villager.fishermanCrabForEmeralds)
+				.setSaveConsumer(newValue -> villager.fishermanCrabForEmeralds = newValue)
+				.setTooltip(tooltip("crab_for_emeralds"))
+				.build(),
+			villager.getClass(),
+			"fishermanCrabForEmeralds",
+			configInstance
+		);
+		var jellyfishForEmeralds = FrozenClothConfig.syncedEntry(
+			entryBuilder.startBooleanToggle(text("jellyfish_for_emeralds"), modifiedVillager.fishermanJellyfishForEmeralds)
+				.setDefaultValue(defaultConfig.villager.fishermanJellyfishForEmeralds)
+				.setSaveConsumer(newValue -> villager.fishermanJellyfishForEmeralds = newValue)
+				.setTooltip(tooltip("jellyfish_for_emeralds"))
+				.build(),
+			villager.getClass(),
+			"fishermanJellyfishForEmeralds",
+			configInstance
+		);
+
+		var villagerCategory = FrozenClothConfig.createSubCategory(entryBuilder, category, text("villager"),
+			false,
+			tooltip("villager"),
+			willowSaplingTrade, cypressSaplingTrade, baobabNutTrade, coconutTrade, mapleSaplingTrade,
+			carnationTrade, hibiscusTrade, seedingDandelionTrade, marigoldTrade, pasqueflowerTrade,
+			pricklyPearTrade, tumbleweedTrade,
+			icicleTrade,
+			barnaclesTrade, seaAnemoneTrade, seaWhipTrade, algaeTrade, planktonTrade, auburnMossTrade,
+			geyserTrade,
+			desertPalmBoat, crabForEmeralds, jellyfishForEmeralds
 		);
 	}
 }

@@ -46,7 +46,7 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
+	public void createFoliage(
 		LevelSimulatedReader levelSimulatedReader,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource randomSource,

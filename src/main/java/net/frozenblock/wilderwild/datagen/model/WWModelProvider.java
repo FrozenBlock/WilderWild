@@ -76,7 +76,9 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.woodProvider(WWBlocks.MAPLE_LOG).logWithHorizontal(WWBlocks.MAPLE_LOG).wood(WWBlocks.MAPLE_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
 		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
-		generator.createPlant(WWBlocks.MAPLE_SAPLING, WWBlocks.POTTED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+		generator.createPlant(WWBlocks.RED_MAPLE_SAPLING, WWBlocks.POTTED_RED_MAPLE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
 		generator.createTrivialBlock(WWBlocks.YELLOW_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES, TexturedModel.LEAVES);
 		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES, TexturedModel.LEAVES);
@@ -99,6 +101,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createHibiscus(generator, WWBlocks.PINK_HIBISCUS, WWBlocks.POTTED_PINK_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 		WWModelHelper.createHibiscus(generator, WWBlocks.PURPLE_HIBISCUS, WWBlocks.POTTED_PURPLE_HIBISCUS, BlockModelGenerators.TintState.NOT_TINTED);
 
+
+		WWModelHelper.createBush(generator);
 		generator.createFlowerBed(WWBlocks.WILDFLOWERS);
 		generator.createFlowerBed(WWBlocks.PHLOX);
 		generator.createFlowerBed(WWBlocks.LANTANAS);
@@ -199,7 +203,6 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerators generator) {
-		generator.generateFlatItem(WWBlocks.BUSH.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.DISPLAY_LANTERN.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.HANGING_TENDRIL.asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWBlocks.SPONGE_BUD.asItem(), ModelTemplates.FLAT_ITEM);

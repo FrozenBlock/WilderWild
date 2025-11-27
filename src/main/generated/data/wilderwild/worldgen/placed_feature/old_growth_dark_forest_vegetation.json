@@ -3,7 +3,11 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 17
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 32,
+        "min_inclusive": 30
+      }
     },
     {
       "type": "minecraft:in_square"
@@ -11,6 +15,13 @@
     {
       "type": "minecraft:surface_water_depth_filter",
       "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
     },
     {
       "type": "frozenlib:noise_filter",
@@ -22,13 +33,6 @@
       "noise_type": "XORO",
       "scale_y": false,
       "use_y": false
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
-    },
-    {
-      "type": "minecraft:biome"
     }
   ]
 }

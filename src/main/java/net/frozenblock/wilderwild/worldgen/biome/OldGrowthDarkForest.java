@@ -50,8 +50,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class OldGrowthDarkForest extends FrozenBiome {
-	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.200F, 0.200F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.350F, 1.000F);
 	public static final float TEMP = 0.7F;
 	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -166,22 +164,6 @@ public final class OldGrowthDarkForest extends FrozenBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, OverworldBiomeBuilder.Modifier modifier) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.get().biomeGeneration.generateOldGrowthDarkForest) {
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				if (FrozenBiomeParameters.isWeird(point)) {
-					this.addSurfaceBiome(
-						parameters,
-						TEMPERATURE,
-						HUMIDITY,
-						point.continentalness(),
-						point.erosion(),
-						point.weirdness(),
-						point.offset()
-					);
-				}
-			}
-		}
 	}
 
 }

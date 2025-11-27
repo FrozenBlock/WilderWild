@@ -1,0 +1,7 @@
+{
+  "parent": "wilderwild:block/template_bush",
+  "textures": {
+    "layer0": "wilderwild:block/bush_stage3_bottom_overlay",
+    "texture": "wilderwild:block/bush_stage3_bottom"
+  }
+}

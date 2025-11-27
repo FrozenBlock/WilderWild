@@ -4,26 +4,58 @@
     "default": "wilderwild:oak_checked",
     "features": [
       {
-        "chance": 0.045,
+        "chance": 0.035,
         "feature": {
           "feature": "minecraft:huge_brown_mushroom",
           "placement": []
         }
       },
       {
-        "chance": 0.07,
+        "chance": 0.06,
         "feature": {
           "feature": "minecraft:huge_red_mushroom",
           "placement": []
         }
       },
       {
-        "chance": 0.55,
+        "chance": 0.1,
+        "feature": "wilderwild:tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.175,
+        "feature": "wilderwild:fancy_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.025,
+        "feature": "wilderwild:cobweb_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.045,
+        "feature": "wilderwild:dying_fancy_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.04,
+        "feature": "wilderwild:cobweb_fancy_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.0355,
+        "feature": "wilderwild:dying_tall_dark_oak_checked"
+      },
+      {
+        "chance": 0.45,
         "feature": "wilderwild:dark_oak_checked"
       },
       {
-        "chance": 0.255,
+        "chance": 0.1465,
         "feature": "wilderwild:dying_dark_oak_checked"
+      },
+      {
+        "chance": 0.24,
+        "feature": "wilderwild:fancy_oak_checked"
+      },
+      {
+        "chance": 0.095,
+        "feature": "wilderwild:dying_fancy_oak_checked"
       },
       {
         "chance": 0.1,
@@ -34,40 +66,8 @@
         "feature": "wilderwild:dying_birch"
       },
       {
-        "chance": 0.6,
-        "feature": "wilderwild:tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.522,
-        "feature": "wilderwild:fancy_tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.018,
-        "feature": "wilderwild:cobweb_tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.0766,
-        "feature": "wilderwild:dying_fancy_tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.035,
-        "feature": "wilderwild:cobweb_fancy_tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.222,
-        "feature": "wilderwild:dying_tall_dark_oak_checked"
-      },
-      {
-        "chance": 0.095,
-        "feature": "wilderwild:dying_fancy_oak_checked"
-      },
-      {
         "chance": 0.045,
         "feature": "wilderwild:dying_oak_checked"
-      },
-      {
-        "chance": 0.24,
-        "feature": "wilderwild:fancy_oak_checked"
       }
     ]
   }

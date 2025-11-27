@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.block.WilderBushBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -134,6 +135,16 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.STEM,
 		TextureSlot.TOP
+	);
+	private static final ModelTemplate BUSH_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_bush")),
+		Optional.empty(),
+		TextureSlot.TEXTURE, TextureSlot.LAYER0
+	);
+	private static final ModelTemplate DOUBLE_BUSH_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_bush_double")),
+		Optional.empty(),
+		TextureSlot.BOTTOM, TextureSlot.LAYER0, TextureSlot.TOP, TextureSlot.LAYER1
 	);
 
 	public static void createLeafLitter(@NotNull BlockModelGenerators generator, Block litter) {
@@ -339,6 +350,56 @@ public final class WWModelHelper {
 			);
 
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(WWBlocks.FRAGILE_ICE.asItem()), new DelegatedModel(leastCrackedModelId));
+	}
+
+	public static void createBush(@NotNull BlockModelGenerators generator) {
+		generator.createSimpleFlatItemModel(WWBlocks.BUSH.asItem());
+
+		final TextureMapping stage0Mapping = new TextureMapping()
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage0"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage0_overlay"));
+		final ResourceLocation stage0Model = BUSH_MODEL.createWithSuffix(WWBlocks.BUSH, "_stage0", stage0Mapping, generator.modelOutput);
+
+		final TextureMapping stage1Mapping = new TextureMapping()
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage1"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage1_overlay"));
+		final ResourceLocation stage1Model = BUSH_MODEL.createWithSuffix(WWBlocks.BUSH, "_stage1", stage1Mapping, generator.modelOutput);
+
+		final TextureMapping stage2Mapping = new TextureMapping()
+			.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage2_bottom"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage2_bottom_overlay"))
+			.put(TextureSlot.TOP, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage2_top"))
+			.put(TextureSlot.LAYER1, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage2_top_overlay"));
+		final ResourceLocation stage2Model = DOUBLE_BUSH_MODEL.createWithSuffix(WWBlocks.BUSH, "_stage2", stage2Mapping, generator.modelOutput);
+
+		final TextureMapping stage3BottomMapping = new TextureMapping()
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage3_bottom"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage3_bottom_overlay"));
+		final ResourceLocation stage3BottomModel = BUSH_MODEL.createWithSuffix(WWBlocks.BUSH, "_stage3_bottom", stage3BottomMapping, generator.modelOutput);
+
+		final TextureMapping stage3TopMapping = new TextureMapping()
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage3_top"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.BUSH, "_stage3_top_overlay"));
+		final ResourceLocation stage3TopModel = BUSH_MODEL.createWithSuffix(WWBlocks.BUSH, "_stage3_top", stage3TopMapping, generator.modelOutput);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.multiVariant(WWBlocks.BUSH)
+					.with(
+						PropertyDispatch.properties(WilderBushBlock.HALF, WilderBushBlock.AGE)
+							.select(DoubleBlockHalf.LOWER, 0, Variant.variant().with(VariantProperties.MODEL, stage0Model))
+							.select(DoubleBlockHalf.UPPER, 0, Variant.variant().with(VariantProperties.MODEL, stage0Model))
+
+							.select(DoubleBlockHalf.LOWER, 1, Variant.variant().with(VariantProperties.MODEL, stage1Model))
+							.select(DoubleBlockHalf.UPPER, 1, Variant.variant().with(VariantProperties.MODEL, stage1Model))
+
+							.select(DoubleBlockHalf.LOWER, 2, Variant.variant().with(VariantProperties.MODEL, stage2Model))
+							.select(DoubleBlockHalf.UPPER, 2, Variant.variant().with(VariantProperties.MODEL, stage2Model))
+
+							.select(DoubleBlockHalf.LOWER, 3, Variant.variant().with(VariantProperties.MODEL, stage3BottomModel))
+							.select(DoubleBlockHalf.UPPER, 3, Variant.variant().with(VariantProperties.MODEL, stage3TopModel))
+					)
+			);
 	}
 
 	public static void createSeaAnemone(@NotNull BlockModelGenerators generator, Block seaAnemoneBlock) {

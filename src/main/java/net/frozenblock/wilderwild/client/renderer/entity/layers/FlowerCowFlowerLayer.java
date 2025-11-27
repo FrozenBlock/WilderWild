@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 @Environment(EnvType.CLIENT)
 public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowModel> {
 	private static final float FLOWER_SCALE = 0.75F;
+	private static final float DOUBLE_BLOCK_SCALE = 0.75F;
 
 	private final BlockRenderDispatcher blockRenderer;
 
@@ -45,80 +46,102 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, FlowerCowRenderState renderState, float f, float g) {
-		if (!renderState.isBaby) {
-			boolean bl = renderState.appearsGlowing && renderState.isInvisible;
-			if (!renderState.isInvisible|| bl) {
-				BlockState blockState = renderState.flowerBlockState;
-				int m = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
-				BakedModel bakedModel = this.blockRenderer.getBlockModel(blockState);
-				int flowersLeft = renderState.flowers;
+	public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int light, FlowerCowRenderState renderState, float f, float g) {
+		if (renderState.isBaby) return;
 
-				// BACK MIDDLE
-				if (flowersLeft >= 1) {
-					poseStack.pushPose();
-					poseStack.translate(0F, -0.35F, 0.5F);
-					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-					poseStack.popPose();
-				}
+		final int flowersLeft = renderState.flowers;
+		if (flowersLeft <= 0) return;
 
-				if (flowersLeft >= 2) {
-					// MIDDLE LEFT
-					poseStack.pushPose();
-					poseStack.translate(0.2F, -0.35F, 0F);
-					poseStack.mulPose(Axis.YP.rotationDegrees(-32));
-					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-					poseStack.popPose();
-				}
+		final boolean invisible = renderState.isInvisible;
+		final boolean invisibleAndGlowing = renderState.appearsGlowing && invisible;
+		if (invisible && !invisibleAndGlowing) return;
 
-				if (flowersLeft >= 3) {
-					// MIDDLE RIGHT
-					poseStack.pushPose();
-					poseStack.translate(-0.2F, -0.35F, -0.15F);
-					poseStack.mulPose(Axis.YP.rotationDegrees(112));
-					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-					poseStack.popPose();
-				}
+		final BlockState state = renderState.flowerBlockState;
+		final BakedModel model = this.blockRenderer.getBlockModel(state);
 
-				if (flowersLeft >= 4) {
-					// HEAD
-					poseStack.pushPose();
-					this.getParentModel().getHead().translateAndRotate(poseStack);
-					poseStack.translate(0.1F, -0.7F, -0.2F);
-					poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
-					poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-					poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-					this.renderFlowerBlock(poseStack, multiBufferSource, i, bl, blockState, m, bakedModel);
-					poseStack.popPose();
-				}
-			}
+		final boolean isDoubleBlock = renderState.topFlowerBlockState != null;
+		final BlockState topState = renderState.topFlowerBlockState;
+		final BakedModel topModel = isDoubleBlock ? this.blockRenderer.getBlockModel(topState) : null;
+
+		final float modelScale = !isDoubleBlock ? 1F : DOUBLE_BLOCK_SCALE;
+		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
+
+		// BACK MIDDLE
+		poseStack.pushPose();
+		preparePose(poseStack, 0F, -0.35F, 0.5F, 0F);
+		this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, state, overlay, model, modelScale, false);
+		if (isDoubleBlock) this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, topState, overlay, topModel, modelScale, true);
+		poseStack.popPose();
+
+		if (flowersLeft >= 2) {
+			// MIDDLE LEFT
+			poseStack.pushPose();
+			preparePose(poseStack, 0.2F, -0.35F, 0F, -32F);
+			this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, topState, overlay, topModel, modelScale, true);
+			poseStack.popPose();
+		}
+
+		if (flowersLeft >= 3) {
+			// MIDDLE RIGHT
+			poseStack.pushPose();
+			preparePose(poseStack, -0.2F, -0.35F, -0.15F, 112F);
+			this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, topState, overlay, topModel, modelScale, true);
+			poseStack.popPose();
+		}
+
+		if (flowersLeft >= 4) {
+			// HEAD
+			poseStack.pushPose();
+			this.getParentModel().getHead().translateAndRotate(poseStack);
+			preparePose(poseStack, 0.1F, -0.7F, -0.2F, -78F);
+			this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.renderFlowerBlock(poseStack, multiBufferSource, light, invisibleAndGlowing, topState, overlay, topModel, modelScale, true);
+			poseStack.popPose();
 		}
 	}
 
+	private static void preparePose(PoseStack poseStack, float xOffset, float yOffset, float zOffset, float rotation) {
+		poseStack.translate(xOffset, yOffset, zOffset);
+		if (rotation != 0F) poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+		poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+		poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
+	}
+
 	private void renderFlowerBlock(
-		PoseStack poseStack, MultiBufferSource multiBufferSource, int i, boolean bl, BlockState blockState, int j, BakedModel bakedModel
+		PoseStack poseStack,
+		MultiBufferSource multiBufferSource,
+		int light,
+		boolean glowing,
+		BlockState state,
+		int overlay,
+		BakedModel model,
+		float scale,
+		boolean isTop
 	) {
-		if (bl) {
+		final boolean pushAndPop = isTop || scale != 1F;
+		if (pushAndPop) poseStack.pushPose();
+		if (scale != 1F) poseStack.scale(scale, scale, scale);
+		if (isTop) poseStack.translate(0F, 1F, 0F);
+
+		if (glowing) {
 			this.blockRenderer.getModelRenderer()
 				.renderModel(
 					poseStack.last(),
 					multiBufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
-					blockState,
-					bakedModel,
+					state,
+					model,
 					0F,
 					0F,
 					0F,
-					i,
-					j
+					light,
+					overlay
 				);
 		} else {
-			this.blockRenderer.renderSingleBlock(blockState, poseStack, multiBufferSource, i, j);
+			this.blockRenderer.renderSingleBlock(state, poseStack, multiBufferSource, light, overlay);
 		}
+
+		if (pushAndPop) poseStack.popPose();
 	}
 }
