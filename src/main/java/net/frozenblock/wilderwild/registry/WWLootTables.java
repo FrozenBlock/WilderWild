@@ -35,6 +35,7 @@ public final class WWLootTables {
 
 	public static void init() {
 		WWConstants.logWithModId("Registering Loot Table Modifications for", WWConstants.UNSTABLE_LOGGING);
+
 		//SHIPWRECK
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
@@ -123,6 +124,7 @@ public final class WWLootTables {
 				}
 			}
 		});
+
 		//SAVANNA VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.get().treeGeneration.baobab) {
@@ -141,6 +143,7 @@ public final class WWLootTables {
 				});
 			}
 		});
+
 		//DESERT VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
@@ -174,7 +177,8 @@ public final class WWLootTables {
 				}
 			}
 		});
-		//OSSEOUS SCULK
+
+		//ANCIENT CITY
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				final WWBlockConfig.SculkConfig sculkConfig = WWBlockConfig.get().sculk;
