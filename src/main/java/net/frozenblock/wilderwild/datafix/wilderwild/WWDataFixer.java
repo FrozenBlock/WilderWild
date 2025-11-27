@@ -22,6 +22,7 @@ import com.mojang.datafixers.schemas.Schema;
 import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.BushStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateFix;
@@ -33,7 +34,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 28;
+	public static final int DATA_VERSION = 30;
 
 	private WWDataFixer() {
 		throw new UnsupportedOperationException("WWDataFixer contains only static declarations.");
@@ -206,6 +207,14 @@ public final class WWDataFixer {
 
 		Schema schemaV28 = builder.addSchema(28, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename autumnal_plains to tundra", Map.of(WWConstants.id("autumnal_plains"), WWConstants.id("tundra")), schemaV28);
+
+		Schema schemaV29 = builder.addSchema(29, NamespacedSchema::new);
+		SimpleFixes.addBlockRenameFix(builder, "Rename maple_sapling to yellow_maple_sapling", WWConstants.id("maple_sapling"), WWConstants.id("yellow_maple_sapling"), schemaV29);
+		SimpleFixes.addItemRenameFix(builder, "Rename maple_sapling to yellow_maple_sapling", WWConstants.id("maple_sapling"), WWConstants.id("yellow_maple_sapling"), schemaV29);
+		SimpleFixes.addBlockRenameFix(builder, "Rename potted_maple_sapling to potted_yellow_maple_sapling", WWConstants.id("potted_maple_sapling"), WWConstants.id("potted_yellow_maple_sapling"), schemaV29);
+
+		Schema schemaV30 = builder.addSchema(30, NamespacedSchema::new);
+		builder.addFixer(new BushStateFix(schemaV30, "bush age 2 to age 3", WWConstants.id("bush")));
 
 		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

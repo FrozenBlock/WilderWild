@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -74,32 +73,26 @@ public final class MoobloomVariants {
 			resourceKey,
 			new MoobloomVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
-				flowerBlock.defaultBlockState()
+				flowerBlock.defaultBlockState(),
+				Optional.empty()
 			)
 		);
 	}
 
-	public static Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(
-		RandomSource randomSource,
-		RegistryAccess registryAccess,
-		SpawnContext spawnContext
-	) {
-		final Registry<MoobloomVariant> registry = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT);
-
-		final List<ConfiguredFeature<?, ?>> flowerFeatures = spawnContext.biome().value().getGenerationSettings().getFlowerFeatures();
+	public static Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(RandomSource random, RegistryAccess registryAccess, SpawnContext context) {
+		final List<ConfiguredFeature<?, ?>> flowerFeatures = context.biome().value().getGenerationSettings().getFlowerFeatures();
 		final List<BlockState> biomeFlowerStates = new ArrayList<>();
 		for (ConfiguredFeature<?, ?> feature : flowerFeatures) {
-			if (feature.config() instanceof RandomPatchConfiguration randomPatchConfiguration) {
-				ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
-				biomeFlowerStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, spawnContext.pos(), randomSource));
-			}
+			if (!(feature.config() instanceof RandomPatchConfiguration randomPatchConfiguration)) continue;
+			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
+			biomeFlowerStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, context.pos(), random));
 		}
 
-		final List<Holder.Reference<MoobloomVariant>> variants = registry.listElements()
+		final List<Holder.Reference<MoobloomVariant>> variants = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT)
+			.listElements()
 			.filter(reference -> biomeFlowerStates.contains(reference.value().flowerBlockState()))
 			.toList();
-
-		return Util.getRandomSafe(variants, randomSource);
+		return Util.getRandomSafe(variants, random);
 	}
 
 	private static List<BlockState> getBlockStatesFromConfiguredFeature(ConfiguredFeature<?, ?> feature, BlockPos pos, RandomSource random) {
@@ -107,7 +100,7 @@ public final class MoobloomVariants {
 
 		final FeatureConfiguration config = feature.config();
 		if (config instanceof RandomPatchConfiguration randomPatchConfiguration) {
-			ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
+			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
 			blockStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, pos, random));
 		} else if (config instanceof SimpleBlockConfiguration simpleBlockConfiguration) {
 			blockStates.add(simpleBlockConfiguration.toPlace().getState(random, pos));

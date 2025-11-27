@@ -26,8 +26,8 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -317,7 +317,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWItems.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING.asItem());
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING.asItem(), WWBlocks.ORANGE_MAPLE_SAPLING.asItem(), WWBlocks.RED_MAPLE_SAPLING.asItem());
 
 		this.valueLookupBuilder(ItemTags.SIGNS)
 			.add(WWItems.BAOBAB_SIGN)

@@ -31,13 +31,12 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 
 public class WillowFoliagePlacer extends BlobFoliagePlacer {
 	public static final MapCodec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		blobParts(instance)
-			.and(
-				instance.group(
-					Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
-					Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance)
-				)
-			).apply(instance, WillowFoliagePlacer::new)
+		blobParts(instance).and(
+			instance.group(
+				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
+				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance)
+			)
+		).apply(instance, WillowFoliagePlacer::new)
 	);
 	private final float hangingLeavesChance;
 	private final float hangingLeavesExtensionChance;

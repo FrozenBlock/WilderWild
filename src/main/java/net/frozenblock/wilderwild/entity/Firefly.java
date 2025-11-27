@@ -210,6 +210,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 			if (!this.level().isClientSide()) {
 				this.setColor(newFireflyColor.get());
+				this.setPersistenceRequired();
 				stack.shrink(1);
 			}
 

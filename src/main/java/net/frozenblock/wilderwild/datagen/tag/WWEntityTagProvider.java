@@ -25,8 +25,8 @@ import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 
@@ -70,7 +70,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
@@ -86,13 +86,16 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
 		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
+
+		this.valueLookupBuilder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
+			.add(WWEntityTypes.SCORCHED);
 
 		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)

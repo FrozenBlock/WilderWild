@@ -17,37 +17,45 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.foliage;
 
-import com.mojang.datafixers.Products;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWFeatures;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
-public class MapleFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> mapleFoliagePlacerParts(instance).apply(instance, MapleFoliagePlacer::new)
+public class MapleFoliagePlacer extends BlobFoliagePlacer {
+	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		blobParts(instance).and(
+			instance.group(
+				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
+				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance),
+				FoliagePlacer.CODEC.fieldOf("alt_foliage_placer").forGetter(placer -> placer.altFoliagePlacer)
+			)
+		).apply(instance, MapleFoliagePlacer::new)
 	);
+	private final float hangingLeavesChance;
+	private final float hangingLeavesExtensionChance;
+	private final FoliagePlacer altFoliagePlacer;
 
-	@Contract("_ -> new")
-	protected static <P extends MapleFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> mapleFoliagePlacerParts(
-		RecordCodecBuilder.Instance<P> instance
+	public MapleFoliagePlacer(
+		IntProvider radius,
+		IntProvider offset,
+		int height,
+		float hangingLeavesChance,
+		float hangingLeavesExtensionChance,
+		FoliagePlacer altFoliagePlacer
 	) {
-		return foliagePlacerParts(instance).and(IntProvider.codec(0, 24).fieldOf("length").forGetter((placer) -> placer.length));
-	}
-
-	protected final IntProvider length;
-
-	public MapleFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider foliageHeight) {
-		super(radius, offset);
-		this.length = foliageHeight;
+		super(radius, offset, height);
+		this.hangingLeavesChance = hangingLeavesChance;
+		this.hangingLeavesExtensionChance = hangingLeavesExtensionChance;
+		this.altFoliagePlacer = altFoliagePlacer;
 	}
 
 	@Override
@@ -56,98 +64,59 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
+	public void createFoliage(
 		LevelSimulatedReader level,
-		FoliagePlacer.FoliageSetter placer,
+		FoliageSetter setter,
 		RandomSource random,
 		TreeConfiguration config,
 		int trunkHeight,
-		FoliagePlacer.FoliageAttachment node,
+		FoliageAttachment foliageAttachment,
 		int foliageHeight,
 		int radius,
 		int offset
 	) {
-		final BlockPos pos = node.pos();
-		final int totalHeight = offset + foliageHeight;
-		int currentHeight = totalHeight;
-
-		for (int l = offset; l >= -foliageHeight; l--) {
-			this.placeLeavesInCircle(level, placer, random, config, pos, radius, l, node.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
-			currentHeight -= 1;
+		if (!WWWorldgenConfig.NEW_MAPLES) {
+			this.altFoliagePlacer.createFoliage(
+				level,
+				setter,
+				random,
+				config,
+				trunkHeight,
+				foliageAttachment,
+				this.altFoliagePlacer.foliageHeight(random, trunkHeight, config),
+				this.altFoliagePlacer.foliageRadius(random, trunkHeight)
+			);
+			return;
 		}
-	}
 
-	protected void placeLeavesInCircle(
-		LevelSimulatedReader level,
-		FoliagePlacer.FoliageSetter placer,
-		RandomSource random,
-		TreeConfiguration config,
-		BlockPos pos,
-		int providedRadius,
-		int y,
-		boolean giantTrunk,
-		int totalHeight,
-		int currentHeight,
-		int trunkHeight
-	) {
-		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final double radius = providedRadius + ((random.nextDouble() - this.getRandomRadiusShrink()) * 0.4D);
-		final double increment = radius * 0.05D;
-
-		for (double x = -radius; x <= radius; x += increment) {
-			for (double z = -radius; z <= radius; z += increment) {
-				if (this.shouldSkipMapleLocationSigned(x, z, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) continue;
-				mutable.setWithOffset(pos, (int) x, y, (int) z);
-				tryPlaceLeaf(level, placer, random, config, mutable);
+		for (int relativeY = offset; relativeY >= offset - foliageHeight; relativeY--) {
+			final int newRadius = Math.max(radius + foliageAttachment.radiusOffset() - 1 - relativeY / 2, 0);
+			if (relativeY <= offset - foliageHeight) {
+				this.placeLeavesRowWithHangingLeavesBelow(
+					level,
+					setter,
+					random,
+					config,
+					foliageAttachment.pos().above(2),
+					newRadius,
+					relativeY,
+					foliageAttachment.doubleTrunk(),
+					this.hangingLeavesChance,
+					this.hangingLeavesExtensionChance
+				);
+			} else {
+				this.placeLeavesRow(
+					level,
+					setter,
+					random,
+					config,
+					foliageAttachment.pos().above(2),
+					newRadius,
+					relativeY,
+					foliageAttachment.doubleTrunk()
+				);
 			}
 		}
 	}
-
-	protected double getRandomRadiusShrink() {
-		return -0.5D;
-	}
-
-	protected boolean shouldSkipMapleLocationSigned(double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight) {
-		double i;
-		double j;
-		if (giantTrunk) {
-			i = Math.min(Math.abs(dx), Math.abs(dx - 1));
-			j = Math.min(Math.abs(dz), Math.abs(dz - 1));
-		} else {
-			i = Math.abs(dx);
-			j = Math.abs(dz);
-		}
-
-		return this.shouldSkipMapleLocation(i, j, radius, totalHeight, currentHeight, trunkHeight);
-	}
-
-	protected boolean shouldSkipMapleLocation(double xDistance, double zDistance, double radius, int totalHeight, int currentHeight, int trunkHeight) {
-		final double mapleFunction = this.getMapleFoliageFunction(totalHeight, currentHeight, radius, currentHeight <= trunkHeight);
-		final double distance = new Vec3(xDistance, 0, zDistance).horizontalDistance();
-		return distance > mapleFunction && distance > 0.4D;
-	}
-
-	protected double getMapleFoliageFunction(double totalHeight, double height, double radius, boolean hot) {
-		final double flippedHeight = totalHeight - height;
-		final double functionHeight = totalHeight - 1D;
-
-		final double functionInput = flippedHeight + (height / functionHeight);
-		final double functionNumerator = (functionInput * functionInput) * Math.PI;
-		final double functionDenominator = (functionHeight * functionHeight) + (functionHeight * 2.5D) + (totalHeight * radius);
-		final double function = Math.sin(functionNumerator / functionDenominator);
-		final double finalFunction = function * (radius * 0.75D) + 0.45D;
-		final double min = hot ? 1.2D : 0D;
-
-		return Math.max(finalFunction, min);
-	}
-
-	@Override
-	public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
-		return Math.max(5, trunkHeight - this.length.sample(random));
-	}
-
-	@Override
-	protected boolean shouldSkipLocation(RandomSource random, int dx, int y, int dz, int radius, boolean giantTrunk) {
-		return false;
-	}
 }
+

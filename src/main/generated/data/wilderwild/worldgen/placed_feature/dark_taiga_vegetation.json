@@ -13,6 +13,13 @@
       "max_water_depth": 0
     },
     {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
       "type": "frozenlib:noise_filter",
       "fade_distance": 0.2,
       "maxThresh": 1.0,
@@ -22,13 +29,6 @@
       "noise_type": "XORO",
       "scale_y": false,
       "use_y": false
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
-    },
-    {
-      "type": "minecraft:biome"
     }
   ]
 }

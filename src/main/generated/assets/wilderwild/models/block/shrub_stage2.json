@@ -1,0 +1,9 @@
+{
+  "parent": "wilderwild:block/template_shrub_double",
+  "textures": {
+    "bottom": "wilderwild:block/shrub_stage2_bottom",
+    "layer0": "wilderwild:block/shrub_stage2_bottom_overlay",
+    "layer1": "wilderwild:block/shrub_stage2_top_overlay",
+    "top": "wilderwild:block/shrub_stage2_top"
+  }
+}

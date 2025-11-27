@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -40,15 +41,11 @@ import net.minecraft.world.level.block.Blocks;
 
 public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
-	public static final ParticleType<SeedParticleOptions> SEED = register(
-		"seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC
-	);
+	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
 	public static final SimpleParticleType PALE_FOG = register("pale_fog");
 	public static final SimpleParticleType PALE_FOG_SMALL = register("pale_fog_small");
 	public static final SimpleParticleType PALE_SPORE = register("pale_spore");
-	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register(
-		"floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC
-	);
+	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
@@ -121,6 +118,8 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType CURRENT_DOWN_MESOGLEA_BLUE = register("current_down_mesoglea_blue");
 	public static final SimpleParticleType MESOGLEA_BUBBLE_POP_BLUE = register("mesoglea_bubble_pop_blue");
 	public static final SimpleParticleType MESOGLEA_SPLASH_BLUE = register("mesoglea_splash_blue");
+
+	public static final ParticleType<WindClusterSeedParticleOptions> WIND_CLUSTER = register("wind_cluster", false, particleType -> WindClusterSeedParticleOptions.CODEC, particleType -> WindClusterSeedParticleOptions.STREAM_CODEC);
 
 	public static final ParticleType<WWFallingLeavesParticleOptions> OAK_LEAVES = createLeafParticle(
 		WWConstants.id("oak_leaves"),

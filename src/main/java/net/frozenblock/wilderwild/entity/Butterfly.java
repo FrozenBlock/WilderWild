@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
@@ -64,6 +65,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
@@ -109,13 +111,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		return level.getPathfindingCostFromLightLevels(pos) + bonus;
 	}
 
-	public static boolean checkButterflySpawnRules(
-		EntityType<Butterfly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random
-	) {
+	public static boolean checkButterflySpawnRules(EntityType<Butterfly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
-		if (EntitySpawnReason.ignoresLightRequirements(reason)) return true;
-
-		return level.getRawBrightness(pos, 0) > 8 && level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
+		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || Animal.isBrightEnoughToSpawn(level, pos))) return true;
+		if (level.getBiome(pos).is(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN) && random.nextInt(30) != 0) return false;
+		return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

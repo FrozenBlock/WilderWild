@@ -68,11 +68,6 @@ public record FireflyColor(
 		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name, dyeColor);
 	}
 
-	@Override
-	public ClientAsset.ResourceTexture resourceTexture() {
-		return this.resourceTexture;
-	}
-
 	public static Optional<FireflyColor> getByDyeColor(RegistryAccess registryAccess, DyeColor dyeColor) {
 		return registryAccess.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
 			.stream()

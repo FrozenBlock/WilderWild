@@ -40,8 +40,16 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
-		LevelSimulatedReader level, FoliageSetter placer, RandomSource random, TreeConfiguration config, int trunkHeight, FoliageAttachment node, int foliageHeight, int radius, int offset
+	public void createFoliage(
+		LevelSimulatedReader world,
+		FoliageSetter placer,
+		RandomSource random,
+		TreeConfiguration config,
+		int trunkHeight,
+		FoliageAttachment node,
+		int foliageHeight,
+		int radius,
+		int offset
 	) {
 	}
 

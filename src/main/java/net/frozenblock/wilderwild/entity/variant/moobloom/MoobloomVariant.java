@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
@@ -28,18 +29,19 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState) {
+public record MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState, Optional<BlockState> topFlowerBlockState, boolean isDoubleBlock) {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::resourceTexture),
-			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::flowerBlockState)
+			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::flowerBlockState),
+			BlockState.CODEC.optionalFieldOf("top_flower_block_state").forGetter(MoobloomVariant::topFlowerBlockState)
 		).apply(instance, MoobloomVariant::new)
 	);
 	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 
-	@Override
-	public ClientAsset.ResourceTexture resourceTexture() {
-		return this.resourceTexture;
+	public MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState, Optional<BlockState> topFlowerBlockState) {
+		this(resourceTexture, flowerBlockState, topFlowerBlockState, topFlowerBlockState.isPresent());
 	}
+
 }

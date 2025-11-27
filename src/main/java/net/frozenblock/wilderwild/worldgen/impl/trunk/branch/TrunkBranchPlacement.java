@@ -44,7 +44,7 @@ public record TrunkBranchPlacement(
 	float offsetLastLogChance,
 	int minBranchLengthForOffset,
 	float foliagePlacementChance,
-	int foliageRadiusShrink
+	IntProvider foliageRadiusOffset
 ) {
 	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
@@ -52,12 +52,16 @@ public record TrunkBranchPlacement(
 			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
 			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
 			IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
-			Codec.FLOAT.fieldOf("offset_last_log_chance").forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
-			Codec.intRange(0, 16).fieldOf("minimum_branch_length_for_offset").forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
-			Codec.FLOAT.fieldOf("foliage_placement_chance").forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
-			Codec.intRange(0, 3).lenientOptionalFieldOf("foliage_radius_shrink", 0).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusShrink)
+			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
+			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_branch_length_for_offset", 1).forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
+			Codec.FLOAT.lenientOptionalFieldOf("foliage_placement_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
+			IntProvider.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusOffset)
 		).apply(instance, TrunkBranchPlacement::new)
 	);
+
+	public static Builder builder() {
+		return new Builder();
+	}
 
 	public boolean canPlaceBranch(RandomSource random) {
 		return random.nextFloat() <= this.branchChance;
@@ -77,6 +81,14 @@ public record TrunkBranchPlacement(
 
 	public boolean canPlaceFoliage(RandomSource random) {
 		return random.nextFloat() <= this.foliagePlacementChance;
+	}
+
+	public IntProvider getFoliageRadiusOffset() {
+		return this.foliageRadiusOffset;
+	}
+
+	public int getFoliageRadiusOffset(RandomSource random) {
+		return this.foliageRadiusOffset.sample(random);
 	}
 
 	public void generateExtraBranchForFallenLog(
@@ -137,7 +149,7 @@ public record TrunkBranchPlacement(
 				hasPassedConfigCheck = true;
 				replacer.accept(branchPos, logState);
 				if (isLastLog && this.canPlaceFoliage(random)) {
-					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), -this.foliageRadiusShrink(), false));
+					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), this.getFoliageRadiusOffset(random), false));
 				}
 			} else {
 				return;
@@ -161,7 +173,7 @@ public record TrunkBranchPlacement(
 		private float offsetLastLogChance = 0F;
 		private int minBranchLengthForOffset = 1;
 		private float foliagePlacementChance = 0F;
-		private int foliageRadiusShrink = 0;
+		private IntProvider foliageRadiusOffset = ConstantInt.ZERO;
 
 		public Builder() {
 		}
@@ -206,8 +218,8 @@ public record TrunkBranchPlacement(
 			return this;
 		}
 
-		public Builder foliageRadiusShrink(int foliageRadiusShrink) {
-			this.foliageRadiusShrink = foliageRadiusShrink;
+		public Builder foliageRadiusOffset(IntProvider foliageRadiusOffset) {
+			this.foliageRadiusOffset = foliageRadiusOffset;
 			return this;
 		}
 
@@ -220,7 +232,7 @@ public record TrunkBranchPlacement(
 				this.offsetLastLogChance,
 				this.minBranchLengthForOffset,
 				this.foliagePlacementChance,
-				this.foliageRadiusShrink
+				this.foliageRadiusOffset
 			);
 		}
 	}

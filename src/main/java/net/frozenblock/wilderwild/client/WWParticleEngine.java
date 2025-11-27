@@ -37,6 +37,7 @@ import net.frozenblock.wilderwild.particle.SeedParticle;
 import net.frozenblock.wilderwild.particle.ShriekerBubbleSeedParticle;
 import net.frozenblock.wilderwild.particle.TermiteParticle;
 import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
+import net.frozenblock.wilderwild.particle.WindClusterSeedParticle;
 import net.frozenblock.wilderwild.particle.provider.WWParticleProviders;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 
@@ -82,6 +83,7 @@ public final class WWParticleEngine {
 
 		particleRegistry.register(WWParticleTypes.CHEST_BUBBLE_SPAWNER, ChestBubbleSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER, ShriekerBubbleSeedParticle.Provider::new);
+		particleRegistry.register(WWParticleTypes.WIND_CLUSTER, WindClusterSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.POLLEN, PollenParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.SEED, SeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.PALE_FOG, PaleFogParticle.LargeFactory::new);

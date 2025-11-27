@@ -33,7 +33,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "wilderwild:maple_sapling",
+          "Name": "wilderwild:yellow_maple_sapling",
           "Properties": {
             "stage": "0"
           }

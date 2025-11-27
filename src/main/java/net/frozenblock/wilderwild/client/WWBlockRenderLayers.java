@@ -35,7 +35,9 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_WILLOW_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_CYPRESS_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_COCONUT, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_RED_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_BIG_DRIPLEAF, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_SMALL_DRIPLEAF, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_SHORT_GRASS, ChunkSectionLayer.CUTOUT);
@@ -54,7 +56,6 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_YELLOW_HIBISCUS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_PINK_HIBISCUS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_PURPLE_HIBISCUS, ChunkSectionLayer.CUTOUT);
-
 		BlockRenderLayerMap.putBlock(WWBlocks.FROZEN_SHORT_GRASS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.POTTED_FROZEN_SHORT_GRASS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.FROZEN_TALL_GRASS, ChunkSectionLayer.CUTOUT);
@@ -112,7 +113,9 @@ public final class WWBlockRenderLayers {
 		BlockRenderLayerMap.putBlock(WWBlocks.WILLOW_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.CYPRESS_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.COCONUT, ChunkSectionLayer.CUTOUT);
-		BlockRenderLayerMap.putBlock(WWBlocks.MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.ORANGE_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(WWBlocks.RED_MAPLE_SAPLING, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.RED_HIBISCUS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.WHITE_HIBISCUS, ChunkSectionLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(WWBlocks.YELLOW_HIBISCUS, ChunkSectionLayer.CUTOUT);

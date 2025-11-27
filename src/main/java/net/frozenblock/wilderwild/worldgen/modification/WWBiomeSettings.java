@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.worldgen.modification;
 
+import java.util.List;
 import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -29,7 +30,6 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.attribute.AmbientParticle;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biomes;
-import java.util.List;
 
 public final class WWBiomeSettings {
 

@@ -44,7 +44,7 @@ accessible field net/minecraft/world/entity/SpawnPlacements$Data predicate Lnet/
 accessible field net/minecraft/world/entity/SpawnPlacements$Data placement Lnet/minecraft/world/entity/SpawnPlacementType;
 accessible field net/minecraft/world/entity/SpawnPlacements$Data heightMap Lnet/minecraft/world/level/levelgen/Heightmap$Types;
 accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
-
+accessible method net/minecraft/world/entity/animal/Animal isBrightEnoughToSpawn (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;)Z
 
 # Entity Rendering
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;

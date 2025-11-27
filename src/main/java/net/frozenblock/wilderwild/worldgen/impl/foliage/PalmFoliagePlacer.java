@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.foliage;
 
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
@@ -32,11 +31,12 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public class PalmFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		palmCodec(instance).apply(instance, PalmFoliagePlacer::new)
+	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
+		foliagePlacerParts(instance)
+			.and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength))
+			.apply(instance, PalmFoliagePlacer::new)
 	);
 
 	protected final IntProvider frondLength;
@@ -44,11 +44,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	public PalmFoliagePlacer(IntProvider radius, IntProvider offset, IntProvider frondLength) {
 		super(radius, offset);
 		this.frondLength = frondLength;
-	}
-
-	@Contract("_ -> new")
-	protected static <P extends PalmFoliagePlacer> Products.P3<RecordCodecBuilder.Mu<P>, IntProvider, IntProvider, IntProvider> palmCodec(RecordCodecBuilder.Instance<P> instance) {
-		return foliagePlacerParts(instance).and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength));
 	}
 
 	@Override
@@ -69,7 +64,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		int offset
 	) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		boolean isSmall = radius <= 1;
+		final boolean isSmall = radius <= 1;
 
 		final BlockPos topLayerPos = node.pos().above(offset);
 		final Vec3 topLayerCenter = Vec3.atCenterOf(topLayerPos);
@@ -97,10 +92,9 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 				mutable.setWithOffset(middleLayerPos, xOff, 0, zOff);
 				tryPlaceLeaf(level, placer, random, config, mutable);
 				if (isCorner(xOff, zOff, radius)) {
-					if (!isSmall) {
-						final BlockPos frondPos = mutable.immutable();
-						frondPoses.add(frondPos);
-					}
+					if (isSmall) continue;
+					final BlockPos frondPos = mutable.immutable();
+					frondPoses.add(frondPos);
 				} else if (isEdge(xOff, zOff, radius)) {
 					final Direction offsetDir = Direction.getApproximateNearest(xOff, 0, zOff);
 					mutable.move(offsetDir.getUnitVec3i());
@@ -111,7 +105,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		}
 
 		for (BlockPos frondPos : frondPoses) {
-			int frondLength = this.frondLength.sample(random);
+			final int frondLength = this.frondLength.sample(random);
 			for (int i = 0; i < frondLength; ++i) {
 				tryPlaceLeaf(level, placer, random, config, mutable.setWithOffset(frondPos, 0, -i, 0));
 			}

@@ -28,6 +28,9 @@ import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.AABB;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
@@ -35,6 +38,13 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	public FlowerCowRenderer(Context context) {
 		super(context, new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM)), new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM_BABY)), 0.7F);
 		this.addLayer(new FlowerCowFlowerLayer(this, context.getBlockRenderDispatcher()));
+	}
+
+	@Override
+	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow) {
+		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow);
+		if (flowerCow.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		return boundingBox;
 	}
 
 	@Override
@@ -50,6 +60,9 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		final MoobloomVariant variant = flowerCow.getVariantForRendering();
 		renderState.texture = variant.resourceTexture().texturePath();
 		renderState.flowerBlockState = variant.flowerBlockState();
+		renderState.topFlowerBlockState = variant.isDoubleBlock()
+			? renderState.flowerBlockState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER)
+			: null;
 	}
 
 	@Override

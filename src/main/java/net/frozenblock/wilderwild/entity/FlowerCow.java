@@ -303,21 +303,28 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	private MoobloomVariant getOffspringVariant(ServerLevel level, FlowerCow otherFlowerCow) {
-		MoobloomVariant moobloomVariant = this.getVariant();
-		MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
+		final MoobloomVariant moobloomVariant = this.getVariant();
+		final MoobloomVariant otherMoobloomVariant = otherFlowerCow.getVariant();
 
-		BlockState flowerBlock = moobloomVariant.flowerBlockState();
-		BlockState otherFlowerBlock = otherMoobloomVariant.flowerBlockState();
+		final BlockState flowerBlock = moobloomVariant.flowerBlockState();
+		final BlockState otherFlowerBlock = otherMoobloomVariant.flowerBlockState();
 
-		Optional<DyeColor> dyeColor = getDyeColorFromFlower(level, flowerBlock.getBlock());
-		Optional<DyeColor> otherDyeColor = getDyeColorFromFlower(level, otherFlowerBlock.getBlock());
+		final Optional<DyeColor> dyeColor = getDyeColorFromFlower(level, flowerBlock.getBlock());
+		final Optional<DyeColor> otherDyeColor = getDyeColorFromFlower(level, otherFlowerBlock.getBlock());
 
-		if (dyeColor.isPresent() && otherDyeColor.isPresent()) {
-			DyeColor outputDyeColor = getCombinedDyeColor(level, dyeColor.get(), otherDyeColor.get());
-			Stream<MoobloomVariant> variantStream = level.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).stream();
+		returnCombinedColor: {
+			if (dyeColor.isEmpty() && otherDyeColor.isEmpty()) break returnCombinedColor;
+			final DyeColor thisColor = dyeColor.get();
+			final DyeColor otherColor = otherDyeColor.get();
+			if (thisColor == otherColor) break returnCombinedColor;
+
+			final DyeColor outputDyeColor = getCombinedDyeColor(level, dyeColor.get(), otherDyeColor.get());
+			if (outputDyeColor == thisColor || outputDyeColor == otherColor) break returnCombinedColor;
+
+			final Stream<MoobloomVariant> variantStream = level.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).stream();
 			for (MoobloomVariant registeredVariant : Util.toShuffledList(variantStream, this.random)) {
-				Block variantFlower = registeredVariant.flowerBlockState().getBlock();
-				Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(level, variantFlower);
+				final Block variantFlower = registeredVariant.flowerBlockState().getBlock();
+				final Optional<DyeColor> flowerDyeColor = getDyeColorFromFlower(level, variantFlower);
 				if (flowerDyeColor.isPresent() && flowerDyeColor.get().equals(outputDyeColor)) return registeredVariant;
 			}
 		}
@@ -326,7 +333,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	private static Optional<DyeColor> getDyeColorFromFlower(ServerLevel level, Block flowerBlock) {
-		CraftingInput craftingInput = makeCraftInputForFlower(flowerBlock);
+		final CraftingInput craftingInput = makeCraftInputForFlower(flowerBlock);
 		return level.recipeAccess()
 			.getRecipeFor(RecipeType.CRAFTING, craftingInput, level)
 			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput, level.registryAccess()))
@@ -337,7 +344,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	private static DyeColor getCombinedDyeColor(ServerLevel level, DyeColor dyeColor, DyeColor otherDyeColor) {
-		CraftingInput craftingInput = makeCraftInput(dyeColor, otherDyeColor);
+		final CraftingInput craftingInput = makeCraftInput(dyeColor, otherDyeColor);
 		return level.recipeAccess()
 			.getRecipeFor(RecipeType.CRAFTING, craftingInput, level)
 			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput, level.registryAccess()))
