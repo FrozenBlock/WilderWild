@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.FroglightTypeHolder;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import java.util.Optional;
 
 public class FroglightGoopBlock extends GrowingPlantHeadBlock implements FroglightTypeHolder {
 	public static final MapCodec<FroglightGoopBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->

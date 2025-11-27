@@ -459,22 +459,6 @@ public class BiolithIntegration extends ModIntegration {
 
 		if (biomeGeneration.generateOldGrowthDarkForest) {
 			BiomePlacement.replaceOverworld(Biomes.DARK_FOREST, WWBiomes.OLD_GROWTH_DARK_FOREST, 0.5F);
-			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -1F, -0.2F));
-			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, 0.2F, 1F));
-			BiomePlacement.addSubOverworld(WWBiomes.OLD_GROWTH_DARK_FOREST, Biomes.DARK_FOREST, CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -1F, 0.35F));
-
-			/*
-			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-				addSurfaceBiome(
-					WWBiomes.OLD_GROWTH_DARK_FOREST,
-					OldGrowthDarkForest.TEMPERATURE,
-					OldGrowthDarkForest.HUMIDITY,
-					point.continentalness(),
-					point.erosion(),
-					point.weirdness()
-				);
-			}
-			 */
 		}
 
 		if (biomeGeneration.generateSnowyDyingForest) {

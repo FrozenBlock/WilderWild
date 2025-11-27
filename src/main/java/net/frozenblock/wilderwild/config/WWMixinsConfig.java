@@ -130,6 +130,8 @@ public final class WWMixinsConfig {
 
 	public boolean entity_turtle = true;
 
+	public boolean entity_villager = true;
+
 	public boolean entity_firework_rocket = true;
 
 	public boolean item_brush = true;

@@ -39,7 +39,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import org.jetbrains.annotations.NotNull;
 import net.minecraft.Util;
 
 public final class MoobloomVariants {
@@ -60,14 +59,14 @@ public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> PASQUEFLOWER = createKey("pasqueflower");
 	public static final ResourceKey<MoobloomVariant> DEFAULT = DANDELION;
 
-	private static @NotNull ResourceKey<MoobloomVariant> createKey(String string) {
+	private static ResourceKey<MoobloomVariant> createKey(String string) {
 		return ResourceKey.create(WilderWildRegistries.MOOBLOOM_VARIANT, WWConstants.id(string));
 	}
 
 	private static void register(
-		@NotNull BootstrapContext<MoobloomVariant> bootstrapContext,
+		BootstrapContext<MoobloomVariant> bootstrapContext,
 		ResourceKey<MoobloomVariant> resourceKey,
-		@NotNull Block flowerBlock,
+		Block flowerBlock,
 		String name
 	) {
 		String texturePath = "entity/moobloom/moobloom_" + name;
@@ -75,15 +74,16 @@ public final class MoobloomVariants {
 			resourceKey,
 			new MoobloomVariant(
 				new ClientAsset(WWConstants.id(texturePath)),
-				flowerBlock.defaultBlockState()
+				flowerBlock.defaultBlockState(),
+				Optional.empty()
 			)
 		);
 	}
 
-	public static @NotNull Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(
+	public static Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(
 		RandomSource randomSource,
-		@NotNull RegistryAccess registryAccess,
-		@NotNull SpawnContext spawnContext
+		RegistryAccess registryAccess,
+		SpawnContext spawnContext
 	) {
 		Registry<MoobloomVariant> registry = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT);
 
@@ -103,7 +103,7 @@ public final class MoobloomVariants {
 		return Util.getRandomSafe(variants, randomSource);
 	}
 
-	private static @NotNull List<BlockState> getBlockStatesFromConfiguredFeature(@NotNull ConfiguredFeature<?, ?> feature, BlockPos pos, RandomSource random) {
+	private static List<BlockState> getBlockStatesFromConfiguredFeature(ConfiguredFeature<?, ?> feature, BlockPos pos, RandomSource random) {
 		List<BlockState> blockStates = new ArrayList<>();
 
 		FeatureConfiguration config = feature.config();

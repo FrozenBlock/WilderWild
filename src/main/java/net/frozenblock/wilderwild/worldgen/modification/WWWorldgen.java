@@ -45,7 +45,7 @@ public final class WWWorldgen {
 		configureBuiltInBiomes();
 		replaceFeatures();
 		WWVegetationGeneration.generateFlower();
-		WWVegetationGeneration.generateBush();
+		WWVegetationGeneration.generateShrub();
 		WWVegetationGeneration.generateCacti();
 		WWAquaticGeneration.generateAquaticFeatures();
 		WWVegetationGeneration.generateGrass();
@@ -447,7 +447,7 @@ public final class WWWorldgen {
 				if (WWWorldgenConfig.get().treeGeneration.treeGeneration) {
 					BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 					generationSettings.removeFeature(VegetationPlacements.TREES_WATER);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BUSHES_WATER.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIG_BUSHES_WATER.getKey());
 				}
 			});
 

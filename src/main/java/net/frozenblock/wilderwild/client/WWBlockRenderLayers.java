@@ -37,7 +37,9 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_WILLOW_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_COCONUT, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.POTTED_MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.POTTED_RED_MAPLE_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_BIG_DRIPLEAF, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_SMALL_DRIPLEAF, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.POTTED_SHORT_GRASS, RenderType.cutout());
@@ -114,7 +116,9 @@ public final class WWBlockRenderLayers {
 		renderLayerRegistry.putBlock(WWBlocks.WILLOW_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.CYPRESS_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.COCONUT, RenderType.cutout());
-		renderLayerRegistry.putBlock(WWBlocks.MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.YELLOW_MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.ORANGE_MAPLE_SAPLING, RenderType.cutout());
+		renderLayerRegistry.putBlock(WWBlocks.RED_MAPLE_SAPLING, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.RED_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.WHITE_HIBISCUS, RenderType.cutout());
 		renderLayerRegistry.putBlock(WWBlocks.YELLOW_HIBISCUS, RenderType.cutout());

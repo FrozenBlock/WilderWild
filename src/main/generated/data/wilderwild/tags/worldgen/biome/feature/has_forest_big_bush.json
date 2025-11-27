@@ -32,10 +32,6 @@
       "required": false
     },
     {
-      "id": "wilderwild:old_growth_dark_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:dark_taiga",
       "required": false
     },
