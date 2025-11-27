@@ -308,7 +308,7 @@ public final class WWItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(WWBlocks.WILLOW_SAPLING.asItem())
 			.add(WWBlocks.CYPRESS_SAPLING.asItem())
 			.add(WWItems.COCONUT)
-			.add(WWBlocks.MAPLE_SAPLING.asItem());
+			.add(WWBlocks.YELLOW_MAPLE_SAPLING.asItem(), WWBlocks.ORANGE_MAPLE_SAPLING.asItem(), WWBlocks.RED_MAPLE_SAPLING.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.SIGNS)
 			.add(WWItems.BAOBAB_SIGN)

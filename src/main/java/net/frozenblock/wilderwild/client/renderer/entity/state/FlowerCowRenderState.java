@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderState extends LivingEntityRenderState {
@@ -31,4 +32,6 @@ public class FlowerCowRenderState extends LivingEntityRenderState {
 	public int flowers;
 	public ResourceLocation texture = DEFAULT_TEXTURE;
 	public BlockState flowerBlockState = Blocks.AIR.defaultBlockState();
+	@Nullable
+	public BlockState topFlowerBlockState = null;
 }

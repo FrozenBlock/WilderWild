@@ -88,9 +88,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-		return super.mayPlaceOn(blockState, blockGetter, blockPos)
-			|| blockState.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
-			|| blockState.is(WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE);
+		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE);
 	}
 
 	@Override

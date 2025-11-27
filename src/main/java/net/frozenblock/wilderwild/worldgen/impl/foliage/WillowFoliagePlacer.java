@@ -61,7 +61,7 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 	}
 
 	@Override
-	protected void createFoliage(
+	public void createFoliage(
 		LevelSimulatedReader levelSimulatedReader,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource randomSource,

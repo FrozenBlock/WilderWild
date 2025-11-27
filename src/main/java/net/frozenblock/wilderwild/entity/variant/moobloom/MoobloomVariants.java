@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -74,6 +75,7 @@ public final class MoobloomVariants {
 			resourceKey,
 			new MoobloomVariant(
 				flowerBlock.defaultBlockState(),
+				Optional.empty(),
 				textureLocation
 			)
 		);

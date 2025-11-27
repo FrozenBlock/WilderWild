@@ -156,7 +156,9 @@ public final class WWCreativeInventorySorting {
 		addAfterInBuildingBlocks(WWBlocks.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_BUTTON);
 		// MAPLE (NATURAL BLOCKS)
 		addAfterInNaturalBlocks(Items.CHERRY_LOG, WWBlocks.MAPLE_LOG);
-		addAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWBlocks.MAPLE_SAPLING);
+		addAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWBlocks.YELLOW_MAPLE_SAPLING);
+		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING);
+		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
 		addAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
 		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAVES);

@@ -66,6 +66,7 @@ accessible field net/minecraft/world/entity/ai/behavior/LongJumpToRandomPos time
 # Entity Spawns
 accessible class net/minecraft/world/entity/SpawnPlacements$Data
 accessible method net/minecraft/world/level/block/Blocks ocelotOrParrot (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+accessible method net/minecraft/world/entity/animal/Animal isBrightEnoughToSpawn (Lnet/minecraft/world/level/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible field net/minecraft/client/model/SpiderModel head Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/SpiderModel rightHindLeg Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/SpiderModel leftHindLeg Lnet/minecraft/client/model/geom/ModelPart;

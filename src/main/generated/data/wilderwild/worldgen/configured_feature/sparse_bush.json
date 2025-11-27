@@ -16,7 +16,7 @@
                     "half": "lower"
                   }
                 },
-                "weight": 5
+                "weight": 6
               },
               {
                 "data": {
@@ -27,6 +27,16 @@
                   }
                 },
                 "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:bush",
+                  "Properties": {
+                    "age": "2",
+                    "half": "lower"
+                  }
+                },
+                "weight": 2
               }
             ]
           }
