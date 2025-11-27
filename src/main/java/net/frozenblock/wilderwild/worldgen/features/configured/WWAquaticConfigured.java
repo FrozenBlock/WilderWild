@@ -67,7 +67,6 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL = WWFeatureUtils.register("cattail");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL_MUD = WWFeatureUtils.register("cattail_mud");
 	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
 	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
 	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
@@ -100,28 +99,17 @@ public final class WWAquaticConfigured {
 
 		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
-				UniformInt.of(-7, 7),
-				UniformInt.of(12, 18),
-				true,
+				6,
+				UniformInt.of(24, 32),
 				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
 			)
 		);
 
 		CATTAIL_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
-				UniformInt.of(-5, 5),
-				UniformInt.of(6, 12),
-				true,
+				4,
+				UniformInt.of(10, 20),
 				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
-			)
-		);
-
-		CATTAIL_MUD.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
-			new CattailFeatureConfig(
-				UniformInt.of(-7, 7),
-				UniformInt.of(12, 18),
-				false,
-				WWBlockTags.CATTAIL_FEATURE_MUD_PLACEABLE
 			)
 		);
 

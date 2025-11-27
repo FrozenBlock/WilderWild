@@ -1,9 +1,9 @@
 {
   "ambientocclusion": false,
 	"textures": {
-		"particle": "block/flower_pot",
-		"flowerpot": "block/flower_pot",
-		"dirt": "block/dirt",
+		"particle": "minecraft:block/flower_pot",
+		"flowerpot": "minecraft:block/flower_pot",
+		"dirt": "minecraft:block/dirt",
 		"plant": "wilderwild:block/shrub_stage0",
 		"overlay": "wilderwild:block/shrub_stage0_overlay"
 	},

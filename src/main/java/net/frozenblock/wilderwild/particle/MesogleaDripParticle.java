@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;

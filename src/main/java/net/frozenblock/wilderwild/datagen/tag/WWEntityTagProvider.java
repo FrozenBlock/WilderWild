@@ -71,7 +71,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
@@ -87,13 +87,16 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
 
 		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
+
+		this.valueLookupBuilder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
+			.add(WWEntityTypes.SCORCHED);
 
 		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)

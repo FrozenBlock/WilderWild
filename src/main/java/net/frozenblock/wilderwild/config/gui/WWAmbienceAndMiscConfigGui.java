@@ -107,6 +107,24 @@ public final class WWAmbienceAndMiscConfigGui {
 			.setTooltip(tooltip("wind_disturbance_particle_spawn_attempts"))
 			.build();
 
+		var windClusters = entryBuilder.startBooleanToggle(text("wind_clusters"), wind.windClusters)
+			.setDefaultValue(defaultConfig.wind.windClusters)
+			.setSaveConsumer(newValue -> wind.windClusters = newValue)
+			.setTooltip(tooltip("wind_clusters"))
+			.build();
+
+		var windClusterMaxSpawnAttempts = entryBuilder.startIntSlider(text("wind_cluster_max_spawn_attempts"), wind.windClusterMaxSpawnAttempts, 1, 10)
+			.setDefaultValue(defaultConfig.wind.windClusterMaxSpawnAttempts)
+			.setSaveConsumer(newValue -> wind.windClusterMaxSpawnAttempts = newValue)
+			.setTooltip(tooltip("wind_cluster_max_spawn_attempts"))
+			.build();
+
+		var windClusterFrequency = entryBuilder.startIntSlider(text("wind_cluster_frequency"), wind.windClusterFrequency, 1, 500)
+			.setDefaultValue(defaultConfig.wind.windClusterFrequency)
+			.setSaveConsumer(newValue -> wind.windClusterFrequency = newValue)
+			.setTooltip(tooltip("wind_cluster_frequency"))
+			.build();
+
 		var particleWindMovement = entryBuilder.startIntSlider(text("particle_wind_movement"), wind.particleWindMovement, 0, 500)
 			.setDefaultValue(defaultConfig.wind.particleWindMovement)
 			.setSaveConsumer(newValue -> wind.particleWindMovement = newValue)
@@ -130,6 +148,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			cloudMovement,
 			windParticles, windParticleFrequency, windParticleSpawnAttempts,
 			windDisturbanceParticles, windDisturbanceParticleFrequency, windDisturbanceParticleSpawnAttempts,
+			windClusters, windClusterMaxSpawnAttempts, windClusterFrequency,
 			particleWindMovement, fireworkWindMovement
 		);
 

@@ -201,8 +201,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	@NotNull
-	protected InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		final Item item = stack.getItem();
 		if (item instanceof DyeItem dyeItem) {
@@ -218,6 +217,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 				if (!this.level().isClientSide()) {
 					this.setColor(newFireflyColor.get());
+					this.setPersistenceRequired();
 					stack.shrink(1);
 				}
 

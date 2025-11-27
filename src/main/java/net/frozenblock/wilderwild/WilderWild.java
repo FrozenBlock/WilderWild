@@ -112,10 +112,11 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override
 	public void newCategories(@NotNull ArrayList<FrozenMobCategory> context) {
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), WWEntityConfig.get().firefly.fireflySpawnCap, true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), WWEntityConfig.get().butterfly.butterflySpawnCap, true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WWEntityConfig.get().jellyfish.jellyfishSpawnCap, true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), WWEntityConfig.get().crab.crabSpawnCap, true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WWEntityConfig.get().tumbleweed.tumbleweedSpawnCap, true, false, 64));
+		final WWEntityConfig entityConfig = WWEntityConfig.get();
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), entityConfig.firefly.fireflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), entityConfig.butterfly.butterflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), entityConfig.jellyfish.jellyfishSpawnCap, true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), entityConfig.crab.crabSpawnCap, true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), entityConfig.tumbleweed.tumbleweedSpawnCap, true, false, 64));
 	}
 }

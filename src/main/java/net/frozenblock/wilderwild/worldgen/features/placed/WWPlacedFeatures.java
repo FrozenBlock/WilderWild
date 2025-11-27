@@ -93,9 +93,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature FALLEN_MAPLE_PLACED = register("fallen_maple_placed");
 	// TREES
 	public static final FrozenLibPlacedFeature TREES_PLAINS = register("trees_plains");
-	public static final FrozenLibPlacedFeature BUSHES_FOREST = register("bushes_forest");
-	public static final FrozenLibPlacedFeature BUSHES = register("bushes");
-	public static final FrozenLibPlacedFeature BUSHES_WATER = register("bushes_water");
+	public static final FrozenLibPlacedFeature BIG_BUSHES_FOREST = register("big_bushes_forest");
+	public static final FrozenLibPlacedFeature BIG_BUSHES_FOREST_COMMON = register("big_bushes_forest_common");
+	public static final FrozenLibPlacedFeature BIG_BUSHES = register("big_bushes");
+	public static final FrozenLibPlacedFeature BIG_BUSHES_WATER = register("big_bushes_water");
 	public static final FrozenLibPlacedFeature TREES_FLOWER_FIELD = register("trees_flower_field");
 	public static final FrozenLibPlacedFeature TREES_BIRCH_AND_OAK = register("trees_birch_and_oak");
 	public static final FrozenLibPlacedFeature TREES_DYING_FOREST = register("trees_dying_forest");
@@ -293,6 +294,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature CYPRESS_WETLANDS_FLOWERS_TALL = register("cypress_wetlands_flowers_tall");
 	public static final FrozenLibPlacedFeature MILKWEED = register("milkweed");
 	public static final FrozenLibPlacedFeature MILKWEED_RARE = register("milkweed_rare");
+	public static final FrozenLibPlacedFeature MILKWEED_SWAMP = register("milkweed_swamp");
 	public static final FrozenLibPlacedFeature HIBISCUS = register("hibiscus");
 	public static final FrozenLibPlacedFeature HIBISCUS_JUNGLE = register("hibiscus_jungle");
 	public static final FrozenLibPlacedFeature HIBISCUS_SPARSE_JUNGLE = register("hibiscus_sparse_jungle");
@@ -541,7 +543,7 @@ public final class WWPlacedFeatures {
 		);
 
 		FALLEN_DARK_OAK_COMMON_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_DARK_OAKS,
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
@@ -579,7 +581,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		BUSHES_FOREST.makeAndSetHolder(WWConfiguredFeatures.BUSHES,
+		BIG_BUSHES_FOREST.makeAndSetHolder(WWConfiguredFeatures.BIG_BUSHES,
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
@@ -589,7 +591,17 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
-		BUSHES.makeAndSetHolder(WWConfiguredFeatures.BUSHES,
+		BIG_BUSHES_FOREST_COMMON.makeAndSetHolder(WWConfiguredFeatures.BIG_BUSHES.getHolder(),
+			PlacementUtils.countExtra(5, 0.2F, 1),
+			InSquarePlacement.spread(),
+			TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
+			BiomeFilter.biome(),
+			WWPlacementUtils.SHRUB_CLEARING_FILTER
+		);
+
+		BIG_BUSHES.makeAndSetHolder(WWConfiguredFeatures.BIG_BUSHES,
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
@@ -600,7 +612,7 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.SHRUB_CLEARING_FILTER
 		);
 
-		BUSHES_WATER.makeAndSetHolder(WWConfiguredFeatures.BUSHES,
+		BIG_BUSHES_WATER.makeAndSetHolder(WWConfiguredFeatures.BIG_BUSHES,
 			PlacementUtils.countExtra(1, 0.2F, 1),
 			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
@@ -665,38 +677,24 @@ public final class WWPlacedFeatures {
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_FOREST_VEGETATION,
-			CountPlacement.of(16), InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+		DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_FOREST_VEGETATION.getHolder(),
+			VegetationPlacements.treePlacementBase(CountPlacement.of(16))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION,
-			CountPlacement.of(17),
-			InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getHolder(),
+			VegetationPlacements.treePlacementBase(CountPlacement.of(UniformInt.of(30, 32)))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_BIRCH_FOREST_VEGETATION,
-			CountPlacement.of(14), InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_BIRCH_FOREST_VEGETATION.getHolder(),
+			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		DARK_TAIGA_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_TAIGA_VEGETATION,
-			CountPlacement.of(14),
-			InSquarePlacement.spread(),
-			TREE_THRESHOLD,
-			WWPlacementUtils.TREE_CLEARING_FILTER,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+		DARK_TAIGA_VEGETATION.makeAndSetHolder(WWConfiguredFeatures.DARK_TAIGA_VEGETATION.getHolder(),
+			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
 		TREES_BIRCH.makeAndSetHolder(WWConfiguredFeatures.TREES_BIRCH,
@@ -950,7 +948,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING),
 			WWPlacementUtils.TREE_CLEARING_FILTER,
 			BiomeFilter.biome()
 		);
@@ -1795,6 +1793,13 @@ public final class WWPlacedFeatures {
 
 		MILKWEED_RARE.makeAndSetHolder(WWConfiguredFeatures.MILKWEED,
 			RarityFilter.onAverageOnceEvery(36),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED_SWAMP,
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()

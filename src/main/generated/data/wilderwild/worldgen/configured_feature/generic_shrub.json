@@ -16,13 +16,23 @@
                     "half": "lower"
                   }
                 },
-                "weight": 5
+                "weight": 6
               },
               {
                 "data": {
                   "Name": "wilderwild:shrub",
                   "Properties": {
                     "age": "1",
+                    "half": "lower"
+                  }
+                },
+                "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "wilderwild:shrub",
+                  "Properties": {
+                    "age": "2",
                     "half": "lower"
                   }
                 },

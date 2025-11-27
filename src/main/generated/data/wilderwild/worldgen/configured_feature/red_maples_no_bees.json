@@ -9,7 +9,7 @@
       },
       {
         "chance": 0.15,
-        "feature": "wilderwild:round_red_maple_checked"
+        "feature": "wilderwild:full_red_maple_checked"
       },
       {
         "chance": 0.25,
@@ -29,7 +29,7 @@
       },
       {
         "chance": 0.4,
-        "feature": "wilderwild:big_shrub_red_maple_checked"
+        "feature": "wilderwild:big_bush_red_maple_checked"
       }
     ]
   }

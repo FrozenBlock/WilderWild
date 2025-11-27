@@ -52,6 +52,9 @@ public final class WWAmbienceAndMiscConfig {
 				WIND_DISTURBANCE_PARTICLES = config.wind.windDisturbanceParticles;
 				WIND_DISTURBANCE_PARTICLE_FREQUENCY = config.wind.windDisturbanceParticleFrequency;
 				WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = config.wind.windDisturbanceParticleSpawnAttempts;
+				WIND_CLUSTERS = config.wind.windClusters;
+				WIND_CLUSTER_FREQUENCY = config.wind.windClusterFrequency;
+				WIND_CLUSTER_MAX_SPAWN_ATTEMPTS = config.wind.windClusterMaxSpawnAttempts;
 				PARTICLE_WIND_MOVEMENT = config.wind.particleWindMovement;
 				FIREWORK_WIND_MOVEMENT = config.wind.fireworkWindMovement;
 
@@ -92,6 +95,10 @@ public final class WWAmbienceAndMiscConfig {
 		return ((double) WIND_DISTURBANCE_PARTICLE_FREQUENCY) * 0.01D;
 	}
 
+	public static float getWindClusterFrequency() {
+		return WIND_CLUSTER_FREQUENCY * 0.01F;
+	}
+
 	public static double getParticleWindIntensity() {
 		return ((double) PARTICLE_WIND_MOVEMENT) * 0.01D;
 	}
@@ -107,6 +114,9 @@ public final class WWAmbienceAndMiscConfig {
 	public static volatile boolean WIND_DISTURBANCE_PARTICLES = true;
 	public static volatile int WIND_DISTURBANCE_PARTICLE_FREQUENCY = 90;
 	public static volatile int WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS = 100;
+	public static volatile boolean WIND_CLUSTERS = true;
+	public static volatile int WIND_CLUSTER_FREQUENCY = 20;
+	public static volatile int WIND_CLUSTER_MAX_SPAWN_ATTEMPTS = 6;
 	public static volatile int PARTICLE_WIND_MOVEMENT = 100;
 	public static volatile int FIREWORK_WIND_MOVEMENT = 100;
 
@@ -291,6 +301,15 @@ public final class WWAmbienceAndMiscConfig {
 
 		@EntrySyncData(value = "windDisturbanceParticleSpawnAttempts", behavior = SyncBehavior.UNSYNCABLE)
 		public int windDisturbanceParticleSpawnAttempts = 100;
+
+		@EntrySyncData(value = "windClusters", behavior = SyncBehavior.UNSYNCABLE)
+		public boolean windClusters = true;
+
+		@EntrySyncData(value = "windClusterFrequency", behavior = SyncBehavior.UNSYNCABLE)
+		public int windClusterFrequency = 20;
+
+		@EntrySyncData(value = "windClusterMaxSpawnAttempts", behavior = SyncBehavior.UNSYNCABLE)
+		public int windClusterMaxSpawnAttempts = 6;
 
 		@EntrySyncData(value = "particleWindMovement", behavior = SyncBehavior.UNSYNCABLE)
 		public int particleWindMovement = 100;
