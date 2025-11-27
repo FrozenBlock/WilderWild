@@ -60,6 +60,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.PUFFERFISH)
 			.add(EntityType.AXOLOTL)
 			.add(EntityType.TURTLE)
+			.add(EntityType.NAUTILUS, EntityType.ZOMBIE_NAUTILUS)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED);
 
@@ -70,7 +71,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
@@ -86,7 +87,7 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.CAVE_SPIDER)
 			.add(WWEntityTypes.SCORCHED)
 			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
 			.add(WWEntityTypes.JELLYFISH)
 			.add(WWEntityTypes.TUMBLEWEED)
 			.add(EntityType.BREEZE);
@@ -170,6 +171,9 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.valueLookupBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypes.PENGUIN);
 
+		this.valueLookupBuilder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
+			.add(WWEntityTypes.SCORCHED);
+
 		this.valueLookupBuilder(EntityTypeTags.FROG_FOOD)
 			.add(WWEntityTypes.BUTTERFLY);
 
@@ -202,7 +206,15 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 				WWEntityTypes.MAPLE_CHEST_BOAT
 			);
 
+		this.valueLookupBuilder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS)
+			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
+			.add(WWEntityTypes.JELLYFISH)
+			.add(WWEntityTypes.TUMBLEWEED);
+
 		this.valueLookupBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
+			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH);
+
+		this.valueLookupBuilder(EntityTypeTags.CAN_FLOAT_WHILE_RIDDEN)
 			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH);
 
 		this.valueLookupBuilder(EntityTypeTags.ZOMBIES)

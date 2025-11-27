@@ -145,7 +145,6 @@ public class OstrichAi {
 		builder.add(new CountDownCooldownTicks(MemoryModuleType.GAZE_COOLDOWN_TICKS));
 		builder.add(StopBeingAngryIfTargetDead.create());
 
-
 		brain.addActivity(Activity.CORE, 0, builder.build());
 	}
 
