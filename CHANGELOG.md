@@ -40,6 +40,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `wilderwild:gameplay/pale_mushroom_active`: True at nighttime and false in daytime.
     - `wilderwild:gameplay/plankton_glowing`: True at nighttime and false in daytime.
     - `wilderwild:gameplay/sea_anemone_glowing`: False at nighttime and true in daytime.
+- Added the Scorched to the `minecraft:no_anger_from_wind_charge` entity type tag.
+- Added the Butterfly to the `wilderwild:coconut_cant_bonk` and `wilderwild:coconut_cant_split` entity type tags.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
