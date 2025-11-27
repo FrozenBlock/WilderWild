@@ -117,3 +117,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured the Shrub.
 - Retextured Maple Leaf Litters.
 - Retextured Echo Glass.
+- Updated the Reach Boost effect icon.
