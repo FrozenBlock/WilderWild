@@ -127,6 +127,9 @@ public final class WWEntityConfig {
 	@CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
+	@CollapsibleObject
+	public final VillagerConfig villager = new VillagerConfig();
+
 	@EntrySyncData("unpassableRail")
 	public boolean unpassableRail = false;
 
@@ -302,5 +305,55 @@ public final class WWEntityConfig {
 		public boolean swimAndAnimationConfigEnabled() {
 			return this.wardenSwims && this.wardenSwimAnimation;
 		}
+	}
+
+	public static class VillagerConfig {
+		@EntrySyncData("wanderingWillowTrade")
+		public boolean wanderingWillowTrade = true;
+		@EntrySyncData("wanderingCypressTrade")
+		public boolean wanderingCypressTrade = true;
+		@EntrySyncData("wanderingBaobabTrade")
+		public boolean wanderingBaobabTrade = true;
+		@EntrySyncData("wanderingPalmTrade")
+		public boolean wanderingPalmTrade = true;
+		@EntrySyncData("wanderingMapleTrade")
+		public boolean wanderingMapleTrade = true;
+		@EntrySyncData("wanderingCarnationTrade")
+		public boolean wanderingCarnationTrade = true;
+		@EntrySyncData("wanderingHibiscusTrade")
+		public boolean wanderingHibiscusTrade = true;
+		@EntrySyncData("wanderingSeedingDandelionTrade")
+		public boolean wanderingSeedingDandelionTrade = true;
+		@EntrySyncData("wanderingMarigoldTrade")
+		public boolean wanderingMarigoldTrade = true;
+		@EntrySyncData("wanderingPasqueflowerTrade")
+		public boolean wanderingPasqueflowerTrade = true;
+		@EntrySyncData("wanderingTumbleweedTrade")
+		public boolean wanderingTumbleweedTrade = true;
+		@EntrySyncData("wanderingPricklyPearTrade")
+		public boolean wanderingPricklyPearTrade = true;
+		@EntrySyncData("wanderingIcicleTrade")
+		public boolean wanderingIcicleTrade = true;
+		@EntrySyncData("wanderingBarnaclesTrade")
+		public boolean wanderingBarnaclesTrade = true;
+		@EntrySyncData("wanderingSeaAnemoneTrade")
+		public boolean wanderingSeaAnemoneTrade = true;
+		@EntrySyncData("wanderingSeaWhipTrade")
+		public boolean wanderingSeaWhipTrade = true;
+		@EntrySyncData("wanderingAlgaeTrade")
+		public boolean wanderingAlgaeTrade = true;
+		@EntrySyncData("wanderingPlanktonTrade")
+		public boolean wanderingPlanktonTrade = true;
+		@EntrySyncData("wanderingAuburnMossTrade")
+		public boolean wanderingAuburnMossTrade = true;
+		@EntrySyncData("wanderingGeyserTrade")
+		public boolean wanderingGeyserTrade = true;
+
+		@EntrySyncData("fishermanDesertPalmBoat")
+		public boolean fishermanDesertPalmBoat = true;
+		@EntrySyncData("fishermanCrabForEmeralds")
+		public boolean fishermanCrabForEmeralds = true;
+		@EntrySyncData("fishermanJellyfishForEmeralds")
+		public boolean fishermanJellyfishForEmeralds = true;
 	}
 }

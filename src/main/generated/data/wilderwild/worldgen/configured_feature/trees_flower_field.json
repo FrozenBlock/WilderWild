@@ -24,11 +24,11 @@
       },
       {
         "chance": 0.5,
-        "feature": "wilderwild:big_bush_checked"
+        "feature": "wilderwild:large_bush_checked"
       },
       {
         "chance": 0.3,
-        "feature": "wilderwild:bush_checked"
+        "feature": "wilderwild:big_bush_checked"
       },
       {
         "chance": 0.169,

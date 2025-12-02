@@ -585,6 +585,16 @@ public final class WWWorldgenConfigGui {
 			"willow",
 			configInstance
 		);
+		var newMaples = FrozenClothConfig.syncedEntry(
+			builder.startBooleanToggle(text("new_maples"), modifiedTree.newMaples)
+				.setDefaultValue(defaultTree.newMaples)
+				.setSaveConsumer(newValue -> tree.newMaples = newValue)
+				.setTooltip(tooltip("new_maples"))
+				.build(),
+			treeClazz,
+			"newMaples",
+			configInstance
+		);
 		var birchBranches = FrozenClothConfig.syncedEntry(
 			builder.startBooleanToggle(text("birch_branches"), modifiedTree.birchBranches)
 				.setDefaultValue(defaultTree.birchBranches)
@@ -785,9 +795,10 @@ public final class WWWorldgenConfigGui {
 			tooltip("tree_generation_category"),
 			treeGeneration, fallenTrees, hollowedFallenTrees, snappedTrees,
 			baobab, palm, willow,
-			birchBranches, oakBranches, darkOakBranches, paleOakBranches, acaciaLeafLitter, azaleaLeafLitter, baobabLeafLitter, birchLeafLitter,
-			cherryLeafLitter, cypressLeafLitter, darkOakLeafLitter, jungleLeafLitter, mangroveLeafLitter, oakLeafLitter, paleOakLeafLitter,
-			palmFrondLitter, spruceLeafLitter, willowLeafLitter
+			newMaples,
+			birchBranches, oakBranches, darkOakBranches, paleOakBranches,
+			acaciaLeafLitter, azaleaLeafLitter, baobabLeafLitter, birchLeafLitter, cherryLeafLitter, cypressLeafLitter, darkOakLeafLitter, jungleLeafLitter,
+			mangroveLeafLitter, oakLeafLitter, paleOakLeafLitter, palmFrondLitter, spruceLeafLitter, willowLeafLitter
 		);
 
 		var vegetation = config.vegetation;

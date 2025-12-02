@@ -62,11 +62,11 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	public static final float ALMOST_FULLY_GROWN_GROWTH_CHANCE = 0.75F;
 	public static final float BONEMEAL_SUCCESS_CHANCE = 0.65F;
 	public static final float ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE = 0.45F;
-	public static final int MAX_AGE = 2;
-	public static final int ALMOST_MAX_AGE = 1;
+	public static final int MAX_AGE = 3;
+	public static final int ALMOST_MAX_AGE = 2;
 	public static final int MIN_AGE = 0;
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final MapCodec<ShrubBlock> CODEC = simpleCodec(ShrubBlock::new);
 
 	public ShrubBlock(Properties properties) {
@@ -80,6 +80,10 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	public static boolean isAlmostFullyGrown(BlockState state) {
 		return state.getValue(AGE) == ALMOST_MAX_AGE;
+	}
+
+	public static boolean isNotFullyGrown(BlockState state) {
+		return state.getValue(AGE) < MAX_AGE;
 	}
 
 	public static boolean isMinimumAge(BlockState state) {
@@ -153,6 +157,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 			level.setBlock(pos, setState, UPDATE_CLIENTS);
 			return;
 		}
+
 		final BlockPos above = pos.above();
 		if (!level.getBlockState(above).isAir()) return;
 		level.setBlock(pos, setState, UPDATE_CLIENTS);
@@ -192,9 +197,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		return true;
 	}
 
-	public static void dropShrub(
-		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
-	) {
+	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SHRUB,
@@ -213,17 +216,17 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		final BlockPos blockPos = pos.below();
+		final BlockPos belowPos = pos.below();
 		if (state.is(this) && !isLower(state)) {
-			final BlockState otherState = level.getBlockState(blockPos);
-			return otherState.is(this) && isLower(otherState) && isFullyGrown(otherState) && isFullyGrown(state);
+			final BlockState belowState = level.getBlockState(belowPos);
+			return belowState.is(this) && isLower(belowState) && isFullyGrown(belowState) && isFullyGrown(state);
 		}
-		return this.mayPlaceOn(level.getBlockState(blockPos), level, blockPos);
+		return this.mayPlaceOn(level.getBlockState(belowPos), level, belowPos);
 	}
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return isMinimumAge(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir()) || isFullyGrown(state);
+		return isNotFullyGrown(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir());
 	}
 
 	@Override
@@ -298,14 +301,17 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	public BlockState setAgeOnBothHalves(BlockState state, Level level, BlockPos pos, int age, boolean particles) {
-		final BlockState setState = state.setValue(BlockStateProperties.AGE_2, age);
+		final BlockState setState = state.setValue(AGE, age);
 		level.setBlockAndUpdate(pos, setState);
 		final BlockPos movedPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		final BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this)) {
-			level.setBlockAndUpdate(movedPos, secondState.setValue(BlockStateProperties.AGE_2, age));
-			if (particles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
+			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
+			if (particles) {
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
+			}
 		}
+
 		if (particles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 		return setState;
 	}

@@ -1,0 +1,62 @@
+{
+  "feature": "wilderwild:big_bushes",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:weighted_list",
+        "distribution": [
+          {
+            "data": 1,
+            "weight": 4
+          },
+          {
+            "data": 2,
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 7
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:oak_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "frozenlib:noise_filter",
+      "fade_distance": 0.2,
+      "maxThresh": 1.0,
+      "min_threshold": 0.69,
+      "must_be_inside": false,
+      "noise_scale": 0.0065,
+      "noise_type": "XORO",
+      "scale_y": false,
+      "use_y": false
+    }
+  ]
+}

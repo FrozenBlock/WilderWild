@@ -73,7 +73,6 @@ public final class CopperHornInstrumentToTheCopperierAgeFix extends DataFix {
 
 		instrumentID = instrumentID.replaceFirst(WWConstants.MOD_ID, "thecopperierage");
 		componentData = componentData.set(INSTRUMENT_DATA_FIELD, componentData.createString(instrumentID));
-
 		return componentData;
 	}
 

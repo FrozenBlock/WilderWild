@@ -41,7 +41,6 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("cattail");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("cattail_uncommon");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
-	public static final FrozenLibPlacedFeature PATCH_CATTAIL_MUD = register("cattail_mud");
 	public static final FrozenLibPlacedFeature BARNACLES_COMMON = register("barnacles_common");
 	public static final FrozenLibPlacedFeature BARNACLES_STRUCTURE = register("barnacles_structure");
 	public static final FrozenLibPlacedFeature BARNACLES = register("barnacles");
@@ -97,15 +96,9 @@ public final class WWAquaticPlaced {
 		);
 
 		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL,
+			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
-		);
-
-		PATCH_CATTAIL_MUD.makeAndSetHolder(WWAquaticConfigured.CATTAIL_MUD,
-			CountPlacement.of(UniformInt.of(1, 2)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
 		);
 

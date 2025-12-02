@@ -165,10 +165,6 @@ public final class WWAquaticGeneration {
 						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_COMMON)) {
 							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_COMMON.getKey());
 						}
-
-						if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_MUD)) {
-							generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_MUD.getKey());
-						}
 					}
 				});
 	}

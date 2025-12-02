@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 @Environment(EnvType.CLIENT)
 public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowModel> {
 	private static final float FLOWER_SCALE = 0.75F;
+	private static final float DOUBLE_BLOCK_SCALE = 0.75F;
 
 	private final BlockRenderDispatcher blockRenderer;
 
@@ -45,49 +46,49 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 	}
 
 	@Override
-	public void submit(
-		PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, FlowerCowRenderState renderState, float f, float g
-	) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector collector, int light, FlowerCowRenderState renderState, float f, float g) {
 		if (renderState.isBaby) return;
 
-		final boolean glowingAndInvisible = renderState.appearsGlowing() && renderState.isInvisible;
-		if (!(!renderState.isInvisible || glowingAndInvisible)) return;
-
 		final int flowersLeft = renderState.flowers;
-		final int outlineColor = renderState.outlineColor;
-		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
+		if (flowersLeft <= 0) return;
+
+		final boolean invisible = renderState.isInvisible;
+		final boolean invisibleAndGlowing = renderState.appearsGlowing() && invisible;
+		if (invisible && !invisibleAndGlowing) return;
+
 		final BlockState state = renderState.flowerBlockState;
 		final BlockStateModel model = this.blockRenderer.getBlockModel(state);
 
+		final boolean isDoubleBlock = renderState.topFlowerBlockState != null;
+		final BlockState topState = renderState.topFlowerBlockState;
+		final BlockStateModel topModel = isDoubleBlock ? this.blockRenderer.getBlockModel(topState) : null;
+
+		final float modelScale = !isDoubleBlock ? 1F : DOUBLE_BLOCK_SCALE;
+		final int overlay = LivingEntityRenderer.getOverlayCoords(renderState, 0F);
+		final int outlineColor = renderState.outlineColor;
+
 		// BACK MIDDLE
-		if (flowersLeft >= 1) {
-			poseStack.pushPose();
-			poseStack.translate(0F, -0.35F, 0.5F);
-			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
-			poseStack.popPose();
-		}
+		poseStack.pushPose();
+		preparePose(poseStack, 0F, -0.35F, 0.5F, 0F);
+		this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, state, overlay, model, modelScale, false);
+		if (isDoubleBlock) this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, topState, overlay, topModel, modelScale, true);
+		poseStack.popPose();
 
 		if (flowersLeft >= 2) {
 			// MIDDLE LEFT
 			poseStack.pushPose();
-			poseStack.translate(0.2F, -0.35F, 0F);
-			poseStack.mulPose(Axis.YP.rotationDegrees(-32));
-			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
+			preparePose(poseStack, 0.2F, -0.35F, 0F, -32F);
+			this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, topState, overlay, topModel, modelScale, true);
 			poseStack.popPose();
 		}
 
 		if (flowersLeft >= 3) {
 			// MIDDLE RIGHT
 			poseStack.pushPose();
-			poseStack.translate(-0.2F, -0.35F, -0.15F);
-			poseStack.mulPose(Axis.YP.rotationDegrees(112));
-			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
+			preparePose(poseStack, -0.2F, -0.35F, -0.15F, 112F);
+			this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, topState, overlay, topModel, modelScale, true);
 			poseStack.popPose();
 		}
 
@@ -95,29 +96,43 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 			// HEAD
 			poseStack.pushPose();
 			this.getParentModel().getHead().translateAndRotate(poseStack);
-			poseStack.translate(0.1F, -0.7F, -0.2F);
-			poseStack.mulPose(Axis.YP.rotationDegrees(-78F));
-			poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
-			poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
-			this.submitFlowerBlock(poseStack, submitNodeCollector, light, glowingAndInvisible, outlineColor, state, overlay, model);
+			preparePose(poseStack, 0.1F, -0.7F, -0.2F, -78F);
+			this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, state, overlay, model, modelScale, false);
+			if (isDoubleBlock) this.submitFlowerBlock(poseStack, collector, light, invisibleAndGlowing, outlineColor, topState, overlay, topModel, modelScale, true);
 			poseStack.popPose();
 		}
 	}
 
 	private void submitFlowerBlock(
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
+		SubmitNodeCollector collector,
 		int light,
 		boolean glowingAndInvisible,
 		int outlineColor,
 		BlockState state,
 		int overlay,
-		BlockStateModel model
+		BlockStateModel model,
+		float scale,
+		boolean isTop
 	) {
+		final boolean pushAndPop = isTop || scale != 1F;
+		if (pushAndPop) poseStack.pushPose();
+		if (scale != 1F) poseStack.scale(scale, scale, scale);
+		if (isTop) poseStack.translate(0F, 1F, 0F);
+
 		if (glowingAndInvisible) {
-			submitNodeCollector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), model, 0F, 0F, 0F, light, overlay, outlineColor);
-			return;
+			collector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), model, 0F, 0F, 0F, light, overlay, outlineColor);
+		} else {
+			collector.submitBlock(poseStack, state, light, overlay, outlineColor);
 		}
-		submitNodeCollector.submitBlock(poseStack, state, light, overlay, outlineColor);
+
+		if (pushAndPop) poseStack.popPose();
+	}
+
+	private static void preparePose(PoseStack poseStack, float xOffset, float yOffset, float zOffset, float rotation) {
+		poseStack.translate(xOffset, yOffset, zOffset);
+		if (rotation != 0F) poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+		poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
+		poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
 	}
 }

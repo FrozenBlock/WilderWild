@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.worldgen.impl.foliage;
 
-import com.mojang.datafixers.Products;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -31,20 +30,14 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		winePalmCodec(instance).apply(instance, WindmillPalmFoliagePlacer::new)
+		instance.group(IntProvider.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius)).apply(instance, WindmillPalmFoliagePlacer::new)
 	);
 
 	public WindmillPalmFoliagePlacer(IntProvider radius) {
 		super(radius, ConstantInt.of(0));
-	}
-
-	@Contract("_ -> new")
-	protected static <P extends WindmillPalmFoliagePlacer> Products.P1<RecordCodecBuilder.Mu<P>, IntProvider> winePalmCodec(RecordCodecBuilder.Instance<P> instance) {
-		return instance.group(IntProvider.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius));
 	}
 
 	@Override

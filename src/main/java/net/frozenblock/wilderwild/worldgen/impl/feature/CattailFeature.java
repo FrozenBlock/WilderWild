@@ -43,49 +43,45 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 
 	@Override
 	public boolean place(FeaturePlaceContext<CattailFeatureConfig> context) {
-		boolean generated = false;
-		RandomSource random = context.random();
-		WorldGenLevel level = context.level();
-		BlockPos blockPos = context.origin();
-		CattailFeatureConfig config = context.config();
-		int posX = blockPos.getX();
-		int posZ = blockPos.getZ();
-		int maxHeight = level.getMaxY() - 1;
-		BlockPos.MutableBlockPos bottomBlockPos = blockPos.mutable();
-		BlockPos.MutableBlockPos topBlockPos = blockPos.mutable();
-		TagKey<Block> placeableBlocks = config.canBePlacedOn();
-		boolean waterPlacement = config.onlyPlaceInWater();
+		final RandomSource random = context.random();
+		final WorldGenLevel level = context.level();
+		final BlockPos origin = context.origin();
+		final CattailFeatureConfig config = context.config();
+		final int originX = origin.getX();
+		final int originZ = origin.getZ();
+		final int maxHeight = level.getMaxY() - 1;
+		final BlockPos.MutableBlockPos bottomBlockPos = origin.mutable();
+		final BlockPos.MutableBlockPos topBlockPos = origin.mutable();
+		final TagKey<Block> placeableBlocks = config.canBePlacedOn();
+		final int width = config.width();
 
-		int placementAttempts = config.placementAttempts().sample(random);
+		boolean generated = false;
+		final int placementAttempts = config.placementAttempts().sample(random);
 		for (int l = 0; l < placementAttempts; l++) {
-			int newX = posX + config.width().sample(random);
-			int newZ = posZ + config.width().sample(random);
-			int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
+			final int newX = originX + random.nextIntBetweenInclusive(-width, width);
+			final int newZ = originZ + random.nextIntBetweenInclusive(-width, width);
+			final int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
 			if (oceanFloorY >= maxHeight - 1) continue;
 
-			bottomBlockPos.set(newX, oceanFloorY, newZ);
-			BlockState bottomState = level.getBlockState(bottomBlockPos);
-			boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
-			BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState();
-			topBlockPos.setWithOffset(bottomBlockPos, Direction.UP);
-			BlockState topState = level.getBlockState(topBlockPos);
-			if ((bottomState.isAir() || (waterPlacement && bottomStateIsWater))
-				&& topState.isAir()
-				&& bottomPlaceState.canSurvive(level, bottomBlockPos)
-				&& (!waterPlacement || (bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2)))
-				&& level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)
-			) {
-				bottomPlaceState = bottomPlaceState
-					.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
-					.setValue(CattailBlock.SWAYING, bottomStateIsWater);
-				BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState()
-					.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
-					.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+			final BlockState bottomState = level.getBlockState(bottomBlockPos.set(newX, oceanFloorY, newZ));
+			final boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
+			final BlockState topState = level.getBlockState(topBlockPos.setWithOffset(bottomBlockPos, Direction.UP));
+			if (!(bottomState.isAir() || bottomStateIsWater) || !topState.isAir()) continue;
 
-				level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
-				if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
-				generated = true;
-			}
+			final BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState()
+				.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
+				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+			if (!bottomPlaceState.canSurvive(level, bottomBlockPos)) continue;
+			if (!(bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2))) continue;
+			if (!level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) continue;
+
+			final BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState()
+				.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
+				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+
+			level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
+			if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
+			generated = true;
 		}
 		return generated;
 	}

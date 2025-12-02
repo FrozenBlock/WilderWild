@@ -56,12 +56,12 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 		int k,
 		int l
 	) {
-		final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos logPos = foliageAttachment.pos().below();
 		for (Direction direction : Direction.values()) {
 			if (direction == Direction.DOWN) continue;
-			pos.setWithOffset(logPos, direction);
-			tryPlaceLeaf(level, placer, random, config, pos);
+			mutable.setWithOffset(logPos, direction);
+			tryPlaceLeaf(level, placer, random, config, mutable);
 		}
 
 		super.createFoliage(level, placer, random, config, i, foliageAttachment, j, k, l);
