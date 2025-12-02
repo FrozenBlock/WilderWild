@@ -64,6 +64,7 @@ Zhen:
  - Retextured Jellyfish Bucket in 4.2.
  - Recolored Spruce Leaf Litter in 4.2.
  - Retextured Echo Glass in 4.2.
+ - Final Zombie Otrich texture
  - Composer:
     - Frozen Blocks
     - Pressure
@@ -91,6 +92,8 @@ voxelotl:
  - Spawn egg textures in 1.21.5+.
  - Cannonball Tumbleweed texture.
  - Shelf textures in 1.21.9+.
+ - Initial Zombie Ostrich texture
+ - Zombie Ostrich Spawn Egg texture
  - Data/Resource Pack icon
 
 Willow/pictochats_:
