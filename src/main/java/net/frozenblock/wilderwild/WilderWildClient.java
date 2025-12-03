@@ -40,7 +40,7 @@ public final class WilderWildClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		Optional<ModContainer> container = FabricLoader.getInstance().getModContainer("wilderwild");
+		final Optional<ModContainer> container = FabricLoader.getInstance().getModContainer("wilderwild");
 		WWClientResources.register(container.orElse(null));
 
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
