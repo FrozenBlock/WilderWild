@@ -223,7 +223,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> DARK_OAK_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("dark_oak_litter_leaves"),
-		Blocks.DARK_OAK_LEAVES,
+		WWBlocks.DARK_OAK_LEAF_LITTER,
 		5,
 		1.4F,
 		10F,
