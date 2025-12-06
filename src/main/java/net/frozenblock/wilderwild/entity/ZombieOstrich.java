@@ -94,6 +94,11 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
+	public boolean isZombie() {
+		return true;
+	}
+
+	@Override
 	public boolean canBeLeashed() {
 		return this.isTamed() || !this.isMobControlled();
 	}

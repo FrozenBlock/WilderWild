@@ -365,6 +365,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		return super.getAttackBoundingBox(horizontalInflation).inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
 	}
 
+	public boolean isZombie() {
+		return false;
+	}
+
 	@Override
 	public boolean isImmobile() {
 		return this.isStuck() || super.isImmobile();
@@ -430,7 +434,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Override
 	public LivingEntity getControllingPassenger() {
-		return this.isPlayerPassengerUsingItem() ? null : super.getControllingPassenger();
+		return this.isPlayerPassengerUsingItem() && !this.isZombie() ? null : super.getControllingPassenger();
 	}
 
 	@Override
