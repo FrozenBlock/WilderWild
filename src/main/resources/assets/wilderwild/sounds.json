@@ -3945,6 +3945,94 @@
     ],
     "subtitle": "subtitles.entity.ostrich.inbred.beak.swing"
   },
+  "entity.zombie_ostrich.hurt": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/hurt1",
+      "wilderwild:mob/zombie_ostrich/hurt2",
+      "wilderwild:mob/zombie_ostrich/hurt3",
+      "wilderwild:mob/zombie_ostrich/hurt4"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.hurt"
+  },
+  "entity.zombie_ostrich.death": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/death1",
+      "wilderwild:mob/zombie_ostrich/death2",
+      "wilderwild:mob/zombie_ostrich/death3",
+      "wilderwild:mob/zombie_ostrich/death4",
+      "wilderwild:mob/zombie_ostrich/death5"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.death"
+  },
+  "entity.zombie_ostrich.idle": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/idle1",
+      "wilderwild:mob/zombie_ostrich/idle2",
+      "wilderwild:mob/zombie_ostrich/idle3",
+      "wilderwild:mob/zombie_ostrich/idle4",
+      "wilderwild:mob/zombie_ostrich/idle5",
+      "wilderwild:mob/zombie_ostrich/idle6"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.idle"
+  },
+  "entity.zombie_ostrich.grunt": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/grunt1",
+      "wilderwild:mob/zombie_ostrich/grunt2",
+      "wilderwild:mob/zombie_ostrich/grunt3",
+      "wilderwild:mob/zombie_ostrich/grunt4"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.grunt"
+  },
+  "entity.zombie_ostrich.hiss": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/hiss1",
+      "wilderwild:mob/zombie_ostrich/hiss2",
+      "wilderwild:mob/zombie_ostrich/hiss3",
+      "wilderwild:mob/zombie_ostrich/hiss4"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.hiss"
+  },
+  "entity.zombie_ostrich.eat": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/eat1",
+      "wilderwild:mob/zombie_ostrich/eat2",
+      "wilderwild:mob/zombie_ostrich/eat3",
+      "wilderwild:mob/zombie_ostrich/eat4"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.eat"
+  },
+  "entity.zombie_ostrich.step": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/step1",
+      "wilderwild:mob/zombie_ostrich/step2",
+      "wilderwild:mob/zombie_ostrich/step3",
+      "wilderwild:mob/zombie_ostrich/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.zombie_ostrich.saddle": {
+    "sounds": [
+      "minecraft:mob/horse/leather"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.saddle"
+  },
+  "entity.zombie_ostrich.beak.stuck": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/beak_stuck1",
+      "wilderwild:mob/zombie_ostrich/beak_stuck2",
+      "wilderwild:mob/zombie_ostrich/beak_stuck3"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.beak.stuck"
+  },
+  "entity.zombie_ostrich.beak.swing": {
+    "sounds": [
+      "wilderwild:mob/zombie_ostrich/swing1",
+      "wilderwild:mob/zombie_ostrich/swing2",
+      "wilderwild:mob/zombie_ostrich/swing3"
+    ],
+    "subtitle": "subtitles.entity.zombie_ostrich.beak.swing"
+  },
   "entity.penguin.hurt": {
     "sounds": [
       "wilderwild:mob/penguin/hurt1",

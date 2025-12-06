@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -127,28 +129,54 @@ public class ZombieOstrich extends AbstractOstrich {
 		return 1.75F;
 	}
 
-	@Nullable
 	@Override
 	public ZombieOstrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return WWEntityTypes.ZOMBIE_OSTRICH.create(level, EntitySpawnReason.BREEDING);
 	}
 
-	// TODO: CUSTOM SOUNDS
+	@Override
+	public SoundEvent getEatingSound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_EAT;
+	}
+
+	@Override
+	protected Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack stack, Equippable equippable) {
+		return equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, stack, equippable);
+	}
+
+	@Override
+	public SoundEvent getAngrySound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT;
+	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
-		return WWSounds.ENTITY_OSTRICH_IDLE;
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_ZOMBIE_OSTRICH_HISS : WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_IDLE;
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_OSTRICH_HURT;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_HURT;
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_OSTRICH_DEATH;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_DEATH;
 	}
 
+	@Override
+	public SoundEvent getBeakSwingSound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SWING;
+	}
+
+	@Override
+	public SoundEvent getBeakStuckSound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK;
+	}
+
+	@Override
+	public SoundEvent getStepSound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_STEP;
+	}
 }

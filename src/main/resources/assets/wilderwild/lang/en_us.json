@@ -505,7 +505,6 @@
   "wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description": "Catch a Jellyfish in a Bucket",
 
   "entity.wilderwild.ostrich": "Ostrich",
-  "debug.ostrich": "Ostrich",
   "item.wilderwild.ostrich_spawn_egg": "Ostrich Spawn Egg",
   "subtitles.entity.ostrich.idle": "Ostrich trills",
   "subtitles.entity.ostrich.grunt": "Ostrich grunts",
@@ -531,9 +530,8 @@
   "subtitles.block.ostrich_egg.hatch": "Ostrich Egg hatches",
 
   "entity.wilderwild.zombie_ostrich": "Zombie Ostrich",
-  "debug.zombie_ostrich": "Zombie Ostrich",
   "item.wilderwild.zombie_ostrich_spawn_egg": "Zombie Ostrich Spawn Egg",
-  "subtitles.entity.zombie_ostrich.idle": "Zombie Ostrich trills",
+  "subtitles.entity.zombie_ostrich.idle": "Zombie Ostrich croons",
   "subtitles.entity.zombie_ostrich.grunt": "Zombie Ostrich grunts",
   "subtitles.entity.zombie_ostrich.hiss": "Zombie Ostrich hisses",
   "subtitles.entity.zombie_ostrich.hurt": "Zombie Ostrich hurts",

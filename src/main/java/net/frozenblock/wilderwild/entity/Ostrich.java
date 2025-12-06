@@ -124,7 +124,7 @@ public class Ostrich extends AbstractOstrich {
 	@Override
 	public SoundEvent getBeakSwingSound() {
 		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_SWING;
-		return super.getBeakStuckSound();
+		return super.getBeakSwingSound();
 	}
 
 	@Override
@@ -134,9 +134,15 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
+	public SoundEvent getStepSound() {
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_STEP;
+		return super.getStepSound();
+	}
+
+	@Override
 	public void playStepSound(BlockPos pos, BlockState state) {
 		if (this.isInbred()) {
-			this.playSound(WWSounds.ENTITY_OSTRICH_INBRED_STEP, 0.5F, 0.9F + this.random.nextFloat() * 0.2F);
+			this.playSound(this.getStepSound(), 0.5F, 0.9F + this.random.nextFloat() * 0.2F);
 			return;
 		}
 		super.playStepSound(pos, state);

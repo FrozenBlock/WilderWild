@@ -408,6 +408,16 @@ public final class WWSounds {
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_STEP = register("entity.ostrich.inbred.step");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_BEAK_STUCK = register("entity.ostrich.inbred.beak.stuck");
 	public static final SoundEvent ENTITY_OSTRICH_INBRED_SWING = register("entity.ostrich.inbred.beak.swing");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_IDLE = register("entity.zombie_ostrich.idle");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_GRUNT = register("entity.zombie_ostrich.grunt");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_HISS = register("entity.zombie_ostrich.hiss");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_HURT = register("entity.zombie_ostrich.hurt");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_DEATH = register("entity.zombie_ostrich.death");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_STEP = register("entity.zombie_ostrich.step");
+	public static final Holder<SoundEvent> ENTITY_ZOMBIE_OSTRICH_SADDLE = registerForHolder("entity.zombie_ostrich.saddle");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK = register("entity.zombie_ostrich.beak.stuck");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_SWING = register("entity.zombie_ostrich.beak.swing");
+	public static final SoundEvent ENTITY_ZOMBIE_OSTRICH_EAT = register("entity.zombie_ostrich.eat");
 	public static final SoundEvent ENTITY_PENGUIN_IDLE = register("entity.penguin.idle");
 	public static final SoundEvent ENTITY_PENGUIN_CALL = register("entity.penguin.call");
 	public static final SoundEvent ENTITY_PENGUIN_HURT = register("entity.penguin.hurt");

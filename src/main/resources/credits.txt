@@ -217,6 +217,7 @@ Osmiooo:
 
 Ostrich Sounds:
 Most sounds are edited and taken from Sonddogs' "Rob Nokes Sound Library" on avosound.com, used with a purchased license per track.
+Additional samples used for the Zombie Ostrich's idle sounds are self-made.
 https://xeno-canto.org/845946
 https://xeno-canto.org/845937
 https://xeno-canto.org/845936
@@ -236,6 +237,10 @@ https://freesound.org/people/pigeonfriend/sounds/384065/
 https://freesound.org/people/HerbertBoland/sounds/29695/
 https://freesound.org/people/ChrisReierson/sounds/433749/
 https://freesound.org/people/Ezcah/sounds/243715/
+https://freesound.org/people/giddster/sounds/394941/
+https://freesound.org/people/davidjvitale/sounds/627025/
+https://freesound.org/people/lolamadeus/sounds/166487/
+https://freesound.org/people/DalomarGrimm/sounds/7720/
 
 Geyser/Magmatic Caves Sounds:
 https://freesound.org/people/hdrck16/sounds/135010/

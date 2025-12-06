@@ -399,8 +399,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
 		this.setLastAttackCommander(commander);
-		SoundEvent soundEvent = this.isInbred() ? WWSounds.ENTITY_OSTRICH_INBRED_SWING : WWSounds.ENTITY_OSTRICH_SWING;
-		this.playSound(soundEvent, 0.4F, 0.9F + this.random.nextFloat() * 0.2F);
+		this.playSound(this.getBeakSwingSound(), 0.4F, 0.9F + this.random.nextFloat() * 0.2F);
 
 		if (this.attackHasCommander) {
 			this.getAttribute(Attributes.ATTACK_DAMAGE)
@@ -833,6 +832,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		return WWSounds.ENTITY_OSTRICH_BEAK_STUCK;
 	}
 
+	public SoundEvent getStepSound() {
+		return WWSounds.ENTITY_OSTRICH_STEP;
+	}
+
 	@Override
 	public float nextStep() {
 		return this.moveDist + 1F + (this.isVehicle() ? 0.75F : 0F) + (this.getAdditionalSpeed() * 5F);
@@ -840,7 +843,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(WWSounds.ENTITY_OSTRICH_STEP, 0.1F, 0.9F + this.random.nextFloat() * 0.2F);
+		this.playSound(this.getStepSound(), 0.1F, 0.9F + this.random.nextFloat() * 0.2F);
 	}
 
 	@Override
