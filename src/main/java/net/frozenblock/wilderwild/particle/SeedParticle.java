@@ -97,9 +97,9 @@ public class SeedParticle extends SingleQuadParticle {
 			final SeedParticle seedParticle = new SeedParticle(
 				level,
 				x, y, z,
-				(options.controlled() ? controlledVelocity.x * 1.1D : ClientWindManager.getWindX(1F) * 1.1D) + random.triangle(0D, 0.8D) / 17D,
+				(((options.controlled() ? controlledVelocity.x : ClientWindManager.getWindX(1F)) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
 				options.controlled() ? controlledVelocity.y / 17D : 0D,
-				(options.controlled() ? controlledVelocity.z * 1.1D : ClientWindManager.getWindZ(1F) * 1.1D) + random.triangle(0D, 0.8D) / 17D,
+				(((options.controlled() ? controlledVelocity.z : ClientWindManager.getWindZ(1F)) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
 				this.spriteSet.get(random)
 			);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 200, 500);
