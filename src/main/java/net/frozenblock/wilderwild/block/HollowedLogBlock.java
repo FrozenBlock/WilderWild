@@ -114,7 +114,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		return new AxeApi.AxeBehavior() {
 			@Override
 			public boolean meetsRequirements(LevelReader level, BlockPos pos, Direction direction, BlockState state) {
-				return WWBlockConfig.get().logHollowing && state.hasProperty(BlockStateProperties.AXIS) && direction.getAxis().equals(state.getValue(BlockStateProperties.AXIS));
+				return WWBlockConfig.get().logHollowing && state.hasProperty(AXIS) && direction.getAxis().equals(state.getValue(AXIS));
 			}
 
 			@Override
@@ -254,7 +254,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	public boolean propagatesSkylightDown(BlockState state) {
-		return !state.getValue(WATERLOGGED);
+		return !state.getValue(WATERLOGGED) && state.getValue(AXIS) == Direction.Axis.Y;
 	}
 
 	@Override
