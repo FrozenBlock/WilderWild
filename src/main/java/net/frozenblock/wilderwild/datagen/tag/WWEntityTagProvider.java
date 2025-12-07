@@ -95,9 +95,6 @@ public final class WWEntityTagProvider extends FabricTagProvider.EntityTypeTagPr
 		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
 			.add(EntityType.BREEZE);
 
-		this.valueLookupBuilder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
-			.add(WWEntityTypes.SCORCHED);
-
 		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
 			.add(EntityType.WARDEN)
 			.add(WWEntityTypes.CRAB)
