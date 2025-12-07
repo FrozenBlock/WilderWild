@@ -50,6 +50,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 ### Tree Changes
 - Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
+- Changed the logic that determines whether a Cypress tree will grow into a unique Juniper shape or not.
+  - Added the `wilderwild:cypress_grows_as_juniper_on` block tag.
+    - Contains `#minecraft:sand` and `#minecraft:terracotta` by default.
+  - A Cypress Sapling grown on top of a block within the `wilderwild:cypress_grows_as_juniper_on` block tag will assume the Juniper shape.
+    - Before this change, the Juniper shape would be assumed only within Badlands biomes.
 - Palm Trees can now only naturally generate a maximum of three Coconuts.
 - Added the Yellow Maple Sapling, Orange Maple Sapling, and Red Maple Sapling.
   - This change was made due to community request and feedback, as having only one sapling which grants a random color was not preferred.
