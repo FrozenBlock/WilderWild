@@ -352,7 +352,7 @@ public final class WWAquaticConfigured {
 
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RED_MOSS_REPLACEABLE,
+				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,
@@ -435,7 +435,7 @@ public final class WWAquaticConfigured {
 
 		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RED_MOSS_REPLACEABLE,
+				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,
