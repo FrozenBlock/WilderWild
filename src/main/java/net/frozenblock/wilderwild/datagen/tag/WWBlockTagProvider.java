@@ -508,11 +508,15 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.valueLookupBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON)
 			.addOptionalTag(BlockTags.DRY_VEGETATION_MAY_PLACE_ON);
 
+		this.valueLookupBuilder(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.TERRACOTTA);
+
 		this.valueLookupBuilder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
 			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.FERN);
 
-		this.valueLookupBuilder(WWBlockTags.RED_MOSS_REPLACEABLE)
+		this.valueLookupBuilder(WWBlockTags.AUBURN_MOSS_REPLACEABLE)
 			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)

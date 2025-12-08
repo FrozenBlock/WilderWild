@@ -1213,7 +1213,7 @@ public final class WWMiscConfigured {
 
 		AUBURN_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RED_MOSS_REPLACEABLE,
+				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
@@ -1296,7 +1296,7 @@ public final class WWMiscConfigured {
 
 		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RED_MOSS_REPLACEABLE,
+				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,

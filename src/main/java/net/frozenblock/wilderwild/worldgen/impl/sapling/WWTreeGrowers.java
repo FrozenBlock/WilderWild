@@ -19,17 +19,15 @@ package net.frozenblock.wilderwild.worldgen.impl.sapling;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.worldgen.impl.sapling.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
@@ -38,7 +36,7 @@ public final class WWTreeGrowers {
 	public static final TreeGrower BAOBAB = new BaobabTreeGrower(WWConstants.string("baobab")) {
 		@Override
 		protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
-			return random.nextFloat() < 0.856F ? WWTreeConfigured.BAOBAB.getKey() : WWTreeConfigured.BAOBAB_TALL.getKey();
+			return random.nextFloat() <= 0.856F ? WWTreeConfigured.BAOBAB.getKey() : WWTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
 
@@ -50,16 +48,17 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean flowers) {
-			if ((Object) this instanceof TreeGrowerInterface treeGrowerInterface) {
+			growAlternates: {
+				if (!((Object) this instanceof TreeGrowerInterface treeGrowerInterface)) break growAlternates;
+
 				final ServerLevel level = treeGrowerInterface.wilderWild$getLevel();
 				final BlockPos pos = treeGrowerInterface.wilderWild$getPos();
-				if (level != null && pos != null) {
-					if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeConfigured.SWAMP_CYPRESS.getKey();
-					final Holder<Biome> biome = level.getBiome(pos);
-					if (biome.is(BiomeTags.IS_BADLANDS)) return WWTreeConfigured.JUNIPER.getKey();
-				}
+				if (level == null && pos == null) break growAlternates;
+
+				if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeConfigured.SWAMP_CYPRESS.getKey();
+				if (level.getBlockState(pos.below()).is(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)) return WWTreeConfigured.JUNIPER.getKey();
 			}
-			if (random.nextFloat() > 0.4F) return random.nextFloat() > 0.7F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
+			if (random.nextFloat() <= 0.6F) return random.nextFloat() <= 0.3F ? WWTreeConfigured.CYPRESS.getKey() : WWTreeConfigured.FUNGUS_CYPRESS.getKey();
 			return WWConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
 		}
 	};
@@ -72,11 +71,8 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean flowers) {
-			return random.nextFloat() > 0.4F
-				? WWTreeConfigured.PALM.getKey()
-					: random.nextFloat() > 0.3F
-					? WWTreeConfigured.TALL_PALM.getKey()
-					: WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
+			return random.nextFloat() <= 0.6F ? WWTreeConfigured.PALM.getKey()
+				: random.nextFloat() <= 0.7F ? WWTreeConfigured.TALL_PALM.getKey() : WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
 		}
 	};
 

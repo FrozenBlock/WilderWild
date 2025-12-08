@@ -10,7 +10,7 @@
         "Name": "wilderwild:auburn_moss_block"
       }
     },
-    "replaceable": "#wilderwild:red_moss_replaceable",
+    "replaceable": "#wilderwild:auburn_moss_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.475,
     "vegetation_feature": {
