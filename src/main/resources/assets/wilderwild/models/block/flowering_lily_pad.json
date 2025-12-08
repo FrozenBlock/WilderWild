@@ -2,10 +2,10 @@
 	"ambientocclusion": false,
 	"textures": {
 		"root": "wilderwild:block/lily_pad_root",
-		"particle": "block/lily_pad",
-		"pad": "block/lily_pad",
-		"texture": "wilderwild:block/waterlily"
-	},
+		"pad": "minecraft:block/lily_pad",
+		"texture": "wilderwild:block/waterlily",
+    "particle": "#pad"
+  },
 	"elements": [
 		{
 			"from": [0, 0.25, 0],
@@ -16,42 +16,32 @@
 			}
 		},
 		{
+			"name": "root",
 			"from": [8, -15.75, 0],
 			"to": [8, 0.25, 16],
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8], "rescale": true},
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, -7.75, 8], "rescale": true},
 			"faces": {
 				"east": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0}
 			}
 		},
 		{
-			"from": [8, -15.75, 0],
-			"to": [8, 0.25, 16],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8], "rescale": true},
+			"name": "root",
+			"from": [0, -15.75, 8],
+			"to": [16, 0.25, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, -7.75, 8], "rescale": true},
 			"faces": {
-				"east": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#root", "tintindex": 0}
 			}
 		},
 		{
+			"name": "flower",
 			"from": [0, 0.5, 0],
 			"to": [16, 0.5, 16],
-			"rotation": {"angle": 0, "axis": "z", "origin": [8.55, 0.25, 8]},
 			"faces": {
 				"up": {"uv": [0, 16, 16, 0], "rotation": 90, "texture": "#texture"}
 			}
 		}
-	],
-	"groups": [
-		{
-			"name": "lily",
-			"origin": [8, 0, 8],
-			"color": 0,
-			"children": []
-		},
-		0,
-		1,
-		2,
-		3
 	]
 }

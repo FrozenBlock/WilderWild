@@ -1,20 +1,20 @@
 {
 	"parent": "minecraft:block/door_top_right",
-	"textures": {
-		"2": "wilderwild:block/palm_door_sides",
-		"particle": "wilderwild:block/palm_door_top",
-		"top": "wilderwild:block/palm_door_top"
-	},
+  "textures": {
+    "side": "wilderwild:block/palm_door_sides",
+    "top": "wilderwild:block/palm_door_top",
+    "particle": "#top"
+  },
 	"elements": [
 		{
 			"from": [0, 0, 0],
 			"to": [3, 16, 16],
 			"faces": {
-				"north": {"uv": [3, 0, 0, 16], "texture": "#2", "cullface": "north"},
+				"north": {"uv": [3, 0, 0, 16], "texture": "#side", "cullface": "north"},
 				"east": {"uv": [0, 0, 16, 16], "texture": "#top"},
-				"south": {"uv": [0, 0, 3, 16], "texture": "#2", "cullface": "south"},
+				"south": {"uv": [0, 0, 3, 16], "texture": "#side", "cullface": "south"},
 				"west": {"uv": [16, 0, 0, 16], "texture": "#top", "cullface": "west"},
-				"up": {"uv": [8, 0, 11, 16], "rotation": 180, "texture": "#2", "cullface": "up"}
+				"up": {"uv": [8, 0, 11, 16], "rotation": 180, "texture": "#side", "cullface": "up"}
 			}
 		}
 	]

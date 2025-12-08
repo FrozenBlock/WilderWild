@@ -2,8 +2,8 @@
   "parent": "minecraft:block/template_orientable_trapdoor_top",
   "textures": {
     "side": "wilderwild:block/maple_trapdoor_side",
-    "particle": "wilderwild:block/maple_trapdoor",
-    "texture": "wilderwild:block/maple_trapdoor"
+    "texture": "wilderwild:block/maple_trapdoor",
+    "particle": "#texture"
   },
   "elements": [
     {

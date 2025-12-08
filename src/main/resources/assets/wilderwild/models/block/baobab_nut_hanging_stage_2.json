@@ -1,36 +1,39 @@
 {
 	"textures": {
-		"particle": "wilderwild:block/baobab_nut_hanging_stage_2",
-		"nut": "wilderwild:block/baobab_nut_hanging_stage_2"
-	},
+		"texture": "wilderwild:block/baobab_nut_hanging_stage_2",
+    "particle": "#texture"
+  },
 	"elements": [
 		{
 			"from": [4, 3, 4],
 			"to": [12, 12, 12],
 			"faces": {
-				"north": {"uv": [8, 7, 16, 16], "texture": "#nut"},
-				"east": {"uv": [8, 7, 16, 16], "texture": "#nut"},
-				"south": {"uv": [8, 7, 16, 16], "texture": "#nut"},
-				"west": {"uv": [8, 7, 16, 16], "texture": "#nut"},
-				"up": {"uv": [0, 0, 8, 8], "texture": "#nut"},
-				"down": {"uv": [0, 8, 8, 16], "texture": "#nut"}
+				"north": {"uv": [8, 7, 16, 16], "texture": "#texture"},
+				"east": {"uv": [8, 7, 16, 16], "texture": "#texture"},
+				"south": {"uv": [8, 7, 16, 16], "texture": "#texture"},
+				"west": {"uv": [8, 7, 16, 16], "texture": "#texture"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#texture"},
+				"down": {"uv": [0, 8, 8, 16], "texture": "#texture"}
 			}
 		},
 		{
-			"from": [6, 12, 8],
-			"to": [10, 16, 8],
+			"name": "stem",
+			"from": [4.5, 12, 8],
+			"to": [11.5, 16, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 14, 8]},
 			"faces": {
-				"north": {"uv": [10, 3, 14, 7], "texture": "#nut"},
-				"south": {"uv": [14, 3, 10, 7], "texture": "#nut"}
+				"north": {"uv": [9, 3, 16, 7], "texture": "#texture"},
+				"south": {"uv": [9, 3, 16, 7], "texture": "#texture"}
 			}
 		},
 		{
-			"from": [8, 12, 6],
-			"to": [8, 16, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"name": "stem",
+			"from": [8, 12, 4.5],
+			"to": [8, 16, 11.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 14, 8]},
 			"faces": {
-				"east": {"uv": [10, 3, 14, 7], "texture": "#nut"},
-				"west": {"uv": [14, 3, 10, 7], "texture": "#nut"}
+				"east": {"uv": [9, 3, 16, 7], "texture": "#texture"},
+				"west": {"uv": [9, 3, 16, 7], "texture": "#texture"}
 			}
 		}
 	]

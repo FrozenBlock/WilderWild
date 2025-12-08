@@ -1,6 +1,6 @@
 {
   "parent": "wilderwild:block/hanging_tendril",
   "textures": {
-    "tendril": "wilderwild:block/hanging_tendril_milk"
+    "texture": "wilderwild:block/hanging_tendril_milk"
   }
 }

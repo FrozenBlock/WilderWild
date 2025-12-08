@@ -2,9 +2,9 @@
 	"ambientocclusion": false,
 	"textures": {
 		"plant": "wilderwild:block/potted_big_dripleaf",
-		"flowerpot": "block/flower_pot",
-		"clay": "block/clay",
-		"particle": "block/flower_pot"
+		"flowerpot": "minecraft:block/flower_pot",
+		"clay": "minecraft:block/clay",
+		"particle": "minecraft:block/flower_pot"
 	},
 	"elements": [
     {   "from": [ 5, 0, 5 ],

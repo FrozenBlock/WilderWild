@@ -1,11 +1,11 @@
 {
   "ambientocclusion": false,
 	"textures": {
-		"flowerpot": "block/flower_pot",
-		"dirt": "block/dirt",
-		"stem": "block/pink_petals_stem",
-		"flower": "block/pink_petals",
-		"particle": "block/flower_pot"
+		"flowerpot": "minecraft:block/flower_pot",
+		"dirt": "minecraft:block/dirt",
+		"stem": "minecraft:block/pink_petals_stem",
+		"flower": "minecraft:block/pink_petals",
+		"particle": "minecraft:block/flower_pot"
 	},
 	"elements": [
     {   "from": [ 5, 0, 5 ],

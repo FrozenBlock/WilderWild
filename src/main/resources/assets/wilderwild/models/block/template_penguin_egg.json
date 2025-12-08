@@ -1,4 +1,7 @@
 {
+  "textures": {
+    "particle": "#side"
+  },
 	"elements": [
 		{
 			"from": [6, 0, 6],

@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/flower_pot_cross",
   "textures": {
-    "plant": "block/short_dry_grass",
-    "dirt": "block/sand"
+    "plant": "minecraft:block/short_dry_grass",
+    "dirt": "minecraft:block/sand"
   }
 }

@@ -1,6 +1,6 @@
 {
-    "parent": "block/template_single_face",
-    "textures": {
-        "texture": "wilderwild:block/pale_mushroom_block_inside"
-    }
+  "parent": "block/template_single_face",
+  "textures": {
+    "texture": "wilderwild:block/pale_mushroom_block_inside"
+  }
 }

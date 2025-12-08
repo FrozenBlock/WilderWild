@@ -1,19 +1,19 @@
 {
 	"textures": {
-		"0": "wilderwild:block/sponge_bud",
-		"particle": "wilderwild:block/sponge_bud"
+		"texture": "wilderwild:block/sponge_bud",
+		"particle": "#texture"
 	},
 	"elements": [
 		{
 			"from": [3, 0, 7],
 			"to": [9, 3, 12],
 			"faces": {
-				"north": {"uv": [0, 16, 6, 13], "rotation": 180, "texture": "#0"},
-				"east": {"uv": [0, 10, 5, 13], "texture": "#0"},
-				"south": {"uv": [0, 13, 6, 16], "texture": "#0"},
-				"west": {"uv": [0, 10, 5, 13], "texture": "#0"},
-				"up": {"uv": [6, 5, 0, 10], "texture": "#0"},
-				"down": {"uv": [6, 5, 0, 10], "texture": "#0"}
+				"north": {"uv": [0, 16, 6, 13], "rotation": 180, "texture": "#texture"},
+				"east": {"uv": [0, 10, 5, 13], "texture": "#texture"},
+				"south": {"uv": [0, 13, 6, 16], "texture": "#texture"},
+				"west": {"uv": [0, 10, 5, 13], "texture": "#texture"},
+				"up": {"uv": [6, 5, 0, 10], "texture": "#texture"},
+				"down": {"uv": [6, 5, 0, 10], "texture": "#texture"}
 			}
 		}
 	]
