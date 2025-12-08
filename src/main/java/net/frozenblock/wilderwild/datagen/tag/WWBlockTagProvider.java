@@ -501,6 +501,10 @@ public final class WWBlockTagProvider extends FabricTagProvider.BlockTagProvider
 		this.getOrCreateTagBuilder(WWBlockTags.BUSH_MAY_PLACE_ON)
 			.addOptionalTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 
+		this.getOrCreateTagBuilder(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)
+			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockTags.TERRACOTTA);
+
 		this.getOrCreateTagBuilder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
 			.add(Blocks.SHORT_GRASS)
 			.add(Blocks.FERN);
