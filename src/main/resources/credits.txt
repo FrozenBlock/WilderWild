@@ -4,6 +4,7 @@ Luna/Lunade/AViewFromTheTop:
  - Crab entity, Reach Boost (2.2-2.4.3), and Wind particle textures.
  - Potted Hibiscus reference textures.
  - Sounds (2.2 onwards.)
+ - Hollowed Log models as of 4.2 on 1.21.11+.
  - QA.
  - Etc., etc.
 
