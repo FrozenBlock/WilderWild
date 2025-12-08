@@ -42,6 +42,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `wilderwild:gameplay/sea_anemone_glowing`: False at nighttime and true in daytime.
 - Added the Scorched to the `minecraft:no_anger_from_wind_charge` entity type tag.
 - Added the Butterfly to the `wilderwild:coconut_cant_bonk` and `wilderwild:coconut_cant_split` entity type tags.
+- Fixed Dark Oak Leaf Litters not spawning leaf litter particles when walked through.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
@@ -49,6 +50,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 
 ### Tree Changes
 - Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
+- Changed the logic that determines whether a Cypress tree will grow into a unique Juniper shape or not.
+  - Added the `wilderwild:cypress_grows_as_juniper_on` block tag.
+    - Contains `#minecraft:sand` and `#minecraft:terracotta` by default.
+  - A Cypress Sapling grown on top of a block within the `wilderwild:cypress_grows_as_juniper_on` block tag will assume the Juniper shape.
+    - Before this change, the Juniper shape would be assumed only within Badlands biomes.
 - Palm Trees can now only naturally generate a maximum of three Coconuts.
 - Added the Yellow Maple Sapling, Orange Maple Sapling, and Red Maple Sapling.
   - This change was made due to community request and feedback, as having only one sapling which grants a random color was not preferred.

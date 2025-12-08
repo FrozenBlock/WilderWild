@@ -127,6 +127,8 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON = bind("bush_may_place_on");
 
+	public static final TagKey<Block> CYPRESS_GROWS_AS_JUNIPER_ON = bind("cypress_grows_as_juniper_on");
+
 	public static final TagKey<Block> BUSH_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/bush_may_place_on_no_sand");
 	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("feature/packed_mud_replaceable");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("feature/sand_pool_replaceable");
