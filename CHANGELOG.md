@@ -28,7 +28,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Fallen Dark Oak Trees generate slightly more frequently.
   - Increased the amount of space Old Growth Dark Forests take up.
   - Beta Beaches can no longer generate in Old Growth Dark Forests.
-- Fixed the Shrub's textures being flipped on its model.
 - The Shrub's break particles now only use its leaves overlay, instead of its stem and branches.
 - Updated the foliage colors of the Maple Forest biome.
 - Added new Environment Attributes for Wilder Wild.
@@ -112,7 +111,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed the Gabbro building set being misplaced on 1.21.1.
 - Moved Sculk building blocks to the very bottom, and added the regular Sculk block alongside them.
 
-### Textures
+### Assets
 - Retextured the Palm Sapling.
 - Retextured all Gabbro blocks.
 - Retextured the Geyser.
@@ -126,3 +125,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured Maple Leaf Litters.
 - Retextured Echo Glass.
 - Updated the Reach Boost effect icon.
+- The stems of Hanging Baobab Nuts now utilize their full textures and are rotated at a 45-degree angle in 1.21.11+.
+- The stems of Hanging Coconuts are now rotated at a 45-degree angle in 1.21.11+.
+- The stems of Lily Pads and Flowering Lily Pads are now rotated at a 45-degree angle in 1.21.11+.
+- Significantly optimized the models of Hollowed Logs in 1.21.11+.
+- Fixed the Shrub's textures being flipped on its model.
