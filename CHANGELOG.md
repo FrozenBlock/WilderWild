@@ -46,6 +46,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
 - Updated the Spanish translation, thanks to Kokoroto!
+- Updated the Chinese translation, thanks to taguima! ([#522](https://github.com/FrozenBlock/WilderWild/pull/522))
 
 ### Tree Changes
 - Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
@@ -125,6 +126,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Retextured Maple Leaf Litters.
 - Retextured Echo Glass.
 - Updated the Reach Boost effect icon.
+- Retextured most Leaf Litter blocks and their particles in 1.21.5+.
 - The stems of Hanging Baobab Nuts now utilize their full textures and are rotated at a 45-degree angle in 1.21.11+.
 - The stems of Hanging Coconuts are now rotated at a 45-degree angle in 1.21.11+.
 - The stems of Lily Pads and Flowering Lily Pads are now rotated at a 45-degree angle in 1.21.11+.
