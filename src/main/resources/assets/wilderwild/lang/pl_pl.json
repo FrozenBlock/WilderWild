@@ -898,7 +898,7 @@
     "option.wilderwild.pale_moss_decoration": "Pale Moss Decoration",
     "tooltip.wilderwild.pale_moss_decoration": "Whether decorative Pale Moss can generate.",
     "option.wilderwild.scorched_sand_decoration": "Generowanie spalonego piasku",
-    "tooltip.wilderwild.scorched_sand_decoration": "Określa czy spalony piasek może się generować naturalnie.",
+    "tooltip.wilderwild.scorched_sand_decoration": "Określa czy spalony piasek może być generowany naturalnie.",
     "option.wilderwild.scorched_red_sand_decoration": "Generowanie spalonego czerwonego piasku",
     "tooltip.wilderwild.scorched_red_sand_decoration": "Określa czy spalony czerwony piasek może być generowany naturalnie.",
     "option.wilderwild.sandstone_decoration": "Sandstone Decoration",
