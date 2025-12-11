@@ -66,7 +66,6 @@ public final class WWTints {
 
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.ACACIA_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.BAOBAB_LEAF_LITTER);
-		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.CYPRESS_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.DARK_OAK_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.JUNGLE_LEAF_LITTER);
 		ColorProviderRegistry.BLOCK.register(dryFoliageProvider, WWBlocks.MANGROVE_LEAF_LITTER);
