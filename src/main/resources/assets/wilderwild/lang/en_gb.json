@@ -1,1 +1,15 @@
-{}
+{
+    "biome.wilderwild.cypress_wetlands": "Cypress Wetlands",
+    "biome.wilderwild.mixed_forest": "Mixed Forest",
+    "biome.wilderwild.frozen_caves": "Frozen Caves",
+    "biome.wilderwild.mesoglea_caves": "Mesoglea Caves",
+    "biome.wilderwild.magmatic_caves": "Magmatic Caves",
+    "biome.wilderwild.oasis": "Oasis",
+    "biome.wilderwild.warm_river": "Warm River",
+    "biome.wilderwild.warm_beach": "Warm Beach",
+    "biome.wilderwild.birch_taiga": "Birch Taiga",
+    "biome.wilderwild.old_growth_birch_taiga": "Old Growth Birch Taiga",
+    "biome.wilderwild.birch_jungle": "Birch Jungle",
+    "biome.wilderwild.sparse_birch_jungle": "Sparse Birch Jungle",
+    "biome.wilderwild.flower_field": "Flower Field"
+}
