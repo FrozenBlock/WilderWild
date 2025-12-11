@@ -205,7 +205,7 @@ public final class WWParticleTypes {
 	public static final ParticleType<WWFallingLeavesParticleOptions> ACACIA_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("acacia_litter_leaves"),
 		WWBlocks.ACACIA_LEAF_LITTER,
-		3,
+		4,
 		1.4F,
 		10F,
 		FallingLeafUtil.LeafMovementType.SWIRL
@@ -382,7 +382,7 @@ public final class WWParticleTypes {
 	public static final ParticleType<WWFallingLeavesParticleOptions> WILLOW_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("willow_litter_leaves"),
 		WWBlocks.WILLOW_LEAF_LITTER,
-		5,
+		4,
 		1.4F,
 		10F,
 		FallingLeafUtil.LeafMovementType.SWIRL
