@@ -1240,5 +1240,11 @@
     "wilderwild.music.zhen.frozen_blocks": "Zhen - Frozen Blocks",
     "wilderwild.music.zhen.pressure": "Zhen - Pressure",
     "wilderwild.music.c418.excuse": "C418 - Excuse",
-    "wilderwild.music.c418.flake": "C418 - Flake"
+    "wilderwild.music.c418.flake": "C418 - Flake",
+    "block.wilderwild.potted_yellow_maple_sapling": "黄色枫树盆栽",
+    "block.wilderwild.potted_orange_maple_sapling": "橙色枫树盆栽",
+    "block.wilderwild.potted_red_maple_sapling": "红色枫树盆栽",
+    "block.wilderwild.yellow_maple_sapling": "黄色枫树树苗",
+    "block.wilderwild.orange_maple_sapling": "橙色枫树树苗",
+    "block.wilderwild.red_maple_sapling": "红色枫树树苗"
 }
