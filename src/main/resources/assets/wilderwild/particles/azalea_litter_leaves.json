@@ -1,12 +1,18 @@
 {
   "textures": [
     "wilderwild:azalea_litter_leaf0",
+    "wilderwild:azalea_litter_leaf0",
+    "wilderwild:azalea_litter_leaf1",
     "wilderwild:azalea_litter_leaf1",
     "wilderwild:azalea_litter_leaf2",
+    "wilderwild:azalea_litter_leaf2",
+    "wilderwild:azalea_litter_leaf3",
     "wilderwild:azalea_litter_leaf3",
     "wilderwild:azalea_litter_leaf4",
     "wilderwild:azalea_litter_leaf5",
     "wilderwild:azalea_litter_leaf6",
+    "wilderwild:azalea_litter_leaf6",
+    "wilderwild:azalea_litter_leaf7",
     "wilderwild:azalea_litter_leaf7"
   ]
 }
