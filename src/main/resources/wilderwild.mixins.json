@@ -157,7 +157,6 @@
     "client.mesoglea.fog.WaterFogEnvironmentMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sodium.BlockRendererMixin",
-    "client.sodium.DefaultMaterialsMixin",
     "client.sodium.DefaultTerrainRenderPassesMixin",
     "client.sodium.FluidRendererMixin",
     "client.warden.WardenModelMixin",
