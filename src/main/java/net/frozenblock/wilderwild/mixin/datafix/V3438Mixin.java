@@ -34,13 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(V3438.class)
 public class V3438Mixin {
 
-	@Inject(
-		method = "registerBlockEntities",
-		at = @At(
-			value = "RETURN",
-			target = "Lcom/mojang/datafixers/schemas/Schema;registerSimple(Ljava/util/Map;Ljava/lang/String;)V"
-		)
-	)
+	@Inject(method = "registerBlockEntities", at = @At("RETURN"))
 	public void wilderWild$registerBlockEntities(
 		Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> info,
 		@Local Map<String, Supplier<TypeTemplate>> map
