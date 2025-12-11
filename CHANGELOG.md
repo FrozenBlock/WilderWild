@@ -5,19 +5,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option to grant players extended reach while holding a Crab Claw in either hand.
   - This is off by default, but can be changed in-game on-the-fly via the config.
   - The on-the-fly config functionality may not work on 1.21.2+, hence the restart prompt appearing when changing this config value.
-- Fireflies can now be dyed in-world by clicking them with a Dye item.
 - Cattails now generate closer together, and generate more Cattails per-patch on average.
 - Cattail patches can that generate on Mud when not near water have been removed.
 - Milkweed now generate more commonly in Swamps and Mangrove Swamps.
-- Butterflies now rarely spawn in Swamps.
-- Moobloom parents of the same flower color no longer attempt to produce offspring with a "mixed" color.
-  - This was unintentional behavior, and allowed players to obtain Mooblooms of the same color but different flowers.
-- Mooblooms can now properly render double-tall blocks.
-  - A new `top_flower_block_state` field has been added for Moobloom variants.
-    - This is an optional field, and is not present by default.
-    - Takes a block state, just like the `flower_block_state` field.
-    - When present, will render as the top-half of the block on Mooblooms.
-    - Double-tall blocks will be scaled slightly smaller than single blocks on Mooblooms.
 - Wind Particles can now spawn in clusters.
   - The more intense the wind, the higher the chance for Wind Particles to spawn near another Wind Particle!
   - This feature was added to make Wind Particles feel more like part of the game's ambience, opposed to one-off particles that randomly appear.
@@ -39,14 +29,36 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `wilderwild:gameplay/pale_mushroom_active`: True at nighttime and false in daytime.
     - `wilderwild:gameplay/plankton_glowing`: True at nighttime and false in daytime.
     - `wilderwild:gameplay/sea_anemone_glowing`: False at nighttime and true in daytime.
-- Added the Scorched to the `minecraft:no_anger_from_wind_charge` entity type tag.
-- Added the Butterfly to the `wilderwild:coconut_cant_bonk` and `wilderwild:coconut_cant_split` entity type tags.
+
 - Fixed Dark Oak Leaf Litters not spawning leaf litter particles when walked through.
 - Fixed Jungle Logs turning into Oak Logs when hollowed. ([#516](https://github.com/FrozenBlock/WilderWild/issues/516))
 - Fixed a feature cycle order crash with `Oh The Biomes We've Gone`. ([#518](https://github.com/FrozenBlock/WilderWild/issues/518))
 - Updated the Ukranian translations, thanks to StarmanMine142! ([#514](https://github.com/FrozenBlock/WilderWild/pull/514) & ([#519](https://github.com/FrozenBlock/WilderWild/pull/519)))
 - Updated the Spanish translation, thanks to Kokoroto!
 - Updated the Chinese translation, thanks to taguima! ([#522](https://github.com/FrozenBlock/WilderWild/pull/522))
+
+### Mobs
+- Added the Zombie Ostrich in 1.21.11+!
+  - An undead variant of the Ostrich.
+  - Spawns with a Zombie rider holding an Iron Spear.
+  - Has a slightly faster walking speed than the regular Ostrich, but has no option to sprint.
+  - Burns in daylight, and cannot be protected with armor due to the lack of Ostrich Armor.
+  - Spawns in biomes within the `wilderwild:entity/spawn/zombie_ostrich` biome tag.
+- Players will no longer be able to control Ostriches while using an item in 1.21.11+.
+  - This change was made to balance the usage and utility of Ostriches with the new Spear item, dedicating Ostriches to transport while Horses allow for both Armor and Spear usage.
+  - Zombie Ostriches are not impacted by this change.
+- Fireflies can now be dyed in-world by clicking them with a Dye item.
+- Butterflies now rarely spawn in Swamps.
+- Moobloom parents of the same flower color no longer attempt to produce offspring with a "mixed" color.
+  - This was unintentional behavior, and allowed players to obtain Mooblooms of the same color but different flowers.
+- Mooblooms can now properly render double-tall blocks.
+  - A new `top_flower_block_state` field has been added for Moobloom variants.
+    - This is an optional field, and is not present by default.
+    - Takes a block state, just like the `flower_block_state` field.
+    - When present, will render as the top-half of the block on Mooblooms.
+    - Double-tall blocks will be scaled slightly smaller than single blocks on Mooblooms.
+- Added the Scorched to the `minecraft:no_anger_from_wind_charge` entity type tag.
+- Added the Butterfly to the `wilderwild:coconut_cant_bonk` and `wilderwild:coconut_cant_split` entity type tags.
 
 ### Tree Changes
 - Hanging Coconuts now drop between 1-4 Coconuts when broken, opposed to 3-4.
