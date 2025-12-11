@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.datafix;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
@@ -29,20 +28,23 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.datafix.schemas.V3328;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(V3328.class)
 public class V3328Mixin {
 
-	@WrapOperation(
+	@Inject(
 		method = "registerEntities",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/datafix/schemas/NamespacedSchema;registerEntities(Lcom/mojang/datafixers/schemas/Schema;)Ljava/util/Map;",
-			ordinal = 0
+			value = "RETURN",
+			target = "Lcom/mojang/datafixers/schemas/Schema;registerSimple(Ljava/util/Map;Ljava/lang/String;)V"
 		)
 	)
-	public Map<String, Supplier<TypeTemplate>> wilderWild$registerEntities(V3328 instance, Schema schema, Operation<Map<String, Supplier<TypeTemplate>>> original) {
-		final Map<String, Supplier<TypeTemplate>> map = original.call(instance, schema);
+	public void wilderWild$registerEntities(
+		Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> info,
+		@Local Map<String, Supplier<TypeTemplate>> map
+	) {
 		schema.registerSimple(
 			map,
 			WWConstants.string("jellyfish")
@@ -92,6 +94,5 @@ public class V3328Mixin {
 			WWConstants.string("falling_leaves"),
 			(string) -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema))
 		);
-		return map;
 	}
 }
