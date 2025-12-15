@@ -78,6 +78,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		}
+
 		if (treeGrower == TreeGrower.SPRUCE) {
 			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
 		}
@@ -99,13 +100,6 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
 			} else {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
-			}
-		}
-		if (treeGrower == TreeGrower.PALE_OAK) {
-			if (random.nextFloat() < 0.175F) {
-				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
-			} else {
-				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
 			}
 		}
 
@@ -133,15 +127,27 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			if (random.nextFloat() < 0.25F) {
 				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
 			}
-		} else if (treeGrower == TreeGrower.DARK_OAK) {
+		}
+
+		if (treeGrower == TreeGrower.DARK_OAK) {
 			if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
 			} else if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
-		} else if (treeGrower == TreeGrower.JUNGLE) {
+		}
+
+		if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.60F) {
 				info.setReturnValue(WWTreeConfigured.MEGA_JUNGLE_TREE.getKey());
+			}
+		}
+
+		if (treeGrower == TreeGrower.PALE_OAK) {
+			if (random.nextFloat() < 0.175F) {
+				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
+			} else {
+				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
 			}
 		}
 	}
