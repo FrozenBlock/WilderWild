@@ -102,6 +102,13 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
 		}
+		if (treeGrower == TreeGrower.PALE_OAK) {
+			if (random.nextFloat() < 0.175F) {
+				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
+			} else {
+				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
+			}
+		}
 
 		if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.75F) {
@@ -127,27 +134,15 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			if (random.nextFloat() < 0.25F) {
 				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
 			}
-		}
-
-		if (treeGrower == TreeGrower.DARK_OAK) {
+		} else if (treeGrower == TreeGrower.DARK_OAK) {
 			if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
 			} else if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
 			}
-		}
-
-		if (treeGrower == TreeGrower.JUNGLE) {
+		} else if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.60F) {
 				info.setReturnValue(WWTreeConfigured.MEGA_JUNGLE_TREE.getKey());
-			}
-		}
-
-		if (treeGrower == TreeGrower.PALE_OAK) {
-			if (random.nextFloat() < 0.175F) {
-				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
-			} else {
-				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
 			}
 		}
 	}
