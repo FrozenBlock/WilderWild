@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
@@ -95,28 +94,20 @@ public final class WWBlockConfig {
 		public static volatile boolean BILLBOARD_TENDRILS = true;
 	}
 
-	@CollapsibleObject
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();
 
-	@CollapsibleObject
 	public final StoneChestConfig stoneChest = new StoneChestConfig();
 
-	@CollapsibleObject
 	public final TermiteConfig termite = new TermiteConfig();
 
-	@CollapsibleObject
 	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
-	@CollapsibleObject
 	public final SnowloggingConfig snowlogging = new SnowloggingConfig();
 
-	@CollapsibleObject
 	public final FireConfig fire = new FireConfig();
 
-	@CollapsibleObject
 	public final SculkConfig sculk = new SculkConfig();
 
-	@CollapsibleObject
 	public final FlowerConfig flower = new FlowerConfig();
 
 	@EntrySyncData("reachBoostBeacon")

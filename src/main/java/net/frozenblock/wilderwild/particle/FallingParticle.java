@@ -44,7 +44,7 @@ public class FallingParticle extends SingleQuadParticle {
 		this.xd += xd;
 		this.yd += yd;
 		this.zd += zSpeed;
-		this.lifetime = level.random.nextInt(4, 8);
+		this.lifetime = level.getRandom().nextInt(4, 8);
 	}
 
 	public FallingParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {

@@ -45,7 +45,7 @@ public abstract class SnowLayerBlockMixin {
 		method = "getStateForPlacement",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0,
 			shift = At.Shift.BEFORE
 		),

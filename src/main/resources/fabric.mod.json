@@ -59,7 +59,7 @@
   "mixins": [
     "wilderwild.mixins.json"
   ],
-  "accessWidener": "wilderwild.accesswidener",
+  "accessWidener": "wilderwild.classtweaker",
   "depends": {
     "frozenlib": "${frozenlib_version}",
     "fabric-api": "*",

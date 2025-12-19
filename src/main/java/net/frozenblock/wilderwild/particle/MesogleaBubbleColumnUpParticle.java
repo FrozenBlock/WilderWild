@@ -52,7 +52,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	}
 
 	@Override
-	public int getLightColor(float tint) {
+	public int getLightCoords(float tint) {
 		return 240;
 	}
 

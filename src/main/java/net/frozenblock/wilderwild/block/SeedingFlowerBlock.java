@@ -192,7 +192,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		final double horizontalDistance = movement.horizontalDistance();
 		final double horizontalVelocity = horizontalDistance * 1.9D;
 
-		if (level.random.nextFloat() < (horizontalVelocity * 1.45D)) {
+		if (level.getRandom().nextFloat() < (horizontalVelocity * 1.45D)) {
 			final int min = Math.min((int) (horizontalVelocity * 2.5D), 3);
 			final int max = Math.min((int) (horizontalVelocity * 3.5D), 5);
 			this.spawnSeedsFrom(level, pos, state, min, max, movement.normalize().scale(Math.min(horizontalDistance, 0.5D)));

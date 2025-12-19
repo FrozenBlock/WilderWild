@@ -61,7 +61,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	}
 
 	@Override
-	public int getLightColor(float tint) {
+	public int getLightCoords(float tint) {
 		return 240;
 	}
 
@@ -163,7 +163,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 				WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP,
 				SoundSource.NEUTRAL,
 				0.4F,
-				this.level.random.nextFloat() * 0.2F + 0.8F,
+				this.level.getRandom().nextFloat() * 0.2F + 0.8F,
 				false
 			);
 			this.setParticleSpeed(0D, 0D, 0D);

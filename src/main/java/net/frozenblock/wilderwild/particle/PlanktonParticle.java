@@ -145,9 +145,9 @@ public class PlanktonParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected int getLightColor(float partialTicks) {
+	protected int getLightCoords(float partialTicks) {
 		if (this.glowing) return (int) (Mth.lerp(partialTicks, this.prevScale, this.scale) * 240F);
-		return super.getLightColor(partialTicks);
+		return super.getLightCoords(partialTicks);
 	}
 
 	@Override

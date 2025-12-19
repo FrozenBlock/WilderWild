@@ -108,7 +108,7 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	) {
 		final EntityType<?> entityType = entity.getType();
 		if (entityType.equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);
-		if (!entityType.is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
+		if (!entity.is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
 			if (entity instanceof Player player && player.getAbilities().flying) return;
 			entity.resetFallDistance();
 			entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));

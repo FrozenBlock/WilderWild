@@ -162,10 +162,10 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		if (level.isClientSide()) return;
 		if (shears) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 			level.gameEvent(entity, GameEvent.SHEAR, pos);
 		} else {
-			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.random.nextFloat() * 0.1F));
+			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 		}
 	}
 

@@ -35,7 +35,7 @@ public class WalkNodeEvaluatorMixin {
 		method = "getPathTypeFromState",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		slice = @Slice(
@@ -46,7 +46,7 @@ public class WalkNodeEvaluatorMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Block block, Operation<Boolean> operation) {
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || operation.call(state, WWBlocks.PRICKLY_PEAR_CACTUS);
 	}
 

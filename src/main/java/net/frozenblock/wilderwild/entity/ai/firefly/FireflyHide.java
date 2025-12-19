@@ -45,7 +45,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	protected void tick(ServerLevel level, Firefly firefly, long gameTime) {
 		super.tick(level, firefly, gameTime);
 		if (this.isReachedTarget()) {
-			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 0.9F + level.random.nextFloat() * 0.2F);
+			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 			firefly.discard();
 		}
 	}

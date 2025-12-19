@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+// TODO: Re-enable when sodium is unobfuscated
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.DefaultTerrainRenderPasses;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass;
@@ -50,3 +51,4 @@ public abstract class DefaultTerrainRenderPassesMixin {
 	}
 
 }
+*/

@@ -107,7 +107,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		boolean natural = state.getValue(GeyserBlock.NATURAL);
 
 		if (!this.hasRunFirstCheck) {
-			level.scheduleTick(pos, this.getBlockState().getBlock(), level.random.nextInt(TICK_DELAY_START_MIN, TICK_DELAY_START_MAX));
+			level.scheduleTick(pos, this.getBlockState().getBlock(), level.getRandom().nextInt(TICK_DELAY_START_MIN, TICK_DELAY_START_MAX));
 			this.hasRunFirstCheck = true;
 		} else if (GeyserBlock.isActive(geyserType)) {
 			if (geyserType == GeyserType.HYDROTHERMAL_VENT) {
@@ -216,7 +216,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			final AABB boundingBox = entity.getBoundingBox();
 			if (!eruption.intersects(boundingBox)) continue;
 
-			boolean applyMovement = !entity.getType().is(WWEntityTags.GEYSER_CANNOT_PUSH);
+			boolean applyMovement = !entity.is(WWEntityTags.GEYSER_CANNOT_PUSH);
 			if (entity instanceof Player player) {
 				if (player.getAbilities().flying) {
 					applyMovement = false;
@@ -238,7 +238,7 @@ public class GeyserBlockEntity extends BlockEntity {
 
 			if (applyMovement) {
 				final double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance;
-				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.getType().is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
+				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
 				entity.needsSync = true;

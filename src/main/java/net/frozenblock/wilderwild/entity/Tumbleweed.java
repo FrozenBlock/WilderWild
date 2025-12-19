@@ -176,7 +176,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	@Override
 	protected void doPush(Entity entity) {
 		final boolean isCannonball = this.isCannonball();
-		if (!isCannonball && entity.getType().is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
+		if (!isCannonball && entity.is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
 
 		if (isCannonball || entity instanceof Tumbleweed) super.doPush(entity);
 

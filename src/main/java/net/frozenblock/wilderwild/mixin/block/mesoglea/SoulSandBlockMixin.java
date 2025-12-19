@@ -52,7 +52,7 @@ public class SoulSandBlockMixin {
 		method = "updateShape",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
 		)
 	)
 	public boolean wilderWild$updateShape(

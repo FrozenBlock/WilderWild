@@ -79,11 +79,11 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		method = "getBlockSpeedFactor",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 1
 		)
 	)
-	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Block block, Operation<Boolean> operation) {
+	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 
@@ -190,7 +190,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		method = "updateFluidOnEyes",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/material/FluidState;getTags()Ljava/util/stream/Stream;"
+			target = "Lnet/minecraft/world/level/material/FluidState;tags()Ljava/util/stream/Stream;"
 		)
 	)
 	public void wilderwild$updateIsInMesolgeaB(

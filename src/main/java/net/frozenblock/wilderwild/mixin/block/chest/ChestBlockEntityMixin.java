@@ -151,7 +151,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 			serverLevel.sendParticles(
 				ParticleTypes.BUBBLE,
 				pos.getX() + 0.5D, pos.getY() + 0.625D, pos.getZ() + 0.5D,
-				serverLevel.random.nextInt(18, 25),
+				serverLevel.getRandom().nextInt(18, 25),
 				0.21875D, 0D, 0.21875D,
 				0.25D
 			);

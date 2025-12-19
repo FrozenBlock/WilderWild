@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -36,7 +35,6 @@ public final class WWItemConfig {
 		)
 	);
 
-	@CollapsibleObject
 	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
 
 	@EntrySyncData("projectileBreakParticles")

@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind.fallingleaves;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+// TODO: Re-enable when fallingleaves is unobfuscated
+/*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
@@ -111,3 +112,4 @@ public abstract class FallingLeafParticleMixin extends SingleQuadParticle {
 	}
 
 }
+*/

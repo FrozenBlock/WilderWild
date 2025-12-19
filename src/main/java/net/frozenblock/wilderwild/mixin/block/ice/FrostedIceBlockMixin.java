@@ -65,7 +65,7 @@ public class FrostedIceBlockMixin {
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				level.random.nextInt(20, 30),
+				level.getRandom().nextInt(20, 30),
 				0.3F,
 				0.3F,
 				0.3F,

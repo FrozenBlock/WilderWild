@@ -63,7 +63,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	public int getLightColor(float f) {
+	public int getLightCoords(float f) {
 		return 240;
 	}
 

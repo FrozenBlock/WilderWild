@@ -186,7 +186,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			additionalZ += direction.getStepZ() * 0.25D;
 		}
 		jellyfish.setPos(pos.getX() + 0.5D + additionalX, pos.getY() + 0.75D, pos.getZ() + 0.5D + additionalZ);
-		jellyfish.setDeltaMovement(0D, 0.1D + level.random.nextDouble() * 0.07D, 0D);
+		jellyfish.setDeltaMovement(0D, 0.1D + level.getRandom().nextDouble() * 0.07D, 0D);
 		jellyfish.prevScale = 0F;
 		jellyfish.scale = 0F;
 		level.addFreshEntity(jellyfish);
@@ -458,7 +458,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
-			&& !livingEntity.getType().is(WWEntityTags.JELLYFISH_CANT_STING)
+			&& !livingEntity.is(WWEntityTags.JELLYFISH_CANT_STING)
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 

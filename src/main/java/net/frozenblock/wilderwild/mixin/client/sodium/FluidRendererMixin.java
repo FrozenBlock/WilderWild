@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+// TODO: Re-enable when cloth config is unobfuscated
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
@@ -87,3 +88,4 @@ public class FluidRendererMixin {
 		return original.call(instance, level, pos, direction, state, fluidState);
 	}
 }
+*/

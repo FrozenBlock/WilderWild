@@ -74,7 +74,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, state),
 			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-			level.random.nextInt(20, 30),
+			level.getRandom().nextInt(20, 30),
 			0.3F, 0.3F, 0.3F,
 			0.05D
 		);
@@ -111,13 +111,13 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, pos);
+		if (entity.is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, pos);
 	}
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
 		super.fallOn(level, state, pos, entity, fallDistance);
-		if (entity.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) return;
+		if (entity.is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) return;
 		if (fallDistance >= 4F) {
 			level.destroyBlock(pos, false);
 			if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
@@ -126,7 +126,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
-		if (projectile.getType().is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
+		if (projectile.is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
 		final double velocity = projectile.getDeltaMovement().length();
 		if (velocity >= 1.6D) level.destroyBlock(hitResult.getBlockPos(), false);
 	}

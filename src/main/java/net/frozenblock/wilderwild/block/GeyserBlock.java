@@ -213,8 +213,8 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickServer(worldx, pos, statex, worldx.random))
-			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient(worldx, pos, statex, worldx.random));
+			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (levelx, pos, statex, blockEntity) -> blockEntity.tickServer(levelx, pos, statex, levelx.getRandom()))
+			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx, pos, statex, levelx.getRandom()));
 	}
 
 	public static boolean isActive(GeyserType geyserType) {

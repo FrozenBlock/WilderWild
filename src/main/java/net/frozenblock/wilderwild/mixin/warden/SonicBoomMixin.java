@@ -58,7 +58,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	private boolean wilderWild$particlesEnded = false;
 
 	@ModifyVariable(
-		method = "method_43265",
+		method = "lambda$tick$2",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
@@ -70,7 +70,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 	@Inject(
-		method = "method_43265",
+		method = "lambda$tick$2",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I",
@@ -85,7 +85,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 	@Inject(
-		method = "method_43265",
+		method = "lambda$tick$2",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/entity/LivingEntity;hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z"
@@ -94,14 +94,14 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	)
 	private static void wilderWild$tick(
 		Warden warden, ServerLevel level, LivingEntity entity, CallbackInfo info,
-		@Local(ordinal = 0) Vec3 vec3, @Local(ordinal = 1) Vec3 vec32, @Local(ordinal = 2) Vec3 vec33
+		@Local(ordinal = 0) Vec3 source, @Local(ordinal = 1) Vec3 delta, @Local(ordinal = 2) Vec3 normalize
 	) {
-		for (int i = 1; i < Mth.floor(vec32.length()) + 7; ++i) {
-			final Vec3 vec34 = vec3.add(vec33.scale(i));
-			final BlockPos hitPos = wilderWild$isOccluded(level, vec3, vec34);
+		for (int i = 1; i < Mth.floor(delta.length()) + 7; ++i) {
+			final Vec3 vec34 = source.add(normalize.scale(i));
+			final BlockPos hitPos = wilderWild$isOccluded(level, source, vec34);
 			if (hitPos == null) continue;
 
-			i = Mth.floor(vec32.length()) + 10;
+			i = Mth.floor(delta.length()) + 10;
 			info.cancel();
 			final BlockState hitState = level.getBlockState(hitPos);
 			if (hitState.getBlock() instanceof EchoGlassBlock) EchoGlassBlock.damage(level, hitPos, hitState, false);
@@ -109,7 +109,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 	@ModifyExpressionValue(
-		method = "method_43265",
+		method = "lambda$tick$2",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/sounds/SoundEvents;WARDEN_SONIC_BOOM:Lnet/minecraft/sounds/SoundEvent;",

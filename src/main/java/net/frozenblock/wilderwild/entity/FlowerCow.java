@@ -352,7 +352,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			.filter(DyeItem.class::isInstance)
 			.map(DyeItem.class::cast)
 			.map(DyeItem::getDyeColor)
-			.orElseGet(() -> level.random.nextBoolean() ? dyeColor : otherDyeColor);
+			.orElseGet(() -> level.getRandom().nextBoolean() ? dyeColor : otherDyeColor);
 	}
 
 	private static CraftingInput makeCraftInputForFlower(Block flowerBlock) {

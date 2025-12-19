@@ -81,9 +81,9 @@ public class TreeFeatureMixin {
 
 	@ModifyVariable(
 		method = {
-			"method_49238",
-			"method_35364",
-			"method_43162"
+			"lambda$place$0",
+			"lambda$place$1",
+			"lambda$place$2"
 		},
 		at = @At("HEAD"),
 		ordinal = 0,

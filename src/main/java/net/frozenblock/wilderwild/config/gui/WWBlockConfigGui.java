@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
-import me.shedaniel.clothconfig2.api.ConfigCategory;
+// TODO: Re-enable when cloth config is unobfuscated
+/*import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -732,3 +733,4 @@ public final class WWBlockConfigGui {
 	}
 
 }
+*/

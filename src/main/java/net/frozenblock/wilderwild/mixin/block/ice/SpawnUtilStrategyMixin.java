@@ -32,10 +32,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public interface SpawnUtilStrategyMixin {
 
 	@WrapOperation(
-		method = "method_44183",
+		method = "lambda$static$0",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		slice = @Slice(
@@ -46,7 +46,7 @@ public interface SpawnUtilStrategyMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Block block, Operation<Boolean> operation) {
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || operation.call(state, WWBlocks.FRAGILE_ICE);
 	}
 

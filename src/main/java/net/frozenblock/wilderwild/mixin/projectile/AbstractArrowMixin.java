@@ -53,14 +53,14 @@ public class AbstractArrowMixin {
 		if (!(arrow.level() instanceof ServerLevel serverLevel)) return;
 
 		final int particleCalc = ((int) (arrow.getDeltaMovement().lengthSqr() * 1.5D));
-		if (!(particleCalc > 1 || (particleCalc == 1 && serverLevel.random.nextBoolean()))) return;
+		if (!(particleCalc > 1 || (particleCalc == 1 && serverLevel.getRandom().nextBoolean()))) return;
 
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, this.lastState),
 			hitResult.getLocation().x(),
 			hitResult.getLocation().y(),
 			hitResult.getLocation().z(),
-			particleCalc == 1 ? 1 : serverLevel.random.nextIntBetweenInclusive(1, particleCalc),
+			particleCalc == 1 ? 1 : serverLevel.getRandom().nextIntBetweenInclusive(1, particleCalc),
 			0D, 0D, 0D,
 			0.05D
 		);

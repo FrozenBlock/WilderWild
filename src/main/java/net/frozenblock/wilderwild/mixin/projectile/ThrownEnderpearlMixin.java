@@ -51,7 +51,7 @@ public class ThrownEnderpearlMixin {
 		final ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 		if (pearl.isSilent()) return;
 
-		final float pitch = 0.9F + (level.random.nextFloat() * 0.2F);
+		final float pitch = 0.9F + (level.getRandom().nextFloat() * 0.2F);
 		level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
 		FrozenLibSoundPackets.createAndSendLocalPlayerSound(
 			owner,
@@ -83,7 +83,7 @@ public class ThrownEnderpearlMixin {
 			WWSounds.ITEM_ENDER_PEARL_LAND,
 			owner.getSoundSource(),
 			0.6F,
-			0.85F + (level.random.nextFloat() * 0.2F)
+			0.85F + (level.getRandom().nextFloat() * 0.2F)
 		);
 	}
 

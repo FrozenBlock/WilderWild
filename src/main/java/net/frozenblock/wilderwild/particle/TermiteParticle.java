@@ -119,13 +119,13 @@ public class TermiteParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected int getLightColor(float partialTick) {
+	protected int getLightCoords(float partialTick) {
 		float animationProgress = this.age + partialTick;
 		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
 		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
 		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
 		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, xRotation, yRotation, zRotation);
-		return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;
+		return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightCoords(this.level, blockPos) : 0;
 	}
 
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {

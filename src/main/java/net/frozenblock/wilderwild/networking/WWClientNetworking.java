@@ -122,7 +122,7 @@ public final class WWClientNetworking {
 	public static void receiveScorchingFirePlacePacket() {
 		ClientPlayNetworking.registerGlobalReceiver(WWScorchingFirePlacePacket.PACKET_TYPE, (packet, ctx) -> {
 			final ClientLevel level = ctx.client().level;
-			final RandomSource random = level.random;
+			final RandomSource random = level.getRandom();
 			final BlockPos pos = packet.pos();
 			for (int particles = 0; particles < 10; ++particles) {
 				level.addParticle(

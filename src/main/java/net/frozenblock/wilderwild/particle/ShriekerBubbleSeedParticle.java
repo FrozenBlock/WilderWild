@@ -56,12 +56,12 @@ public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 
 		this.level.addParticle(
 			new FloatingSculkBubbleParticleOptions(
-				this.level.random.nextDouble() > 0.7 ? 1 : 0,
-				20 + this.level.random.nextInt(80),
+				this.level.getRandom().nextDouble() > 0.7 ? 1 : 0,
+				20 + this.level.getRandom().nextInt(80),
 				new Vec3(
-					FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.random, 0),
+					FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.getRandom(), 0),
 					0.075F,
-					FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.random, 0)
+					FloatingSculkBubbleParticleOptions.getRandomVelocity(this.level.getRandom(), 0)
 				)
 			),
 			this.centerPos.x,

@@ -95,7 +95,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 
 		if (this.activeTicks >= HangingTendrilBlock.ACTIVE_TICKS) {
 			this.activeTicks = 0;
-			HangingTendrilBlock.deactivate(level, pos, state, level.random);
+			HangingTendrilBlock.deactivate(level, pos, state, level.getRandom());
 		} else if (state.getValue(HangingTendrilBlock.PHASE) == SculkSensorPhase.ACTIVE) {
 			this.activeTicks += 1;
 		}

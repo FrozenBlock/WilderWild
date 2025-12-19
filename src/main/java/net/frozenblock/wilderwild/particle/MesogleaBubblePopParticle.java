@@ -40,7 +40,7 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 	}
 
 	@Override
-	public int getLightColor(float tint) {
+	public int getLightCoords(float tint) {
 		return 240;
 	}
 

@@ -185,7 +185,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return state.is(this) && (isHanging(state) ? !isFullyGrown(state) : (double) level.random.nextFloat() < 0.45F);
+		return state.is(this) && (isHanging(state) ? !isFullyGrown(state) : (double) level.getRandom().nextFloat() < 0.45F);
 	}
 
 	@Override

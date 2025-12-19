@@ -53,7 +53,7 @@ public class MilkweedPodItem extends Item {
 			WWSounds.ITEM_MILKWEED_POD_BLOWN,
 			SoundSource.NEUTRAL,
 			0.25F,
-			0.9F + (level.random.nextFloat() * 0.2F)
+			0.9F + (level.getRandom().nextFloat() * 0.2F)
 		);
 		user.startUsingItem(hand);
 

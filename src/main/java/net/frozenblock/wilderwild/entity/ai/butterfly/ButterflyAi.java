@@ -147,6 +147,6 @@ public class ButterflyAi {
 	}
 
 	private static BlockPos randomPosAround(BlockPos pos, Level level) {
-		return pos.offset(level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7), level.random.nextIntBetweenInclusive(-7, 7));
+		return pos.offset(level.getRandom().nextIntBetweenInclusive(-7, 7), level.getRandom().nextIntBetweenInclusive(-7, 7), level.getRandom().nextIntBetweenInclusive(-7, 7));
 	}
 }

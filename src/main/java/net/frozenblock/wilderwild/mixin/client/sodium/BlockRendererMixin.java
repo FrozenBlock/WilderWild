@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.sodium;
 
-import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
+// TODO: Re-enable when sodium is unobfuscated
+/*import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
 import net.caffeinemc.mods.sodium.client.render.model.AbstractBlockRenderContext;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -55,3 +56,4 @@ public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 	}
 
 }
+*/

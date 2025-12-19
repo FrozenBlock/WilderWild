@@ -222,7 +222,7 @@ public class FallingLeafUtil {
 			if (!shape.intersects(entity.getBoundingBox())) return;
 		}
 
-		final boolean franticSpawn = entity.getType().is(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN);
+		final boolean franticSpawn = entity.is(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN);
 		final double horizontalScale = franticSpawn ? 0.1D : 0.5D;
 		final double additionalY = franticSpawn ? 0.1D : 0D;
 		Vec3 movement = entity.getDeltaMovement();
@@ -230,9 +230,9 @@ public class FallingLeafUtil {
 		movement = new Vec3(movement.x * horizontalScale, (horizontalDistance * 0.1D) + additionalY, movement.z * horizontalScale);
 
 		if (!franticSpawn) {
-			if (level.random.nextFloat() > (horizontalDistance * 0.5D)) return;
+			if (level.getRandom().nextFloat() > (horizontalDistance * 0.5D)) return;
 		} else {
-			if (level.random.nextFloat() > 0.05F) return;
+			if (level.getRandom().nextFloat() > 0.05F) return;
 		}
 
 		spawnWalkingParticles(level, pos, state, movement);
@@ -250,7 +250,7 @@ public class FallingLeafUtil {
 		final Optional<FallingLeafData> optionalFallingLeafData = getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
-		final RandomSource random = level.random;
+		final RandomSource random = level.getRandom();
 		final double x = pos.getX() + 0.5D + random.nextGaussian() * 0.4D;
 		final double y = pos.getY() + (!litter ? 1.1D : 0.1D);
 		final double z = pos.getZ() + 0.5D + random.nextGaussian() * 0.4D;
@@ -309,7 +309,7 @@ public class FallingLeafUtil {
 		final BlockPos pos = packet.pos();
 		final List<Direction> directions = packet.directions();
 
-		final RandomSource random = level.random;
+		final RandomSource random = level.getRandom();
 		boolean litter = false;
 		Supplier<Vec3> posSupplier;
 

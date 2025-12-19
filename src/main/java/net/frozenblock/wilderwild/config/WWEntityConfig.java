@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.config.api.instance.Config;
@@ -88,46 +87,32 @@ public final class WWEntityConfig {
 		public static volatile boolean JELLYFISH_ORAL_ARM = true;
 	}
 
-	@CollapsibleObject
 	public final LightningConfig lightning = new LightningConfig();
 
-	@CollapsibleObject
 	public final AllayConfig allay = new AllayConfig();
 
-	@CollapsibleObject
 	public final EnderManConfig enderMan = new EnderManConfig();
 
-	@CollapsibleObject
 	public final FireflyConfig firefly = new FireflyConfig();
 
-	@CollapsibleObject
 	public final ButterflyConfig butterfly = new ButterflyConfig();
 
-	@CollapsibleObject
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
-	@CollapsibleObject
 	public final CrabConfig crab = new CrabConfig();
 
-	@CollapsibleObject
 	public final OstrichConfig ostrich = new OstrichConfig();
 
-	@CollapsibleObject
 	public final ScorchedConfig scorched = new ScorchedConfig();
 
-	@CollapsibleObject
 	public final MoobloomConfig moobloom = new MoobloomConfig();
 
-	@CollapsibleObject
 	public final PenguinConfig penguin = new PenguinConfig();
 
-	@CollapsibleObject
 	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
 
-	@CollapsibleObject
 	public final WardenConfig warden = new WardenConfig();
 
-	@CollapsibleObject
 	public final VillagerConfig villager = new VillagerConfig();
 
 	@EntrySyncData("unpassableRail")

@@ -55,7 +55,7 @@ public interface BlockGetterMixin {
 	}
 
 	@WrapOperation(
-		method = "method_17743",
+		method = "lambda$clip$0",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/BlockGetter;clipWithInteractionOverride(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/phys/BlockHitResult;"

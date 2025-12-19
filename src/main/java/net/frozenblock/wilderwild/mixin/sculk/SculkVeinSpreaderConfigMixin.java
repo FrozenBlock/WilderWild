@@ -33,11 +33,11 @@ public final class SculkVeinSpreaderConfigMixin {
 		method = "stateCanBeReplaced",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		)
 	)
-	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Block block, Operation<Boolean> operation) {
+	private boolean wilderWild$restrictGrowthOnNewBlocks(BlockState state, Object block, Operation<Boolean> operation) {
 		return state.is(WWBlocks.OSSEOUS_SCULK) || state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
 	}
 

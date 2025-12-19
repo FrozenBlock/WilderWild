@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -147,25 +146,19 @@ public final class WWAmbienceAndMiscConfig {
 		public static volatile boolean DISTORTED_DYING_FOREST_MUSIC = true;
 	}
 
-	@CollapsibleObject
 	public final WaterColorConfig waterColors = new WaterColorConfig();
 
-	@CollapsibleObject
 	public final Wind wind = new Wind();
 
-	@CollapsibleObject
 	public final LeafParticles leafParticles = new LeafParticles();
 
 	@EntrySyncData("modifyAdvancements")
 	public boolean modifyAdvancements = true;
 
-	@CollapsibleObject
 	public BiomeAmbienceConfig biomeAmbience = new BiomeAmbienceConfig();
 
-	@CollapsibleObject
 	public MusicConfig music = new MusicConfig();
 
-	@CollapsibleObject
 	public VegetationColorConfig vegetationColors = new VegetationColorConfig();
 
 	public static WWAmbienceAndMiscConfig get() {

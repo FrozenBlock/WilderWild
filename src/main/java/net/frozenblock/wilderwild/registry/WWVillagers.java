@@ -18,11 +18,9 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Map;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 
@@ -53,6 +51,8 @@ public final class WWVillagers {
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
+		// TODO Transfer villager trades to datagen
+		/*
 		TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 5, (trades, rebalanced) -> {
 			final WWEntityConfig.VillagerConfig config = WWEntityConfig.get().villager;
 			if (config.fishermanJellyfishForEmeralds) trades.add(new VillagerTrades.EmeraldForItems(WWItems.JELLYFISH_BUCKET, 4, 12, 30));
@@ -217,6 +217,6 @@ public final class WWVillagers {
 				TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL,
 				new VillagerTrades.ItemsForEmeralds(WWBlocks.GEYSER.asItem(), 6, 1, 4, 1)
 			);
-		});
+		});*/
 	}
 }

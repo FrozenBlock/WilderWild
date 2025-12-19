@@ -17,10 +17,10 @@
 
 package net.frozenblock.wilderwild.mixin.entity.villager;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+// TODO FIXME: Use new datadriven villager trading
+/*import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,3 +42,4 @@ public class VillagerTradesMixin {
 	}
 
 }
+*/

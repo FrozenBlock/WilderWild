@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
-import com.mojang.datafixers.util.Pair;
+// TODO: Re-enable when biolith is unobfuscated
+/*import com.mojang.datafixers.util.Pair;
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
 import com.terraformersmc.biolith.api.biome.sub.BiomeParameterTargets;
 import com.terraformersmc.biolith.api.biome.sub.Criterion;
@@ -210,7 +211,7 @@ public class BiolithIntegration extends ModIntegration {
 				}
 			}
 			 */
-
+/*
 			Criterion forestEdge = atEdgeOf(Biomes.FOREST, 0.1F);
 			BiomePlacement.addSubOverworld(Biomes.FOREST, WWBiomes.RAINFOREST, neighboringAny(Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE));
 			BiomePlacement.addSubOverworld(Biomes.JUNGLE, WWBiomes.RAINFOREST, forestEdge);
@@ -306,7 +307,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			*/
-		}
+/*		}
 
 		if (biomeGeneration.generateDyingMixedForest) {
 			BiomePlacement.addSubOverworld(
@@ -334,7 +335,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			*/
-		}
+/*		}
 
 		if (biomeGeneration.generateFlowerField) {
 			Criterion criterionA = allOf(
@@ -386,7 +387,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateMixedForest) {
 			BiomePlacement.addSubOverworld(
@@ -410,7 +411,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateOasis) {
 			/*
@@ -426,7 +427,7 @@ public class BiolithIntegration extends ModIntegration {
 			}
 			 */
 
-			BiomePlacement.addSubOverworld(
+/*			BiomePlacement.addSubOverworld(
 				Biomes.DESERT,
 				WWBiomes.OASIS,
 				allOf(
@@ -484,7 +485,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateSnowyDyingMixedForest) {
 			Criterion temperature = CriterionBuilder.value(
@@ -513,7 +514,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateOldGrowthSnowyTaiga) {
 			/*
@@ -529,7 +530,7 @@ public class BiolithIntegration extends ModIntegration {
 			}
 			 */
 
-			BiomePlacement.addSubOverworld(
+/*			BiomePlacement.addSubOverworld(
 				Biomes.TAIGA,
 				WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA,
 				allOf(
@@ -561,7 +562,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			}
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateTundra) {
 			if (!biomeGeneration.generateMapleForest) {
@@ -633,7 +634,7 @@ public class BiolithIntegration extends ModIntegration {
 			}
 			 */
 
-			if (biomePlacement.modifyTundraPlacement) {
+/*			if (biomePlacement.modifyTundraPlacement) {
 				/*
 				List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
 					OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
@@ -676,7 +677,7 @@ public class BiolithIntegration extends ModIntegration {
 				});
 				 */
 
-				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, atEdgeOf(Biomes.SNOWY_SLOPES, 0.4F));
+/*				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, atEdgeOf(Biomes.SNOWY_SLOPES, 0.4F));
 				BiomePlacement.addSubOverworld(Biomes.SNOWY_SLOPES, WWBiomes.TUNDRA, atEdgeOf(Biomes.PLAINS, 0.2F));
 			}
 
@@ -780,7 +781,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 				 */
 
-				Criterion neighboringMapleForest = CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST);
+/*				Criterion neighboringMapleForest = CriterionBuilder.neighbor(WWBiomes.MAPLE_FOREST);
 				BiomePlacement.addSubOverworld(Biomes.PLAINS, WWBiomes.TUNDRA, neighboringMapleForest);
 				BiomePlacement.addSubOverworld(Biomes.SNOWY_PLAINS, WWBiomes.TUNDRA, neighboringMapleForest);
 				BiomePlacement.addSubOverworld(Biomes.MEADOW, WWBiomes.TUNDRA, neighboringMapleForest);
@@ -891,7 +892,7 @@ public class BiolithIntegration extends ModIntegration {
 				);
 			});
 			 */
-		}
+/*		}
 
 		if (biomeGeneration.generateFrozenCaves) {
 			for (float depth : FrozenCaves.DEPTHS) {
@@ -1019,3 +1020,4 @@ public class BiolithIntegration extends ModIntegration {
 		);
 	}
 }
+*/

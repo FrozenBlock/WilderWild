@@ -65,7 +65,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		final Entity entity = hitResult.getEntity();
 		entity.hurt(entity.damageSources().thrown(this, this.getOwner()), 2F);
 
-		if (!entity.getType().is(WWEntityTags.COCONUT_CANT_SPLIT)
+		if (!entity.is(WWEntityTags.COCONUT_CANT_SPLIT)
 			&& entity.getBoundingBox().getSize() > this.getBoundingBox().getSize()
 			&& this.random.nextFloat() < ENTITY_SPLIT_CHANCE
 		) {
@@ -73,7 +73,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 			return;
 		}
 		SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND;
-		if (this.getY() > entity.getEyeY() && !entity.getType().is(WWEntityTags.COCONUT_CANT_BONK)) hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
+		if (this.getY() > entity.getEyeY() && !entity.is(WWEntityTags.COCONUT_CANT_BONK)) hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
 
 		this.level().playSound(
 			null,

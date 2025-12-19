@@ -231,7 +231,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 			WWSounds.BLOCK_HANGING_TENDRIL_CLICKING,
 			SoundSource.BLOCKS,
 			1F,
-			level.random.nextFloat() * 0.2F + 0.8F
+			level.getRandom().nextFloat() * 0.2F + 0.8F
 		);
 	}
 

@@ -32,14 +32,14 @@ import org.spongepowered.asm.mixin.injection.At;
 public class SpongeBlockMixin {
 
 	@WrapOperation(
-		method = "method_49829",
+		method = "lambda$removeWaterBreadthFirstSearch$1",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 2
 		)
 	)
-	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Block block, Operation<Boolean> original) {
+	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block)
 			|| instance.getBlock() instanceof SeaAnemoneBlock
 			|| instance.getBlock() instanceof TubeWormsBlock

@@ -144,7 +144,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.get().chestBubbling ? waterloggedSoundEvent : soundEvent,
 			SoundSource.BLOCKS,
 			volume,
-			level.random.nextFloat() * 0.18F + 0.9F
+			level.getRandom().nextFloat() * 0.18F + 0.9F
 		);
 	}
 
@@ -199,7 +199,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 					pos.getX() + 0.5D,
 					pos.getY() + 0.625D,
 					pos.getZ() + 0.5D,
-					level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2),
+					level.getRandom().nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 2),
 					0.21875D,
 					0D,
 					0.21875D,
@@ -212,7 +212,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 						otherPos.getX() + 0.5D,
 						otherPos.getY() + 0.625D,
 						otherPos.getZ() + 0.5,
-						level.random.nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 3),
+						level.getRandom().nextIntBetweenInclusive(3, (int) (this.highestLidPoint * 10) + 3),
 						0.21875D,
 						0D,
 						0.21875D,
@@ -278,7 +278,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 		final ArrayList<ItemStack> ancientItems = this.ancientItems();
 		if (!ancientItems.isEmpty()) {
-			this.level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.random.nextFloat() * 0.1F));
+			this.level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.getRandom().nextFloat() * 0.1F));
 			for (ItemStack taunt : ancientItems) {
 				for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) spawnBreakParticles(this.level, taunt, pos);
 			}

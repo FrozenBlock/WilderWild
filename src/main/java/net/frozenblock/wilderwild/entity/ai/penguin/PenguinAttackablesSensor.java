@@ -35,7 +35,7 @@ public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isHuntTarget(LivingEntity attacker, LivingEntity target) {
-		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.getType().is(WWEntityTags.PENGUIN_HUNT_TARGETS);
+		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.is(WWEntityTags.PENGUIN_HUNT_TARGETS);
 	}
 
 	private boolean isClose(LivingEntity attacker, LivingEntity target) {

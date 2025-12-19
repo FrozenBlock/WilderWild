@@ -56,7 +56,7 @@ public class PenguinFindEscapePos {
 			final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 			final CollisionContext collisionContext = CollisionContext.of(penguin);
 
-			final List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(penguinPos, searchRange, level.random);
+			final List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(penguinPos, searchRange, level.getRandom());
 
 			boolean foundLand = false;
 			for (BlockPos possiblePos : possiblePoses) {

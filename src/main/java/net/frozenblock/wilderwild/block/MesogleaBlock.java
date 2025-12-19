@@ -268,9 +268,9 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		for (int i = 0; i < 2; ++i) {
 			serverLevel.sendParticles(
 				this.getSplashParticle(),
-				pos.getX() + level.random.nextDouble(),
+				pos.getX() + level.getRandom().nextDouble(),
 				pos.getY() + 1D,
-				pos.getZ() + level.random.nextDouble(),
+				pos.getZ() + level.getRandom().nextDouble(),
 				1,
 				0D,
 				0D,
@@ -279,9 +279,9 @@ public class MesogleaBlock extends HalfTransparentBlock {
 			);
 			serverLevel.sendParticles(
 				this.getBubbleParticle(),
-				pos.getX() + level.random.nextDouble(),
+				pos.getX() + level.getRandom().nextDouble(),
 				pos.getY() + 1D,
-				pos.getZ() + level.random.nextDouble(),
+				pos.getZ() + level.getRandom().nextDouble(),
 				1,
 				0D, 0.01D, 0D,
 				0.2
@@ -296,7 +296,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		if (entityCollisionContext.getEntity() == null) return shape;
 
 		final Entity entity = entityCollisionContext.getEntity();
-		if (entity == null || !entity.getType().is(WWEntityTags.STAYS_IN_MESOGLEA) || entity.isPassenger() || entity.isDescending()) return shape;
+		if (entity == null || !entity.is(WWEntityTags.STAYS_IN_MESOGLEA) || entity.isPassenger() || entity.isDescending()) return shape;
 		if (entity instanceof Mob mob && mob.isLeashed()) return shape;
 
 		if (entity.isInWater() || (entity.getInBlockState().getBlock() instanceof MesogleaBlock)) {

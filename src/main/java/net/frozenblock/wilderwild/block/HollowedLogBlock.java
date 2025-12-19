@@ -147,14 +147,14 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			pos.getX() + 0.5D,
 			pos.getY() + 0.5D,
 			pos.getZ() + 0.5D,
-			level.random.nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
+			level.getRandom().nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
 			0.1625D + offsetX,
 			0.1625D + offsetY,
 			0.1625D + offsetZ,
 			0.05D
 		);
 		final SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED_AXE : WWSounds.LOG_HOLLOWED_AXE;
-		level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.random.nextFloat() * 0.2F));
+		level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.getRandom().nextFloat() * 0.2F));
 	}
 
 	@Override

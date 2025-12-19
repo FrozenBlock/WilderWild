@@ -37,12 +37,12 @@ public class ServerLevelMixin {
 		method = "tickPrecipitation",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		)
 	)
 	public boolean wilderWild$tickPrecipitationA(
-		BlockState instance, Block block, Operation<Boolean> original,
+		BlockState instance, Object block, Operation<Boolean> original,
 		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		int layers = 0;

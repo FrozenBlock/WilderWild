@@ -34,10 +34,10 @@ public class BiomeMixin {
 		method = "shouldSnow",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
 		)
 	)
-	public boolean wilderWild$shouldSnow(BlockState instance, Block block, Operation<Boolean> original) {
+	public boolean wilderWild$shouldSnow(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block) || (SnowloggingUtils.canSnowlog(instance) && WWBlockConfig.canSnowlogNaturally());
 	}
 

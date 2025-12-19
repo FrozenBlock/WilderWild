@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mod_compat.terrablender;
 
-import com.mojang.datafixers.util.Pair;
+// TODO: Re-enable when terrablender is unobfuscated
+/*import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
@@ -37,3 +38,4 @@ public class WWOverworldRegion extends Region {
 		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
 	}
 }
+*/

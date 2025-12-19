@@ -62,7 +62,7 @@ public class LevelEventHandlerMixin {
 				WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
 				SoundSource.BLOCKS,
 				2.0F,
-				0.6F + this.level.random.nextFloat() * 0.4F,
+				0.6F + this.level.getRandom().nextFloat() * 0.4F,
 				false
 			);
 

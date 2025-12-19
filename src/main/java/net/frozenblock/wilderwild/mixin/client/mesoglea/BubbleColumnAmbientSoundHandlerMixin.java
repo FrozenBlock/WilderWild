@@ -35,15 +35,15 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BubbleColumnAmbientSoundHandlerMixin {
 
 	@WrapOperation(
-		method = "method_29714(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+		method = "lambda$tick$0",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		require = 0
 	)
-	private static boolean wilderWild$filterWithMesoglea(BlockState state, Block block, Operation<Boolean> operation) {
+	private static boolean wilderWild$filterWithMesoglea(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 
@@ -51,12 +51,12 @@ public class BubbleColumnAmbientSoundHandlerMixin {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
 			ordinal = 0
 		),
 		require = 0
 	)
-	private boolean wilderWild$mesogleaAndBubbleCheck(BlockState state, Block block, Operation<Boolean> operation) {
+	private boolean wilderWild$mesogleaAndBubbleCheck(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
 	}
 

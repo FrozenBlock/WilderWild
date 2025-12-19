@@ -33,10 +33,10 @@ public class KelpBlockMixin {
 		method = "canAttachTo",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
 		)
 	)
-	public boolean wilderWild$preventPlacementOnGeyser(BlockState instance, Block block, Operation<Boolean> original) {
+	public boolean wilderWild$preventPlacementOnGeyser(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block) || instance.is(WWBlocks.GEYSER);
 	}
 

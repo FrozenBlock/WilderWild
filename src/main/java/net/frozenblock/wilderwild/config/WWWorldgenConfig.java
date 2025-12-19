@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;
@@ -98,28 +97,20 @@ public final class WWWorldgenConfig {
 	public static volatile boolean WILLOW_LEAF_LITTERS = true;
 	public static volatile boolean NEW_WITCH_HUTS = true;
 
-	@CollapsibleObject
 	public final BiomeGeneration biomeGeneration = new BiomeGeneration();
 
-	@CollapsibleObject
 	public final BiomePlacement biomePlacement = new BiomePlacement();
 
-	@CollapsibleObject
 	public final TreeGeneration treeGeneration = new TreeGeneration();
 
-	@CollapsibleObject
 	public final Vegetation vegetation = new Vegetation();
 
-	@CollapsibleObject
 	public final AquaticGeneration aquaticGeneration = new AquaticGeneration();
 
-	@CollapsibleObject
 	public final TransitionGeneration transitionGeneration = new TransitionGeneration();
 
-	@CollapsibleObject
 	public final Structure structure = new Structure();
 
-	@CollapsibleObject
 	public final SurfaceDecoration surfaceDecoration = new SurfaceDecoration();
 
 	@EntrySyncData("betaBeaches")

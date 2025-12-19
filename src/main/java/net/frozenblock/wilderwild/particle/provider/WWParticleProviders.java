@@ -41,8 +41,8 @@ public class WWParticleProviders {
 		) {
 			final FlameParticle flameParticle = new FlameParticle(level, x, y, z, xd, yd, zd, this.spriteSet.get(random));
 			flameParticle.yd = yd * 0.05D;
-			flameParticle.xd = (0.5D - level.random.nextDouble()) * 0.05D;
-			flameParticle.zd = (0.5D - level.random.nextDouble()) * 0.05D;
+			flameParticle.xd = (0.5D - level.getRandom().nextDouble()) * 0.05D;
+			flameParticle.zd = (0.5D - level.getRandom().nextDouble()) * 0.05D;
 			flameParticle.setLifetime((int) (8D / (Math.random() * 0.8D + 0.2D)));
 			return flameParticle;
 		}
@@ -58,7 +58,7 @@ public class WWParticleProviders {
 			RandomSource random
 		) {
 			final SuspendedParticle suspendedParticle = new SuspendedParticle(level, x, y, z, this.spriteSet.get(random));
-			final float color = level.random.nextFloat() * 0.3F;
+			final float color = level.getRandom().nextFloat() * 0.3F;
 			suspendedParticle.setColor(color, color, color);
 			suspendedParticle.scale(3F);
 			suspendedParticle.xd = 0D;

@@ -140,15 +140,15 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				player.getItemInHand(hand).consume(1, player);
 				player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
 				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				displayLantern.markForUpdate();
 				level.updateNeighbourForOutputSignal(pos, this);
 				return InteractionResult.SUCCESS;
 			}
 		} else if (stack.is(Items.GLASS_BOTTLE)) {
 			if (!fireflies.isEmpty()) {
-				final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.random);
-				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.random.nextFloat() * 0.2F + 0.9F);
+				final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
+				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				player.getItemInHand(hand).consume(1, player);
 				final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 				bottleStack.set(
