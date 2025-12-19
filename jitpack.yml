@@ -3,4 +3,4 @@ before_install:
   - source install-jdk.sh --feature 21
 
 jdk:
-  - openjdk21
+  - openjdk25
