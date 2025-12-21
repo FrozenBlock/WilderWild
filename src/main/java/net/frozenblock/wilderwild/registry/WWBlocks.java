@@ -803,7 +803,7 @@ public final class WWBlocks {
 	);
 
 	public static final DisplayLanternBlock DISPLAY_LANTERN = new DisplayLanternBlock(
-		BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
+		BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN).pushReaction(PushReaction.DESTROY)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
