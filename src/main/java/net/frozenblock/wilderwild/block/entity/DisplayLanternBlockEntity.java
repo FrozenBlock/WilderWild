@@ -220,6 +220,8 @@ public class DisplayLanternBlockEntity extends BlockEntity {
 				}
 			}
 		}
+
+		this.getFireflies().clear();
 	}
 
 	public int getComparatorOutput() {
