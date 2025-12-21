@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.equipment;
 
-import java.util.List;
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
