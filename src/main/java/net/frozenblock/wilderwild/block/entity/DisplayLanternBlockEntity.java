@@ -108,6 +108,14 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		super.preRemoveSideEffects(pos, state);
+		for (ItemStack item : this.inventory) Block.popResource(this.level, pos, item);
+		this.inventory.clear();
+		this.spawnFireflies();
+	}
+
+	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
@@ -214,6 +222,8 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 				WWConstants.printStackTrace("Couldn't spawn Firefly from Display Lantern!", true);
 			}
 		}
+
+		this.getFireflies().clear();
 	}
 
 	public int getComparatorOutput() {
