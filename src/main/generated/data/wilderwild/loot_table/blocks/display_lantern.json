@@ -14,32 +14,6 @@
           "name": "wilderwild:display_lantern"
         }
       ],
-      "functions": [
-        {
-          "conditions": [
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "predicates": {
-                  "minecraft:enchantments": [
-                    {
-                      "enchantments": "minecraft:silk_touch",
-                      "levels": {
-                        "min": 1
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          ],
-          "function": "minecraft:copy_components",
-          "include": [
-            "wilderwild:fireflies"
-          ],
-          "source": "block_entity"
-        }
-      ],
       "rolls": 1.0
     }
   ]
