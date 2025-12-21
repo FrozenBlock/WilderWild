@@ -33,7 +33,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -46,8 +45,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -239,11 +236,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, @NotNull ServerLevel level, BlockPos pos, boolean bl) {
-		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lantern) {
-			for (ItemStack item : lantern.inventory) popResource(level, pos, item);
-			lantern.inventory.clear();
-			level.updateNeighbourForOutputSignal(pos, this);
-		}
+		level.updateNeighbourForOutputSignal(pos, state.getBlock());
 	}
 
 	@Override
@@ -281,17 +274,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof DisplayLanternBlockEntity displayLanternBlockEntity) return displayLanternBlockEntity.getComparatorOutput();
 		return 0;
-	}
-
-	@Override
-	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
-		if (!level.isClientSide() && blockEntity instanceof DisplayLanternBlockEntity lanternEntity) {
-			var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, stack) == 0) {
-				lanternEntity.spawnFireflies(level);
-			}
-		}
-		super.playerDestroy(level, player, pos, state, blockEntity, stack);
 	}
 
 }
