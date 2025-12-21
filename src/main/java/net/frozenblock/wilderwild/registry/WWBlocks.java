@@ -1193,7 +1193,12 @@ public final class WWBlocks {
 
 	public static final DisplayLanternBlock DISPLAY_LANTERN = registerWithoutItem("display_lantern",
 		DisplayLanternBlock::new,
-		Properties.of().mapColor(MapColor.METAL).forceSolidOn().strength(3.5F).sound(SoundType.LANTERN)
+		Properties.of()
+			.mapColor(MapColor.METAL)
+			.forceSolidOn()
+			.strength(3.5F)
+			.pushReaction(PushReaction.DESTROY)
+			.sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
