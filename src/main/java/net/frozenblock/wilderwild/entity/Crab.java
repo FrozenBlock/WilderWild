@@ -230,8 +230,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-		return CrabAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	protected Brain<?> makeBrain(Dynamic<?> input) {
+		return CrabAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	@Override
@@ -241,9 +241,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
-		switch (reason) {
+		switch (spawnReason) {
 			case BUCKET -> {
 				return spawnData;
 			}
@@ -266,7 +266,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				this.setVariant(optionalCrabVariant.get().value());
 			}
 		}
-		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
 	}
 
 	@Override
@@ -286,16 +286,16 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(MOVE_STATE, MoveState.WALKING.name());
-		builder.define(TARGET_CLIMBING_ANIM_X, 0F);
-		builder.define(TARGET_CLIMBING_ANIM_Y, 0F);
-		builder.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
-		builder.define(DIGGING_TICKS, 0);
-		builder.define(FROM_BUCKET, false);
-		builder.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
-		builder.define(VARIANT, CrabVariants.DEFAULT.identifier().toString());
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(MOVE_STATE, MoveState.WALKING.name());
+		entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
+		entityData.define(TARGET_CLIMBING_ANIM_Y, 0F);
+		entityData.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
+		entityData.define(DIGGING_TICKS, 0);
+		entityData.define(FROM_BUCKET, false);
+		entityData.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
+		entityData.define(VARIANT, CrabVariants.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -512,7 +512,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel level, Entity target) {
+	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
 		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 		this.playSound(WWSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
 		return super.doHurtTarget(level, target);
@@ -794,7 +794,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+	public boolean removeWhenFarAway(double distSqr) {
 		return !this.fromBucket() && !this.hasCustomName();
 	}
 
@@ -847,45 +847,45 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.putString("variant", this.getVariantLocation().toString());
-		valueOutput.putBoolean("FromBucket", this.fromBucket());
-		valueOutput.putInt("DigTicks", this.getDiggingTicks());
-		valueOutput.putString("EntityPose", this.getPose().name());
-		valueOutput.store("PrevMovement", Vec3.CODEC, this.prevMovement);
-		valueOutput.putDouble("PrevX", this.prevMovement.x);
-		valueOutput.putDouble("PrevY", this.prevMovement.y);
-		valueOutput.putDouble("PrevZ", this.prevMovement.z);
-		valueOutput.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
-		valueOutput.putString("ClimbingFace", this.getClimbingFace().name());
-		valueOutput.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
-		valueOutput.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
-		valueOutput.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putString("variant", this.getVariantLocation().toString());
+		output.putBoolean("FromBucket", this.fromBucket());
+		output.putInt("DigTicks", this.getDiggingTicks());
+		output.putString("EntityPose", this.getPose().name());
+		output.store("PrevMovement", Vec3.CODEC, this.prevMovement);
+		output.putDouble("PrevX", this.prevMovement.x);
+		output.putDouble("PrevY", this.prevMovement.y);
+		output.putDouble("PrevZ", this.prevMovement.z);
+		output.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
+		output.putString("ClimbingFace", this.getClimbingFace().name());
+		output.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
+		output.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
+		output.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		VariantUtils.readVariant(valueInput, WilderWildRegistries.CRAB_VARIANT)
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		VariantUtils.readVariant(input, WilderWildRegistries.CRAB_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		this.setFromBucket(valueInput.getBooleanOr("FromBucket", false));
-		this.setDiggingTicks(valueInput.getIntOr("DigTicks", 0));
+		this.setFromBucket(input.getBooleanOr("FromBucket", false));
+		this.setDiggingTicks(input.getIntOr("DigTicks", 0));
 
-		valueInput.getString("EntityPose").ifPresent(entityPose -> {
+		input.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) this.setPose(Pose.valueOf(entityPose));
 		});
-		this.prevMovement = valueInput.read("PrevMovement", Vec3.CODEC).orElse(Vec3.ZERO);
-		this.cancelMovementToDescend = valueInput.getBooleanOr("CancelMovementToDescend", false);
-		valueInput.getString("ClimbingFace").ifPresent(climingFace -> {
+		this.prevMovement = input.read("PrevMovement", Vec3.CODEC).orElse(Vec3.ZERO);
+		this.cancelMovementToDescend = input.getBooleanOr("CancelMovementToDescend", false);
+		input.getString("ClimbingFace").ifPresent(climingFace -> {
 			if (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(climingFace))) {
 				this.setClimbingFace(ClimbingFace.valueOf(climingFace).direction);
 			}
 		});
-		this.setTargetClimbAnimX(valueInput.getFloatOr("TargetClimbAnimX", 0));
-		this.setTargetClimbAnimAmount(valueInput.getFloatOr("TargetClimbAnimAmount", 0));
+		this.setTargetClimbAnimX(input.getFloatOr("TargetClimbAnimX", 0));
+		this.setTargetClimbAnimAmount(input.getFloatOr("TargetClimbAnimAmount", 0));
 
-		this.vibrationData = valueInput.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
+		this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
 	}
 
 	@Override

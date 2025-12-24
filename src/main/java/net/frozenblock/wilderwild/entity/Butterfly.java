@@ -128,8 +128,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		final boolean shouldSetHome = shouldSetHome(reason);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+		final boolean shouldSetHome = shouldSetHome(spawnReason);
 		if (shouldSetHome) {
 			ButterflyAi.rememberHome(this, this.blockPosition());
 		} else {
@@ -149,7 +149,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
@@ -163,10 +163,10 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(FROM_BOTTLE, false);
-		builder.define(VARIANT, ButterflyVariants.DEFAULT.identifier().toString());
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(FROM_BOTTLE, false);
+		entityData.define(VARIANT, ButterflyVariants.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -191,8 +191,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-		return ButterflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	protected Brain<?> makeBrain(Dynamic<?> input) {
+		return ButterflyAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	@Override
@@ -384,23 +384,23 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+	public boolean removeWhenFarAway(double distSqr) {
 		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
-		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		VariantUtils.writeVariant(output, this.getVariantAsHolder());
+		output.putBoolean("fromBottle", this.wilderWild$fromBottle());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		VariantUtils.readVariant(valueInput, WilderWildRegistries.BUTTERFLY_VARIANT)
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		VariantUtils.readVariant(input, WilderWildRegistries.BUTTERFLY_VARIANT)
 			.ifPresent(butterflyVariantHolder -> this.setVariant(butterflyVariantHolder.value()));
-		this.wilderWild$setFromBottle(valueInput.getBooleanOr("fromBottle", false));
+		this.wilderWild$setFromBottle(input.getBooleanOr("fromBottle", false));
 	}
 
 	@Override

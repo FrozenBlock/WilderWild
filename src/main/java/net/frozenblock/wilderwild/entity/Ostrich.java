@@ -60,8 +60,8 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<AbstractOstrich> makeBrain(Dynamic<?> dynamic) {
-		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(dynamic), false);
+	public Brain<AbstractOstrich> makeBrain(Dynamic<?> input) {
+		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(input), false);
 	}
 
 	@Override

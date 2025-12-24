@@ -161,11 +161,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(VARIANT, JellyfishVariants.DEFAULT.identifier().toString());
-		builder.define(CAN_REPRODUCE, false);
-		builder.define(IS_BABY, false);
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(VARIANT, JellyfishVariants.DEFAULT.identifier().toString());
+		entityData.define(CAN_REPRODUCE, false);
+		entityData.define(IS_BABY, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -204,7 +204,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
 		JellyfishGroupData jellyfishGroupData = null;
 		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant.value());
@@ -224,7 +224,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) this.setBaby(true);
 			jellyfishGroupData.increaseGroupSizeByOne();
 		}
-		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
 	}
 
 	@Override
@@ -270,8 +270,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected Brain<Jellyfish> makeBrain(Dynamic<?> dynamic) {
-		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	protected Brain<Jellyfish> makeBrain(Dynamic<?> input) {
+		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	@Override
@@ -437,8 +437,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected void onOffspringSpawnedFromEgg(Player player, Mob child) {
-		if (child instanceof Jellyfish jellyfish) jellyfish.setVariant(this.getVariant());
+	protected void onOffspringSpawnedFromEgg(Player player, Mob offspring) {
+		if (offspring instanceof Jellyfish jellyfish) jellyfish.setVariant(this.getVariant());
 	}
 
 	public void moveToAccurate(Entity entity, double speed) {
@@ -710,30 +710,30 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
-		valueOutput.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
-		valueOutput.putBoolean("canReproduce", this.canReproduce());
-		valueOutput.putInt("fullness", this.fullness);
-		valueOutput.putInt("reproductionCooldown", this.reproductionCooldown);
-		valueOutput.putInt("age", this.getAge());
-		valueOutput.putInt("forcedAge", this.forcedAge);
-		valueOutput.putBoolean("isBaby", this.isBaby());
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		VariantUtils.writeVariant(output, this.getVariantAsHolder());
+		output.putInt("ticksSinceSpawn", this.ticksSinceSpawn);
+		output.putBoolean("canReproduce", this.canReproduce());
+		output.putInt("fullness", this.fullness);
+		output.putInt("reproductionCooldown", this.reproductionCooldown);
+		output.putInt("age", this.getAge());
+		output.putInt("forcedAge", this.forcedAge);
+		output.putBoolean("isBaby", this.isBaby());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		VariantUtils.readVariant(valueInput, WilderWildRegistries.JELLYFISH_VARIANT)
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		VariantUtils.readVariant(input, WilderWildRegistries.JELLYFISH_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		this.ticksSinceSpawn = valueInput.getIntOr("ticksSinceSpawn", 0);
-		this.setCanReproduce(valueInput.getBooleanOr("canReproduce", false));
-		this.fullness = valueInput.getIntOr("fullness", 0);
-		this.reproductionCooldown = valueInput.getIntOr("reproductionCooldown", 0);
-		this.setAge(valueInput.getIntOr("age", 0));
-		this.forcedAge = valueInput.getIntOr("forcedAge", 0);
-		this.setBaby(valueInput.getBooleanOr("isBaby", false));
+		this.ticksSinceSpawn = input.getIntOr("ticksSinceSpawn", 0);
+		this.setCanReproduce(input.getBooleanOr("canReproduce", false));
+		this.fullness = input.getIntOr("fullness", 0);
+		this.reproductionCooldown = input.getIntOr("reproductionCooldown", 0);
+		this.setAge(input.getIntOr("age", 0));
+		this.forcedAge = input.getIntOr("forcedAge", 0);
+		this.setBaby(input.getBooleanOr("isBaby", false));
 	}
 
 	public static class JellyfishGroupData implements SpawnGroupData {

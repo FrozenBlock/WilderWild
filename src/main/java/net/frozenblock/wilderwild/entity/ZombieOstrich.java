@@ -73,24 +73,24 @@ public class ZombieOstrich extends AbstractOstrich {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnGroupData) {
-		if (reason == EntitySpawnReason.NATURAL) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
+		if (spawnReason == EntitySpawnReason.NATURAL) {
 			final Zombie zombie = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.JOCKEY);
 			if (zombie != null) {
 				zombie.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0F);
-				zombie.finalizeSpawn(level, difficulty, reason, null);
+				zombie.finalizeSpawn(level, difficulty, spawnReason, null);
 				zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SPEAR));
 				zombie.startRiding(this, false, false);
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnGroupData);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<AbstractOstrich> makeBrain(Dynamic<?> dynamic) {
-		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(dynamic), true);
+	public Brain<AbstractOstrich> makeBrain(Dynamic<?> input) {
+		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(input), true);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distance) {
+	public boolean removeWhenFarAway(double distSqr) {
 		return true;
 	}
 
@@ -145,8 +145,8 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	protected Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack stack, Equippable equippable) {
-		return equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, stack, equippable);
+	protected Holder<SoundEvent> getEquipSound(EquipmentSlot slot, ItemStack stack, Equippable equippable) {
+		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE : super.getEquipSound(slot, stack, equippable);
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public abstract class ServerPlayerGameModeMixin {
 		)
 	)
 	public boolean wilderWild$destroyBlockB(
-		ServerLevel instance, BlockPos pos, boolean b, Operation<Boolean> original,
+		ServerLevel instance, BlockPos pos, boolean movedByPiston, Operation<Boolean> original,
 		@Local(ordinal = 1) BlockState destroyedState
 	) {
 		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
@@ -74,7 +74,7 @@ public abstract class ServerPlayerGameModeMixin {
 				return true;
 			}
 		}
-		return original.call(instance, pos, b);
+		return original.call(instance, pos, movedByPiston);
 	}
 
 }

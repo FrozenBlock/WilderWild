@@ -156,14 +156,14 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Unique
 	@Override
-	public void jumpInLiquid(TagKey<Fluid> fluid) {
+	public void jumpInLiquid(TagKey<Fluid> type) {
 		if (WWEntityConfig.WARDEN_SWIMS && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
 			final Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 			final Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
 			final LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
-			if (target != null && (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) super.jumpInLiquid(fluid);
+			if (target != null && (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) super.jumpInLiquid(type);
 		} else {
-			super.jumpInLiquid(fluid);
+			super.jumpInLiquid(type);
 		}
 	}
 

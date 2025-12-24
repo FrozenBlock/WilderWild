@@ -68,7 +68,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At("TAIL")
 	)
-	public void wilderWild$customStoneChestOpenersCounter(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState, CallbackInfo info) {
+	public void wilderWild$customStoneChestOpenersCounter(BlockEntityType type, BlockPos worldPosition, BlockState blockState, CallbackInfo info) {
 		if (ChestBlockEntity.class.cast(this) instanceof StoneChestBlockEntity stoneChestBlockEntity) {
 			this.openersCounter = new ContainerOpenersCounter() {
 
@@ -98,20 +98,18 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@ModifyVariable(method = "playSound", at = @At("HEAD"), argsOnly = true)
-	private static SoundEvent wilderWild$playSound(
-		SoundEvent soundEvent, Level level, BlockPos blockPos, BlockState blockState
-	) {
-		if (blockState.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
-			if (soundEvent == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
-			if (soundEvent == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OPEN_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_CLOSE_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_OXIDIZED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_OXIDIZED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_WEATHERED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_OPEN_UNDERWATER;
-			if (soundEvent == SoundEvents.COPPER_CHEST_WEATHERED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER;
+	private static SoundEvent wilderWild$playSound(SoundEvent sound, Level level, BlockPos pos, BlockState state) {
+		if (state.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
+			if (sound == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
+			if (sound == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OPEN_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_CLOSE_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_OXIDIZED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_OXIDIZED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_WEATHERED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_OPEN_UNDERWATER;
+			if (sound == SoundEvents.COPPER_CHEST_WEATHERED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER;
 		}
-		return soundEvent;
+		return sound;
 	}
 
 	@Unique

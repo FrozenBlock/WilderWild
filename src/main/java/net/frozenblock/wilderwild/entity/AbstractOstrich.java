@@ -141,13 +141,13 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(TARGET_BEAK_ANIM_PROGRESS, 0F);
-		builder.define(TARGET_STRAIGHT_PROGRESS, 0F);
-		builder.define(IS_ATTACKING, false);
-		builder.define(BEAK_COOLDOWN, 0);
-		builder.define(STUCK_TICKS, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(TARGET_BEAK_ANIM_PROGRESS, 0F);
+		entityData.define(TARGET_STRAIGHT_PROGRESS, 0F);
+		entityData.define(IS_ATTACKING, false);
+		entityData.define(BEAK_COOLDOWN, 0);
+		entityData.define(STUCK_TICKS, 0);
 	}
 
 	@Override
@@ -359,10 +359,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public AABB getAttackBoundingBox(double horizontalInflation) {
+	public AABB getAttackBoundingBox(final double horizontalExpansion) {
 		final float scale = this.getScale();
 		final double attackBBOffset = 0.2D * scale;
-		return super.getAttackBoundingBox(horizontalInflation).inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
+		return super.getAttackBoundingBox(horizontalExpansion).inflate(attackBBOffset, 0D, attackBBOffset).move(0D, -attackBBOffset, 0D);
 	}
 
 	public boolean isZombie() {
@@ -794,8 +794,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	protected Holder<SoundEvent> getEquipSound(EquipmentSlot equipmentSlot, ItemStack stack, Equippable equippable) {
-		return equipmentSlot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE : super.getEquipSound(equipmentSlot, stack, equippable);
+	protected Holder<SoundEvent> getEquipSound(EquipmentSlot slot, ItemStack stack, Equippable equippable) {
+		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE : super.getEquipSound(slot, stack, equippable);
 	}
 
 	@Nullable
@@ -861,8 +861,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return !this.isTamed() && super.removeWhenFarAway(distanceToClosestPlayer);
+	public boolean removeWhenFarAway(double distSqr) {
+		return !this.isTamed() && super.removeWhenFarAway(distSqr);
 	}
 
 	public void spawnBlockParticles(boolean beakBury, boolean backwards) {
@@ -905,30 +905,30 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.putInt("BeakCooldown", this.getBeakCooldown());
-		valueOutput.putFloat("TargetBeakAnimProgress", this.getTargetBeakAnimProgress());
-		valueOutput.putFloat("TargetStraightProgress", this.getTargetStraightProgress());
-		valueOutput.putBoolean("IsAttacking", this.isAttacking());
-		valueOutput.putInt("StuckTicks", this.getStuckTicks());
-		valueOutput.putFloat("BeakAnimProgress", this.beakAnimProgress);
-		if (this.lastAttackCommander != null) EntityReference.store(this.lastAttackCommander, valueOutput, "LastAttackCommander");
-		valueOutput.putBoolean("AttackHasCommander", this.attackHasCommander);
-		valueOutput.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("BeakCooldown", this.getBeakCooldown());
+		output.putFloat("TargetBeakAnimProgress", this.getTargetBeakAnimProgress());
+		output.putFloat("TargetStraightProgress", this.getTargetStraightProgress());
+		output.putBoolean("IsAttacking", this.isAttacking());
+		output.putInt("StuckTicks", this.getStuckTicks());
+		output.putFloat("BeakAnimProgress", this.beakAnimProgress);
+		if (this.lastAttackCommander != null) EntityReference.store(this.lastAttackCommander, output, "LastAttackCommander");
+		output.putBoolean("AttackHasCommander", this.attackHasCommander);
+		output.putBoolean("CommanderWasPlayer", this.commanderWasPlayer);
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		this.setBeakCooldown(valueInput.getIntOr("BeakCooldown", 0));
-		this.setTargetBeakAnimProgress(valueInput.getFloatOr("TargetBeakAnimProgress", 0F));
-		this.setTargetStraightProgress(valueInput.getFloatOr("TargetStraightProgress", 0F));
-		this.setAttacking(valueInput.getBooleanOr("IsAttacking", false));
-		this.setStuckTicks(valueInput.getIntOr("StuckTicks", 0));
-		this.beakAnimProgress = valueInput.getFloatOr("BeakAnimProgress", 0F);
-		this.lastAttackCommander = EntityReference.read(valueInput, "LastAttackCommander");
-		this.attackHasCommander = valueInput.getBooleanOr("AttackHasCommander", false);
-		this.commanderWasPlayer = valueInput.getBooleanOr("CommanderWasPlayer", false);
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.setBeakCooldown(input.getIntOr("BeakCooldown", 0));
+		this.setTargetBeakAnimProgress(input.getFloatOr("TargetBeakAnimProgress", 0F));
+		this.setTargetStraightProgress(input.getFloatOr("TargetStraightProgress", 0F));
+		this.setAttacking(input.getBooleanOr("IsAttacking", false));
+		this.setStuckTicks(input.getIntOr("StuckTicks", 0));
+		this.beakAnimProgress = input.getFloatOr("BeakAnimProgress", 0F);
+		this.lastAttackCommander = EntityReference.read(input, "LastAttackCommander");
+		this.attackHasCommander = input.getBooleanOr("AttackHasCommander", false);
+		this.commanderWasPlayer = input.getBooleanOr("CommanderWasPlayer", false);
 	}
 }

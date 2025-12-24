@@ -131,8 +131,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		final boolean shouldSetHome = shouldSetHome(reason);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+		final boolean shouldSetHome = shouldSetHome(spawnReason);
 		if (shouldSetHome) {
 			FireflyAi.rememberHome(this, this.blockPosition());
 		} else {
@@ -154,7 +154,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 			if (!shouldSetHome) FireflyAi.setSwarmLeader(this);
 		}
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
@@ -179,13 +179,13 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(FROM_BOTTLE, false);
-		builder.define(AGE, 0);
-		builder.define(ANIM_SCALE, 1.5F);
-		builder.define(PREV_ANIM_SCALE, 1.5F);
-		builder.define(COLOR, FireflyColors.DEFAULT.identifier().toString());
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(FROM_BOTTLE, false);
+		entityData.define(AGE, 0);
+		entityData.define(ANIM_SCALE, 1.5F);
+		entityData.define(PREV_ANIM_SCALE, 1.5F);
+		entityData.define(COLOR, FireflyColors.DEFAULT.identifier().toString());
 	}
 
 	@Override
@@ -237,8 +237,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-		return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	protected Brain<?> makeBrain(Dynamic<?> input) {
+		return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	@Override
@@ -484,7 +484,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+	public boolean removeWhenFarAway(double distSqr) {
 		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
@@ -495,32 +495,32 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 
 		this.getColorAsHolder()
 			.unwrapKey()
-			.ifPresent(resourceKey -> valueOutput.putString("color", resourceKey.identifier().toString()));
+			.ifPresent(resourceKey -> output.putString("color", resourceKey.identifier().toString()));
 
-		valueOutput.putBoolean("fromBottle", this.wilderWild$fromBottle());
-		valueOutput.putInt("flickerAge", this.getFlickerAge());
-		valueOutput.putFloat("scale", this.getAnimScale());
-		valueOutput.putFloat("prevScale", this.getPrevAnimScale());
+		output.putBoolean("fromBottle", this.wilderWild$fromBottle());
+		output.putInt("flickerAge", this.getFlickerAge());
+		output.putFloat("scale", this.getAnimScale());
+		output.putFloat("prevScale", this.getPrevAnimScale());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 
-		valueInput.getString("color").flatMap(string -> Optional.ofNullable(Identifier.tryParse(string))
+		input.getString("color").flatMap(string -> Optional.ofNullable(Identifier.tryParse(string))
 				.map(identifier -> ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, identifier))
 				.flatMap(resourceKey -> this.registryAccess().lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(resourceKey))
 		).ifPresent(reference -> this.setColor(reference.value()));
 
-		this.wilderWild$setFromBottle(valueInput.getBooleanOr("fromBottle", false));
-		valueInput.getInt("flickerAge").ifPresent(this::setFlickerAge);
-		this.setAnimScale(valueInput.getFloatOr("scale", 1.5F));
-		this.setPrevAnimScale(valueInput.getFloatOr("prevScale", 1.5F));
+		this.wilderWild$setFromBottle(input.getBooleanOr("fromBottle", false));
+		input.getInt("flickerAge").ifPresent(this::setFlickerAge);
+		this.setAnimScale(input.getFloatOr("scale", 1.5F));
+		this.setPrevAnimScale(input.getFloatOr("prevScale", 1.5F));
 	}
 
 	@Override

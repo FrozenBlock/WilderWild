@@ -97,7 +97,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnGroupData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
 		if (spawnGroupData instanceof FlowerCowSpawnGroupData flowerCowSpawnGroupData) {
 			this.setVariant(flowerCowSpawnGroupData.type.value());
 		} else {
@@ -110,14 +110,14 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnGroupData);
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(VARIANT, MoobloomVariants.DEFAULT.identifier().toString());
-		builder.define(FLOWERS_LEFT, MAX_FLOWERS);
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(VARIANT, MoobloomVariants.DEFAULT.identifier().toString());
+		entityData.define(FLOWERS_LEFT, MAX_FLOWERS);
 	}
 
 	@Override
@@ -222,18 +222,18 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		VariantUtils.writeVariant(valueOutput, this.getVariantAsHolder());
-		valueOutput.putInt("FlowersLeft", this.getFlowersLeft());
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		VariantUtils.writeVariant(output, this.getVariantAsHolder());
+		output.putInt("FlowersLeft", this.getFlowersLeft());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		VariantUtils.readVariant(valueInput, WilderWildRegistries.MOOBLOOM_VARIANT)
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		VariantUtils.readVariant(input, WilderWildRegistries.MOOBLOOM_VARIANT)
 			.ifPresent(variant -> this.setVariant(variant.value()));
-		valueInput.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
+		input.getInt("FlowersLeft").ifPresent(this::setFlowersLeft);
 	}
 
 	public Identifier getVariantLocation() {

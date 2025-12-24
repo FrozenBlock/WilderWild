@@ -98,8 +98,8 @@ public class Penguin extends Animal {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<Penguin> makeBrain(Dynamic<?> dynamic) {
-		return (Brain<Penguin>) PenguinAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+	public Brain<Penguin> makeBrain(Dynamic<?> input) {
+		return (Brain<Penguin>) PenguinAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -311,15 +311,15 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.putString("EntityPose", this.getPose().name());
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putString("EntityPose", this.getPose().name());
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		valueInput.getString("EntityPose").ifPresent(entityPose -> {
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		input.getString("EntityPose").ifPresent(entityPose -> {
 			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
 				this.setPose(Pose.valueOf(entityPose));
 			}

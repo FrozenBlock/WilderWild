@@ -143,8 +143,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
-		if (this.inventory.isEmpty() && reason == EntitySpawnReason.NATURAL) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+		if (this.inventory.isEmpty() && spawnReason == EntitySpawnReason.NATURAL) {
 			final int difficultyId = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, difficultyId == 0 ? 32 : (27 / difficultyId)) == 0) {
 				int tagSelector = this.random.nextInt(1, 6);
@@ -162,7 +162,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 			this.setDeltaMovement(new Vec3(this.random.nextGaussian() * 2D, this.random.nextDouble() * 4D, this.random.nextGaussian() * 2D));
 		}
 
-		return super.finalizeSpawn(level, difficulty, reason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
 	}
 
 	public static void spawnFromShears(Level level, BlockPos pos) {
@@ -484,51 +484,51 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		this.spawnedFromShears = valueInput.getBooleanOr("SpawnedFromShears", false);
-		this.ticksSinceActive = valueInput.getIntOr("TicksSinceActive", 0);
-		this.isItemNatural = valueInput.getBooleanOr("IsTumbleweedItemNatural", false);
-		this.setItemX(valueInput.getFloatOr("ItemX", 0F));
-		this.setItemZ(valueInput.getFloatOr("ItemZ", 0F));
-		this.pitch = valueInput.getFloatOr("TumblePitch", 0F);
-		this.roll = valueInput.getFloatOr("TumbleRoll", 0F);
-		this.isTouchingStickingBlock = valueInput.getBooleanOr("isTouchingStickingBlock", false);
-		this.isTouchingStoppingBlock = valueInput.getBooleanOr("IsTouchingStoppingBlock", false);
-		this.lookRot = valueInput.getFloatOr("LookRot", 0F);
-		this.isAprilFools = valueInput.getBooleanOr("IsAprilFools", false);
-		if (valueInput.contains("Items")) {
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("SpawnedFromShears", this.spawnedFromShears);
+		output.putInt("TicksSinceActive", this.ticksSinceActive);
+		output.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
+		output.putFloat("ItemX", this.getItemX());
+		output.putFloat("ItemZ", this.getItemZ());
+		output.putFloat("TumblePitch", this.pitch);
+		output.putFloat("TumbleRoll", this.roll);
+		output.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
+		output.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
+		output.putFloat("LookRot", this.lookRot);
+		output.putBoolean("IsAprilFools", this.isAprilFools);
+		this.writeInventoryToTag(output);
+	}
+
+	@Override
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.spawnedFromShears = input.getBooleanOr("SpawnedFromShears", false);
+		this.ticksSinceActive = input.getIntOr("TicksSinceActive", 0);
+		this.isItemNatural = input.getBooleanOr("IsTumbleweedItemNatural", false);
+		this.setItemX(input.getFloatOr("ItemX", 0F));
+		this.setItemZ(input.getFloatOr("ItemZ", 0F));
+		this.pitch = input.getFloatOr("TumblePitch", 0F);
+		this.roll = input.getFloatOr("TumbleRoll", 0F);
+		this.isTouchingStickingBlock = input.getBooleanOr("isTouchingStickingBlock", false);
+		this.isTouchingStoppingBlock = input.getBooleanOr("IsTouchingStoppingBlock", false);
+		this.lookRot = input.getFloatOr("LookRot", 0F);
+		this.isAprilFools = input.getBooleanOr("IsAprilFools", false);
+		if (input.contains("Items")) {
 			final NonNullList<ItemStack> oldInventory = NonNullList.withSize(1, ItemStack.EMPTY);
-			ContainerHelper.loadAllItems(valueInput, oldInventory);
+			ContainerHelper.loadAllItems(input, oldInventory);
 			if (!oldInventory.isEmpty() && !oldInventory.getFirst().isEmpty()) this.inventory.setItem(0, oldInventory.getFirst());
 		} else {
-			this.readInventoryFromTag(valueInput);
+			this.readInventoryFromTag(input);
 		}
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.putBoolean("SpawnedFromShears", this.spawnedFromShears);
-		valueOutput.putInt("TicksSinceActive", this.ticksSinceActive);
-		valueOutput.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
-		valueOutput.putFloat("ItemX", this.getItemX());
-		valueOutput.putFloat("ItemZ", this.getItemZ());
-		valueOutput.putFloat("TumblePitch", this.pitch);
-		valueOutput.putFloat("TumbleRoll", this.roll);
-		valueOutput.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
-		valueOutput.putBoolean("IsTouchingStoppingBlock", this.isTouchingStoppingBlock);
-		valueOutput.putFloat("LookRot", this.lookRot);
-		valueOutput.putBoolean("IsAprilFools", this.isAprilFools);
-		this.writeInventoryToTag(valueOutput);
-	}
-
-	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(ITEM_STACK, ItemStack.EMPTY);
-		builder.define(ITEM_X, 0F);
-		builder.define(ITEM_Z, 0F);
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(ITEM_STACK, ItemStack.EMPTY);
+		entityData.define(ITEM_X, 0F);
+		entityData.define(ITEM_Z, 0F);
 	}
 
 	@Nullable
@@ -576,7 +576,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	}
 
 	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+	public boolean removeWhenFarAway(double distSqr) {
 		return !this.spawnedFromShears;
 	}
 
