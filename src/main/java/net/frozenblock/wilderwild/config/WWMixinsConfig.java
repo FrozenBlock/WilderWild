@@ -107,8 +107,6 @@ public final class WWMixinsConfig {
 
 	public boolean entity_easter = true;
 
-	public boolean entity_enderman = true;
-
 	public boolean entity_experience = true;
 
 	public boolean entity_firefly = true;
