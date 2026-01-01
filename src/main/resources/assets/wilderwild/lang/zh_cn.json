@@ -584,8 +584,6 @@
     "tooltip.wilderwild.reach_affects_attack": "是否使延伸效果影响玩家的攻击范围。",
     "option.wilderwild.enderman": "末影人",
     "tooltip.wilderwild.enderman": "包含末影人相关的选项。",
-    "option.wilderwild.anger_loop_sound": "愤怒循环音效",
-    "tooltip.wilderwild.anger_loop_sound": "当末影人锁定目标时，是否会开始循环播放愤怒音效。",
     "option.wilderwild.moving_stare_sound": "移动凝视音效",
     "tooltip.wilderwild.moving_stare_sound": "末影人的凝视音效是否会随末影人移动，以及是否能提前停止。",
     "option.wilderwild.firefly": "萤火虫",
