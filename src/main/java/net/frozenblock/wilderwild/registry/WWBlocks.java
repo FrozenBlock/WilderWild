@@ -2631,6 +2631,8 @@ public final class WWBlocks {
 
 			builder.add(TUMBLEWEED.asItem(), 150);
 			builder.add(TUMBLEWEED_PLANT.asItem(), 150);
+
+			builder.add(SHRUB.asItem(), 150);
 		});
 	}
 
