@@ -24,9 +24,9 @@ import java.util.function.Supplier;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
@@ -168,7 +168,7 @@ public final class WWBlocks {
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
 	public static final BlockSetType MAPLE_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
-		.soundGroup(WWSoundTypes.MAPLE_WOOD)
+		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN)
 		.trapdoorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE).trapdoorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN)
 		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF)
@@ -179,9 +179,9 @@ public final class WWBlocks {
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
 	public static final WoodType MAPLE_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE)
-		.soundGroup(WWSoundTypes.MAPLE_WOOD)
+		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN)
-		.hangingSignSoundGroup(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
+		.hangingSignSoundType(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 		.register(WWConstants.id("maple"), MAPLE_SET);
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
@@ -2149,36 +2149,36 @@ public final class WWBlocks {
 	public static void registerBlockProperties() {
 		registerDispenses();
 
-		var sign = (FabricBlockEntityType) BlockEntityType.SIGN;
-		sign.addSupportedBlock(BAOBAB_SIGN);
-		sign.addSupportedBlock(BAOBAB_WALL_SIGN);
-		sign.addSupportedBlock(WILLOW_SIGN);
-		sign.addSupportedBlock(WILLOW_WALL_SIGN);
-		sign.addSupportedBlock(CYPRESS_SIGN);
-		sign.addSupportedBlock(CYPRESS_WALL_SIGN);
-		sign.addSupportedBlock(PALM_SIGN);
-		sign.addSupportedBlock(PALM_WALL_SIGN);
-		sign.addSupportedBlock(MAPLE_SIGN);
-		sign.addSupportedBlock(MAPLE_WALL_SIGN);
+		var sign = BlockEntityType.SIGN;
+		sign.addValidBlock(BAOBAB_SIGN);
+		sign.addValidBlock(BAOBAB_WALL_SIGN);
+		sign.addValidBlock(WILLOW_SIGN);
+		sign.addValidBlock(WILLOW_WALL_SIGN);
+		sign.addValidBlock(CYPRESS_SIGN);
+		sign.addValidBlock(CYPRESS_WALL_SIGN);
+		sign.addValidBlock(PALM_SIGN);
+		sign.addValidBlock(PALM_WALL_SIGN);
+		sign.addValidBlock(MAPLE_SIGN);
+		sign.addValidBlock(MAPLE_WALL_SIGN);
 
-		var hangingSign = (FabricBlockEntityType) BlockEntityType.HANGING_SIGN;
-		hangingSign.addSupportedBlock(BAOBAB_HANGING_SIGN);
-		hangingSign.addSupportedBlock(BAOBAB_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(WILLOW_HANGING_SIGN);
-		hangingSign.addSupportedBlock(WILLOW_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(CYPRESS_HANGING_SIGN);
-		hangingSign.addSupportedBlock(CYPRESS_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(PALM_HANGING_SIGN);
-		hangingSign.addSupportedBlock(PALM_WALL_HANGING_SIGN);
-		hangingSign.addSupportedBlock(MAPLE_HANGING_SIGN);
-		hangingSign.addSupportedBlock(MAPLE_WALL_HANGING_SIGN);
+		var hangingSign = BlockEntityType.HANGING_SIGN;
+		hangingSign.addValidBlock(BAOBAB_HANGING_SIGN);
+		hangingSign.addValidBlock(BAOBAB_WALL_HANGING_SIGN);
+		hangingSign.addValidBlock(WILLOW_HANGING_SIGN);
+		hangingSign.addValidBlock(WILLOW_WALL_HANGING_SIGN);
+		hangingSign.addValidBlock(CYPRESS_HANGING_SIGN);
+		hangingSign.addValidBlock(CYPRESS_WALL_HANGING_SIGN);
+		hangingSign.addValidBlock(PALM_HANGING_SIGN);
+		hangingSign.addValidBlock(PALM_WALL_HANGING_SIGN);
+		hangingSign.addValidBlock(MAPLE_HANGING_SIGN);
+		hangingSign.addValidBlock(MAPLE_WALL_HANGING_SIGN);
 
 		var shelf = (FabricBlockEntityType) BlockEntityType.SHELF;
-		shelf.addSupportedBlock(BAOBAB_SHELF);
-		shelf.addSupportedBlock(WILLOW_SHELF);
-		shelf.addSupportedBlock(CYPRESS_SHELF);
-		shelf.addSupportedBlock(PALM_SHELF);
-		shelf.addSupportedBlock(MAPLE_SHELF);
+		shelf.addValidBlock(BAOBAB_SHELF);
+		shelf.addValidBlock(WILLOW_SHELF);
+		shelf.addValidBlock(CYPRESS_SHELF);
+		shelf.addValidBlock(PALM_SHELF);
+		shelf.addValidBlock(MAPLE_SHELF);
 
 		registerStrippable();
 		registerComposting();
@@ -2244,67 +2244,67 @@ public final class WWBlocks {
 	}
 
 	private static void registerComposting() {
-		CompostingChanceRegistry.INSTANCE.add(CARNATION, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(CATTAIL, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(DATURA, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(MILKWEED, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(MARIGOLD, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(LANTANAS, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(PHLOX, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(RED_SHELF_FUNGI, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(WILLOW_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAVES, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(WILLOW_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_SAPLING, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(ALGAE, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(PLANKTON, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(SHRUB, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
-		CompostingChanceRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
-		CompostingChanceRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
-		CompostingChanceRegistry.INSTANCE.add(ACACIA_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(AZALEA_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CHERRY_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(DARK_OAK_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(JUNGLE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MANGROVE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(PALE_OAK_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(WILLOW_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(CLOVERS, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(FROZEN_SHORT_GRASS, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(FROZEN_TALL_GRASS, 0.5F);
-		CompostingChanceRegistry.INSTANCE.add(FROZEN_FERN, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(FROZEN_LARGE_FERN, 0.65F);
-		CompostingChanceRegistry.INSTANCE.add(FROZEN_BUSH, 0.3F);
+		CompostableRegistry.INSTANCE.add(CARNATION, 0.65F);
+		CompostableRegistry.INSTANCE.add(CATTAIL, 0.65F);
+		CompostableRegistry.INSTANCE.add(DATURA, 0.65F);
+		CompostableRegistry.INSTANCE.add(MILKWEED, 0.65F);
+		CompostableRegistry.INSTANCE.add(MARIGOLD, 0.3F);
+		CompostableRegistry.INSTANCE.add(LANTANAS, 0.3F);
+		CompostableRegistry.INSTANCE.add(PHLOX, 0.3F);
+		CompostableRegistry.INSTANCE.add(SEEDING_DANDELION, 0.65F);
+		CompostableRegistry.INSTANCE.add(FLOWERING_LILY_PAD, 0.65F);
+		CompostableRegistry.INSTANCE.add(BROWN_SHELF_FUNGI, 0.65F);
+		CompostableRegistry.INSTANCE.add(RED_SHELF_FUNGI, 0.65F);
+		CompostableRegistry.INSTANCE.add(WILLOW_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(CYPRESS_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(BAOBAB_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(PALM_FRONDS, 0.3F);
+		CompostableRegistry.INSTANCE.add(YELLOW_MAPLE_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(ORANGE_MAPLE_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(RED_MAPLE_LEAVES, 0.3F);
+		CompostableRegistry.INSTANCE.add(WILLOW_SAPLING, 0.3F);
+		CompostableRegistry.INSTANCE.add(CYPRESS_SAPLING, 0.3F);
+		CompostableRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
+		CompostableRegistry.INSTANCE.add(YELLOW_MAPLE_SAPLING, 0.3F);
+		CompostableRegistry.INSTANCE.add(ORANGE_MAPLE_SAPLING, 0.3F);
+		CompostableRegistry.INSTANCE.add(RED_MAPLE_SAPLING, 0.3F);
+		CompostableRegistry.INSTANCE.add(WWItems.COCONUT, 0.65F);
+		CompostableRegistry.INSTANCE.add(WWItems.SPLIT_COCONUT, 0.3F);
+		CompostableRegistry.INSTANCE.add(RED_HIBISCUS, 0.65F);
+		CompostableRegistry.INSTANCE.add(YELLOW_HIBISCUS, 0.65F);
+		CompostableRegistry.INSTANCE.add(WHITE_HIBISCUS, 0.65F);
+		CompostableRegistry.INSTANCE.add(PINK_HIBISCUS, 0.65F);
+		CompostableRegistry.INSTANCE.add(PURPLE_HIBISCUS, 0.65F);
+		CompostableRegistry.INSTANCE.add(ALGAE, 0.3F);
+		CompostableRegistry.INSTANCE.add(PLANKTON, 0.3F);
+		CompostableRegistry.INSTANCE.add(MYCELIUM_GROWTH, 0.3F);
+		CompostableRegistry.INSTANCE.add(SHRUB, 0.65F);
+		CompostableRegistry.INSTANCE.add(TUMBLEWEED_PLANT, 0.5F);
+		CompostableRegistry.INSTANCE.add(TUMBLEWEED, 0.3F);
+		CompostableRegistry.INSTANCE.add(WWItems.PRICKLY_PEAR, 0.5F);
+		CompostableRegistry.INSTANCE.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
+		CompostableRegistry.INSTANCE.add(ACACIA_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(AZALEA_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(BAOBAB_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(BIRCH_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(CHERRY_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(CYPRESS_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(DARK_OAK_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(JUNGLE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(MANGROVE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(PALE_OAK_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(PALM_FROND_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(SPRUCE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(WILLOW_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(RED_MAPLE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.INSTANCE.add(CLOVERS, 0.3F);
+		CompostableRegistry.INSTANCE.add(FROZEN_SHORT_GRASS, 0.3F);
+		CompostableRegistry.INSTANCE.add(FROZEN_TALL_GRASS, 0.5F);
+		CompostableRegistry.INSTANCE.add(FROZEN_FERN, 0.65F);
+		CompostableRegistry.INSTANCE.add(FROZEN_LARGE_FERN, 0.65F);
+		CompostableRegistry.INSTANCE.add(FROZEN_BUSH, 0.3F);
 	}
 
 	private static void registerFlammability() {
@@ -2489,7 +2489,7 @@ public final class WWBlocks {
 	private static void registerFuels() {
 		WWConstants.logWithModId("Registering Fuels for", WWConstants.UNSTABLE_LOGGING);
 
-		FuelRegistryEvents.BUILD.register((builder, context) -> {
+		FuelValueEvents.BUILD.register((builder, context) -> {
 			builder.add(WWItems.BAOBAB_BOAT, 1200);
 			builder.add(WWItems.BAOBAB_CHEST_BOAT, 1200);
 			builder.add(BAOBAB_LOG.asItem(), 300);

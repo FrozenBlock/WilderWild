@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
 import net.minecraft.core.HolderLookup;
@@ -27,9 +27,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 
-public final class WWDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+public final class WWDamageTypeTagProvider extends FabricTagsProvider<DamageType> {
 
-	public WWDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWDamageTypeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, Registries.DAMAGE_TYPE, registries);
 	}
 

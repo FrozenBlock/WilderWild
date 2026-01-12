@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.advancement;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancement.FragileIceFallOntoAndBreakTrigger;
@@ -56,7 +56,7 @@ import net.minecraft.world.level.block.Block;
 
 public final class WWAdvancementProvider extends FabricAdvancementProvider {
 
-	public WWAdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

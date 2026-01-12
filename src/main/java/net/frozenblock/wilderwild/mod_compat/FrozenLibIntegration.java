@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
@@ -260,7 +260,7 @@ public class FrozenLibIntegration extends ModIntegration {
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
 
-		ServerWorldEvents.LOAD.register(
+		ServerLevelEvents.LOAD.register(
 			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
 				level.damageSources().damageTypes.getValueOrThrow(DamageTypes.CACTUS),
 				WWSounds.PLAYER_HURT_CACTUS,

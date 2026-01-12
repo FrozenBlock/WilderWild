@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.TimelineTagsProvider;
@@ -26,7 +26,7 @@ import net.minecraft.tags.TimelineTags;
 
 public final class WWTimelineTagProvider extends TimelineTagsProvider {
 
-	public WWTimelineTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWTimelineTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

@@ -29,7 +29,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 public final class WWNetworking {
 
 	public static void init() {
-		final PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.playS2C();
+		final PayloadTypeRegistry<RegistryFriendlyByteBuf> registry = PayloadTypeRegistry.clientboundPlay();
 		registry.register(WWWindPacket.PACKET_TYPE, WWWindPacket.CODEC);
 		registry.register(WWJellyfishStingPacket.PACKET_TYPE, WWJellyfishStingPacket.CODEC);
 		registry.register(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);

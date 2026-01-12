@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import com.google.common.collect.ImmutableList;
 import java.util.function.Function;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -199,10 +199,10 @@ public final class WWItems {
 
 	public static void registerItems() {
 		WWConstants.logWithModId("Registering Items for", WWConstants.UNSTABLE_LOGGING);
-		CompostingChanceRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
-		CompostingChanceRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
-		CompostingChanceRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
-		CompostingChanceRegistry.INSTANCE.add(COCONUT, 0.3F);
+		CompostableRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
+		CompostableRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
+		CompostableRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
+		CompostableRegistry.INSTANCE.add(COCONUT, 0.3F);
 		registerDispenses();
 	}
 

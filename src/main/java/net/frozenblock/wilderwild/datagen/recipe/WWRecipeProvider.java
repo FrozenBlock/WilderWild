@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.datagen.recipe;
 
 import com.google.common.collect.ImmutableList;
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
 import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Contract;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
 
-	public WWRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

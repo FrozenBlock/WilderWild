@@ -38,10 +38,10 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.all(),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
+				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				if (WWEntityConfig.get().firefly.firefliesNeedBush) {
-					spawnSettings.setSpawnCost(WWEntityTypes.FIREFLY, 0.35D, 0.3D);
+					spawnSettings.addMobCharge(WWEntityTypes.FIREFLY, 0.35D, 0.3D);
 				} else if (!selectionContext.hasTag(WWBiomeTags.HAS_FIREFLY)) {
 					return;
 				}
@@ -58,7 +58,7 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
+				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				double butterflyCharge = 0.3D;
 				double butterflyLimit = 0.15D;
@@ -80,7 +80,7 @@ public final class WWSpawns {
 					butterflyWeight
 				);
 
-				spawnSettings.setSpawnCost(WWEntityTypes.BUTTERFLY, butterflyCharge, butterflyLimit);
+				spawnSettings.addMobCharge(WWEntityTypes.BUTTERFLY, butterflyCharge, butterflyLimit);
 			}
 		);
 	}
@@ -90,7 +90,7 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_JELLYFISH),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.SpawnSettingsContext spawnSettings = modificationContext.getSpawnSettings();
+				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
@@ -100,7 +100,7 @@ public final class WWSpawns {
 
 				double jellyfishCharge = 0.3D;
 				if (!selectionContext.hasTag(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) jellyfishCharge = 1.3D;
-				spawnSettings.setSpawnCost(WWEntityTypes.JELLYFISH, jellyfishCharge, 0.15D);
+				spawnSettings.addMobCharge(WWEntityTypes.JELLYFISH, jellyfishCharge, 0.15D);
 			}
 		);
 	}
@@ -138,8 +138,8 @@ public final class WWSpawns {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
 			(biomeSelectionContext, biomeModificationContext) -> {
-				biomeModificationContext.getSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
-				biomeModificationContext.getSpawnSettings().addSpawn(
+				biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
+				biomeModificationContext.getMobSpawnSettings().addSpawn(
 					MobCategory.CREATURE,
 					new MobSpawnSettings.SpawnerData(
 						WWEntityTypes.MOOBLOOM,

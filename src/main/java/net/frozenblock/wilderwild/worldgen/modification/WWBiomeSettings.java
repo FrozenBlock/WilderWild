@@ -82,7 +82,7 @@ public final class WWBiomeSettings {
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
 			(selectionContext, modificationContext) -> {
 				if (!WWAmbienceAndMiscConfig.get().vegetationColors.badlandsFoliage) return;
-				modificationContext.getEffects().setFoliageColor(11445290);
+				modificationContext.getEffects().setFoliageColorOverride(11445290);
 			});
 
 		WWBiomeMusicAndAmbience.playMusic();

@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.frozenblock.wilderwild.particle.ChestBubbleSeedParticle;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -45,7 +45,7 @@ import net.frozenblock.wilderwild.registry.WWParticleTypes;
 public final class WWParticleEngine {
 
 	public static void init() {
-		final ParticleFactoryRegistry particleRegistry = ParticleFactoryRegistry.getInstance();
+		final ParticleProviderRegistry particleRegistry = ParticleProviderRegistry.getInstance();
 
 		particleRegistry.register(WWParticleTypes.LEAF_CLUSTER_SPAWNER, LeafClusterSeedParticle.Provider::new);
 		particleRegistry.register(WWParticleTypes.OAK_LEAVES, WWFallingLeavesParticle.Provider::new);

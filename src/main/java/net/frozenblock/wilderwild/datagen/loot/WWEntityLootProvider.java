@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.datagen.loot;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
 import net.frozenblock.lib.datagen.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -41,10 +41,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public final class WWEntityLootProvider extends FabricEntityLootTableProvider {
+public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
-	public WWEntityLootProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWEntityLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 		this.registries = registries;
 	}

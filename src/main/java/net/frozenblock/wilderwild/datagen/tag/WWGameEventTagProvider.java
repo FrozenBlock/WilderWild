@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.HolderLookup;
@@ -30,7 +30,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class WWGameEventTagProvider extends GameEventTagsProvider {
 
-	public WWGameEventTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWGameEventTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
