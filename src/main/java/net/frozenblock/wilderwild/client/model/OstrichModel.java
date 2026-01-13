@@ -198,7 +198,7 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		return createBodyLayer().apply(BABY_TRANSFORMER);
 	}
 
-	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {
+	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset, float legPosScale) {
 		final float fastAngle = limbSwing * 0.3331F + animOffset;
 		final float angleSin = Math.sin(-fastAngle);
 
@@ -211,8 +211,8 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		final float legY = onlyPositiveEarlyAngleSinSwingAmount * 6F;
 
 		leg.xRot -= Math.sin(fastAngle) * limbSwingAmount * 0.5F;
-		leg.y -= legY;
-		leg.z += legZ;
+		leg.y -= legY * legPosScale;
+		leg.z += legZ * legPosScale;
 
 		final float earlierAngleSin = Math.sin(-fastAngle - (Mth.PI * 0.6662F));
 		final float earlierAngleSinSwingAmount = earlierAngleSin * limbSwingAmount;
@@ -234,18 +234,20 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		super.setupAnim(renderState);
 
 		this.saddle.visible = !renderState.saddle.isEmpty();
-		float walkPos = renderState.walkAnimationPos;
-		float walkSpeed = renderState.walkAnimationSpeed;
+		final float walkPos = renderState.walkAnimationPos;
+		final float walkSpeed = renderState.walkAnimationSpeed;
+		final float bodyRotScale = renderState.isBaby ? 0.35F : 1F;
 
 		// LEGS
-		animateLeg(this.leftLeg, this.leftFoot, walkPos, walkSpeed, Mth.PI);
-		animateLeg(this.rightLeg, this.rightFoot, walkPos, walkSpeed, 0F);
+		final float legPosScale = renderState.isBaby ? 0.15F : 1F;
+		animateLeg(this.leftLeg, this.leftFoot, walkPos, walkSpeed, Mth.PI, legPosScale);
+		animateLeg(this.rightLeg, this.rightFoot, walkPos, walkSpeed, 0F, legPosScale);
 
 		// BODY
 		final float fastAngleBody = walkPos * 0.3331F;
 		final float angleSinBody = Math.sin(-fastAngleBody);
 		final float angleSinSwingAmountBody = (angleSinBody * walkSpeed) * 0.175F;
-		this.body.zRot += angleSinSwingAmountBody;
+		this.body.zRot += angleSinSwingAmountBody * bodyRotScale;
 
 		// NECK
 		final float beakAnimProgress = renderState.beakAnimProgress;
@@ -267,13 +269,14 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		final float fastAngleNeck = walkPos * 0.3331F + NECK_DELAY;
 		final float angleSinNeck = Math.sin(-fastAngleNeck);
 		final float angleSinSwingAmountNeck = (angleSinNeck * walkSpeed) * NECK_SWING;
-		this.neck.zRot += angleSinSwingAmountNeck;
+		this.neck.zRot += angleSinSwingAmountNeck * bodyRotScale;
 
 		this.neck.xRot += (walkSpeed * RAD_5);
 
-		this.neckBase.xRot -= xRot * RAD_025;
+		final float neckRotScale = renderState.isBaby ? 1F : -1F;
+		this.neckBase.xRot += xRot * RAD_025 * neckRotScale;
 		this.neckBase.yRot += yRot * RAD_025;
-		this.neck.xRot -= xRot * RAD_065;
+		this.neck.xRot += xRot * RAD_065 * neckRotScale;
 		this.neck.yRot += yRot * RAD_065;
 	}
 }

@@ -28,8 +28,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class Ostrich extends AbstractOstrich {
+	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(0.435F, 0.57F).withEyeHeight(0.53125F);
 
 	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
 		super(entityType, level);
@@ -51,6 +54,11 @@ public class Ostrich extends AbstractOstrich {
 			.add(Attributes.MOVEMENT_SPEED, 0.225F)
 			.add(Attributes.STEP_HEIGHT, 1.5D)
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE);
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(final Pose pose) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(pose);
 	}
 
 	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
