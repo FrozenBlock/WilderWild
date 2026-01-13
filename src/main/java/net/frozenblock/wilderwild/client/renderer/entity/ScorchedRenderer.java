@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.ScorchedModel;
+import net.frozenblock.wilderwild.client.model.monster.spider.ScorchedModel;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ScorchedRenderState;
 import net.frozenblock.wilderwild.entity.Scorched;

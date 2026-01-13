@@ -15,8 +15,10 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.client.model;
+package net.frozenblock.wilderwild.client.model.animal.ostrich;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -26,6 +28,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
+@Environment(EnvType.CLIENT)
 public class BabyOstrichModel<T extends AbstractOstrichRenderState> extends OstrichModel<T> {
 
 	public BabyOstrichModel(ModelPart root) {

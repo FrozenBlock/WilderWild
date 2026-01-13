@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.StoneChestModel;
+import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRenderState;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;

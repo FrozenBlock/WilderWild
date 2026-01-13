@@ -15,8 +15,10 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.client.model;
+package net.frozenblock.wilderwild.client.model.animal.ostrich;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -29,6 +31,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.joml.Math;
 
+@Environment(EnvType.CLIENT)
 public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	private static final float NECK_DELAY = 0F;
 	//private static final float OLD_NECK_DELAY = 0.0416375F;

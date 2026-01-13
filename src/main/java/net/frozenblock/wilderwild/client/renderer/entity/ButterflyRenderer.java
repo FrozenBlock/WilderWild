@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.ButterflyModel;
+import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderState;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

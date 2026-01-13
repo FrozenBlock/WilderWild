@@ -21,16 +21,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.model.BabyOstrichModel;
-import net.frozenblock.wilderwild.client.model.ButterflyModel;
-import net.frozenblock.wilderwild.client.model.CrabModel;
-import net.frozenblock.wilderwild.client.model.JellyfishModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
+import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
+import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
+import net.frozenblock.wilderwild.client.model.animal.crab.CrabModel;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.NoOpModel;
-import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
-import net.frozenblock.wilderwild.client.model.OstrichModel;
-import net.frozenblock.wilderwild.client.model.PenguinModel;
-import net.frozenblock.wilderwild.client.model.StoneChestModel;
-import net.frozenblock.wilderwild.client.model.TumbleweedModel;
+import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel;
+import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
+import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
+import net.frozenblock.wilderwild.client.model.ambient.TumbleweedModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
@@ -142,8 +143,8 @@ public final class WWModelLayers {
 		ModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, BabyCowModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.PENGUIN, PenguinRenderer::new);
-		ModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(PENGUIN_BABY, PenguinModel::createBabyBodyLayer);
+		ModelLayerRegistry.registerModelLayer(PENGUIN, AdultPenguinModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(PENGUIN_BABY, BabyPenguinModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.COCONUT, ThrownItemRenderer::new);
 

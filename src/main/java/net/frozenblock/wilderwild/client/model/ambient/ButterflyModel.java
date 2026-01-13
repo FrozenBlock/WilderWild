@@ -15,8 +15,10 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.client.model;
+package net.frozenblock.wilderwild.client.model.ambient;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -28,6 +30,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
+@Environment(EnvType.CLIENT)
 public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	private static final float FLAP_SPEED = 1.375F;
 	private static final float FLAP_HEIGHT = Mth.PI * 0.475F;

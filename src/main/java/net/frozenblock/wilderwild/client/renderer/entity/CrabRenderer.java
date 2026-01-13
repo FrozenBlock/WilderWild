@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.CrabModel;
+import net.frozenblock.wilderwild.client.model.animal.crab.CrabModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.client.model.geom.ModelLayerLocation;

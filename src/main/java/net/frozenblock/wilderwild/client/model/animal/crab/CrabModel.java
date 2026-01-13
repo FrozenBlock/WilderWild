@@ -15,8 +15,10 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.client.model;
+package net.frozenblock.wilderwild.client.model.animal.crab;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.CrabAnimation;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
@@ -30,6 +32,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.joml.Math;
 
+@Environment(EnvType.CLIENT)
 public class CrabModel extends EntityModel<CrabRenderState> {
 	private static final float DOUBLE_PI = Mth.PI * 2F;
 	private static final float RAD_50 = 50F * Mth.DEG_TO_RAD;

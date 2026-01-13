@@ -15,27 +15,20 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.client.model;
+package net.frozenblock.wilderwild.client.model.animal.penguin;
 
-import java.util.Set;
-import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
+import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimation;
-import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.MeshTransformer;
-import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.joml.Math;
 
-public class PenguinModel<T extends PenguinRenderState> extends EntityModel<PenguinRenderState> {
-	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 0F, 0F, 1F, 2.5F, 36F, Set.of());
+@Environment(EnvType.CLIENT)
+public class PenguinModel<T extends PenguinRenderState> extends EntityModel<T> {
 	private final ModelPart body;
 	private final ModelPart torso;
 	private final ModelPart head;
@@ -48,7 +41,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 	private final KeyframeAnimation standUpAnimation;
 	private final KeyframeAnimation callAnimation;
 
-	public PenguinModel(ModelPart root) {
+	public PenguinModel(ModelPart root, AnimationDefinition layDownAnimation, AnimationDefinition standUpAnimation, AnimationDefinition callAnimation) {
 		super(root);
 		this.body = root.getChild("body");
 		this.torso = this.body.getChild("torso");
@@ -59,80 +52,13 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.rightFoot = this.feet.getChild("right_foot");
 		this.leftFoot = this.feet.getChild("left_foot");
 
-		this.layDownAnimation = PenguinAnimation.PENGUIN_LAY_DOWN.bake(root);
-		this.standUpAnimation = PenguinAnimation.PENGUIN_STAND_UP.bake(root);
-		this.callAnimation = PenguinAnimation.PENGUIN_CALL.bake(root);
-	}
-
-	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-		final PartDefinition root = meshdefinition.getRoot();
-
-		final PartDefinition body = root.addOrReplaceChild(
-			"body",
-			CubeListBuilder.create(),
-			PartPose.offset(0F, 17F, -0.5F)
-		);
-
-		final PartDefinition torso = body.addOrReplaceChild(
-			"torso", CubeListBuilder.create()
-				.texOffs(0, 0)
-				.addBox(-4.5F, -5F, -3.5F, 9F, 11F, 7F, new CubeDeformation(0F))
-			.texOffs(28, 18)
-				.addBox(-4.5F, 6F, -3.5F, 9F, 1F, 7F, new CubeDeformation(0F)),
-			PartPose.offset(0F, 0F, 0F)
-		);
-		torso.addOrReplaceChild(
-			"head", CubeListBuilder.create()
-				.texOffs(0, 18)
-				.addBox(-3.5F, -5F, -3.5F, 7F, 5F, 7F, new CubeDeformation(0F))
-			.texOffs(0, 42)
-				.addBox(-4.5F, -6F, -3.5F, 9F, 3F, 7F, new CubeDeformation(0.005F))
-			.texOffs(32, 0)
-				.addBox(-0.5F, -3F, -5.5F, 1F, 2F, 2F, new CubeDeformation(0F)),
-			PartPose.offset(0F, -5F, 0F)
-		);
-
-		 torso.addOrReplaceChild(
-			"right_flipper", CubeListBuilder.create()
-				.texOffs(16, 30).addBox(-1F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
-			PartPose.offset(-4.5F, -5F, 0F)
-		);
-		torso.addOrReplaceChild(
-			"left_flipper", CubeListBuilder.create()
-				.texOffs(24, 30).addBox(0F, 0F, -1.5F, 1F, 9F, 3F, new CubeDeformation(0F)),
-			PartPose.offset(4.5F, -5F, 0F)
-		);
-
-		final PartDefinition feet = body.addOrReplaceChild(
-			"feet",
-			CubeListBuilder.create(),
-			PartPose.offset(0F, 7F, 0.5F)
-		);
-		feet.addOrReplaceChild(
-			"right_foot",
-			CubeListBuilder.create()
-				.texOffs(-5, 37)
-				.addBox(-1.5F, 0F, -5F, 3F, 0F, 5F, new CubeDeformation(0.005F)),
-			PartPose.offset(-2.5F, 0F, 1F)
-		);
-		feet.addOrReplaceChild(
-			"left_foot",
-			CubeListBuilder.create()
-				.texOffs(-5, 37)
-				.addBox(-1.5F, 0F, -5F, 3F, 0F, 5F, new CubeDeformation(0.005F)),
-			PartPose.offset(2.5F, 0F, 1F)
-		);
-
-		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-	public static LayerDefinition createBabyBodyLayer() {
-		return createBodyLayer().apply(BABY_TRANSFORMER);
+		this.layDownAnimation = layDownAnimation.bake(root);
+		this.standUpAnimation = standUpAnimation.bake(root);
+		this.callAnimation = callAnimation.bake(root);
 	}
 
 	@Override
-	public void setupAnim(PenguinRenderState renderState) {
+	public void setupAnim(T renderState) {
 		super.setupAnim(renderState);
 		final float movementDelta = renderState.movementDelta;
 		final float notMovingDelta = 1F - movementDelta;
@@ -154,9 +80,9 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.callAnimation.apply(renderState.callAnimationState, renderState.ageInTicks);
 		this.animateWalk(limbSwing, limbSwingAmount * notSwimmingAmount * notWadingProgress * notSlidingProgress);
 		this.animateSlide(limbSwing * 2.5F, Math.min(limbSwingAmount * 2F, 1F), movementDelta, slideProgress * notSwimmingAmount * notWadingProgress);
-		this.animateWade(renderState.ageInTicks, idleWadeProgress * notMovingDelta * notSlidingProgress);
-		this.animateWadeMove(limbSwing,  Math.min(limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress * 1.75F, 1F));
-		this.animateSwim(limbSwing, limbSwingAmount, renderState.xRot, swimAmount * notSlidingProgress);
+		this.animateWade(renderState.ageInTicks, idleWadeProgress * notMovingDelta * notSlidingProgress, renderState.isBaby ? 0.2F : 1F);
+		this.animateWadeMove(limbSwing,  Math.min(limbSwingAmount * wadeProgress * notSwimmingAmount * movementDelta * notSlidingProgress * 1.75F, 1F), renderState.isBaby ? 0.2F : 1F);
+		this.animateSwim(limbSwing, limbSwingAmount, renderState.xRot, swimAmount * notSlidingProgress, renderState.isBaby ? 1.5F : 3F);
 	}
 
 	// Original Molang animation made by DaDolphin!
@@ -200,7 +126,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 	}
 
 	// Original Molang animation made by DaDolphin!
-	private void animateWade(float ageInTicks, float wadeAmount) {
+	private void animateWade(float ageInTicks, float wadeAmount, float feetOffsetScale) {
 		ageInTicks *= 0.001F;
 		final float wadeDegToRad = wadeAmount * Mth.DEG_TO_RAD;
 		final float animProgress = ageInTicks * 90F * 0.75F;
@@ -228,23 +154,23 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.rightFlipper.zRot += (14.6625F + Mth.sin(animProgress + 30F) * 5F) * wadeDegToRad;
 
 		this.feet.xRot += 92.1786F * wadeDegToRad;
-		this.feet.y -= 4.25F * wadeAmount;
-		this.feet.z += 5.75F * wadeAmount;
+		this.feet.y -= 4.25F * wadeAmount * feetOffsetScale;
+		this.feet.z += 5.75F * wadeAmount * feetOffsetScale;
 
 		float footAnimProgress = ageInTicks * 90F * 6F;
 		this.leftFoot.xRot += (36.0192F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
 		this.leftFoot.yRot -= 11.5188F * wadeDegToRad;
 		this.leftFoot.zRot -= 12.8719F * wadeDegToRad;
-		this.leftFoot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+		this.leftFoot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount * feetOffsetScale;
 
 		this.rightFoot.xRot += (42.7455F + Mth.sin(footAnimProgress - 40F) * 15F) * wadeDegToRad;
 		this.rightFoot.yRot += 5.7415F * wadeDegToRad;
 		this.rightFoot.zRot += 15.1165F * wadeDegToRad;
-		this.rightFoot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+		this.rightFoot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount * feetOffsetScale;
 	}
 
 	// Original Molang animation made by DaDolphin!
-	private void animateWadeMove(float limbSwing, float wadeAmount) {
+	private void animateWadeMove(float limbSwing, float wadeAmount, float feetOffsetScale) {
 		limbSwing *= 0.001F;
 		final float wadeDegToRad = wadeAmount * Mth.DEG_TO_RAD;
 		final float animProgress = limbSwing * 90F;
@@ -272,21 +198,21 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.rightFlipper.zRot += (31.4462F + Mth.sin(animProgress + 30F) * 5F) * wadeDegToRad;
 
 		this.feet.xRot += 92.1786F * wadeDegToRad;
-		this.feet.y -= 4.25F * wadeAmount;
-		this.feet.z += 5.75F * wadeAmount;
+		this.feet.y -= 4.25F * wadeAmount * feetOffsetScale;
+		this.feet.z += 5.75F * wadeAmount * feetOffsetScale;
 
 		final float footAnimProgress = limbSwing * 90F * 6F;
 		this.leftFoot.xRot += (35.7474F - Mth.sin(footAnimProgress) * 15F) * wadeDegToRad;
 		this.leftFoot.yRot -= 9.4931F * wadeDegToRad;
 		this.leftFoot.zRot -= 11.3817F * wadeDegToRad;
-		this.leftFoot.x -= 0.25F * wadeAmount;
-		this.leftFoot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+		this.leftFoot.x -= 0.25F * wadeAmount * feetOffsetScale;
+		this.leftFoot.y -= (0.5F - Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount * feetOffsetScale;
 
 		this.rightFoot.xRot += (42.7455F + Mth.sin(footAnimProgress - 40F) * 15F) * wadeDegToRad;
 		this.rightFoot.yRot += 5.7415F * wadeDegToRad;
 		this.rightFoot.zRot += 15.1165F * wadeDegToRad;
-		this.rightFoot.x += 0.25F * wadeAmount;
-		this.rightFoot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount;
+		this.rightFoot.x += 0.25F * wadeAmount * feetOffsetScale;
+		this.rightFoot.y -= (0.5F + Mth.sin(footAnimProgress - 80F) * 0.5F) * wadeAmount * feetOffsetScale;
 	}
 
 	// Original Molang animation made by DaDolphin!
@@ -319,7 +245,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 	}
 
 	// AViewFromTheTop/Lunade
-	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount) {
+	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount, float headYOffset) {
 		final float swimLimbAmount = limbSwingAmount * swimAmount;
 
 		final float flipperZRot = Mth.clamp(Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount), 0F, Mth.PI);
@@ -329,7 +255,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<Peng
 		this.body.xRot = Mth.rotLerp(swimLimbAmount, this.body.xRot, ((headPitch + 90F) * Mth.DEG_TO_RAD));
 
 		final float headRot = -Mth.HALF_PI * swimLimbAmount;
-		final float headY = -3F * swimLimbAmount;
+		final float headY = -headYOffset * swimLimbAmount;
 		final float headZ = -2F * swimLimbAmount;
 		this.head.xRot += headRot;
 		this.head.y += headY;

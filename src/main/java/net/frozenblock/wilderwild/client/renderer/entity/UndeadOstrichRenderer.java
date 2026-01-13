@@ -23,7 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.OstrichModel;
+import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.minecraft.client.model.EntityModel;

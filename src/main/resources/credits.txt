@@ -97,7 +97,8 @@ voxelotl:
  - Zombie Ostrich Spawn Egg texture.
  - Data/Resource Pack icon.
  - Baby Ostrich Model & Texture in 26.1+.
- - Baby Moobloom Textures.
+ - Baby Moobloom Textures in 26.1+.
+ - Baby Penguin Model, Texture, & Modified Animations in 26.1+.
 
 Willow/pictochats_:
  - Composer:

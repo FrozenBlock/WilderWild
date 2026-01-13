@@ -21,7 +21,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.PenguinModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.PenguinModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
@@ -30,15 +32,17 @@ import net.minecraft.resources.Identifier;
 import org.joml.Math;
 
 @Environment(EnvType.CLIENT)
-public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel<PenguinRenderState>> {
+public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<T, PenguinRenderState, PenguinModel<PenguinRenderState>> {
 	private static final Identifier TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
 	private static final Identifier LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");
+	private static final Identifier TEXTURE_BABY = WWConstants.id("textures/entity/penguin/penguin_baby.png");
+	private static final Identifier LINUX_BABY = WWConstants.id("textures/entity/penguin/penguin_linux_baby.png");
 
 	public PenguinRenderer(Context context) {
 		super(
 			context,
-			new PenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN)),
-			new PenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN_BABY)),
+			new AdultPenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN)),
+			new BabyPenguinModel<>(context.bakeLayer(WWModelLayers.PENGUIN_BABY)),
 			0.5F
 		);
 	}
@@ -49,7 +53,7 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	}
 
 	@Override
-	public void extractRenderState(Penguin penguin, PenguinRenderState renderState, float partialTick) {
+	public void extractRenderState(T penguin, PenguinRenderState renderState, float partialTick) {
 		super.extractRenderState(penguin, renderState, partialTick);
 		renderState.movementDelta = Math.min(renderState.walkAnimationSpeed * 5F, 1F);
 		renderState.swimAmount = penguin.getSwimAmount(partialTick);
@@ -62,8 +66,9 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<Pengu
 	}
 
 	@Override
-	public Identifier getTextureLocation(PenguinRenderState livingEntityRenderState) {
-		return livingEntityRenderState.isLinux ? LINUX : TEXTURE;
+	public Identifier getTextureLocation(PenguinRenderState renderState) {
+		if (renderState.isBaby) return renderState.isLinux ? LINUX_BABY : TEXTURE_BABY;
+		return renderState.isLinux ? LINUX : TEXTURE;
 	}
 }
 
