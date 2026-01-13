@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerL
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
+import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -36,7 +37,7 @@ import net.minecraft.world.phys.AABB;
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
 
 	public FlowerCowRenderer(Context context) {
-		super(context, new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM)), new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM_BABY)), 0.7F);
+		super(context, new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM)), new BabyCowModel(context.bakeLayer(WWModelLayers.MOOBLOOM_BABY)), 0.7F);
 		this.addLayer(new FlowerCowFlowerLayer(this, context.getBlockRenderDispatcher()));
 	}
 
@@ -58,7 +59,7 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		renderState.flowers = flowerCow.getFlowersLeft();
 
 		final MoobloomVariant variant = flowerCow.getVariantForRendering();
-		renderState.texture = variant.resourceTexture().texturePath();
+		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 		renderState.flowerBlockState = variant.flowerBlockState();
 		renderState.topFlowerBlockState = variant.isDoubleBlock()
 			? renderState.flowerBlockState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER)

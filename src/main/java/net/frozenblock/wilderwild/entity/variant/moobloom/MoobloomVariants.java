@@ -73,6 +73,7 @@ public final class MoobloomVariants {
 			resourceKey,
 			new MoobloomVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby")),
 				flowerBlock.defaultBlockState(),
 				Optional.empty()
 			)

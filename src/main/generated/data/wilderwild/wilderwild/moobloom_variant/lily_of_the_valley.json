@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_lily_of_the_valley",
+  "baby_asset_id": "wilderwild:entity/moobloom/moobloom_lily_of_the_valley_baby",
   "flower_block_state": {
     "Name": "minecraft:lily_of_the_valley"
   }

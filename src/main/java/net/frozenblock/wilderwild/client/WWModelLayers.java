@@ -47,6 +47,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -138,7 +139,7 @@ public final class WWModelLayers {
 
 		EntityRenderers.register(WWEntityTypes.MOOBLOOM, FlowerCowRenderer::new);
 		ModelLayerRegistry.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, () -> CowModel.createBodyLayer().apply(CowModel.BABY_TRANSFORMER));
+		ModelLayerRegistry.registerModelLayer(MOOBLOOM_BABY, BabyCowModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.PENGUIN, PenguinRenderer::new);
 		ModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createBodyLayer);

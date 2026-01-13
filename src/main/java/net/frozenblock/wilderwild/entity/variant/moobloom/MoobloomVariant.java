@@ -29,10 +29,17 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState, Optional<BlockState> topFlowerBlockState, boolean isDoubleBlock) {
+public record MoobloomVariant(
+	ClientAsset.ResourceTexture texture,
+	ClientAsset.ResourceTexture babyTexture,
+	BlockState flowerBlockState,
+	Optional<BlockState> topFlowerBlockState,
+	boolean isDoubleBlock
+) {
 	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::resourceTexture),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::texture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(MoobloomVariant::babyTexture),
 			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::flowerBlockState),
 			BlockState.CODEC.optionalFieldOf("top_flower_block_state").forGetter(MoobloomVariant::topFlowerBlockState)
 		).apply(instance, MoobloomVariant::new)
@@ -40,8 +47,8 @@ public record MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, Block
 	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 
-	public MoobloomVariant(ClientAsset.ResourceTexture resourceTexture, BlockState flowerBlockState, Optional<BlockState> topFlowerBlockState) {
-		this(resourceTexture, flowerBlockState, topFlowerBlockState, topFlowerBlockState.isPresent());
+	public MoobloomVariant(ClientAsset.ResourceTexture texture, ClientAsset.ResourceTexture babyTexture, BlockState flowerBlockState, Optional<BlockState> topFlowerBlockState) {
+		this(texture, babyTexture, flowerBlockState, topFlowerBlockState, topFlowerBlockState.isPresent());
 	}
 
 }
