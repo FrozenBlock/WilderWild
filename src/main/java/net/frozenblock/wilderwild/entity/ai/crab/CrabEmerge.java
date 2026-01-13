@@ -47,7 +47,7 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 
 	@Override
 	protected void stop(ServerLevel level, E crab, long gameTime) {
-		if (crab.hasPose(Pose.EMERGING)) crab.setPose(Pose.STANDING);
+		crab.setPose(Pose.STANDING);
 		crab.resetDiggingTicks();
 	}
 }

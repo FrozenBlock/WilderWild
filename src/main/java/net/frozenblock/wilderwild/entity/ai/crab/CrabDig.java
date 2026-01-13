@@ -48,8 +48,9 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, E crab, long gameTime) {
 		crab.endNavigation();
+		crab.stopInPlace();
 		crab.setPose(Pose.DIGGING);
-		crab.playSound(WWSounds.ENTITY_CRAB_DIG, 0.5F, 1.0F);
+		crab.playSound(WWSounds.ENTITY_CRAB_DIG, 0.5F, 1F);
 		crab.resetDiggingTicks();
 	}
 
