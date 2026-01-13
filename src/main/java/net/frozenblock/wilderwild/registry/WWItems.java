@@ -35,7 +35,6 @@ import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import static net.minecraft.world.item.Items.registerBlock;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
@@ -98,58 +97,58 @@ public final class WWItems {
 	);
 
 	// BLOCK ITEMS
-	public static final Item BAOBAB_NUT = registerBlock(WWBlocks.BAOBAB_NUT,
+	public static final Item BAOBAB_NUT = Items.registerBlock(WWBlocks.BAOBAB_NUT,
 		new Item.Properties()
 			.food(WWFood.BAOBAB_NUT)
 	);
-	public static final Item BAOBAB_SIGN = registerBlock(WWBlocks.BAOBAB_SIGN,
+	public static final Item BAOBAB_SIGN = Items.registerBlock(WWBlocks.BAOBAB_SIGN,
 		(block, properties) -> new SignItem(block, WWBlocks.BAOBAB_WALL_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item BAOBAB_HANGING_SIGN = registerBlock(WWBlocks.BAOBAB_HANGING_SIGN,
+	public static final Item BAOBAB_HANGING_SIGN = Items.registerBlock(WWBlocks.BAOBAB_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.BAOBAB_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item WILLOW_SIGN = registerBlock(WWBlocks.WILLOW_SIGN,
+	public static final Item WILLOW_SIGN = Items.registerBlock(WWBlocks.WILLOW_SIGN,
 		(block, properties) -> new SignItem(block, WWBlocks.WILLOW_WALL_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item WILLOW_HANGING_SIGN = registerBlock(WWBlocks.WILLOW_HANGING_SIGN,
+	public static final Item WILLOW_HANGING_SIGN = Items.registerBlock(WWBlocks.WILLOW_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.WILLOW_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item CYPRESS_SIGN = registerBlock(WWBlocks.CYPRESS_SIGN,
+	public static final Item CYPRESS_SIGN = Items.registerBlock(WWBlocks.CYPRESS_SIGN,
 		(block, properties) -> new SignItem(block, WWBlocks.CYPRESS_WALL_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item CYPRESS_HANGING_SIGN = registerBlock(WWBlocks.CYPRESS_HANGING_SIGN,
+	public static final Item CYPRESS_HANGING_SIGN = Items.registerBlock(WWBlocks.CYPRESS_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.CYPRESS_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item PALM_SIGN = registerBlock(WWBlocks.PALM_SIGN,
+	public static final Item PALM_SIGN = Items.registerBlock(WWBlocks.PALM_SIGN,
 		(block, properties) -> new SignItem(block, WWBlocks.PALM_WALL_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item PALM_HANGING_SIGN = registerBlock(WWBlocks.PALM_HANGING_SIGN,
+	public static final Item PALM_HANGING_SIGN = Items.registerBlock(WWBlocks.PALM_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.PALM_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item MAPLE_SIGN = registerBlock(WWBlocks.MAPLE_SIGN,
+	public static final Item MAPLE_SIGN = Items.registerBlock(WWBlocks.MAPLE_SIGN,
 		(block, properties) -> new SignItem(block, WWBlocks.MAPLE_WALL_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item MAPLE_HANGING_SIGN = registerBlock(WWBlocks.MAPLE_HANGING_SIGN,
+	public static final Item MAPLE_HANGING_SIGN = Items.registerBlock(WWBlocks.MAPLE_HANGING_SIGN,
 		(block, properties) -> new HangingSignItem(block, WWBlocks.MAPLE_WALL_HANGING_SIGN, properties),
 		new Item.Properties().stacksTo(16)
 	);
-	public static final Item COCONUT = registerBlock(WWBlocks.COCONUT, CoconutItem::new, new Item.Properties());
-	public static final Item ALGAE = registerBlock(WWBlocks.ALGAE, PlaceOnWaterBlockItem::new, new Item.Properties());
-	public static final Item PLANKTON = registerBlock(WWBlocks.PLANKTON, PlaceOnWaterBlockItem::new, new Item.Properties());
-	public static final Item FLOWERING_LILY_PAD = registerBlock(WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new, new Item.Properties());
-	public static final Item ECHO_GLASS = registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());
-	public static final Item SCORCHED_SAND = registerBlock(WWBlocks.SCORCHED_SAND, BlockItem::new, new Item.Properties());
-	public static final Item SCORCHED_RED_SAND = registerBlock(WWBlocks.SCORCHED_RED_SAND, BlockItem::new, new Item.Properties());
-	public static final Item DISPLAY_LANTERN = registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
+	public static final Item COCONUT = Items.registerBlock(WWBlocks.COCONUT, CoconutItem::new, new Item.Properties());
+	public static final Item ALGAE = Items.registerBlock(WWBlocks.ALGAE, PlaceOnWaterBlockItem::new, new Item.Properties());
+	public static final Item PLANKTON = Items.registerBlock(WWBlocks.PLANKTON, PlaceOnWaterBlockItem::new, new Item.Properties());
+	public static final Item FLOWERING_LILY_PAD = Items.registerBlock(WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new, new Item.Properties());
+	public static final Item ECHO_GLASS = Items.registerBlock(WWBlocks.ECHO_GLASS, BlockItem::new, new Item.Properties());
+	public static final Item SCORCHED_SAND = Items.registerBlock(WWBlocks.SCORCHED_SAND, BlockItem::new, new Item.Properties());
+	public static final Item SCORCHED_RED_SAND = Items.registerBlock(WWBlocks.SCORCHED_RED_SAND, BlockItem::new, new Item.Properties());
+	public static final Item DISPLAY_LANTERN = Items.registerBlock(WWBlocks.DISPLAY_LANTERN, BlockItem::new, new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of()));
 
 	// ITEMS
 	public static final MilkweedPodItem MILKWEED_POD = register("milkweed_pod", MilkweedPodItem::new, new Item.Properties());
@@ -172,7 +171,7 @@ public final class WWItems {
 	);
 
 	// FOOD
-	public static final Item PRICKLY_PEAR = registerBlock(WWBlocks.PRICKLY_PEAR_CACTUS, ((block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR)), new Item.Properties().food(WWFood.PRICKLY_PEAR));
+	public static final Item PRICKLY_PEAR = Items.registerBlock(WWBlocks.PRICKLY_PEAR_CACTUS, ((block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR)), new Item.Properties().food(WWFood.PRICKLY_PEAR));
 	public static final Item PEELED_PRICKLY_PEAR = register("peeled_prickly_pear", Item::new, new Item.Properties().food(Foods.APPLE));
 	public static final Item CRAB_CLAW = register("crab_claw", Item::new, new Item.Properties().food(WWFood.CRAB_CLAW).attributes(Crab.ATTRIBUTE_MODIFIERS));
 	public static final Item COOKED_CRAB_CLAW = register("cooked_crab_claw", Item::new, new Item.Properties().food(WWFood.COOKED_CRAB_CLAW));

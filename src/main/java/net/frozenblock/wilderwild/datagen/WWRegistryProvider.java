@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+
 final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 	WWRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {

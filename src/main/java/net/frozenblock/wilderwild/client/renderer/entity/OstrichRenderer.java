@@ -23,6 +23,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.model.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
@@ -37,6 +38,7 @@ import net.minecraft.resources.Identifier;
 @Environment(EnvType.CLIENT)
 public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRenderState, EntityModel<OstrichRenderState>> {
 	private static final Identifier OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich.png");
+	private static final Identifier OSTRICH_BABY_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_baby.png");
 
 	private final EntityModel<OstrichRenderState> normalModel;
 	private final EntityModel<OstrichRenderState> normalBabyModel;
@@ -44,7 +46,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 	private final EntityModel<OstrichRenderState> inbredBabyModel;
 
 	public OstrichRenderer(EntityRendererProvider.Context context) {
-		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
+		super(context, new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH)), new BabyOstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY)));
 
 		this.normalModel = this.adultModel;
 		this.normalBabyModel = this.babyModel;
@@ -59,7 +61,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 				WWEquipmentClientInfo.OSTRICH_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
 				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
-				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
+				new BabyOstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))
 			)
 		);
 	}
@@ -83,6 +85,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 
 	@Override
 	public Identifier getTextureLocation(OstrichRenderState renderState) {
+		if (!renderState.isInbred && renderState.isBaby) return OSTRICH_BABY_LOCATION;
 		return OSTRICH_LOCATION;
 	}
 

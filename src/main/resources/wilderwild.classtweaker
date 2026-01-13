@@ -143,3 +143,8 @@ accessible field net/minecraft/client/particle/Particle friction F
 accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
 accessible field net/minecraft/client/particle/Particle stoppedByCollision Z
+
+# Registries
+accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/world/level/block/Block;Ljava/util/function/BiFunction;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/world/level/block/Block;Ljava/util/function/BiFunction;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;

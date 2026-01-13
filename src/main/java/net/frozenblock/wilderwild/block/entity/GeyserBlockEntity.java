@@ -222,12 +222,14 @@ public class GeyserBlockEntity extends BlockEntity {
 					applyMovement = false;
 				} else {
 					if (direction == Direction.UP) {
-						Vec3 lastImpactPos = player.currentImpulseImpactPos;
-						Vec3 playerPos = player.position();
-						player.setIgnoreFallDamageFromCurrentImpulse(true, new Vec3(
-							playerPos.x(),
-							lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
-							playerPos.z()
+						final Vec3 lastImpactPos = player.currentImpulseImpactPos;
+						final Vec3 playerPos = player.position();
+						player.setIgnoreFallDamageFromCurrentImpulse(
+							true,
+							new Vec3(
+								playerPos.x(),
+								lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
+								playerPos.z()
 						));
 					}
 				}

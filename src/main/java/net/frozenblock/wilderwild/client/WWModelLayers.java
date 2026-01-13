@@ -21,6 +21,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.model.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.CrabModel;
 import net.frozenblock.wilderwild.client.model.JellyfishModel;
@@ -66,21 +67,30 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WWConstants.id("stone_chest"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
+
 	public static final ModelLayerLocation FIREFLY = new ModelLayerLocation(WWConstants.id("firefly"), "main");
+
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
+
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WWConstants.id("tumbleweed"), "main");
+
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
 	public static final ModelLayerLocation CRAB_MOJANG = new ModelLayerLocation(WWConstants.id("crab"), "mojang");
+
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WWConstants.id("ostrich"), "main");
 	public static final ModelLayerLocation OSTRICH_BABY = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "main");
 	public static final ModelLayerLocation OSTRICH_INBRED = new ModelLayerLocation(WWConstants.id("ostrich"), "inbred");
 	public static final ModelLayerLocation OSTRICH_BABY_INBRED = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "inbred");
 	public static final ModelLayerLocation OSTRICH_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich"), "saddle");
 	public static final ModelLayerLocation OSTRICH_BABY_SADDLE = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "saddle");
+
 	public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(WWConstants.id("penguin"), "main");
 	public static final ModelLayerLocation PENGUIN_BABY = new ModelLayerLocation(WWConstants.id("penguin_baby"), "main");
+
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
+
 	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
+
 	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
 	public static final ModelLayerLocation MOOBLOOM_BABY = new ModelLayerLocation(WWConstants.id("moobloom_baby"), "main");
 
@@ -117,11 +127,11 @@ public final class WWModelLayers {
 		EntityRenderers.register(WWEntityTypes.ZOMBIE_OSTRICH, UndeadOstrichRenderer::new);
 
 		ModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY, OstrichModel::createBabyBodyLayer);
+		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY, BabyOstrichModel::createBodyLayer);
 		ModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY_INBRED, OstrichInbredModel::createBabyBodyLayer);
+		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY_INBRED, OstrichInbredModel::createLegacyBabyBodyLayer);
 		ModelLayerRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY_SADDLE, OstrichModel::createBabyBodyLayer);
+		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY_SADDLE, BabyOstrichModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.SCORCHED, ScorchedRenderer::new);
 		ModelLayerRegistry.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);

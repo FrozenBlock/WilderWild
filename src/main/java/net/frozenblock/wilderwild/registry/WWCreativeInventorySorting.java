@@ -37,344 +37,344 @@ public final class WWCreativeInventorySorting {
 
 	public static void init() {
 		// BAOBAB (BUILDING BLOCKS)
-		addAfterInBuildingBlocks(Items.MANGROVE_BUTTON, WWBlocks.BAOBAB_LOG);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.BAOBAB_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.BAOBAB_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_WOOD, WWBlocks.BAOBAB_PLANKS);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_PLANKS, WWBlocks.BAOBAB_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_STAIRS, WWBlocks.BAOBAB_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_SLAB, WWBlocks.BAOBAB_FENCE);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_FENCE, WWBlocks.BAOBAB_FENCE_GATE);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_FENCE_GATE, WWBlocks.BAOBAB_DOOR);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_DOOR, WWBlocks.BAOBAB_TRAPDOOR);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_PRESSURE_PLATE);
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_BUTTON);
+		insertAfterInBuildingBlocks(Items.MANGROVE_BUTTON, WWBlocks.BAOBAB_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.BAOBAB_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.BAOBAB_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_WOOD, WWBlocks.BAOBAB_PLANKS);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_PLANKS, WWBlocks.BAOBAB_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_STAIRS, WWBlocks.BAOBAB_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_SLAB, WWBlocks.BAOBAB_FENCE);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_FENCE, WWBlocks.BAOBAB_FENCE_GATE);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_FENCE_GATE, WWBlocks.BAOBAB_DOOR);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_DOOR, WWBlocks.BAOBAB_TRAPDOOR);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_PRESSURE_PLATE);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_BUTTON);
 		// BAOBAB (NATURAL BLOCKS)
-		addAfterInNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.BAOBAB_LOG);
-		addAfterInNaturalBlocks(Items.MANGROVE_LEAVES, WWBlocks.BAOBAB_LEAVES);
+		insertAfterInNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.BAOBAB_LOG);
+		insertAfterInNaturalBlocks(Items.MANGROVE_LEAVES, WWBlocks.BAOBAB_LEAVES);
 		// BAOBAB (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(Items.MANGROVE_HANGING_SIGN, WWItems.BAOBAB_SIGN);
-		addAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
-		addAfterInFunctionalBlocks(Items.MANGROVE_SHELF, WWBlocks.BAOBAB_SHELF);
+		insertAfterInFunctionalBlocks(Items.MANGROVE_HANGING_SIGN, WWItems.BAOBAB_SIGN);
+		insertAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
+		insertAfterInFunctionalBlocks(Items.MANGROVE_SHELF, WWBlocks.BAOBAB_SHELF);
 		// BAOBAB (TOOLS AND UTILITIES)
-		addAfterInToolsAndUtilities(Items.MANGROVE_CHEST_BOAT, WWItems.BAOBAB_BOAT);
-		addAfterInToolsAndUtilities(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_CHEST_BOAT);
+		insertAfterInToolsAndUtilities(Items.MANGROVE_CHEST_BOAT, WWItems.BAOBAB_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_CHEST_BOAT);
 		// BAOBAB NUT
-		addAfterInFoodAndDrinks(Items.ENCHANTED_GOLDEN_APPLE, WWItems.BAOBAB_NUT);
-		addAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWItems.BAOBAB_NUT);
+		insertAfterInFoodAndDrinks(Items.ENCHANTED_GOLDEN_APPLE, WWItems.BAOBAB_NUT);
+		insertAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWItems.BAOBAB_NUT);
 
 		// WILLOW (BUILDING BLOCKS)
-		addAfterInBuildingBlocks(WWBlocks.BAOBAB_BUTTON, WWBlocks.WILLOW_LOG);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_LOG, WWBlocks.WILLOW_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_WOOD, WWBlocks.WILLOW_PLANKS);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_PLANKS, WWBlocks.WILLOW_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_STAIRS, WWBlocks.WILLOW_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_SLAB, WWBlocks.WILLOW_FENCE);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_FENCE, WWBlocks.WILLOW_FENCE_GATE);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_FENCE_GATE, WWBlocks.WILLOW_DOOR);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_DOOR, WWBlocks.WILLOW_TRAPDOOR);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_TRAPDOOR, WWBlocks.WILLOW_PRESSURE_PLATE);
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_BUTTON);
+		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_BUTTON, WWBlocks.WILLOW_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_LOG, WWBlocks.WILLOW_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_WOOD, WWBlocks.WILLOW_PLANKS);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_PLANKS, WWBlocks.WILLOW_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_STAIRS, WWBlocks.WILLOW_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_SLAB, WWBlocks.WILLOW_FENCE);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_FENCE, WWBlocks.WILLOW_FENCE_GATE);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_FENCE_GATE, WWBlocks.WILLOW_DOOR);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_DOOR, WWBlocks.WILLOW_TRAPDOOR);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_TRAPDOOR, WWBlocks.WILLOW_PRESSURE_PLATE);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_BUTTON);
 		// WILLOW (NATURAL_BLOCKS)
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.WILLOW_LOG);
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAVES, WWBlocks.WILLOW_LEAVES);
-		addAfterInNaturalBlocks(WWItems.BAOBAB_NUT, WWBlocks.WILLOW_SAPLING);
+		insertAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.WILLOW_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAVES, WWBlocks.WILLOW_LEAVES);
+		insertAfterInNaturalBlocks(WWItems.BAOBAB_NUT, WWBlocks.WILLOW_SAPLING);
 		// WILLOW (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(WWItems.BAOBAB_HANGING_SIGN, WWItems.WILLOW_SIGN);
-		addAfterInFunctionalBlocks(WWItems.WILLOW_SIGN, WWItems.WILLOW_HANGING_SIGN);
-		addAfterInFunctionalBlocks(WWBlocks.BAOBAB_SHELF, WWBlocks.WILLOW_SHELF);
+		insertAfterInFunctionalBlocks(WWItems.BAOBAB_HANGING_SIGN, WWItems.WILLOW_SIGN);
+		insertAfterInFunctionalBlocks(WWItems.WILLOW_SIGN, WWItems.WILLOW_HANGING_SIGN);
+		insertAfterInFunctionalBlocks(WWBlocks.BAOBAB_SHELF, WWBlocks.WILLOW_SHELF);
 		// WILLOW (TOOLS AND UTILITIES)
-		addAfterInToolsAndUtilities(WWItems.BAOBAB_CHEST_BOAT, WWItems.WILLOW_BOAT);
-		addAfterInToolsAndUtilities(WWItems.WILLOW_BOAT, WWItems.WILLOW_CHEST_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.BAOBAB_CHEST_BOAT, WWItems.WILLOW_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.WILLOW_BOAT, WWItems.WILLOW_CHEST_BOAT);
 
 		// CYPRESS (BUILDING BLOCKS)
-		addAfterInBuildingBlocks(WWBlocks.WILLOW_BUTTON, WWBlocks.CYPRESS_LOG);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.CYPRESS_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_WOOD, WWBlocks.CYPRESS_PLANKS);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_PLANKS, WWBlocks.CYPRESS_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_STAIRS, WWBlocks.CYPRESS_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_SLAB, WWBlocks.CYPRESS_FENCE);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_FENCE, WWBlocks.CYPRESS_FENCE_GATE);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_FENCE_GATE, WWBlocks.CYPRESS_DOOR);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_DOOR, WWBlocks.CYPRESS_TRAPDOOR);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_PRESSURE_PLATE);
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_BUTTON);
+		insertAfterInBuildingBlocks(WWBlocks.WILLOW_BUTTON, WWBlocks.CYPRESS_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.CYPRESS_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_WOOD, WWBlocks.CYPRESS_PLANKS);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_PLANKS, WWBlocks.CYPRESS_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_STAIRS, WWBlocks.CYPRESS_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_SLAB, WWBlocks.CYPRESS_FENCE);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_FENCE, WWBlocks.CYPRESS_FENCE_GATE);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_FENCE_GATE, WWBlocks.CYPRESS_DOOR);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_DOOR, WWBlocks.CYPRESS_TRAPDOOR);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_PRESSURE_PLATE);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_BUTTON);
 		// CYPRESS (NATURAL_BLOCKS)
-		addAfterInNaturalBlocks(WWBlocks.WILLOW_LOG, WWBlocks.CYPRESS_LOG);
-		addAfterInNaturalBlocks(WWBlocks.WILLOW_LEAVES, WWBlocks.CYPRESS_LEAVES);
-		addAfterInNaturalBlocks(WWBlocks.WILLOW_SAPLING, WWBlocks.CYPRESS_SAPLING);
+		insertAfterInNaturalBlocks(WWBlocks.WILLOW_LOG, WWBlocks.CYPRESS_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.WILLOW_LEAVES, WWBlocks.CYPRESS_LEAVES);
+		insertAfterInNaturalBlocks(WWBlocks.WILLOW_SAPLING, WWBlocks.CYPRESS_SAPLING);
 		// CYPRESS (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(WWItems.WILLOW_HANGING_SIGN, WWItems.CYPRESS_SIGN);
-		addAfterInFunctionalBlocks(WWItems.CYPRESS_SIGN, WWItems.CYPRESS_HANGING_SIGN);
-		addAfterInFunctionalBlocks(WWBlocks.WILLOW_SHELF, WWBlocks.CYPRESS_SHELF);
+		insertAfterInFunctionalBlocks(WWItems.WILLOW_HANGING_SIGN, WWItems.CYPRESS_SIGN);
+		insertAfterInFunctionalBlocks(WWItems.CYPRESS_SIGN, WWItems.CYPRESS_HANGING_SIGN);
+		insertAfterInFunctionalBlocks(WWBlocks.WILLOW_SHELF, WWBlocks.CYPRESS_SHELF);
 		// CYPRESS (TOOLS AND UTILITIES)
-		addAfterInToolsAndUtilities(WWItems.WILLOW_CHEST_BOAT, WWItems.CYPRESS_BOAT);
-		addAfterInToolsAndUtilities(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_CHEST_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.WILLOW_CHEST_BOAT, WWItems.CYPRESS_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_CHEST_BOAT);
 
 		// PALM (BUILDING BLOCKS)
-		addAfterInBuildingBlocks(WWBlocks.CYPRESS_BUTTON, WWBlocks.PALM_LOG);
-		addAfterInBuildingBlocks(WWBlocks.PALM_LOG, WWBlocks.PALM_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_PALM_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_WOOD, WWBlocks.PALM_PLANKS);
-		addAfterInBuildingBlocks(WWBlocks.PALM_PLANKS, WWBlocks.PALM_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.PALM_STAIRS, WWBlocks.PALM_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.PALM_SLAB, WWBlocks.PALM_FENCE);
-		addAfterInBuildingBlocks(WWBlocks.PALM_FENCE, WWBlocks.PALM_FENCE_GATE);
-		addAfterInBuildingBlocks(WWBlocks.PALM_FENCE_GATE, WWBlocks.PALM_DOOR);
-		addAfterInBuildingBlocks(WWBlocks.PALM_DOOR, WWBlocks.PALM_TRAPDOOR);
-		addAfterInBuildingBlocks(WWBlocks.PALM_TRAPDOOR, WWBlocks.PALM_PRESSURE_PLATE);
-		addAfterInBuildingBlocks(WWBlocks.PALM_PRESSURE_PLATE, WWBlocks.PALM_BUTTON);
+		insertAfterInBuildingBlocks(WWBlocks.CYPRESS_BUTTON, WWBlocks.PALM_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_LOG, WWBlocks.PALM_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_PALM_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_WOOD, WWBlocks.PALM_PLANKS);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_PLANKS, WWBlocks.PALM_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_STAIRS, WWBlocks.PALM_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_SLAB, WWBlocks.PALM_FENCE);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_FENCE, WWBlocks.PALM_FENCE_GATE);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_FENCE_GATE, WWBlocks.PALM_DOOR);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_DOOR, WWBlocks.PALM_TRAPDOOR);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_TRAPDOOR, WWBlocks.PALM_PRESSURE_PLATE);
+		insertAfterInBuildingBlocks(WWBlocks.PALM_PRESSURE_PLATE, WWBlocks.PALM_BUTTON);
 		// PALM (NATURAL BLOCKS)
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.PALM_LOG);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAVES, WWBlocks.PALM_FRONDS);
+		insertAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.PALM_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAVES, WWBlocks.PALM_FRONDS);
 		// PALM (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(WWItems.CYPRESS_HANGING_SIGN, WWItems.PALM_SIGN);
-		addAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
-		addAfterInFunctionalBlocks(WWBlocks.CYPRESS_SHELF, WWBlocks.PALM_SHELF);
+		insertAfterInFunctionalBlocks(WWItems.CYPRESS_HANGING_SIGN, WWItems.PALM_SIGN);
+		insertAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
+		insertAfterInFunctionalBlocks(WWBlocks.CYPRESS_SHELF, WWBlocks.PALM_SHELF);
 		// PALM (TOOLS AND UTILITIES)
-		addAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
-		addAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
 		// COCONUT
-		addAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_SAPLING, WWItems.COCONUT);
-		addAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
+		insertAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
+		insertAfterInNaturalBlocks(WWBlocks.CYPRESS_SAPLING, WWItems.COCONUT);
+		insertAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
 
 		// MAPLE (BUILDING BLOCKS)
-		addAfterInBuildingBlocks(Items.CHERRY_BUTTON, WWBlocks.MAPLE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_LOG, WWBlocks.MAPLE_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_WOOD);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_WOOD, WWBlocks.MAPLE_PLANKS);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_PLANKS, WWBlocks.MAPLE_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_STAIRS, WWBlocks.MAPLE_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_SLAB, WWBlocks.MAPLE_FENCE);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_FENCE, WWBlocks.MAPLE_FENCE_GATE);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_FENCE_GATE, WWBlocks.MAPLE_DOOR);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_DOOR, WWBlocks.MAPLE_TRAPDOOR);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_TRAPDOOR, WWBlocks.MAPLE_PRESSURE_PLATE);
-		addAfterInBuildingBlocks(WWBlocks.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_BUTTON);
+		insertAfterInBuildingBlocks(Items.CHERRY_BUTTON, WWBlocks.MAPLE_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_LOG, WWBlocks.MAPLE_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_WOOD);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_WOOD, WWBlocks.MAPLE_PLANKS);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_PLANKS, WWBlocks.MAPLE_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_STAIRS, WWBlocks.MAPLE_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_SLAB, WWBlocks.MAPLE_FENCE);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_FENCE, WWBlocks.MAPLE_FENCE_GATE);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_FENCE_GATE, WWBlocks.MAPLE_DOOR);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_DOOR, WWBlocks.MAPLE_TRAPDOOR);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_TRAPDOOR, WWBlocks.MAPLE_PRESSURE_PLATE);
+		insertAfterInBuildingBlocks(WWBlocks.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_BUTTON);
 		// MAPLE (NATURAL BLOCKS)
-		addAfterInNaturalBlocks(Items.CHERRY_LOG, WWBlocks.MAPLE_LOG);
-		addAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWBlocks.YELLOW_MAPLE_SAPLING);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING);
-		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
-		addAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAVES);
-		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(Items.CHERRY_LOG, WWBlocks.MAPLE_LOG);
+		insertAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWBlocks.YELLOW_MAPLE_SAPLING);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING);
+		insertAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
+		insertAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAVES);
 		// MAPLE (FUNCTIONAL BLOCKS)
-		addAfterInFunctionalBlocks(Items.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
-		addAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
-		addAfterInFunctionalBlocks(Items.CHERRY_SHELF, WWBlocks.MAPLE_SHELF);
+		insertAfterInFunctionalBlocks(Items.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
+		insertAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
+		insertAfterInFunctionalBlocks(Items.CHERRY_SHELF, WWBlocks.MAPLE_SHELF);
 		// MAPLE (TOOLS AND UTILITIES)
-		addAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
-		addAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
+		insertAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
 
 		// HOLLOWED LOGS
-		addAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.JUNGLE_LOG, WWBlocks.HOLLOWED_JUNGLE_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.JUNGLE_LOG, WWBlocks.HOLLOWED_JUNGLE_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.ACACIA_LOG, WWBlocks.HOLLOWED_ACACIA_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.ACACIA_LOG, WWBlocks.HOLLOWED_ACACIA_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.DARK_OAK_LOG, WWBlocks.HOLLOWED_DARK_OAK_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.DARK_OAK_LOG, WWBlocks.HOLLOWED_DARK_OAK_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.CRIMSON_STEM, WWBlocks.HOLLOWED_CRIMSON_STEM);
-		addAfterInBuildingBlocks(Items.STRIPPED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
+		insertAfterInBuildingAndNaturalBlocks(Items.CRIMSON_STEM, WWBlocks.HOLLOWED_CRIMSON_STEM);
+		insertAfterInBuildingBlocks(Items.STRIPPED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 
-		addAfterInBuildingAndNaturalBlocks(Items.WARPED_STEM, WWBlocks.HOLLOWED_WARPED_STEM);
-		addAfterInBuildingBlocks(Items.STRIPPED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
+		insertAfterInBuildingAndNaturalBlocks(Items.WARPED_STEM, WWBlocks.HOLLOWED_WARPED_STEM);
+		insertAfterInBuildingBlocks(Items.STRIPPED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
-		addAfterInBuildingAndNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 
-		addAfterInBuildingAndNaturalBlocks(Items.PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
-		addAfterInBuildingBlocks(Items.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		insertAfterInBuildingAndNaturalBlocks(Items.PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
-		addBeforeInBuildingBlocks(WWBlocks.BAOBAB_WOOD, WWBlocks.HOLLOWED_BAOBAB_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
+		insertBeforeInBuildingBlocks(WWBlocks.BAOBAB_WOOD, WWBlocks.HOLLOWED_BAOBAB_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
 
-		addBeforeInBuildingBlocks(WWBlocks.WILLOW_WOOD, WWBlocks.HOLLOWED_WILLOW_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-		addAfterInNaturalBlocks(WWBlocks.WILLOW_LOG, WWBlocks.HOLLOWED_WILLOW_LOG);
+		insertBeforeInBuildingBlocks(WWBlocks.WILLOW_WOOD, WWBlocks.HOLLOWED_WILLOW_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.WILLOW_LOG, WWBlocks.HOLLOWED_WILLOW_LOG);
 
-		addBeforeInBuildingBlocks(WWBlocks.CYPRESS_WOOD, WWBlocks.HOLLOWED_CYPRESS_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG);
+		insertBeforeInBuildingBlocks(WWBlocks.CYPRESS_WOOD, WWBlocks.HOLLOWED_CYPRESS_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG);
 
-		addBeforeInBuildingBlocks(WWBlocks.PALM_WOOD, WWBlocks.HOLLOWED_PALM_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		addAfterInNaturalBlocks(WWBlocks.PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG);
+		insertBeforeInBuildingBlocks(WWBlocks.PALM_WOOD, WWBlocks.HOLLOWED_PALM_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG);
 
-		addBeforeInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.HOLLOWED_MAPLE_LOG);
-		addAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-		addAfterInNaturalBlocks(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
+		insertBeforeInBuildingBlocks(WWBlocks.MAPLE_WOOD, WWBlocks.HOLLOWED_MAPLE_LOG);
+		insertAfterInBuildingBlocks(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+		insertAfterInNaturalBlocks(WWBlocks.MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
 
 		// LEAF LITTERS
-		addAfterInNaturalBlocks(Items.LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.SPRUCE_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.BIRCH_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.JUNGLE_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.ACACIA_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.DARK_OAK_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.MANGROVE_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.WILLOW_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.PALM_FROND_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.PALM_FROND_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.CHERRY_LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.RED_MAPLE_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
-		addAfterInNaturalBlocks(WWBlocks.PALE_OAK_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
+		insertAfterInNaturalBlocks(Items.LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.SPRUCE_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.BIRCH_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.JUNGLE_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.ACACIA_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.DARK_OAK_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.MANGROVE_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.BAOBAB_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.WILLOW_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.CYPRESS_LEAF_LITTER, WWBlocks.PALM_FROND_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.PALM_FROND_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.CHERRY_LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.RED_MAPLE_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWBlocks.PALE_OAK_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS
-		addAfterInNaturalBlocks(Items.DANDELION, WWBlocks.SEEDING_DANDELION);
-		addAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
-		addAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
-		addAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
-		addBeforeInNaturalBlocks(Items.TORCHFLOWER, WWBlocks.RED_HIBISCUS);
-		addAfterInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
-		addAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
-		addAfterInNaturalBlocks(WWBlocks.PINK_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
-		addAfterInNaturalBlocks(Items.WILDFLOWERS, WWBlocks.PHLOX);
-		addAfterInNaturalBlocks(WWBlocks.PHLOX, WWBlocks.LANTANAS);
+		insertAfterInNaturalBlocks(Items.DANDELION, WWBlocks.SEEDING_DANDELION);
+		insertAfterInNaturalBlocks(Items.CORNFLOWER, WWBlocks.CARNATION);
+		insertAfterInNaturalBlocks(WWBlocks.CARNATION, WWBlocks.MARIGOLD);
+		insertAfterInNaturalBlocks(WWBlocks.MARIGOLD, WWBlocks.PASQUEFLOWER);
+		insertBeforeInNaturalBlocks(Items.TORCHFLOWER, WWBlocks.RED_HIBISCUS);
+		insertAfterInNaturalBlocks(WWBlocks.RED_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
+		insertAfterInNaturalBlocks(WWBlocks.WHITE_HIBISCUS, WWBlocks.PINK_HIBISCUS);
+		insertAfterInNaturalBlocks(WWBlocks.PINK_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
+		insertAfterInNaturalBlocks(Items.WILDFLOWERS, WWBlocks.PHLOX);
+		insertAfterInNaturalBlocks(WWBlocks.PHLOX, WWBlocks.LANTANAS);
 		// TALL FLOWERS
-		addAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);
-		addAfterInNaturalBlocks(WWBlocks.DATURA, WWBlocks.MILKWEED);
-		addBeforeInIngredients(Items.INK_SAC, WWItems.MILKWEED_POD);
-		addAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
+		insertAfterInNaturalBlocks(Items.PEONY, WWBlocks.DATURA);
+		insertAfterInNaturalBlocks(WWBlocks.DATURA, WWBlocks.MILKWEED);
+		insertBeforeInIngredients(Items.INK_SAC, WWItems.MILKWEED_POD);
+		insertAfterInNaturalBlocks(WWBlocks.MILKWEED, WWBlocks.CATTAIL);
 
 		// PLANTS
-		addBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
-		addAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
-		addAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
-		addAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
-		addAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
-		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
-		addAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.SHRUB);
-		addBeforeInNaturalBlocks(Items.LILY_PAD, WWBlocks.BARNACLES);
-		addAfterInNaturalBlocks(WWBlocks.BARNACLES, WWItems.ALGAE);
-		addAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
-		addAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
-		addAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
-		addBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
-		addAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
+		insertBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWBlocks.POLLEN);
+		insertAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
+		insertAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
+		insertAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
+		insertAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWBlocks.TUMBLEWEED_PLANT);
+		insertAfterInNaturalBlocks(WWBlocks.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED);
+		insertAfterInNaturalBlocks(WWBlocks.TUMBLEWEED, WWBlocks.SHRUB);
+		insertBeforeInNaturalBlocks(Items.LILY_PAD, WWBlocks.BARNACLES);
+		insertAfterInNaturalBlocks(WWBlocks.BARNACLES, WWItems.ALGAE);
+		insertAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
+		insertAfterInNaturalBlocks(Items.SEAGRASS, WWBlocks.SEA_WHIP);
+		insertAfterInNaturalBlocks(WWBlocks.SEA_WHIP, WWBlocks.TUBE_WORMS);
+		insertBeforeInNaturalBlocks(Items.SEA_PICKLE, WWBlocks.SEA_ANEMONE);
+		insertAfterInNaturalBlocks(Items.LILY_PAD, WWItems.FLOWERING_LILY_PAD);
 
-		addAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
-		addAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.FROZEN_SHORT_GRASS);
-		addAfterInNaturalBlocks(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_FERN);
-		addAfterInNaturalBlocks(Items.BUSH, WWBlocks.FROZEN_BUSH);
-		addAfterInNaturalBlocks(Items.LARGE_FERN, WWBlocks.FROZEN_TALL_GRASS);
-		addAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
+		insertAfterInNaturalBlocks(Items.FERN, WWBlocks.CLOVERS);
+		insertAfterInNaturalBlocks(WWBlocks.CLOVERS, WWBlocks.FROZEN_SHORT_GRASS);
+		insertAfterInNaturalBlocks(WWBlocks.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_FERN);
+		insertAfterInNaturalBlocks(Items.BUSH, WWBlocks.FROZEN_BUSH);
+		insertAfterInNaturalBlocks(Items.LARGE_FERN, WWBlocks.FROZEN_TALL_GRASS);
+		insertAfterInNaturalBlocks(WWBlocks.FROZEN_TALL_GRASS, WWBlocks.FROZEN_LARGE_FERN);
 
-		addBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
+		insertBeforeInNaturalBlocks(Items.CRIMSON_ROOTS, WWBlocks.MYCELIUM_GROWTH);
 
-		addAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.AUBURN_MOSS_BLOCK);
-		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_CARPET);
-		addAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
+		insertAfterInNaturalBlocks(Items.MOSS_CARPET, WWBlocks.AUBURN_MOSS_BLOCK);
+		insertAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_CARPET);
+		insertAfterInNaturalBlocks(WWBlocks.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_CREEPING_MOSS);
 
 		// SHELF FUNGI
-		addAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.BROWN_SHELF_FUNGI);
-		addAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
-		addAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI);
-		addAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWBlocks.BROWN_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWBlocks.BROWN_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWBlocks.CRIMSON_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 
 		// PALE MUSHROOMS
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK);
-		addAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.PALE_MUSHROOM);
-		addAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(Items.RED_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK);
+		insertAfterInNaturalBlocks(Items.RED_MUSHROOM, WWBlocks.PALE_MUSHROOM);
+		insertAfterInNaturalBlocks(WWBlocks.RED_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI);
 
 		// SPONGE
-		addAfterInNaturalBlocks(Items.WET_SPONGE, WWBlocks.SPONGE_BUD);
+		insertAfterInNaturalBlocks(Items.WET_SPONGE, WWBlocks.SPONGE_BUD);
 
 		// EGGS
-		addBeforeInNaturalBlocks(Items.SNIFFER_EGG, WWBlocks.OSTRICH_EGG);
-		addAfterInNaturalBlocks(WWBlocks.OSTRICH_EGG, WWBlocks.PENGUIN_EGG);
+		insertBeforeInNaturalBlocks(Items.SNIFFER_EGG, WWBlocks.OSTRICH_EGG);
+		insertAfterInNaturalBlocks(WWBlocks.OSTRICH_EGG, WWBlocks.PENGUIN_EGG);
 
 		// MESOGLEA
-		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_MESOGLEA, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, WWBlocks.BLUE_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.BLUE_MESOGLEA, WWBlocks.PINK_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.PINK_MESOGLEA, WWBlocks.RED_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.RED_MESOGLEA, WWBlocks.YELLOW_MESOGLEA);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_MESOGLEA, WWBlocks.LIME_MESOGLEA);
+		insertBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_MESOGLEA, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, WWBlocks.BLUE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.BLUE_MESOGLEA, WWBlocks.PINK_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.PINK_MESOGLEA, WWBlocks.RED_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.RED_MESOGLEA, WWBlocks.YELLOW_MESOGLEA);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_MESOGLEA, WWBlocks.LIME_MESOGLEA);
 
 		// NEMATOCYST
-		addBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.BLUE_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.BLUE_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.PINK_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
-		addAfterInNaturalBlocks(WWBlocks.YELLOW_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
+		insertBeforeInNaturalBlocks(Items.SPONGE, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.BLUE_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.BLUE_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.PINK_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.RED_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
+		insertAfterInNaturalBlocks(WWBlocks.YELLOW_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
 
 		// FROGLIGHT
-		addAfterInNaturalAndFunctionalBlocks(Items.PEARLESCENT_FROGLIGHT, WWBlocks.OCHRE_FROGLIGHT_GOOP);
-		addAfterInNaturalAndFunctionalBlocks(WWBlocks.OCHRE_FROGLIGHT_GOOP, WWBlocks.VERDANT_FROGLIGHT_GOOP);
-		addAfterInNaturalAndFunctionalBlocks(WWBlocks.VERDANT_FROGLIGHT_GOOP, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
+		insertAfterInNaturalAndFunctionalBlocks(Items.PEARLESCENT_FROGLIGHT, WWBlocks.OCHRE_FROGLIGHT_GOOP);
+		insertAfterInNaturalAndFunctionalBlocks(WWBlocks.OCHRE_FROGLIGHT_GOOP, WWBlocks.VERDANT_FROGLIGHT_GOOP);
+		insertAfterInNaturalAndFunctionalBlocks(WWBlocks.VERDANT_FROGLIGHT_GOOP, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP);
 
 		// ICE
-		addAfterInNaturalBlocks(Items.ICE, WWBlocks.FRAGILE_ICE);
-		addAfterInNaturalBlocks(Items.BLUE_ICE, WWBlocks.ICICLE);
+		insertAfterInNaturalBlocks(Items.ICE, WWBlocks.FRAGILE_ICE);
+		insertAfterInNaturalBlocks(Items.BLUE_ICE, WWBlocks.ICICLE);
 
 		// MUD BRICKS
-		addAfterInBuildingBlocks(Items.MUD_BRICKS, WWBlocks.CRACKED_MUD_BRICKS);
-		addAfterInBuildingBlocks(Items.MUD_BRICK_WALL, WWBlocks.CHISELED_MUD_BRICKS);
-		addAfterInBuildingBlocks(WWBlocks.CHISELED_MUD_BRICKS, WWBlocks.MOSSY_MUD_BRICKS);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICK_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICK_WALL);
+		insertAfterInBuildingBlocks(Items.MUD_BRICKS, WWBlocks.CRACKED_MUD_BRICKS);
+		insertAfterInBuildingBlocks(Items.MUD_BRICK_WALL, WWBlocks.CHISELED_MUD_BRICKS);
+		insertAfterInBuildingBlocks(WWBlocks.CHISELED_MUD_BRICKS, WWBlocks.MOSSY_MUD_BRICKS);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICK_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICK_WALL);
 
 		// SCULK
-		addInBuildingBlocks(Items.SCULK);
-		addAfterInBuildingBlocks(Items.SCULK, WWBlocks.SCULK_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.SCULK_STAIRS, WWBlocks.SCULK_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.SCULK_SLAB, WWBlocks.SCULK_WALL);
-		addAfterInBuildingBlocks(WWBlocks.SCULK_WALL, WWBlocks.OSSEOUS_SCULK);
-		addAfterInNaturalBlocks(Items.SCULK, WWBlocks.OSSEOUS_SCULK);
-		addAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
+		insertInBuildingBlocks(Items.SCULK);
+		insertAfterInBuildingBlocks(Items.SCULK, WWBlocks.SCULK_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.SCULK_STAIRS, WWBlocks.SCULK_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.SCULK_SLAB, WWBlocks.SCULK_WALL);
+		insertAfterInBuildingBlocks(WWBlocks.SCULK_WALL, WWBlocks.OSSEOUS_SCULK);
+		insertAfterInNaturalBlocks(Items.SCULK, WWBlocks.OSSEOUS_SCULK);
+		insertAfterInNaturalBlocks(Items.SCULK_SENSOR, WWBlocks.HANGING_TENDRIL);
 
 		// SCORCHED SAND
-		addAfterInNaturalBlocks(Items.SAND, WWBlocks.SCORCHED_SAND);
-		addAfterInNaturalBlocks(Items.RED_SAND, WWBlocks.SCORCHED_RED_SAND);
+		insertAfterInNaturalBlocks(Items.SAND, WWBlocks.SCORCHED_SAND);
+		insertAfterInNaturalBlocks(Items.RED_SAND, WWBlocks.SCORCHED_RED_SAND);
 
 		// STORAGE
-		addAfterInFunctionalBlocks(Items.CHEST, WWBlocks.STONE_CHEST);
-		addAfterInFunctionalBlocks(Items.SOUL_LANTERN, WWItems.DISPLAY_LANTERN);
+		insertAfterInFunctionalBlocks(Items.CHEST, WWBlocks.STONE_CHEST);
+		insertAfterInFunctionalBlocks(Items.SOUL_LANTERN, WWItems.DISPLAY_LANTERN);
 
 		// FUNCTIONAL BLOCK ENTITIES
-		addBeforeInNaturalBlocks(Items.BEE_NEST, WWBlocks.TERMITE_MOUND);
-		addBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWBlocks.GEYSER);
+		insertBeforeInNaturalBlocks(Items.BEE_NEST, WWBlocks.TERMITE_MOUND);
+		insertBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWBlocks.GEYSER);
 
 		// MISC
-		addAfterInFunctionalBlocks(Items.TINTED_GLASS, WWItems.ECHO_GLASS);
-		addBeforeInBuildingBlocks(Items.GLASS, WWBlocks.NULL_BLOCK);
+		insertAfterInFunctionalBlocks(Items.TINTED_GLASS, WWItems.ECHO_GLASS);
+		insertBeforeInBuildingBlocks(Items.GLASS, WWBlocks.NULL_BLOCK);
 
 		// FIREFLY
-		addBeforeInSpawnEggs(Items.FOX_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
+		insertBeforeInSpawnEggs(Items.FOX_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
 			final ItemStack stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			stack.setCount(1);
@@ -389,136 +389,136 @@ public final class WWCreativeInventorySorting {
 		});
 
 		// BUTTERFLY
-		addAfterInSpawnEggs(Items.BEE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
-		addAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
+		insertAfterInSpawnEggs(Items.BEE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
-		addAfterInSpawnEggs(Items.GLOW_SQUID_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
-		addAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
+		insertAfterInSpawnEggs(Items.GLOW_SQUID_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
 
 		// CRAB
-		addAfterInSpawnEggs(Items.COD_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
-		addAfterInToolsAndUtilities(WWItems.JELLYFISH_BUCKET, WWItems.CRAB_BUCKET);
-		addBeforeInFoodAndDrinks(Items.COD, WWItems.CRAB_CLAW);
-		addAfterInFoodAndDrinks(WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW);
+		insertAfterInSpawnEggs(Items.COD_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(WWItems.JELLYFISH_BUCKET, WWItems.CRAB_BUCKET);
+		insertBeforeInFoodAndDrinks(Items.COD, WWItems.CRAB_CLAW);
+		insertAfterInFoodAndDrinks(WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW);
 
 		// OSTRICH
-		addAfterInSpawnEggs(Items.MULE_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
+		insertAfterInSpawnEggs(Items.MULE_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
 
 		// ZOMBIE OSTRICH
-		addAfterInSpawnEggs(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, WWItems.ZOMBIE_OSTRICH_SPAWN_EGG);
+		insertAfterInSpawnEggs(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, WWItems.ZOMBIE_OSTRICH_SPAWN_EGG);
 
 		// SCORCHED
-		addBeforeInSpawnEggs(Items.SPIDER_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
-		addAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
-		addAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
+		insertBeforeInSpawnEggs(Items.SPIDER_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
+		insertAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
+		insertAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
 
 		// MOOBLOOM
-		addBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
+		insertBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
 
 		// PENGUIN
-		addAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
+		insertAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
 		// GABBRO
-		addAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
-		addBeforeInNaturalBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO);
+		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWBlocks.GEYSER);
+		insertBeforeInNaturalBlocks(WWBlocks.GEYSER, WWBlocks.GABBRO);
 
-		addBeforeInBuildingBlocks(Items.BRICKS, WWBlocks.GABBRO);
+		insertBeforeInBuildingBlocks(Items.BRICKS, WWBlocks.GABBRO);
 		// TT
-		addAfterInBuildingBlocks(WWBlocks.GABBRO, WWBlocks.GABBRO_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO, WWBlocks.GABBRO_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO_WALL);
 		// BACK TO WW
-		addAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWBlocks.GABBRO_WALL : WWBlocks.GABBRO, WWBlocks.POLISHED_GABBRO);
-		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL);
-		addAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.GABBRO_BRICKS);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICKS, WWBlocks.CRACKED_GABBRO_BRICKS);
-		addAfterInBuildingBlocks(WWBlocks.CRACKED_GABBRO_BRICKS, WWBlocks.GABBRO_BRICK_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICK_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICK_WALL);
-		addAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_WALL, WWBlocks.CHISELED_GABBRO_BRICKS);
+		insertAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWBlocks.GABBRO_WALL : WWBlocks.GABBRO, WWBlocks.POLISHED_GABBRO);
+		insertAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO_WALL);
+		insertAfterInBuildingBlocks(WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.GABBRO_BRICKS);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_BRICKS, WWBlocks.CRACKED_GABBRO_BRICKS);
+		insertAfterInBuildingBlocks(WWBlocks.CRACKED_GABBRO_BRICKS, WWBlocks.GABBRO_BRICK_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICK_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICK_WALL);
+		insertAfterInBuildingBlocks(WWBlocks.GABBRO_BRICK_WALL, WWBlocks.CHISELED_GABBRO_BRICKS);
 		// TT
-		addAfterInBuildingBlocks(WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICKS);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB);
-		addAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
+		insertAfterInBuildingBlocks(WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICKS);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB);
+		insertAfterInBuildingBlocks(WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 	}
 
-	private static void addInBuildingBlocks(ItemLike item) {
+	private static void insertInBuildingBlocks(ItemLike item) {
 		FrozenCreativeTabs.insert(item, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
-	private static void addBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
-	private static void addAfterInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInBuildingBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.BUILDING_BLOCKS);
 	}
 
-	private static void addBeforeInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
-	private static void addAfterInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInNaturalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
-	private static void addAfterInBuildingAndNaturalBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInBuildingAndNaturalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.BUILDING_BLOCKS, CreativeModeTabs.NATURAL_BLOCKS);
 	}
 
-	private static void addAfterInNaturalAndFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInNaturalAndFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.NATURAL_BLOCKS, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
-	private static void addAfterInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInFunctionalBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.FUNCTIONAL_BLOCKS);
 	}
 
-	private static void addBeforeInRedstoneBlocks(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInRedstoneBlocks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.REDSTONE_BLOCKS);
 	}
 
-	private static void addInToolsAndUtilities(ItemLike item) {
+	private static void insertInToolsAndUtilities(ItemLike item) {
 		FrozenCreativeTabs.insert(item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
-	private static void addBeforeInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
-	private static void addAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInToolsAndUtilities(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.TOOLS_AND_UTILITIES);
 	}
 
-	private static void addBeforeInIngredients(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInIngredients(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.INGREDIENTS);
 	}
 
-	private static void addAfterInIngredients(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInIngredients(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.INGREDIENTS);
 	}
 
-	private static void addBeforeInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
 	}
 
-	private static void addAfterInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInFoodAndDrinks(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.FOOD_AND_DRINKS);
 	}
 
-	private static void addAfterInCombat(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInCombat(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.COMBAT);
 	}
 
-	private static void addBeforeInSpawnEggs(ItemLike comparedItem, ItemLike item) {
+	private static void insertBeforeInSpawnEggs(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertBefore(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
 
-	private static void addAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
+	private static void insertAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
 		FrozenCreativeTabs.insertAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
 

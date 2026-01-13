@@ -194,7 +194,7 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	public static LayerDefinition createBabyBodyLayer() {
+	public static LayerDefinition createLegacyBabyBodyLayer() {
 		return createBodyLayer().apply(BABY_TRANSFORMER);
 	}
 
@@ -231,13 +231,7 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 
 	@Override
 	public void setupAnim(T renderState) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		if (renderState.isBaby) {
-			this.neck.xScale = 1.5F;
-			this.neck.yScale = 1.5F;
-			this.neck.zScale = 1.5F;
-		}
+		super.setupAnim(renderState);
 
 		this.saddle.visible = !renderState.saddle.isEmpty();
 		float walkPos = renderState.walkAnimationPos;

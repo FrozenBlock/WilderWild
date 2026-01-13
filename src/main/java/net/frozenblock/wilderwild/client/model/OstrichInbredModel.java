@@ -292,7 +292,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
-	public static LayerDefinition createBabyBodyLayer() {
+	public static LayerDefinition createLegacyBabyBodyLayer() {
 		return createBodyLayer().apply(OstrichModel.BABY_TRANSFORMER);
 	}
 
