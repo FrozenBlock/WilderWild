@@ -1,5 +1,7 @@
 {
   "asset_id": "wilderwild:entity/crab/crab",
+  "baby_asset_id": "wilderwild:entity/crab/crab_baby",
+  "baby_mojang_asset_id": "wilderwild:entity/crab/crab_baby_mojang",
   "mojang_asset_id": "wilderwild:entity/crab/crab_mojang",
   "spawn_conditions": [
     {

@@ -47,6 +47,8 @@ public final class CrabVariants {
 			new CrabVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_mojang")),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby")),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby_mojang")),
 				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1)
 			)
 		);

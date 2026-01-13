@@ -33,36 +33,39 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 
 public record CrabVariant(
-	ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture, SpawnPrioritySelectors spawnConditions
+	ClientAsset.ResourceTexture texture,
+	ClientAsset.ResourceTexture mojangTexture,
+	ClientAsset.ResourceTexture babyTexture,
+	ClientAsset.ResourceTexture babyMojangTexture,
+	SpawnPrioritySelectors spawnConditions
 ) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<CrabVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::resourceTexture),
-			ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangResourceTexture),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::texture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangTexture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(CrabVariant::babyTexture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_mojang_asset_id").forGetter(CrabVariant::babyMojangTexture),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(CrabVariant::spawnConditions)
 		).apply(instance, CrabVariant::new)
 	);
 	public static final Codec<CrabVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::resourceTexture),
-			ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangResourceTexture)
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::texture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangTexture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(CrabVariant::babyTexture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_mojang_asset_id").forGetter(CrabVariant::babyMojangTexture)
 		).apply(instance, CrabVariant::new)
 	);
 	public static final Codec<Holder<CrabVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.CRAB_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<CrabVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.CRAB_VARIANT);
 
-	private CrabVariant(ClientAsset.ResourceTexture resourceTexture, ClientAsset.ResourceTexture mojangResourceTexture) {
-		this(resourceTexture, mojangResourceTexture, SpawnPrioritySelectors.EMPTY);
-	}
-
-	@Override
-	public ClientAsset.ResourceTexture resourceTexture() {
-		return this.resourceTexture;
-	}
-
-	@Override
-	public ClientAsset.ResourceTexture mojangResourceTexture() {
-		return this.mojangResourceTexture;
+	private CrabVariant(
+		ClientAsset.ResourceTexture texture,
+		ClientAsset.ResourceTexture mojangTexture,
+		ClientAsset.ResourceTexture babyTexture,
+		ClientAsset.ResourceTexture babyMojangTexture
+	) {
+		this(texture, mojangTexture, babyTexture, babyMojangTexture, SpawnPrioritySelectors.EMPTY);
 	}
 
 	@Override

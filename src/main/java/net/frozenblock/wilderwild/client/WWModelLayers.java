@@ -21,17 +21,18 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
-import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
-import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
-import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
-import net.frozenblock.wilderwild.client.model.animal.crab.CrabModel;
-import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.NoOpModel;
+import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
+import net.frozenblock.wilderwild.client.model.ambient.TumbleweedModel;
+import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
+import net.frozenblock.wilderwild.client.model.animal.crab.BabyCrabModel;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
+import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
+import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
-import net.frozenblock.wilderwild.client.model.ambient.TumbleweedModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
@@ -78,6 +79,7 @@ public final class WWModelLayers {
 
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
 	public static final ModelLayerLocation CRAB_MOJANG = new ModelLayerLocation(WWConstants.id("crab"), "mojang");
+	public static final ModelLayerLocation CRAB_BABY = new ModelLayerLocation(WWConstants.id("crab_baby"), "main");
 
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WWConstants.id("ostrich"), "main");
 	public static final ModelLayerLocation OSTRICH_BABY = new ModelLayerLocation(WWConstants.id("ostrich_baby"), "main");
@@ -122,12 +124,12 @@ public final class WWModelLayers {
 		ModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.CRAB, CrabRenderer::new);
-		ModelLayerRegistry.registerModelLayer(CRAB, CrabModel::createBodyLayer);
-		ModelLayerRegistry.registerModelLayer(CRAB_MOJANG, CrabModel::createMojangBodyLayer);
+		ModelLayerRegistry.registerModelLayer(CRAB, AdultCrabModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(CRAB_MOJANG, AdultCrabModel::createMojangBodyLayer);
+		ModelLayerRegistry.registerModelLayer(CRAB_BABY, BabyCrabModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.OSTRICH, OstrichRenderer::new);
 		EntityRenderers.register(WWEntityTypes.ZOMBIE_OSTRICH, UndeadOstrichRenderer::new);
-
 		ModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
 		ModelLayerRegistry.registerModelLayer(OSTRICH_BABY, BabyOstrichModel::createBodyLayer);
 		ModelLayerRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);

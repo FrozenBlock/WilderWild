@@ -23,9 +23,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
+import net.frozenblock.wilderwild.client.model.animal.crab.BabyCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.CrabModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -40,14 +43,16 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 
 	private final CrabModel normalModel = this.getModel();
 	private final CrabModel mojangModel;
+	private final CrabModel babyModel;
 
 	public CrabRenderer(Context context) {
 		this(context, WWModelLayers.CRAB);
 	}
 
 	public CrabRenderer(Context context, ModelLayerLocation layer) {
-		super(context, new CrabModel(context.bakeLayer(layer)), 0.3F);
-		this.mojangModel = new CrabModel(context.bakeLayer(WWModelLayers.CRAB_MOJANG));
+		super(context, new AdultCrabModel(context.bakeLayer(layer)), 0.3F);
+		this.mojangModel = new AdultCrabModel(context.bakeLayer(WWModelLayers.CRAB_MOJANG));
+		this.babyModel = new BabyCrabModel(context.bakeLayer(WWModelLayers.CRAB_BABY));
 	}
 
 	@Override
@@ -60,18 +65,18 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	@Override
 	protected void scale(CrabRenderState renderState, PoseStack poseStack) {
 		super.scale(renderState, poseStack);
-		poseStack.scale(renderState.ageScale, renderState.ageScale, renderState.ageScale);
+		if (renderState.isDitto && renderState.isBaby) poseStack.scale(renderState.ageScale, renderState.ageScale, renderState.ageScale);
 	}
 
 	@Override
 	public void submit(
 		CrabRenderState renderState,
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
-		CameraRenderState cameraRenderState
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
-		this.model = (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
-		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
+		this.model = renderState.isBaby && !renderState.isDitto ? this.babyModel : (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
+		super.submit(renderState, poseStack, collector, cameraState);
 	}
 
 	@Override
@@ -99,8 +104,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.hidingAnimationState.copyFrom(crab.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(crab.emergingAnimationState);
-		renderState.texture = crab.getVariantForRendering().resourceTexture().texturePath();
-		renderState.mojangTexture = crab.getVariantForRendering().mojangResourceTexture().texturePath();
+
+		final CrabVariant variant = crab.getVariantForRendering();
+		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
+		renderState.mojangTexture = (renderState.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
 	}
 }
 
