@@ -41,27 +41,27 @@ public class StoneChestModel extends Model<Float> {
 	}
 
 	public static LayerDefinition createSingleBodyLayer() {
-		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition root = modelData.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 17).addBox(1F, 0F, 1F, 14F, 12F, 14F), PartPose.ZERO);
 		root.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(1F, 0F, 0F, 14F, 3F, 14F), PartPose.offset(0F, 11F, 1F));
-		return LayerDefinition.create(modelData, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	public static LayerDefinition createDoubleBodyRightLayer() {
-		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition root = modelData.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 17).addBox(1F, 0F, 1F, 15F, 12F, 14F), PartPose.ZERO);
 		root.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(1F, 0F, 0F, 15F, 3F, 14F), PartPose.offset(0F, 11F, 1F));
-		return LayerDefinition.create(modelData, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	public static LayerDefinition createDoubleBodyLeftLayer() {
-		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition root = modelData.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		root.addOrReplaceChild(BASE, CubeListBuilder.create().texOffs(0, 17).addBox(0F, 0F, 1F, 15F, 12F, 14F), PartPose.ZERO);
 		root.addOrReplaceChild(LID, CubeListBuilder.create().texOffs(0, 0).addBox(0F, 0F, 0F, 15F, 3F, 14F), PartPose.offset(0F, 11F, 1F));
-		return LayerDefinition.create(modelData, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	@Override

@@ -126,12 +126,12 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		FireflyRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraRenderState
+		CameraRenderState cameraState
 	) {
-		Quaternionf cameraOrientation = cameraRenderState.orientation;
+		Quaternionf cameraOrientation = cameraState.orientation;
 		submitFirefly(poseStack, collector, cameraOrientation, renderState);
 
-		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, collector, cameraRenderState);
+		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, collector, cameraState);
 	}
 
 	@Override

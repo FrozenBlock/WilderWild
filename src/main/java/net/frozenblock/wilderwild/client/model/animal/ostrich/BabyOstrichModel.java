@@ -40,7 +40,6 @@ public class BabyOstrichModel<T extends AbstractOstrichRenderState> extends Ostr
 		final PartDefinition root = mesh.getRoot();
 
 		final PartDefinition legs = root.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0F, 22F, 0.5F));
-
 		final PartDefinition leftLeg = legs.addOrReplaceChild(
 			"left_leg",
 			CubeListBuilder.create()

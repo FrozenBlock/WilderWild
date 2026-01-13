@@ -65,13 +65,13 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	}
 
 	public static LayerDefinition getTexturedModelData() {
-		final MeshDefinition modelData = new MeshDefinition();
-		final PartDefinition root = modelData.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 		makeTendril(root, "tendril1", false, 3F, 3F, -TENDRIL_ANGLE);
 		makeTendril(root, "tendril2", true, 13F, 3F, TENDRIL_ANGLE);
 		makeTendril(root, "tendril3", false, 13F, 13F, -TENDRIL_ANGLE_SOUTH);
 		makeTendril(root, "tendril4", true, 3F, 13F,  TENDRIL_ANGLE_SOUTH);
-		return LayerDefinition.create(modelData, 16, 16);
+		return LayerDefinition.create(mesh, 16, 16);
 	}
 
 	private static void makeTendril(

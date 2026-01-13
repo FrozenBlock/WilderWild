@@ -53,10 +53,10 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	public void submit(
 		TumbleweedRenderState renderState,
 		PoseStack poseStack,
-		SubmitNodeCollector submitNodeCollector,
-		CameraRenderState cameraRenderState
+		SubmitNodeCollector collector,
+		CameraRenderState cameraState
 	) {
-		super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
+		super.submit(renderState, poseStack, collector, cameraState);
 
 		if (renderState.item.isEmpty()) return;
 
@@ -68,7 +68,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 			renderState.roll * Mth.DEG_TO_RAD
 		);
 		poseStack.mulPose(quaternionf);
-		renderState.item.submit(poseStack, submitNodeCollector, 1, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		renderState.item.submit(poseStack, collector, 1, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
 		poseStack.popPose();
 	}
 

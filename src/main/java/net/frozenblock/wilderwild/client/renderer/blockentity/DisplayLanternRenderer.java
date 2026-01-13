@@ -57,7 +57,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		DisplayLanternRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraRenderState
+		CameraRenderState cameraState
 	) {
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
@@ -73,7 +73,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			FireflyRenderer.submitFireflyWithoutRenderState(
 				poseStack,
 				collector,
-				cameraRenderState.orientation,
+				cameraState.orientation,
 				occupant.color,
 				occupant.calcColor,
 				1F,

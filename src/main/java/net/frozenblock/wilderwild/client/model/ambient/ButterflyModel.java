@@ -68,18 +68,18 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-		final PartDefinition root = meshdefinition.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 
 		final PartDefinition body = root.addOrReplaceChild(
 			"body",
 			CubeListBuilder.create()
 				.texOffs(6, 9)
-				.addBox(-0.5F, -1F, -2F, 1F, 1F, 4F, new CubeDeformation(0F)),
+				.addBox(-0.5F, -1F, -2F, 1F, 1F, 4F),
 			PartPose.offset(0F, 24F, 0F)
 		);
 
-		final PartDefinition wings = body.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.offset(0F, 0F, 0F));
+		final PartDefinition wings = body.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.ZERO);
 		wings.addOrReplaceChild(
 			"left_wing",
 			CubeListBuilder.create()
@@ -111,7 +111,7 @@ public class ButterflyModel extends EntityModel<ButterflyRenderState> {
 			PartPose.offset(-0.5F, 0F, 0F)
 		);
 
-		return LayerDefinition.create(meshdefinition, 16, 16);
+		return LayerDefinition.create(mesh, 16, 16);
 	}
 
 	@Override

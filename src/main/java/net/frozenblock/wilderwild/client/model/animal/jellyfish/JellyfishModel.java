@@ -55,25 +55,30 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshDefinition = new MeshDefinition();
-		final PartDefinition root = meshDefinition.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 
 		final PartDefinition bone = root.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.ZERO);
-
-		bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -2F, -4F, 8F, 5F, 8F)
-			.texOffs(4, 13).addBox(-3F, -1F, -3F, 6F, 3F, 6F), PartPose.ZERO);
+		bone.addOrReplaceChild(
+			"body",
+			CubeListBuilder.create()
+				.texOffs(0, 0)
+				.addBox(-4F, -2F, -4F, 8F, 5F, 8F)
+				.texOffs(4, 13)
+				.addBox(-3F, -1F, -3F, 6F, 3F, 6F),
+			PartPose.ZERO
+		);
 
 		final PartDefinition tentacleBase = bone.addOrReplaceChild("tentacleBase", CubeListBuilder.create(), PartPose.ZERO);
 		makeTentacles(tentacleBase, JELLYFISH_TENTACLES);
 		makePlaneTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
-		final CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25)
-			.addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
-		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, 45F * Mth.DEG_TO_RAD, 0F));
-		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, 90F * Mth.DEG_TO_RAD));
-		armBase.addOrReplaceChild("arms2", arm, PartPose.rotation(90F * Mth.DEG_TO_RAD, 0F, 90F * Mth.DEG_TO_RAD));
+		final CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25).addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
+		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, Mth.HALF_PI * 0.5F, 0F));
+		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, Mth.HALF_PI));
+		armBase.addOrReplaceChild("arms2", arm, PartPose.rotation(Mth.HALF_PI, 0F, Mth.HALF_PI));
 
-		return LayerDefinition.create(meshDefinition, 32, 32);
+		return LayerDefinition.create(mesh, 32, 32);
 	}
 
 	private static void makeTentacles(PartDefinition partDefinition, int amount) {

@@ -41,7 +41,6 @@ public class BabyPenguinModel<T extends PenguinRenderState> extends PenguinModel
 		final PartDefinition root = mesh.getRoot();
 
 		final PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(-0.5F, 21.5F, 0F));
-
 		final PartDefinition torso = body.addOrReplaceChild(
 			"torso",
 			CubeListBuilder.create()

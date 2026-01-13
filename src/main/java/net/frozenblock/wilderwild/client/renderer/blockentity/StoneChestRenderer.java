@@ -93,7 +93,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		StoneChestRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraRenderState
+		CameraRenderState cameraState
 	) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);

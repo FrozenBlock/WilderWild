@@ -37,8 +37,8 @@ public class AdultCrabModel extends CrabModel {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-		final PartDefinition root = meshdefinition.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 
 		final PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0F, 23.9F, -2F));
 		body.addOrReplaceChild(
@@ -112,7 +112,7 @@ public class AdultCrabModel extends CrabModel {
 			PartPose.offsetAndRotation(-LEG_OFFSET, 1F, 1.75F, 0.3414F, 0.0741F, 0.7109F)
 		);
 
-		return LayerDefinition.create(meshdefinition, 32, 32);
+		return LayerDefinition.create(mesh, 32, 32);
 	}
 
 	public static LayerDefinition createMojangBodyLayer() {

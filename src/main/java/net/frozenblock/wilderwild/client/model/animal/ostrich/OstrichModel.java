@@ -82,15 +82,10 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-		final PartDefinition root = meshdefinition.getRoot();
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition root = mesh.getRoot();
 
-		final PartDefinition legs = root.addOrReplaceChild(
-			"legs",
-			CubeListBuilder.create(),
-			PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F)
-		);
-
+		final PartDefinition legs = root.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
 		final PartDefinition leftLeg = legs.addOrReplaceChild(
 			"left_leg",
 			CubeListBuilder.create()
@@ -130,8 +125,10 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 			CubeListBuilder.create()
 				.texOffs(0, 31)
 				.addBox(-6F, -12F, -7F, 12F, 14F, 19F)
-			.texOffs(24, 31)
-				.addBox(-6F, 0F, -7F, 12F, 0F, 19F), PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F));
+				.texOffs(24, 31)
+				.addBox(-6F, 0F, -7F, 12F, 0F, 19F),
+			PartPose.offsetAndRotation(0F, 8F, 4F, 0F, Mth.PI, 0F)
+		);
 		body.addOrReplaceChild(
 			"saddle",
 			CubeListBuilder.create()
@@ -194,7 +191,7 @@ public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityMo
 			PartPose.offset(0F, -7F, -7F)
 		);
 
-		return LayerDefinition.create(meshdefinition, 128, 64);
+		return LayerDefinition.create(mesh, 128, 64);
 	}
 
 	public static LayerDefinition createLegacyBabyBodyLayer() {

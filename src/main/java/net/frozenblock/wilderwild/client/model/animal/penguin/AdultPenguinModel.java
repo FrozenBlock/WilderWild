@@ -44,12 +44,7 @@ public class AdultPenguinModel<T extends PenguinRenderState> extends PenguinMode
 		final MeshDefinition mesh = new MeshDefinition();
 		final PartDefinition root = mesh.getRoot();
 
-		final PartDefinition body = root.addOrReplaceChild(
-			"body",
-			CubeListBuilder.create(),
-			PartPose.offset(0F, 17F, -0.5F)
-		);
-
+		final PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0F, 17F, -0.5F));
 		final PartDefinition torso = body.addOrReplaceChild(
 			"torso",
 			CubeListBuilder.create()
@@ -84,11 +79,7 @@ public class AdultPenguinModel<T extends PenguinRenderState> extends PenguinMode
 			PartPose.offset(4.5F, -5F, 0F)
 		);
 
-		final PartDefinition feet = body.addOrReplaceChild(
-			"feet",
-			CubeListBuilder.create(),
-			PartPose.offset(0F, 7F, 0.5F)
-		);
+		final PartDefinition feet = body.addOrReplaceChild("feet", CubeListBuilder.create(), PartPose.offset(0F, 7F, 0.5F));
 		feet.addOrReplaceChild(
 			"right_foot",
 			CubeListBuilder.create()

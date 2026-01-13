@@ -42,14 +42,8 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	}
 
 	public static LayerDefinition createBodyLayer() {
-		final MeshDefinition meshdefinition = new MeshDefinition();
-
-		final PartDefinition body = meshdefinition.getRoot().addOrReplaceChild(
-			"body",
-			CubeListBuilder.create(),
-			PartPose.offset(0F, -3.8F, 0F)
-		);
-
+		final MeshDefinition mesh = new MeshDefinition();
+		final PartDefinition body = mesh.getRoot().addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0F, -3.8F, 0F));
 		body.addOrReplaceChild(
 			"tumbleweed",
 			CubeListBuilder.create()
@@ -57,8 +51,7 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 				.texOffs(0, 0).addBox(-7F, -7F, -7F, 14F, 14F, 14F),
 			PartPose.ZERO
 		);
-
-		return LayerDefinition.create(meshdefinition, 64, 64);
+		return LayerDefinition.create(mesh, 64, 64);
 	}
 
 	@Override
