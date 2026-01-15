@@ -66,8 +66,8 @@ public class Scorched extends Spider {
     private float lavaAnimProgress;
 	private float prevLavaAnimProgress;
 
-	public Scorched(EntityType<? extends Spider> entityType, Level level) {
-		super(entityType, level);
+	public Scorched(EntityType<? extends Spider> type, Level level) {
+		super(type, level);
 		this.setPathfindingMalus(PathType.WATER, -1F);
 		this.setPathfindingMalus(PathType.LAVA, 0F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, 0F);
@@ -145,12 +145,12 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
 		this.applyEffectsFromBlocks();
 		if (this.isInLava()) {
 			this.resetFallDistance();
 		} else {
-			super.checkFallDamage(y, onGround, state, pos);
+			super.checkFallDamage(ya, onGround, onState, pos);
 		}
 	}
 

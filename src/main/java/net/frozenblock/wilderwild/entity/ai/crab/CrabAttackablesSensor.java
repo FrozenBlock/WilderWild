@@ -17,13 +17,13 @@
 
 package net.frozenblock.wilderwild.entity.ai.crab;
 
+import java.util.Set;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import java.util.Set;
 
 public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 

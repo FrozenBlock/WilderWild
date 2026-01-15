@@ -47,8 +47,8 @@ public final class TermiteBlockBehaviors {
 	}
 
 	public static void register(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
-		ResourceKey<TermiteBlockBehavior> resourceKey,
+		BootstrapContext<TermiteBlockBehavior> context,
+		ResourceKey<TermiteBlockBehavior> key,
 		Block edibleBlock,
 		@Nullable Block outputBlock,
 		boolean copyProperties,
@@ -56,8 +56,8 @@ public final class TermiteBlockBehaviors {
 		boolean playerTermite,
 		@Nullable SoundEvent eatSound
 	) {
-		bootstrapContext.register(
-			resourceKey,
+		context.register(
+			key,
 			new TermiteBlockBehavior(
 				HolderSet.direct(BuiltInRegistries.BLOCK.wrapAsHolder(edibleBlock)),
 				Optional.ofNullable(outputBlock),
@@ -70,8 +70,8 @@ public final class TermiteBlockBehaviors {
 	}
 
 	public static void register(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
-		ResourceKey<TermiteBlockBehavior> resourceKey,
+		BootstrapContext<TermiteBlockBehavior> context,
+		ResourceKey<TermiteBlockBehavior> key,
 		TagKey<Block> edibleBlocks,
 		@Nullable Block outputBlock,
 		boolean copyProperties,
@@ -79,10 +79,10 @@ public final class TermiteBlockBehaviors {
 		boolean playerTermite,
 		@Nullable SoundEvent eatSound
 	) {
-		bootstrapContext.register(
-			resourceKey,
+		context.register(
+			key,
 			new TermiteBlockBehavior(
-				bootstrapContext.lookup(Registries.BLOCK).getOrThrow(edibleBlocks),
+				context.lookup(Registries.BLOCK).getOrThrow(edibleBlocks),
 				Optional.ofNullable(outputBlock),
 				copyProperties,
 				naturalTermite,
@@ -93,14 +93,14 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerPlayerOnly(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> context,
 		Block edibleBlock,
 		Block outputBlock
 	) {
-		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		final Identifier edibleBlockId = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
-			bootstrapContext,
-			createKey(edibleBlockIdentifier.getPath()),
+			context,
+			createKey(edibleBlockId.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
@@ -111,14 +111,14 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerNaturalAndPlayer(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> context,
 		Block edibleBlock,
 		Block outputBlock
 	) {
-		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		final Identifier edibleBlockId = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
-			bootstrapContext,
-			createKey(edibleBlockIdentifier.getPath()),
+			context,
+			createKey(edibleBlockId.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
@@ -129,14 +129,14 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerHollowed(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> context,
 		Block edibleBlock,
 		Block outputBlock
 	) {
-		Identifier edibleBlockIdentifier = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		final Identifier edibleBlockId = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
-			bootstrapContext,
-			createKey(edibleBlockIdentifier.getPath()),
+			context,
+			createKey(edibleBlockId.getPath()),
 			edibleBlock,
 			outputBlock,
 			true,
@@ -147,13 +147,13 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerBreakable(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> context,
 		Block edibleBlock
 	) {
-		Identifier edibleBlockLocation = BuiltInRegistries.BLOCK.getKey(edibleBlock);
+		final Identifier edibleBlockId = BuiltInRegistries.BLOCK.getKey(edibleBlock);
 		register(
-			bootstrapContext,
-			createKey(edibleBlockLocation.getPath()),
+			context,
+			createKey(edibleBlockId.getPath()),
 			edibleBlock,
 			null,
 			false,
@@ -164,12 +164,12 @@ public final class TermiteBlockBehaviors {
 	}
 
 	private static void registerBreakable(
-		BootstrapContext<TermiteBlockBehavior> bootstrapContext,
+		BootstrapContext<TermiteBlockBehavior> context,
 		String name,
 		TagKey<Block> edibleBlocks
 	) {
 		register(
-			bootstrapContext,
+			context,
 			createKey(name),
 			edibleBlocks,
 			null,
@@ -181,8 +181,8 @@ public final class TermiteBlockBehaviors {
 	}
 
 	public static Optional<Holder<TermiteBlockBehavior>> getTermiteBlockBehavior(RegistryAccess registryAccess, Block edibleBlock, boolean isNatural) {
-		Registry<TermiteBlockBehavior> registry = registryAccess.lookupOrThrow(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR);
-		List<Holder.Reference<TermiteBlockBehavior>> behaviors = registry.listElements()
+		final Registry<TermiteBlockBehavior> registry = registryAccess.lookupOrThrow(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR);
+		final List<Holder.Reference<TermiteBlockBehavior>> behaviors = registry.listElements()
 			.filter(reference -> {
 				TermiteBlockBehavior termiteBlockBehavior = reference.value();
 				if (termiteBlockBehavior.getEdibleBlocks().contains(edibleBlock.builtInRegistryHolder())) {
@@ -196,85 +196,85 @@ public final class TermiteBlockBehaviors {
 		return Optional.empty();
 	}
 
-	public static void bootstrap(BootstrapContext<TermiteBlockBehavior> bootstrapContext) {
+	public static void bootstrap(BootstrapContext<TermiteBlockBehavior> context) {
 		// PLAYER-PLACED
-		registerNaturalAndPlayer(bootstrapContext, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+		registerNaturalAndPlayer(context, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
+		registerHollowed(context, Blocks.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+		registerNaturalAndPlayer(context, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+		registerNaturalAndPlayer(context, Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
+		registerHollowed(context, Blocks.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+		registerNaturalAndPlayer(context, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+		registerNaturalAndPlayer(context, Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+		registerNaturalAndPlayer(context, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+		registerNaturalAndPlayer(context, Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		registerNaturalAndPlayer(context, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+		registerNaturalAndPlayer(context, Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		registerNaturalAndPlayer(context, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+		registerNaturalAndPlayer(context, Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		registerNaturalAndPlayer(context, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+		registerNaturalAndPlayer(context, Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		registerNaturalAndPlayer(context, Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
+		registerNaturalAndPlayer(context, Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
+		registerHollowed(context, Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+		registerNaturalAndPlayer(context, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
-		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
+		registerHollowed(context, WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
-		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
+		registerHollowed(context, WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+		registerNaturalAndPlayer(context, WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
-		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
+		registerHollowed(context, WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
-		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
+		registerHollowed(context, WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+		registerNaturalAndPlayer(context, WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
-		registerHollowed(bootstrapContext, WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-		registerNaturalAndPlayer(bootstrapContext, WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
+		registerHollowed(context, WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+		registerNaturalAndPlayer(context, WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
 
-		registerNaturalAndPlayer(bootstrapContext, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
-		registerHollowed(bootstrapContext, Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
-		registerPlayerOnly(bootstrapContext, WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
-		registerNaturalAndPlayer(bootstrapContext, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
+		registerNaturalAndPlayer(context, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		registerNaturalAndPlayer(context, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
 
-		registerPlayerOnly(bootstrapContext, Blocks.BUSH, Blocks.DEAD_BUSH);
-		registerPlayerOnly(bootstrapContext, WWBlocks.SHRUB, Blocks.DEAD_BUSH);
+		registerPlayerOnly(context, Blocks.BUSH, Blocks.DEAD_BUSH);
+		registerPlayerOnly(context, WWBlocks.SHRUB, Blocks.DEAD_BUSH);
 
-		registerBreakable(bootstrapContext, "leaves", BlockTags.LEAVES);
-		registerBreakable(bootstrapContext, "leaf_litters", WWBlockTags.LEAF_LITTERS);
-		registerBreakable(bootstrapContext, "stripped_hollowed_logs", WWBlockTags.STRIPPED_HOLLOWED_LOGS);
-		registerBreakable(bootstrapContext, Blocks.BAMBOO);
-		registerBreakable(bootstrapContext, Blocks.DEAD_BUSH);
+		registerBreakable(context, "leaves", BlockTags.LEAVES);
+		registerBreakable(context, "leaf_litters", WWBlockTags.LEAF_LITTERS);
+		registerBreakable(context, "stripped_hollowed_logs", WWBlockTags.STRIPPED_HOLLOWED_LOGS);
+		registerBreakable(context, Blocks.BAMBOO);
+		registerBreakable(context, Blocks.DEAD_BUSH);
 	}
 }

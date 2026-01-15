@@ -35,8 +35,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	public void start(ServerLevel level, Jellyfish entity, long gameTime) {
-		super.start(level, entity, gameTime);
+	public void start(ServerLevel level, Jellyfish entity, long timestamp) {
+		super.start(level, entity, timestamp);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Jellyfish owner, long gameTime) {
-		super.tick(level, owner, gameTime);
+	protected void tick(ServerLevel level, Jellyfish owner, long l) {
+		super.tick(level, owner, l);
 		if (this.isReachedTarget() && !owner.vanishing) {
 			level.broadcastEntityEvent(owner, EntityEvent.TENDRILS_SHIVER);
 			owner.vanishing = true;

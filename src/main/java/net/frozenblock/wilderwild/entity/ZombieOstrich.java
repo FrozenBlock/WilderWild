@@ -54,8 +54,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class ZombieOstrich extends AbstractOstrich {
 
-	public ZombieOstrich(EntityType<? extends ZombieOstrich> entityType, Level level) {
-		super(entityType, level);
+	public ZombieOstrich(EntityType<? extends ZombieOstrich> type, Level level) {
+		super(type, level);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -66,14 +66,14 @@ public class ZombieOstrich extends AbstractOstrich {
 			.add(Attributes.ATTACK_DAMAGE, MAX_ATTACK_DAMAGE_ZOMBIE);
 	}
 
-	public static boolean checkZombieOstrichSpawnRules(EntityType<? extends ZombieOstrich> ostrich, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+	public static boolean checkZombieOstrichSpawnRules(EntityType<? extends ZombieOstrich> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().ostrich.spawnZombieOstriches) return false;
-		return Monster.checkMonsterSpawnRules(ostrich, level, reason, pos, random);
+		return Monster.checkMonsterSpawnRules(type, level, reason, pos, random);
 	}
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		if (spawnReason == EntitySpawnReason.NATURAL) {
 			final Zombie zombie = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.JOCKEY);
 			if (zombie != null) {
@@ -84,7 +84,7 @@ public class ZombieOstrich extends AbstractOstrich {
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public ZombieOstrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+	public ZombieOstrich getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		return null;
 	}
 

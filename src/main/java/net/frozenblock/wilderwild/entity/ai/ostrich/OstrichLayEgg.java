@@ -59,20 +59,20 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		return ostrich.isPregnant();
 	}
 
 	@Override
-	public void start(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void start(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 	}
 
 	@Override
-	public void stop(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void stop(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 	}
 
 	@Override
-	public void tick(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void tick(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		if (ostrich.isInWater() || !ostrich.onGround()) return;
 
 		final BlockPos pos = ostrich.getOnPos().above();

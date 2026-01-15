@@ -74,20 +74,20 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		return this.saveWithoutMetadata(registries);
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		this.termiteManager.saveAdditional(valueOutput);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		this.termiteManager.saveAdditional(output);
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
-		this.termiteManager.load(valueInput);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		this.termiteManager.load(input);
 	}
 
 	@Environment(EnvType.CLIENT)

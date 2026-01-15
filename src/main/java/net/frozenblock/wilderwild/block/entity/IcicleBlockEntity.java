@@ -58,15 +58,15 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
-		this.vibrationData = valueInput.read("listener", Data.CODEC).orElseGet(Data::new);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		this.vibrationData = input.read("listener", Data.CODEC).orElseGet(Data::new);
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		valueOutput.store("listener", Data.CODEC, this.vibrationData);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		output.store("listener", Data.CODEC, this.vibrationData);
 	}
 
 	public User createVibrationUser() {
@@ -114,26 +114,14 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 		}
 
 		@Override
-		public boolean canReceiveVibration(
-			ServerLevel level,
-			BlockPos pos,
-			Holder<GameEvent> gameEvent,
-			@Nullable GameEvent.Context context
-		) {
-			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
+		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, @Nullable GameEvent.Context context) {
+			if (pos.equals(this.blockPos) && (event == GameEvent.BLOCK_DESTROY || event == GameEvent.BLOCK_PLACE)) return false;
 			if (IcicleBlockEntity.this.getBlockState().getValue(IcicleBlock.TIP_DIRECTION) == Direction.UP) return false;
 			return level.getBlockState(IcicleBlockEntity.this.getBlockPos().above()).is(WWBlockTags.ICICLE_FALLS_FROM);
 		}
 
 		@Override
-		public void onReceiveVibration(
-			ServerLevel level,
-			BlockPos pos,
-			Holder<GameEvent> gameEvent,
-			@Nullable Entity entity,
-			@Nullable Entity entity2,
-			float f
-		) {
+		public void onReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float receivingDistance) {
 			if (IcicleBlockEntity.this.getBlockState().getBlock() instanceof IcicleBlock icicleBlock) icicleBlock.triggerFall(level, this.blockPos);
 		}
 

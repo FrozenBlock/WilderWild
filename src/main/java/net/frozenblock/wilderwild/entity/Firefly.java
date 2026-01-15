@@ -97,8 +97,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	private Optional<FireflyColor> fireflyColor = Optional.empty();
 
-	public Firefly(EntityType<? extends Firefly> entityType, Level level) {
-		super(entityType, level);
+	public Firefly(EntityType<? extends Firefly> type, Level level) {
+		super(type, level);
 		this.setPathfindingMalus(PathType.LAVA, -1F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
 		this.setPathfindingMalus(PathType.WATER, -1F);
@@ -131,7 +131,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		final boolean shouldSetHome = shouldSetHome(spawnReason);
 		if (shouldSetHome) {
 			FireflyAi.rememberHome(this, this.blockPosition());
@@ -139,22 +139,22 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 			FireflyAi.setNatural(this);
 		}
 
-		if (spawnData instanceof FireflySpawnGroupData fireflySpawnGroupData) {
-			this.setColor(fireflySpawnGroupData.color.value());
+		if (groupData instanceof FireflySpawnGroupData fireflyGroupData) {
+			this.setColor(fireflyGroupData.color.value());
 		} else {
 			Optional<Holder.Reference<FireflyColor>> optionalFireflyColor = VariantUtils.selectVariantToSpawn(
 				SpawnContext.create(level, this.blockPosition()),
 				WilderWildRegistries.FIREFLY_COLOR
 			);
 			if (optionalFireflyColor.isPresent()) {
-				spawnData = new FireflySpawnGroupData(optionalFireflyColor.get());
+				groupData = new FireflySpawnGroupData(optionalFireflyColor.get());
 				this.setColor(optionalFireflyColor.get().value());
 			}
 
 			if (!shouldSetHome) FireflyAi.setSwarmLeader(this);
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
@@ -167,9 +167,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-		super.onSyncedDataUpdated(entityDataAccessor);
-		if (COLOR.equals(entityDataAccessor)) this.fireflyColor = Optional.of(this.getVariant());
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+		super.onSyncedDataUpdated(accessor);
+		if (COLOR.equals(accessor)) this.fireflyColor = Optional.of(this.getVariant());
 	}
 
 	@Override
@@ -270,18 +270,18 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter getter) {
-		this.applyImplicitComponentIfPresent(getter, WWDataComponents.FIREFLY_COLOR);
-		super.applyImplicitComponents(getter);
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.FIREFLY_COLOR);
+		super.applyImplicitComponents(components);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
 		if (type == WWDataComponents.FIREFLY_COLOR) {
-			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, object).value());
+			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, value).value());
 			return true;
 		}
-		return super.applyImplicitComponent(type, object);
+		return super.applyImplicitComponent(type, value);
 	}
 
 	@Override
@@ -393,30 +393,30 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	protected PathNavigation createNavigation(Level level) {
-		final FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
-		birdNavigation.setCanOpenDoors(false);
-		birdNavigation.setCanFloat(true);
-		birdNavigation.getNodeEvaluator().setCanPassDoors(true);
-		return birdNavigation;
+		final FlyingPathNavigation navigation = new FlyingPathNavigation(this, level);
+		navigation.setCanOpenDoors(false);
+		navigation.setCanFloat(true);
+		navigation.getNodeEvaluator().setCanPassDoors(true);
+		return navigation;
 	}
 
 	@Override
-	public void travel(Vec3 travelVector) {
+	public void travel(Vec3 input) {
 		if (!this.isEffectiveAi() && !this.isLocalInstanceAuthoritative()) return;
 		if (!this.isAlive()) {
-			super.travel(travelVector);
+			super.travel(input);
 			return;
 		}
 		if (this.isInWater()) {
-			this.moveRelative(0.01F, travelVector);
+			this.moveRelative(0.01F, input);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.800000011920929D));
 		} else if (this.isInLava()) {
-			this.moveRelative(0.01F, travelVector);
+			this.moveRelative(0.01F, input);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
 		} else {
-			this.moveRelative(this.getSpeed(), travelVector);
+			this.moveRelative(this.getSpeed(), input);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
 		}
@@ -436,7 +436,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
+	protected void checkFallDamage(final double ya, final boolean onGround, final BlockState onState, final BlockPos pos) {
 	}
 
 	@Override
@@ -529,7 +529,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource source) {
 		return false;
 	}
 

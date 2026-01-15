@@ -31,7 +31,7 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long timestamp) {
 		if (!penguin.isBaby()) PenguinAi.addCallMemoryIfPenguinsClose(penguin);
 		penguin.stopInPlace();
 

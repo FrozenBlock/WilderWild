@@ -41,12 +41,12 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 		this(mob, targetClass, 10, mustSee, false, null);
 	}
 
-	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, int randomInterval, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector predicate) {
+	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, int randomInterval, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector selector) {
 		super(mob, mustSee, mustReach);
 		this.targetType = targetClass;
 		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(randomInterval);
 		this.setFlags(EnumSet.of(Goal.Flag.TARGET));
-		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(predicate);
+		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(selector);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 		super.start();
 	}
 
-	public void setTarget(@Nullable LivingEntity livingEntity) {
-		this.target = livingEntity;
+	public void setTarget(@Nullable LivingEntity entity) {
+		this.target = entity;
 	}
 }

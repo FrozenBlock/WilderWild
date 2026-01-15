@@ -145,35 +145,35 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
-			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, provider);
+			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, registries);
 			this.saveClientUsableNbt(tagValueOutput);
 			return tagValueOutput.buildResult();
 		}
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
-		this.lastVibrationFrequency = valueInput.getIntOr("last_vibration_frequency", 0);
-		this.ticksToStopTwitching = valueInput.getIntOr("ticksToStopTwitching", 0);
-		this.storedXP = valueInput.getIntOr("storedXP", 0);
-		this.ringOutTicksLeft = valueInput.getIntOr("ringOutTicksLeft", 0);
-		this.activeTicks = valueInput.getIntOr("activeTicks", 0);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		this.lastVibrationFrequency = input.getIntOr("last_vibration_frequency", 0);
+		this.ticksToStopTwitching = input.getIntOr("ticksToStopTwitching", 0);
+		this.storedXP = input.getIntOr("storedXP", 0);
+		this.ringOutTicksLeft = input.getIntOr("ringOutTicksLeft", 0);
+		this.activeTicks = input.getIntOr("activeTicks", 0);
 
-		this.vibrationData = valueInput.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
+		this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		valueOutput.putInt("last_vibration_frequency", this.lastVibrationFrequency);
-		if (this.storedXP > 0) valueOutput.putInt("storedXP", this.storedXP);
-		if (this.activeTicks > 0) valueOutput.putInt("activeTicks", this.activeTicks);
-		this.saveClientUsableNbt(valueOutput);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		output.putInt("last_vibration_frequency", this.lastVibrationFrequency);
+		if (this.storedXP > 0) output.putInt("storedXP", this.storedXP);
+		if (this.activeTicks > 0) output.putInt("activeTicks", this.activeTicks);
+		this.saveClientUsableNbt(output);
 
-		valueOutput.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
+		output.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
 	public void saveClientUsableNbt(ValueOutput valueOutput) {
@@ -235,32 +235,20 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		}
 
 		@Override
-		public boolean canReceiveVibration(
-			ServerLevel level,
-			BlockPos pos,
-			Holder<GameEvent> gameEvent,
-			@Nullable GameEvent.Context context
-		) {
-			if (pos.equals(this.blockPos) && (gameEvent == GameEvent.BLOCK_DESTROY || gameEvent == GameEvent.BLOCK_PLACE)) return false;
+		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, @Nullable GameEvent.Context context) {
+			if (pos.equals(this.blockPos) && (event == GameEvent.BLOCK_DESTROY || event == GameEvent.BLOCK_PLACE)) return false;
 			final BlockState state = level.getBlockState(HangingTendrilBlockEntity.this.getBlockPos());
 			return state.getBlock() instanceof HangingTendrilBlock && HangingTendrilBlock.canActivate(state) && !state.getValue(HangingTendrilBlock.WRINGING_OUT);
 		}
 
 		@Override
-		public void onReceiveVibration(
-			ServerLevel level,
-			BlockPos pos,
-			Holder<GameEvent> gameEvent,
-			@Nullable Entity entity,
-			@Nullable Entity entity2,
-			float f
-		) {
+		public void onReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float receivingDistance) {
 			final BlockState state = HangingTendrilBlockEntity.this.getBlockState();
 			if (!SculkSensorBlock.canActivate(state)) return;
-			HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(gameEvent));
-			final int redstoneStrength = VibrationSystem.getRedstoneStrengthForDistance(f, this.getListenerRadius());
+			HangingTendrilBlockEntity.this.setLastVibrationFrequency(VibrationSystem.getGameEventFrequency(event));
+			final int redstoneStrength = VibrationSystem.getRedstoneStrengthForDistance(receivingDistance, this.getListenerRadius());
 			if (!(state.getBlock() instanceof HangingTendrilBlock hangingTendril)) return;
-			hangingTendril.activate(entity, level, this.blockPos, state, gameEvent, redstoneStrength, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
+			hangingTendril.activate(sourceEntity, level, this.blockPos, state, event, redstoneStrength, HangingTendrilBlockEntity.this.getLastVibrationFrequency());
 		}
 
 		@Override

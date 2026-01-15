@@ -41,12 +41,12 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E entity, long gameTime) {
+	protected boolean canStillUse(ServerLevel level, E crab, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E crab, long gameTime) {
+	protected void start(ServerLevel level, E crab, long timestamp) {
 		crab.endNavigation();
 		crab.stopInPlace();
 		crab.setPose(Pose.DIGGING);
@@ -55,7 +55,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E crab, long gameTime) {
+	protected void stop(ServerLevel level, E crab, long timestamp) {
 		if (crab.hasPose(Pose.DIGGING)) {
 			crab.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND, true);
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));

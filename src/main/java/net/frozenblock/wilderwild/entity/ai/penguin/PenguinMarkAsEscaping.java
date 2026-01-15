@@ -32,12 +32,12 @@ public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E penguin, long gameTime) {
+	protected boolean canStillUse(ServerLevel level, E penguin, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long timestamp) {
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.ESCAPING, Unit.INSTANCE);
 	}
 

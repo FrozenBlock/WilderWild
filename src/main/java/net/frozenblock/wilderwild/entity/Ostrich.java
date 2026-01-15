@@ -44,8 +44,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class Ostrich extends AbstractOstrich {
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(0.435F, 0.57F).withEyeHeight(0.53125F);
 
-	public Ostrich(EntityType<? extends Ostrich> entityType, Level level) {
-		super(entityType, level);
+	public Ostrich(EntityType<? extends Ostrich> type, Level level) {
+		super(type, level);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -89,7 +89,7 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
-	public Ostrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+	public Ostrich getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		return WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
 	}
 

@@ -49,7 +49,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E penguin, long gameTime) {
+	protected boolean canStillUse(ServerLevel level, E penguin, long timestamp) {
 		final Brain<Penguin> brain = penguin.getBrain();
 		return brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
@@ -57,7 +57,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long timestamp) {
 		final Brain<Penguin> brain = penguin.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH);
 		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
@@ -67,7 +67,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E penguin, long gameTime) {
+	protected void stop(ServerLevel level, E penguin, long timestamp) {
 		final Brain<Penguin> brain = penguin.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
 		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);

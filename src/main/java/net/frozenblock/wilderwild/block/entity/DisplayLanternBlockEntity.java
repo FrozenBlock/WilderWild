@@ -120,8 +120,8 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		return this.saveWithoutMetadata(registries);
 	}
 
 	public boolean invEmpty() {
@@ -137,28 +137,28 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 		this.fireflies.clear();
-		valueInput.read("fireflies", Occupant.LIST_CODEC).ifPresent(this.fireflies::addAll);
+		input.read("fireflies", Occupant.LIST_CODEC).ifPresent(this.fireflies::addAll);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(valueInput, this.inventory);
-		this.age = valueInput.getIntOr("age", 0);
+		ContainerHelper.loadAllItems(input, this.inventory);
+		this.age = input.getIntOr("age", 0);
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		valueOutput.store("fireflies", Occupant.LIST_CODEC, this.fireflies);
-		ContainerHelper.saveAllItems(valueOutput, this.inventory);
-		valueOutput.putInt("age", this.age);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		output.store("fireflies", Occupant.LIST_CODEC, this.fireflies);
+		ContainerHelper.saveAllItems(output, this.inventory);
+		output.putInt("age", this.age);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter dataComponentGetter) {
-		super.applyImplicitComponents(dataComponentGetter);
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		super.applyImplicitComponents(components);
 		this.fireflies.clear();
-		final List<Occupant> occupants = dataComponentGetter.getOrDefault(WWDataComponents.FIREFLIES, List.of());
+		final List<Occupant> occupants = components.getOrDefault(WWDataComponents.FIREFLIES, List.of());
 		this.fireflies.addAll(occupants);
 	}
 

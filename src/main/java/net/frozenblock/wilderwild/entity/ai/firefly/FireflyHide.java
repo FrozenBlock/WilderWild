@@ -37,13 +37,13 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, Firefly firefly, long gameTime) {
-		return firefly.shouldHide() && super.canStillUse(level, firefly, gameTime);
+	public boolean canStillUse(ServerLevel level, Firefly firefly, long timestamp) {
+		return firefly.shouldHide() && super.canStillUse(level, firefly, timestamp);
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Firefly firefly, long gameTime) {
-		super.tick(level, firefly, gameTime);
+	protected void tick(ServerLevel level, Firefly firefly, long timestamp) {
+		super.tick(level, firefly, timestamp);
 		if (this.isReachedTarget()) {
 			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE, 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 			firefly.discard();

@@ -132,8 +132,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	@Nullable
 	private VoxelShape beakVoxelShape;
 
-	public AbstractOstrich(EntityType<? extends AbstractOstrich> entityType, Level level) {
-		super(entityType, level);
+	public AbstractOstrich(EntityType<? extends AbstractOstrich> type, Level level) {
+		super(type, level);
 		this.moveControl = new OstrichMoveControl(this);
 		this.lookControl = new OstrichLookControl(this);
 		GroundPathNavigation groundPathNavigation = (GroundPathNavigation) this.getNavigation();
@@ -166,24 +166,24 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	protected void updateWalkAnimation(float limbDistance) {
-		float fastDistance = limbDistance * 4F;
+	protected void updateWalkAnimation(float distance) {
+		float fastDistance = distance * 4F;
 		float f = Math.min(fastDistance, 1F);
 		float difference = fastDistance - f;
 		this.walkAnimation.update(f + (difference * 0.15F), 0.4F, this.isBaby() ? 3.0F : 1.0F);
 	}
 
 	@Override
-	public void customServerAiStep(ServerLevel serverLevel) {
+	public void customServerAiStep(ServerLevel level) {
 		final ProfilerFiller profiler = Profiler.get();
 		profiler.push("abstractOstrichBrain");
 		final Brain<AbstractOstrich> brain = this.getBrain();
-		brain.tick(serverLevel, this);
+		brain.tick(level, this);
 		profiler.pop();
 		profiler.push("abstractOstrichActivityUpdate");
 		OstrichAi.updateActivity(this);
 		profiler.pop();
-		super.customServerAiStep(serverLevel);
+		super.customServerAiStep(level);
 	}
 
 	@Override
@@ -226,10 +226,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		if (this.isStuck()) this.getNavigation().stop();
 	}
 
-	public AABB createAttackBox(float tickDelta) {
+	public AABB createAttackBox(float partialTicks) {
 		final double height = ATTACK_BOX_HEIGHT * this.getScale();
 		final double width = ATTACK_BOX_WIDTH * this.getScale();
-		return AABB.ofSize(this.getBeakPos(tickDelta), width, height, width).move(0D, -height * 0.5D, 0D);
+		return AABB.ofSize(this.getBeakPos(partialTicks), width, height, width).move(0D, -height * 0.5D, 0D);
 	}
 
 	private void handleAttackAndStuck(ServerLevel level) {
@@ -438,7 +438,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public float getRiddenSpeed(Player player) {
+	public float getRiddenSpeed(Player controller) {
 		return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + this.getAdditionalSpeed();
 	}
 
@@ -447,8 +447,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public Vec2 getRiddenRotation(LivingEntity entity) {
-		return this.refuseToMove() ? new Vec2(this.getXRot(), this.getYRot()) : super.getRiddenRotation(entity);
+	public Vec2 getRiddenRotation(LivingEntity controller) {
+		return this.refuseToMove() ? new Vec2(this.getXRot(), this.getYRot()) : super.getRiddenRotation(controller);
 	}
 
 	@Override
@@ -462,8 +462,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void onPlayerJump(int jumpPower) {
-		if (this.isSaddled() && this.getBeakCooldown() <= 0) super.onPlayerJump(jumpPower);
+	public void onPlayerJump(int jumpAmount) {
+		if (this.isSaddled() && this.getBeakCooldown() <= 0) super.onPlayerJump(jumpAmount);
 	}
 
 	@Override
@@ -551,8 +551,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource source) {
-		final int fallDamage = this.calculateFallDamage(fallDistance, multiplier);
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource source) {
+		final int fallDamage = this.calculateFallDamage(fallDistance, damageModifier);
 		if (fallDamage <= 0) return false;
 		if (fallDistance >= 6F) {
 			this.hurt(source, (float) fallDamage);
@@ -566,8 +566,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-		final boolean wasHurt = super.hurtServer(level, source, amount);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		final boolean wasHurt = super.hurtServer(level, source, damage);
 		if (wasHurt && source.getEntity() instanceof LivingEntity livingEntity) OstrichAi.wasHurtBy(level, this, livingEntity);
 		return wasHurt;
 	}
@@ -703,7 +703,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Nullable
 	@Override
-	public AbstractOstrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+	public AbstractOstrich getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		return null;
 	}
 

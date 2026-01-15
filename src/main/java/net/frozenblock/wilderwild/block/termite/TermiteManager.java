@@ -158,17 +158,17 @@ public class TermiteManager {
 		return this.termites;
 	}
 
-	public void saveAdditional(ValueOutput valueOutput) {
-		valueOutput.store("termites", Termite.LIST_CODEC, this.termites);
-		valueOutput.putInt("ticksToNextTermite", this.ticksToNextTermite);
-		valueOutput.putInt("highestID", this.highestID);
+	public void saveAdditional(ValueOutput output) {
+		output.store("termites", Termite.LIST_CODEC, this.termites);
+		output.putInt("ticksToNextTermite", this.ticksToNextTermite);
+		output.putInt("highestID", this.highestID);
 	}
 
-	public void load(ValueInput valueInput) {
+	public void load(ValueInput input) {
 		this.termites.clear();
-		valueInput.read("termites", Termite.LIST_CODEC).ifPresent(this.termites::addAll);
-		this.ticksToNextTermite = valueInput.getIntOr("ticksToNextTermite", 0);
-		this.highestID = valueInput.getIntOr("highestID", 0);
+		input.read("termites", Termite.LIST_CODEC).ifPresent(this.termites::addAll);
+		this.ticksToNextTermite = input.getIntOr("ticksToNextTermite", 0);
+		this.highestID = input.getIntOr("highestID", 0);
 	}
 
 	public static class Termite {
@@ -345,9 +345,7 @@ public class TermiteManager {
 			return null;
 		}
 
-		private static boolean checkIfBlockIsEdibleAndFixPos(
-			Level level, boolean natural, BlockPos.MutableBlockPos mutableBlockPos, BlockState state
-		) {
+		private static boolean checkIfBlockIsEdibleAndFixPos(Level level, boolean natural, BlockPos.MutableBlockPos mutablePos, BlockState state) {
 			final Optional<Holder<TermiteBlockBehavior>> optionalBlockBehavior = TermiteBlockBehaviors.getTermiteBlockBehavior(
 				level.registryAccess(),
 				state.getBlock(),
@@ -356,7 +354,7 @@ public class TermiteManager {
 
 			if (optionalBlockBehavior.isEmpty() || !isEdibleProperty(state)) return false;
 			if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-				mutableBlockPos.move(Direction.DOWN);
+				mutablePos.move(Direction.DOWN);
 			}
 			return true;
 		}

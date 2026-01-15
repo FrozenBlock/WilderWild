@@ -38,10 +38,10 @@ public class WardenNavigation extends GroundPathNavigation {
 	}
 
 	@Override
-	public PathFinder createPathFinder(int range) {
+	public PathFinder createPathFinder(int maxVisitedNodes) {
 		this.nodeEvaluator = new WardenNodeEvaluator(false);
 		this.nodeEvaluator.setCanPassDoors(true);
-		return new PathFinder(this.nodeEvaluator, range) {
+		return new PathFinder(this.nodeEvaluator, maxVisitedNodes) {
 			private static boolean entitySubmergedInWaterOrLava(Entity entity) {
 				return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
 			}
@@ -59,9 +59,9 @@ public class WardenNavigation extends GroundPathNavigation {
 	}
 
 	@Override
-	protected double getGroundY(Vec3 pos) {
-		final BlockPos blockPos = BlockPos.containing(pos);
-		return WWEntityConfig.WARDEN_SWIMS && (this.isInLiquid() || this.level.getBlockState(blockPos.below()).isAir()) ? pos.y : WardenNodeEvaluator.getFloorLevel(this.level, blockPos);
+	protected double getGroundY(Vec3 target) {
+		final BlockPos pos = BlockPos.containing(target);
+		return WWEntityConfig.WARDEN_SWIMS && (this.isInLiquid() || this.level.getBlockState(pos.below()).isAir()) ? target.y : WardenNodeEvaluator.getFloorLevel(this.level, pos);
 	}
 
 	@Override

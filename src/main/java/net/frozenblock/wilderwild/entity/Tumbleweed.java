@@ -120,8 +120,8 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	public float itemZ;
 	private float lookRot;
 
-	public Tumbleweed(EntityType<Tumbleweed> entityType, Level level) {
-		super(entityType, level);
+	public Tumbleweed(EntityType<Tumbleweed> type, Level level) {
+		super(type, level);
 		this.blocksBuilding = true;
 	}
 
@@ -143,7 +143,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		if (this.inventory.isEmpty() && spawnReason == EntitySpawnReason.NATURAL) {
 			final int difficultyId = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, difficultyId == 0 ? 32 : (27 / difficultyId)) == 0) {
@@ -162,7 +162,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 			this.setDeltaMovement(new Vec3(this.random.nextGaussian() * 2D, this.random.nextDouble() * 4D, this.random.nextGaussian() * 2D));
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	public static void spawnFromShears(Level level, BlockPos pos) {
@@ -441,7 +441,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource source) {
 		return false;
 	}
 

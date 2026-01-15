@@ -95,8 +95,8 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	private float groundProgress;
 	private Optional<ButterflyVariant> butterflyVariant = Optional.empty();
 
-	public Butterfly(EntityType<? extends Butterfly> entityType, Level level) {
-		super(entityType, level);
+	public Butterfly(EntityType<? extends Butterfly> type, Level level) {
+		super(type, level);
 		this.setPathfindingMalus(PathType.LAVA, -1F);
 		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
 		this.setPathfindingMalus(PathType.WATER, -1F);
@@ -128,7 +128,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		final boolean shouldSetHome = shouldSetHome(spawnReason);
 		if (shouldSetHome) {
 			ButterflyAi.rememberHome(this, this.blockPosition());
@@ -136,7 +136,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 			ButterflyAi.setNatural(this);
 		}
 
-		if (spawnData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
+		if (groupData instanceof ButterflySpawnGroupData butterflySpawnGroupData) {
 			this.setVariant(butterflySpawnGroupData.type.value());
 		} else {
 			final Optional<Holder.Reference<ButterflyVariant>> optionalButterflyVariant = VariantUtils.selectVariantToSpawn(
@@ -144,12 +144,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 				WilderWildRegistries.BUTTERFLY_VARIANT
 			);
 			if (optionalButterflyVariant.isPresent()) {
-				spawnData = new ButterflySpawnGroupData(optionalButterflyVariant.get());
+				groupData = new ButterflySpawnGroupData(optionalButterflyVariant.get());
 				this.setVariant(optionalButterflyVariant.get().value());
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
@@ -170,9 +170,9 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-		super.onSyncedDataUpdated(entityDataAccessor);
-		if (entityDataAccessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariant());
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+		super.onSyncedDataUpdated(accessor);
+		if (accessor.equals(VARIANT)) this.butterflyVariant = Optional.of(this.getVariant());
 	}
 
 	@Override
@@ -230,12 +230,12 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
 		if (type == WWDataComponents.BUTTERFLY_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT, object).value());
+			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT, value).value());
 			return true;
 		}
-		return super.applyImplicitComponent(type, object);
+		return super.applyImplicitComponent(type, value);
 	}
 
 	@Override
@@ -306,11 +306,11 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Override
 	protected PathNavigation createNavigation(Level level) {
-		FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, level);
-		birdNavigation.setCanOpenDoors(false);
-		birdNavigation.setCanFloat(true);
-		birdNavigation.getNodeEvaluator().setCanPassDoors(true);
-		return birdNavigation;
+		final FlyingPathNavigation navigation = new FlyingPathNavigation(this, level);
+		navigation.setCanOpenDoors(false);
+		navigation.setCanFloat(true);
+		navigation.getNodeEvaluator().setCanPassDoors(true);
+		return navigation;
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition) {
+	protected void checkFallDamage(final double ya, final boolean onGround, final BlockState onState, final BlockPos pos) {
 	}
 
 	@Override
@@ -367,15 +367,15 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	protected void customServerAiStep(ServerLevel serverLevel) {
-		final ProfilerFiller profilerFiller = Profiler.get();
-		profilerFiller.push("butterflyBrain");
+	protected void customServerAiStep(ServerLevel level) {
+		final ProfilerFiller profiler = Profiler.get();
+		profiler.push("butterflyBrain");
 		this.getBrain().tick((ServerLevel) this.level(), this);
-		profilerFiller.pop();
-		profilerFiller.push("butterflyActivityUpdate");
+		profiler.pop();
+		profiler.push("butterflyActivityUpdate");
 		ButterflyAi.updateActivities(this);
-		profilerFiller.pop();
-		super.customServerAiStep(serverLevel);
+		profiler.pop();
+		super.customServerAiStep(level);
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
+	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource source) {
 		return false;
 	}
 

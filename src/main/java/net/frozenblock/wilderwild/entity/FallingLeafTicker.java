@@ -46,17 +46,17 @@ public class FallingLeafTicker extends SilentTicker {
 	private double yd = -0.05D;
 	private Block leafLitter;
 
-	public FallingLeafTicker(EntityType<?> entityType, Level level) {
-		super(entityType, level);
+	public FallingLeafTicker(EntityType<?> type, Level level) {
+		super(type, level);
 	}
 
-	public FallingLeafTicker(EntityType<?> entityType, Level level, BlockPos pos) {
-		super(entityType, level);
+	public FallingLeafTicker(EntityType<?> type, Level level, BlockPos pos) {
+		super(type, level);
 		this.snapTo(Vec3.atBottomCenterOf(pos));
 	}
 
-	public static void createAndSpawn(EntityType<?> entityType, Level level, BlockPos pos, Block leafLitter) {
-		FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(entityType, level, pos);
+	public static void createAndSpawn(EntityType<?> type, Level level, BlockPos pos, Block leafLitter) {
+		FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(type, level, pos);
 		fallingLeafTicker.leafLitter = leafLitter;
 		level.addFreshEntity(fallingLeafTicker);
 	}
@@ -130,17 +130,17 @@ public class FallingLeafTicker extends SilentTicker {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.store("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec(), this.leafLitter);
-		valueOutput.putDouble("LeafFallVelocity", this.yd);
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.store("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec(), this.leafLitter);
+		output.putDouble("LeafFallVelocity", this.yd);
 	}
 
 	@Override
-	public void readAdditionalSaveData(ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		this.yd = valueInput.getDoubleOr("LeafFallVelocity", -0.05D);
-		this.leafLitter = valueInput.read("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec()).orElse(null);
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		this.yd = input.getDoubleOr("LeafFallVelocity", -0.05D);
+		this.leafLitter = input.read("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec()).orElse(null);
 	}
 
 }

@@ -60,20 +60,20 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, Penguin penguin, long gameTime) {
+	public boolean canStillUse(ServerLevel level, Penguin penguin, long timestamp) {
 		return penguin.isPregnant();
 	}
 
 	@Override
-	public void start(ServerLevel level, Penguin penguin, long gameTime) {
+	public void start(ServerLevel level, Penguin penguin, long timestamp) {
 	}
 
 	@Override
-	public void stop(ServerLevel level, Penguin penguin, long gameTime) {
+	public void stop(ServerLevel level, Penguin penguin, long timestamp) {
 	}
 
 	@Override
-	public void tick(ServerLevel level, Penguin penguin, long gameTime) {
+	public void tick(ServerLevel level, Penguin penguin, long timestamp) {
 		if (penguin.isInWater() || !penguin.onGround()) return;
 
 		final BlockPos pos = penguin.getOnPos().above();

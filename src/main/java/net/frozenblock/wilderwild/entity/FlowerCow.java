@@ -80,8 +80,8 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	private Optional<MoobloomVariant> moobloomVariant = Optional.empty();
 
-	public FlowerCow(EntityType<? extends FlowerCow> entityType, Level level) {
-		super(entityType, level);
+	public FlowerCow(EntityType<? extends FlowerCow> type, Level level) {
+		super(type, level);
 	}
 
 	@Override
@@ -97,20 +97,20 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
-		if (spawnGroupData instanceof FlowerCowSpawnGroupData flowerCowSpawnGroupData) {
-			this.setVariant(flowerCowSpawnGroupData.type.value());
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+		if (groupData instanceof FlowerCowSpawnGroupData flowerCowGroupData) {
+			this.setVariant(flowerCowGroupData.type.value());
 		} else {
 			final Optional<Holder.Reference<MoobloomVariant>> optionalMoobloomVariantReference = MoobloomVariants.selectVariantToSpawn(
 				level.getRandom(), this.registryAccess(), SpawnContext.create(level, this.blockPosition())
 			);
 			if (optionalMoobloomVariantReference.isPresent()) {
-				spawnGroupData = new FlowerCowSpawnGroupData(optionalMoobloomVariantReference.get());
+				groupData = new FlowerCowSpawnGroupData(optionalMoobloomVariantReference.get());
 				this.setVariant(optionalMoobloomVariantReference.get().value());
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	@Override
@@ -175,8 +175,8 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public void handleEntityEvent(byte event) {
-		if (event == EntityEvent.TENDRILS_SHIVER) {
+	public void handleEntityEvent(byte id) {
+		if (id == EntityEvent.TENDRILS_SHIVER) {
 			for (int i = 0; i < 7; i++) {
 				final double xd = this.random.nextGaussian() * 0.02D;
 				final double yd = this.random.nextGaussian() * 0.02D;
@@ -184,7 +184,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 				this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), xd, yd, zd);
 			}
 		} else {
-			super.handleEntityEvent(event);
+			super.handleEntityEvent(id);
 		}
 	}
 
@@ -194,9 +194,9 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-		if (VARIANT.equals(key)) this.moobloomVariant = Optional.of(this.getVariant());
-		super.onSyncedDataUpdated(key);
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+		if (VARIANT.equals(accessor)) this.moobloomVariant = Optional.of(this.getVariant());
+		super.onSyncedDataUpdated(accessor);
 	}
 
 	@Nullable
@@ -207,18 +207,18 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentGetter getter) {
-		this.applyImplicitComponentIfPresent(getter, WWDataComponents.MOOBLOOM_VARIANT);
-		super.applyImplicitComponents(getter);
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.MOOBLOOM_VARIANT);
+		super.applyImplicitComponents(components);
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
 		if (type == WWDataComponents.MOOBLOOM_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT, object).value());
+			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT, value).value());
 			return true;
 		}
-		return super.applyImplicitComponent(type, object);
+		return super.applyImplicitComponent(type, value);
 	}
 
 	@Override
@@ -289,9 +289,9 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	@Nullable
-	public FlowerCow getBreedOffspring(ServerLevel level, AgeableMob mob) {
+	public FlowerCow getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		final FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(level, EntitySpawnReason.BREEDING);
-		if (flowerCow != null && mob instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(level, otherFlowerCow));
+		if (flowerCow != null && partner instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(level, otherFlowerCow));
 		return flowerCow;
 	}
 

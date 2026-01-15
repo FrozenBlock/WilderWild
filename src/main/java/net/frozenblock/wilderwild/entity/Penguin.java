@@ -79,8 +79,8 @@ public class Penguin extends Animal {
 	private float prevSlideProgress;
 	private float slideProgress;
 
-	public Penguin(EntityType<? extends Animal> entityType, Level level) {
-		super(entityType, level);
+	public Penguin(EntityType<? extends Animal> type, Level level) {
+		super(type, level);
 		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 30, 0.4F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
@@ -160,8 +160,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void spawnChildFromBreeding(ServerLevel level, Animal mate) {
-		this.finalizeSpawnChildFromBreeding(level, mate, null);
+	public void spawnChildFromBreeding(ServerLevel level, Animal partner) {
+		this.finalizeSpawnChildFromBreeding(level, partner, null);
 		this.getBrain().setMemory(MemoryModuleType.IS_PREGNANT, Unit.INSTANCE);
 	}
 
@@ -175,7 +175,7 @@ public class Penguin extends Animal {
 
 	@Nullable
 	@Override
-	public Penguin getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+	public Penguin getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		return WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
 	}
 
@@ -227,8 +227,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-		if (DATA_POSE.equals(entityDataAccessor)) {
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+		if (DATA_POSE.equals(accessor)) {
 			switch (this.getPose()) {
 				case SLIDING:
 					this.layDownAnimationState.start(this.tickCount);
@@ -253,27 +253,30 @@ public class Penguin extends Animal {
 			this.refreshDimensions();
 		}
 
-		super.onSyncedDataUpdated(entityDataAccessor);
+		super.onSyncedDataUpdated(accessor);
 	}
 
 	@Override
 	public EntityDimensions getDefaultDimensions(Pose pose) {
-		EntityDimensions entityDimensions = super.getDefaultDimensions(pose);
-		return this.isSliding() ? EntityDimensions.fixed(entityDimensions.width(), 0.5F) : entityDimensions;
+		final EntityDimensions dimensions = super.getDefaultDimensions(pose);
+		return this.isSliding() ? EntityDimensions.fixed(dimensions.width(), 0.5F) : dimensions;
 	}
 
+	@Nullable
 	@Override
-	protected @Nullable SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound() {
 		return this.isLinux() ? WWSounds.ENTITY_LINUX_IDLE : WWSounds.ENTITY_PENGUIN_IDLE;
 	}
 
+	@Nullable
 	@Override
-	protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT : WWSounds.ENTITY_PENGUIN_HURT;
 	}
 
+	@Nullable
 	@Override
-	protected @Nullable SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound() {
 		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH : WWSounds.ENTITY_PENGUIN_DEATH;
 	}
 
@@ -300,13 +303,13 @@ public class Penguin extends Animal {
 
 	@Override
 	protected void customServerAiStep(ServerLevel level) {
-		final ProfilerFiller profilerFiller = Profiler.get();
-		profilerFiller.push("penguinBrain");
+		final ProfilerFiller profiler = Profiler.get();
+		profiler.push("penguinBrain");
 		this.getBrain().tick(level, this);
-		profilerFiller.pop();
-		profilerFiller.push("penguinActivityUpdate");
+		profiler.pop();
+		profiler.push("penguinActivityUpdate");
 		PenguinAi.updateActivity(this);
-		profilerFiller.pop();
+		profiler.pop();
 		super.customServerAiStep(level);
 	}
 
@@ -327,7 +330,7 @@ public class Penguin extends Animal {
 	}
 
 	public boolean isLinux() {
-		String string = ChatFormatting.stripFormatting(this.getName().getString());
+		final String string = ChatFormatting.stripFormatting(this.getName().getString());
 		return VALID_LINUX_NAMES.stream().anyMatch(string::equalsIgnoreCase);
 	}
 }

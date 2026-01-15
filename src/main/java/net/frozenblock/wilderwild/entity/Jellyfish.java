@@ -143,8 +143,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private int forcedAgeTimer;
 	private Optional<JellyfishVariant> jellyfishVariant = Optional.empty();
 
-	public Jellyfish(EntityType<? extends Jellyfish> entityType, Level level) {
-		super(entityType, level);
+	public Jellyfish(EntityType<? extends Jellyfish> type, Level level) {
+		super(type, level);
 		this.getNavigation().setCanFloat(false);
 	}
 
@@ -204,9 +204,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnData) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		JellyfishGroupData jellyfishGroupData = null;
-		if (spawnData instanceof JellyfishGroupData jellyGroupData) {
+		if (groupData instanceof JellyfishGroupData jellyGroupData) {
 			this.setVariant(jellyGroupData.variant.value());
 			jellyfishGroupData = jellyGroupData;
 		} else {
@@ -215,7 +215,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 				WilderWildRegistries.JELLYFISH_VARIANT
 			);
 			if (optionalJellyfishVariant.isPresent()) {
-				spawnData = jellyfishGroupData = new JellyfishGroupData(true, optionalJellyfishVariant.get());
+				groupData = jellyfishGroupData = new JellyfishGroupData(true, optionalJellyfishVariant.get());
 				this.setVariant(optionalJellyfishVariant.get().value());
 			}
 		}
@@ -224,14 +224,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 			if (jellyfishGroupData.isShouldSpawnBaby() && level.getRandom().nextFloat() <= jellyfishGroupData.getBabySpawnChance()) this.setBaby(true);
 			jellyfishGroupData.increaseGroupSizeByOne();
 		}
-		return super.finalizeSpawn(level, difficulty, spawnReason, spawnData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	@Override
-	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-		if (IS_BABY.equals(key)) this.refreshDimensions();
-		if (VARIANT.equals(key)) this.jellyfishVariant = Optional.of(this.getVariant());
-		super.onSyncedDataUpdated(key);
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+		if (IS_BABY.equals(accessor)) this.refreshDimensions();
+		if (VARIANT.equals(accessor)) this.jellyfishVariant = Optional.of(this.getVariant());
+		super.onSyncedDataUpdated(accessor);
 	}
 
 	@Override
@@ -245,7 +245,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSource) {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
 	}
 
@@ -385,19 +385,19 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public void handleEntityEvent(byte event) {
-		if (event == EntityEvent.TENDRILS_SHIVER) {
+	public void handleEntityEvent(byte id) {
+		if (id == EntityEvent.TENDRILS_SHIVER) {
 			this.vanishing = true;
-		} else if (event == EntityEvent.ARMADILLO_PEEK) {
+		} else if (id == EntityEvent.ARMADILLO_PEEK) {
 			this.growing = true;
 			this.scale = 0F;
 			this.prevScale = 0F;
-		} else if (event == EntityEvent.TAMING_SUCCEEDED) {
+		} else if (id == EntityEvent.TAMING_SUCCEEDED) {
 			final double xd = this.random.nextGaussian() * 0.02D;
 			final double yd = this.random.nextGaussian() * 0.02D;
 			final double zd = this.random.nextGaussian() * 0.02D;
 			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), xd, yd, zd);
-		} else if (event == EntityEvent.IN_LOVE_HEARTS) {
+		} else if (id == EntityEvent.IN_LOVE_HEARTS) {
 			for (int i = 0; i < 7; ++i) {
 				final double xd = this.random.nextGaussian() * 0.02D;
 				final double yd = this.random.nextGaussian() * 0.02D;
@@ -405,7 +405,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 				this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), xd, yd, zd);
 			}
 		} else {
-			super.handleEntityEvent(event);
+			super.handleEntityEvent(id);
 		}
 	}
 
@@ -676,12 +676,12 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T object) {
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
 		if (type == WWDataComponents.JELLYFISH_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, object).value());
+			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, value).value());
 			return true;
 		}
-		return super.applyImplicitComponent(type, object);
+		return super.applyImplicitComponent(type, value);
 	}
 
 	@Override

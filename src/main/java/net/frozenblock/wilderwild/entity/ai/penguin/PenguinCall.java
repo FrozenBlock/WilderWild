@@ -45,12 +45,12 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E penguin, long gameTime) {
+	protected boolean canStillUse(ServerLevel level, E penguin, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long gameTime) {
+	protected void start(ServerLevel level, E penguin, long timestamp) {
 		penguin.stopInPlace();
 		penguin.setPose(Pose.ROARING);
 		penguin.playSound(penguin.isLinux() ? WWSounds.ENTITY_LINUX_CALL : WWSounds.ENTITY_PENGUIN_CALL, 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
@@ -60,7 +60,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E penguin, long gameTime) {
+	protected void stop(ServerLevel level, E penguin, long timestamp) {
 		if (penguin.hasPose(Pose.ROARING)) penguin.setPose(Pose.STANDING);
 		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 2400);
 		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING);

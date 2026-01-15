@@ -37,11 +37,11 @@ public class ScorchedBlockEntity extends BlockEntity {
 		super(WWBlockEntityTypes.SCORCHED_BLOCK, pos, state);
 	}
 
-	public boolean brush(long l) {
-		this.brushCountResetsAtTick = l + RESET_DELAY;
-		if (l < this.coolDownEndsAtTick || !(this.level instanceof ServerLevel)) return false;
+	public boolean brush(long gameTime) {
+		this.brushCountResetsAtTick = gameTime + RESET_DELAY;
+		if (gameTime < this.coolDownEndsAtTick || !(this.level instanceof ServerLevel)) return false;
 
-		this.coolDownEndsAtTick = l + 10L;
+		this.coolDownEndsAtTick = gameTime + 10L;
 		final int i = this.getCompletionState();
 		if (++this.brushCount >= 10) {
 			this.brushingCompleted();

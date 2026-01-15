@@ -55,22 +55,22 @@ public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		return !ostrich.isTamed() && !ostrich.getNavigation().isDone() && ostrich.isVehicle();
 	}
 
 	@Override
-	public void start(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void start(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		ostrich.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
 	}
 
 	@Override
-	public void stop(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void stop(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		ostrich.getBrain().eraseMemory(MemoryModuleType.IS_PANICKING);
 	}
 
 	@Override
-	public void tick(ServerLevel level, AbstractOstrich ostrich, long gameTime) {
+	public void tick(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
 		if (ostrich.isTamed() || ostrich.getRandom().nextInt(50) != 0) return;
 
 		final Entity passenger = ostrich.getFirstPassenger();

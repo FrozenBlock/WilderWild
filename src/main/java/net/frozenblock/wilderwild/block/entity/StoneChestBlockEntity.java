@@ -150,26 +150,6 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
-		this.openProgress = valueInput.getFloatOr("openProgress", 0F);
-		this.highestLidPoint = valueInput.getFloatOr("highestLidPoint", 0F);
-		this.stillLidTicks = valueInput.getIntOr("stillLidTicks", 0);
-		this.cooldownTicks = valueInput.getIntOr("cooldownTicks", 0);
-		this.closing = valueInput.getBooleanOr("closing", false);
-	}
-
-	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		valueOutput.putFloat("openProgress", this.openProgress);
-		valueOutput.putFloat("highestLidPoint", this.highestLidPoint);
-		valueOutput.putInt("stillLidTicks", this.stillLidTicks);
-		valueOutput.putInt("cooldownTicks", this.cooldownTicks);
-		valueOutput.putBoolean("closing", this.closing);
-	}
-
-	@Override
 	public float getOpenNess(float partialTick) {
 		return Mth.lerp(partialTick, this.prevOpenProgress, this.openProgress);
 	}
@@ -262,8 +242,28 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		return this.saveWithoutMetadata(registries);
+	}
+
+	@Override
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		this.openProgress = input.getFloatOr("openProgress", 0F);
+		this.highestLidPoint = input.getFloatOr("highestLidPoint", 0F);
+		this.stillLidTicks = input.getIntOr("stillLidTicks", 0);
+		this.cooldownTicks = input.getIntOr("cooldownTicks", 0);
+		this.closing = input.getBooleanOr("closing", false);
+	}
+
+	@Override
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		output.putFloat("openProgress", this.openProgress);
+		output.putFloat("highestLidPoint", this.highestLidPoint);
+		output.putInt("stillLidTicks", this.stillLidTicks);
+		output.putInt("cooldownTicks", this.cooldownTicks);
+		output.putBoolean("closing", this.closing);
 	}
 
 	@Override

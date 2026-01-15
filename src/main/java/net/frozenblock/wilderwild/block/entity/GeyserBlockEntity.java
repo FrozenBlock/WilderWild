@@ -366,19 +366,19 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(ValueOutput valueOutput) {
-		super.saveAdditional(valueOutput);
-		valueOutput.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
-		valueOutput.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
-		valueOutput.putFloat("EruptionProgress", this.eruptionProgress);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		output.putBoolean("HasRunFirstCheck", this.hasRunFirstCheck);
+		output.putInt("TicksUntilNextEvent", this.ticksUntilNextEvent);
+		output.putFloat("EruptionProgress", this.eruptionProgress);
 	}
 
 	@Override
-	public void loadAdditional(ValueInput valueInput) {
-		super.loadAdditional(valueInput);
-		this.hasRunFirstCheck = valueInput.getBooleanOr("HasRunFirstCheck", false);
-		this.ticksUntilNextEvent = valueInput.getIntOr("TicksUntilNextEvent", 0);
-		this.eruptionProgress = valueInput.getFloatOr("EruptionProgress", 0F);
+	public void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		this.hasRunFirstCheck = input.getBooleanOr("HasRunFirstCheck", false);
+		this.ticksUntilNextEvent = input.getIntOr("TicksUntilNextEvent", 0);
+		this.eruptionProgress = input.getFloatOr("EruptionProgress", 0F);
 	}
 
 	@Environment(EnvType.CLIENT)
