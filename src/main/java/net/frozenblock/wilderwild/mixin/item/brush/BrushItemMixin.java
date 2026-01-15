@@ -18,107 +18,67 @@
 package net.frozenblock.wilderwild.mixin.item.brush;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BrushItem.class)
 public class BrushItemMixin {
 
-	@ModifyVariable(method = "onUseTick", at = @At("STORE"), ordinal = 0)
-	public BlockHitResult wilderWild$captureBlockHitResult(
-		BlockHitResult blockHitResult,
-		@Share("wilderWild$hitResultRef") LocalRef<BlockHitResult> hitResultRef
+	@ModifyExpressionValue(
+		method = "onUseTick",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/sounds/SoundEvents;BRUSH_GENERIC:Lnet/minecraft/sounds/SoundEvent;",
+			opcode = Opcodes.GETSTATIC
+		)
+	)
+	public SoundEvent wilderWild$playBrushSound(
+		SoundEvent original,
+		@Local(name = "state") BlockState state
 	) {
-		hitResultRef.set(blockHitResult);
-		return blockHitResult;
+		if (state.getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) return scorchedBlock.brushSound;
+		return original;
 	}
 
 	@ModifyExpressionValue(
 		method = "onUseTick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
-			ordinal = 0
+			target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"
 		)
 	)
-	public BlockState wilderWild$captureBlockState(
-		BlockState blockState,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
+	public BlockEntity wilderWild$brushScorchedBlocks(
+		BlockEntity blockEntity,
+		Level level, LivingEntity entity, ItemStack stack, int ticksRemaining,
+		@Local(name = "state") BlockState state
 	) {
-		blockStateRef.set(blockState);
-		return blockState;
-	}
-
-	@WrapOperation(
-		method = "onUseTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;)V"
-		)
-	)
-	public void wilderWild$playBrushSound(
-		Level instance, Entity player, BlockPos blposckPos, SoundEvent soundEvent, SoundSource soundSource, Operation<Void> original,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
-	) {
-		if (blockStateRef.get().getBlock() instanceof ScorchedBlock scorchedBlock && scorchedBlock.canBrush) soundEvent = scorchedBlock.brushSound;
-		original.call(instance, player, blposckPos, soundEvent, soundSource);
-	}
-
-	@Inject(
-		method = "onUseTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getBlockEntity(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;",
-			shift = At.Shift.BEFORE
-		),
-		cancellable = true
-	)
-	public void wilderWild$brushScorchedBlocks(
-		Level level, LivingEntity entity, ItemStack stack, int i, CallbackInfo info,
-		@Share("wilderWild$hitResultRef") LocalRef<BlockHitResult> hitResultRef,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
-	) {
-		if (this.wilderWild$brushScorchedBlocks(level, entity, stack, hitResultRef.get(), blockStateRef.get())) info.cancel();
+		this.wilderWild$brushScorchedBlocks(level, entity, stack, blockEntity, state);
+		return blockEntity;
 	}
 
 	@Unique
-	private boolean wilderWild$brushScorchedBlocks(
-		Level level, LivingEntity entity, ItemStack stack, BlockHitResult hitResult, BlockState state
-	) {
-		if (level.isClientSide() || !(entity instanceof Player player)) return false;
-		if (level.getBlockEntity(hitResult.getBlockPos()) instanceof ScorchedBlockEntity scorchedBlockEntity
-			&& state.getBlock() instanceof ScorchedBlock scorchedBlock
-			&& scorchedBlock.canBrush
-		) {
-			if (scorchedBlockEntity.brush(level.getGameTime())) {
-				final EquipmentSlot slot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-				stack.hurtAndBreak(1, entity, slot);
-			}
-			return true;
-		}
-		return false;
+	private void wilderWild$brushScorchedBlocks(Level level, LivingEntity entity, ItemStack stack, BlockEntity blockEntity, BlockState state) {
+		if (level.isClientSide() || !(entity instanceof Player player)) return;
+		if (!(blockEntity instanceof ScorchedBlockEntity scorchedBlockEntity)) return;
+		if (!(state.getBlock() instanceof ScorchedBlock scorchedBlock) || !scorchedBlock.canBrush) return;
+		if (!scorchedBlockEntity.brush(level.getGameTime())) return;
+
+		final EquipmentSlot slot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
+		stack.hurtAndBreak(1, entity, slot);
 	}
 
 }

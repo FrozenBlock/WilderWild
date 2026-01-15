@@ -40,12 +40,12 @@ public class AbstractThrownPotionMixin {
 	)
 	public void wilderWild$onHit(
 		HitResult hitResult, CallbackInfo info,
-		@Local PotionContents potionContents
+		@Local(name = "potion") PotionContents potion
 	) {
 		if (!WWItemConfig.get().projectileLandingSounds.potionLandingSounds) return;
-		final AbstractThrownPotion potion = AbstractThrownPotion.class.cast(this);
-		potion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
-		if (potionContents.hasEffects()) potion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (potion.getRandom().nextFloat() * 0.2F));
+		final AbstractThrownPotion thrownPotion = AbstractThrownPotion.class.cast(this);
+		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
+		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
 	}
 
 }

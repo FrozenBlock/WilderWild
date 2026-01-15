@@ -45,15 +45,15 @@ public final class InstrumentItemMixin {
 		)
 	)
 	private static void wilderWild$playRestrictionSound(
-		Level level, Entity player, Entity entity, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original
+		Level level, Entity player, Entity entity, SoundEvent sound, SoundSource source, float volume, float pitch, Operation<Void> original
 	) {
 		if (WWItemConfig.get().restrictInstrumentSound) {
 			if (level.isClientSide()) return;
 			FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
 				level,
 				player,
-				BuiltInRegistries.SOUND_EVENT.get(soundEvent.location()).orElseThrow(),
-				soundSource,
+				BuiltInRegistries.SOUND_EVENT.get(sound.location()).orElseThrow(),
+				source,
 				volume,
 				pitch,
 				FrozenLibIntegration.INSTRUMENT_SOUND_PREDICATE,
@@ -61,7 +61,7 @@ public final class InstrumentItemMixin {
 			);
 			return;
 		}
-		original.call(level, player, entity, soundEvent, soundSource, volume, pitch);
+		original.call(level, player, entity, sound, source, volume, pitch);
 	}
 
 	@WrapWithCondition(

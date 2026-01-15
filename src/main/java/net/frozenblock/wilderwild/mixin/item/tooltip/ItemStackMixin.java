@@ -58,11 +58,11 @@ public abstract class ItemStackMixin {
 		TooltipDisplay display,
 		Player player,
 		TooltipFlag flag,
-		Consumer<Component> consumer,
+		Consumer<Component> builder,
 		CallbackInfo info
 	) {
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR, context, display, consumer, flag);
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT, context, display, consumer, flag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR, context, display, builder, flag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT, context, display, builder, flag);
 	}
 
 	@Unique
@@ -70,12 +70,12 @@ public abstract class ItemStackMixin {
 		DataComponentType<Holder<T>> type,
 		Item.TooltipContext context,
 		TooltipDisplay display,
-		Consumer<Component> consumer,
+		Consumer<Component> builder,
 		TooltipFlag flag
 	) {
 		final Holder<T> possibleVariantHolder = ItemStack.class.cast(this).get(type);
 		if (possibleVariantHolder == null || !(possibleVariantHolder.value() instanceof TooltipProvider tooltipProvider) || !(display.shows(type))) return;
-		tooltipProvider.addToTooltip(context, consumer, flag, this.components);
+		tooltipProvider.addToTooltip(context, builder, flag, this.components);
 	}
 
 }

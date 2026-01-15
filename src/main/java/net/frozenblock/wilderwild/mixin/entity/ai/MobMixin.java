@@ -29,15 +29,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Mob.class)
-public class MobMixin {
+public abstract class MobMixin {
 
 	@Shadow
-	public void setPathfindingMalus(PathType pathType, float malus) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild MobMixin.");
-	}
+	public abstract void setPathfindingMalus(PathType pathType, float cost);
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> entityType, Level level, CallbackInfo info) {
+	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> type, Level level, CallbackInfo info) {
 		if (WWEntityConfig.get().unpassableRail) this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 	}
 

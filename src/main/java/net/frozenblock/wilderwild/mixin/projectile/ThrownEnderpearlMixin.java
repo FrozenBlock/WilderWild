@@ -44,7 +44,8 @@ public class ThrownEnderpearlMixin {
 	)
 	public void wilderWild$onHitWithServerPlayer(
 		HitResult hitResult, CallbackInfo info,
-		@Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) ServerPlayer owner
+		@Local(name = "level") ServerLevel level,
+		@Local(name = "player") ServerPlayer player
 	) {
 		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
 
@@ -52,9 +53,9 @@ public class ThrownEnderpearlMixin {
 		if (pearl.isSilent()) return;
 
 		final float pitch = 0.9F + (level.getRandom().nextFloat() * 0.2F);
-		level.playSound(owner, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, owner.getSoundSource(), 0.6F, pitch);
+		level.playSound(player, pearl.getX(), pearl.getY(), pearl.getZ(), WWSounds.ITEM_ENDER_PEARL_LAND, player.getSoundSource(), 0.6F, pitch);
 		FrozenLibSoundPackets.createAndSendLocalPlayerSound(
-			owner,
+			player,
 			BuiltInRegistries.SOUND_EVENT.get(WWSounds.ITEM_ENDER_PEARL_LAND.location()).orElseThrow(),
 			0.6F,
 			pitch
@@ -70,7 +71,8 @@ public class ThrownEnderpearlMixin {
 	)
 	public void wilderWild$onHitWithoutServerPlayer(
 		HitResult result, CallbackInfo info,
-		@Local(ordinal = 0) ServerLevel level, @Local(ordinal = 0) Entity owner
+		@Local(name = "level") ServerLevel level,
+		@Local(name = "owner") Entity owner
 	) {
 		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
 
