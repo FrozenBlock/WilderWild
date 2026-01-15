@@ -17,51 +17,49 @@
 
 package net.frozenblock.wilderwild.mixin.client.enderman;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.sound.client.api.sounds.RestrictedMovingSound;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(EnderMan.class)
 public class EnderManMixin {
 
-	@Shadow
-	private int lastStareSound;
-
-	@Inject(method = "playStareSound", at = @At(value = "HEAD"), cancellable = true)
-	public void wilderWild$playStareSound(CallbackInfo info) {
-		if (!WWEntityConfig.get().enderMan.movingStareSound) return;
-		info.cancel();
-		final EnderMan enderman = EnderMan.class.cast(this);
-		if (enderman.tickCount >= this.lastStareSound + 400) {
-			this.lastStareSound = enderman.tickCount;
-			if (!enderman.isSilent()) wilderWild$playClientEnderManSound(EnderMan.class.cast(this));
+	@WrapOperation(
+		method = "playStareSound",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"
+		)
+	)
+	public void wilderWild$playStareSound(
+		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean delayed, Operation<Void> original
+	) {
+		if (!WWEntityConfig.get().enderMan.movingStareSound) {
+			original.call(instance, x, y, z, sound, source, volume, pitch, delayed);
+			return;
 		}
-	}
 
-	@Unique
-	private static void wilderWild$playClientEnderManSound(EnderMan enderMan) {
-		final Minecraft client = Minecraft.getInstance();
-		if (client.level == null || !enderMan.isAlive()) return;
-		client.getSoundManager().play(
+		final Minecraft minecraft = Minecraft.getInstance();
+		if (minecraft.level == null) return;
+		minecraft.getSoundManager().play(
 			new RestrictedMovingSound<>(
-				enderMan,
-				SoundEvents.ENDERMAN_STARE,
-				SoundSource.HOSTILE,
-				2.5F,
-				1F,
+				EnderMan.class.cast(this),
+				sound,
+				source,
+				volume,
+				pitch,
 				SoundPredicate.notSilentAndAlive(),
 				true
 			)

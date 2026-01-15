@@ -202,69 +202,25 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.add(WWBlocks.PHLOX.asItem())
 			.add(WWBlocks.LANTANAS.asItem());
 
-		this.valueLookupBuilder(ItemTags.ACACIA_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
-
-		this.valueLookupBuilder(ItemTags.BIRCH_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_BIRCH_LOGS);
-
-		this.valueLookupBuilder(ItemTags.CHERRY_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_CHERRY_LOGS);
-
-		this.valueLookupBuilder(ItemTags.CRIMSON_STEMS)
-			.addOptionalTag(WWItemTags.HOLLOWED_CRIMSON_STEMS);
-
-		this.valueLookupBuilder(ItemTags.DARK_OAK_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_DARK_OAK_LOGS);
-
-		this.valueLookupBuilder(ItemTags.JUNGLE_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_JUNGLE_LOGS);
-
-		this.valueLookupBuilder(ItemTags.ACACIA_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
-
-		this.valueLookupBuilder(ItemTags.MANGROVE_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_MANGROVE_LOGS);
-
-		this.valueLookupBuilder(ItemTags.OAK_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_OAK_LOGS);
-
-		this.valueLookupBuilder(ItemTags.ACACIA_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS);
-
-		this.valueLookupBuilder(ItemTags.SPRUCE_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_SPRUCE_LOGS);
-
-		this.valueLookupBuilder(ItemTags.WARPED_STEMS)
-			.addOptionalTag(WWItemTags.HOLLOWED_WARPED_STEMS);
-
 		this.valueLookupBuilder(WWItemTags.BAOBAB_LOGS)
 			.add(WWBlocks.BAOBAB_LOG.asItem(), WWBlocks.STRIPPED_BAOBAB_LOG.asItem())
-			.add(WWBlocks.BAOBAB_WOOD.asItem(), WWBlocks.STRIPPED_BAOBAB_WOOD.asItem())
-			.addOptionalTag(WWItemTags.HOLLOWED_BAOBAB_LOGS);
+			.add(WWBlocks.BAOBAB_WOOD.asItem(), WWBlocks.STRIPPED_BAOBAB_WOOD.asItem());
 
 		this.valueLookupBuilder(WWItemTags.WILLOW_LOGS)
 			.add(WWBlocks.WILLOW_LOG.asItem(), WWBlocks.STRIPPED_WILLOW_LOG.asItem())
-			.add(WWBlocks.WILLOW_WOOD.asItem(), WWBlocks.STRIPPED_WILLOW_WOOD.asItem())
-			.addOptionalTag(WWItemTags.HOLLOWED_WILLOW_LOGS);
+			.add(WWBlocks.WILLOW_WOOD.asItem(), WWBlocks.STRIPPED_WILLOW_WOOD.asItem());
 
 		this.valueLookupBuilder(WWItemTags.CYPRESS_LOGS)
 			.add(WWBlocks.CYPRESS_LOG.asItem(), WWBlocks.STRIPPED_CYPRESS_LOG.asItem())
-			.add(WWBlocks.CYPRESS_WOOD.asItem(), WWBlocks.STRIPPED_CYPRESS_WOOD.asItem())
-			.addOptionalTag(WWItemTags.HOLLOWED_CYPRESS_LOGS);
+			.add(WWBlocks.CYPRESS_WOOD.asItem(), WWBlocks.STRIPPED_CYPRESS_WOOD.asItem());
 
 		this.valueLookupBuilder(WWItemTags.PALM_LOGS)
 			.add(WWBlocks.PALM_LOG.asItem(), WWBlocks.STRIPPED_PALM_LOG.asItem())
-			.add(WWBlocks.PALM_WOOD.asItem(), WWBlocks.STRIPPED_PALM_WOOD.asItem())
-			.addOptionalTag(WWItemTags.HOLLOWED_PALM_LOGS);
+			.add(WWBlocks.PALM_WOOD.asItem(), WWBlocks.STRIPPED_PALM_WOOD.asItem());
 
 		this.valueLookupBuilder(WWItemTags.MAPLE_LOGS)
 			.add(WWBlocks.MAPLE_LOG.asItem(), WWBlocks.STRIPPED_MAPLE_LOG.asItem())
-			.add(WWBlocks.MAPLE_WOOD.asItem(), WWBlocks.STRIPPED_MAPLE_WOOD.asItem())
-			.addOptionalTag(WWItemTags.HOLLOWED_MAPLE_LOGS);
-
-		this.valueLookupBuilder(ItemTags.PALE_OAK_LOGS)
-			.addOptionalTag(WWItemTags.HOLLOWED_PALE_OAK_LOGS);
+			.add(WWBlocks.MAPLE_WOOD.asItem(), WWBlocks.STRIPPED_MAPLE_WOOD.asItem());
 
 		this.valueLookupBuilder(ItemTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES.asItem())

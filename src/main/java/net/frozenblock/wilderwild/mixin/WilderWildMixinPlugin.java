@@ -93,7 +93,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("entity.allay.")) return this.mixinsConfig.entity_allay;
 		if (mixinClassName.contains("entity.boat.")) return this.mixinsConfig.entity_boat;
 		if (mixinClassName.contains("entity.easter.")) return this.mixinsConfig.entity_easter;
-		if (mixinClassName.contains("entity.enderman.")) return this.mixinsConfig.entity_enderman;
 		if (mixinClassName.contains("entity.experience.")) return this.mixinsConfig.entity_experience;
 		if (mixinClassName.contains("entity.firefly.")) return this.mixinsConfig.entity_firefly;
 		if (mixinClassName.contains("entity.lightning.")) return this.mixinsConfig.entity_lightning;

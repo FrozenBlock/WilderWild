@@ -670,8 +670,6 @@
     "tooltip.wilderwild.crab_claw_gives_reach": "Чи нададуть клешні краба розширенe досяжність під час тримання.",
     "option.wilderwild.enderman": "Ендермен",
     "tooltip.wilderwild.enderman": "Містить налаштування для ендермена.",
-    "option.wilderwild.anger_loop_sound": "Зациклений звук гніву",
-    "tooltip.wilderwild.anger_loop_sound": "Чи відтворить ендермен зациклений звук гніву, коли його ціль буде встановлено.",
     "option.wilderwild.moving_stare_sound": "Звук рухомого погляду",
     "tooltip.wilderwild.moving_stare_sound": "Чи повинні звуки погляду ендермена рухатися\nразом з ендерменом і чи можна їх зупинити раніше.",
     "option.wilderwild.firefly": "Світляк",

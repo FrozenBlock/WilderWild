@@ -59,7 +59,6 @@
     "entity.easter.EntityMixin",
     "entity.easter.FrogMixin",
     "entity.easter.GoatMixin",
-    "entity.enderman.EnderManMixin",
     "entity.firefly.FireflyBushMixin",
     "entity.firework_rocket.FireworkRocketEntityMixin",
     "entity.lightning.LightningBoltMixin",

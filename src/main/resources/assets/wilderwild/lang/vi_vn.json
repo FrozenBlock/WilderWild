@@ -590,8 +590,6 @@
     "tooltip.wilderwild.reach_affects_attack": "Liệu hiệu ứng Tăng Tầm có ảnh hưởng đến phạm vi tấn công của người chơi hay không.",
     "option.wilderwild.enderman": "Enderman",
     "tooltip.wilderwild.enderman": "Chứa các tùy chọn cho Enderman.",
-    "option.wilderwild.anger_loop_sound": "Âm Thanh Tức Giận Lặp Lại",
-    "tooltip.wilderwild.anger_loop_sound": "Liệu Endermen sẽ bắt đầu một vòng lặp âm thanh tức giận khi mục tiêu của chúng được đặt hay không.",
     "option.wilderwild.moving_stare_sound": "Âm Thanh Nhìn Chuyển Động",
     "tooltip.wilderwild.moving_stare_sound": "Liệu âm thanh nhìn của Enderman sẽ di chuyển theo cùng Enderman và có thể dừng sớm hay không.",
     "option.wilderwild.firefly": "Đom Đóm",

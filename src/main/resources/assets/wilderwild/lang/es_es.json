@@ -667,8 +667,6 @@
     "tooltip.wilderwild.keyframe_allay_dance": "Reemplaza la animación de baile original de los allay por una nueva versión",
     "option.wilderwild.enderman": "Enderman",
     "tooltip.wilderwild.enderman": "Opciones relativas a los aspectos sonoros de los enderman",
-    "option.wilderwild.anger_loop_sound": "Habilitar reproducción continua de sonidos agresivos",
-    "tooltip.wilderwild.anger_loop_sound": "Habilita la reproducción continua de sonidos de los enderman cuando entran en estado de agresividad",
     "option.wilderwild.moving_stare_sound": "Corregir fuente de sonidos agresivos",
     "tooltip.wilderwild.moving_stare_sound": "Corrige la fuente de sonidos agresivos de los enderman, vinculándola a su posición relativa en vez de a la posición del jugador",
     "option.wilderwild.firefly": "Luciérnagas",

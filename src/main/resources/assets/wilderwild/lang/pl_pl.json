@@ -670,8 +670,6 @@
     "tooltip.wilderwild.reach_affects_attack": "Czy mikstura zwiększonego zasięgu\npowinna wpływać na zasięg w walce wręcz.",
     "option.wilderwild.enderman": "Enderman",
     "tooltip.wilderwild.enderman": "Opcje dotyczące endermanów.",
-    "option.wilderwild.anger_loop_sound": "Dźwięk gniewu",
-    "tooltip.wilderwild.anger_loop_sound": "Czy enderman będzię wydawał zapętlony dźwięk gniewu po znalezieniu celu.",
     "option.wilderwild.moving_stare_sound": "Dźwięk gapienia się",
     "tooltip.wilderwild.moving_stare_sound": "Czy źródło tego dźwięku będzie się poruszać\nwraz z endermanem mając możliwość bycia wcześnie zatrzymanym.",
     "option.wilderwild.firefly": "Świetlik",

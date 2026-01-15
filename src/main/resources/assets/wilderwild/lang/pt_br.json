@@ -451,8 +451,6 @@
     "tooltip.wilderwild.reach_affects_attack": "Whether the Reach Boost effect will\nimpact the Player's attack range.",
     "option.wilderwild.enderman": "Enderman",
     "tooltip.wilderwild.enderman": "Contains options for the Enderman.",
-    "option.wilderwild.anger_loop_sound": "Anger Loop Sound",
-    "tooltip.wilderwild.anger_loop_sound": "Whether Endermen will start an anger sound loop when their target is set.",
     "option.wilderwild.moving_stare_sound": "Moving Stare Sound",
     "tooltip.wilderwild.moving_stare_sound": "Whether Enderman stare sounds will move\nwith the Enderman and able to be stopped early.",
     "option.wilderwild.firefly": "Firefly",
