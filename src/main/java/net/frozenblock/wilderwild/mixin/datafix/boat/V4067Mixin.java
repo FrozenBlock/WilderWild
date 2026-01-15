@@ -33,12 +33,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class V4067Mixin {
 
 	@Shadow
-	protected abstract void registerChestBoat(Map<String, Supplier<TypeTemplate>> map, String string);
+	protected abstract void registerChestBoat(Map<String, Supplier<TypeTemplate>> map, String id);
 
 	@Inject(method = "registerEntities", at = @At("RETURN"))
 	public void wilderWild$registerBlockEntities(
 		Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> info,
-		@Local Map<String, Supplier<TypeTemplate>> map
+		@Local(name = "map") Map<String, Supplier<TypeTemplate>> map
 	) {
 		schema.registerSimple(map, "wilderwild:baobab_boat");
 		schema.registerSimple(map, "wilderwild:cypress_boat");

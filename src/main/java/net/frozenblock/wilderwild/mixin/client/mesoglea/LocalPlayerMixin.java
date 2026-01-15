@@ -32,6 +32,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvent;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -70,7 +71,8 @@ public class LocalPlayerMixin {
 		method = "updateIsUnderwater",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/sounds/SoundEvents;AMBIENT_UNDERWATER_ENTER:Lnet/minecraft/sounds/SoundEvent;"
+			target = "Lnet/minecraft/sounds/SoundEvents;AMBIENT_UNDERWATER_ENTER:Lnet/minecraft/sounds/SoundEvent;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public SoundEvent wilderWild$replaceWaterEnterSoundIfInMesoglea(
@@ -89,18 +91,19 @@ public class LocalPlayerMixin {
 		)
 	)
 	public SoundEngine.PlayResult wilderWild$replaceLoopSoundIfInMesoglea(
-		SoundManager instance, SoundInstance soundInstance, Operation<SoundEngine.PlayResult> original,
+		SoundManager instance, SoundInstance sound, Operation<SoundEngine.PlayResult> original,
 		@Share("wilderWild$isInMesoglea") LocalBooleanRef isInMesoglea
 	) {
-		if (isInMesoglea.get()) soundInstance = new MesogleaAmbientSoundInstance(LocalPlayer.class.cast(this));
-		return original.call(instance, soundInstance);
+		if (isInMesoglea.get()) sound = new MesogleaAmbientSoundInstance(LocalPlayer.class.cast(this));
+		return original.call(instance, sound);
 	}
 
 	@ModifyExpressionValue(
 		method = "updateIsUnderwater",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/sounds/SoundEvents;AMBIENT_UNDERWATER_EXIT:Lnet/minecraft/sounds/SoundEvent;"
+			target = "Lnet/minecraft/sounds/SoundEvents;AMBIENT_UNDERWATER_EXIT:Lnet/minecraft/sounds/SoundEvent;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public SoundEvent wilderWild$replaceWaterExitSoundIfInMesoglea(

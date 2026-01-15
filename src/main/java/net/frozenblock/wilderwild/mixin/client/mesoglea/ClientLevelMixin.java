@@ -51,7 +51,7 @@ public class ClientLevelMixin {
 	)
 	public ParticleOptions wilderWild$useMesogleaDripParticle(
 		ParticleOptions original,
-		@Local BlockState state,
+		@Local(name = "state") BlockState state,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
 		if (state.getBlock() instanceof MesogleaBlock mesoglea) {
@@ -90,18 +90,18 @@ public class ClientLevelMixin {
 		)
 	)
 	private Particle wilderWild$replaceWithMesogleaParticles(
-		ParticleEngine instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Particle> original
+		ParticleEngine instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd, Operation<Particle> original
 	) {
 		final ClientLevel level = ClientLevel.class.cast(this);
-		if (particleOptions.equals(ParticleTypes.BUBBLE)) {
-			final BlockState state = level.getBlockState(BlockPos.containing(d, e, f));
-			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getBubbleParticle();
-		} else if (particleOptions.equals(ParticleTypes.SPLASH)) {
-			final BlockState state = level.getBlockState(BlockPos.containing(d, e, f));
-			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) particleOptions = mesogleaBlock.getSplashParticle();
+		if (options.equals(ParticleTypes.BUBBLE)) {
+			final BlockState state = level.getBlockState(BlockPos.containing(x, y, z));
+			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) options = mesogleaBlock.getBubbleParticle();
+		} else if (options.equals(ParticleTypes.SPLASH)) {
+			final BlockState state = level.getBlockState(BlockPos.containing(x, y, z));
+			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) options = mesogleaBlock.getSplashParticle();
 		}
 
-		return original.call(instance, particleOptions, d, e, f, g, h, i);
+		return original.call(instance, options, x, y, z, xd, yd, zd);
 	}
 
 }

@@ -37,7 +37,7 @@ public class V3328Mixin {
 	@Inject(method = "registerEntities", at = @At("RETURN"))
 	public void wilderWild$registerEntities(
 		Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> info,
-		@Local Map<String, Supplier<TypeTemplate>> map
+		@Local(name = "map") Map<String, Supplier<TypeTemplate>> map
 	) {
 		schema.registerSimple(
 			map,

@@ -58,10 +58,10 @@ public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRen
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$addStellaLayers(
 		EntityRendererProvider.Context context, CallbackInfo info,
-		@Local(ordinal = 0) WardenModel bioluminescentModel,
-		@Local(ordinal = 1) WardenModel pulsatingSpotsModel,
-		@Local(ordinal = 2) WardenModel tendrilsModel,
-		@Local(ordinal = 3) WardenModel heartModel
+		@Local(name = "bioluminescentModel") WardenModel bioluminescentModel,
+		@Local(name = "pulsatingSpotsModel") WardenModel pulsatingSpotsModel,
+		@Local(name = "tendrilsModel") WardenModel tendrilsModel,
+		@Local(name = "heartModel") WardenModel heartModel
 	) {
 		this.addLayer(
 			new StellaWardenLayer(

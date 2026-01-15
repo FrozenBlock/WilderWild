@@ -35,7 +35,7 @@ public class MobMixin {
 		)
 	)
 	public boolean wilderWild$checkSpawnObstruction(boolean original) {
-		if (!(Mob.class.cast(this) instanceof Mob mob) || mob.getType() != EntityType.SLIME) return  original;
+		if (!(Mob.class.cast(this) instanceof Mob mob) || mob.getType() != EntityType.SLIME) return original;
 		return original && !AlgaeBlock.hasNearbyAlgae(mob.level(), mob.blockPosition(), 1, 3);
 	}
 

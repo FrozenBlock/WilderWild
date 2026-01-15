@@ -37,7 +37,7 @@ public class V3438Mixin {
 	@Inject(method = "registerBlockEntities", at = @At("RETURN"))
 	public void wilderWild$registerBlockEntities(
 		Schema schema, CallbackInfoReturnable<Map<String, Supplier<TypeTemplate>>> info,
-		@Local Map<String, Supplier<TypeTemplate>> map
+		@Local(name = "map") Map<String, Supplier<TypeTemplate>> map
 	) {
 		schema.register(
 			map,

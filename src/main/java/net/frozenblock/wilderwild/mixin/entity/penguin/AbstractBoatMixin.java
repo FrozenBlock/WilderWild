@@ -44,8 +44,8 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	private static final EntityDataAccessor<Boolean> WILDER_WILD$BOOSTED = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.BOOLEAN);
 
-	public AbstractBoatMixin(EntityType<?> entityType, Level level) {
-		super(entityType, level);
+	public AbstractBoatMixin(EntityType<?> type, Level level) {
+		super(type, level);
 	}
 
 	@Inject(method = "defineSynchedData", at = @At("TAIL"))

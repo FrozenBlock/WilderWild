@@ -44,9 +44,9 @@ public class SuspendedParticleUnderwaterProviderMixin {
 	)
 	public void wilderWild$changeColorToMesoglea(
 		SuspendedParticle instance, float r, float g, float b, Operation<Void> original,
-		SimpleParticleType simpleParticleType, ClientLevel clientLevel, double x, double y, double z
+		SimpleParticleType particleType, ClientLevel level, double x, double y, double z
 	) {
-		final BlockState state = clientLevel.getBlockState(BlockPos.containing(x, y, z));
+		final BlockState state = level.getBlockState(BlockPos.containing(x, y, z));
 		if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) {
 			final int mesogleaColor = mesogleaBlock.getWaterFogColorOverride().rgba();
 			r = ARGB.red(mesogleaColor) / 255F;

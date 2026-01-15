@@ -35,7 +35,7 @@ public class FireflyBushMixin {
 			target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"
 		)
 	)
-	public boolean wilderWild$animateTick(Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i) {
+	public boolean wilderWild$animateTick(Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd) {
 		return WWEntityConfig.Client.SPAWN_FIREFLY_PARTICLES;
 	}
 

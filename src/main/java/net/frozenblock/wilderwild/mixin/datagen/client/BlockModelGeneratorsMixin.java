@@ -39,7 +39,7 @@ public class BlockModelGeneratorsMixin {
 	@Shadow
 	@Final
 	@Mutable
-	static Map<Block, BlockModelGenerators.BlockStateGeneratorSupplier> FULL_BLOCK_MODEL_CUSTOM_GENERATORS;
+	private static Map<Block, BlockModelGenerators.BlockStateGeneratorSupplier> FULL_BLOCK_MODEL_CUSTOM_GENERATORS;
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void wilderWild$addRotatedGabbroGeneration(CallbackInfo info) {

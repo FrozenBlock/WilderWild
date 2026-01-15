@@ -40,7 +40,11 @@ public class FireworkRocketEntityMixin {
 
 	@WrapOperation(
 		method = "tick",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/FireworkRocketEntity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V", ordinal = 0),
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/projectile/FireworkRocketEntity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V",
+			ordinal = 0
+		),
 		slice = @Slice(
 			from = @At(
 				value = "INVOKE",
@@ -48,14 +52,14 @@ public class FireworkRocketEntityMixin {
 			)
 		)
 	)
-	private void wilderWild$moveWithWind(FireworkRocketEntity instance, Vec3 vec3, Operation<Void> operation) {
-		if (FireworkRocketEntity.class.cast(this).level() instanceof ServerLevel serverLevel) {
+	private void wilderWild$moveWithWind(FireworkRocketEntity instance, Vec3 movement, Operation<Void> operation) {
+		if (FireworkRocketEntity.class.cast(this).level() instanceof ServerLevel level) {
 			double intensity = (Math.max(1, (double) (this.lifetime - this.life)) / Math.max(1, this.lifetime)) * 0.5D;
-			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
+			final Vec3 wind = WindManager.getOrCreateWindManager(level).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
 				.scale(WWAmbienceAndMiscConfig.getFireworkWindIntensity());
-			vec3 = vec3.add(wind.x() * 0.001D, wind.y() * 0.00005D, wind.z() * 0.001D);
+			movement = movement.add(wind.x() * 0.001D, wind.y() * 0.00005D, wind.z() * 0.001D);
 		}
-		operation.call(instance, vec3);
+		operation.call(instance, movement);
 	}
 
 }
