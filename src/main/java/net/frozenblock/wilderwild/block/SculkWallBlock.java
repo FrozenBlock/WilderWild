@@ -34,9 +34,9 @@ public class SculkWallBlock extends WallBlock implements SculkBuildingBlockBehav
 	}
 
 	@Override
-	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
-		super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-		if (dropExperience) this.tryDropExperience(level, pos, stack, EXPERIENCE);
+	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+		if (dropExperience) this.tryDropExperience(level, pos, tool, EXPERIENCE);
 	}
 
 	@Override

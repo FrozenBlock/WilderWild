@@ -505,8 +505,8 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(ConventionalBlockTags.GLASS_BLOCKS)
 			.add(WWBlocks.ECHO_GLASS);
 
-		this.valueLookupBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON)
-			.addOptionalTag(BlockTags.DRY_VEGETATION_MAY_PLACE_ON);
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_SHRUB)
+			.addOptionalTag(BlockTags.SUPPORTS_DRY_VEGETATION);
 
 		this.valueLookupBuilder(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)
 			.addOptionalTag(BlockTags.SAND)
@@ -521,6 +521,50 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_ALGAE);
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_PLANKTON);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_HANGING_BAOBAB_NUT)
+			.add(WWBlocks.BAOBAB_LEAVES);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_CATTAIL)
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
+			.addOptionalTag(WWBlockTags.CATTAIL_FEATURE_PLACEABLE);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_COCONUT)
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
+			.addOptionalTag(BlockTags.SAND);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_HANGING_COCONUT)
+			.add(WWBlocks.PALM_FRONDS);
+
+		this.valueLookupBuilder(BlockTags.CANNOT_SUPPORT_SEAGRASS)
+			.add(WWBlocks.GEYSER);
+
+		this.valueLookupBuilder(BlockTags.CANNOT_SUPPORT_KELP)
+			.add(WWBlocks.GEYSER);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_SUPPORT_SEA_ANEMONE)
+			.add(Blocks.MAGMA_BLOCK)
+			.add(WWBlocks.GEYSER);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_SUPPORT_SEA_WHIP)
+			.add(Blocks.MAGMA_BLOCK)
+			.add(WWBlocks.GEYSER);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_SUPPORT_TUBE_WORMS)
+			.add(Blocks.MAGMA_BLOCK)
+			.add(WWBlocks.GEYSER);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_FROZEN_VEGETATION)
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
+			.add(Blocks.SNOW_BLOCK);
+
+		this.valueLookupBuilder(WWBlockTags.SUPPORTS_WATERLOGGABLE_SAPLING)
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
+			.add(Blocks.CLAY)
+			.addOptionalTag(BlockTags.SAND);
 
 		this.valueLookupBuilder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(Blocks.LADDER)
@@ -905,7 +949,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(BlockTags.GEODE_INVALID_BLOCKS)
 			.add(WWBlocks.FRAGILE_ICE);
 
-		this.valueLookupBuilder(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON)
+		this.valueLookupBuilder(BlockTags.CANNOT_SUPPORT_SNOW_LAYER)
 			.add(WWBlocks.FRAGILE_ICE);
 
 		this.valueLookupBuilder(BlockTags.ICE)
@@ -1030,10 +1074,10 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(BlockTags.FROG_PREFER_JUMP_TO)
 			.add(WWBlocks.FLOWERING_LILY_PAD);
 
-		this.valueLookupBuilder(BlockTags.BIG_DRIPLEAF_PLACEABLE)
+		this.valueLookupBuilder(BlockTags.SUPPORTS_BIG_DRIPLEAF)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
-		this.valueLookupBuilder(BlockTags.SMALL_DRIPLEAF_PLACEABLE)
+		this.valueLookupBuilder(BlockTags.SUPPORTS_SMALL_DRIPLEAF)
 			.addOptionalTag(WWBlockTags.MESOGLEA);
 
 		this.valueLookupBuilder(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH)

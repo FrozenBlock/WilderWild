@@ -336,7 +336,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		final CraftingInput craftingInput = makeCraftInputForFlower(flowerBlock);
 		return level.recipeAccess()
 			.getRecipeFor(RecipeType.CRAFTING, craftingInput, level)
-			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput, level.registryAccess()))
+			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput))
 			.map(ItemStack::getItem)
 			.filter(DyeItem.class::isInstance)
 			.map(DyeItem.class::cast)
@@ -347,7 +347,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		final CraftingInput craftingInput = makeCraftInput(dyeColor, otherDyeColor);
 		return level.recipeAccess()
 			.getRecipeFor(RecipeType.CRAFTING, craftingInput, level)
-			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput, level.registryAccess()))
+			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput))
 			.map(ItemStack::getItem)
 			.filter(DyeItem.class::isInstance)
 			.map(DyeItem.class::cast)

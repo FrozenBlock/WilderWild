@@ -1,0 +1,13 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:supports_vegetation",
+      "required": false
+    },
+    "minecraft:clay",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    }
+  ]
+}

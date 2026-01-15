@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -71,7 +71,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(Blocks.MAGMA_BLOCK) && !state.is(WWBlocks.GEYSER);
+		return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(WWBlockTags.CANNOT_SUPPORT_SEA_ANEMONE);
 	}
 
 	@Nullable
@@ -84,15 +84,15 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		final BlockState updatedShape = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
-		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		final BlockState updatedShape = super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+		if (!updatedShape.isAir()) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		return updatedShape;
 	}
 
@@ -102,18 +102,18 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	protected void randomTick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
-		if (this.tryChangingState(state, level, blockPos, randomSource)) {
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (this.tryChangingState(state, level, pos, random)) {
 			level.sendParticles(
 				ParticleTypes.BUBBLE,
-				blockPos.getX() + 0.5D, blockPos.getY() + 0.5125D, blockPos.getZ() + 0.5D,
-				randomSource.nextInt(1, 3),
+				pos.getX() + 0.5D, pos.getY() + 0.5125D, pos.getZ() + 0.5D,
+				random.nextInt(1, 3),
 				0D, 0D, 0D,
 				0.05D
 			);
 		}
 
-		super.randomTick(state, level, blockPos, randomSource);
+		super.randomTick(state, level, pos, random);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, Fluid type) {
 		return false;
 	}
 
@@ -167,8 +167,8 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
-		final BlockState blockState = level.getBlockState(pos);
-		final FluidState fluidState = blockState.getFluidState();
-		return (blockState.is(Blocks.WATER) || (blockState.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
+		final BlockState state = level.getBlockState(pos);
+		final FluidState fluidState = state.getFluidState();
+		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.isFull();
 	}
 }

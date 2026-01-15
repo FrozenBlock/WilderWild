@@ -60,9 +60,9 @@ public class BaseFireBlockMixin {
 	)
 	public void wilderWild$magmaSmoke(
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
-		@Local(ordinal = 1) BlockState state2
+		@Local(name = "belowState") BlockState belowState
 	) {
-		if (!WWBlockConfig.FIRE_MAGMA_PARTICLES || !state2.is(Blocks.MAGMA_BLOCK)) return;
+		if (!WWBlockConfig.FIRE_MAGMA_PARTICLES || !belowState.is(Blocks.MAGMA_BLOCK)) return;
 		if (random.nextFloat() <= 0.0075F) {
 			level.addParticle(
 				ParticleTypes.LAVA,

@@ -186,7 +186,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() != Direction.Axis.Y) continue;
 			final BlockState state = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
-			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state.setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
 		}
 		return null;
 	}
@@ -216,23 +216,23 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		if (attachedDirection(state).getOpposite() == direction && !state.canSurvive(level, pos)) {
 			if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity lanternEntity) lanternEntity.spawnFireflies();
 			return Blocks.AIR.defaultBlockState();
 		}
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		level.updateNeighbourForOutputSignal(pos, state.getBlock());
 	}
 

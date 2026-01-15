@@ -40,6 +40,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
@@ -288,7 +289,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public ArrayList<ItemStack> nonAncientItems() {
 		final ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
-			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+			final CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 			if (!data.copyTag().contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
@@ -296,7 +297,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public ArrayList<ItemStack> ancientItems() {
 		final ArrayList<ItemStack> items = new ArrayList<>();
 		for (ItemStack item : this.getItems()) {
-			CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+			final CustomData data = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 			if (data.copyTag().contains("wilderwild_is_ancient") && !item.isEmpty()) items.add(item);
 		}
 		return items;
@@ -305,7 +306,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	private static void spawnBreakParticles(Level level, ItemStack stack, BlockPos pos) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		serverLevel.sendParticles(
-			new ItemParticleOption(ParticleTypes.ITEM, stack),
+			new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack)),
 			pos.getX() + 0.5D,
 			pos.getY() + BREAK_PARTICLE_Y_OFFSET,
 			pos.getZ() + 0.5D,

@@ -23,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import java.util.Set;
 
 public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
@@ -43,7 +44,12 @@ public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	@Override
-	protected MemoryModuleType<LivingEntity> getMemory() {
+	public Set<MemoryModuleType<?>> requires() {
+		return Set.of(this.getMemoryToSet(), MemoryModuleType.HAS_HUNTING_COOLDOWN);
+	}
+
+	@Override
+	protected MemoryModuleType<LivingEntity> getMemoryToSet() {
 		return MemoryModuleType.NEAREST_ATTACKABLE;
 	}
 }

@@ -62,13 +62,9 @@ public class FrostedIceBlockMixin {
 		if (level instanceof ServerLevel serverLevel) {
 			serverLevel.sendParticles(
 				new BlockParticleOption(ParticleTypes.BLOCK, state),
-				pos.getX() + 0.5D,
-				pos.getY() + 0.5D,
-				pos.getZ() + 0.5D,
+				pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
 				level.getRandom().nextInt(20, 30),
-				0.3F,
-				0.3F,
-				0.3F,
+				0.3F, 0.3F, 0.3F,
 				0.05D
 			);
 		}

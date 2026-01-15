@@ -23,11 +23,11 @@ import java.util.Objects;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -124,15 +124,15 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	@Nullable
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-		return Objects.requireNonNull(super.getStateForPlacement(ctx)).setValue(AGE, MAX_AGE);
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(AGE, MAX_AGE);
 	}
 
 	@Override
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos blockPos,
 		Direction direction,
 		BlockPos neighborPos,
@@ -141,7 +141,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	) {
 		if (!state.is(this) || state.canSurvive(level, blockPos)) {
 			if (!isHanging(state)) return Blocks.AIR.defaultBlockState();
-			scheduledTickAccess.scheduleTick(blockPos, this, this.getDelayAfterPlace());
+			ticks.scheduleTick(blockPos, this, this.getDelayAfterPlace());
 		}
 		return state;
 	}
@@ -161,11 +161,11 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return state.is(this) && isHanging(state) ? level.getBlockState(pos.above()).is(WWBlocks.PALM_FRONDS) : this.mayPlaceOn(level.getBlockState(pos.below()));
+		return state.is(this) && isHanging(state) ? level.getBlockState(pos.above()).is(WWBlockTags.SUPPORTS_HANGING_COCONUT) : this.mayPlaceOn(level.getBlockState(pos.below()));
 	}
 
 	protected boolean mayPlaceOn(BlockState state) {
-		return state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND) || state.is(BlockTags.SAND);
+		return state.is(WWBlockTags.SUPPORTS_COCONUT);
 	}
 
 	@Override
@@ -237,8 +237,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void onLand(Level level, BlockPos pos, BlockState state, BlockState replaceableState, FallingBlockEntity fallingBlock) {
-		if (!level.isClientSide()) level.setBlockAndUpdate(pos, replaceableState);
+	public void onLand(Level level, BlockPos pos, BlockState state, BlockState replacedBlock, FallingBlockEntity fallingBlock) {
+		if (!level.isClientSide()) level.setBlockAndUpdate(pos, replacedBlock);
 	}
 
 	@Override

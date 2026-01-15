@@ -17,9 +17,9 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -31,6 +31,6 @@ public class FrozenDoublePlantBlock extends DoublePlantBlock {
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return super.mayPlaceOn(state, level, pos) || state.is(Blocks.SNOW_BLOCK);
+		return state.is(WWBlockTags.SUPPORTS_FROZEN_VEGETATION);
 	}
 }

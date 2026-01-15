@@ -84,11 +84,11 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, @Nullable Entity user) {
 		if (level.isClientSide()) return true;
 		Tumbleweed.spawnFromShears(level, pos);
 		level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 		return true;
 	}
 
@@ -104,15 +104,15 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override

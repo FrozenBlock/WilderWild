@@ -35,8 +35,8 @@ public class PaleMushroomBlock extends MushroomBlock {
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
-	public PaleMushroomBlock(ResourceKey<ConfiguredFeature<?, ?>> resourceKey, Properties properties) {
-		super(resourceKey, properties);
+	public PaleMushroomBlock(ResourceKey<ConfiguredFeature<?, ?>> feature, Properties properties) {
+		super(feature, properties);
 	}
 
 	public static boolean isActive(Level level, BlockPos pos) {

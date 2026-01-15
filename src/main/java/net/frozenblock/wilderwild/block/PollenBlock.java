@@ -113,8 +113,8 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 		}
 
 		@Override
-		public boolean stateCanBeReplaced(BlockGetter view, BlockPos posA, BlockPos posB, Direction direction, BlockState state) {
-			return state.getFluidState().isEmpty() && super.stateCanBeReplaced(view, posA, posB, direction, state);
+		public boolean stateCanBeReplaced(BlockGetter level, BlockPos sourcePos, BlockPos placementPos, Direction placementDirection, BlockState existingState) {
+			return existingState.getFluidState().isEmpty() && super.stateCanBeReplaced(level, sourcePos, placementPos, placementDirection, existingState);
 		}
 	}
 }

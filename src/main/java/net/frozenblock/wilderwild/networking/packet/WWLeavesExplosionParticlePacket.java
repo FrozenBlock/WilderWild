@@ -37,7 +37,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWLeavesExplosionParticlePacket> CODEC = StreamCodec.ofMember(WWLeavesExplosionParticlePacket::write, WWLeavesExplosionParticlePacket::new);
 
 	public WWLeavesExplosionParticlePacket(RegistryFriendlyByteBuf buf) {
-		this(buf.readById(Block::stateById), buf.readBlockPos(), buf.readVec3(), buf.readList(Direction.STREAM_CODEC), buf.readVarInt());
+		this(buf.readById(Block::stateById), buf.readBlockPos(), Vec3.STREAM_CODEC.decode(buf), buf.readList(Direction.STREAM_CODEC), buf.readVarInt());
 	}
 
 	public static void sendToAll(BlockState state, BlockPos pos, Vec3 vec3, List<Direction> directions, int count, ServerLevel level) {
@@ -52,7 +52,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 	public void write(RegistryFriendlyByteBuf buf) {
 		buf.writeById(Block::getId, this.state);
 		buf.writeBlockPos(this.pos);
-		buf.writeVec3(this.velocity);
+		Vec3.STREAM_CODEC.encode(buf, this.velocity);
 		buf.writeCollection(this.directions, Direction.STREAM_CODEC);
 		buf.writeVarInt(this.count);
 	}

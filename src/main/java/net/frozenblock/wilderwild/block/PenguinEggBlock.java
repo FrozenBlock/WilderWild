@@ -94,8 +94,8 @@ public class PenguinEggBlock extends Block {
 		level.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, pos, 0);
 	}
 
-	private boolean shouldUpdateHatchLevel(Level level, BlockPos blockPos) {
-		if (!isSafeToHatch(level, blockPos.below())) return false;
+	private boolean shouldUpdateHatchLevel(Level level, BlockPos pos) {
+		if (!isSafeToHatch(level, pos.below())) return false;
 		return level.getRandom().nextInt(30) == 0;
 	}
 

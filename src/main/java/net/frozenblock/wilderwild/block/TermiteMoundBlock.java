@@ -77,7 +77,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos blockPos,
 		Direction direction,
 		BlockPos neighborPos,
@@ -88,7 +88,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false).setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
 		}
 
-		scheduledTickAccess.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
+		ticks.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 		return state;
 	}
 
@@ -98,13 +98,13 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) termiteMoundBlockEntity.termiteManager.clearTermites(level);
 	}
 
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		BlockState evaluatedState = this.evaluateMoundBlockStateAtPosition(state, level, pos);
+		final BlockState evaluatedState = this.evaluateMoundBlockStateAtPosition(state, level, pos);
 		if (evaluatedState != state) level.setBlockAndUpdate(pos, evaluatedState);
 		level.scheduleTick(pos, this, random.nextInt(MIN_TICK_DELAY, MAX_TICK_DELAY));
 	}

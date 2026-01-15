@@ -98,8 +98,8 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		Level level,
 		BlockPos pos,
 		Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier,
-		boolean bl
+		InsideBlockEffectApplier effectApplier,
+		boolean isPrecise
 	) {
 		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
 		if (!(entity instanceof ItemEntity)) entity.hurt(level.damageSources().cactus(), DAMAGE);
@@ -112,7 +112,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(BlockTags.SAND) || state.is(BlockTags.DIRT);
+		return state.is(BlockTags.SUPPORTS_DRY_VEGETATION);
 	}
 
 	@Override
@@ -140,43 +140,43 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		return InteractionResult.SUCCESS;
 	}
 
-	private static void basePick(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
+	private static void basePick(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity user) {
 		level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
-		if (level instanceof ServerLevel serverLevel) dropPricklyPear(serverLevel, stack, state, null, entity, pos);
+		if (level instanceof ServerLevel serverLevel) dropPricklyPear(serverLevel, stack, state, null, user, pos);
 	}
 
-	public static void onPlayerPick(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack stack) {
+	public static void onPlayerPick(Level level, BlockPos pos, BlockState state, Player user, InteractionHand hand, ItemStack stack) {
 		if (level.isClientSide()) return;
 
 		final boolean shears = stack.is(Items.SHEARS);
-		onPricklyPearPick(level, pos, state, shears, stack, player);
+		onPricklyPearPick(level, pos, state, shears, stack, user);
 		if (shears) {
-			stack.hurtAndBreak(1, player, hand);
+			stack.hurtAndBreak(1, user, hand);
 		} else {
-			player.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
+			user.hurt(level.damageSources().cactus(), USE_ON_DAMAGE);
 		}
 	}
 
-	public static void onPricklyPearPick(Level level, BlockPos pos, BlockState state, boolean shears, ItemStack stack, @Nullable Entity entity) {
-		basePick(level, pos, state, stack, entity);
+	public static void onPricklyPearPick(Level level, BlockPos pos, BlockState state, boolean shears, ItemStack stack, @Nullable Entity user) {
+		basePick(level, pos, state, stack, user);
 		if (level.isClientSide()) return;
 		if (shears) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
-			level.gameEvent(entity, GameEvent.SHEAR, pos);
+			level.gameEvent(user, GameEvent.SHEAR, pos);
 		} else {
 			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 		}
 	}
 
-	public static void dropPricklyPear(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
+	public static void dropPricklyPear(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_PRICKLY_PEAR,
 			state,
 			blockEntity,
 			stack,
-			entity,
+			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
 		);
 	}

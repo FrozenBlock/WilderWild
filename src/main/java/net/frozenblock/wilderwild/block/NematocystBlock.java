@@ -63,15 +63,15 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 			BlockState state,
 			BlockGetter level,
 			BlockPos pos,
+			Direction startingFace,
 			Direction spreadDirection,
-			Direction face,
-			MultifaceSpreader.SpreadPredicate predicate
+			MultifaceSpreader.SpreadPredicate canSpreadInto
 		) {
-			if (face.getAxis() == spreadDirection.getAxis()) return Optional.empty();
-			if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, spreadDirection) && !this.config.hasFace(state, face)) {
+			if (spreadDirection.getAxis() == startingFace.getAxis()) return Optional.empty();
+			if (this.config.isOtherBlockValidAsSource(state) || this.config.hasFace(state, startingFace) && !this.config.hasFace(state, spreadDirection)) {
 				for (MultifaceSpreader.SpreadType spreadType : this.config.getSpreadTypes()) {
-					final MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, face, spreadDirection);
-					if (predicate.test(level, pos, spreadPos)) return Optional.of(spreadPos);
+					final MultifaceSpreader.SpreadPos spreadPos = spreadType.getSpreadPos(pos, spreadDirection, startingFace);
+					if (canSpreadInto.test(level, pos, spreadPos)) return Optional.of(spreadPos);
 				}
 			}
 			return Optional.empty();

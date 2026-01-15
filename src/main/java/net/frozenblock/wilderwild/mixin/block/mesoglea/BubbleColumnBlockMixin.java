@@ -17,114 +17,53 @@
 
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BubbleColumnBlock.class)
-public abstract class BubbleColumnBlockMixin extends Block {
-
-	public BubbleColumnBlockMixin(Properties properties) {
-		super(properties);
-	}
+public class BubbleColumnBlockMixin {
 
 	@Inject(method = "getColumnState", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$getColumnState(BlockState state, CallbackInfoReturnable<BlockState> info) {
+	private static void wilderWild$getColumnState(Block bubbleColumn, BlockState belowState, BlockState occupyState, CallbackInfoReturnable<BlockState> info) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(state);
+		final Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(belowState);
 		dragDirection.ifPresent(direction -> info.setReturnValue(
-			Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
+			bubbleColumn.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
 		));
 	}
 
-	@ModifyExpressionValue(
-		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
+	@WrapOperation(
+		method = "updateColumn(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;canExistIn(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+			target = "Lnet/minecraft/world/level/block/BubbleColumnBlock;canOccupy(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/state/BlockState;)Z",
 			ordinal = 1
 		)
 	)
-	private static boolean wilderWild$updateColumnBooleanTweak(boolean original) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return true;
-		return original;
-	}
-
-	@Inject(
-		method = "updateColumn(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-			ordinal = 1,
-			shift = At.Shift.BEFORE
-		),
-		cancellable = true
-	)
-	private static void wilderWild$updateColumnIfStatement(
-		LevelAccessor level,
-		BlockPos pos,
-		BlockState fluid,
-		BlockState state,
-		CallbackInfo info,
-		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable
+	private static boolean wilderWild$transferToMesogleaBubbleColumn(
+		Block bubbleColumn, BlockState occupyState, Operation<Boolean> original,
+		@Local(argsOnly = true) LevelAccessor level,
+		@Local(name = "pos") BlockPos.MutableBlockPos pos
 	) {
-		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		final BlockState mutableState = level.getBlockState(mutable);
-		if (canExistIn(mutableState)) return;
-		MesogleaBlock.updateColumn(level, mutable, state);
-		info.cancel();
-	}
-
-	@Shadow
-	private static boolean canExistIn(BlockState state) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BubbleColumnBlockMixin.");
-	}
-
-	@Inject(method = "tick", at = @At("TAIL"))
-	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos.above(), state);
-	}
-
-	@Inject(
-		method = "updateShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;",
-			shift = At.Shift.BEFORE
-		)
-	)
-	public void wilderWild$updateShape(
-		BlockState state,
-		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
-		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
-		RandomSource random,
-		CallbackInfoReturnable<BlockState> info
-	) {
-		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
-		if (MesogleaBlock.hasBubbleColumn(neighborState)) scheduledTickAccess.scheduleTick(pos, BubbleColumnBlock.class.cast(this), 5);
+		// TODO: remove fix for waterlogged blocks once mojang fixes it lmao
+		final boolean canOccupy = original.call(bubbleColumn, occupyState) && occupyState.getBlock() instanceof LiquidBlock;
+		if (!canOccupy && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos, level.getBlockState(pos.immutable().below()));
+		return canOccupy;
 	}
 
 }

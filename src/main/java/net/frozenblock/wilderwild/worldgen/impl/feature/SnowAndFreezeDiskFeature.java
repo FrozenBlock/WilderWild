@@ -55,7 +55,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 		if (pos.getY() < level.getMinY() || pos.getY() >= level.getMaxY() || level.getBrightness(LightLayer.BLOCK, pos) >= 10) return false;
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
-		return fluidState.getType() == Fluids.WATER && state.getBlock() instanceof LiquidBlock;
+		return fluidState.is(Fluids.WATER) && state.getBlock() instanceof LiquidBlock;
 	}
 
 	@Override

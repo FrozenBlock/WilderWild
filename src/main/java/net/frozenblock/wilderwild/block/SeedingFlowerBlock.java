@@ -121,21 +121,21 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	public void onPlayerShear(
-		Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack stack
+		Level level, BlockPos pos, BlockState state, Player user, InteractionHand hand, ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
-		onShear(level, pos, state, player);
-		stack.hurtAndBreak(1, player, hand);
+		onShear(level, pos, state, user);
+		stack.hurtAndBreak(1, user, hand);
 	}
 
-	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
+	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity user) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 	}
 
 	public void spawnSeedsFrom(Level level, BlockPos pos, BlockState state, int minSeeds, int maxSeeds, Vec3 velocity) {
@@ -184,8 +184,8 @@ public class SeedingFlowerBlock extends FlowerBlock {
 		Level level,
 		BlockPos pos,
 		Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier,
-		boolean bl
+		InsideBlockEffectApplier effectApplier,
+		boolean isPrecise
 	) {
 		if (!level.isClientSide()) return;
 		final Vec3 movement = entity.getDeltaMovement();

@@ -31,13 +31,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.level.block.LilyPadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class FloweringWaterlilyBlock extends WaterlilyBlock {
+public class FloweringWaterlilyBlock extends LilyPadBlock {
 	private final Block nonFloweringBlock;
 
 	public FloweringWaterlilyBlock(Block nonFloweringBlock, Properties properties) {
@@ -71,19 +71,19 @@ public class FloweringWaterlilyBlock extends WaterlilyBlock {
 	}
 
 	public void onPlayerShear(
-		Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack stack
+		Level level, BlockPos pos, BlockState state, Player user, InteractionHand hand, ItemStack stack
 	) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
 		if (level.isClientSide()) return;
-		onShear(level, pos, state, player);
-		stack.hurtAndBreak(1, player, hand);
+		onShear(level, pos, state, user);
+		stack.hurtAndBreak(1, user, hand);
 	}
 
-	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity entity) {
+	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity user) {
 		level.setBlockAndUpdate(pos, this.getNonFloweringBlock().defaultBlockState());
 		if (level.isClientSide()) return;
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 	}
 }

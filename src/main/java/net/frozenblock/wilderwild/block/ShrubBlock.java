@@ -122,7 +122,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess tickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
@@ -138,7 +138,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 				return Blocks.AIR.defaultBlockState();
 			}
 		}
-		return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -179,35 +179,35 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
+	public boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity user) {
 		if (isMinimumAge(state)) return false;
 		if (level.isClientSide()) return true;
 
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		if (isFullyGrown(state)) {
-			if (level instanceof ServerLevel serverLevel) dropShrub(serverLevel, stack, state, null, entity, pos);
+			if (level instanceof ServerLevel serverLevel) dropShrub(serverLevel, stack, state, null, user, pos);
 		}
 		state = this.setAgeOnBothHalves(state, level, pos, state.getValue(AGE) - 1, true);
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 		this.removeTopHalfIfYoung(state, level, pos);
 		return true;
 	}
 
-	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
+	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity USER, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SHRUB,
 			state,
 			blockEntity,
 			stack,
-			entity,
+			USER,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
 		);
 	}
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return state.is(WWBlockTags.SHRUB_MAY_PLACE_ON) || super.mayPlaceOn(state, level, pos);
+		return state.is(WWBlockTags.SUPPORTS_SHRUB);
 	}
 
 	@Override
@@ -280,35 +280,26 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void playerDestroy(
-		Level level,
-		Player player,
-		BlockPos pos,
-		BlockState state,
-		@Nullable BlockEntity blockEntity,
-		ItemStack stack
-	) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
 		if (SnowloggingUtils.isSnowlogged(state)) {
 			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
 		} else {
-			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, stack);
+			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, destroyedWith);
 		}
 	}
 
-	public BlockState setAgeOnBothHalves(BlockState state, Level level, BlockPos pos, int age, boolean particles) {
+	public BlockState setAgeOnBothHalves(BlockState state, Level level, BlockPos pos, int age, boolean spawnParticles) {
 		final BlockState setState = state.setValue(AGE, age);
 		level.setBlockAndUpdate(pos, setState);
 		final BlockPos movedPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
 		final BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
-			if (particles) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
-			}
+			if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
 		}
 
-		if (particles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+		if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 		return setState;
 	}
 

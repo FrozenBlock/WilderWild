@@ -68,14 +68,14 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		state = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		state = super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 		if (state == null || !state.is(this)) return state;
 
 		state = state.setValue(
@@ -87,7 +87,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return super.mayPlaceOn(state, level, pos) || state.is(WWBlockTags.CATTAIL_FEATURE_PLACEABLE);
+		return state.is(WWBlockTags.SUPPORTS_CATTAIL);
 	}
 
 	@Override

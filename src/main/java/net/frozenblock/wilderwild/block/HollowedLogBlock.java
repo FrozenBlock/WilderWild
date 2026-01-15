@@ -129,12 +129,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		};
 	}
 
-	public static void registerAxeHollowBehavior(Block logBlock, Block hollowedLogBlock) {
-		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, false));
+	public static void registerAxeHollowBehavior(Block logBlock, Block hollowedLog) {
+		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLog, false));
 	}
 
-	public static void registerAxeHollowBehaviorStem(Block logBlock, Block hollowedLogBlock) {
-		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLogBlock, true));
+	public static void registerAxeHollowBehaviorStem(Block logBlock, Block hollowedLog) {
+		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLog, true));
 	}
 
 	public static void hollowEffects(Level level, Direction face, BlockState state, BlockPos pos, boolean isStem) {
@@ -229,16 +229,16 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		scheduledTickAccess.scheduleTick(pos, this, 1);
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		ticks.scheduleTick(pos, this, 1);
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override

@@ -139,6 +139,10 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 			.add(EntityType.MAGMA_CUBE)
 			.add(EntityType.GIANT);
 
+		this.builder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
+			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "wildfire")))
+			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "soul_blaze")));
+
 		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
 			.add(EntityType.PHANTOM)
 			.add(EntityType.BREEZE)

@@ -57,20 +57,20 @@ public abstract class ServerPlayerGameModeMixin {
 	)
 	public boolean wilderWild$destroyBlockB(
 		ServerLevel instance, BlockPos pos, boolean movedByPiston, Operation<Boolean> original,
-		@Local(ordinal = 1) BlockState destroyedState
+		@Local(name = "adjustedState") BlockState adjustedState
 	) {
-		if (SnowloggingUtils.isSnowlogged(destroyedState)) {
-			instance.setBlockAndUpdate(pos, destroyedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
+		if (SnowloggingUtils.isSnowlogged(adjustedState)) {
+			instance.setBlockAndUpdate(pos, adjustedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
 			return true;
 		}
-		if (destroyedState.getBlock() instanceof MesogleaBlock) {
+		if (adjustedState.getBlock() instanceof MesogleaBlock) {
 			instance.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 			return true;
 		}
-		if (destroyedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(destroyedState) && !this.getGameModeForPlayer().isCreative()) {
+		if (adjustedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(adjustedState) && !this.getGameModeForPlayer().isCreative()) {
 			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
-				EchoGlassBlock.setDamagedState(instance, pos, destroyedState);
+				EchoGlassBlock.setDamagedState(instance, pos, adjustedState);
 				return true;
 			}
 		}

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -48,8 +48,8 @@ public class BaobabNutBlock extends SaplingBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
-	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter((baobabNutBlock) -> baobabNutBlock.treeGrower),
+	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter(baobabNutBlock -> baobabNutBlock.treeGrower),
 		propertiesCodec()
 	).apply(instance, BaobabNutBlock::new));
 	public static final double HANGING_GROWTH_CHANCE = 0.4D;
@@ -99,7 +99,7 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return state.is(this) && (isHanging(state) ? level.getBlockState(pos.above()).is(WWBlocks.BAOBAB_LEAVES) : super.canSurvive(state, level, pos));
+		return state.is(this) && (isHanging(state) ? level.getBlockState(pos.above()).is(WWBlockTags.SUPPORTS_HANGING_BAOBAB_NUT) : super.canSurvive(state, level, pos));
 	}
 
 	@Override

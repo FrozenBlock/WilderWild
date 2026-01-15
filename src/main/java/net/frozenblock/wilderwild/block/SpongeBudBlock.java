@@ -101,26 +101,24 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	public static boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
+	public static boolean onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity user) {
 		final int age = state.getValue(AGE);
 		if (age <= 0) return false;
 		level.setBlockAndUpdate(pos, state.setValue(AGE, age - 1));
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-		if (level instanceof ServerLevel serverLevel) dropSpongeBud(serverLevel, stack, state, null, entity, pos);
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		if (level instanceof ServerLevel serverLevel) dropSpongeBud(serverLevel, stack, state, null, user, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 		return true;
 	}
 
-	public static void dropSpongeBud(
-		ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos
-	) {
+	public static void dropSpongeBud(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SPONGE_BUD,
 			state,
 			blockEntity,
 			stack,
-			entity,
+			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
 		);
 	}
@@ -139,12 +137,12 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		final BlockState insideState = context.getLevel().getBlockState(context.getClickedPos());
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
+		final BlockState insideState = level.getBlockState(pos);
 		if (insideState.is(this)) return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
 
-		boolean waterlogged = insideState.getValueOrElse(BlockStateProperties.WATERLOGGED, false);
-		if (!waterlogged) waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
-
+		final boolean waterlogged = insideState.getValueOrElse(BlockStateProperties.WATERLOGGED, false) || insideState.getFluidState().is(Fluids.WATER);
 		for (Direction direction : context.getNearestLookingDirections()) {
 			BlockState state;
 			if (direction.getAxis() == Direction.Axis.Y) {
@@ -159,7 +157,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 					.setValue(WATERLOGGED, waterlogged);
 			}
 
-			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state;
+			if (state.canSurvive(level, pos)) return state;
 		}
 		return null;
 	}
@@ -168,15 +166,15 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override

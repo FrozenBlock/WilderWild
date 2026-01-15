@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "wilderwild:gabbro",
   "result": {
-    "count": 1,
     "id": "wilderwild:gabbro_brick_stairs"
   }
 }

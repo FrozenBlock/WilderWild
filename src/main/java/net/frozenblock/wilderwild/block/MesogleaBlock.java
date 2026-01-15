@@ -34,6 +34,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
@@ -142,49 +143,46 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	public static boolean canColumnSurvive(LevelReader level, BlockPos pos) {
-		final BlockState state = level.getBlockState(pos.below());
-		return WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS && (
-			state.is(Blocks.BUBBLE_COLUMN) || state.is(Blocks.MAGMA_BLOCK) || state.is(Blocks.SOUL_SAND) || hasBubbleColumn(state)
-		);
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return false;
+		final BlockState belowState = level.getBlockState(pos.below());
+		return belowState.is(Blocks.BUBBLE_COLUMN)
+			|| belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_DRAG_DOWN)
+			|| belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_PUSH_UP)
+			|| hasBubbleColumn(belowState);
 	}
 
-	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState state) {
-		updateColumn(level, pos, level.getBlockState(pos), state);
+	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState belowState) {
+		updateColumn(level, pos, level.getBlockState(pos), belowState);
 	}
 
-	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState mesoglea, BlockState state) {
-		if (!canExistIn(mesoglea)) return;
-		level.setBlock(pos, getColumnState(mesoglea, state), UPDATE_CLIENTS);
+	public static void updateColumn(LevelAccessor level, BlockPos pos, BlockState occupyState, BlockState belowState) {
+		if (!canOccupy(occupyState)) return;
+		level.setBlock(pos, getColumnState(occupyState, belowState), UPDATE_CLIENTS);
 		final BlockPos.MutableBlockPos mutable = pos.mutable().move(Direction.UP);
 		BlockState mutableState;
 		while (true) {
 			mutableState = level.getBlockState(mutable);
-			if (canExistIn(mutableState)) {
-				if (!level.setBlock(mutable, getColumnState(mutableState, state), UPDATE_CLIENTS)) return;
+			if (canOccupy(mutableState)) {
+				if (!level.setBlock(mutable, getColumnState(mutableState, belowState), UPDATE_CLIENTS)) return;
 				mutable.move(Direction.UP);
 			} else {
-				BubbleColumnBlock.updateColumn(level, mutable, state);
+				BubbleColumnBlock.updateColumn(Blocks.BUBBLE_COLUMN, level, mutable, level.getBlockState(mutable.immutable().below()));
 				return;
 			}
 		}
 	}
 
-	private static BlockState getColumnState(BlockState mesogleaState, BlockState state) {
+	private static BlockState getColumnState(BlockState occupyState, BlockState belowState) {
 		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
-			//Remember, state is for the block below.
-			if (state.is(Blocks.BUBBLE_COLUMN)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, state.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
-			} else if (state.is(Blocks.SOUL_SAND)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.UP);
-			} else if (state.is(Blocks.MAGMA_BLOCK)) {
-				return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.DOWN);
-			}
+			if (belowState.is(Blocks.BUBBLE_COLUMN)) return occupyState.setValue(BUBBLE_DIRECTION, belowState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
+			if (belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_PUSH_UP)) return occupyState.setValue(BUBBLE_DIRECTION, BubbleDirection.UP);
+			if (belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_DRAG_DOWN)) return occupyState.setValue(BUBBLE_DIRECTION, BubbleDirection.DOWN);
 		}
-		return mesogleaState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
+		return occupyState.setValue(BUBBLE_DIRECTION, BubbleDirection.NONE);
 	}
 
-	private static boolean canExistIn(BlockState state) {
-		return isColumnSupportingMesoglea(state) && state.getFluidState().getAmount() >= FluidState.AMOUNT_FULL && state.getFluidState().isSource();
+	private static boolean canOccupy(BlockState state) {
+		return isColumnSupportingMesoglea(state) && state.getFluidState().isFull() && state.getFluidState().isSource();
 	}
 
 	@Override
@@ -234,8 +232,8 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		Level level,
 		BlockPos pos,
 		Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier,
-		boolean bl
+		InsideBlockEffectApplier effectApplier,
+		boolean isPrecise
 	) {
 		final Optional<Direction> dragDirection = getDragDirection(state);
 		if (this.isPearlescent()) {
@@ -255,6 +253,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 			}
 		}
 
+		if (!isPrecise) return;
 		if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
 
 		final BlockState aboveState = level.getBlockState(pos.above());
@@ -390,24 +389,24 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		updateColumn: {
 			if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) break updateColumn;
 			scheduleColumnTick:{
 				if (!hasBubbleColumn(state)) break scheduleColumnTick;
-				if (!(!canColumnSurvive(level, pos) || direction.getAxis().isVertical() && !hasBubbleColumn(neighborState) && canExistIn(neighborState))) break scheduleColumnTick;
-				scheduledTickAccess.scheduleTick(pos, this, TICK_DELAY);
+				if (!(!canColumnSurvive(level, pos) || direction.getAxis().isVertical() && !hasBubbleColumn(neighborState) && canOccupy(neighborState))) break scheduleColumnTick;
+				ticks.scheduleTick(pos, this, TICK_DELAY);
 			}
-			if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) scheduledTickAccess.scheduleTick(pos, this, TICK_DELAY);
+			if (direction == Direction.DOWN && neighborState.is(Blocks.BUBBLE_COLUMN)) ticks.scheduleTick(pos, this, TICK_DELAY);
 		}
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -419,7 +418,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
 		updateColumn(level, pos, state, level.getBlockState(pos.below()));
-		BubbleColumnBlock.updateColumn(level, pos.above(), state);
 	}
 
 	@Override

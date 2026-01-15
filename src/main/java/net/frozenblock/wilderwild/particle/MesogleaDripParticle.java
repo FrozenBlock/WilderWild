@@ -87,7 +87,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		this.zd *= 0.98F;
 		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
 		final FluidState fluidState = this.level.getFluidState(pos);
-		if (fluidState.getType() == Fluids.WATER && this.y < (double) ((float) pos.getY() + fluidState.getHeight(this.level, pos))) this.remove();
+		if (fluidState.is(Fluids.WATER) && this.y < (double) ((float) pos.getY() + fluidState.getHeight(this.level, pos))) this.remove();
 	}
 
 	@Override

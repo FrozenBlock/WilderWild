@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#minecraft:dry_vegetation_may_place_on",
+      "id": "#minecraft:supports_dry_vegetation",
       "required": false
     }
   ]

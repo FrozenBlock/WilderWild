@@ -3787,7 +3787,7 @@ public final class WWConfiguredFeatures {
 						BlockPredicate.replaceable(),
 						BlockPredicate.noFluid(),
 						// TODO: Maybe remove sand again
-						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON)
+						BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SUPPORTS_SHRUB)
 					)
 				)
 			)

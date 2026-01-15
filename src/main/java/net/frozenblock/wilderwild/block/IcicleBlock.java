@@ -113,20 +113,20 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess tickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		if (direction != Direction.UP && direction != Direction.DOWN) return state;
 
 		final Direction tipDirection = state.getValue(TIP_DIRECTION);
-		if (tipDirection == Direction.DOWN && tickAccess.getBlockTicks().hasScheduledTick(pos, this)) return state;
+		if (tipDirection == Direction.DOWN && ticks.getBlockTicks().hasScheduledTick(pos, this)) return state;
 		if (direction == tipDirection.getOpposite() && !this.canSurvive(state, level, pos)) {
-			tickAccess.scheduleTick(pos, this, tipDirection == Direction.DOWN ? DELAY_BEFORE_FALLING : 1);
+			ticks.scheduleTick(pos, this, tipDirection == Direction.DOWN ? DELAY_BEFORE_FALLING : 1);
 			return state;
 		}
 		final boolean merged = state.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
@@ -206,7 +206,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 				this.defaultBlockState()
 					.setValue(TIP_DIRECTION, tipDirection)
 					.setValue(THICKNESS, thickness)
-					.setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER),
+					.setValue(WATERLOGGED, level.getFluidState(pos).is(Fluids.WATER)),
 			context
 		);
 	}
@@ -266,29 +266,27 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return entity.damageSources().source(WWDamageTypes.FALLING_ICICLE, entity);
 	}
 
-	private static void spawnFallingIcicle(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos) {
-		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
-		BlockState blockState2 = blockState;
+	private static void spawnFallingIcicle(BlockState state, ServerLevel level, BlockPos pos) {
+		final BlockPos.MutableBlockPos fallPos = pos.mutable();
 
-		while (isHangingIcicle(blockState2)) {
-			final FallingBlockEntity fallingBlock = FallingBlockEntity.fall(serverLevel, mutable, blockState2);
+		for (BlockState fallState = state; isHangingIcicle(fallState); fallState = level.getBlockState(fallPos)) {
+			final FallingBlockEntity fallingBlock = FallingBlockEntity.fall(level, fallPos, fallState);
 			fallingBlock.disableDrop();
-			if (isTip(blockState2, true)) {
-				int i = Math.max(1 + blockPos.getY() - mutable.getY(), 6);
-				fallingBlock.setHurtsEntities(i, 10);
+			if (isTip(fallState, true)) {
+				int size = Math.max(1 + pos.getY() - fallPos.getY(), 6);
+				fallingBlock.setHurtsEntities(size, 10);
 				break;
 			}
 
-			mutable.move(Direction.DOWN);
-			blockState2 = serverLevel.getBlockState(mutable);
+			fallPos.move(Direction.DOWN);
 		}
 	}
 
 	@VisibleForTesting
 	public static void growIcicleIfPossible(BlockState state, ServerLevel level, BlockPos pos) {
-		final BlockState aboveState = level.getBlockState(pos.above(1));
-		final BlockState aboveTwiceState = level.getBlockState(pos.above(2));
-		if (!canGrow(aboveState, aboveTwiceState)) return;
+		final BlockState rootState = level.getBlockState(pos.above(1));
+		final BlockState stateAbove = level.getBlockState(pos.above(2));
+		if (!canGrow(rootState, stateAbove)) return;
 
 		final BlockPos tipPos = findTip(state, level, pos, 7, false);
 		if (tipPos == null) return;
@@ -299,22 +297,22 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	public static void grow(ServerLevel level, BlockPos pos, Direction direction) {
-		final BlockPos offsetPos = pos.relative(direction);
-		final BlockState offsetState = level.getBlockState(offsetPos);
-		if (isUnmergedTipWithDirection(offsetState, direction.getOpposite())) {
-			createMergedTips(offsetState, level, offsetPos);
-		} else if (offsetState.isAir() || offsetState.is(Blocks.WATER)) {
-			createIcicle(level, offsetPos, direction, DripstoneThickness.TIP);
+		final BlockPos targetPos = pos.relative(direction);
+		final BlockState existingStateAtTargetPos = level.getBlockState(targetPos);
+		if (isUnmergedTipWithDirection(existingStateAtTargetPos, direction.getOpposite())) {
+			createMergedTips(existingStateAtTargetPos, level, targetPos);
+		} else if (existingStateAtTargetPos.isAir() || existingStateAtTargetPos.is(Blocks.WATER)) {
+			createIcicle(level, targetPos, direction, DripstoneThickness.TIP);
 		}
 	}
 
 	private static void createIcicle(LevelAccessor level, BlockPos pos, Direction direction, DripstoneThickness thickness) {
-		final BlockState blockState = WWBlocks.ICICLE
+		final BlockState state = WWBlocks.ICICLE
 			.defaultBlockState()
 			.setValue(TIP_DIRECTION, direction)
 			.setValue(THICKNESS, thickness)
-			.setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
-		level.setBlock(pos, blockState, UPDATE_ALL);
+			.setValue(WATERLOGGED, level.getFluidState(pos).is(Fluids.WATER));
+		level.setBlock(pos, state, UPDATE_ALL);
 	}
 
 	private static void createMergedTips(BlockState state, LevelAccessor level, BlockPos pos) {

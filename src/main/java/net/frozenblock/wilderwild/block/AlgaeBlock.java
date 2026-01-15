@@ -20,10 +20,13 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -38,13 +41,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class AlgaeBlock extends Block implements BonemealableBlock {
+public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
@@ -70,26 +75,33 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		final FluidState belowFluidState = level.getFluidState(pos.below());
-		final FluidState thisFluidState = level.getFluidState(pos);
-		return belowFluidState.getType() == Fluids.WATER && thisFluidState.getType() == Fluids.EMPTY;
+	protected boolean mayPlaceOn(final BlockState state, final BlockGetter level, final BlockPos pos) {
+		FluidState fluidAbove = level.getFluidState(pos.above());
+		return (state.getFluidState().is(this.fluidSupportTag()) || state.is(this.blockSupportTag())) && fluidAbove.is(Fluids.EMPTY);
+	}
+
+	public TagKey<Fluid> fluidSupportTag() {
+		return WWFluidTags.SUPPORTS_ALGAE;
+	}
+
+	public TagKey<Block> blockSupportTag() {
+		return WWBlockTags.SUPPORTS_ALGAE;
 	}
 
 	@Override
 	protected BlockState updateShape(
-		BlockState blockState,
+		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		return !this.canSurvive(blockState, level, pos)
+		return !this.canSurvive(state, level, pos)
 			? Blocks.AIR.defaultBlockState()
-			: super.updateShape(blockState, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+			: super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -103,8 +115,8 @@ public class AlgaeBlock extends Block implements BonemealableBlock {
 		Level level,
 		BlockPos pos,
 		Entity entity,
-		InsideBlockEffectApplier insideBlockEffectApplier,
-		boolean bl
+		InsideBlockEffectApplier effectApplier,
+		boolean isPrecise
 	) {
 		final EntityType<?> entityType = entity.getType();
 		if (entityType.equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);

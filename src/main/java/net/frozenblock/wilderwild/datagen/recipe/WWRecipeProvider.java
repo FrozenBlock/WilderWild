@@ -17,26 +17,23 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import com.google.common.collect.ImmutableList;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.recipe.api.RecipeExportNamespaceFix;
-import net.frozenblock.lib.recipe.api.ShapedRecipeUtil;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Contract;
@@ -62,19 +59,15 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				WWNaturalRecipeProvider.buildRecipes(this, output);
 				WWCookRecipeProvider.buildRecipes(this, output);
 
-				ShapedRecipeUtil.withResultPatch(
-					this.shaped(RecipeCategory.DECORATIONS, WWBlocks.DISPLAY_LANTERN)
-						.define('X', Ingredient.of(Items.IRON_NUGGET))
-						.define('#', Ingredient.of(Items.GLASS_PANE))
-						.pattern("XXX")
-						.pattern("X#X")
-						.pattern("XXX")
-						.unlockedBy(RecipeProvider.getHasName(Items.IRON_INGOT), this.has(Items.IRON_INGOT))
-						.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), this.has(Items.IRON_NUGGET)),
-					DataComponentPatch.builder()
-						.set(WWDataComponents.FIREFLIES, ImmutableList.of())
-						.build()
-				).save(output);
+				this.shaped(RecipeCategory.DECORATIONS, WWBlocks.DISPLAY_LANTERN)
+					.define('X', Ingredient.of(Items.IRON_NUGGET))
+					.define('#', Ingredient.of(Items.GLASS_PANE))
+					.pattern("XXX")
+					.pattern("X#X")
+					.pattern("XXX")
+					.unlockedBy(RecipeProvider.getHasName(Items.IRON_INGOT), this.has(Items.IRON_INGOT))
+					.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), this.has(Items.IRON_NUGGET))
+					.save(output);
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.STONE_CHEST)
 					.group("stone_chest")
@@ -156,13 +149,13 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				// ICE
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.ICE), RecipeCategory.DECORATIONS, WWBlocks.FRAGILE_ICE.asItem(), 0.05F, 100)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.ICE), RecipeCategory.DECORATIONS, CookingBookCategory.BLOCKS, WWBlocks.FRAGILE_ICE.asItem(), 0.05F, 100)
 					.unlockedBy("has_ice", has(Blocks.ICE))
 					.save(output);
 
 				// MUD BRICKS
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, WWBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, WWBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_mud_bricks", has(Blocks.MUD_BRICKS))
 					.save(output);
 

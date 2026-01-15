@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -60,8 +60,8 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter level, BlockPos pos) {
-		return blockState.isFaceSturdy(level, pos, Direction.UP) && !blockState.is(Blocks.MAGMA_BLOCK) && !blockState.is(WWBlocks.GEYSER);
+	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+		return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(WWBlockTags.CANNOT_SUPPORT_SEA_WHIP);
 	}
 
 	@Nullable
@@ -74,20 +74,20 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		final BlockState updatedShape = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
-		if (!updatedShape.isAir()) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		final BlockState updatedShape = super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+		if (!updatedShape.isAir()) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		return updatedShape;
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, Fluid type) {
 		return false;
 	}
 
@@ -104,6 +104,6 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
-		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.getAmount() == FluidState.AMOUNT_FULL;
+		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.isFull();
 	}
 }

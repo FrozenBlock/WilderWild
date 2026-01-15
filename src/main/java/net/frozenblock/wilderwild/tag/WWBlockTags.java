@@ -134,7 +134,20 @@ public final class WWBlockTags {
 	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
 	public static final TagKey<Block> AUBURN_MOSS_REPLACEABLE = bind("auburn_moss_replaceable");
 
-	public static final TagKey<Block> SHRUB_MAY_PLACE_ON = bind("shrub_may_place_on");
+	public static final TagKey<Block> SUPPORTS_ALGAE = bind("supports_algae");
+	public static final TagKey<Block> SUPPORTS_PLANKTON = bind("supports_plankton");
+	public static final TagKey<Block> SUPPORTS_HANGING_BAOBAB_NUT = bind("supports_hanging_baobab_nut");
+	public static final TagKey<Block> SUPPORTS_CATTAIL = bind("supports_cattail");
+	public static final TagKey<Block> SUPPORTS_COCONUT = bind("supports_coconut");
+	public static final TagKey<Block> SUPPORTS_HANGING_COCONUT = bind("supports_hanging_coconut");
+
+	public static final TagKey<Block> CANNOT_SUPPORT_SEA_ANEMONE = bind("cannot_support_sea_anemone");
+	public static final TagKey<Block> CANNOT_SUPPORT_SEA_WHIP = bind("cannot_support_sea_whip");
+	public static final TagKey<Block> CANNOT_SUPPORT_TUBE_WORMS = bind("cannot_support_tube_worms");
+
+	public static final TagKey<Block> SUPPORTS_FROZEN_VEGETATION = bind("supports_frozen_vegetation");
+	public static final TagKey<Block> SUPPORTS_WATERLOGGABLE_SAPLING = bind("supports_waterloggable_sapling");
+	public static final TagKey<Block> SUPPORTS_SHRUB = bind("supports_shrub");
 	public static final TagKey<Block> SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/shrub_may_place_on_no_sand");
 
 	public static final TagKey<Block> CYPRESS_GROWS_AS_JUNIPER_ON = bind("cypress_grows_as_juniper_on");

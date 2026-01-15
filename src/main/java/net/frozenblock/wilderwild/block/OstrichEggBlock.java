@@ -94,8 +94,8 @@ public class OstrichEggBlock extends Block {
 		level.levelEvent(LevelEvent.PARTICLES_EGG_CRACK, pos, 0);
 	}
 
-	private boolean shouldUpdateHatchLevel(Level level, BlockPos blockPos) {
-		if (!isSafeToHatch(level, blockPos.below())) return false;
+	private boolean shouldUpdateHatchLevel(Level level, BlockPos pos) {
+		if (!isSafeToHatch(level, pos.below())) return false;
 		if (level.isBrightOutside()) return level.getRandom().nextInt(17) == 0;
 		return level.getRandom().nextInt(300) == 0;
 	}

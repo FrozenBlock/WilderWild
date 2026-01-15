@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.networking.FrozenByteBufCodecs;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.entity.Firefly;
@@ -257,7 +256,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 		).apply(instance, Occupant::new));
 		public static final Codec<List<Occupant>> LIST_CODEC = CODEC.listOf();
 		public static final StreamCodec<RegistryFriendlyByteBuf, Occupant> STREAM_CODEC = StreamCodec.composite(
-			FrozenByteBufCodecs.VEC3, Occupant::getPos,
+			Vec3.STREAM_CODEC, Occupant::getPos,
 			Identifier.STREAM_CODEC, Occupant::getColor,
 			ByteBufCodecs.STRING_UTF8, Occupant::getCustomName,
 			ByteBufCodecs.INT, Occupant::getAge,

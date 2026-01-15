@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:supports_vegetation",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/cattail_placeable",
+      "required": false
+    }
+  ]
+}

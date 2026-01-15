@@ -66,16 +66,16 @@ public class EchoGlassBlock extends TransparentBlock {
 		level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
 	}
 
-	public static void damage(Level level, BlockPos pos, BlockState dtate, boolean shouldDrop) {
-		if (!canDamage(dtate)) {
+	public static void damage(Level level, BlockPos pos, BlockState state, boolean shouldDrop) {
+		if (!canDamage(state)) {
 			level.destroyBlock(pos, shouldDrop);
 			return;
 		}
-		setDamagedState(level, pos, dtate);
+		setDamagedState(level, pos, state);
 		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 		if (!(level instanceof ServerLevel serverLevel)) return ;
 		serverLevel.sendParticles(
-			new BlockParticleOption(ParticleTypes.BLOCK, dtate),
+			new BlockParticleOption(ParticleTypes.BLOCK, state),
 			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
 			level.getRandom().nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
 			0.3F, 0.3F, 0.3F,
@@ -133,14 +133,14 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
 		final var silkTouch = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 		if (canDamage(state) && EnchantmentHelper.getItemEnchantmentLevel(silkTouch, player.getMainHandItem()) < 1 && !player.isCreative()) {
 			level.setBlockAndUpdate(pos, state.setValue(DAMAGE, state.getValue(DAMAGE) + 1));
 			player.causeFoodExhaustion(0.005F);
 			return;
 		}
-		super.playerDestroy(level, player, pos, state, blockEntity, stack);
+		super.playerDestroy(level, player, pos, state, blockEntity, destroyedWith);
 		level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.9F, level.getRandom().nextFloat() * 0.1F + 0.8F);
 	}
 
@@ -151,8 +151,8 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean bl) {
-		final ItemStack stack = super.getCloneItemStack(level, pos, state, bl);
+	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+		final ItemStack stack = super.getCloneItemStack(level, pos, state, includeData);
 		final int damage = state.getValue(WWBlockStateProperties.DAMAGE);
 		if (damage != 0) ItemBlockStateTagUtils.setProperty(stack, WWBlockStateProperties.DAMAGE, damage);
 		return stack;

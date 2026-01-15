@@ -8,6 +8,14 @@
     "minecraft:zoglin",
     "minecraft:blaze",
     "minecraft:magma_cube",
-    "minecraft:giant"
+    "minecraft:giant",
+    {
+      "id": "netheriernether:wildfire",
+      "required": false
+    },
+    {
+      "id": "netheriernether:soul_blaze",
+      "required": false
+    }
   ]
 }

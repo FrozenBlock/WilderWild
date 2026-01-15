@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:supports_vegetation",
+      "required": false
+    },
+    "minecraft:snow_block"
+  ]
+}

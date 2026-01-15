@@ -250,14 +250,14 @@ public class StoneChestBlock extends ChestBlock {
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
 		BlockState retState = state;
 		if (neighborState.is(this) && direction.getAxis().isHorizontal()) {
@@ -272,7 +272,7 @@ public class StoneChestBlock extends ChestBlock {
 		} else if (getConnectedDirection(state) == direction) {
 			retState = state.setValue(TYPE, ChestType.SINGLE);
 		} else {
-			retState = super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+			retState = super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 		}
 
 		ChestUtil.updateBubbles(state, retState, level, pos);
@@ -310,7 +310,7 @@ public class StoneChestBlock extends ChestBlock {
 		final BlockState retState = this.defaultBlockState()
 			.setValue(FACING, direction)
 			.setValue(TYPE, chestType)
-			.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+			.setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
 
 		ChestUtil.getCoupledStoneChestBlockEntity(level, pos, retState).ifPresent(coupledStoneChest -> {
 			if (coupledStoneChest instanceof ChestBlockEntityInterface otherChestInterface

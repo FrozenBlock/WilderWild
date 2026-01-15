@@ -21,10 +21,13 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -37,7 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -83,6 +86,16 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
+	public TagKey<Fluid> fluidSupportTag() {
+		return WWFluidTags.SUPPORTS_PLANKTON;
+	}
+
+	@Override
+	public TagKey<Block> blockSupportTag() {
+		return WWBlockTags.SUPPORTS_PLANKTON;
+	}
+
+	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
@@ -102,7 +115,7 @@ public class PlanktonBlock extends AlgaeBlock {
 		for (int steps = 1; steps <= PARTICLE_SPAWN_SEARCH_DISTANCE; steps++) {
 			mutable.move(Direction.DOWN);
 			final BlockState particlePosState = level.getBlockState(mutable);
-			if (!particlePosState.is(Blocks.WATER) || particlePosState.getFluidState().getAmount() != FluidState.AMOUNT_FULL) break;
+			if (!particlePosState.is(Blocks.WATER) || !particlePosState.getFluidState().isFull()) break;
 			maxPossibleDepth += 1;
 		}
 
@@ -120,7 +133,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (entity.getY() > pos.getY() + SHAPE.max(Direction.Axis.Y)) return;
 		if (!(level instanceof ServerLevel serverLevel) || isGlowing(state)) return;
 		this.tryChangingState(state, serverLevel, pos);

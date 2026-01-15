@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.entity;
 import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
@@ -50,6 +49,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class ZombieOstrich extends AbstractOstrich {
@@ -119,9 +119,9 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public InteractionResult interact(Player player, InteractionHand hand) {
+	public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
 		this.setPersistenceRequired();
-		return super.interact(player, hand);
+		return super.interact(player, hand, location);
 	}
 
 	@Override
@@ -136,7 +136,12 @@ public class ZombieOstrich extends AbstractOstrich {
 
 	@Override
 	public ZombieOstrich getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return WWEntityTypes.ZOMBIE_OSTRICH.create(level, EntitySpawnReason.BREEDING);
+		return null;
+	}
+
+	@Override
+	public boolean canFallInLove() {
+		return false;
 	}
 
 	@Override

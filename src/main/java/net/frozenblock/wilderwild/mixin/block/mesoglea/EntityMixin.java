@@ -49,7 +49,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Shadow
-	public abstract double distanceToSqr(Vec3 vec3);
+	public abstract double distanceToSqr(Vec3 pos);
 
 	@Shadow
 	public abstract Level level();
@@ -88,7 +88,7 @@ public abstract class EntityMixin implements InMesogleaInterface {
 
 	@Inject(method = "updateFluidHeightAndDoFluidPushing", at = @At("HEAD"))
 	public void wilderWild$setupMesogleaFluidDetection(
-		TagKey<Fluid> tagKey, double d, CallbackInfoReturnable<Boolean> info,
+		TagKey<Fluid> type, double flowScale, CallbackInfoReturnable<Boolean> info,
 		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
 	) {
 		closestPosDistanceRef.set(999D);
@@ -121,19 +121,19 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	)
 	public double wilderWild$setReplacementParticlesIfMesoglea(
 		double original,
-		@Local BlockPos.MutableBlockPos mutable,
+		@Local(name = "pos") BlockPos.MutableBlockPos mutable,
 		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef,
 		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
 	) {
-		if (blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock) {
-			this.wilderWild$setTouchingMesoglea(true);
-			final double distance = this.distanceToSqr(Vec3.atCenterOf(mutable));
-			if (distance < closestPosDistanceRef.get()) {
-				closestPosDistanceRef.set(distance);
-				this.wilderWild$replacementSplashParticle = mesogleaBlock.getSplashParticle();
-				this.wilderWild$replacementBubbleParticle = mesogleaBlock.getBubbleParticle();
-			}
-		}
+		if (!(blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock)) return original;
+
+		this.wilderWild$setTouchingMesoglea(true);
+		final double distance = this.distanceToSqr(Vec3.atCenterOf(mutable));
+		if (distance >= closestPosDistanceRef.get()) return original;
+
+		closestPosDistanceRef.set(distance);
+		this.wilderWild$replacementSplashParticle = mesogleaBlock.getSplashParticle();
+		this.wilderWild$replacementBubbleParticle = mesogleaBlock.getBubbleParticle();
 
 		return original;
 	}
@@ -147,10 +147,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		)
 	)
 	public void wilderWild$replaceBubbleParticles(
-		Level instance, ParticleOptions options, double d, double e, double f, double g, double h, double i, Operation<Void> original
+		Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd, Operation<Void> original
 	) {
 		if (this.wilderWild$replacementBubbleParticle != null) options = this.wilderWild$replacementBubbleParticle;
-		original.call(instance, options, d, e, f, g, h, i);
+		original.call(instance, options, x, y, z, xd, yd, zd);
 	}
 
 	@WrapOperation(
@@ -162,10 +162,10 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		)
 	)
 	public void wilderWild$replaceSplashParticles(
-		Level instance, ParticleOptions options, double d, double e, double f, double g, double h, double i, Operation<Void> original
+		Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd, Operation<Void> original
 	) {
 		if (this.wilderWild$replacementSplashParticle != null) options = this.wilderWild$replacementSplashParticle;
-		original.call(instance, options, d, e, f, g, h, i);
+		original.call(instance, options, x, y, z, xd, yd, zd);
 	}
 
 	@Unique
@@ -194,9 +194,9 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	)
 	public void wilderwild$updateIsInMesolgeaB(
 		CallbackInfo info,
-		@Local BlockPos eyePos
+		@Local(name = "pos") BlockPos pos
 	) {
-		this.wilderWild$setInMesoglea(this.level().getBlockState(eyePos).getBlock() instanceof MesogleaBlock);
+		this.wilderWild$setInMesoglea(this.level().getBlockState(pos).getBlock() instanceof MesogleaBlock);
 	}
 
 	@Unique

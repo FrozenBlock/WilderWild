@@ -57,7 +57,7 @@ public class LevelMixin {
 	)
 	public FluidState wilderWild$preventMesogleaFromMakingWaterOnDestroy(
 		FluidState fluidState,
-		@Local BlockState blockState
+		@Local(name = "blockState") BlockState blockState
 	) {
 		if (blockState.getBlock() instanceof MesogleaBlock) return Fluids.EMPTY.defaultFluidState();
 		return fluidState;

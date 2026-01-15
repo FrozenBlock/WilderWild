@@ -111,16 +111,16 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		final BlockPos blockPos = pos.above();
-		final BlockState blockState = level.getBlockState(blockPos);
-		return blockState.isFaceSturdy(level, blockPos, Direction.DOWN);
+		final BlockPos abovePos = pos.above();
+		final BlockState aboveState = level.getBlockState(abovePos);
+		return aboveState.isFaceSturdy(level, abovePos, Direction.DOWN);
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		final BlockPos blockPos = context.getClickedPos();
-		final FluidState fluidState = context.getLevel().getFluidState(blockPos);
-		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+		final BlockPos pos = context.getClickedPos();
+		final FluidState fluidState = context.getLevel().getFluidState(pos);
+		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
 	}
 
 	@Override
@@ -139,16 +139,16 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	protected BlockState updateShape(
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
 		Direction direction,
 		BlockPos neighborPos,
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (!state.canSurvive(level, pos)) scheduledTickAccess.scheduleTick(pos, this, 1);
-		if (state.getValue(WATERLOGGED)) scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+		if (!state.canSurvive(level, pos)) ticks.scheduleTick(pos, this, 1);
+		if (state.getValue(WATERLOGGED)) ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
 	}
 
 	@Override
@@ -176,7 +176,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	public static void updateNeighbours(Level level, BlockPos pos, BlockState state) {
-		Block block = state.getBlock();
+		final Block block = state.getBlock();
 		level.updateNeighborsAt(pos, block);
 		level.updateNeighborsAt(pos.below(), block);
 	}

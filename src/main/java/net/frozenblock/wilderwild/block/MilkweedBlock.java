@@ -65,21 +65,21 @@ public class MilkweedBlock extends TallFlowerBlock {
 		return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
 	}
 
-	public static void onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity entity) {
+	public static void onShear(Level level, BlockPos pos, BlockState state, ItemStack stack, @Nullable Entity user) {
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-		if (level instanceof ServerLevel serverLevel) dropMilkweed(serverLevel, stack, state, null, entity, pos);
-		level.gameEvent(entity, GameEvent.SHEAR, pos);
+		if (level instanceof ServerLevel serverLevel) dropMilkweed(serverLevel, stack, state, null, user, pos);
+		level.gameEvent(user, GameEvent.SHEAR, pos);
 		setAgeOnBothHalves(state.getBlock(), state, level, pos, 0, false);
 	}
 
-	public static void dropMilkweed(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity entity, BlockPos pos) {
+	public static void dropMilkweed(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_MILKWEED,
 			state,
 			blockEntity,
 			stack,
-			entity,
+			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
 		);
 	}
@@ -166,8 +166,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
-	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
-		if (!isFullyGrown(state)) return super.useWithoutItem(state, level, pos, entity, hitResult);
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		if (!isFullyGrown(state)) return super.useWithoutItem(state, level, pos, player, hitResult);
 		if (level instanceof ServerLevel) this.pickAndSpawnSeeds(level, state, pos);
 		return InteractionResult.SUCCESS;
 	}

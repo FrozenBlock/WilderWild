@@ -18,9 +18,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.clock.WorldClock;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.timeline.Timeline;
 
 public final class WWTimelines {
@@ -34,9 +38,11 @@ public final class WWTimelines {
 	}
 
 	public static void bootstrap(BootstrapContext<Timeline> context) {
+		final HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);
+		final Holder.Reference<WorldClock> overworldClock = clocks.getOrThrow(WorldClocks.OVERWORLD);
 		context.register(
 			WILDERWILD_DAY,
-			Timeline.builder()
+			Timeline.builder(overworldClock)
 				.setPeriodTicks(24000)
 				.addTrack(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
 				.addTrack(WWEnvironmentAttributes.PLANKTON_GLOWING, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))

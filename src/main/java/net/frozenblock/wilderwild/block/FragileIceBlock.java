@@ -111,7 +111,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if (entity.is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)) this.scheduleCrackIfNotScheduled(level, pos);
+		if (entity.getPassengersAndSelf().anyMatch(e -> e.is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS))) this.scheduleCrackIfNotScheduled(level, pos);
 	}
 
 	@Override

@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
-import net.frozenblock.lib.recipe.api.ShapelessRecipeBuilderExtension;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -35,6 +34,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -126,16 +126,20 @@ public final class FireflyBottleRecipeProvider {
 
 			final Ingredient input = DefaultCustomIngredients.any(possibleIngredients.toArray(new Ingredient[0]));
 
-			((ShapelessRecipeBuilderExtension) provider.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
-				.requires(dye)
-				.requires(input)
-				.group("firefly_bottle")
-				.unlockedBy("has_needed_dye", provider.has(dye))
-			).frozenLib$patch(
-				DataComponentPatch.builder()
-					.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
-					.build()
-			).save(
+			provider.shapeless(
+				RecipeCategory.MISC,
+				new ItemStackTemplate(
+					WWItems.FIREFLY_BOTTLE,
+					DataComponentPatch.builder()
+						.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
+						.build()
+				)
+			)
+			.requires(dye)
+			.requires(input)
+			.group("firefly_bottle")
+			.unlockedBy("has_needed_dye", provider.has(dye))
+			.save(
 				output,
 				WWConstants.string("dye_" + outputColor.getPath() + "_firefly_bottle")
 			);
@@ -149,21 +153,27 @@ public final class FireflyBottleRecipeProvider {
 		RecipeOutput output,
 		HolderLookup.RegistryLookup<FireflyColor> registryLookup
 	) {
-		((ShapelessRecipeBuilderExtension) provider.shapeless(RecipeCategory.MISC, WWItems.FIREFLY_BOTTLE)
-			.group("firefly_bottle")
-			.requires(dye)
-			.requires(DefaultCustomIngredients.components(
+		provider.shapeless(
+			RecipeCategory.MISC,
+			new ItemStackTemplate(
+				WWItems.FIREFLY_BOTTLE,
+				DataComponentPatch.builder()
+					.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
+					.build()
+			)
+		)
+		.group("firefly_bottle")
+		.requires(dye)
+		.requires(
+			DefaultCustomIngredients.components(
 				Ingredient.of(WWItems.FIREFLY_BOTTLE),
 				DataComponentPatch.builder()
 					.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id("on"))))
 					.build()
-			))
-			.unlockedBy("has_firefly_bottle", provider.has(WWItems.FIREFLY_BOTTLE))
-		).frozenLib$patch(
-			DataComponentPatch.builder()
-				.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
-				.build()
-			).save(output, WWConstants.string(fireflyColor.getPath() + "_firefly_bottle"));
+			)
+		)
+		.unlockedBy("has_firefly_bottle", provider.has(WWItems.FIREFLY_BOTTLE))
+		.save(output, WWConstants.string(fireflyColor.getPath() + "_firefly_bottle"));
 	}
 
 }
