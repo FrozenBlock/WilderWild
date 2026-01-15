@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
@@ -46,8 +46,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class ScorchedBlock extends BaseEntityBlock {
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
-	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectOpenHashMap<>();
-	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectOpenHashMap<>();
+	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectLinkedOpenHashMap<>();
+	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectLinkedOpenHashMap<>();
 	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 		BlockState.CODEC.fieldOf("previous_state").forGetter((scorchedBlock) -> scorchedBlock.wetState),
 		Codec.BOOL.fieldOf("brushable").forGetter((scorchedBlock) -> scorchedBlock.canBrush),

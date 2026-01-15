@@ -50,7 +50,7 @@ public class HugeFungusFeatureMixin {
 	 * @return if the fungus should have a thick stem
 	 * @see #wilderWild$placeUpdateCenter(BlockPos, LocalRef)
 	 */
-	@ModifyVariable(method = "place", at = @At(value = "STORE"), ordinal = 0)
+	@ModifyVariable(method = "place", at = @At(value = "STORE"), name = "isHuge")
 	public boolean wilderWild$placeThickener(
 		boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
 		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
@@ -82,7 +82,7 @@ public class HugeFungusFeatureMixin {
 	/**
 	 * Replaces the center position of the huge fungus with newPos when thickBigFungusGrowth is enabled
 	 *
-	 * @param blockPos original position
+	 * @param pos original position
 	 * @param newPos   new position, potentially modified by @wilderWild$placeThickener
 	 * @return center position of the huge fungus
 	 * @see #wilderWild$placeThickener(boolean, FeaturePlaceContext, LocalRef)
@@ -93,10 +93,13 @@ public class HugeFungusFeatureMixin {
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
 		),
-		ordinal = 1
+		name = "newOrigin"
 	)
-	public BlockPos wilderWild$placeUpdateCenter(BlockPos blockPos, @Share("wilderWild$newPos") LocalRef<BlockPos> newPos) {
-		return WWBlockConfig.get().thickBigFungusGrowth ? newPos.get() : blockPos;
+	public BlockPos wilderWild$placeUpdateCenter(
+		BlockPos pos,
+		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
+	) {
+		return WWBlockConfig.get().thickBigFungusGrowth ? newPos.get() : pos;
 	}
 
 	/**
@@ -137,9 +140,14 @@ public class HugeFungusFeatureMixin {
 	 * @return
 	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalRef, LocalRef)
 	 */
-	@ModifyVariable(method = "placeStem", at = @At(value = "STORE"), ordinal = 1)
+	@ModifyVariable(
+		method = "placeStem",
+		at = @At(value = "STORE"),
+		name = "cornerOfHugeStem"
+	)
 	public boolean wilderWild$placeStemIsCorner(
-		boolean original, @Share("wilderWild$isCorner") LocalRef<Boolean> isCorner
+		boolean original,
+		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner
 	) {
 		isCorner.set(original);
 		return original;
@@ -162,7 +170,8 @@ public class HugeFungusFeatureMixin {
 	)
 	public boolean wilderWild$placeStemShouldPreserve(
 		boolean original, WorldGenLevel level, RandomSource random,
-		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner, @Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
+		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner,
+		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
 		shouldPlace.set(true);
 		if (!WWBlockConfig.get().thickBigFungusGrowth) return original;
@@ -191,10 +200,10 @@ public class HugeFungusFeatureMixin {
 		)
 	)
 	public boolean wilderWild$placeStemAttemptPlace(
-		WorldGenLevel instance, BlockPos pos, BlockState state, int flag, Operation<Boolean> original,
+		WorldGenLevel instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
 		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
 		if (!shouldPlace.get()) return false;
-		return original.call(instance, pos, state, flag);
+		return original.call(instance, pos, state, flags);
 	}
 }

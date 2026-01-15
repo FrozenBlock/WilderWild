@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.structures.SwampHutPiece;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -32,7 +33,8 @@ public class SwampHutPieceMixin {
 		method = "postProcess",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/Blocks;OAK_FENCE:Lnet/minecraft/world/level/block/Block;"
+			target = "Lnet/minecraft/world/level/block/Blocks;OAK_FENCE:Lnet/minecraft/world/level/block/Block;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public Block wilderWild$newFence(Block original) {
@@ -44,7 +46,8 @@ public class SwampHutPieceMixin {
 		method = "postProcess",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/Blocks;OAK_LOG:Lnet/minecraft/world/level/block/Block;"
+			target = "Lnet/minecraft/world/level/block/Blocks;OAK_LOG:Lnet/minecraft/world/level/block/Block;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public Block wilderWild$newLog(Block original) {
@@ -56,7 +59,8 @@ public class SwampHutPieceMixin {
 		method = "postProcess",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_PLANKS:Lnet/minecraft/world/level/block/Block;"
+			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_PLANKS:Lnet/minecraft/world/level/block/Block;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public Block wilderWild$newPlanks(Block original) {
@@ -68,7 +72,8 @@ public class SwampHutPieceMixin {
 		method = "postProcess",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_STAIRS:Lnet/minecraft/world/level/block/Block;"
+			target = "Lnet/minecraft/world/level/block/Blocks;SPRUCE_STAIRS:Lnet/minecraft/world/level/block/Block;",
+			opcode = Opcodes.GETSTATIC
 		)
 	)
 	public Block wilderWild$newStairs(Block original) {

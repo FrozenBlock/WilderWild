@@ -41,7 +41,7 @@ public class DoublePlantBlockMixin {
 	private static BlockState wilderWild$setWaterloggedValueAndSwayIfCattail(
 		BlockState original,
 		@Share("wilderWild$isBottomWaterlogged") LocalBooleanRef isBottomWaterlogged
-		) {
+	) {
 		if (original.getBlock() instanceof CattailBlock) {
 			isBottomWaterlogged.set(original.getOptionalValue(BlockStateProperties.WATERLOGGED).orElse(false));
 			original = original.setValue(CattailBlock.SWAYING, isBottomWaterlogged.get());

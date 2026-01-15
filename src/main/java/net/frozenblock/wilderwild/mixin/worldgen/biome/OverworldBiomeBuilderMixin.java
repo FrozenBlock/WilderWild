@@ -62,7 +62,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Shadow
 	private void addSurfaceBiome(
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
@@ -83,12 +83,12 @@ public final class OverworldBiomeBuilderMixin {
 	}
 
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
-	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (this.wilderWild$worldgenConfig.biomePlacement.modifyStonyShorePlacement) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 				this.addSurfaceBiome(
-					parameters,
+					biomes,
 					WWSharedWorldgen.StonyShoreTaiga.TEMPERATURE,
 					WWSharedWorldgen.StonyShoreTaiga.HUMIDITY,
 					WWSharedWorldgen.StonyShoreTaiga.CONTINENTALNESS,
@@ -102,11 +102,11 @@ public final class OverworldBiomeBuilderMixin {
 	}
 
 	@Inject(method = "addMidSlice", at = @At("TAIL"))
-	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Climate.Parameter weirdness, CallbackInfo info) {
+	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes, Climate.Parameter weirdness, CallbackInfo info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
 		if (this.wilderWild$worldgenConfig.biomePlacement.modifyCherryGrovePlacement) {
 			this.addSurfaceBiome(
-				parameters,
+				biomes,
 				WWSharedWorldgen.CherryGrove.TEMPERATURE,
 				WWSharedWorldgen.CherryGrove.HUMIDITY,
 				WWSharedWorldgen.CherryGrove.CONTINENTALNESS,
@@ -148,7 +148,7 @@ public final class OverworldBiomeBuilderMixin {
 	)
 	private void wilderWild$accountForWarmRivers(
 		OverworldBiomeBuilder instance,
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
@@ -159,16 +159,16 @@ public final class OverworldBiomeBuilderMixin {
 		Operation<Void> operation
 	) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) {
-			operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+			operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 			return;
 		}
 		if (biomeKey.equals(Biomes.RIVER) && this.wilderWild$worldgenConfig.biomeGeneration.generateWarmRiver) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
-			operation.call(instance, consumer, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
+			operation.call(instance, biomes, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 			Climate.Parameter jungleHumidity = this.wilderWild$worldgenConfig.biomePlacement.modifyJunglePlacement ? WarmRiver.HUMIDITY_TO_THREE : humidity;
-			operation.call(instance, consumer, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
+			operation.call(instance, biomes, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
 		}
-		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
 
 	@WrapOperation(
@@ -180,7 +180,7 @@ public final class OverworldBiomeBuilderMixin {
 	)
 	public void wilderWild$replaceMidSwamp(
 		OverworldBiomeBuilder instance,
-		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer,
+		Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes,
 		Climate.Parameter temperature,
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
@@ -198,7 +198,7 @@ public final class OverworldBiomeBuilderMixin {
 			humidity = WWSharedWorldgen.MangroveSwamp.HUMIDITY;
 		}
 
-		operation.call(instance, consumer, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
 	}
 
 	@ModifyExpressionValue(

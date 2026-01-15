@@ -55,16 +55,16 @@ public class TreeFeatureMixin {
 	)
 	public Optional<Boolean> wilderWild$addCoconuts(
 		Optional<Boolean> original,
-		@Local(ordinal = 2) Set<BlockPos> foliageSet,
-		@Local WorldGenLevel level,
-		@Local RandomSource random
+		@Local(name = "foliage") Set<BlockPos> foliage,
+		@Local(name = "level") WorldGenLevel level,
+		@Local(name = "random") RandomSource random
 	) {
 		if (!(TreeFeature.class.cast(this) instanceof PalmTreeFeature)) return original;
 		if (original.isEmpty() || !original.get()) return original;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final AtomicInteger coconutCount = new AtomicInteger();
-		Util.toShuffledList(foliageSet.stream(), random).forEach(pos -> {
+		Util.toShuffledList(foliage.stream(), random).forEach(pos -> {
 			final int currentCoconuts = coconutCount.get();
 			if (currentCoconuts >= PalmTreeFeature.MAX_COCONUTS) return;
 			if (level.getRandom().nextFloat() > PalmTreeFeature.COCONUT_CHANCE && currentCoconuts > 0) return;

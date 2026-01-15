@@ -43,26 +43,26 @@ public class LevelRendererMixin {
 	)
 	public void wilderWild$changeCloudPosition(
 		LevelRenderer instance,
-		FrameGraphBuilder frameGraphBuilder,
-		CloudStatus status,
-		Vec3 vec3,
+		FrameGraphBuilder frame,
+		CloudStatus cloudsType,
+		Vec3 cameraPosition,
 		long gameTime,
-		float ticks,
+		float partialTicks,
 		int cloudColor,
 		float cloudHeight,
 		Operation<Void> original,
-		@Local(ordinal = 0) float partialTick
+		@Local(name = "deltaPartialTick") float deltaPartialTick
 	) {
 		if (WWClientWindManager.shouldUseWind()) {
-			double cameraX = vec3.x;
-			double cameraY = vec3.y;
-			double cameraZ = vec3.z;
-			cameraX =  (cameraX - WWClientWindManager.getCloudX(partialTick) * 12D) - (double)((ticks) * 0.03F);
-			cameraZ = cameraZ - WWClientWindManager.getCloudZ(partialTick) * 12D;
-			vec3 = new Vec3(cameraX, cameraY, cameraZ);
+			double cameraX = cameraPosition.x;
+			double cameraY = cameraPosition.y;
+			double cameraZ = cameraPosition.z;
+			cameraX =  (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 12D) - (double)((partialTicks) * 0.03F);
+			cameraZ = cameraZ - WWClientWindManager.getCloudZ(deltaPartialTick) * 12D;
+			cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
 		}
 
-		original.call(instance, frameGraphBuilder, status, vec3, gameTime, ticks, cloudColor, cloudHeight);
+		original.call(instance, frame, cloudsType, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight);
 	}
 
 }

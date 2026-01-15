@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BaseAshSmokeParticle.class)
 public abstract class BaseAshSmokeParticleMixin extends SingleQuadParticle {
 
-	protected BaseAshSmokeParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
-		super(clientLevel, d, e, f, textureAtlasSprite);
+	protected BaseAshSmokeParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+		super(level, x, y, z, sprite);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

@@ -73,7 +73,7 @@ public class LivingEntityMixin {
 			target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"
 		)
 	)
-	public void wilderWild$die(DamageSource damageSource, CallbackInfo info) {
+	public void wilderWild$die(DamageSource source, CallbackInfo info) {
 		if (!this.wilderWild$isWardenWithDeathAnimation()) return;
 
 		final Warden warden = Warden.class.cast(this);

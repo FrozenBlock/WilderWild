@@ -34,6 +34,7 @@ import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -65,8 +66,8 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 	@Mutable
 	private boolean swirl;
 
-	protected FallingLeavesParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
-		super(clientLevel, d, e, f, textureAtlasSprite);
+	protected FallingLeavesParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+		super(level, x, y, z, sprite);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
@@ -91,7 +92,8 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		method = "tick",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;xaFlowScale:D"
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;xaFlowScale:D",
+			opcode = Opcodes.GETFIELD
 		)
 	)
 	public double wilderWild$changeFlowA(
@@ -106,7 +108,8 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		method = "tick",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;zaFlowScale:D"
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;zaFlowScale:D",
+			opcode = Opcodes.GETFIELD
 		)
 	)
 	public double wilderWild$changeFlowB(
@@ -175,7 +178,8 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		method = "tick",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;onGround:Z"
+			target = "Lnet/minecraft/client/particle/FallingLeavesParticle;onGround:Z",
+			opcode = Opcodes.GETFIELD
 		)
 	)
 	public boolean wilderWild$bounceOnFloorIfAllowed(boolean original) {

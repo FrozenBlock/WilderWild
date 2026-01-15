@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SnowflakeParticle.class)
 public abstract class SnowflakeParticleMixin extends SingleQuadParticle {
 
-	protected SnowflakeParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
-		super(clientLevel, d, e, f, textureAtlasSprite);
+	protected SnowflakeParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+		super(level, x, y, z, sprite);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

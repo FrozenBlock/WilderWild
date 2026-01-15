@@ -40,8 +40,8 @@ public abstract class DripParticleMixin extends SingleQuadParticle implements Wi
 	@Unique
 	private boolean wilderWild$usesWind = true;
 
-	protected DripParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
-		super(clientLevel, d, e, f, textureAtlasSprite);
+	protected DripParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+		super(level, x, y, z, sprite);
 	}
 
 	@Unique

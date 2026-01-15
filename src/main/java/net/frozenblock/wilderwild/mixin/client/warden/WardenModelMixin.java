@@ -117,17 +117,17 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 	@Inject(at = @At("TAIL"), method = "animateTendrils", require = 0)
 	private void wilderWild$animateCustomTendrils(
 		WardenRenderState warden, float animationProgress, CallbackInfo info,
-		@Local(ordinal = 1) float cos
+		@Local(name = "tendrilXRot") float tendrilXRot
 	) {
 		if (!WWEntityConfig.Client.WARDEN_CUSTOM_TENDRIL_ANIMATION) return;
-		this.leftTendril.xRot = cos;
-		this.rightTendril.xRot = cos;
+		this.leftTendril.xRot = tendrilXRot;
+		this.rightTendril.xRot = tendrilXRot;
 
 		final float yRot = (warden.tendrilAnimation * (-Mth.sin(animationProgress * 2.25D) * Mth.PI * 0.1F)) / 2F;
 		this.leftTendril.yRot = yRot;
 		this.rightTendril.yRot = -yRot;
 
-		final float zRot = cos / 2F;
+		final float zRot = tendrilXRot / 2F;
 		this.leftTendril.zRot = zRot;
 		this.rightTendril.zRot = -zRot;
 	}

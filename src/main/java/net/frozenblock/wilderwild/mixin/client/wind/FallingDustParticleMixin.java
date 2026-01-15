@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(FallingDustParticle.class)
 public abstract class FallingDustParticleMixin extends SingleQuadParticle {
 
-	protected FallingDustParticleMixin(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
-		super(clientLevel, d, e, f, textureAtlasSprite);
+	protected FallingDustParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
+		super(level, x, y, z, sprite);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

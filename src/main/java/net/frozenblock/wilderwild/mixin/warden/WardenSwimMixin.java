@@ -63,8 +63,8 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	private float wilderWild$wadeAmount;
 	@Unique private float wilderWild$previousWadeAmount;
 
-	private WardenSwimMixin(EntityType<? extends Monster> entityType, Level level) {
-		super(entityType, level);
+	private WardenSwimMixin(EntityType<? extends Monster> type, Level level) {
+		super(type, level);
 	}
 
 	@Unique
@@ -109,10 +109,10 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Unique
 	@Override
-	public void travel(Vec3 travelVector) {
+	public void travel(Vec3 input) {
 		final Warden warden = Warden.class.cast(this);
 		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava() && WWEntityConfig.WARDEN_SWIMS) {
-			this.moveRelative(this.getSpeed(), travelVector);
+			this.moveRelative(this.getSpeed(), input);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
 			if (!this.isDiggingOrEmerging() && !warden.hasPose(Pose.SNIFFING) && !warden.hasPose(Pose.DYING) && !warden.hasPose(Pose.ROARING)) {
@@ -121,19 +121,19 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 			this.wilderWild$newSwimming = this.getFluidHeight(FluidTags.WATER) >= this.getEyeHeight(this.getPose()) * 0.75F
 				|| this.getFluidHeight(FluidTags.LAVA) >= this.getEyeHeight(this.getPose()) * 0.75F;
 		} else {
-			super.travel(travelVector);
+			super.travel(input);
 			this.wilderWild$newSwimming = false;
 		}
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$init(EntityType<? extends Monster> type, Level level, CallbackInfo info) {
-		final Warden wardenEntity = Warden.class.cast(this);
-		wardenEntity.setPathfindingMalus(PathType.WATER, 0F);
-		wardenEntity.setPathfindingMalus(PathType.POWDER_SNOW, -1F);
-		wardenEntity.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1F);
-		this.moveControl = new WardenMoveControl(wardenEntity, 0.05F, 80F, 0.13F, 1F);
-		this.lookControl = new WardenLookControl(wardenEntity, 10);
+		final Warden warden = Warden.class.cast(this);
+		warden.setPathfindingMalus(PathType.WATER, 0F);
+		warden.setPathfindingMalus(PathType.POWDER_SNOW, -1F);
+		warden.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1F);
+		this.moveControl = new WardenMoveControl(warden, 0.05F, 80F, 0.13F, 1F);
+		this.lookControl = new WardenLookControl(warden, 10);
 	}
 
 	@Unique
@@ -184,13 +184,13 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		valueOutput.putBoolean("newSwimming", this.wilderWild$newSwimming);
+	public void wilderWild$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
+		output.putBoolean("newSwimming", this.wilderWild$newSwimming);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
-		this.wilderWild$newSwimming = valueInput.getBooleanOr("newSwimming", false);
+	public void wilderWild$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
+		this.wilderWild$newSwimming = input.getBooleanOr("newSwimming", false);
 	}
 
 	@Unique

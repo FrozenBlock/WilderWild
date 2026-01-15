@@ -21,6 +21,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
@@ -28,11 +29,8 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Unit;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -40,19 +38,16 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -126,22 +121,25 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		return this.wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_KIRBY_DEATH : soundEvent;
 	}
 
-	@Inject(at = @At("TAIL"), method = "finalizeSpawn")
-	public void wilderWild$finalizeSpawn(
-		ServerLevelAccessor level,
-		DifficultyInstance difficulty,
-		EntitySpawnReason spawnReason,
-		@Nullable SpawnGroupData data,
-		CallbackInfoReturnable<SpawnGroupData> info
+	@ModifyExpressionValue(
+		method = "finalizeSpawn",
+		at = @At(
+			value = "FIELD",
+			target = "Lnet/minecraft/world/entity/EntitySpawnReason;TRIGGERED:Lnet/minecraft/world/entity/EntitySpawnReason;",
+			opcode = Opcodes.GETSTATIC
+		)
+	)
+	public EntitySpawnReason wilderWild$finalizeSpawn(
+		EntitySpawnReason original,
+		@Local(argsOnly = true) EntitySpawnReason spawnReason
 	) {
-		if ((WWEntityConfig.get().warden.wardenEmergesFromEgg && spawnReason == EntitySpawnReason.SPAWN_ITEM_USE)
-			|| (WWEntityConfig.get().warden.wardenEmergesFromCommand && spawnReason == EntitySpawnReason.COMMAND)
-		) {
-			this.setPose(Pose.EMERGING);
-			this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
-			this.playSound(SoundEvents.WARDEN_AGITATED, 5.0f, 1.0f);
-		}
+		final WWEntityConfig entityConfig = WWEntityConfig.get();
+		if (entityConfig.warden.wardenEmergesFromEgg && spawnReason == EntitySpawnReason.SPAWN_ITEM_USE) return spawnReason;
+		if (entityConfig.warden.wardenEmergesFromCommand && spawnReason == EntitySpawnReason.COMMAND) return spawnReason;
+		return original;
 	}
+
+
 
 	@Inject(
 		method = "doPush",
@@ -175,7 +173,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
 		final Warden warden = Warden.class.cast(this);
-		if (this.wilderWild$hasDeathAnimation() && DATA_POSE.equals(data) && warden.getPose() == Pose.DYING) {
+		if (this.wilderWild$hasDeathAnimation() && DATA_POSE.equals(data) && warden.hasPose(Pose.DYING)) {
 			this.wilderWild$getDeathAnimationForSituation().start(warden.tickCount);
 			info.cancel();
 		}
@@ -190,10 +188,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		)
 	)
 	private void wilderWild$stellaHeartbeat(
-		Level instance, double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, Operation<Void> original
+		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean delayed, Operation<Void> original
 	) {
-		if (this.wilderWild$isStella()) soundEvent = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
-		original.call(instance, x, y, z, soundEvent, soundSource, g, h, bl);
+		if (this.wilderWild$isStella()) sound = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
+		original.call(instance, x, y, z, sound, source, volume, pitch, delayed);
 	}
 
 	@ModifyExpressionValue(
@@ -238,18 +236,18 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		valueOutput.putInt("wilderDeathTicks", this.wilderWild$deathTicks);
+	public void wilderWild$addAdditionalSaveData(ValueOutput output, CallbackInfo info) {
+		output.putInt("wilderDeathTicks", this.wilderWild$deathTicks);
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
-		this.wilderWild$deathTicks = valueInput.getIntOr("wilderDeathTicks", 0);
+	public void wilderWild$readAdditionalSaveData(ValueInput input, CallbackInfo info) {
+		this.wilderWild$deathTicks = input.getIntOr("wilderDeathTicks", 0);
 	}
 
 	@Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
-	private void wilderWild$handleEntityEvent(byte status, CallbackInfo info) {
-		if (status != (byte) 69420) return;
+	private void wilderWild$handleEntityEvent(byte id, CallbackInfo info) {
+		if (id != (byte) 69420) return;
 		this.wilderWild$addAdditionalDeathParticles();
 		info.cancel();
 	}
