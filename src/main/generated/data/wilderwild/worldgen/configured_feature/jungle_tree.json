@@ -31,7 +31,6 @@
                     "face": "wall",
                     "facing": "north",
                     "shelf_fungus_stage": "1",
-                    "snow_layers": "0",
                     "waterlogged": "false"
                   }
                 },
@@ -45,7 +44,6 @@
                     "face": "wall",
                     "facing": "north",
                     "shelf_fungus_stage": "1",
-                    "snow_layers": "0",
                     "waterlogged": "false"
                   }
                 },

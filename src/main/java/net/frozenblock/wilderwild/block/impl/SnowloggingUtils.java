@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
@@ -41,8 +42,8 @@ import org.jetbrains.annotations.Nullable;
 public class SnowloggingUtils {
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
-	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogging;
-	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogWalls;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogging && !FrozenBools.IS_DATAGEN;
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogWalls && !FrozenBools.IS_DATAGEN;
 
 	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
@@ -55,7 +56,7 @@ public class SnowloggingUtils {
 	}
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
-		if (!WWBlockConfig.SNOWLOGGING) return false;
+		if (!WWBlockConfig.canSnowlog()) return false;
 		//noinspection ConstantValue
 		return state != null && state.getValues() != null && state.hasProperty(SNOW_LAYERS);
 	}
