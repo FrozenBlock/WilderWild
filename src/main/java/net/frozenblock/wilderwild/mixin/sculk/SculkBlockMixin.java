@@ -129,10 +129,7 @@ public class SculkBlockMixin {
 		SculkSpreader spreader,
 		boolean shouldConvertBlocks,
 		CallbackInfoReturnable<Integer> info,
-		@Local(ordinal = 0) int chargeAmount,
-		@Local(ordinal = 1) BlockPos chargePos,
-		@Local(ordinal = 1) int growthSpawnCost,
-		@Local(ordinal = 2) BlockPos aboveChargePos,
+		@Local(name = "chargePos") BlockPos chargePos,
 		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,
 		@Share("wilderWild$placementState") LocalRef<BlockState> placementState,
 		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow,
@@ -206,17 +203,17 @@ public class SculkBlockMixin {
 		)
 	)
 	private void wilderWild$newSounds(
-		LevelAccessor instance, Entity entity, BlockPos pos, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch,
+		LevelAccessor instance, Entity entity, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch,
 		Operation<Void> original, @Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos, @Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placedPos.get() != null && placedState.get()!= null) {
 			final SoundType soundType = placedState.get().getSoundType();
 			pos = placedPos.get();
-			soundEvent = soundType.getPlaceSound();
+			sound = soundType.getPlaceSound();
 			volume = soundType.getVolume();
 			pitch = soundType.getPitch() * 0.8F;
 		}
-		original.call(instance, entity, pos, soundEvent, soundSource, volume, pitch);
+		original.call(instance, entity, pos, sound, source, volume, pitch);
 	}
 
 	@Inject(
@@ -233,7 +230,7 @@ public class SculkBlockMixin {
 		BlockPos pos,
 		RandomSource random,
 		SculkSpreader spreader,
-		boolean shouldConvertBlocks,
+		boolean spreadVein,
 		CallbackInfoReturnable<Integer> info,
 		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
 		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
@@ -243,7 +240,7 @@ public class SculkBlockMixin {
 		if (spreader.isWorldGeneration() && placedState.get().getBlock() instanceof OsseousSculkBlock osseousSculkBlock) {
 			final int growthAttempts = random.nextInt(WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MIN, WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MAX);
 			for (int a = 0; a < growthAttempts; a++) {
-				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, shouldConvertBlocks);
+				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, spreadVein);
 			}
 		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS) || placedState.get().is(WWBlocks.SCULK_SLAB) || placedState.get().is(WWBlocks.SCULK_WALL)) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
@@ -277,8 +274,8 @@ public class SculkBlockMixin {
 		cancellable = true
 	)
 	private void wilderWild$getRandomGrowthState(
-		LevelAccessor level, BlockPos pos, RandomSource random, boolean randomize, CallbackInfoReturnable<BlockState> info,
-		@Local(ordinal = 0) BlockState state
+		LevelAccessor level, BlockPos pos, RandomSource random, boolean isWorldGen, CallbackInfoReturnable<BlockState> info,
+		@Local(name = "state") BlockState state
 	) {
 		if (!this.wilderWild$canPlaceOsseousSculk || state.is(Blocks.SCULK_SHRIEKER)) return;
 		state = WWBlocks.OSSEOUS_SCULK.defaultBlockState();

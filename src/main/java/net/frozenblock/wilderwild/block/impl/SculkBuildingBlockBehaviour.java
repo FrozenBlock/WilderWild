@@ -40,14 +40,14 @@ public interface SculkBuildingBlockBehaviour extends SculkBehaviour {
 		BlockPos catalystPos,
 		RandomSource random,
 		SculkSpreader spreader,
-		boolean shouldConvertToBlock
+		boolean spreadVein
 	) {
 		final BlockPos pos = cursor.getPos();
 
 		if (this.supportsSculkGrowths()) {
 			final BlockState state = level.getBlockState(cursor.getPos());
 			if ((state.isFaceSturdy(level, pos, Direction.UP) || state.isFaceSturdy(level, pos, Direction.DOWN)) && Blocks.SCULK instanceof SculkBlock sculkBlock) {
-				return sculkBlock.attemptUseCharge(cursor, level, catalystPos, random, spreader, shouldConvertToBlock);
+				return sculkBlock.attemptUseCharge(cursor, level, catalystPos, random, spreader, spreadVein);
 			}
 		}
 

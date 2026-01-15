@@ -50,9 +50,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
-	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean worldgen) {
+	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean isWorldGen) {
 		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) return false;
-		return worldgen
+		return isWorldGen
 			? state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
 			: state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE);
 	}
@@ -80,13 +80,14 @@ public class SculkSpreaderChargeCursorMixin {
 	)
 	private static void wilderWild$getValidMovementPos(
 		LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> info,
-		@Local(ordinal = 0) BlockPos.MutableBlockPos mutable1, @Local(ordinal = 1) BlockPos.MutableBlockPos mutable2
+		@Local(name = "sculkPosition") BlockPos.MutableBlockPos sculkPosition,
+		@Local(name = "neighbour") BlockPos.MutableBlockPos neighbour
 	) {
-		final BlockState state = level.getBlockState(mutable2);
-		if (!wilderWild$isReplaceableBuildingBlock(state, false) || !isMovementUnobstructed(level, pos, mutable2)) return;
-		mutable1.set(mutable2);
-		if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) info.cancel();
-		info.setReturnValue(mutable1.equals(pos) ? null : mutable1);
+		final BlockState state = level.getBlockState(neighbour);
+		if (!wilderWild$isReplaceableBuildingBlock(state, false) || !isMovementUnobstructed(level, pos, neighbour)) return;
+		sculkPosition.set(neighbour);
+		if (SculkVeinBlock.hasSubstrateAccess(level, state, neighbour)) info.cancel();
+		info.setReturnValue(sculkPosition.equals(pos) ? null : sculkPosition);
 	}
 
 	@Unique
@@ -127,22 +128,6 @@ public class SculkSpreaderChargeCursorMixin {
 			break;
 		}
 		return mutable1.equals(pos) ? null : mutable1;
-	}
-
-	//SHADOWS
-	@Shadow
-	private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
-		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
-	}
-
-	@Shadow
-	private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
-		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
-	}
-
-	@Shadow
-	private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
-		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
 	}
 
 	@Inject(method = "update", at = @At("HEAD"))
@@ -186,6 +171,21 @@ public class SculkSpreaderChargeCursorMixin {
 	) {
 		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(level, pos, random);
 		return operation.call(level, pos, random);
+	}
+
+	@Shadow
+	private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	@Shadow
+	private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	@Shadow
+	private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
 	}
 
 }
