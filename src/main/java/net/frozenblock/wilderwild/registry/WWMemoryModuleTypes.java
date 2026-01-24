@@ -46,7 +46,7 @@ public final class WWMemoryModuleTypes {
 	}
 
 	public static final MemoryModuleType<List<Firefly>> NEARBY_FIREFLIES = register("nearby_fireflies");
-	public static final MemoryModuleType<Boolean> NATURAL = register("natural", Codec.BOOL);
+	public static final MemoryModuleType<Unit> NATURAL = register("natural", Unit.CODEC);
 	public static final MemoryModuleType<Integer> HOME_VALIDATE_COOLDOWN = register("home_validate_cooldown", Codec.INT);
 	public static final MemoryModuleType<Boolean> IS_SWARM_LEADER = register("is_swarm_leader", Codec.BOOL);
 	public static final MemoryModuleType<PositionTracker> SWARM_LEADER_TRACKER = register("swarm_leader_tracker");
@@ -58,7 +58,6 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<Unit> FIRST_BRAIN_TICK = register("first_brain_tick");
 	public static final MemoryModuleType<List<AbstractOstrich>> NEARBY_OSTRICHES = register("nearby_ostriches");
 	public static final MemoryModuleType<List<Penguin>> NEARBY_PENGUINS = register("nearby_penguins");
-	public static final MemoryModuleType<List<Penguin>> CLOSE_PENGUINS = register("close_penguins");
 	public static final MemoryModuleType<Boat> TRACKED_BOAT = register("tracked_boat");
 	public static final MemoryModuleType<Integer> IDLE_TIME = register("idle_time", Codec.INT);
 	public static final MemoryModuleType<Integer> DIVE_TICKS = register("dive_ticks", Codec.INT);

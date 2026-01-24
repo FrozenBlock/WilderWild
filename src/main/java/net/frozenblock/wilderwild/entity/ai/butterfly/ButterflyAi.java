@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.entity.ai.butterfly;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +27,9 @@ import net.frozenblock.wilderwild.entity.ai.ValidateOrSetHome;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
@@ -52,11 +53,6 @@ public class ButterflyAi {
 		SensorType.NEAREST_LIVING_ENTITIES
 	);
 	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
-		MemoryModuleType.PATH,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.LOOK_TARGET,
 		MemoryModuleType.HOME,
 		WWMemoryModuleTypes.NATURAL,
 		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN
@@ -66,24 +62,19 @@ public class ButterflyAi {
 	}
 
 	public static Brain.Provider<Butterfly> brainProvider() {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities());
+	}
+
+	protected static List<ActivityData<Butterfly>> getActivities() {
+		return List.of(initCoreActivity(), initIdleActivity());
 	}
 
 	public static void setNatural(Butterfly butterfly) {
-		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, true);
+		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, Unit.INSTANCE);
 	}
 
-	public static Brain<?> makeBrain(Butterfly butterfly, Brain<Butterfly> brain) {
-		addCoreActivities(brain);
-		addIdleActivities(butterfly, brain);
-		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
-		brain.useDefaultActivity();
-		return brain;
-	}
-
-	private static void addCoreActivities(Brain<Butterfly> brain) {
-		brain.addActivity(
+	private static ActivityData<Butterfly> initCoreActivity() {
+		return ActivityData.create(
 			Activity.CORE,
 			0,
 			ImmutableList.of(
@@ -96,31 +87,32 @@ public class ButterflyAi {
 		);
 	}
 
-	private static void addIdleActivities(Butterfly butterfly, Brain<Butterfly> brain) {
-		brain.addActivity(
+	private static ActivityData<Butterfly> initIdleActivity() {
+		return ActivityData.create(
 			Activity.IDLE,
+			1,
 			ImmutableList.of(
-				Pair.of(1, StayCloseToTarget.create(ButterflyAi::getHomeTarget, entity -> true, 7, 16, 1F)),
-				Pair.of(2, StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 5, 5, 1F)),
-				Pair.of(3, SetEntityLookTarget.create(
-					livingEntity -> livingEntity.isAlive()
-						&& !livingEntity.isSpectator()
-						&& livingEntity instanceof FlowerCow flowerCow
+				StayCloseToTarget.create(ButterflyAi::getHomeTarget, entity -> true, 7, 16, 1F),
+				StayCloseToTarget.create(ButterflyAi::getLookTarget, entity -> true, 5, 5, 1F),
+				SetEntityLookTarget.create(
+					entity -> entity.isAlive()
+						&& !entity.isSpectator()
+						&& entity instanceof FlowerCow flowerCow
 						&& flowerCow.hasFlowersLeft()
 						&& !flowerCow.isBaby(),
 					8F
-				)),
-				Pair.of(4, new RunOne<>(
+				),
+				new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1F), 2),
 						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 2)
 					)
-				))
+				)
 			)
 		);
 	}
 
-	public static void updateActivities(Butterfly butterfly) {
+	public static void updateActivity(Butterfly butterfly) {
 		butterfly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
 	}
 

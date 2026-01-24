@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -202,12 +201,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	protected Brain.Provider<Crab> brainProvider() {
-		return Brain.provider(CrabAi.MEMORY_MODULES, CrabAi.SENSORS);
-	}
-
-	@Override
-	protected Brain<?> makeBrain(Dynamic<?> input) {
-		return CrabAi.makeBrain(this, this.brainProvider().makeBrain(input));
+		return CrabAi.brainProvider(this);
 	}
 
 	@Override

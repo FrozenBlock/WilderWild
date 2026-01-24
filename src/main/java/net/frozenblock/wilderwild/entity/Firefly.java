@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.mojang.serialization.Dynamic;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -237,11 +236,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected Brain<?> makeBrain(Dynamic<?> input) {
-		return FireflyAi.makeBrain(this, this.brainProvider().makeBrain(input));
-	}
-
-	@Override
 	public boolean wilderWild$fromBottle() {
 		return this.entityData.get(FROM_BOTTLE);
 	}
@@ -388,7 +382,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	public boolean isNatural() {
-		return this.getBrain().getMemory(WWMemoryModuleTypes.NATURAL).orElse(false);
+		return this.getBrain().hasMemoryValue(WWMemoryModuleTypes.NATURAL);
 	}
 
 	@Override
@@ -473,7 +467,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		this.getBrain().tick(level, this);
 		profiler.pop();
 		profiler.push("fireflyActivityUpdate");
-		FireflyAi.updateActivities(this);
+		FireflyAi.updateActivity(this);
 		profiler.pop();
 		super.customServerAiStep(level);
 	}

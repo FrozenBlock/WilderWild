@@ -19,19 +19,19 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
-import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -61,17 +61,17 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 
 		final FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
 		int color = DEFAULT_UNTINTED_COLOR;
-		if (leafParticleData != null) {
+
+		applyColor: {
+			if (leafParticleData == null) break applyColor;
+			final BlockColors blockColors = Minecraft.getInstance().getBlockColors();
 			final Block leavesBlock = leafParticleData.leavesBlock();
-			final BlockColor blockColor = ColorProviderRegistry.BLOCK.get(leavesBlock);
-			if (blockColor != null) {
-				final BlockPos particlePos = BlockPos.containing(x, y, z);
-				color = level.getBlockTint(particlePos, isLitter ? BiomeColors.DRY_FOLIAGE_COLOR_RESOLVER : BiomeColors.FOLIAGE_COLOR_RESOLVER);
-				try {
-					color = blockColor.getColor(leavesBlock.defaultBlockState(), level, particlePos, 0);
-				} catch (Exception ignored) {}
-			}
+			if (blockColors.blockColors.byId(BuiltInRegistries.BLOCK.getId(leavesBlock)) == null) break applyColor;
+
+			final BlockPos particlePos = BlockPos.containing(x, y, z);
+			color = Minecraft.getInstance().getBlockColors().getColor(leavesBlock.defaultBlockState(), level, particlePos);
 		}
+
 		this.rCol = ARGB.red(color) / 255F;
 		this.bCol = ARGB.blue(color) / 255F;
 		this.gCol = ARGB.green(color) / 255F;

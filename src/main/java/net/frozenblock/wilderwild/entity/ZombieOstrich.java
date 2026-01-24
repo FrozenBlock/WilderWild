@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.mojang.serialization.Dynamic;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -88,9 +87,8 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public Brain<AbstractOstrich> makeBrain(Dynamic<?> input) {
-		return (Brain<AbstractOstrich>) OstrichAi.makeBrain(this, this.brainProvider().makeBrain(input), true);
+	public Brain.Provider<AbstractOstrich> brainProvider() {
+		return OstrichAi.brainProvider(this, true);
 	}
 
 	@Override

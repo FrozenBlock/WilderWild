@@ -18,9 +18,9 @@
 package net.frozenblock.wilderwild.entity.ai.jellyfish;
 
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -30,8 +30,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 
-	public JellyfishHide(Jellyfish mob, double speedModifier, int searchRange, int verticalSearchRange) {
-		super(mob, speedModifier, searchRange, verticalSearchRange);
+	public JellyfishHide(double speedModifier, int searchRange, int verticalSearchRange) {
+		super(speedModifier, searchRange, verticalSearchRange);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Jellyfish owner, long l) {
-		super.tick(level, owner, l);
+	protected void tick(ServerLevel level, Jellyfish owner, long timestamp) {
+		super.tick(level, owner, timestamp);
 		if (this.isReachedTarget() && !owner.vanishing) {
 			level.broadcastEntityEvent(owner, EntityEvent.TENDRILS_SHIVER);
 			owner.vanishing = true;
@@ -56,7 +56,7 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	@Override
 	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
-		return state.getBlock() instanceof MesogleaBlock || (state.getBlock() instanceof NematocystBlock && state.getFluidState().is(FluidTags.WATER));
+		return state.is(WWBlockTags.MESOGLEA) || (state.getBlock() instanceof NematocystBlock && state.getFluidState().is(FluidTags.WATER));
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	protected void moveMobToBlock() {
-		this.mob
+	protected void moveMobToBlock(Jellyfish jellyfish) {
+		jellyfish
 			.getNavigation()
 			.moveTo(this.blockPos.getX() + 0.5, this.blockPos.getY() + 0.5, this.blockPos.getZ() + 0.5, this.speedModifier);
 	}

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.mojang.serialization.Dynamic;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -188,11 +187,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	protected Brain.Provider<Butterfly> brainProvider() {
 		return ButterflyAi.brainProvider();
-	}
-
-	@Override
-	protected Brain<?> makeBrain(Dynamic<?> input) {
-		return ButterflyAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	@Override
@@ -373,7 +367,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		this.getBrain().tick((ServerLevel) this.level(), this);
 		profiler.pop();
 		profiler.push("butterflyActivityUpdate");
-		ButterflyAi.updateActivities(this);
+		ButterflyAi.updateActivity(this);
 		profiler.pop();
 		super.customServerAiStep(level);
 	}

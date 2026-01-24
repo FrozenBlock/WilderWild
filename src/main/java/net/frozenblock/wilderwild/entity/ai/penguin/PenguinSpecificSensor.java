@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +26,6 @@ import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.phys.AABB;
@@ -36,7 +34,7 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_PENGUINS, WWMemoryModuleTypes.CLOSE_PENGUINS);
+		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_PENGUINS);
 	}
 
 	@Override
@@ -46,10 +44,5 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 		penguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
 		final Brain<?> brain = entity.getBrain();
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_PENGUINS, penguins);
-
-		final List<Penguin> closePenguins = Lists.newArrayList(penguins);
-		penguins.removeIf(penguin -> entity.distanceTo(penguin) > entity.getAttributeValue(Attributes.FOLLOW_RANGE));
-		closePenguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
-		brain.setMemory(WWMemoryModuleTypes.CLOSE_PENGUINS, closePenguins);
 	}
 }

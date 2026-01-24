@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +34,8 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
@@ -85,49 +84,16 @@ public class OstrichAi {
 		SensorType.NEAREST_PLAYERS,
 		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR
 	);
-	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
-		MemoryModuleType.IS_PANICKING,
-		MemoryModuleType.HURT_BY,
-		MemoryModuleType.HURT_BY_ENTITY,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.PATH,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.TEMPTING_PLAYER,
-		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
-		MemoryModuleType.GAZE_COOLDOWN_TICKS,
-		MemoryModuleType.IS_TEMPTED,
-		MemoryModuleType.BREED_TARGET,
-		MemoryModuleType.NEAREST_VISIBLE_ADULT,
-		MemoryModuleType.IS_PREGNANT,
-		MemoryModuleType.ANGRY_AT,
-		MemoryModuleType.UNIVERSAL_ANGER,
-		MemoryModuleType.ATTACK_TARGET,
-		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.NEAREST_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_PLAYERS,
-		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		WWMemoryModuleTypes.NEARBY_OSTRICHES,
-		MemoryModuleType.ATTACK_COOLING_DOWN
-	);
 
-	public static Brain.Provider<AbstractOstrich> brainProvider() {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+	public static Brain.Provider<AbstractOstrich> brainProvider(final AbstractOstrich body, boolean zombie) {
+		return Brain.provider(SENSOR_TYPES, getActivities(body, zombie));
 	}
 
-	public static Brain<?> makeBrain(AbstractOstrich ostrich, Brain<AbstractOstrich> brain, boolean zombie) {
-		initCoreActivity(brain, zombie);
-		initIdleActivity(brain, zombie);
-		initFightActivity(ostrich, brain);
-		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
-		brain.useDefaultActivity();
-		return brain;
+	protected static List<ActivityData<AbstractOstrich>> getActivities(final AbstractOstrich body, final boolean zombie) {
+		return List.of(initCoreActivity(zombie), initIdleActivity(zombie), initFightActivity(body));
 	}
 
-	private static void initCoreActivity(Brain<AbstractOstrich> brain, boolean zombie) {
+	private static ActivityData<AbstractOstrich> initCoreActivity(final boolean zombie) {
 		final ImmutableList.Builder<BehaviorControl<? super AbstractOstrich>> builder = ImmutableList.builder();
 		builder.add(new Swim<>(0.8F));
 		if (!zombie) builder.add(new OstrichLayEgg(WWBlocks.OSTRICH_EGG));
@@ -144,10 +110,10 @@ public class OstrichAi {
 		builder.add(new CountDownCooldownTicks(MemoryModuleType.GAZE_COOLDOWN_TICKS));
 		builder.add(StopBeingAngryIfTargetDead.create());
 
-		brain.addActivity(Activity.CORE, 0, builder.build());
+		return ActivityData.create(Activity.CORE, 0, builder.build());
 	}
 
-	private static void initIdleActivity(Brain<AbstractOstrich> brain, boolean zombie) {
+	private static ActivityData<AbstractOstrich> initIdleActivity(final boolean zombie) {
 		final ImmutableList.Builder<Pair<Integer, ? extends BehaviorControl<? super AbstractOstrich>>> builder = ImmutableList.builder();
 		builder.add(Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))));
 		if (!zombie) builder.add(Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)));
@@ -156,8 +122,8 @@ public class OstrichAi {
 		temptAndFollowAdultBuilder.add(
 			Pair.of(
 				new FollowTemptation(
-					livingEntity -> SPEED_MULTIPLIER_WHEN_TEMPTED,
-					livingEntity -> livingEntity.isBaby() ? 2.5D : 3.5D),
+					entity -> SPEED_MULTIPLIER_WHEN_TEMPTED,
+					entity -> entity.isBaby() ? 2.5D : 3.5D),
 				1
 			)
 		);
@@ -188,18 +154,18 @@ public class OstrichAi {
 			)
 		);
 
-		brain.addActivity(Activity.IDLE, builder.build());
+		return ActivityData.create(Activity.IDLE, builder.build());
 	}
 
-	private static void initFightActivity(AbstractOstrich ostrich, Brain<AbstractOstrich> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<AbstractOstrich> initFightActivity(final AbstractOstrich body) {
+		return ActivityData.create(
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
 				StopAttackingIfTargetInvalid.create(
-					(level, livingEntity) -> !ostrich.canTargetEntity(livingEntity), OstrichAi::onTargetInvalid, true
+					(level, entity) -> !body.canTargetEntity(entity), OstrichAi::onTargetInvalid, true
 				),
-				SetEntityLookTarget.create(livingEntity -> isTarget(ostrich, livingEntity), (float) ostrich.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				SetEntityLookTarget.create(entity -> isTarget(body, entity), 16F),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(OstrichAi::getSpeedModifierChasing),
 				OstrichMeleeAttack.create(5),
 				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
@@ -230,7 +196,7 @@ public class OstrichAi {
 			final Optional<? extends LivingEntity> nearestVisibleAttackablePlayer = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
 			if (nearestVisibleAttackablePlayer.isPresent()) return nearestVisibleAttackablePlayer;
 		}
-		return brain.getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+		return Optional.empty();
 	}
 
 	public static void wasHurtBy(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {

@@ -156,7 +156,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Override
 	public Brain.Provider<AbstractOstrich> brainProvider() {
-		return OstrichAi.brainProvider();
+		throw new AssertionError("Ostrich error!");
 	}
 
 	@Override

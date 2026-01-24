@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Dynamic;
 import java.util.Arrays;
 import java.util.List;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -87,19 +86,13 @@ public class Penguin extends Animal {
 
 	@Override
 	protected Brain.Provider<Penguin> brainProvider() {
-		return PenguinAi.brainProvider();
+		return PenguinAi.brainProvider(this);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public Brain<Penguin> getBrain() {
 		return (Brain<Penguin>) super.getBrain();
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Brain<Penguin> makeBrain(Dynamic<?> input) {
-		return (Brain<Penguin>) PenguinAi.makeBrain(this, this.brainProvider().makeBrain(input));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -155,8 +148,10 @@ public class Penguin extends Animal {
 		return stack.is(WWItemTags.PENGUIN_FOOD);
 	}
 
-	public boolean hasAttackTarget() {
-		return this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+	@Nullable
+	@Override
+	public LivingEntity getTarget() {
+		return this.getTargetFromBrain();
 	}
 
 	@Override

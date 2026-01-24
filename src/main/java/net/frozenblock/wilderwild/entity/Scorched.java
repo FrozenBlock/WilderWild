@@ -51,14 +51,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Scorched extends Spider {
 	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.085D, 0D);
@@ -99,22 +100,27 @@ public class Scorched extends Spider {
 		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
 			this.addEffect(new MobEffectInstance(WWMobEffects.SCORCHING, 200, 0));
 		}
-		this.scorchedInLava();
+		this.floatScorched();
 		this.applyEffectsFromBlocks();
         float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
 		this.prevLavaAnimProgress = this.lavaAnimProgress;
 		this.lavaAnimProgress = this.lavaAnimProgress + (targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
 	}
 
-	private void scorchedInLava() {
+	private void floatScorched() {
 		if (!this.isInLava()) return;
 
-		final CollisionContext collisionContext = CollisionContext.of(this);
-		if (collisionContext.isAbove(LiquidBlock.SHAPE_STABLE, this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+		final CollisionContext context = CollisionContext.of(this);
+		if (context.isAbove(this.getLiquidCollisionShape(), this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
 			this.setOnGround(true);
 		} else {
 			this.addDeltaMovement(LAVA_FLOAT_VECTOR);
 		}
+	}
+
+	@Override
+	public VoxelShape getLiquidCollisionShape() {
+		return Block.column(16D, 0D, 8D);
 	}
 
 	@Override
@@ -160,8 +166,8 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	public boolean canStandOnFluid(FluidState fluidState) {
-		return fluidState.is(FluidTags.LAVA);
+	public boolean canStandOnFluid(FluidState fluid) {
+		return fluid.is(FluidTags.LAVA);
 	}
 
 	@Override
@@ -169,8 +175,8 @@ public class Scorched extends Spider {
 		return false;
 	}
 
-	public float getLavaAnimProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.prevLavaAnimProgress, this.lavaAnimProgress);
+	public float getLavaAnimProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevLavaAnimProgress, this.lavaAnimProgress);
 	}
 
 	@Override

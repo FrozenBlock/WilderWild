@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import com.mojang.serialization.Dynamic;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -105,7 +104,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class Jellyfish extends NoFlopAbstractFish {
-	private static final float MAX_TARGET_DISTANCE = 4F;
+	public static final float MAX_TARGET_DISTANCE = 4F;
 	public static final int POISON_DURATION_IN_SECONDS_BABY = 4;
 	public static final int POISON_DURATION_IN_SECONDS = 10;
 	public static final float STING_PITCH = 1F;
@@ -266,12 +265,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public Brain.Provider<Jellyfish> brainProvider() {
-		return Brain.provider(JellyfishAi.MEMORY_TYPES, JellyfishAi.SENSOR_TYPES);
-	}
-
-	@Override
-	protected Brain<Jellyfish> makeBrain(Dynamic<?> input) {
-		return JellyfishAi.makeBrain(this, this.brainProvider().makeBrain(input));
+		return JellyfishAi.brainProvider(this);
 	}
 
 	@Override

@@ -33,8 +33,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	public CrabDig(int duration) {
 		super(
 			Map.of(
-				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.REGISTERED
+				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT
 			),
 			duration
 		);

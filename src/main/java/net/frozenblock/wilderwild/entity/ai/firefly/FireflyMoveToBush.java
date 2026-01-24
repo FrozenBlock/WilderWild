@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.Blocks;
 public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	private final int returnDistance;
 
-	public FireflyMoveToBush(Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange, int returnDistance) {
-		super(firefly, speedModifier, searchRange, verticalSearchRange);
+	public FireflyMoveToBush(double speedModifier, int searchRange, int verticalSearchRange, int returnDistance) {
+		super(speedModifier, searchRange, verticalSearchRange);
 		this.returnDistance = returnDistance;
 	}
 
@@ -53,9 +53,9 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	protected void moveMobToBlock() {
-		final RandomSource random = this.mob.getRandom();
-		this.mob
+	protected void moveMobToBlock(Firefly firefly) {
+		final RandomSource random = firefly.getRandom();
+		firefly
 			.getNavigation()
 			.moveTo(
 				random.nextInt(-3, 3) + this.blockPos.getX() + 0.5D,

@@ -30,7 +30,7 @@ public class PenguinMeetCaller {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),
 			instance.present(WWMemoryModuleTypes.CALLER)
-		).apply(instance, (lookTarget, callerUUID) -> (level, penguin, l) -> {
+		).apply(instance, (lookTarget, callerUUID) -> (level, penguin, timestamp) -> {
 			final UUID uuid = instance.get(callerUUID);
 			final Optional<LivingEntity> caller = PenguinAi.getCaller(penguin, uuid);
 			if (caller.isPresent()) {

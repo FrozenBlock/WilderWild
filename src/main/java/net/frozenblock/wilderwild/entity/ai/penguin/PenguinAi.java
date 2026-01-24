@@ -37,6 +37,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
@@ -90,44 +91,9 @@ public class PenguinAi {
 		WWSensorTypes.TRACKED_BOAT_SENSOR
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
-		MemoryModuleType.IS_PANICKING,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.PATH,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.TEMPTING_PLAYER,
-		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
-		MemoryModuleType.IS_TEMPTED,
-		MemoryModuleType.BREED_TARGET,
-		MemoryModuleType.NEAREST_VISIBLE_ADULT,
-		MemoryModuleType.IS_PREGNANT,
-		MemoryModuleType.ATTACK_TARGET,
-		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.NEAREST_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_PLAYERS,
-		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		WWMemoryModuleTypes.NEARBY_PENGUINS,
-		WWMemoryModuleTypes.CLOSE_PENGUINS,
 		MemoryModuleType.ATTACK_COOLING_DOWN,
 		MemoryModuleType.HOME,
-		MemoryModuleType.IS_IN_WATER,
-		WWMemoryModuleTypes.IDLE_TIME,
-		WWMemoryModuleTypes.DIVE_TICKS,
-		MemoryModuleType.HAS_HUNTING_COOLDOWN,
-		WWMemoryModuleTypes.LAYING_DOWN,
-		WWMemoryModuleTypes.STARTING_SEARCH,
-		WWMemoryModuleTypes.SEARCHING_FOR_WATER,
-		WWMemoryModuleTypes.ESCAPING,
-		WWMemoryModuleTypes.LAND_POS,
-		WWMemoryModuleTypes.WATER_POS,
-		WWMemoryModuleTypes.STANDING_UP,
-		WWMemoryModuleTypes.TRACKED_BOAT,
-		WWMemoryModuleTypes.WANTS_TO_CALL,
-		WWMemoryModuleTypes.CALL_COOLDOWN_TICKS,
-		WWMemoryModuleTypes.CALLING,
-		WWMemoryModuleTypes.CALLER
+		WWMemoryModuleTypes.IDLE_TIME
 	);
 
 	private static final BehaviorControl<Penguin> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(
@@ -138,31 +104,29 @@ public class PenguinAi {
 		})
 	);
 
-	public static Brain.Provider<Penguin> brainProvider() {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+	public static Brain.Provider<Penguin> brainProvider(final Penguin body) {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities(body));
 	}
 
-	public static Brain<?> makeBrain(Penguin penguin, Brain<Penguin> brain) {
-		initCoreActivity(brain);
-		initStandUpActivity(brain);
-		initChaseActivity(brain);
-		initCallActivity(brain);
-		initMeetActivity(brain, penguin);
-		initFightActivity(brain, penguin);
-		initIdleActivity(brain);
-		initPreSearchActivity(brain);
-		initSearchActivity(brain);
-		initSwimActivity(brain);
-		initEscapeActivity(brain);
-		initPostEscapeActivity(brain);
-		brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
-		brain.useDefaultActivity();
-		return brain;
+	protected static List<ActivityData<Penguin>> getActivities(final Penguin body) {
+		return List.of(
+			initCoreActivity(),
+			initStandUpActivity(),
+			initChaseActivity(),
+			initCallActivity(),
+			initMeetActivity(),
+			initFightActivity(body),
+			initIdleActivity(),
+			initPreSearchActivity(),
+			initSearchActivity(),
+			initSwimActivity(),
+			initEscapeActivity(),
+			initPostEscapeActivity()
+		);
 	}
 
-	private static void initCoreActivity(Brain<Penguin> brain) {
-		brain.addActivity(
+	private static ActivityData<Penguin> initCoreActivity() {
+		return ActivityData.create(
 			Activity.CORE,
 			0,
 			ImmutableList.of(
@@ -178,8 +142,8 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initStandUpActivity(Brain<Penguin> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<Penguin> initStandUpActivity() {
+		return ActivityData.create(
 			WWActivities.STAND_UP,
 			10,
 			ImmutableList.of(new PenguinStandUp<>(STAND_UP_DURATION)),
@@ -187,8 +151,8 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initChaseActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initChaseActivity() {
+		return ActivityData.create(
 			WWActivities.CHASE,
 			ImmutableList.of(
 				Pair.of(0, SetTrackedBoatLookTarget.create()),
@@ -206,8 +170,8 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initCallActivity(Brain<Penguin> brain) {
-		brain.addActivityAndRemoveMemoriesWhenStopped(
+	private static ActivityData<Penguin> initCallActivity() {
+		return ActivityData.create(
 			WWActivities.CALL,
 			ImmutableList.of(
 				Pair.of(20, new PenguinCall<>(CALL_DURATION))
@@ -228,8 +192,8 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initMeetActivity(Brain<Penguin> brain, Penguin penguin) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initMeetActivity() {
+		return ActivityData.create(
 			Activity.MEET,
 			ImmutableList.of(
 				Pair.of(0, PenguinMeetCaller.create()),
@@ -249,16 +213,16 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initFightActivity(Brain<Penguin> brain, Penguin penguin) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<Penguin> initFightActivity(final Penguin body) {
+		return ActivityData.create(
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
 				HUNTING_COOLDOWN_SETTER,
 				StopAttackingIfTargetInvalid.create(
-					(serverLevel, livingEntity) -> !penguin.canTargetEntity(livingEntity), PenguinAi::onTargetInvalid, true
+					(level, entity) -> !body.canTargetEntity(entity), PenguinAi::onTargetInvalid, true
 				),
-				SetEntityLookTarget.create(livingEntity -> isTarget(penguin, livingEntity), (float) penguin.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				SetEntityLookTarget.create(entity -> isTarget(body, entity), (float) body.getAttributeValue(Attributes.FOLLOW_RANGE)),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(PenguinAi::getSpeedModifierChasing),
 				MeleeAttack.create(30),
 				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
@@ -267,24 +231,22 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initIdleActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initIdleActivity() {
+		return ActivityData.create(
 			Activity.IDLE,
+			0,
 			ImmutableList.of(
-				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
-				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(4, TryFindLand.create(6, 1F)),
-				Pair.of(
-					5,
-					new RunOne<>(
-						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
-						ImmutableList.of(
-							Pair.of(RandomStroll.stroll(1F), 1),
-							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
-							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 2)
-						)
+				SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60)),
+				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
+				new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new FollowTemptation(entity -> 1.25F),
+				TryFindLand.create(6, 1F),
+				new RunOne<>(
+					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+					ImmutableList.of(
+						Pair.of(RandomStroll.stroll(1F), 1),
+						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 2)
 					)
 				)
 			),
@@ -297,11 +259,12 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initPreSearchActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initPreSearchActivity() {
+		return ActivityData.create(
 			WWActivities.PRE_SEARCH,
+			0,
 			ImmutableList.of(
-				Pair.of(0, new PenguinPreSearch<>())
+				new PenguinPreSearch<>()
 			),
 			ImmutableSet.of(
 				Pair.of(WWMemoryModuleTypes.NEARBY_PENGUINS, MemoryStatus.VALUE_PRESENT),
@@ -318,15 +281,15 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initSearchActivity(Brain<Penguin> brain) {
-		brain.addActivityAndRemoveMemoriesWhenStopped(
+	private static ActivityData<Penguin> initSearchActivity() {
+		return ActivityData.create(
 			WWActivities.SEARCH,
 			ImmutableList.of(
 				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
 				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(4, TryFindWater.create(8, 0.8F)),
 				Pair.of(5, PenguinReturnToWater.create(0.8F)),
 				Pair.of(
@@ -355,26 +318,24 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initSwimActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initSwimActivity() {
+		return ActivityData.create(
 			Activity.SWIM,
+			1,
 			ImmutableList.of(
-				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
-				Pair.of(4, StartAttacking.create(PenguinAi::canAttack, (serverLevel, penguin) -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE))),
-				Pair.of(
-					5,
-					new GateBehavior<>(
-						ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
-						ImmutableSet.of(),
-						GateBehavior.OrderPolicy.ORDERED,
-						GateBehavior.RunningPolicy.TRY_ALL,
-						ImmutableList.of(
-							Pair.of(RandomStroll.swim(1F), 2),
-							Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 3),
-							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5)
-						)
+				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
+				new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new FollowTemptation(entity -> 1.25F),
+				StartAttacking.create(PenguinAi::canAttack, (level, penguin) -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE)),
+				new GateBehavior<>(
+					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
+					ImmutableSet.of(),
+					GateBehavior.OrderPolicy.ORDERED,
+					GateBehavior.RunningPolicy.TRY_ALL,
+					ImmutableList.of(
+						Pair.of(RandomStroll.swim(1F), 2),
+						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 3),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5)
 					)
 				)
 			),
@@ -385,8 +346,8 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initEscapeActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initEscapeActivity() {
+		return ActivityData.create(
 			WWActivities.ESCAPE,
 			ImmutableList.of(
 				Pair.of(0, new PenguinMarkAsEscaping<>()),
@@ -394,7 +355,7 @@ public class PenguinAi {
 				Pair.of(1, PenguinFollowReturnPos.create(1.5F)),
 				Pair.of(1, PenguinFindEscapePos.create(10, 1.5F)),
 				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
-				Pair.of(3, new FollowTemptation(livingEntity -> 1.25F)),
+				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(
 					4,
 					new GateBehavior<>(
@@ -419,11 +380,12 @@ public class PenguinAi {
 		);
 	}
 
-	private static void initPostEscapeActivity(Brain<Penguin> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Penguin> initPostEscapeActivity() {
+		return ActivityData.create(
 			WWActivities.POST_ESCAPE,
+			0,
 			ImmutableList.of(
-				Pair.of(0, new PenguinPostEscape<>())
+				new PenguinPostEscape<>()
 			),
 			ImmutableSet.of(
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
@@ -435,7 +397,7 @@ public class PenguinAi {
 		);
 	}
 
-	public static void updateActivity(Penguin penguin) {
+	public static void updateActivity(final Penguin penguin) {
 		if (!penguin.isBaby()) {
 			penguin.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
@@ -472,16 +434,8 @@ public class PenguinAi {
 		return penguin.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS);
 	}
 
-	public static Optional<List<Penguin>> getClosePenguins(Penguin penguin) {
-		return penguin.getBrain().getMemory(WWMemoryModuleTypes.CLOSE_PENGUINS);
-	}
-
 	private static boolean isTarget(Penguin penguin, LivingEntity entity) {
 		return penguin.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
-	}
-
-	private static boolean isCaller(Penguin penguin, LivingEntity entity) {
-		return penguin.getBrain().getMemory(WWMemoryModuleTypes.CALLER).filter(uuid -> entity.getUUID().equals(uuid)).isPresent();
 	}
 
 	private static float getSpeedModifierChasing(@Nullable LivingEntity entity) {

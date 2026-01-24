@@ -37,8 +37,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.AnimalMakeLove;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;
 import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
@@ -83,36 +83,7 @@ public final class CrabAi {
 		WWSensorTypes.CRAB_CAN_DIG_SENSOR
 	);
 	public static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
-		MemoryModuleType.NEAREST_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-		MemoryModuleType.NEAREST_PLAYERS,
-		MemoryModuleType.NEAREST_VISIBLE_PLAYER,
-		MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-		WWMemoryModuleTypes.IS_PLAYER_NEARBY,
-		MemoryModuleType.LOOK_TARGET,
-		MemoryModuleType.WALK_TARGET,
-		MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-		MemoryModuleType.PATH,
-		MemoryModuleType.ATTACK_TARGET,
-		MemoryModuleType.NEAREST_ATTACKABLE,
-		MemoryModuleType.HAS_HUNTING_COOLDOWN,
-		MemoryModuleType.ATTACK_COOLING_DOWN,
-		MemoryModuleType.HURT_BY,
-		MemoryModuleType.HURT_BY_ENTITY,
-		MemoryModuleType.IS_PANICKING,
-		MemoryModuleType.IS_EMERGING,
-		MemoryModuleType.DIG_COOLDOWN,
-		WWMemoryModuleTypes.CAN_DIG,
-		MemoryModuleType.TEMPTING_PLAYER,
-		MemoryModuleType.IS_TEMPTED,
-		MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
-		MemoryModuleType.BREED_TARGET,
-		WWMemoryModuleTypes.IS_UNDERGROUND,
-		WWMemoryModuleTypes.NEARBY_CRABS,
-		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS,
-		WWMemoryModuleTypes.FIRST_BRAIN_TICK,
-		MemoryModuleType.ANGRY_AT,
-		MemoryModuleType.UNIVERSAL_ANGER
+		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS
 	);
 	private static final float SPEED_MODIFIER = 1F;
 	private static final float FOLLOWING_ADULT_SPEED_MODIFIER = 1.2F;
@@ -122,13 +93,13 @@ public final class CrabAi {
 	private static final int EMERGE_DURATION = Crab.EMERGE_LENGTH_IN_TICKS;
 	private static final BehaviorControl<Crab> DIG_COOLDOWN_SETTER = BehaviorBuilder.create(
 		instance -> instance.group(instance.registered(MemoryModuleType.DIG_COOLDOWN))
-			.apply(instance, digCooldown -> (level, crab, l) -> {
+			.apply(instance, digCooldown -> (level, crab, timestamp) -> {
 				if (instance.tryGet(digCooldown).isPresent()) digCooldown.setWithExpiry(Unit.INSTANCE, getRandomDigCooldown(crab));
 				return true;
 			}));
 	private static final BehaviorControl<Crab> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(
 		instance -> instance.group(instance.registered(MemoryModuleType.HAS_HUNTING_COOLDOWN))
-			.apply(instance, memoryAccessor -> (world, crab, l) -> {
+			.apply(instance, memoryAccessor -> (level, crab, timestamp) -> {
 				memoryAccessor.setWithExpiry(true, 2400);
 				return true;
 			}));
@@ -137,27 +108,22 @@ public final class CrabAi {
 		crab.getBrain().setActiveActivityToFirstValid(List.of(Activity.EMERGE, Activity.DIG, Activity.HIDE, Activity.FIGHT, Activity.IDLE));
 	}
 
-	public static Brain<Crab> makeBrain(Crab crab, Brain<Crab> brain) {
-		addCoreActivity(brain);
-		initEmergeActivity(brain);
-		initDiggingActivity(brain);
-		initHideActivity(brain);
-		addIdleActivity(brain);
-		addFightActivity(crab, brain);
-		brain.setCoreActivities(Set.of(Activity.CORE));
-		brain.setDefaultActivity(Activity.IDLE);
-		brain.useDefaultActivity();
-		return brain;
+	public static Brain.Provider<Crab> brainProvider(final Crab body) {
+		return Brain.provider(MEMORY_MODULES, SENSORS, getActivities(body));
 	}
 
-	private static void addCoreActivity(Brain<Crab> brain) {
-		brain.addActivity(
+	protected static List<ActivityData<Crab>> getActivities(final Crab body) {
+		return List.of(initCoreActivity(), initEmergeActivity(), initDiggingActivity(), initHideActivity(), initIdleActivity(), initFightActivity(body));
+	}
+
+	private static ActivityData<Crab> initCoreActivity() {
+		return ActivityData.create(
 			Activity.CORE,
 			0,
 			ImmutableList.of(
-				new AnimalPanic<>(1.65F, pathfinderMob -> {
-					if (((Crab) pathfinderMob).isDiggingOrEmerging()) return WWDamageTypeTags.EMPTY;
-					return pathfinderMob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
+				new AnimalPanic<>(1.65F, mob -> {
+					if (((Crab) mob).isDiggingOrEmerging()) return WWDamageTypeTags.EMPTY;
+					return mob.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES;
 				}),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
@@ -166,8 +132,8 @@ public final class CrabAi {
 		);
 	}
 
-	private static void initEmergeActivity(Brain<Crab> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<Crab> initEmergeActivity() {
+		return ActivityData.create(
 			Activity.EMERGE,
 			5,
 			ImmutableList.of(
@@ -177,8 +143,8 @@ public final class CrabAi {
 		);
 	}
 
-	private static void initDiggingActivity(Brain<Crab> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Crab> initDiggingActivity() {
+		return ActivityData.create(
 			Activity.DIG,
 			ImmutableList.of(
 				Pair.of(0, new ForceUnmount()),
@@ -197,8 +163,8 @@ public final class CrabAi {
 		);
 	}
 
-	private static void initHideActivity(Brain<Crab> brain) {
-		brain.addActivityWithConditions(
+	private static ActivityData<Crab> initHideActivity() {
+		return ActivityData.create(
 			Activity.HIDE,
 			ImmutableList.of(
 				Pair.of(0, CrabTryToEmerge.create()),
@@ -210,49 +176,44 @@ public final class CrabAi {
 		);
 	}
 
-	private static void addIdleActivity(Brain<Crab> brain) {
-		brain.addActivity(
+	private static ActivityData<Crab> initIdleActivity() {
+		return ActivityData.create(
 			Activity.IDLE,
+			1,
 			ImmutableList.of(
-				Pair.of(1, new AnimalMakeLove(WWEntityTypes.CRAB, 0.8F, 2)),
-				Pair.of(
-					2,
-					new RunOne<>(
-						List.of(
-							Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
-							Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, FOLLOWING_ADULT_SPEED_MODIFIER), 1)
-						)
+				new AnimalMakeLove(WWEntityTypes.CRAB, 0.8F, 2),
+				new RunOne<>(
+					List.of(
+						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
+						Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, FOLLOWING_ADULT_SPEED_MODIFIER), 1)
 					)
 				),
-				Pair.of(3, StartAttacking.create(CrabAi::findNearestValidAttackTarget)),
-				Pair.of(
-					4,
-					new RunOne<>(
-						Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
-						List.of(
-							Pair.of(RandomStroll.swim(1F), 2),
-							Pair.of(RandomStroll.stroll(1F), 2),
-							Pair.of(new DoNothing(30, 100), 1),
-							Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5),
-							Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 5)
-						)
+				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
+				new RunOne<>(
+					Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+					List.of(
+						Pair.of(RandomStroll.swim(1F), 2),
+						Pair.of(RandomStroll.stroll(1F), 2),
+						Pair.of(new DoNothing(30, 100), 1),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5),
+						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 5)
 					)
 				)
 			)
 		);
 	}
 
-	private static void addFightActivity(Crab crab, Brain<Crab> brain) {
-		brain.addActivityAndRemoveMemoryWhenStopped(
+	private static ActivityData<Crab> initFightActivity(final Crab body) {
+		return ActivityData.create(
 			Activity.FIGHT,
 			10,
 			ImmutableList.of(
 				DIG_COOLDOWN_SETTER,
 				HUNTING_COOLDOWN_SETTER,
 				StopAttackingIfTargetInvalid.create(
-					(level, livingEntity) -> !crab.canTargetEntity(livingEntity), CrabAi::onTargetInvalid, true
+					(level, entity) -> !body.canTargetEntity(entity), CrabAi::onTargetInvalid, true
 				),
-				SetEntityLookTarget.create(livingEntity -> isTarget(crab, livingEntity), (float) crab.getAttributeValue(Attributes.FOLLOW_RANGE)),
+				SetEntityLookTarget.create(entity -> isTarget(body, entity), Crab.MAX_TARGET_DISTANCE),
 				SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(CrabAi::getSpeedModifierChasing),
 				MeleeAttack.create(20),
 				EraseMemoryIf.create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)
@@ -265,7 +226,7 @@ public final class CrabAi {
 		return crab.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
 	}
 
-	private static float getSpeedModifierChasing(@Nullable LivingEntity livingEntity) {
+	private static float getSpeedModifierChasing(@Nullable LivingEntity target) {
 		return CHASING_SPEED_MODIFIER;
 	}
 

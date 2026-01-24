@@ -27,8 +27,8 @@ import net.minecraft.world.level.LevelReader;
 
 public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 
-	public FireflyHide(Firefly firefly, double speedModifier, int searchRange, int verticalSearchRange) {
-		super(firefly, speedModifier, searchRange, verticalSearchRange);
+	public FireflyHide(double speedModifier, int searchRange, int verticalSearchRange) {
+		super(speedModifier, searchRange, verticalSearchRange);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	protected void moveMobToBlock() {
-		this.mob
+	protected void moveMobToBlock(Firefly firefly) {
+		firefly
 			.getNavigation()
 			.moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
 	}
