@@ -62,7 +62,7 @@ public class ButterflyAi {
 	}
 
 	public static Brain.Provider<Butterfly> brainProvider() {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities());
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, butterfly -> getActivities());
 	}
 
 	protected static List<ActivityData<Butterfly>> getActivities() {

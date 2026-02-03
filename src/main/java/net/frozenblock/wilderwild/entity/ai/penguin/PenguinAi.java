@@ -104,8 +104,8 @@ public class PenguinAi {
 		})
 	);
 
-	public static Brain.Provider<Penguin> brainProvider(final Penguin body) {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities(body));
+	public static Brain.Provider<Penguin> brainProvider() {
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, PenguinAi::getActivities);
 	}
 
 	protected static List<ActivityData<Penguin>> getActivities(final Penguin body) {

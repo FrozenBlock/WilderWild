@@ -134,6 +134,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
 	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.2F;
 	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
+	private static final Brain.Provider<Crab> BRAIN_PROVIDER = CrabAi.brainProvider();
 	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
@@ -200,8 +201,8 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	}
 
 	@Override
-	protected Brain.Provider<Crab> brainProvider() {
-		return CrabAi.brainProvider(this);
+	protected Brain<Crab> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override

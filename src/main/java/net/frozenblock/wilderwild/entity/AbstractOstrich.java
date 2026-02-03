@@ -155,7 +155,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public Brain.Provider<AbstractOstrich> brainProvider() {
+	protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
 		throw new AssertionError("Ostrich error!");
 	}
 

@@ -70,6 +70,7 @@ import net.minecraft.ChatFormatting;
 public class Penguin extends Animal {
 	private static final List<String> VALID_LINUX_NAMES = ImmutableList.of("Linux", "Tux", "Treetrain", "Treetrain1");
 	public static final double BOAT_BOOST_SPEED = 1.7D;
+	private static final Brain.Provider<Penguin> BRAIN_PROVIDER = PenguinAi.brainProvider();
 	public AnimationState layDownAnimationState = new AnimationState();
 	public AnimationState standUpAnimationState = new AnimationState();
 	public AnimationState callAnimationState = new AnimationState();
@@ -85,8 +86,8 @@ public class Penguin extends Animal {
 	}
 
 	@Override
-	protected Brain.Provider<Penguin> brainProvider() {
-		return PenguinAi.brainProvider(this);
+	protected Brain<Penguin> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override

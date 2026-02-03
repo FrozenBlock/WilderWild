@@ -85,8 +85,8 @@ public class OstrichAi {
 		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR
 	);
 
-	public static Brain.Provider<AbstractOstrich> brainProvider(final AbstractOstrich body, boolean zombie) {
-		return Brain.provider(SENSOR_TYPES, getActivities(body, zombie));
+	public static Brain.Provider<AbstractOstrich> brainProvider(boolean zombie) {
+		return Brain.provider(SENSOR_TYPES, body -> getActivities(body, zombie));
 	}
 
 	protected static List<ActivityData<AbstractOstrich>> getActivities(final AbstractOstrich body, final boolean zombie) {

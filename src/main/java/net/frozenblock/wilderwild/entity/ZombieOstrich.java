@@ -34,6 +34,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -52,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class ZombieOstrich extends AbstractOstrich {
+	private static final Brain.Provider<AbstractOstrich> BRAIN_PROVIDER = OstrichAi.brainProvider(true);
 
 	public ZombieOstrich(EntityType<? extends ZombieOstrich> type, Level level) {
 		super(type, level);
@@ -87,8 +89,8 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	public Brain.Provider<AbstractOstrich> brainProvider() {
-		return OstrichAi.brainProvider(this, true);
+	protected Brain<AbstractOstrich> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override

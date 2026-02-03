@@ -108,8 +108,8 @@ public final class CrabAi {
 		crab.getBrain().setActiveActivityToFirstValid(List.of(Activity.EMERGE, Activity.DIG, Activity.HIDE, Activity.FIGHT, Activity.IDLE));
 	}
 
-	public static Brain.Provider<Crab> brainProvider(final Crab body) {
-		return Brain.provider(MEMORY_MODULES, SENSORS, getActivities(body));
+	public static Brain.Provider<Crab> brainProvider() {
+		return Brain.provider(MEMORY_MODULES, SENSORS, CrabAi::getActivities);
 	}
 
 	protected static List<ActivityData<Crab>> getActivities(final Crab body) {

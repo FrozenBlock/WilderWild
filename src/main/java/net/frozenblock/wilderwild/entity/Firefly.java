@@ -34,6 +34,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -54,6 +55,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -88,6 +90,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
+	private static final Brain.Provider<Firefly> BRAIN_PROVIDER = FireflyAi.brainProvider();
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
@@ -198,13 +201,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		final Item item = stack.getItem();
 		applyColor : {
 			if (!(item instanceof DyeItem dyeItem)) break applyColor;
+			var dye = dyeItem.components().get(DataComponents.DYE);
 			final Optional<DyeColor> optionalFireflyDyeColor = this.getVariant().dyeColor();
 			if (optionalFireflyDyeColor.isPresent()) {
 				final DyeColor fireflyDyeColor = optionalFireflyDyeColor.get();
-				if (fireflyDyeColor == dyeItem.getDyeColor()) break applyColor;
+				if (fireflyDyeColor == dye) break applyColor;
 			}
 
-			final Optional<FireflyColor> newFireflyColor = FireflyColor.getByDyeColor(this.registryAccess(), dyeItem.getDyeColor());
+			final Optional<FireflyColor> newFireflyColor = FireflyColor.getByDyeColor(this.registryAccess(), dye);
 			if (newFireflyColor.isEmpty()) break applyColor;
 
 			if (!this.level().isClientSide()) {
@@ -231,8 +235,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	@Override
-	protected Brain.Provider<Firefly> brainProvider() {
-		return FireflyAi.brainProvider();
+	protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override

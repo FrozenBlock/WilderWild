@@ -114,6 +114,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public static final double HIDABLE_PLAYER_DISTANCE = 24D;
 	public static final int HIDABLE_TICKS_SINCE_SPAWN = 150;
 	public static final int HIDING_CHANCE = 25;
+	private static final Brain.Provider<Jellyfish> BRAIN_PROVIDER = JellyfishAi.brainProvider();
 	public static final Identifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID = WWConstants.id("movement_speed_modifier_baby");
 	public static final AttributeModifier JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY = new AttributeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID, 0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
@@ -264,8 +265,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	@Override
-	public Brain.Provider<Jellyfish> brainProvider() {
-		return JellyfishAi.brainProvider(this);
+	protected Brain<Jellyfish> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override

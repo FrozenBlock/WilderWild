@@ -76,7 +76,7 @@ public class FireflyAi {
 	}
 
 	public static Brain.Provider<Firefly> brainProvider() {
-		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, getActivities());
+		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, body -> getActivities());
 	}
 
 	protected static List<ActivityData<Firefly>> getActivities() {

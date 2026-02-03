@@ -49,8 +49,8 @@ public class JellyfishAi {
 		SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
 	);
 
-	public static Brain.Provider<Jellyfish> brainProvider(final Jellyfish body) {
-		return Brain.provider(SENSOR_TYPES, getActivities(body));
+	public static Brain.Provider<Jellyfish> brainProvider() {
+		return Brain.provider(SENSOR_TYPES, JellyfishAi::getActivities);
 	}
 
 	protected static List<ActivityData<Jellyfish>> getActivities(final Jellyfish body) {

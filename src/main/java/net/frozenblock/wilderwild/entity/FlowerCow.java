@@ -32,6 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -58,6 +59,7 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -340,7 +342,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			.map(ItemStack::getItem)
 			.filter(DyeItem.class::isInstance)
 			.map(DyeItem.class::cast)
-			.map(DyeItem::getDyeColor);
+			.map(item -> item.components().get(DataComponents.DYE));
 	}
 
 	private static DyeColor getCombinedDyeColor(ServerLevel level, DyeColor dyeColor, DyeColor otherDyeColor) {
@@ -351,7 +353,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			.map(ItemStack::getItem)
 			.filter(DyeItem.class::isInstance)
 			.map(DyeItem.class::cast)
-			.map(DyeItem::getDyeColor)
+			.map(item -> item.components().get(DataComponents.DYE))
 			.orElseGet(() -> level.getRandom().nextBoolean() ? dyeColor : otherDyeColor);
 	}
 
@@ -360,8 +362,32 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	private static CraftingInput makeCraftInput(DyeColor color, DyeColor otherColor) {
-		return CraftingInput.of(2, 1, List.of(new ItemStack(DyeItem.byColor(color)), new ItemStack(DyeItem.byColor(otherColor))));
-	}
+		ItemStack first = new ItemStack(itemForDyeColor(color));
+		ItemStack second = new ItemStack(itemForDyeColor(otherColor));
+
+         return CraftingInput.of(2, 1, List.of(first, second));
+     }
+
+     private static Item itemForDyeColor(DyeColor color) {
+        return switch (color) {
+            case WHITE -> Items.WHITE_DYE;
+            case ORANGE -> Items.ORANGE_DYE;
+            case MAGENTA -> Items.MAGENTA_DYE;
+            case LIGHT_BLUE -> Items.LIGHT_BLUE_DYE;
+            case YELLOW -> Items.YELLOW_DYE;
+            case LIME -> Items.LIME_DYE;
+            case PINK -> Items.PINK_DYE;
+            case GRAY -> Items.GRAY_DYE;
+            case LIGHT_GRAY -> Items.LIGHT_GRAY_DYE;
+            case CYAN -> Items.CYAN_DYE;
+            case PURPLE -> Items.PURPLE_DYE;
+            case BLUE -> Items.BLUE_DYE;
+            case BROWN -> Items.BROWN_DYE;
+            case GREEN -> Items.GREEN_DYE;
+            case RED -> Items.RED_DYE;
+            case BLACK -> Items.BLACK_DYE;
+        };
+    }
 
 	public static class FlowerCowSpawnGroupData extends AgeableMob.AgeableMobGroupData {
 		public final Holder<MoobloomVariant> type;

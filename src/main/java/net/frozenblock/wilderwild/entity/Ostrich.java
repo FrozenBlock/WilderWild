@@ -30,6 +30,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class Ostrich extends AbstractOstrich {
+	private static final Brain.Provider<AbstractOstrich> BRAIN_PROVIDER = OstrichAi.brainProvider(false);
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(0.435F, 0.57F).withEyeHeight(0.53125F);
 
 	public Ostrich(EntityType<? extends Ostrich> type, Level level) {
@@ -66,8 +68,8 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	@Override
-	public Brain.Provider<AbstractOstrich> brainProvider() {
-		return OstrichAi.brainProvider(this, false);
+	protected Brain<AbstractOstrich> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
 	}
 
 	@Override
