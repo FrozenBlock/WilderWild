@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -69,14 +70,14 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int height,
 		BlockPos startPos,
 		TreeConfiguration config
 	) {
-		setDirtAt(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos branchMutable = new BlockPos.MutableBlockPos();

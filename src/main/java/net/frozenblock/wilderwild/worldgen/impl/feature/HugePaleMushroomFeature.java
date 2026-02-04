@@ -49,8 +49,8 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 		final int top = height + 1;
 		final int bottom = height - 2;
 		for (int y = bottom; y <= top; y++) {
-			final int radius = y < top ? config.foliageRadius : config.foliageRadius - 1;
-			final int withinRadius = config.foliageRadius - 2;
+			final int radius = y < top ? config.foliageRadius() : config.foliageRadius() - 1;
+			final int withinRadius = config.foliageRadius() - 2;
 
 			for (int x = -radius; x <= radius; x++) {
 				for (int z = -radius; z <= radius; z++) {
@@ -69,7 +69,7 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 					mutable.setWithOffset(pos, x, y, z);
 					if (level.getBlockState(mutable).isSolidRender()) continue;
 
-					BlockState state = config.capProvider.getState(random, pos);
+					BlockState state = config.capProvider().getState(random, pos);
 					if (state.hasProperty(HugeMushroomBlock.WEST)
 						&& state.hasProperty(HugeMushroomBlock.EAST)
 						&& state.hasProperty(HugeMushroomBlock.NORTH)

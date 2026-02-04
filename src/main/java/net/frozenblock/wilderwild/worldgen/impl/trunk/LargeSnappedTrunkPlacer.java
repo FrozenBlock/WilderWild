@@ -28,6 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -55,7 +56,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int height,
@@ -64,23 +65,23 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
+		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 0), height);
 
-		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
+		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 0), height);
 
-		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.DOWN), config);
+		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 0, -1, 1), height);
 
-		setDirtAt(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), config);
+		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), config);
 		placeQuarter(level, replacer, random, config, mutable.setWithOffset(startPos, 1, -1, 1), height);
 
 		return Lists.newArrayList();
 	}
 
 	private void placeQuarter(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		TreeConfiguration config,
@@ -92,7 +93,7 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void placeLog(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> blockSetter,
 		RandomSource random,
 		TreeConfiguration config,

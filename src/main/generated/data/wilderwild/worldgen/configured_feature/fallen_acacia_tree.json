@@ -9,12 +9,6 @@
         "probability": 0.12
       }
     ],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
     "foliage_placer": {
       "type": "wilderwild:no_op_foliage_placer"
     },
@@ -24,7 +18,6 @@
         "Name": "minecraft:air"
       }
     },
-    "force_dirt": false,
     "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",

@@ -36,7 +36,7 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 	private final ModelPart tumbleweed;
 
 	public TumbleweedModel(ModelPart root) {
-		super(root, RenderTypes::entityCutoutNoCull);
+		super(root, RenderTypes::entityCutout);
 		this.body = root.getChild("body");
 		this.tumbleweed = this.body.getChild("tumbleweed");
 	}

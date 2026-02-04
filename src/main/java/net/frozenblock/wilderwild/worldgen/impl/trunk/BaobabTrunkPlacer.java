@@ -29,7 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,7 +57,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void terraformBelow(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos startPos,
@@ -84,15 +84,17 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private static void setDirtAt(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos pos,
 		TreeConfiguration config,
 		List<BlockPos> logPoses
 	) {
-		if (!config.forceDirt && isDirt(level, pos)) return;
-		replacer.accept(pos, config.dirtProvider.getState(random, pos));
+		var blockBelowTrunk = config.belowTrunkProvider.getState(level, random, pos);
+		if (blockBelowTrunk != null) {
+			replacer.accept(pos, blockBelowTrunk);
+		}
 		logPoses.add(pos.immutable());
 	}
 
@@ -103,7 +105,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int height,
@@ -241,7 +243,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		int h,
 		int minh,
 		int maxLength,
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos.MutableBlockPos mutable,
@@ -276,7 +278,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void placeLogIfFree(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos.MutableBlockPos pos,
@@ -290,7 +292,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void placeLogIfFree(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos.MutableBlockPos pos,
@@ -301,7 +303,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void setLogs(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos.MutableBlockPos pos,
@@ -319,7 +321,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	}
 
 	private void setLog(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		BlockPos.MutableBlockPos pos,

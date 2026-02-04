@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -58,7 +59,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int freeTreeHeight,
@@ -70,10 +71,10 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 
 		final ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		final BlockPos belowPos = pos.below();
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos, config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.east(), config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.south(), config);
-		DarkOakTrunkPlacer.setDirtAt(level, replacer, random, belowPos.south().east(), config);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos, config);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.east(), config);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south(), config);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south().east(), config);
 
 		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);

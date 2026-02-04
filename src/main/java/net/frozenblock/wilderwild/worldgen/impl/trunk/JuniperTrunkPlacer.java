@@ -30,6 +30,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -76,14 +77,14 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int freeTreeHeight,
 		BlockPos pos,
 		TreeConfiguration config
 	) {
-		JuniperTrunkPlacer.setDirtAt(level, replacer, random, pos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, pos.below(), config);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
 		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
 		if (j >= i) ++j;
@@ -113,7 +114,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		return foliageAttachments;
 	}
 
-	private FoliagePlacer.FoliageAttachment generateBranch(LevelSimulatedReader world, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
+	private FoliagePlacer.FoliageAttachment generateBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
 		int o;
 		mutablePos.set(pos).move(Direction.UP, j);
 		int k = i - 1 + this.branchEndOffsetFromTop.sample(random);
@@ -122,14 +123,14 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		BlockPos blockPos = pos.relative(direction, l).above(k);
 		int m = bl2 ? 2 : 1;
 		for (int n = 0; n < m; ++n) {
-			this.placeLog(world, biConsumer, random, mutablePos.move(direction), treeConfiguration, function);
+			this.placeLog(level, biConsumer, random, mutablePos.move(direction), treeConfiguration, function);
 		}
 		Direction direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
 		while ((o = mutablePos.distManhattan(blockPos)) != 0) {
 			float f = (float) Math.abs(blockPos.getY() - mutablePos.getY()) / (float) o;
 			boolean bl3 = random.nextFloat() < f;
 			mutablePos.move(bl3 ? direction2 : direction);
-			this.placeLog(world, biConsumer, random, mutablePos, treeConfiguration, bl3 ? Function.identity() : function);
+			this.placeLog(level, biConsumer, random, mutablePos, treeConfiguration, bl3 ? Function.identity() : function);
 		}
 		return new FoliagePlacer.FoliageAttachment(blockPos.above(), 0, false);
 	}

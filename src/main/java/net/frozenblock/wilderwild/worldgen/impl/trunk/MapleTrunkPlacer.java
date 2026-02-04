@@ -33,6 +33,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -78,7 +79,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BiConsumer<BlockPos, BlockState> replacer,
 		RandomSource random,
 		int height,
@@ -87,7 +88,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 	) {
 		if (!WWWorldgenConfig.NEW_MAPLES) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, config);
 
-		setDirtAt(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final int branchCutoffFromTop = this.trunkBranchPlacement.branchCutoffFromTop().sample(random);

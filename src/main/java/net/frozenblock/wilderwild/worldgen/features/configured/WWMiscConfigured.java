@@ -60,6 +60,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockBlobConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
@@ -147,7 +148,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenLibConfiguredFeature<BlockStateConfiguration> SNOW = register("snow");
+	public static final FrozenLibConfiguredFeature<BlockBlobConfiguration> SNOW = register("snow");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
 	public static final FrozenLibConfiguredFeature<BlockPileConfiguration> MOSS_PILE = register("moss_pile");
@@ -929,9 +930,11 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SNOW.makeAndSetHolder(Feature.FOREST_ROCK,
-			new BlockStateConfiguration(
-				Blocks.SNOW_BLOCK.defaultBlockState()
+		SNOW.makeAndSetHolder(Feature.BLOCK_BLOB,
+			new BlockBlobConfiguration(
+				Blocks.SNOW_BLOCK.defaultBlockState(),
+				// TODO 26.1 check if tag is correct
+				BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)
 			)
 		);
 

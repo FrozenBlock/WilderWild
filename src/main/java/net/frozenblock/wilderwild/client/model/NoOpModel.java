@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 public class NoOpModel<T extends EntityRenderState> extends EntityModel<T> {
 
 	public NoOpModel(ModelPart root) {
-		super(root, RenderTypes::entityCutoutNoCull);
+		super(root, RenderTypes::entityCutout);
 	}
 
 	public static LayerDefinition createBodyLayer() {

@@ -24,13 +24,14 @@ import net.frozenblock.lib.wind.impl.networking.WindSyncPacket;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedDataType;
 import org.jetbrains.annotations.Contract;
 
 public final class WWWindManager extends WindManagerExtension {
-	private static final String WW_WIND_MANAGER_EXTENSION_FILE_ID = createSaveId(WWConstants.id("clouds"));
+	private static final Identifier WW_WIND_MANAGER_EXTENSION_FILE_ID = createSaveId(WWConstants.id("clouds"));
 	public static final Codec<WWWindManager> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
 				Codec.DOUBLE.fieldOf("cloudX").forGetter(windManager -> windManager.cloudX),

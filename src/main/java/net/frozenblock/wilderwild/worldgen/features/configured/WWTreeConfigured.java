@@ -78,6 +78,7 @@ import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
@@ -100,6 +101,7 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacem
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
@@ -836,7 +838,7 @@ public final class WWTreeConfigured {
 		FULL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullYellowMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
 		);
 
 		BIG_SHRUB_YELLOW_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -908,7 +910,7 @@ public final class WWTreeConfigured {
 		FULL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullOrangeMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
 		);
 
 		BIG_SHRUB_ORANGE_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -980,7 +982,7 @@ public final class WWTreeConfigured {
 		FULL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullRedMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).dirt(BlockStateProvider.simple(Blocks.DIRT)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
 		);
 
 		BIG_SHRUB_RED_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -1448,7 +1450,8 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(
 					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
 				),
-				2
+				2,
+				BlockPredicate.matchesTag(BlockTags.DIRT)
 			)
 		);
 
@@ -1586,7 +1589,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).build()
@@ -1605,7 +1608,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).build()
@@ -1620,7 +1623,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN,
 					VINES_1_UNDER_260_075
 				)
@@ -1935,7 +1938,7 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
 				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0)
-			).dirt(BlockStateProvider.simple(Blocks.COARSE_DIRT)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.COARSE_DIRT)).build()
 		);
 
 		LARGE_BUSH.makeAndSetHolder(Feature.TREE,
@@ -2182,7 +2185,8 @@ public final class WWTreeConfigured {
 						)
 					)
 				),
-				new TwoLayersFeatureSize(2, 0, 2)
+				new TwoLayersFeatureSize(2, 0, 2),
+				TreeConfiguration.PLACE_BELOW_OVERWORLD_TRUNKS
 			).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
@@ -2233,7 +2237,8 @@ public final class WWTreeConfigured {
 						)
 					)
 				),
-				new TwoLayersFeatureSize(3, 0, 2)
+				new TwoLayersFeatureSize(3, 0, 2),
+				TreeConfiguration.PLACE_BELOW_OVERWORLD_TRUNKS
 			).decorators(
 				List.of(
 					new LeaveVineDecorator(0.125F),
@@ -2269,7 +2274,7 @@ public final class WWTreeConfigured {
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenCrimson().decorators(
 				List.of(NETHER_FUNGI_LEANING_CRIMSON)
-			).dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
@@ -2280,14 +2285,14 @@ public final class WWTreeConfigured {
 				1
 			).decorators(
 				List.of(NETHER_FUNGI_LEANING_CRIMSON)
-			).dirt(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
 		//WARPED
 		FALLEN_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenWarped().decorators(
 				List.of(NETHER_FUNGI_LEANING_WARPED)
-			).dirt(BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.WARPED_NYLIUM)).build()
 		);
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
@@ -2298,7 +2303,7 @@ public final class WWTreeConfigured {
 				1
 			).decorators(
 				List.of(NETHER_FUNGI_LEANING_WARPED)
-			).dirt(BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.WARPED_NYLIUM)).build()
 		);
 
 	}
@@ -3163,7 +3168,8 @@ public final class WWTreeConfigured {
 					)
 				)
 			),
-			new TwoLayersFeatureSize(2, 0, 2)
+			new TwoLayersFeatureSize(2, 0, 2),
+			TreeConfiguration.PLACE_BELOW_OVERWORLD_TRUNKS
 		);
 	}
 
