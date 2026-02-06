@@ -123,6 +123,10 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 
 public final class WWTreeConfigured {
+	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE));
+	public static final RuleBasedBlockStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE = RuleBasedBlockStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE, Blocks.DIRT);
+	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_DESERT = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT));
+	public static final RuleBasedBlockStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_DESERT = RuleBasedBlockStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_DESERT, Blocks.DIRT);
 	// BIRCH
 	public static final FrozenLibConfiguredTreeFeature BIRCH_TREE = registerBirch("birch_tree");
 	public static final FrozenLibConfiguredTreeFeature BIRCH_BEES_0004 = registerBirch("birch_bees_0004");
@@ -1833,9 +1837,11 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2)
-			).decorators(
-				List.of(VINES_012_UNDER_76)
-			).ignoreVines().build()
+			)
+			.decorators(List.of(VINES_012_UNDER_76))
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.ignoreVines()
+			.build()
 		);
 
 		FALLEN_CYPRESS_TREE.makeAndSetHolder(Feature.TREE,
@@ -1855,12 +1861,16 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2)
-			).decorators(
+			)
+			.decorators(
 				List.of(
 					SHELF_FUNGUS_0074_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).ignoreVines().build()
+			)
+			.ignoreVines()
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.build()
 		);
 
 		SHORT_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1870,9 +1880,11 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2)
-			).decorators(
-				List.of(VINES_012_UNDER_76)
-			).ignoreVines().build()
+			)
+			.decorators(List.of(VINES_012_UNDER_76))
+			.ignoreVines()
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.build()
 		);
 
 		SHORT_FUNGUS_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1882,12 +1894,16 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2)
-			).decorators(
+			)
+			.decorators(
 				List.of(
 					SHELF_FUNGUS_0074_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).ignoreVines().build()
+			)
+			.ignoreVines()
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.build()
 		);
 
 		SWAMP_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1905,13 +1921,16 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14),
 				new TwoLayersFeatureSize(1, 0, 1)
-			).decorators(
+			)
+			.decorators(
 				List.of(
 					new LeaveVineDecorator(0.1F),
 					SHELF_FUNGUS_0074_ONLY_BROWN,
 					VINES_008_UNDER_82
 				)
-			).build()
+			)
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.build()
 		);
 
 		SNAPPED_CYPRESS.makeAndSetHolder(Feature.TREE,
@@ -1926,7 +1945,9 @@ public final class WWTreeConfigured {
 					MOSS_CYPRESS,
 					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
-			).build()
+			)
+			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.build()
 		);
 
 		// SHRUBS
@@ -2431,7 +2452,8 @@ public final class WWTreeConfigured {
 			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
-			new TwoLayersFeatureSize(1, 0, 1));
+			new TwoLayersFeatureSize(1, 0, 1)
+		).belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE);
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder darkOakBuilder(
@@ -2498,7 +2520,7 @@ public final class WWTreeConfigured {
 			BlockStateProvider.simple(leaves),
 			new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), BiasedToBottomInt.of(minFrondLength + 1, maxFrondLength + 1)),
 			new TwoLayersFeatureSize(1, 0, 1)
-		);
+		).belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_DESERT);
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder windmillPalmBuilder(Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight) {
@@ -2508,7 +2530,7 @@ public final class WWTreeConfigured {
 			BlockStateProvider.simple(leaves),
 			new WindmillPalmFoliagePlacer(ConstantInt.of(2)),
 			new TwoLayersFeatureSize(1, 0, 1)
-		);
+		).belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_DESERT);
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder snappedTrunkBuilder(Block log, int baseHeight, int firstRHeight, int secondRHeight) {
@@ -2779,7 +2801,9 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 2),
 			0.125F,
 			0.7F
-		).ignoreVines();
+		)
+		.ignoreVines()
+		.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE);
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder tallDarkOak() {
@@ -3045,7 +3069,9 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 2),
 			0.045F,
 			0.6F
-		).ignoreVines();
+		)
+		.ignoreVines()
+		.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_DESERT);
 	}
 
 	public static TreeConfiguration.TreeConfigurationBuilder fallenAcacia() {
@@ -3169,7 +3195,7 @@ public final class WWTreeConfigured {
 				)
 			),
 			new TwoLayersFeatureSize(2, 0, 2),
-			TreeConfiguration.PLACE_BELOW_OVERWORLD_TRUNKS
+			PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
 		);
 	}
 

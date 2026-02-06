@@ -1,6 +1,25 @@
 {
   "type": "wilderwild:palm_tree",
   "config": {
+    "below_trunk_provider": {
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "wilderwild:cannot_replace_below_tree_trunk_desert"
+            }
+          },
+          "then": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:dirt"
+            }
+          }
+        }
+      ]
+    },
     "decorators": [],
     "foliage_placer": {
       "type": "wilderwild:palm_foliage_placer",

@@ -1,14 +1,13 @@
 {
   "values": [
     {
-      "id": "#minecraft:substrate_overworld",
-      "required": false
-    },
-    {
-      "id": "#minecraft:sand",
+      "id": "#minecraft:cannot_replace_below_tree_trunk",
       "required": false
     },
     "minecraft:clay",
-    "minecraft:gravel"
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    }
   ]
 }

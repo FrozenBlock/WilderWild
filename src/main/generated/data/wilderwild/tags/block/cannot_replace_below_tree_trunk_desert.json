@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#minecraft:terracotta",
+      "id": "#minecraft:cannot_replace_below_tree_trunk",
       "required": false
     },
     {
-      "id": "#minecraft:substrate_overworld",
+      "id": "#minecraft:sand",
       "required": false
     }
   ]

@@ -217,7 +217,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.SEA_LANTERN)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.STONE_BRICKS)
 			.addOptionalTag(BlockTags.LOGS)
 			.addOptionalTag(BlockTags.PLANKS)
@@ -236,7 +236,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.SEA_LANTERN)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.STONE_BRICKS)
 			.addOptionalTag(BlockTags.LOGS)
 			.addOptionalTag(BlockTags.PLANKS)
@@ -263,7 +263,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.MOSS_BLOCK);
 
 		this.valueLookupBuilder(WWBlockTags.TERMITE_DISK_REPLACEABLE)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
@@ -307,7 +307,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.valueLookupBuilder(WWBlockTags.CAVE_ICE_REPLACEABLE)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.add(Blocks.SNOW_BLOCK)
 			.add(Blocks.SNOW);
@@ -318,7 +318,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.valueLookupBuilder(WWBlockTags.DIORITE_ICE_REPLACEABLE)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.add(Blocks.SNOW_BLOCK)
 			.add(Blocks.SNOW)
@@ -334,7 +334,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.valueLookupBuilder(WWBlockTags.MAGMA_REPLACEABLE)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.valueLookupBuilder(WWBlockTags.NETHER_GEYSER_REPLACEABLE)
@@ -352,14 +352,14 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.valueLookupBuilder(WWBlockTags.RIVER_POOL_REPLACEABLE)
 			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.CLAY);
 
 		this.valueLookupBuilder(WWBlockTags.FALLEN_TREE_PLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.CLAY)
 			.add(Blocks.MOSS_BLOCK)
@@ -391,18 +391,18 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.valueLookupBuilder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY);
 
 		this.valueLookupBuilder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
-			.addOptionalTag(BlockTags.DIRT);
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD);
 
 		this.valueLookupBuilder(WWBlockTags.SAND_POOL_REPLACEABLE)
 			.add(Blocks.SAND);
@@ -472,7 +472,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.valueLookupBuilder(WWBlockTags.CRAB_HIDEABLE)
-			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL);
@@ -564,6 +564,15 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(WWBlockTags.SUPPORTS_WATERLOGGABLE_SAPLING)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
 			.add(Blocks.CLAY)
+			.addOptionalTag(BlockTags.SAND);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE)
+			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
+			.add(Blocks.CLAY)
+			.addOptionalTag(BlockTags.SAND);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT)
+			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
 			.addOptionalTag(BlockTags.SAND);
 
 		this.valueLookupBuilder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
@@ -872,7 +881,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.valueLookupBuilder(BlockTags.SAND)
 			.add(WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND);
 
-		this.valueLookupBuilder(BlockTags.DIRT)
+		this.valueLookupBuilder(BlockTags.MOSS_BLOCKS)
 			.add(WWBlocks.AUBURN_MOSS_BLOCK);
 
 		this.valueLookupBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK)
@@ -1223,7 +1232,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.GRAVEL)
 			.add(Blocks.SNOW_BLOCK)
 			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.DIRT);
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD);
 
 		this.valueLookupBuilder(BlockTags.LEAVES)
 			.add(WWBlocks.BAOBAB_LEAVES)

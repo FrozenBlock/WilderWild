@@ -1,6 +1,25 @@
 {
   "type": "minecraft:tree",
   "config": {
+    "below_trunk_provider": {
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "wilderwild:cannot_replace_below_tree_trunk_waterloggable"
+            }
+          },
+          "then": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:dirt"
+            }
+          }
+        }
+      ]
+    },
     "decorators": [
       {
         "type": "wilderwild:height_based_vine_tree_decorator",

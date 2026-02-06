@@ -9,7 +9,7 @@
       "required": false
     },
     {
-      "id": "#minecraft:dirt",
+      "id": "#minecraft:substrate_overworld",
       "required": false
     },
     "minecraft:gravel",

@@ -147,6 +147,8 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> SUPPORTS_FROZEN_VEGETATION = bind("supports_frozen_vegetation");
 	public static final TagKey<Block> SUPPORTS_WATERLOGGABLE_SAPLING = bind("supports_waterloggable_sapling");
+	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE = bind("cannot_replace_below_tree_trunk_waterloggable");
+	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT = bind("cannot_replace_below_tree_trunk_desert");
 	public static final TagKey<Block> SUPPORTS_SHRUB = bind("supports_shrub");
 	public static final TagKey<Block> SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND = bind("feature/shrub_may_place_on_no_sand");
 
