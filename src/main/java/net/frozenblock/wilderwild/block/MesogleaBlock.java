@@ -219,7 +219,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState replacingState, boolean bl) {
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState replacingState, boolean movedByPiston) {
 		if (!level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos)) return;
 		level.destroyBlock(pos, false);
 		level.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, pos, 0);
@@ -227,14 +227,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public void entityInside(
-		BlockState state,
-		Level level,
-		BlockPos pos,
-		Entity entity,
-		InsideBlockEffectApplier effectApplier,
-		boolean isPrecise
-	) {
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		final Optional<Direction> dragDirection = getDragDirection(state);
 		if (this.isPearlescent()) {
 			if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {

@@ -163,9 +163,9 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public void collectImplicitComponents(DataComponentMap.Builder builder) {
-		super.collectImplicitComponents(builder);
-		builder.set(WWDataComponents.FIREFLIES, this.fireflies);
+	public void collectImplicitComponents(DataComponentMap.Builder components) {
+		super.collectImplicitComponents(components);
+		components.set(WWDataComponents.FIREFLIES, this.fireflies);
 	}
 
 	@Override
