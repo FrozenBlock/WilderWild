@@ -59,7 +59,6 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -320,7 +319,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			final DyeColor otherColor = otherDyeColor.get();
 			if (thisColor == otherColor) break returnCombinedColor;
 
-			final DyeColor outputDyeColor = getCombinedDyeColor(level, dyeColor.get(), otherDyeColor.get());
+			final DyeColor outputDyeColor = DyeColor.getMixedColor(level, dyeColor.get(), otherDyeColor.get());
 			if (outputDyeColor == thisColor || outputDyeColor == otherColor) break returnCombinedColor;
 
 			final Stream<MoobloomVariant> variantStream = level.registryAccess().lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT).stream();
@@ -345,49 +344,9 @@ public class FlowerCow extends AbstractCow implements Shearable {
 			.map(item -> item.components().get(DataComponents.DYE));
 	}
 
-	private static DyeColor getCombinedDyeColor(ServerLevel level, DyeColor dyeColor, DyeColor otherDyeColor) {
-		final CraftingInput craftingInput = makeCraftInput(dyeColor, otherDyeColor);
-		return level.recipeAccess()
-			.getRecipeFor(RecipeType.CRAFTING, craftingInput, level)
-			.map(recipeHolder -> recipeHolder.value().assemble(craftingInput))
-			.map(ItemStack::getItem)
-			.filter(DyeItem.class::isInstance)
-			.map(DyeItem.class::cast)
-			.map(item -> item.components().get(DataComponents.DYE))
-			.orElseGet(() -> level.getRandom().nextBoolean() ? dyeColor : otherDyeColor);
-	}
-
 	private static CraftingInput makeCraftInputForFlower(Block flowerBlock) {
 		return CraftingInput.of(1, 1, List.of(new ItemStack(flowerBlock)));
 	}
-
-	private static CraftingInput makeCraftInput(DyeColor color, DyeColor otherColor) {
-		ItemStack first = new ItemStack(itemForDyeColor(color));
-		ItemStack second = new ItemStack(itemForDyeColor(otherColor));
-
-         return CraftingInput.of(2, 1, List.of(first, second));
-     }
-
-     private static Item itemForDyeColor(DyeColor color) {
-        return switch (color) {
-            case WHITE -> Items.WHITE_DYE;
-            case ORANGE -> Items.ORANGE_DYE;
-            case MAGENTA -> Items.MAGENTA_DYE;
-            case LIGHT_BLUE -> Items.LIGHT_BLUE_DYE;
-            case YELLOW -> Items.YELLOW_DYE;
-            case LIME -> Items.LIME_DYE;
-            case PINK -> Items.PINK_DYE;
-            case GRAY -> Items.GRAY_DYE;
-            case LIGHT_GRAY -> Items.LIGHT_GRAY_DYE;
-            case CYAN -> Items.CYAN_DYE;
-            case PURPLE -> Items.PURPLE_DYE;
-            case BLUE -> Items.BLUE_DYE;
-            case BROWN -> Items.BROWN_DYE;
-            case GREEN -> Items.GREEN_DYE;
-            case RED -> Items.RED_DYE;
-            case BLACK -> Items.BLACK_DYE;
-        };
-    }
 
 	public static class FlowerCowSpawnGroupData extends AgeableMob.AgeableMobGroupData {
 		public final Holder<MoobloomVariant> type;
