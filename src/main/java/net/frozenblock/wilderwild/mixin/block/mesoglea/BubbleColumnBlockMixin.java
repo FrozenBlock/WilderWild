@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -28,7 +27,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BubbleColumnBlock;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,7 +45,7 @@ public class BubbleColumnBlockMixin {
 		));
 	}
 
-	@WrapOperation(
+	@ModifyExpressionValue(
 		method = "updateColumn(Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At(
 			value = "INVOKE",
@@ -56,14 +54,12 @@ public class BubbleColumnBlockMixin {
 		)
 	)
 	private static boolean wilderWild$transferToMesogleaBubbleColumn(
-		Block bubbleColumn, BlockState occupyState, Operation<Boolean> original,
+		boolean original,
 		@Local(argsOnly = true) LevelAccessor level,
 		@Local(name = "pos") BlockPos.MutableBlockPos pos
 	) {
-		// TODO: remove fix for waterlogged blocks once mojang fixes it lmao
-		final boolean canOccupy = original.call(bubbleColumn, occupyState) && occupyState.getBlock() instanceof LiquidBlock;
-		if (!canOccupy && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos, level.getBlockState(pos.immutable().below()));
-		return canOccupy;
+		if (!original && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos, level.getBlockState(pos.immutable().below()));
+		return original;
 	}
 
 }
