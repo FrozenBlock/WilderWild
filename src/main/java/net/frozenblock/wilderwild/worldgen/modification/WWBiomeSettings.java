@@ -38,7 +38,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.deepDarkFog) return;
+				if (!WWAmbienceAndMiscConfig.DEEP_DARK_FOG.get()) return;
 				setFogColor(modificationContext, 0);
 			});
 
@@ -46,7 +46,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesFog) return;
+				if (!WWAmbienceAndMiscConfig.FROZEN_CAVES_FOG.get()) return;
 				setFogColor(modificationContext, 0);
 			});
 
@@ -54,7 +54,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesFog) return;
+				if (!WWAmbienceAndMiscConfig.MESOGLEA_CAVES_FOG.get()) return;
 				setFogColor(modificationContext, 0);
 			});
 
@@ -62,7 +62,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesFog) return;
+				if (!WWAmbienceAndMiscConfig.MAGMATIC_CAVES_FOG.get()) return;
 				setFogColor(modificationContext, 0);
 			});
 
@@ -70,7 +70,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesParticles) return;
+				if (!WWAmbienceAndMiscConfig.MAGMATIC_CAVES_PARTICLES.get()) return;
 				modificationContext.getAttributes().set(
 					EnvironmentAttributes.AMBIENT_PARTICLES,
 					List.of(new AmbientParticle(ParticleTypes.LARGE_SMOKE, 0.00123F))
@@ -81,7 +81,7 @@ public final class WWBiomeSettings {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().vegetationColors.badlandsFoliage) return;
+				if (!WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR.get()) return;
 				modificationContext.getEffects().setFoliageColorOverride(11445290);
 			});
 

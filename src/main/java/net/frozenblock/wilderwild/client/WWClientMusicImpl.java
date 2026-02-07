@@ -38,14 +38,14 @@ public final class WWClientMusicImpl {
 	public static void init() {
 		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
 
-		final Function<Long, Float> dyingPitchShifting = l -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
+		final Function<Long, Float> dyingPitchShifting = l -> WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.get() ?
 			(0.98F + Mth.sin((float) ((l * Math.PI) / 1200F)) * 0.025F) : 1F;
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 
-		if (WWAmbienceAndMiscConfig.get().music.ancientCityMusic) {
+		if (WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC.get()) {
 			StructureMusicApi.registerMusicForStructure(
 				BuiltinStructures.ANCIENT_CITY,
 				new StructureMusic(
@@ -70,7 +70,7 @@ public final class WWClientMusicImpl {
 		addMusicDownloadInfo(musicDownloadGroup, "frozen_blocks");
 		addMusicDownloadInfo(musicDownloadGroup, "pressure");
 
-		if (WWAmbienceAndMiscConfig.get().music.danMusic) {
+		if (WWAmbienceAndMiscConfig.DAN_MUSIC.get()) {
 			addMusicDownloadInfo(musicDownloadGroup, "excuse");
 			addMusicDownloadInfo(musicDownloadGroup, "flake");
 		}

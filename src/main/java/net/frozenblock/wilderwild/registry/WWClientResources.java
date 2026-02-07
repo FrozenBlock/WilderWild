@@ -19,16 +19,14 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientResources {
@@ -40,55 +38,46 @@ public final class WWClientResources {
 	public static void register(ModContainer container) {
 		if (container == null) return;
 
-		ResourceManagerHelper.registerBuiltinResourcePack(
+		ResourceLoader.registerBuiltinPack(
 			WWConstants.id("mc_live_tendrils"),
 			container,
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
-			ResourcePackActivationType.NORMAL
+			PackActivationType.NORMAL
 		);
 
-		ResourceManagerHelper.registerBuiltinResourcePack(
+		ResourceLoader.registerBuiltinPack(
 			WWConstants.id("original_firefly"),
 			container, Component.literal("Original Fireflies"),
-			ResourcePackActivationType.DEFAULT_ENABLED
+			PackActivationType.DEFAULT_ENABLED
 		);
 
-		ResourceManagerHelper.registerBuiltinResourcePack(
+		ResourceLoader.registerBuiltinPack(
 			WWConstants.id("mojang_crabs"),
 			container,
 			Component.translatable("pack.wilderwild.mojang_crabs"),
-			ResourcePackActivationType.DEFAULT_ENABLED
+			PackActivationType.DEFAULT_ENABLED
 		);
 
-		if (WWAmbienceAndMiscConfig.get().music.wilderExtraMusic) {
-			ResourceManagerHelper.registerBuiltinResourcePack(
+		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
+			ResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_extra_music"), container,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
-				ResourcePackActivationType.ALWAYS_ENABLED
+				PackActivationType.ALWAYS_ENABLED
 			);
 		}
 
-		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public Identifier getFabricId() {
-				return WWConstants.id("resource_pack_value_setters");
-			}
-
-			@Override
-			public void onResourceManagerReload(ResourceManager resourceManager) {
+		ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
+			WWConstants.id("resource_pack_value_setters"),
+			(ResourceManagerReloadListener) resourceManager -> {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {
-					if (packResources.knownPackInfo().isPresent()) {
-						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
-					}
+					if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
 					return false;
 				});
 				WWConstants.MOJANG_CRABS = resourceManager.listPacks().anyMatch(packResources -> {
-					if (packResources.knownPackInfo().isPresent()) {
-						return packResources.knownPackInfo().get().id().equals(WWConstants.string("mojang_crabs"));
-					}
+					if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(WWConstants.string("mojang_crabs"));
 					return false;
 				});
 			}
-		});
+		);
 	}
 }

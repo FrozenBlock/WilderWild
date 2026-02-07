@@ -51,7 +51,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FOREST_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderForestMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_FORESTS);
 			});
 
@@ -59,7 +59,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderForestMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS);
 			});
 
@@ -67,7 +67,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_LUSH_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderLushCavesMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_LUSH_CAVES_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES);
 			});
 
@@ -75,7 +75,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_DRIPSTONE_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderDripstoneCavesMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_DRIPSTONE_CAVES_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES);
 			});
 
@@ -83,7 +83,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_CHERRY_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderCherryGroveMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_CHERRY_GROVE_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES);
 			});
 
@@ -91,7 +91,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_GROVE_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderGroveMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_GROVE_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_GROVES);
 			});
 
@@ -99,7 +99,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_JUNGLE_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_JUNGLES);
 			});
 
@@ -107,7 +107,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES);
 			});
 
@@ -115,7 +115,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderJungleMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES);
 			});
 
@@ -123,7 +123,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_BADLANDS_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderBadlandsMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_BADLANDS_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_BADLANDS);
 			});
 
@@ -131,7 +131,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_DESERT_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderDesertMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_DESERT_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_DESERTS);
 			});
 
@@ -139,7 +139,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderSnowyMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_SNOWY_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_SNOWY);
 			});
 
@@ -147,7 +147,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_OCEAN_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderOceanMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_OCEANS);
 			});
 
@@ -155,7 +155,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FROZEN_OCEAN_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderOceanMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_FROZEN_OCEANS);
 			});
 
@@ -163,7 +163,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_WARM_OCEAN_MUSIC),
 			(selectionContext, modificationContext) -> {
-				if (!WWAmbienceAndMiscConfig.get().music.wilderOceanMusic) return;
+				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
 				setBackgroundMusic(modificationContext, WWSounds.MUSIC_OVERWORLD_WILD_WARM_OCEANS);
 			});
 
@@ -215,7 +215,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DEEP_DARK),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.deepDarkAmbience) {
+				if (WWAmbienceAndMiscConfig.DEEP_DARK_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_DEEP_DARK_LOOP, WWSounds.AMBIENT_DEEP_DARK_ADDITIONS, 0.005D);
 				}
 			});
@@ -224,7 +224,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.DRIPSTONE_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.dripstoneCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_DRIPSTONE_CAVES_LOOP, WWSounds.AMBIENT_DRIPSTONE_CAVES_ADDITIONS, 0.01D);
 				}
 			});
@@ -233,7 +233,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(Biomes.LUSH_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.lushCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.LUSH_CAVES_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_LUSH_CAVES_LOOP, WWSounds.AMBIENT_LUSH_CAVES_ADDITIONS, 0.01D);
 				}
 			});
@@ -242,7 +242,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.frozenCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.FROZEN_CAVES_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_FROZEN_CAVES_LOOP, WWSounds.AMBIENT_FROZEN_CAVES_ADDITIONS, 0.003D);
 				}
 			});
@@ -251,7 +251,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MESOGLEA_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.mesogleaCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.MESOGLEA_CAVES_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_MESOGLEA_CAVES_LOOP, WWSounds.AMBIENT_MESOGLEA_CAVES_ADDITIONS, 0.005D);
 				}
 			});
@@ -260,7 +260,7 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.MAGMATIC_CAVES),
 			(selectionContext, modificationContext) -> {
-				if (WWAmbienceAndMiscConfig.get().biomeAmbience.magmaticCavesAmbience) {
+				if (WWAmbienceAndMiscConfig.MAGMATIC_CAVES_AMBIENCE.get()) {
 					setBiomeAmbience(modificationContext, WWSounds.AMBIENT_MAGMATIC_CAVES_LOOP, WWSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS, 0.005D);
 				}
 			});

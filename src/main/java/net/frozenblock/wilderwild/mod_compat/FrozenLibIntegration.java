@@ -441,7 +441,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
 			HolderGetter<EntityType<?>> entities = registries.lookupOrThrow(Registries.ENTITY_TYPE);
 			Advancement advancement = holder.value();
-			if (!WWAmbienceAndMiscConfig.get().modifyAdvancements) return;
+			if (!WWAmbienceAndMiscConfig.MODIFY_ADVANCEMENTS.get()) return;
 			switch (holder.id().toString()) {
 				case "minecraft:adventure/adventuring_time" -> {
 					final WWWorldgenConfig.BiomeGeneration biomeGenerationConfig = WWWorldgenConfig.get().biomeGeneration;

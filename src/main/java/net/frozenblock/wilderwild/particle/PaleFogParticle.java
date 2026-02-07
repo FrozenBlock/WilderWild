@@ -79,7 +79,7 @@ public class PaleFogParticle extends SingleQuadParticle {
 
 		final double windScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 		final Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity() * windScale);
+			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D * windScale);
 		this.xd += wind.x();
 		this.zd += wind.z();
 

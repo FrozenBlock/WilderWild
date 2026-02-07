@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.config.gui;
 
 // TODO: Re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigBuilder;
+
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.wilderwild.WWConstants.text;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWItemConfig;
@@ -38,24 +38,24 @@ public final class WWMainConfigGui {
 			WWEntityConfig.INSTANCE.save();
 			WWItemConfig.INSTANCE.save();
 			WWWorldgenConfig.INSTANCE.save();
-			WWAmbienceAndMiscConfig.INSTANCE.save();
+			// TODO: huh??
+			//WWAmbienceAndMiscConfig..save();
 			WWMixinsConfig.INSTANCE.save();
 		});
 
 		ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
 
 		final var block = configBuilder.getOrCreateCategory(text("block"));
-		WWBlockConfigGui.setupEntries(block, entryBuilder);
+		//WWBlockConfigGui.setupEntries(block, entryBuilder);
 		final var entity = configBuilder.getOrCreateCategory(text("entity"));
-		WWEntityConfigGui.setupEntries(entity, entryBuilder);
+		//WWEntityConfigGui.setupEntries(entity, entryBuilder);
 		final var item = configBuilder.getOrCreateCategory(text("item"));
-		WWItemConfigGui.setupEntries(item, entryBuilder);
+		//WWItemConfigGui.setupEntries(item, entryBuilder);
 		final var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-		WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
+		//WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
 		final var misc = configBuilder.getOrCreateCategory(text("misc"));
 		WWAmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
 		return configBuilder.build();
 	}
 
 }
-*/

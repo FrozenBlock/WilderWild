@@ -42,7 +42,7 @@ public abstract class SnowflakeParticleMixin extends SingleQuadParticle {
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;

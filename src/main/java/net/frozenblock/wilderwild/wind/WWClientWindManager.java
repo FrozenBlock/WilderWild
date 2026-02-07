@@ -69,14 +69,14 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		final RandomSource random = level.getRandom();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-		if (WWAmbienceAndMiscConfig.WIND_PARTICLES) {
-			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS; ++i) {
+		if (WWAmbienceAndMiscConfig.WIND_PARTICLES.get()) {
+			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
 				spawnAmbientWindParticles(level, posX, posY, posZ, 48, random, mutable, true);
 			}
 		}
 
-		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES) {
-			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS; ++i) {
+		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES.get()) {
+			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
 				spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, random, mutable);
 			}
 		}
@@ -112,12 +112,12 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 
 		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(mutable), 1D, 2D, 2D);
 		final double horizontalWind = wind.horizontalDistance();
-		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.getWindParticleFrequency())) return;
+		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.WIND_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 
 		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z, random);
 
-		if (!allowAdditional || !WWAmbienceAndMiscConfig.WIND_CLUSTERS) return;
-		final int additionalSpawnAttempts = Math.min((int) (horizontalWind * 6D), WWAmbienceAndMiscConfig.WIND_CLUSTER_MAX_SPAWN_ATTEMPTS);
+		if (!allowAdditional || !WWAmbienceAndMiscConfig.WIND_CLUSTERS.get()) return;
+		final int additionalSpawnAttempts = Math.min((int) (horizontalWind * 6D), WWAmbienceAndMiscConfig.WIND_CLUSTER_MAX_SPAWN_ATTEMPTS.get());
 		if (additionalSpawnAttempts <= 0) return;
 
 		level.addParticle(
@@ -145,7 +145,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 
 		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
 		final double windLength = wind.length();
-		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.getWindDisturbanceParticleFrequency())) return;
+		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 
 		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z, random);
 	}
@@ -159,7 +159,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 	}
 
 	public static boolean shouldUseWind() {
-		return WWAmbienceAndMiscConfig.CLOUD_MOVEMENT && ClientWindManager.shouldUseWind();
+		return WWAmbienceAndMiscConfig.CLOUD_MOVEMENT.get() && ClientWindManager.shouldUseWind();
 	}
 
 	@Override

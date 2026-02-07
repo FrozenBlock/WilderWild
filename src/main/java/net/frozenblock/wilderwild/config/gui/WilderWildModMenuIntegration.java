@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.config.gui;
 
 // TODO: Re-enable when modmenu is unobfuscated
-/*import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,4 +37,3 @@ public final class WilderWildModMenuIntegration implements ModMenuApi {
 	}
 
 }
-*/

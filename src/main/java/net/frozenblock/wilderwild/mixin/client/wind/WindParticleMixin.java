@@ -38,7 +38,7 @@ public class WindParticleMixin {
 		)
 	)
 	public Vec3 wilderWild$fixWindSpeed(Vec3 original) {
-		return original.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+		return original.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
 	}
 
 }

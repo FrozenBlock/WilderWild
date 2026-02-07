@@ -488,7 +488,7 @@ public final class WWBlocks {
 		YELLOW_MAPLE_LEAVES,
 		WWParticleTypes.YELLOW_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
 		5,
 		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAF_LITTER
@@ -497,7 +497,7 @@ public final class WWBlocks {
 		ORANGE_MAPLE_LEAVES,
 		WWParticleTypes.ORANGE_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
 		5,
 		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAF_LITTER
@@ -506,7 +506,7 @@ public final class WWBlocks {
 		RED_MAPLE_LEAVES,
 		WWParticleTypes.RED_MAPLE_LEAVES,
 		0.04F,
-		() -> WWAmbienceAndMiscConfig.Client.MAPLE_LEAF_FREQUENCY,
+		() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
 		5,
 		FallingLeafUtil.LeafMovementType.SWIRL,
 		WWSoundTypes.MAPLE_LEAF_LITTER

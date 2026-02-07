@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 
 public final class WWWaterColors {
+
 	private WWWaterColors() {
 		throw new UnsupportedOperationException("WWWaterColors contains only static declarations.");
 	}
@@ -38,27 +39,25 @@ public final class WWWaterColors {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.all(),
 			(biomeSelectionContext, modificationContext) -> {
-				WWAmbienceAndMiscConfig.WaterColorConfig waterColorConfig = WWAmbienceAndMiscConfig.get().waterColors;
-
-				if (waterColorConfig.modifyHotWater && biomeSelectionContext.hasTag(WWBiomeTags.HOT_WATER)) {
+				if (WWAmbienceAndMiscConfig.MODIFY_HOT_WATER.get() && biomeSelectionContext.hasTag(WWBiomeTags.HOT_WATER)) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setWaterColor(WWSharedWorldgen.WARM_WATER_COLOR);
 					context.setWaterFogColor(WWSharedWorldgen.WARM_WATER_FOG_COLOR);
 				}
 
-				if (waterColorConfig.modifyLukewarmWater && biomeSelectionContext.hasTag(WWBiomeTags.LUKEWARM_WATER)) {
+				if (WWAmbienceAndMiscConfig.MODIFY_LUKEWARM_WATER.get() && biomeSelectionContext.hasTag(WWBiomeTags.LUKEWARM_WATER)) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setWaterColor(WWSharedWorldgen.WARM_WATER_COLOR);
 					context.setWaterFogColor(WWSharedWorldgen.WARM_WATER_FOG_COLOR);
 				}
 
-				if (waterColorConfig.modifySnowyWater && biomeSelectionContext.hasTag(WWBiomeTags.SNOWY_WATER)) {
+				if (WWAmbienceAndMiscConfig.MODIFY_SNOWY_WATER.get() && biomeSelectionContext.hasTag(WWBiomeTags.SNOWY_WATER)) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setWaterColor(WWSharedWorldgen.COLD_WATER_COLOR);
 					context.setWaterFogColor(WWSharedWorldgen.COLD_WATER_FOG_COLOR);
 				}
 
-				if (waterColorConfig.modifyFrozenWater && biomeSelectionContext.hasTag(WWBiomeTags.FROZEN_WATER)) {
+				if (WWAmbienceAndMiscConfig.MODIFY_FROZEN_WATER.get() && biomeSelectionContext.hasTag(WWBiomeTags.FROZEN_WATER)) {
 					BiomeModificationContext.EffectsContext context = modificationContext.getEffects();
 					context.setWaterColor(WWSharedWorldgen.COLD_WATER_COLOR);
 					context.setWaterFogColor(WWSharedWorldgen.COLD_WATER_FOG_COLOR);

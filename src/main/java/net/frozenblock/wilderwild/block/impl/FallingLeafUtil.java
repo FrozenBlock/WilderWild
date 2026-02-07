@@ -192,7 +192,7 @@ public class FallingLeafUtil {
 	}
 
 	public static boolean addFallingLeafParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!WWAmbienceAndMiscConfig.Client.USE_WILDER_WILD_FALLING_LEAVES) return false;
+		if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return false;
 
 		final Optional<FallingLeafData> optionalFallingLeafData = getFallingLeafData(state.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return false;
@@ -242,8 +242,8 @@ public class FallingLeafUtil {
 		boolean litter = false;
 		if (state.is(WWBlockTags.LEAF_LITTERS)) {
 			litter = true;
-			if (!WWAmbienceAndMiscConfig.Client.LEAF_LITTER_WALKING_PARTICLES) return;
-		} else if (!WWAmbienceAndMiscConfig.Client.LEAF_WALKING_PARTICLES) {
+			if (!WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
+		} else if (!WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) {
 			return;
 		}
 
@@ -300,7 +300,7 @@ public class FallingLeafUtil {
 	}
 
 	public static void clientSpawnExplosionParticlesFromPacket(Level level, WWLeavesExplosionParticlePacket packet) {
-		if (!WWAmbienceAndMiscConfig.Client.EXPLOSION_LEAF_PARTICLES) return;
+		if (!WWAmbienceAndMiscConfig.LEAF_EXPLOSION_PARTICLES.get()) return;
 
 		final BlockState state = packet.state();
 		final Optional<FallingLeafData> optionalFallingLeafData = getFallingLeafData(state.getBlock());
@@ -345,7 +345,7 @@ public class FallingLeafUtil {
 
 		final WWFallingLeavesParticleOptions options = createLeafParticleOptions(
 			optionalFallingLeafData.get(),
-			packet.velocity().scale(WWAmbienceAndMiscConfig.Client.EXPLOSION_LEAF_VELOCITY),
+			packet.velocity().scale(WWAmbienceAndMiscConfig.LEAF_EXPLOSION_VELOCITY.get()),
 			litter,
 			SLIGHTLY_HEAVY_GRAVITY_MODIFIER
 		);

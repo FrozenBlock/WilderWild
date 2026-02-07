@@ -55,8 +55,8 @@ public class ClientLevelMixin {
 		boolean litter = false;
 		if (state.is(WWBlockTags.LEAF_LITTERS)) {
 			litter = true;
-			if (!WWAmbienceAndMiscConfig.Client.BREAKING_LEAF_LITTER_PARTICLES) return;
-		} else if (!WWAmbienceAndMiscConfig.Client.BREAKING_LEAF_PARTICLES) {
+			if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_LITTER_PARTICLES.get()) return;
+		} else if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_PARTICLES.get()) {
 			return;
 		}
 

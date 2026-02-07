@@ -84,7 +84,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		wind.set(Vec3.ZERO);
 		if (!WWClientWindManager.shouldUseWind()) return;
 		final Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
+			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
 		wind.set(currentWind);
 	}
 
