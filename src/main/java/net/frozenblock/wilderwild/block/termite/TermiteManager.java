@@ -360,7 +360,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isEdibleProperty(BlockState state) {
-			return !WWBlockConfig.get().termite.onlyEatNaturalBlocks
+			return !WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS.get()
 				|| (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)
 				? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE)
 				: (!state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT))
@@ -400,7 +400,7 @@ public class TermiteManager {
 		}
 
 		public static boolean isTooFar(boolean natural, BlockPos mound, BlockPos pos) {
-			return !mound.closerThan(pos, natural ? WWBlockConfig.get().termite.maxNaturalDistance : WWBlockConfig.get().termite.maxDistance);
+			return !mound.closerThan(pos, natural ? WWBlockConfig.TERMITE_MAX_NATURAL_DISTANCE.get() : WWBlockConfig.TERMITE_MAX_DISTANCE.get());
 		}
 
 		public static void spawnGnawParticles(Level level, BlockState eatState, BlockPos pos, RandomSource random) {

@@ -50,7 +50,7 @@ public class FloweringWaterlilyBlock extends LilyPadBlock {
 	}
 
 	public boolean canShearIntoOriginalBlock(LevelReader level, BlockPos pos, BlockState state) {
-		return WWBlockConfig.get().flower.shearFloweringLilypads;
+		return WWBlockConfig.SHEAR_FLOWERING_LILY_PADS.get();
 	}
 
 	@Override

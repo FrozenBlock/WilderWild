@@ -79,7 +79,7 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!WWBlockConfig.Client.POLLEN_ENABLED) return;
+		if (!WWBlockConfig.POLLEN_PARTICLES.get()) return;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {

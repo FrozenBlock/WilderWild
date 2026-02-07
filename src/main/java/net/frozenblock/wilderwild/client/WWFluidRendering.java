@@ -56,7 +56,7 @@ public final class WWFluidRendering {
 					waterHandler.renderFluid(pos, level, vertexConsumer, state, fluidState);
 					return;
 				}
-				if (!WWBlockConfig.Client.MESOGLEA_FLUID) return;
+				if (!WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) return;
 
 				final TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleIcon(state);
 				LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, state, fluidState, sprite);
@@ -74,7 +74,7 @@ public final class WWFluidRendering {
 	}
 
 	private static boolean isMesoglea(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos) {
-		if (level != null && pos != null && WWBlockConfig.Client.MESOGLEA_FLUID) return level.getBlockState(pos).getBlock() instanceof MesogleaBlock;
+		if (level != null && pos != null && WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) return level.getBlockState(pos).getBlock() instanceof MesogleaBlock;
 		return false;
 	}
 }

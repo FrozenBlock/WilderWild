@@ -53,7 +53,7 @@ public class ChestBubbleSeedParticle extends NoRenderParticle {
 		if (!(state.getBlock() instanceof ChestBlock)
 			|| !(this.level.getBlockEntity(pos) instanceof ChestBlockEntity)
 			|| !state.getFluidState().is(FluidTags.WATER)
-			|| !WWBlockConfig.get().chestBubbling
+			|| !WWBlockConfig.CHEST_BUBBLING.get()
 		) {
 			this.remove();
 			return;

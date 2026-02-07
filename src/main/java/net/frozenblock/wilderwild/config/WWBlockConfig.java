@@ -20,61 +20,72 @@ package net.frozenblock.wilderwild.config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
-import net.frozenblock.wilderwild.WWPreLoadConstants;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
+import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWBlockConfig {
-	public static final Config<WWBlockConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			MOD_ID,
-			WWBlockConfig.class,
-			WWPreLoadConstants.configPath("block", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("block")), ConfigSettings.JSON5);
 
-			@Override
-			public void onSync(WWBlockConfig syncInstance) {
-				final var config = this.config();
-				MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
-				FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
-				SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
-				SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
-				NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
-				SHRIEKER_OUTLINE = config.sculk.shriekerOutline;
-				HANGING_TENDRIL_GENERATION = config.sculk.tendrilGeneration;
-				OSSEOUS_SCULK_GENERATION = config.sculk.osseousSculkGeneration;
-				SCULK_BUILDING_BLOCKS_GENERATION = config.sculk.sculkBuildingBlocksGeneration;
-				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					Client.MESOGLEA_FLUID = config.mesoglea.mesogleaFluid;
-					Client.POLLEN_ENABLED = config.pollenParticles;
-					Client.SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
-					Client.BILLBOARD_TENDRILS = config.sculk.billboardTendrils;
-				}
-			}
+	public static final ConfigEntry<Boolean> REACH_BOOST_BEACON = CONFIG.entryBuilder("reachBoostBeacon", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> POLLEN_PARTICLES = CONFIG.unsyncableEntry("pollenParticles", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> LOG_HOLLOWING = CONFIG.entry("logHollowing", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> CACTUS_PLACEMENT = CONFIG.entry("cactusPlacement", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> NEW_REINFORCED_DEEPSLATE = CONFIG.entry("newReinforcedDeepslate", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> FROGLIGHT_GOOP_GROWTH = CONFIG.entry("froglightGoopGrowth", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> FROSTED_ICE_CRACKING = CONFIG.entry("frostedIceCracking", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> CHEST_BUBBLING = CONFIG.entry("chestBubbling", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> THICK_BIG_FUNGUS_GROWTH = CONFIG.entry("thickBigFungusGrowth", EntryType.BOOL, true);
+
+	//SCULK
+	public static final ConfigEntry<Boolean> SHRIEKER_GARGLING = CONFIG.unsyncableEntry("sculk/shriekerGargling", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SHRIEKER_OUTLINE = CONFIG.unsyncableEntry("sculk/shriekerOutline", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BILLBOARD_TENDRILS = CONFIG.unsyncableEntry("sculk/billboardTendrils", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> TENDRILS_CARRY_EVENTS = CONFIG.entry("sculk/tendrilsCarryEvents", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> TENDRIL_GENERATION = CONFIG.entry("sculk/tendrilGeneration", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> OSSEOUS_SCULK_GENERATION = CONFIG.entry("sculk/osseousSculkGeneration", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SCULK_BUILDING_BLOCKS_GENERATION = CONFIG.entry("sculk/sculkBuildingBlocksGeneration", EntryType.BOOL, true);
+
+	//MESOGLEA
+	public static final ConfigEntry<Boolean> MESOGLEA_RENDERS_AS_FLUID = CONFIG.unsyncableEntry("mesoglea/mesogleaFluid", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> MESOGLEA_BUBBLE_COLUMNS = CONFIG.entry("mesoglea/mesogleaBubbleColumns", EntryType.BOOL, true);
+
+	// TERMITE
+	public static final ConfigEntry<Boolean> TERMITE_ONLY_EATS_NATURAL_BLOCKS = CONFIG.entryBuilder("termite/onlyEatNaturalBlocks", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Integer> TERMITE_MAX_DISTANCE = CONFIG.entry("termite/maxDistance", EntryType.INT, 32);
+	public static final ConfigEntry<Integer> TERMITE_MAX_NATURAL_DISTANCE = CONFIG.entry("termite/maxNaturalDistance", EntryType.INT, 10);
+
+	// FLOWER
+	public static final ConfigEntry<Boolean> BONE_MEAL_DANDELIONS = CONFIG.entry("flower/bonemealDandelions", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SHEAR_SEEDING_DANDELIONS = CONFIG.entry("flower/shearSeedingDandelions", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BONE_MEAL_LILY_PADS = CONFIG.entry("flower/bonemealLilypads", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SHEAR_FLOWERING_LILY_PADS = CONFIG.entry("flower/shearFloweringLilypads", EntryType.BOOL, true);
+
+	// STONE CHEST
+	public static final ConfigEntry<Integer> STONE_CHEST_TIMER = CONFIG.entry("stoneChest/stoneChestTimer", EntryType.INT, 100);
+	public static final ConfigEntry<Boolean> ADD_STONE_CHESTS = CONFIG.entry("stoneChest/addStoneChests", EntryType.BOOL, true);
+
+	@Override
+	public void onSync(WWBlockConfig syncInstance) {
+		final var config = this.config();
+		MESOGLEA_BUBBLE_COLUMNS = config.mesoglea.mesogleaBubbleColumns;
+		FIRE_MAGMA_PARTICLES = config.fire.extraMagmaParticles;
+		SNOWLOGGING = config.snowlogging.snowlogging && !FabricLoader.getInstance().isModLoaded("antique-atlas");
+		SNOWLOG_WALLS = SNOWLOGGING && config.snowlogging.snowlogWalls;
+		NATURAL_SNOWLOGGING = SNOWLOGGING && config.snowlogging.naturalSnowlogging;
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			Client.SOUL_FIRE_SOUNDS = config.fire.soulFireSounds;
 		}
-	);
+	}
 
-	public static volatile boolean MESOGLEA_BUBBLE_COLUMNS = true;
 	public static volatile boolean FIRE_MAGMA_PARTICLES = true;
 	public static volatile boolean SNOWLOGGING = true;
 	public static volatile boolean SNOWLOG_WALLS = false;
 	public static volatile boolean NATURAL_SNOWLOGGING = true;
-	public static volatile boolean SHRIEKER_OUTLINE = true;
-	public static volatile boolean HANGING_TENDRIL_GENERATION = true;
-	public static volatile boolean OSSEOUS_SCULK_GENERATION = true;
-	public static volatile boolean SCULK_BUILDING_BLOCKS_GENERATION = true;
-
 	public static boolean canSnowlog() {
 		return SNOWLOGGING && !FrozenBools.IS_DATAGEN;
 	}
@@ -88,67 +99,14 @@ public final class WWBlockConfig {
 	}
 
 	public static final class Client {
-		public static volatile boolean MESOGLEA_FLUID = false;
-		public static volatile boolean POLLEN_ENABLED = true;
-		public static volatile boolean SOUL_FIRE_SOUNDS = true;
-		public static volatile boolean BILLBOARD_TENDRILS = true;
-	}
+		public static volatile boolean SOUL_FIRE_SOUNDS = true;}
 
 	public final BlockSoundsConfig blockSounds = new BlockSoundsConfig();
-
-	public final StoneChestConfig stoneChest = new StoneChestConfig();
-
-	public final TermiteConfig termite = new TermiteConfig();
-
-	public final MesogleaConfig mesoglea = new MesogleaConfig();
 
 	public final SnowloggingConfig snowlogging = new SnowloggingConfig();
 
 	public final FireConfig fire = new FireConfig();
-
-	public final SculkConfig sculk = new SculkConfig();
-
 	public final FlowerConfig flower = new FlowerConfig();
-
-	@EntrySyncData("reachBoostBeacon")
-	public boolean reachBoostBeacon = true;
-
-	@EntrySyncData(value = "pollenParticles", behavior = SyncBehavior.UNSYNCABLE)
-	public boolean pollenParticles = true;
-
-	@EntrySyncData("logHollowing")
-	public boolean logHollowing = true;
-
-	@EntrySyncData("cactusPlacement")
-	public boolean cactusPlacement = false;
-
-	@EntrySyncData("newReinforcedDeepslate")
-	public boolean newReinforcedDeepslate = true;
-
-	@EntrySyncData("froglightGoopGrowth")
-	public boolean froglightGoopGrowth = true;
-
-	@EntrySyncData("frostedIceCracking")
-	public boolean frostedIceCracking = true;
-
-	@EntrySyncData(value = "chestBubbling")
-	public boolean chestBubbling = true;
-
-	@EntrySyncData("thickBigFungusGrowth")
-	public boolean thickBigFungusGrowth = true;
-
-	public static WWBlockConfig get() {
-		return get(false);
-	}
-
-	public static WWBlockConfig get(boolean real) {
-		if (real) return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static WWBlockConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
 
 	public static class BlockSoundsConfig {
 		@EntrySyncData("cactusSounds")
@@ -218,37 +176,6 @@ public final class WWBlockConfig {
 		public boolean witherRoseSounds = true;
 	}
 
-	public static class StoneChestConfig {
-		@EntrySyncData("stoneChestTimer")
-		public int stoneChestTimer = 100;
-
-		@EntrySyncData("addStoneChests")
-		public boolean addStoneChests = true;
-
-		public double getStoneChestTimer() {
-			return ((double) this.stoneChestTimer) * 0.01D;
-		}
-	}
-
-	public static class TermiteConfig {
-		@EntrySyncData("onlyEatNaturalBlocks")
-		public boolean onlyEatNaturalBlocks = true;
-
-		@EntrySyncData("maxDistance")
-		public int maxDistance = 32;
-
-		@EntrySyncData("maxNaturalDistance")
-		public int maxNaturalDistance = 10;
-	}
-
-	public static class MesogleaConfig {
-		@EntrySyncData(value = "mesogleaFluid", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean mesogleaFluid = false;
-
-		@EntrySyncData("mesogleaBubbleColumns")
-		public boolean mesogleaBubbleColumns = true;
-	}
-
 	public static class FireConfig {
 		@EntrySyncData(value = "soulFireSounds", behavior = SyncBehavior.UNSYNCABLE)
 		public boolean soulFireSounds = true;
@@ -266,42 +193,5 @@ public final class WWBlockConfig {
 
 		@EntrySyncData("naturalSnowlogging")
 		public boolean naturalSnowlogging = true;
-	}
-
-	public static class SculkConfig {
-		@EntrySyncData(value = "shriekerGargling", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean shriekerGargling = true;
-
-		@EntrySyncData(value = "shriekerOutline", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean shriekerOutline = true;
-
-		@EntrySyncData(value = "billboardTendrils", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean billboardTendrils = true;
-
-		@EntrySyncData("tendrilsCarryEvents")
-		public boolean tendrilsCarryEvents = false;
-
-		@EntrySyncData("tendrilGeneration")
-		public boolean tendrilGeneration = true;
-
-		@EntrySyncData("osseousSculkGeneration")
-		public boolean osseousSculkGeneration = true;
-
-		@EntrySyncData("sculkBuildingBlocksGeneration")
-		public boolean sculkBuildingBlocksGeneration = true;
-	}
-
-	public static class FlowerConfig {
-		@EntrySyncData("bonemealDandelions")
-		public boolean bonemealDandelions = true;
-
-		@EntrySyncData("shearSeedingDandelions")
-		public boolean shearSeedingDandelions = true;
-
-		@EntrySyncData("bonemealLilypads")
-		public boolean bonemealLilypads = true;
-
-		@EntrySyncData("shearFloweringLilypads")
-		public boolean shearFloweringLilypads = true;
 	}
 }

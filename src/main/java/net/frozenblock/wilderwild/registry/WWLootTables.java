@@ -194,11 +194,10 @@ public final class WWLootTables {
 		//ANCIENT CITY
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
-				final WWBlockConfig.SculkConfig sculkConfig = WWBlockConfig.get().sculk;
-				if (!sculkConfig.osseousSculkGeneration && !sculkConfig.tendrilGeneration) return;
+				if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return;
 
 				final LootPool.Builder pool = LootPool.lootPool();
-				if (sculkConfig.osseousSculkGeneration) {
+				if (WWBlockConfig.OSSEOUS_SCULK_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem())
 							.setWeight(1)
@@ -206,7 +205,7 @@ public final class WWLootTables {
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)))
 					);
 				}
-				if (sculkConfig.tendrilGeneration) {
+				if (WWBlockConfig.TENDRIL_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem())
 							.setWeight(1)

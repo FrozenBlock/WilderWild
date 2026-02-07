@@ -88,7 +88,7 @@ public class SculkBlockMixin {
 
 	@Unique
 	private static boolean wilderWild$canPlaceOsseousSculk(BlockPos pos, boolean worldGen, LevelAccessor level) {
-		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION) return false;
+		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get()) return false;
 		if (!worldGen) return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_CHANCE) == 0;
 		if (!wilderWild$ancientCityOrPillarNearby(level, pos)) return level.getRandom().nextInt(0, WILDERWILD$OSSEOUS_SCULK_WORLDGEN_CHANCE) == 0;
 		return false;
@@ -146,7 +146,7 @@ public class SculkBlockMixin {
 			BlockState newPlacementState = null;
 			if (this.wilderWild$canPlaceOsseousSculk) {
 				newPlacementState = WWBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.FACING, Direction.DOWN);
-			} else if (WWBlockConfig.HANGING_TENDRIL_GENERATION) {
+			} else if (WWBlockConfig.TENDRIL_GENERATION.get()) {
 				newPlacementState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
 			}
 
@@ -157,7 +157,7 @@ public class SculkBlockMixin {
 			}
 		}
 
-		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) {
+		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) {
 			final BlockState chargeState = level.getBlockState(chargePos);
 			if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
 				placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargeState));
@@ -288,7 +288,7 @@ public class SculkBlockMixin {
 
 	@Unique
 	private boolean wilderWild$canPlaceGrowthBelow(LevelAccessor level, BlockPos pos, boolean isWorldGen, LocalBooleanRef placingBelow) {
-		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION && !WWBlockConfig.HANGING_TENDRIL_GENERATION) return false;
+		if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return false;
 		this.wilderWild$canPlaceOsseousSculk = wilderWild$canPlaceOsseousSculk(pos, isWorldGen, level);
 
 		if (level.getBlockState(pos).isFaceSturdy(level, pos, Direction.DOWN)) {
@@ -299,7 +299,7 @@ public class SculkBlockMixin {
 				|| state.is(Blocks.SCULK_VEIN);
 
 			final boolean canPlaceBelow = this.wilderWild$canPlaceOsseousSculk ? isBlockStateReplaceable
-				: WWBlockConfig.HANGING_TENDRIL_GENERATION && isBlockStateReplaceable;
+				: WWBlockConfig.TENDRIL_GENERATION.get() && isBlockStateReplaceable;
 
 			if (canPlaceBelow && level.getRandom().nextFloat() >= WILDERWILD$BELOW_GROWTH_CHANCE) {
 				placingBelow.set(true);

@@ -2642,7 +2642,7 @@ public final class WWBlocks {
 			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return WWBlockConfig.get().flower.bonemealLilypads;
+					return WWBlockConfig.BONE_MEAL_LILY_PADS.get();
 				}
 
 				@Override
@@ -2657,7 +2657,7 @@ public final class WWBlocks {
 			new BoneMealApi.BoneMealBehavior() {
 				@Override
 				public boolean meetsRequirements(LevelReader level, BlockPos pos, BlockState state) {
-					return WWBlockConfig.get().flower.bonemealDandelions;
+					return WWBlockConfig.BONE_MEAL_DANDELIONS.get();
 				}
 
 				@Override

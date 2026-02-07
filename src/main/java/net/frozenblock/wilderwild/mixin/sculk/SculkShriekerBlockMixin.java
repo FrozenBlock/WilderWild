@@ -45,7 +45,7 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		if (WWBlockConfig.SHRIEKER_OUTLINE) return WILDERRWILD$SHAPE;
+		if (WWBlockConfig.SHRIEKER_OUTLINE.get()) return WILDERRWILD$SHAPE;
 		return super.getShape(state, level, pos, context);
 	}
 

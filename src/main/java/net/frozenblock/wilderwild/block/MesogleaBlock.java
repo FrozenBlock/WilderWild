@@ -127,7 +127,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	public static boolean isColumnSupportingMesoglea(BlockState state) {
-		return isMesoglea(state) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS;
+		return isMesoglea(state) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get();
 	}
 
 	public static boolean hasBubbleColumn(BlockState state) {
@@ -143,7 +143,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	public static boolean canColumnSurvive(LevelReader level, BlockPos pos) {
-		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return false;
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) return false;
 		final BlockState belowState = level.getBlockState(pos.below());
 		return belowState.is(Blocks.BUBBLE_COLUMN)
 			|| belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_DRAG_DOWN)
@@ -173,7 +173,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	private static BlockState getColumnState(BlockState occupyState, BlockState belowState) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) {
 			if (belowState.is(Blocks.BUBBLE_COLUMN)) return occupyState.setValue(BUBBLE_DIRECTION, belowState.getValue(BlockStateProperties.DRAG) ? BubbleDirection.DOWN : BubbleDirection.UP);
 			if (belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_PUSH_UP)) return occupyState.setValue(BUBBLE_DIRECTION, BubbleDirection.UP);
 			if (belowState.is(BlockTags.ENABLES_BUBBLE_COLUMN_DRAG_DOWN)) return occupyState.setValue(BUBBLE_DIRECTION, BubbleDirection.DOWN);
@@ -230,7 +230,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		final Optional<Direction> dragDirection = getDragDirection(state);
 		if (this.isPearlescent()) {
-			if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) {
+			if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) {
 				if (entity instanceof ItemEntity item) {
 					item.makeStuckInBlock(state, ITEM_SLOWDOWN_VEC3);
 					item.addDeltaMovement(new Vec3 (0D, ITEM_VERTICAL_BOOST, 0D));
@@ -247,7 +247,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		}
 
 		if (!isPrecise) return;
-		if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		if (dragDirection.isEmpty() || !WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) return;
 
 		final BlockState aboveState = level.getBlockState(pos.above());
 		if (!aboveState.isAir()) {
@@ -370,7 +370,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		return this.defaultBlockState()
 			.setValue(
 				BUBBLE_DIRECTION,
-				state.is(Blocks.BUBBLE_COLUMN) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS
+				state.is(Blocks.BUBBLE_COLUMN) && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()
 					? state.getValue(BlockStateProperties.DRAG)
 						? BubbleDirection.DOWN
 						: BubbleDirection.UP
@@ -391,7 +391,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	) {
 		ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		updateColumn: {
-			if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) break updateColumn;
+			if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) break updateColumn;
 			scheduleColumnTick:{
 				if (!hasBubbleColumn(state)) break scheduleColumnTick;
 				if (!(!canColumnSurvive(level, pos) || direction.getAxis().isVertical() && !hasBubbleColumn(neighborState) && canOccupy(neighborState))) break scheduleColumnTick;
@@ -404,12 +404,12 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
-		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) level.scheduleTick(pos, this, TICK_DELAY);
+		if (WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) level.scheduleTick(pos, this, TICK_DELAY);
 	}
 
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) return;
 		updateColumn(level, pos, state, level.getBlockState(pos.below()));
 	}
 
@@ -430,6 +430,6 @@ public class MesogleaBlock extends HalfTransparentBlock {
 
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		return WWBlockConfig.Client.MESOGLEA_FLUID ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 }

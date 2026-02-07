@@ -99,7 +99,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 	@ModifyVariable(method = "playSound", at = @At("HEAD"), argsOnly = true)
 	private static SoundEvent wilderWild$playSound(SoundEvent sound, Level level, BlockPos pos, BlockState state) {
-		if (state.getFluidState().is(Fluids.WATER) && WWBlockConfig.get().chestBubbling) {
+		if (state.getFluidState().is(Fluids.WATER) && WWBlockConfig.CHEST_BUBBLING.get()) {
 			if (sound == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER;
 			if (sound == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER;
 			if (sound == SoundEvents.COPPER_CHEST_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OPEN_UNDERWATER;
@@ -143,7 +143,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Override
 	public void wilderWild$bubbleBurst(BlockState state) {
 		final ChestBlockEntity chest = ChestBlockEntity.class.cast(this);
-		if (!(chest.getLevel() instanceof ServerLevel serverLevel) || !WWBlockConfig.get().chestBubbling) return;
+		if (!(chest.getLevel() instanceof ServerLevel serverLevel) || !WWBlockConfig.CHEST_BUBBLING.get()) return;
 		final BlockPos pos = chest.getBlockPos();
 		if (state.getFluidState().is(Fluids.WATER) && this.wilderWild$getCanBubble()) {
 			serverLevel.sendParticles(

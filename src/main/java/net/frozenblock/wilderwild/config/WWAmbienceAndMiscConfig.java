@@ -25,7 +25,7 @@ import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWAmbienceAndMiscConfig {
-	private static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("misc")), ConfigSettings.JSON5);
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("misc")), ConfigSettings.JSON5);
 
 	public static final ConfigEntry<Boolean> MODIFY_ADVANCEMENTS = CONFIG.entryBuilder("modifyAdvancements", EntryType.BOOL, true).requireRestart().build();
 

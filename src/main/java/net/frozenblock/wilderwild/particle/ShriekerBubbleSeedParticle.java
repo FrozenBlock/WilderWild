@@ -49,7 +49,7 @@ public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 	@Override
 	public void tick() {
 		final BlockState state = this.level.getBlockState(this.pos);
-		if (!state.is(Blocks.SCULK_SHRIEKER) || !state.getFluidState().is(FluidTags.WATER) || !WWBlockConfig.get().sculk.shriekerGargling) {
+		if (!state.is(Blocks.SCULK_SHRIEKER) || !state.getFluidState().is(FluidTags.WATER) || !WWBlockConfig.SHRIEKER_GARGLING.get()) {
 			this.remove();
 			return;
 		}

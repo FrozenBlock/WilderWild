@@ -20,8 +20,10 @@ package net.frozenblock.wilderwild.config.gui;
 // TODO: Re-enable when cloth config is unobfuscated
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.wilderwild.WWConstants.text;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWItemConfig;
@@ -32,29 +34,28 @@ import net.minecraft.client.gui.screens.Screen;
 public final class WWMainConfigGui {
 
 	public static Screen buildScreen(Screen parent) {
-		var configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
+		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
 			WWBlockConfig.INSTANCE.save();
 			WWEntityConfig.INSTANCE.save();
 			WWItemConfig.INSTANCE.save();
 			WWWorldgenConfig.INSTANCE.save();
-			// TODO: huh??
-			//WWAmbienceAndMiscConfig..save();
+			WWAmbienceAndMiscConfig.CONFIG.save();
 			WWMixinsConfig.INSTANCE.save();
 		});
 
-		ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
-
-		final var block = configBuilder.getOrCreateCategory(text("block"));
-		//WWBlockConfigGui.setupEntries(block, entryBuilder);
-		final var entity = configBuilder.getOrCreateCategory(text("entity"));
-		//WWEntityConfigGui.setupEntries(entity, entryBuilder);
-		final var item = configBuilder.getOrCreateCategory(text("item"));
-		//WWItemConfigGui.setupEntries(item, entryBuilder);
-		final var worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-		//WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
-		final var misc = configBuilder.getOrCreateCategory(text("misc"));
+		final ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
+		final ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
+		WWBlockConfigGui.setupEntries(block, entryBuilder);
+		final ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
+		WWEntityConfigGui.setupEntries(entity, entryBuilder);
+		final ConfigCategory item = configBuilder.getOrCreateCategory(text("item"));
+		WWItemConfigGui.setupEntries(item, entryBuilder);
+		final ConfigCategory worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
+		WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
+		final ConfigCategory misc = configBuilder.getOrCreateCategory(text("misc"));
 		WWAmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
+
 		return configBuilder.build();
 	}
 

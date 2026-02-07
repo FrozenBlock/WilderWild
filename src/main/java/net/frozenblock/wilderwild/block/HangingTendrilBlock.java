@@ -197,7 +197,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		return WWBlockConfig.Client.BILLBOARD_TENDRILS ? RenderShape.INVISIBLE : RenderShape.MODEL;
+		return WWBlockConfig.BILLBOARD_TENDRILS.get() ? RenderShape.INVISIBLE : RenderShape.MODEL;
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		int frequency
 	) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power));
-		final boolean tendrilsCarryEvents = WWBlockConfig.get().sculk.tendrilsCarryEvents;
+		final boolean tendrilsCarryEvents = WWBlockConfig.TENDRILS_CARRY_EVENTS.get();
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, level, pos, frequency);
 		level.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);

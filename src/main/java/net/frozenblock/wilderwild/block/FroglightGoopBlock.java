@@ -67,7 +67,7 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 	}
 
 	public static void growFromFroglight(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() > GROWTH_FROM_FROGLIGHT_CHANCE || !WWBlockConfig.get().froglightGoopGrowth) return;
+		if (random.nextFloat() > GROWTH_FROM_FROGLIGHT_CHANCE || !WWBlockConfig.FROGLIGHT_GOOP_GROWTH.get()) return;
 
 		final Optional<FroglightType> optionalType = FroglightType.getFromBaseBlock(state.getBlock());
 		if (optionalType.isEmpty()) return;

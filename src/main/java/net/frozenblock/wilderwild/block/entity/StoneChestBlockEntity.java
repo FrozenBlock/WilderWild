@@ -142,7 +142,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 		level.playSound(
 			null,
 			x, y, z,
-			state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.get().chestBubbling ? waterloggedSoundEvent : soundEvent,
+			state.getValue(BlockStateProperties.WATERLOGGED) && WWBlockConfig.CHEST_BUBBLING.get() ? waterloggedSoundEvent : soundEvent,
 			SoundSource.BLOCKS,
 			volume,
 			level.getRandom().nextFloat() * 0.18F + 0.9F
@@ -157,14 +157,14 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	public void liftLid(float liftAmount) {
 		this.openProgress = Mth.clamp(this.openProgress + (liftAmount * 1.5F), 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * (MAX_TIME_OPEN) * (WWBlockConfig.STONE_CHEST_TIMER.get() * 0.01D));
 		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	public void setLid(float liftAmount) {
 		this.openProgress = Mth.clamp(liftAmount, 0F, MAX_OPEN_PERCENTAGE);
 		this.highestLidPoint = this.openProgress;
-		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * WWBlockConfig.get().stoneChest.getStoneChestTimer());
+		this.stillLidTicks = (int) (Math.max((this.openProgress), MIN_PERCENTAGE_OF_TIME_OPEN) * MAX_TIME_OPEN * (WWBlockConfig.STONE_CHEST_TIMER.get() * 0.01D));
 		if (this.level != null) this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 

@@ -139,7 +139,7 @@ public class PollenParticle extends SingleQuadParticle {
 			pollenParticle.lifetime = Mth.randomBetweenInclusive(random, 500, 1000);
 			pollenParticle.gravity = 0.01F;
 			pollenParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
-			pollenParticle.canExist = Optional.of(() -> WWBlockConfig.Client.POLLEN_ENABLED);
+			pollenParticle.canExist = Optional.of(WWBlockConfig.POLLEN_PARTICLES::get);
 			return pollenParticle;
 		}
 	}

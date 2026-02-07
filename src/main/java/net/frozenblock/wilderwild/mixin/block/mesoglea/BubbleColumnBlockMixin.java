@@ -38,7 +38,7 @@ public class BubbleColumnBlockMixin {
 
 	@Inject(method = "getColumnState", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$getColumnState(Block bubbleColumn, BlockState belowState, BlockState occupyState, CallbackInfoReturnable<BlockState> info) {
-		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) return;
+		if (!WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) return;
 		final Optional<Direction> dragDirection = MesogleaBlock.getDragDirection(belowState);
 		dragDirection.ifPresent(direction -> info.setReturnValue(
 			bubbleColumn.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, direction == Direction.DOWN)
@@ -58,7 +58,7 @@ public class BubbleColumnBlockMixin {
 		@Local(argsOnly = true) LevelAccessor level,
 		@Local(name = "pos") BlockPos.MutableBlockPos pos
 	) {
-		if (!original && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS) MesogleaBlock.updateColumn(level, pos, level.getBlockState(pos.immutable().below()));
+		if (!original && WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS.get()) MesogleaBlock.updateColumn(level, pos, level.getBlockState(pos.immutable().below()));
 		return original;
 	}
 

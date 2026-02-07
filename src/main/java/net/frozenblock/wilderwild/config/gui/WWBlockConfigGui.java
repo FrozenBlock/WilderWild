@@ -18,14 +18,15 @@
 package net.frozenblock.wilderwild.config.gui;
 
 // TODO: Re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import static net.frozenblock.wilderwild.config.WWConfigHelper.booleanEntry;
+import static net.frozenblock.wilderwild.config.WWConfigHelper.intSliderEntry;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 
 @Environment(EnvType.CLIENT)
@@ -36,224 +37,27 @@ public final class WWBlockConfigGui {
 	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
-		final var config = WWBlockConfig.get(true);
-		final var modifiedConfig = WWBlockConfig.getWithSync();
-		final Class<? extends WWBlockConfig> clazz = config.getClass();
-		final Config<?> configInstance = WWBlockConfig.INSTANCE;
-		final var defaultConfig = WWBlockConfig.INSTANCE.defaultInstance();
-		final var blockSounds = config.blockSounds;
-		final var modifiedBlockSounds = modifiedConfig.blockSounds;
-		final var stoneChest = config.stoneChest;
-		final var modifiedStoneChest = modifiedConfig.stoneChest;
-		final var termite = config.termite;
-		final var modifiedTermite = modifiedConfig.termite;
-		final var snowlogging = config.snowlogging;
-		final var modifiedSnowlogging = modifiedConfig.snowlogging;
-		final var fire = config.fire;
-		final var modifiedFire = modifiedConfig.fire;
-		final var mesoglea = config.mesoglea;
-		final var modifiedMesoglea = modifiedConfig.mesoglea;
-		final var sculk = config.sculk;
-		final var modifiedSculk = modifiedConfig.sculk;
-		final var flower = config.flower;
-		final var modifiedFlower = modifiedConfig.flower;
+		category.addEntry(booleanEntry(builder, "reach_boost_beacon", WWBlockConfig.REACH_BOOST_BEACON));
+		category.addEntry(booleanEntry(builder, "pollen_particles", WWBlockConfig.POLLEN_PARTICLES));
+		category.addEntry(booleanEntry(builder, "log_hollowing", WWBlockConfig.LOG_HOLLOWING));
+		category.addEntry(booleanEntry(builder, "cactus_placement", WWBlockConfig.CACTUS_PLACEMENT));
+		category.addEntry(booleanEntry(builder, "new_reinforced_deepslate", WWBlockConfig.NEW_REINFORCED_DEEPSLATE));
+		category.addEntry(booleanEntry(builder, "froglight_goop_growth", WWBlockConfig.FROGLIGHT_GOOP_GROWTH));
+		category.addEntry(booleanEntry(builder, "new_reinforced_deepslate", WWBlockConfig.NEW_REINFORCED_DEEPSLATE));
+		category.addEntry(booleanEntry(builder, "frosted_ice_cracking", WWBlockConfig.FROSTED_ICE_CRACKING));
+		category.addEntry(booleanEntry(builder, "chest_bubbling", WWBlockConfig.CHEST_BUBBLING));
+		category.addEntry(booleanEntry(builder, "thick_big_fungus_growth", WWBlockConfig.THICK_BIG_FUNGUS_GROWTH));
 
-		var reachBoostBeacon = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("reach_boost_beacon"), modifiedConfig.reachBoostBeacon)
-					.setDefaultValue(defaultConfig.reachBoostBeacon)
-					.setSaveConsumer(newValue -> config.reachBoostBeacon = newValue)
-					.setTooltip(tooltip("reach_boost_beacon"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"reachBoostBeacon",
-				configInstance
-			)
-		);
+		// SCULK
+		var shriekerGargling = booleanEntry(builder, "shrieker_gargling", WWBlockConfig.SHRIEKER_GARGLING);
+		var shriekerOutline = booleanEntry(builder, "shrieker_outline", WWBlockConfig.SHRIEKER_OUTLINE);
+		var billboardTendrils = booleanEntry(builder, "billboard_tendrils", WWBlockConfig.BILLBOARD_TENDRILS);
+		var tendrilsCarryEvents = booleanEntry(builder, "tendrils_carry_events", WWBlockConfig.TENDRILS_CARRY_EVENTS);
+		var tendrilGeneration = booleanEntry(builder, "hanging_tendril_generation", WWBlockConfig.TENDRIL_GENERATION);
+		var osseousSculkGeneration = booleanEntry(builder, "osseous_sculk_generation", WWBlockConfig.OSSEOUS_SCULK_GENERATION);
+		var sculkBuildingBlocksGeneration = booleanEntry(builder, "sculk_building_blocks_generation", WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION);
 
-		var pollenParticles = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("pollen_particles"), modifiedConfig.pollenParticles)
-					.setDefaultValue(defaultConfig.pollenParticles)
-					.setSaveConsumer(newValue -> config.pollenParticles = newValue)
-					.setTooltip(tooltip("pollen_particles"))
-					.build(),
-				clazz,
-				"pollenParticles",
-				configInstance
-			)
-		);
-
-		var logHollowing = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("log_hollowing"), modifiedConfig.logHollowing)
-					.setDefaultValue(defaultConfig.logHollowing)
-					.setSaveConsumer(newValue -> config.logHollowing = newValue)
-					.setTooltip(tooltip("log_hollowing"))
-					.build(),
-				clazz,
-				"logHollowing",
-				configInstance
-			)
-		);
-
-		var cactusPlacement = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("cactus_placement"), modifiedConfig.cactusPlacement)
-					.setDefaultValue(defaultConfig.cactusPlacement)
-					.setSaveConsumer(newValue -> config.cactusPlacement = newValue)
-					.setTooltip(tooltip("cactus_placement"))
-					.build(),
-				clazz,
-				"cactusPlacement",
-				configInstance
-			)
-		);
-
-		var newReinforcedDeepslate = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("new_reinforced_deepslate"), modifiedConfig.newReinforcedDeepslate)
-					.setDefaultValue(defaultConfig.newReinforcedDeepslate)
-					.setSaveConsumer(newValue -> config.newReinforcedDeepslate = newValue)
-					.setTooltip(tooltip("new_reinforced_deepslate"))
-					.build(),
-				clazz,
-				"newReinforcedDeepslate",
-				configInstance
-			)
-		);
-
-		var froglightGoopGrowth = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("froglight_goop_growth"), modifiedConfig.froglightGoopGrowth)
-					.setDefaultValue(defaultConfig.froglightGoopGrowth)
-					.setSaveConsumer(newValue -> config.froglightGoopGrowth = newValue)
-					.setTooltip(tooltip("froglight_goop_growth"))
-					.build(),
-				clazz,
-				"froglightGoopGrowth",
-				configInstance
-			)
-		);
-
-		var frostedIceCracking = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("frosted_ice_cracking"), modifiedConfig.frostedIceCracking)
-					.setDefaultValue(defaultConfig.frostedIceCracking)
-					.setSaveConsumer(newValue -> config.frostedIceCracking = newValue)
-					.setTooltip(tooltip("frosted_ice_cracking"))
-					.build(),
-				clazz,
-				"frostedIceCracking",
-				configInstance
-			)
-		);
-
-		var chestBubbling = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("chest_bubbling"), modifiedConfig.chestBubbling)
-					.setDefaultValue(defaultConfig.chestBubbling)
-					.setSaveConsumer(newValue -> config.chestBubbling = newValue)
-					.setTooltip(tooltip("chest_bubbling"))
-					.build(),
-				clazz,
-				"chestBubbling",
-				configInstance
-			)
-		);
-
-		var thickBigFungusGrowth = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("thick_big_fungus_growth"), modifiedConfig.thickBigFungusGrowth)
-					.setDefaultValue(defaultConfig.thickBigFungusGrowth)
-					.setSaveConsumer(newValue -> config.thickBigFungusGrowth = newValue)
-					.setTooltip(tooltip("thick_big_fungus_growth"))
-					.build(),
-				clazz,
-				"thickBigFungusGrowth",
-				configInstance
-			)
-		);
-
-		var shriekerGargling = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("shrieker_gargling"), modifiedSculk.shriekerGargling)
-				.setDefaultValue(defaultConfig.sculk.shriekerGargling)
-				.setSaveConsumer(newValue -> sculk.shriekerGargling = newValue)
-				.setTooltip(tooltip("shrieker_gargling"))
-				.build(),
-			sculk.getClass(),
-			"shriekerGargling",
-			configInstance
-		);
-
-		var shriekerOutline = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("shrieker_outline"), modifiedSculk.shriekerOutline)
-				.setDefaultValue(defaultConfig.sculk.shriekerOutline)
-				.setSaveConsumer(newValue -> sculk.shriekerOutline = newValue)
-				.setTooltip(tooltip("shrieker_outline"))
-				.build(),
-			sculk.getClass(),
-			"shriekerOutline",
-			configInstance
-		);
-
-		var billboardTendrils = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("billboard_tendrils"), modifiedSculk.billboardTendrils)
-				.setDefaultValue(defaultConfig.sculk.billboardTendrils)
-				.setSaveConsumer(newValue -> sculk.billboardTendrils = newValue)
-				.setTooltip(tooltip("billboard_tendrils"))
-				.build(),
-			sculk.getClass(),
-			"billboardTendrils",
-			configInstance
-		);
-
-		var tendrilsCarryEvents = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("tendrils_carry_events"), modifiedSculk.tendrilsCarryEvents)
-				.setDefaultValue(defaultConfig.sculk.tendrilsCarryEvents)
-				.setSaveConsumer(newValue -> sculk.tendrilsCarryEvents = newValue)
-				.setTooltip(tooltip("tendrils_carry_events"))
-				.build(),
-			sculk.getClass(),
-			"tendrilsCarryEvents",
-			configInstance
-		);
-
-		var tendrilGeneration = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("hanging_tendril_generation"), modifiedSculk.tendrilGeneration)
-				.setDefaultValue(defaultConfig.sculk.tendrilGeneration)
-				.setSaveConsumer(newValue -> sculk.tendrilGeneration = newValue)
-				.setTooltip(tooltip("hanging_tendril_generation"))
-				.build(),
-			sculk.getClass(),
-			"tendrilGeneration",
-			configInstance
-		);
-
-		var osseousSculkGeneration = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("osseous_sculk_generation"), modifiedSculk.osseousSculkGeneration)
-				.setDefaultValue(defaultConfig.sculk.osseousSculkGeneration)
-				.setSaveConsumer(newValue -> sculk.osseousSculkGeneration = newValue)
-				.setTooltip(tooltip("osseous_sculk_generation"))
-				.build(),
-			sculk.getClass(),
-			"osseousSculkGeneration",
-			configInstance
-		);
-
-		var sculkBuildingBlocksGeneration = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("sculk_building_blocks_generation"), modifiedSculk.sculkBuildingBlocksGeneration)
-				.setDefaultValue(defaultConfig.sculk.sculkBuildingBlocksGeneration)
-				.setSaveConsumer(newValue -> sculk.sculkBuildingBlocksGeneration = newValue)
-				.setTooltip(tooltip("sculk_building_blocks_generation"))
-				.build(),
-			sculk.getClass(),
-			"sculkBuildingBlocksGeneration",
-			configInstance
-		);
-
-		var sculkCategory = FrozenClothConfig.createSubCategory(builder, category, text("sculk"),
+		FrozenClothConfig.createSubCategory(builder, category, text("sculk"),
 			false,
 			tooltip("sculk"),
 			shriekerGargling, shriekerOutline,
@@ -262,148 +66,44 @@ public final class WWBlockConfigGui {
 			sculkBuildingBlocksGeneration
 		);
 
-		var mesogleaFluid = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("mesoglea_fluid"), modifiedMesoglea.mesogleaFluid)
-				.setDefaultValue(defaultConfig.mesoglea.mesogleaFluid)
-				.setSaveConsumer(newValue -> mesoglea.mesogleaFluid = newValue)
-				.setTooltip(tooltip("mesoglea_fluid"))
-				.build(),
-			mesoglea.getClass(),
-			"mesogleaFluid",
-			configInstance
-		);
+		// MESOGLEA
+		var mesogleaFluid = booleanEntry(builder, "mesoglea_fluid", WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID);
+		var mesogleaBubbleColumns = booleanEntry(builder, "mesoglea_bubble_columns", WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS);
 
-		var mesogleaBubbleColumns = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("mesoglea_bubble_columns"), modifiedMesoglea.mesogleaBubbleColumns)
-				.setDefaultValue(defaultConfig.mesoglea.mesogleaBubbleColumns)
-				.setSaveConsumer(newValue -> mesoglea.mesogleaBubbleColumns = newValue)
-				.setTooltip(tooltip("mesoglea_bubble_columns"))
-				.build(),
-			mesoglea.getClass(),
-			"mesogleaBubbleColumns",
-			configInstance
-		);
-
-		var mesogleaCategory = FrozenClothConfig.createSubCategory(builder, category, text("mesoglea"),
+		FrozenClothConfig.createSubCategory(builder, category, text("mesoglea"),
 			false,
 			tooltip("mesoglea"),
 			mesogleaBubbleColumns, mesogleaFluid
 		);
 
-		var termitesOnlyEatNaturalBlocks = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("termites_only_eat_natural_blocks"), modifiedTermite.onlyEatNaturalBlocks)
-				.setDefaultValue(defaultConfig.termite.onlyEatNaturalBlocks)
-				.setSaveConsumer(newValue -> termite.onlyEatNaturalBlocks = newValue)
-				.setTooltip(tooltip("termites_only_eat_natural_blocks"))
-				.requireRestart()
-				.build(),
-			termite.getClass(),
-			"onlyEatNaturalBlocks",
-			configInstance
-		);
+		// TERMITE
+		var termitesOnlyEatNaturalBlocks = booleanEntry(builder, "termites_only_eat_natural_blocks", WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS);
+		var maxTermiteDistance = intSliderEntry(builder, "max_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72);
+		var maxNaturalTermiteDistance = intSliderEntry(builder, "max_natural_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72);
 
-		var maxTermiteDistance = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("max_termite_distance"), modifiedTermite.maxDistance, 1, 72)
-				.setDefaultValue(defaultConfig.termite.maxDistance)
-				.setSaveConsumer(newValue -> termite.maxDistance = newValue)
-				.setTooltip(tooltip("max_termite_distance"))
-				.build(),
-			termite.getClass(),
-			"maxDistance",
-			configInstance
-		);
-
-		var maxNaturalTermiteDistance = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("max_natural_termite_distance"), modifiedTermite.maxNaturalDistance, 1, 72)
-				.setDefaultValue(defaultConfig.termite.maxNaturalDistance)
-				.setSaveConsumer(newValue -> termite.maxNaturalDistance = newValue)
-				.setTooltip(tooltip("max_natural_termite_distance"))
-				.build(),
-			termite.getClass(),
-			"maxNaturalDistance",
-			configInstance
-		);
-
-		var termiteCategory = FrozenClothConfig.createSubCategory(builder, category, text("termite"),
+		FrozenClothConfig.createSubCategory(builder, category, text("termite"),
 			false,
 			tooltip("termite"),
 			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
 		);
 
-		var bonemealDandelions = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("bone_meal_dandelions"), modifiedFlower.bonemealDandelions)
-				.setDefaultValue(defaultConfig.flower.bonemealDandelions)
-				.setSaveConsumer(newValue -> flower.bonemealDandelions = newValue)
-				.setTooltip(tooltip("bone_meal_dandelions"))
-				.build(),
-			flower.getClass(),
-			"bonemealDandelions",
-			configInstance
-		);
+		// FLOWER
+		var bonemealDandelions = booleanEntry(builder, "bone_meal_dandelions", WWBlockConfig.BONE_MEAL_DANDELIONS);
+		var shearSeedingDandelions = booleanEntry(builder, "shear_seeding_dandelions", WWBlockConfig.SHEAR_SEEDING_DANDELIONS);
+		var bonemealLilypads = booleanEntry(builder, "bone_meal_lilypads", WWBlockConfig.BONE_MEAL_LILY_PADS);
+		var shearFloweringLilypads = booleanEntry(builder, "shear_flowering_lilypads", WWBlockConfig.SHEAR_FLOWERING_LILY_PADS);
 
-		var shearSeedingDandelions = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("shear_seeding_dandelions"), modifiedFlower.shearSeedingDandelions)
-				.setDefaultValue(defaultConfig.flower.shearSeedingDandelions)
-				.setSaveConsumer(newValue -> flower.shearSeedingDandelions = newValue)
-				.setTooltip(tooltip("shear_seeding_dandelions"))
-				.build(),
-			flower.getClass(),
-			"shearSeedingDandelions",
-			configInstance
-		);
-
-		var bonemealLilypads = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("bone_meal_lilypads"), modifiedFlower.bonemealLilypads)
-				.setDefaultValue(defaultConfig.flower.bonemealLilypads)
-				.setSaveConsumer(newValue -> flower.bonemealLilypads = newValue)
-				.setTooltip(tooltip("bone_meal_lilypads"))
-				.build(),
-			flower.getClass(),
-			"bonemealLilypads",
-			configInstance
-		);
-
-		var shearFloweringLilypads = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("shear_flowering_lilypads"), modifiedFlower.shearFloweringLilypads)
-				.setDefaultValue(defaultConfig.flower.shearFloweringLilypads)
-				.setSaveConsumer(newValue -> flower.shearFloweringLilypads = newValue)
-				.setTooltip(tooltip("shear_flowering_lilypads"))
-				.build(),
-			flower.getClass(),
-			"shearFloweringLilypads",
-			configInstance
-		);
-
-		var flowerCategory = FrozenClothConfig.createSubCategory(builder, category, text("flower"),
+		FrozenClothConfig.createSubCategory(builder, category, text("flower"),
 			false,
 			tooltip("flower"),
 			bonemealDandelions, shearSeedingDandelions, bonemealLilypads, shearFloweringLilypads
 		);
 
-		var stoneChestTimer = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("stone_chest_timer"), modifiedStoneChest.stoneChestTimer, 50, 200)
-				.setDefaultValue(defaultConfig.stoneChest.stoneChestTimer)
-				.setSaveConsumer(newValue -> stoneChest.stoneChestTimer = newValue)
-				.setTooltip(tooltip("stone_chest_timer"))
-				.build(),
-			stoneChest.getClass(),
-			"stoneChestTimer",
-			configInstance
-		);
+		// STONE CHEST
+		var stoneChestTimer = intSliderEntry(builder, "stone_chest_timer", WWBlockConfig.STONE_CHEST_TIMER, 50, 200);
+		var addStoneChests = booleanEntry(builder, "add_stone_chests", WWBlockConfig.ADD_STONE_CHESTS);
 
-		var addStoneChests = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("add_stone_chests"), modifiedStoneChest.addStoneChests)
-				.setDefaultValue(defaultConfig.stoneChest.addStoneChests)
-				.setSaveConsumer(newValue -> stoneChest.addStoneChests = newValue)
-				.requireRestart()
-				.setTooltip(tooltip("add_stone_chests"))
-				.build(),
-			stoneChest.getClass(),
-			"addStoneChests",
-			configInstance
-		);
-
-		var stoneChestCategory = FrozenClothConfig.createSubCategory(builder, category, text("stone_chest"),
+		FrozenClothConfig.createSubCategory(builder, category, text("stone_chest"),
 			false,
 			tooltip("stone_chest"),
 			stoneChestTimer, addStoneChests
@@ -733,4 +433,3 @@ public final class WWBlockConfigGui {
 	}
 
 }
-*/

@@ -57,7 +57,7 @@ public class HugeFungusFeatureMixin {
 	) {
 		newPos.set(context.origin());
 		if (original) return true;
-		if (context.config().planted && WWBlockConfig.get().thickBigFungusGrowth) {
+		if (context.config().planted && WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) {
 			final WorldGenLevel level = context.level();
 			final BlockPos pos = context.origin();
 			final Block fungus = level.getBlockState(pos).getBlock();
@@ -99,7 +99,7 @@ public class HugeFungusFeatureMixin {
 		BlockPos pos,
 		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
 	) {
-		return WWBlockConfig.get().thickBigFungusGrowth ? newPos.get() : pos;
+		return WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get() ? newPos.get() : pos;
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class HugeFungusFeatureMixin {
 		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
 		shouldPlace.set(true);
-		if (!WWBlockConfig.get().thickBigFungusGrowth) return original;
+		if (!WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) return original;
 		if (!isCorner.get()) return original;
 
 		if (random.nextFloat() < 0.1F) {

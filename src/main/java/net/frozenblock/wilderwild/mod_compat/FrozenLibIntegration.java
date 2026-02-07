@@ -580,7 +580,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
 
 						final WWEntityConfig entityConfig = WWEntityConfig.get();
-						if (entityConfig.crab.spawnCrabs || WWBlockConfig.get().reachBoostBeacon) {
+						if (entityConfig.crab.spawnCrabs || WWBlockConfig.REACH_BOOST_BEACON.get()) {
 							map.put(WWMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
 
@@ -626,7 +626,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			}
 		});
 
-		if (WWBlockConfig.get().stoneChest.addStoneChests) {
+		if (WWBlockConfig.ADD_STONE_CHESTS.get()) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.ANCIENT_CITY.identifier(),
 				new BlockStateRespectingRuleProcessor(
