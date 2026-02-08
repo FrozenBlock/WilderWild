@@ -36,7 +36,7 @@ public class FireflyBushMixin {
 		)
 	)
 	public boolean wilderWild$animateTick(Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd) {
-		return WWEntityConfig.Client.SPAWN_FIREFLY_PARTICLES;
+		return WWEntityConfig.SPAWN_FIREFLY_PARTICLES.get();
 	}
 
 }

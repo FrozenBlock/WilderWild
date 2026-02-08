@@ -117,9 +117,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	public static boolean checkFireflySpawnRules(EntityType<Firefly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().firefly.spawnFireflies) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_FIREFLIES.get()) return false;
 		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)) return false;
-		if (!WWEntityConfig.get().firefly.firefliesNeedBush) return true;
+		if (!WWEntityConfig.FIREFLIES_NEED_BUSH.get()) return true;
 		return ((int)(random.nextDouble() * getNearbyFireflyBushCount(level, pos, 3))) >= 1;
 	}
 

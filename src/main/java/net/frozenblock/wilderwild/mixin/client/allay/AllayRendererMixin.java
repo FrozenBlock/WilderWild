@@ -44,7 +44,7 @@ public class AllayRendererMixin {
 		require = 0
 	)
 	private boolean wilderWild$alterDanceCheck(boolean original) {
-		return original && !WWEntityConfig.Client.ALLAY_KEYFRAME_DANCE;
+		return original && !WWEntityConfig.ALLAY_KEYFRAME_DANCE.get();
 	}
 
 	@Inject(

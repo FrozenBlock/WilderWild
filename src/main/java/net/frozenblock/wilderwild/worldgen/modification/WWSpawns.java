@@ -40,7 +40,7 @@ public final class WWSpawns {
 			(selectionContext, modificationContext) -> {
 				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
-				if (WWEntityConfig.get().firefly.firefliesNeedBush) {
+				if (WWEntityConfig.FIREFLIES_NEED_BUSH.get()) {
 					spawnSettings.addMobCharge(WWEntityTypes.FIREFLY, 0.35D, 0.3D);
 				} else if (!selectionContext.hasTag(WWBiomeTags.HAS_FIREFLY)) {
 					return;

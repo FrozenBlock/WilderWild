@@ -26,9 +26,43 @@ import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.config.api.sync.SyncBehavior;
 import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
 import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWEntityConfig {
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("entity")), ConfigSettings.JSON5);
+
+	public static final ConfigEntry<Boolean> UNPASSABLE_RAIL = CONFIG.entryBuilder("unpassableRail", EntryType.BOOL, false).requireRestart().build();
+
+	// LIGHTNING
+	public static final ConfigEntry<Boolean> LIGHTNING_SCORCHES_SAND = CONFIG.entry("lightning/lightningScorchesSand", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> LIGHTNING_BLOCK_PARTICLES = CONFIG.unsyncableEntry("lightning/lightningBlockParticles", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> LIGHTNING_SMOKE_PARTICLES = CONFIG.unsyncableEntry("lightning/lightningSmokeParticles", EntryType.BOOL, true);
+
+	// ALLAY
+	public static final ConfigEntry<Boolean> ALLAY_KEYFRAME_DANCE = CONFIG.entry("allay/keyframeAllayDance", EntryType.BOOL, true);
+
+	// ENDERMAN
+	public static final ConfigEntry<Boolean> ENDERMAN_ANGER_LOOP_SOUND = CONFIG.entry("enderMan/angerLoopSound", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ENDERMAN_MOVING_STARE_SOUND = CONFIG.unsyncableEntry("enderMan/movingStareSound", EntryType.BOOL, true);
+
+	// FIREFLY
+	public static final ConfigEntry<Boolean> SPAWN_FIREFLY_PARTICLES = CONFIG.unsyncableEntry("firefly/spawnFireflyParticles", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> SPAWN_FIREFLIES = CONFIG.entry("firefly/spawnFireflies", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> FIREFLIES_NEED_BUSH = CONFIG.entry("firefly/firefliesNeedBush", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> FIREFLY_SPAWN_CAP = CONFIG.entry("firefly/fireflySpawnCap", EntryType.INT, 56);
+	public static final ConfigEntry<Boolean> FIREFLY_SWARM = CONFIG.entry("firefly/fireflySwarm", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> FIREFLY_SWARMS_BUSH = CONFIG.entry("firefly/fireflySwarmsBush", EntryType.BOOL, true);
+
+	// BUTTERFLY
+	public static final ConfigEntry<Boolean> SPAWN_BUTTERFLIES = CONFIG.entry("butterfly/spawnButterflies", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> BUTTERFLY_SPAWN_CAP = CONFIG.entry("butterfly/butterflySpawnCap", EntryType.INT, 10);
+
 	public static final Config<WWEntityConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
 			MOD_ID,
@@ -46,14 +80,10 @@ public final class WWEntityConfig {
 			public void onSync(WWEntityConfig syncInstance) {
 				final var config = this.config();
 				WARDEN_SWIMS = config.warden.wardenSwims;
-				FIREFLY_SWARMS = config.firefly.fireflySwarm;
-				FIREFLY_SWARMS_BUSH = config.firefly.fireflySwarmsBush;
 				REACH_AFFECTS_ATTACK = config.crab.reachAffectsAttack;
 				CRAB_CLAW_GIVES_REACH = config.crab.crabClawGivesReach;
 				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					Client.SPAWN_FIREFLY_PARTICLES = config.firefly.spawnFireflyParticles;
 					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
-					Client.ALLAY_KEYFRAME_DANCE = config.allay.keyframeAllayDance;
 					Client.WARDEN_SWIM_ANIMATION = config.warden.wardenSwimAnimation;
 					Client.WARDEN_CUSTOM_TENDRIL_ANIMATION = config.warden.wardenCustomTendrils;
 					Client.WARDEN_IMPROVED_DIG_ANIMATION = config.warden.wardenImprovedDig;
@@ -68,15 +98,11 @@ public final class WWEntityConfig {
 	);
 
 	public static volatile boolean WARDEN_SWIMS = true;
-	public static volatile boolean FIREFLY_SWARMS = true;
-	public static volatile boolean FIREFLY_SWARMS_BUSH = true;
 	public static volatile boolean REACH_AFFECTS_ATTACK = false;
 	public static volatile boolean CRAB_CLAW_GIVES_REACH = false;
 
 	public static final class Client {
-		public static volatile boolean SPAWN_FIREFLY_PARTICLES = false;
 		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
-		public static volatile boolean ALLAY_KEYFRAME_DANCE = false;
 		public static volatile boolean WARDEN_SWIM_ANIMATION = true;
 		public static volatile boolean WARDEN_CUSTOM_TENDRIL_ANIMATION = true;
 		public static volatile boolean WARDEN_IMPROVED_DIG_ANIMATION = true;
@@ -86,16 +112,6 @@ public final class WWEntityConfig {
 		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
 		public static volatile boolean JELLYFISH_ORAL_ARM = true;
 	}
-
-	public final LightningConfig lightning = new LightningConfig();
-
-	public final AllayConfig allay = new AllayConfig();
-
-	public final EnderManConfig enderMan = new EnderManConfig();
-
-	public final FireflyConfig firefly = new FireflyConfig();
-
-	public final ButterflyConfig butterfly = new ButterflyConfig();
 
 	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
@@ -115,9 +131,6 @@ public final class WWEntityConfig {
 
 	public final VillagerConfig villager = new VillagerConfig();
 
-	@EntrySyncData("unpassableRail")
-	public boolean unpassableRail = false;
-
 	public static WWEntityConfig get() {
 		return get(false);
 	}
@@ -129,55 +142,6 @@ public final class WWEntityConfig {
 
 	public static WWEntityConfig getWithSync() {
 		return INSTANCE.configWithSync();
-	}
-
-	public static class LightningConfig {
-		@EntrySyncData("lightningScorchesSand")
-		public boolean lightningScorchesSand = true;
-
-		@EntrySyncData(value = "lightningBlockParticles", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean lightningBlockParticles = true;
-
-		@EntrySyncData(value = "lightningSmokeParticles", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean lightningSmokeParticles = true;
-	}
-
-	public static class AllayConfig {
-		@EntrySyncData(value = "keyframeAllayDance", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean keyframeAllayDance = true;
-	}
-
-	public static class EnderManConfig {
-		@EntrySyncData("angerLoopSound")
-		public boolean angerLoopSound = true;
-
-		@EntrySyncData(value = "movingStareSound", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean movingStareSound = true;
-	}
-
-	public static class FireflyConfig {
-		@EntrySyncData(value = "spawnFireflyParticles", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean spawnFireflyParticles = false;
-
-		@EntrySyncData("spawnFireflies")
-		public boolean spawnFireflies = true;
-		@EntrySyncData("firefliesNeedBush")
-		public boolean firefliesNeedBush = true;
-		@EntrySyncData("fireflySpawnCap")
-		public int fireflySpawnCap = 56;
-
-		@EntrySyncData("fireflySwarm")
-		public boolean fireflySwarm = true;
-		@EntrySyncData("fireflySwarmsBush")
-		public boolean fireflySwarmsBush = true;
-	}
-
-	public static class ButterflyConfig {
-		@EntrySyncData("spawnButterflies")
-		public boolean spawnButterflies = true;
-
-		@EntrySyncData("butterflySpawnCap")
-		public int butterflySpawnCap = 10;
 	}
 
 	public static class JellyfishConfig {

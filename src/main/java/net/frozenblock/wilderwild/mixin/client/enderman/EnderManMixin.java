@@ -46,7 +46,7 @@ public class EnderManMixin {
 	public void wilderWild$playStareSound(
 		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean delayed, Operation<Void> original
 	) {
-		if (!WWEntityConfig.get().enderMan.movingStareSound) {
+		if (!WWEntityConfig.ENDERMAN_MOVING_STARE_SOUND.get()) {
 			original.call(instance, x, y, z, sound, source, volume, pitch, delayed);
 			return;
 		}

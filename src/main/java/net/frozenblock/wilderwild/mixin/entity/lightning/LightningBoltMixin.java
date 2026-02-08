@@ -82,7 +82,7 @@ public class LightningBoltMixin {
 
 	@Unique
 	private void wilderWild$scorchSand(LightningBolt bolt, BlockPos strikePos, BlockState strikeState) {
-		if (this.visualOnly || !(bolt.level() instanceof ServerLevel level) || !WWEntityConfig.get().lightning.lightningScorchesSand || !strikeState.is(BlockTags.SAND)) return;
+		if (this.visualOnly || !(bolt.level() instanceof ServerLevel level) || !WWEntityConfig.LIGHTNING_SCORCHES_SAND.get() || !strikeState.is(BlockTags.SAND)) return;
 
 		final ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
 		final RandomSource random = level.getRandom();

@@ -54,7 +54,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -113,7 +112,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	public static boolean checkButterflySpawnRules(EntityType<Butterfly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().butterfly.spawnButterflies) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_BUTTERFLIES.get()) return false;
 		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || Animal.isBrightEnoughToSpawn(level, pos))) return true;
 		if (level.getBiome(pos).is(WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN) && random.nextInt(30) != 0) return false;
 		return level.getBlockState(pos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON);

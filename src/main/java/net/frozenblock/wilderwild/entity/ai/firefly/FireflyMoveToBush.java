@@ -36,7 +36,7 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 
 	@Override
 	public boolean checkExtraStartConditions(ServerLevel level, Firefly firefly) {
-		return WWEntityConfig.FIREFLY_SWARMS_BUSH
+		return WWEntityConfig.FIREFLY_SWARMS_BUSH.get()
 			&& !firefly.hasHome()
 			&& super.checkExtraStartConditions(level, firefly)
 			&& !this.blockPos.closerThan(firefly.blockPosition(), this.returnDistance);

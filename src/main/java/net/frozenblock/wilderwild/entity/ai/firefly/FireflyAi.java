@@ -105,7 +105,7 @@ public class FireflyAi {
 				new FireflyHide(1.75F, 10, 8),
 				new FireflyMoveToBush(1.25F, 10, 8, 5),
 				StayCloseToTarget.create(FireflyAi::getHomeTarget, entity -> true, 7, 16, 1.25F),
-				StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> WWEntityConfig.FIREFLY_SWARMS, 2, 3, 1.75F),
+				StayCloseToTarget.create(FireflyAi::getSwarmLeaderTarget, entity -> WWEntityConfig.FIREFLY_SWARM.get(), 2, 3, 1.75F),
 				new RunOne<>(
 					ImmutableList.of(
 						Pair.of(RandomStroll.fly(1.25F), 2),

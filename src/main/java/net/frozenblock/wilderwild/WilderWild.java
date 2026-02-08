@@ -20,15 +20,11 @@ package net.frozenblock.wilderwild;
 import java.util.ArrayList;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.config.api.instance.ConfigModification;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
@@ -68,10 +64,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
-		if (FrozenBools.IS_DATAGEN) {
-			ConfigRegistry.register(WWBlockConfig.INSTANCE, new ConfigModification<>(config -> config.snowlogging.snowlogging = false));
-		}
-
 		WWFeatureFlags.init();
 		FeatureFlagApi.rebuild();
 
@@ -117,8 +109,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
 		final WWEntityConfig entityConfig = WWEntityConfig.get();
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), entityConfig.firefly.fireflySpawnCap, true, false, 80));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), entityConfig.butterfly.butterflySpawnCap, true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), WWEntityConfig.FIREFLY_SPAWN_CAP.get(), true, false, 80));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), WWEntityConfig.BUTTERFLY_SPAWN_CAP.get(), true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), entityConfig.jellyfish.jellyfishSpawnCap, true, false, 64));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), entityConfig.crab.crabSpawnCap, true, false, 64));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), entityConfig.tumbleweed.tumbleweedSpawnCap, true, false, 64));

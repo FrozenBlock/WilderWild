@@ -95,11 +95,10 @@ public final class WWClientNetworking {
 			final ClientLevel level = ctx.client().level;
 			final RandomSource random = level.getRandom();
 
-			WWEntityConfig.LightningConfig lightningConfig = WWEntityConfig.get().lightning;
-			if (lightningConfig.lightningBlockParticles) {
+			if (WWEntityConfig.LIGHTNING_BLOCK_PARTICLES.get()) {
 				lightningBlockParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), state, random, minecraft.particleEngine);
 			}
-			if (lightningConfig.lightningSmokeParticles) {
+			if (WWEntityConfig.LIGHTNING_SMOKE_PARTICLES.get()) {
 				lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), state, random, minecraft.particleEngine);
 			}
 		});
