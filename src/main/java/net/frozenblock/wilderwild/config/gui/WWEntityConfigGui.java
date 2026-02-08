@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.config.gui;
 
 // TODO: Re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,6 +26,9 @@ import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import static net.frozenblock.wilderwild.config.WWConfigHelper.booleanEntry;
+import static net.frozenblock.wilderwild.config.WWConfigHelper.intSliderEntry;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 
 @Environment(EnvType.CLIENT)
@@ -36,263 +39,65 @@ public final class WWEntityConfigGui {
 	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
-		final var config = WWEntityConfig.get(true);
-		final var modifiedConfig = WWEntityConfig.getWithSync();
-		final Class<? extends WWEntityConfig> clazz = config.getClass();
-		final Config<?> configInstance = WWEntityConfig.INSTANCE;
-		final var defaultConfig = WWEntityConfig.INSTANCE.defaultInstance();
-		final var lightning = config.lightning;
-		final var modifiedLightning = modifiedConfig.lightning;
-		final var allay = config.allay;
-		final var modifiedAllay = modifiedConfig.allay;
-		final var enderMan = config.enderMan;
-		final var modifiedEnderMan = modifiedConfig.enderMan;
-		final var firefly = config.firefly;
-		final var modifiedFirefly = modifiedConfig.firefly;
-		final var butterfly = config.butterfly;
-		final var modifiedButterfly = modifiedConfig.butterfly;
-		final var jellyfish = config.jellyfish;
-		final var modifiedJellyfish = modifiedConfig.jellyfish;
-		final var crab = config.crab;
-		final var modifiedCrab = modifiedConfig.crab;
-		final var ostrich = config.ostrich;
-		final var modifiedOstrich = modifiedConfig.ostrich;
-		final var scorched = config.scorched;
-		final var modifiedScorched = modifiedConfig.scorched;
-		final var moobloom = config.moobloom;
-		final var modifiedMoobloom = modifiedConfig.moobloom;
-		final var penguin = config.penguin;
-		final var modifiedPenguin = modifiedConfig.penguin;
-		final var tumbleweed = config.tumbleweed;
-		final var modifiedTumbleweed = modifiedConfig.tumbleweed;
-		final var warden = config.warden;
-		final var modifiedWarden = modifiedConfig.warden;
-		final var villager = config.villager;
-		final var modifiedVillager = modifiedConfig.villager;
+		category.addEntry(booleanEntry(builder, "unpassable_rail", WWEntityConfig.UNPASSABLE_RAIL));
 
-		var unpassableRail = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("unpassable_rail"), modifiedConfig.unpassableRail)
-					.setDefaultValue(defaultConfig.unpassableRail)
-					.setSaveConsumer(newValue -> config.unpassableRail = newValue)
-					.setTooltip(tooltip("unpassable_rail"))
-					.requireRestart()
-					.build(),
-				clazz,
-				"unpassableRail",
-				configInstance
-			)
-		);
+		// LIGHTNING
+		var lightningScorchesSand = booleanEntry(builder, "lightning_scorches_sand", WWEntityConfig.LIGHTNING_SCORCHES_SAND);
+		var lightningBlockParticles = booleanEntry(builder, "lightning_block_particles", WWEntityConfig.LIGHTNING_BLOCK_PARTICLES);
+		var lightningSmokeParticles = booleanEntry(builder, "lightning_smoke_particles", WWEntityConfig.LIGHTNING_SMOKE_PARTICLES);
 
-		var lightningScorchesSand = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("lightning_scorches_sand"), modifiedLightning.lightningScorchesSand)
-				.setDefaultValue(defaultConfig.lightning.lightningScorchesSand)
-				.setSaveConsumer(newValue -> lightning.lightningScorchesSand = newValue)
-				.setTooltip(tooltip("lightning_scorches_sand"))
-				.build(),
-			lightning.getClass(),
-			"lightningScorchesSand",
-			configInstance
-		);
-
-		var lightningBlockParticles = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("lightning_block_particles"), modifiedLightning.lightningBlockParticles)
-				.setDefaultValue(defaultConfig.lightning.lightningBlockParticles)
-				.setSaveConsumer(newValue -> lightning.lightningBlockParticles = newValue)
-				.setTooltip(tooltip("lightning_block_particles"))
-				.build(),
-			lightning.getClass(),
-			"lightningBlockParticles",
-			configInstance
-		);
-
-		var lightningSmokeParticles = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("lightning_smoke_particles"), modifiedLightning.lightningSmokeParticles)
-				.setDefaultValue(defaultConfig.lightning.lightningSmokeParticles)
-				.setSaveConsumer(newValue -> lightning.lightningSmokeParticles = newValue)
-				.setTooltip(tooltip("lightning_smoke_particles"))
-				.build(),
-			lightning.getClass(),
-			"lightningSmokeParticles",
-			configInstance
-		);
-
-		var lightningCategory = FrozenClothConfig.createSubCategory(builder, category, text("lightning"),
+		FrozenClothConfig.createSubCategory(builder, category, text("lightning"),
 			false,
 			tooltip("lightning"),
 			lightningScorchesSand, lightningBlockParticles, lightningSmokeParticles
 		);
 
-		var keyframeAllayDance = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("keyframe_allay_dance"), modifiedAllay.keyframeAllayDance)
-				.setDefaultValue(defaultConfig.allay.keyframeAllayDance)
-				.setSaveConsumer(newValue -> allay.keyframeAllayDance = newValue)
-				.setTooltip(tooltip("keyframe_allay_dance"))
-				.build(),
-			allay.getClass(),
-			"keyframeAllayDance",
-			configInstance
-		);
+		// ALLAY
+		var keyframeAllayDance = booleanEntry(builder, "keyframe_allay_dance", WWEntityConfig.ALLAY_KEYFRAME_DANCE);
 
-		var allayCategory = FrozenClothConfig.createSubCategory(builder, category, text("allay"),
+		FrozenClothConfig.createSubCategory(builder, category, text("allay"),
 			false,
 			tooltip("allay"),
 			keyframeAllayDance
 		);
 
-		var angerLoopSound = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("anger_loop_sound"), modifiedEnderMan.angerLoopSound)
-				.setDefaultValue(defaultConfig.enderMan.angerLoopSound)
-				.setSaveConsumer(newValue -> enderMan.angerLoopSound = newValue)
-				.setTooltip(tooltip("anger_loop_sound"))
-				.build(),
-			enderMan.getClass(),
-			"angerLoopSound",
-			configInstance
-		);
+		// ENDERMAN
+		var angerLoopSound = booleanEntry(builder, "anger_loop_sound", WWEntityConfig.ENDERMAN_ANGER_LOOP_SOUND);
+		var movingStareSound = booleanEntry(builder, "moving_stare_sound", WWEntityConfig.ENDERMAN_MOVING_STARE_SOUND);
 
-		var movingStareSound = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("moving_stare_sound"), modifiedEnderMan.movingStareSound)
-				.setDefaultValue(defaultConfig.enderMan.movingStareSound)
-				.setSaveConsumer(newValue -> enderMan.movingStareSound = newValue)
-				.setTooltip(tooltip("moving_stare_sound"))
-				.build(),
-			enderMan.getClass(),
-			"movingStareSound",
-			configInstance
-		);
-
-		var enderManCategory = FrozenClothConfig.createSubCategory(builder, category, text("enderman"),
+		FrozenClothConfig.createSubCategory(builder, category, text("enderman"),
 			false,
 			tooltip("enderman"),
 			angerLoopSound, movingStareSound
 		);
 
-		var spawnFireflyParticles = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("spawn_firefly_particles"), modifiedFirefly.spawnFireflyParticles)
-				.setDefaultValue(defaultConfig.firefly.spawnFireflyParticles)
-				.setSaveConsumer(newValue -> firefly.spawnFireflyParticles = newValue)
-				.setTooltip(tooltip("spawn_firefly_particles"))
-				.build(),
-			firefly.getClass(),
-			"spawnFireflyParticles",
-			configInstance
-		);
+		// FIREFLY
+		var spawnFireflyParticles = booleanEntry(builder, "spawn_firefly_particles", WWEntityConfig.SPAWN_FIREFLY_PARTICLES);
+		var spawnFireflies = booleanEntry(builder, "spawn_fireflies", WWEntityConfig.SPAWN_FIREFLIES);
+		var firefliesNeedBush = booleanEntry(builder, "fireflies_need_bush", WWEntityConfig.FIREFLIES_NEED_BUSH);
+		var fireflySpawnCap = intSliderEntry(builder, "firefly_spawn_cap", WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100);
+		var fireflySwarm = booleanEntry(builder, "firefly_swarm", WWEntityConfig.FIREFLY_SWARM);
+		var fireflySwarmsBush = booleanEntry(builder, "firefly_swarms_bush", WWEntityConfig.FIREFLY_SWARMS_BUSH);
 
-		var spawnFireflies = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("spawn_fireflies"), modifiedFirefly.spawnFireflies)
-				.setDefaultValue(defaultConfig.firefly.spawnFireflies)
-				.setSaveConsumer(newValue -> firefly.spawnFireflies = newValue)
-				.setTooltip(tooltip("spawn_fireflies"))
-				.build(),
-			firefly.getClass(),
-			"spawnFireflies",
-			configInstance
-		);
-
-		var firefliesNeedBush = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("fireflies_need_bush"), modifiedFirefly.firefliesNeedBush)
-				.setDefaultValue(defaultConfig.firefly.firefliesNeedBush)
-				.setSaveConsumer(newValue -> firefly.firefliesNeedBush = newValue)
-				.setTooltip(tooltip("fireflies_need_bush"))
-				.requireRestart()
-				.build(),
-			firefly.getClass(),
-			"firefliesNeedBush",
-			configInstance
-		);
-
-		var fireflySpawnCap = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("firefly_spawn_cap"), modifiedFirefly.fireflySpawnCap, 1, 100)
-				.setDefaultValue(defaultConfig.firefly.fireflySpawnCap)
-				.setSaveConsumer(newValue -> firefly.fireflySpawnCap = newValue)
-				.setTooltip(tooltip("firefly_spawn_cap"))
-				.requireRestart()
-				.build(),
-			firefly.getClass(),
-			"fireflySpawnCap",
-			configInstance
-		);
-
-		var fireflySwarm = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("firefly_swarm"), modifiedFirefly.fireflySwarm)
-				.setDefaultValue(defaultConfig.firefly.fireflySwarm)
-				.setSaveConsumer(newValue -> firefly.fireflySwarm = newValue)
-				.setTooltip(tooltip("firefly_swarm"))
-				.build(),
-			firefly.getClass(),
-			"fireflySwarm",
-			configInstance
-		);
-
-		var fireflySwarmsBush = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("firefly_swarms_bush"), modifiedFirefly.fireflySwarmsBush)
-				.setDefaultValue(defaultConfig.firefly.fireflySwarmsBush)
-				.setSaveConsumer(newValue -> firefly.fireflySwarmsBush = newValue)
-				.setTooltip(tooltip("firefly_swarms_bush"))
-				.build(),
-			firefly.getClass(),
-			"fireflySwarmsBush",
-			configInstance
-		);
-
-		var fireflyCategory = FrozenClothConfig.createSubCategory(builder, category, text("firefly"),
+		FrozenClothConfig.createSubCategory(builder, category, text("firefly"),
 			false,
 			tooltip("firefly"),
 			spawnFireflyParticles, spawnFireflies, firefliesNeedBush, fireflySpawnCap, fireflySwarm, fireflySwarmsBush
 		);
 
-		var spawnButterflies = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("spawn_butterflies"), modifiedButterfly.spawnButterflies)
-				.setDefaultValue(defaultConfig.butterfly.spawnButterflies)
-				.setSaveConsumer(newValue -> butterfly.spawnButterflies = newValue)
-				.setTooltip(tooltip("spawn_butterflies"))
-				.build(),
-			butterfly.getClass(),
-			"spawnButterflies",
-			configInstance
-		);
+		// BUTTERFLY
+		var spawnButterflies = booleanEntry(builder, "spawn_butterflies", WWEntityConfig.SPAWN_BUTTERFLIES);
+		var butterflySpawnCap = intSliderEntry(builder, "butterfly_spawn_cap", WWEntityConfig.BUTTERFLY_SPAWN_CAP, 1, 100);
 
-		var butterflySpawnCap = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("butterfly_spawn_cap"), modifiedButterfly.butterflySpawnCap, 1, 100)
-				.setDefaultValue(defaultConfig.butterfly.butterflySpawnCap)
-				.setSaveConsumer(newValue -> butterfly.butterflySpawnCap = newValue)
-				.setTooltip(tooltip("butterfly_spawn_cap"))
-				.requireRestart()
-				.build(),
-			butterfly.getClass(),
-			"butterflySpawnCap",
-			configInstance
-		);
-
-		var butterflyCategory = FrozenClothConfig.createSubCategory(builder, category, text("butterfly"),
+		FrozenClothConfig.createSubCategory(builder, category, text("butterfly"),
 			false,
 			tooltip("butterfly"),
 			spawnButterflies, butterflySpawnCap
 		);
 
-		var spawnJellyfish = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("spawn_jellyfish"), modifiedJellyfish.spawnJellyfish)
-				.setDefaultValue(defaultConfig.jellyfish.spawnJellyfish)
-				.setSaveConsumer(newValue -> jellyfish.spawnJellyfish = newValue)
-				.setTooltip(tooltip("spawn_jellyfish"))
-				.build(),
-			jellyfish.getClass(),
-			"spawnJellyfish",
-			configInstance
-		);
-
-		var jellyfishSpawnCap = FrozenClothConfig.syncedEntry(
-			builder.startIntSlider(text("jellyfish_spawn_cap"), modifiedJellyfish.jellyfishSpawnCap, 1, 100)
-				.setDefaultValue(defaultConfig.jellyfish.jellyfishSpawnCap)
-				.setSaveConsumer(newValue -> jellyfish.jellyfishSpawnCap = newValue)
-				.setTooltip(tooltip("jellyfish_spawn_cap"))
-				.requireRestart()
-				.build(),
-			jellyfish.getClass(),
-			"jellyfishSpawnCap",
-			configInstance
-		);
+		// JELLYFISH
+		var spawnJellyfish = booleanEntry(builder, "spawn_jellyfish", WWEntityConfig.SPAWN_JELLYFISH);
+		var jellyfishSpawnCap = intSliderEntry(builder, "jellyfish_spawn_cap", WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100);
 
 		var jellyfishHiding = FrozenClothConfig.syncedEntry(
 			builder.startBooleanToggle(text("jellyfish_hiding"), modifiedJellyfish.jellyfishHiding)
@@ -927,4 +732,3 @@ public final class WWEntityConfigGui {
 		);
 	}
 }
-*/

@@ -61,7 +61,7 @@ public class ChestBlockMixin {
 			&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
 			&& level.getRandom().nextInt(0, 3) == 1
 		) {
-			if (WWEntityConfig.get().jellyfish.spawnJellyfish) Jellyfish.spawnFromChest(level, state, pos, true);
+			if (WWEntityConfig.SPAWN_JELLYFISH.get()) Jellyfish.spawnFromChest(level, state, pos, true);
 		}
 		chestInterface.wilderWild$bubble(level, pos, state);
 	}

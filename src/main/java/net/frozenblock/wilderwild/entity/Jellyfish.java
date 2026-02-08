@@ -150,7 +150,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static boolean checkJellyfishSpawnRules(EntityType<Jellyfish> type, ServerLevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
 		if (EntitySpawnReason.isSpawner(spawnReason)) return true;
-		if (!WWEntityConfig.get().jellyfish.spawnJellyfish) return false;
+		if (!WWEntityConfig.SPAWN_JELLYFISH.get()) return false;
 
 		final Holder<Biome> biome = level.getBiome(pos);
 		if (biome.is(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) {
@@ -176,7 +176,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public static void spawnFromChest(Level level, BlockState state, BlockPos pos, boolean checkConfig) {
-		if (checkConfig && !WWEntityConfig.get().jellyfish.spawnJellyfish) return;
+		if (checkConfig && !WWEntityConfig.SPAWN_JELLYFISH.get()) return;
 		final Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
 		double additionalX = 0D;
 		double additionalZ = 0D;
@@ -476,7 +476,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
 			&& !this.isLeashed()
-			&& WWEntityConfig.get().jellyfish.jellyfishHiding
+			&& WWEntityConfig.JELLYFISH_HIDING.get()
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
 			&& this.random.nextInt(HIDING_CHANCE) == 0;

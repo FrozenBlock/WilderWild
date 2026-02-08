@@ -563,7 +563,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						);
 					}
 
-					if (entityConfig.jellyfish.spawnJellyfish) {
+					if (WWEntityConfig.SPAWN_JELLYFISH.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:jellyfish_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);

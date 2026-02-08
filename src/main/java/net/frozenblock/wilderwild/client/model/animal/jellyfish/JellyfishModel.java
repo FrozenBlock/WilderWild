@@ -35,7 +35,7 @@ import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel extends EntityModel<JellyfishRenderState> {
-	private static final int JELLYFISH_TENTACLES = WWEntityConfig.get().jellyfish.jellyfishTentacles;
+	private static final int JELLYFISH_TENTACLES = WWEntityConfig.JELLYFISH_TENTACLES.get();
 	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;
 	private final ModelPart bone;
 	private final ModelPart body;
@@ -158,8 +158,10 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			(float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI,
 			(float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD
 		);
-		ModelPart[] visibleTentacles = !WWEntityConfig.Client.JELLYFISH_PLANE_TENTACLES ? this.tentacles : this.planeTentacles;
-		ModelPart[] invisibleTentacles = !WWEntityConfig.Client.JELLYFISH_PLANE_TENTACLES ? this.planeTentacles : this.tentacles;
+
+		final boolean planeTentacles = WWEntityConfig.JELLYFISH_PLANE_TENTACLES.get();
+		final ModelPart[] visibleTentacles = !planeTentacles ? this.tentacles : this.planeTentacles;
+		final ModelPart[] invisibleTentacles = !planeTentacles ? this.planeTentacles : this.tentacles;
 
 		for (ModelPart modelPart : visibleTentacles) {
 			modelPart.visible = true;
@@ -172,6 +174,6 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			modelPart.visible = false;
 		}
 
-		this.armBase.visible = WWEntityConfig.Client.JELLYFISH_ORAL_ARM;
+		this.armBase.visible = WWEntityConfig.JELLYFISH_ORAL_ARM.get();
 	}
 }

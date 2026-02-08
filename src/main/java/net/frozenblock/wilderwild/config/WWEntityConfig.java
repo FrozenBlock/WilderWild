@@ -55,13 +55,21 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> SPAWN_FIREFLY_PARTICLES = CONFIG.unsyncableEntry("firefly/spawnFireflyParticles", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> SPAWN_FIREFLIES = CONFIG.entry("firefly/spawnFireflies", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FIREFLIES_NEED_BUSH = CONFIG.entry("firefly/firefliesNeedBush", EntryType.BOOL, true);
-	public static final ConfigEntry<Integer> FIREFLY_SPAWN_CAP = CONFIG.entry("firefly/fireflySpawnCap", EntryType.INT, 56);
+	public static final ConfigEntry<Integer> FIREFLY_SPAWN_CAP = CONFIG.entryBuilder("firefly/fireflySpawnCap", EntryType.INT, 56).requireRestart().build();
 	public static final ConfigEntry<Boolean> FIREFLY_SWARM = CONFIG.entry("firefly/fireflySwarm", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FIREFLY_SWARMS_BUSH = CONFIG.entry("firefly/fireflySwarmsBush", EntryType.BOOL, true);
 
 	// BUTTERFLY
 	public static final ConfigEntry<Boolean> SPAWN_BUTTERFLIES = CONFIG.entry("butterfly/spawnButterflies", EntryType.BOOL, true);
-	public static final ConfigEntry<Integer> BUTTERFLY_SPAWN_CAP = CONFIG.entry("butterfly/butterflySpawnCap", EntryType.INT, 10);
+	public static final ConfigEntry<Integer> BUTTERFLY_SPAWN_CAP = CONFIG.entryBuilder("butterfly/butterflySpawnCap", EntryType.INT, 10).requireRestart().build();
+
+	// JELLYFISH
+	public static final ConfigEntry<Boolean> SPAWN_JELLYFISH = CONFIG.entry("jellyfish/spawnJellyfish", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> JELLYFISH_SPAWN_CAP = CONFIG.entryBuilder("jellyfish/jellyfishSpawnCap", EntryType.INT, 30).requireRestart().build();
+	public static final ConfigEntry<Boolean> JELLYFISH_HIDING = CONFIG.entry("jellyfish/jellyfishHiding", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> JELLYFISH_TENTACLES = CONFIG.unsyncableEntryBuilder("jellyfish/jellyfishTentacles", EntryType.INT, 8).requireRestart().build();
+	public static final ConfigEntry<Boolean> JELLYFISH_PLANE_TENTACLES = CONFIG.unsyncableEntry("jellyfish/planeTentacles", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> JELLYFISH_ORAL_ARM = CONFIG.unsyncableEntry("jellyfish/oralArm", EntryType.BOOL, true);
 
 	public static final Config<WWEntityConfig> INSTANCE = ConfigRegistry.register(
 		new JsonConfig<>(
@@ -90,8 +98,6 @@ public final class WWEntityConfig {
 					Client.WARDEN_IMPROVED_EMERGE_ANIMATION = config.warden.wardenImprovedEmerge;
 					Client.WARDEN_IMPROVED_SNIFF_ANIMATION = config.warden.wardenBedrockSniff;
 					Client.WARDEN_DEATH_ANIMATION = config.warden.wardenDeathAnimation;
-					Client.JELLYFISH_PLANE_TENTACLES = config.jellyfish.planeTentacles;
-					Client.JELLYFISH_ORAL_ARM = config.jellyfish.oralArm;
 				}
 			}
 		}
@@ -109,11 +115,7 @@ public final class WWEntityConfig {
 		public static volatile boolean WARDEN_IMPROVED_EMERGE_ANIMATION = true;
 		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
 		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
-		public static volatile boolean JELLYFISH_PLANE_TENTACLES = true;
-		public static volatile boolean JELLYFISH_ORAL_ARM = true;
 	}
-
-	public final JellyfishConfig jellyfish = new JellyfishConfig();
 
 	public final CrabConfig crab = new CrabConfig();
 
