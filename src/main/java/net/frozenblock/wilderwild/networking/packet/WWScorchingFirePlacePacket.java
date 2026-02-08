@@ -45,6 +45,7 @@ public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPa
 		buf.writeBlockPos(this.pos());
 	}
 
+	@Override
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

@@ -57,6 +57,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 		buf.writeVarInt(this.count);
 	}
 
+	@Override
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

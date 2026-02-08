@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -40,10 +41,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
+	public static final boolean HAS_ANTIQUE_ATLAS = FabricLoader.getInstance().isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
-	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogging && !FrozenBools.IS_DATAGEN;
-	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.get().snowlogging.snowlogWalls && !FrozenBools.IS_DATAGEN;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog() && !FrozenBools.IS_DATAGEN;
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls() && !FrozenBools.IS_DATAGEN;
 
 	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
@@ -96,16 +98,13 @@ public class SnowloggingUtils {
 
 	@Nullable
 	public static BlockState onUpdateShape(BlockState state, LevelReader level, BlockPos pos) {
-		if (isSnowlogged(state)) {
-			final BlockState snowEquivalent = getSnowEquivalent(state);
-			if (!Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) {
-				if (level instanceof LevelAccessor levelAccessor) {
-					levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
-				}
-				state = state.setValue(SNOW_LAYERS, 0);
-			}
-		}
-		return state;
+		if (!isSnowlogged(state)) return state;
+
+		final BlockState snowEquivalent = getSnowEquivalent(state);
+		if (Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) return state;
+
+		if (level instanceof LevelAccessor levelAccessor) levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
+		return state.setValue(SNOW_LAYERS, 0);
 	}
 
 	public static BlockState getSnowPlacementState(BlockState state, BlockPlaceContext context) {

@@ -36,7 +36,7 @@ public final class WWMainConfigGui {
 	public static Screen buildScreen(Screen parent) {
 		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
-			WWBlockConfig.INSTANCE.save();
+			WWBlockConfig.CONFIG.save();
 			WWEntityConfig.INSTANCE.save();
 			WWItemConfig.INSTANCE.save();
 			WWWorldgenConfig.INSTANCE.save();

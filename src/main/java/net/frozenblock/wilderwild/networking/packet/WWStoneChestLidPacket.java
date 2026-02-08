@@ -62,6 +62,7 @@ public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float 
 		buf.writeBoolean(this.closing);
 	}
 
+	@Override
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}

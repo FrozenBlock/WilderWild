@@ -59,6 +59,7 @@ public record WWLightningStrikePacket(int blockStateId, double x, double y, doub
 		buf.writeVarInt(this.tickCount());
 	}
 
+	@Override
 	public Type<?> type() {
 		return PACKET_TYPE;
 	}
