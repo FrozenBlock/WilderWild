@@ -56,7 +56,7 @@ public class TumbleweedModel extends EntityModel<TumbleweedRenderState> {
 
 	@Override
 	public void setupAnim(TumbleweedRenderState renderState) {
-		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) {
+		if (WWEntityConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION.get()) {
 			this.tumbleweed.xRot = renderState.tumbleRot;
 			return;
 		}

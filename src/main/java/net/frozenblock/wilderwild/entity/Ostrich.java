@@ -30,7 +30,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -63,7 +62,7 @@ public class Ostrich extends AbstractOstrich {
 	}
 
 	public static boolean checkOstrichSpawnRules(EntityType<? extends Ostrich> ostrich, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().ostrich.spawnOstriches) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_OSTRICHES.get()) return false;
 		return Animal.checkAnimalSpawnRules(ostrich, level, reason, pos, random);
 	}
 

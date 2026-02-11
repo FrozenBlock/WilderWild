@@ -48,38 +48,38 @@ public class WardenNavigation extends GroundPathNavigation {
 
 			@Override
 			public float distance(Node a, Node b) {
-				return WWEntityConfig.WARDEN_SWIMS && this.entitySubmergedInWaterOrLava(warden) ? a.distanceTo(b) : a.distanceToXZ(b);
+				return WWEntityConfig.WARDEN_SWIMS.get() && this.entitySubmergedInWaterOrLava(warden) ? a.distanceTo(b) : a.distanceToXZ(b);
 			}
 		};
 	}
 
 	@Override
 	protected Vec3 getTempMobPos() {
-		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? new Vec3(this.warden.getX(), this.warden.getY(0.5), this.warden.getZ()) : super.getTempMobPos();
+		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid() ? new Vec3(this.warden.getX(), this.warden.getY(0.5), this.warden.getZ()) : super.getTempMobPos();
 	}
 
 	@Override
 	protected double getGroundY(Vec3 target) {
 		final BlockPos pos = BlockPos.containing(target);
-		return WWEntityConfig.WARDEN_SWIMS && (this.isInLiquid() || this.level.getBlockState(pos.below()).isAir()) ? target.y : WardenNodeEvaluator.getFloorLevel(this.level, pos);
+		return WWEntityConfig.WARDEN_SWIMS.get() && (this.isInLiquid() || this.level.getBlockState(pos.below()).isAir()) ? target.y : WardenNodeEvaluator.getFloorLevel(this.level, pos);
 	}
 
 	@Override
 	protected boolean canMoveDirectly(Vec3 origin, Vec3 target) {
-		return WWEntityConfig.WARDEN_SWIMS && this.isInLiquid() ? isClearForMovementBetween(this.warden, origin, target, false) : super.canMoveDirectly(origin, target);
+		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid() ? isClearForMovementBetween(this.warden, origin, target, false) : super.canMoveDirectly(origin, target);
 	}
 
 	@Override
 	protected boolean hasValidPathType(PathType type) {
-		return WWEntityConfig.WARDEN_SWIMS ? type != PathType.OPEN : super.hasValidPathType(type);
+		return WWEntityConfig.WARDEN_SWIMS.get() ? type != PathType.OPEN : super.hasValidPathType(type);
 	}
 
 	@Override
 	protected boolean canUpdatePath() {
-		return super.canUpdatePath() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
+		return super.canUpdatePath() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS.get());
 	}
 
 	public boolean isInLiquid() {
-		return this.warden.isInLiquid() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS);
+		return this.warden.isInLiquid() || (this.warden.isVisuallySwimming() && WWEntityConfig.WARDEN_SWIMS.get());
 	}
 }

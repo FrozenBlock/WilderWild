@@ -36,7 +36,7 @@ public class CrabClawItem extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
-		if (!WWEntityConfig.CRAB_CLAW_GIVES_REACH) return;
+		if (!WWEntityConfig.CRAB_CLAW_GIVES_REACH.get()) return;
 		if (!(owner instanceof Player player) || slot == null || slot.getType() != EquipmentSlot.Type.HAND) return;
 		if (level.getGameTime() % 10 != 0) return;
 		player.addEffect(new MobEffectInstance(WWMobEffects.REACH_BOOST, 39, 1, true, true));

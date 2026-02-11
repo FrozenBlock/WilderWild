@@ -34,7 +34,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -68,7 +67,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	public static boolean checkZombieOstrichSpawnRules(EntityType<? extends ZombieOstrich> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().ostrich.spawnZombieOstriches) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) return false;
 		return Monster.checkMonsterSpawnRules(type, level, reason, pos, random);
 	}
 

@@ -17,22 +17,13 @@
 
 package net.frozenblock.wilderwild.config;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.SyncBehavior;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.EntryType;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.WWPreLoadConstants;
+import static net.frozenblock.wilderwild.WWConstants.text;
 
 public final class WWEntityConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("entity")), ConfigSettings.JSON5);
@@ -71,240 +62,72 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> JELLYFISH_PLANE_TENTACLES = CONFIG.unsyncableEntry("jellyfish/planeTentacles", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> JELLYFISH_ORAL_ARM = CONFIG.unsyncableEntry("jellyfish/oralArm", EntryType.BOOL, true);
 
-	public static final Config<WWEntityConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			MOD_ID,
-			WWEntityConfig.class,
-			WWPreLoadConstants.configPath("entity", true),
-			JsonType.JSON5
-		) {
-			@Override
-			public void onSave() throws Exception {
-				super.onSave();
-				this.onSync(null);
-			}
+	// CRAB
+	public static final ConfigEntry<Boolean> SPAWN_CRABS = CONFIG.entry("crab/spawnCrabs", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> CRAB_SPAWN_CAP = CONFIG.entryBuilder("crab/crabSpawnCap", EntryType.INT, 6).requireRestart().build();
+	public static final ConfigEntry<Boolean> CRAB_REACH_AFFECTS_ATTACK = CONFIG.entryBuilder("crab/reachAffectsAttack", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> CRAB_CLAW_GIVES_REACH = CONFIG.entryBuilder("crab/crabClawGivesReach", EntryType.BOOL, false).requireRestart().build();
 
-			@Override
-			public void onSync(WWEntityConfig syncInstance) {
-				final var config = this.config();
-				WARDEN_SWIMS = config.warden.wardenSwims;
-				REACH_AFFECTS_ATTACK = config.crab.reachAffectsAttack;
-				CRAB_CLAW_GIVES_REACH = config.crab.crabClawGivesReach;
-				if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-					Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = config.tumbleweed.tumbleweedRotatesToLookDirection;
-					Client.WARDEN_SWIM_ANIMATION = config.warden.wardenSwimAnimation;
-					Client.WARDEN_CUSTOM_TENDRIL_ANIMATION = config.warden.wardenCustomTendrils;
-					Client.WARDEN_IMPROVED_DIG_ANIMATION = config.warden.wardenImprovedDig;
-					Client.WARDEN_IMPROVED_EMERGE_ANIMATION = config.warden.wardenImprovedEmerge;
-					Client.WARDEN_IMPROVED_SNIFF_ANIMATION = config.warden.wardenBedrockSniff;
-					Client.WARDEN_DEATH_ANIMATION = config.warden.wardenDeathAnimation;
-				}
-			}
-		}
-	);
+	// OSTRICH
+	public static final ConfigEntry<Boolean> SPAWN_OSTRICHES = CONFIG.entry("ostrich/spawnOstriches", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SPAWN_ZOMBIE_OSTRICHES = CONFIG.entry("ostrich/spawnZombieOstriches", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> OSTRICH_ALLOW_ATTACK = CONFIG.entry("ostrich/allowAttack", EntryType.BOOL, true);
 
-	public static volatile boolean WARDEN_SWIMS = true;
-	public static volatile boolean REACH_AFFECTS_ATTACK = false;
-	public static volatile boolean CRAB_CLAW_GIVES_REACH = false;
+	// SCORCHED
+	public static final ConfigEntry<Boolean> SPAWN_SCORCHED = CONFIG.entry("scorched/spawnScorched", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SCORCHED_IN_TRIAL_CHAMBERS = CONFIG.entryBuilder("scorched/scorchedInTrialChambers", EntryType.BOOL, true).requireRestart().build();
 
-	public static final class Client {
-		public static volatile boolean TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = false;
-		public static volatile boolean WARDEN_SWIM_ANIMATION = true;
-		public static volatile boolean WARDEN_CUSTOM_TENDRIL_ANIMATION = true;
-		public static volatile boolean WARDEN_IMPROVED_DIG_ANIMATION = true;
-		public static volatile boolean WARDEN_IMPROVED_EMERGE_ANIMATION = true;
-		public static volatile boolean WARDEN_IMPROVED_SNIFF_ANIMATION = true;
-		public static volatile boolean WARDEN_DEATH_ANIMATION = true;
-	}
+	// MOOBLOOM
+	public static final ConfigEntry<Boolean> SPAWN_MOOBLOOMS = CONFIG.entry("moobloom/spawnMooblooms", EntryType.BOOL, true);
 
-	public final CrabConfig crab = new CrabConfig();
+	// MOOBLOOM
+	public static final ConfigEntry<Boolean> SPAWN_PENGUINS = CONFIG.entry("penguin/spawnPenguins", EntryType.BOOL, true);
 
-	public final OstrichConfig ostrich = new OstrichConfig();
+	// TUMBLEWEED
+	public static final ConfigEntry<Boolean> SPAWN_TUMBLEWEED = CONFIG.entry("tumbleweed/spawnTumbleweed", EntryType.BOOL, true);
+	public static final ConfigEntry<Integer> TUMBLEWEED_SPAWN_CAP = CONFIG.entryBuilder("tumbleweed/tumbleweedSpawnCap", EntryType.INT, 10).requireRestart().build();
+	public static final ConfigEntry<Boolean> LEASHED_TUMBLEWEED = CONFIG.entry("tumbleweed/leashedTumbleweed", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> TUMBLEWEED_DESTROYS_CROPS = CONFIG.entry("tumbleweed/tumbleweedDestroysCrops", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = CONFIG.unsyncableEntry("tumbleweed/tumbleweedRotatesToLookDirection", EntryType.BOOL, false);
 
-	public final ScorchedConfig scorched = new ScorchedConfig();
+	// WARDEN
+	public static final ConfigEntry<Boolean> WARDEN_ATTACKS_IMMEDIATELY = CONFIG.entry("warden/wardenAttacksImmediately", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_SWIMS = CONFIG.entry("warden/wardenSwims", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_SWIM_ANIMATION = CONFIG.unsyncableEntry("warden/wardenSwimAnimation", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_IMPROVED_TENDRIL_ANIMATION = CONFIG.unsyncableEntry("warden/wardenCustomTendrils", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_IMPROVED_DIG_ANIMATION = CONFIG.unsyncableEntry("warden/wardenImprovedDig", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_IMPROVED_EMERGE_ANIMATION = CONFIG.unsyncableEntryBuilder("warden/wardenImprovedEmerge", EntryType.BOOL, true)
+		.textSupplier(bool -> text("improved." + bool))
+		.build();
+	public static final ConfigEntry<Boolean> WARDEN_BEDROCK_SNIFF_ANIMATION = CONFIG.unsyncableEntryBuilder("warden/wardenBedrockSniff", EntryType.BOOL, true)
+		.textSupplier(bool -> text("warden_bedrock_sniff." + bool))
+		.build();
+	public static final ConfigEntry<Boolean> WARDEN_DEATH_ANIMATION = CONFIG.entry("warden/wardenDeathAnimation", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> WARDEN_EMERGES_FROM_COMMAND = CONFIG.entry("warden/wardenEmergesFromCommand", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> WARDEN_EMERGES_FROM_EGG = CONFIG.entry("warden/wardenEmergesFromEgg", EntryType.BOOL, false);
 
-	public final MoobloomConfig moobloom = new MoobloomConfig();
-
-	public final PenguinConfig penguin = new PenguinConfig();
-
-	public final TumbleweedConfig tumbleweed = new TumbleweedConfig();
-
-	public final WardenConfig warden = new WardenConfig();
-
-	public final VillagerConfig villager = new VillagerConfig();
-
-	public static WWEntityConfig get() {
-		return get(false);
-	}
-
-	public static WWEntityConfig get(boolean real) {
-		if (real) return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static WWEntityConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
-
-	public static class JellyfishConfig {
-		@EntrySyncData("spawnJellyfish")
-		public boolean spawnJellyfish = true;
-		@EntrySyncData("jellyfishSpawnCap")
-		public int jellyfishSpawnCap = 30;
-		@EntrySyncData("jellyfishHiding")
-		public boolean jellyfishHiding = true;
-
-		@EntrySyncData(value = "jellyfishTentacles", behavior = SyncBehavior.UNSYNCABLE)
-		public int jellyfishTentacles = 8;
-		@EntrySyncData(value = "planeTentacles", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean planeTentacles = true;
-		@EntrySyncData(value = "oralArm", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean oralArm = true;
-	}
-
-	public static class CrabConfig {
-		@EntrySyncData("spawnCrabs")
-		public boolean spawnCrabs = true;
-
-		@EntrySyncData("crabSpawnCap")
-		public int crabSpawnCap = 6;
-
-		@EntrySyncData("reachAffectsAttack")
-		public boolean reachAffectsAttack = false;
-
-		@EntrySyncData("crabClawGivesReach")
-		public boolean crabClawGivesReach = false;
-	}
-
-	public static class OstrichConfig {
-		@EntrySyncData("spawnOstriches")
-		public boolean spawnOstriches = true;
-
-		@EntrySyncData("spawnZombieOstriches")
-		public boolean spawnZombieOstriches = true;
-
-		@EntrySyncData("allowAttack")
-		public boolean allowAttack = true;
-	}
-
-	public static class ScorchedConfig {
-		@EntrySyncData("spawnScorched")
-		public boolean spawnScorched = true;
-
-		@EntrySyncData("scorchedInTrialChambers")
-		public boolean scorchedInTrialChambers = true;
-	}
-
-	public static class MoobloomConfig {
-		@EntrySyncData("spawnMooblooms")
-		public boolean spawnMooblooms = true;
-	}
-
-	public static class PenguinConfig {
-		@EntrySyncData("spawnPenguins")
-		public boolean spawnPenguins = true;
-	}
-
-	public static class TumbleweedConfig {
-		@EntrySyncData("spawnTumbleweed")
-		public boolean spawnTumbleweed = true;
-
-		@EntrySyncData("tumbleweedSpawnCap")
-		public int tumbleweedSpawnCap = 10;
-
-		@EntrySyncData("leashedTumbleweed")
-		public boolean leashedTumbleweed = false;
-
-		@EntrySyncData("tumbleweedDestroysCrops")
-		public boolean tumbleweedDestroysCrops = true;
-
-		@EntrySyncData(value = "tumbleweedRotatesToLookDirection", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean tumbleweedRotatesToLookDirection = false;
-	}
-
-	public static class WardenConfig {
-		@EntrySyncData("wardenAttacksImmediately")
-		public boolean wardenAttacksImmediately = true;
-
-		@EntrySyncData("wardenSwims")
-		public boolean wardenSwims = true;
-
-		@EntrySyncData(value = "wardenSwimAnimation", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean wardenSwimAnimation = true;
-
-		@EntrySyncData(value = "wardenCustomTendrils", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean wardenCustomTendrils = true;
-
-		@EntrySyncData(value = "wardenImprovedDig", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean wardenImprovedDig = true;
-
-		@EntrySyncData(value = "wardenImprovedEmerge", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean wardenImprovedEmerge = true;
-
-		@EntrySyncData(value = "wardenBedrockSniff", behavior = SyncBehavior.UNSYNCABLE)
-		public boolean wardenBedrockSniff = true;
-
-		@EntrySyncData("wardenDeathAnimation")
-		public boolean wardenDeathAnimation = true;
-
-		@EntrySyncData("wardenEmergesFromCommand")
-		public boolean wardenEmergesFromCommand = false;
-
-		@EntrySyncData("wardenEmergesFromEgg")
-		public boolean wardenEmergesFromEgg = false;
-
-		public boolean swimAndAnimationConfigEnabled() {
-			return this.wardenSwims && this.wardenSwimAnimation;
-		}
-	}
-
-	public static class VillagerConfig {
-		@EntrySyncData("wanderingWillowTrade")
-		public boolean wanderingWillowTrade = true;
-		@EntrySyncData("wanderingCypressTrade")
-		public boolean wanderingCypressTrade = true;
-		@EntrySyncData("wanderingBaobabTrade")
-		public boolean wanderingBaobabTrade = true;
-		@EntrySyncData("wanderingPalmTrade")
-		public boolean wanderingPalmTrade = true;
-		@EntrySyncData("wanderingMapleTrade")
-		public boolean wanderingMapleTrade = true;
-		@EntrySyncData("wanderingCarnationTrade")
-		public boolean wanderingCarnationTrade = true;
-		@EntrySyncData("wanderingHibiscusTrade")
-		public boolean wanderingHibiscusTrade = true;
-		@EntrySyncData("wanderingSeedingDandelionTrade")
-		public boolean wanderingSeedingDandelionTrade = true;
-		@EntrySyncData("wanderingMarigoldTrade")
-		public boolean wanderingMarigoldTrade = true;
-		@EntrySyncData("wanderingPasqueflowerTrade")
-		public boolean wanderingPasqueflowerTrade = true;
-		@EntrySyncData("wanderingTumbleweedTrade")
-		public boolean wanderingTumbleweedTrade = true;
-		@EntrySyncData("wanderingPricklyPearTrade")
-		public boolean wanderingPricklyPearTrade = true;
-		@EntrySyncData("wanderingIcicleTrade")
-		public boolean wanderingIcicleTrade = true;
-		@EntrySyncData("wanderingBarnaclesTrade")
-		public boolean wanderingBarnaclesTrade = true;
-		@EntrySyncData("wanderingSeaAnemoneTrade")
-		public boolean wanderingSeaAnemoneTrade = true;
-		@EntrySyncData("wanderingSeaWhipTrade")
-		public boolean wanderingSeaWhipTrade = true;
-		@EntrySyncData("wanderingAlgaeTrade")
-		public boolean wanderingAlgaeTrade = true;
-		@EntrySyncData("wanderingPlanktonTrade")
-		public boolean wanderingPlanktonTrade = true;
-		@EntrySyncData("wanderingAuburnMossTrade")
-		public boolean wanderingAuburnMossTrade = true;
-		@EntrySyncData("wanderingGeyserTrade")
-		public boolean wanderingGeyserTrade = true;
-
-		@EntrySyncData("fishermanDesertPalmBoat")
-		public boolean fishermanDesertPalmBoat = true;
-		@EntrySyncData("fishermanCrabForEmeralds")
-		public boolean fishermanCrabForEmeralds = true;
-		@EntrySyncData("fishermanJellyfishForEmeralds")
-		public boolean fishermanJellyfishForEmeralds = true;
-	}
+	// VILLAGER
+	public static final ConfigEntry<Boolean> WANDERING_WILLOW_TRADE = CONFIG.entryBuilder("villager/wanderingWillowTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_CYPRESS_TRADE = CONFIG.entryBuilder("villager/wanderingCypressTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_BAOBAB_TRADE = CONFIG.entryBuilder("villager/wanderingBaobabTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_PALM_TRADE = CONFIG.entryBuilder("villager/wanderingPalmTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_MAPLE_TRADE = CONFIG.entryBuilder("villager/wanderingMapleTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_CARNATION_TRADE = CONFIG.entryBuilder("villager/wanderingCarnationTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_HIBISCUS_TRADE = CONFIG.entryBuilder("villager/wanderingHibiscusTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_SEEDING_DANDELION_TRADE = CONFIG.entryBuilder("villager/wanderingSeedingDandelionTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_MARIGOLD_TRADE = CONFIG.entryBuilder("villager/wanderingMarigoldTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_PASQUEFLOWER_TRADE = CONFIG.entryBuilder("villager/wanderingPasqueflowerTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_PRICKLY_PEAR_TRADE = CONFIG.entryBuilder("villager/wanderingPricklyPearTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_TUMBLEWEED_TRADE = CONFIG.entryBuilder("villager/wanderingTumbleweedTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_ICICLE_TRADE = CONFIG.entryBuilder("villager/wanderingIcicleTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_BARNACLES_TRADE = CONFIG.entryBuilder("villager/wanderingBarnaclesTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_SEA_ANEMONE_TRADE = CONFIG.entryBuilder("villager/wanderingSeaAnemoneTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_SEA_WHIP_TRADE = CONFIG.entryBuilder("villager/wanderingSeaWhipTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_ALGAE_TRADE = CONFIG.entryBuilder("villager/wanderingAlgaeTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_PLANKTON_TRADE = CONFIG.entryBuilder("villager/wanderingPlanktonTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_AUBURN_MOSS_TRADE = CONFIG.entryBuilder("villager/wanderingAuburnMossTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_GEYSER_TRADE = CONFIG.entryBuilder("villager/wanderingGeyserTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> FISHERMAN_DESERT_PALM_BOAT = CONFIG.entryBuilder("villager/fishermanDesertPalmBoat", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> FISHERMAN_CRAB_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanCrabForEmeralds", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> FISHERMAN_JELLYFISH_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanJellyfishForEmeralds", EntryType.BOOL, true).requireRestart().build();
 }

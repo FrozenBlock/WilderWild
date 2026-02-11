@@ -37,7 +37,7 @@ public class WardenLookControl extends LookControl {
 
 	@Override
 	public void tick() {
-		if (!WWEntityConfig.WARDEN_SWIMS || !entityTouchingWaterOrLava(this.mob)) {
+		if (!WWEntityConfig.WARDEN_SWIMS.get() || !entityTouchingWaterOrLava(this.mob)) {
 			super.tick();
 			return;
 		}

@@ -75,7 +75,7 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	@Override
 	protected void setupRotations(TumbleweedRenderState renderState, PoseStack poseStack, float rotationYaw, float scale) {
 		poseStack.translate(0D, -1.3D, 0D);
-		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
+		if (WWEntityConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION.get()) poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
 	}
 
 	@Override

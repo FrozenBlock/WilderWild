@@ -200,7 +200,7 @@ public class Scorched extends Spider {
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().scorched.spawnScorched) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_SCORCHED.get()) return false;
 		return EntitySpawnReason.ignoresLightRequirements(reason) || Scorched.isDarkEnoughToSpawn(level, pos, random);
 	}
 

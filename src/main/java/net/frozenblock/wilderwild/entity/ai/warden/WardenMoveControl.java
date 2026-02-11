@@ -43,7 +43,7 @@ public class WardenMoveControl extends MoveControl {
 	@Override
 	public void tick() {
 		if (this.warden.isDiggingOrEmerging()) return;
-		if (!WWEntityConfig.WARDEN_SWIMS || !this.touchingWaterOrLava(this.warden)) {
+		if (!WWEntityConfig.WARDEN_SWIMS.get() || !this.touchingWaterOrLava(this.warden)) {
 			super.tick();
 			return;
 		}

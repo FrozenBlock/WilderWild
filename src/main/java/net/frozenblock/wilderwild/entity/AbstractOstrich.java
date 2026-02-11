@@ -241,7 +241,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 			return;
 		}
 
-		if (!WWEntityConfig.get().ostrich.allowAttack && this.attackHasCommander) this.cancelAttack(true);
+		if (!WWEntityConfig.OSTRICH_ALLOW_ATTACK.get() && this.attackHasCommander) this.cancelAttack(true);
 		if (this.isBeakTouchingFluid()) this.cancelAttack(false);
 
 		final BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
@@ -398,7 +398,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	public void performAttack(float power, @Nullable Entity commander) {
-		if (commander != null && !WWEntityConfig.get().ostrich.allowAttack) return;
+		if (commander != null && !WWEntityConfig.OSTRICH_ALLOW_ATTACK.get()) return;
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
@@ -458,7 +458,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	@Override
 	public boolean canJump() {
-		return (this.isMobControlled() || WWEntityConfig.get().ostrich.allowAttack) && !this.refuseToMove() && super.canJump();
+		return (this.isMobControlled() || WWEntityConfig.OSTRICH_ALLOW_ATTACK.get()) && !this.refuseToMove() && super.canJump();
 	}
 
 	@Override

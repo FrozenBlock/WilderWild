@@ -93,7 +93,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	public static boolean checkFlowerCowSpawnRules(EntityType<FlowerCow> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().moobloom.spawnMooblooms) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_MOOBLOOMS.get()) return false;
 		return checkAnimalSpawnRules(type, level, reason, pos, random);
 	}
 

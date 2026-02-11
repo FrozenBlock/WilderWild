@@ -119,7 +119,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		WardenRenderState warden, float animationProgress, CallbackInfo info,
 		@Local(name = "tendrilXRot") float tendrilXRot
 	) {
-		if (!WWEntityConfig.Client.WARDEN_CUSTOM_TENDRIL_ANIMATION) return;
+		if (!WWEntityConfig.WARDEN_IMPROVED_TENDRIL_ANIMATION.get()) return;
 		this.leftTendril.xRot = tendrilXRot;
 		this.rightTendril.xRot = tendrilXRot;
 
@@ -141,7 +141,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private KeyframeAnimation wilderWild$newDigAnim(KeyframeAnimation original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_DIG_ANIMATION && this.diggingAnimation != null) return this.wilderWild$digAnimation;
+		if (WWEntityConfig.WARDEN_IMPROVED_DIG_ANIMATION.get() && this.diggingAnimation != null) return this.wilderWild$digAnimation;
 		return original;
 	}
 
@@ -154,7 +154,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private KeyframeAnimation wilderWild$newEmergeAnim(KeyframeAnimation original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_EMERGE_ANIMATION && this.emergeAnimation != null) return this.wilderWild$emergeAnimation;
+		if (WWEntityConfig.WARDEN_IMPROVED_EMERGE_ANIMATION.get() && this.emergeAnimation != null) return this.wilderWild$emergeAnimation;
 		return original;
 	}
 
@@ -167,7 +167,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		require = 0
 	)
 	private KeyframeAnimation wilderWild$bedrockSniffAnim(KeyframeAnimation original) {
-		if (WWEntityConfig.Client.WARDEN_IMPROVED_SNIFF_ANIMATION && this.sniffAnimation != null) return this.wilderWild$sniffAnimation;
+		if (WWEntityConfig.WARDEN_BEDROCK_SNIFF_ANIMATION.get() && this.sniffAnimation != null) return this.wilderWild$sniffAnimation;
 		return original;
 	}
 
@@ -186,7 +186,7 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount,
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
 	) {
-		if (WWEntityConfig.WARDEN_SWIMS && WWEntityConfig.Client.WARDEN_SWIM_ANIMATION && warden instanceof SwimmingWardenState swimmingState) {
+		if (WWEntityConfig.WARDEN_SWIMS.get() && WWEntityConfig.WARDEN_SWIM_ANIMATION.get() && warden instanceof SwimmingWardenState swimmingState) {
 			final float swimAmount = swimmingState.wilderWild$getSwimAmount();
 			final float wadeProgress = swimmingState.wilderWild$getWadingProgress();
 			wilderWild$animateSwimming.set(wadeProgress > 0F);

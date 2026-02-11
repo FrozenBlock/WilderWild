@@ -133,9 +133,8 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		EntitySpawnReason original,
 		@Local(argsOnly = true) EntitySpawnReason spawnReason
 	) {
-		final WWEntityConfig entityConfig = WWEntityConfig.get();
-		if (entityConfig.warden.wardenEmergesFromEgg && spawnReason == EntitySpawnReason.SPAWN_ITEM_USE) return spawnReason;
-		if (entityConfig.warden.wardenEmergesFromCommand && spawnReason == EntitySpawnReason.COMMAND) return spawnReason;
+		if (WWEntityConfig.WARDEN_EMERGES_FROM_EGG.get() && spawnReason == EntitySpawnReason.SPAWN_ITEM_USE) return spawnReason;
+		if (WWEntityConfig.WARDEN_EMERGES_FROM_COMMAND.get() && spawnReason == EntitySpawnReason.COMMAND) return spawnReason;
 		return original;
 	}
 
@@ -159,7 +158,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 			&& !warden.isDiggingOrEmerging()
 			&& !warden.hasPose(Pose.DYING)
 			&& !warden.hasPose(Pose.ROARING)
-			&& WWEntityConfig.get().warden.wardenAttacksImmediately
+			&& WWEntityConfig.WARDEN_ATTACKS_IMMEDIATELY.get()
 		) {
 			if (!(entity instanceof Player player) || !player.isCreative()) {
 				warden.increaseAngerAt(entity, AngerLevel.ANGRY.getMinimumAnger() + 20, false);
@@ -260,7 +259,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@Unique
 	public boolean wilderWild$hasDeathAnimation() {
-		return WWEntityConfig.get().warden.wardenDeathAnimation || this.wilderWild$isStella();
+		return WWEntityConfig.WARDEN_DEATH_ANIMATION.get() || this.wilderWild$isStella();
 	}
 
 	@Unique

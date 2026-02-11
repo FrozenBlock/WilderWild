@@ -46,7 +46,7 @@ public final class WWMobEffects {
 		).addAttributeModifier(
 			Attributes.ENTITY_INTERACTION_RANGE,
 			Crab.ENTITY_REACH_BOOST_MODIFIER_ID,
-			WWEntityConfig.get().crab.reachAffectsAttack ? 1.5D : 0D,
+			WWEntityConfig.CRAB_REACH_AFFECTS_ATTACK.get() ? 1.5D : 0D,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 	);

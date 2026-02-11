@@ -111,7 +111,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Override
 	public void travel(Vec3 input) {
 		final Warden warden = Warden.class.cast(this);
-		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava() && WWEntityConfig.WARDEN_SWIMS) {
+		if (this.isEffectiveAi() && this.wilderWild$isTouchingWaterOrLava() && WWEntityConfig.WARDEN_SWIMS.get()) {
 			this.moveRelative(this.getSpeed(), input);
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
@@ -139,25 +139,25 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	@Override
 	public boolean canBreatheUnderwater() {
-		return WWEntityConfig.WARDEN_SWIMS;
+		return WWEntityConfig.WARDEN_SWIMS.get();
 	}
 
 	@Unique
 	@Override
 	public boolean isPushedByFluid() {
-		return !WWEntityConfig.WARDEN_SWIMS;
+		return !WWEntityConfig.WARDEN_SWIMS.get();
 	}
 
 	@Unique
 	@Override
 	public SoundEvent getSwimSound() {
-		return WWEntityConfig.WARDEN_SWIMS ? WWSounds.ENTITY_WARDEN_SWIM : super.getSwimSound();
+		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSounds.ENTITY_WARDEN_SWIM : super.getSwimSound();
 	}
 
 	@Unique
 	@Override
 	public void jumpInLiquid(TagKey<Fluid> type) {
-		if (WWEntityConfig.WARDEN_SWIMS && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
+		if (WWEntityConfig.WARDEN_SWIMS.get() && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
 			final Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 			final Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
 			final LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
@@ -170,7 +170,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	@Override
 	protected boolean updateInWaterStateAndDoFluidPushing() {
-		if (!WWEntityConfig.WARDEN_SWIMS) return super.updateInWaterStateAndDoFluidPushing();
+		if (!WWEntityConfig.WARDEN_SWIMS.get()) return super.updateInWaterStateAndDoFluidPushing();
 		final Warden warden = Warden.class.cast(this);
 		this.fluidHeight.clear();
 		warden.updateInWaterStateAndDoWaterCurrentPushing();

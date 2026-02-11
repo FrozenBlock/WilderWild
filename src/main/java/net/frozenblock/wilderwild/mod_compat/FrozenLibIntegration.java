@@ -426,7 +426,7 @@ public class FrozenLibIntegration extends ModIntegration {
 			);
 		}
 
-		if (WWEntityConfig.get().scorched.scorchedInTrialChambers) {
+		if (WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 			RandomPoolAliasApi.addTarget(
 				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
 				WWConstants.id("trial_chambers/spawner/small_melee/scorched"),
@@ -475,7 +475,6 @@ public class FrozenLibIntegration extends ModIntegration {
 				}
 				case "minecraft:husbandry/balanced_diet" -> {
 					final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
-					final WWEntityConfig entityConfig = WWEntityConfig.get();
 
 					if (worldgenConfig.treeGeneration.baobab) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:baobab_nut", CriteriaTriggers.CONSUME_ITEM.createCriterion(
@@ -503,7 +502,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:peeled_prickly_pear"))));
 					}
 
-					if (entityConfig.crab.spawnCrabs) {
+					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_claw", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.CRAB_CLAW)).triggerInstance())
 						);
@@ -515,7 +514,7 @@ public class FrozenLibIntegration extends ModIntegration {
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:cooked_crab_claw"))));
 					}
 
-					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
+					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched_eye", CriteriaTriggers.CONSUME_ITEM.createCriterion(
 							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.SCORCHED_EYE)).triggerInstance())
 						);
@@ -523,30 +522,28 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 				}
 				case "minecraft:husbandry/bred_all_animals" -> {
-					final WWEntityConfig entityConfig = WWEntityConfig.get();
-
-					if (entityConfig.crab.spawnCrabs) {
+					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.CRAB)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:crab"))));
 					}
 
-					if (entityConfig.ostrich.spawnOstriches) {
+					if (WWEntityConfig.SPAWN_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:ostrich", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.OSTRICH)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:ostrich"))));
 					}
 
-					if (entityConfig.moobloom.spawnMooblooms) {
+					if (WWEntityConfig.SPAWN_MOOBLOOMS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:moobloom", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.MOOBLOOM)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:moobloom"))));
 					}
 
-					if (entityConfig.penguin.spawnPenguins) {
+					if (WWEntityConfig.SPAWN_PENGUINS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:penguin", CriteriaTriggers.BRED_ANIMALS.createCriterion(
 							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.PENGUIN)).triggerInstance())
 						);
@@ -555,9 +552,7 @@ public class FrozenLibIntegration extends ModIntegration {
 
 				}
 				case "minecraft:husbandry/tactical_fishing" -> {
-					final WWEntityConfig entityConfig = WWEntityConfig.get();
-
-					if (entityConfig.crab.spawnCrabs) {
+					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:crab_bucket", CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)).triggerInstance())
 						);
@@ -576,27 +571,25 @@ public class FrozenLibIntegration extends ModIntegration {
 						MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
 						Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
 
-						final WWEntityConfig entityConfig = WWEntityConfig.get();
-						if (entityConfig.crab.spawnCrabs || WWBlockConfig.REACH_BOOST_BEACON.get()) {
+						if (WWEntityConfig.SPAWN_CRABS.get() || WWBlockConfig.REACH_BOOST_BEACON.get()) {
 							map.put(WWMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
 
-						if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
+						if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 							map.put(WWMobEffects.SCORCHING, new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
 						predicate.effectMap = map;
 					}
 				}
 				case "minecraft:adventure/kill_a_mob" -> {
-					final WWEntityConfig entityConfig = WWEntityConfig.get();
-					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
+					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of("wilderwild:scorched"));
 					}
 
-					if (entityConfig.ostrich.spawnZombieOstriches) {
+					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:zombie_ostrich", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.ZOMBIE_OSTRICH)).triggerInstance())
 						);
@@ -604,14 +597,13 @@ public class FrozenLibIntegration extends ModIntegration {
 					}
 				}
 				case "minecraft:adventure/kill_all_mobs" -> {
-					final WWEntityConfig entityConfig = WWEntityConfig.get();
-					if (entityConfig.scorched.spawnScorched || entityConfig.scorched.scorchedInTrialChambers) {
+					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:scorched", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.SCORCHED)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of("wilderwild:scorched"))));
 					}
-					if (entityConfig.ostrich.spawnZombieOstriches) {
+					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, "wilderwild:zombie_ostrich", CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entities, WWEntityTypes.ZOMBIE_OSTRICH)).triggerInstance())
 						);

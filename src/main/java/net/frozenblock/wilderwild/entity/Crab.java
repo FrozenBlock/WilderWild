@@ -183,7 +183,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	public static boolean checkCrabSpawnRules(EntityType<Crab> type, ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
 		if (EntitySpawnReason.isSpawner(spawnType)) return true;
-		if (!WWEntityConfig.get().crab.spawnCrabs) return false;
+		if (!WWEntityConfig.SPAWN_CRABS.get()) return false;
 		int seaLevel = level.getSeaLevel();
 		return pos.getY() >= seaLevel - 33 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_HIDEABLE);
 	}

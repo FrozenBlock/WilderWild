@@ -126,7 +126,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	}
 
 	public static boolean checkTumbleweedSpawnRules(EntityType<Tumbleweed> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.get().tumbleweed.spawnTumbleweed) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_TUMBLEWEED.get()) return false;
 		return level.getBrightness(LightLayer.SKY, pos) > 7 && random.nextInt(SPAWN_CHANCE) == 0 && pos.getY() > level.getSeaLevel();
 	}
 
@@ -219,7 +219,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 			&& serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)
 			&& !this.onGround()
 		) {
-			if (WWEntityConfig.get().tumbleweed.tumbleweedDestroysCrops) this.level().destroyBlock(this.blockPosition(), true, this);
+			if (WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS.get()) this.level().destroyBlock(this.blockPosition(), true, this);
 		}
 
 		super.tick();
@@ -401,7 +401,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Override
 	public boolean canBeLeashed() {
-		return WWEntityConfig.get().tumbleweed.leashedTumbleweed;
+		return WWEntityConfig.LEASHED_TUMBLEWEED.get();
 	}
 
 	@Override

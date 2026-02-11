@@ -108,11 +108,10 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 	@Override
 	public void newCategories(ArrayList<FrozenMobCategory> context) {
-		final WWEntityConfig entityConfig = WWEntityConfig.get();
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("firefly"), WWEntityConfig.FIREFLY_SPAWN_CAP.get(), true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("butterfly"), WWEntityConfig.BUTTERFLY_SPAWN_CAP.get(), true, false, 80));
 		context.add(FrozenMobCategoryEntrypoint.createCategory(id("jellyfish"), WWEntityConfig.JELLYFISH_SPAWN_CAP.get(), true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), entityConfig.crab.crabSpawnCap, true, false, 64));
-		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), entityConfig.tumbleweed.tumbleweedSpawnCap, true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("crab"), WWEntityConfig.CRAB_SPAWN_CAP.get(), true, false, 64));
+		context.add(FrozenMobCategoryEntrypoint.createCategory(id("tumbleweed"), WWEntityConfig.TUMBLEWEED_SPAWN_CAP.get(), true, false, 64));
 	}
 }
