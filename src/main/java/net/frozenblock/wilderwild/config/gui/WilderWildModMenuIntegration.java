@@ -17,12 +17,10 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
-// TODO: Re-enable when modmenu is unobfuscated
-/*import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.FrozenBools;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Contract;
 
@@ -32,9 +30,8 @@ public final class WilderWildModMenuIntegration implements ModMenuApi {
 	@Contract(pure = true)
 	@Override
 	public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) return WWMainConfigGui::buildScreen;
+		//if (FrozenBools.HAS_CLOTH_CONFIG) return WWMainConfigGui::buildScreen;
 		return screen -> null;
 	}
 
 }
-*/

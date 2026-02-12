@@ -60,8 +60,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		float xOffset,
 		float yOffset,
 		float zOffset,
-		int light,
-		int overlay
+		int lightCoords,
+		int overlayCoords
 	) {
 		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, cameraOrientation);
 
@@ -70,7 +70,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.submitCustomGeometry(
 				poseStack,
 				LAYER,
-				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, light, overlay)
+				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, lightCoords, overlayCoords)
 			);
 
 		collector
@@ -78,7 +78,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.submitCustomGeometry(
 				poseStack,
 				RenderTypes.entityTranslucentEmissive(color.resourceTexture().texturePath()),
-				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, calcColor)
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, calcColor)
 			);
 
 		poseStack.popPose();
@@ -92,14 +92,14 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	) {
 		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, cameraOrientation);
 
-		final int light = renderState.lightCoords;
-		final int overlay = getOverlayCoords(renderState, 0F);
+		final int lightCoords = renderState.lightCoords;
+		final int overlayCoords = getOverlayCoords(renderState, 0F);
 		collector
 			.order(0)
 			.submitCustomGeometry(
 				poseStack,
 				LAYER,
-				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, light, overlay)
+				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, lightCoords, overlayCoords)
 			);
 
 		collector
@@ -107,18 +107,18 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.submitCustomGeometry(
 				poseStack,
 				RenderTypes.entityTranslucentEmissive(renderState.color.resourceTexture().texturePath()),
-				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, light, overlay, renderState.calcColor)
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, renderState.calcColor)
 			);
 
 		poseStack.popPose();
 	}
 
-	public static void renderFireflyBase(PoseStack.Pose pose, VertexConsumer vertexConsumer, int packedLight, int overlay) {
-		render(pose, vertexConsumer, 1F, packedLight, overlay);
+	public static void renderFireflyBase(PoseStack.Pose pose, VertexConsumer vertexConsumer, int lightCoords, int overlayCoords) {
+		render(pose, vertexConsumer, 1F, lightCoords, overlayCoords);
 	}
 
-	public static void renderFireflyColor(PoseStack.Pose pose, VertexConsumer vertexConsumer, int packedLight, int overlay, float calcColor) {
-		render(pose, vertexConsumer, calcColor, packedLight, overlay);
+	public static void renderFireflyColor(PoseStack.Pose pose, VertexConsumer vertexConsumer, int lightCoords, int overlayCoords, float calcColor) {
+		render(pose, vertexConsumer, calcColor, lightCoords, overlayCoords);
 	}
 
 	@Override
@@ -126,12 +126,10 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		FireflyRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
-		Quaternionf cameraOrientation = cameraState.orientation;
-		submitFirefly(poseStack, collector, cameraOrientation, renderState);
-
-		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, collector, cameraState);
+		submitFirefly(poseStack, collector, camera.orientation, renderState);
+		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, collector, camera);
 	}
 
 	@Override
@@ -145,11 +143,11 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public void extractRenderState(Firefly firefly, FireflyRenderState renderState, float partialTick) {
-		super.extractRenderState(firefly, renderState, partialTick);
-		renderState.animScale = Mth.lerp(partialTick, firefly.getPrevAnimScale(), firefly.getAnimScale());
+	public void extractRenderState(Firefly firefly, FireflyRenderState renderState, float partialTicks) {
+		super.extractRenderState(firefly, renderState, partialTicks);
+		renderState.animScale = Mth.lerp(partialTicks, firefly.getPrevAnimScale(), firefly.getAnimScale());
 		renderState.color = firefly.getColorForRendering();
-		renderState.calcColor = (((firefly.getFlickerAge() + partialTick) * Mth.PI) * -4F) / 255F;
+		renderState.calcColor = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
 	}
 
 	private static void setupPoseStack(PoseStack poseStack, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
@@ -161,34 +159,34 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	//CREDIT TO magistermaks ON GITHUB!!
-	private static void render(PoseStack.Pose pose, VertexConsumer vertexConsumer, float color, int packedLight, int overlay) {
+	private static void render(PoseStack.Pose pose, VertexConsumer vertexConsumer, float color, int lightCoords, int overlayCoords) {
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(0, 1)
-			.setOverlay(overlay)
-			.setLight(packedLight)
+			.setOverlay(overlayCoords)
+			.setLight(lightCoords)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, 0.5F, -0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(1, 1)
-			.setOverlay(overlay)
-			.setLight(packedLight)
+			.setOverlay(overlayCoords)
+			.setLight(lightCoords)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, 0.5F, 0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(1, 0)
-			.setOverlay(overlay)
-			.setLight(packedLight)
+			.setOverlay(overlayCoords)
+			.setLight(lightCoords)
 			.setNormal(pose, 0F, 1F, 0F);
 		vertexConsumer
 			.addVertex(pose, -0.5F, 0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(0, 0)
-			.setOverlay(overlay)
-			.setLight(packedLight)
+			.setOverlay(overlayCoords)
+			.setLight(lightCoords)
 			.setNormal(pose, 0F, 1F, 0F);
 	}
 }

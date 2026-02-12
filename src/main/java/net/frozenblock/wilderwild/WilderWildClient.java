@@ -24,7 +24,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.wilderwild.client.WWBlockRenderLayers;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
@@ -45,7 +44,6 @@ public final class WilderWildClient implements ClientModInitializer {
 
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
-		WWBlockRenderLayers.init();
 		WWFluidRendering.init();
 		WWItemProperties.init();
 		WWModelLayers.init();

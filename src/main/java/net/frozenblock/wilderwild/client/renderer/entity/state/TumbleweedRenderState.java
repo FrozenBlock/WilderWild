@@ -21,7 +21,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)
 public class TumbleweedRenderState extends LivingEntityRenderState {
@@ -32,5 +31,4 @@ public class TumbleweedRenderState extends LivingEntityRenderState {
 	public ItemStackRenderState item = new ItemStackRenderState();
 	public float itemX;
 	public float itemZ;
-	public Level level;
 }

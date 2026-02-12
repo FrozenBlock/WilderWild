@@ -54,9 +54,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 		TumbleweedRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
-		super.submit(renderState, poseStack, collector, cameraState);
+		super.submit(renderState, poseStack, collector, camera);
 
 		if (renderState.item.isEmpty()) return;
 
@@ -73,9 +73,9 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	protected void setupRotations(TumbleweedRenderState renderState, PoseStack poseStack, float rotationYaw, float scale) {
+	protected void setupRotations(TumbleweedRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
 		poseStack.translate(0D, -1.3D, 0D);
-		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) poseStack.mulPose(Axis.YP.rotationDegrees(180F - rotationYaw));
+		if (WWEntityConfig.Client.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION) poseStack.mulPose(Axis.YP.rotationDegrees(180F - bodyRot));
 	}
 
 	@Override
@@ -89,15 +89,14 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 	}
 
 	@Override
-	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState renderState, float partialTick) {
-		super.extractRenderState(tumbleweed, renderState, partialTick);
-		renderState.tumbleRot = Mth.lerp(partialTick, tumbleweed.prevTumble, tumbleweed.tumble) * Mth.DEG_TO_RAD;
+	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState renderState, float partialTicks) {
+		super.extractRenderState(tumbleweed, renderState, partialTicks);
+		renderState.tumbleRot = Mth.lerp(partialTicks, tumbleweed.prevTumble, tumbleweed.tumble) * Mth.DEG_TO_RAD;
 		renderState.itemX = tumbleweed.itemX;
 		renderState.itemZ = tumbleweed.itemZ;
-		renderState.pitch = -Mth.lerp(partialTick, tumbleweed.prevPitch, tumbleweed.pitch) * Mth.DEG_TO_RAD;
-		renderState.roll = Mth.lerp(partialTick, tumbleweed.prevRoll, tumbleweed.roll) * Mth.DEG_TO_RAD;
+		renderState.pitch = -Mth.lerp(partialTicks, tumbleweed.prevPitch, tumbleweed.pitch) * Mth.DEG_TO_RAD;
+		renderState.roll = Mth.lerp(partialTicks, tumbleweed.prevRoll, tumbleweed.roll) * Mth.DEG_TO_RAD;
 		renderState.isCannonball = tumbleweed.isCannonball();
 		this.itemModelResolver.updateForLiving(renderState.item, tumbleweed.getVisibleItem(), ItemDisplayContext.GROUND, tumbleweed);
-		renderState.level = tumbleweed.level();
 	}
 }

@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.minecraft.client.renderer.block.BakedQuadOutput;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -36,15 +36,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockRenderDispatcher.class)
 public abstract class BlockRenderDispatcherMixin {
 
+	@Shadow
+	public abstract void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output);
+
 	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo info) {
+	public void wilderWild$renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output, CallbackInfo info) {
 		if (!SnowloggingUtils.isSnowlogged(state)) return;
-		this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, consumer);
+		this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, output);
 		info.cancel();
 	}
 
-	@Shadow
-	public void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild BlockRenderDispatcherMixin.");
-	}
 }

@@ -57,7 +57,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		DisplayLanternRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
 		if (!renderState.item.isEmpty()) {
 			poseStack.pushPose();
@@ -69,17 +69,18 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 
 			poseStack.popPose();
 		}
+
 		for (DisplayLanternRenderState.Occupant occupant : renderState.occupants) {
 			FireflyRenderer.submitFireflyWithoutRenderState(
 				poseStack,
 				collector,
-				cameraState.orientation,
-				occupant.color,
-				occupant.calcColor,
+				camera.orientation,
+				occupant.color(),
+				occupant.calcColor(),
 				1F,
-				occupant.x,
-				occupant.y,
-				occupant.z,
+				occupant.x(),
+				occupant.y(),
+				occupant.z(),
 				renderState.lightCoords,
 				OverlayTexture.NO_OVERLAY
 			);
@@ -97,9 +98,9 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		DisplayLanternRenderState renderState,
 		float partialTicks,
 		Vec3 cameraPos,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress
 	) {
-		BlockEntityRenderer.super.extractRenderState(displayLantern, renderState, partialTicks, cameraPos, crumblingOverlay);
+		BlockEntityRenderer.super.extractRenderState(displayLantern, renderState, partialTicks, cameraPos, breakProgress);
 		renderState.age = displayLantern.age + partialTicks;
 		renderState.isHanging = displayLantern.isHanging();
 		this.itemModelResolver.updateForTopItem(

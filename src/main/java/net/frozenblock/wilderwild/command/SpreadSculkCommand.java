@@ -42,41 +42,38 @@ public final class SpreadSculkCommand {
 						10
 					)
 				).then(
-					Commands.argument("position", BlockPosArgument.blockPos())
-						.executes(
+					Commands.argument("position", BlockPosArgument.blockPos()).executes(
+						context -> spreadSculk(
+							context.getSource(),
+							BlockPosArgument.getLoadedBlockPos(context, "position"),
+							false,
+							10
+						)
+					).then(
+						Commands.argument("charge", IntegerArgumentType.integer(1)).executes(
 							context -> spreadSculk(
 								context.getSource(),
 								BlockPosArgument.getLoadedBlockPos(context, "position"),
 								false,
-								10
+								IntegerArgumentType.getInteger(context, "charge")
 							)
 						).then(
-							Commands.argument("charge", IntegerArgumentType.integer(1))
-							.executes(
+							Commands.argument("isWorldGen", BoolArgumentType.bool()).executes(
 								context -> spreadSculk(
 									context.getSource(),
 									BlockPosArgument.getLoadedBlockPos(context, "position"),
-									false,
+									BoolArgumentType.getBool(context, "isWorldGen"),
 									IntegerArgumentType.getInteger(context, "charge")
-								)
-							).then(
-								Commands.argument("isWorldGen", BoolArgumentType.bool())
-								.executes(
-									context -> spreadSculk(
-										context.getSource(),
-										BlockPosArgument.getLoadedBlockPos(context, "position"),
-										BoolArgumentType.getBool(context, "isWorldGen"),
-										IntegerArgumentType.getInteger(context, "charge")
-									)
 								)
 							)
 						)
+					)
 				)
 		);
 	}
 
-	private static int spreadSculk(CommandSourceStack source, BlockPos pos, boolean worldGen, int charge) {
-		final SculkSpreader sculkSpreader = worldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
+	private static int spreadSculk(CommandSourceStack source, BlockPos pos, boolean isWorldGen, int charge) {
+		final SculkSpreader sculkSpreader = isWorldGen ? SculkSpreader.createWorldGenSpreader() : SculkSpreader.createLevelSpreader();
 		sculkSpreader.addCursors(pos, charge);
 		final ServerLevel level = source.getLevel();
 
@@ -84,7 +81,7 @@ public final class SpreadSculkCommand {
 
 		source.sendSuccess(
 			() -> Component.translatable(
-				worldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success",
+				isWorldGen ? "commands.sculkspread.worldgen.success" : "commands.sculkspread.success",
 				pos.getX(), pos.getY(), pos.getZ(),
 				charge
 			),

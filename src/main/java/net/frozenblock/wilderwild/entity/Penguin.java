@@ -206,12 +206,12 @@ public class Penguin extends Animal {
 		return killed;
 	}
 
-	public float getWadeProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.prevWadeProgress, this.wadeProgress);
+	public float getWadeProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevWadeProgress, this.wadeProgress);
 	}
 
-	public float getSlideProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.prevSlideProgress, this.slideProgress);
+	public float getSlideProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevSlideProgress, this.slideProgress);
 	}
 
 	public boolean isSlidingOrSwimming() {

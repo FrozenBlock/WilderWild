@@ -93,7 +93,7 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		SculkSensorRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraRenderState
+		CameraRenderState camera
 	) {
 		if (!renderState.active) return;
 
@@ -130,9 +130,9 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		SculkSensorRenderState renderState,
 		float partialTicks,
 		Vec3 cameraPos,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress
 	) {
-		BlockEntityRenderer.super.extractRenderState(sculkSensor, renderState, partialTicks, cameraPos, crumblingOverlay);
+		BlockEntityRenderer.super.extractRenderState(sculkSensor, renderState, partialTicks, cameraPos, breakProgress);
 
 		if (!WWConstants.MC_LIVE_TENDRILS || !(sculkSensor instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) {
 			renderState.active = false;

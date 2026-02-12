@@ -54,7 +54,6 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -350,16 +349,16 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 		this.groundProgress += ((this.onGround() ? 1F : 0F) - this.groundProgress) * 0.2F;
 	}
 
-	public float getFlyingXRot(float partialTick) {
-		return Mth.lerp(partialTick, this.prevFlyingXRot, this.flyingXRot);
+	public float getFlyingXRot(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevFlyingXRot, this.flyingXRot);
 	}
 
-	public float getDownProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.prevDownProgress, this.downProgress);
+	public float getDownProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevDownProgress, this.downProgress);
 	}
 
-	public float getGroundProgress(float partialTick) {
-		return Mth.lerp(partialTick, this.prevGroundProgress, this.groundProgress);
+	public float getGroundProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevGroundProgress, this.groundProgress);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class JellyfishRenderState extends LivingEntityRenderState {
 	public int tickCount;
 	public boolean isRGB;
 	public JellyfishVariant variant;
-	public float windTime;
+	public float levelTime;
 
 	public float jellyXRot;
 	public float tentXRot;

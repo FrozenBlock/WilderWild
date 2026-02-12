@@ -27,7 +27,7 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true, true)
 localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", true, false)
 
 fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {

@@ -54,8 +54,8 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState renderState, float partialTick) {
-		super.extractRenderState(flowerCow, renderState, partialTick);
+	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState renderState, float partialTicks) {
+		super.extractRenderState(flowerCow, renderState, partialTicks);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
 		final MoobloomVariant variant = flowerCow.getVariantForRendering();

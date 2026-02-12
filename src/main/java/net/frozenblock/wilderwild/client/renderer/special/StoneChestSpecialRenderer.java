@@ -32,8 +32,8 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.SpriteGetter;
+import net.minecraft.client.resources.model.SpriteId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3fc;
@@ -41,15 +41,15 @@ import org.joml.Vector3fc;
 @Environment(EnvType.CLIENT)
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	public static final Identifier STONE_CHEST_TEXTURE = WWConstants.id("stone");
-	private final MaterialSet materials;
+	private final SpriteGetter sprites;
 	private final StoneChestModel model;
-	private final Material material;
+	private final SpriteId sprite;
 	private final float openness;
 
-	public StoneChestSpecialRenderer(MaterialSet materialSet, StoneChestModel stoneChestModel, Material material, float openness) {
-		this.materials = materialSet;
+	public StoneChestSpecialRenderer(SpriteGetter sprites, StoneChestModel stoneChestModel, SpriteId sprite, float openness) {
+		this.sprites = sprites;
 		this.model = stoneChestModel;
-		this.material = material;
+		this.sprite = sprite;
 		this.openness = openness;
 	}
 
@@ -58,20 +58,20 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		ItemDisplayContext context,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		int light,
-		int overlay,
-		boolean bl,
+		int lightCoords,
+		int overlayCoords,
+		boolean hasFoil,
 		int outlineColor
 	) {
 		collector.submitModel(
 			this.model,
 			this.openness,
 			poseStack,
-			this.material.renderType(RenderTypes::entitySolid),
-			light,
-			overlay,
+			this.sprite.renderType(RenderTypes::entitySolid),
+			lightCoords,
+			overlayCoords,
 			-1,
-			this.materials.get(this.material),
+			this.sprites.get(this.sprite),
 			outlineColor,
 			null
 		);
@@ -102,10 +102,10 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(BakingContext bakingContext) {
-			final StoneChestModel model = new StoneChestModel(bakingContext.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
-			final Material material = new Material(Sheets.CHEST_SHEET, this.texture.withPrefix("entity/stone_chest/"));
-			return new StoneChestSpecialRenderer(bakingContext.materials(), model, material, this.openness);
+		public SpecialModelRenderer<?> bake(BakingContext context) {
+			final StoneChestModel model = new StoneChestModel(context.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
+			final SpriteId fullTexture = Sheets.CHEST_MAPPER.apply(this.texture);
+			return new StoneChestSpecialRenderer(context.sprites(), model, fullTexture, this.openness);
 		}
 	}
 }

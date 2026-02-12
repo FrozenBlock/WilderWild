@@ -27,15 +27,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.SpreadingSnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SpreadingSnowyDirtBlock.class)
-public class SpreadingSnowyDirtBlockMixin {
+@Mixin(SpreadingSnowyBlock.class)
+public class SpreadingSnowyBlockMixin {
 
 	@ModifyExpressionValue(
 		method = "randomTick",
@@ -85,10 +85,9 @@ public class SpreadingSnowyDirtBlockMixin {
 		@Share("wilderWild$abovePos") LocalRef<BlockPos> abovePosRef
 	) {
 		if (!defaultBlockState.is(Blocks.MYCELIUM)) return;
-		BlockState aboveState = aboveStateRef.get();
-		BlockPos abovePos = abovePosRef.get();
-		if (aboveState != null && abovePos != null && aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) {
-			level.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
-		}
+		final BlockState aboveState = aboveStateRef.get();
+		final BlockPos abovePos = abovePosRef.get();
+		if (aboveState == null || abovePos == null || !aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) return;
+		level.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
 	}
 }

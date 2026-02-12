@@ -21,18 +21,18 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.SpreadingSnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SpreadingSnowyDirtBlock.class)
-public class SpreadingSnowyDirtBlockMixin {
+@Mixin(SpreadingSnowyBlock.class)
+public class SpreadingSnowyBlockMixin {
 
 	@Inject(
-		method = "canBeGrass",
+		method = "canStayAlive",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
@@ -43,8 +43,8 @@ public class SpreadingSnowyDirtBlockMixin {
 	)
 	private static void wilderWild$canBeGrassFirstCheck(
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
-		@Local(ordinal = 1) BlockState state1
+		@Local(name = "aboveState") BlockState aboveState
 	) {
-		if (SnowloggingUtils.isSnowlogged(state1)) info.setReturnValue(true);
+		if (SnowloggingUtils.isSnowlogged(aboveState)) info.setReturnValue(true);
 	}
 }

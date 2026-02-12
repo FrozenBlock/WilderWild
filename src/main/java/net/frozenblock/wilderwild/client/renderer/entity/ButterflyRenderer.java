@@ -40,11 +40,11 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 	}
 
 	@Override
-	public void extractRenderState(Butterfly butterfly, ButterflyRenderState renderState, float partialTick) {
-		super.extractRenderState(butterfly, renderState, partialTick);
-		renderState.downProgress = butterfly.getDownProgress(partialTick);
-		renderState.groundProgress = butterfly.getGroundProgress(partialTick);
-		renderState.flyingXRot = butterfly.getFlyingXRot(partialTick);
+	public void extractRenderState(Butterfly butterfly, ButterflyRenderState renderState, float partialTicks) {
+		super.extractRenderState(butterfly, renderState, partialTicks);
+		renderState.downProgress = butterfly.getDownProgress(partialTicks);
+		renderState.groundProgress = butterfly.getGroundProgress(partialTicks);
+		renderState.flyingXRot = butterfly.getFlyingXRot(partialTicks);
 		renderState.texture = butterfly.getVariantForRendering().resourceTexture().texturePath();
 	}
 

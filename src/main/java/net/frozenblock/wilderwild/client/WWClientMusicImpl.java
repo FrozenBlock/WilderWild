@@ -38,8 +38,8 @@ public final class WWClientMusicImpl {
 	public static void init() {
 		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
 
-		final Function<Long, Float> dyingPitchShifting = l -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
-			(0.98F + Mth.sin((float) ((l * Math.PI) / 1200F)) * 0.025F) : 1F;
+		final Function<Long, Float> dyingPitchShifting = time -> WWAmbienceAndMiscConfig.Client.DISTORTED_DYING_FOREST_MUSIC ?
+			(0.98F + Mth.sin((float) ((time * Math.PI) / 1200F)) * 0.025F) : 1F;
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_FOREST.identifier(), dyingPitchShifting);
@@ -57,25 +57,25 @@ public final class WWClientMusicImpl {
 	}
 
 	private static FrozenLibModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
-		FrozenLibModResourcePackApi.PackDownloadGroup musicDownloadGroup = FrozenLibModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
-		addMusicDownloadInfo(musicDownloadGroup, "dove");
-		addMusicDownloadInfo(musicDownloadGroup, "horizon_afoot");
-		addMusicDownloadInfo(musicDownloadGroup, "serene_sonder");
-		addMusicDownloadInfo(musicDownloadGroup, "amber");
-		addMusicDownloadInfo(musicDownloadGroup, "anemone");
-		addMusicDownloadInfo(musicDownloadGroup, "dahlia");
-		addMusicDownloadInfo(musicDownloadGroup, "espial_title_mix");
-		addMusicDownloadInfo(musicDownloadGroup, "espial");
-		addMusicDownloadInfo(musicDownloadGroup, "molt");
-		addMusicDownloadInfo(musicDownloadGroup, "frozen_blocks");
-		addMusicDownloadInfo(musicDownloadGroup, "pressure");
+		final FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup = FrozenLibModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
+		addMusicDownloadInfo(downloadGroup, "dove");
+		addMusicDownloadInfo(downloadGroup, "horizon_afoot");
+		addMusicDownloadInfo(downloadGroup, "serene_sonder");
+		addMusicDownloadInfo(downloadGroup, "amber");
+		addMusicDownloadInfo(downloadGroup, "anemone");
+		addMusicDownloadInfo(downloadGroup, "dahlia");
+		addMusicDownloadInfo(downloadGroup, "espial_title_mix");
+		addMusicDownloadInfo(downloadGroup, "espial");
+		addMusicDownloadInfo(downloadGroup, "molt");
+		addMusicDownloadInfo(downloadGroup, "frozen_blocks");
+		addMusicDownloadInfo(downloadGroup, "pressure");
 
 		if (WWAmbienceAndMiscConfig.get().music.danMusic) {
-			addMusicDownloadInfo(musicDownloadGroup, "excuse");
-			addMusicDownloadInfo(musicDownloadGroup, "flake");
+			addMusicDownloadInfo(downloadGroup, "excuse");
+			addMusicDownloadInfo(downloadGroup, "flake");
 		}
 
-		return musicDownloadGroup;
+		return downloadGroup;
 	}
 
 	private static void addMusicDownloadInfo(FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
