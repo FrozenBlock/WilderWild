@@ -21,15 +21,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.impl.BoatBoostInterface;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -39,37 +35,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractBoat.class)
 public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoostInterface {
-	@Unique
-	private int wilderWild$boatBoostTicks;
-	@Unique
-	private static final EntityDataAccessor<Boolean> WILDER_WILD$BOOSTED = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.BOOLEAN);
 
-	public AbstractBoatMixin(EntityType<?> entityType, Level level) {
-		super(entityType, level);
-	}
-
-	@Inject(method = "defineSynchedData", at = @At("TAIL"))
-	public void wilderWild$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo info) {
-		builder.define(WILDER_WILD$BOOSTED, false);
-	}
-
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo info) {
-		if (this.wilderWild$boatBoostTicks > 0) valueOutput.putInt("WilderWildBoatBoostTicks", this.wilderWild$boatBoostTicks);
-	}
-
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	public void wilderWild$readAdditionalSaveData(ValueInput valueInput, CallbackInfo info) {
-		this.wilderWild$boatBoostTicks = valueInput.getIntOr("WilderWildBoatBoostTicks", 0);
-		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
+	public AbstractBoatMixin(EntityType<?> type, Level level) {
+		super(type, level);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.level().isClientSide()) return;
-		final int boostTicks = this.wilderWild$getBoatBoostTicks();
-		this.wilderWild$setBoatBoostTicks(Math.max(boostTicks - 1, 0));
-		this.wilderWild$setBoatBoosted(this.wilderWild$boatBoostTicks > 0);
+		if (!this.hasAttached(WWAttachmentTypes.BOAT_BOOST_TICKS)) return;
+
+		final int newBoostTicks = Math.max(this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0) - 1, 0);
+		this.setAttached(WWAttachmentTypes.BOAT_BOOST_TICKS, newBoostTicks);
+		if (newBoostTicks <= 0) this.removeAttached(WWAttachmentTypes.BOAT_BOOST_TICKS);
 	}
 
 	@WrapOperation(
@@ -87,31 +65,12 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	@Override
 	public void wilderWild$boostBoatForTicks(int ticks) {
-		this.wilderWild$setBoatBoostTicks(Math.max(this.wilderWild$getBoatBoostTicks(), ticks));
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setBoatBoostTicks(int ticks) {
-		this.wilderWild$boatBoostTicks = ticks;
-		this.entityData.set(WILDER_WILD$BOOSTED, ticks > 0);
-	}
-
-	@Unique
-	@Override
-	public int wilderWild$getBoatBoostTicks() {
-		return this.wilderWild$boatBoostTicks;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setBoatBoosted(boolean boosted) {
-		this.entityData.set(WILDER_WILD$BOOSTED, boosted);
+		this.setAttached(WWAttachmentTypes.BOAT_BOOST_TICKS, Math.max(this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0), ticks));
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isBoatBoosted() {
-		return this.entityData.get(WILDER_WILD$BOOSTED);
+		return this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0) > 0;
 	}
 }
