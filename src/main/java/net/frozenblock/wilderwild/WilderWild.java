@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWActivities;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -81,6 +82,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WilderWildRegistries.init();
 
 		WWDataComponents.init();
+		WWAttachmentTypes.init();
 		WWBlocks.init();
 		WWCreativeInventorySorting.init();
 		WWItems.init();

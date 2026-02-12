@@ -73,32 +73,26 @@ public class ScorchedBlock extends BaseEntityBlock {
 		this.fillScorchMap(this.wetState, this.defaultBlockState());
 	}
 
-	public static boolean canScorch(BlockState state) {
-		return SCORCH_MAP.containsKey(stateWithoutDusting(state));
-	}
-
 	public static void scorch(BlockState state, Level level, BlockPos pos) {
 		state = stateWithoutDusting(state);
-		if (!canScorch(state)) return;
+		final BlockState scorchState = SCORCH_MAP.get(state);
+		if (scorchState == null) return;
 
-		level.setBlockAndUpdate(pos, SCORCH_MAP.get(state));
+		level.setBlockAndUpdate(pos, scorchState);
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-	}
-
-	public static boolean canHydrate(BlockState state) {
-		return HYDRATE_MAP.containsKey(stateWithoutDusting(state));
 	}
 
 	public static void hydrate(BlockState state, Level level, BlockPos pos) {
 		state = stateWithoutDusting(state);
-		if (!canHydrate(state)) return;
+		final BlockState hydrateState = HYDRATE_MAP.get(state);
+		if (hydrateState == null) return;
 
-		level.setBlockAndUpdate(pos, HYDRATE_MAP.get(state));
+		level.setBlockAndUpdate(pos, hydrateState);
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}
 
 	private static BlockState stateWithoutDusting(BlockState state) {
-		return state.hasProperty(DUSTED) ? state.setValue(DUSTED, 0) : state;
+		return state.trySetValue(DUSTED, 0);
 	}
 
 	@Override

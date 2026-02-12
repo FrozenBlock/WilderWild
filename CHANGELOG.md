@@ -1,7 +1,9 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Fixed the Allay's keyframed dancing animation not working.
-- Changed Crab Claws to grant players the Reach Boost effect when held.
-  - This change was made to resolve an issue that granted players infinite Reach Boost if they had the effect active.
-  - This functionality is still locked behind the config option.
+- Fixed Axolotl & Frog AI.
+  - Axolotls and Frogs will now sometimes remain idle while in water, restoring the intended behavior before it was broken in 1.17.1.
+- Fixed an incompatibility that broke other modded Boats. ([#532](https://github.com/FrozenBlock/WilderWild/issues/532))
+- Improved the performance of Scorched Sand blocks. ([#526](https://github.com/FrozenBlock/WilderWild/issues/526))
+- Lava now takes much longer to scorch a Sand block.
+- Dying Forests no longer generate next to Groves with Biolith installed. ([#529](https://github.com/FrozenBlock/WilderWild/pull/529))

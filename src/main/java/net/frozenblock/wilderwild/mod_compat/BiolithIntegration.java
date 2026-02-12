@@ -290,7 +290,7 @@ public class BiolithIntegration extends ModIntegration {
 				Biomes.FOREST,
 				WWBiomes.DYING_FOREST,
 				allOf(
-					neighboringAny(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.FROZEN_RIVER, Biomes.GROVE),
+					neighboringAny(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.FROZEN_RIVER),
 					CriterionBuilder.value(BiomeParameterTargets.TEMPERATURE, -0.45F, 0.15F)
 				)
 			);

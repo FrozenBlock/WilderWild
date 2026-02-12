@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -45,12 +44,9 @@ public class FireBlockMixin {
 		)
 	)
 	public void wilderWild$tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		this.wilderWild$scorchTick(level, pos.below(), random);
-	}
-
-	@Unique
-	public void wilderWild$scorchTick(ServerLevel level, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() <= 0.0125F) ScorchedBlock.scorch(level.getBlockState(pos), level, pos);
+		if (random.nextFloat() >= 0.0125F) return;
+		final BlockPos belowPos = pos.below();
+		ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

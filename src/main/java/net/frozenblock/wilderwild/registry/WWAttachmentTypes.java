@@ -25,12 +25,12 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.codec.ByteBufCodecs;
 
 public final class WWAttachmentTypes {
-	public static final AttachmentType<Boolean> BOAT_BOOSTED = AttachmentRegistry.create(
+	public static final AttachmentType<Integer> BOAT_BOOST_TICKS = AttachmentRegistry.create(
 		WWConstants.id("boat_boosted"),
 		builder -> {
-			builder.initializer(() -> false);
-			builder.syncWith(ByteBufCodecs.BOOL, AttachmentSyncPredicate.all());
-			builder.persistent(Codec.BOOL);
+			builder.initializer(() -> 0);
+			builder.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all());
+			builder.persistent(Codec.INT);
 		}
 	);
 
