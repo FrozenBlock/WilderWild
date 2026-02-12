@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+// TODO: lol bruh
+/*
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
@@ -35,3 +37,4 @@ public final class WilderWildModMenuIntegration implements ModMenuApi {
 	}
 
 }
+ */
