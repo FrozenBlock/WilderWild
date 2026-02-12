@@ -1,5 +1,6 @@
 {
   "asset_id": "wilderwild:entity/jellyfish/jellyfish_pink",
+  "baby_asset_id": "wilderwild:entity/jellyfish/jellyfish_pink_baby",
   "pearlescent": false,
   "reproduction_food": "#wilderwild:jellyfish_food",
   "spawn_conditions": [

@@ -100,6 +100,8 @@ voxelotl:
  - Baby Moobloom Textures in 26.1+.
  - Baby Penguin Model, Texture, & Modified Baby Keyframe Animations in 26.1+.
  - Baby Crab Model, Textures, & Modified Baby Keyframe Animations in 26.1+.
+ - Baby Bee With Nectar Textures in 26.1+.
+ - Baby Jellyfish Textures in 26.1+.
 
 Willow/pictochats_:
  - Composer:
