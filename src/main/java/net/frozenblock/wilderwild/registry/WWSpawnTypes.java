@@ -33,10 +33,10 @@ import org.jetbrains.annotations.Nullable;
 public final class WWSpawnTypes {
 	public static final SpawnPlacementType ON_GROUND_OR_IN_ALGAE = new SpawnPlacementType() {
 		@Override
-		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> entityType) {
-			if (SpawnPlacementTypes.ON_GROUND.isSpawnPositionOk(level, pos, entityType)) return true;
+		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> type) {
+			if (SpawnPlacementTypes.ON_GROUND.isSpawnPositionOk(level, pos, type)) return true;
 
-			if (entityType != null && level.getWorldBorder().isWithinBounds(pos)) {
+			if (type != null && level.getWorldBorder().isWithinBounds(pos)) {
 				final BlockPos abovePos = pos.above();
 				return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE);
 			}
@@ -51,29 +51,29 @@ public final class WWSpawnTypes {
 
 	public static final SpawnPlacementType SCORCHED = new SpawnPlacementType() {
 		@Override
-		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> entityType) {
-			if (entityType != null && level.getWorldBorder().isWithinBounds(pos)) {
+		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> type) {
+			if (type != null && level.getWorldBorder().isWithinBounds(pos)) {
 				final BlockPos belowPos = pos.below();
 				final BlockState belowState = level.getBlockState(belowPos);
-				return !belowState.isValidSpawn(level, belowPos, entityType) && !this.isSurfaceLavaOrMagmaOrGabbro(level, pos, belowState)
+				return !belowState.isValidSpawn(level, belowPos, type) && !this.isSurfaceLavaOrMagmaOrGabbro(level, pos, belowState)
 					? false
-					: this.isValidEmptySpawnBlock(level, pos, entityType);
+					: this.isValidEmptySpawnBlock(level, pos, type);
 			} else {
 				return false;
 			}
 		}
 
-		private boolean isSurfaceLavaOrMagmaOrGabbro(LevelReader level, BlockPos blockPos, BlockState belowState) {
-			final BlockState state = level.getBlockState(blockPos);
+		private boolean isSurfaceLavaOrMagmaOrGabbro(LevelReader level, BlockPos pos, BlockState belowState) {
+			final BlockState state = level.getBlockState(pos);
 			return (belowState.getFluidState().is(FluidTags.LAVA) || belowState.is(Blocks.MAGMA_BLOCK) || belowState.is(WWBlocks.GABBRO))
 				&& !state.getFluidState().is(FluidTags.LAVA)
 				&& !(state.is(Blocks.MAGMA_BLOCK) || state.is(WWBlocks.GABBRO));
 		}
 
-		private boolean isValidEmptySpawnBlock(LevelReader level, BlockPos blockPos, EntityType<?> entityType) {
-			final BlockState state = level.getBlockState(blockPos);
+		private boolean isValidEmptySpawnBlock(LevelReader level, BlockPos pos, EntityType<?> type) {
+			final BlockState state = level.getBlockState(pos);
 			boolean isSafeBurning = state.is(BlockTags.FIRE);
-			return isSafeBurning || NaturalSpawner.isValidEmptySpawnBlock(level, blockPos, state, state.getFluidState(), entityType);
+			return isSafeBurning || NaturalSpawner.isValidEmptySpawnBlock(level, pos, state, state.getFluidState(), type);
 		}
 
 		@Override

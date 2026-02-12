@@ -35,19 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public final class WWBlockEntityTypes {
-	private WWBlockEntityTypes() {
-		throw new UnsupportedOperationException("WWBlockEntityTypes contains only static declarations.");
-	}
-
-	public static void register() {
-		WWConstants.logWithModId("Registering BlockEntities for", WWConstants.UNSTABLE_LOGGING);
-	}
-
-	private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
-		Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), new BlockEntityType<>(builder, Set.of(blocks)));
-	}
-
 	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register(
 		"hanging_tendril",
 		HangingTendrilBlockEntity::new,
@@ -83,5 +70,16 @@ public final class WWBlockEntityTypes {
 		IcicleBlockEntity::new,
 		WWBlocks.ICICLE
 	);
+
+	public static void init() {}
+
+	private static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
+		Util.fetchChoiceType(References.BLOCK_ENTITY, WWConstants.string(path));
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, WWConstants.id(path), new BlockEntityType<>(builder, Set.of(blocks)));
+	}
+
+	private WWBlockEntityTypes() {
+		throw new UnsupportedOperationException("WWBlockEntityTypes contains only static declarations.");
+	}
 
 }

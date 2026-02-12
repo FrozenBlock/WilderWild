@@ -1952,9 +1952,8 @@ public final class WWBlocks {
 		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
 	}
 
-	public static void registerBlocks() {
-		WWConstants.logWithModId("Registering Blocks for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
+
 	private static <T extends Block> T registerWithoutItem(String path, Function<Properties, T> block, Properties properties) {
 		Identifier id = WWConstants.id(path);
 		return doRegister(id, makeBlock(block, properties, id));

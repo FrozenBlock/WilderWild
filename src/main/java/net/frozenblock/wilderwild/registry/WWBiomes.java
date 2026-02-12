@@ -96,12 +96,9 @@ public final class WWBiomes {
 		throw new UnsupportedOperationException("WWBiomes contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static void bootstrap(BootstrapContext<Biome> context) {
-		WWConstants.logWithModId("Registering Biomes for", WWConstants.UNSTABLE_LOGGING);
-
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
 		register(context, OASIS, Oasis.INSTANCE.create(context));

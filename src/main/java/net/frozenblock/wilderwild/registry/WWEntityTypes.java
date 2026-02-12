@@ -239,9 +239,7 @@ public final class WWEntityTypes {
 		throw new UnsupportedOperationException("WWEntityTypes contains only static declarations.");
 	}
 
-	public static void init() {
-		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 	static {
 		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());

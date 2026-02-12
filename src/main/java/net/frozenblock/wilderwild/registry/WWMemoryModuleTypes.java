@@ -41,9 +41,7 @@ public final class WWMemoryModuleTypes {
 		throw new UnsupportedOperationException("WWMemoryModuleTypes contains only static declarations.");
 	}
 
-	public static void register() {
-		WWConstants.logWithModId("Registering MemoryModuleTypes for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 	public static final MemoryModuleType<List<Firefly>> NEARBY_FIREFLIES = register("nearby_fireflies");
 	public static final MemoryModuleType<Unit> NATURAL = register("natural", Unit.CODEC);

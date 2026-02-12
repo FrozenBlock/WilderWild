@@ -35,8 +35,7 @@ public final class WWActivities {
 		throw new UnsupportedOperationException("WWActivities contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static Activity register(String string) {
 		return Registry.register(BuiltInRegistries.ACTIVITY, string, new Activity(WWConstants.safeString(string)));

@@ -41,11 +41,10 @@ public final class WWEnvironmentAttributes {
 		throw new UnsupportedOperationException("WWEnvironmentAttributes contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static <Value> EnvironmentAttribute<Value> register(String string, EnvironmentAttribute.Builder<Value> builder) {
-		EnvironmentAttribute<Value> environmentAttribute = builder.build();
+		final EnvironmentAttribute<Value> environmentAttribute = builder.build();
 		Registry.register(BuiltInRegistries.ENVIRONMENT_ATTRIBUTE, WWConstants.id(string), environmentAttribute);
 		return environmentAttribute;
 	}

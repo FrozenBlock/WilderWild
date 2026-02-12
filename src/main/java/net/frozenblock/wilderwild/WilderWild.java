@@ -78,23 +78,23 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WilderWildRegistries.initRegistry();
+		WilderWildRegistries.init();
 
 		WWDataComponents.init();
-		WWBlocks.registerBlocks();
+		WWBlocks.init();
 		WWCreativeInventorySorting.init();
-		WWItems.registerItems();
-		WWGameEvents.registerEvents();
+		WWItems.init();
+		WWGameEvents.init();
 		WWSounds.init();
 		WWSoundTypes.init();
-		WWBlockEntityTypes.register();
+		WWBlockEntityTypes.init();
 		WWEntityTypes.init();
 		WWDamageTypes.init();
 		WWActivities.init();
-		WWMemoryModuleTypes.register();
-		WWSensorTypes.register();
+		WWMemoryModuleTypes.init();
+		WWSensorTypes.init();
 		WWLootTables.init();
-		WWParticleTypes.registerParticles();
+		WWParticleTypes.init();
 		WWMobEffects.init();
 		WWPotions.init();
 		WWCriteria.init();

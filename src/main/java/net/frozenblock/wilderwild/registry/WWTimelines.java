@@ -34,8 +34,7 @@ public final class WWTimelines {
 		throw new UnsupportedOperationException("WWTimelines contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static void bootstrap(BootstrapContext<Timeline> context) {
 		final HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);

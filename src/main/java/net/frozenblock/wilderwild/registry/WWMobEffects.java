@@ -67,7 +67,6 @@ public final class WWMobEffects {
 	}
 
 	public static void init() {
-		WWConstants.logWithModId("Registering MobEffects for", WWConstants.UNSTABLE_LOGGING);
 		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
 	}
 

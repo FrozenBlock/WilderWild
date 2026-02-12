@@ -196,8 +196,7 @@ public final class WWItems {
 		throw new UnsupportedOperationException("WWItems contains only static declarations.");
 	}
 
-	public static void registerItems() {
-		WWConstants.logWithModId("Registering Items for", WWConstants.UNSTABLE_LOGGING);
+	public static void init() {
 		CompostableRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostableRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostableRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);

@@ -428,6 +428,5 @@ public final class WWSoundTypes {
 		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 }
