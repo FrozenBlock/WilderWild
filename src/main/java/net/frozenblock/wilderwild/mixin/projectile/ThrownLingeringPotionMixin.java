@@ -33,7 +33,7 @@ public class ThrownLingeringPotionMixin {
 
 	@Inject(method = "onHitAsPotion", at = @At("HEAD"))
 	public void wilderWild$onHitAsPotion(ServerLevel level, ItemStack stack, HitResult hitResult, CallbackInfo info) {
-		if (!WWItemConfig.get().projectileLandingSounds.potionLandingSounds) return;
+		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
 		ThrownLingeringPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (level.getRandom().nextFloat() * 0.2F));
 	}
 

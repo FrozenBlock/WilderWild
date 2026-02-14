@@ -47,7 +47,7 @@ public class AbstractArrowMixin {
 		)
 	)
 	public void wilderWild$sendProjectileBreakParticles(BlockHitResult hitResult, CallbackInfo info) {
-		if (this.lastState == null ||  !WWItemConfig.get().projectileBreakParticles) return;
+		if (this.lastState == null ||  !WWItemConfig.PROJECTILE_BREAK_PARTICLES.get()) return;
 
 		final AbstractArrow arrow = AbstractArrow.class.cast(this);
 		if (!(arrow.level() instanceof ServerLevel serverLevel)) return;

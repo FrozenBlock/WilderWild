@@ -38,7 +38,7 @@ public class ThrownEggMixin {
 		)
 	)
 	public void wilderWild$onHit(HitResult hitResult, CallbackInfo info) {
-		if (!WWItemConfig.get().projectileLandingSounds.eggLandingSounds) return;
+		if (!WWItemConfig.EGG_LANDING_SOUNDS.get()) return;
 		final ThrownEgg egg = ThrownEgg.class.cast(this);
 		egg.playSound(WWSounds.ITEM_EGG_LAND, 0.5F, 0.85F + (egg.getRandom().nextFloat() * 0.2F));
 	}

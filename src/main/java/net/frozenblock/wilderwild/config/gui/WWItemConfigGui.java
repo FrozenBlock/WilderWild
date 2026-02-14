@@ -18,14 +18,15 @@
 package net.frozenblock.wilderwild.config.gui;
 
 // TODO: Re-enable when cloth config is unobfuscated
-/*import me.shedaniel.clothconfig2.api.ConfigCategory;
+
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import static net.frozenblock.wilderwild.config.WWConfigHelper.booleanEntry;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 
 @Environment(EnvType.CLIENT)
@@ -36,89 +37,20 @@ public final class WWItemConfigGui {
 	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
-		final var config = WWItemConfig.get(true);
-		final Class<? extends WWItemConfig> clazz = config.getClass();
-		final Config<? extends WWItemConfig> configInstance = WWItemConfig.INSTANCE;
-		final var modifiedConfig = WWItemConfig.getWithSync();
-		final var defaultConfig = WWItemConfig.INSTANCE.defaultInstance();
-		final var projectileLandingSounds = config.projectileLandingSounds;
-		final var modifiedProjectileLandingSounds = modifiedConfig.projectileLandingSounds;
+		category.addEntry(booleanEntry(builder, "restrict_instrument_sound", WWItemConfig.RESTRICT_INSTRUMENT_SOUNDS));
+		category.addEntry(booleanEntry(builder, "projectile_break_particles", WWItemConfig.PROJECTILE_BREAK_PARTICLES));
 
-		var snowballLandingSounds = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("snowball_landing_sounds"), modifiedProjectileLandingSounds.snowballLandingSounds)
-				.setDefaultValue(defaultConfig.projectileLandingSounds.snowballLandingSounds)
-				.setSaveConsumer(newValue -> projectileLandingSounds.snowballLandingSounds = newValue)
-				.setTooltip(tooltip("snowball_landing_sounds"))
-				.build(),
-			config.projectileLandingSounds.getClass(),
-			"snowballLandingSounds",
-			configInstance
-		);
+		// PROJECTILE LANDING SOUNDS
 
-		var eggLandingSounds = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("egg_landing_sounds"), modifiedProjectileLandingSounds.eggLandingSounds)
-				.setDefaultValue(defaultConfig.projectileLandingSounds.eggLandingSounds)
-				.setSaveConsumer(newValue -> projectileLandingSounds.eggLandingSounds = newValue)
-				.setTooltip(tooltip("egg_landing_sounds"))
-				.build(),
-			config.projectileLandingSounds.getClass(),
-			"eggLandingSounds",
-			configInstance
-		);
+		var snowballLandingSounds = booleanEntry(builder, "snowball_landing_sounds", WWItemConfig.SNOWBALL_LANDING_SOUNDS);
+		var eggLandingSounds = booleanEntry(builder, "egg_landing_sounds", WWItemConfig.EGG_LANDING_SOUNDS);
+		var enderPearlLandingSounds = booleanEntry(builder, "ender_pearl_landing_sounds", WWItemConfig.ENDER_PEARL_LANDING_SOUNDS);
+		var potionLandingSounds = booleanEntry(builder, "potion_landing_sounds", WWItemConfig.POTION_LANDING_SOUNDS);
 
-		var enderPearlLandingSounds = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("ender_pearl_landing_sounds"), modifiedProjectileLandingSounds.enderPearlLandingSounds)
-				.setDefaultValue(defaultConfig.projectileLandingSounds.enderPearlLandingSounds)
-				.setSaveConsumer(newValue -> projectileLandingSounds.enderPearlLandingSounds = newValue)
-				.setTooltip(tooltip("ender_pearl_landing_sounds"))
-				.build(),
-			config.projectileLandingSounds.getClass(),
-			"enderPearlLandingSounds",
-			configInstance
-		);
-
-		var potionLandingSounds = FrozenClothConfig.syncedEntry(
-			builder.startBooleanToggle(text("potion_landing_sounds"), modifiedProjectileLandingSounds.potionLandingSounds)
-				.setDefaultValue(defaultConfig.projectileLandingSounds.potionLandingSounds)
-				.setSaveConsumer(newValue -> projectileLandingSounds.potionLandingSounds = newValue)
-				.setTooltip(tooltip("potion_landing_sounds"))
-				.build(),
-			config.projectileLandingSounds.getClass(),
-			"potionLandingSounds",
-			configInstance
-		);
-
-		var projectileLandingSoundsCategory = FrozenClothConfig.createSubCategory(builder, category, text("projectile_landing_sounds"),
+		FrozenClothConfig.createSubCategory(builder, category, text("projectile_landing_sounds"),
 			false,
 			tooltip("projectile_landing_sounds"),
 			snowballLandingSounds, eggLandingSounds, enderPearlLandingSounds, potionLandingSounds
 		);
-
-		var projectileBreakParticles = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("projectile_break_particles"), modifiedConfig.projectileBreakParticles)
-					.setDefaultValue(defaultConfig.projectileBreakParticles)
-					.setSaveConsumer(newValue -> config.projectileBreakParticles = newValue)
-					.setTooltip(tooltip("projectile_break_particles"))
-					.build(),
-				clazz,
-				"projectileBreakParticles",
-				configInstance
-			)
-		);
-
-		var restrictInstrumentSound = category.addEntry(
-			FrozenClothConfig.syncedEntry(
-				builder.startBooleanToggle(text("restrict_instrument_sound"), modifiedConfig.restrictInstrumentSound)
-					.setDefaultValue(defaultConfig.restrictInstrumentSound)
-					.setSaveConsumer(newValue -> config.restrictInstrumentSound = newValue)
-					.setTooltip(tooltip("restrict_instrument_sound"))
-					.build(),
-				clazz,
-				"restrictInstrumentSound",
-				configInstance
-			)
-		);
 	}
 }
-*/

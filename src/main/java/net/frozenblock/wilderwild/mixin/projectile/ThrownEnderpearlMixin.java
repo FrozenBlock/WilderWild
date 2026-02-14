@@ -47,7 +47,7 @@ public class ThrownEnderpearlMixin {
 		@Local(name = "level") ServerLevel level,
 		@Local(name = "player") ServerPlayer player
 	) {
-		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
+		if (!WWItemConfig.ENDER_PEARL_LANDING_SOUNDS.get()) return;
 
 		final ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 		if (pearl.isSilent()) return;
@@ -74,7 +74,7 @@ public class ThrownEnderpearlMixin {
 		@Local(name = "level") ServerLevel level,
 		@Local(name = "owner") Entity owner
 	) {
-		if (!WWItemConfig.get().projectileLandingSounds.enderPearlLandingSounds) return;
+		if (!WWItemConfig.ENDER_PEARL_LANDING_SOUNDS.get()) return;
 
 		final ThrownEnderpearl pearl = ThrownEnderpearl.class.cast(this);
 		if (pearl.isSilent()) return;

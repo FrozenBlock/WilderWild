@@ -38,7 +38,7 @@ public class SnowballMixin {
 		)
 	)
 	public void wilderWild$onHit(HitResult hitResult, CallbackInfo info) {
-		if (!WWItemConfig.get().projectileLandingSounds.snowballLandingSounds) return;
+		if (!WWItemConfig.SNOWBALL_LANDING_SOUNDS.get()) return;
 		final Snowball snowball = Snowball.class.cast(this);
 		snowball.playSound(WWSounds.ITEM_SNOWBALL_LAND, 0.3F, 0.85F + (snowball.getRandom().nextFloat() * 0.2F));
 	}

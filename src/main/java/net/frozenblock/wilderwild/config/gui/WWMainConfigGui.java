@@ -38,7 +38,7 @@ public final class WWMainConfigGui {
 		configBuilder.setSavingRunnable(() -> {
 			WWBlockConfig.CONFIG.save();
 			WWEntityConfig.INSTANCE.save();
-			WWItemConfig.INSTANCE.save();
+			WWItemConfig.CONFIG.save();
 			WWWorldgenConfig.INSTANCE.save();
 			WWAmbienceAndMiscConfig.CONFIG.save();
 			WWMixinsConfig.INSTANCE.save();

@@ -17,56 +17,22 @@
 
 package net.frozenblock.wilderwild.config;
 
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
-import net.frozenblock.lib.config.api.sync.annotation.EntrySyncData;
-import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
-import net.frozenblock.wilderwild.WWPreLoadConstants;
+import net.frozenblock.lib.config.v2.config.ConfigData;
+import net.frozenblock.lib.config.v2.config.ConfigSettings;
+import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.frozenblock.lib.config.v2.entry.EntryType;
+import net.frozenblock.lib.config.v2.registry.ID;
+import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWItemConfig {
-	public static final Config<WWItemConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
-			MOD_ID,
-			WWItemConfig.class,
-			WWPreLoadConstants.configPath("item", true),
-			JsonType.JSON5
-		)
-	);
+	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("item")), ConfigSettings.JSON5);
 
-	public final ProjectileLandingSoundsConfig projectileLandingSounds = new ProjectileLandingSoundsConfig();
+	public static final ConfigEntry<Boolean> PROJECTILE_BREAK_PARTICLES = CONFIG.entry("projectileBreakParticles", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> RESTRICT_INSTRUMENT_SOUNDS = CONFIG.entry("restrictInstrumentSound", EntryType.BOOL, true);
 
-	@EntrySyncData("projectileBreakParticles")
-	public boolean projectileBreakParticles = true;
-
-	@EntrySyncData("restrictInstrumentSound")
-	public boolean restrictInstrumentSound = true;
-
-	public static WWItemConfig get() {
-		return get(false);
-	}
-
-	public static WWItemConfig get(boolean real) {
-		if (real) return INSTANCE.instance();
-		return INSTANCE.config();
-	}
-
-	public static WWItemConfig getWithSync() {
-		return INSTANCE.configWithSync();
-	}
-
-	public static class ProjectileLandingSoundsConfig {
-		@EntrySyncData("snowballLandingSounds")
-		public boolean snowballLandingSounds = true;
-
-		@EntrySyncData("eggLandingSounds")
-		public boolean eggLandingSounds = true;
-
-		@EntrySyncData("enderPearlLandingSounds")
-		public boolean enderPearlLandingSounds = true;
-
-		@EntrySyncData("potionLandingSounds")
-		public boolean potionLandingSounds = true;
-	}
+	// PROJECTILE LANDING SOUNDS
+	public static final ConfigEntry<Boolean> SNOWBALL_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/snowballLandingSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> EGG_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/eggLandingSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ENDER_PEARL_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/enderPearlLandingSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> POTION_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/potionLandingSounds", EntryType.BOOL, true);
 }

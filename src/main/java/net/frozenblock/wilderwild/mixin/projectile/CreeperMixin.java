@@ -36,7 +36,7 @@ public final class CreeperMixin {
 		)
 	)
 	public boolean wilderWild$spawnLingeringCloud(boolean original) {
-		if (!original || !WWItemConfig.get().projectileLandingSounds.potionLandingSounds) return original;
+		if (!original || !WWItemConfig.POTION_LANDING_SOUNDS.get()) return original;
 		final Creeper creeper = Creeper.class.cast(this);
 		final RandomSource random = creeper.getRandom();
 		creeper.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (random.nextFloat() * 0.2F));

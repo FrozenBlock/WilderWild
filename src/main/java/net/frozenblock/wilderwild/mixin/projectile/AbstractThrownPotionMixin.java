@@ -42,7 +42,7 @@ public class AbstractThrownPotionMixin {
 		HitResult hitResult, CallbackInfo info,
 		@Local(name = "potion") PotionContents potion
 	) {
-		if (!WWItemConfig.get().projectileLandingSounds.potionLandingSounds) return;
+		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
 		final AbstractThrownPotion thrownPotion = AbstractThrownPotion.class.cast(this);
 		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
 		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
