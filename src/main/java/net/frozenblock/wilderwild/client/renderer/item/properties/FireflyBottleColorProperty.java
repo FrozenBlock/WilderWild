@@ -34,14 +34,11 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class FireflyBottleColorProperty implements SelectItemModelProperty<String> {
 	public static final MapCodec<FireflyBottleColorProperty> MAP_CODEC = MapCodec.unit(new FireflyBottleColorProperty());
-	public static final SelectItemModelProperty.Type<FireflyBottleColorProperty, String> TYPE = SelectItemModelProperty.Type.create(
-		MAP_CODEC,
-		Codec.STRING
-	);
+	public static final SelectItemModelProperty.Type<FireflyBottleColorProperty, String> TYPE = SelectItemModelProperty.Type.create(MAP_CODEC, Codec.STRING);
 
 	@Nullable
 	@Override
-	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int i, ItemDisplayContext context) {
+	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
 		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
 		if (fireflyColor != null) return fireflyColor.value().name();
 		return null;

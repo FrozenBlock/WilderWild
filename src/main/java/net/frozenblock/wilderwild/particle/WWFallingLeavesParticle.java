@@ -22,7 +22,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.Particle;
@@ -31,7 +30,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -64,12 +62,11 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 
 		applyColor: {
 			if (leafParticleData == null) break applyColor;
-			final BlockColors blockColors = Minecraft.getInstance().getBlockColors();
 			final Block leavesBlock = leafParticleData.leavesBlock();
-			if (blockColors.blockColors.byId(BuiltInRegistries.BLOCK.getId(leavesBlock)) == null) break applyColor;
-
 			final BlockPos particlePos = BlockPos.containing(x, y, z);
-			color = Minecraft.getInstance().getBlockColors().getColor(leavesBlock.defaultBlockState(), level, particlePos);
+			final int newColor = Minecraft.getInstance().getBlockColors().getColor(leavesBlock.defaultBlockState(), level, particlePos, 0);
+			if (newColor == -1) break applyColor;
+			color =	newColor;
 		}
 
 		this.rCol = ARGB.red(color) / 255F;

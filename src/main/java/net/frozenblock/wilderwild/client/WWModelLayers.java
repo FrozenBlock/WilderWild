@@ -20,12 +20,14 @@ package net.frozenblock.wilderwild.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
+import net.frozenblock.lib.block.client.entity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.ambient.TumbleweedModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.BabyCrabModel;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel;
@@ -74,6 +76,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation FIREFLY = new ModelLayerLocation(WWConstants.id("firefly"), "main");
 
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
+	public static final ModelLayerLocation JELLYFISH_BABY = new ModelLayerLocation(WWConstants.id("jellyfish_baby"), "main");
 
 	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WWConstants.id("tumbleweed"), "main");
 
@@ -119,6 +122,7 @@ public final class WWModelLayers {
 
 		EntityRenderers.register(WWEntityTypes.JELLYFISH, JellyfishRenderer::new);
 		ModelLayerRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
+		ModelLayerRegistry.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.TUMBLEWEED, TumbleweedRenderer::new);
 		ModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
@@ -157,7 +161,7 @@ public final class WWModelLayers {
 		ModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorRenderer::getTexturedModelData);
 
 		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL, HangingTendrilRenderer::new);
-		ModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, HangingTendrilRenderer::getTexturedModelData);
+		ModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, BillboardBlockEntityRenderer::getTexturedModelData);
 
 		BlockEntityRenderers.register(WWBlockEntityTypes.DISPLAY_LANTERN, DisplayLanternRenderer::new);
 		ModelLayerRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternRenderer::getTexturedModelData);

@@ -53,12 +53,12 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<T, Pe
 	}
 
 	@Override
-	public void extractRenderState(T penguin, PenguinRenderState renderState, float partialTick) {
-		super.extractRenderState(penguin, renderState, partialTick);
+	public void extractRenderState(T penguin, PenguinRenderState renderState, float partialTicks) {
+		super.extractRenderState(penguin, renderState, partialTicks);
 		renderState.movementDelta = Math.min(renderState.walkAnimationSpeed * 5F, 1F);
-		renderState.swimAmount = penguin.getSwimAmount(partialTick);
-		renderState.wadeProgress = penguin.getWadeProgress(partialTick);
-		renderState.slideProgress = penguin.getSlideProgress(partialTick);
+		renderState.swimAmount = penguin.getSwimAmount(partialTicks);
+		renderState.wadeProgress = penguin.getWadeProgress(partialTicks);
+		renderState.slideProgress = penguin.getSlideProgress(partialTicks);
 		renderState.isLinux = penguin.isLinux();
 		renderState.layDownAnimationState = penguin.layDownAnimationState;
 		renderState.standUpAnimationState = penguin.standUpAnimationState;

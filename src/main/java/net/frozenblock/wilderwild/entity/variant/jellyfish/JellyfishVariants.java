@@ -60,6 +60,7 @@ public final class JellyfishVariants {
 			resourceKey,
 			new JellyfishVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby")),
 				pearlescent,
 				SpawnPrioritySelectors.single(new BiomeCheck(holderSet), 1),
 				bootstrapContext.lookup(Registries.ITEM).getOrThrow(items)

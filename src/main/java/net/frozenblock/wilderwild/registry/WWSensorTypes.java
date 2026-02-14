@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinLandPosSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinTrackedBoatSensor;
-import net.frozenblock.wilderwild.entity.ai.penguin.PenguinWaterPosSensor;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
@@ -46,9 +45,7 @@ public final class WWSensorTypes {
 		throw new UnsupportedOperationException("WWSensorTypes contains only static declarations.");
 	}
 
-	public static void register() {
-		WWConstants.logWithModId("Registering SensorTypes for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 	public static final SensorType<FireflySpecificSensor> FIREFLY_SPECIFIC_SENSOR = register("firefly_specific_sensor", FireflySpecificSensor::new);
 	public static final SensorType<FireflyLeaderSensor> FIREFLY_LEADER_SENSOR = register("firefly_leader_sensor", FireflyLeaderSensor::new);
@@ -63,7 +60,6 @@ public final class WWSensorTypes {
 	public static final SensorType<TemptingSensor> PENGUIN_TEMPTATIONS = register("penguin_temptations", () -> new TemptingSensor(PenguinAi.getTemptations()));
 	public static final SensorType<PenguinAttackablesSensor> PENGUIN_ATTACKABLES = register("penguin_attackables", PenguinAttackablesSensor::new);
 	public static final SensorType<PenguinLandPosSensor> LAND_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
-	public static final SensorType<PenguinWaterPosSensor> WATER_POS_SENSOR = register("water_pos_sensor", PenguinWaterPosSensor::new);
 	public static final SensorType<PenguinTrackedBoatSensor> TRACKED_BOAT_SENSOR = register("tracked_boat_sensor", PenguinTrackedBoatSensor::new);
 
 	private static <U extends Sensor<?>> SensorType<U> register(String path, Supplier<U> sensorSupplier) {

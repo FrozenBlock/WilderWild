@@ -118,8 +118,7 @@ public final class WWFeatures {
 	public static final PalmTreeFeature PALM_TREE_FEATURE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
 	public static final Feature<HugeMushroomFeatureConfiguration> HUGE_PALE_MUSHROOM_FEATURE = register("huge_pale_mushroom", new HugePaleMushroomFeature(HugeMushroomFeatureConfiguration.CODEC));
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, MapCodec<P> codec) {
 		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WWConstants.id(id), new TrunkPlacerType<>(codec));

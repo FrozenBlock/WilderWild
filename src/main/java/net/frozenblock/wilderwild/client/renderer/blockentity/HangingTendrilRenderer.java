@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.HangingTendrilRenderState;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.resources.Identifier;
@@ -34,12 +33,8 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T, HangingTendrilRenderState> {
 
-	public HangingTendrilRenderer(Context ctx) {
-		super(ctx);
-	}
-
-	public static LayerDefinition getTexturedModelData() {
-		return BillboardBlockEntityRenderer.getTexturedModelData();
+	public HangingTendrilRenderer(Context context) {
+		super(context);
 	}
 
 	@Override
@@ -63,9 +58,9 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 		HangingTendrilRenderState renderState,
 		float partialTicks,
 		Vec3 cameraPos,
-		@Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay
+		@Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress
 	) {
-		super.extractRenderState(hangingTendril, renderState, partialTicks, cameraPos, crumblingOverlay);
+		super.extractRenderState(hangingTendril, renderState, partialTicks, cameraPos, breakProgress);
 		renderState.texture = hangingTendril.getClientTexture();
 	}
 }

@@ -525,7 +525,7 @@ public final class WWSounds {
 	}
 
 	public static SoundEvent register(String path) {
-		var id = WWConstants.id(path);
+		final Identifier id = WWConstants.id(path);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
 	}
 
@@ -533,8 +533,6 @@ public final class WWSounds {
 		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id2));
 	}
 
-	public static void init() {
-		WWConstants.logWithModId("Registering SoundEvents for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 }

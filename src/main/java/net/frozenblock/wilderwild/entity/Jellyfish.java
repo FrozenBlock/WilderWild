@@ -65,6 +65,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -72,6 +73,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -120,6 +122,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(0.1875F, 0.1875F).withEyeHeight(0.09375F);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
 	public float xRot1;
@@ -173,6 +176,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 			.add(Attributes.MAX_HEALTH, 8D)
 			.add(Attributes.MOVEMENT_SPEED, 0.5F)
 			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(final Pose pose) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(pose);
 	}
 
 	public static void spawnFromChest(Level level, BlockState state, BlockPos pos, boolean checkConfig) {

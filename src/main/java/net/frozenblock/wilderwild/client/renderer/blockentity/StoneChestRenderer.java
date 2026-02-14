@@ -40,8 +40,8 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.SpriteGetter;
+import net.minecraft.client.resources.model.SpriteId;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.DoubleBlockCombiner;
@@ -54,38 +54,26 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T, StoneChestRenderState> {
-	public static final Material STONE = getStoneChestTextureId("stone");
-	public static final Material STONE_LEFT = getStoneChestTextureId("stone_left");
-	public static final Material STONE_RIGHT = getStoneChestTextureId("stone_right");
-	public static final Material STONE_SCULK = getStoneChestTextureId("ancient");
-	public static final Material STONE_LEFT_SCULK = getStoneChestTextureId("ancient_left");
-	public static final Material STONE_RIGHT_SCULK = getStoneChestTextureId("ancient_right");
-	private final MaterialSet materials;
+	public static final SpriteId STONE = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone"));
+	public static final SpriteId STONE_LEFT = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone_left"));
+	public static final SpriteId STONE_RIGHT = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone_right"));
+	public static final SpriteId STONE_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient"));
+	public static final SpriteId STONE_LEFT_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient_left"));
+	public static final SpriteId STONE_RIGHT_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient_right"));
+	private final SpriteGetter sprites;
 	private final StoneChestModel singleModel;
 	private final StoneChestModel doubleLeftModel;
 	private final StoneChestModel doubleRightModel;
 
 	public StoneChestRenderer(BlockEntityRendererProvider.Context context) {
-		this.materials = context.materials();
+		this.sprites = context.sprites();
 		this.singleModel = new StoneChestModel(context.bakeLayer(WWModelLayers.STONE_CHEST));
 		this.doubleLeftModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT));
 		this.doubleRightModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT));
 	}
 
-	public static Material getStoneChestTexture(boolean sculk, ChestType type) {
-		return !sculk ? getStoneChestTexture(type, STONE, STONE_LEFT, STONE_RIGHT) : getStoneChestTexture(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
-	}
-
-	private static Material getStoneChestTexture(ChestType type, Material single, Material left, Material right) {
-		return switch (type) {
-			case LEFT -> left;
-			case RIGHT -> right;
-			case SINGLE -> single;
-		};
-	}
-
-	public static Material getStoneChestTextureId(String variant) {
-		return new Material(Sheets.CHEST_SHEET, WWConstants.id("entity/stone_chest/" + variant));
+	public static SpriteId getStoneChestTexture(boolean sculk, ChestType type) {
+		return !sculk ? Sheets.chooseSprite(type, STONE, STONE_LEFT, STONE_RIGHT) : Sheets.chooseSprite(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
 	}
 
 	@Override
@@ -93,7 +81,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		StoneChestRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
@@ -104,9 +92,9 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		openProgress = 1F - openProgress;
 		openProgress = 1F - openProgress * openProgress * openProgress;
 
-		final Material material = getStoneChestTexture(renderState.hasSculk, renderState.type);
-		final RenderType renderType = material.renderType(RenderTypes::entityCutout);
-		final TextureAtlasSprite sprite = this.materials.get(material);
+		final SpriteId spriteId = getStoneChestTexture(renderState.hasSculk, renderState.type);
+		final RenderType renderType = spriteId.renderType(RenderTypes::entityCutoutCull);
+		final TextureAtlasSprite sprite = this.sprites.get(spriteId);
 
 		if (renderState.type != ChestType.SINGLE) {
 			collector.submitModel(

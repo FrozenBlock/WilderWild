@@ -31,18 +31,18 @@ import net.minecraft.resources.Identifier;
 public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderState, WardenModel> {
 
 	public StellaWardenLayer(
-		RenderLayerParent<WardenRenderState, WardenModel> context,
-		Function<WardenRenderState, Identifier> texture,
+		RenderLayerParent<WardenRenderState, WardenModel> renderer,
+		Function<WardenRenderState, Identifier> textureProvider,
 		AlphaFunction<WardenRenderState> alphaFunction,
 		WardenModel model,
 		Function<Identifier, RenderType> bufferProvider
 	) {
-		super(context, texture, alphaFunction, model, bufferProvider, false);
+		super(renderer, textureProvider, alphaFunction, model, bufferProvider, false);
 	}
 
 	@Override
-	public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, WardenRenderState renderState, float f, float g) {
+	public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, WardenRenderState renderState, float yRot, float xRot) {
 		if (renderState instanceof WilderWarden wilderWarden && !wilderWarden.wilderWild$isStella()) return;
-		super.submit(poseStack, submitNodeCollector, i, renderState, f, g);
+		super.submit(poseStack, collector, lightCoords, renderState, yRot, xRot);
 	}
 }

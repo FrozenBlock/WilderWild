@@ -55,21 +55,6 @@ public class DisplayLanternRenderState extends BlockEntityRenderState {
 		this.occupants = occupants;
 	}
 
-	public static class Occupant {
-		public final float age;
-		public final float calcColor;
-		public final FireflyColor color;
-		public final float x;
-		public final float y;
-		public final float z;
-
-		public Occupant(float age, float calcColor, FireflyColor color, float x, float y, float z) {
-			this.age = age;
-			this.calcColor = calcColor;
-			this.color = color;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
+	public record Occupant(float age, float calcColor, FireflyColor color, float x, float y, float z) {
 	}
 }

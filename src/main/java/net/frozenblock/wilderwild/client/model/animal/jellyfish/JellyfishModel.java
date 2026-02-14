@@ -35,7 +35,7 @@ import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class JellyfishModel extends EntityModel<JellyfishRenderState> {
-	private static final int JELLYFISH_TENTACLES = WWEntityConfig.JELLYFISH_TENTACLES.get();
+	protected static final int JELLYFISH_TENTACLES = WWEntityConfig.JELLYFISH_TENTACLES.get();
 	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;
 	private final ModelPart bone;
 	private final ModelPart body;
@@ -74,18 +74,21 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		makePlaneTentacles(tentacleBase, JELLYFISH_TENTACLES);
 
 		final CubeListBuilder arm = CubeListBuilder.create().texOffs(0, 25).addBox(0F, -3F, 0F, 16F, 6F, 0F, new CubeDeformation(0.001F));
-		PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, Mth.HALF_PI * 0.5F, 0F));
+		final PartDefinition armBase = bone.addOrReplaceChild("armBase", CubeListBuilder.create(), PartPose.rotation(0F, Mth.HALF_PI * 0.5F, 0F));
 		armBase.addOrReplaceChild("arms1", arm, PartPose.rotation(0F, 0F, Mth.HALF_PI));
 		armBase.addOrReplaceChild("arms2", arm, PartPose.rotation(Mth.HALF_PI, 0F, Mth.HALF_PI));
 
 		return LayerDefinition.create(mesh, 32, 32);
 	}
 
-	private static void makeTentacles(PartDefinition partDefinition, int amount) {
+	private static void makeTentacles(PartDefinition part, int amount) {
 		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
 		for (int i = 0; i < amount; ++i) {
 			final float rot = i * Mth.PI * 2F /  amount;
-			partDefinition.addOrReplaceChild(createTentacleName(i, false), tentacle, PartPose.offsetAndRotation(
+			part.addOrReplaceChild(
+				createTentacleName(i, false),
+				tentacle,
+				PartPose.offsetAndRotation(
 					Mth.cos(rot) * 2.5F,
 					0F,
                     Mth.sin(rot) * 2.5F,
@@ -97,12 +100,15 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		}
 	}
 
-	private static void makePlaneTentacles(PartDefinition partDefinition, int amount) {
+	private static void makePlaneTentacles(PartDefinition part, int amount) {
 		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 14).addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
 		final CubeListBuilder altTentacle = CubeListBuilder.create().texOffs(2, 14).addBox(-0.5F, 0F, 1F, 1F, 10F, 0F, new CubeDeformation(0.001F));
 		for (int i = 0; i < amount; ++i) {
 			float rot = i * Mth.PI * 2F /  amount;
-			partDefinition.addOrReplaceChild(createTentacleName(i, true), i % 2 == 0 ? altTentacle : tentacle, PartPose.offsetAndRotation(
+			part.addOrReplaceChild(
+				createTentacleName(i, true),
+				i % 2 == 0 ? altTentacle : tentacle,
+				PartPose.offsetAndRotation(
 					Mth.cos(rot) * 2.75F,
 					0F,
 					Mth.sin(rot) * 2.75F,
@@ -114,7 +120,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		}
 	}
 
-	private static String createTentacleName(int number, boolean plane) {
+	protected static String createTentacleName(int number, boolean plane) {
 		final String tentacle = !plane ? "tentacle" : "tentacle_plane";
 		return tentacle + number;
 	}
@@ -126,7 +132,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.tentacleBase.xRot = renderState.tentXRot - renderState.jellyXRot;
 		this.armBase.xRot = renderState.armXRot - renderState.jellyXRot;
 
-		final float walkPos = renderState.walkAnimationPos;
+		final float walkPos = renderState.walkAnimationPos * (renderState.isBaby ? 0.75F : 1F);
 		final float walkSpeed = renderState.walkAnimationSpeed;
 
 		final float animation = walkPos * 2F;
@@ -143,7 +149,11 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.body.yScale = Mth.lerp(movementDelta, -sinIdle + 1F, 1.25F + (sin * 0.75F));
 
 		this.body.y = Mth.lerp(movementDelta, 0F, 3.5F - (squashStretch * 3.5F));
-		this.armBase.y = this.tentacleBase.y = Mth.lerp(movementDelta, (-sinIdle * 2F) + 1.8F, (6F - (squashStretch * 5F)) * 1.5F) * 1.5F;
+		final float tentacleOffsetScale = renderState.isBaby ? 0.375F : 1F;
+		final float tentacleOffsetIdle = renderState.isBaby ? 0.1F : 1.8F;
+		final float idleTentacleOffset = (-sinIdle * 2F * tentacleOffsetScale) + tentacleOffsetIdle;
+		final float movingTentacleOffset = (6F - (squashStretch * 5F)) * 1.5F * tentacleOffsetScale;
+		this.armBase.y = this.tentacleBase.y = Mth.lerp(movementDelta, idleTentacleOffset, movingTentacleOffset) * 1.5F;
 
 		//ARM SQUASH & STRETCH
 		final float armSinIdle = (float) (Math.sin((renderState.ageInTicks * 0.1F) - 1F) * 0.2F);
@@ -153,13 +163,13 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		this.armBase.zScale = armSquash;
 		this.armBase.yScale = (-armSinIdle * 0.75F) + 0.75F;
 
-		final float tentRot = -Mth.rotLerp(
+		final float tentacleRot = -Mth.rotLerp(
 			movementDelta,
 			(float) (-Math.sin((renderState.ageInTicks - 10) * 0.1F) * 0.2F) + EIGHT_PI,
 			(float) (-Math.sin(animation + 5F) * 20F - 7.5F) * Mth.DEG_TO_RAD
 		);
 
-		final boolean planeTentacles = WWEntityConfig.JELLYFISH_PLANE_TENTACLES.get();
+		final boolean planeTentacles = WWEntityConfig.JELLYFISH_PLANE_TENTACLES.get() || renderState.isBaby;
 		final ModelPart[] visibleTentacles = !planeTentacles ? this.tentacles : this.planeTentacles;
 		final ModelPart[] invisibleTentacles = !planeTentacles ? this.planeTentacles : this.tentacles;
 
@@ -167,7 +177,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			modelPart.visible = true;
 			modelPart.x *= squash;
 			modelPart.z *= squash;
-			modelPart.xRot = tentRot;
+			modelPart.xRot = tentacleRot;
 		}
 
 		for (ModelPart modelPart : invisibleTentacles) {

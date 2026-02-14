@@ -40,7 +40,7 @@ public final class WilderWildRegistries {
 		throw new UnsupportedOperationException("WilderWildRegistries contains only static declarations.");
 	}
 
-	public static void initRegistry() {
+	public static void init() {
 		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
 		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
 		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);

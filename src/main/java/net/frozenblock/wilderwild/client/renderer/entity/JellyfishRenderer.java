@@ -20,39 +20,46 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)
-public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
+public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
 	private static final Identifier WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
+	private static final Identifier WHITE_TEXTURE_BABY = WWConstants.id("textures/entity/jellyfish/jellyfish_white_baby.png");
 
 	public JellyfishRenderer(Context context) {
-		super(context, new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)), 0.3F);
+		super(
+			context,
+			new JellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH)),
+			new BabyJellyfishModel(context.bakeLayer(WWModelLayers.JELLYFISH_BABY)),
+			0.3F
+		);
 	}
 
 	@Override
-	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float rotationYaw, float g) {
-		super.setupRotations(renderState, poseStack, rotationYaw, g);
+	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
+		super.setupRotations(renderState, poseStack, bodyRot, entityScale);
 		poseStack.translate(0F, -1F * renderState.ageScale, 0F);
 	}
 
 	@Override
 	protected int getModelTint(JellyfishRenderState renderState) {
 		if (renderState.isRGB) return ARGB.color(
-			(int) (Mth.clamp(Math.abs((renderState.windTime % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.windTime - 2) % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.windTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+			(int) (Mth.clamp(Math.abs((renderState.levelTime % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.levelTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Mth.clamp(Math.abs(((renderState.levelTime - 4) % 6) - 3) - 1, 0, 1) * 255)
 		);
 		return super.getModelTint(renderState);
 	}
@@ -60,7 +67,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	@Override
 	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
 		super.scale(renderState, poseStack);
-		poseStack.scale(0.8F, 0.8F, 0.8F);
+		final float scaleAmount = !renderState.isBaby ? 0.8F : 0.6F;
+		poseStack.scale(scaleAmount, scaleAmount, scaleAmount);
 		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
 	}
 
@@ -71,8 +79,8 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 
 	@Override
 	public Identifier getTextureLocation(JellyfishRenderState renderState) {
-		if (renderState.isRGB) return WHITE_TEXTURE;
-		return renderState.variant.resourceTexture().texturePath();
+		if (renderState.isRGB) return renderState.isBaby ? WHITE_TEXTURE_BABY : WHITE_TEXTURE;
+		return (renderState.isBaby ? renderState.variant.babyTexture() : renderState.variant.texture()).texturePath();
 	}
 
 	@Override
@@ -81,17 +89,18 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishRenderSta
 	}
 
 	@Override
-	public void extractRenderState(Jellyfish jellyfish, JellyfishRenderState renderState, float partialTick) {
-		super.extractRenderState(jellyfish, renderState, partialTick);
-
+	public void extractRenderState(Jellyfish jellyfish, JellyfishRenderState renderState, float partialTicks) {
+		super.extractRenderState(jellyfish, renderState, partialTicks);
 		renderState.tickCount = jellyfish.tickCount;
 		renderState.isRGB = jellyfish.isRGB();
 		renderState.variant = jellyfish.getVariantForRendering();
-		renderState.windTime = (ClientWindManager.time + partialTick) * 0.05F;
 
-		renderState.jellyXRot = -(jellyfish.xRot1 + partialTick * (jellyfish.xBodyRot - jellyfish.xRot1)) * Mth.DEG_TO_RAD;
-		renderState.tentXRot = -(jellyfish.xRot6 + partialTick * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
-		renderState.armXRot = -(jellyfish.xRot9 + partialTick * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
-		renderState.jellyScale = (jellyfish.prevScale + partialTick * (jellyfish.scale - jellyfish.prevScale)) * jellyfish.getAgeScale();
+		final Level level = jellyfish.level();
+		if (level != null) renderState.levelTime = (level.getGameTime() + partialTicks) * 0.05F;
+
+		renderState.jellyXRot = -(jellyfish.xRot1 + partialTicks * (jellyfish.xBodyRot - jellyfish.xRot1)) * Mth.DEG_TO_RAD;
+		renderState.tentXRot = -(jellyfish.xRot6 + partialTicks * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
+		renderState.armXRot = -(jellyfish.xRot9 + partialTicks * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
+		renderState.jellyScale = jellyfish.prevScale + partialTicks * (jellyfish.scale - jellyfish.prevScale);
 	}
 }

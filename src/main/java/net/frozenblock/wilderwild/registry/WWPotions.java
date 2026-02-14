@@ -40,8 +40,6 @@ public final class WWPotions {
 	}
 
 	public static void init() {
-		WWConstants.logWithModId("Registering Potions for", WWConstants.UNSTABLE_LOGGING);
-
 		FabricPotionBrewingBuilder.BUILD.register(builder -> {
 			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH);
 			builder.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);

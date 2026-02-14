@@ -57,9 +57,9 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 		AbstractOstrichRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
-		super.submit(renderState, poseStack, collector, cameraState);
+		super.submit(renderState, poseStack, collector, camera);
 	}
 
 	@Override
@@ -73,8 +73,8 @@ public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich
 	}
 
 	@Override
-	public void extractRenderState(ZombieOstrich ostrich, AbstractOstrichRenderState renderState, float partialTick) {
-		super.extractRenderState(ostrich, renderState, partialTick);
+	public void extractRenderState(ZombieOstrich ostrich, AbstractOstrichRenderState renderState, float partialTicks) {
+		super.extractRenderState(ostrich, renderState, partialTicks);
 	}
 }
 

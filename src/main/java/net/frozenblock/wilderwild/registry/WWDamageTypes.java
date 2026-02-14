@@ -31,8 +31,7 @@ public final class WWDamageTypes {
 	public static final ResourceKey<DamageType> OSTRICH = bind("ostrich");
 	public static final ResourceKey<DamageType> FALLING_ICICLE = bind("falling_icicle");
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static void bootstrap(BootstrapContext<DamageType> context) {
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));

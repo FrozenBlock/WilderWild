@@ -17,28 +17,27 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.mojang.serialization.Codec;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.Holder.Reference;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.network.codec.ByteBufCodecs;
 
-public final class WWGameEvents {
-	public static final Reference<GameEvent> BIG_FALL = register("big_fall");
-
-	private WWGameEvents() {
-		throw new UnsupportedOperationException("WWGameEvents contains only static declarations.");
-	}
+public final class WWAttachmentTypes {
+	public static final AttachmentType<Integer> BOAT_BOOST_TICKS = AttachmentRegistry.create(
+		WWConstants.id("boat_boosted"),
+		builder -> {
+			builder.initializer(() -> 0);
+			builder.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all());
+			builder.persistent(Codec.INT);
+		}
+	);
 
 	public static void init() {}
 
-	private static Reference<GameEvent> register(String path) {
-		return register(path, 16);
+	private WWAttachmentTypes() {
+		throw new UnsupportedOperationException("WWAttachmentTypes contains only static declarations.");
 	}
 
-	private static Reference<GameEvent> register(String path, int notificationRadius) {
-		Identifier key = WWConstants.id(path);
-		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
-	}
 }

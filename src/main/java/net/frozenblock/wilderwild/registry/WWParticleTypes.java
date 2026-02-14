@@ -393,9 +393,7 @@ public final class WWParticleTypes {
 		throw new UnsupportedOperationException("WWParticleTypes contains only static declarations.");
 	}
 
-	public static void registerParticles() {
-		WWConstants.logWithModId("Registering Particles for", WWConstants.UNSTABLE_LOGGING);
-	}
+	public static void init() {}
 
 	private static ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier id) {
 		return register(

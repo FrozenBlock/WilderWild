@@ -34,7 +34,6 @@ public final class WWCriteria {
 		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 }

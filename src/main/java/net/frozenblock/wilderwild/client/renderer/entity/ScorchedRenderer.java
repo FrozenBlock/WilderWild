@@ -63,9 +63,9 @@ public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState,
 	}
 
 	@Override
-	public void extractRenderState(Scorched scorched, ScorchedRenderState renderState, float partialTick) {
-		super.extractRenderState(scorched, renderState, partialTick);
-		renderState.lavaAnimProgress = scorched.getLavaAnimProgress(partialTick);
+	public void extractRenderState(Scorched scorched, ScorchedRenderState renderState, float partialTicks) {
+		super.extractRenderState(scorched, renderState, partialTicks);
+		renderState.lavaAnimProgress = scorched.getLavaAnimProgress(partialTicks);
 	}
 }
 

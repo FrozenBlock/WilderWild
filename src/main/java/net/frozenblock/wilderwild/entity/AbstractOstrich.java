@@ -739,8 +739,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		return Math.min(this.entityData.get(TARGET_BEAK_ANIM_PROGRESS), 1F);
 	}
 
-	public float getBeakAnimProgress(float delta) {
-		return Math.min(Mth.lerp(delta, this.prevBeakAnimProgress, this.beakAnimProgress), 1F);
+	public float getBeakAnimProgress(float partialTicks) {
+		return Math.min(Mth.lerp(partialTicks, this.prevBeakAnimProgress, this.beakAnimProgress), 1F);
 	}
 
 	private float getTargetStraightProgress() {
@@ -751,8 +751,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		this.entityData.set(TARGET_STRAIGHT_PROGRESS, progress);
 	}
 
-	public float getTargetStraightProgress(float delta) {
-		return Mth.lerp(delta, this.prevStraightProgress, this.straightProgress);
+	public float getTargetStraightProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevStraightProgress, this.straightProgress);
 	}
 
 	private boolean isAttacking() {

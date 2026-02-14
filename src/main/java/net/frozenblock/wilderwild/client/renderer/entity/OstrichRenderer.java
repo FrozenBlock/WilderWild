@@ -71,7 +71,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 		OstrichRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
 		if (renderState.isInbred) {
 			this.adultModel = this.inbredModel;
@@ -80,7 +80,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 			this.adultModel = this.normalModel;
 			this.babyModel = this.normalBabyModel;
 		}
-		super.submit(renderState, poseStack, collector, cameraState);
+		super.submit(renderState, poseStack, collector, camera);
 	}
 
 	@Override
@@ -95,8 +95,8 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 	}
 
 	@Override
-	public void extractRenderState(Ostrich ostrich, OstrichRenderState renderState, float partialTick) {
-		super.extractRenderState(ostrich, renderState, partialTick);
+	public void extractRenderState(Ostrich ostrich, OstrichRenderState renderState, float partialTicks) {
+		super.extractRenderState(ostrich, renderState, partialTicks);
 		renderState.isInbred = ostrich.isInbred();
 	}
 }

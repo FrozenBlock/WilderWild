@@ -18,19 +18,17 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
 import java.util.List;
-import java.util.Map;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
+import net.minecraft.client.renderer.block.BakedQuadOutput;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.chunk.RenderSectionRegion;
 import net.minecraft.client.renderer.chunk.SectionCompiler;
 import net.minecraft.core.BlockPos;
@@ -47,9 +45,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin(SectionCompiler.class)
 public abstract class SectionCompilerMixin {
-
-	@Shadow
-	protected abstract BufferBuilder getOrBeginLayer(Map<ChunkSectionLayer, BufferBuilder> map, SectionBufferBuilderPack sectionBufferBuilderPack, ChunkSectionLayer chunkSectionLayer);
 
 	@Shadow
 	@Final
@@ -69,28 +64,28 @@ public abstract class SectionCompilerMixin {
 		VertexSorting vertexSorting,
 		SectionBufferBuilderPack sectionBufferBuilderPack,
 		CallbackInfoReturnable<SectionCompiler.Results> info,
-		@Local PoseStack poseStack,
-		@Local Map<ChunkSectionLayer, BufferBuilder> map,
-		@Local RandomSource randomSource,
-		@Local List<BlockModelPart> list,
-		@Local(ordinal = 2) BlockPos blockPos3,
-		@Local BlockState blockState
+		@Local(name = "poseStack") PoseStack poseStack,
+		@Local(name = "quadOutput") BakedQuadOutput quadOutput,
+		@Local(name = "opaqueQuadOutput") BakedQuadOutput opaqueQuadOutput,
+		@Local(name = "random") RandomSource random,
+		@Local(name = "parts") List<BlockModelPart> parts,
+		@Local(name = "pos") BlockPos pos,
+		@Local(name = "blockState") BlockState blockState
 	) {
 		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
 		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-		final ChunkSectionLayer chunkSectionLayer = ItemBlockRenderTypes.getChunkRenderType(snowState);
-		final BufferBuilder bufferBuilder = this.getOrBeginLayer(map, sectionBufferBuilderPack, chunkSectionLayer);
-		randomSource.setSeed(snowState.getSeed(blockPos3));
-		this.blockRenderer.getBlockModel(snowState).collectParts(randomSource, list);
+		final boolean forceOpaque = ItemBlockRenderTypes.forceOpaque(snowState);
+		random.setSeed(snowState.getSeed(pos));
+		this.blockRenderer.getBlockModel(snowState).collectParts(random, parts);
 		poseStack.pushPose();
 		poseStack.translate(
-			(float) SectionPos.sectionRelative(blockPos3.getX()),
-			(float) SectionPos.sectionRelative(blockPos3.getY()),
-			(float) SectionPos.sectionRelative(blockPos3.getZ())
+			(float) SectionPos.sectionRelative(pos.getX()),
+			(float) SectionPos.sectionRelative(pos.getY()),
+			(float) SectionPos.sectionRelative(pos.getZ())
 		);
-		this.blockRenderer.renderBatched(snowState, blockPos3, renderSectionRegion, poseStack, bufferBuilder, true, list);
+		this.blockRenderer.renderBatched(snowState, pos, renderSectionRegion, poseStack, forceOpaque ? opaqueQuadOutput : quadOutput, true, parts);
 		poseStack.popPose();
-		list.clear();
+		parts.clear();
 	}
 
 }

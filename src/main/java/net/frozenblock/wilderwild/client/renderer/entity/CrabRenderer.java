@@ -56,10 +56,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	protected void setupRotations(CrabRenderState renderState, PoseStack poseStack, float f, float g) {
+	protected void setupRotations(CrabRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
 		poseStack.translate(0F, 0.17F * renderState.ageScale, 0F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(-90F));
-		super.setupRotations(renderState, poseStack, f, g);
+		super.setupRotations(renderState, poseStack, bodyRot, entityScale);
 	}
 
 	@Override
@@ -73,10 +73,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		CrabRenderState renderState,
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		CameraRenderState cameraState
+		CameraRenderState camera
 	) {
 		this.model = renderState.isBaby && !renderState.isDitto ? this.babyModel : (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
-		super.submit(renderState, poseStack, collector, cameraState);
+		super.submit(renderState, poseStack, collector, camera);
 	}
 
 	@Override
@@ -96,10 +96,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public void extractRenderState(Crab crab, CrabRenderState renderState, float partialTick) {
-		super.extractRenderState(crab, renderState, partialTick);
-		renderState.climbXRot = Mth.lerp(partialTick, crab.prevClimbAnimX, crab.climbAnimX) * 85F;
-		renderState.attackTime = crab.getAttackAnim(partialTick);
+	public void extractRenderState(Crab crab, CrabRenderState renderState, float partialTicks) {
+		super.extractRenderState(crab, renderState, partialTicks);
+		renderState.climbXRot = Mth.lerp(partialTicks, crab.prevClimbAnimX, crab.climbAnimX) * 85F;
+		renderState.attackTime = crab.getAttackAnim(partialTicks);
 		renderState.isDitto = crab.isDitto();
 		renderState.hidingAnimationState.copyFrom(crab.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);

@@ -48,6 +48,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.Material;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.SelectItemModel;
@@ -327,14 +328,15 @@ public final class WWModelHelper {
 
 		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
 			if (fireflyColor.equals(WWConstants.string("on"))) return;
-			String color = Identifier.parse(fireflyColor).getPath();
-			Identifier modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
+			final String color = Identifier.parse(fireflyColor).getPath();
+			final Identifier modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
+			final Material texture = new Material(WWConstants.id("item/" + color + "_firefly_bottle"));
 
 			switchCases.add(
 				ItemModelUtils.when(
 					color,
 					ItemModelUtils.plainModel(
-						ModelTemplates.FLAT_ITEM.create(modelLocation, TextureMapping.layer0(modelLocation), generator.modelOutput)
+						ModelTemplates.FLAT_ITEM.create(modelLocation, TextureMapping.layer0(texture), generator.modelOutput)
 					)
 				)
 			);

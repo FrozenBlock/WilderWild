@@ -37,11 +37,16 @@ import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 
 public record JellyfishVariant(
-	ClientAsset.ResourceTexture resourceTexture, boolean pearlescent, SpawnPrioritySelectors spawnConditions, HolderSet<Item> reproductionFood
+	ClientAsset.ResourceTexture texture,
+	ClientAsset.ResourceTexture babyTexture,
+	boolean pearlescent,
+	SpawnPrioritySelectors spawnConditions,
+	HolderSet<Item> reproductionFood
 ) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<JellyfishVariant> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::resourceTexture),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::texture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(JellyfishVariant::babyTexture),
 			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::pearlescent),
 			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(JellyfishVariant::spawnConditions),
 			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
@@ -49,7 +54,8 @@ public record JellyfishVariant(
 	);
 	public static final Codec<JellyfishVariant> NETWORK_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::resourceTexture),
+			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::texture),
+			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(JellyfishVariant::babyTexture),
 			Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::pearlescent),
 			RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
 		).apply(instance, JellyfishVariant::new)
@@ -57,13 +63,8 @@ public record JellyfishVariant(
 	public static final Codec<Holder<JellyfishVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.JELLYFISH_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<JellyfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.JELLYFISH_VARIANT);
 
-	private JellyfishVariant(ClientAsset.ResourceTexture resourceTexture, boolean pearlescent, HolderSet<Item> reproductionFood) {
-		this(resourceTexture, pearlescent, SpawnPrioritySelectors.EMPTY, reproductionFood);
-	}
-
-	@Override
-	public ClientAsset.ResourceTexture resourceTexture() {
-		return this.resourceTexture;
+	private JellyfishVariant(ClientAsset.ResourceTexture texture, ClientAsset.ResourceTexture babyTexture, boolean pearlescent, HolderSet<Item> reproductionFood) {
+		this(texture, babyTexture, pearlescent, SpawnPrioritySelectors.EMPTY, reproductionFood);
 	}
 
 	@Override
