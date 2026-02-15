@@ -22,11 +22,11 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
-import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import static net.frozenblock.wilderwild.config.WWConfigHelper.booleanEntry;
-import static net.frozenblock.wilderwild.config.WWConfigHelper.intSliderEntry;
+import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.*;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 public final class WWEntityConfigGui {
@@ -43,18 +43,18 @@ public final class WWEntityConfigGui {
 		var lightningBlockParticles = booleanEntry(builder, "lightning_block_particles", WWEntityConfig.LIGHTNING_BLOCK_PARTICLES);
 		var lightningSmokeParticles = booleanEntry(builder, "lightning_smoke_particles", WWEntityConfig.LIGHTNING_SMOKE_PARTICLES);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("lightning"),
+		FrozenClothConfig.createSubCategory(builder, category, EntityType.LIGHTNING_BOLT.getDescription(),
 			false,
-			tooltip("lightning"),
+			tooltip("entity_category", EntityType.LIGHTNING_BOLT.getDescription()),
 			lightningScorchesSand, lightningBlockParticles, lightningSmokeParticles
 		);
 
 		// ALLAY
 		var keyframeAllayDance = booleanEntry(builder, "keyframe_allay_dance", WWEntityConfig.ALLAY_KEYFRAME_DANCE);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("allay"),
+		FrozenClothConfig.createSubCategory(builder, category, EntityType.ALLAY.getDescription(),
 			false,
-			tooltip("allay"),
+			tooltip("entity_category", EntityType.ALLAY.getDescription()),
 			keyframeAllayDance
 		);
 
@@ -62,111 +62,111 @@ public final class WWEntityConfigGui {
 		var angerLoopSound = booleanEntry(builder, "anger_loop_sound", WWEntityConfig.ENDERMAN_ANGER_LOOP_SOUND);
 		var movingStareSound = booleanEntry(builder, "moving_stare_sound", WWEntityConfig.ENDERMAN_MOVING_STARE_SOUND);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("enderman"),
+		FrozenClothConfig.createSubCategory(builder, category, EntityType.ENDERMAN.getDescription(),
 			false,
-			tooltip("enderman"),
+			tooltip("entity_category", EntityType.ENDERMAN.getDescription()),
 			angerLoopSound, movingStareSound
 		);
 
 		// FIREFLY
 		var spawnFireflyParticles = booleanEntry(builder, "spawn_firefly_particles", WWEntityConfig.SPAWN_FIREFLY_PARTICLES);
-		var spawnFireflies = booleanEntry(builder, "spawn_fireflies", WWEntityConfig.SPAWN_FIREFLIES);
+		var spawnFireflies = entitySpawnEntry(builder, WWEntityTypes.FIREFLY, WWEntityConfig.SPAWN_FIREFLIES);
 		var firefliesNeedBush = booleanEntry(builder, "fireflies_need_bush", WWEntityConfig.FIREFLIES_NEED_BUSH);
-		var fireflySpawnCap = intSliderEntry(builder, "firefly_spawn_cap", WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100);
+		var fireflySpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.FIREFLY, WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100);
 		var fireflySwarm = booleanEntry(builder, "firefly_swarm", WWEntityConfig.FIREFLY_SWARM);
 		var fireflySwarmsBush = booleanEntry(builder, "firefly_swarms_bush", WWEntityConfig.FIREFLY_SWARMS_BUSH);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("firefly"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.FIREFLY.getDescription(),
 			false,
-			tooltip("firefly"),
+			tooltip("entity_category", WWEntityTypes.FIREFLY.getDescription()),
 			spawnFireflyParticles, spawnFireflies, firefliesNeedBush, fireflySpawnCap, fireflySwarm, fireflySwarmsBush
 		);
 
 		// BUTTERFLY
-		var spawnButterflies = booleanEntry(builder, "spawn_butterflies", WWEntityConfig.SPAWN_BUTTERFLIES);
-		var butterflySpawnCap = intSliderEntry(builder, "butterfly_spawn_cap", WWEntityConfig.BUTTERFLY_SPAWN_CAP, 1, 100);
+		var spawnButterflies = entitySpawnEntry(builder, WWEntityTypes.BUTTERFLY, WWEntityConfig.SPAWN_BUTTERFLIES);
+		var butterflySpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.BUTTERFLY, WWEntityConfig.BUTTERFLY_SPAWN_CAP, 1, 100);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("butterfly"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.BUTTERFLY.getDescription(),
 			false,
-			tooltip("butterfly"),
+			tooltip("entity_category", WWEntityTypes.BUTTERFLY.getDescription()),
 			spawnButterflies, butterflySpawnCap
 		);
 
 		// JELLYFISH
-		var spawnJellyfish = booleanEntry(builder, "spawn_jellyfish", WWEntityConfig.SPAWN_JELLYFISH);
-		var jellyfishSpawnCap = intSliderEntry(builder, "jellyfish_spawn_cap", WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100);
+		var spawnJellyfish = entitySpawnEntry(builder, WWEntityTypes.JELLYFISH, WWEntityConfig.SPAWN_JELLYFISH);
+		var jellyfishSpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.JELLYFISH, WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100);
 		var jellyfishHiding = booleanEntry(builder, "jellyfish_hiding", WWEntityConfig.JELLYFISH_HIDING);
 		var jellyfishTentacles = intSliderEntry(builder, "jellyfish_tentacles", WWEntityConfig.JELLYFISH_TENTACLES, 0, 100);
 		var planeTentacles = booleanEntry(builder, "plane_tentacles", WWEntityConfig.JELLYFISH_PLANE_TENTACLES);
 		var oralArm = booleanEntry(builder, "oral_arm", WWEntityConfig.JELLYFISH_ORAL_ARM);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("jellyfish"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.JELLYFISH.getDescription(),
 			false,
-			tooltip("jellyfish"),
+			tooltip("entity_category", WWEntityTypes.JELLYFISH.getDescription()),
 			spawnJellyfish, jellyfishSpawnCap, jellyfishHiding, jellyfishTentacles, planeTentacles, oralArm
 		);
 
 		// CRAB
-		var spawnCrabs = booleanEntry(builder, "spawn_crabs", WWEntityConfig.SPAWN_CRABS);
-		var crabSpawnCap = intSliderEntry(builder, "crab_spawn_cap", WWEntityConfig.CRAB_SPAWN_CAP, 1, 100);
+		var spawnCrabs = entitySpawnEntry(builder, WWEntityTypes.CRAB, WWEntityConfig.SPAWN_CRABS);
+		var crabSpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.CRAB, WWEntityConfig.CRAB_SPAWN_CAP, 1, 100);
 		var reachAffectsAttack = booleanEntry(builder, "reach_affects_attack", WWEntityConfig.CRAB_REACH_AFFECTS_ATTACK);
 		var crabClawGivesReach = booleanEntry(builder, "crab_claw_gives_reach", WWEntityConfig.CRAB_CLAW_GIVES_REACH);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("crab"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.CRAB.getDescription(),
 			false,
-			tooltip("crab"),
+			tooltip("entity_category", WWEntityTypes.CRAB.getDescription()),
 			spawnCrabs, crabSpawnCap, reachAffectsAttack, crabClawGivesReach
 		);
 
 		// OSTRICH
-		var spawnOstriches = booleanEntry(builder, "spawn_ostriches", WWEntityConfig.SPAWN_OSTRICHES);
-		var spawnZombieOstriches = booleanEntry(builder, "spawn_zombie_ostriches", WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES);
+		var spawnOstriches = entitySpawnEntry(builder, WWEntityTypes.OSTRICH, WWEntityConfig.SPAWN_OSTRICHES);
+		var spawnZombieOstriches = entitySpawnEntry(builder, WWEntityTypes.ZOMBIE_OSTRICH, WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES);
 		var ostrichAttack = booleanEntry(builder, "allow_ostrich_attack", WWEntityConfig.OSTRICH_ALLOW_ATTACK);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("ostrich"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.OSTRICH.getDescription(),
 			false,
-			tooltip("ostrich"),
+			tooltip("entity_category", WWEntityTypes.OSTRICH.getDescription()),
 			spawnOstriches, spawnZombieOstriches, ostrichAttack
 		);
 
 		// SCORCHED
-		var spawnScorched = booleanEntry(builder, "spawn_scorched", WWEntityConfig.SPAWN_SCORCHED);
+		var spawnScorched = entitySpawnEntry(builder, WWEntityTypes.SCORCHED, WWEntityConfig.SPAWN_SCORCHED);
 		var scorchedInTrialChambers = booleanEntry(builder, "scorched_in_trial_chambers", WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("scorched"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.SCORCHED.getDescription(),
 			false,
-			tooltip("scorched"),
+			tooltip("entity_category", WWEntityTypes.SCORCHED.getDescription()),
 			spawnScorched, scorchedInTrialChambers
 		);
 
 		// MOOBLOOM
-		var spawnMooblooms = booleanEntry(builder, "spawn_mooblooms", WWEntityConfig.SPAWN_MOOBLOOMS);
+		var spawnMooblooms = entitySpawnEntry(builder, WWEntityTypes.MOOBLOOM, WWEntityConfig.SPAWN_MOOBLOOMS);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("moobloom"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.MOOBLOOM.getDescription(),
 			false,
-			tooltip("moobloom"),
+			tooltip("entity_category", WWEntityTypes.MOOBLOOM.getDescription()),
 			spawnMooblooms
 		);
 
 		// PENGUIN
-		var spawnPenguins = booleanEntry(builder, "spawn_penguins", WWEntityConfig.SPAWN_PENGUINS);
+		var spawnPenguins = entitySpawnEntry(builder, WWEntityTypes.PENGUIN, WWEntityConfig.SPAWN_PENGUINS);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("penguin"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.PENGUIN.getDescription(),
 			false,
-			tooltip("penguin"),
+			tooltip("entity_category", WWEntityTypes.PENGUIN.getDescription()),
 			spawnPenguins
 		);
 
 		// TUMBLEWEED
-		var spawnTumbleweed = booleanEntry(builder, "spawn_tumbleweed", WWEntityConfig.SPAWN_TUMBLEWEED);
-		var tumbleweedSpawnCap = intSliderEntry(builder, "tumbleweed_spawn_cap", WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100);
+		var spawnTumbleweed = entitySpawnEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.SPAWN_TUMBLEWEED);
+		var tumbleweedSpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100);
 		var leashedTumbleweed = booleanEntry(builder, "leashed_tumbleweed", WWEntityConfig.LEASHED_TUMBLEWEED);
 		var tumbleweedDestroysCrops = booleanEntry(builder, "tumbleweed_destroys_crops", WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS);
 		var tumbleweedRotatesToLookDirection = booleanEntry(builder, "tumbleweed_rotates_to_look_direction", WWEntityConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("tumbleweed"),
+		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.TUMBLEWEED.getDescription(),
 			false,
-			tooltip("tumbleweed"),
+			tooltip("entity_category", WWEntityTypes.TUMBLEWEED.getDescription()),
 			spawnTumbleweed, tumbleweedSpawnCap, leashedTumbleweed, tumbleweedDestroysCrops, tumbleweedRotatesToLookDirection
 		);
 
@@ -182,9 +182,9 @@ public final class WWEntityConfigGui {
 		var wardenBedrockSniff = booleanEntry(builder, "warden_bedrock_sniff", WWEntityConfig.WARDEN_BEDROCK_SNIFF_ANIMATION);
 		var wardenCustomTendrils = booleanEntry(builder, "warden_custom_tendrils", WWEntityConfig.WARDEN_IMPROVED_TENDRIL_ANIMATION);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("warden"),
+		FrozenClothConfig.createSubCategory(builder, category, EntityType.WARDEN.getDescription(),
 			false,
-			tooltip("warden"),
+			tooltip("entity_category", EntityType.WARDEN.getDescription()),
 			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDeathAnimation,
 			wardenImprovedEmerge, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils,
 			wardenEmergesFromCommand, wardenEmergesFromEgg
@@ -216,9 +216,9 @@ public final class WWEntityConfigGui {
 		var crabForEmeralds = booleanEntry(builder, "crab_for_emeralds", WWEntityConfig.FISHERMAN_CRAB_FOR_EMERALDS);
 		var jellyfishForEmeralds = booleanEntry(builder, "jellyfish_for_emeralds", WWEntityConfig.FISHERMAN_JELLYFISH_FOR_EMERALDS);
 
-		FrozenClothConfig.createSubCategory(builder, category, text("villager"),
+		FrozenClothConfig.createSubCategory(builder, category, EntityType.VILLAGER.getDescription(),
 			false,
-			tooltip("villager"),
+			tooltip("entity_category", EntityType.VILLAGER.getDescription()),
 			willowTrade, cypressTrade, baobabTrade, palmTrade, mapleTrade,
 			carnationTrade, hibiscusTrade, seedingDandelionTrade, marigoldTrade, pasqueflowerTrade,
 			pricklyPearTrade, tumbleweedTrade,

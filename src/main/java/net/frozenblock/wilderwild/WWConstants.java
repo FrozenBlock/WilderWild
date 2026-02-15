@@ -74,19 +74,15 @@ public final class WWConstants {
 		return MOD_ID + "_" + path;
 	}
 
-	/**
-	 * @return A text component for use in a Config GUI
-	 */
-	@Contract(value = "_ -> new", pure = true)
-	public static Component text(String key) {
-		return Component.translatable("option." + MOD_ID + "." + key);
+
+	public static Component text(String key, final Object... args) {
+		return Component.translatable("option." + MOD_ID + "." + key, args);
 	}
 
 	/**
 	 * @return A tooltip component for use in a Config GUI
 	 */
-	@Contract(value = "_ -> new", pure = true)
-	public static Component tooltip(String key) {
-		return Component.translatable("tooltip." + MOD_ID + "." + key);
+	public static Component tooltip(String key, final Object... args) {
+		return Component.translatable("tooltip." + MOD_ID + "." + key, args);
 	}
 }

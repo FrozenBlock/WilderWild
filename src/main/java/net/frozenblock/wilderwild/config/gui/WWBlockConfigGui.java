@@ -24,8 +24,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import static net.frozenblock.wilderwild.config.WWConfigHelper.booleanEntry;
-import static net.frozenblock.wilderwild.config.WWConfigHelper.intSliderEntry;
+import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.booleanEntry;
+import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.intSliderEntry;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 
 @Environment(EnvType.CLIENT)

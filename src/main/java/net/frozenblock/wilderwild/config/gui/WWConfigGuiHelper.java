@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.config;
+package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
@@ -28,10 +28,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
-public final class WWConfigHelper {
+public final class WWConfigGuiHelper {
 
 	public static IntegerSliderEntry zeroToFiveHundredEntry(ConfigEntryBuilder builder, String key, ConfigEntry<Integer> configEntry) {
 		return intSliderEntry(builder, key, configEntry, 0, 500);
@@ -56,13 +57,27 @@ public final class WWConfigHelper {
 		);
 	}
 
+	public static IntegerSliderEntry entitySpawnCapEntry(ConfigEntryBuilder builder, EntityType<?> entityType, ConfigEntry<Integer> configEntry, int min, int max) {
+		final Component entityName = entityType.getDescription();
+		return FrozenClothConfig.syncedEntry(
+			builder.startIntSlider(
+				Component.translatable("option.wilderwild.spawn_cap", entityName),
+					configEntry.get(),
+					min,
+					max
+				)
+				.setTooltip(Component.translatable("tooltip.wilderwild.spawn_cap", entityName)),
+			configEntry
+		);
+	}
+
 	public static BooleanListEntry booleanEntry(ConfigEntryBuilder builder, String key, ConfigEntry<Boolean> configEntry) {
 		return booleanEntry(builder, text(key), configEntry, tooltip(key));
 	}
 
 	public static BooleanListEntry biomeGenerationBooleanEntry(ConfigEntryBuilder builder, ResourceKey<Biome> key, ConfigEntry<Boolean> configEntry) {
 		final Identifier biomeId = key.identifier();
-		final Component biomeName = Component.translatable(Util.makeDescriptionId("biome.", biomeId));
+		final Component biomeName = Component.translatable(Util.makeDescriptionId("biome", biomeId));
 		return booleanEntry(
 			builder,
 			Component.translatable("option.wilderwild.generate_biome", biomeName),
@@ -73,7 +88,7 @@ public final class WWConfigHelper {
 
 	public static BooleanListEntry biomePlacementBooleanEntry(ConfigEntryBuilder builder, ResourceKey<Biome> key, ConfigEntry<Boolean> configEntry) {
 		final Identifier biomeId = key.identifier();
-		final Component biomeName = Component.translatable(Util.makeDescriptionId("biome.", biomeId));
+		final Component biomeName = Component.translatable(Util.makeDescriptionId("biome", biomeId));
 		return booleanEntry(
 			builder,
 			Component.translatable("option.wilderwild.modify_biome_placement", biomeName),
@@ -102,6 +117,16 @@ public final class WWConfigHelper {
 			Component.translatable("option.wilderwild.block_transition_generation", blockName),
 			configEntry,
 			Component.translatable("tooltip.wilderwild.block_transition_generation", blockName)
+		);
+	}
+
+	public static BooleanListEntry entitySpawnEntry(ConfigEntryBuilder builder, EntityType<?> entityType, ConfigEntry<Boolean> configEntry) {
+		final Component entityName = entityType.getDescription();
+		return booleanEntry(
+			builder,
+			Component.translatable("option.wilderwild.spawn_entity", entityName),
+			configEntry,
+			Component.translatable("tooltip.wilderwild.spawn_entity", entityName)
 		);
 	}
 
