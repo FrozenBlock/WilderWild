@@ -75,7 +75,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 		int radius,
 		int offset
 	) {
-		if (!WWWorldgenConfig.NEW_MAPLES) {
+		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) {
 			this.altFoliagePlacer.createFoliage(
 				level,
 				setter,

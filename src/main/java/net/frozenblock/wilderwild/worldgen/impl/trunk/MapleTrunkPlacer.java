@@ -86,7 +86,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		BlockPos startPos,
 		TreeConfiguration config
 	) {
-		if (!WWWorldgenConfig.NEW_MAPLES) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, config);
+		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, config);
 
 		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
 

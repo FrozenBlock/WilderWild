@@ -128,7 +128,7 @@ public final class AridSavanna extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (!WWWorldgenConfig.get().biomeGeneration.generateAridSavanna) return;
+		if (!WWWorldgenConfig.ARID_SAVANNA_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SAVANNA)) {
 			this.addSurfaceBiome(
 				parameters,

@@ -51,7 +51,7 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
 	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean isWorldGen) {
-		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) return false;
+		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) return false;
 		return isWorldGen
 			? state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
 			: state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE);

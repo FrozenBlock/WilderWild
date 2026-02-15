@@ -147,7 +147,7 @@ public final class FrozenCaves extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (!WWWorldgenConfig.get().biomeGeneration.generateFrozenCaves) return;
+		if (!WWWorldgenConfig.FROZEN_CAVES_GENERATION.get()) return;
 		for (float depth : DEPTHS) this.addFrozenCavesAtDepth(parameters, depth);
 	}
 

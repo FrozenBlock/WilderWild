@@ -125,7 +125,7 @@ public final class ParchedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (!WWWorldgenConfig.get().biomeGeneration.generateParchedForest) return;
+		if (!WWWorldgenConfig.PARCHED_FOREST_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 			this.addSurfaceBiome(
 				parameters,

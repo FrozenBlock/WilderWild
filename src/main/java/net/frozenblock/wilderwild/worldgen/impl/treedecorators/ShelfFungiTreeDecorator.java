@@ -55,7 +55,7 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 
 	@Override
 	public void place(Context context) {
-		if (!WWWorldgenConfig.GENERATE_SHELF_FUNGI) return;
+		if (!WWWorldgenConfig.SHELF_FUNGI_GENERATION.get()) return;
 
 		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;

@@ -135,11 +135,9 @@ public final class SparseForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (!WWWorldgenConfig.SPARSE_FOREST_GENERATION.get()) return;
 
-		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
-		if (!biomeGeneration.generateSparseForest) return;
-
-		final Climate.Parameter temperature = biomeGeneration.generateDyingForest ? TEMPERATURE_WITH_DYING_FORESTS : TEMPERATURE;
+		final Climate.Parameter temperature = WWWorldgenConfig.DYING_FOREST_GENERATION.get() ? TEMPERATURE_WITH_DYING_FORESTS : TEMPERATURE;
 		this.addSurfaceBiome(
 			parameters,
 			temperature,

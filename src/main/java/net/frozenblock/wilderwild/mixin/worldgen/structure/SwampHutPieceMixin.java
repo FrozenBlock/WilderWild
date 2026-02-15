@@ -38,7 +38,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newFence(Block original) {
-		if (WWWorldgenConfig.NEW_WITCH_HUTS) return WWBlocks.WILLOW_FENCE;
+		if (WWWorldgenConfig.NEW_WITCH_HUT_GENERATION.get()) return WWBlocks.WILLOW_FENCE;
 		return original;
 	}
 
@@ -51,7 +51,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newLog(Block original) {
-		if (WWWorldgenConfig.NEW_WITCH_HUTS) return WWBlocks.WILLOW_LOG;
+		if (WWWorldgenConfig.NEW_WITCH_HUT_GENERATION.get()) return WWBlocks.WILLOW_LOG;
 		return original;
 	}
 
@@ -64,7 +64,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newPlanks(Block original) {
-		if (WWWorldgenConfig.NEW_WITCH_HUTS) return WWBlocks.WILLOW_PLANKS;
+		if (WWWorldgenConfig.NEW_WITCH_HUT_GENERATION.get()) return WWBlocks.WILLOW_PLANKS;
 		return original;
 	}
 
@@ -77,7 +77,7 @@ public class SwampHutPieceMixin {
 		)
 	)
 	public Block wilderWild$newStairs(Block original) {
-		if (WWWorldgenConfig.NEW_WITCH_HUTS) return WWBlocks.WILLOW_STAIRS;
+		if (WWWorldgenConfig.NEW_WITCH_HUT_GENERATION.get()) return WWBlocks.WILLOW_STAIRS;
 		return original;
 	}
 

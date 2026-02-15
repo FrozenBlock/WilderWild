@@ -56,7 +56,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 
 	@Override
 	public void place(Context context) {
-		if (!WWWorldgenConfig.GENERATE_POLLEN) return;
+		if (!WWWorldgenConfig.POLLEN_GENERATION.get()) return;
 
 		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;

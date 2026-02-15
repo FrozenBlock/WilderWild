@@ -39,20 +39,20 @@ public class PlaceOnGroundDecoratorMixin {
 		)
 	)
 	public boolean wilderWild$onlyPlaceIfLitterTypeIsEnabled(TreeDecorator.Context instance, BlockPos pos, BlockState state) {
-		if (state.is(WWBlocks.ACACIA_LEAF_LITTER)) return WWWorldgenConfig.ACACIA_LEAF_LITTERS;
-		if (state.is(WWBlocks.AZALEA_LEAF_LITTER)) return WWWorldgenConfig.AZALEA_LEAF_LITTERS;
-		if (state.is(WWBlocks.BAOBAB_LEAF_LITTER)) return WWWorldgenConfig.BAOBAB_LEAF_LITTERS;
-		if (state.is(WWBlocks.BIRCH_LEAF_LITTER)) return WWWorldgenConfig.BIRCH_LEAF_LITTERS;
-		if (state.is(WWBlocks.CHERRY_LEAF_LITTER)) return WWWorldgenConfig.CHERRY_LEAF_LITTERS;
-		if (state.is(WWBlocks.CYPRESS_LEAF_LITTER)) return WWWorldgenConfig.CYPRESS_LEAF_LITTERS;
-		if (state.is(WWBlocks.DARK_OAK_LEAF_LITTER)) return WWWorldgenConfig.DARK_OAK_LEAF_LITTERS;
-		if (state.is(WWBlocks.JUNGLE_LEAF_LITTER)) return WWWorldgenConfig.JUNGLE_LEAF_LITTERS;
-		if (state.is(WWBlocks.MANGROVE_LEAF_LITTER)) return WWWorldgenConfig.MANGROVE_LEAF_LITTERS;
-		if (state.is(Blocks.LEAF_LITTER)) return WWWorldgenConfig.OAK_LEAF_LITTERS;
-		if (state.is(WWBlocks.PALE_OAK_LEAF_LITTER)) return WWWorldgenConfig.PALE_OAK_LEAF_LITTERS;
-		if (state.is(WWBlocks.PALM_FROND_LITTER)) return WWWorldgenConfig.PALM_FROND_LITTERS;
-		if (state.is(WWBlocks.SPRUCE_LEAF_LITTER)) return WWWorldgenConfig.SPRUCE_LEAF_LITTERS;
-		if (state.is(WWBlocks.WILLOW_LEAF_LITTER)) return WWWorldgenConfig.WILLOW_LEAF_LITTERS;
+		if (state.is(WWBlocks.ACACIA_LEAF_LITTER)) return WWWorldgenConfig.ACACIA_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.AZALEA_LEAF_LITTER)) return WWWorldgenConfig.AZALEA_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.BAOBAB_LEAF_LITTER)) return WWWorldgenConfig.BAOBAB_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.BIRCH_LEAF_LITTER)) return WWWorldgenConfig.BIRCH_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.CHERRY_LEAF_LITTER)) return WWWorldgenConfig.CHERRY_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.CYPRESS_LEAF_LITTER)) return WWWorldgenConfig.CYPRESS_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.DARK_OAK_LEAF_LITTER)) return WWWorldgenConfig.DARK_OAK_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.JUNGLE_LEAF_LITTER)) return WWWorldgenConfig.JUNGLE_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.MANGROVE_LEAF_LITTER)) return WWWorldgenConfig.MANGROVE_LITTER_GENERATION.get();
+		if (state.is(Blocks.LEAF_LITTER)) return WWWorldgenConfig.OAK_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.PALE_OAK_LEAF_LITTER)) return WWWorldgenConfig.PALE_OAK_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.PALM_FROND_LITTER)) return WWWorldgenConfig.PALM_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.SPRUCE_LEAF_LITTER)) return WWWorldgenConfig.SPRUCE_LITTER_GENERATION.get();
+		if (state.is(WWBlocks.WILLOW_LEAF_LITTER)) return WWWorldgenConfig.WILLOW_LITTER_GENERATION.get();
 		return true;
 	}
 

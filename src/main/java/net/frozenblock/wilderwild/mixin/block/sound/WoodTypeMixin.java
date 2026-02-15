@@ -43,6 +43,6 @@ public class WoodTypeMixin {
 
 	@Unique
 	private boolean wilderWild$useNewPaleOakSounds() {
-		return WoodType.class.cast(this) == WoodType.PALE_OAK && WWBlockConfig.get().blockSounds.paleOakSounds;
+		return WoodType.class.cast(this) == WoodType.PALE_OAK && WWBlockConfig.PALE_OAK_SOUNDS.get();
 	}
 }

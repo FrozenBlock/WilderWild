@@ -38,7 +38,7 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.all(),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
+				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				if (WWEntityConfig.FIREFLIES_NEED_BUSH.get()) {
 					spawnSettings.addMobCharge(WWEntityTypes.FIREFLY, 0.35D, 0.3D);
@@ -58,7 +58,7 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_BUTTERFLY),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
+				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				double butterflyCharge = 0.3D;
 				double butterflyLimit = 0.15D;
@@ -90,7 +90,7 @@ public final class WWSpawns {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_JELLYFISH),
 			(selectionContext, modificationContext) -> {
-				BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
+				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
@@ -137,17 +137,9 @@ public final class WWSpawns {
 		BiomeModifications.create(WWConstants.id("moobloom_spawns")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
-			(biomeSelectionContext, biomeModificationContext) -> {
-				biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
-				biomeModificationContext.getMobSpawnSettings().addSpawn(
-					MobCategory.CREATURE,
-					new MobSpawnSettings.SpawnerData(
-						WWEntityTypes.MOOBLOOM,
-						2,
-						4
-					),
-					34
-				);
+			context -> {
+				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
+				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM, 2, 4), 34);
 			}
 		);
 	}

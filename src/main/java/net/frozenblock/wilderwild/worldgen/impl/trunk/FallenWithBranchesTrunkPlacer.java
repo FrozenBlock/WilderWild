@@ -98,7 +98,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final BlockStateProvider stateProvider = (WWWorldgenConfig.GENERATED_HOLLOWED_FALLEN_TREES && random.nextFloat() <= this.hollowedLogChance)
+		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
 			? this.hollowedTrunkProvider
 			: config.trunkProvider;
 		final int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);

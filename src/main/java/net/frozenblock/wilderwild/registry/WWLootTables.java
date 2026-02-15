@@ -51,10 +51,9 @@ public final class WWLootTables {
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				final LootPool.Builder pool = LootPool.lootPool();
-				final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
 
 				boolean modified = false;
-				if (worldgenConfig.aquaticGeneration.algae) {
+				if (WWWorldgenConfig.ALGAE_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.ALGAE.asItem())
 							.setWeight(4)
@@ -64,7 +63,7 @@ public final class WWLootTables {
 					modified = true;
 				}
 
-				if (worldgenConfig.aquaticGeneration.plankton) {
+				if (WWWorldgenConfig.PLANKTON_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.PLANKTON.asItem())
 							.setWeight(1)
@@ -74,7 +73,7 @@ public final class WWLootTables {
 					modified = true;
 				}
 
-				if (worldgenConfig.aquaticGeneration.barnacle) {
+				if (WWWorldgenConfig.BARNACLES_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.BARNACLES.asItem())
 							.setWeight(3)
@@ -84,7 +83,7 @@ public final class WWLootTables {
 					modified = true;
 				}
 
-				if (worldgenConfig.aquaticGeneration.tubeWorm) {
+				if (WWWorldgenConfig.TUBE_WORMS_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.asItem())
 							.setWeight(1)
@@ -94,7 +93,7 @@ public final class WWLootTables {
 					modified = true;
 				}
 
-				if (worldgenConfig.aquaticGeneration.seaAnemone) {
+				if (WWWorldgenConfig.SEA_ANEMONE_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.asItem())
 							.setWeight(2)
@@ -104,7 +103,7 @@ public final class WWLootTables {
 					modified = true;
 				}
 
-				if (worldgenConfig.aquaticGeneration.oceanAuburnMossGeneration) {
+				if (WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION.get()) {
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.asItem())
 							.setWeight(1)
@@ -138,7 +137,7 @@ public final class WWLootTables {
 
 		//SAVANNA VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
-			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.get().treeGeneration.baobab) {
+			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
 				tableBuilder.modifyPools(builder -> {
 					builder.add(
 						LootItem.lootTableItem(WWItems.BAOBAB_NUT)
@@ -158,9 +157,7 @@ public final class WWLootTables {
 		//DESERT VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
-				final WWWorldgenConfig worldgenConfig = WWWorldgenConfig.get();
-
-				if (worldgenConfig.structure.newDesertVillages || worldgenConfig.treeGeneration.palm) {
+				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
 					tableBuilder.modifyPools(builder -> {
 						builder.add(
 							LootItem.lootTableItem(WWItems.COCONUT)
@@ -176,7 +173,7 @@ public final class WWLootTables {
 					});
 				}
 
-				if (worldgenConfig.vegetation.cactusGeneration) {
+				if (WWWorldgenConfig.CACTUS_GENERATION.get()) {
 					tableBuilder.modifyPools(builder -> {
 						builder.add(
 							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)

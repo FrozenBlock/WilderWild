@@ -43,7 +43,7 @@ public class SculkVeinBlockMixin {
 		BlockState original,
 		@Local(name = "supportState") BlockState supportState
 	) {
-		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION) return original;
+		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) return original;
 		if (supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(supportState);
 		if (supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(supportState);
 		if (supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(supportState);

@@ -79,6 +79,6 @@ public class BlockSetTypeMixin {
 
 	@Unique
 	private boolean wilderWild$useNewPaleOakSounds() {
-		return BlockSetType.class.cast(this) == BlockSetType.PALE_OAK && WWBlockConfig.get().blockSounds.paleOakSounds;
+		return BlockSetType.class.cast(this) == BlockSetType.PALE_OAK && WWBlockConfig.PALE_OAK_SOUNDS.get();
 	}
 }

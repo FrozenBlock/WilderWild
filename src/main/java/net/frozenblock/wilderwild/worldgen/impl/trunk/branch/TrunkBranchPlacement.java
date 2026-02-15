@@ -158,10 +158,10 @@ public record TrunkBranchPlacement(
 	}
 
 	private static boolean verifyBranchMatchesConfig(BlockState logState) {
-		if (!WWWorldgenConfig.BIRCH_BRANCHES && logState.is(BlockTags.BIRCH_LOGS)) return false;
-		if (!WWWorldgenConfig.OAK_BRANCHES && logState.is(BlockTags.OAK_LOGS)) return false;
-		if (!WWWorldgenConfig.DARK_OAK_BRANCHES && logState.is(BlockTags.DARK_OAK_LOGS)) return false;
-		if (!WWWorldgenConfig.PALE_OAK_BRANCHES && logState.is(BlockTags.PALE_OAK_LOGS)) return false;
+		if (!WWWorldgenConfig.BIRCH_BRANCH_GENERATION.get() && logState.is(BlockTags.BIRCH_LOGS)) return false;
+		if (!WWWorldgenConfig.OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.OAK_LOGS)) return false;
+		if (!WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.DARK_OAK_LOGS)) return false;
+		if (!WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.PALE_OAK_LOGS)) return false;
 		return true;
 	}
 

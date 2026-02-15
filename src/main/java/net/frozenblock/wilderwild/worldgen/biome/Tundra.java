@@ -198,9 +198,7 @@ public final class Tundra extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-
-		final WWWorldgenConfig config = WWWorldgenConfig.get();
-		if (!config.biomeGeneration.generateTundra) return;
+		if (!WWWorldgenConfig.TUNDRA_GENERATION.get()) return;
 
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {
 			this.addSurfaceBiome(
@@ -241,7 +239,7 @@ public final class Tundra extends FrozenBiome {
 			);
 		}
 
-		if (config.biomePlacement.modifyTundraPlacement) {
+		if (WWWorldgenConfig.TUNDRA_MODIFIED_PLACEMENT.get()) {
 			final List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
 				OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES),
@@ -288,7 +286,7 @@ public final class Tundra extends FrozenBiome {
 			});
 		}
 
-		if (config.biomeGeneration.generateMapleForest) {
+		if (WWWorldgenConfig.MAPLE_FOREST_GENERATION.get()) {
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE_MAPLE,

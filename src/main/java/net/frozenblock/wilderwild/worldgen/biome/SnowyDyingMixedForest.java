@@ -140,11 +140,9 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (!WWWorldgenConfig.SNOWY_DYING_MIXED_FOREST_GENERATION.get()) return;
 
-		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
-		if (!biomeGeneration.generateSnowyDyingMixedForest) return;
-
-		final boolean generateTundra = biomeGeneration.generateTundra;
+		final boolean generateTundra = WWWorldgenConfig.TUNDRA_GENERATION.get();
 		final Climate.Parameter temperature = generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 			this.addSurfaceBiome(
@@ -157,7 +155,7 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 				point.offset()
 			);
 		}
-		if (biomeGeneration.generateMapleForest || generateTundra) {
+		if (WWWorldgenConfig.MAPLE_FOREST_GENERATION.get() || generateTundra) {
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE_TUNDRA,

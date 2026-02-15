@@ -18,14 +18,13 @@
 package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public final class BetaBeachConditionSource implements SurfaceRules.ConditionSource {
 	public static final BetaBeachConditionSource INSTANCE = new BetaBeachConditionSource();
 	public static final KeyDispatchDataCodec<BetaBeachConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
-
-	public static volatile boolean GENERATE = false;
 
 	BetaBeachConditionSource() {
 	}
@@ -47,7 +46,7 @@ public final class BetaBeachConditionSource implements SurfaceRules.ConditionSou
 			}
 
 			protected boolean compute() {
-				return GENERATE;
+				return WWWorldgenConfig.BETA_BEACHES.get();
 			}
 		}
 

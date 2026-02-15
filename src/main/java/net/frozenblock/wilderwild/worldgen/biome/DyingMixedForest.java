@@ -134,11 +134,9 @@ public final class DyingMixedForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (!WWWorldgenConfig.DYING_MIXED_FOREST_GENERATION.get()) return;
 
-		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
-		if (!biomeGeneration.generateDyingMixedForest) return;
-
-		final boolean generateTundra = biomeGeneration.generateTundra;
+		final boolean generateTundra = WWWorldgenConfig.TUNDRA_GENERATION.get();
 		final Climate.Parameter temperature = generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
 		final Climate.Parameter temperatureWeird = generateTundra ? TEMPERATURE_WEIRD_TUNDRA : TEMPERATURE_WEIRD;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {

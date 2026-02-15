@@ -132,7 +132,7 @@ public final class DarkBirchForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (!WWWorldgenConfig.get().biomeGeneration.generateDarkBirchForest) return;
+		if (!WWWorldgenConfig.DARK_BIRCH_FOREST_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
 			if (FrozenBiomeParameters.isWeird(point)) continue;
 			this.addSurfaceBiome(

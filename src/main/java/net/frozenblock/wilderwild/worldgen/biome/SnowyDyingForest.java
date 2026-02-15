@@ -128,11 +128,9 @@ public final class SnowyDyingForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (!WWWorldgenConfig.SNOWY_DYING_FOREST_GENERATION.get()) return;
 
-		final WWWorldgenConfig.BiomeGeneration biomeGeneration = WWWorldgenConfig.get().biomeGeneration;
-		if (!biomeGeneration.generateSnowyDyingForest) return;
-
-		final Climate.Parameter temperature = biomeGeneration.generateTundra ? TEMPERATURE_TUNDRA : TEMPERATURE;
+		final Climate.Parameter temperature = WWWorldgenConfig.TUNDRA_GENERATION.get() ? TEMPERATURE_TUNDRA : TEMPERATURE;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FOREST)) {
 			if (FrozenBiomeParameters.isWeird(point)) continue;
 			this.addSurfaceBiome(

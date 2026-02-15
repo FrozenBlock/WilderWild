@@ -33,8 +33,6 @@ public final class WWWaterColors {
 	}
 
 	public static void stirWater() {
-		WWConstants.logWithModId("Overriding Water Colors for", true);
-
 		BiomeModifications.create(WWConstants.id("modify_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.all(),

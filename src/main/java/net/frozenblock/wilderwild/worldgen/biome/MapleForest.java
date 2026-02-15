@@ -135,7 +135,7 @@ public final class MapleForest extends FrozenBiome {
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (!WWWorldgenConfig.get().biomeGeneration.generateMapleForest) return;
+		if (!WWWorldgenConfig.MAPLE_FOREST_GENERATION.get()) return;
 		this.addSurfaceBiome(
 			parameters,
 			TEMPERATURE,

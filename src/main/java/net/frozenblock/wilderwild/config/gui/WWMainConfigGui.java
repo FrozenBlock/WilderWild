@@ -17,10 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
-// TODO: Re-enable when cloth config is unobfuscated
-
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -37,24 +34,19 @@ public final class WWMainConfigGui {
 		final ConfigBuilder configBuilder = ConfigBuilder.create().setParentScreen(parent).setTitle(text("component.title"));
 		configBuilder.setSavingRunnable(() -> {
 			WWBlockConfig.CONFIG.save();
-			WWEntityConfig.INSTANCE.save();
+			WWEntityConfig.CONFIG.save();
 			WWItemConfig.CONFIG.save();
-			WWWorldgenConfig.INSTANCE.save();
+			WWWorldgenConfig.CONFIG.save();
 			WWAmbienceAndMiscConfig.CONFIG.save();
 			WWMixinsConfig.INSTANCE.save();
 		});
 
 		final ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
-		final ConfigCategory block = configBuilder.getOrCreateCategory(text("block"));
-		WWBlockConfigGui.setupEntries(block, entryBuilder);
-		final ConfigCategory entity = configBuilder.getOrCreateCategory(text("entity"));
-		WWEntityConfigGui.setupEntries(entity, entryBuilder);
-		final ConfigCategory item = configBuilder.getOrCreateCategory(text("item"));
-		WWItemConfigGui.setupEntries(item, entryBuilder);
-		final ConfigCategory worldgen = configBuilder.getOrCreateCategory(text("worldgen"));
-		WWWorldgenConfigGui.setupEntries(worldgen, entryBuilder);
-		final ConfigCategory misc = configBuilder.getOrCreateCategory(text("misc"));
-		WWAmbienceAndMiscConfigGui.setupEntries(misc, entryBuilder);
+		WWBlockConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("block")), entryBuilder);
+		WWEntityConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("entity")), entryBuilder);
+		WWItemConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("item")), entryBuilder);
+		WWWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("worldgen")), entryBuilder);
+		WWAmbienceAndMiscConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("misc")), entryBuilder);
 
 		return configBuilder.build();
 	}
