@@ -71,8 +71,8 @@ public class Scorched extends Spider {
 		super(type, level);
 		this.setPathfindingMalus(PathType.WATER, -1F);
 		this.setPathfindingMalus(PathType.LAVA, 0F);
-		this.setPathfindingMalus(PathType.DANGER_FIRE, 0F);
-		this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0F);
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0F);
+		this.setPathfindingMalus(PathType.FIRE, 0F);
 	}
 
 	@Override

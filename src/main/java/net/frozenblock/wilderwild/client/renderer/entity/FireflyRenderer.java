@@ -129,7 +129,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		CameraRenderState camera
 	) {
 		submitFirefly(poseStack, collector, camera.orientation, renderState);
-		if (renderState.nameTag != null) this.submitNameTag(renderState, poseStack, collector, camera);
+		this.submitNameDisplay(renderState, poseStack, collector, camera);
 	}
 
 	@Override

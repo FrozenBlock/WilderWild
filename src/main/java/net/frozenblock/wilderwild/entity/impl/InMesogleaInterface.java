@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.entity.impl;
 
+import net.frozenblock.wilderwild.block.MesogleaBlock;
+
 public interface InMesogleaInterface {
 	void wilderWild$setClipInMesoglea(boolean clipInMesoglea);
 	boolean wilderWild$wasClipInMesoglea();
@@ -25,4 +27,5 @@ public interface InMesogleaInterface {
 	void wilderWild$setTouchingMesoglea(boolean inMesoglea);
 	boolean wilderWild$wasTouchingMesoglea();
 	boolean wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea();
+	void wilderWild$setMesogleaReplacementParticlesFromBlock(MesogleaBlock mesoglea);
 }

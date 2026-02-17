@@ -32,7 +32,7 @@ public class ScorchedNavigation extends WallClimberNavigation {
 
 	@Override
 	protected boolean hasValidPathType(PathType type) {
-		return type == PathType.LAVA || type == PathType.DAMAGE_FIRE || type == PathType.DANGER_FIRE || super.hasValidPathType(type);
+		return type == PathType.LAVA || type == PathType.FIRE || type == PathType.FIRE_IN_NEIGHBOR || super.hasValidPathType(type);
 	}
 
 	@Override

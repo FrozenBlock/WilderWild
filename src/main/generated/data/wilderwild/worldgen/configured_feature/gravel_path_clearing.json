@@ -14,8 +14,8 @@
           "searching_block_predicate": {
             "type": "frozenlib:search_in_area",
             "block_predicate": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:air"
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:air"
             },
             "search_area": 2
           },
