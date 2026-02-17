@@ -17,32 +17,22 @@
 
 package net.frozenblock.wilderwild.mixin.block.mesoglea;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.entity.impl.InMesogleaInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
@@ -70,9 +60,9 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	private boolean wilderWild$wasTouchingMesoglea;
 
 	@Unique
-	private ParticleOptions wilderWild$replacementSplashParticle;
-	@Unique
 	private ParticleOptions wilderWild$replacementBubbleParticle;
+	@Unique
+	private ParticleOptions wilderWild$replacementSplashParticle;
 
 	@WrapOperation(
 		method = "getBlockSpeedFactor",
@@ -84,58 +74,6 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	)
 	public boolean wilderWild$isBubbleColumnOrMesogleaColumn(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || MesogleaBlock.hasBubbleColumn(state);
-	}
-
-	@Inject(method = "updateFluidHeightAndDoFluidPushing", at = @At("HEAD"))
-	public void wilderWild$setupMesogleaFluidDetection(
-		TagKey<Fluid> type, double flowScale, CallbackInfoReturnable<Boolean> info,
-		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
-	) {
-		closestPosDistanceRef.set(999D);
-		this.wilderWild$replacementSplashParticle = null;
-		this.wilderWild$replacementBubbleParticle = null;
-	}
-
-	@WrapOperation(
-		method = "updateFluidHeightAndDoFluidPushing",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;getFluidState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/FluidState;"
-		)
-	)
-	public FluidState wilderWild$saveBlockState(
-		Level instance, BlockPos pos, Operation<FluidState> original,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef
-	) {
-		BlockState state = instance.getBlockState(pos);
-		blockStateRef.set(state);
-		return state.getFluidState();
-	}
-
-	@ModifyExpressionValue(
-		method = "updateFluidHeightAndDoFluidPushing",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/lang/Math;max(DD)D"
-		)
-	)
-	public double wilderWild$setReplacementParticlesIfMesoglea(
-		double original,
-		@Local(name = "pos") BlockPos.MutableBlockPos mutable,
-		@Share("wilderWild$blockState") LocalRef<BlockState> blockStateRef,
-		@Share("wilderWild$closestPosDistance") LocalDoubleRef closestPosDistanceRef
-	) {
-		if (!(blockStateRef.get().getBlock() instanceof MesogleaBlock mesogleaBlock)) return original;
-
-		this.wilderWild$setTouchingMesoglea(true);
-		final double distance = this.distanceToSqr(Vec3.atCenterOf(mutable));
-		if (distance >= closestPosDistanceRef.get()) return original;
-
-		closestPosDistanceRef.set(distance);
-		this.wilderWild$replacementSplashParticle = mesogleaBlock.getSplashParticle();
-		this.wilderWild$replacementBubbleParticle = mesogleaBlock.getBubbleParticle();
-
-		return original;
 	}
 
 	@WrapOperation(
@@ -180,25 +118,6 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		return this.wilderWild$clipInMesoglea;
 	}
 
-	@Inject(method = "updateFluidOnEyes", at = @At("HEAD"))
-	public void wilderwild$updateIsInMesolgeaA(CallbackInfo info) {
-		this.wilderWild$setInMesoglea(false);
-	}
-
-	@Inject(
-		method = "updateFluidOnEyes",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/material/FluidState;tags()Ljava/util/stream/Stream;"
-		)
-	)
-	public void wilderwild$updateIsInMesolgeaB(
-		CallbackInfo info,
-		@Local(name = "pos") BlockPos pos
-	) {
-		this.wilderWild$setInMesoglea(this.level().getBlockState(pos).getBlock() instanceof MesogleaBlock);
-	}
-
 	@Unique
 	@Override
 	public void wilderWild$setInMesoglea(boolean inMesoglea) {
@@ -216,8 +135,8 @@ public abstract class EntityMixin implements InMesogleaInterface {
 		if (this.wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea()) info.setReturnValue(WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA);
 	}
 
-	@Inject(method = "updateInWaterStateAndDoWaterCurrentPushing", at = @At("TAIL"))
-	public void wilderWild$setNotTouchingMesoglea(CallbackInfo info) {
+	@Inject(method = "updateFluidInteraction", at = @At("TAIL"))
+	public void wilderWild$setNotTouchingMesoglea(CallbackInfoReturnable<Boolean> info) {
 		if (!this.wasTouchingWater) this.wilderWild$wasTouchingMesoglea = false;
 	}
 
@@ -237,6 +156,13 @@ public abstract class EntityMixin implements InMesogleaInterface {
 	@Override
 	public boolean wilderWild$isTouchingMesogleaOrUnderWaterAndMesoglea() {
 		return this.isUnderWater() ? this.wilderWild$wasInMesoglea() : this.wilderWild$wasTouchingMesoglea();
+	}
+
+	@Unique
+	@Override
+	public void wilderWild$setMesogleaReplacementParticlesFromBlock(MesogleaBlock mesoglea) {
+		this.wilderWild$replacementBubbleParticle = mesoglea != null ? mesoglea.getBubbleParticle() : null;
+		this.wilderWild$replacementSplashParticle = mesoglea != null ? mesoglea.getSplashParticle() : null;
 	}
 
 	@Inject(method = "getSwimSplashSound", at = @At("HEAD"), cancellable = true)

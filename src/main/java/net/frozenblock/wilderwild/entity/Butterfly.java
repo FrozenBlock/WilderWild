@@ -98,7 +98,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	public Butterfly(EntityType<? extends Butterfly> type, Level level) {
 		super(type, level);
 		this.setPathfindingMalus(PathType.LAVA, -1F);
-		this.setPathfindingMalus(PathType.DANGER_FIRE, -1F);
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1F);
 		this.setPathfindingMalus(PathType.WATER, -1F);
 		this.setPathfindingMalus(PathType.WATER_BORDER, 16F);
 		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);

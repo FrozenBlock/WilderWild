@@ -131,7 +131,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		final Warden warden = Warden.class.cast(this);
 		warden.setPathfindingMalus(PathType.WATER, 0F);
 		warden.setPathfindingMalus(PathType.POWDER_SNOW, -1F);
-		warden.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1F);
+		warden.setPathfindingMalus(PathType.ON_TOP_OF_POWDER_SNOW, -1F);
 		this.moveControl = new WardenMoveControl(warden, 0.05F, 80F, 0.13F, 1F);
 		this.lookControl = new WardenLookControl(warden, 10);
 	}
@@ -165,17 +165,6 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		} else {
 			super.jumpInLiquid(type);
 		}
-	}
-
-	@Unique
-	@Override
-	protected boolean updateInWaterStateAndDoFluidPushing() {
-		if (!WWEntityConfig.WARDEN_SWIMS) return super.updateInWaterStateAndDoFluidPushing();
-		final Warden warden = Warden.class.cast(this);
-		this.fluidHeight.clear();
-		warden.updateInWaterStateAndDoWaterCurrentPushing();
-		final boolean updateFluids = warden.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, 0.1D);
-		return this.wilderWild$isTouchingWaterOrLava() || updateFluids;
 	}
 
 	@Inject(method = "getDefaultDimensions", at = @At("RETURN"), cancellable = true)

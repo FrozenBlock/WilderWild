@@ -13,10 +13,16 @@
           "searching_block_predicate": {
             "type": "frozenlib:search_in_area",
             "block_predicate": {
-              "type": "minecraft:matching_blocks",
-              "blocks": [
-                "minecraft:air",
-                "minecraft:water"
+              "type": "minecraft:any_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water"
+                }
               ]
             },
             "search_area": 2
@@ -41,10 +47,16 @@
           "searching_block_predicate": {
             "type": "frozenlib:search_in_area",
             "block_predicate": {
-              "type": "minecraft:matching_blocks",
-              "blocks": [
-                "minecraft:air",
-                "minecraft:water"
+              "type": "minecraft:any_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water"
+                }
               ]
             },
             "search_area": 2
