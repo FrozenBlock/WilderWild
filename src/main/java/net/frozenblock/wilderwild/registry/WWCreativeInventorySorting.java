@@ -17,19 +17,15 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import com.google.common.collect.ImmutableList;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -386,18 +382,7 @@ public final class WWCreativeInventorySorting {
 
 		// FIREFLY
 		insertBeforeInSpawnEggs(Items.FOX_SPAWN_EGG, WWItems.FIREFLY_SPAWN_EGG);
-		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
-			final ItemStack stack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-			stack.setCount(1);
-			stack.set(
-				WWDataComponents.FIREFLY_COLOR,
-				entries.getContext()
-					.holders()
-					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
-					.getOrThrow(FireflyColors.DEFAULT)
-			);
-			entries.insertAfter(Items.MILK_BUCKET, ImmutableList.of(stack), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-		});
+		insertAfterInToolsAndUtilities(Items.MILK_BUCKET, WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
 		insertAfterInSpawnEggs(Items.BEE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);

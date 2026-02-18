@@ -22,6 +22,7 @@ import java.util.function.Function;
 import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
@@ -159,7 +160,10 @@ public final class WWItems {
 			WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
 			properties
 		),
-		new Item.Properties().stacksTo(16).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
+		new Item.Properties()
+			.stacksTo(16)
+			.component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
+			.delayedComponent(WWDataComponents.FIREFLY_COLOR, context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getOrThrow(FireflyColors.DEFAULT))
 	);
 	public static final MobBottleItem BUTTERFLY_BOTTLE = register("butterfly_bottle",
 		properties -> new MobBottleItem(
