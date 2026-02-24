@@ -23,8 +23,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.*;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.*;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.world.entity.EntityType;
 

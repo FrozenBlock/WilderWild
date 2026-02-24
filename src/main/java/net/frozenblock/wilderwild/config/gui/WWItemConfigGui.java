@@ -24,8 +24,8 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.booleanEntry;
 import net.frozenblock.wilderwild.config.WWItemConfig;
+import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.booleanEntry;
 
 @Environment(EnvType.CLIENT)
 public final class WWItemConfigGui {

@@ -138,8 +138,6 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		return original;
 	}
 
-
-
 	@Inject(
 		method = "doPush",
 		at = @At(

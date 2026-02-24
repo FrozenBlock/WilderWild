@@ -74,7 +74,6 @@ public final class WWConstants {
 		return MOD_ID + "_" + path;
 	}
 
-
 	public static Component text(String key, final Object... args) {
 		return Component.translatable("option." + MOD_ID + "." + key, args);
 	}
