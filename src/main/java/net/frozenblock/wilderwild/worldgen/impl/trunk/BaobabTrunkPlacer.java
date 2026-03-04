@@ -58,43 +58,41 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	private void terraformBelow(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		BlockPos startPos,
+		BlockPos origin,
 		TreeConfiguration config,
 		List<BlockPos> logPoses,
 		boolean dirt
 	) {
-		final BlockPos.MutableBlockPos mutable = startPos.mutable();
+		final BlockPos.MutableBlockPos mutable = origin.mutable();
 		for (int y = 0; y < 4; y++) {
 			if (y == 2 && random.nextFloat() <= 0.175F) return;
 			if (y == 3 && random.nextFloat() <= 0.45F) return;
-			mutable.setWithOffset(startPos, 0, -y, 0);
+			mutable.setWithOffset(origin, 0, -y, 0);
 
 			final boolean hasGrassOrMycelium = level.isStateAtPosition(mutable, state -> state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.MYCELIUM));
 			if (!this.validTreePos(level, mutable) && !hasGrassOrMycelium) break;
 
 			if (dirt || hasGrassOrMycelium) {
-				setDirtAt(level, replacer, random, mutable, config, logPoses);
+				setDirtAt(level, trunkSetter, random, mutable, config, logPoses);
 				if (hasGrassOrMycelium) return;
 			} else {
-				this.placeLogIfFree(level, replacer, random, mutable, config, logPoses);
+				this.placeLogIfFree(level, trunkSetter, random, mutable, config, logPoses);
 			}
 		}
 	}
 
 	private static void setDirtAt(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		BlockPos pos,
 		TreeConfiguration config,
 		List<BlockPos> logPoses
 	) {
-		var blockBelowTrunk = config.belowTrunkProvider.getState(level, random, pos);
-		if (blockBelowTrunk != null) {
-			replacer.accept(pos, blockBelowTrunk);
-		}
+		final BlockState blockBelowTrunk = config.belowTrunkProvider.getOptionalState(level, random, pos);
+		if (blockBelowTrunk != null) trunkSetter.accept(pos, blockBelowTrunk);
 		logPoses.add(pos.immutable());
 	}
 
@@ -106,23 +104,23 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		int height,
-		BlockPos startPos,
+		BlockPos origin,
 		TreeConfiguration config
 	) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos dirtPos = new BlockPos.MutableBlockPos();
-		final BlockPos center = new BlockPos(startPos.getX() - 1, startPos.getY(), startPos.getZ() - 1);
+		final BlockPos center = new BlockPos(origin.getX() - 1, origin.getY(), origin.getZ() - 1);
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final List<BlockPos> placedLogs = Lists.newArrayList();
 
 		for (int x = 0; x < 4; x++) { // X
 			for (int z = 0; z < 4; z++) { // Z
-				terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z), config, placedLogs, true);
+				terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x, -1, z), config, placedLogs, true);
 
-				for (int y = 0; y <= height; y++) setLog(level, replacer, random, mutable, config, center, x, y, z, placedLogs);
+				for (int y = 0; y <= height; y++) setLog(level, trunkSetter, random, mutable, config, center, x, y, z, placedLogs);
 
 				if (AdvancedMath.squareBetween(x, z, 1, 2)) continue; // only sides
 
@@ -132,18 +130,18 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				Direction dir2 = null;
 				if (x0) {
 					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-						this.setLogs(level, replacer, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
-						this.setLogs(level, replacer, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 1, -1, z), config, placedLogs, false);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x - 2, -1, z), config, placedLogs, false);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x - 1, 0, z, height / 2, placedLogs);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x - 2, 0, z, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x - 1, -1, z), config, placedLogs, false);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x - 2, -1, z), config, placedLogs, false);
 					}
 				} else if (x3) {
 					dir1 = Direction.EAST;
 					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-						this.setLogs(level, replacer, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
-						this.setLogs(level, replacer, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 1, -1, z), config, placedLogs, false);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x + 2, -1, z), config, placedLogs, false);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x + 1, 0, z, height / 2, placedLogs);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x + 2, 0, z, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x + 1, -1, z), config, placedLogs, false);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x + 2, -1, z), config, placedLogs, false);
 					}
 				}
 				if (z == 0) {
@@ -154,10 +152,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 						dir2 = Direction.EAST;
 					}
 					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
-						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 1), config, placedLogs, false);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z - 2), config, placedLogs, false);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x, 0, z - 1, height / 2, placedLogs);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x, 0, z - 2, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x, -1, z - 1), config, placedLogs, false);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x, -1, z - 2), config, placedLogs, false);
 					}
 				} else if (z == 3) {
 					dir1 = Direction.SOUTH;
@@ -167,10 +165,10 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 						dir2 = Direction.EAST;
 					}
 					if (random.nextFloat() <= SIDE_DECORATION_CHANCE) {
-						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
-						this.setLogs(level, replacer, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 1), config, placedLogs, false);
-						this.terraformBelow(level, replacer, random, dirtPos.setWithOffset(center, x, -1, z + 2), config, placedLogs, false);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x, 0, z + 1, height / 2, placedLogs);
+						this.setLogs(level, trunkSetter, random, mutable, config, center, x, 0, z + 2, height / 2 - 1, placedLogs);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x, -1, z + 1), config, placedLogs, false);
+						this.terraformBelow(level, trunkSetter, random, dirtPos.setWithOffset(center, x, -1, z + 2), config, placedLogs, false);
 					}
 				}
 
@@ -183,7 +181,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 						height / 4,
 						4,
 						level,
-						replacer,
+						trunkSetter,
 						random,
 						mutable,
 						config,
@@ -206,7 +204,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 						height,
 						4,
 						level,
-						replacer,
+						trunkSetter,
 						random,
 						mutable,
 						config,
@@ -220,7 +218,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
-		final BlockPos.MutableBlockPos placedLogPos = startPos.mutable();
+		final BlockPos.MutableBlockPos placedLogPos = origin.mutable();
 		for (BlockPos pos : placedLogs) {
 			boolean isSurrounded = true;
 			for (Direction dir : Direction.values()) {
@@ -228,7 +226,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				if (!placedLogs.contains(placedLogPos)) isSurrounded = false;
 			}
 			if (isSurrounded && level.isStateAtPosition(pos, state -> !state.is(BlockTags.DIRT))) {
-				replacer.accept(pos, this.innerTrunkProvider.getState(random, pos));
+				trunkSetter.accept(pos, this.innerTrunkProvider.getState(level, random, pos));
 			}
 		}
 

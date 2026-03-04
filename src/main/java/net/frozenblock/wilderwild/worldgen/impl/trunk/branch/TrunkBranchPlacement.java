@@ -30,7 +30,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -92,20 +92,20 @@ public record TrunkBranchPlacement(
 	}
 
 	public void generateExtraBranchForFallenLog(
-		LevelSimulatedReader level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		BlockStateProvider stateProvider,
-		BlockPos startPos,
+		BlockPos origin,
 		Direction direction,
 		Direction trunkDirection
 	) {
-		final BlockPos.MutableBlockPos branchPos = startPos.mutable();
+		final BlockPos.MutableBlockPos branchPos = origin.mutable();
 		final int totalLength = this.getBranchLength(random);
 		boolean hasPassedConfigCheck = false;
 
 		for (int length = 1; length <= totalLength; length++) {
-			branchPos.setWithOffset(startPos, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
+			branchPos.setWithOffset(origin, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
 
 			final boolean canOffsetLog = length == totalLength && this.canOffsetLastLog(random, length);
 			if (canOffsetLog) branchPos.move(trunkDirection);
@@ -115,7 +115,7 @@ public record TrunkBranchPlacement(
 			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
 			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
 				hasPassedConfigCheck = true;
-				replacer.accept(branchPos, logState);
+				trunkSetter.accept(branchPos, logState);
 			} else {
 				return;
 			}
@@ -123,20 +123,20 @@ public record TrunkBranchPlacement(
 	}
 
 	public void generateExtraBranch(
-		LevelSimulatedReader level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		BlockStateProvider stateProvider,
-		BlockPos startPos,
+		BlockPos origin,
 		Direction direction,
 		List<FoliagePlacer.FoliageAttachment> foliageAttachments
 	) {
-		final BlockPos.MutableBlockPos branchPos = startPos.mutable();
+		final BlockPos.MutableBlockPos branchPos = origin.mutable();
 		final int totalLength = this.getBranchLength(random);
 		boolean hasPassedConfigCheck = false;
 
 		for (int length = 1; length <= totalLength; length++) {
-			branchPos.setWithOffset(startPos, direction.getStepX() * length, 0, direction.getStepZ() * length);
+			branchPos.setWithOffset(origin, direction.getStepX() * length, 0, direction.getStepZ() * length);
 
 			final boolean isLastLog = length == totalLength;
 			final boolean placeUpwards = isLastLog && this.canOffsetLastLog(random, length);
@@ -147,7 +147,7 @@ public record TrunkBranchPlacement(
 			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
 			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
 				hasPassedConfigCheck = true;
-				replacer.accept(branchPos, logState);
+				trunkSetter.accept(branchPos, logState);
 				if (isLastLog && this.canPlaceFoliage(random)) {
 					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), this.getFoliageRadiusOffset(random), false));
 				}

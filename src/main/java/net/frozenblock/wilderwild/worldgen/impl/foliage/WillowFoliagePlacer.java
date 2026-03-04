@@ -23,7 +23,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -60,41 +60,41 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader level,
-		FoliagePlacer.FoliageSetter placer,
+		WorldGenLevel level,
+		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
 		TreeConfiguration config,
-		int i,
-		FoliagePlacer.FoliageAttachment node,
-		int j,
-		int k,
-		int l
+		int treeHeight,
+		FoliagePlacer.FoliageAttachment foliageAttachment,
+		int foliageHeight,
+		int leafRadius,
+		int offset
 	) {
-		for (int yOffset = l; yOffset >= l - j; yOffset--) {
-			int n = k + node.radiusOffset() - 1 - yOffset;
-			if (yOffset <= l - j) {
+		for (int yOffset = offset; yOffset >= offset - foliageHeight; yOffset--) {
+			int n = leafRadius + foliageAttachment.radiusOffset() - 1 - yOffset;
+			if (yOffset <= offset - foliageHeight) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					level,
-					placer,
+					foliageSetter,
 					random,
 					config,
-					node.pos(),
+					foliageAttachment.pos(),
 					n,
 					yOffset,
-					node.doubleTrunk(),
+					foliageAttachment.doubleTrunk(),
 					this.hangingLeavesChance,
 					this.hangingLeavesExtensionChance
 				);
 			} else {
 				this.placeLeavesRow(
 					level,
-					placer,
+					foliageSetter,
 					random,
 					config,
-					node.pos(),
+					foliageAttachment.pos(),
 					n,
 					yOffset,
-					node.doubleTrunk()
+					foliageAttachment.doubleTrunk()
 				);
 			}
 		}

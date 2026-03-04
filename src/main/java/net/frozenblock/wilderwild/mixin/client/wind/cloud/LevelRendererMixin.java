@@ -38,18 +38,19 @@ public class LevelRendererMixin {
 		method = "renderLevel",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;JFIF)V"
+			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;JFIFI)V"
 		)
 	)
 	public void wilderWild$changeCloudPosition(
 		LevelRenderer instance,
 		FrameGraphBuilder frame,
-		CloudStatus cloudsType,
+		CloudStatus cloudStatus,
 		Vec3 cameraPosition,
 		long gameTime,
 		float partialTicks,
 		int cloudColor,
 		float cloudHeight,
+		int cloudRange,
 		Operation<Void> original,
 		@Local(name = "deltaPartialTick") float deltaPartialTick
 	) {
@@ -57,12 +58,14 @@ public class LevelRendererMixin {
 			double cameraX = cameraPosition.x;
 			double cameraY = cameraPosition.y;
 			double cameraZ = cameraPosition.z;
-			cameraX =  (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 12D) - (double)((partialTicks) * 0.03F);
+			cameraX = (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 12D) - (double)((partialTicks) * 0.03F);
 			cameraZ = cameraZ - WWClientWindManager.getCloudZ(deltaPartialTick) * 12D;
 			cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
+			gameTime = 0L;
+			partialTicks = 0L;
 		}
 
-		original.call(instance, frame, cloudsType, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight);
+		original.call(instance, frame, cloudStatus, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight, cloudRange);
 	}
 
 }

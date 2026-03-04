@@ -231,8 +231,7 @@ public final class WWTreePlaced {
 	);
 
 	//SHRUB
-	public static final FrozenLibPlacedFeature LARGE_BUSH_COARSE_CHECKED = WWPlacementUtils.register("large_bush_coarse_checked");
-	public static final FrozenLibPlacedFeature LARGE_BUSH_COARSE_GRASS_CHECKED = WWPlacementUtils.register("large_bush_coarse_grass_checked");
+	public static final FrozenLibPlacedFeature LARGE_BUSH_ON_SAND = WWPlacementUtils.register("large_bush_on_sand");
 	public static final FrozenLibPlacedFeature LARGE_BUSH_CHECKED = WWPlacementUtils.register("large_bush_checked");
 	public static final FrozenLibPlacedFeature BIG_BUSH_CHECKED = WWPlacementUtils.register("big_bush_checked");
 
@@ -485,8 +484,7 @@ public final class WWTreePlaced {
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CYPRESS, cypressSaplingPlacement);
 
 		// BUSH
-		LARGE_BUSH_COARSE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH_COARSE, SAND_TREE_FILTER_DECORATOR);
-		LARGE_BUSH_COARSE_GRASS_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH_COARSE, oakSaplingPlacement);
+		LARGE_BUSH_ON_SAND.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH, SAND_TREE_FILTER_DECORATOR);
 		LARGE_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH, oakSaplingPlacement);
 		BIG_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH, oakSaplingPlacement);
 

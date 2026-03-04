@@ -20,18 +20,15 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderState extends LivingEntityRenderState {
 	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/moobloom/moobloom_dandelion.png");
 	public int flowers;
 	public Identifier texture = DEFAULT_TEXTURE;
-	public BlockState flowerBlockState = Blocks.AIR.defaultBlockState();
-	@Nullable
-	public BlockState topFlowerBlockState = null;
+	public BlockModelRenderState flowerModel = new BlockModelRenderState();
+	public BlockModelRenderState topFlowerModel = new BlockModelRenderState();
 }

@@ -71,7 +71,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConf
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
@@ -338,10 +338,10 @@ public final class WWMiscConfigured {
 
 		DISK_MUD.makeAndSetHolder(Feature.DISK,
 			new DiskConfiguration(
-				new RuleBasedBlockStateProvider(
+				new RuleBasedStateProvider(
 					BlockStateProvider.simple(Blocks.MUD),
 					List.of(
-						new RuleBasedBlockStateProvider.Rule(
+						new RuleBasedStateProvider.Rule(
 							BlockPredicate.not(
 								BlockPredicate.anyOf(
 									BlockPredicate.solid(Direction.UP.getUnitVec3i()),

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.worldgen.impl.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.AbstractHugeMushroomFeature;
@@ -39,7 +39,7 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 
 	@Override
 	protected void makeCap(
-		LevelAccessor level,
+		WorldGenLevel level,
 		RandomSource random,
 		BlockPos pos,
 		int height,
@@ -69,7 +69,7 @@ public class HugePaleMushroomFeature extends AbstractHugeMushroomFeature {
 					mutable.setWithOffset(pos, x, y, z);
 					if (level.getBlockState(mutable).isSolidRender()) continue;
 
-					BlockState state = config.capProvider().getState(random, pos);
+					BlockState state = config.capProvider().getState(level, random, pos);
 					if (state.hasProperty(HugeMushroomBlock.WEST)
 						&& state.hasProperty(HugeMushroomBlock.EAST)
 						&& state.hasProperty(HugeMushroomBlock.NORTH)

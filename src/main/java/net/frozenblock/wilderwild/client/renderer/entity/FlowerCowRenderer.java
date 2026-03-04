@@ -26,19 +26,25 @@ import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
+import net.minecraft.client.renderer.block.BlockModelResolver;
+import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
 
 @Environment(EnvType.CLIENT)
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
+	public static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
+	private final BlockModelResolver blockModelResolver;
 
 	public FlowerCowRenderer(Context context) {
 		super(context, new CowModel(context.bakeLayer(WWModelLayers.MOOBLOOM)), new BabyCowModel(context.bakeLayer(WWModelLayers.MOOBLOOM_BABY)), 0.7F);
-		this.addLayer(new FlowerCowFlowerLayer(this, context.getBlockRenderDispatcher()));
+		this.blockModelResolver = context.getBlockModelResolver();
+		this.addLayer(new FlowerCowFlowerLayer(this));
 	}
 
 	@Override
@@ -60,10 +66,18 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 
 		final MoobloomVariant variant = flowerCow.getVariantForRendering();
 		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
-		renderState.flowerBlockState = variant.flowerBlockState();
-		renderState.topFlowerBlockState = variant.isDoubleBlock()
-			? renderState.flowerBlockState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER)
-			: null;
+
+		final BlockState flowerState = variant.flowerBlockState();
+		this.blockModelResolver.update(renderState.flowerModel, flowerState, BLOCK_DISPLAY_CONTEXT);
+		if (variant.isDoubleBlock()) {
+			this.blockModelResolver.update(
+				renderState.topFlowerModel,
+				flowerState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER),
+				BLOCK_DISPLAY_CONTEXT
+			);
+		} else {
+			renderState.topFlowerModel.clear();
+		}
 	}
 
 	@Override

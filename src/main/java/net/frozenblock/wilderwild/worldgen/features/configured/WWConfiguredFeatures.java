@@ -210,7 +210,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SWAMP_TREES_SURFACE_WILLOW = WWFeatureUtils.register("swamp_trees_surface_willow");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SWAMP_TREES_WATER_SHALLOW = WWFeatureUtils.register("swamp_trees_water_shallow");
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> SWAMP_TREES_WATER = WWFeatureUtils.register("swamp_trees_water");
-	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> BIG_COARSE_BUSHES = WWFeatureUtils.register("big_coarse_bushes");
+	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> LARGE_BUSHES_ON_SAND = WWFeatureUtils.register("large_bushes_on_sand");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> BIG_BUSHES = WWFeatureUtils.register("big_bushes");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALMS = WWFeatureUtils.register("palms");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> PALMS_JUNGLE_NO_LITTER = WWFeatureUtils.register("palms_jungle_no_litter");
@@ -1985,7 +1985,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					WWTreePlaced.OAK_NO_FUNGI_CHECKED.asWeightedPlacedFeature(0.095F),
-					new WeightedPlacedFeature(WWTreePlaced.LARGE_BUSH_COARSE_GRASS_CHECKED.getHolder(), 0.4F),
+					new WeightedPlacedFeature(WWTreePlaced.LARGE_BUSH_CHECKED.getHolder(), 0.4F),
 					WWTreePlaced.SHORT_OAK_CHECKED.asWeightedPlacedFeature(0.67F),
 					WWTreePlaced.JUNIPER.asWeightedPlacedFeature(0.2F)
 				),
@@ -1997,7 +1997,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(
 				List.of(
 					WWTreePlaced.OAK_NO_FUNGI_CHECKED.litterAsWeightedPlacedFeature(0.095F),
-					new WeightedPlacedFeature(WWTreePlaced.LARGE_BUSH_COARSE_GRASS_CHECKED.getHolder(), 0.4F),
+					new WeightedPlacedFeature(WWTreePlaced.LARGE_BUSH_CHECKED.getHolder(), 0.4F),
 					WWTreePlaced.SHORT_OAK_CHECKED.litterAsWeightedPlacedFeature(0.67F),
 					WWTreePlaced.JUNIPER.litterAsWeightedPlacedFeature(0.2F)
 				),
@@ -2086,8 +2086,8 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		BIG_COARSE_BUSHES.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.LARGE_BUSH_COARSE_CHECKED.getHolder()))
+		LARGE_BUSHES_ON_SAND.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
+			new SimpleRandomFeatureConfiguration(HolderSet.direct(WWTreePlaced.LARGE_BUSH_ON_SAND.getHolder()))
 		);
 
 		BIG_BUSHES.makeAndSetHolder(Feature.RANDOM_SELECTOR,

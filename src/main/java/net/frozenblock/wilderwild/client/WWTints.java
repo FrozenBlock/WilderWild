@@ -22,32 +22,21 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.frozenblock.lib.block.client.api.BlockColorHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.level.DryFoliageColor;
-import net.minecraft.world.level.GrassColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.block.BlockTintSources;
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public final class WWTints {
 
 	public static void applyTints() {
 		BlockColorRegistry.register(
-			(state, level, pos, index) -> level == null || pos == null ? 7455580 : 2129968,
+			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),
 			WWBlocks.FLOWERING_LILY_PAD
 		);
 
-		final BlockColor flowerBedProvider = (state, level, pos, index) -> {
-			if (index != 0) return level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor();
-			return -1;
-		};
-		final BlockColor grassTintProvider = (state, level, pos, index) ->
-			level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor();
-
-		final BlockColor dryFoliageProvider = (state, level, pos, index) ->
-			level != null && pos != null ? BiomeColors.getAverageDryFoliageColor(level, pos) : DryFoliageColor.FOLIAGE_DRY_DEFAULT;
-
 		BlockColorRegistry.register(
-			flowerBedProvider,
+			List.of(BlockColors.BLANK_LAYER, BlockTintSources.grass()),
 			WWBlocks.POTTED_PINK_PETALS,
 			WWBlocks.POTTED_WILDFLOWERS,
 			WWBlocks.PHLOX,
@@ -56,23 +45,25 @@ public final class WWTints {
 			WWBlocks.POTTED_LANTANAS
 		);
 
-		BlockColorRegistry.register(
-			grassTintProvider,
+		BlockColorHelper.registerTint(
+			BlockTintSources.grass(),
 			WWBlocks.POTTED_BUSH,
 			WWBlocks.CLOVERS,
 			WWBlocks.POTTED_CLOVERS
 		);
 
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.BAOBAB_LEAVES);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.WILLOW_LEAVES);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.CYPRESS_LEAVES);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.PALM_FRONDS);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.POTTED_SHORT_GRASS);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.SHRUB);
-		BlockColorHelper.registerAverageFoliageColor(WWBlocks.POTTED_SHRUB);
+		BlockColorHelper.registerAverageFoliageTint(
+			WWBlocks.BAOBAB_LEAVES,
+			WWBlocks.WILLOW_LEAVES,
+			WWBlocks.CYPRESS_LEAVES,
+			WWBlocks.PALM_FRONDS,
+			WWBlocks.POTTED_SHORT_GRASS,
+			WWBlocks.SHRUB,
+			WWBlocks.POTTED_SHRUB
+		);
 
-		BlockColorRegistry.register(
-			dryFoliageProvider,
+		BlockColorHelper.registerTint(
+			BlockTintSources.dryFoliage(),
 			WWBlocks.ACACIA_LEAF_LITTER,
 			WWBlocks.BAOBAB_LEAF_LITTER,
 			WWBlocks.DARK_OAK_LEAF_LITTER,

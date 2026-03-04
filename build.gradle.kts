@@ -66,6 +66,7 @@ base {
 version = getModVersion()
 group = maven_group
 
+val local_frozenlib = findProject(":FrozenLib") != null
 val release = findProperty("releaseType") == "stable"
 
 val datagen by sourceSets.registering {
@@ -179,7 +180,7 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
-    api("net.frozenblock:frozenlib:$frozenlib_version")
+    api("maven.modrinth:frozenlib:${frozenlib_version}")
 
     // Simple Copper Pipes
     compileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")

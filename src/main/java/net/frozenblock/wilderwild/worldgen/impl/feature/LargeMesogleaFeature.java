@@ -180,7 +180,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 							final BlockPos pos = windOffsetter.offset(mutable);
 							if (isEmptyOrWaterOrLava(level, pos)) {
 								bl = true;
-								level.setBlock(pos, config.pathBlock().getState(random, mutable), Block.UPDATE_ALL);
+								level.setBlock(pos, config.pathBlock().getState(level, random, mutable), Block.UPDATE_ALL);
 							} else if (bl && level.getBlockState(pos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								break;
 							}

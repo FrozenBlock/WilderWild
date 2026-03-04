@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -29,18 +29,18 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 public class TrunkPlacerHelper {
 
 	public static BlockState getLogBlockState(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		BlockStateProvider stateProvider,
 		BlockPos branchPos,
 		Direction direction,
 		RandomSource random
 	) {
-		BlockState state = stateProvider.getState(random, branchPos).trySetValue(BlockStateProperties.AXIS, direction.getAxis());
+		BlockState state = stateProvider.getState(level, random, branchPos).trySetValue(BlockStateProperties.AXIS, direction.getAxis());
 		if (state.hasProperty(BlockStateProperties.WATERLOGGED)) state = state.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, branchPos));
 		return state;
 	}
 
-	public static boolean isWaterAt(LevelSimulatedReader level, BlockPos pos) {
+	public static boolean isWaterAt(WorldGenLevel level, BlockPos pos) {
 		return level.isFluidAtPosition(pos, fluidState -> fluidState.is(FluidTags.WATER));
 	}
 

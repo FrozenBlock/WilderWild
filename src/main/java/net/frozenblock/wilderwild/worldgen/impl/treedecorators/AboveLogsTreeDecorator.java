@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -60,10 +61,11 @@ public class AboveLogsTreeDecorator extends TreeDecorator {
 		poses.addAll(context.leaves());
 		Util.shuffle(poses, random);
 
+		final WorldGenLevel level = context.level();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : poses) {
 			if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, Direction.UP))) continue;
-			context.setBlock(mutable, this.blockStateProvider.getState(random, mutable));
+			context.setBlock(mutable, this.blockStateProvider.getState(level, random, mutable));
 		}
 	}
 }

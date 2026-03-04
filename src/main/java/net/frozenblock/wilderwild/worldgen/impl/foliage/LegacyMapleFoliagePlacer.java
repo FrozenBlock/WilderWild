@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -50,29 +50,29 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected void createFoliage(
-		LevelSimulatedReader level,
-		FoliagePlacer.FoliageSetter placer,
+		WorldGenLevel level,
+		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
 		TreeConfiguration config,
-		int trunkHeight,
-		FoliagePlacer.FoliageAttachment attachment,
+		int treeHeight,
+		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
-		int radius,
+		int leafRadius,
 		int offset
 	) {
-		final BlockPos pos = attachment.pos();
+		final BlockPos pos = foliageAttachment.pos();
 		int totalHeight = offset + foliageHeight;
 		int currentHeight = totalHeight;
 
 		for (int l = offset; l >= -foliageHeight; l--) {
-			this.placeLeavesInCircle(level, placer, random, config, pos, radius, l, attachment.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
+			this.placeLeavesInCircle(level, foliageSetter, random, config, pos, leafRadius, l, foliageAttachment.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
 			currentHeight -= 1;
 		}
 	}
 
 	protected void placeLeavesInCircle(
-		LevelSimulatedReader level,
-		FoliagePlacer.FoliageSetter placer,
+		WorldGenLevel level,
+		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
 		TreeConfiguration config,
 		BlockPos centerPos,
@@ -91,7 +91,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 			for (double k = -radius; k <= radius; k += increment) {
 				if (this.shouldSkipMapleLocationSigned(j, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) continue;
 				mutable.setWithOffset(centerPos, (int) j, y, (int) k);
-				tryPlaceLeaf(level, placer, random, config, mutable);
+				tryPlaceLeaf(level, foliageSetter, random, config, mutable);
 			}
 		}
 	}

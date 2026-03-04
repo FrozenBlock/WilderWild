@@ -2,13 +2,10 @@
   "type": "minecraft:tree",
   "config": {
     "below_trunk_provider": {
-      "fallback": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:warped_nylium"
-        }
-      },
-      "rules": []
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:warped_nylium"
+      }
     },
     "decorators": [
       {

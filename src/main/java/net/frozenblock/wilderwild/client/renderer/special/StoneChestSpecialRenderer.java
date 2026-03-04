@@ -27,15 +27,16 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.client.resources.model.SpriteGetter;
-import net.minecraft.client.resources.model.SpriteId;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import org.joml.Vector3fc;
 
 @Environment(EnvType.CLIENT)
@@ -84,16 +85,17 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		this.model.root().getExtentsForGui(poseStack, consumer);
 	}
 
-	public record Unbaked(Identifier texture, float openness) implements SpecialModelRenderer.Unbaked {
+	public record Unbaked(Identifier texture, float openness, ChestType chestType) implements NoDataSpecialModelRenderer.Unbaked {
 		public static final MapCodec<StoneChestSpecialRenderer.Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
 			instance -> instance.group(
 				Identifier.CODEC.fieldOf("texture").forGetter(StoneChestSpecialRenderer.Unbaked::texture),
-				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness)
+				Codec.FLOAT.optionalFieldOf("openness", 0F).forGetter(StoneChestSpecialRenderer.Unbaked::openness),
+				ChestType.CODEC.optionalFieldOf("chest_type", ChestType.SINGLE).forGetter(StoneChestSpecialRenderer.Unbaked::chestType)
 			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);
 
 		public Unbaked(Identifier texture) {
-			this(texture, 0F);
+			this(texture, 0F, ChestType.SINGLE);
 		}
 
 		@Override
@@ -102,10 +104,17 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 		}
 
 		@Override
-		public SpecialModelRenderer<?> bake(BakingContext context) {
-			final StoneChestModel model = new StoneChestModel(context.entityModelSet().bakeLayer(WWModelLayers.STONE_CHEST));
+		public StoneChestSpecialRenderer bake(BakingContext context) {
+			final StoneChestModel model = new StoneChestModel(context.entityModelSet().bakeLayer(getModel(this.chestType)));
 			final SpriteId fullTexture = Sheets.CHEST_MAPPER.apply(this.texture);
 			return new StoneChestSpecialRenderer(context.sprites(), model, fullTexture, this.openness);
+		}
+
+		private static ModelLayerLocation getModel(final ChestType type) {
+			if (type == ChestType.SINGLE) return WWModelLayers.STONE_CHEST;
+			if (type == ChestType.RIGHT) return WWModelLayers.DOUBLE_STONE_CHEST_RIGHT;
+			if (type == ChestType.LEFT) return WWModelLayers.DOUBLE_STONE_CHEST_LEFT;
+			throw new IllegalStateException("No valid ChestType found!");
 		}
 	}
 }

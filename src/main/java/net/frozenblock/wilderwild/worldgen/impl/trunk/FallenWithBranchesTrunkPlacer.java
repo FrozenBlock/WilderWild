@@ -34,7 +34,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -90,10 +89,10 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int height,
-		BlockPos startPos,
+		int treeHeight,
+		BlockPos origin,
 		TreeConfiguration config
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
@@ -105,13 +104,13 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
 
-		if (TrunkPlacerHelper.isWaterAt(level, startPos) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
+		if (TrunkPlacerHelper.isWaterAt(level, origin) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
 
-		final BlockPos endPos = startPos.relative(trunkDirection, height);
+		final BlockPos endPos = origin.relative(trunkDirection, treeHeight);
 		final BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
 		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
-		final Iterable<BlockPos> poses = BlockPos.betweenClosed(startPos, endPos);
+		final Iterable<BlockPos> poses = BlockPos.betweenClosed(origin, endPos);
 		for (BlockPos blockPos : poses) {
 			mutable.set(blockPos);
 			if (TreeFeature.validTreePos(level, mutable)) {
@@ -121,23 +120,23 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 					if (mutable.equals(endPos) || mutable.equals(secondToEndPos)) isEndAboveSolid = true;
 				} else {
 					mutable.move(Direction.UP);
-					if (mutable.equals(startPos)) return foliageAttachments;
+					if (mutable.equals(origin)) return foliageAttachments;
 				}
 			} else {
 				return foliageAttachments;
 			}
 		}
 
-		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) height) > 0.5D) {
+		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) treeHeight) > 0.5D) {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
-				this.placeLog(level, replacer, random, stateProvider, mutable, trunkDirection);
+				this.placeLog(level, trunkSetter, random, stateProvider, mutable, trunkDirection);
 				if (this.trunkBranchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
 					final Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 					if (trunkDirection.getAxis() != branchDirection.getAxis()) {
 						this.trunkBranchPlacement.generateExtraBranchForFallenLog(
 							level,
-							replacer,
+							trunkSetter,
 							random,
 							stateProvider,
 							mutable,
@@ -151,11 +150,11 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		}
 
 		if (random.nextFloat() <= this.stumpPlacementChance) {
-			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, startPos, trunkDirection);
+			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, origin, trunkDirection);
 			if (optionalStumpPos.isPresent()) {
 				final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
-				this.placeLog(level, replacer, random, stumpPos, config);
-				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, replacer, random, stumpPos.move(Direction.UP), config);
+				this.placeLog(level, trunkSetter, random, stumpPos, config);
+				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, trunkSetter, random, stumpPos.move(Direction.UP), config);
 			}
 		}
 
@@ -163,7 +162,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	}
 
 	private Optional<BlockPos.MutableBlockPos> findStumpPos(
-		LevelSimulatedReader level,
+		WorldGenLevel level,
 		RandomSource random,
 		BlockPos pos,
 		Direction trunkDirection
@@ -193,27 +192,27 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		return Optional.empty();
 	}
 
-	private static boolean canPlaceStumpAtPos(LevelSimulatedReader level, BlockPos floorPos, BlockPos pos, BlockPos abovePos) {
+	private static boolean canPlaceStumpAtPos(WorldGenLevel level, BlockPos floorPos, BlockPos pos, BlockPos abovePos) {
 		return isPosSolidGround(level, floorPos)
 			&& level.isStateAtPosition(floorPos, blockState -> blockState.is(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON))
 			&& TreeFeature.validTreePos(level, pos)
 			&& TreeFeature.validTreePos(level, abovePos);
 	}
 
-	private static boolean isPosSolidGround(LevelSimulatedReader level, BlockPos pos) {
+	private static boolean isPosSolidGround(WorldGenLevel level, BlockPos pos) {
 		return !TreeFeature.validTreePos(level, pos) && !TreeFeature.isAirOrLeaves(level, pos);
 	}
 
 	private void placeLog(
-		LevelSimulatedReader level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		BlockStateProvider blockStateProvider,
+		BlockStateProvider stateProvider,
 		BlockPos.MutableBlockPos pos,
 		Direction trunkDirection
 	) {
-		final BlockState placementState = TrunkPlacerHelper.getLogBlockState(level, blockStateProvider, pos, trunkDirection, random);
-		replacer.accept(pos, placementState);
+		final BlockState placementState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, pos, trunkDirection, random);
+		trunkSetter.accept(pos, placementState);
 	}
 
 	private static void setBelowAndAbovePoses(BlockPos pos, BlockPos.MutableBlockPos belowPos, BlockPos.MutableBlockPos abovePos) {

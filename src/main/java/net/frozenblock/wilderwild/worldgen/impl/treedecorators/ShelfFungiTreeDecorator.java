@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -60,11 +61,12 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 		final RandomSource random = context.random();
 		if (random.nextFloat() > this.probability) return;
 
+		final WorldGenLevel level = context.level();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (BlockPos pos : context.logs()) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
-				final BlockState state = this.blockStateProvider.getState(random, mutable)
+				final BlockState state = this.blockStateProvider.getState(level, random, mutable)
 					.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
 					.setValue(ShelfFungiBlock.FACING, direction);
 				context.setBlock(mutable, state);

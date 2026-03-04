@@ -25,7 +25,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
@@ -47,17 +46,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class HangingTendrilBlockEntity extends BlockEntity implements GameEventListener.Provider<VibrationSystem.Listener>, VibrationSystem {
-	public static final int MILK_FRAMES = 4;
-	public static final int MILK_ANIM_SPEED = 2;
-	public static final int ACTIVE_FRAMES = 5;
-	public static final int ACTIVE_ANIM_SPEED = 1;
-	public static final int TWITCHING_FRAMES = 4;
-	public static final int TWITCHING_ANIM_SPEED = 50;
-	public static final int INACTIVE_FRAMES = 6;
-	public static final int INACTIVE_ANIM_SPEED = 6;
 	public static final double MILK_XP_PERCENTAGE = 0.5D;
-	private static final String BASE_TEXTURE = "textures/entity/hanging_tendril/";
-
 	private final VibrationSystem.Listener vibrationListener;
 	private final VibrationSystem.User vibrationUser = this.createVibrationUser();
 	private VibrationSystem.Data vibrationData;
@@ -66,9 +55,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int storedXP;
 	public int ringOutTicksLeft;
 	private int activeTicks;
-
-	//CLIENT ONLY
-	private Identifier texture = WWConstants.id("textures/entity/hanging_tendril/inactive1.png");
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
@@ -102,27 +88,6 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		Ticker.tick(level, this.getVibrationData(), this.getVibrationUser());
 	}
 
-	public void clientTick(Level level, BlockState state) {
-		if (!level.isClientSide()) return;
-		final boolean twitching = this.ticksToStopTwitching > 0;
-		final boolean milking = this.ringOutTicksLeft > 0;
-		final boolean active = !SculkSensorBlock.canActivate(state);
-		final long time = level.getGameTime();
-		if (milking) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "milk" + (((time / MILK_ANIM_SPEED) % MILK_FRAMES) + 1) + ".png");
-		} else if (active) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "active" + (((time / ACTIVE_ANIM_SPEED) % ACTIVE_FRAMES) + 1) + ".png");
-		} else if (twitching) {
-			this.texture = WWConstants.id(BASE_TEXTURE + "twitch" + (((time / TWITCHING_ANIM_SPEED) % TWITCHING_FRAMES) + 1) + ".png");
-		} else {
-			this.texture = WWConstants.id(BASE_TEXTURE + "inactive" + (((time / INACTIVE_ANIM_SPEED) % INACTIVE_FRAMES) + 1) + ".png");
-		}
-	}
-
-	public Identifier getClientTexture() {
-		return this.texture;
-	}
-
 	public int getStoredXP() {
 		return this.storedXP;
 	}
@@ -147,9 +112,9 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
-			TagValueOutput tagValueOutput = TagValueOutput.createWithContext(scopedCollector, registries);
-			this.saveClientUsableNbt(tagValueOutput);
-			return tagValueOutput.buildResult();
+			final TagValueOutput output = TagValueOutput.createWithContext(scopedCollector, registries);
+			this.saveClientUsableNbt(output);
+			return output.buildResult();
 		}
 	}
 
@@ -176,9 +141,9 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		output.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
-	public void saveClientUsableNbt(ValueOutput valueOutput) {
-		if (this.ticksToStopTwitching > 0) valueOutput.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
-		if (this.ringOutTicksLeft > 0) valueOutput.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
+	public void saveClientUsableNbt(ValueOutput output) {
+		if (this.ticksToStopTwitching > 0) output.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
+		if (this.ringOutTicksLeft > 0) output.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
 	}
 
 	public VibrationSystem.User createVibrationUser() {

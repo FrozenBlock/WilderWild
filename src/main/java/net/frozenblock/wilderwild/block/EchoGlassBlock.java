@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -114,8 +115,8 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public int getLightBlock(BlockState state) {
-		return 15;
+	protected int getLightDampening(BlockState state) {
+		return LightEngine.MAX_LEVEL;
 	}
 
 	@Override

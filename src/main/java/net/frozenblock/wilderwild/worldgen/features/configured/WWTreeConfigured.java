@@ -101,7 +101,7 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacem
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
@@ -124,9 +124,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingT
 
 public final class WWTreeConfigured {
 	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE));
-	public static final RuleBasedBlockStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE = RuleBasedBlockStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE, Blocks.DIRT);
+	public static final RuleBasedStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE = RuleBasedStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE, Blocks.DIRT);
 	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_DESERT = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT));
-	public static final RuleBasedBlockStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_DESERT = RuleBasedBlockStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_DESERT, Blocks.DIRT);
+	public static final RuleBasedStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_DESERT = RuleBasedStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_DESERT, Blocks.DIRT);
 	// BIRCH
 	public static final FrozenLibConfiguredTreeFeature BIRCH_TREE = registerBirch("birch_tree");
 	public static final FrozenLibConfiguredTreeFeature BIRCH_BEES_0004 = registerBirch("birch_bees_0004");
@@ -295,7 +295,6 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SNAPPED_CYPRESS = register("snapped_cypress_tree");
 
 	// BUSHES
-	public static final FrozenLibConfiguredFeature<TreeConfiguration> LARGE_BUSH_COARSE = register("large_bush_coarse");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> LARGE_BUSH = register("large_bush");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> BIG_BUSH = register("big_bush");
 
@@ -842,7 +841,7 @@ public final class WWTreeConfigured {
 		FULL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullYellowMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
+			).build()
 		);
 
 		BIG_SHRUB_YELLOW_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -914,7 +913,7 @@ public final class WWTreeConfigured {
 		FULL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullOrangeMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
+			).build()
 		);
 
 		BIG_SHRUB_ORANGE_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -986,7 +985,7 @@ public final class WWTreeConfigured {
 		FULL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullRedMaple().decorators(
 				List.of(SHELF_FUNGUS_0074)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.DIRT)).build()
+			).build()
 		);
 
 		BIG_SHRUB_RED_MAPLE.makeAndSetHolder(Feature.TREE,
@@ -1593,7 +1592,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedStateProvider.ifTrueThenProvide(BlockPredicate.matchesTag(BlockTags.BENEATH_TREE_PODZOL_REPLACEABLE), Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).build()
@@ -1612,7 +1611,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedStateProvider.ifTrueThenProvide(BlockPredicate.matchesTag(BlockTags.BENEATH_TREE_PODZOL_REPLACEABLE), Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN
 				)
 			).build()
@@ -1627,7 +1626,7 @@ public final class WWTreeConfigured {
 				new TwoLayersFeatureSize(1, 1, 2)
 			).decorators(
 				List.of(
-					new AlterGroundDecorator(RuleBasedBlockStateProvider.always(Blocks.PODZOL)),
+					new AlterGroundDecorator(RuleBasedStateProvider.ifTrueThenProvide(BlockPredicate.matchesTag(BlockTags.BENEATH_TREE_PODZOL_REPLACEABLE), Blocks.PODZOL)),
 					SHELF_FUNGUS_0074_ONLY_BROWN,
 					VINES_1_UNDER_260_075
 				)
@@ -1952,16 +1951,6 @@ public final class WWTreeConfigured {
 
 		// SHRUBS
 
-		LARGE_BUSH_COARSE.makeAndSetHolder(Feature.TREE,
-			new TreeConfiguration.TreeConfigurationBuilder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
-				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(Blocks.OAK_LEAVES),
-				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-				new TwoLayersFeatureSize(0, 0, 0)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.COARSE_DIRT)).build()
-		);
-
 		LARGE_BUSH.makeAndSetHolder(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
 				BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -1969,6 +1958,8 @@ public final class WWTreeConfigured {
 				BlockStateProvider.simple(Blocks.OAK_LEAVES),
 				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0)
+			).belowTrunkProvider(
+				PLACE_BELOW_OVERWORLD_TRUNKS_DESERT
 			).build()
 		);
 
@@ -2295,7 +2286,7 @@ public final class WWTreeConfigured {
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenCrimson().decorators(
 				List.of(NETHER_FUNGI_LEANING_CRIMSON)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.CRIMSON_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
@@ -2306,14 +2297,14 @@ public final class WWTreeConfigured {
 				1
 			).decorators(
 				List.of(NETHER_FUNGI_LEANING_CRIMSON)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.CRIMSON_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
 		//WARPED
 		FALLEN_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenWarped().decorators(
 				List.of(NETHER_FUNGI_LEANING_WARPED)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.WARPED_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
 		);
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
@@ -2324,7 +2315,7 @@ public final class WWTreeConfigured {
 				1
 			).decorators(
 				List.of(NETHER_FUNGI_LEANING_WARPED)
-			).belowTrunkProvider(RuleBasedBlockStateProvider.always(Blocks.WARPED_NYLIUM)).build()
+			).belowTrunkProvider(RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
 		);
 
 	}

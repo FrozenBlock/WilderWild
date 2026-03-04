@@ -62,11 +62,11 @@ public class WaterCoverFeature extends Feature<WaterCoverFeatureConfig> {
 							hasGeneratedThisRound = true;
 							if (fade) {
 								if (random.nextBoolean()) {
-									level.setBlock(mutableDisk, stateProvider.getState(random, mutableDisk), Block.UPDATE_CLIENTS);
+									level.setBlock(mutableDisk, stateProvider.getState(level, random, mutableDisk), Block.UPDATE_CLIENTS);
 									generated = true;
 								}
 							} else {
-								level.setBlock(mutableDisk, stateProvider.getState(random, mutableDisk), Block.UPDATE_CLIENTS);
+								level.setBlock(mutableDisk, stateProvider.getState(level, random, mutableDisk), Block.UPDATE_CLIENTS);
 								generated = true;
 							}
 						}
@@ -103,11 +103,11 @@ public class WaterCoverFeature extends Feature<WaterCoverFeatureConfig> {
 		if (random.nextFloat() > 0.2F) {
 			if (fade) {
 				if (random.nextFloat() > 0.5F) {
-					level.setBlock(mutableDisk, stateProvider.getState(random, mutableDisk), Block.UPDATE_CLIENTS);
+					level.setBlock(mutableDisk, stateProvider.getState(level, random, mutableDisk), Block.UPDATE_CLIENTS);
 					return true;
 				}
 			} else {
-				level.setBlock(mutableDisk, stateProvider.getState(random, mutableDisk), Block.UPDATE_CLIENTS);
+				level.setBlock(mutableDisk, stateProvider.getState(level, random, mutableDisk), Block.UPDATE_CLIENTS);
 				return true;
 			}
 		}

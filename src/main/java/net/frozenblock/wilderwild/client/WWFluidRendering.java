@@ -27,9 +27,9 @@ import net.frozenblock.lib.block.client.api.LiquidRenderUtils;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -58,7 +58,7 @@ public final class WWFluidRendering {
 				}
 				if (!WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) return;
 
-				final TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockModelShaper().getParticleMaterial(state).sprite();
+				final TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockStateModelSet().getParticleMaterial(state).sprite();
 				LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, state, fluidState, sprite);
 			}
 

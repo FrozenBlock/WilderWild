@@ -2,6 +2,7 @@
   "type": "minecraft:tree",
   "config": {
     "below_trunk_provider": {
+      "type": "minecraft:rule_based_state_provider",
       "rules": [
         {
           "if_true": {

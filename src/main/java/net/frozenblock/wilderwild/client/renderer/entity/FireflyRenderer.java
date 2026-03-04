@@ -33,10 +33,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, NoOpModel<FireflyRenderState>> {
@@ -87,10 +88,10 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	public static void submitFirefly(
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
-		Quaternionf cameraOrientation,
+		Quaternionf orientation,
 		FireflyRenderState renderState
 	) {
-		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, cameraOrientation);
+		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, orientation);
 
 		final int lightCoords = renderState.lightCoords;
 		final int overlayCoords = getOverlayCoords(renderState, 0F);
@@ -160,33 +161,38 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 	//CREDIT TO magistermaks ON GITHUB!!
 	private static void render(PoseStack.Pose pose, VertexConsumer vertexConsumer, float color, int lightCoords, int overlayCoords) {
+		final Vector3f transformedNormal = pose.transformNormal(0F, 1F, 0F, new Vector3f());
+		final float normalX = transformedNormal.x;
+		final float normalY = transformedNormal.y;
+		final float normalZ = transformedNormal.z;
+
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(0, 1)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
-			.setNormal(pose, 0F, 1F, 0F);
+			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, 0.5F, -0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(1, 1)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
-			.setNormal(pose, 0F, 1F, 0F);
+			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, 0.5F, 0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(1, 0)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
-			.setNormal(pose, 0F, 1F, 0F);
+			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, -0.5F, 0.5F, 0F)
 			.setColor(color, color, color, color)
 			.setUv(0, 0)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
-			.setNormal(pose, 0F, 1F, 0F);
+			.setNormal(normalX, normalY, normalZ);
 	}
 }

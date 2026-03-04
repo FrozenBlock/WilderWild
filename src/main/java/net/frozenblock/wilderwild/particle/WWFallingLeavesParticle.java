@@ -22,6 +22,7 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.Particle;
@@ -33,6 +34,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
@@ -63,8 +65,13 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 		applyColor: {
 			if (leafParticleData == null) break applyColor;
 			final Block leavesBlock = leafParticleData.leavesBlock();
+
+			final BlockState leavesState = leavesBlock.defaultBlockState();
+			final BlockTintSource tintSource = Minecraft.getInstance().getBlockColors().getTintSource(leavesState, 0);
+			if (tintSource == null) break applyColor;
+
 			final BlockPos particlePos = BlockPos.containing(x, y, z);
-			final int newColor = Minecraft.getInstance().getBlockColors().getColor(leavesBlock.defaultBlockState(), level, particlePos, 0);
+			final int newColor = tintSource.colorAsTerrainParticle(leavesState, level, particlePos);
 			if (newColor == -1) break applyColor;
 			color =	newColor;
 		}

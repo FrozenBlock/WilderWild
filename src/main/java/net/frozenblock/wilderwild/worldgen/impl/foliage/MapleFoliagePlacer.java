@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -65,36 +65,36 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 
 	@Override
 	public void createFoliage(
-		LevelSimulatedReader level,
-		FoliageSetter setter,
+		WorldGenLevel level,
+		FoliageSetter foliageSetter,
 		RandomSource random,
 		TreeConfiguration config,
-		int trunkHeight,
+		int treeHeight,
 		FoliageAttachment foliageAttachment,
 		int foliageHeight,
-		int radius,
+		int leafRadius,
 		int offset
 	) {
 		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) {
 			this.altFoliagePlacer.createFoliage(
 				level,
-				setter,
+				foliageSetter,
 				random,
 				config,
-				trunkHeight,
+				treeHeight,
 				foliageAttachment,
-				this.altFoliagePlacer.foliageHeight(random, trunkHeight, config),
-				this.altFoliagePlacer.foliageRadius(random, trunkHeight)
+				this.altFoliagePlacer.foliageHeight(random, treeHeight, config),
+				this.altFoliagePlacer.foliageRadius(random, treeHeight)
 			);
 			return;
 		}
 
 		for (int relativeY = offset; relativeY >= offset - foliageHeight; relativeY--) {
-			final int newRadius = Math.max(radius + foliageAttachment.radiusOffset() - 1 - relativeY / 2, 0);
+			final int newRadius = Math.max(leafRadius + foliageAttachment.radiusOffset() - 1 - relativeY / 2, 0);
 			if (relativeY <= offset - foliageHeight) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					level,
-					setter,
+					foliageSetter,
 					random,
 					config,
 					foliageAttachment.pos().above(2),
@@ -107,7 +107,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 			} else {
 				this.placeLeavesRow(
 					level,
-					setter,
+					foliageSetter,
 					random,
 					config,
 					foliageAttachment.pos().above(2),

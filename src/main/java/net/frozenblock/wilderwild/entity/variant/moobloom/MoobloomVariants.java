@@ -32,6 +32,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,7 +87,7 @@ public final class MoobloomVariants {
 		for (ConfiguredFeature<?, ?> feature : flowerFeatures) {
 			if (!(feature.config() instanceof RandomPatchConfiguration randomPatchConfiguration)) continue;
 			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
-			biomeFlowerStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, context.pos(), random));
+			biomeFlowerStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, context.level(), context.pos(), random));
 		}
 
 		final List<Holder.Reference<MoobloomVariant>> variants = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT)
@@ -96,19 +97,19 @@ public final class MoobloomVariants {
 		return Util.getRandomSafe(variants, random);
 	}
 
-	private static List<BlockState> getBlockStatesFromConfiguredFeature(ConfiguredFeature<?, ?> feature, BlockPos pos, RandomSource random) {
+	private static List<BlockState> getBlockStatesFromConfiguredFeature(ConfiguredFeature<?, ?> feature, ServerLevelAccessor level, BlockPos pos, RandomSource random) {
 		final List<BlockState> blockStates = new ArrayList<>();
 
 		final FeatureConfiguration config = feature.config();
 		if (config instanceof RandomPatchConfiguration randomPatchConfiguration) {
 			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
-			blockStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, pos, random));
+			blockStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, level, pos, random));
 		} else if (config instanceof SimpleBlockConfiguration simpleBlockConfiguration) {
-			blockStates.add(simpleBlockConfiguration.toPlace().getState(random, pos));
+			blockStates.add(simpleBlockConfiguration.toPlace().getState(level.getLevel(), random, pos));
 		}
 
 		for (ConfiguredFeature<?, ?> nestedFeature : config.getFeatures().toList()) {
-			blockStates.addAll(getBlockStatesFromConfiguredFeature(nestedFeature, pos, random));
+			blockStates.addAll(getBlockStatesFromConfiguredFeature(nestedFeature, level, pos, random));
 		}
 
 		return blockStates;

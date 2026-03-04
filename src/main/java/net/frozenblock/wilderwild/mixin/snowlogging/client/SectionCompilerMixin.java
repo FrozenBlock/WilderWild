@@ -18,22 +18,18 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
-import net.minecraft.client.renderer.block.BakedQuadOutput;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.model.BlockModelPart;
+import net.minecraft.client.renderer.block.BlockQuadOutput;
+import net.minecraft.client.renderer.block.BlockStateModelSet;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.chunk.RenderSectionRegion;
 import net.minecraft.client.renderer.chunk.SectionCompiler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,44 +44,45 @@ public abstract class SectionCompilerMixin {
 
 	@Shadow
 	@Final
-	private BlockRenderDispatcher blockRenderer;
+	private BlockStateModelSet blockModelSet;
+
+	@Shadow
+	@Final
+	private boolean cutoutLeaves;
 
 	@Inject(
 		method = "compile",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getRenderShape()Lnet/minecraft/world/level/block/RenderShape;",
-			shift = At.Shift.BEFORE
+			target = "Lnet/minecraft/client/renderer/block/ModelBlockRenderer;tesselateBlock(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;J)V"
 		)
 	)
-	public void wilderWild$compileWithSnowlogging(
+	public void wilderWild$tesselateSnowloggedLayer(
 		SectionPos sectionPos,
-		RenderSectionRegion renderSectionRegion,
+		RenderSectionRegion region,
 		VertexSorting vertexSorting,
-		SectionBufferBuilderPack sectionBufferBuilderPack,
+		SectionBufferBuilderPack builders,
 		CallbackInfoReturnable<SectionCompiler.Results> info,
-		@Local(name = "poseStack") PoseStack poseStack,
-		@Local(name = "quadOutput") BakedQuadOutput quadOutput,
-		@Local(name = "opaqueQuadOutput") BakedQuadOutput opaqueQuadOutput,
-		@Local(name = "random") RandomSource random,
-		@Local(name = "parts") List<BlockModelPart> parts,
+		@Local(name = "blockRenderer") ModelBlockRenderer blockRenderer,
+		@Local(name = "quadOutput") BlockQuadOutput quadOutput,
+		@Local(name = "opaqueQuadOutput") BlockQuadOutput opaqueQuadOutput,
 		@Local(name = "pos") BlockPos pos,
 		@Local(name = "blockState") BlockState blockState
 	) {
 		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
 		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-		final boolean forceOpaque = ItemBlockRenderTypes.forceOpaque(snowState);
-		random.setSeed(snowState.getSeed(pos));
-		this.blockRenderer.getBlockModel(snowState).collectParts(random, parts);
-		poseStack.pushPose();
-		poseStack.translate(
-			(float) SectionPos.sectionRelative(pos.getX()),
-			(float) SectionPos.sectionRelative(pos.getY()),
-			(float) SectionPos.sectionRelative(pos.getZ())
+
+		blockRenderer.tesselateBlock(
+			ModelBlockRenderer.forceOpaque(this.cutoutLeaves, snowState) ? opaqueQuadOutput : quadOutput,
+			(float)SectionPos.sectionRelative(pos.getX()),
+			(float)SectionPos.sectionRelative(pos.getY()),
+			(float)SectionPos.sectionRelative(pos.getZ()),
+			region,
+			pos,
+			snowState,
+			this.blockModelSet.get(snowState),
+			snowState.getSeed(pos)
 		);
-		this.blockRenderer.renderBatched(snowState, pos, renderSectionRegion, poseStack, forceOpaque ? opaqueQuadOutput : quadOutput, true, parts);
-		poseStack.popPose();
-		parts.clear();
 	}
 
 }

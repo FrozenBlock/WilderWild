@@ -28,7 +28,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.state.QuadParticleRenderState;
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -91,12 +91,12 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	public void extract(QuadParticleRenderState renderState, Camera camera, float partialTick) {
+	public void extract(QuadParticleRenderState renderState, Camera camera, float partialTicks) {
 		final Quaternionf rotation = new Quaternionf();
-		this.getFacingCameraMode().setRotation(rotation, camera, partialTick);
-		rotation.rotateX(-camera.xRot() * (Mth.lerp(partialTick, this.prevXRotMultiplier, this.xRotMultiplier)) * Mth.DEG_TO_RAD);
-		if (this.roll != 0F) rotation.rotateZ(Mth.lerp(partialTick, this.oRoll, this.roll));
-		this.extractRotatedQuad(renderState, camera, rotation, partialTick);
+		this.getFacingCameraMode().setRotation(rotation, camera, partialTicks);
+		rotation.rotateX(-camera.xRot() * (Mth.lerp(partialTicks, this.prevXRotMultiplier, this.xRotMultiplier)) * Mth.DEG_TO_RAD);
+		if (this.roll != 0F) rotation.rotateZ(Mth.lerp(partialTicks, this.oRoll, this.roll));
+		this.extractRotatedQuad(renderState, camera, rotation, partialTicks);
 	}
 
 	@Override

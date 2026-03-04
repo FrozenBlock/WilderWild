@@ -21,7 +21,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -41,20 +41,20 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	public void createFoliage(
-		LevelSimulatedReader world,
-		FoliageSetter placer,
+		WorldGenLevel level,
+		FoliageSetter foliageSetter,
 		RandomSource random,
 		TreeConfiguration config,
-		int trunkHeight,
-		FoliageAttachment node,
+		int treeHeight,
+		FoliageAttachment foliageAttachment,
 		int foliageHeight,
-		int radius,
+		int leafRadius,
 		int offset
 	) {
 	}
 
 	@Override
-	public int foliageHeight(RandomSource random, int i, TreeConfiguration config) {
+	public int foliageHeight(RandomSource random, int treeHeight, TreeConfiguration config) {
 		return 0;
 	}
 

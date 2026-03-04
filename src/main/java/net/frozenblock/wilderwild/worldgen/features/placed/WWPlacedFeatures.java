@@ -893,7 +893,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE)
 		);
 
-		BIG_COARSE_BUSHES.makeAndSetHolder(WWConfiguredFeatures.BIG_COARSE_BUSHES,
+		BIG_COARSE_BUSHES.makeAndSetHolder(WWConfiguredFeatures.LARGE_BUSHES_ON_SAND,
 			treePlacement(RarityFilter.onAverageOnceEvery(5))
 		);
 

@@ -31,7 +31,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -62,12 +62,12 @@ public class TumbleweedRenderer extends MobRenderer<Tumbleweed, TumbleweedRender
 
 		poseStack.pushPose();
 		poseStack.translate(renderState.itemX, 0.4375D, renderState.itemZ);
-		Quaternionf quaternionf = new Quaternionf().rotationXYZ(
+		final Quaternionf rotation = new Quaternionf().rotationXYZ(
 			renderState.pitch * Mth.DEG_TO_RAD,
 			0F,
 			renderState.roll * Mth.DEG_TO_RAD
 		);
-		poseStack.mulPose(quaternionf);
+		poseStack.mulPose(rotation);
 		renderState.item.submit(poseStack, collector, 1, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
 		poseStack.popPose();
 	}

@@ -21,10 +21,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.client.renderer.block.BakedQuadOutput;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,12 +36,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BlockRenderDispatcherMixin {
 
 	@Shadow
-	public abstract void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output);
+	public abstract void renderBreakingTexture(BlockState state, BlockPos pos, PoseStack poseStack, MultiBufferSource bufferSource, int progress);
 
 	@Inject(method = "renderBreakingTexture", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, BakedQuadOutput output, CallbackInfo info) {
+	public void wilderWild$renderSnowloggedBreakingTexture(
+		BlockState state,
+		BlockPos pos,
+		PoseStack poseStack,
+		MultiBufferSource bufferSource,
+		int progress,
+		CallbackInfo info
+	) {
 		if (!SnowloggingUtils.isSnowlogged(state)) return;
-		this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, level, poseStack, output);
+		this.renderBreakingTexture(SnowloggingUtils.getSnowEquivalent(state), pos, poseStack, bufferSource, progress);
 		info.cancel();
 	}
 

@@ -37,7 +37,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Con
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
@@ -64,7 +64,7 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 		this.tendril4 = this.root.getChild("tendril4");
 	}
 
-	public static LayerDefinition getTexturedModelData() {
+	public static LayerDefinition createModelLayer() {
 		final MeshDefinition mesh = new MeshDefinition();
 		final PartDefinition root = mesh.getRoot();
 		makeTendril(root, "tendril1", false, 3F, 3F, -TENDRIL_ANGLE);

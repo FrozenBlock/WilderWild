@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.client.model.animal.jellyfish;
 import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.render.FrozenLibRenderTypes;
+import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.client.model.EntityModel;

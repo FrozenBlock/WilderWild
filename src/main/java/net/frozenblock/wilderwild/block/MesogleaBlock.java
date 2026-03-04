@@ -89,7 +89,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	public static final double BOAT_VERTICAL_BOOST = 0.05D;
 	public static final double BOAT_VERTICAL_SLOWDOWN_SCALE_WHEN_FALLING = 0.125D;
 	public static final int DRIP_PARTICLE_CHANCE = 50;
-	public static final int LIGHT_BLOCK = 2;
+	public static final int LIGHT_DAMPENING = 2;
 	public static final int AMBIENT_WHIRLPOOL_SOUND_CHANCE = 200;
 	public static final int TICK_DELAY = 5;
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = WWBlockStateProperties.BUBBLE_DIRECTION;
@@ -359,8 +359,8 @@ public class MesogleaBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	public int getLightBlock(BlockState state) {
-		return LIGHT_BLOCK;
+	protected int getLightDampening(BlockState state) {
+		return LIGHT_DAMPENING;
 	}
 
 	@Override
