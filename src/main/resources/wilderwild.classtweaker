@@ -32,11 +32,3 @@ accessible field net/minecraft/world/level/ClipContext collisionContext Lnet/min
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
 accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
-
-transitive-accessible field net/minecraft/client/data/models/BlockModelGenerators LEAF_LITTER_MODEL_1_SEGMENT_CONDITION Ljava/util/function/Function;
-transitive-accessible field net/minecraft/client/data/models/BlockModelGenerators LEAF_LITTER_MODEL_2_SEGMENT_CONDITION Ljava/util/function/Function;
-transitive-accessible field net/minecraft/client/data/models/BlockModelGenerators LEAF_LITTER_MODEL_3_SEGMENT_CONDITION Ljava/util/function/Function;
-transitive-accessible field net/minecraft/client/data/models/BlockModelGenerators LEAF_LITTER_MODEL_4_SEGMENT_CONDITION Ljava/util/function/Function;
-transitive-accessible field net/minecraft/client/particle/Particle xd D
-transitive-accessible field net/minecraft/client/particle/Particle yd D
-transitive-accessible field net/minecraft/client/particle/Particle zd D
