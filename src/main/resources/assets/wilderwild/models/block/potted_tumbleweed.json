@@ -4,7 +4,7 @@
 		"plant": "wilderwild:block/tumbleweed_stage_3",
 		"particle": "minecraft:block/flower_pot",
 		"flowerpot": "minecraft:block/flower_pot",
-		"sand": "bminecraft:lock/sand",
+		"sand": "minecraft:block/sand",
 		"plant_inner": "wilderwild:block/tumbleweed_inner_stage_3"
 	},
 	"elements": [

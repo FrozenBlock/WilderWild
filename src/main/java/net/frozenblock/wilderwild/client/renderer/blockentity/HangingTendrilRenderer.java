@@ -43,10 +43,10 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 
 	public HangingTendrilRenderer(Context context) {
 		super(context);
-		this.defaultSprite = getSprite(WWConstants.id("hanging_tendril"));
-		this.activeSprite = getSprite(WWConstants.id("hanging_tendril_active"));
-		this.twitchingSprite = getSprite(WWConstants.id("hanging_tendril_twitch"));
-		this.milkingSprite = getSprite(WWConstants.id("hanging_tendril_milk"));
+		this.defaultSprite = getSprite(WWConstants.id("block/hanging_tendril"));
+		this.activeSprite = getSprite(WWConstants.id("block/hanging_tendril_active"));
+		this.twitchingSprite = getSprite(WWConstants.id("block/hanging_tendril_twitch"));
+		this.milkingSprite = getSprite(WWConstants.id("block/hanging_tendril_milk"));
 	}
 
 	@Override
