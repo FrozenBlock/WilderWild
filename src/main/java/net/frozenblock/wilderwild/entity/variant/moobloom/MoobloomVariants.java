@@ -23,7 +23,6 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -32,13 +31,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.variant.SpawnContext;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
 public final class MoobloomVariants {
@@ -82,37 +78,20 @@ public final class MoobloomVariants {
 	}
 
 	public static Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(RandomSource random, RegistryAccess registryAccess, SpawnContext context) {
-		final List<ConfiguredFeature<?, ?>> flowerFeatures = context.biome().value().getGenerationSettings().getFlowerFeatures();
-		final List<BlockState> biomeFlowerStates = new ArrayList<>();
-		for (ConfiguredFeature<?, ?> feature : flowerFeatures) {
-			if (!(feature.config() instanceof RandomPatchConfiguration randomPatchConfiguration)) continue;
-			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
-			biomeFlowerStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, context.level(), context.pos(), random));
+		final List<ConfiguredFeature<?, ?>> boneMealFeatures = context.biome().value().getGenerationSettings().getBoneMealFeatures();
+		final List<BlockState> foundBlockStates = new ArrayList<>();
+		for (ConfiguredFeature<?, ?> feature : boneMealFeatures) {
+			if (!(feature.config() instanceof SimpleBlockConfiguration config)) continue;
+
+			final BlockState state = config.toPlace().getOptionalState(context.level().getLevel(), random, context.pos());
+			foundBlockStates.add(state);
 		}
 
 		final List<Holder.Reference<MoobloomVariant>> variants = registryAccess.lookupOrThrow(WilderWildRegistries.MOOBLOOM_VARIANT)
 			.listElements()
-			.filter(reference -> biomeFlowerStates.contains(reference.value().flowerBlockState()))
+			.filter(reference -> foundBlockStates.contains(reference.value().flowerBlockState()))
 			.toList();
 		return Util.getRandomSafe(variants, random);
-	}
-
-	private static List<BlockState> getBlockStatesFromConfiguredFeature(ConfiguredFeature<?, ?> feature, ServerLevelAccessor level, BlockPos pos, RandomSource random) {
-		final List<BlockState> blockStates = new ArrayList<>();
-
-		final FeatureConfiguration config = feature.config();
-		if (config instanceof RandomPatchConfiguration randomPatchConfiguration) {
-			final ConfiguredFeature<?, ?> configuredPlacedFeature = randomPatchConfiguration.feature().value().feature().value();
-			blockStates.addAll(getBlockStatesFromConfiguredFeature(configuredPlacedFeature, level, pos, random));
-		} else if (config instanceof SimpleBlockConfiguration simpleBlockConfiguration) {
-			blockStates.add(simpleBlockConfiguration.toPlace().getState(level.getLevel(), random, pos));
-		}
-
-		for (ConfiguredFeature<?, ?> nestedFeature : config.getFeatures().toList()) {
-			blockStates.addAll(getBlockStatesFromConfiguredFeature(nestedFeature, level, pos, random));
-		}
-
-		return blockStates;
 	}
 
 	public static void bootstrap(BootstrapContext<MoobloomVariant> bootstrapContext) {

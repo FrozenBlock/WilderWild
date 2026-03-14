@@ -26,6 +26,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -35,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
 public class PalmFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		foliagePlacerParts(instance)
-			.and(IntProvider.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength))
+			.and(IntProviders.codec(0, 16).fieldOf("frond_length").forGetter(placer -> placer.frondLength))
 			.apply(instance, PalmFoliagePlacer::new)
 	);
 

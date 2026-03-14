@@ -25,6 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -33,7 +34,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		instance.group(IntProvider.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius)).apply(instance, WindmillPalmFoliagePlacer::new)
+		instance.group(IntProviders.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius)).apply(instance, WindmillPalmFoliagePlacer::new)
 	);
 
 	public WindmillPalmFoliagePlacer(IntProvider radius) {

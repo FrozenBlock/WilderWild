@@ -80,8 +80,8 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_firefly_bush_near_water",
       "minecraft:seagrass_river",
-      "wilderwild:oasis_grass_placed",
-      "wilderwild:oasis_cactus_placed"
+      "wilderwild:patch_grass_oasis",
+      "wilderwild:patch_cactus_oasis"
     ],
     [
       "minecraft:freeze_top_layer"

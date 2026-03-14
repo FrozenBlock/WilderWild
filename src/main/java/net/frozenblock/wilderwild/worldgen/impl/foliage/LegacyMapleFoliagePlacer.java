@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -32,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 	public static final MapCodec<LegacyMapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		foliagePlacerParts(instance)
-			.and(IntProvider.codec(0, 24).fieldOf("length").forGetter(placer -> placer.length))
+			.and(IntProviders.codec(0, 24).fieldOf("length").forGetter(placer -> placer.length))
 			.apply(instance, LegacyMapleFoliagePlacer::new)
 	);
 

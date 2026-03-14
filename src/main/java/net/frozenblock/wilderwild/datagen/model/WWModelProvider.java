@@ -220,7 +220,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM, Blocks.STRIPPED_WARPED_STEM);
 
-		WWModelHelper.createStoneChest(generator, WWBlocks.STONE_CHEST, Blocks.DEEPSLATE, StoneChestSpecialRenderer.STONE_CHEST_TEXTURE);
+		WWModelHelper.createStoneChest(generator, WWBlocks.STONE_CHEST, Blocks.DEEPSLATE, StoneChestSpecialRenderer.STONE.single());
 
 		generator.family(WWBlocks.GABBRO).generateFor(WWBlocks.FAMILY_GABBRO);
 		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);

@@ -34,6 +34,7 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 
@@ -41,11 +42,11 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("cattail");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("cattail_uncommon");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("cattail_common");
-	public static final FrozenLibPlacedFeature BARNACLES_COMMON = register("barnacles_common");
-	public static final FrozenLibPlacedFeature BARNACLES_STRUCTURE = register("barnacles_structure");
-	public static final FrozenLibPlacedFeature BARNACLES = register("barnacles");
-	public static final FrozenLibPlacedFeature BARNACLES_SPARSE = register("barnacles_sparse");
-	public static final FrozenLibPlacedFeature BARNACLES_RARE = register("barnacles_rare");
+	public static final FrozenLibPlacedFeature PATCH_BARNACLES_COMMON = register("patch_barnacles_common");
+	public static final FrozenLibPlacedFeature PATCH_BARNACLES_STRUCTURE = register("patch_barnacles_structure");
+	public static final FrozenLibPlacedFeature PATCH_BARNACLES = register("patch_barnacles");
+	public static final FrozenLibPlacedFeature PATCH_BARNACLES_SPARSE = register("patch_barnacles_sparse");
+	public static final FrozenLibPlacedFeature PATCH_BARNACLES_RARE = register("patch_barnacles_rare");
 	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -102,45 +103,63 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		BARNACLES_COMMON.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_DENSE,
+		PATCH_BARNACLES_COMMON.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			CountPlacement.of(UniformInt.of(1, 2)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(30),
+			RandomOffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		BARNACLES_STRUCTURE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_STRUCTURE,
+		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES_STRUCTURE,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(42),
+			RandomOffsetPlacement.ofTriangle(8, 8),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		BARNACLES.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
+		PATCH_BARNACLES.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(18),
+			RandomOffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		BARNACLES_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
+		PATCH_BARNACLES_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(18),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(18),
+			RandomOffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		BARNACLES_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
+		PATCH_BARNACLES_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			RarityFilter.onAverageOnceEvery(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(18),
+			RandomOffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.PATCH_FLOWERING_WATERLILY,
+		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.FLOWERING_WATERLILY,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(19),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
 		PATCH_ALGAE.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE,
@@ -186,60 +205,76 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		PATCH_SEA_ANEMONE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
+		PATCH_SEA_ANEMONE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(6, 3)
 		);
 
-		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
+		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(6, 3)
 		);
 
-		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_ANEMONE,
+		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(6, 3)
 		);
 
-		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP,
+		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(7),
+			RandomOffsetPlacement.ofTriangle(4, 3)
 		);
 
-		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE,
+		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(4),
+			RandomOffsetPlacement.ofTriangle(6, 3)
 		);
 
-		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_SEA_WHIP_SPARSE,
+		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
 			RarityFilter.onAverageOnceEvery(15),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(4),
+			RandomOffsetPlacement.ofTriangle(6, 3)
 		);
 
-		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS,
+		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(22),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(3, 4)
 		);
 
-		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.PATCH_TUBE_WORMS,
+		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.TUBE_WORMS,
 			RarityFilter.onAverageOnceEvery(42),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(12),
+			RandomOffsetPlacement.ofTriangle(3, 4)
 		);
 
 		HYDROTHERMAL_VENT.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT,
@@ -302,7 +337,10 @@ public final class WWAquaticPlaced {
 			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(38),
+			RandomOffsetPlacement.ofTriangle(6, 4),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 	}
 

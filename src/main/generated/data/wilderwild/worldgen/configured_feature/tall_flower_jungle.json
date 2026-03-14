@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.054833334,
+      "seed": 1234,
+      "states": [
+        {
+          "Name": "wilderwild:datura",
+          "Properties": {
+            "half": "lower"
+          }
+        },
+        {
+          "Name": "wilderwild:milkweed",
+          "Properties": {
+            "age": "0",
+            "half": "lower"
+          }
+        },
+        {
+          "Name": "minecraft:rose_bush",
+          "Properties": {
+            "half": "lower"
+          }
+        }
+      ]
+    }
+  }
+}

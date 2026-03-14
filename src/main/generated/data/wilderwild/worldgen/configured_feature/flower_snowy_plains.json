@@ -1,61 +1,42 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:simple_block",
   "config": {
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:noise_provider",
-            "noise": {
-              "amplitudes": [
-                1.0
-              ],
-              "firstOctave": 0
-            },
-            "scale": 0.048833333,
-            "seed": 5050,
-            "states": [
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              }
-            ]
-          }
-        }
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
       },
-      "placement": [
+      "scale": 0.048833333,
+      "seed": 5050,
+      "states": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:air"
-          }
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
         }
       ]
-    },
-    "tries": 32,
-    "xz_spread": 7,
-    "y_spread": 3
+    }
   }
 }

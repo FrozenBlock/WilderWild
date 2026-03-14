@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:frozen_large_fern",
+            "Properties": {
+              "half": "lower"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:frozen_fern"
+          },
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

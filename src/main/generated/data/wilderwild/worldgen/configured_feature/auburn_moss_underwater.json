@@ -9,55 +9,82 @@
       {
         "chance": 0.5,
         "feature": {
-          "feature": {
-            "type": "minecraft:random_patch",
-            "config": {
-              "feature": {
-                "feature": "wilderwild:auburn_moss_patch_underwater",
-                "placement": []
+          "feature": "wilderwild:auburn_moss_patch_underwater",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 4
+            },
+            {
+              "type": "minecraft:random_offset",
+              "xz_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 6,
+                "min": -6,
+                "plateau": 0
               },
-              "tries": 4,
-              "xz_spread": 6,
-              "y_spread": 3
+              "y_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 3,
+                "min": -3,
+                "plateau": 0
+              }
             }
-          },
-          "placement": []
+          ]
         }
       },
       {
         "chance": 0.35,
         "feature": {
-          "feature": {
-            "type": "minecraft:random_patch",
-            "config": {
-              "feature": {
-                "feature": "wilderwild:auburn_moss_patch_underwater",
-                "placement": []
+          "feature": "wilderwild:auburn_moss_patch_underwater",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 5
+            },
+            {
+              "type": "minecraft:random_offset",
+              "xz_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 6,
+                "min": -6,
+                "plateau": 0
               },
-              "tries": 5,
-              "xz_spread": 6,
-              "y_spread": 4
+              "y_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 4,
+                "min": -4,
+                "plateau": 0
+              }
             }
-          },
-          "placement": []
+          ]
         }
       },
       {
         "chance": 0.5,
         "feature": {
-          "feature": {
-            "type": "minecraft:random_patch",
-            "config": {
-              "feature": {
-                "feature": "wilderwild:auburn_moss_patch_underwater",
-                "placement": []
+          "feature": "wilderwild:auburn_moss_patch_underwater",
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": 3
+            },
+            {
+              "type": "minecraft:random_offset",
+              "xz_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 3,
+                "min": -3,
+                "plateau": 0
               },
-              "tries": 3,
-              "xz_spread": 3,
-              "y_spread": 2
+              "y_spread": {
+                "type": "minecraft:trapezoid",
+                "max": 2,
+                "min": -2,
+                "plateau": 0
+              }
             }
-          },
-          "placement": []
+          ]
         }
       }
     ]

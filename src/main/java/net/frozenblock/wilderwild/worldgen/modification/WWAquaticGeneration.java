@@ -116,23 +116,23 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_COMMON)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_COMMON.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_COMMON.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_STRUCTURE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_STRUCTURE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_STRUCTURE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.BARNACLES_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_RARE.getKey());
 				}
 			});
 	}

@@ -46,7 +46,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
@@ -67,7 +66,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowth
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -75,6 +73,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateP
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -177,13 +177,12 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH = register("auburn_moss_patch");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS = register("red_moss");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
 
 	// SNOW
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenLibConfiguredFeature<SnowAndIceDiskFeatureConfig> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> SNOW_CARPET_RANDOM = register("snow_carpet_random");
 
 	// ICE
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
@@ -1233,37 +1232,25 @@ public final class WWMiscConfigured {
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								8,
-								6,
-								3,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
-							)
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(8),
+							RandomOffsetPlacement.ofTriangle(6, 3)
 						),
 						0.25F
 					),
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								8,
-								6,
-								4,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
-							)
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(8),
+							RandomOffsetPlacement.ofTriangle(6, 4)
 						),
 						0.15F
 					),
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								7,
-								3,
-								2,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
-							)
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(7),
+							RandomOffsetPlacement.ofTriangle(3, 2)
 						),
 						0.25F
 					)
@@ -1272,26 +1259,17 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				38,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.AUBURN_CREEPING_MOSS,
-						10,
-						true,
-						true,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+				WWBlocks.AUBURN_CREEPING_MOSS,
+				10,
+				true,
+				true,
+				true,
+				0.7F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK,
+					WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
 				)
 			)
 		);
@@ -1319,15 +1297,6 @@ public final class WWMiscConfigured {
 				UniformInt.of(2, 4),
 				0.65F,
 				0.5F
-			)
-		);
-
-		SNOW_CARPET_RANDOM.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simpleRandomPatchConfiguration(
-				64,
-				PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.SNOW))
-				)
 			)
 		);
 

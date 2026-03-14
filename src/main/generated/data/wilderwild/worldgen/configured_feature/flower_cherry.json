@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:poppy"
+          },
+          "weight": 9
+        },
+        {
+          "data": {
+            "Name": "minecraft:pink_tulip"
+          },
+          "weight": 5
+        }
+      ]
+    }
+  }
+}

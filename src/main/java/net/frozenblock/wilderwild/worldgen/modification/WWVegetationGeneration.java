@@ -106,19 +106,19 @@ public final class WWVegetationGeneration {
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEEDING_DANDELION)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SEEDING_DANDELION.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SEEDING_DANDELION.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_SEEDING_DANDELION)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.COMMON_SEEDING_DANDELION.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_COMMON_SEEDING_DANDELION.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_SEEDING_DANDELION)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.RARE_SEEDING_DANDELION.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_RARE_SEEDING_DANDELION.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_VERY_RARE_SEEDING_DANDELION)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.VERY_RARE_SEEDING_DANDELION.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_VERY_RARE_SEEDING_DANDELION.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MILKWEED)) {
@@ -175,67 +175,67 @@ public final class WWVegetationGeneration {
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_WILDFLOWERS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PHLOX)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PHLOX.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PHLOX.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PHLOX_SPARSE)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PHLOX_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PHLOX_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LANTANAS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_SPARSE)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LANTANAS_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_SPARSE)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_WILDFLOWERS_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_PHLOX.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_WILDFLOWERS_AND_PHLOX.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_AND_PHLOX_SPARSE)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_PHLOX_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_WILDFLOWERS_AND_PHLOX_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WILDFLOWERS_AND_LANTANAS)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WILDFLOWERS_AND_LANTANAS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_WILDFLOWERS_AND_LANTANAS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_AND_PHLOX)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_AND_PHLOX.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LANTANAS_AND_PHLOX.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LANTANAS_AND_PHLOX_SPARSE)) {
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
 					generationSettings.removeFeature(VegetationPlacements.WILDFLOWERS_MEADOW);
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LANTANAS_AND_PHLOX_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LANTANAS_AND_PHLOX_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PLAINS_FLOWERS)) {
@@ -285,52 +285,52 @@ public final class WWVegetationGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_JUNGLE_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.JUNGLE_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_JUNGLE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPARSE_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SPARSE_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_SAND_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_SAND_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_BADLANDS_SAND.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_TERRACOTTA_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_BADLANDS_TERRACOTTA.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WOODED_BADLANDS_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_TERRACOTTA_PLACED.getKey());
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.WOODED_BADLANDS_SHRUB_DIRT_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_WOODED_BADLANDS_TERRACOTTA.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_WOODED_BADLANDS_DIRT.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BADLANDS_RARE_SAND_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_SHRUB_RARE_SAND_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_BADLANDS_SAND_RARE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DESERT_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DESERT_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_DESERT.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OASIS_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.OASIS_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_OASIS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ARID_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.ARID_BUSH_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_BUSH_ARID.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_FIELD_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB_FLOWER_FIELD.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_SHRUB)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GENERIC_SHRUB_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_SHRUB.getKey());
 				}
 		}).add(
 			ModificationPhase.REPLACEMENTS,
@@ -380,19 +380,19 @@ public final class WWVegetationGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TALL_CACTUS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_CACTUS_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CACTUS_TALL.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PRICKLY_PEAR)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PRICKLY_PEAR.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PRICKLY_PEAR.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_PRICKLY_PEAR)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PRICKLY_PEAR_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PRICKLY_PEAR_RARE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TALL_BADLANDS_CACTUS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BADLANDS_TALL_CACTUS_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CACTUS_TALL_BADLANDS.getKey());
 				}
 			});
 	}
@@ -404,7 +404,7 @@ public final class WWVegetationGeneration {
 			(biomeSelectionContext, context) -> {
 				if (!WWWorldgenConfig.TUMBLEWEED_GENERATION.get()) return;
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUMBLEWEED_PLANT)) {
-					context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TUMBLEWEED.getKey());
+					context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_TUMBLEWEED.getKey());
 				}
 			});
 
@@ -416,23 +416,23 @@ public final class WWVegetationGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CLOVER.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLOVERS_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CLOVERS_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_CLOVER_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NEW_RARE_GRASS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.RARE_GRASS_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_RARE_GRASS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LARGE_FERN_AND_GRASS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LARGE_FERN_AND_GRASS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LARGE_FERN_AND_GRASS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_LARGE_FERN_AND_GRASS_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.LARGE_FERN_AND_GRASS_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_LARGE_FERN_AND_GRASS_RARE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FLOWER_FIELD_TALL_GRASS)) {
@@ -440,27 +440,27 @@ public final class WWVegetationGeneration {
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_FERN)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SWAMP_FERN.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FERN_SWAMP.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DENSE_FERN)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FERN_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FERN_DENSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DENSE_TALL_GRASS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_TALL_GRASS_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_TALL_GRASS_DENSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_TALL_GRASS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SWAMP_TALL_GRASS_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_TALL_GRASS_SWAMP.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_GRASS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS_AND_GRASS_WATER.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_TALL_GRASS_AND_GRASS_WATER.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MYCELIUM_GROWTH)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MYCELIUM_GROWTH_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_MYCELIUM_GROWTH.getKey());
 				}
 		}).add(
 			ModificationPhase.REPLACEMENTS,
@@ -577,23 +577,23 @@ public final class WWVegetationGeneration {
 
 				if (WWWorldgenConfig.MUSHROOM_GENERATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_RED_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_RED_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_RED_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_BROWN_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_BROWN_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_BROWN_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_MUSHROOMS)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_BROWN_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.BROWN_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.BROWN_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_RED_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RED_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RED_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SWAMP_MUSHROOM)) {
@@ -601,15 +601,15 @@ public final class WWVegetationGeneration {
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_MUSHROOM_PATCH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.DARK_FOREST_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MUSHROOMS_DARK_FOREST.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RAINFOREST_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RAINFOREST_MUSHROOMS_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.RAINFOREST_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MIXED_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MIXED_MUSHROOMS_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.MIXED_MUSHROOM.getKey());
 					}
 				}
 
@@ -633,11 +633,11 @@ public final class WWVegetationGeneration {
 
 				if (WWWorldgenConfig.PALE_MUSHROOM_GENERATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_PALE_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_PALE_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_PALE_MUSHROOM.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MUSHROOM)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.PALE_MUSHROOM_PLACED.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.PALE_MUSHROOM.getKey());
 					}
 				}
 			});

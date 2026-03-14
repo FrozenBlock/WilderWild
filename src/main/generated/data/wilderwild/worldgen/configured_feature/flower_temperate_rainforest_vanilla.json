@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.023833334,
+      "seed": 5050,
+      "states": [
+        {
+          "Name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "Name": "minecraft:oxeye_daisy"
+        },
+        {
+          "Name": "minecraft:dandelion"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:allium"
+        }
+      ]
+    }
+  }
+}

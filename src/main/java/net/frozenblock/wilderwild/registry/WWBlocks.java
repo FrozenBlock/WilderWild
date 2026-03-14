@@ -667,7 +667,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
 			.sound(WWSoundTypes.TERMITE_MOUND)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.randomTicks()
 	);
 
@@ -1004,7 +1004,7 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1015,7 +1015,7 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1028,7 +1028,7 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(SoundType.FUNGUS)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1041,7 +1041,7 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(SoundType.FUNGUS)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1062,7 +1062,7 @@ public final class WWBlocks {
 			.randomTicks()
 			.instabreak()
 			.sound(SoundType.GRASS)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 	public static final Block POTTED_PALE_MUSHROOM = registerWithoutItem("potted_pale_mushroom",
@@ -1076,7 +1076,7 @@ public final class WWBlocks {
 			.noCollision()
 			.noOcclusion()
 			.sound(WWSoundTypes.MUSHROOM)
-			.hasPostProcess(Blocks::always)
+			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.DESTROY)
 	);
 
@@ -1235,8 +1235,8 @@ public final class WWBlocks {
 		Properties.ofFullCopy(GABBRO)
 			.sound(WWSoundTypes.GEYSER)
 			.strength(8F)
-			.isValidSpawn((blockState, blockGetter, blockPos, entityType) -> false)
-			.hasPostProcess(Blocks::always)
+			.isValidSpawn((state, level, pos, entityType) -> false)
+			.postProcess(Blocks::postProcessSelf)
 	);
 
 	public static final Block POLISHED_GABBRO = register("polished_gabbro",

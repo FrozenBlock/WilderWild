@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:frozen_short_grass"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "wilderwild:frozen_fern"
+          },
+          "weight": 4
+        }
+      ]
+    }
+  }
+}

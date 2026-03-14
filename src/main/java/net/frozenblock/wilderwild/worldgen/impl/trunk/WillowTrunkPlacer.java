@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 public class WillowTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> trunkPlacerParts(instance).and(
 		instance.group(
-			IntProvider.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
+			IntProviders.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
 			Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
 			TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
 		)

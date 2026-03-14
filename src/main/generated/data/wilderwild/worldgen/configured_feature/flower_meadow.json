@@ -1,70 +1,51 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:simple_block",
   "config": {
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:noise_provider",
-            "noise": {
-              "amplitudes": [
-                1.0
-              ],
-              "firstOctave": 0
-            },
-            "scale": 0.007833334,
-            "seed": 5050,
-            "states": [
-              {
-                "Name": "minecraft:lily_of_the_valley"
-              },
-              {
-                "Name": "wilderwild:seeding_dandelion"
-              },
-              {
-                "Name": "minecraft:azure_bluet"
-              },
-              {
-                "Name": "minecraft:oxeye_daisy"
-              },
-              {
-                "Name": "minecraft:dandelion"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "minecraft:allium"
-              },
-              {
-                "Name": "wilderwild:pasqueflower"
-              },
-              {
-                "Name": "wilderwild:pasqueflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              },
-              {
-                "Name": "minecraft:cornflower"
-              }
-            ]
-          }
-        }
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
       },
-      "placement": [
+      "scale": 0.007833334,
+      "seed": 5050,
+      "states": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:air"
-          }
+          "Name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "minecraft:azure_bluet"
+        },
+        {
+          "Name": "minecraft:oxeye_daisy"
+        },
+        {
+          "Name": "minecraft:dandelion"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:allium"
+        },
+        {
+          "Name": "wilderwild:pasqueflower"
+        },
+        {
+          "Name": "wilderwild:pasqueflower"
+        },
+        {
+          "Name": "minecraft:cornflower"
+        },
+        {
+          "Name": "minecraft:cornflower"
         }
       ]
-    },
-    "tries": 20,
-    "xz_spread": 8,
-    "y_spread": 2
+    }
   }
 }

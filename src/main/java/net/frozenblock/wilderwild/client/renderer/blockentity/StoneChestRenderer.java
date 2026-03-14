@@ -18,22 +18,23 @@
 package net.frozenblock.wilderwild.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRenderState;
+import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -54,12 +55,8 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T, StoneChestRenderState> {
-	public static final SpriteId STONE = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone"));
-	public static final SpriteId STONE_LEFT = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone_left"));
-	public static final SpriteId STONE_RIGHT = Sheets.CHEST_MAPPER.apply(WWConstants.id("stone_right"));
-	public static final SpriteId STONE_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient"));
-	public static final SpriteId STONE_LEFT_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient_left"));
-	public static final SpriteId STONE_RIGHT_SCULK = Sheets.CHEST_MAPPER.apply(WWConstants.id("ancient_right"));
+	public static final MultiblockChestResources<SpriteId> CHEST_STONE = StoneChestSpecialRenderer.STONE.map(Sheets.CHEST_MAPPER::apply);
+	public static final MultiblockChestResources<SpriteId> CHEST_STONE_SCULK = StoneChestSpecialRenderer.STONE_SCULK.map(Sheets.CHEST_MAPPER::apply);
 	private final SpriteGetter sprites;
 	private final StoneChestModel singleModel;
 	private final StoneChestModel doubleLeftModel;
@@ -73,7 +70,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	}
 
 	public static SpriteId getStoneChestTexture(boolean sculk, ChestType type) {
-		return !sculk ? Sheets.chooseSprite(type, STONE, STONE_LEFT, STONE_RIGHT) : Sheets.chooseSprite(type, STONE_SCULK, STONE_LEFT_SCULK, STONE_RIGHT_SCULK);
+		return !sculk ? CHEST_STONE.select(type) : CHEST_STONE_SCULK.select(type);
 	}
 
 	@Override
@@ -85,7 +82,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 	) {
 		poseStack.pushPose();
 		poseStack.translate(0.5F, 0.5F, 0.5F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.angle));
+		poseStack.mulPose(ChestRenderer.modelTransformation(renderState.facing));
 		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
 		float openProgress = renderState.open;
@@ -145,7 +142,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		final boolean levelExists = stoneChest.getLevel() != null;
 		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
 		renderState.type = state.hasProperty(StoneChestBlock.TYPE) ? state.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
-		renderState.angle = state.getValue(StoneChestBlock.FACING).toYRot();
+		renderState.facing = state.getValue(ChestBlock.FACING);
 		renderState.hasSculk = state.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);
 
 		DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> neighborCombineResult;

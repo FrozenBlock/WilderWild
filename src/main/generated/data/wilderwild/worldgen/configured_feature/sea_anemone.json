@@ -1,0 +1,11 @@
+{
+  "type": "wilderwild:sea_anemone_feature",
+  "config": {
+    "state": {
+      "Name": "wilderwild:sea_anemone",
+      "Properties": {
+        "glowing": "false"
+      }
+    }
+  }
+}

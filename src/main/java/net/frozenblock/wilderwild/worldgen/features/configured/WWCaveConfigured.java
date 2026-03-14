@@ -49,7 +49,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
@@ -68,7 +67,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowth
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
@@ -114,7 +112,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> MAGMA_PILE = register("magma_pile");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> FIRE_PATCH_MAGMA = register("fire_patch_magma");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FIRE = register("fire");
 	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_GABBRO = register("ore_gabbro");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> GABBRO_DISK = register("gabbro_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
@@ -606,10 +604,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FIRE_PATCH_MAGMA.makeAndSetHolder(Feature.RANDOM_PATCH,
-			FeatureUtils.simplePatchConfiguration(
-				FrozenLibFeatures.SIMPLE_BLOCK_SCHEDULE_TICK_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE)), List.of(Blocks.MAGMA_BLOCK)
-			)
+		FIRE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE), true)
 		);
 
 		ORE_GABBRO.makeAndSetHolder(Feature.ORE,

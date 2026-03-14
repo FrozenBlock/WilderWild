@@ -5,7 +5,6 @@ accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer adultMo
 mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
 mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
-accessible method net/minecraft/client/renderer/Sheets chooseSprite (Lnet/minecraft/world/level/block/state/properties/ChestType;Lnet/minecraft/client/resources/model/sprite/SpriteId;Lnet/minecraft/client/resources/model/sprite/SpriteId;Lnet/minecraft/client/resources/model/sprite/SpriteId;)Lnet/minecraft/client/resources/model/sprite/SpriteId;
 
 # Blocks
 accessible method net/minecraft/world/level/block/ChestBlock isCatSittingOnChest (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
@@ -14,6 +13,7 @@ accessible method net/minecraft/world/level/block/SculkBlock getDecayPenalty (Ln
 accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;

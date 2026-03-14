@@ -72,8 +72,8 @@
     ],
     [
       "minecraft:glow_lichen",
-      "wilderwild:tall_flower_field_flowers",
-      "wilderwild:flower_field_grass_placed",
+      "wilderwild:tall_flower_flower_field",
+      "wilderwild:patch_grass_flower_field",
       "wilderwild:trees_flower_field",
       "minecraft:patch_bush",
       "minecraft:brown_mushroom_normal",

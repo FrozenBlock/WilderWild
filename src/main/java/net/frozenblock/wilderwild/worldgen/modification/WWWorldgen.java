@@ -132,7 +132,7 @@ public final class WWWorldgen {
 				if (!WWWorldgenConfig.GRASS_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 				generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLACED.getKey());
+				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FERN_AND_GRASS.getKey());
 				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS.getKey());
 			});
 
@@ -143,7 +143,7 @@ public final class WWWorldgen {
 				if (!WWWorldgenConfig.GRASS_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 				generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.GRASS_PLAINS_PLACED.getKey());
+				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_GRASS_PLAINS.getKey());
 				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS_PLAINS.getKey());
 			});
 
@@ -418,7 +418,7 @@ public final class WWWorldgen {
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
 				if (!WWWorldgenConfig.POLLEN_GENERATION.get() || !biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) return;
-				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN_PLACED.getKey());
+				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN.getKey());
 			});
 	}
 

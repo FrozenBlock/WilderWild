@@ -20,7 +20,9 @@ package net.frozenblock.wilderwild.worldgen.impl.feature.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.FloatProvider;
+import net.minecraft.util.valueproviders.FloatProviders;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public record IcicleClusterConfig(
@@ -40,16 +42,16 @@ public record IcicleClusterConfig(
 			Codec.intRange(1, 512)
 				.fieldOf("floor_to_ceiling_search_range")
 				.forGetter(icicleClusterConfig -> icicleClusterConfig.floorToCeilingSearchRange),
-			IntProvider.codec(1, 128).fieldOf("height").forGetter(icicleClusterConfig -> icicleClusterConfig.height),
-			IntProvider.codec(1, 128).fieldOf("radius").forGetter(icicleClusterConfig -> icicleClusterConfig.radius),
+			IntProviders.codec(1, 128).fieldOf("height").forGetter(icicleClusterConfig -> icicleClusterConfig.height),
+			IntProviders.codec(1, 128).fieldOf("radius").forGetter(icicleClusterConfig -> icicleClusterConfig.radius),
 			Codec.intRange(0, 64)
 				.fieldOf("max_icicle_height_diff")
 				.forGetter(icicleClusterConfig -> icicleClusterConfig.maxIcicleHeightDiff),
 			Codec.intRange(1, 64).fieldOf("height_deviation").forGetter(icicleClusterConfig -> icicleClusterConfig.heightDeviation),
-			IntProvider.codec(0, 128)
+			IntProviders.codec(0, 128)
 				.fieldOf("ice_layer_thickness")
 				.forGetter(icicleClusterConfig -> icicleClusterConfig.iceLayerThickness),
-			FloatProvider.codec(0F, 2F).fieldOf("density").forGetter(icicleClusterConfig -> icicleClusterConfig.density),
+			FloatProviders.codec(0F, 2F).fieldOf("density").forGetter(icicleClusterConfig -> icicleClusterConfig.density),
 			Codec.floatRange(0F, 1F)
 				.fieldOf("chance_of_icicle_at_max_distance_from_center")
 				.forGetter(icicleClusterConfig -> icicleClusterConfig.chanceOfIcicleAtMaxDistanceFromCenter),

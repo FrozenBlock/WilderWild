@@ -632,7 +632,10 @@ public final class WWMiscPlaced {
 			RarityFilter.onAverageOnceEvery(17),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(38),
+			RandomOffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 
 		// SNOW

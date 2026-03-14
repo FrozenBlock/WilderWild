@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "wilderwild:shrub",
+            "Properties": {
+              "age": "0",
+              "half": "lower"
+            }
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "wilderwild:shrub",
+            "Properties": {
+              "age": "1",
+              "half": "lower"
+            }
+          },
+          "weight": 4
+        },
+        {
+          "data": {
+            "Name": "wilderwild:shrub",
+            "Properties": {
+              "age": "2",
+              "half": "lower"
+            }
+          },
+          "weight": 4
+        }
+      ]
+    }
+  }
+}

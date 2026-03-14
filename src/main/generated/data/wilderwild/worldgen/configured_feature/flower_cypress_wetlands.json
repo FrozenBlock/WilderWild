@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.043833334,
+      "seed": 5050,
+      "states": [
+        {
+          "Name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "Name": "minecraft:white_tulip"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "minecraft:azure_bluet"
+        },
+        {
+          "Name": "minecraft:oxeye_daisy"
+        },
+        {
+          "Name": "minecraft:dandelion"
+        },
+        {
+          "Name": "minecraft:orange_tulip"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "minecraft:pink_tulip"
+        },
+        {
+          "Name": "minecraft:allium"
+        },
+        {
+          "Name": "wilderwild:carnation"
+        },
+        {
+          "Name": "wilderwild:carnation"
+        }
+      ]
+    }
+  }
+}

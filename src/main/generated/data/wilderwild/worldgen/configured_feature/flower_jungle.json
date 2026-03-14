@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
+      },
+      "scale": 0.054833334,
+      "seed": 1234,
+      "states": [
+        {
+          "Name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "Name": "wilderwild:seeding_dandelion"
+        },
+        {
+          "Name": "minecraft:dandelion"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "wilderwild:carnation"
+        },
+        {
+          "Name": "minecraft:blue_orchid"
+        },
+        {
+          "Name": "minecraft:cornflower"
+        }
+      ]
+    }
+  }
+}

@@ -28,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -40,10 +41,10 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 public class JuniperTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<JuniperTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and((IntProvider.codec(1, 3).fieldOf("branch_count")).forGetter(trunkPlacer -> trunkPlacer.branchCount))
-			.and((IntProvider.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(trunkPlacer -> trunkPlacer.branchHorizontalLength))
-			.and((UniformInt.CODEC.fieldOf("branch_start_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchStartOffsetFromTop))
-			.and((IntProvider.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchEndOffsetFromTop))
+			.and((IntProviders.codec(1, 3).fieldOf("branch_count")).forGetter(trunkPlacer -> trunkPlacer.branchCount))
+			.and((IntProviders.codec(2, 16).fieldOf("branch_horizontal_length")).forGetter(trunkPlacer -> trunkPlacer.branchHorizontalLength))
+			.and((UniformInt.MAP_CODEC.fieldOf("branch_start_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchStartOffsetFromTop))
+			.and((IntProviders.codec(-16, 16).fieldOf("branch_end_offset_from_top")).forGetter(trunkPlacer -> trunkPlacer.branchEndOffsetFromTop))
 			.apply(instance, JuniperTrunkPlacer::new)
 	);
 	public final IntProvider branchCount;
@@ -65,7 +66,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		this.branchCount = branchCount;
 		this.branchHorizontalLength = branchHorizontalLength;
 		this.branchStartOffsetFromTop = branchStartOffsetFromTop;
-		this.secondBranchStartOffsetFromTop = UniformInt.of(branchStartOffsetFromTop.getMinValue(), branchStartOffsetFromTop.getMaxValue() - 1);
+		this.secondBranchStartOffsetFromTop = UniformInt.of(branchStartOffsetFromTop.minInclusive(), branchStartOffsetFromTop.maxInclusive() - 1);
 		this.branchEndOffsetFromTop = branchEndOffsetFromTop;
 	}
 

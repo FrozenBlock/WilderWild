@@ -1,58 +1,39 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:simple_block",
   "config": {
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:noise_provider",
-            "noise": {
-              "amplitudes": [
-                1.0
-              ],
-              "firstOctave": 0
-            },
-            "scale": 0.048833333,
-            "seed": 5050,
-            "states": [
-              {
-                "Name": "minecraft:azure_bluet"
-              },
-              {
-                "Name": "minecraft:lily_of_the_valley"
-              },
-              {
-                "Name": "minecraft:dandelion"
-              },
-              {
-                "Name": "minecraft:poppy"
-              },
-              {
-                "Name": "wilderwild:carnation"
-              },
-              {
-                "Name": "minecraft:allium"
-              },
-              {
-                "Name": "minecraft:oxeye_daisy"
-              }
-            ]
-          }
-        }
+    "to_place": {
+      "type": "minecraft:noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0
+        ],
+        "firstOctave": 0
       },
-      "placement": [
+      "scale": 0.048833333,
+      "seed": 5050,
+      "states": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:air"
-          }
+          "Name": "minecraft:azure_bluet"
+        },
+        {
+          "Name": "minecraft:lily_of_the_valley"
+        },
+        {
+          "Name": "minecraft:dandelion"
+        },
+        {
+          "Name": "minecraft:poppy"
+        },
+        {
+          "Name": "wilderwild:carnation"
+        },
+        {
+          "Name": "minecraft:allium"
+        },
+        {
+          "Name": "minecraft:oxeye_daisy"
         }
       ]
-    },
-    "tries": 48,
-    "xz_spread": 7,
-    "y_spread": 3
+    }
   }
 }

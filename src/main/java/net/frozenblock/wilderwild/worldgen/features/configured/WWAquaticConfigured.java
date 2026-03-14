@@ -56,30 +56,28 @@ import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowth
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 
 public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL = WWFeatureUtils.register("cattail");
 	public static final FrozenLibConfiguredFeature<CattailFeatureConfig> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_FLOWERING_WATERLILY = WWFeatureUtils.register("patch_flowering_waterlily");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWERING_WATERLILY = WWFeatureUtils.register("flowering_waterlily");
 	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
 	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
 	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfig> PATCH_PLANKTON = WWFeatureUtils.register("patch_plankton");
 	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES_DENSE = WWFeatureUtils.register("patch_barnacles_dense");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
 	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfig> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_ANEMONE = WWFeatureUtils.register("patch_sea_anemone");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_WHIP = WWFeatureUtils.register("patch_sea_whip");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_SEA_WHIP_SPARSE = WWFeatureUtils.register("patch_sea_whip_sparse");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> PATCH_TUBE_WORMS = WWFeatureUtils.register("patch_tube_worms");
+	public static final FrozenLibConfiguredFeature<BlockStateConfiguration> SEA_ANEMONE = WWFeatureUtils.register("sea_anemone");
+	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> SEA_WHIP = WWFeatureUtils.register("sea_whip");
+	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> TUBE_WORMS = WWFeatureUtils.register("tube_worms");
 
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
@@ -87,7 +85,7 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
-	public static final FrozenLibConfiguredFeature<RandomPatchConfiguration> AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
 
 	private WWAquaticConfigured() {
@@ -113,16 +111,8 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				10,
-				7,
-				3,
-				PlacementUtils.onlyWhenEmpty(
-					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
-				)
-			)
+		FLOWERING_WATERLILY.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
 		);
 
 		PATCH_ALGAE.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
@@ -141,74 +131,32 @@ public final class WWAquaticConfigured {
 			new ProbabilityFeatureConfiguration(0.025F)
 		);
 
-		PATCH_BARNACLES_DENSE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				30,
+		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+				WWBlocks.BARNACLES,
 				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						10,
-						true,
-						false,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+				true,
+				true,
+				true,
+				0.7F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK,
+					WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE
 				)
 			)
 		);
 
-		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				42,
-				8,
-				8,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						6,
-						true,
-						true,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
-				)
-			)
-		);
-
-		PATCH_BARNACLES.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				18,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.BARNACLES,
-						10,
-						true,
-						false,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.BARNACLES_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+		PATCH_BARNACLES.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+				WWBlocks.BARNACLES,
+				10,
+				true,
+				false,
+				true,
+				0.7F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK,
+					WWBlockTags.BARNACLES_FEATURE_PLACEABLE
 				)
 			)
 		);
@@ -223,52 +171,16 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		PATCH_SEA_ANEMONE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				12,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					WWFeatures.SEA_ANEMONE_FEATURE,
-					new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
-				)
-			)
+		SEA_ANEMONE.makeAndSetHolder(WWFeatures.SEA_ANEMONE_FEATURE,
+			new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
 		);
 
-		PATCH_SEA_WHIP.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				7,
-				4,
-				3,
-				PlacementUtils.inlinePlaced(
-					WWFeatures.SEA_WHIP_FEATURE,
-					NoneFeatureConfiguration.INSTANCE
-				)
-			)
+		SEA_WHIP.makeAndSetHolder(WWFeatures.SEA_WHIP_FEATURE,
+			NoneFeatureConfiguration.INSTANCE
 		);
 
-		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				4,
-				6,
-				3,
-				PlacementUtils.inlinePlaced(
-					WWFeatures.SEA_WHIP_FEATURE,
-					NoneFeatureConfiguration.INSTANCE
-				)
-			)
-		);
-
-		PATCH_TUBE_WORMS.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				12,
-				3,
-				4,
-				PlacementUtils.inlinePlaced(
-					WWFeatures.TUBE_WORMS_FEATURE,
-					NoneFeatureConfiguration.INSTANCE
-				)
-			)
+		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS_FEATURE,
+			NoneFeatureConfiguration.INSTANCE
 		);
 
 		HYDROTHERMAL_VENT.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
@@ -294,16 +206,10 @@ public final class WWAquaticConfigured {
 				List.of(
 					PlacementUtils.inlinePlaced(HYDROTHERMAL_VENT.getHolder()),
 					PlacementUtils.inlinePlaced(
-						Feature.RANDOM_PATCH,
-						new RandomPatchConfiguration(
-							33,
-							5,
-							4,
-							PlacementUtils.inlinePlaced(
-								WWFeatures.TUBE_WORMS_FEATURE,
-								NoneFeatureConfiguration.INSTANCE
-							)
-						)
+						WWFeatures.TUBE_WORMS_FEATURE,
+						NoneFeatureConfiguration.INSTANCE,
+						CountPlacement.of(33),
+						RandomOffsetPlacement.ofTriangle(5, 4)
 					)
 				)
 			)
@@ -370,37 +276,25 @@ public final class WWAquaticConfigured {
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								4,
-								6,
-								3,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
-							)
+							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
+							CountPlacement.of(4),
+							RandomOffsetPlacement.ofTriangle(6, 3)
 						),
 						0.5F
 					),
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								5,
-								6,
-								4,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
-							)
+							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
+							CountPlacement.of(5),
+							RandomOffsetPlacement.ofTriangle(6, 4)
 						),
 						0.35F
 					),
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.RANDOM_PATCH,
-							new RandomPatchConfiguration(
-								3,
-								3,
-								2,
-								PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
-							)
+							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
+							CountPlacement.of(3),
+							RandomOffsetPlacement.ofTriangle(3, 2)
 						),
 						0.5F
 					)
@@ -409,26 +303,17 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.RANDOM_PATCH,
-			new RandomPatchConfiguration(
-				38,
-				6,
-				4,
-				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
-						WWBlocks.AUBURN_CREEPING_MOSS,
-						10,
-						true,
-						true,
-						true,
-						0.7F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
-						)
-					),
-					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
+			new MultifaceGrowthConfiguration(
+				WWBlocks.AUBURN_CREEPING_MOSS,
+				10,
+				true,
+				true,
+				true,
+				0.7F,
+				new HolderSet.Named<>(
+					BuiltInRegistries.BLOCK,
+					WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
 				)
 			)
 		);

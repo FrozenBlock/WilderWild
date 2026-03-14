@@ -166,7 +166,7 @@
     "client.wind.WindParticleMixin",
     "client.wind.cloud.LevelRendererMixin",
     "datagen.client.BlockModelGeneratorsMixin",
-    "snowlogging.client.BlockRenderDispatcherMixin",
+    "snowlogging.client.LevelRendererMixin",
     "snowlogging.client.SectionCompilerMixin"
   ],
   "injectors": {

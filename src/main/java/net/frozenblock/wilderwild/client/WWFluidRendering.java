@@ -17,64 +17,48 @@
 
 package net.frozenblock.wilderwild.client;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.frozenblock.lib.block.client.api.LiquidRenderUtils;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.FluidRenderer;
+import net.minecraft.client.renderer.block.FluidStateModelSet;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public final class WWFluidRendering {
 
 	public static void init() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
-		final FluidRenderHandler waterHandler = FluidRenderHandlerRegistry.INSTANCE.get(Fluids.WATER);
+		final FluidRenderHandler waterHandler = FluidRenderingRegistry.get(Fluids.WATER);
 		// Assert that the original handler exists now, otherwise the crash will happen later inside our handler
 		Objects.requireNonNull(waterHandler);
 		final FluidRenderHandler mesogleaHandler = new FluidRenderHandler() {
 			private final Minecraft minecraft = Minecraft.getInstance();
 
 			@Override
-			public TextureAtlasSprite[] getFluidSprites(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
-				return waterHandler.getFluidSprites(level, pos, fluidState);
-			}
-
-			@Override
-			public void renderFluid(BlockPos pos, BlockAndTintGetter level, VertexConsumer vertexConsumer, BlockState state, FluidState fluidState) {
+			public void renderFluid(FluidRenderer renderer, BlockPos pos, BlockAndTintGetter level, FluidRenderer.Output output, BlockState state, FluidState fluidState) {
 				if (!(state.getBlock() instanceof MesogleaBlock)) {
-					waterHandler.renderFluid(pos, level, vertexConsumer, state, fluidState);
+					waterHandler.renderFluid(renderer, pos, level, output, state, fluidState);
 					return;
 				}
 				if (!WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) return;
 
 				final TextureAtlasSprite sprite = this.minecraft.getModelManager().getBlockStateModelSet().getParticleMaterial(state).sprite();
-				LiquidRenderUtils.tesselateWithSingleTexture(level, pos, vertexConsumer, state, fluidState, sprite);
-			}
-
-			// Delegate all other methods to the original
-
-			@Override
-			public int getFluidColor(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos, FluidState fluidState) {
-				return isMesoglea(level, pos) ? 0xFFFFFFFF : waterHandler.getFluidColor(level, pos, fluidState);
+				LiquidRenderUtils.tessellateWithSingleSprite(renderer, level, pos, sprite, ChunkSectionLayer.TRANSLUCENT, output, state, fluidState);
 			}
 		};
 
-		FluidRenderHandlerRegistry.INSTANCE.register(Fluids.WATER, Fluids.FLOWING_WATER, mesogleaHandler);
-	}
-
-	private static boolean isMesoglea(@Nullable BlockAndTintGetter level, @Nullable BlockPos pos) {
-		if (level != null && pos != null && WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) return level.getBlockState(pos).getBlock() instanceof MesogleaBlock;
-		return false;
+		FluidRenderingRegistry.register(Fluids.WATER, Fluids.FLOWING_WATER, FluidStateModelSet.WATER_MODEL, mesogleaHandler);
 	}
 }

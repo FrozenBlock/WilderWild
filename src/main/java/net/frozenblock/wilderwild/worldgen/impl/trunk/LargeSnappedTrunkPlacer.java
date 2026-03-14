@@ -37,7 +37,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<LargeSnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(UniformInt.CODEC.fieldOf("additional_height").forGetter(trunkPlacer -> trunkPlacer.additionalHeight))
+			.and(UniformInt.MAP_CODEC.fieldOf("additional_height").forGetter(trunkPlacer -> trunkPlacer.additionalHeight))
 			.apply(instance, LargeSnappedTrunkPlacer::new)
 	);
 

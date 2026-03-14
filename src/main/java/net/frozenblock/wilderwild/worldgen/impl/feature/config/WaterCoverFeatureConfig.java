@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.worldgen.impl.feature.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
@@ -27,7 +28,7 @@ public record WaterCoverFeatureConfig(BlockStateProvider blockStateProvider, Int
 	public static final Codec<WaterCoverFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			BlockStateProvider.CODEC.fieldOf("state").forGetter(config -> config.blockStateProvider),
-			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius)
+			IntProviders.CODEC.fieldOf("radius").forGetter(config -> config.radius)
 		).apply(instance, WaterCoverFeatureConfig::new)
 	);
 }

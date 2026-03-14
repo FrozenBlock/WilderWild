@@ -262,11 +262,16 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		FIRE_PATCH_MAGMA.makeAndSetHolder(WWCaveConfigured.FIRE_PATCH_MAGMA,
+		FIRE_PATCH_MAGMA.makeAndSetHolder(WWCaveConfigured.FIRE,
 			CountPlacement.of(UniformInt.of(80, 130)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(96),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.MAGMA_BLOCK))
+			)
 		);
 
 		ORE_GABBRO.makeAndSetHolder(WWCaveConfigured.ORE_GABBRO,

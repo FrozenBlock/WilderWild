@@ -98,8 +98,8 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 		if (range.height() < 4) return false;
 
 		final int tempRadius = (int) ((float) range.height() * config.maxColumnRadiusToCaveHeightRatio());
-		final int clampedRadius = Mth.clamp(tempRadius, config.columnRadius().getMinValue(), config.columnRadius().getMaxValue());
-		final int radius = Mth.randomBetweenInclusive(random, config.columnRadius().getMinValue(), clampedRadius);
+		final int clampedRadius = Mth.clamp(tempRadius, config.columnRadius().minInclusive(), config.columnRadius().maxInclusive());
+		final int radius = Mth.randomBetweenInclusive(random, config.columnRadius().minInclusive(), clampedRadius);
 
 		final LargeMesoglea ceilingMesoglea = makeMesoglea(origin.atY(range.ceiling() - 1), false, random, radius, config.stalactiteBluntness(), config.heightScale());
 		final LargeMesoglea floorMesoglea = makeMesoglea(origin.atY(range.floor() + 1), true, random, radius, config.stalagmiteBluntness(), config.heightScale());

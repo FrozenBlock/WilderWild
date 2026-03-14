@@ -30,6 +30,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -49,13 +50,13 @@ public record TrunkBranchPlacement(
 	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			Codec.floatRange(0F, 1F).fieldOf("branch_placement_chance").forGetter(trunkPlacer -> trunkPlacer.branchChance),
-			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
-			IntProvider.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
-			IntProvider.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
+			IntProviders.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
 			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
 			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_branch_length_for_offset", 1).forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
 			Codec.FLOAT.lenientOptionalFieldOf("foliage_placement_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
-			IntProvider.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusOffset)
+			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusOffset)
 		).apply(instance, TrunkBranchPlacement::new)
 	);
 

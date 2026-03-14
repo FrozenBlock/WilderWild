@@ -20,13 +20,14 @@ package net.frozenblock.wilderwild.worldgen.impl.feature.config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public record SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) implements FeatureConfiguration {
 	public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
-			IntProvider.CODEC.fieldOf("radius").forGetter(config -> config.radius),
-			IntProvider.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
+			IntProviders.CODEC.fieldOf("radius").forGetter(config -> config.radius),
+			IntProviders.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
 			Codec.FLOAT.fieldOf("placement_chance").forGetter(config -> config.placementChance),
 			Codec.FLOAT.fieldOf("fade_start_distance_percent").forGetter(config -> config.fadeStartDistancePercent)
 		).apply(instance, SnowAndIceDiskFeatureConfig::new)
