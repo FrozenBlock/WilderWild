@@ -572,7 +572,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.spawnedFromShears || this.isLeashed() || this.hasCustomName();
+		return super.requiresCustomPersistence() || this.spawnedFromShears || this.hasCustomName();
 	}
 
 	@Override
