@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -36,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import org.jetbrains.annotations.Contract;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
@@ -52,12 +54,17 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
-				HollowedLogRecipeProvider.buildRecipes(this, output);
-				WWWoodRecipeProvider.buildRecipes(this, output);
-				MesogleaRecipeProvider.buildRecipes(this, output);
-				FireflyBottleRecipeProvider.buildRecipes(this, output, registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
-				WWNaturalRecipeProvider.buildRecipes(this, output);
-				WWCookRecipeProvider.buildRecipes(this, output);
+				HollowedLogRecipeProvider.buildRecipes(this, this.output);
+				WWWoodRecipeProvider.buildRecipes(this, this.output);
+				MesogleaRecipeProvider.buildRecipes(this, this.output);
+				FireflyBottleRecipeProvider.buildRecipes(this, this.output, this.registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
+				WWNaturalRecipeProvider.buildRecipes(this, this.output);
+				WWCookRecipeProvider.buildRecipes(this, this.output);
+				BuiltInRegistries.ITEM.stream().forEach(item -> {
+					final SuspiciousEffectHolder effectHolder = SuspiciousEffectHolder.tryGet(item);
+					if (effectHolder == null || !item.builtInRegistryHolder().key().identifier().getNamespace().equals(WWConstants.MOD_ID)) return;
+					this.suspiciousStew(item, effectHolder);
+				});
 
 				this.shaped(RecipeCategory.DECORATIONS, WWBlocks.DISPLAY_LANTERN)
 					.define('X', Ingredient.of(Items.IRON_NUGGET))
@@ -67,7 +74,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("XXX")
 					.unlockedBy(RecipeProvider.getHasName(Items.IRON_INGOT), this.has(Items.IRON_INGOT))
 					.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), this.has(Items.IRON_NUGGET))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.STONE_CHEST)
 					.group("stone_chest")
@@ -77,13 +84,13 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("# #")
 					.pattern("###")
 					.unlockedBy(RecipeProvider.getHasName(Items.COBBLED_DEEPSLATE), this.has(Items.COBBLED_DEEPSLATE))
-					.save(output);
+					.save(this.output);
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.ECHO_GLASS)
 					.requires(Items.ECHO_SHARD, 2)
 					.requires(Items.TINTED_GLASS)
 					.unlockedBy(RecipeProvider.getHasName(Items.ECHO_SHARD), this.has(Items.ECHO_SHARD))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
 					.group("sandstone")
@@ -92,7 +99,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
-					.save(output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
+					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
@@ -101,7 +108,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), this.has(Items.RED_SAND))
-					.save(output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
+					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.NULL_BLOCK, 2)
 					.define('#', Ingredient.of(Items.BLACK_CONCRETE))
@@ -110,7 +117,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.BLACK_CONCRETE), this.has(Items.BLACK_CONCRETE))
 					.unlockedBy(RecipeProvider.getHasName(Items.MAGENTA_CONCRETE), this.has(Items.MAGENTA_CONCRETE))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.REDSTONE, WWBlocks.GEYSER, 2)
 					.define('#', Items.MAGMA_BLOCK)
@@ -122,21 +129,21 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
 					.unlockedBy(getHasName(WWBlocks.GABBRO), has(WWBlocks.GABBRO))
 					.unlockedBy(getHasName(WWBlocks.GEYSER), has(WWBlocks.GEYSER))
-					.save(output);
+					.save(this.output);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.FERMENTED_SCORCHED_EYE)
 					.requires(WWItems.SCORCHED_EYE)
 					.requires(Items.BROWN_MUSHROOM)
 					.requires(Items.SUGAR)
 					.unlockedBy(RecipeProvider.getHasName(WWItems.SCORCHED_EYE), this.has(WWItems.SCORCHED_EYE))
-					.save(output);
+					.save(this.output);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.SCORCHED_EYE)
 					.requires(Items.SPIDER_EYE)
 					.requires(Items.BLAZE_POWDER)
 					.unlockedBy(RecipeProvider.getHasName(Items.BLAZE_POWDER), this.has(Items.BLAZE_POWDER))
 					.unlockedBy(RecipeProvider.getHasName(WWItems.SCORCHED_EYE), this.has(WWItems.SCORCHED_EYE))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.MISC, Items.SPONGE)
 					.define('#', WWBlocks.SPONGE_BUD)
@@ -145,19 +152,19 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("###")
 					.group("sponge")
 					.unlockedBy(getHasName(WWBlocks.SPONGE_BUD), has(WWBlocks.SPONGE_BUD))
-					.save(output, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
+					.save(this.output, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
 
 				// ICE
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.ICE), RecipeCategory.DECORATIONS, CookingBookCategory.BLOCKS, WWBlocks.FRAGILE_ICE.asItem(), 0.05F, 100)
 					.unlockedBy("has_ice", has(Blocks.ICE))
-					.save(output);
+					.save(this.output);
 
 				// MUD BRICKS
 
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, WWBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_mud_bricks", has(Blocks.MUD_BRICKS))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS)
 					.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
@@ -166,7 +173,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICKS), this.has(Items.MUD_BRICKS))
 					.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICK_SLAB), this.has(Items.MUD_BRICK_SLAB))
 					.unlockedBy(RecipeProvider.getHasName(WWBlocks.CHISELED_MUD_BRICKS), this.has(WWBlocks.CHISELED_MUD_BRICKS))
-					.save(output);
+					.save(this.output);
 
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.MUD_BRICKS);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.PACKED_MUD);
@@ -182,19 +189,18 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_mud_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.VINE));
+					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICKS)
 					.requires(Blocks.MUD_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_mud_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.MOSS_BLOCK));
+					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.MOSS_BLOCK));
 
-				stairBuilder(
-					WWBlocks.MOSSY_MUD_BRICK_STAIRS,
-					Ingredient.of(WWBlocks.MOSSY_MUD_BRICKS)
-				).unlockedBy(getHasName(WWBlocks.MOSSY_MUD_BRICKS), has(WWBlocks.MOSSY_MUD_BRICKS)).save(output);
+				stairBuilder(WWBlocks.MOSSY_MUD_BRICK_STAIRS, Ingredient.of(WWBlocks.MOSSY_MUD_BRICKS))
+					.unlockedBy(getHasName(WWBlocks.MOSSY_MUD_BRICKS), has(WWBlocks.MOSSY_MUD_BRICKS))
+					.save(this.output);
 
 				slab(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICKS);
 
@@ -228,14 +234,14 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_gabbro", has(WWBlocks.GABBRO))
-					.save(output);
+					.save(this.output);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, 4)
 					.define('#', WWBlocks.POLISHED_GABBRO)
 					.pattern("##")
 					.pattern("##")
 					.unlockedBy("has_polished_gabbro", has(WWBlocks.POLISHED_GABBRO))
-					.save(output);
+					.save(this.output);
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.POLISHED_GABBRO);
@@ -259,14 +265,14 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.requires(Blocks.VINE)
 					.group("mossy_gabbro_bricks")
 					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.VINE));
+					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.VINE));
 
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICKS)
 					.requires(WWBlocks.GABBRO_BRICKS)
 					.requires(Blocks.MOSS_BLOCK)
 					.group("mossy_gabbro_bricks")
 					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.MOSS_BLOCK));
+					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.MOSS_BLOCK));
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICKS, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS);

@@ -98,6 +98,10 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 			).apply(instance, StoneChestSpecialRenderer.Unbaked::new)
 		);
 
+		public Unbaked(Identifier texture, ChestType chestType) {
+			this(texture, 0F, chestType);
+		}
+
 		public Unbaked(Identifier texture) {
 			this(texture, 0F, ChestType.SINGLE);
 		}

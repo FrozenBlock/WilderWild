@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRe
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -36,11 +37,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BrightnessCombiner;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.Direction;
@@ -55,18 +53,17 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T, StoneChestRenderState> {
+	public static final MultiblockChestResources<ModelLayerLocation> LAYERS = new MultiblockChestResources<>(
+		WWModelLayers.STONE_CHEST, WWModelLayers.DOUBLE_STONE_CHEST_LEFT, WWModelLayers.DOUBLE_STONE_CHEST_RIGHT
+	);
 	public static final MultiblockChestResources<SpriteId> CHEST_STONE = StoneChestSpecialRenderer.STONE.map(Sheets.CHEST_MAPPER::apply);
 	public static final MultiblockChestResources<SpriteId> CHEST_STONE_SCULK = StoneChestSpecialRenderer.STONE_SCULK.map(Sheets.CHEST_MAPPER::apply);
 	private final SpriteGetter sprites;
-	private final StoneChestModel singleModel;
-	private final StoneChestModel doubleLeftModel;
-	private final StoneChestModel doubleRightModel;
+	private final MultiblockChestResources<StoneChestModel> models;
 
 	public StoneChestRenderer(BlockEntityRendererProvider.Context context) {
 		this.sprites = context.sprites();
-		this.singleModel = new StoneChestModel(context.bakeLayer(WWModelLayers.STONE_CHEST));
-		this.doubleLeftModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_LEFT));
-		this.doubleRightModel = new StoneChestModel(context.bakeLayer(WWModelLayers.DOUBLE_STONE_CHEST_RIGHT));
+		this.models = LAYERS.map(layer -> new StoneChestModel(context.bakeLayer(layer)));
 	}
 
 	public static SpriteId getStoneChestTexture(boolean sculk, ChestType type) {
@@ -81,45 +78,17 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		CameraRenderState camera
 	) {
 		poseStack.pushPose();
-		poseStack.translate(0.5F, 0.5F, 0.5F);
 		poseStack.mulPose(ChestRenderer.modelTransformation(renderState.facing));
-		poseStack.translate(-0.5F, -0.5F, -0.5F);
 
-		float openProgress = renderState.open;
-		openProgress = 1F - openProgress;
-		openProgress = 1F - openProgress * openProgress * openProgress;
+		float open = renderState.open;
+		open = 1F - open;
+		open = 1F - open * open * open;
 
 		final SpriteId spriteId = getStoneChestTexture(renderState.hasSculk, renderState.type);
-		final RenderType renderType = spriteId.renderType(RenderTypes::entityCutoutCull);
-		final TextureAtlasSprite sprite = this.sprites.get(spriteId);
-
-		if (renderState.type != ChestType.SINGLE) {
-			collector.submitModel(
-				renderState.type == ChestType.LEFT ? this.doubleLeftModel : this.doubleRightModel,
-				openProgress,
-				poseStack,
-				renderType,
-				renderState.lightCoords,
-				OverlayTexture.NO_OVERLAY,
-				-1,
-				sprite,
-				0,
-				renderState.breakProgress
-			);
-		} else {
-			collector.submitModel(
-				this.singleModel,
-				openProgress,
-				poseStack,
-				renderType,
-				renderState.lightCoords,
-				OverlayTexture.NO_OVERLAY,
-				-1,
-				sprite,
-				0,
-				renderState.breakProgress
-			);
-		}
+		final StoneChestModel model = this.models.select(renderState.type);
+		collector.submitModel(
+			model, open, poseStack, renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, spriteId, this.sprites, 0, renderState.breakProgress
+		);
 
 		poseStack.popPose();
 	}

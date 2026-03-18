@@ -2304,6 +2304,9 @@ public final class WWBlocks {
 		CompostableRegistry.INSTANCE.add(FROZEN_FERN, 0.65F);
 		CompostableRegistry.INSTANCE.add(FROZEN_LARGE_FERN, 0.65F);
 		CompostableRegistry.INSTANCE.add(FROZEN_BUSH, 0.3F);
+		CompostableRegistry.INSTANCE.add(AUBURN_MOSS_BLOCK, 0.65F);
+		CompostableRegistry.INSTANCE.add(AUBURN_MOSS_CARPET, 0.3F);
+		CompostableRegistry.INSTANCE.add(AUBURN_CREEPING_MOSS, 0.3F);
 	}
 
 	private static void registerFlammability() {
