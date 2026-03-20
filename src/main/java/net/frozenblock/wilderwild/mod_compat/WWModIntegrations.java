@@ -25,8 +25,8 @@ import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
-	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(SimpleCopperPipesIntegration::new, "simple_copper_pipes");
-	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new NoOpIntegration("biolith"), "biolith");
+	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(() -> new SimpleCopperPipesIntegration(), "simple_copper_pipes");
+	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 
 	private WWModIntegrations() {
 		throw new UnsupportedOperationException("WWModIntegrations contains only static declarations.");

@@ -198,10 +198,10 @@ dependencies {
     //compileOnly("maven.modrinth:terrablender:${terrablender_version}")
 
     // Biolith
-    //if (shouldRunBiolith)
-    //    implementation("maven.modrinth:biolith:${biolith_version}")
-    //else
-    //    compileOnly("maven.modrinth:biolith:${biolith_version}")
+    if (shouldRunBiolith)
+        implementation("maven.modrinth:biolith:${biolith_version}")
+    else
+        compileOnly("maven.modrinth:biolith:${biolith_version}")
 
     // Sodium
     //if (shouldRunSodium)
