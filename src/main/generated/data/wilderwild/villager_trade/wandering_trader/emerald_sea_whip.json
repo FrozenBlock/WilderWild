@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "count": 2,
+    "id": "wilderwild:sea_whip"
+  },
+  "max_uses": 5.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "id": "minecraft:emerald"
+  }
+}

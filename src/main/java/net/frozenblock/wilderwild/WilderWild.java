@@ -53,7 +53,6 @@ import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWTimelines;
-import net.frozenblock.wilderwild.registry.WWVillagers;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
 
@@ -100,7 +99,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBiomes.init();
 		WWWorldgen.generateWildWorldGen();
 		WWBlocks.registerBlockProperties();
-		WWVillagers.register();
 
 		WWModIntegrations.init();
 		WWNetworking.init();

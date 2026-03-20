@@ -37,6 +37,8 @@ import net.frozenblock.wilderwild.datagen.tag.WWFluidTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWGameEventTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWItemTagProvider;
 import net.frozenblock.wilderwild.datagen.tag.WWTimelineTagProvider;
+import net.frozenblock.wilderwild.datagen.tag.WWVillagerTradesTagsProvider;
+import net.frozenblock.wilderwild.datagen.trading.WWVillagerTrades;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
@@ -75,6 +77,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWItemTagProvider::new);
 		pack.addProvider(WWEntityTagProvider::new);
 		pack.addProvider(WWGameEventTagProvider::new);
+		pack.addProvider(WWVillagerTradesTagsProvider::new);
 		pack.addProvider(WWFeatureTagProvider::new);
 		pack.addProvider(WWTimelineTagProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
@@ -91,6 +94,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
+		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 
 		// Wilder Wild Registries

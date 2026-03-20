@@ -1,0 +1,9 @@
+{
+  "gives": {
+    "id": "wilderwild:tumbleweed_plant"
+  },
+  "reputation_discount": 0.05,
+  "wants": {
+    "id": "minecraft:emerald"
+  }
+}

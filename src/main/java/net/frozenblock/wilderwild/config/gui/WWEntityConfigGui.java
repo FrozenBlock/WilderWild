@@ -216,6 +216,7 @@ public final class WWEntityConfigGui {
 		var crabForEmeralds = booleanEntry(builder, "crab_for_emeralds", WWEntityConfig.FISHERMAN_CRAB_FOR_EMERALDS);
 		var jellyfishForEmeralds = booleanEntry(builder, "jellyfish_for_emeralds", WWEntityConfig.FISHERMAN_JELLYFISH_FOR_EMERALDS);
 
+		/*
 		FrozenClothConfig.createSubCategory(builder, category, EntityType.VILLAGER.getDescription(),
 			false,
 			tooltip("entity_category", EntityType.VILLAGER.getDescription()),
@@ -227,5 +228,6 @@ public final class WWEntityConfigGui {
 			geyserTrade,
 			desertPalmBoat, crabForEmeralds, jellyfishForEmeralds
 		);
+		 */
 	}
 }

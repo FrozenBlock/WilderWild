@@ -1,0 +1,10 @@
+{
+  "gives": {
+    "id": "wilderwild:geyser"
+  },
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 6.0,
+    "id": "minecraft:emerald"
+  }
+}

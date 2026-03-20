@@ -34,8 +34,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.npc.villager.VillagerType;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import java.util.Map;
 
 public final class WWWorldgen {
 
@@ -61,6 +65,26 @@ public final class WWWorldgen {
 		WWBiomeSettings.init();
 
 		generatePollen();
+
+		final Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
+		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
+		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);
+		villagerTypeMap.put(WWBiomes.FROZEN_CAVES, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.ARID_FOREST, VillagerType.DESERT);
+		villagerTypeMap.put(WWBiomes.ARID_SAVANNA, VillagerType.SAVANNA);
+		villagerTypeMap.put(WWBiomes.PARCHED_FOREST, VillagerType.SAVANNA);
+		villagerTypeMap.put(WWBiomes.BIRCH_JUNGLE, VillagerType.JUNGLE);
+		villagerTypeMap.put(WWBiomes.SPARSE_BIRCH_JUNGLE, VillagerType.JUNGLE);
+		villagerTypeMap.put(WWBiomes.BIRCH_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.TEMPERATE_RAINFOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.DARK_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.MIXED_FOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.DYING_MIXED_FOREST, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.SNOWY_DYING_MIXED_FOREST, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.SNOWY_DYING_FOREST, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
+		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
+		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_condition_source"), SnowUnderMountainConditionSource.CODEC.codec());

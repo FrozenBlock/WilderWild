@@ -46,6 +46,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.BIOME)));
 		WWConstants.log("Adding finalized noises to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.NOISE)));
+		WWConstants.log("Adding finalized villager trades to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.VILLAGER_TRADE)));
 		WWConstants.log("Adding finalized timelines to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.TIMELINE)));
 

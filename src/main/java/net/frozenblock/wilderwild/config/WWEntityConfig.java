@@ -107,6 +107,7 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> WARDEN_EMERGES_FROM_EGG = CONFIG.entry("warden/wardenEmergesFromEgg", EntryType.BOOL, false);
 
 	// VILLAGER
+	// TODO: possible non-data-driven way to do trades?
 	public static final ConfigEntry<Boolean> WANDERING_WILLOW_TRADE = CONFIG.entryBuilder("villager/wanderingWillowTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_CYPRESS_TRADE = CONFIG.entryBuilder("villager/wanderingCypressTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_BAOBAB_TRADE = CONFIG.entryBuilder("villager/wanderingBaobabTrade", EntryType.BOOL, true).requireRestart().build();
