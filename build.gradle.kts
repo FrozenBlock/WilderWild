@@ -186,7 +186,7 @@ dependencies {
     compileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    compileOnly("com.terraformersmc:modmenu:$modmenu_version")
+    implementation("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
     compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
