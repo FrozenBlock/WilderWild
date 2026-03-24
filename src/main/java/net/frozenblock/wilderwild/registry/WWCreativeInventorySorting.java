@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.FrozenCreativeTabs;
 import net.minecraft.resources.ResourceKey;
