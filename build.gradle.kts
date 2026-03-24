@@ -189,7 +189,7 @@ dependencies {
     implementation("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    implementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
