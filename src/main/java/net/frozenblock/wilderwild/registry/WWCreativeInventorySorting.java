@@ -31,18 +31,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 public final class WWCreativeInventorySorting {
-	private static boolean hasRun = false;
 
-	// TODO: we have to do this now which is really stupid. is there a better way?
 	public static void init() {
-		CommonLifecycleEvents.TAGS_LOADED.register((registryAccess, client) -> {
-			if (hasRun) return;
-			run();
-			hasRun = true;
-		});
-	}
-
-	public static void run() {
 		// BAOBAB (BUILDING BLOCKS)
 		insertAfterInBuildingBlocks(Items.MANGROVE_BUTTON, WWBlocks.BAOBAB_LOG);
 		insertAfterInBuildingBlocks(WWBlocks.BAOBAB_LOG, WWBlocks.BAOBAB_WOOD);
