@@ -58,8 +58,8 @@ public class LevelRendererMixin {
 			double cameraX = cameraPosition.x;
 			double cameraY = cameraPosition.y;
 			double cameraZ = cameraPosition.z;
-			cameraX = (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 12D) - (double)((partialTicks) * 0.03F);
-			cameraZ = cameraZ - WWClientWindManager.getCloudZ(deltaPartialTick) * 12D;
+			cameraX = (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 18D) - (double)((partialTicks) * 0.03F);
+			cameraZ = cameraZ - WWClientWindManager.getCloudZ(deltaPartialTick) * 18D;
 			cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
 			gameTime = 0L;
 			partialTicks = 0L;
