@@ -204,10 +204,10 @@ dependencies {
         compileOnly("maven.modrinth:biolith:${biolith_version}")
 
     // Sodium
-    //if (shouldRunSodium)
-    //    implementation("maven.modrinth:sodium:${sodium_version}")
-    //else
-    //    compileOnly("maven.modrinth:sodium:${sodium_version}")
+    if (shouldRunSodium)
+        implementation("maven.modrinth:sodium:${sodium_version}")
+    else
+        compileOnly("maven.modrinth:sodium:${sodium_version}")
 
     // FallingLeaves
     //compileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")

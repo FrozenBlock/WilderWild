@@ -149,6 +149,7 @@
     "client.mesoglea.fog.CameraMixin",
     "client.mesoglea.fog.WaterFogEnvironmentMixin",
     "client.shrieker.LevelEventHandlerMixin",
+    "client.sodium.BlockRendererMixin",
     "client.warden.WardenModelMixin",
     "client.warden.WardenRendererMixin",
     "client.warden.WardenRenderStateMixin",

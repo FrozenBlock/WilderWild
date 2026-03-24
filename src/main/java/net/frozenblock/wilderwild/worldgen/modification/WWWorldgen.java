@@ -215,7 +215,6 @@ public final class WWWorldgen {
 				if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 				generationSettings.removeFeature(VegetationPlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
-				// TODO 1.21.5: Adjust for vanilla leaf litter
 				generationSettings.removeFeature(VegetationPlacements.TREES_FLOWER_FOREST);
 				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TREES_FLOWER_FOREST.getKey());
 			});
