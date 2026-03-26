@@ -25,7 +25,11 @@ import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
@@ -102,6 +106,12 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		WWModIntegrations.init();
 		WWNetworking.init();
+
+		WWAmbienceAndMiscConfig.CONFIG.load(true);
+		WWBlockConfig.CONFIG.load(true);
+		WWEntityConfig.CONFIG.load(true);
+		WWItemConfig.CONFIG.load(true);
+		WWWorldgenConfig.CONFIG.load(true);
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
 	}
