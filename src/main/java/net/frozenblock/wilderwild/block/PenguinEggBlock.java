@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -96,7 +97,7 @@ public class PenguinEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(Level level, BlockPos pos) {
 		if (!isSafeToHatch(level, pos.below())) return false;
-		return level.getRandom().nextInt(30) == 0;
+		return level.environmentAttributes().getValue(WWEnvironmentAttributes.PENGUIN_EGG_HATCH_CHANCE, pos) > level.getRandom().nextFloat();
 	}
 
 	private void hatchPenguinEgg(ServerLevel level, BlockPos pos, RandomSource random) {

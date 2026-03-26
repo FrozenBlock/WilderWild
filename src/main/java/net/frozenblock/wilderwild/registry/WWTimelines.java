@@ -46,6 +46,7 @@ public final class WWTimelines {
 				.addTrack(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
 				.addTrack(WWEnvironmentAttributes.PLANKTON_GLOWING, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
 				.addTrack(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING, builder -> builder.addKeyframe(12600, false).addKeyframe(23401, true))
+				.addTrack(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE, builder -> builder.addKeyframe(12600, 1F / 300F).addKeyframe(23401, 1F / 18F))
 				.build()
 		);
 	}

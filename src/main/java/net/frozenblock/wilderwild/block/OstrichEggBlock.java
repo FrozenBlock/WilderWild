@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.block;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -96,8 +97,7 @@ public class OstrichEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(Level level, BlockPos pos) {
 		if (!isSafeToHatch(level, pos.below())) return false;
-		if (level.isBrightOutside()) return level.getRandom().nextInt(17) == 0;
-		return level.getRandom().nextInt(300) == 0;
+		return level.environmentAttributes().getValue(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE, pos) > level.getRandom().nextFloat();
 	}
 
 	private void hatchOstrichEgg(ServerLevel level, BlockPos pos, RandomSource random) {

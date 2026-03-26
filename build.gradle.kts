@@ -49,7 +49,6 @@ val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
 val terrablender_version: String by project
-val fallingleaves_version: String by project
 
 val biolith_version: String by project
 val run_biolith: String by project
@@ -195,7 +194,7 @@ dependencies {
     }
 
     // TerraBlender
-    //compileOnly("maven.modrinth:terrablender:${terrablender_version}")
+    compileOnly("maven.modrinth:terrablender:${terrablender_version}")
 
     // Biolith
     if (shouldRunBiolith)
@@ -208,9 +207,6 @@ dependencies {
         implementation("maven.modrinth:sodium:${sodium_version}")
     else
         compileOnly("maven.modrinth:sodium:${sodium_version}")
-
-    // FallingLeaves
-    //compileOnly("maven.modrinth:fallingleaves:${fallingleaves_version}")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }

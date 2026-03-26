@@ -36,6 +36,14 @@ public final class WWEnvironmentAttributes {
 		"gameplay/sea_anemone_glowing",
 		EnvironmentAttribute.builder(AttributeTypes.BOOLEAN).defaultValue(false)
 	);
+	public static final EnvironmentAttribute<Float> OSTRICH_EGG_HATCH_CHANCE = register(
+		"gameplay/ostrich_egg_hatch_chance",
+		EnvironmentAttribute.builder(AttributeTypes.FLOAT).defaultValue(1F / 18F)
+	);
+	public static final EnvironmentAttribute<Float> PENGUIN_EGG_HATCH_CHANCE = register(
+		"gameplay/penguin_egg_hatch_chance",
+		EnvironmentAttribute.builder(AttributeTypes.FLOAT).defaultValue(1F / 30F)
+	);
 
 	private WWEnvironmentAttributes() {
 		throw new UnsupportedOperationException("WWEnvironmentAttributes contains only static declarations.");

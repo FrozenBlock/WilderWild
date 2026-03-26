@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.mod_compat.terrablender;
 
-// TODO: Re-enable when terrablender is unobfuscated
-/*import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import terrablender.api.Regions;
 import terrablender.api.TerraBlenderApi;
 
@@ -29,4 +28,3 @@ public final class BlenderInitializer implements TerraBlenderApi {
 		Regions.register(new WWOverworldRegion(WWConstants.id("overworld"), 1));
 	}
 }
-*/

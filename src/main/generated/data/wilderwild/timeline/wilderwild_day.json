@@ -2,6 +2,18 @@
   "clock": "minecraft:overworld",
   "period_ticks": 24000,
   "tracks": {
+    "wilderwild:gameplay/ostrich_egg_hatch_chance": {
+      "keyframes": [
+        {
+          "ticks": 12600,
+          "value": 0.0033333334
+        },
+        {
+          "ticks": 23401,
+          "value": 0.055555556
+        }
+      ]
+    },
     "wilderwild:gameplay/pale_mushroom_active": {
       "keyframes": [
         {
