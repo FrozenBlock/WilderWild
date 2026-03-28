@@ -37,6 +37,7 @@
     "block.mesoglea.LivingEntityMixin",
     "block.mesoglea.MonsterMixin",
     "block.mesoglea.PlayerMixin",
+    "block.moss.BonemealableFeaturePlacerBlockMixin",
     "block.mycelium.SpreadingSnowyBlockMixin",
     "block.ocean.BoneMealItemMixin",
     "block.ocean.DoublePlantBlockMixin",

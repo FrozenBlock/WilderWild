@@ -34,6 +34,7 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> POLLEN_PARTICLES = CONFIG.unsyncableEntry("pollenParticles", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> LOG_HOLLOWING = CONFIG.entry("logHollowing", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> CACTUS_PLACEMENT = CONFIG.entry("cactusPlacement", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> AZALEA_FROM_MOSS = CONFIG.entry("azaleaFromMoss", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> NEW_REINFORCED_DEEPSLATE = CONFIG.entry("newReinforcedDeepslate", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FROGLIGHT_GOOP_GROWTH = CONFIG.entry("froglightGoopGrowth", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FROSTED_ICE_CRACKING = CONFIG.entry("frostedIceCracking", EntryType.BOOL, true);

@@ -83,6 +83,8 @@ public final class WWMixinsConfig {
 
 	public boolean block_mesoglea = true;
 
+	public boolean block_moss = true;
+
 	public boolean block_mycelium = true;
 
 	public boolean block_ocean = true;

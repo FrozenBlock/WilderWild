@@ -187,6 +187,10 @@ public final class WWMiscConfigured {
 	// ICE
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
+	// MOSS
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
+
 	private WWMiscConfigured() {
 		throw new UnsupportedOperationException("WWMiscConfigured contains only static declarations.");
 	}
@@ -1327,6 +1331,32 @@ public final class WWMiscConfigured {
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
 				UniformInt.of(4, 5)
+			)
+		);
+
+		MOSS_VEGETATION_NO_AZALEA.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+			new SimpleBlockConfiguration(
+				new WeightedStateProvider(
+					WeightedList.<BlockState>builder()
+						.add(Blocks.MOSS_CARPET.defaultBlockState(), 25)
+						.add(Blocks.SHORT_GRASS.defaultBlockState(), 50)
+						.add(Blocks.TALL_GRASS.defaultBlockState(), 10)
+				)
+			)
+		);
+
+		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
+			new VegetationPatchConfiguration(
+				BlockTags.MOSS_REPLACEABLE,
+				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(MOSS_VEGETATION_NO_AZALEA.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.6F,
+				UniformInt.of(1, 2),
+				0.75F
 			)
 		);
 	}

@@ -81,6 +81,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.lava.")) return this.mixinsConfig.block_lava;
 		if (mixinClassName.contains("block.leaves.")) return this.mixinsConfig.block_leaves;
 		if (mixinClassName.contains("block.mesoglea.")) return this.mixinsConfig.block_mesoglea;
+		if (mixinClassName.contains("block.moss.")) return this.mixinsConfig.block_moss;
 		if (mixinClassName.contains("block.mycelium.")) return this.mixinsConfig.block_mycelium;
 		if (mixinClassName.contains("block.ocean.")) return this.mixinsConfig.block_ocean;
 		if (mixinClassName.contains("block.sound.")) return this.mixinsConfig.block_sound;

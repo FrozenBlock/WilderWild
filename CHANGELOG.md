@@ -2,6 +2,10 @@ Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 - Bumped Wilder Wild's protocol version to 19.
+- Added a config option to toggle whether Azaleas can generate when Bone Mealing a Moss Block.
+  - The `wilderwild:moss_patch_bonemeal_no_azalea` feature will be used while this option is enabled.
+  - This option is disabled by default as to not break existing farms.
+  - Added the `block_moss` option to Wilder Wild's mixin config.
 - Termite Mounds now only hold a single Termite Swarm at a time.
   - Termite Mounds placed by players could previously hold three Termite Swarms at a time.
   - This change should make Termite Mounds more acceptable in terms of game balance and volume/particle count.
