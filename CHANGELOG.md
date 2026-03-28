@@ -3,12 +3,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 - Bumped Wilder Wild's protocol version to 19.
 - Termite Mounds now only hold a single Termite Swarm at a time.
-  - Termite Mounds placed by players could previously hold three Termite Swarms at a time, which has been observed to be very unbalanced and sound-heavy.
+  - Termite Mounds placed by players could previously hold three Termite Swarms at a time.
   - This change should make Termite Mounds more acceptable in terms of game balance and volume/particle count.
   - As a result of this change, the `can_spawn_termites` BlockState property has been removed.
     - The `termites_awake` property now takes into account the conditions the `can_spawn_termites` property was previously set under.
 - Updated and optimized how Termite Mounds sync Termite Swarm data to clients.
-  - Syncing now only occurs if a Termite Swam was spawned, removed, or had its position or eating state changed.
+  - Syncing now only occurs if a Termite Swam was spawned, removed, or had its position/eating state changed.
     - Syncing would previously occur each tick while a Termite Swarm was present.
   - Significantly reduced the amount of data required to be sent in order to sync Termite Swarm data to clients.
 - Termite Particles are now created on the client instead of being sent from the server.
@@ -22,7 +22,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - More than 16 Fireflies are present within 8 blocks of the Firefly Bush.
     - More than 4 Fireflies are present within 4 blocks of the Firefly Bush.
     - A Player is not present within 24 blocks of the Firefly Bush.
-  - Removed the `Firefly Bush Swarms` config option, and merged its functionality with the `Firefly Bush Spawning` config option.
+  - Removed the `Firefly Bush Swarms` config option and merged its functionality with the `Firefly Bush Spawning` config option.
   - When the config option is disabled, these changes will no longer apply.
   - This change was made to both significantly boost performance on lower-end devices, while being more accurate to Vanilla's Firefly particle spawning.
-- Fireflies now despawn within 40 blocks of a player, instead of 80.
+- Fireflies now despawn within 40 blocks of a player instead of 80.
