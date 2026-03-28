@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -95,15 +94,7 @@ public class TermiteManager {
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
 				termitesUpdated = true;
 			} else if (this.termite.tick(level, moundPos, natural, random)) {
-				if (level instanceof ServerLevel serverLevel) {
-					serverLevel.sendParticles(
-						WWParticleTypes.TERMITE,
-						this.termite.pos.getX() + 0.5D, this.termite.pos.getY() + 0.5D, this.termite.pos.getZ() + 0.5D,
-						this.termite.eating ? PARTICLE_COUNT_WHILE_EATING : PARTICLE_COUNT,
-						0D, 0D, 0D, 0D
-					);
-					termitesUpdated = this.termite.eating != wasEating || this.termite.pos != previousPos;
-				}
+				termitesUpdated = this.termite.eating != wasEating || this.termite.pos != previousPos;
 			} else {
 				level.playSound(null, this.termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));

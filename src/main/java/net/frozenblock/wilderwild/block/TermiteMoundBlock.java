@@ -135,16 +135,22 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (levelx, pos, statex, blockEntity) ->
+		if (level.isClientSide()) return createTickerHelper(
+			type,
+			WWBlockEntityTypes.TERMITE_MOUND,
+			(levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx)
+		);
+		return createTickerHelper(
+			type,
+			WWBlockEntityTypes.TERMITE_MOUND,
+			(levelx, pos, statex, blockEntity) ->
 				blockEntity.tickServer(
 					levelx,
 					pos,
 					statex.getValue(WWBlockStateProperties.NATURAL),
 					statex.getValue(WWBlockStateProperties.TERMITES_AWAKE)
 				)
-			)
-			: createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());
+			);
 	}
 
 	public static BlockState setTermiteEdibleIfPossible(BlockState state) {

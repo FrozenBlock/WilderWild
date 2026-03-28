@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.client.resources.sounds.TermiteEatingSoundInstance;
 import net.frozenblock.wilderwild.client.resources.sounds.TermiteIdleSoundInstance;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -51,11 +52,23 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		this.termiteManager.tick(level, pos, natural, awake, this::markForUpdate);
 	}
 
-	public void tickClient() {
+	public void tickClient(Level level) {
 		final TermiteManager.Termite termite = this.termiteManager.termite;
-		final boolean isTermitePresent = termite != null;
-		if (isTermitePresent && !this.hadTermite) addTermiteSound(this, termite.getEating());
-		this.hadTermite = isTermitePresent;
+		if (termite != null) {
+			final boolean eating = termite.getEating();
+			final int particleCount = (eating ? TermiteManager.PARTICLE_COUNT_WHILE_EATING : TermiteManager.PARTICLE_COUNT);
+			for (int i = 0; i < particleCount; i++) {
+				level.addParticle(
+					WWParticleTypes.TERMITE,
+					termite.pos.getX() + 0.5D, termite.pos.getY() + 0.5D, termite.pos.getZ() + 0.5D,
+					0D, 0D, 0D
+				);
+			}
+			if (!this.hadTermite) addTermiteSound(this, eating);
+			this.hadTermite = true;
+		} else {
+			this.hadTermite = false;
+		}
 	}
 
 	private void markForUpdate() {

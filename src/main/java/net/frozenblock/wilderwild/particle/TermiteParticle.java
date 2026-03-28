@@ -106,26 +106,26 @@ public class TermiteParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected void extractRotatedQuad(QuadParticleRenderState renderState, Camera camera, Quaternionf rotation, float partialTick) {
+	protected void extractRotatedQuad(QuadParticleRenderState renderState, Camera camera, Quaternionf rotation, float partialTicks) {
 		final Vec3 cameraPos = camera.position();
-		final float animationProgress = this.age + partialTick;
-		final float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
-		final float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
-		final float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
+		final float animationProgress = this.age + partialTicks;
+		final float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1F : 1F) * 0.65F;
+		final float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1F : 1F) * 0.65F;
+		final float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1F : 1F) * 0.65F;
 		final float x = (float) (this.x - cameraPos.x() + xRotation);
 		final float y = (float) (this.y - cameraPos.y() + yRotation);
 		final float z = (float) (this.z - cameraPos.z() + zRotation);
-		this.extractRotatedQuad(renderState, rotation, x, y, z, partialTick);
+		this.extractRotatedQuad(renderState, rotation, x, y, z, partialTicks);
 	}
 
 	@Override
-	protected int getLightCoords(float partialTick) {
-		float animationProgress = this.age + partialTick;
-		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1 : 1) * 0.65F;
-		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1 : 1) * 0.65F;
-		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1 : 1) * 0.65F;
-		BlockPos blockPos = this.getLerpedTermiteBlockPos(x, y, z, xRotation, yRotation, zRotation);
-		return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightCoords(this.level, blockPos) : 0;
+	protected int getLightCoords(float partialTicks) {
+		float animationProgress = this.age + partialTicks;
+		float xRotation = (rotate(this.xRot, animationProgress, this.xOffset, this.xSpinSpeed)) * (this.backwardsX ? -1F : 1F) * 0.65F;
+		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1F : 1F) * 0.65F;
+		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1F : 1F) * 0.65F;
+		final BlockPos pos = this.getLerpedTermiteBlockPos(this.x, this.y, this.z, xRotation, yRotation, zRotation);
+		return this.level.hasChunkAt(pos) ? LevelRenderer.getLightCoords(this.level, pos) : 0;
 	}
 
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {
@@ -156,7 +156,7 @@ public class TermiteParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			TermiteParticle termite = new TermiteParticle(level, x, y, z, this.spriteSet.get(random), random);
+			final TermiteParticle termite = new TermiteParticle(level, x, y, z, this.spriteSet.get(random), random);
 			termite.setAlpha(1F);
 			termite.setLifetime(random.nextInt(10) + 5 + termite.age);
 			termite.scale(0.75F);

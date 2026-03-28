@@ -11,6 +11,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Syncing now only occurs if a Termite Swam was spawned, removed, or had its position or eating state changed.
     - Syncing would previously occur each tick while a Termite Swarm was present.
   - Significantly reduced the amount of data required to be sent in order to sync Termite Swarm data to clients.
+- Termite Particles are now created on the client, instead of being sent from the server.
 - Added the `#wilderwild:cannot_support_upwards_termite_movement` Block tag.
   - Contains the `#minecraft:inside_step_sound_blocks`, `#minecraft:replaceable_by_trees`, and `#minecraft:flowers` Block tags by default.
   - This tag is used to define which Blocks a Termite Swarm cannot travel upwards into.
