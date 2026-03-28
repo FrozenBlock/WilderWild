@@ -27,13 +27,13 @@ import net.minecraft.sounds.SoundSource;
 @Environment(EnvType.CLIENT)
 public class TermiteEatingSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTermiteSoundInstance<T> {
 
-	public TermiteEatingSoundInstance(T mound, int termiteID) {
-		super(mound, termiteID, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS);
+	public TermiteEatingSoundInstance(T mound) {
+		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS);
 	}
 
 	@Override
 	protected AbstractTermiteSoundInstance<T> getAlternativeSoundInstance() {
-		return new TermiteIdleSoundInstance<>(this.mound, this.termiteID);
+		return new TermiteIdleSoundInstance<>(this.mound);
 	}
 
 	@Override

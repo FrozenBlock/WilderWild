@@ -108,6 +108,7 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
+	public static final TagKey<Block> CANNOT_SUPPORT_UPWARDS_TERMITE_MOVEMENT = bind("cannot_support_upwards_termite_movement");
 
 	public static final TagKey<Block> ICICLE_FALLS_FROM = bind("icicle_falls_from");
 	public static final TagKey<Block> ICICLE_GROWS_WHEN_UNDER = bind("icicle_grows_when_under");

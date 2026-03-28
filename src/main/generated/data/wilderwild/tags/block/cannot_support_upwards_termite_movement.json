@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:inside_step_sound_blocks",
+      "required": false
+    },
+    {
+      "id": "#minecraft:replaceable_by_trees",
+      "required": false
+    },
+    {
+      "id": "#minecraft:flowers",
+      "required": false
+    }
+  ]
+}

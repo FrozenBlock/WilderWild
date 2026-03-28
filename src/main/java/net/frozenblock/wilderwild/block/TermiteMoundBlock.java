@@ -53,7 +53,6 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 			this.stateDefinition.any()
 				.setValue(WWBlockStateProperties.NATURAL, false)
 				.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
-				.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false)
 		);
 	}
 
@@ -70,7 +69,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(WWBlockStateProperties.NATURAL, WWBlockStateProperties.TERMITES_AWAKE, WWBlockStateProperties.CAN_SPAWN_TERMITE);
+		builder.add(WWBlockStateProperties.NATURAL, WWBlockStateProperties.TERMITES_AWAKE);
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		RandomSource random
 	) {
 		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
-			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false).setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, false);
+			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false).setValue(WWBlockStateProperties.TERMITES_AWAKE, false);
 		}
 
 		ticks.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
@@ -99,7 +98,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity termiteMoundBlockEntity) termiteMoundBlockEntity.termiteManager.clearTermites(level);
+		if (level.getBlockEntity(pos) instanceof TermiteMoundBlockEntity mound) mound.termiteManager().removeTermite(level);
 	}
 
 	@Override
@@ -112,9 +111,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public BlockState evaluateMoundBlockStateAtPosition(BlockState state, Level level, BlockPos pos) {
 		final boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
 		final boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		return state
-			.setValue(WWBlockStateProperties.TERMITES_AWAKE, canAwaken)
-			.setValue(WWBlockStateProperties.CAN_SPAWN_TERMITE, areTermitesSafe);
+		return state.setValue(WWBlockStateProperties.TERMITES_AWAKE, areTermitesSafe && canAwaken);
 	}
 
 	public static boolean canTermitesWaken(Level level, BlockPos pos) {
@@ -125,11 +122,11 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		return level.isDarkOutside() && light < MIN_AWAKE_LIGHT_LEVEL;
 	}
 
-	public static int getLightLevel(Level level, BlockPos blockPos) {
-		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
+	public static int getLightLevel(Level level, BlockPos pos) {
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		int finalLight = 0;
 		for (Direction direction : Direction.values()) {
-			mutable.setWithOffset(blockPos, direction);
+			mutable.setWithOffset(pos, direction);
 			final int newLight = !level.isRaining() ? level.getMaxLocalRawBrightness(mutable) : level.getBrightness(LightLayer.BLOCK, mutable);
 			finalLight = Math.max(finalLight, newLight);
 		}
@@ -139,13 +136,12 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) ->
+			createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (levelx, pos, statex, blockEntity) ->
 				blockEntity.tickServer(
-					worldx,
+					levelx,
 					pos,
 					statex.getValue(WWBlockStateProperties.NATURAL),
-					statex.getValue(WWBlockStateProperties.TERMITES_AWAKE),
-					statex.getValue(WWBlockStateProperties.CAN_SPAWN_TERMITE)
+					statex.getValue(WWBlockStateProperties.TERMITES_AWAKE)
 				)
 			)
 			: createTickerHelper(type, WWBlockEntityTypes.TERMITE_MOUND, (worldx, pos, statex, blockEntity) -> blockEntity.tickClient());

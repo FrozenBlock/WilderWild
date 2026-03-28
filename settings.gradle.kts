@@ -27,7 +27,7 @@ pluginManagement {
 
 rootProject.name = "Wilder Wild"
 
-localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, true)
+localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, false)
 localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
 localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", true, false)
 

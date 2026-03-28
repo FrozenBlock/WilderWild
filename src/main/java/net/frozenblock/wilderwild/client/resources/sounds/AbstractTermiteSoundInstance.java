@@ -32,23 +32,21 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public abstract class AbstractTermiteSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTickableSoundInstance {
 	protected final T mound;
-	protected final int termiteID;
 	private boolean initialTermiteCheck;
 
-	public AbstractTermiteSoundInstance(T mound, int termiteID, SoundEvent sound, SoundSource category) {
+	public AbstractTermiteSoundInstance(T mound, SoundEvent sound, SoundSource category) {
 		super(sound, category, SoundInstance.createUnseededRandom());
 		this.mound = mound;
 		this.looping = true;
 		this.delay = 0;
 		this.volume = 0.2F;
 		this.pitch = 1F;
-		this.termiteID = termiteID;
 	}
 
 	@Nullable
 	public TermiteManager.Termite getTermite() {
 		if (this.mound == null || this.mound.isRemoved()) return null;
-		return this.mound.termiteManager.termites().stream().filter(termite -> termite.getID() == this.termiteID).findFirst().orElse(null);
+		return this.mound.termiteManager().termite().orElse(null);
 	}
 
 	@Override

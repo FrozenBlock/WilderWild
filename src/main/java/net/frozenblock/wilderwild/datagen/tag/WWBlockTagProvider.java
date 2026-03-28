@@ -731,10 +731,6 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.CHERRY_LEAVES)
 			.add(Blocks.PALE_OAK_LEAVES);
 
-		this.valueLookupBuilder(WWBlockTags.BLOCKS_TERMITE)
-			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
-			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);
-
 		this.valueLookupBuilder(WWBlockTags.KILLS_TERMITE)
 			.add(Blocks.WATER, Blocks.WATER_CAULDRON)
 			.add(Blocks.LAVA, Blocks.LAVA_CAULDRON)
@@ -771,6 +767,15 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.CREAKING_HEART)
 			.add(Blocks.CLOSED_EYEBLOSSOM, Blocks.OPEN_EYEBLOSSOM)
 			.add(WWBlocks.PALE_MUSHROOM, WWBlocks.PALE_SHELF_FUNGI, WWBlocks.PALE_MUSHROOM_BLOCK);
+
+		this.valueLookupBuilder(WWBlockTags.BLOCKS_TERMITE)
+			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
+			.addOptionalTag(ConventionalBlockTags.GLASS_PANES);
+
+		this.valueLookupBuilder(WWBlockTags.CANNOT_SUPPORT_UPWARDS_TERMITE_MOVEMENT)
+			.addOptionalTag(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+			.addOptionalTag(BlockTags.REPLACEABLE_BY_TREES)
+			.addOptionalTag(BlockTags.FLOWERS);
 	}
 
 	private void generateMinecraft() {

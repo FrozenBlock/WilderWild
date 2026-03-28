@@ -16,7 +16,6 @@
     "state": {
       "Name": "wilderwild:termite_mound",
       "Properties": {
-        "can_spawn_termites": "false",
         "natural": "true",
         "termites_awake": "false"
       }

@@ -19,11 +19,9 @@ package net.frozenblock.wilderwild.block.termite;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -56,23 +54,13 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteManager {
-	public static final int TERMITE_COUNT_ASLEEP = 1;
-	public static final int TERMITE_COUNT_ASLEEP_NATURAL = 0;
-	public static final int TERMITE_COUNT = 3;
 	public static final int PARTICLE_COUNT_WHILE_EATING = 4;
 	public static final int PARTICLE_COUNT = 6;
 	public static final float BLOCK_SOUND_VOLUME = 0.6F;
-	private final ArrayList<Termite> termites = new ArrayList<>();
-	public int ticksToNextTermite;
-	public int highestID;
+	public Termite termite;
+	public int termiteSpawnCooldown;
 
 	public TermiteManager() {
-	}
-
-	public static int maxTermites(boolean natural, boolean awake, boolean canSpawn) {
-		if (!canSpawn) return 0;
-		if (!awake) return natural ? TERMITE_COUNT_ASLEEP_NATURAL : TERMITE_COUNT_ASLEEP;
-		return TERMITE_COUNT;
 	}
 
 	public static boolean areTermitesSafe(LevelReader level, BlockPos pos) {
@@ -91,84 +79,76 @@ public class TermiteManager {
 		return !state.is(WWBlockTags.KILLS_TERMITE) && state.getFluidState().isEmpty();
 	}
 
-	public void addTermite(BlockPos pos) {
-		Termite termite = new Termite(pos, pos, 0, 0, 0, false, this.highestID += 1);
-		this.termites.add(termite);
+	public void setTermite(BlockPos pos) {
+		this.termite = new Termite(pos, false);
 	}
 
-	public void tick(Level level, BlockPos pos, boolean natural, boolean awake, boolean canSpawn, Runnable onTermitesUpdated) {
-		final int maxTermites = maxTermites(natural, awake, canSpawn);
-		final AtomicBoolean termitesUpdated = new AtomicBoolean();
+	public void tick(Level level, BlockPos moundPos, boolean natural, boolean awake, Runnable onTermitesUpdated) {
+		boolean termitesUpdated = false;
 		final RandomSource random = level.getRandom();
 
-		this.termites.removeIf(termite -> {
-			if (termite.tick(level, natural, random)) {
+		if (this.termite != null) {
+			final boolean wasEating = this.termite.eating;
+			final BlockPos previousPos = this.termite.pos;
+			if (!awake) {
+				this.removeTermite(level);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
+				termitesUpdated = true;
+			} else if (this.termite.tick(level, moundPos, natural, random)) {
 				if (level instanceof ServerLevel serverLevel) {
-					final BlockPos termitePos = termite.getPos();
 					serverLevel.sendParticles(
 						WWParticleTypes.TERMITE,
-						termitePos.getX() + 0.5D, termitePos.getY() + 0.5D, termitePos.getZ() + 0.5D,
-						termite.eating ? PARTICLE_COUNT_WHILE_EATING : PARTICLE_COUNT,
+						this.termite.pos.getX() + 0.5D, this.termite.pos.getY() + 0.5D, this.termite.pos.getZ() + 0.5D,
+						this.termite.eating ? PARTICLE_COUNT_WHILE_EATING : PARTICLE_COUNT,
 						0D, 0D, 0D, 0D
 					);
-					termitesUpdated.set(true);
+					termitesUpdated = this.termite.eating != wasEating || this.termite.pos != previousPos;
 				}
 			} else {
-				level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-				termitesUpdated.set(true);
-				return true;
+				level.playSound(null, this.termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
+				termitesUpdated = true;
+				this.removeTermite(level);
 			}
-			return false;
-		});
-
-		if (this.termites.size() < maxTermites) {
-			if (this.ticksToNextTermite > 0) {
-				--this.ticksToNextTermite;
+		} else if (awake) {
+			if (this.termiteSpawnCooldown > 0) {
+				--this.termiteSpawnCooldown;
 			} else {
-				this.addTermite(pos);
-				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-				level.playSound(null, pos, WWSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-				this.ticksToNextTermite = natural ? TERMITE_RELEASE_COUNTDOWN_NATURAL : TERMITE_RELEASE_COUNTDOWN;
-				termitesUpdated.set(true);
+				this.setTermite(moundPos);
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
+				level.playSound(null, moundPos, WWSounds.BLOCK_TERMITE_MOUND_EXIT, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+				this.termiteSpawnCooldown = natural ? TERMITE_RELEASE_COUNTDOWN_NATURAL : TERMITE_RELEASE_COUNTDOWN;
+				termitesUpdated = true;
 			}
 		}
-		while (this.termites.size() > maxTermites) {
-			Termite termite = this.termites.get(random.nextInt(this.termites.size()));
-			level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-			this.termites.remove(termite);
-			level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(pos));
-			termitesUpdated.set(true);
-		}
 
-		if (termitesUpdated.get()) onTermitesUpdated.run();
+		if (termitesUpdated) onTermitesUpdated.run();
 	}
 
 	public static final int TERMITE_RELEASE_COUNTDOWN = 200;
 	public static final int TERMITE_RELEASE_COUNTDOWN_NATURAL = 320;
 
-	public void clearTermites(Level level) {
-		for (Termite termite : this.termites) {
-			level.playSound(null, termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
-		}
-		this.termites.clear();
+	public void removeTermite(Level level) {
+		if (this.termite != null) level.playSound(null, this.termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER, SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+		this.termite = null;
 	}
 
-	public ArrayList<Termite> termites() {
-		return this.termites;
+	public Optional<Termite> termite() {
+		return Optional.ofNullable(this.termite);
 	}
 
-	public void saveAdditional(ValueOutput output) {
-		output.store("termites", Termite.LIST_CODEC, this.termites);
-		output.putInt("ticksToNextTermite", this.ticksToNextTermite);
-		output.putInt("highestID", this.highestID);
+	public void save(ValueOutput output) {
+		if (this.termite != null) output.store("termite", Termite.CODEC, this.termite);
+		output.putInt("termiteSpawnCooldown", this.termiteSpawnCooldown);
+	}
+
+	public void saveWithoutMetadata(ValueOutput output) {
+		if (this.termite != null) output.store("termite", Termite.SHORT_CODEC, this.termite);
 	}
 
 	public void load(ValueInput input) {
-		this.termites.clear();
-		input.read("termites", Termite.LIST_CODEC).ifPresent(this.termites::addAll);
-		this.ticksToNextTermite = input.getIntOr("ticksToNextTermite", 0);
-		this.highestID = input.getIntOr("highestID", 0);
+		this.termite = input.read("termite", Termite.CODEC).orElse(null);
+		this.termiteSpawnCooldown = input.getIntOr("termiteSpawnCooldown", 0);
 	}
 
 	public static class Termite {
@@ -184,47 +164,46 @@ public class TermiteManager {
 		public static final int MAX_GNAW_PARTICLES = 3;
 		public static final int MIN_EAT_PARTICLES = 18;
 		public static final int MAX_EAT_PARTICLES = 25;
-		public static final Codec<Termite> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			BlockPos.CODEC.fieldOf("mound").forGetter(Termite::getMoundPos),
+		public static final Codec<Termite> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
-			Codec.intRange(0, DESTROY_POWER_BEFORE_BLOCK_BREAKS + 1).fieldOf("block_destroy_power").orElse(0).forGetter(Termite::getBlockDestroyPower),
-			Codec.INT.fieldOf("idle_ticks").orElse(0).forGetter(Termite::getIdleTicks),
-			Codec.INT.fieldOf("update_delay").orElse(0).forGetter(Termite::getUpdateTicks),
-			Codec.BOOL.fieldOf("eating").orElse(true).forGetter(Termite::getEating),
-			Codec.INT.fieldOf("id").orElse(0).forGetter(Termite::getID)
+			Codec.intRange(0, DESTROY_POWER_BEFORE_BLOCK_BREAKS + 1).optionalFieldOf("block_destroy_power", 0).forGetter(Termite::getBlockDestroyPower),
+			Codec.INT.optionalFieldOf("idle_ticks", 0).forGetter(Termite::getIdleTicks),
+			Codec.INT.optionalFieldOf("update_delay", 0).forGetter(Termite::getUpdateTicks),
+			Codec.BOOL.optionalFieldOf("eating", false).forGetter(Termite::getEating)
 		).apply(instance, Termite::new));
-		public static final Codec<List<Termite>> LIST_CODEC = CODEC.listOf();
-
-		public BlockPos mound;
+		public static final Codec<Termite> SHORT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
+			Codec.BOOL.optionalFieldOf("eating", false).forGetter(Termite::getEating)
+		).apply(instance, Termite::new));
 		public BlockPos pos;
 		public int blockDestroyPower;
 		public int idleTicks;
 		public int update;
 		public boolean eating;
-		public int id;
 
-		public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update) {
-			this.mound = mound;
+		public Termite(BlockPos pos, boolean eating) {
+			this(pos, 0, 0, 0, eating);
+		}
+
+		public Termite(BlockPos pos, int blockDestroyPower, int aliveTicks, int update) {
 			this.pos = pos;
 			this.blockDestroyPower = blockDestroyPower;
 			this.idleTicks = aliveTicks;
 			this.update = update;
 		}
 
-		public Termite(BlockPos mound, BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean eating, int id) {
-			this.mound = mound;
+		public Termite(BlockPos pos, int blockDestroyPower, int aliveTicks, int update, boolean eating) {
 			this.pos = pos;
 			this.blockDestroyPower = blockDestroyPower;
 			this.idleTicks = aliveTicks;
 			this.update = update;
 			this.eating = eating;
-			this.id = id;
 		}
 
-		public boolean tick(Level level, boolean natural, RandomSource random) {
+		public boolean tick(Level level, BlockPos moundPos, boolean natural, RandomSource random) {
 			boolean exit = false;
 			++this.idleTicks;
-			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, this.mound, this.pos)) return false;
+			if (this.idleTicks > (natural ? MAX_IDLE_TICKS_NATURAL : MAX_IDLE_TICKS) || isTooFar(natural, moundPos, this.pos)) return false;
 			if (!areTermitesSafe(level, this.pos)) return false;
 			if (!isPosTickable(level, this.pos)) return exposedToAir(level, this.pos, natural);
 
@@ -279,29 +258,29 @@ public class TermiteManager {
 				if (this.update > 0 && !state.isAir()) {
 					--this.update;
 					return true;
+				}
+
+				this.update = UPDATE_DELAY_IN_TICKS;
+				final BlockPos priority = degradableBreakablePos(level, this.pos, natural, random);
+				if (priority != null) {
+					this.pos = priority;
+					exit = true;
 				} else {
-					this.update = UPDATE_DELAY_IN_TICKS;
-					final BlockPos priority = degradableBreakablePos(level, this.pos, natural, random);
-					if (priority != null) {
-						this.pos = priority;
+					final BlockPos ledge = ledgePos(level, offsetPos, natural);
+					final BlockPos abovePos = this.pos.above();
+					final BlockState aboveState = level.getBlockState(abovePos);
+					if (exposedToAir(level, offsetPos, natural)
+						&& isBlockMovable(offsetState, direction)
+						&& !(direction != Direction.DOWN && offsetState.isAir() && (!moundPos.closerThan(this.pos, 1.5D)) && ledge == null)
+					) {
+						this.pos = Objects.requireNonNullElse(ledge, offsetPos);
 						exit = true;
-					} else {
-						final BlockPos ledge = ledgePos(level, offsetPos, natural);
-						final BlockPos abovePos = this.pos.above();
-						final BlockState aboveState = level.getBlockState(abovePos);
-						if (exposedToAir(level, offsetPos, natural)
-							&& isBlockMovable(offsetState, direction)
-							&& !(direction != Direction.DOWN && offsetState.isAir() && (!this.mound.closerThan(this.pos, 1.5D)) && ledge == null)
-						) {
-							this.pos = Objects.requireNonNullElse(ledge, offsetPos);
-							exit = true;
-						} else if (ledge != null && exposedToAir(level, ledge, natural)) {
-							this.pos = ledge;
-							exit = true;
-						} else if (!aboveState.isAir() && isBlockMovable(aboveState, Direction.UP) && exposedToAir(level, abovePos, natural)) {
-							this.pos = abovePos;
-							exit = true;
-						}
+					} else if (ledge != null && exposedToAir(level, ledge, natural)) {
+						this.pos = ledge;
+						exit = true;
+					} else if (!aboveState.isAir() && isBlockMovable(aboveState, Direction.UP) && exposedToAir(level, abovePos, natural)) {
+						this.pos = abovePos;
+						exit = true;
 					}
 				}
 			}
@@ -353,18 +332,17 @@ public class TermiteManager {
 			);
 
 			if (optionalBlockBehavior.isEmpty() || !isEdibleProperty(state)) return false;
-			if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+			if (state.getValueOrElse(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER) == DoubleBlockHalf.UPPER) {
 				mutablePos.move(Direction.DOWN);
 			}
 			return true;
 		}
 
 		public static boolean isEdibleProperty(BlockState state) {
-			return !WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS.get()
-				|| (state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)
+			if (!WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS.get()) return true;
+			return state.hasProperty(WWBlockStateProperties.TERMITE_EDIBLE)
 				? state.getValue(WWBlockStateProperties.TERMITE_EDIBLE)
-				: (!state.is(BlockTags.LEAVES) || !state.hasProperty(BlockStateProperties.PERSISTENT) || !state.getValue(BlockStateProperties.PERSISTENT))
-			);
+				: (!state.is(BlockTags.LEAVES) || !state.getValueOrElse(BlockStateProperties.PERSISTENT, false));
 		}
 
 		public static boolean exposedToAir(Level level, BlockPos pos, boolean natural) {
@@ -394,7 +372,7 @@ public class TermiteManager {
 
 		public static boolean isBlockMovable(BlockState state, Direction direction) {
 			if (state.is(WWBlockTags.BLOCKS_TERMITE)) return false;
-			boolean moveableUp = !(direction == Direction.UP && (state.is(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || state.is(BlockTags.REPLACEABLE_BY_TREES) || state.is(BlockTags.FLOWERS)));
+			boolean moveableUp = !(direction == Direction.UP && state.is(WWBlockTags.CANNOT_SUPPORT_UPWARDS_TERMITE_MOVEMENT));
 			boolean moveableDown = !(direction == Direction.DOWN && !state.getFluidState().isEmpty());
 			return moveableUp && moveableDown;
 		}
@@ -427,10 +405,6 @@ public class TermiteManager {
 			);
 		}
 
-		public BlockPos getMoundPos() {
-			return this.mound;
-		}
-
 		public BlockPos getPos() {
 			return this.pos;
 		}
@@ -454,10 +428,5 @@ public class TermiteManager {
 		public boolean getEating() {
 			return this.eating;
 		}
-
-		public int getID() {
-			return this.id;
-		}
-
 	}
 }

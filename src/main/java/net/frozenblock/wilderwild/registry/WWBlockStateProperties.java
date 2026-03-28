@@ -44,7 +44,6 @@ public final class WWBlockStateProperties {
 	// Termite Mound
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural"); // Also used for Geysers
 	public static final BooleanProperty TERMITES_AWAKE = BooleanProperty.create("termites_awake");
-	public static final BooleanProperty CAN_SPAWN_TERMITE = BooleanProperty.create("can_spawn_termites");
 
 	// Firefly Lantern
 	public static final IntegerProperty DISPLAY_LIGHT = IntegerProperty.create("display_light", 0, LightEngine.MAX_LEVEL);
