@@ -7,7 +7,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This option is disabled by default as to not break existing farms.
   - Added the `block_moss` option to Wilder Wild's mixin config.
 - Termite Mounds now only hold a single Termite Swarm at a time.
-  - Termite Mounds placed by players could previously hold three Termite Swarms at a time.
+  - Termite Mounds placed by Players could previously hold three Termite Swarms at a time.
   - This change should make Termite Mounds more acceptable in terms of game balance and volume/particle count.
   - As a result of this change, the `can_spawn_termites` BlockState property has been removed.
     - The `termites_awake` property now takes into account the conditions the `can_spawn_termites` property was previously set under.
@@ -29,4 +29,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Removed the `Firefly Bush Swarms` config option and merged its functionality with the `Firefly Bush Spawning` config option.
   - When the config option is disabled, these changes will no longer apply.
   - This change was made to both significantly boost performance on lower-end devices, while being more accurate to Vanilla's Firefly particle spawning.
-- Fireflies now despawn within 40 blocks of a player instead of 80.
+- Fireflies now despawn within 40 blocks of a Player instead of 80.
