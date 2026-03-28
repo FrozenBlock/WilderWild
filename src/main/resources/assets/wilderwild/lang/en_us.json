@@ -698,8 +698,6 @@
     "tooltip.wilderwild.fireflies_need_bush": "Whether Fireflies can spawn anywhere with a Firefly Bush.\nIf disabled, Fireflies will only spawn in Swamp-like biomes.",
     "option.wilderwild.firefly_swarm": "Firefly Swarms",
     "tooltip.wilderwild.firefly_swarm": "Whether Fireflies will move in swarms.",
-    "option.wilderwild.firefly_swarms_bush": "Firefly Bush Swarms",
-    "tooltip.wilderwild.firefly_swarms_bush": "Whether Fireflies will stay near Firefly Bushes.",
     "option.wilderwild.jellyfish_hiding": "Jellyfish Hiding",
     "tooltip.wilderwild.jellyfish_hiding": "Whether naturally-spawned Jellyfish should be able\nto vanish inside Mesoglea/Nematocyst.",
     "option.wilderwild.jellyfish_tentacles": "Jellyfish Tentacles",

@@ -46,6 +46,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.SpawnUtil;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.DifficultyInstance;
@@ -80,7 +81,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireflyBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
@@ -96,6 +97,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> PREV_ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<String> COLOR = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.STRING);
+	public static final SpawnUtil.Strategy FIREFLY_SPAWN_STRATEGY = (level, pos, state, abovePos, aboveState) -> {
+		return aboveState.getCollisionShape(level, abovePos).isEmpty() && aboveState.getFluidState().isEmpty();
+	};
 
 	private Optional<FireflyColor> fireflyColor = Optional.empty();
 
@@ -117,10 +121,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	}
 
 	public static boolean checkFireflySpawnRules(EntityType<Firefly> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_FIREFLIES.get()) return false;
-		if (!(EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= 13)) return false;
-		if (!WWEntityConfig.FIREFLIES_NEED_BUSH.get()) return true;
-		return ((int)(random.nextDouble() * getNearbyFireflyBushCount(level, pos, 3))) >= 1;
+		if (!WWEntityConfig.SPAWN_FIREFLIES.get()) return EntitySpawnReason.isSpawner(reason);
+		if (WWEntityConfig.FIREFLIES_NEED_BUSH.get()) return reason == EntitySpawnReason.TRIGGERED;
+		return EntitySpawnReason.ignoresLightRequirements(reason) || level.getMaxLocalRawBrightness(pos) <= FireflyBushBlock.FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -144,7 +147,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		if (groupData instanceof FireflySpawnGroupData fireflyGroupData) {
 			this.setColor(fireflyGroupData.color.value());
 		} else {
-			Optional<Holder.Reference<FireflyColor>> optionalFireflyColor = VariantUtils.selectVariantToSpawn(
+			final Optional<Holder.Reference<FireflyColor>> optionalFireflyColor = VariantUtils.selectVariantToSpawn(
 				SpawnContext.create(level, this.blockPosition()),
 				WilderWildRegistries.FIREFLY_COLOR
 			);
@@ -418,15 +421,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 			this.move(MoverType.SELF, this.getDeltaMovement());
 			this.setDeltaMovement(this.getDeltaMovement().scale(0.9100000262260437D));
 		}
-	}
-
-	public static int getNearbyFireflyBushCount(LevelAccessor level, BlockPos origin, int distance) {
-		int count = 0;
-		Iterable<BlockPos> posesToCheck = BlockPos.betweenClosed(origin.offset(-distance, -distance, -distance), origin.offset(distance, distance, distance));
-		for (BlockPos pos : posesToCheck) {
-			if (level.getBlockState(pos).is(Blocks.FIREFLY_BUSH)) count += 1;
-		}
-		return count;
 	}
 
 	@Override

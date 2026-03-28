@@ -61,6 +61,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -98,9 +99,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.wolf.WolfVariants;
@@ -112,6 +116,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireflyBushBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -124,6 +129,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.ChatFormatting;
 
@@ -299,6 +305,40 @@ public class FrozenLibIntegration extends ModIntegration {
 		BlockRandomTicks.addToBlock(Blocks.PEARLESCENT_FROGLIGHT, FroglightGoopBlock::growFromFroglight);
 		BlockRandomTicks.addToBlock(Blocks.VERDANT_FROGLIGHT, FroglightGoopBlock::growFromFroglight);
 		BlockRandomTicks.addToBlock(Blocks.OCHRE_FROGLIGHT, FroglightGoopBlock::growFromFroglight);
+
+		BlockRandomTicks.addToBlock(
+			Blocks.FIREFLY_BUSH,
+			(state, level, pos, random) -> {
+				if (!WWEntityConfig.FIREFLIES_NEED_BUSH.get() || !WWEntityConfig.SPAWN_FIREFLIES.get() || level.isClientSide()) return;
+				if (level.getMaxLocalRawBrightness(pos) > FireflyBushBlock.FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) return;
+				if (!level.hasNearbyAlivePlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 24D)) return;
+
+				final Vec3 bushPos = pos.getCenter();
+				final List<Firefly> fireflies = level.getEntitiesOfClass(
+					Firefly.class,
+					AABB.ofSize(bushPos, 16D, 16D, 16D),
+					EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS)
+				);
+				if (!fireflies.isEmpty()) {
+					if (fireflies.size() >= 16) return;
+					if (fireflies.stream().filter(firefly -> firefly.position().distanceTo(bushPos) <= 4D).toList().size() >= 4) return;
+				}
+
+				for (int i = 0; i < random.nextInt(3, 6); i++) {
+					SpawnUtil.trySpawnMob(
+						WWEntityTypes.FIREFLY,
+						EntitySpawnReason.TRIGGERED,
+						level,
+						pos,
+						3,
+						3,
+						3,
+						Firefly.FIREFLY_SPAWN_STRATEGY,
+						false
+					);
+				}
+			}
+		);
 
 		WindManager.addExtension(WWWindManager.TYPE);
 

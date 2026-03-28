@@ -14,6 +14,7 @@ accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lne
 accessible class net/minecraft/world/level/block/SculkVeinBlock$SculkVeinSpreaderConfig
 accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+accessible field net/minecraft/world/level/block/FireflyBushBlock FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL I
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;

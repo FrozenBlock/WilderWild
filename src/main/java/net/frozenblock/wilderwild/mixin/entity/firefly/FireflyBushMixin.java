@@ -22,11 +22,18 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FireflyBushBlock;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(FireflyBushBlock.class)
-public class FireflyBushMixin {
+public abstract class FireflyBushMixin extends VegetationBlock {
+
+	protected FireflyBushMixin(Properties properties) {
+		super(properties);
+	}
 
 	@WrapWithCondition(
 		method = "animateTick",
@@ -37,6 +44,12 @@ public class FireflyBushMixin {
 	)
 	public boolean wilderWild$animateTick(Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd) {
 		return WWEntityConfig.SPAWN_FIREFLY_PARTICLES.get();
+	}
+
+	@Unique
+	@Override
+	protected boolean isRandomlyTicking(BlockState state) {
+		return true;
 	}
 
 }

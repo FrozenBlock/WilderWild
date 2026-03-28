@@ -48,7 +48,6 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> FIREFLIES_NEED_BUSH = CONFIG.entry("firefly/firefliesNeedBush", EntryType.BOOL, true);
 	public static final ConfigEntry<Integer> FIREFLY_SPAWN_CAP = CONFIG.entryBuilder("firefly/fireflySpawnCap", EntryType.INT, 56).requireRestart().build();
 	public static final ConfigEntry<Boolean> FIREFLY_SWARM = CONFIG.entry("firefly/fireflySwarm", EntryType.BOOL, true);
-	public static final ConfigEntry<Boolean> FIREFLY_SWARMS_BUSH = CONFIG.entry("firefly/fireflySwarmsBush", EntryType.BOOL, true);
 
 	// BUTTERFLY
 	public static final ConfigEntry<Boolean> SPAWN_BUTTERFLIES = CONFIG.entry("butterfly/spawnButterflies", EntryType.BOOL, true);

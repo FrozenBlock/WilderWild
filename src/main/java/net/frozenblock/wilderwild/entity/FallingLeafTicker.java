@@ -56,7 +56,7 @@ public class FallingLeafTicker extends SilentTicker {
 	}
 
 	public static void createAndSpawn(EntityType<?> type, Level level, BlockPos pos, Block leafLitter) {
-		FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(type, level, pos);
+		final FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(type, level, pos);
 		fallingLeafTicker.leafLitter = leafLitter;
 		level.addFreshEntity(fallingLeafTicker);
 	}

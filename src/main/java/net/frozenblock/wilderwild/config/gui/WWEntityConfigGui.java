@@ -74,12 +74,11 @@ public final class WWEntityConfigGui {
 		var firefliesNeedBush = booleanEntry(builder, "fireflies_need_bush", WWEntityConfig.FIREFLIES_NEED_BUSH);
 		var fireflySpawnCap = entitySpawnCapEntry(builder, WWEntityTypes.FIREFLY, WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100);
 		var fireflySwarm = booleanEntry(builder, "firefly_swarm", WWEntityConfig.FIREFLY_SWARM);
-		var fireflySwarmsBush = booleanEntry(builder, "firefly_swarms_bush", WWEntityConfig.FIREFLY_SWARMS_BUSH);
 
 		FrozenClothConfig.createSubCategory(builder, category, WWEntityTypes.FIREFLY.getDescription(),
 			false,
 			tooltip("entity_category", WWEntityTypes.FIREFLY.getDescription()),
-			spawnFireflyParticles, spawnFireflies, firefliesNeedBush, fireflySpawnCap, fireflySwarm, fireflySwarmsBush
+			spawnFireflyParticles, spawnFireflies, firefliesNeedBush, fireflySpawnCap, fireflySwarm
 		);
 
 		// BUTTERFLY

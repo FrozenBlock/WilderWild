@@ -15,4 +15,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `#wilderwild:cannot_support_upwards_termite_movement` Block tag.
   - Contains the `#minecraft:inside_step_sound_blocks`, `#minecraft:replaceable_by_trees`, and `#minecraft:flowers` Block tags by default.
   - This tag is used to define which Blocks a Termite Swarm cannot travel upwards into.
-  - This behavior previously used the three tags individually, so there should be no noticeable change for players.
+- Fireflies now spawn directly from Firefly Bushes when the `Firefly Bush Spawning` config option is enabled.
+  - Fireflies will spawn in groups of 3-6 when a Firefly Bush is randomly ticked.
+  - Spawning will fail if:
+    - The brightness level is higher than 13.
+    - More than 16 Fireflies are present within 8 blocks of the Firefly Bush.
+    - More than 4 Fireflies are present within 4 blocks of the Firefly Bush.
+    - A Player is not present within 24 blocks of the Firefly Bush.
+  - Removed the `Firefly Bush Swarms` config option, and merged its functionality with the `Firefly Bush Spawning` config option.
+  - When the config option is disabled, these changes will no longer apply.
+  - This change was made to both significantly boost performance on lower-end devices, while being more accurate to Vanilla's Firefly particle spawning.
+- Fireflies now despawn within 40 blocks of a player, instead of 80.
