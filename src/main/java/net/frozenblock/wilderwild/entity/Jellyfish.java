@@ -64,6 +64,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityEvent;
@@ -122,6 +123,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Boolean> CAN_REPRODUCE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> AGE_LOCKED = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(0.1875F, 0.1875F).withEyeHeight(0.09375F);
 	public final TargetingConditions targetingConditions = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().selector(this::canTargetEntity);
 	public float xBodyRot;
@@ -144,6 +146,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public int reproductionCooldown;
 	private int forcedAge;
 	private int forcedAgeTimer;
+	protected int ageLockParticleTimer;
 	private Optional<JellyfishVariant> jellyfishVariant = Optional.empty();
 
 	public Jellyfish(EntityType<? extends Jellyfish> type, Level level) {
@@ -169,6 +172,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		entityData.define(VARIANT, JellyfishVariants.DEFAULT.identifier().toString());
 		entityData.define(CAN_REPRODUCE, false);
 		entityData.define(IS_BABY, false);
+		entityData.define(AGE_LOCKED, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -317,7 +321,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 			this.xBodyRot += (float) ((-(Mth.atan2(deltaMovement.horizontalDistance(), deltaMovement.y)) * Mth.RAD_TO_DEG - this.xBodyRot) * 0.1F);
 		} else {
-			this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
+			this.xBodyRot += (-90F - this.xBodyRot) * 0.02F;
 		}
 
 		this.stingEntities();
@@ -358,7 +362,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			}
 		} else if (this.isAlive()) {
 			int age = this.getAge();
-			if (age < 0) {
+			if (this.canAgeUp()) {
 				this.setAge(++age);
 			} else if (age > 0) {
 				this.setAge(--age);
@@ -385,6 +389,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 				movementSpeed.removeModifier(JELLYFISH_MOVEMENT_SPEED_MODIFIER_BABY_UUID);
 			}
 		}
+
+		this.ageLockParticleTimer = AgeableMob.makeAgeLockedParticle(this.level(), this, this.ageLockParticleTimer, this.isAgeLocked());
 	}
 
 	@Override
@@ -498,7 +504,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
+
 		if (stack.is(Items.WATER_BUCKET)) return super.mobInteract(player, hand);
+
+		if (AgeableMob.canUseGoldenDandelion(stack, this.isBaby(), this.ageLockParticleTimer, this)) {
+			AgeableMob.setAgeLocked(this, this::isAgeLocked, player, stack, mob -> this.setAgeLockedData());
+			return InteractionResult.SUCCESS;
+		}
+
 		if (!stack.is(this.getVariant().reproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
@@ -636,8 +649,26 @@ public class Jellyfish extends NoFlopAbstractFish {
 		}
 	}
 
+	public boolean canAgeUp() {
+		return this.isBaby() && !this.isAgeLocked();
+	}
+
 	public void ageBoundaryReached() {
 		if (!this.isBaby() && this.isPassenger() && this.getVehicle() instanceof Boat boat && !boat.hasEnoughSpaceFor(this)) this.stopRiding();
+	}
+
+	public boolean isAgeLocked() {
+		return this.entityData.get(AGE_LOCKED);
+	}
+
+	protected void setAgeLocked(boolean locked) {
+		this.entityData.set(AGE_LOCKED, locked);
+	}
+
+	private void setAgeLockedData() {
+		this.setAgeLocked(!this.isAgeLocked());
+		this.setAge(AgeableMob.BABY_START_AGE);
+		this.ageLockParticleTimer = 40;
 	}
 
 	@Override
@@ -647,7 +678,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public void setBaby(boolean baby) {
-		this.setAge(baby ? -24000 : 0);
+		this.setAge(baby ? AgeableMob.BABY_START_AGE : 0);
 	}
 
 	@Override
@@ -691,13 +722,14 @@ public class Jellyfish extends NoFlopAbstractFish {
 	public void saveToBucketTag(ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
 		stack.copyFrom(WWDataComponents.JELLYFISH_VARIANT, this);
-		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
-			compoundTag.putBoolean("canReproduce", this.canReproduce());
-			compoundTag.putInt("fullness", this.fullness);
-			compoundTag.putInt("reproductionCooldown", this.reproductionCooldown);
-			compoundTag.putInt("age", this.getAge());
-			compoundTag.putInt("forcedAge", this.forcedAge);
-			compoundTag.putBoolean("isBaby", this.isBaby());
+		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, tag -> {
+			tag.putBoolean("canReproduce", this.canReproduce());
+			tag.putInt("fullness", this.fullness);
+			tag.putInt("reproductionCooldown", this.reproductionCooldown);
+			tag.putInt("age", this.getAge());
+			tag.putInt("forcedAge", this.forcedAge);
+			tag.putBoolean("isBaby", this.isBaby());
+			tag.putBoolean("AgeLocked", this.isAgeLocked());
 		});
 	}
 
@@ -710,6 +742,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.setAge(tag.getIntOr("age", 0));
 		this.forcedAge = tag.getIntOr("forcedAge", 0);
 		this.setBaby(tag.getBooleanOr("isBaby", false));
+		this.setAgeLocked(tag.getBooleanOr("AgeLocked", false));
 	}
 
 	@Override
@@ -723,6 +756,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		output.putInt("age", this.getAge());
 		output.putInt("forcedAge", this.forcedAge);
 		output.putBoolean("isBaby", this.isBaby());
+		output.putBoolean("AgeLocked", this.isAgeLocked());
 	}
 
 	@Override
@@ -737,6 +771,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		this.setAge(input.getIntOr("age", 0));
 		this.forcedAge = input.getIntOr("forcedAge", 0);
 		this.setBaby(input.getBooleanOr("isBaby", false));
+		this.setAgeLocked(input.getBooleanOr("AgeLocked", false));
 	}
 
 	public static class JellyfishGroupData implements SpawnGroupData {

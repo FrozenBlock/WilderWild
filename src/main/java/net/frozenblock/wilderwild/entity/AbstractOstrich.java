@@ -855,16 +855,6 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		return new Vec3(0D, dimensions.height() * 0.775D, dimensions.width() * -0.1D).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
 	}
 
-	@Override
-	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.isTamed();
-	}
-
-	@Override
-	public boolean removeWhenFarAway(double distSqr) {
-		return !this.isTamed() && super.removeWhenFarAway(distSqr);
-	}
-
 	public void spawnBlockParticles(boolean beakBury, boolean backwards) {
 		if (!(this.level() instanceof ServerLevel serverLevel) || this.beakVoxelShape == null) return;
 
