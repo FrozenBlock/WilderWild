@@ -342,7 +342,8 @@ public final class WWMiscPlaced {
 		);
 
 		RIVER_POOL.makeAndSetHolder(WWMiscConfigured.RIVER_POOL,
-			CountPlacement.of(20), RarityFilter.onAverageOnceEvery(3),
+			CountPlacement.of(20),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
@@ -352,7 +353,8 @@ public final class WWMiscPlaced {
 		);
 
 		SMALL_RIVER_POOL.makeAndSetHolder(WWMiscConfigured.SMALL_RIVER_POOL,
-			CountPlacement.of(8), RarityFilter.onAverageOnceEvery(3),
+			CountPlacement.of(8),
+			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
@@ -363,7 +365,7 @@ public final class WWMiscPlaced {
 
 		// SAVANNA
 		PACKED_MUD_PATH.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH,
-			RarityFilter.onAverageOnceEvery(8),
+			RarityFilter.onAverageOnceEvery(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()

@@ -137,12 +137,15 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MANGROVE_TREES = bind("feature/mangrove_trees");
 	public static final TagKey<Biome> CHERRY_TREES = bind("feature/cherry_trees");
 	public static final TagKey<Biome> FOREST_GRASS = bind("feature/forest_grass");
+	public static final TagKey<Biome> FOREST_GRASS_LIGHT = bind("feature/forest_grass_light");
+	public static final TagKey<Biome> FOREST_GRASS_BIRCH = bind("feature/forest_grass_birch");
 	public static final TagKey<Biome> PLAINS_GRASS = bind("feature/plains_grass");
 	public static final TagKey<Biome> HAS_SPONGE_BUD = bind("feature/has_sponge_bud");
 	public static final TagKey<Biome> HAS_SPONGE_BUD_RARE = bind("feature/has_sponge_bud_rare");
 	public static final TagKey<Biome> HAS_HUGE_RED_MUSHROOM = bind("feature/has_huge_red_mushroom");
 	public static final TagKey<Biome> HAS_HUGE_BROWN_MUSHROOM = bind("feature/has_huge_brown_mushroom");
-	public static final TagKey<Biome> HAS_BIG_MUSHROOMS = bind("feature/has_big_mushrooms");
+	public static final TagKey<Biome> HAS_HUGE_MUSHROOMS = bind("feature/has_huge_mushrooms");
+	public static final TagKey<Biome> HAS_HUGE_MUSHROOMS_RARE = bind("feature/has_huge_mushrooms_rare");
 	public static final TagKey<Biome> HAS_COMMON_BROWN_MUSHROOM = bind("feature/has_common_brown_mushroom");
 	public static final TagKey<Biome> HAS_COMMON_RED_MUSHROOM = bind("feature/has_common_red_mushroom");
 	public static final TagKey<Biome> HAS_PALE_MUSHROOM = bind("feature/has_pale_mushroom");
@@ -151,7 +154,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_BIG_MUSHROOM_PATCH = bind("feature/has_big_mushroom_patch");
 	public static final TagKey<Biome> HAS_DATURA = bind("feature/has_datura");
 	public static final TagKey<Biome> HAS_ROSE_BUSH = bind("feature/has_rose_bush");
+	public static final TagKey<Biome> HAS_ROSE_BUSH_SPARSE = bind("feature/has_rose_bush_sparse");
 	public static final TagKey<Biome> HAS_PEONY = bind("feature/has_peony");
+	public static final TagKey<Biome> HAS_PEONY_SPARSE = bind("feature/has_peony_sparse");
 	public static final TagKey<Biome> HAS_LILAC = bind("feature/has_lilac");
 	public static final TagKey<Biome> HAS_CARNATION = bind("feature/has_carnation");
 	public static final TagKey<Biome> HAS_MARIGOLD = bind("feature/has_marigold");
@@ -297,7 +302,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_COARSE_DIRT_CLEARING = bind("feature/has_coarse_dirt_clearing");
 	public static final TagKey<Biome> HAS_GRAVEL_CLEARING = bind("feature/has_gravel_clearing");
 	public static final TagKey<Biome> HAS_ROOTED_DIRT_CLEARING = bind("feature/has_rooted_dirt_clearing");
-	public static final TagKey<Biome> HAS_BIRCH_CLEARING_FLOWERS = bind("feature/has_birch_clearing_flowers");
 	public static final TagKey<Biome> HAS_FOREST_CLEARING_FLOWERS = bind("feature/has_forest_clearing_flowers");
 	public static final TagKey<Biome> HAS_SCORCHED_SAND = bind("feature/has_scorched_sand");
 	public static final TagKey<Biome> HAS_SCORCHED_RED_SAND = bind("feature/has_scorched_red_sand");

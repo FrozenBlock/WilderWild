@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:flower_birch",
+  "feature": "wilderwild:peony",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 5
+      "chance": 18
     },
     {
       "type": "minecraft:in_square"
@@ -17,7 +17,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 48
+      "count": 28
     },
     {
       "type": "minecraft:random_offset",

@@ -23,6 +23,7 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.BonemealableFeaturePlacerBlock;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +40,7 @@ public class BonemealableFeaturePlacerBlockMixin {
 		)
 	)
 	public Optional wilderWild$removeAzaleaFromMossPatch(Registry instance, ResourceKey resourceKey, Operation<Optional> original) {
-		if (!WWBlockConfig.AZALEA_FROM_MOSS.get()) resourceKey = WWMiscConfigured.MOSS_PATCH_BONEMEAL_NO_AZALEA.getKey();
+		if (!WWBlockConfig.AZALEA_FROM_MOSS.get() && resourceKey == CaveFeatures.MOSS_PATCH_BONEMEAL) resourceKey = WWMiscConfigured.MOSS_PATCH_BONEMEAL_NO_AZALEA.getKey();
 		return original.call(instance, resourceKey);
 	}
 

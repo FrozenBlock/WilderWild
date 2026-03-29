@@ -18,19 +18,7 @@
       "required": false
     },
     {
-      "id": "wilderwild:dark_birch_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:semi_birch_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
       "required": false
     },
     {
