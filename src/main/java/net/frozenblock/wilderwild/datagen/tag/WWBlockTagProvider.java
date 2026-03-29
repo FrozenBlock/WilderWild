@@ -472,7 +472,8 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.valueLookupBuilder(WWBlockTags.CRAB_HIDEABLE)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.MUD)
 			.addOptionalTag(BlockTags.SAND)
 			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL);

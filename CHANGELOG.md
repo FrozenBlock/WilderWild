@@ -29,3 +29,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fern can no longer generate in Cherry Groves, and Short Grass is slightly more sparse.
 - Grass generation in the Plains, Meadow, and Tundra biomes has been reverted to Vanilla generation to better represent their climate.
   - Sunflower Plains and Flower Fields remain unchanged.
+- Crabs can no longer hide inside Grass Blocks or Moss Blocks.
