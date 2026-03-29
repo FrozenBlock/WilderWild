@@ -956,11 +956,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.CHERRY_GROVE);
 
-		this.builder(WWBiomeTags.PLAINS_GRASS)
-			.add(Biomes.PLAINS)
-			.add(Biomes.MEADOW)
-			.addOptional(WWBiomes.TUNDRA);
-
 		this.builder(WWBiomeTags.HAS_HUGE_RED_MUSHROOM)
 			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.RAINFOREST)
@@ -1610,7 +1605,7 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS);
 
 		this.builder(WWBiomeTags.HAS_FLOWER_FIELD_TALL_GRASS)
-			.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+			.add(Biomes.SUNFLOWER_PLAINS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
 		this.builder(WWBiomeTags.HAS_SWAMP_FERN)

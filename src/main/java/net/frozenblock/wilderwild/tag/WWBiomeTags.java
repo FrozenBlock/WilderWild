@@ -139,7 +139,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> FOREST_GRASS = bind("feature/forest_grass");
 	public static final TagKey<Biome> FOREST_GRASS_LIGHT = bind("feature/forest_grass_light");
 	public static final TagKey<Biome> FOREST_GRASS_BIRCH = bind("feature/forest_grass_birch");
-	public static final TagKey<Biome> PLAINS_GRASS = bind("feature/plains_grass");
 	public static final TagKey<Biome> HAS_SPONGE_BUD = bind("feature/has_sponge_bud");
 	public static final TagKey<Biome> HAS_SPONGE_BUD_RARE = bind("feature/has_sponge_bud_rare");
 	public static final TagKey<Biome> HAS_HUGE_RED_MUSHROOM = bind("feature/has_huge_red_mushroom");

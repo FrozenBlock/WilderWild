@@ -180,8 +180,9 @@ public final class Tundra extends FrozenBiome {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN);
 		BiomeDefaultFeatures.addForestFlowers(features);
-		BiomeDefaultFeatures.addForestGrass(features);
+		BiomeDefaultFeatures.addPlainGrass(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);

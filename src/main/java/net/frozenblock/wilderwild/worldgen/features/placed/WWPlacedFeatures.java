@@ -242,11 +242,9 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_FERN_AND_GRASS_LIGHT = register("patch_fern_and_grass_light");
 	public static final FrozenLibPlacedFeature PATCH_GRASS_BIRCH = register("patch_grass_birch");
 	public static final FrozenLibPlacedFeature PATCH_FERN_SWAMP = register("patch_fern_swamp");
-	public static final FrozenLibPlacedFeature PATCH_GRASS_PLAINS = register("patch_grass_plains");
 	public static final FrozenLibPlacedFeature PATCH_RARE_GRASS = register("patch_rare_grass");
 	public static final FrozenLibPlacedFeature TALL_GRASS = register("tall_grass");
 	public static final FrozenLibPlacedFeature TALL_GRASS_LIGHT = register("tall_grass_light");
-	public static final FrozenLibPlacedFeature TALL_GRASS_PLAINS = register("tall_grass_plains");
 	public static final FrozenLibPlacedFeature PATCH_TALL_GRASS_SWAMP = register("patch_tall_grass_swamp");
 	public static final FrozenLibPlacedFeature PATCH_TALL_GRASS_DENSE = register("patch_tall_grass_dense");
 	public static final FrozenLibPlacedFeature PATCH_FERN_DENSE = register("patch_fern_dense");
@@ -1628,16 +1626,6 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		PATCH_GRASS_PLAINS.makeAndSetHolder(WWConfiguredFeatures.GRASS_AND_FERN,
-			CountPlacement.of(15),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
-		);
-
 		PATCH_RARE_GRASS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.GRASS_JUNGLE),
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
@@ -1671,16 +1659,6 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
-		);
-
-		TALL_GRASS_PLAINS.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.TALL_GRASS),
-			RarityFilter.onAverageOnceEvery(7),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(96),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);

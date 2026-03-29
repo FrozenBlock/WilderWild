@@ -1,6 +1,5 @@
 {
   "values": [
-    "minecraft:plains",
     "minecraft:sunflower_plains",
     {
       "id": "wilderwild:flower_field",

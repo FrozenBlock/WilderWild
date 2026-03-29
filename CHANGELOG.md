@@ -27,3 +27,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Flower generation no longer increases in clearings.
 - Rose Bushes now generate more sparsely in Cherry Groves.
 - Fern can no longer generate in Cherry Groves, and Short Grass is slightly more sparse.
+- Grass generation in the Plains, Meadow, and Tundra biomes has been reverted to Vanilla generation to better represent their climate.
+  - Sunflower Plains and Flower Fields remain unchanged.
