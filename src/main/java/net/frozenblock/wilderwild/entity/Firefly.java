@@ -363,7 +363,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.wilderWild$fromBottle();
+		return super.requiresCustomPersistence() || this.wilderWild$fromBottle() || this.hasCustomName();
 	}
 
 	@Override
@@ -473,11 +473,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 	@Override
 	public boolean isFlapping() {
 		return true;
-	}
-
-	@Override
-	public boolean removeWhenFarAway(double distSqr) {
-		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
 	@Override

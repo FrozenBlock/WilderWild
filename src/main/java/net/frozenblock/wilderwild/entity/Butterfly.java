@@ -286,7 +286,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.wilderWild$fromBottle();
+		return super.requiresCustomPersistence() || this.wilderWild$fromBottle() || this.hasCustomName();
 	}
 
 	@Override
@@ -376,11 +376,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	@Override
 	public boolean isFlapping() {
 		return this.isFlying() && this.tickCount % TICKS_PER_FLAP == 0;
-	}
-
-	@Override
-	public boolean removeWhenFarAway(double distSqr) {
-		return !this.wilderWild$fromBottle() && !this.hasCustomName();
 	}
 
 	@Override

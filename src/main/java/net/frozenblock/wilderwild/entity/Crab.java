@@ -762,12 +762,12 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.fromBucket();
+		return super.requiresCustomPersistence() || this.fromBucket() || this.hasCustomName();
 	}
 
 	@Override
 	public boolean removeWhenFarAway(double distSqr) {
-		return !this.isPersistenceRequired() && !this.requiresCustomPersistence();
+		return true;
 	}
 
 	private void clientDiggingParticles() {

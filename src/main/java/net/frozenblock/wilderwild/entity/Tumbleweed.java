@@ -575,11 +575,6 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 		return super.requiresCustomPersistence() || this.spawnedFromShears || this.hasCustomName();
 	}
 
-	@Override
-	public boolean removeWhenFarAway(double distSqr) {
-		return !this.spawnedFromShears;
-	}
-
 	public ItemStack getVisibleItem() {
 		return this.entityData.get(ITEM_STACK);
 	}
