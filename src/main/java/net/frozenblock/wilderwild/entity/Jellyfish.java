@@ -489,7 +489,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.requiresCustomPersistence()
 			&& !this.isPersistenceRequired()
 			&& !this.hasCustomName()
-			&& !this.isLeashed()
 			&& WWEntityConfig.JELLYFISH_HIDING.get()
 			&& this.getPassengers().isEmpty()
 			&& this.getTarget() == null
@@ -515,7 +514,9 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (!stack.is(this.getVariant().reproductionFood())) return InteractionResult.PASS;
 
 		if (this.isBaby()) {
+			if (this.isAgeLocked()) return InteractionResult.PASS;
 			stack.consume(1, player);
+			this.setPersistenceRequired();
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
 		}
@@ -524,6 +525,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (!(this.level() instanceof ServerLevel serverLevel)) return InteractionResult.CONSUME;
 
 		stack.consume(1, player);
+		this.setPersistenceRequired();
 		this.fullness += 1;
 		this.ticksSinceSpawn = 0;
 		if (this.fullness >= 8 && this.random.nextInt(3) == 0) {
@@ -544,6 +546,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (jellyfish == null) return;
 
 		jellyfish.setBaby(true);
+		jellyfish.setPersistenceRequired();
 		final float bbHeight = this.getBbHeight();
 		final Vec3 vec3 = this.rotateVector(new Vec3(0D, -bbHeight, 0D)).add(this.getX(), this.getY(), this.getZ());
 		jellyfish.snapTo(vec3.x, vec3.y + (bbHeight * 0.5D), vec3.z, -this.getYRot(), -this.getXRot());

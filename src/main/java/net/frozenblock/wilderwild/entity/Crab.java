@@ -190,7 +190,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	private static float getAngleFromVec3(Vec3 vec3) {
 		float angle = (float) Math.atan2(vec3.z(), vec3.x());
-		angle = (float) (180F * angle / Math.PI);
+		angle = 180F * angle / Mth.PI;
 		angle = (360F + angle) % 360F;
 		return angle;
 	}
@@ -225,7 +225,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		}
 
 		if (groupData instanceof CrabSpawnGroupData crabGroupData) {
-			if (crabGroupData.getGroupSize() >= 2) this.setAge(-24000);
+			if (crabGroupData.getGroupSize() >= 2) this.setAge(this.getBabyStartAge());
 			this.setVariant(crabGroupData.type.value());
 		} else {
 			final Optional<Holder.Reference<CrabVariant>> optionalCrabVariant = VariantUtils.selectVariantToSpawn(
@@ -695,7 +695,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
-			if (partner instanceof Crab otherCrab) crab.setVariant(level.getRandom().nextBoolean() ? this.getVariant() : otherCrab.getVariant());
+			crab.setVariant(partner instanceof Crab otherCrab && level.getRandom().nextBoolean() ? otherCrab.getVariant() : this.getVariant());
 		}
 		return crab;
 	}
@@ -777,11 +777,9 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		final double x = this.getX();
 		final double z = this.getZ();
 		final RandomSource random = this.getRandom();
-		final ParticleOptions particleOptions = new BlockParticleOption(ParticleTypes.BLOCK, state);
+		final ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, state);
 		for (int i = 0; i < 8; ++i) {
-			double particleX = x + Mth.randomBetween(random, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
-			double particleZ = z + Mth.randomBetween(random, -DIGGING_PARTICLE_OFFSET, DIGGING_PARTICLE_OFFSET);
-			this.level().addParticle(particleOptions, particleX, y, particleZ, 0D, 0D, 0D);
+			this.level().addParticle(particle, random.triangle(x, DIGGING_PARTICLE_OFFSET), y, random.triangle(z, DIGGING_PARTICLE_OFFSET), 0D, 0D, 0D);
 		}
 	}
 
