@@ -515,7 +515,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 		if (this.isBaby()) {
 			if (this.isAgeLocked()) return InteractionResult.PASS;
-			stack.consume(1, player);
+			this.usePlayerItem(player, hand, stack);
 			this.setPersistenceRequired();
 			this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
 			return InteractionResult.SUCCESS;
@@ -524,7 +524,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		if (!this.canReproduce()) return InteractionResult.PASS;
 		if (!(this.level() instanceof ServerLevel serverLevel)) return InteractionResult.CONSUME;
 
-		stack.consume(1, player);
+		this.usePlayerItem(player, hand, stack);
 		this.setPersistenceRequired();
 		this.fullness += 1;
 		this.ticksSinceSpawn = 0;
@@ -534,11 +534,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 			this.level().broadcastEntityEvent(this, EntityEvent.IN_LOVE_HEARTS);
 			this.reproductionCooldown = 6000;
 			this.setCanReproduce(false);
-			return InteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS_SERVER;
 		} else {
 			this.level().broadcastEntityEvent(this, EntityEvent.TAMING_SUCCEEDED);
 		}
-		return InteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS_SERVER;
 	}
 
 	public void spawnChild(ServerLevel level) {
