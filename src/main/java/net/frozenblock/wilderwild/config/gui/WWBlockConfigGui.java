@@ -41,7 +41,6 @@ public final class WWBlockConfigGui {
 		category.addEntry(booleanEntry(builder, "log_hollowing", WWBlockConfig.LOG_HOLLOWING));
 		category.addEntry(booleanEntry(builder, "cactus_placement", WWBlockConfig.CACTUS_PLACEMENT));
 		category.addEntry(booleanEntry(builder, "azalea_from_moss", WWBlockConfig.AZALEA_FROM_MOSS));
-		category.addEntry(booleanEntry(builder, "new_reinforced_deepslate", WWBlockConfig.NEW_REINFORCED_DEEPSLATE));
 		category.addEntry(booleanEntry(builder, "froglight_goop_growth", WWBlockConfig.FROGLIGHT_GOOP_GROWTH));
 		category.addEntry(booleanEntry(builder, "new_reinforced_deepslate", WWBlockConfig.NEW_REINFORCED_DEEPSLATE));
 		category.addEntry(booleanEntry(builder, "frosted_ice_cracking", WWBlockConfig.FROSTED_ICE_CRACKING));

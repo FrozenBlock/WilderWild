@@ -149,28 +149,6 @@ public final class WWWorldgen {
 				}
 			});
 
-		BiomeModifications.create(WWConstants.id("replace_forest_grass")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.FOREST_GRASS),
-			context -> {
-				if (!WWWorldgenConfig.GRASS_GENERATION.get()) return;
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_FOREST);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_FERN_AND_GRASS.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS.getKey());
-			});
-
-		BiomeModifications.create(WWConstants.id("replace_plains_grass")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.PLAINS_GRASS),
-			context -> {
-				if (!WWWorldgenConfig.GRASS_GENERATION.get()) return;
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.removeFeature(VegetationPlacements.PATCH_GRASS_PLAIN);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_GRASS_PLAINS.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_GRASS_PLAINS.getKey());
-			});
-
 		BiomeModifications.create(WWConstants.id("replace_cherry_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.CHERRY_TREES),

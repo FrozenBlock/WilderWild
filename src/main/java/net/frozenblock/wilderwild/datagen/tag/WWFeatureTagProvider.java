@@ -79,7 +79,6 @@ public final class WWFeatureTagProvider extends FabricTagsProvider<ConfiguredFea
 			.add(WWConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD.getKey())
 			.add(WWConfiguredFeatures.FLOWER_CHERRY.getKey())
 			.add(WWConfiguredFeatures.FLOWER_SUNFLOWER_PLAINS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_BIRCH_CLEARING.getKey())
 			.add(WWConfiguredFeatures.FLOWER_FOREST_CLEARING.getKey());
 	}
 }

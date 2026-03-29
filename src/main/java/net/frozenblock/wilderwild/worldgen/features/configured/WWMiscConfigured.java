@@ -921,7 +921,7 @@ public final class WWMiscConfigured {
 					.noiseBandBlockPlacement(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 							.within(-0.15D, 0.55D)
-							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.DIRT))
+							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD))
 							.searchingPredicate(
 								BlockPredicate.allOf(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							)

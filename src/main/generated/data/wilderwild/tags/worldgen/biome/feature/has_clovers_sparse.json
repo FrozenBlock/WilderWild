@@ -1,6 +1,5 @@
 {
   "values": [
-    "wilderwild:rainforest",
     "minecraft:jungle",
     "minecraft:sparse_jungle",
     "minecraft:bamboo_jungle",
@@ -9,6 +8,10 @@
     "minecraft:lukewarm_ocean",
     "minecraft:warm_ocean",
     "minecraft:river",
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
     {
       "id": "wilderwild:warm_river",
       "required": false

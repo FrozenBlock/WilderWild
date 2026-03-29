@@ -1,32 +1,28 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Bumped Wilder Wild's protocol version to 19.
-- Added a config option to toggle whether Azaleas can generate when Bone Mealing a Moss Block.
-  - The `wilderwild:moss_patch_bonemeal_no_azalea` feature will be used while this option is enabled.
-  - This option is disabled by default as to not break existing farms.
-  - Added the `block_moss` option to Wilder Wild's mixin config.
-- Termite Mounds now only hold a single Termite Swarm at a time.
-  - Termite Mounds placed by Players could previously hold three Termite Swarms at a time.
-  - This change should make Termite Mounds more acceptable in terms of game balance and volume/particle count.
-  - As a result of this change, the `can_spawn_termites` BlockState property has been removed.
-    - The `termites_awake` property now takes into account the conditions the `can_spawn_termites` property was previously set under.
-- Updated and optimized how Termite Mounds sync Termite Swarm data to clients.
-  - Syncing now only occurs if a Termite Swam was spawned, removed, or had its position/eating state changed.
-    - Syncing would previously occur each tick while a Termite Swarm was present.
-  - Significantly reduced the amount of data required to be sent in order to sync Termite Swarm data to clients.
-- Termite Particles are now created on the client instead of being sent from the server.
-- Added the `#wilderwild:cannot_support_upwards_termite_movement` Block tag.
-  - Contains the `#minecraft:inside_step_sound_blocks`, `#minecraft:replaceable_by_trees`, and `#minecraft:flowers` Block tags by default.
-  - This tag is used to define which Blocks a Termite Swarm cannot travel upwards into.
-- Fireflies now spawn directly from Firefly Bushes when the `Firefly Bush Spawning` config option is enabled.
-  - Fireflies will spawn in groups of 3-6 when a Firefly Bush is randomly ticked.
-  - Spawning will fail if:
-    - The brightness level is higher than 13.
-    - More than 16 Fireflies are present within 8 blocks of the Firefly Bush.
-    - More than 4 Fireflies are present within 4 blocks of the Firefly Bush.
-    - A Player is not present within 24 blocks of the Firefly Bush.
-  - Removed the `Firefly Bush Swarms` config option and merged its functionality with the `Firefly Bush Spawning` config option.
-  - When the config option is disabled, these changes will no longer apply.
-  - This change was made to both significantly boost performance on lower-end devices, while being more accurate to Vanilla's Firefly particle spawning.
-- Fireflies now despawn within 40 blocks of a Player instead of 80.
+- Fixed a duplicate config entry in the Block config screen.
+- Fixed a bug that caused all types of Moss Blocks to generate default Moss patches when Bone Mealed while Azalea generation is disabled.
+- Fixed a bug that prevented Huge Pale Mushrooms from generating.
+- Fixed a bug that prevented Coarse Dirt patches from generating in Savannas.
+- Tree generation in the following biomes has been made more sparse:
+  - Forest
+  - Sparse Forest
+  - Dying Forest
+  - Dying Mixed Forest
+  - Snowy Dying Forest
+  - Snowy Dying Mixed Forest
+- Huge Mushroom generation in Forest-like and Birch Forest-like biomes has been made rarer.
+  - Renamed the `#wilderwild:feature/has_big_mushrooms` Biome tag to `#wilderwild:feature/has_huge_mushrooms`.
+- Short Grass and Fern generation in the Birch Taiga and Sparse Forest biomes has been decreased.
+- Revamped the foliage and flora generation of Birch Forest biomes:
+  - Phlox and Lantanas can no longer generate, instead being replaced with Wildflowers akin to Vanilla's generation.
+  - Rose Bushes, Peonies, and Lilacs generate more sparsely.
+    - This change does not apply to the Old Growth Birch Forest.
+  - Fern can no longer generate, and Short Grass is slightly more sparse.
+    - This change does not apply to the Old Growth Birch Forest.
+  - Azure Bluet, Poppy, Allium, and Tulip blocks can no longer generate.
+  - Flower generation is now more uniform, consisting of Lily of the Valley, Seeding Dandelion, and Dandelion blocks.
+    - Seeding Dandelions are now generated as part of the `wilderwild:flower_birch` feature, now relying on noise for their placement instead of a separate patch feature.
+  - Flower generation no longer increases in clearings.
+- Rose Bushes now generate more sparsely in Cherry Groves.

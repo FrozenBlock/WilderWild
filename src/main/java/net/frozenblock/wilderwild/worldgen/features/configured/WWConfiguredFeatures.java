@@ -321,7 +321,6 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<SimpleRandomFeatureConfiguration> TALL_FLOWER_FLOWER_FIELD = WWFeatureUtils.register("tall_flower_flower_field");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWER_CHERRY = WWFeatureUtils.register("flower_cherry");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWER_SUNFLOWER_PLAINS = WWFeatureUtils.register("flower_sunflower_plains");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWER_BIRCH_CLEARING = WWFeatureUtils.register("flower_birch_clearing");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWER_FOREST_CLEARING = WWFeatureUtils.register("flower_forest_clearing");
 
 	// VEGETATION
@@ -692,7 +691,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				WWTreePlaced.SHORT_BIRCH_BEES_0004.asWeightedPlacedFeature(0.2F),
 				WWTreePlaced.DYING_SHORT_BIRCH.asWeightedPlacedFeature(0.04F),
-				WWTreePlaced.FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.26F),
+				WWTreePlaced.FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.2F),
 				WWTreePlaced.DYING_FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.055F),
 				WWTreePlaced.DYING_OAK_CHECKED.asWeightedPlacedFeature(0.04F),
 				WWTreePlaced.SHORT_OAK_CHECKED.asWeightedPlacedFeature(0.115F)),
@@ -704,7 +703,7 @@ public final class WWConfiguredFeatures {
 			new RandomFeatureConfiguration(List.of(
 				WWTreePlaced.SHORT_BIRCH_BEES_0004.litterAsWeightedPlacedFeature(0.2F),
 				WWTreePlaced.DYING_SHORT_BIRCH.litterAsWeightedPlacedFeature(0.04F),
-				WWTreePlaced.FANCY_OAK_BEES_0004.litterAsWeightedPlacedFeature(0.26F),
+				WWTreePlaced.FANCY_OAK_BEES_0004.litterAsWeightedPlacedFeature(0.2F),
 				WWTreePlaced.DYING_FANCY_OAK_BEES_0004.litterAsWeightedPlacedFeature(0.055F),
 				WWTreePlaced.DYING_OAK_CHECKED.litterAsWeightedPlacedFeature(0.04F),
 				WWTreePlaced.SHORT_OAK_CHECKED.litterAsWeightedPlacedFeature(0.115F)),
@@ -959,7 +958,7 @@ public final class WWConfiguredFeatures {
 					WWTreePlaced.DYING_SHORT_BIRCH.asWeightedPlacedFeature(0.035F),
 					WWTreePlaced.DYING_OAK_CHECKED.asWeightedPlacedFeature(0.05F),
 					WWTreePlaced.DYING_FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.063F),
-					WWTreePlaced.FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.205F),
+					WWTreePlaced.FANCY_OAK_BEES_0004.asWeightedPlacedFeature(0.195F),
 					WWTreePlaced.SHORT_OAK_CHECKED.asWeightedPlacedFeature(0.095F)
 				),
 				WWTreePlaced.OAK_BEES_0004.getHolder()
@@ -2951,23 +2950,17 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.048833334F,
 					List.of(
-						Blocks.AZURE_BLUET.defaultBlockState(),
-						Blocks.AZURE_BLUET.defaultBlockState(),
-						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						Blocks.POPPY.defaultBlockState(),
-						Blocks.POPPY.defaultBlockState(),
-						Blocks.POPPY.defaultBlockState(),
-						Blocks.POPPY.defaultBlockState(),
-						Blocks.ALLIUM.defaultBlockState(),
-						Blocks.ALLIUM.defaultBlockState(),
-						Blocks.CORNFLOWER.defaultBlockState(),
-						Blocks.PINK_TULIP.defaultBlockState(),
-						Blocks.WHITE_TULIP.defaultBlockState(),
-						Blocks.ORANGE_TULIP.defaultBlockState(),
-						Blocks.RED_TULIP.defaultBlockState()
+						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						Blocks.DANDELION.defaultBlockState(),
+						Blocks.DANDELION.defaultBlockState(),
+						Blocks.DANDELION.defaultBlockState()
 					)
 				)
 			)
@@ -3320,23 +3313,6 @@ public final class WWConfiguredFeatures {
 						WWBlocks.MARIGOLD.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState()
-					)
-				)
-			)
-		);
-
-		FLOWER_BIRCH_CLEARING.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(
-				new NoiseProvider(
-					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
-					0.054833334F,
-					List.of(
-						Blocks.WHITE_TULIP.defaultBlockState(),
-						Blocks.PINK_TULIP.defaultBlockState(),
-						Blocks.ALLIUM.defaultBlockState(),
-						Blocks.RED_TULIP.defaultBlockState(),
-						Blocks.ORANGE_TULIP.defaultBlockState()
 					)
 				)
 			)

@@ -1454,7 +1454,7 @@ public final class WWTreeConfigured {
 					Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)
 				),
 				2,
-				BlockPredicate.matchesTag(BlockTags.DIRT)
+				BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)
 			)
 		);
 

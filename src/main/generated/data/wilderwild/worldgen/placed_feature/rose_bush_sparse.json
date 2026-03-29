@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:flower_birch",
+  "feature": "wilderwild:rose_bush",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 5
+      "chance": 16
     },
     {
       "type": "minecraft:in_square"
@@ -17,7 +17,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 48
+      "count": 32
     },
     {
       "type": "minecraft:random_offset",

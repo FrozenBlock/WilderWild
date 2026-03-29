@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:flower_birch",
+  "feature": "minecraft:tall_grass",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -17,7 +17,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 48
+      "count": 64
     },
     {
       "type": "minecraft:random_offset",

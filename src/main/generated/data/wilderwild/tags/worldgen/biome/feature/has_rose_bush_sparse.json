@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:cherry_grove",
+    {
+      "id": "wilderwild:birch_taiga",
+      "required": false
+    }
+  ]
+}
