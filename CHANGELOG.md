@@ -30,7 +30,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Grass generation in the Plains, Meadow, and Tundra biomes has been reverted to Vanilla generation to better represent their climate.
   - Sunflower Plains and Flower Fields remain unchanged.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
-- Jellyfish will now become persistent when being fed.
+- Crabs will now become persistent when fed.
+- Jellyfish will now become persistent when fed.
 - Baby Jellyfish spawned from breeding are now persistent.
 - Baby Jellyfish are now affected by Golden Dandelions.
 - Penguins will now wait between 1-2 minutes after spawning before starting to slide and find water.

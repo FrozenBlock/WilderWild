@@ -702,6 +702,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+		if (this.isFood(player.getItemInHand(hand))) this.setPersistenceRequired();
 		return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
 	}
 
