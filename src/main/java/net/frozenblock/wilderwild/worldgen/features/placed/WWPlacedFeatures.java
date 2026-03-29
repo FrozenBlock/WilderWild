@@ -646,7 +646,7 @@ public final class WWPlacedFeatures {
 		);
 
 		TREES_SNOWY_DYING_FOREST.makeAndSetHolder(WWConfiguredFeatures.TREES_SNOWY_DYING_FOREST,
-			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(4, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(3, 0.1F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
@@ -656,7 +656,7 @@ public final class WWPlacedFeatures {
 		);
 
 		TREES_SNOWY_DYING_MIXED_FOREST.makeAndSetHolder(WWConfiguredFeatures.TREES_SNOWY_DYING_MIXED_FOREST,
-			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 

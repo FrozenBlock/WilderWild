@@ -43,7 +43,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
-		InteractionResult interactionResult = super.useOn(context);
+		final InteractionResult interactionResult = super.useOn(context);
 		if (interactionResult == InteractionResult.FAIL) return InteractionResult.PASS;
 		return interactionResult;
 	}

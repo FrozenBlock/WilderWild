@@ -265,7 +265,7 @@ public class Penguin extends Animal {
 	@Override
 	public EntityDimensions getDefaultDimensions(Pose pose) {
 		final EntityDimensions dimensions = super.getDefaultDimensions(pose);
-		return this.isSliding() ? EntityDimensions.fixed(dimensions.width(), 0.5F) : dimensions;
+		return this.isSliding() ? EntityDimensions.scalable(dimensions.width(), 0.5F) : dimensions;
 	}
 
 	@Nullable

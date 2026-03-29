@@ -29,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 
 public class CrabClawItem extends Item {
+	public static final int REACH_BOOST_DURATION = 39;
 
 	public CrabClawItem(Properties properties) {
 		super(properties);
@@ -39,6 +40,6 @@ public class CrabClawItem extends Item {
 		if (!WWEntityConfig.CRAB_CLAW_GIVES_REACH.get()) return;
 		if (!(owner instanceof Player player) || slot == null || slot.getType() != EquipmentSlot.Type.HAND) return;
 		if (level.getGameTime() % 10 != 0) return;
-		player.addEffect(new MobEffectInstance(WWMobEffects.REACH_BOOST, 39, 1, true, true));
+		player.addEffect(new MobEffectInstance(WWMobEffects.REACH_BOOST, REACH_BOOST_DURATION, 1, true, true));
 	}
 }
