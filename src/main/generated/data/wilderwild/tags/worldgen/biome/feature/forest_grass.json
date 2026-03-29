@@ -8,7 +8,6 @@
     "minecraft:taiga",
     "minecraft:mangrove_swamp",
     "minecraft:sunflower_plains",
-    "minecraft:cherry_grove",
     {
       "id": "wilderwild:cypress_wetlands",
       "required": false

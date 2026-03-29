@@ -931,7 +931,6 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.add(Biomes.TAIGA)
 			.add(Biomes.MANGROVE_SWAMP)
 			.add(Biomes.SUNFLOWER_PLAINS)
-			.add(Biomes.CHERRY_GROVE)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.FLOWER_FIELD)
@@ -954,7 +953,8 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
 		this.builder(WWBiomeTags.FOREST_GRASS_BIRCH)
-			.add(Biomes.BIRCH_FOREST);
+			.add(Biomes.BIRCH_FOREST)
+			.add(Biomes.CHERRY_GROVE);
 
 		this.builder(WWBiomeTags.PLAINS_GRASS)
 			.add(Biomes.PLAINS)

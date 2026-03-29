@@ -26,3 +26,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - Seeding Dandelions are now generated as part of the `wilderwild:flower_birch` feature, now relying on noise for their placement instead of a separate patch feature.
   - Flower generation no longer increases in clearings.
 - Rose Bushes now generate more sparsely in Cherry Groves.
+- Fern can no longer generate in Cherry Groves, and Short Grass is slightly more sparse.
