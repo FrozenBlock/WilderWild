@@ -30,27 +30,27 @@ import net.minecraft.world.level.block.Blocks;
 public final class WWNaturalRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput output) {
-		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.LANTANAS, "orange_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.orange(), WWBlocks.LANTANAS, "orange_dye");
 
-		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PHLOX, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.purple(), WWBlocks.PHLOX, "purple_dye");
 
-		provider.oneToOneConversionRecipe(Items.RED_DYE, WWBlocks.RED_HIBISCUS, "red_dye");
-		provider.oneToOneConversionRecipe(Items.YELLOW_DYE, WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
-		provider.oneToOneConversionRecipe(Items.WHITE_DYE, WWBlocks.WHITE_HIBISCUS, "white_dye");
-		provider.oneToOneConversionRecipe(Items.PINK_DYE, WWBlocks.PINK_HIBISCUS, "pink_dye");
-		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PURPLE_HIBISCUS, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.red(), WWBlocks.RED_HIBISCUS, "red_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.yellow(), WWBlocks.YELLOW_HIBISCUS, "yellow_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.white(), WWBlocks.WHITE_HIBISCUS, "white_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.pink(), WWBlocks.PINK_HIBISCUS, "pink_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.purple(), WWBlocks.PURPLE_HIBISCUS, "purple_dye");
 
-		provider.oneToOneConversionRecipe(Items.LIGHT_GRAY_DYE, WWBlocks.DATURA, "light_gray_dye", 2);
+		provider.oneToOneConversionRecipe(Items.DYE.lightGray(), WWBlocks.DATURA, "light_gray_dye", 2);
 
-		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.MILKWEED, "orange_dye", 2);
+		provider.oneToOneConversionRecipe(Items.DYE.orange(), WWBlocks.MILKWEED, "orange_dye", 2);
 
-		provider.oneToOneConversionRecipe(Items.MAGENTA_DYE, WWBlocks.CARNATION, "magenta_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.magenta(), WWBlocks.CARNATION, "magenta_dye");
 
-		provider.oneToOneConversionRecipe(Items.ORANGE_DYE, WWBlocks.MARIGOLD, "orange_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.orange(), WWBlocks.MARIGOLD, "orange_dye");
 
-		provider.oneToOneConversionRecipe(Items.PURPLE_DYE, WWBlocks.PASQUEFLOWER, "purple_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.purple(), WWBlocks.PASQUEFLOWER, "purple_dye");
 
-		provider.oneToOneConversionRecipe(Items.WHITE_DYE, WWItems.SPLIT_COCONUT, "white_dye");
+		provider.oneToOneConversionRecipe(Items.DYE.white(), WWItems.SPLIT_COCONUT, "white_dye");
 		provider.shapeless(RecipeCategory.MISC, Items.BOWL, 2)
 			.requires(WWItems.SPLIT_COCONUT, 2)
 			.group("bowl")

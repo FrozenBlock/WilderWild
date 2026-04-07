@@ -1,7 +1,7 @@
 {
   "type": "wilderwild:cattail_feature",
   "config": {
-    "can_be_placed_on": "wilderwild:feature/cattail_placeable",
+    "can_be_placed_on": "#wilderwild:feature/cattail_placeable",
     "placement_attempts": {
       "type": "minecraft:uniform",
       "max_inclusive": 32,

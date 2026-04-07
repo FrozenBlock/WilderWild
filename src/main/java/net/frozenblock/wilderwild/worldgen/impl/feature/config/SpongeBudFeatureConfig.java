@@ -22,8 +22,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Block;
@@ -36,7 +37,7 @@ public class SpongeBudFeatureConfig implements FeatureConfiguration {
 			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
 			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
 			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
-			TagKey.codec(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
+			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
 		).apply(instance, SpongeBudFeatureConfig::new)
 	);
 
@@ -44,10 +45,10 @@ public class SpongeBudFeatureConfig implements FeatureConfiguration {
 	public final boolean placeOnFloor;
 	public final boolean placeOnCeiling;
 	public final boolean placeOnWalls;
-	public final TagKey<Block> canPlaceOn;
+	public final HolderSet<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public SpongeBudFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, TagKey<Block> canPlaceOn) {
+	public SpongeBudFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
 		this.placeOnCeiling = placeOnCeiling;

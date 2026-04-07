@@ -1,0 +1,20 @@
+{
+  "values": [
+    "wilderwild:chiseled_mud_bricks",
+    "wilderwild:mossy_mud_bricks",
+    "wilderwild:cracked_mud_bricks",
+    "wilderwild:gabbro",
+    "wilderwild:polished_gabbro",
+    "wilderwild:gabbro_bricks",
+    "wilderwild:cracked_gabbro_bricks",
+    "wilderwild:chiseled_gabbro_bricks",
+    "wilderwild:mossy_gabbro_bricks",
+    "wilderwild:scorched_sand",
+    "wilderwild:scorched_red_sand",
+    "wilderwild:null_block",
+    {
+      "id": "#wilderwild:hollowed_logs",
+      "required": false
+    }
+  ]
+}

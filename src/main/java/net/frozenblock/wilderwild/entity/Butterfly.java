@@ -65,7 +65,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
@@ -81,7 +80,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleable {
+public class Butterfly extends PathfinderMob implements WWBottleable {
 	public static final int TICKS_PER_FLAP = 3;
 	private static final Brain.Provider<Butterfly> BRAIN_PROVIDER = ButterflyAi.brainProvider();
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
@@ -295,11 +294,6 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 	}
 
 	@Override
-	public boolean isFlying() {
-		return !this.onGround();
-	}
-
-	@Override
 	protected PathNavigation createNavigation(Level level) {
 		final FlyingPathNavigation navigation = new FlyingPathNavigation(this, level);
 		navigation.setCanOpenDoors(false);
@@ -375,7 +369,7 @@ public class Butterfly extends PathfinderMob implements FlyingAnimal, WWBottleab
 
 	@Override
 	public boolean isFlapping() {
-		return this.isFlying() && this.tickCount % TICKS_PER_FLAP == 0;
+		return !this.onGround() && this.tickCount % TICKS_PER_FLAP == 0;
 	}
 
 	@Override

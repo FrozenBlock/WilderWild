@@ -1,7 +1,7 @@
 {
   "type": "wilderwild:large_mesoglea_feature",
   "config": {
-    "block": {
+    "block_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:pearlescent_purple_mesoglea",
@@ -24,6 +24,7 @@
     "max_column_radius_to_cave_height_ratio": 0.33,
     "min_bluntness_for_wind": 0.2,
     "min_radius_for_wind": 4,
+    "replaceable_blocks": "#wilderwild:feature/mesoglea_replaceable",
     "stalactite_bluntness": {
       "type": "minecraft:uniform",
       "max_exclusive": 0.9,

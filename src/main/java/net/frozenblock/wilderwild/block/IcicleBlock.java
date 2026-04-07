@@ -60,8 +60,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -76,7 +76,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	public static final MapCodec<IcicleBlock> CODEC = simpleCodec(IcicleBlock::new);
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final EnumProperty<Direction> TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
-	public static final EnumProperty<DripstoneThickness> THICKNESS = BlockStateProperties.DRIPSTONE_THICKNESS;
+	public static final EnumProperty<SpeleothemThickness> THICKNESS = BlockStateProperties.SPELEOTHEM_THICKNESS;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	private static final int DELAY_BEFORE_FALLING = 2;
 	private static final VoxelShape TIP_MERGE_SHAPE = Block.box(6D, 0D, 6D, 10D, 16D, 10D);
@@ -89,7 +89,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	public IcicleBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
-			this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, DripstoneThickness.TIP).setValue(WATERLOGGED, false)
+			this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, SpeleothemThickness.TIP).setValue(WATERLOGGED, false)
 		);
 	}
 
@@ -105,8 +105,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, LevelReader level, BlockPos blockPos) {
-		return isValidIciclePlacement(level, blockPos, state.getValue(TIP_DIRECTION));
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+		return isValidIciclePlacement(level, pos, state.getValue(TIP_DIRECTION));
 	}
 
 	@Override
@@ -129,8 +129,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 			ticks.scheduleTick(pos, this, tipDirection == Direction.DOWN ? DELAY_BEFORE_FALLING : 1);
 			return state;
 		}
-		final boolean merged = state.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
-		final DripstoneThickness thickness = calculateIcicleThickness(level, pos, tipDirection, merged);
+		final boolean merged = state.getValue(THICKNESS) == SpeleothemThickness.TIP_MERGE;
+		final SpeleothemThickness thickness = calculateIcicleThickness(level, pos, tipDirection, merged);
 		return state.setValue(THICKNESS, thickness);
 	}
 
@@ -174,7 +174,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		while (count < maxNewIcicles) {
 			if (!posesToCheck.hasNext()) return;
 			final BlockPos nextPos = posesToCheck.next();
-			if (level.getBlockState(nextPos).is(WWBlockTags.ICICLE_GROWS_WHEN_UNDER) && IcicleUtils.spreadIcicleOnRandomTick(level, nextPos))  count++;
+			if (level.getBlockState(nextPos).is(WWBlockTags.ICICLE_REPLACEABLE) && IcicleUtils.spreadIcicleOnRandomTick(level, nextPos)) count++;
 		}
 	}
 
@@ -199,7 +199,7 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		final Direction tipDirection = calculateTipDirection(level, pos, direction);
 		if (tipDirection == null) return null;
 
-		final DripstoneThickness thickness = calculateIcicleThickness(level, pos, tipDirection, !context.isSecondaryUseActive());
+		final SpeleothemThickness thickness = calculateIcicleThickness(level, pos, tipDirection, !context.isSecondaryUseActive());
 		return thickness == null
 			? null
 			: SnowloggingUtils.getSnowPlacementState(
@@ -223,15 +223,15 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		final DripstoneThickness thickness = state.getValue(THICKNESS);
+		final SpeleothemThickness thickness = state.getValue(THICKNESS);
 		VoxelShape voxelShape;
-		if (thickness == DripstoneThickness.TIP_MERGE) {
+		if (thickness == SpeleothemThickness.TIP_MERGE) {
 			voxelShape = TIP_MERGE_SHAPE;
-		} else if (thickness == DripstoneThickness.TIP) {
+		} else if (thickness == SpeleothemThickness.TIP) {
 			voxelShape = state.getValue(TIP_DIRECTION) == Direction.DOWN ? TIP_SHAPE_DOWN : TIP_SHAPE_UP;
-		} else if (thickness == DripstoneThickness.FRUSTUM) {
+		} else if (thickness == SpeleothemThickness.FRUSTUM) {
 			voxelShape = FRUSTUM_SHAPE;
-		} else if (thickness == DripstoneThickness.MIDDLE) {
+		} else if (thickness == SpeleothemThickness.MIDDLE) {
 			voxelShape = MIDDLE_SHAPE;
 		} else {
 			voxelShape = BASE_SHAPE;
@@ -302,11 +302,11 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		if (isUnmergedTipWithDirection(existingStateAtTargetPos, direction.getOpposite())) {
 			createMergedTips(existingStateAtTargetPos, level, targetPos);
 		} else if (existingStateAtTargetPos.isAir() || existingStateAtTargetPos.is(Blocks.WATER)) {
-			createIcicle(level, targetPos, direction, DripstoneThickness.TIP);
+			createIcicle(level, targetPos, direction, SpeleothemThickness.TIP);
 		}
 	}
 
-	private static void createIcicle(LevelAccessor level, BlockPos pos, Direction direction, DripstoneThickness thickness) {
+	private static void createIcicle(LevelAccessor level, BlockPos pos, Direction direction, SpeleothemThickness thickness) {
 		final BlockState state = WWBlocks.ICICLE
 			.defaultBlockState()
 			.setValue(TIP_DIRECTION, direction)
@@ -317,8 +317,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	private static void createMergedTips(BlockState state, LevelAccessor level, BlockPos pos) {
 		final boolean isUp = state.getValue(TIP_DIRECTION) == Direction.UP;
-		createIcicle(level, isUp ? pos.above() : pos, Direction.DOWN, DripstoneThickness.TIP_MERGE);
-		createIcicle(level, isUp ? pos : pos.below(), Direction.UP, DripstoneThickness.TIP_MERGE);
+		createIcicle(level, isUp ? pos.above() : pos, Direction.DOWN, SpeleothemThickness.TIP_MERGE);
+		createIcicle(level, isUp ? pos : pos.below(), Direction.UP, SpeleothemThickness.TIP_MERGE);
 	}
 
 	@Nullable
@@ -338,24 +338,24 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 		return direction.getOpposite();
 	}
 
-	private static DripstoneThickness calculateIcicleThickness(LevelReader level, BlockPos pos, Direction direction, boolean bl) {
+	private static SpeleothemThickness calculateIcicleThickness(LevelReader level, BlockPos pos, Direction direction, boolean bl) {
 		final Direction oppositeDirection = direction.getOpposite();
 		final BlockState state = level.getBlockState(pos.relative(direction));
 		if (isIcicleWithDirection(state, oppositeDirection)) {
-			return !bl && state.getValue(THICKNESS) != DripstoneThickness.TIP_MERGE ? DripstoneThickness.TIP : DripstoneThickness.TIP_MERGE;
+			return !bl && state.getValue(THICKNESS) != SpeleothemThickness.TIP_MERGE ? SpeleothemThickness.TIP : SpeleothemThickness.TIP_MERGE;
 		}
-		if (!isIcicleWithDirection(state, direction)) return DripstoneThickness.TIP;
+		if (!isIcicleWithDirection(state, direction)) return SpeleothemThickness.TIP;
 
-		final DripstoneThickness thickness = state.getValue(THICKNESS);
-		if (thickness != DripstoneThickness.TIP && thickness != DripstoneThickness.TIP_MERGE) {
+		final SpeleothemThickness thickness = state.getValue(THICKNESS);
+		if (thickness != SpeleothemThickness.TIP && thickness != SpeleothemThickness.TIP_MERGE) {
 			final BlockState offsetState = level.getBlockState(pos.relative(oppositeDirection));
-			return !isIcicleWithDirection(offsetState, direction) ? DripstoneThickness.BASE : DripstoneThickness.MIDDLE;
+			return !isIcicleWithDirection(offsetState, direction) ? SpeleothemThickness.BASE : SpeleothemThickness.MIDDLE;
 		}
-		return DripstoneThickness.FRUSTUM;
+		return SpeleothemThickness.FRUSTUM;
 	}
 
 	public static boolean canDrip(BlockState state) {
-		return isHangingIcicle(state) && state.getValue(THICKNESS) == DripstoneThickness.TIP && !state.getValue(WATERLOGGED);
+		return isHangingIcicle(state) && state.getValue(THICKNESS) == SpeleothemThickness.TIP && !state.getValue(WATERLOGGED);
 	}
 
 	public static boolean canTipGrow(BlockState state, ServerLevel level, BlockPos pos) {
@@ -374,8 +374,8 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 
 	private static boolean isTip(BlockState state, boolean bl) {
 		if (!state.is(WWBlocks.ICICLE)) return false;
-		final DripstoneThickness thickness = state.getValue(THICKNESS);
-		return thickness == DripstoneThickness.TIP || bl && thickness == DripstoneThickness.TIP_MERGE;
+		final SpeleothemThickness thickness = state.getValue(THICKNESS);
+		return thickness == SpeleothemThickness.TIP || bl && thickness == SpeleothemThickness.TIP_MERGE;
 	}
 
 	private static boolean isUnmergedTipWithDirection(BlockState state, Direction direction) {

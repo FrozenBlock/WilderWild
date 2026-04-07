@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:icicle_grows_when_under",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/cave_fragile_ice_replaceable",
+      "required": false
+    }
+  ]
+}

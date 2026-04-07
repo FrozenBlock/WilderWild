@@ -38,17 +38,22 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureCon
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
@@ -92,14 +97,15 @@ public final class WWAquaticConfigured {
 		throw new UnsupportedOperationException("WWAquaticConfigured contains only static declarations.");
 	}
 
-	public static void registerAquaticConfigured() {
+	public static void registerAquaticConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWAquaticConfigured for", true);
+		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
 			new CattailFeatureConfig(
 				6,
 				UniformInt.of(24, 32),
-				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
+				blocks.getOrThrow(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			)
 		);
 
@@ -107,7 +113,7 @@ public final class WWAquaticConfigured {
 			new CattailFeatureConfig(
 				4,
 				UniformInt.of(10, 20),
-				WWBlockTags.CATTAIL_FEATURE_PLACEABLE
+				blocks.getOrThrow(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			)
 		);
 
@@ -167,7 +173,7 @@ public final class WWAquaticConfigured {
 				true,
 				true,
 				true,
-				WWBlockTags.SMALL_SPONGE_GROWS_ON
+				blocks.getOrThrow(WWBlockTags.SMALL_SPONGE_GROWS_ON)
 			)
 		);
 
@@ -185,7 +191,7 @@ public final class WWAquaticConfigured {
 
 		HYDROTHERMAL_VENT.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
-				WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.GABBRO),
 				PlacementUtils.inlinePlaced(
 					WWFeatures.HYDROTHERMAL_VENT_FEATURE,
@@ -258,7 +264,7 @@ public final class WWAquaticConfigured {
 
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,
@@ -311,16 +317,13 @@ public final class WWAquaticConfigured {
 				true,
 				true,
 				0.7F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK,
-					WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
-				)
+				blocks.getOrThrow(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
 			)
 		);
 
 		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
 				CaveSurface.FLOOR,

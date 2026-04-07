@@ -111,12 +111,12 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
 				this.shaped(RecipeCategory.MISC, WWBlocks.NULL_BLOCK, 2)
-					.define('#', Ingredient.of(Items.BLACK_CONCRETE))
-					.define('X', Ingredient.of(Items.MAGENTA_CONCRETE))
+					.define('#', Ingredient.of(Items.CONCRETE.black()))
+					.define('X', Ingredient.of(Items.CONCRETE.magenta()))
 					.pattern("#X")
 					.pattern("X#")
-					.unlockedBy(RecipeProvider.getHasName(Items.BLACK_CONCRETE), this.has(Items.BLACK_CONCRETE))
-					.unlockedBy(RecipeProvider.getHasName(Items.MAGENTA_CONCRETE), this.has(Items.MAGENTA_CONCRETE))
+					.unlockedBy(RecipeProvider.getHasName(Items.CONCRETE.black()), this.has(Items.CONCRETE.black()))
+					.unlockedBy(RecipeProvider.getHasName(Items.CONCRETE.magenta()), this.has(Items.CONCRETE.magenta()))
 					.save(this.output);
 
 				this.shaped(RecipeCategory.REDSTONE, WWBlocks.GEYSER, 2)

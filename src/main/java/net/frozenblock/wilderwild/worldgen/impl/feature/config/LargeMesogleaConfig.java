@@ -19,17 +19,22 @@ package net.frozenblock.wilderwild.worldgen.impl.feature.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.FloatProviders;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record LargeMesogleaConfig(
+	HolderSet<Block> replaceableBlocks,
 	int floorToCeilingSearchRange,
 	IntProvider columnRadius,
-	BlockStateProvider pathBlock,
+	BlockStateProvider block,
 	FloatProvider heightScale,
 	float maxColumnRadiusToCaveHeightRatio,
 	FloatProvider stalactiteBluntness,
@@ -40,9 +45,10 @@ public record LargeMesogleaConfig(
 ) implements FeatureConfiguration {
 	public static final Codec<LargeMesogleaConfig> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
+			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(config -> config.replaceableBlocks),
 			Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter(config -> config.floorToCeilingSearchRange),
 			IntProviders.codec(1, 60).fieldOf("column_radius").forGetter(config -> config.columnRadius),
-			BlockStateProvider.CODEC.fieldOf("block").forGetter(config -> config.pathBlock),
+			BlockStateProvider.CODEC.fieldOf("block_state").forGetter(config -> config.block),
 			FloatProviders.codec(0F, 20F).fieldOf("height_scale").forGetter(config -> config.heightScale),
 			Codec.floatRange(0.1F, 1F).fieldOf("max_column_radius_to_cave_height_ratio").forGetter(config -> config.maxColumnRadiusToCaveHeightRatio),
 			FloatProviders.codec(0.1F, 10F).fieldOf("stalactite_bluntness").forGetter(config -> config.stalactiteBluntness),

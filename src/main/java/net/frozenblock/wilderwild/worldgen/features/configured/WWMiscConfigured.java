@@ -42,20 +42,24 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -195,8 +199,9 @@ public final class WWMiscConfigured {
 		throw new UnsupportedOperationException("WWMiscConfigured contains only static declarations.");
 	}
 
-	public static void registerMiscConfigured() {
+	public static void registerMiscConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
+		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		EMPTY.makeAndSetHolder(Feature.NO_OP,
 			NoneFeatureConfiguration.INSTANCE
@@ -588,7 +593,7 @@ public final class WWMiscConfigured {
 
 		RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RIVER_POOL_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
@@ -602,7 +607,7 @@ public final class WWMiscConfigured {
 		);
 		SMALL_RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
 			new VegetationPatchConfiguration(
-				WWBlockTags.RIVER_POOL_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
@@ -948,7 +953,7 @@ public final class WWMiscConfigured {
 
 		BASIN_PODZOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
-				WWBlockTags.BASIN_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.PODZOL),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
@@ -963,7 +968,7 @@ public final class WWMiscConfigured {
 
 		BASIN_MOSS.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
-				WWBlockTags.BASIN_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
@@ -991,7 +996,7 @@ public final class WWMiscConfigured {
 
 		BASIN_MUD.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
-				WWBlockTags.BASIN_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MUD),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
@@ -1218,7 +1223,7 @@ public final class WWMiscConfigured {
 
 		AUBURN_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
@@ -1271,16 +1276,13 @@ public final class WWMiscConfigured {
 				true,
 				true,
 				0.7F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK,
-					WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
-				)
+				blocks.getOrThrow(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
 			)
 		);
 
 		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
-				WWBlockTags.AUBURN_MOSS_REPLACEABLE,
+				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
@@ -1347,7 +1349,7 @@ public final class WWMiscConfigured {
 
 		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
-				BlockTags.MOSS_REPLACEABLE,
+				blocks.getOrThrow(BlockTags.MOSS_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(MOSS_VEGETATION_NO_AZALEA.getHolder()),
 				CaveSurface.FLOOR,

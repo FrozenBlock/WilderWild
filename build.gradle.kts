@@ -185,10 +185,10 @@ dependencies {
     compileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
 
     // Mod Menu
-    implementation("com.terraformersmc:modmenu:$modmenu_version")
+    compileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    implementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }
@@ -217,7 +217,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to "~26.1-",//minecraft_version,
+            "minecraft_version" to "~26.2-",//minecraft_version,
 
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"

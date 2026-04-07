@@ -202,6 +202,9 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.add(WWBlocks.PHLOX.asItem())
 			.add(WWBlocks.LANTANAS.asItem());
 
+		this.valueLookupBuilder(ItemTags.MOSS_BLOCKS)
+			.add(WWBlocks.AUBURN_MOSS_BLOCK.asItem());
+
 		this.valueLookupBuilder(WWItemTags.BAOBAB_LOGS)
 			.add(WWBlocks.BAOBAB_LOG.asItem(), WWBlocks.STRIPPED_BAOBAB_LOG.asItem())
 			.add(WWBlocks.BAOBAB_WOOD.asItem(), WWBlocks.STRIPPED_BAOBAB_WOOD.asItem());
@@ -443,5 +446,36 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 		this.valueLookupBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS)
 			.addOptionalTag(WWItemTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN);
+
+		// SULFUR CUBE
+		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
+			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
+
+		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
+			.add(
+				WWBlocks.CHISELED_MUD_BRICKS.asItem(),
+				WWBlocks.MOSSY_MUD_BRICKS.asItem(),
+				WWBlocks.CRACKED_MUD_BRICKS.asItem()
+			)
+			.add(
+				WWBlocks.GABBRO.asItem(),
+				WWBlocks.POLISHED_GABBRO.asItem(),
+				WWBlocks.GABBRO_BRICKS.asItem(),
+				WWBlocks.CRACKED_GABBRO_BRICKS.asItem(),
+				WWBlocks.CHISELED_GABBRO_BRICKS.asItem(),
+				WWBlocks.MOSSY_GABBRO_BRICKS.asItem()
+			)
+			.add(WWBlocks.SCORCHED_SAND.asItem(), WWBlocks.SCORCHED_RED_SAND.asItem())
+			.add(WWBlocks.NULL_BLOCK.asItem())
+			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
+
+		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT)
+			.addOptionalTag(WWItemTags.MESOGLEA);
+
+		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
+			.add(WWBlocks.FRAGILE_ICE.asItem());
+
+		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
+			.add(WWBlocks.PALE_MUSHROOM_BLOCK.asItem());
 	}
 }

@@ -4,13 +4,27 @@
     "features": [
       {
         "feature": {
-          "type": "wilderwild:icicle_feature",
+          "type": "minecraft:speleothem",
           "config": {
+            "base_block": {
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            },
             "chance_of_directional_spread": 0.7,
             "chance_of_spread_radius2": 0.5,
-            "chance_of_spread_radius3": 0.5,
-            "chance_of_taller_icicle": 0.3,
-            "place_ice_blocks": false
+            "chance_of_spread_radius3": 0.3,
+            "chance_of_taller_generation": 0.3,
+            "pointed_block": {
+              "Name": "wilderwild:icicle",
+              "Properties": {
+                "thickness": "tip",
+                "vertical_direction": "up",
+                "waterlogged": "false"
+              }
+            },
+            "replaceable_blocks": []
           }
         },
         "placement": [
@@ -44,13 +58,27 @@
       },
       {
         "feature": {
-          "type": "wilderwild:icicle_feature",
+          "type": "minecraft:speleothem",
           "config": {
+            "base_block": {
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            },
             "chance_of_directional_spread": 0.7,
             "chance_of_spread_radius2": 0.5,
-            "chance_of_spread_radius3": 0.5,
-            "chance_of_taller_icicle": 0.3,
-            "place_ice_blocks": false
+            "chance_of_spread_radius3": 0.3,
+            "chance_of_taller_generation": 0.3,
+            "pointed_block": {
+              "Name": "wilderwild:icicle",
+              "Properties": {
+                "thickness": "tip",
+                "vertical_direction": "up",
+                "waterlogged": "false"
+              }
+            },
+            "replaceable_blocks": []
           }
         },
         "placement": [

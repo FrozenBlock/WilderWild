@@ -326,7 +326,11 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.BLUE_ICE)
 			.add(Blocks.PACKED_ICE);
 
-		this.valueLookupBuilder(WWBlockTags.MESOGLEA_PATH_REPLACEABLE)
+		this.valueLookupBuilder(WWBlockTags.ICICLE_REPLACEABLE)
+			.addOptionalTag(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)
+			.addOptionalTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE);
+
+		this.valueLookupBuilder(WWBlockTags.MESOGLEA_REPLACEABLE)
 			.add(Blocks.CLAY)
 			.add(Blocks.DRIPSTONE_BLOCK)
 			.add(Blocks.CALCITE)
@@ -596,11 +600,11 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(Blocks.REINFORCED_DEEPSLATE)
 			.add(Blocks.POLISHED_BASALT, Blocks.SMOOTH_BASALT)
 			.add(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_FENCE)
-			.add(Blocks.LIGHT_BLUE_CARPET, Blocks.BLUE_CARPET)
-			.add(Blocks.LIGHT_BLUE_WOOL, Blocks.GRAY_WOOL)
+			.add(Blocks.CARPET.lightBlue(), Blocks.CARPET.blue())
+			.add(Blocks.WOOL.lightBlue(), Blocks.WOOL.gray())
 			.add(Blocks.CHEST, WWBlocks.STONE_CHEST)
 			.add(Blocks.LADDER)
-			.add(Blocks.CANDLE, Blocks.WHITE_CANDLE)
+			.add(Blocks.CANDLE, Blocks.DYED_CANDLE.white())
 			.add(Blocks.SOUL_LANTERN, Blocks.SOUL_FIRE)
 			.add(Blocks.SOUL_SAND);
 

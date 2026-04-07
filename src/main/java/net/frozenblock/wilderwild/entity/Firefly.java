@@ -68,7 +68,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;
@@ -89,7 +88,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable {
+public class Firefly extends PathfinderMob implements WWBottleable {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	private static final Brain.Provider<Firefly> BRAIN_PROVIDER = FireflyAi.brainProvider();
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
@@ -371,11 +370,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 		return (Brain<Firefly>) super.getBrain();
 	}
 
-	@Override
-	public boolean isFlying() {
-		return !this.onGround();
-	}
-
 	public boolean shouldHide() {
 		return this.isNatural()
 			&& this.level().isBrightOutside()
@@ -472,7 +466,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, WWBottleable
 
 	@Override
 	public boolean isFlapping() {
-		return true;
+		return !this.onGround();
 	}
 
 	@Override

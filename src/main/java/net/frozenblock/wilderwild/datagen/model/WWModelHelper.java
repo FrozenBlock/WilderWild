@@ -60,8 +60,8 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 
 public final class WWModelHelper {
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
@@ -360,23 +360,23 @@ public final class WWModelHelper {
 	}
 
 	public static void createIcicle(BlockModelGenerators generator) {
-		final PropertyDispatch.C2<MultiVariant, Direction, DripstoneThickness> dispatch = PropertyDispatch.initial(
-			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS
+		final PropertyDispatch.C2<MultiVariant, Direction, SpeleothemThickness> dispatch = PropertyDispatch.initial(
+			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.SPELEOTHEM_THICKNESS
 		);
 
-		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
-			dispatch.select(Direction.UP, dripstoneThickness, createIcicleVariant(generator, Direction.UP, dripstoneThickness));
+		for (SpeleothemThickness thickness : SpeleothemThickness.values()) {
+			dispatch.select(Direction.UP, thickness, createIcicleVariant(generator, Direction.UP, thickness));
 		}
 
-		for (DripstoneThickness dripstoneThickness : DripstoneThickness.values()) {
-			dispatch.select(Direction.DOWN, dripstoneThickness, createIcicleVariant(generator, Direction.DOWN, dripstoneThickness));
+		for (SpeleothemThickness thickness : SpeleothemThickness.values()) {
+			dispatch.select(Direction.DOWN, thickness, createIcicleVariant(generator, Direction.DOWN, thickness));
 		}
 
 		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(dispatch));
 	}
 
-	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, DripstoneThickness dripstoneThickness) {
-		String string = "_" + direction.getSerializedName() + "_" + dripstoneThickness.getSerializedName();
+	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, SpeleothemThickness thickness) {
+		String string = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
 		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE, string));
 		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
 	}

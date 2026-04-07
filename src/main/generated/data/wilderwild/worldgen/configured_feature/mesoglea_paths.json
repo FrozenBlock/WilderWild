@@ -8,7 +8,7 @@
           "minimum_noise_threshold": 0.5125,
           "replacement_block_predicate": {
             "type": "minecraft:matching_block_tag",
-            "tag": "wilderwild:feature/mesoglea_path_replaceable"
+            "tag": "wilderwild:feature/mesoglea_replaceable"
           },
           "searching_block_predicate": {
             "type": "frozenlib:search_in_area",
@@ -42,7 +42,7 @@
           "minimum_noise_threshold": -0.5875,
           "replacement_block_predicate": {
             "type": "minecraft:matching_block_tag",
-            "tag": "wilderwild:feature/mesoglea_path_replaceable"
+            "tag": "wilderwild:feature/mesoglea_replaceable"
           },
           "searching_block_predicate": {
             "type": "frozenlib:search_in_area",

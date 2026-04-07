@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.datagen.recipe;
 
-import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
@@ -37,80 +36,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.ColorCollection;
 
 public final class FireflyBottleRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput output, HolderLookup.RegistryLookup<FireflyColor> registryLookup) {
-		colorFireflyBottlesWithDyes(
-			provider,
-			output,
-			ImmutableList.of(
-				Items.BLACK_DYE,
-				Items.BLUE_DYE,
-				Items.BROWN_DYE,
-				Items.CYAN_DYE,
-				Items.GRAY_DYE,
-				Items.GREEN_DYE,
-				Items.LIGHT_BLUE_DYE,
-				Items.LIGHT_GRAY_DYE,
-				Items.LIME_DYE,
-				Items.MAGENTA_DYE,
-				Items.ORANGE_DYE,
-				Items.PINK_DYE,
-				Items.PURPLE_DYE,
-				Items.RED_DYE,
-				Items.WHITE_DYE,
-				Items.YELLOW_DYE
-			),
-			ImmutableList.of(
-				 WWConstants.id("black"),
-				 WWConstants.id("blue"),
-				 WWConstants.id("brown"),
-				 WWConstants.id("cyan"),
-				 WWConstants.id("gray"),
-				 WWConstants.id("green"),
-				 WWConstants.id("light_blue"),
-				 WWConstants.id("light_gray"),
-				 WWConstants.id("lime"),
-				 WWConstants.id("magenta"),
-				 WWConstants.id("orange"),
-				 WWConstants.id("pink"),
-				 WWConstants.id("purple"),
-				 WWConstants.id("red"),
-				 WWConstants.id("white"),
-				 WWConstants.id("yellow")
-			),
-			registryLookup
-		);
+		final List<Identifier> colorIds = ColorCollection.make(color -> WWConstants.id(color.getName())).asList();
+		colorFireflyBottlesWithDyes(provider, output, colorIds, registryLookup);
 
-		fireflyBottle(provider, WWConstants.id("black"), Items.BLACK_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("blue"), Items.BLUE_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("brown"), Items.BROWN_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("cyan"), Items.CYAN_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("gray"), Items.GRAY_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("green"), Items.GREEN_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("light_blue"), Items.LIGHT_BLUE_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("light_gray"), Items.LIGHT_GRAY_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("lime"), Items.LIME_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("magenta"), Items.MAGENTA_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("orange"), Items.ORANGE_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("pink"), Items.PINK_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("purple"), Items.PURPLE_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("red"), Items.RED_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("white"), Items.WHITE_DYE, output, registryLookup);
-		fireflyBottle(provider, WWConstants.id("yellow"), Items.YELLOW_DYE, output, registryLookup);
+		final List<Item> dyes = Items.DYE.asList();
+		for(int dyeIndex = 0; dyeIndex < dyes.size(); dyeIndex++) {
+			final Item dye = dyes.get(dyeIndex);
+			final Identifier outputColor = colorIds.get(dyeIndex);
+			fireflyBottle(provider, outputColor, dye, output, registryLookup);
+		}
 	}
 
 	private static void colorFireflyBottlesWithDyes(
 		RecipeProvider provider,
 		RecipeOutput output,
-		List<Item> dyes,
 		List<Identifier> fireflyColors,
 		HolderLookup.RegistryLookup<FireflyColor> registryLookup
 	) {
-		for(int i = 0; i < dyes.size(); ++i) {
-			final Item dye = dyes.get(i);
-			final Identifier outputColor = fireflyColors.get(i);
+		final List<Item> dyes = Items.DYE.asList();
+		for(int dyeIndex = 0; dyeIndex < dyes.size(); dyeIndex++) {
+			final Item dye = dyes.get(dyeIndex);
+			final Identifier outputColor = fireflyColors.get(dyeIndex);
 
 			final List<Ingredient> possibleIngredients = new ArrayList<>();
 			for (Identifier fireflyColor : fireflyColors) {

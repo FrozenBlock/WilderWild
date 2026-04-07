@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.TagKey;
+import net.minecraft.core.HolderSet;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -52,7 +52,7 @@ public class CattailFeature extends Feature<CattailFeatureConfig> {
 		final int maxHeight = level.getMaxY() - 1;
 		final BlockPos.MutableBlockPos bottomBlockPos = origin.mutable();
 		final BlockPos.MutableBlockPos topBlockPos = origin.mutable();
-		final TagKey<Block> placeableBlocks = config.canBePlacedOn();
+		final HolderSet<Block> placeableBlocks = config.canBePlacedOn();
 		final int width = config.width();
 
 		boolean generated = false;

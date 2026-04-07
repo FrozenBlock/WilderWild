@@ -33,7 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.DripstoneUtils;
+import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.phys.Vec3;
@@ -50,7 +50,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 	}
 
 	protected static boolean isEmptyOrWater(LevelAccessor level, BlockPos pos) {
-		return level.isStateAtPosition(pos, DripstoneUtils::isEmptyOrWater);
+		return level.isStateAtPosition(pos, SpeleothemUtils::isEmptyOrWater);
 	}
 
 	protected static boolean isCircleMostlyEmbeddedInStone(WorldGenLevel level, BlockPos pos, int radius) {
@@ -92,7 +92,13 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 
 		if (!LargeMesogleaFeature.isEmptyOrWater(level, origin)) return false;
 
-		final Optional<Column> optional = Column.scan(level, origin, config.floorToCeilingSearchRange(), DripstoneUtils::isEmptyOrWater, DripstoneUtils::isDripstoneBaseOrLava);
+		final Optional<Column> optional = Column.scan(
+			level,
+			origin,
+			config.floorToCeilingSearchRange(),
+			SpeleothemUtils::isEmptyOrWater,
+			state -> SpeleothemUtils.isBaseOrLava(state, config.block().getState(level, random, origin).getBlock(), config.replaceableBlocks())
+		);
 		if (optional.isEmpty() || !(optional.get() instanceof Column.Range range)) return false;
 
 		if (range.height() < 4) return false;
@@ -180,7 +186,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 							final BlockPos pos = windOffsetter.offset(mutable);
 							if (isEmptyOrWaterOrLava(level, pos)) {
 								bl = true;
-								level.setBlock(pos, config.pathBlock().getState(level, random, mutable), Block.UPDATE_ALL);
+								level.setBlock(pos, config.block().getState(level, random, mutable), Block.UPDATE_ALL);
 							} else if (bl && level.getBlockState(pos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								break;
 							}

@@ -11,7 +11,70 @@
           "fabric:type": "fabric:components",
           "base": "wilderwild:firefly_bottle",
           "components": {
-            "wilderwild:firefly/color": "wilderwild:black"
+            "wilderwild:firefly/color": "wilderwild:white"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:orange"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:magenta"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:light_blue"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:yellow"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:pink"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:gray"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:light_gray"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:cyan"
+          }
+        },
+        {
+          "fabric:type": "fabric:components",
+          "base": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:purple"
           }
         },
         {
@@ -32,63 +95,7 @@
           "fabric:type": "fabric:components",
           "base": "wilderwild:firefly_bottle",
           "components": {
-            "wilderwild:firefly/color": "wilderwild:cyan"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:gray"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
             "wilderwild:firefly/color": "wilderwild:green"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:light_blue"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:light_gray"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:magenta"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:orange"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:pink"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:purple"
           }
         },
         {
@@ -102,14 +109,7 @@
           "fabric:type": "fabric:components",
           "base": "wilderwild:firefly_bottle",
           "components": {
-            "wilderwild:firefly/color": "wilderwild:white"
-          }
-        },
-        {
-          "fabric:type": "fabric:components",
-          "base": "wilderwild:firefly_bottle",
-          "components": {
-            "wilderwild:firefly/color": "wilderwild:yellow"
+            "wilderwild:firefly/color": "wilderwild:black"
           }
         }
       ]

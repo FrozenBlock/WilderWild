@@ -90,7 +90,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.VariantUtils;

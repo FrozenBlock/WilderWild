@@ -38,9 +38,9 @@ public final class WWFeatureBootstrap {
 		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreeConfigured.registerTreeConfigured(entries);
-		WWMiscConfigured.registerMiscConfigured();
+		WWMiscConfigured.registerMiscConfigured(entries);
 		WWCaveConfigured.registerCaveConfigured(entries);
-		WWAquaticConfigured.registerAquaticConfigured();
+		WWAquaticConfigured.registerAquaticConfigured(entries);
 		WWConfiguredFeatures.registerConfiguredFeatures(entries);
 	}
 

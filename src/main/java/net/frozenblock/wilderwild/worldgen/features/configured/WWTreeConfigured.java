@@ -489,9 +489,8 @@ public final class WWTreeConfigured {
 	}
 
 	public static void registerTreeConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
-		HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
-
 		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
+		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		// BIRCH
 		BIRCH_TREE.makeAndSetHolders(Feature.TREE,
