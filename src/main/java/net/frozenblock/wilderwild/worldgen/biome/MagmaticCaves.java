@@ -124,7 +124,6 @@ public final class MagmaticCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlaced.LAVA_SPRING_EXTRA.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
-		BiomeDefaultFeatures.addPlainGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features, false);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_GABBRO.getKey());
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
