@@ -59,6 +59,12 @@ public final class WWDamageTypeTagProvider extends FabricTagsProvider<DamageType
 		this.builder(DamageTypeTags.NO_KNOCKBACK)
 			.add(WWDamageTypes.PRICKLY_PEAR);
 
+		this.builder(DamageTypeTags.SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO)
+			.add(WWDamageTypes.FALLING_ICICLE)
+			.add(WWDamageTypes.TUMBLEWEED)
+			.add(WWDamageTypes.CANNONBALL)
+			.add(WWDamageTypes.OSTRICH);
+
 		this.builder(WWDamageTypeTags.EMPTY);
 	}
 }
