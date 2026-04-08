@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
+import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SulfurCavesCalciteConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.WWTreeDecorators;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -86,8 +87,9 @@ public final class WWWorldgen {
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_condition_source"), BetaBeachConditionSource.CODEC.codec());
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_condition_source"), SnowUnderMountainConditionSource.CODEC.codec());
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_enabled"), BetaBeachConditionSource.CODEC.codec());
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_enabled"), SnowUnderMountainConditionSource.CODEC.codec());
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("sulfur_caves_calcite_enabled"), SulfurCavesCalciteConditionSource.CODEC.codec());
 	}
 
 	private static void configureBuiltInBiomes() {

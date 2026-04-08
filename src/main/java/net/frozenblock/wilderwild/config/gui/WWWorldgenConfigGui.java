@@ -41,6 +41,7 @@ public final class WWWorldgenConfigGui {
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
 		category.addEntry(booleanEntry(builder, "beta_beaches", WWWorldgenConfig.BETA_BEACHES));
 		category.addEntry(booleanEntry(builder, "snow_under_mountains", WWWorldgenConfig.SNOW_UNDER_MOUNTAINS));
+		category.addEntry(booleanEntry(builder, "sulfur_caves_calcite", WWWorldgenConfig.SULFUR_CAVES_CALCITE));
 
 		// BIOME GENERATION
 		var cypressWetlands = biomeGenerationBooleanEntry(builder, WWBiomes.CYPRESS_WETLANDS, WWWorldgenConfig.CYPRESS_WETLANDS_GENERATION);

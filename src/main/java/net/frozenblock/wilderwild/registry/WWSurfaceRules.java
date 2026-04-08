@@ -25,7 +25,9 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
+import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SulfurCavesCalciteConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
@@ -483,63 +485,31 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
+	private static SurfaceRules.RuleSource frozenCavesIcePath(Block base, Block border, Block center) {
+		return SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(base.defaultBlockState()),
+				Optional.of(base.defaultBlockState()),
+				Optional.of(base.defaultBlockState()),
+				Optional.of(border.defaultBlockState()),
+				Optional.of(center.defaultBlockState()),
+				Optional.of(border.defaultBlockState()),
+				Optional.of(base.defaultBlockState()),
+				Optional.of(base.defaultBlockState()),
+				Optional.of(base.defaultBlockState())
+			)
+		);
+	}
+
 	public static SurfaceRules.RuleSource frozenCavesSurfaceRules() {
-		final SurfaceRules.RuleSource iceNoiseRule = SurfaceRules.noiseGradient(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState())
-			)
-		);
-
-		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = SurfaceRules.noiseGradient(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
-				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState())
-			)
-		);
-
-		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = SurfaceRules.noiseGradient(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
-				Optional.of(Blocks.PACKED_ICE.defaultBlockState())
-			)
-		);
+		final SurfaceRules.RuleSource iceNoiseRule = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
+		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = frozenCavesIcePath(WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE);
+		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
 
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(WWBiomes.FROZEN_CAVES),
@@ -574,12 +544,65 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
+	public static SurfaceRules.RuleSource sulfurCavesCalcite() {
+		final SurfaceRules.RuleSource originalRule = SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(Blocks.CINNABAR.defaultBlockState()),
+				Optional.of(Blocks.SULFUR.defaultBlockState()),
+				Optional.of(Blocks.CINNABAR.defaultBlockState()),
+				Optional.of(Blocks.CINNABAR.defaultBlockState()),
+				Optional.of(Blocks.CINNABAR.defaultBlockState())
+			)
+		);
+
+		final SurfaceRules.RuleSource calciteRule = SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(Blocks.CALCITE.defaultBlockState()),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty()
+			)
+		);
+
+		return SurfaceRules.ifTrue(
+			SulfurCavesCalciteConditionSource.sulfurCavesCalciteConditionSource(),
+			SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(Biomes.SULFUR_CAVES),
+				calciteRule
+			)
+		);
+	}
+
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
 				snowUnderMountains(),
-				frozenCavesSurfaceRules()
+				frozenCavesSurfaceRules(),
+				sulfurCavesCalcite()
 			)
 		);
 		WWConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);

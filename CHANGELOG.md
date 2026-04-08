@@ -55,3 +55,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This has been superseded by the `minecraft:speleothem_cluster` Feature.
 - The Ice paths in the Frozen Caves biome now use Surface Rules to generate, offering cleaner generation and a significant performance boost.
   - The `wilderwild:ice_paths` Configured Feature and Placed Feature have both been removed.
+- Calcite now generates alongside Sulfur and Cinnabar in the Sulfur Caves biome.
+  - Added a config option to toggle Calcite generation.
+- Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
+- Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach`.
+- Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
