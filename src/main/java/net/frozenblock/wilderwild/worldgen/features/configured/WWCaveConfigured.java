@@ -47,7 +47,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
@@ -67,7 +66,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfig
 import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomBooleanFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemClusterConfiguration;
@@ -92,13 +90,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> MESOGLEA_PATHS = register("mesoglea_paths");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig> MESOGLEA_CLUSTER_PURPLE = WWFeatureUtils.register("mesoglea_cluster_purple");
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig> MESOGLEA_CLUSTER_BLUE = WWFeatureUtils.register("mesoglea_cluster_blue");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> BLUE_MESOGLEA_WITH_DRIPLEAVES = WWFeatureUtils.register("blue_mesoglea_with_dripleaves");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> BLUE_MESOGLEA_POOL = WWFeatureUtils.register("blue_mesoglea_pool");
-	public static final FrozenLibConfiguredFeature<RandomBooleanFeatureConfiguration> BLUE_MESOGLEA = WWFeatureUtils.register("blue_mesoglea");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DOWNWARD_BLUE_MESOGLEA = WWFeatureUtils.register("downwards_blue_mesoglea");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> PURPLE_MESOGLEA_DRIPLEAVES = WWFeatureUtils.register("purple_mesoglea_with_dripleaves");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> PURPLE_MESOGLEA_POOL = WWFeatureUtils.register("purple_mesoglea_pool");
-	public static final FrozenLibConfiguredFeature<RandomBooleanFeatureConfiguration> PURPLE_MESOGLEA = WWFeatureUtils.register("purple_mesoglea");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DOWNWARD_PURPLE_MESOGLEA = WWFeatureUtils.register("downwards_purple_mesoglea");
 	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
 	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
@@ -293,43 +285,6 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		BLUE_MESOGLEA_WITH_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.defaultBlockState()),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		BLUE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.defaultBlockState()),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				5,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		BLUE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
-			new RandomBooleanFeatureConfiguration(
-				PlacementUtils.inlinePlaced(BLUE_MESOGLEA_WITH_DRIPLEAVES.getHolder()),
-				PlacementUtils.inlinePlaced(BLUE_MESOGLEA_POOL.getHolder())
-			)
-		);
-
 		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
@@ -342,43 +297,6 @@ public final class WWCaveConfigured {
 				0.08F,
 				UniformInt.of(4, 14),
 				0.7F
-			)
-		);
-
-		PURPLE_MESOGLEA_DRIPLEAVES.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.defaultBlockState()),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		PURPLE_MESOGLEA_POOL.makeAndSetHolder(Feature.WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.defaultBlockState()),
-				PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CaveFeatures.DRIPLEAF)),
-				CaveSurface.FLOOR,
-				ConstantInt.of(3),
-				0.8F,
-				5,
-				0.04F,
-				UniformInt.of(4, 14),
-				0.7F
-			)
-		);
-
-		PURPLE_MESOGLEA.makeAndSetHolder(Feature.RANDOM_BOOLEAN_SELECTOR,
-			new RandomBooleanFeatureConfiguration(
-				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_DRIPLEAVES.getHolder()),
-				PlacementUtils.inlinePlaced(PURPLE_MESOGLEA_POOL.getHolder())
 			)
 		);
 

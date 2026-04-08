@@ -123,8 +123,6 @@ public final class MesogleaCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, false);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_CALCITE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.BLUE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PURPLE_MESOGLEA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARD_BLUE_MESOGLEA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARD_PURLE_MESOGLEA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.LARGE_MESOGLEA_PURPLE.getKey());

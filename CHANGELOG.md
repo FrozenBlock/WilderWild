@@ -29,6 +29,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fern can no longer generate in Cherry Groves, and Short Grass is slightly more sparse.
 - Grass generation in the Plains, Meadow, and Tundra biomes has been reverted to Vanilla generation to better represent their climate.
   - Sunflower Plains and Flower Fields remain unchanged.
+- Removed Mesoglea "pool" features from the Mesoglea Caves biome, as they hindered navigation and didn't make sense visually.
+  - Dripleaves will no longer generate in the Mesoglea Caves biome.
+  - The `wilderwild:blue_mesoglea_pool`, `wilderwild:blue_mesoglea_dripleaves`, `wilderwild:purple_mesoglea_pool`, `wilderwild:purple_mesoglea_dripleaves` Configured Features have been removed.
+  - The `wilderwild:blue_mesoglea` and `wilderwild:purple_mesoglea` Configured Features and Placed Features have been removed.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
 - Crabs will now become persistent when fed.
 - Jellyfish will now become persistent when fed.

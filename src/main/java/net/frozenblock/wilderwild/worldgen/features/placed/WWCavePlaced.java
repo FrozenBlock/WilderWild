@@ -61,9 +61,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_COLUMN = WWPlacementUtils.register("blue_mesoglea_column");
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = WWPlacementUtils.register("purple_mesoglea_column");
 	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = WWPlacementUtils.register("mesoglea_paths");
-	public static final FrozenLibPlacedFeature BLUE_MESOGLEA = register("blue_mesoglea");
 	public static final FrozenLibPlacedFeature DOWNWARD_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
-	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA = register("purple_mesoglea");
 	public static final FrozenLibPlacedFeature DOWNWARD_PURLE_MESOGLEA = register("upside_down_purple_mesoglea");
 	public static final FrozenLibPlacedFeature NEMATOCYST_BLUE = register("nematocyst_blue");
 	public static final FrozenLibPlacedFeature NEMATOCYST_PURPLE = register("nematocyst_purple");
@@ -162,29 +160,11 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.BLUE_MESOGLEA,
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
 		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_BLUE_MESOGLEA,
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.PURPLE_MESOGLEA,
-			CountPlacement.of(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
