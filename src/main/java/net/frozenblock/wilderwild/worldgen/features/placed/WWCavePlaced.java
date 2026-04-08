@@ -103,7 +103,6 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature CAVE_ICICLES = WWPlacementUtils.register("cave_icicles");
 	public static final FrozenLibPlacedFeature ICICLES_SURFACE_WG = WWPlacementUtils.register("icicles_surface_wg");
 	public static final FrozenLibPlacedFeature ICICLES_SURFACE = WWPlacementUtils.register("icicles_surface");
-	public static final FrozenLibPlacedFeature ICE_PATHS = WWPlacementUtils.register("ice_paths");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK = WWPlacementUtils.register("fragile_ice_disk");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_PILE = WWPlacementUtils.register("fragile_ice_pile");
 	public static final FrozenLibPlacedFeature HANGING_PACKED_ICE = WWPlacementUtils.register("hanging_packed_ice");
@@ -527,10 +526,6 @@ public final class WWCavePlaced {
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.of(ClampedNormalInt.of(0F, 3F, -10, 10), ClampedNormalInt.of(0F, 0.6F, -2, 2)),
 			BiomeFilter.biome()
-		);
-
-		ICE_PATHS.makeAndSetHolder(WWCaveConfigured.ICE_PATHS,
-			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		FRAGILE_ICE_DISK.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_DISK,

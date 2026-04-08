@@ -35,3 +35,19 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Baby Jellyfish spawned from breeding are now persistent.
 - Baby Jellyfish are now affected by Golden Dandelions.
 - Penguins will now wait between 1-2 minutes after spawning before starting to slide and find water.
+
+### 26.2+
+- Added a config option to toggle black Fog in the Dripstone Caves biome.
+  - This option is enabled by default.
+- Added a config option to toggle black Fog in the Lush Caves biome.
+  - This option is enabled by default.
+- Added a config option to toggle ambient sounds in the Sulfur Caves biome. TODO!!!!!!!
+  - This option is enabled by default.
+- Added a config option to toggle black Fog in the Sulfur Caves biome.
+  - This option is enabled by default.
+- Removed the `wilderwild:icicle_feature` Feature.
+  - This has been superseded by the `minecraft:speleothem` Feature.
+- Removed the `wilderwild:icicle_cluster_feature` Feature.
+  - This has been superseded by the `minecraft:speleothem_cluster` Feature.
+- The Ice paths in the Frozen Caves biome now use Surface Rules to generate, offering cleaner generation and a significant performance boost.
+  - The `wilderwild:ice_paths` Configured Feature and Placed Feature have both been removed.

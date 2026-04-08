@@ -74,14 +74,12 @@ import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemClust
 import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWCaveConfigured {
 	// MESOGLEA CAVES
@@ -135,7 +133,6 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<SpeleothemClusterConfiguration> ICICLE_CLUSTER = register("icicle_cluster");
 	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> CAVE_ICICLE = register("cave_icicle");
 	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> ICICLE = register("icicle");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> ICE_PATHS = register("ice_paths");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> PACKED_ICE_COLUMN = register("packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
 	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
@@ -857,99 +854,6 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
 					)
 				)
-			)
-		);
-
-		BlockStateProvider icePathProvider = new NoiseProvider(
-			153,
-			new NormalNoise.NoiseParameters(0, 1F),
-			0.020833334F,
-			List.of(
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.BLUE_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState(),
-				Blocks.PACKED_ICE.defaultBlockState()
-			)
-		);
-
-		BlockPredicate iceSearchPredicate = SearchInAreaBlockPredicate.hasAirOrWaterWithin(2);
-
-		ICE_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
-			new NoisePathFeatureConfig(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-					.noiseScale(0.0325D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.within(-1D, -0.7D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
-							.within(-0.7D, -0.6D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.within(-0.6D, 0.2D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
-							.within(0.2D, 0.25D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.within(0.25D, 0.6D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE))
-							.within(0.6D, 0.7D)
-							.searchingPredicate(iceSearchPredicate)
-							.build(),
-						new NoiseBandBlockPlacement.Builder(icePathProvider)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.within(0.7D, 1D)
-							.searchingPredicate(iceSearchPredicate)
-							.build()
-					).build(),
-				8
 			)
 		);
 

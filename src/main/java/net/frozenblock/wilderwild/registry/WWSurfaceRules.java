@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.WWConstants;
@@ -482,10 +483,104 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
+	public static SurfaceRules.RuleSource frozenCavesSurfaceRules() {
+		final SurfaceRules.RuleSource iceNoiseRule = SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState())
+			)
+		);
+
+		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState()),
+				Optional.of(WWBlocks.FRAGILE_ICE.defaultBlockState())
+			)
+		);
+
+		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = SurfaceRules.noiseGradient(
+			Noises.SULFUR_CAVE_GRADIENT,
+			List.of(
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.empty(),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.BLUE_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState()),
+				Optional.of(Blocks.PACKED_ICE.defaultBlockState())
+			)
+		);
+
+		return SurfaceRules.ifTrue(
+			SurfaceRules.isBiome(WWBiomes.FROZEN_CAVES),
+			SurfaceRules.sequence(
+				SurfaceRules.ifTrue(
+					SurfaceRules.ON_FLOOR,
+					SurfaceRules.sequence(
+						SurfaceRules.ifTrue(
+							SurfaceRules.ON_CEILING,
+							iceNoiseRuleOnlyFragileIce
+						),
+						iceNoiseRule
+					)
+				),
+				SurfaceRules.ifTrue(
+					SurfaceRules.UNDER_FLOOR,
+					iceNoiseRule
+				),
+				SurfaceRules.ifTrue(
+					SurfaceRules.DEEP_UNDER_FLOOR,
+					iceNoiseRuleNoFragileIce
+				),
+				SurfaceRules.ifTrue(
+					SurfaceRules.ON_CEILING,
+					iceNoiseRule
+				),
+				SurfaceRules.ifTrue(
+					SurfaceRules.UNDER_CEILING,
+					iceNoiseRule
+				)
+			)
+		);
+	}
+
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(List<SurfaceRules.RuleSource> context) {
 		context.add(
-			snowUnderMountains()
+			SurfaceRules.sequence(
+				snowUnderMountains(),
+				frozenCavesSurfaceRules()
+			)
 		);
 		WWConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}

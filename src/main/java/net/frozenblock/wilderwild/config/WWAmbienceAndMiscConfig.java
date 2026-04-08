@@ -33,7 +33,11 @@ public final class WWAmbienceAndMiscConfig {
 	public static final ConfigEntry<Boolean> DEEP_DARK_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/deepDarkAmbience", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DEEP_DARK_FOG = CONFIG.unsyncableEntryBuilder("biomeAmbience/deepDarkFog", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DRIPSTONE_CAVES_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/dripstoneCavesAmbience", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> DRIPSTONE_CAVES_FOG = CONFIG.unsyncableEntryBuilder("biomeAmbience/dripstoneCavesFog", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> LUSH_CAVES_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/lushCavesAmbience", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> LUSH_CAVES_FOG = CONFIG.unsyncableEntryBuilder("biomeAmbience/lushCavesFog", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SULFUR_CAVES_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/sulfurCavesAmbience", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> SULFUR_CAVES_FOG = CONFIG.unsyncableEntryBuilder("biomeAmbience/sulfurCavesFog", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FROZEN_CAVES_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/frozenCavesAmbience", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FROZEN_CAVES_FOG = CONFIG.unsyncableEntryBuilder("biomeAmbience/frozenCavesFog", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> MESOGLEA_CAVES_AMBIENCE = CONFIG.unsyncableEntryBuilder("biomeAmbience/mesogleaCavesAmbience", EntryType.BOOL, true).requireRestart().build();

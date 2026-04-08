@@ -42,6 +42,30 @@ public final class WWBiomeSettings {
 				setFogColor(context, 0);
 			});
 
+		BiomeModifications.create(WWConstants.id("fog_dripstone_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.DRIPSTONE_CAVES),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_FOG.get()) return;
+				setFogColor(context, 0);
+			});
+
+		BiomeModifications.create(WWConstants.id("fog_lush_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.LUSH_CAVES),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.MESOGLEA_CAVES_FOG.get()) return;
+				setFogColor(context, 0);
+			});
+
+		BiomeModifications.create(WWConstants.id("fog_sulfur_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.SULFUR_CAVES),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.SULFUR_CAVES_FOG.get()) return;
+				setFogColor(context, 0);
+			});
+
 		BiomeModifications.create(WWConstants.id("fog_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),

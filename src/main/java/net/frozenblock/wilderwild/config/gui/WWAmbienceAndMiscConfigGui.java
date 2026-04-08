@@ -105,7 +105,11 @@ public final class WWAmbienceAndMiscConfigGui {
 		var deepDarkAmbience = booleanEntry(builder, "deep_dark_ambience", WWAmbienceAndMiscConfig.DEEP_DARK_AMBIENCE);
 		var deepDarkFog = booleanEntry(builder, "deep_dark_fog", WWAmbienceAndMiscConfig.DEEP_DARK_FOG);
 		var dripstoneCavesAmbience = booleanEntry(builder, "dripstone_caves_ambience", WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_AMBIENCE);
+		var dripstoneCavesFog = booleanEntry(builder, "dripstone_caves_fog", WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_FOG);
 		var lushCavesAmbience = booleanEntry(builder, "lush_caves_ambience", WWAmbienceAndMiscConfig.LUSH_CAVES_AMBIENCE);
+		var lushCavesFog = booleanEntry(builder, "lush_caves_fog", WWAmbienceAndMiscConfig.LUSH_CAVES_FOG);
+		var sulfurCavesAmbience = booleanEntry(builder, "sulfur_caves_ambience", WWAmbienceAndMiscConfig.SULFUR_CAVES_AMBIENCE);
+		var sulfurCavesFog = booleanEntry(builder, "sulfur_caves_fog", WWAmbienceAndMiscConfig.SULFUR_CAVES_FOG);
 		var frozenCavesAmbience = booleanEntry(builder, "frozen_caves_ambience", WWAmbienceAndMiscConfig.FROZEN_CAVES_AMBIENCE);
 		var frozenCavesFog = booleanEntry(builder, "frozen_caves_fog", WWAmbienceAndMiscConfig.FROZEN_CAVES_FOG);
 		var mesogleaCavesAmbience = booleanEntry(builder, "mesoglea_caves_ambience", WWAmbienceAndMiscConfig.MESOGLEA_CAVES_AMBIENCE);
@@ -118,8 +122,9 @@ public final class WWAmbienceAndMiscConfigGui {
 			false,
 			tooltip("biome_ambience"),
 			deepDarkAmbience, deepDarkFog,
-			dripstoneCavesAmbience,
-			lushCavesAmbience,
+			dripstoneCavesAmbience, dripstoneCavesFog,
+			lushCavesAmbience, lushCavesFog,
+			sulfurCavesAmbience, sulfurCavesFog,
 			frozenCavesAmbience, frozenCavesFog,
 			magmaticCavesAmbience, magmaticCavesFog, magmaticCavesParticles,
 			mesogleaCavesAmbience, mesogleaCavesFog
