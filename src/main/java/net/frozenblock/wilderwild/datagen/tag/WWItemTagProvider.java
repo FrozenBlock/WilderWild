@@ -469,9 +469,6 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.add(WWBlocks.NULL_BLOCK.asItem())
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
 
-		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT)
-			.addOptionalTag(WWItemTags.MESOGLEA);
-
 		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
 			.add(WWBlocks.FRAGILE_ICE.asItem());
 
