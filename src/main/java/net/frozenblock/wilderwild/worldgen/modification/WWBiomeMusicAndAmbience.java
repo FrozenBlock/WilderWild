@@ -243,7 +243,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.includeByKey(Biomes.SULFUR_CAVES),
 			context -> {
 				if (WWAmbienceAndMiscConfig.SULFUR_CAVES_AMBIENCE.get()) {
-					setBiomeAmbience(context, WWSounds.AMBIENT_SULFUR_CAVES_LOOP, WWSounds.AMBIENT_SULFUR_CAVES_ADDITIONS, 0.015D);
+					setBiomeAmbience(context, WWSounds.AMBIENT_SULFUR_CAVES_LOOP, WWSounds.AMBIENT_SULFUR_CAVES_ADDITIONS, 0.02D);
 				}
 			});
 
