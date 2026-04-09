@@ -238,6 +238,15 @@ public final class WWBiomeMusicAndAmbience {
 				}
 			});
 
+		BiomeModifications.create(WWConstants.id("modify_ambience_sulfur_caves")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.SULFUR_CAVES),
+			context -> {
+				if (WWAmbienceAndMiscConfig.SULFUR_CAVES_AMBIENCE.get()) {
+					setBiomeAmbience(context, WWSounds.AMBIENT_SULFUR_CAVES_LOOP, WWSounds.AMBIENT_SULFUR_CAVES_ADDITIONS, 0.015D);
+				}
+			});
+
 		BiomeModifications.create(WWConstants.id("modify_ambience_frozen_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.includeByKey(WWBiomes.FROZEN_CAVES),

@@ -34,6 +34,8 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_CAVES_LOOP = registerForHolder("ambient.mesoglea_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_ADDITIONS = registerForHolder("ambient.lush_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_LUSH_CAVES_LOOP = registerForHolder("ambient.lush_caves.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_SULFUR_CAVES_ADDITIONS = registerForHolder("ambient.sulfur_caves.additions");
+	public static final Holder.Reference<SoundEvent> AMBIENT_SULFUR_CAVES_LOOP = registerForHolder("ambient.sulfur_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_ADDITIONS = registerForHolder("ambient.magmatic_caves.additions");
 	public static final Holder.Reference<SoundEvent> AMBIENT_MAGMATIC_CAVES_LOOP = registerForHolder("ambient.magmatic_caves.loop");
 	public static final Holder.Reference<SoundEvent> AMBIENT_FROZEN_CAVES_ADDITIONS = registerForHolder("ambient.frozen_caves.additions");

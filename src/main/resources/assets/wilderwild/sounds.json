@@ -396,6 +396,264 @@
       }
     ]
   },
+  "ambient.sulfur_caves.additions": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_bubble1",
+        "weight": 4,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_bubble2",
+        "weight": 4,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_bubble3",
+        "weight": 4,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_bubble4",
+        "weight": 4,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray1",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray2",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray3",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray4",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray5",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray6",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_spray7",
+        "weight": 2,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell1",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell2",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell3",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell4",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell5",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell6",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid_swell7",
+        "weight": 2,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid1",
+        "weight": 2,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid2",
+        "weight": 2,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid3",
+        "weight": 2,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid4",
+        "weight": 2,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/acid5",
+        "weight": 2,
+        "volume": 0.01
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/bubble1",
+        "weight": 2,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/bubble2",
+        "weight": 2,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/bubble3",
+        "weight": 2,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/bubble4",
+        "weight": 2,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/bubble5",
+        "weight": 2,
+        "volume": 0.03
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz1",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz2",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz3",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz4",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz5",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz6",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz7",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz8",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/fizz9",
+        "weight": 2,
+        "volume": 0.04
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/splash1",
+        "weight": 7,
+        "volume": 0.02
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish1",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish2",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish3",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish4",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish5",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish6",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish7",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish8",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish9",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish10",
+        "weight": 1,
+        "volume": 0.015
+      },
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/squish11",
+        "weight": 1,
+        "volume": 0.015
+      }
+    ]
+  },
+  "ambient.sulfur_caves.loop": {
+    "sounds": [
+      {
+        "name": "wilderwild:ambient/cave/sulfur_caves/ambience",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
   "ambient.magmatic_caves.additions": {
     "sounds": [
       {
