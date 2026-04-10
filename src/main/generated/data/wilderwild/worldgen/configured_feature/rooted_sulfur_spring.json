@@ -7,7 +7,7 @@
     },
     "allowed_vertical_water_for_tree": 1,
     "feature": {
-      "feature": "wilderwild:sulfur_spring",
+      "feature": "wilderwild:sulfur_springs",
       "placement": [
         {
           "type": "minecraft:heightmap",

@@ -23,6 +23,10 @@
     {
       "id": "#minecraft:replaceable",
       "required": false
+    },
+    {
+      "id": "#minecraft:terracotta",
+      "required": false
     }
   ]
 }

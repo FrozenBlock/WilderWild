@@ -407,14 +407,17 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SAND)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.LEAVES)
-			.addOptionalTag(BlockTags.REPLACEABLE);
+			.addOptionalTag(BlockTags.REPLACEABLE)
+			.addOptionalTag(BlockTags.TERRACOTTA);
 
 		this.valueLookupBuilder(WWBlockTags.SULFUR_SPRING_PLACEABLE)
+			.add(Blocks.CLAY)
 			.add(Blocks.GRAVEL)
 			.add(Blocks.SULFUR, Blocks.CINNABAR)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.TERRACOTTA);
 
 		this.valueLookupBuilder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)

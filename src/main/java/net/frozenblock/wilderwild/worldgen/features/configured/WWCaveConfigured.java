@@ -152,6 +152,9 @@ public final class WWCaveConfigured {
 	// SULFUR CAVES
 	public static final FrozenLibConfiguredFeature<RootSystemConfiguration> ROOTED_SULFUR_SPRING = WWFeatureUtils.register("rooted_sulfur_spring");
 	public static final FrozenLibConfiguredFeature<SulfurSpringFeatureConfig> SULFUR_SPRING = WWFeatureUtils.register("sulfur_spring");
+	public static final FrozenLibConfiguredFeature<SulfurSpringFeatureConfig> SULFUR_SPRING_LARGE = WWFeatureUtils.register("sulfur_spring_large");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> SULFUR_SPRING_DOUBLE = WWFeatureUtils.register("sulfur_spring_double");
+	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> SULFUR_SPRINGS = WWFeatureUtils.register("sulfur_springs");
 	public static final FrozenLibConfiguredFeature<SulfurSpringDecorationFeatureConfig> SULFUR_SPRING_DECORATION = WWFeatureUtils.register("sulfur_spring_decoration");
 
 	private WWCaveConfigured() {
@@ -1376,7 +1379,7 @@ public final class WWCaveConfigured {
 		ROOTED_SULFUR_SPRING.makeAndSetHolder(Feature.ROOT_SYSTEM,
 			new RootSystemConfiguration(
 				PlacementUtils.inlinePlaced(
-					SULFUR_SPRING.getHolder(),
+					SULFUR_SPRINGS.getHolder(),
 					PlacementUtils.HEIGHTMAP_TOP_SOLID,
 					BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SULFUR_SPRING_PLACEABLE))
 				),
@@ -1408,6 +1411,46 @@ public final class WWCaveConfigured {
 				PlacementUtils.inlinePlaced(SULFUR_SPRING_DECORATION.getHolder()),
 				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_REPLACEABLE),
 				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		SULFUR_SPRING_LARGE.makeAndSetHolder(WWFeatures.SULFUR_SPRING_FEATURE,
+			new SulfurSpringFeatureConfig(
+				UniformInt.of(2, 5),
+				UniformInt.of(3, 6),
+				ClampedNormalFloat.of(0F, 1F, -0.5F, 1.5F),
+				UniformFloat.of(0F, 0.375F),
+				0.5F,
+				0.2F,
+				BlockStateProvider.simple(Blocks.SULFUR),
+				BlockStateProvider.simple(Blocks.WATER),
+				PlacementUtils.inlinePlaced(SULFUR_SPRING_DECORATION.getHolder()),
+				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_REPLACEABLE),
+				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		SULFUR_SPRING_DOUBLE.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(SULFUR_SPRING.getHolder()),
+					PlacementUtils.inlinePlaced(
+						SULFUR_SPRING_LARGE.getHolder(),
+						RandomOffsetPlacement.of(UniformInt.of(-2, 2), ConstantInt.of(-1))
+					)
+				)
+			)
+		);
+
+		SULFUR_SPRINGS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
+			new RandomFeatureConfiguration(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(SULFUR_SPRING_DOUBLE.getHolder()),
+						0.15F
+					)
+				),
+				PlacementUtils.inlinePlaced(SULFUR_SPRING.getHolder())
 			)
 		);
 

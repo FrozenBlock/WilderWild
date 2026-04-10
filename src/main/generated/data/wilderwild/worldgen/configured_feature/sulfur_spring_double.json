@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:sequence",
+  "config": {
+    "features": [
+      {
+        "feature": "wilderwild:sulfur_spring",
+        "placement": []
+      },
+      {
+        "feature": "wilderwild:sulfur_spring_large",
+        "placement": [
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 2,
+              "min_inclusive": -2
+            },
+            "y_spread": -1
+          }
+        ]
+      }
+    ]
+  }
+}

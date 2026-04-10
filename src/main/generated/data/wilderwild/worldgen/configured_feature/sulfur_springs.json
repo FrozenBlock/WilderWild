@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "wilderwild:sulfur_spring",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.15,
+        "feature": {
+          "feature": "wilderwild:sulfur_spring_double",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

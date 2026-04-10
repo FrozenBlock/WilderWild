@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:clay",
     "minecraft:gravel",
     "minecraft:sulfur",
     "minecraft:cinnabar",
@@ -13,6 +14,10 @@
     },
     {
       "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    {
+      "id": "#minecraft:terracotta",
       "required": false
     }
   ]
