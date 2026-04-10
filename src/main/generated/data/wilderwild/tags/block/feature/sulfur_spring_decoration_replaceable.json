@@ -1,0 +1,10 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:feature/sulfur_spring_replaceable",
+      "required": false
+    },
+    "minecraft:sulfur",
+    "minecraft:cinnabar"
+  ]
+}

@@ -1960,6 +1960,9 @@ public final class WWBiomeTagProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.HAS_HYDROTHERMAL_VENT_RARE)
 			.add(Biomes.DEEP_OCEAN);
 
+		this.builder(WWBiomeTags.HAS_SULFUR_SPRING)
+			.add(Biomes.SULFUR_CAVES);
+
 		this.builder(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)
 			.add(Biomes.TAIGA)
 			.add(Biomes.SNOWY_TAIGA)

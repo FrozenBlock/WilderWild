@@ -111,6 +111,9 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature DIORITE_PATCH_CEILING = WWPlacementUtils.register("diorite_patch_ceiling");
 	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
 
+	// SULFUR CAVES
+	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = WWPlacementUtils.register("rooted_sulfur_spring");
+
 	private WWCavePlaced() {
 		throw new UnsupportedOperationException("WWCavePlaced contains only static declarations.");
 	}
@@ -576,6 +579,16 @@ public final class WWCavePlaced {
 
 		ORE_DIORITE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(OreFeatures.ORE_DIORITE),
 			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
+		);
+
+		// SULFUR CAVES
+		ROOTED_SULFUR_SPRING.makeAndSetHolder(WWCaveConfigured.ROOTED_SULFUR_SPRING,
+			CountPlacement.of(UniformInt.of(1, 2)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			BiomeFilter.biome()
 		);
 	}
 

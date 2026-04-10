@@ -270,6 +270,8 @@ public final class WWMiscGeneration {
 						generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.BASIN_MUD.getKey());
 					}
 				}
+
+
 			});
 
 		BiomeModifications.create(WWConstants.id("surface_transitions")).add(

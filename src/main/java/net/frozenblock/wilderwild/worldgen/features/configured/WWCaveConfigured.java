@@ -41,6 +41,8 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils;
 import static net.frozenblock.wilderwild.worldgen.features.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.LargeMesogleaConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.SulfurSpringDecorationFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.SulfurSpringFeatureConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -50,6 +52,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
@@ -67,6 +70,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatur
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RootSystemConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemClusterConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemConfiguration;
@@ -143,6 +147,11 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> FRAGILE_ICE_PATCH = WWFeatureUtils.register("fragile_ice_patch");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DIORITE_PATCH = WWFeatureUtils.register("diorite_patch");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
+
+	// SULFUR CAVES
+	public static final FrozenLibConfiguredFeature<RootSystemConfiguration> ROOTED_SULFUR_SPRING = WWFeatureUtils.register("rooted_sulfur_spring");
+	public static final FrozenLibConfiguredFeature<SulfurSpringFeatureConfig> SULFUR_SPRING = WWFeatureUtils.register("sulfur_spring");
+	public static final FrozenLibConfiguredFeature<SulfurSpringDecorationFeatureConfig> SULFUR_SPRING_DECORATION = WWFeatureUtils.register("sulfur_spring_decoration");
 
 	private WWCaveConfigured() {
 		throw new UnsupportedOperationException("WWCaveConfigured contains only static declarations.");
@@ -1358,6 +1367,55 @@ public final class WWCaveConfigured {
 				0.05F,
 				UniformInt.of(2, 6),
 				0.65F
+			)
+		);
+
+		// SULFUR CAVES
+
+		ROOTED_SULFUR_SPRING.makeAndSetHolder(Feature.ROOT_SYSTEM,
+			new RootSystemConfiguration(
+				PlacementUtils.inlinePlaced(
+					SULFUR_SPRING.getHolder(),
+					PlacementUtils.HEIGHTMAP_TOP_SOLID
+				),
+				5,
+				3,
+				blocks.getOrThrow(BlockTags.AZALEA_ROOT_REPLACEABLE),
+				BlockStateProvider.simple(Blocks.SULFUR),
+				20,
+				184,
+				1,
+				1,
+				BlockStateProvider.simple(Blocks.SULFUR),
+				1,
+				1,
+				BlockPredicate.ONLY_IN_AIR_PREDICATE
+			)
+		);
+
+		SULFUR_SPRING.makeAndSetHolder(WWFeatures.SULFUR_SPRING_FEATURE,
+			new SulfurSpringFeatureConfig(
+				UniformInt.of(2, 5),
+				UniformInt.of(2, 4),
+				ClampedNormalFloat.of(0F, 1F, -0.5F, 1.5F),
+				UniformFloat.of(0F, 0.375F),
+				0.5F,
+				0.2F,
+				BlockStateProvider.simple(Blocks.SULFUR),
+				BlockStateProvider.simple(Blocks.WATER),
+				PlacementUtils.inlinePlaced(SULFUR_SPRING_DECORATION.getHolder()),
+				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_REPLACEABLE),
+				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
+			)
+		);
+
+		SULFUR_SPRING_DECORATION.makeAndSetHolder(WWFeatures.SULFUR_SPRING_DECORATION_FEATURE,
+			new SulfurSpringDecorationFeatureConfig(
+				BlockStateProvider.simple(Blocks.SULFUR),
+				BlockStateProvider.simple(Blocks.POTENT_SULFUR),
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
+				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_DECORATION_REPLACEABLE),
+				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);
 	}

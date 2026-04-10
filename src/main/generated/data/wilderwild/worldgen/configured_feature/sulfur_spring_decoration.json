@@ -1,0 +1,25 @@
+{
+  "type": "wilderwild:sulfur_spring_decoration",
+  "config": {
+    "bottom_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:magma_block"
+      }
+    },
+    "cannot_replace": "#minecraft:features_cannot_replace",
+    "replaceable": "#wilderwild:feature/sulfur_spring_decoration_replaceable",
+    "spring_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sulfur"
+      }
+    },
+    "top_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:potent_sulfur"
+      }
+    }
+  }
+}

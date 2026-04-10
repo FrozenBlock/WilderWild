@@ -1,0 +1,50 @@
+{
+  "type": "wilderwild:sulfur_spring",
+  "config": {
+    "block_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sulfur"
+      }
+    },
+    "bluntness": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.375,
+      "min_inclusive": 0.0
+    },
+    "cannot_replace": "#minecraft:features_cannot_replace",
+    "crib_block_chance": 0.5,
+    "crib_extra_block_chance": 0.2,
+    "curve_distance": {
+      "type": "minecraft:clamped_normal",
+      "deviation": 1.0,
+      "max": 1.5,
+      "mean": 0.0,
+      "min": -0.5
+    },
+    "decoration_feature": {
+      "feature": "wilderwild:sulfur_spring_decoration",
+      "placement": []
+    },
+    "height": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 5,
+      "min_inclusive": 2
+    },
+    "replaceable": "#wilderwild:feature/sulfur_spring_replaceable",
+    "water_block_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:water",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    },
+    "width": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 2
+    }
+  }
+}

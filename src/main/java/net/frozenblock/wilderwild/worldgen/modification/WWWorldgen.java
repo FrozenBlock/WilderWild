@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.worldgen.features.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.worldgen.features.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
@@ -33,6 +34,7 @@ import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SulfurCavesCalci
 import net.frozenblock.wilderwild.worldgen.impl.treedecorators.WWTreeDecorators;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -413,6 +415,15 @@ public final class WWWorldgen {
 				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIG_BUSHES_WATER.getKey());
 			});
 
+		BiomeModifications.create(WWConstants.id("replace_sulfur_springs")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SULFUR_SPRING),
+			(context) -> {
+				if (!WWWorldgenConfig.NEW_SULFUR_SPRING.get()) return;
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				generationSettings.removeFeature(CavePlacements.ROOTED_SULFUR_SPRING);
+				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ROOTED_SULFUR_SPRING.getKey());
+			});
 	}
 
 	private static void generatePollen() {

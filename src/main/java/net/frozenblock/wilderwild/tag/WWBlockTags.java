@@ -162,6 +162,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> FALLEN_TREE_PLACEABLE = bind("feature/fallen_tree_placeable");
 	public static final TagKey<Block> BASIN_REPLACEABLE = bind("feature/basin_replaceable");
 	public static final TagKey<Block> HYDROTHERMAL_VENT_REPLACEABLE = bind("feature/hydrothermal_vent_replaceable");
+	public static final TagKey<Block> SULFUR_SPRING_REPLACEABLE = bind("feature/sulfur_spring_replaceable");
+	public static final TagKey<Block> SULFUR_SPRING_DECORATION_REPLACEABLE = bind("feature/sulfur_spring_decoration_replaceable");
 	public static final TagKey<Block> CATTAIL_FEATURE_PLACEABLE = bind("feature/cattail_placeable");
 	public static final TagKey<Block> STONE_TRANSITION_REPLACEABLE = bind("feature/stone_transition_replaceable");
 	public static final TagKey<Block> STONE_TRANSITION_PLACEABLE = bind("feature/stone_transition_placeable");

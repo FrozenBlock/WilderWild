@@ -31,6 +31,8 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.ShelfFungiFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.SpongeBudFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.SulfurSpringDecorationFeature;
+import net.frozenblock.wilderwild.worldgen.impl.feature.SulfurSpringFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.CattailFeatureConfig;
@@ -38,6 +40,8 @@ import net.frozenblock.wilderwild.worldgen.impl.feature.config.LargeMesogleaConf
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.ShelfFungiFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SnowAndIceDiskFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.SpongeBudFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.SulfurSpringDecorationFeatureConfig;
+import net.frozenblock.wilderwild.worldgen.impl.feature.config.SulfurSpringFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.feature.config.WaterCoverFeatureConfig;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.LegacyMapleFoliagePlacer;
 import net.frozenblock.wilderwild.worldgen.impl.foliage.MapleFoliagePlacer;
@@ -111,6 +115,8 @@ public final class WWFeatures {
 	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk_feature", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfig.CODEC));
 	public static final PalmTreeFeature PALM_TREE_FEATURE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
 	public static final Feature<HugeMushroomFeatureConfiguration> HUGE_PALE_MUSHROOM_FEATURE = register("huge_pale_mushroom", new HugePaleMushroomFeature(HugeMushroomFeatureConfiguration.CODEC));
+	public static final SulfurSpringFeature SULFUR_SPRING_FEATURE = register("sulfur_spring", new SulfurSpringFeature(SulfurSpringFeatureConfig.CODEC));
+	public static final SulfurSpringDecorationFeature SULFUR_SPRING_DECORATION_FEATURE = register("sulfur_spring_decoration", new SulfurSpringDecorationFeature(SulfurSpringDecorationFeatureConfig.CODEC));
 
 	public static void init() {}
 
