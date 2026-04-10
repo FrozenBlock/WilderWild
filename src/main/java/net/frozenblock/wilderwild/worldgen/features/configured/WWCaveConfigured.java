@@ -1447,7 +1447,7 @@ public final class WWCaveConfigured {
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(SULFUR_SPRING_DOUBLE.getHolder()),
-						0.15F
+						0.25F
 					)
 				),
 				PlacementUtils.inlinePlaced(SULFUR_SPRING.getHolder())
