@@ -78,6 +78,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatch
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -1376,7 +1377,8 @@ public final class WWCaveConfigured {
 			new RootSystemConfiguration(
 				PlacementUtils.inlinePlaced(
 					SULFUR_SPRING.getHolder(),
-					PlacementUtils.HEIGHTMAP_TOP_SOLID
+					PlacementUtils.HEIGHTMAP_TOP_SOLID,
+					BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SULFUR_SPRING_PLACEABLE))
 				),
 				5,
 				3,
