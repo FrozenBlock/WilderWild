@@ -1414,7 +1414,7 @@ public final class WWCaveConfigured {
 				BlockStateProvider.simple(Blocks.SULFUR),
 				BlockStateProvider.simple(Blocks.POTENT_SULFUR),
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
-				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_DECORATION_REPLACEABLE),
+				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_REPLACEABLE),
 				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
 			)
 		);

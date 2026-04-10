@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.worldgen.modification;
 
+import java.util.Map;
 import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -42,7 +43,6 @@ import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import java.util.Map;
 
 public final class WWWorldgen {
 
@@ -422,7 +422,7 @@ public final class WWWorldgen {
 				if (!WWWorldgenConfig.NEW_SULFUR_SPRING.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 				generationSettings.removeFeature(CavePlacements.ROOTED_SULFUR_SPRING);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.ROOTED_SULFUR_SPRING.getKey());
+				generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlaced.ROOTED_SULFUR_SPRING.getKey());
 			});
 	}
 

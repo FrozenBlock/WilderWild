@@ -587,6 +587,8 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SULFUR_SPRING_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i().multiply(2), WWBlockTags.SULFUR_SPRING_PLACEABLE)),
 			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);

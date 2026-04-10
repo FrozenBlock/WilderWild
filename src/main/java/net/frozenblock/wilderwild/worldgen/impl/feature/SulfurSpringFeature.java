@@ -46,7 +46,6 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 		super(codec);
 	}
 
-	// TODO: Test & fix possible placement issues: generating over 1-thin surfaces, ice, etc
 	@Override
 	public boolean place(FeaturePlaceContext<SulfurSpringFeatureConfig> context) {
 		final WorldGenLevel level = context.level();

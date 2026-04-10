@@ -8,7 +8,7 @@
       }
     },
     "cannot_replace": "#minecraft:features_cannot_replace",
-    "replaceable": "#wilderwild:feature/sulfur_spring_decoration_replaceable",
+    "replaceable": "#wilderwild:feature/sulfur_spring_replaceable",
     "spring_state": {
       "type": "minecraft:simple_state_provider",
       "state": {

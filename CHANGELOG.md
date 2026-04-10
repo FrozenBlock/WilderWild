@@ -80,7 +80,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `bottom_state` a Block State Provider, determining the Block States to generate the bottom piece of the feature with. (i.e., Magma.)
     - `replaceable`: a list or Tag of Blocks that the feature can replace.
     - `cannot_replace`: a list or Tag of Blocks that the feature cannot replace.
-  - Added the `wilderwild:feature/sulfur_spring_replaceable` and `wilderwild:feature/sulfur_spring_decoration_replaceable` Block Tags.
+  - Added the `wilderwild:feature/sulfur_spring_replaceable` and `wilderwild:feature/sulfur_spring_placeable` Block Tags.
   - Added the `wilderwild:feature/has_sulfur_spring` Biome Tag.
   - Added a config option to toggle the new Sulfur Spring generation.
 - Calcite now generates alongside Sulfur and Cinnabar in the Sulfur Caves biome.
