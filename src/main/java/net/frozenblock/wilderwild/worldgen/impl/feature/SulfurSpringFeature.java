@@ -39,7 +39,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.phys.Vec3;
 
 public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
-	private static final Block DUMMY_BLOCK = Blocks.AIR;
+	private static final Block DUMMY_BLOCK = Blocks.VOID_AIR;
 	private static final int BELOW_HEIGHT = -3;
 
 	public SulfurSpringFeature(Codec<SulfurSpringFeatureConfig> codec) {
@@ -186,12 +186,13 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 			for (BlockPos waterPos : waterPositions) {
 				mutable.set(waterPos);
 				setter.set(waterPos, waterState.getState(level, random, waterPos));
-				setter.set(mutable.move(Direction.DOWN).immutable(), state.getState(level, random, mutable));
+				setter.set(mutable.setWithOffset(waterPos, Direction.DOWN).immutable(), state.getState(level, random, mutable));
 			}
 
 			setters.posToStateMap().forEach((posx, statex) -> {
 				if (statex.is(DUMMY_BLOCK)) return;
 				safeSetBlock(level, posx, statex, safeToReplace);
+				markAboveForPostProcessing(level, posx);
 			});
 
 			config.decorationFeature().value().place(level, context.chunkGenerator(), random, Util.getRandom(waterPositions, random).below());

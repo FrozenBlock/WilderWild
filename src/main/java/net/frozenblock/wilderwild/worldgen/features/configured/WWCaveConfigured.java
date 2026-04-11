@@ -1419,7 +1419,7 @@ public final class WWCaveConfigured {
 					PlacementUtils.inlinePlaced(SULFUR_SPRING.getHolder()),
 					PlacementUtils.inlinePlaced(
 						SULFUR_SPRING.getHolder(),
-						RandomOffsetPlacement.of(UniformInt.of(-2, 2), ConstantInt.of(-1))
+						RandomOffsetPlacement.of(UniformInt.of(-2, 2), ConstantInt.of(1))
 					)
 				)
 			)
