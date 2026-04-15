@@ -180,6 +180,7 @@ public final class WWWorldgenConfigGui {
 		var lakeDecoration = booleanEntry(builder, "lake_generation", WWWorldgenConfig.LAKE_DECORATION);
 		var basinDecoration = booleanEntry(builder, "basin_generation", WWWorldgenConfig.BASIN_DECORATION);
 		var newSulfurSpring = booleanEntry(builder, "new_sulfur_spring", WWWorldgenConfig.NEW_SULFUR_SPRING);
+		var newSulfurSpike = booleanEntry(builder, "new_sulfur_spike", WWWorldgenConfig.NEW_SULFUR_SPIKE);
 
 		FrozenClothConfig.createSubCategory(builder, category, text("surface_decoration"),
 			false,
@@ -187,7 +188,7 @@ public final class WWWorldgenConfigGui {
 			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, auburnMossDecoration, paleMossDecoration,
 			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration, clearingDecoration, taigaBoulderDecoration,
 			snowPileDecoration, fragileIceDecoration, icicleDecoration, lakeDecoration, basinDecoration,
-			newSulfurSpring
+			newSulfurSpring, newSulfurSpike
 		);
 
 		category.addEntry(booleanEntry(builder, "termite_generation", WWWorldgenConfig.TERMITE_GENERATION));

@@ -161,6 +161,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> LAKE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/lakes", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> BASIN_DECORATION = CONFIG.entryBuilder("surfaceDecoration/basins", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_SULFUR_SPRING = CONFIG.entryBuilder("surfaceDecoration/newSulfurSpring", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> NEW_SULFUR_SPIKE = CONFIG.entryBuilder("surfaceDecoration/newSulfurSpike", EntryType.BOOL, true).requireRestart().build();
 
 	// AQUATIC GENERATION
 	public static final ConfigEntry<Boolean> RIVER_POOL_GENERATION = CONFIG.entryBuilder("aquaticGeneration/riverPool", EntryType.BOOL, true).requireRestart().build();

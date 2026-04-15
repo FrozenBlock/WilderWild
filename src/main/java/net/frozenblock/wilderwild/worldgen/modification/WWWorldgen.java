@@ -424,6 +424,18 @@ public final class WWWorldgen {
 				generationSettings.removeFeature(CavePlacements.ROOTED_SULFUR_SPRING);
 				generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlaced.ROOTED_SULFUR_SPRING.getKey());
 			});
+
+		BiomeModifications.create(WWConstants.id("replace_sulfur_spikes")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SULFUR_SPIKE),
+			(context) -> {
+				if (!WWWorldgenConfig.NEW_SULFUR_SPIKE.get()) return;
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				generationSettings.removeFeature(CavePlacements.SULFUR_SPIKE_CLUSTER);
+				generationSettings.removeFeature(CavePlacements.SULFUR_SPIKE);
+				generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SULFUR_SPIKE_CLUSTER.getKey());
+				generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.SULFUR_SPIKE.getKey());
+			});
 	}
 
 	private static void generatePollen() {

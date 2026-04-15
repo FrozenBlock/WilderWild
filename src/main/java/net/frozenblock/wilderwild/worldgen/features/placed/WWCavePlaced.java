@@ -45,6 +45,7 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -113,6 +114,8 @@ public final class WWCavePlaced {
 
 	// SULFUR CAVES
 	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = WWPlacementUtils.register("rooted_sulfur_spring");
+	public static final FrozenLibPlacedFeature SULFUR_SPIKE_CLUSTER = WWPlacementUtils.register("sulfur_spike_cluster");
+	public static final FrozenLibPlacedFeature SULFUR_SPIKE = WWPlacementUtils.register("sulfur_spike");
 
 	private WWCavePlaced() {
 		throw new UnsupportedOperationException("WWCavePlaced contains only static declarations.");
@@ -589,6 +592,27 @@ public final class WWCavePlaced {
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
+		);
+
+		SULFUR_SPIKE_CLUSTER.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE_CLUSTER),
+			CountPlacement.of(UniformInt.of(24, 48)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BiomeFilter.biome(),
+			NoiseThresholdCountPlacement.of(-0.3D, 0, 1)
+		);
+
+		SULFUR_SPIKE.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE),
+			CountPlacement.of(UniformInt.of(86, 132)),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			CountPlacement.of(UniformInt.of(1, 5)),
+			RandomOffsetPlacement.of(
+				ClampedNormalInt.of(0F, 3F, -10, 10),
+				ClampedNormalInt.of(0F, 0.6F, -2, 2)
+			),
+			BiomeFilter.biome(),
+			NoiseThresholdCountPlacement.of(-0.3D, 0, 1)
 		);
 	}
 
