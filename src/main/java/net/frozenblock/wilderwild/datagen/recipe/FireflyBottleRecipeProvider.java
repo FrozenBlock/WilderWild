@@ -41,7 +41,7 @@ import net.minecraft.world.level.block.ColorCollection;
 public final class FireflyBottleRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput output, HolderLookup.RegistryLookup<FireflyColor> registryLookup) {
-		final List<Identifier> colorIds = ColorCollection.make(color -> WWConstants.id(color.getName())).asList();
+		final List<Identifier> colorIds = ColorCollection.NAMES.map(WWConstants::id).asList();
 		colorFireflyBottlesWithDyes(provider, output, colorIds, registryLookup);
 
 		final List<Item> dyes = Items.DYE.asList();

@@ -35,7 +35,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
@@ -261,7 +261,7 @@ public final class CrabAi {
 			return;
 		}
 
-		if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 			setAngerTargetToNearestTargetablePlayerIfFound(level, crab, target);
 			broadcastUniversalAnger(level, crab);
 		} else {
@@ -278,7 +278,7 @@ public final class CrabAi {
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		crab.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
-		if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}

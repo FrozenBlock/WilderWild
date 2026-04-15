@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Items;
@@ -231,7 +231,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.PINK_HIBISCUS);
 		this.dropSelf(WWBlocks.PURPLE_HIBISCUS);
 		this.dropSelf(WWBlocks.FLOWERING_LILY_PAD);
-		this.dropSelf(WWBlocks.PRICKLY_PEAR_CACTUS);
+		this.dropSelf(WWBlocks.PRICKLY_PEAR);
 		this.add(WWBlocks.MILKWEED, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.DATURA, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 		this.add(WWBlocks.CATTAIL, block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));

@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -288,7 +288,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		if (entityCollisionContext.getEntity() == null) return shape;
 
 		final Entity entity = entityCollisionContext.getEntity();
-		if (entity == null || !entity.is(WWEntityTags.STAYS_IN_MESOGLEA) || entity.isPassenger() || entity.isDescending()) return shape;
+		if (entity == null || !entity.is(WWEntityTypeTags.STAYS_IN_MESOGLEA) || entity.isPassenger() || entity.isDescending()) return shape;
 		if (entity instanceof Mob mob && mob.isLeashed()) return shape;
 
 		if (entity.isInWater() || (entity.getInBlockState().getBlock() instanceof MesogleaBlock)) {

@@ -25,7 +25,6 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
@@ -126,7 +125,7 @@ public class TermiteParticle extends SingleQuadParticle {
 		float yRotation = (rotate(this.yRot, animationProgress, this.yOffset, this.ySpinSpeed)) * (this.backwardsY ? -1F : 1F) * 0.65F;
 		float zRotation = (rotate(this.zRot, animationProgress, this.zOffset, this.zSpinSpeed)) * (this.backwardsZ ? -1F : 1F) * 0.65F;
 		final BlockPos pos = this.getLerpedTermiteBlockPos(this.x, this.y, this.z, xRotation, yRotation, zRotation);
-		return this.level.hasChunkAt(pos) ? LevelRenderer.getLightCoords(this.level, pos) : LightCoordsUtil.FULL_SKY;
+		return this.level.hasChunkAt(pos) ? LightCoordsUtil.getLightCoords(this.level, pos) : LightCoordsUtil.FULL_SKY;
 	}
 
 	private BlockPos getLerpedTermiteBlockPos(double x, double y, double z, float cos, float sin, float aCos) {

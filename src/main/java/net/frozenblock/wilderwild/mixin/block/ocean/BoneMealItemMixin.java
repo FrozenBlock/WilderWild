@@ -94,12 +94,12 @@ public class BoneMealItemMixin {
 						.setValue(SpongeBudBlock.FACING, clickedFace.getOpposite());
 				}
 			} else {
-				spongeBudState = WWBlocks.SPONGE_BUD.randomBlockState(random)
+				spongeBudState = ((SpongeBudBlock) WWBlocks.SPONGE_BUD).randomBlockState(random)
 					.setValue(SpongeBudBlock.WATERLOGGED, true);
 			}
 
 			for (int k = 0; !spongeBudState.canSurvive(level, testPos) && k < 8; k++) {
-				spongeBudState = WWBlocks.SPONGE_BUD.randomBlockState(random)
+				spongeBudState = ((SpongeBudBlock) WWBlocks.SPONGE_BUD).randomBlockState(random)
 					.setValue(SpongeBudBlock.WATERLOGGED, true);
 			}
 

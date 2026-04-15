@@ -47,6 +47,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -201,7 +202,7 @@ public class Penguin extends Animal {
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
 			&& livingEntity.getType() != WWEntityTypes.PENGUIN
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()

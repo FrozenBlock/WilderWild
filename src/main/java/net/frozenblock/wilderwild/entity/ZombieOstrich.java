@@ -33,6 +33,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -75,7 +76,7 @@ public class ZombieOstrich extends AbstractOstrich {
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		if (spawnReason == EntitySpawnReason.NATURAL) {
-			final Zombie zombie = EntityType.ZOMBIE.create(this.level(), EntitySpawnReason.JOCKEY);
+			final Zombie zombie = EntityTypes.ZOMBIE.create(this.level(), EntitySpawnReason.JOCKEY);
 			if (zombie != null) {
 				zombie.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0F);
 				zombie.finalizeSpawn(level, difficulty, spawnReason, null);

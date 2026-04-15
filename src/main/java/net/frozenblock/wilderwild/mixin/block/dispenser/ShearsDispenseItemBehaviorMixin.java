@@ -72,7 +72,7 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearPricklyPear(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() != WWBlocks.PRICKLY_PEAR_CACTUS || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
+		if (state.getBlock() != WWBlocks.PRICKLY_PEAR || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
 		PricklyPearCactusBlock.onPricklyPearPick(level, pos, state, true, stack, null);
 		return true;
 	}

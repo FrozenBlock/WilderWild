@@ -9,12 +9,12 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": [
+              "minecraft:entity_type": [
                 "minecraft:cow",
                 "minecraft:mooshroom",
                 "wilderwild:moobloom"
               ],
-              "flags": {
+              "minecraft:flags": {
                 "is_on_fire": true
               }
             }

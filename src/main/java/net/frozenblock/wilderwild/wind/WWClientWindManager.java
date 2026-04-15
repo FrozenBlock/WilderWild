@@ -61,7 +61,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		final ClientLevel level = minecraft.level;
 		if (level == null) return;
 
-		final BlockPos pos = minecraft.gameRenderer.getMainCamera().blockPosition();
+		final BlockPos pos = minecraft.gameRenderer.mainCamera().blockPosition();
 		animateTick(level, pos.getX(), pos.getY(), pos.getZ());
 	}
 

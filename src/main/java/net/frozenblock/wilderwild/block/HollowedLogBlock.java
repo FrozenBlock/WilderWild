@@ -51,7 +51,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Contract;
 
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
 	public static final double HOLLOW_PARTICLE_DIRECTION_OFFSET = 0.3375D;
@@ -106,11 +105,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 
-	@Contract(value = "_, _ -> new", pure = true)
-	public static AxeApi.AxeBehavior createHollowBehavior(
-		Block result,
-		boolean isStem
-	) {
+	public static AxeApi.AxeBehavior createHollowBehavior(Block result, boolean isStem) {
 		return new AxeApi.AxeBehavior() {
 			@Override
 			public boolean meetsRequirements(LevelReader level, BlockPos pos, Direction direction, BlockState state) {

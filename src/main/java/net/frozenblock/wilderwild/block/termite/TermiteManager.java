@@ -22,7 +22,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWCriteria;

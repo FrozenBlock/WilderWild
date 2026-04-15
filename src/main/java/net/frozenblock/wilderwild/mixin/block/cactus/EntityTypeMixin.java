@@ -46,7 +46,7 @@ public class EntityTypeMixin {
 		)
 	)
 	private boolean wilderWild$isBlockDangerousWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
-		return operation.call(state, block) || operation.call(state, WWBlocks.PRICKLY_PEAR_CACTUS);
+		return operation.call(state, block) || operation.call(state, WWBlocks.PRICKLY_PEAR);
 	}
 
 }

@@ -21,7 +21,7 @@ import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +30,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -119,8 +120,8 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 		boolean isPrecise
 	) {
 		final EntityType<?> entityType = entity.getType();
-		if (entityType.equals(EntityType.FALLING_BLOCK)) level.destroyBlock(pos, false);
-		if (!entity.is(WWEntityTags.CAN_SWIM_IN_ALGAE)) {
+		if (entityType.equals(EntityTypes.FALLING_BLOCK)) level.destroyBlock(pos, false);
+		if (!entity.is(WWEntityTypeTags.CAN_SWIM_IN_ALGAE)) {
 			if (entity instanceof Player player && player.getAbilities().flying) return;
 			entity.resetFallDistance();
 			entity.setDeltaMovement(entity.getDeltaMovement().scale(ENTITY_SLOWDOWN));

@@ -9,13 +9,13 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": [
+              "minecraft:entity_type": [
                 "minecraft:chicken",
                 "wilderwild:ostrich",
                 "wilderwild:zombie_ostrich",
                 "wilderwild:penguin"
               ],
-              "movement": {
+              "minecraft:movement": {
                 "y": {
                   "min": 0.5
                 }

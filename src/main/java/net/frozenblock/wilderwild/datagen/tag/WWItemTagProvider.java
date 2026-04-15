@@ -21,17 +21,18 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.references.WWBlockItemIds;
+import net.frozenblock.wilderwild.references.WWItemIds;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.references.BlockItemIds;
+import net.minecraft.references.ItemIds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
@@ -49,206 +50,206 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.valueLookupBuilder(ItemTags.STAIRS)
-			.add(WWBlocks.SCULK_STAIRS.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_STAIRS.asItem())
-			.add(WWBlocks.GABBRO_STAIRS.asItem())
-			.add(WWBlocks.POLISHED_GABBRO_STAIRS.asItem())
-			.add(WWBlocks.GABBRO_BRICK_STAIRS.asItem())
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS.asItem());
+		this.builder(BlockItemTags.STAIRS.item())
+			.add(WWBlockItemIds.SCULK_STAIRS)
+			.add(WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS)
+			.add(WWBlockItemIds.GABBRO_STAIRS)
+			.add(WWBlockItemIds.POLISHED_GABBRO_STAIRS)
+			.add(WWBlockItemIds.GABBRO_BRICK_STAIRS)
+			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS);
 
-		this.valueLookupBuilder(ItemTags.SLABS)
-			.add(WWBlocks.SCULK_SLAB.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_SLAB.asItem())
-			.add(WWBlocks.GABBRO_SLAB.asItem())
-			.add(WWBlocks.POLISHED_GABBRO_SLAB.asItem())
-			.add(WWBlocks.GABBRO_BRICK_SLAB.asItem())
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB.asItem());
+		this.builder(BlockItemTags.SLABS.item())
+			.add(WWBlockItemIds.SCULK_SLAB)
+			.add(WWBlockItemIds.MOSSY_MUD_BRICK_SLAB)
+			.add(WWBlockItemIds.GABBRO_SLAB)
+			.add(WWBlockItemIds.POLISHED_GABBRO_SLAB)
+			.add(WWBlockItemIds.GABBRO_BRICK_SLAB)
+			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB);
 
-		this.valueLookupBuilder(ItemTags.WALLS)
-			.add(WWBlocks.SCULK_WALL.asItem())
-			.add(WWBlocks.MOSSY_MUD_BRICK_WALL.asItem())
-			.add(WWBlocks.GABBRO_WALL.asItem())
-			.add(WWBlocks.POLISHED_GABBRO_WALL.asItem())
-			.add(WWBlocks.GABBRO_BRICK_WALL.asItem())
-			.add(WWBlocks.MOSSY_GABBRO_BRICK_WALL.asItem());
+		this.builder(ItemTags.WALLS)
+			.add(WWBlockItemIds.SCULK_WALL)
+			.add(WWBlockItemIds.MOSSY_MUD_BRICK_WALL)
+			.add(WWBlockItemIds.GABBRO_WALL)
+			.add(WWBlockItemIds.POLISHED_GABBRO_WALL)
+			.add(WWBlockItemIds.GABBRO_BRICK_WALL)
+			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_SHELVES)
-			.add(WWBlocks.BAOBAB_SHELF.asItem())
-			.add(WWBlocks.WILLOW_SHELF.asItem())
-			.add(WWBlocks.CYPRESS_SHELF.asItem())
-			.add(WWBlocks.PALM_SHELF.asItem())
-			.add(WWBlocks.MAPLE_SHELF.asItem());
+		this.builder(ItemTags.WOODEN_SHELVES)
+			.add(WWBlockItemIds.BAOBAB_SHELF)
+			.add(WWBlockItemIds.WILLOW_SHELF)
+			.add(WWBlockItemIds.CYPRESS_SHELF)
+			.add(WWBlockItemIds.PALM_SHELF)
+			.add(WWBlockItemIds.MAPLE_SHELF);
 
-		this.valueLookupBuilder(ItemTags.ARMADILLO_FOOD)
-			.add(WWItems.SCORCHED_EYE);
+		this.builder(ItemTags.ARMADILLO_FOOD)
+			.add(WWItemIds.SCORCHED_EYE);
 
 		this.builder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
-			.add(Items.BROWN_MUSHROOM.builtInRegistryHolder().key())
-			.addOptional(this.getKey(WWConstants.MOD_ID, "brown_shelf_fungus"));
+			.add(BlockItemIds.BROWN_MUSHROOM)
+			.addOptional(WWBlockItemIds.BROWN_SHELF_FUNGI.item());
 
 		this.builder(WWItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
-			.add(Items.RED_MUSHROOM.builtInRegistryHolder().key())
-			.addOptional(this.getKey(WWConstants.MOD_ID, "red_shelf_fungus"));
+			.add(BlockItemIds.RED_MUSHROOM)
+			.addOptional(WWBlockItemIds.RED_SHELF_FUNGI.item());
 
-		this.valueLookupBuilder(WWItemTags.TUMBLEWEED_COMMON)
-			.add(Items.ROTTEN_FLESH)
-			.add(Items.BONE_MEAL)
-			.add(Items.WHEAT_SEEDS)
-			.add(Items.STICK)
-			.add(Items.DEAD_BUSH);
+		this.builder(WWItemTags.TUMBLEWEED_COMMON)
+			.add(ItemIds.ROTTEN_FLESH)
+			.add(ItemIds.BONE_MEAL)
+			.add(BlockItemIds.WHEAT_CROP)
+			.add(ItemIds.STICK)
+			.add(BlockItemIds.DEAD_BUSH);
 
-		this.valueLookupBuilder(WWItemTags.TUMBLEWEED_MEDIUM)
-			.add(Items.BONE)
-			.add(Items.GOLD_NUGGET)
-			.add(Items.WHEAT_SEEDS)
-			.add(Items.POTATO)
-			.add(Items.CARROT)
-			.add(Items.BEETROOT_SEEDS)
-			.add(Items.STRING);
+		this.builder(WWItemTags.TUMBLEWEED_MEDIUM)
+			.add(ItemIds.BONE)
+			.add(ItemIds.GOLD_NUGGET)
+			.add(BlockItemIds.WHEAT_CROP)
+			.add(BlockItemIds.POTATO_CROP)
+			.add(BlockItemIds.CARROT_CROP)
+			.add(BlockItemIds.BEETROOT_CROP)
+			.add(BlockItemIds.TRIPWIRE);
 
-		this.valueLookupBuilder(WWItemTags.TUMBLEWEED_RARE)
-			.add(Items.IRON_NUGGET)
-			.add(Items.POTATO)
-			.add(Items.CARROT)
-			.add(Items.MELON_SEEDS)
-			.add(Items.PUMPKIN_SEEDS);
+		this.builder(WWItemTags.TUMBLEWEED_RARE)
+			.add(ItemIds.IRON_NUGGET)
+			.add(BlockItemIds.POTATO_CROP)
+			.add(BlockItemIds.CARROT_CROP)
+			.add(BlockItemIds.MELON_CROP)
+			.add(BlockItemIds.PUMPKIN_CROP);
 
-		this.valueLookupBuilder(WWItemTags.MESOGLEA)
-			.add(WWBlocks.BLUE_MESOGLEA.asItem())
-			.add(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.asItem())
-			.add(WWBlocks.LIME_MESOGLEA.asItem())
-			.add(WWBlocks.PINK_MESOGLEA.asItem())
-			.add(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.asItem())
-			.add(WWBlocks.RED_MESOGLEA.asItem())
-			.add(WWBlocks.YELLOW_MESOGLEA.asItem());
+		this.builder(WWItemTags.MESOGLEA)
+			.add(WWBlockItemIds.BLUE_MESOGLEA)
+			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
+			.add(WWBlockItemIds.LIME_MESOGLEA)
+			.add(WWBlockItemIds.PINK_MESOGLEA)
+			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
+			.add(WWBlockItemIds.RED_MESOGLEA)
+			.add(WWBlockItemIds.YELLOW_MESOGLEA);
 
-		this.valueLookupBuilder(WWItemTags.NEMATOCYSTS)
-			.add(WWBlocks.BLUE_NEMATOCYST.asItem())
-			.add(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.asItem())
-			.add(WWBlocks.LIME_NEMATOCYST.asItem())
-			.add(WWBlocks.PINK_NEMATOCYST.asItem())
-			.add(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.asItem())
-			.add(WWBlocks.RED_NEMATOCYST.asItem())
-			.add(WWBlocks.YELLOW_NEMATOCYST.asItem());
+		this.builder(WWItemTags.NEMATOCYSTS)
+			.add(WWBlockItemIds.BLUE_NEMATOCYST)
+			.add(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST)
+			.add(WWBlockItemIds.LIME_NEMATOCYST)
+			.add(WWBlockItemIds.PINK_NEMATOCYST)
+			.add(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST)
+			.add(WWBlockItemIds.RED_NEMATOCYST)
+			.add(WWBlockItemIds.YELLOW_NEMATOCYST);
 
-		this.valueLookupBuilder(WWItemTags.PEARLESCENT_NEMATOCYSTS)
-			.add(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.asItem())
-			.add(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.asItem());
+		this.builder(WWItemTags.PEARLESCENT_NEMATOCYSTS)
+			.add(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST)
+			.add(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST);
 
-		this.valueLookupBuilder(WWItemTags.FROGLIGHT_GOOP)
-			.add(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.asItem())
-			.add(WWBlocks.VERDANT_FROGLIGHT_GOOP.asItem())
-			.add(WWBlocks.OCHRE_FROGLIGHT_GOOP.asItem());
+		this.builder(WWItemTags.FROGLIGHT_GOOP)
+			.add(WWBlockItemIds.PEARLESCENT_FROGLIGHT_GOOP)
+			.add(WWBlockItemIds.VERDANT_FROGLIGHT_GOOP)
+			.add(WWBlockItemIds.OCHRE_FROGLIGHT_GOOP);
 
-		this.valueLookupBuilder(WWItemTags.JELLYFISH_FOOD)
-			.add(Items.COD, Items.SALMON);
+		this.builder(WWItemTags.JELLYFISH_FOOD)
+			.add(ItemIds.COD, ItemIds.SALMON);
 
-		this.valueLookupBuilder(WWItemTags.PEARLESCENT_JELLYFISH_FOOD)
-			.add(Items.COD, Items.SALMON);
+		this.builder(WWItemTags.PEARLESCENT_JELLYFISH_FOOD)
+			.add(ItemIds.COD, ItemIds.SALMON);
 
-		this.valueLookupBuilder(WWItemTags.CRAB_FOOD)
-			.add(Items.KELP);
+		this.builder(WWItemTags.CRAB_FOOD)
+			.add(BlockItemIds.KELP);
 
-		this.valueLookupBuilder(WWItemTags.OSTRICH_FOOD)
-			.add(WWBlocks.SHRUB.asItem());
+		this.builder(WWItemTags.OSTRICH_FOOD)
+			.add(WWBlockItemIds.SHRUB);
 
-		this.valueLookupBuilder(WWItemTags.ZOMBIE_OSTRICH_FOOD)
-			.add(Items.DEAD_BUSH);
+		this.builder(WWItemTags.ZOMBIE_OSTRICH_FOOD)
+			.add(BlockItemIds.DEAD_BUSH);
 
-		this.valueLookupBuilder(WWItemTags.PENGUIN_FOOD)
-			.add(Items.INK_SAC, Items.GLOW_INK_SAC);
+		this.builder(WWItemTags.PENGUIN_FOOD)
+			.add(ItemIds.INK_SAC, ItemIds.GLOW_INK_SAC);
 
-		this.valueLookupBuilder(ItemTags.BOATS)
-			.add(WWItems.BAOBAB_BOAT)
-			.add(WWItems.WILLOW_BOAT)
-			.add(WWItems.CYPRESS_BOAT)
-			.add(WWItems.PALM_BOAT)
-			.add(WWItems.MAPLE_BOAT);
+		this.builder(ItemTags.BOATS)
+			.add(WWItemIds.BAOBAB_BOAT)
+			.add(WWItemIds.WILLOW_BOAT)
+			.add(WWItemIds.CYPRESS_BOAT)
+			.add(WWItemIds.PALM_BOAT)
+			.add(WWItemIds.MAPLE_BOAT);
 
-		this.valueLookupBuilder(ItemTags.CHEST_BOATS)
-			.add(WWItems.BAOBAB_CHEST_BOAT)
-			.add(WWItems.WILLOW_CHEST_BOAT)
-			.add(WWItems.CYPRESS_CHEST_BOAT)
-			.add(WWItems.PALM_CHEST_BOAT)
-			.add(WWItems.MAPLE_CHEST_BOAT);
+		this.builder(ItemTags.CHEST_BOATS)
+			.add(WWItemIds.BAOBAB_CHEST_BOAT)
+			.add(WWItemIds.WILLOW_CHEST_BOAT)
+			.add(WWItemIds.CYPRESS_CHEST_BOAT)
+			.add(WWItemIds.PALM_CHEST_BOAT)
+			.add(WWItemIds.MAPLE_CHEST_BOAT);
 
-		this.valueLookupBuilder(ItemTags.SMALL_FLOWERS)
-			.add(WWBlocks.CARNATION.asItem())
-			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.PASQUEFLOWER.asItem())
-			.add(WWBlocks.RED_HIBISCUS.asItem())
-			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
-			.add(WWBlocks.WHITE_HIBISCUS.asItem())
-			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.FLOWERING_LILY_PAD.asItem());
+		this.builder(BlockItemTags.SMALL_FLOWERS.item())
+			.add(WWBlockItemIds.CARNATION)
+			.add(WWBlockItemIds.MARIGOLD)
+			.add(WWBlockItemIds.SEEDING_DANDELION)
+			.add(WWBlockItemIds.PASQUEFLOWER)
+			.add(WWBlockItemIds.RED_HIBISCUS)
+			.add(WWBlockItemIds.YELLOW_HIBISCUS)
+			.add(WWBlockItemIds.WHITE_HIBISCUS)
+			.add(WWBlockItemIds.PINK_HIBISCUS)
+			.add(WWBlockItemIds.PURPLE_HIBISCUS)
+			.add(WWBlockItemIds.FLOWERING_LILY_PAD);
 
-		this.valueLookupBuilder(ItemTags.BEE_FOOD)
-			.add(WWBlocks.CARNATION.asItem())
-			.add(WWBlocks.MARIGOLD.asItem())
-			.add(WWBlocks.SEEDING_DANDELION.asItem())
-			.add(WWBlocks.RED_HIBISCUS.asItem())
-			.add(WWBlocks.YELLOW_HIBISCUS.asItem())
-			.add(WWBlocks.WHITE_HIBISCUS.asItem())
-			.add(WWBlocks.PINK_HIBISCUS.asItem())
-			.add(WWBlocks.PURPLE_HIBISCUS.asItem())
-			.add(WWBlocks.FLOWERING_LILY_PAD.asItem())
-			.add(WWBlocks.DATURA.asItem())
-			.add(WWBlocks.CATTAIL.asItem())
-			.add(WWBlocks.MILKWEED.asItem())
-			.add(WWBlocks.POLLEN.asItem())
-			.add(WWBlocks.PHLOX.asItem())
-			.add(WWBlocks.LANTANAS.asItem());
+		this.builder(ItemTags.BEE_FOOD)
+			.add(WWBlockItemIds.CARNATION)
+			.add(WWBlockItemIds.MARIGOLD)
+			.add(WWBlockItemIds.SEEDING_DANDELION)
+			.add(WWBlockItemIds.RED_HIBISCUS)
+			.add(WWBlockItemIds.YELLOW_HIBISCUS)
+			.add(WWBlockItemIds.WHITE_HIBISCUS)
+			.add(WWBlockItemIds.PINK_HIBISCUS)
+			.add(WWBlockItemIds.PURPLE_HIBISCUS)
+			.add(WWBlockItemIds.FLOWERING_LILY_PAD)
+			.add(WWBlockItemIds.DATURA)
+			.add(WWBlockItemIds.CATTAIL)
+			.add(WWBlockItemIds.MILKWEED)
+			.add(WWBlockItemIds.POLLEN)
+			.add(WWBlockItemIds.PHLOX)
+			.add(WWBlockItemIds.LANTANAS);
 
-		this.valueLookupBuilder(ItemTags.MOSS_BLOCKS)
-			.add(WWBlocks.AUBURN_MOSS_BLOCK.asItem());
+		this.builder(ItemTags.MOSS_BLOCKS)
+			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
 
-		this.valueLookupBuilder(WWItemTags.BAOBAB_LOGS)
-			.add(WWBlocks.BAOBAB_LOG.asItem(), WWBlocks.STRIPPED_BAOBAB_LOG.asItem())
-			.add(WWBlocks.BAOBAB_WOOD.asItem(), WWBlocks.STRIPPED_BAOBAB_WOOD.asItem());
+		this.builder(WWItemTags.BAOBAB_LOGS)
+			.add(WWBlockItemIds.BAOBAB_LOG, WWBlockItemIds.STRIPPED_BAOBAB_LOG)
+			.add(WWBlockItemIds.BAOBAB_WOOD, WWBlockItemIds.STRIPPED_BAOBAB_WOOD);
 
-		this.valueLookupBuilder(WWItemTags.WILLOW_LOGS)
-			.add(WWBlocks.WILLOW_LOG.asItem(), WWBlocks.STRIPPED_WILLOW_LOG.asItem())
-			.add(WWBlocks.WILLOW_WOOD.asItem(), WWBlocks.STRIPPED_WILLOW_WOOD.asItem());
+		this.builder(WWItemTags.WILLOW_LOGS)
+			.add(WWBlockItemIds.WILLOW_LOG, WWBlockItemIds.STRIPPED_WILLOW_LOG)
+			.add(WWBlockItemIds.WILLOW_WOOD, WWBlockItemIds.STRIPPED_WILLOW_WOOD);
 
-		this.valueLookupBuilder(WWItemTags.CYPRESS_LOGS)
-			.add(WWBlocks.CYPRESS_LOG.asItem(), WWBlocks.STRIPPED_CYPRESS_LOG.asItem())
-			.add(WWBlocks.CYPRESS_WOOD.asItem(), WWBlocks.STRIPPED_CYPRESS_WOOD.asItem());
+		this.builder(WWItemTags.CYPRESS_LOGS)
+			.add(WWBlockItemIds.CYPRESS_LOG, WWBlockItemIds.STRIPPED_CYPRESS_LOG)
+			.add(WWBlockItemIds.CYPRESS_WOOD, WWBlockItemIds.STRIPPED_CYPRESS_WOOD);
 
-		this.valueLookupBuilder(WWItemTags.PALM_LOGS)
-			.add(WWBlocks.PALM_LOG.asItem(), WWBlocks.STRIPPED_PALM_LOG.asItem())
-			.add(WWBlocks.PALM_WOOD.asItem(), WWBlocks.STRIPPED_PALM_WOOD.asItem());
+		this.builder(WWItemTags.PALM_LOGS)
+			.add(WWBlockItemIds.PALM_LOG, WWBlockItemIds.STRIPPED_PALM_LOG)
+			.add(WWBlockItemIds.PALM_WOOD, WWBlockItemIds.STRIPPED_PALM_WOOD);
 
-		this.valueLookupBuilder(WWItemTags.MAPLE_LOGS)
-			.add(WWBlocks.MAPLE_LOG.asItem(), WWBlocks.STRIPPED_MAPLE_LOG.asItem())
-			.add(WWBlocks.MAPLE_WOOD.asItem(), WWBlocks.STRIPPED_MAPLE_WOOD.asItem());
+		this.builder(WWItemTags.MAPLE_LOGS)
+			.add(WWBlockItemIds.MAPLE_LOG, WWBlockItemIds.STRIPPED_MAPLE_LOG)
+			.add(WWBlockItemIds.MAPLE_WOOD, WWBlockItemIds.STRIPPED_MAPLE_WOOD);
 
-		this.valueLookupBuilder(ItemTags.LEAVES)
-			.add(WWBlocks.BAOBAB_LEAVES.asItem())
-			.add(WWBlocks.WILLOW_LEAVES.asItem())
-			.add(WWBlocks.CYPRESS_LEAVES.asItem())
-			.add(WWBlocks.PALM_FRONDS.asItem())
-			.add(WWBlocks.YELLOW_MAPLE_LEAVES.asItem())
-			.add(WWBlocks.ORANGE_MAPLE_LEAVES.asItem())
-			.add(WWBlocks.RED_MAPLE_LEAVES.asItem());
+		this.builder(ItemTags.LEAVES)
+			.add(WWBlockItemIds.BAOBAB_LEAVES)
+			.add(WWBlockItemIds.WILLOW_LEAVES)
+			.add(WWBlockItemIds.CYPRESS_LEAVES)
+			.add(WWBlockItemIds.PALM_FRONDS)
+			.add(WWBlockItemIds.YELLOW_MAPLE_LEAVES)
+			.add(WWBlockItemIds.ORANGE_MAPLE_LEAVES)
+			.add(WWBlockItemIds.RED_MAPLE_LEAVES);
 
-		this.valueLookupBuilder(ConventionalItemTags.STRIPPED_LOGS)
-			.add(WWBlocks.STRIPPED_BAOBAB_LOG.asItem())
-			.add(WWBlocks.STRIPPED_WILLOW_LOG.asItem())
-			.add(WWBlocks.STRIPPED_CYPRESS_LOG.asItem())
-			.add(WWBlocks.STRIPPED_PALM_LOG.asItem())
-			.add(WWBlocks.STRIPPED_MAPLE_LOG.asItem());
+		this.builder(ConventionalItemTags.STRIPPED_LOGS)
+			.add(WWBlockItemIds.STRIPPED_BAOBAB_LOG)
+			.add(WWBlockItemIds.STRIPPED_WILLOW_LOG)
+			.add(WWBlockItemIds.STRIPPED_CYPRESS_LOG)
+			.add(WWBlockItemIds.STRIPPED_PALM_LOG)
+			.add(WWBlockItemIds.STRIPPED_MAPLE_LOG);
 
-		this.valueLookupBuilder(ConventionalItemTags.STRIPPED_WOODS)
-			.add(WWBlocks.STRIPPED_BAOBAB_WOOD.asItem())
-			.add(WWBlocks.STRIPPED_WILLOW_WOOD.asItem())
-			.add(WWBlocks.STRIPPED_CYPRESS_WOOD.asItem())
-			.add(WWBlocks.STRIPPED_PALM_WOOD.asItem())
-			.add(WWBlocks.STRIPPED_MAPLE_WOOD.asItem());
+		this.builder(ConventionalItemTags.STRIPPED_WOODS)
+			.add(WWBlockItemIds.STRIPPED_BAOBAB_WOOD)
+			.add(WWBlockItemIds.STRIPPED_WILLOW_WOOD)
+			.add(WWBlockItemIds.STRIPPED_CYPRESS_WOOD)
+			.add(WWBlockItemIds.STRIPPED_PALM_WOOD)
+			.add(WWBlockItemIds.STRIPPED_MAPLE_WOOD);
 
-		this.valueLookupBuilder(ItemTags.LOGS)
+		this.builder(ItemTags.LOGS)
 			.addOptionalTag(WWItemTags.BAOBAB_LOGS)
 			.addOptionalTag(WWItemTags.WILLOW_LOGS)
 			.addOptionalTag(WWItemTags.CYPRESS_LOGS)
@@ -256,7 +257,7 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.addOptionalTag(WWItemTags.MAPLE_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
 
-		this.valueLookupBuilder(ItemTags.LOGS_THAT_BURN)
+		this.builder(ItemTags.LOGS_THAT_BURN)
 			.addOptionalTag(WWItemTags.BAOBAB_LOGS)
 			.addOptionalTag(WWItemTags.WILLOW_LOGS)
 			.addOptionalTag(WWItemTags.CYPRESS_LOGS)
@@ -264,142 +265,142 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.addOptionalTag(WWItemTags.MAPLE_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS_THAT_BURN);
 
-		this.valueLookupBuilder(ItemTags.NON_FLAMMABLE_WOOD)
+		this.builder(ItemTags.NON_FLAMMABLE_WOOD)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS_DONT_BURN);
 
-		this.valueLookupBuilder(ItemTags.PLANKS)
-			.add(WWBlocks.BAOBAB_PLANKS.asItem())
-			.add(WWBlocks.WILLOW_PLANKS.asItem())
-			.add(WWBlocks.CYPRESS_PLANKS.asItem())
-			.add(WWBlocks.PALM_PLANKS.asItem())
-			.add(WWBlocks.MAPLE_PLANKS.asItem());
+		this.builder(ItemTags.PLANKS)
+			.add(WWBlockItemIds.BAOBAB_PLANKS)
+			.add(WWBlockItemIds.WILLOW_PLANKS)
+			.add(WWBlockItemIds.CYPRESS_PLANKS)
+			.add(WWBlockItemIds.PALM_PLANKS)
+			.add(WWBlockItemIds.MAPLE_PLANKS);
 
-		this.valueLookupBuilder(ItemTags.SAPLINGS)
-			.add(WWItems.BAOBAB_NUT)
-			.add(WWBlocks.WILLOW_SAPLING.asItem())
-			.add(WWBlocks.CYPRESS_SAPLING.asItem())
-			.add(WWItems.COCONUT)
-			.add(WWBlocks.YELLOW_MAPLE_SAPLING.asItem(), WWBlocks.ORANGE_MAPLE_SAPLING.asItem(), WWBlocks.RED_MAPLE_SAPLING.asItem());
+		this.builder(BlockItemTags.SAPLINGS.item())
+			.add(WWBlockItemIds.BAOBAB_NUT)
+			.add(WWBlockItemIds.WILLOW_SAPLING)
+			.add(WWBlockItemIds.CYPRESS_SAPLING)
+			.add(WWBlockItemIds.COCONUT)
+			.add(WWBlockItemIds.YELLOW_MAPLE_SAPLING, WWBlockItemIds.ORANGE_MAPLE_SAPLING, WWBlockItemIds.RED_MAPLE_SAPLING);
 
-		this.valueLookupBuilder(ItemTags.SIGNS)
-			.add(WWItems.BAOBAB_SIGN)
-			.add(WWItems.WILLOW_SIGN)
-			.add(WWItems.CYPRESS_SIGN)
-			.add(WWItems.PALM_SIGN)
-			.add(WWItems.MAPLE_SIGN);
+		this.builder(BlockItemTags.SIGNS.item())
+			.add(WWBlockItemIds.BAOBAB_SIGN)
+			.add(WWBlockItemIds.WILLOW_SIGN)
+			.add(WWBlockItemIds.CYPRESS_SIGN)
+			.add(WWBlockItemIds.PALM_SIGN)
+			.add(WWBlockItemIds.MAPLE_SIGN);
 
-		this.valueLookupBuilder(ItemTags.HANGING_SIGNS)
-			.add(WWItems.BAOBAB_HANGING_SIGN)
-			.add(WWItems.WILLOW_HANGING_SIGN)
-			.add(WWItems.CYPRESS_HANGING_SIGN)
-			.add(WWItems.PALM_HANGING_SIGN)
-			.add(WWItems.MAPLE_HANGING_SIGN);
+		this.builder(BlockItemTags.HANGING_SIGNS.item())
+			.add(WWBlockItemIds.BAOBAB_HANGING_SIGN)
+			.add(WWBlockItemIds.WILLOW_HANGING_SIGN)
+			.add(WWBlockItemIds.CYPRESS_HANGING_SIGN)
+			.add(WWBlockItemIds.PALM_HANGING_SIGN)
+			.add(WWBlockItemIds.MAPLE_HANGING_SIGN);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_BUTTONS)
-			.add(WWBlocks.BAOBAB_BUTTON.asItem())
-			.add(WWBlocks.WILLOW_BUTTON.asItem())
-			.add(WWBlocks.CYPRESS_BUTTON.asItem())
-			.add(WWBlocks.PALM_BUTTON.asItem())
-			.add(WWBlocks.MAPLE_BUTTON.asItem());
+		this.builder(ItemTags.WOODEN_BUTTONS)
+			.add(WWBlockItemIds.BAOBAB_BUTTON)
+			.add(WWBlockItemIds.WILLOW_BUTTON)
+			.add(WWBlockItemIds.CYPRESS_BUTTON)
+			.add(WWBlockItemIds.PALM_BUTTON)
+			.add(WWBlockItemIds.MAPLE_BUTTON);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_DOORS)
-			.add(WWBlocks.BAOBAB_DOOR.asItem())
-			.add(WWBlocks.WILLOW_DOOR.asItem())
-			.add(WWBlocks.CYPRESS_DOOR.asItem())
-			.add(WWBlocks.PALM_DOOR.asItem())
-			.add(WWBlocks.MAPLE_DOOR.asItem());
+		this.builder(ItemTags.WOODEN_DOORS)
+			.add(WWBlockItemIds.BAOBAB_DOOR)
+			.add(WWBlockItemIds.WILLOW_DOOR)
+			.add(WWBlockItemIds.CYPRESS_DOOR)
+			.add(WWBlockItemIds.PALM_DOOR)
+			.add(WWBlockItemIds.MAPLE_DOOR);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_FENCES)
-			.add(WWBlocks.BAOBAB_FENCE.asItem())
-			.add(WWBlocks.WILLOW_FENCE.asItem())
-			.add(WWBlocks.CYPRESS_FENCE.asItem())
-			.add(WWBlocks.PALM_FENCE.asItem())
-			.add(WWBlocks.MAPLE_FENCE.asItem());
+		this.builder(ItemTags.WOODEN_FENCES)
+			.add(WWBlockItemIds.BAOBAB_FENCE)
+			.add(WWBlockItemIds.WILLOW_FENCE)
+			.add(WWBlockItemIds.CYPRESS_FENCE)
+			.add(WWBlockItemIds.PALM_FENCE)
+			.add(WWBlockItemIds.MAPLE_FENCE);
 
-		this.valueLookupBuilder(ItemTags.FENCE_GATES)
-			.add(WWBlocks.BAOBAB_FENCE_GATE.asItem())
-			.add(WWBlocks.WILLOW_FENCE_GATE.asItem())
-			.add(WWBlocks.CYPRESS_FENCE_GATE.asItem())
-			.add(WWBlocks.PALM_FENCE_GATE.asItem())
-			.add(WWBlocks.MAPLE_FENCE_GATE.asItem());
+		this.builder(ItemTags.FENCE_GATES)
+			.add(WWBlockItemIds.BAOBAB_FENCE_GATE)
+			.add(WWBlockItemIds.WILLOW_FENCE_GATE)
+			.add(WWBlockItemIds.CYPRESS_FENCE_GATE)
+			.add(WWBlockItemIds.PALM_FENCE_GATE)
+			.add(WWBlockItemIds.MAPLE_FENCE_GATE);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
-			.add(WWBlocks.BAOBAB_PRESSURE_PLATE.asItem())
-			.add(WWBlocks.WILLOW_PRESSURE_PLATE.asItem())
-			.add(WWBlocks.CYPRESS_PRESSURE_PLATE.asItem())
-			.add(WWBlocks.PALM_PRESSURE_PLATE.asItem())
-			.add(WWBlocks.MAPLE_PRESSURE_PLATE.asItem());
+		this.builder(ItemTags.WOODEN_PRESSURE_PLATES)
+			.add(WWBlockItemIds.BAOBAB_PRESSURE_PLATE)
+			.add(WWBlockItemIds.WILLOW_PRESSURE_PLATE)
+			.add(WWBlockItemIds.CYPRESS_PRESSURE_PLATE)
+			.add(WWBlockItemIds.PALM_PRESSURE_PLATE)
+			.add(WWBlockItemIds.MAPLE_PRESSURE_PLATE);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_SLABS)
-			.add(WWBlocks.BAOBAB_SLAB.asItem())
-			.add(WWBlocks.WILLOW_SLAB.asItem())
-			.add(WWBlocks.CYPRESS_SLAB.asItem())
-			.add(WWBlocks.PALM_SLAB.asItem())
-			.add(WWBlocks.MAPLE_SLAB.asItem());
+		this.builder(ItemTags.WOODEN_SLABS)
+			.add(WWBlockItemIds.BAOBAB_SLAB)
+			.add(WWBlockItemIds.WILLOW_SLAB)
+			.add(WWBlockItemIds.CYPRESS_SLAB)
+			.add(WWBlockItemIds.PALM_SLAB)
+			.add(WWBlockItemIds.MAPLE_SLAB);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_STAIRS)
-			.add(WWBlocks.BAOBAB_STAIRS.asItem())
-			.add(WWBlocks.WILLOW_STAIRS.asItem())
-			.add(WWBlocks.CYPRESS_STAIRS.asItem())
-			.add(WWBlocks.PALM_STAIRS.asItem())
-			.add(WWBlocks.MAPLE_STAIRS.asItem());
+		this.builder(ItemTags.WOODEN_STAIRS)
+			.add(WWBlockItemIds.BAOBAB_STAIRS)
+			.add(WWBlockItemIds.WILLOW_STAIRS)
+			.add(WWBlockItemIds.CYPRESS_STAIRS)
+			.add(WWBlockItemIds.PALM_STAIRS)
+			.add(WWBlockItemIds.MAPLE_STAIRS);
 
-		this.valueLookupBuilder(ItemTags.WOODEN_TRAPDOORS)
-			.add(WWBlocks.BAOBAB_TRAPDOOR.asItem())
-			.add(WWBlocks.WILLOW_TRAPDOOR.asItem())
-			.add(WWBlocks.CYPRESS_TRAPDOOR.asItem())
-			.add(WWBlocks.PALM_TRAPDOOR.asItem())
-			.add(WWBlocks.MAPLE_TRAPDOOR.asItem());
+		this.builder(ItemTags.WOODEN_TRAPDOORS)
+			.add(WWBlockItemIds.BAOBAB_TRAPDOOR)
+			.add(WWBlockItemIds.WILLOW_TRAPDOOR)
+			.add(WWBlockItemIds.CYPRESS_TRAPDOOR)
+			.add(WWBlockItemIds.PALM_TRAPDOOR)
+			.add(WWBlockItemIds.MAPLE_TRAPDOOR);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_ACACIA_LOGS)
-			.add(WWBlocks.HOLLOWED_ACACIA_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_ACACIA_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_ACACIA_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_BIRCH_LOGS)
-			.add(WWBlocks.HOLLOWED_BIRCH_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_BIRCH_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_BIRCH_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_CHERRY_LOGS)
-			.add(WWBlocks.HOLLOWED_CHERRY_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_CHERRY_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_CHERRY_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_CRIMSON_STEMS)
-			.add(WWBlocks.HOLLOWED_CRIMSON_STEM.asItem(), WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM.asItem());
+		this.builder(WWItemTags.HOLLOWED_CRIMSON_STEMS)
+			.add(WWBlockItemIds.HOLLOWED_CRIMSON_STEM, WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_DARK_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_DARK_OAK_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_DARK_OAK_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_DARK_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_JUNGLE_LOGS)
-			.add(WWBlocks.HOLLOWED_JUNGLE_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_JUNGLE_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_JUNGLE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_MANGROVE_LOGS)
-			.add(WWBlocks.HOLLOWED_MANGROVE_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_MANGROVE_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_MANGROVE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_OAK_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_OAK_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_SPRUCE_LOGS)
-			.add(WWBlocks.HOLLOWED_SPRUCE_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_SPRUCE_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_SPRUCE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_WARPED_STEMS)
-			.add(WWBlocks.HOLLOWED_WARPED_STEM.asItem(), WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM.asItem());
+		this.builder(WWItemTags.HOLLOWED_WARPED_STEMS)
+			.add(WWBlockItemIds.HOLLOWED_WARPED_STEM, WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_BAOBAB_LOGS)
-			.add(WWBlocks.HOLLOWED_BAOBAB_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_BAOBAB_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_BAOBAB_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_WILLOW_LOGS)
-			.add(WWBlocks.HOLLOWED_WILLOW_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_WILLOW_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_WILLOW_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_CYPRESS_LOGS)
-			.add(WWBlocks.HOLLOWED_CYPRESS_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_CYPRESS_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_CYPRESS_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_PALM_LOGS)
-			.add(WWBlocks.HOLLOWED_PALM_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_PALM_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_PALM_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
-			.add(WWBlocks.HOLLOWED_PALE_OAK_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_MAPLE_LOGS)
-			.add(WWBlocks.HOLLOWED_MAPLE_LOG.asItem(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
+		this.builder(WWItemTags.HOLLOWED_MAPLE_LOGS)
+			.add(WWBlockItemIds.HOLLOWED_MAPLE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_LOGS_THAT_BURN)
+		this.builder(WWItemTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWItemTags.HOLLOWED_ACACIA_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_BIRCH_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_CHERRY_LOGS)
@@ -415,64 +416,64 @@ public final class WWItemTagProvider extends FabricTagsProvider.ItemTagsProvider
 			.addOptionalTag(WWItemTags.HOLLOWED_PALE_OAK_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_MAPLE_LOGS);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_LOGS_DONT_BURN)
+		this.builder(WWItemTags.HOLLOWED_LOGS_DONT_BURN)
 			.addOptionalTag(WWItemTags.HOLLOWED_CRIMSON_STEMS)
 			.addOptionalTag(WWItemTags.HOLLOWED_WARPED_STEMS);
 
-		this.valueLookupBuilder(WWItemTags.HOLLOWED_LOGS)
+		this.builder(WWItemTags.HOLLOWED_LOGS)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS_DONT_BURN);
 
-		this.valueLookupBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
-			.add(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.asItem());
+		this.builder(WWItemTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
 
-		this.valueLookupBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)
-			.add(WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM.asItem())
-			.add(WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM.asItem());
+		this.builder(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM)
+			.add(WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM);
 
-		this.valueLookupBuilder(WWItemTags.STRIPPED_HOLLOWED_LOGS)
+		this.builder(WWItemTags.STRIPPED_HOLLOWED_LOGS)
 			.addOptionalTag(WWItemTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
 			.addOptionalTag(WWItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN);
 
 		// SULFUR CUBE
-		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
 
-		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
 			.add(
-				WWBlocks.CHISELED_MUD_BRICKS.asItem(),
-				WWBlocks.MOSSY_MUD_BRICKS.asItem(),
-				WWBlocks.CRACKED_MUD_BRICKS.asItem()
+				WWBlockItemIds.CHISELED_MUD_BRICKS,
+				WWBlockItemIds.MOSSY_MUD_BRICKS,
+				WWBlockItemIds.CRACKED_MUD_BRICKS
 			)
 			.add(
-				WWBlocks.GABBRO.asItem(),
-				WWBlocks.POLISHED_GABBRO.asItem(),
-				WWBlocks.GABBRO_BRICKS.asItem(),
-				WWBlocks.CRACKED_GABBRO_BRICKS.asItem(),
-				WWBlocks.CHISELED_GABBRO_BRICKS.asItem(),
-				WWBlocks.MOSSY_GABBRO_BRICKS.asItem()
+				WWBlockItemIds.GABBRO,
+				WWBlockItemIds.POLISHED_GABBRO,
+				WWBlockItemIds.GABBRO_BRICKS,
+				WWBlockItemIds.CRACKED_GABBRO_BRICKS,
+				WWBlockItemIds.CHISELED_GABBRO_BRICKS,
+				WWBlockItemIds.MOSSY_GABBRO_BRICKS
 			)
-			.add(WWBlocks.SCORCHED_SAND.asItem(), WWBlocks.SCORCHED_RED_SAND.asItem())
-			.add(WWBlocks.NULL_BLOCK.asItem())
+			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND)
+			.add(WWBlockItemIds.NULL_BLOCK)
 			.addOptionalTag(WWItemTags.HOLLOWED_LOGS);
 
-		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
-			.add(WWBlocks.FRAGILE_ICE.asItem());
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
+			.add(WWBlockItemIds.FRAGILE_ICE);
 
-		this.valueLookupBuilder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
-			.add(WWBlocks.PALE_MUSHROOM_BLOCK.asItem());
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
+			.add(WWBlockItemIds.PALE_MUSHROOM_BLOCK);
 	}
 }

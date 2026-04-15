@@ -15,17 +15,17 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.advancement;
+package net.frozenblock.wilderwild.advancements.trigger;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.ContextAwarePredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.advancements.predicates.ContextAwarePredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;

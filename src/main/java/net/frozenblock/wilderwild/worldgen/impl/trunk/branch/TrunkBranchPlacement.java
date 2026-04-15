@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.worldgen.impl.util.TrunkPlacerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -159,10 +159,10 @@ public record TrunkBranchPlacement(
 	}
 
 	private static boolean verifyBranchMatchesConfig(BlockState logState) {
-		if (!WWWorldgenConfig.BIRCH_BRANCH_GENERATION.get() && logState.is(BlockTags.BIRCH_LOGS)) return false;
-		if (!WWWorldgenConfig.OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.OAK_LOGS)) return false;
-		if (!WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.DARK_OAK_LOGS)) return false;
-		if (!WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.get() && logState.is(BlockTags.PALE_OAK_LOGS)) return false;
+		if (!WWWorldgenConfig.BIRCH_BRANCH_GENERATION.get() && logState.is(BlockItemTags.BIRCH_LOGS.block())) return false;
+		if (!WWWorldgenConfig.OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.OAK_LOGS.block())) return false;
+		if (!WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.DARK_OAK_LOGS.block())) return false;
+		if (!WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.PALE_OAK_LOGS.block())) return false;
 		return true;
 	}
 

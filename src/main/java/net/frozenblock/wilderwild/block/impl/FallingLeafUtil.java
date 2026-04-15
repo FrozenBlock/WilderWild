@@ -33,7 +33,7 @@ import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOption
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -70,7 +70,7 @@ public class FallingLeafUtil {
 
 	public static void registerLeavesWithLitter(
 		Block block,
-		LeafLitterBlock leafLitterBlock,
+		Block leafLitterBlock,
 		float litterChance,
 		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
@@ -222,7 +222,7 @@ public class FallingLeafUtil {
 			if (!shape.intersects(entity.getBoundingBox())) return;
 		}
 
-		final boolean franticSpawn = entity.is(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN);
+		final boolean franticSpawn = entity.is(WWEntityTypeTags.LEAF_PARTICLES_FRANTIC_SPAWN);
 		final double horizontalScale = franticSpawn ? 0.1D : 0.5D;
 		final double additionalY = franticSpawn ? 0.1D : 0D;
 		Vec3 movement = entity.getDeltaMovement();
@@ -404,7 +404,7 @@ public class FallingLeafUtil {
 	}
 
 	public record FallingLeafData(
-		Optional<LeafLitterBlock> leafLitterBlock,
+		Optional<Block> leafLitterBlock,
 		float litterChance,
 		ParticleType<WWFallingLeavesParticleOptions> particle
 	) {}

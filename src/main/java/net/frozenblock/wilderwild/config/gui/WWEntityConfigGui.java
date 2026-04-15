@@ -26,7 +26,7 @@ import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.*;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 
 @Environment(EnvType.CLIENT)
 public final class WWEntityConfigGui {
@@ -43,18 +43,18 @@ public final class WWEntityConfigGui {
 		var lightningBlockParticles = booleanEntry(builder, "lightning_block_particles", WWEntityConfig.LIGHTNING_BLOCK_PARTICLES);
 		var lightningSmokeParticles = booleanEntry(builder, "lightning_smoke_particles", WWEntityConfig.LIGHTNING_SMOKE_PARTICLES);
 
-		FrozenClothConfig.createSubCategory(builder, category, EntityType.LIGHTNING_BOLT.getDescription(),
+		FrozenClothConfig.createSubCategory(builder, category, EntityTypes.LIGHTNING_BOLT.getDescription(),
 			false,
-			tooltip("entity_category", EntityType.LIGHTNING_BOLT.getDescription()),
+			tooltip("entity_category", EntityTypes.LIGHTNING_BOLT.getDescription()),
 			lightningScorchesSand, lightningBlockParticles, lightningSmokeParticles
 		);
 
 		// ALLAY
 		var keyframeAllayDance = booleanEntry(builder, "keyframe_allay_dance", WWEntityConfig.ALLAY_KEYFRAME_DANCE);
 
-		FrozenClothConfig.createSubCategory(builder, category, EntityType.ALLAY.getDescription(),
+		FrozenClothConfig.createSubCategory(builder, category, EntityTypes.ALLAY.getDescription(),
 			false,
-			tooltip("entity_category", EntityType.ALLAY.getDescription()),
+			tooltip("entity_category", EntityTypes.ALLAY.getDescription()),
 			keyframeAllayDance
 		);
 
@@ -62,9 +62,9 @@ public final class WWEntityConfigGui {
 		var angerLoopSound = booleanEntry(builder, "anger_loop_sound", WWEntityConfig.ENDERMAN_ANGER_LOOP_SOUND);
 		var movingStareSound = booleanEntry(builder, "moving_stare_sound", WWEntityConfig.ENDERMAN_MOVING_STARE_SOUND);
 
-		FrozenClothConfig.createSubCategory(builder, category, EntityType.ENDERMAN.getDescription(),
+		FrozenClothConfig.createSubCategory(builder, category, EntityTypes.ENDERMAN.getDescription(),
 			false,
-			tooltip("entity_category", EntityType.ENDERMAN.getDescription()),
+			tooltip("entity_category", EntityTypes.ENDERMAN.getDescription()),
 			angerLoopSound, movingStareSound
 		);
 
@@ -181,9 +181,9 @@ public final class WWEntityConfigGui {
 		var wardenBedrockSniff = booleanEntry(builder, "warden_bedrock_sniff", WWEntityConfig.WARDEN_BEDROCK_SNIFF_ANIMATION);
 		var wardenCustomTendrils = booleanEntry(builder, "warden_custom_tendrils", WWEntityConfig.WARDEN_IMPROVED_TENDRIL_ANIMATION);
 
-		FrozenClothConfig.createSubCategory(builder, category, EntityType.WARDEN.getDescription(),
+		FrozenClothConfig.createSubCategory(builder, category, EntityTypes.WARDEN.getDescription(),
 			false,
-			tooltip("entity_category", EntityType.WARDEN.getDescription()),
+			tooltip("entity_category", EntityTypes.WARDEN.getDescription()),
 			wardenAttacksImmediately, wardenSwims, wardenSwimAnimation, wardenDeathAnimation,
 			wardenImprovedEmerge, wardenImprovedDig, wardenBedrockSniff, wardenCustomTendrils,
 			wardenEmergesFromCommand, wardenEmergesFromEgg
@@ -216,9 +216,9 @@ public final class WWEntityConfigGui {
 		var jellyfishForEmeralds = booleanEntry(builder, "jellyfish_for_emeralds", WWEntityConfig.FISHERMAN_JELLYFISH_FOR_EMERALDS);
 
 		/*
-		FrozenClothConfig.createSubCategory(builder, category, EntityType.VILLAGER.getDescription(),
+		FrozenClothConfig.createSubCategory(builder, category, EntityTypes.VILLAGER.getDescription(),
 			false,
-			tooltip("entity_category", EntityType.VILLAGER.getDescription()),
+			tooltip("entity_category", EntityTypes.VILLAGER.getDescription()),
 			willowTrade, cypressTrade, baobabTrade, palmTrade, mapleTrade,
 			carnationTrade, hibiscusTrade, seedingDandelionTrade, marigoldTrade, pasqueflowerTrade,
 			pricklyPearTrade, tumbleweedTrade,

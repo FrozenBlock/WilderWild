@@ -21,10 +21,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,27 +36,28 @@ import org.spongepowered.asm.mixin.injection.Slice;
 public abstract class BlocksMixin {
 
 	@Shadow
-	private static Block register(String string, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties properties) {
-		return null;
+	public static Block register(BlockItemId id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
+		throw new UnsupportedOperationException("Implemented via mixin");
 	}
 
 	@WrapOperation(
 		method = "<clinit>",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Blocks;register(Ljava/lang/String;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;",
+			target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;",
 			ordinal = 0
 		),
 		slice = @Slice(
 			from = @At(
-				value = "CONSTANT",
-				args = "stringValue=frogspawn"
+				value = "FIELD",
+				target = "Lnet/minecraft/references/BlockItemIds;FROGSPAWN:Lnet/minecraft/references/BlockItemId;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
-	private static Block wilderWild$newReinforcedDeepslate(String string, BlockBehaviour.Properties properties, Operation<Block> original) {
-		if (WWBlockConfig.NEW_REINFORCED_DEEPSLATE.get()) return register(string, RotatedPillarBlock::new, properties);
-		return original.call(string, properties);
+	private static Block wilderWild$newReinforcedDeepslate(BlockItemId id, BlockBehaviour.Properties properties, Operation<Block> original) {
+		if (WWBlockConfig.NEW_REINFORCED_DEEPSLATE.get()) return register(id, RotatedPillarBlock::new, properties);
+		return original.call(id, properties);
 	}
 
 }

@@ -55,6 +55,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PlayerRideableJumping;
@@ -540,7 +541,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
 			&& livingEntity.getType() != this.getType()
 			&& !this.isVehicle()
 			&& !(livingEntity instanceof Player && this.isTamed())

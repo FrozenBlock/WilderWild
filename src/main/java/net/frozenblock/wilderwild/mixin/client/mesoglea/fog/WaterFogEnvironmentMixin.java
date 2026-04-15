@@ -49,10 +49,10 @@ public class WaterFogEnvironmentMixin {
 			target = "Lnet/minecraft/world/attribute/EnvironmentAttributeProbe;getValue(Lnet/minecraft/world/attribute/EnvironmentAttribute;F)Ljava/lang/Object;"
 		)
 	)
-	public Object wilderWild$drawMesogleaFogCloser(EnvironmentAttributeProbe instance, EnvironmentAttribute<Object> attribute, float partialTick, Operation<Object> original) {
-		final Object object = original.call(instance, attribute, partialTick);
+	public Object wilderWild$drawMesogleaFogCloser(EnvironmentAttributeProbe instance, EnvironmentAttribute<Object> attribute, float partialTicks, Operation<Object> original) {
+		final Object object = original.call(instance, attribute, partialTicks);
 		if (!(object instanceof Float flt)) return object;
-		return MesogleaWaterFogUtil.getModifiedFogDistance(partialTick, flt);
+		return MesogleaWaterFogUtil.getModifiedFogDistance(partialTicks, flt);
 	}
 
 	@ModifyReturnValue(method = "isApplicable", at = @At("RETURN"))
@@ -64,7 +64,7 @@ public class WaterFogEnvironmentMixin {
 		if (!original) {
 			MesogleaWaterFogUtil.reset(true);
 		} else if (!WILDERWILD$PREVIOUSLY_APPLICABLE && entity != null) {
-			final BlockPos pos = Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition();
+			final BlockPos pos = Minecraft.getInstance().gameRenderer.mainCamera().blockPosition();
 			MesogleaWaterFogUtil.tick(entity.level(), pos, fogType, true);
 		}
 		WILDERWILD$PREVIOUSLY_APPLICABLE = original;
@@ -74,9 +74,9 @@ public class WaterFogEnvironmentMixin {
 	@ModifyReturnValue(method = "getBaseColor", at = @At("RETURN"))
 	public int wilderWild$modifyFogColor(
 		int original,
-		@Local(argsOnly = true) float partialTick
+		@Local(argsOnly = true) float partialTicks
 	) {
-		return MesogleaWaterFogUtil.getModifiedColor(partialTick, original);
+		return MesogleaWaterFogUtil.getModifiedColor(partialTicks, original);
 	}
 
 }

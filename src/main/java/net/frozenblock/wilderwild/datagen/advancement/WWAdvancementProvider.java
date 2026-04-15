@@ -23,10 +23,10 @@ import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.advancement.FragileIceFallOntoAndBreakTrigger;
-import net.frozenblock.wilderwild.advancement.GeyserPushMobTrigger;
-import net.frozenblock.wilderwild.advancement.MobBottleTrigger;
-import net.frozenblock.wilderwild.advancement.TermiteEatTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeyserPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -34,15 +34,15 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.criterion.BlockPredicate;
-import net.minecraft.advancements.criterion.EntityFlagsPredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.EntityTypePredicate;
-import net.minecraft.advancements.criterion.FilledBucketTrigger;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.advancements.criterion.MovementPredicate;
+import net.minecraft.advancements.predicates.BlockPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
+import net.minecraft.advancements.predicates.entity.MovementPredicate;
+import net.minecraft.advancements.triggers.FilledBucketTrigger;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -50,6 +50,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -162,7 +163,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 						.entityType(
 							new EntityTypePredicate(
 								HolderSet.direct(
-									EntityType.CHICKEN.builtInRegistryHolder(),
+									EntityTypes.CHICKEN.builtInRegistryHolder(),
 									WWEntityTypes.OSTRICH.builtInRegistryHolder(),
 									WWEntityTypes.ZOMBIE_OSTRICH.builtInRegistryHolder(),
 									WWEntityTypes.PENGUIN.builtInRegistryHolder()
@@ -206,8 +207,8 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 						.entityType(
 							new EntityTypePredicate(
 								HolderSet.direct(
-									EntityType.COW.builtInRegistryHolder(),
-									EntityType.MOOSHROOM.builtInRegistryHolder(),
+									EntityTypes.COW.builtInRegistryHolder(),
+									EntityTypes.MOOSHROOM.builtInRegistryHolder(),
 									WWEntityTypes.MOOBLOOM.builtInRegistryHolder()
 								)
 							)

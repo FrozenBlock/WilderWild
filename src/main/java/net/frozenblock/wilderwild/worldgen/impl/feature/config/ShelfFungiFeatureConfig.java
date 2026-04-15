@@ -39,7 +39,7 @@ public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 		instance.group(
 			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
 				.flatXmap(ShelfFungiFeatureConfig::validateBlock, DataResult::success)
-				.orElse(WWBlocks.BROWN_SHELF_FUNGI)
+				.orElse((ShelfFungiBlock) WWBlocks.BROWN_SHELF_FUNGI)
 				.forGetter(config -> config.fungus),
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
 			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),

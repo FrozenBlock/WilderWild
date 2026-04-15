@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:combo",
+  "type": "minecraft:sequence",
   "config": {
     "features": [
       {

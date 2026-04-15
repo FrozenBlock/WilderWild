@@ -22,7 +22,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
-public final class WWEntityTags {
+public final class WWEntityTypeTags {
 	public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = bind("can_swim_in_algae");
 	public static final TagKey<EntityType<?>> STAYS_IN_MESOGLEA = bind("stays_in_mesoglea");
 	public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
@@ -38,8 +38,8 @@ public final class WWEntityTags {
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_ON_FALL = bind("fragile_ice_doesnt_crack_on_fall");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_PROJECTILE = bind("fragile_ice_doesnt_crack_projectile");
 
-	private WWEntityTags() {
-		throw new UnsupportedOperationException("WWEntityTags contains only static declarations.");
+	private WWEntityTypeTags() {
+		throw new UnsupportedOperationException("WWEntityTypeTags contains only static declarations.");
 	}
 
 	private static TagKey<EntityType<?>> bind(String path) {

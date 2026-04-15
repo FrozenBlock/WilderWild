@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.entity.slime;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +35,7 @@ public class MobMixin {
 		)
 	)
 	public boolean wilderWild$checkSpawnObstruction(boolean original) {
-		if (!(Mob.class.cast(this) instanceof Mob mob) || mob.getType() != EntityType.SLIME) return original;
+		if (!(Mob.class.cast(this) instanceof Mob mob) || mob.getType() != EntityTypes.SLIME) return original;
 		return original && !AlgaeBlock.hasNearbyAlgae(mob.level(), mob.blockPosition(), 1, 3);
 	}
 

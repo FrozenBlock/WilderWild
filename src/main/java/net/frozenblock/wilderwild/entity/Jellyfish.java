@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -72,6 +72,7 @@ import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -461,13 +462,13 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
-			&& livingEntity.getType() != EntityType.ARMOR_STAND
+			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
 			&& livingEntity.getType() != WWEntityTypes.JELLYFISH
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
 			&& livingEntity.distanceTo(this) < MAX_TARGET_DISTANCE
-			&& !livingEntity.is(WWEntityTags.JELLYFISH_CANT_STING)
+			&& !livingEntity.is(WWEntityTypeTags.JELLYFISH_CANT_STING)
 			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
 	}
 

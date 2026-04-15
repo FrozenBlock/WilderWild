@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
@@ -115,7 +115,7 @@ public class OstrichAi {
 
 	private static ActivityData<AbstractOstrich> initIdleActivity(final boolean zombie) {
 		final ImmutableList.Builder<Pair<Integer, ? extends BehaviorControl<? super AbstractOstrich>>> builder = ImmutableList.builder();
-		builder.add(Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6F, UniformInt.of(30, 60))));
+		builder.add(Pair.of(0, SetEntityLookTargetSometimes.create(EntityTypes.PLAYER, 6F, UniformInt.of(30, 60))));
 		if (!zombie) builder.add(Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)));
 
 		final ImmutableList.Builder<Pair<? extends BehaviorControl<? super AbstractOstrich>, Integer>> temptAndFollowAdultBuilder = ImmutableList.builder();
@@ -209,7 +209,7 @@ public class OstrichAi {
 			return;
 		}
 
-		if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 			setAngerTargetToNearestTargetablePlayerIfFound(level, ostrich, target);
 			broadcastUniversalAnger(level, ostrich);
 		} else {
@@ -225,7 +225,7 @@ public class OstrichAi {
 		ostrich.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		ostrich.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
 		ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
-		if (target.getType() == EntityType.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
+		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
 			ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}

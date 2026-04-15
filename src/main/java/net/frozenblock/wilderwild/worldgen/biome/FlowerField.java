@@ -35,7 +35,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -125,7 +125,7 @@ public final class FlowerField extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 2, 5));
+		spawns.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 2, 5));
 	}
 
 	@Override

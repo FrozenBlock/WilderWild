@@ -29,7 +29,7 @@ import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -124,9 +124,9 @@ public final class WarmRiver extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 1, 4))
-			.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 1, 5))
-			.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityType.DROWNED, 1, 1));
+		spawns.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.SQUID, 1, 4))
+			.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityTypes.SALMON, 1, 5))
+			.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.DROWNED, 1, 1));
 	}
 
 	@Override

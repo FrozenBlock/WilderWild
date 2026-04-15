@@ -30,7 +30,7 @@ import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -176,7 +176,7 @@ public class Tumbleweed extends Mob implements EntityStepOnBlockInterface, Inven
 	@Override
 	protected void doPush(Entity entity) {
 		final boolean isCannonball = this.isCannonball();
-		if (!isCannonball && entity.is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) return;
+		if (!isCannonball && entity.is(WWEntityTypeTags.TUMBLEWEED_PASSES_THROUGH)) return;
 
 		if (isCannonball || entity instanceof Tumbleweed) super.doPush(entity);
 

@@ -21,14 +21,14 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.lib.tag.api.FrozenEntityTags;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.references.WWEntityTypeIds;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypeIds;
 
 public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
 
@@ -38,193 +38,193 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.valueLookupBuilder(FrozenEntityTags.CREEPER_IGNORES)
-			.add(WWEntityTypes.JELLYFISH);
+		this.builder(FrozenEntityTags.CREEPER_IGNORES)
+			.add(WWEntityTypeIds.JELLYFISH);
 
-		this.valueLookupBuilder(FrozenEntityTags.WARDEN_CANNOT_TARGET)
-			.add(WWEntityTypes.TUMBLEWEED);
+		this.builder(FrozenEntityTags.WARDEN_CANNOT_TARGET)
+			.add(WWEntityTypeIds.TUMBLEWEED);
 
-		this.valueLookupBuilder(WWEntityTags.CAN_SWIM_IN_ALGAE)
-			.add(EntityType.SLIME)
-			.add(EntityType.WARDEN)
-			.add(EntityType.WITHER)
+		this.builder(WWEntityTypeTags.CAN_SWIM_IN_ALGAE)
+			.add(EntityTypeIds.SLIME)
+			.add(EntityTypeIds.WARDEN)
+			.add(EntityTypeIds.WITHER)
 			.addOptionalTag(EntityTypeTags.AQUATIC);
 
-		this.valueLookupBuilder(WWEntityTags.STAYS_IN_MESOGLEA)
-			.add(WWEntityTypes.JELLYFISH);
+		this.builder(WWEntityTypeTags.STAYS_IN_MESOGLEA)
+			.add(WWEntityTypeIds.JELLYFISH);
 
-		this.valueLookupBuilder(WWEntityTags.JELLYFISH_CANT_STING)
-			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
-			.add(EntityType.DOLPHIN)
-			.add(EntityType.TROPICAL_FISH)
-			.add(EntityType.PUFFERFISH)
-			.add(EntityType.AXOLOTL)
-			.add(EntityType.TURTLE)
-			.add(EntityType.NAUTILUS, EntityType.ZOMBIE_NAUTILUS)
-			.add(WWEntityTypes.JELLYFISH)
-			.add(WWEntityTypes.TUMBLEWEED);
+		this.builder(WWEntityTypeTags.JELLYFISH_CANT_STING)
+			.add(EntityTypeIds.SQUID, EntityTypeIds.GLOW_SQUID)
+			.add(EntityTypeIds.DOLPHIN)
+			.add(EntityTypeIds.TROPICAL_FISH)
+			.add(EntityTypeIds.PUFFERFISH)
+			.add(EntityTypeIds.AXOLOTL)
+			.add(EntityTypeIds.TURTLE)
+			.add(EntityTypeIds.NAUTILUS, EntityTypeIds.ZOMBIE_NAUTILUS)
+			.add(WWEntityTypeIds.JELLYFISH)
+			.add(WWEntityTypeIds.TUMBLEWEED);
 
-		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_BONK)
-			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
-			.add(EntityType.DOLPHIN)
-			.add(EntityType.SPIDER)
-			.add(EntityType.CAVE_SPIDER)
-			.add(WWEntityTypes.SCORCHED)
-			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
-			.add(WWEntityTypes.JELLYFISH)
-			.add(WWEntityTypes.TUMBLEWEED)
-			.add(EntityType.BREEZE);
+		this.builder(WWEntityTypeTags.COCONUT_CANT_BONK)
+			.add(EntityTypeIds.SQUID, EntityTypeIds.GLOW_SQUID)
+			.add(EntityTypeIds.DOLPHIN)
+			.add(EntityTypeIds.SPIDER)
+			.add(EntityTypeIds.CAVE_SPIDER)
+			.add(WWEntityTypeIds.SCORCHED)
+			.add(EntityTypeIds.GHAST)
+			.add(WWEntityTypeIds.FIREFLY, WWEntityTypeIds.BUTTERFLY)
+			.add(WWEntityTypeIds.JELLYFISH)
+			.add(WWEntityTypeIds.TUMBLEWEED)
+			.add(EntityTypeIds.BREEZE);
 
-		this.valueLookupBuilder(WWEntityTags.COCONUT_CANT_SPLIT)
-			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
-			.add(EntityType.DOLPHIN)
-			.add(EntityType.COD)
-			.add(EntityType.SALMON)
-			.add(EntityType.TROPICAL_FISH)
-			.add(EntityType.PUFFERFISH)
-			.add(EntityType.SPIDER)
-			.add(EntityType.CAVE_SPIDER)
-			.add(WWEntityTypes.SCORCHED)
-			.add(EntityType.GHAST)
-			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
-			.add(WWEntityTypes.JELLYFISH)
-			.add(WWEntityTypes.TUMBLEWEED)
-			.add(EntityType.BREEZE);
+		this.builder(WWEntityTypeTags.COCONUT_CANT_SPLIT)
+			.add(EntityTypeIds.SQUID, EntityTypeIds.GLOW_SQUID)
+			.add(EntityTypeIds.DOLPHIN)
+			.add(EntityTypeIds.COD)
+			.add(EntityTypeIds.SALMON)
+			.add(EntityTypeIds.TROPICAL_FISH)
+			.add(EntityTypeIds.PUFFERFISH)
+			.add(EntityTypeIds.SPIDER)
+			.add(EntityTypeIds.CAVE_SPIDER)
+			.add(WWEntityTypeIds.SCORCHED)
+			.add(EntityTypeIds.GHAST)
+			.add(WWEntityTypeIds.FIREFLY, WWEntityTypeIds.BUTTERFLY)
+			.add(WWEntityTypeIds.JELLYFISH)
+			.add(WWEntityTypeIds.TUMBLEWEED)
+			.add(EntityTypeIds.BREEZE);
 
-		this.valueLookupBuilder(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)
-			.add(EntityType.BREEZE);
+		this.builder(WWEntityTypeTags.TUMBLEWEED_PASSES_THROUGH)
+			.add(EntityTypeIds.BREEZE);
 
-		this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
-			.add(EntityType.WARDEN)
-			.add(WWEntityTypes.CRAB)
-			.add(WWEntityTypes.JELLYFISH)
-			.add(WWEntityTypes.PENGUIN);
+		this.builder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+			.add(EntityTypeIds.WARDEN)
+			.add(WWEntityTypeIds.CRAB)
+			.add(WWEntityTypeIds.JELLYFISH)
+			.add(WWEntityTypeIds.PENGUIN);
 
-		this.valueLookupBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
-			.add(WWEntityTypes.JELLYFISH);
+		this.builder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
+			.add(WWEntityTypeIds.JELLYFISH);
 
-		this.valueLookupBuilder(WWEntityTags.CRAB_HUNT_TARGETS)
-			.add(EntityType.SQUID, EntityType.GLOW_SQUID)
-			.add(EntityType.COD)
-			.add(EntityType.SALMON)
-			.add(EntityType.TROPICAL_FISH)
-			.add(EntityType.TADPOLE);
+		this.builder(WWEntityTypeTags.CRAB_HUNT_TARGETS)
+			.add(EntityTypeIds.SQUID, EntityTypeIds.GLOW_SQUID)
+			.add(EntityTypeIds.COD)
+			.add(EntityTypeIds.SALMON)
+			.add(EntityTypeIds.TROPICAL_FISH)
+			.add(EntityTypeIds.TADPOLE);
 
-		this.valueLookupBuilder(WWEntityTags.PENGUIN_HUNT_TARGETS)
-			.add(EntityType.SQUID, EntityType.GLOW_SQUID);
+		this.builder(WWEntityTypeTags.PENGUIN_HUNT_TARGETS)
+			.add(EntityTypeIds.SQUID, EntityTypeIds.GLOW_SQUID);
 
-		this.valueLookupBuilder(WWEntityTags.LEAF_PARTICLES_FRANTIC_SPAWN)
-			.add(EntityType.BREEZE);
+		this.builder(WWEntityTypeTags.LEAF_PARTICLES_FRANTIC_SPAWN)
+			.add(EntityTypeIds.BREEZE);
 
-		this.valueLookupBuilder(WWEntityTags.GEYSER_PUSHES_FURTHER)
-			.add(EntityType.ARROW, EntityType.SPECTRAL_ARROW);
+		this.builder(WWEntityTypeTags.GEYSER_PUSHES_FURTHER)
+			.add(EntityTypeIds.ARROW, EntityTypeIds.SPECTRAL_ARROW);
 
-		this.valueLookupBuilder(WWEntityTags.GEYSER_CANNOT_PUSH)
-			.add(EntityType.WITHER, EntityType.ENDER_DRAGON)
-			.add(EntityType.VEX)
-			.add(EntityType.EYE_OF_ENDER);
+		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
+			.add(EntityTypeIds.WITHER, EntityTypeIds.ENDER_DRAGON)
+			.add(EntityTypeIds.VEX)
+			.add(EntityTypeIds.EYE_OF_ENDER);
 
-		this.builder(WWEntityTags.GEYSER_CANNOT_PUSH)
+		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
 			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("trailiertales", "apparition")));
 
-		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
-			.add(EntityType.PLAYER)
-			.add(EntityType.IRON_GOLEM)
-			.add(EntityType.RAVAGER)
-			.add(EntityType.SNIFFER)
-			.add(EntityType.HOGLIN)
-			.add(EntityType.ZOGLIN)
-			.add(EntityType.BLAZE)
-			.add(EntityType.MAGMA_CUBE)
-			.add(EntityType.GIANT);
+		this.builder(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS)
+			.add(EntityTypeIds.PLAYER)
+			.add(EntityTypeIds.IRON_GOLEM)
+			.add(EntityTypeIds.RAVAGER)
+			.add(EntityTypeIds.SNIFFER)
+			.add(EntityTypeIds.HOGLIN)
+			.add(EntityTypeIds.ZOGLIN)
+			.add(EntityTypeIds.BLAZE)
+			.add(EntityTypeIds.MAGMA_CUBE)
+			.add(EntityTypeIds.GIANT);
 
-		this.builder(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS)
+		this.builder(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "wildfire")))
 			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "soul_blaze")));
 
-		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
-			.add(EntityType.PHANTOM)
-			.add(EntityType.BREEZE)
-			.add(EntityType.CHICKEN)
-			.add(EntityType.CAT)
-			.add(EntityType.OCELOT)
-			.add(EntityType.RABBIT)
-			.add(EntityType.ITEM)
-			.add(EntityType.PARROT)
-			.add(EntityType.BEE)
-			.add(EntityType.BAT)
-			.add(EntityType.ALLAY)
-			.add(EntityType.EXPERIENCE_ORB)
-			.add(WWEntityTypes.FIREFLY)
-			.add(WWEntityTypes.BUTTERFLY)
-			.add(WWEntityTypes.TUMBLEWEED);
+		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
+			.add(EntityTypeIds.PHANTOM)
+			.add(EntityTypeIds.BREEZE)
+			.add(EntityTypeIds.CHICKEN)
+			.add(EntityTypeIds.CAT)
+			.add(EntityTypeIds.OCELOT)
+			.add(EntityTypeIds.RABBIT)
+			.add(EntityTypeIds.ITEM)
+			.add(EntityTypeIds.PARROT)
+			.add(EntityTypeIds.BEE)
+			.add(EntityTypeIds.BAT)
+			.add(EntityTypeIds.ALLAY)
+			.add(EntityTypeIds.EXPERIENCE_ORB)
+			.add(WWEntityTypeIds.FIREFLY)
+			.add(WWEntityTypeIds.BUTTERFLY)
+			.add(WWEntityTypeIds.TUMBLEWEED);
 
-		this.valueLookupBuilder(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
-			.add(EntityType.EGG)
-			.add(EntityType.SPLASH_POTION)
-			.add(EntityType.LINGERING_POTION)
-			.add(EntityType.SNOWBALL)
-			.add(EntityType.EXPERIENCE_BOTTLE)
-			.add(EntityType.WIND_CHARGE)
-			.add(EntityType.BREEZE_WIND_CHARGE)
-			.add(EntityType.LLAMA_SPIT)
-			.add(EntityType.ENDER_PEARL)
-			.add(EntityType.FIREWORK_ROCKET);
+		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
+			.add(EntityTypeIds.EGG)
+			.add(EntityTypeIds.SPLASH_POTION)
+			.add(EntityTypeIds.LINGERING_POTION)
+			.add(EntityTypeIds.SNOWBALL)
+			.add(EntityTypeIds.EXPERIENCE_BOTTLE)
+			.add(EntityTypeIds.WIND_CHARGE)
+			.add(EntityTypeIds.BREEZE_WIND_CHARGE)
+			.add(EntityTypeIds.LLAMA_SPIT)
+			.add(EntityTypeIds.ENDER_PEARL)
+			.add(EntityTypeIds.FIREWORK_ROCKET);
 
-		this.valueLookupBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
-			.add(WWEntityTypes.PENGUIN);
+		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+			.add(WWEntityTypeIds.PENGUIN);
 
-		this.valueLookupBuilder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
-			.add(WWEntityTypes.SCORCHED);
+		this.builder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
+			.add(WWEntityTypeIds.SCORCHED);
 
-		this.valueLookupBuilder(EntityTypeTags.FROG_FOOD)
-			.add(WWEntityTypes.BUTTERFLY);
+		this.builder(EntityTypeTags.FROG_FOOD)
+			.add(WWEntityTypeIds.BUTTERFLY);
 
-		this.valueLookupBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH)
-			.add(WWEntityTypes.SCORCHED);
+		this.builder(EntityTypeTags.DISMOUNTS_UNDERWATER)
+			.add(WWEntityTypeIds.OSTRICH, WWEntityTypeIds.ZOMBIE_OSTRICH)
+			.add(WWEntityTypeIds.SCORCHED);
 
-		this.valueLookupBuilder(EntityTypeTags.ARTHROPOD)
-			.add(WWEntityTypes.CRAB)
-			.add(WWEntityTypes.SCORCHED);
+		this.builder(EntityTypeTags.ARTHROPOD)
+			.add(WWEntityTypeIds.CRAB)
+			.add(WWEntityTypeIds.SCORCHED);
 
-		this.valueLookupBuilder(EntityTypeTags.AQUATIC)
-			.add(WWEntityTypes.CRAB)
-			.add(WWEntityTypes.JELLYFISH);
+		this.builder(EntityTypeTags.AQUATIC)
+			.add(WWEntityTypeIds.CRAB)
+			.add(WWEntityTypeIds.JELLYFISH);
 
-		this.valueLookupBuilder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
-			.add(WWEntityTypes.SCORCHED);
+		this.builder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
+			.add(WWEntityTypeIds.SCORCHED);
 
-		this.valueLookupBuilder(EntityTypeTags.BOAT)
+		this.builder(EntityTypeTags.BOAT)
 			.add(
-				WWEntityTypes.BAOBAB_BOAT,
-				WWEntityTypes.BAOBAB_CHEST_BOAT,
-				WWEntityTypes.WILLOW_BOAT,
-				WWEntityTypes.WILLOW_CHEST_BOAT,
-				WWEntityTypes.CYPRESS_BOAT,
-				WWEntityTypes.CYPRESS_CHEST_BOAT,
-				WWEntityTypes.PALM_BOAT,
-				WWEntityTypes.PALM_CHEST_BOAT,
-				WWEntityTypes.MAPLE_BOAT,
-				WWEntityTypes.MAPLE_CHEST_BOAT
+				WWEntityTypeIds.BAOBAB_BOAT,
+				WWEntityTypeIds.BAOBAB_CHEST_BOAT,
+				WWEntityTypeIds.WILLOW_BOAT,
+				WWEntityTypeIds.WILLOW_CHEST_BOAT,
+				WWEntityTypeIds.CYPRESS_BOAT,
+				WWEntityTypeIds.CYPRESS_CHEST_BOAT,
+				WWEntityTypeIds.PALM_BOAT,
+				WWEntityTypeIds.PALM_CHEST_BOAT,
+				WWEntityTypeIds.MAPLE_BOAT,
+				WWEntityTypeIds.MAPLE_CHEST_BOAT
 			);
 
-		this.valueLookupBuilder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS)
-			.add(WWEntityTypes.FIREFLY, WWEntityTypes.BUTTERFLY)
-			.add(WWEntityTypes.JELLYFISH)
-			.add(WWEntityTypes.TUMBLEWEED);
+		this.builder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS)
+			.add(WWEntityTypeIds.FIREFLY, WWEntityTypeIds.BUTTERFLY)
+			.add(WWEntityTypeIds.JELLYFISH)
+			.add(WWEntityTypeIds.TUMBLEWEED);
 
-		this.valueLookupBuilder(EntityTypeTags.CAN_EQUIP_SADDLE)
-			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH);
+		this.builder(EntityTypeTags.CAN_EQUIP_SADDLE)
+			.add(WWEntityTypeIds.OSTRICH, WWEntityTypeIds.ZOMBIE_OSTRICH);
 
-		this.valueLookupBuilder(EntityTypeTags.CAN_FLOAT_WHILE_RIDDEN)
-			.add(WWEntityTypes.OSTRICH, WWEntityTypes.ZOMBIE_OSTRICH);
+		this.builder(EntityTypeTags.CAN_FLOAT_WHILE_RIDDEN)
+			.add(WWEntityTypeIds.OSTRICH, WWEntityTypeIds.ZOMBIE_OSTRICH);
 
-		this.valueLookupBuilder(EntityTypeTags.ZOMBIES)
-			.add(WWEntityTypes.ZOMBIE_OSTRICH);
+		this.builder(EntityTypeTags.ZOMBIES)
+			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
 
-		this.valueLookupBuilder(EntityTypeTags.BURN_IN_DAYLIGHT)
-			.add(WWEntityTypes.ZOMBIE_OSTRICH);
+		this.builder(EntityTypeTags.BURN_IN_DAYLIGHT)
+			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
 	}
 }

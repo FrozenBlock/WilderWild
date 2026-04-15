@@ -24,7 +24,7 @@ import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
-public final class WWFood {
+public final class WWFoods {
 	public static final FoodProperties BAOBAB_NUT = new FoodProperties.Builder().nutrition(1).saturationModifier(0.2F).build();
 	public static final FoodProperties CRAB_CLAW = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1F).build();
 	public static final FoodProperties COOKED_CRAB_CLAW = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4F).build();
@@ -38,8 +38,8 @@ public final class WWFood {
 		.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F))
 		.build();
 
-	private WWFood() {
-		throw new UnsupportedOperationException("WWFood contains only static declarations.");
+	private WWFoods() {
+		throw new UnsupportedOperationException("WWFoods contains only static declarations.");
 	}
 
 }

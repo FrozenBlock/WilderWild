@@ -45,6 +45,6 @@ public class BaobabLeavesBlock extends TintedParticleLeavesBlock implements Bone
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.setBlock(pos.below(), WWBlocks.BAOBAB_NUT.getDefaultHangingState(), UPDATE_CLIENTS);
+		level.setBlock(pos.below(), ((BaobabNutBlock) WWBlocks.BAOBAB_NUT).getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

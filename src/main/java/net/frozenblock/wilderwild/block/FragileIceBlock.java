@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.frozenblock.wilderwild.worldgen.impl.util.IcicleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -111,13 +111,13 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if (entity.getPassengersAndSelf().anyMatch(e -> e.is(WWEntityTags.FRAGILE_ICE_UNWALKABLE_MOBS))) this.scheduleCrackIfNotScheduled(level, pos);
+		if (entity.getPassengersAndSelf().anyMatch(e -> e.is(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS))) this.scheduleCrackIfNotScheduled(level, pos);
 	}
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
 		super.fallOn(level, state, pos, entity, fallDistance);
-		if (entity.is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) return;
+		if (entity.is(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)) return;
 		if (fallDistance >= 4F) {
 			level.destroyBlock(pos, false);
 			if (entity instanceof ServerPlayer serverPlayer) WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.trigger(serverPlayer);
@@ -126,7 +126,7 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
-		if (projectile.is(WWEntityTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
+		if (projectile.is(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)) return;
 		final double velocity = projectile.getDeltaMovement().length();
 		if (velocity >= 1.6D) level.destroyBlock(hitResult.getBlockPos(), false);
 	}

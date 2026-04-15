@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import java.util.Set;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -36,7 +36,7 @@ public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 	}
 
 	private boolean isHuntTarget(LivingEntity attacker, LivingEntity target) {
-		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.is(WWEntityTags.PENGUIN_HUNT_TARGETS);
+		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.is(WWEntityTypeTags.PENGUIN_HUNT_TARGETS);
 	}
 
 	private boolean isClose(LivingEntity attacker, LivingEntity target) {

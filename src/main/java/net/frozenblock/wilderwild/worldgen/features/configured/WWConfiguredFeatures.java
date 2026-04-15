@@ -21,8 +21,8 @@ import java.util.List;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.feature.config.ColumnWithDiskFeatureConfig;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -49,6 +49,7 @@ import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -226,9 +227,9 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MANGROVE_VEGETATION_LEAF_LITTER = WWFeatureUtils.register("mangrove_vegetation_leaf_litter");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MANGROVE_VEGETATION = WWFeatureUtils.register("mangrove_vegetation");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> CHERRIES = WWFeatureUtils.register("cherries");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> RED_MAPLES = WWFeatureUtils.register("red_maples");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> YELLOW_MAPLES = WWFeatureUtils.register("yellow_maples");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> ORANGE_MAPLES = WWFeatureUtils.register("orange_maples");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> RED_MAPLES = WWFeatureUtils.register("red_maples");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> MAPLES = WWFeatureUtils.register("maples");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> YELLOW_MAPLES_NO_BEES = WWFeatureUtils.register("yellow_maples_no_bees");
 	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ORANGE_MAPLES_NO_BEES = WWFeatureUtils.register("orange_maples_no_bees");
@@ -401,10 +402,10 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibConfiguredFeature<BlockColumnConfiguration> CACTUS_TALL_BADLANDS = WWFeatureUtils.register("cactus_tall_badlands");
 
 	public static final WeightedList<BlockState> PRICKLY_PEAR_POOL = WeightedList.<BlockState>builder()
-		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
-		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
-		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
-		.add(WWBlocks.PRICKLY_PEAR_CACTUS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
+		.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
+		.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
+		.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
+		.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
 		.add(Blocks.CACTUS.defaultBlockState(), 3)
 		.build();
 
@@ -2312,10 +2313,9 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		YELLOW_MAPLES.makeAndSetHolder(
-			FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
+		YELLOW_MAPLES.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
@@ -2338,10 +2338,9 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		ORANGE_MAPLES.makeAndSetHolder(
-			FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
+		ORANGE_MAPLES.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
@@ -2364,10 +2363,9 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		RED_MAPLES.makeAndSetHolder(
-			FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
+		RED_MAPLES.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						Feature.RANDOM_SELECTOR,
 						new RandomFeatureConfiguration(
@@ -3522,7 +3520,7 @@ public final class WWConfiguredFeatures {
 
 		POLLEN.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.POLLEN,
+				(MultifaceSpreadeableBlock) WWBlocks.POLLEN,
 				10,
 				true,
 				true,
@@ -3537,7 +3535,7 @@ public final class WWConfiguredFeatures {
 
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
 			new ShelfFungiFeatureConfig(
-				WWBlocks.CRIMSON_SHELF_FUNGI,
+				(ShelfFungiBlock) WWBlocks.CRIMSON_SHELF_FUNGI,
 				12,
 				true,
 				true,
@@ -3551,7 +3549,7 @@ public final class WWConfiguredFeatures {
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI_FEATURE,
 			new ShelfFungiFeatureConfig(
-				WWBlocks.WARPED_SHELF_FUNGI,
+				(ShelfFungiBlock) WWBlocks.WARPED_SHELF_FUNGI,
 				12,
 				true,
 				true,

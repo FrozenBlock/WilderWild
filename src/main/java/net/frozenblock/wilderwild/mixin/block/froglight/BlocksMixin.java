@@ -20,9 +20,11 @@ package net.frozenblock.wilderwild.mixin.block.froglight;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.function.Function;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -34,21 +36,23 @@ public final class BlocksMixin {
 		method = "<clinit>",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Blocks;register(Ljava/lang/String;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;"
+			target = "Lnet/minecraft/world/level/block/Blocks;register(Lnet/minecraft/references/BlockItemId;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;"
 		),
 		slice = @Slice(
 			from = @At(
-				value = "CONSTANT",
-				args = "stringValue=ochre_froglight"
+				value = "FIELD",
+				target = "Lnet/minecraft/references/BlockItemIds;OCHRE_FROGLIGHT:Lnet/minecraft/references/BlockItemId;",
+				opcode = Opcodes.GETSTATIC
 			),
 			to = @At(
-				value = "CONSTANT",
-				args = "stringValue=frogspawn"
+				value = "FIELD",
+				target = "Lnet/minecraft/references/BlockItemIds;FROGSPAWN:Lnet/minecraft/references/BlockItemId;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
-	private static Block wilderWild$newFroglights(String string, Function<BlockBehaviour.Properties, Block> function, BlockBehaviour.Properties properties, Operation<Block> original) {
-		return original.call(string, function, properties.randomTicks());
+	private static Block wilderWild$newFroglights(BlockItemId id, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties, Operation<Block> original) {
+		return original.call(id, factory, properties.randomTicks());
 	}
 
 }

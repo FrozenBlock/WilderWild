@@ -40,7 +40,7 @@ public class FrozenTallGrassBlock extends TallGrassBlock {
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		final DoublePlantBlock doublePlantBlock = (state.is(WWBlocks.FROZEN_FERN) ? WWBlocks.FROZEN_LARGE_FERN : WWBlocks.FROZEN_TALL_GRASS);
+		final DoublePlantBlock doublePlantBlock = (DoublePlantBlock) (state.is(WWBlocks.FROZEN_FERN) ? WWBlocks.FROZEN_LARGE_FERN : WWBlocks.FROZEN_TALL_GRASS);
 		if (!doublePlantBlock.defaultBlockState().canSurvive(level, pos) || !level.isEmptyBlock(pos.above())) return;
 		DoublePlantBlock.placeAt(level, doublePlantBlock.defaultBlockState(), pos, UPDATE_CLIENTS);
 	}

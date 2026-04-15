@@ -62,7 +62,7 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 
 ;
 
@@ -158,8 +158,8 @@ public final class WWModelLayers {
 
 		EntityRenderers.register(WWEntityTypes.FALLING_LEAVES, NoopRenderer::new);
 
-		BlockEntityRenderers.register(BlockEntityType.SCULK_SENSOR, SculkSensorRenderer::new);
-		BlockEntityRenderers.register(BlockEntityType.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
+		BlockEntityRenderers.register(BlockEntityTypes.SCULK_SENSOR, SculkSensorRenderer::new);
+		BlockEntityRenderers.register(BlockEntityTypes.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
 		ModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorRenderer::createModelLayer);
 
 		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL, HangingTendrilRenderer::new);

@@ -26,7 +26,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.FluidIds;
 
 public final class WWFluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
 
@@ -44,10 +44,10 @@ public final class WWFluidTagProvider extends FabricTagsProvider.FluidTagsProvid
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.valueLookupBuilder(WWFluidTags.SUPPORTS_ALGAE)
-			.add(Fluids.WATER);
+		this.builder(WWFluidTags.SUPPORTS_ALGAE)
+			.add(FluidIds.WATER);
 
-		this.valueLookupBuilder(WWFluidTags.SUPPORTS_PLANKTON)
-			.add(Fluids.WATER);
+		this.builder(WWFluidTags.SUPPORTS_PLANKTON)
+			.add(FluidIds.WATER);
 	}
 }

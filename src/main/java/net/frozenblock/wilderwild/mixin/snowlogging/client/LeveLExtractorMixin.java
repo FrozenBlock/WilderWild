@@ -21,14 +21,14 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LevelRenderer.class)
-public class LevelRendererMixin {
+@Mixin(LevelExtractor.class)
+public class LeveLExtractorMixin {
 
 	@ModifyExpressionValue(
 		method = "extractBlockDestroyAnimation",

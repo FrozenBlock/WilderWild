@@ -2,7 +2,7 @@
   "values": [
     "minecraft:brown_mushroom",
     {
-      "id": "wilderwild:brown_shelf_fungus",
+      "id": "wilderwild:brown_shelf_fungi",
       "required": false
     }
   ]

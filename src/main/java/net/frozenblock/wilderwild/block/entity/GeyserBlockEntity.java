@@ -27,7 +27,7 @@ import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.lib.wind.client.impl.ClientWindManager;
-import net.frozenblock.wilderwild.advancement.GeyserPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeyserPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
@@ -35,7 +35,7 @@ import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -216,7 +216,7 @@ public class GeyserBlockEntity extends BlockEntity {
 			final AABB boundingBox = entity.getBoundingBox();
 			if (!eruption.intersects(boundingBox)) continue;
 
-			boolean applyMovement = !entity.is(WWEntityTags.GEYSER_CANNOT_PUSH);
+			boolean applyMovement = !entity.is(WWEntityTypeTags.GEYSER_CANNOT_PUSH);
 			if (entity instanceof Player player) {
 				if (player.getAbilities().flying) {
 					applyMovement = false;
@@ -239,7 +239,7 @@ public class GeyserBlockEntity extends BlockEntity {
 
 			if (applyMovement) {
 				final double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(geyserStartPos), eruptionDistance)) / eruptionDistance;
-				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
+				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTypeTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
 				entity.needsSync = true;

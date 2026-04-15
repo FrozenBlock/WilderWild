@@ -29,7 +29,7 @@ import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -115,7 +115,7 @@ public final class WarmBeach extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.TURTLE, 2, 5));
+		spawns.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityTypes.TURTLE, 2, 5));
 	}
 
 	@Override

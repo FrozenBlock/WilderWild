@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.worldgen.features.configured;
 
-import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
@@ -27,7 +26,6 @@ import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.TouchingBlockPredicate;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
@@ -45,7 +43,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -56,6 +53,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -65,6 +63,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockBlobConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -95,7 +94,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
 	public static final FrozenLibConfiguredFeature<DiskConfiguration> DISK_MUD = register("disk_mud");
@@ -169,7 +168,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration> MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE FOREST
@@ -313,9 +312,9 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_DISK_AND_PILE.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				ImmutableList.of(
+		STONE_DISK_AND_PILE.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						Feature.BLOCK_PILE,
 						new BlockPileConfiguration(
@@ -984,7 +983,10 @@ public final class WWMiscConfigured {
 		MOSS_LAKE.makeAndSetHolder(Feature.LAKE,
 			new LakeFeature.Configuration(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState())
+				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState()),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 			)
 		);
 
@@ -1012,7 +1014,10 @@ public final class WWMiscConfigured {
 		MUD_LAKE.makeAndSetHolder(Feature.LAKE,
 			new LakeFeature.Configuration(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MUD.defaultBlockState())
+				BlockStateProvider.simple(Blocks.MUD.defaultBlockState()),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 			)
 		);
 
@@ -1046,9 +1051,9 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				ImmutableList.of(
+		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						Feature.BLOCK_PILE,
 						new BlockPileConfiguration(
@@ -1100,7 +1105,7 @@ public final class WWMiscConfigured {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				yellowLitterStates.add(
 					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(((LeafLitterBlock) WWBlocks.YELLOW_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1131,7 +1136,7 @@ public final class WWMiscConfigured {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				orangeLitterStates.add(
 					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(((LeafLitterBlock) WWBlocks.ORANGE_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1162,7 +1167,7 @@ public final class WWMiscConfigured {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				redLitterStates.add(
 					WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(WWBlocks.RED_MAPLE_LEAF_LITTER.getSegmentAmountProperty(), i)
+						.setValue(((LeafLitterBlock) WWBlocks.RED_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1205,16 +1210,13 @@ public final class WWMiscConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.AUBURN_CREEPING_MOSS,
+						(MultifaceSpreadeableBlock) WWBlocks.AUBURN_CREEPING_MOSS,
 						1,
 						true,
 						false,
 						true,
 						0.5F,
-						new HolderSet.Named<>(
-							BuiltInRegistries.BLOCK,
-							WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE
-						)
+						blocks.getOrThrow(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
 					),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 				)
@@ -1270,7 +1272,7 @@ public final class WWMiscConfigured {
 
 		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.AUBURN_CREEPING_MOSS,
+				(MultifaceSpreadeableBlock) WWBlocks.AUBURN_CREEPING_MOSS,
 				10,
 				true,
 				true,

@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
@@ -58,9 +59,9 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
 		at = @At("TAIL")
 	)
-	private void wilderWild$init(BlockEntityType type, BlockPos pos, BlockState state, CallbackInfo info) {
-		if (type != BlockEntityType.CALIBRATED_SCULK_SENSOR || !(state.getBlock() instanceof CalibratedSculkSensorBlock)) return;
-		this.wilderWild$facing = state.getValueOrElse(CalibratedSculkSensorBlock.FACING, Direction.NORTH);
+	private void wilderWild$init(BlockEntityType type, BlockPos worldPosition, BlockState blockState, CallbackInfo info) {
+		if (type != BlockEntityTypes.CALIBRATED_SCULK_SENSOR || !(blockState.getBlock() instanceof CalibratedSculkSensorBlock)) return;
+		this.wilderWild$facing = blockState.getValueOrElse(CalibratedSculkSensorBlock.FACING, Direction.NORTH);
 	}
 
 	@Unique

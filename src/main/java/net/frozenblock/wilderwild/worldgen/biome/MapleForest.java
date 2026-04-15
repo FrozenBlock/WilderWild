@@ -35,7 +35,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -129,7 +129,7 @@ public final class MapleForest extends FrozenBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 3, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 2, 4));
+		spawns.addSpawn(MobCategory.CREATURE, 3, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 2, 4));
 	}
 
 	@Override

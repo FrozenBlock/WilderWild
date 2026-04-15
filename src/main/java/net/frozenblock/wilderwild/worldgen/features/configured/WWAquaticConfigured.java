@@ -22,7 +22,6 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
-import net.frozenblock.lib.worldgen.feature.api.feature.config.ComboFeatureConfig;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.worldgen.feature.api.feature.noise_path.config.NoisePathFeatureConfig;
@@ -50,6 +49,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -57,6 +57,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
@@ -85,7 +86,7 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> TUBE_WORMS = WWFeatureUtils.register("tube_worms");
 
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> OCEAN_MOSS = register("ocean_moss");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
@@ -139,7 +140,7 @@ public final class WWAquaticConfigured {
 
 		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.BARNACLES,
+				(MultifaceSpreadeableBlock) WWBlocks.BARNACLES,
 				6,
 				true,
 				true,
@@ -154,7 +155,7 @@ public final class WWAquaticConfigured {
 
 		PATCH_BARNACLES.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.BARNACLES,
+				(MultifaceSpreadeableBlock) WWBlocks.BARNACLES,
 				10,
 				true,
 				false,
@@ -207,9 +208,9 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				List.of(
+		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
 					PlacementUtils.inlinePlaced(HYDROTHERMAL_VENT.getHolder()),
 					PlacementUtils.inlinePlaced(
 						WWFeatures.TUBE_WORMS_FEATURE,
@@ -311,7 +312,7 @@ public final class WWAquaticConfigured {
 
 		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.AUBURN_CREEPING_MOSS,
+				(MultifaceSpreadeableBlock) WWBlocks.AUBURN_CREEPING_MOSS,
 				10,
 				true,
 				true,

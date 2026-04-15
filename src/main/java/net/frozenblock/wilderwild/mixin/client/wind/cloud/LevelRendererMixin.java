@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class LevelRendererMixin {
 
 	@WrapOperation(
-		method = "renderLevel",
+		method = "render",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;JFIFI)V"

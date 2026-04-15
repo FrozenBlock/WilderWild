@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.entity.tumbleweed;
 
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.tag.WWEntityTags;
+import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,11 +42,11 @@ public class LivingEntityMixin {
 
 	@Unique
 	private void wilderWild$cancelIfEntityIsTumbleweed(Entity entity, CallbackInfo info) {
-		if (entity instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && Entity.class.cast(this).is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) {
+		if (entity instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && Entity.class.cast(this).is(WWEntityTypeTags.TUMBLEWEED_PASSES_THROUGH)) {
 			info.cancel();
 			return;
 		}
-		if (Entity.class.cast(this) instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && entity.is(WWEntityTags.TUMBLEWEED_PASSES_THROUGH)) info.cancel();
+		if (Entity.class.cast(this) instanceof Tumbleweed tumbleweed && !tumbleweed.isCannonball() && entity.is(WWEntityTypeTags.TUMBLEWEED_PASSES_THROUGH)) info.cancel();
 	}
 
 }

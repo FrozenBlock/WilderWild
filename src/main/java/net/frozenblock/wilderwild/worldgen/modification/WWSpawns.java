@@ -25,7 +25,7 @@ import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -112,7 +112,7 @@ public final class WWSpawns {
 
 	public static void addRabbits() {
 		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.FLOWER_FOREST),
-			MobCategory.CREATURE, EntityType.RABBIT, 10, 2, 4);
+			MobCategory.CREATURE, EntityTypes.RABBIT, 10, 2, 4);
 	}
 
 	public static void addMooblooms() {
@@ -120,7 +120,7 @@ public final class WWSpawns {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
 			context -> {
-				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityType.COW);
+				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.COW);
 				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM, 2, 4), 34);
 			}
 		);
