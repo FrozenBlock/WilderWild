@@ -29,7 +29,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
@@ -51,10 +50,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
-	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	protected static final VoxelShape ENTITY_INSIDE_SHAPE = Block.box(0D, -0.5D, 0D, 16D, 0D, 16D);
+	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 
 	public AlgaeBlock(Properties properties) {
 		super(properties);
@@ -77,7 +76,7 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 
 	@Override
 	protected boolean mayPlaceOn(final BlockState state, final BlockGetter level, final BlockPos pos) {
-		FluidState fluidAbove = level.getFluidState(pos.above());
+		final FluidState fluidAbove = level.getFluidState(pos.above());
 		return (state.getFluidState().is(this.fluidSupportTag()) || state.is(this.blockSupportTag())) && fluidAbove.is(Fluids.EMPTY);
 	}
 
@@ -119,8 +118,7 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 		InsideBlockEffectApplier effectApplier,
 		boolean isPrecise
 	) {
-		final EntityType<?> entityType = entity.getType();
-		if (entityType.equals(EntityTypes.FALLING_BLOCK)) level.destroyBlock(pos, false);
+		if (entity.is(EntityTypes.FALLING_BLOCK)) level.destroyBlock(pos, false);
 		if (!entity.is(WWEntityTypeTags.CAN_SWIM_IN_ALGAE)) {
 			if (entity instanceof Player player && player.getAbilities().flying) return;
 			entity.resetFallDistance();
@@ -156,7 +154,7 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	public static boolean hasNearbyAlgae(LevelAccessor level, BlockPos pos, int distance, int threshold) {
-		final Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, -distance, -distance), pos.offset(distance, distance, distance)).iterator();
+		final Iterator<BlockPos> posesToCheck = BlockPos.betweenClosed(pos.offset(-distance, 0, -distance), pos.offset(distance, 0, distance)).iterator();
 		int count = 0;
 		while (count < threshold) {
 			if (!posesToCheck.hasNext()) return false;

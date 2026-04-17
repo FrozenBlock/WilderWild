@@ -42,8 +42,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContainer {
-	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
+	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
 
 	public SeaWhipBlock(Properties properties) {
 		super(properties);

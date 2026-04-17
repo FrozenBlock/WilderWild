@@ -69,7 +69,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	public ShrubBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, MIN_AGE).setValue(HALF, DoubleBlockHalf.LOWER));
+		this.registerDefaultState(this.defaultBlockState().setValue(AGE, MIN_AGE).setValue(HALF, DoubleBlockHalf.LOWER));
 	}
 
 	public static boolean isFullyGrown(BlockState state) {
@@ -193,14 +193,14 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		return true;
 	}
 
-	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity USER, BlockPos pos) {
+	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SHRUB,
 			state,
 			blockEntity,
 			stack,
-			USER,
+			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
 		);
 	}

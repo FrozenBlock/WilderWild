@@ -81,13 +81,13 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final IntegerProperty DISPLAY_LIGHT = WWBlockStateProperties.DISPLAY_LIGHT;
-	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5D, 0D, 5D, 11D, 7D, 11.0D), Block.box(6D, 7D, 6D, 10D, 8D, 10D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5D, 2D, 5D, 11D, 9D, 11.0D), Block.box(6D, 9D, 6D, 10D, 10D, 10D));
+	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 
 	public DisplayLanternBlock(Properties properties) {
 		super(properties.pushReaction(PushReaction.DESTROY));
-		this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
+		this.registerDefaultState(this.defaultBlockState().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 
 	private static Direction attachedDirection(BlockState state) {
@@ -142,27 +142,26 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				level.updateNeighbourForOutputSignal(pos, this);
 				return InteractionResult.SUCCESS;
 			}
-		} else if (stack.is(Items.GLASS_BOTTLE)) {
-			if (!fireflies.isEmpty()) {
-				final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
-				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-				player.getItemInHand(hand).consume(1, player);
-				final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-				bottleStack.set(
-					WWDataComponents.FIREFLY_COLOR,
-					level.registryAccess()
-						.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
-						.get(fireflyInLantern.getColor()).orElseThrow()
-				);
-				if (!Objects.equals(fireflyInLantern.customName, "")) bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
-				player.getInventory().placeItemBackInInventory(bottleStack);
-				displayLantern.removeFirefly(fireflyInLantern);
-				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-				displayLantern.markForUpdate();
-				level.updateNeighbourForOutputSignal(pos, this);
-				return InteractionResult.SUCCESS;
-			}
+		} else if (stack.is(Items.GLASS_BOTTLE) && !fireflies.isEmpty()) {
+			final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
+			level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+			player.getItemInHand(hand).consume(1, player);
+			final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
+			bottleStack.set(
+				WWDataComponents.FIREFLY_COLOR,
+				level.registryAccess()
+					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
+					.get(fireflyInLantern.getColor()).orElseThrow()
+			);
+			if (!Objects.equals(fireflyInLantern.customName, "")) bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
+			player.getInventory().placeItemBackInInventory(bottleStack);
+			displayLantern.removeFirefly(fireflyInLantern);
+			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+			displayLantern.markForUpdate();
+			level.updateNeighbourForOutputSignal(pos, this);
+			return InteractionResult.SUCCESS;
 		}
+
 		if (!stack.isEmpty() && displayLantern.noFireflies()) {
 			int light = 0;
 			if (stack.getItem() instanceof BlockItem blockItem) {
@@ -176,6 +175,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			level.updateNeighbourForOutputSignal(pos, this);
 			return InteractionResult.SUCCESS;
 		}
+
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 

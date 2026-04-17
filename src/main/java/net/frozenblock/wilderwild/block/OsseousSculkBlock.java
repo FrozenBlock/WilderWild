@@ -60,7 +60,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 
 	public OsseousSculkBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
 	}
 
 	@Override

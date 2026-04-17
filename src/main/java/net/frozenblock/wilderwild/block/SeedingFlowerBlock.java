@@ -60,13 +60,11 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public static final int MAX_SEEDS = 2;
 	public static final int MIN_SEEDS_DESTROY = 3;
 	public static final int MAX_SEEDS_DESTROY = 7;
-	public static final MapCodec<SeedingFlowerBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-			EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects),
-			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("non_seeding_flower").forGetter(SeedingFlowerBlock::getNonSeedingFlower),
-			propertiesCodec()
-		).apply(instance, SeedingFlowerBlock::new)
-	);
+	public static final MapCodec<SeedingFlowerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects),
+		BuiltInRegistries.BLOCK.byNameCodec().fieldOf("non_seeding_flower").forGetter(SeedingFlowerBlock::getNonSeedingFlower),
+		propertiesCodec()
+	).apply(instance, SeedingFlowerBlock::new));
 
 	private final Block nonSeedingFlower;
 

@@ -121,6 +121,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Override
 	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
 		if (level.isClientSide()) return;
+
 		final boolean hasNeighborSignal = level.hasNeighborSignal(pos);
 		if (hasNeighborSignal == state.getValue(POWERED)) return;
 

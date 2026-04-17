@@ -37,8 +37,8 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 
 	public AuburnMossCarpetBlock(Properties properties) {
 		super(properties);

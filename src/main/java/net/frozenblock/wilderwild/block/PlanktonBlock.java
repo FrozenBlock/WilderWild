@@ -57,7 +57,7 @@ public class PlanktonBlock extends AlgaeBlock {
 
 	public PlanktonBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.getStateDefinition().any().setValue(GLOWING, Boolean.FALSE));
+		this.registerDefaultState(this.defaultBlockState().setValue(GLOWING, Boolean.FALSE));
 	}
 
 	@Override

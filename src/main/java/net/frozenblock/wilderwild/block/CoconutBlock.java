@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -89,12 +88,12 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 		return state.getValue(AGE) == MAX_AGE;
 	}
 
-	public static BlockState getDefaultHangingState() {
-		return getHangingState(0);
+	public BlockState getDefaultHangingState() {
+		return this.getHangingState(0);
 	}
 
-	public static BlockState getHangingState(int age) {
-		return WWBlocks.COCONUT.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
+	public BlockState getHangingState(int age) {
+		return this.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
 	}
 
 	@Override
@@ -159,7 +158,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!state.is(this) || level.getMaxLocalRawBrightness(pos.above()) < 9) return;
+		if (level.getMaxLocalRawBrightness(pos.above()) < 9) return;
 		if (!isHanging(state)) {
 			if (random.nextInt(7) == 0) this.advanceTree(level, pos, state, random);
 			return;

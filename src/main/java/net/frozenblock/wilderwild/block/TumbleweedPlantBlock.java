@@ -52,7 +52,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class TumbleweedPlantBlock extends DryVegetationBlock implements BonemealableBlock {
-	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 	public static final int MAX_AGE = 3;
 	public static final int AGE_FOR_SOLID_COLLISION = 2;
 	public static final int RANDOM_TICK_CHANCE = 2;
@@ -66,6 +65,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		Block.box(1D, 0D, 1D, 15D, 14D, 15D),
 		Block.box(1D, 0D, 1D, 15D, 14D, 15D)
 	};
+	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 
 	public TumbleweedPlantBlock(Properties properties) {
 		super(properties);

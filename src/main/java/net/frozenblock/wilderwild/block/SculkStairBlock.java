@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SculkStairBlock extends StairBlock implements SculkBuildingBlockBehaviour {
-	public static final MapCodec<SculkStairBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+	public static final MapCodec<SculkStairBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		BlockState.CODEC.fieldOf("base_state").forGetter((sculkStairBlock) -> sculkStairBlock.baseState),
 		propertiesCodec()
 	).apply(instance, SculkStairBlock::new));

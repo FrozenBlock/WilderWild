@@ -43,12 +43,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class OstrichEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 	private static final VoxelShape SHAPE = Block.box(5D, 0D, 5D, 11D, 8D, 11D);
+	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 
 	public OstrichEggBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0));
+		this.registerDefaultState(this.defaultBlockState().setValue(HATCH, 0));
 	}
 
 	public static boolean isSafeToHatch(Level level, BlockPos belowPos) {

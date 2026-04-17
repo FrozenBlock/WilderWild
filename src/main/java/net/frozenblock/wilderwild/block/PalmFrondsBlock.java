@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -45,6 +46,6 @@ public class PalmFrondsBlock extends TintedParticleLeavesBlock implements Boneme
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.setBlock(pos.below(), CoconutBlock.getDefaultHangingState(), UPDATE_CLIENTS);
+		level.setBlock(pos.below(), ((CoconutBlock) WWBlocks.COCONUT).getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

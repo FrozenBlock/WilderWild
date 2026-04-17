@@ -76,12 +76,12 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty TWITCHING = WWBlockStateProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = WWBlockStateProperties.WRINGING_OUT;
-	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
+	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 
 	public HangingTendrilBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any()
+		this.registerDefaultState(this.defaultBlockState()
 			.setValue(PHASE, SculkSensorPhase.INACTIVE)
 			.setValue(WATERLOGGED, false)
 			.setValue(TWITCHING, false)
@@ -92,7 +92,9 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static void deactivate(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0));
-		if (!state.getValue(WATERLOGGED)) level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
+		if (!state.getValue(WATERLOGGED)) {
+			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
+		}
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 	}
 
@@ -193,7 +195,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 			? createTickerHelper(
 				type,
 				WWBlockEntityTypes.HANGING_TENDRIL,
-				(worldx, pos, statex, blockEntity) -> blockEntity.serverTick(worldx, pos, statex)
+				(levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos, statex)
 			)
 			: null;
 	}
@@ -223,11 +225,13 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		int frequency
 	) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.ACTIVE).setValue(POWER, power));
+
 		final boolean tendrilsCarryEvents = WWBlockConfig.TENDRILS_CARRY_EVENTS.get();
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 		SculkSensorBlock.tryResonateVibration(tendrilsCarryEvents ? entity : null, level, pos, frequency);
 		level.gameEvent(tendrilsCarryEvents ? entity : null, tendrilsCarryEvents ? gameEvent : GameEvent.SCULK_SENSOR_TENDRILS_CLICKING, pos);
 		if (state.getValue(WATERLOGGED)) return;
+
 		level.playSound(
 			null,
 			pos,
@@ -294,8 +298,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		boolean shouldConvertToBlock
 	) {
 		if (!(level.getBlockEntity(cursor.getPos()) instanceof HangingTendrilBlockEntity tendrilEntity)) return cursor.getCharge();
+
 		final int storedXP = tendrilEntity.getStoredXP();
 		if (storedXP >= MAX_STORED_XP) return cursor.getCharge();
+
 		final int xpSwapAmount = Math.min(cursor.getCharge(), 2);
 		tendrilEntity.setStoredXP(storedXP + xpSwapAmount);
 		return cursor.getCharge() - xpSwapAmount;

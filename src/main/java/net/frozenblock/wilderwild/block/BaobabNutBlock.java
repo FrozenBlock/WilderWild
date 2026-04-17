@@ -45,13 +45,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabNutBlock extends SaplingBlock {
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-	public static final int MAX_AGE = 2;
-	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		TreeGrower.CODEC.fieldOf("tree").forGetter(baobabNutBlock -> baobabNutBlock.treeGrower),
 		propertiesCodec()
 	).apply(instance, BaobabNutBlock::new));
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+	public static final int MAX_AGE = 2;
+	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final double HANGING_GROWTH_CHANCE = 0.4D;
 	private static final VoxelShape[] SHAPES = new VoxelShape[]{
 		Shapes.or(Block.box(7D, 13D, 7D, 9D, 16D, 9.0), Block.box(5D, 6D, 5D, 11D, 13D, 11.0)),
@@ -66,7 +66,7 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	private static boolean isHanging(BlockState state) {
-		return state.getValue(HANGING);
+		return state.getValueOrElse(HANGING, false);
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -99,36 +99,34 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return state.is(this) && (isHanging(state)
+		return isHanging(state)
 			? level.getBlockState(pos.above()).is(WWBlockTags.SUPPORTS_HANGING_BAOBAB_NUT)
-			: super.canSurvive(state, level, pos));
+			: super.canSurvive(state, level, pos);
 	}
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (state.is(this) && level.getMaxLocalRawBrightness(pos.above()) < 9) return;
+		if (level.getMaxLocalRawBrightness(pos.above()) < 9) return;
 		if (!isHanging(state)) {
 			if (random.nextInt(7) == 0) this.advanceTree(level, pos, state, random);
-		} else {
-			if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) {
-				level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
-			}
+			return;
 		}
+		if (random.nextDouble() <= HANGING_GROWTH_CHANCE && !isFullyGrown(state)) level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 	}
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return state.is(this) && (!isHanging(state) || !isFullyGrown(state));
+		return !isHanging(state) || !isFullyGrown(state);
 	}
 
 	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return state.is(this) && isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
+		return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
 	}
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		if (state.is(this) && isHanging(state) && !isFullyGrown(state)) {
+		if (isHanging(state) && !isFullyGrown(state)) {
 			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		} else {
 			super.performBonemeal(level, random, pos, state);
@@ -136,13 +134,13 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
-		world.destroyBlock(hit.getBlockPos(), true, projectile);
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+		level.destroyBlock(hit.getBlockPos(), true, projectile);
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
-		return isHanging(state) ? super.getCollisionShape(state, level, pos, collisionContext) : Shapes.empty();
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return isHanging(state) ? super.getCollisionShape(state, level, pos, context) : Shapes.empty();
 	}
 
 	public BlockState getDefaultHangingState() {

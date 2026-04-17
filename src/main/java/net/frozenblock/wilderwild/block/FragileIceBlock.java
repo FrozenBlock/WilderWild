@@ -44,20 +44,20 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class FragileIceBlock extends HalfTransparentBlock {
-	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntProvider SHEET_SHATTER_DELAY = UniformInt.of(1, 5);
 	public static final float NEIGHBOR_CHANGE_CHANCE = 0.55F;
 	public static final int DELAY_BETWEEN_CRACKS = 20;
+	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
+
+	public FragileIceBlock(Properties properties) {
+		super(properties);
+		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0));
+	}
 
 	@Override
 	public MapCodec<FragileIceBlock> codec() {
 		return CODEC;
-	}
-
-	public FragileIceBlock(Properties properties) {
-		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
 	}
 
 	private void crackOrDestroy(BlockState state, Level level, BlockPos pos) {
@@ -90,14 +90,14 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	}
 
 	@Override
-	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean bl) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
 		final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (Direction direction : Direction.values()) {
 			mutableBlockPos.setWithOffset(pos, direction);
 			if (!level.getBlockState(mutableBlockPos).is(this)) continue;
 			if (level.getRandom().nextFloat() <= NEIGHBOR_CHANGE_CHANCE) this.scheduleShatter(level, mutableBlockPos, state, level.getRandom());
 		}
-		super.affectNeighborsAfterRemoval(state, level, pos, bl);
+		super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
 	}
 
 	@Override

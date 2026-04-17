@@ -68,26 +68,23 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final IntegerProperty STAGE = WWBlockStateProperties.FUNGUS_STAGE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<ShelfFungiBlock> CODEC = RecordCodecBuilder.mapCodec(
-		instance ->
-			instance.group(
-				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("shearing_loot_table").forGetter(shelfFungiBlock -> shelfFungiBlock.shearingLootTable),
-				propertiesCodec()
-			).apply(instance, ShelfFungiBlock::new)
-	);
 	protected static final VoxelShape NORTH_WALL_SHAPE = Block.box(0D, 0D, 13D, 16D, 16D, 16D);
 	protected static final VoxelShape SOUTH_WALL_SHAPE = Block.box(0D, 0D, 0D, 16D, 16D, 3D);
 	protected static final VoxelShape WEST_WALL_SHAPE = Block.box(13D, 0D, 0D, 16D, 16D, 16D);
 	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0D, 0D, 0D, 3D, 16D, 16D);
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
+	public static final MapCodec<ShelfFungiBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("shearing_loot_table").forGetter(shelfFungiBlock -> shelfFungiBlock.shearingLootTable),
+		propertiesCodec()
+	).apply(instance, ShelfFungiBlock::new));
 	private final ResourceKey<LootTable> shearingLootTable;
 
 	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, Properties properties) {
 		super(properties);
 		this.shearingLootTable = shearingLootTable;
 		this.registerDefaultState(
-			this.stateDefinition.any().
+			this.defaultBlockState().
 				setValue(FACING, Direction.NORTH)
 				.setValue(WATERLOGGED, false)
 				.setValue(FACE, AttachFace.WALL)
@@ -181,7 +178,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 		final BlockState insideState = level.getBlockState(pos);
 		if (insideState.is(this)) return insideState.setValue(STAGE, Math.min(MAX_STAGE, insideState.getValue(STAGE) + 1));
 
-		final boolean waterlogged = insideState.getValueOrElse(BlockStateProperties.WATERLOGGED, false) || insideState.getFluidState().is(Fluids.WATER);
+		final boolean waterlogged = insideState.getFluidState().is(Fluids.WATER);
 		for (Direction direction : context.getNearestLookingDirections()) {
 			BlockState blockState;
 			if (direction.getAxis() == Direction.Axis.Y) {

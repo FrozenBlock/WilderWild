@@ -43,14 +43,14 @@ import org.jetbrains.annotations.Nullable;
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
 	public static final int WATER_SEARCH_RANGE = 3;
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<WaterloggableSaplingBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter((waterloggableSaplingBlock) -> waterloggableSaplingBlock.treeGrower),
+	public static final MapCodec<WaterloggableSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		TreeGrower.CODEC.fieldOf("tree").forGetter(waterloggableSaplingBlock -> waterloggableSaplingBlock.treeGrower),
 		propertiesCodec()
 	).apply(instance, WaterloggableSaplingBlock::new));
 
 	public WaterloggableSaplingBlock(TreeGrower grower, Properties properties) {
 		super(grower, properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(STAGE, 0).setValue(WATERLOGGED, false));
 	}
 
 	@Override

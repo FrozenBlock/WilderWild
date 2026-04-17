@@ -53,7 +53,7 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 
 	public TubeWormsBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE));
+		this.registerDefaultState(this.defaultBlockState().setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE));
 	}
 
 	@Override

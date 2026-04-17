@@ -49,11 +49,11 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		BlockState blockState = super.getStateForPlacement(context);
-		if (blockState == null) return null;
+		BlockState state = super.getStateForPlacement(context);
+		if (state == null) return null;
 
-		blockState = blockState.setValue(SWAYING, blockState.getValue(WATERLOGGED));
-		return SnowloggingUtils.getSnowPlacementState(blockState, context);
+		state = state.setValue(SWAYING, state.getValue(WATERLOGGED));
+		return SnowloggingUtils.getSnowPlacementState(state, context);
 	}
 
 	@Override

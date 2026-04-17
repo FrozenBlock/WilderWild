@@ -37,22 +37,23 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteMoundBlock extends BaseEntityBlock {
-	public static final MapCodec<TermiteMoundBlock> CODEC = simpleCodec(TermiteMoundBlock::new);
 	public static final int MIN_PLACEMENT_TICK_DELAY = 40;
 	public static final int MAX_PLACEMENT_TICK_DELAY = 200;
 	public static final int MIN_TICK_DELAY = 90;
 	public static final int MAX_TICK_DELAY = 150;
 	public static final int MIN_AWAKE_LIGHT_LEVEL = 7;
+	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
+	public static final BooleanProperty TERMITES_AWAKE = WWBlockStateProperties.TERMITES_AWAKE;
+	public static final MapCodec<TermiteMoundBlock> CODEC = simpleCodec(TermiteMoundBlock::new);
 
 	public TermiteMoundBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
-			this.stateDefinition.any()
-				.setValue(WWBlockStateProperties.NATURAL, false)
-				.setValue(WWBlockStateProperties.TERMITES_AWAKE, false)
+			this.defaultBlockState().setValue(NATURAL, false).setValue(TERMITES_AWAKE, false)
 		);
 	}
 
@@ -69,7 +70,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(WWBlockStateProperties.NATURAL, WWBlockStateProperties.TERMITES_AWAKE);
+		builder.add(NATURAL, TERMITES_AWAKE);
 	}
 
 	@Override
@@ -83,10 +84,7 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 		BlockState neighborState,
 		RandomSource random
 	) {
-		if (!TermiteManager.isStateSafeForTermites(neighborState)) {
-			state = state.setValue(WWBlockStateProperties.TERMITES_AWAKE, false).setValue(WWBlockStateProperties.TERMITES_AWAKE, false);
-		}
-
+		if (!TermiteManager.isStateSafeForTermites(neighborState)) state = state.setValue(TERMITES_AWAKE, false);
 		ticks.scheduleTick(blockPos, this, random.nextInt(MIN_PLACEMENT_TICK_DELAY, MAX_PLACEMENT_TICK_DELAY));
 		return state;
 	}
@@ -109,9 +107,8 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	}
 
 	public BlockState evaluateMoundBlockStateAtPosition(BlockState state, Level level, BlockPos pos) {
-		final boolean areTermitesSafe = TermiteManager.areTermitesSafe(level, pos);
-		final boolean canAwaken = canTermitesWaken(level, pos) && areTermitesSafe;
-		return state.setValue(WWBlockStateProperties.TERMITES_AWAKE, areTermitesSafe && canAwaken);
+		final boolean canAwaken = TermiteManager.areTermitesSafe(level, pos) && canTermitesWaken(level, pos);
+		return state.setValue(TERMITES_AWAKE, canAwaken);
 	}
 
 	public static boolean canTermitesWaken(Level level, BlockPos pos) {
@@ -147,8 +144,8 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 				blockEntity.tickServer(
 					levelx,
 					pos,
-					statex.getValue(WWBlockStateProperties.NATURAL),
-					statex.getValue(WWBlockStateProperties.TERMITES_AWAKE)
+					statex.getValue(NATURAL),
+					statex.getValue(TERMITES_AWAKE)
 				)
 			);
 	}

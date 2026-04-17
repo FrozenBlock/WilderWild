@@ -73,7 +73,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWaterloggedBlock {
-	public static final MapCodec<IcicleBlock> CODEC = simpleCodec(IcicleBlock::new);
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	public static final EnumProperty<Direction> TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
 	public static final EnumProperty<SpeleothemThickness> THICKNESS = BlockStateProperties.SPELEOTHEM_THICKNESS;
@@ -85,11 +84,12 @@ public class IcicleBlock extends BaseEntityBlock implements Fallable, SimpleWate
 	private static final VoxelShape FRUSTUM_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 	private static final VoxelShape MIDDLE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 	private static final VoxelShape BASE_SHAPE = Block.box(3D, 0D, 3D, 13D, 16D, 13D);
+	public static final MapCodec<IcicleBlock> CODEC = simpleCodec(IcicleBlock::new);
 
 	public IcicleBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
-			this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, SpeleothemThickness.TIP).setValue(WATERLOGGED, false)
+			defaultBlockState().setValue(TIP_DIRECTION, Direction.UP).setValue(THICKNESS, SpeleothemThickness.TIP).setValue(WATERLOGGED, false)
 		);
 	}
 

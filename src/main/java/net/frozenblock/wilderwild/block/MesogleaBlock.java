@@ -71,14 +71,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock {
-	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
 		ColorRGBA.CODEC.fieldOf("water_fog_color").forGetter(MesogleaBlock::getWaterFogColorOverride),
-		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(mesogleaBlock -> mesogleaBlock.dripParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleColumnUpParticle),
-		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(mesogleaBlock -> mesogleaBlock.currentDownParticle),
-		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(mesogleaBlock -> mesogleaBlock.splashParticle),
+		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(MesogleaBlock::getDripParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(MesogleaBlock::getBubbleParticle),
+		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(MesogleaBlock::getBubbleColumnUpParticle),
+		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(MesogleaBlock::getCurrentDownParticle),
+		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(MesogleaBlock::getSplashParticle),
 		propertiesCodec()
 	).apply(instance, MesogleaBlock::new));
 	public static final float JELLYFISH_COLLISION_FROM_SIDE = 0.25F;
@@ -112,7 +112,7 @@ public class MesogleaBlock extends HalfTransparentBlock {
 		Properties properties
 	) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
+		this.registerDefaultState(this.defaultBlockState().setValue(BUBBLE_DIRECTION, BubbleDirection.NONE));
 		this.pearlescent = pearlescent;
 		this.waterFogColor = waterFogColor;
 		this.dripParticle = dripParticle;

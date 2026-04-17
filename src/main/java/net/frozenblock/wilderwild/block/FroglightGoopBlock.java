@@ -36,12 +36,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FroglightGoopBlock extends GrowingPlantHeadBlock implements FroglightTypeHolder {
-	public static final MapCodec<FroglightGoopBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		instance.group(
-			FroglightType.CODEC.fieldOf("froglight_type").forGetter(froglightGoopBlock -> froglightGoopBlock.froglightType),
-			propertiesCodec()
-		).apply(instance, FroglightGoopBlock::new)
-	);
+	public static final MapCodec<FroglightGoopBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		FroglightType.CODEC.fieldOf("froglight_type").forGetter(froglightGoopBlock -> froglightGoopBlock.froglightType),
+		propertiesCodec()
+	).apply(instance, FroglightGoopBlock::new));
 	protected static final VoxelShape SHAPE = Block.box(2D, 6D, 2D, 14D, 16D, 14D);
 	private static final float GROWTH_FROM_FROGLIGHT_CHANCE = 0.035F;
 	private final FroglightType froglightType;
@@ -72,8 +70,7 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 		final Optional<FroglightType> optionalType = FroglightType.getFromBaseBlock(state.getBlock());
 		if (optionalType.isEmpty()) return;
 
-		final BlockPos abovePos = pos.above();
-		final BlockState aboveState = level.getBlockState(abovePos);
+		final BlockState aboveState = level.getBlockState(pos.above());
 		if (!aboveState.getFluidState().is(FluidTags.WATER)) return;
 
 		final FroglightType froglightType = optionalType.get();

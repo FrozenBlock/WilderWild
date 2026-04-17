@@ -61,7 +61,6 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	private static final double EDGE_AMOUNT = 0.140625D;
 	private static final double CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<HollowedLogBlock> CODEC = simpleCodec(HollowedLogBlock::new);
 	protected static final VoxelShape X_SHAPE = Shapes.or(
 		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
 		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
@@ -99,6 +98,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		Block.box(0D, 0D, 0D, 16D, 2.25D, 16)
 	);
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
+	public static final MapCodec<HollowedLogBlock> CODEC = simpleCodec(HollowedLogBlock::new);
 
 	public HollowedLogBlock(Properties properties) {
 		super(properties);
