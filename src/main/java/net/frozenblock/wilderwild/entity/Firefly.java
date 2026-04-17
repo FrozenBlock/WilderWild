@@ -422,7 +422,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void checkFallDamage(final double ya, final boolean onGround, final BlockState onState, final BlockPos pos) {
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
 	}
 
 	@Override

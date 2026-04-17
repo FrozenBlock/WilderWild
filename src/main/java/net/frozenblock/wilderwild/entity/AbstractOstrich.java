@@ -110,7 +110,6 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		ADDITIONAL_DAMAGE_RIDER,
 		AttributeModifier.Operation.ADD_VALUE
 	);
-
 	public static final EntityDataAccessor<Float> TARGET_BEAK_ANIM_PROGRESS = SynchedEntityData.defineId(AbstractOstrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Float> TARGET_STRAIGHT_PROGRESS = SynchedEntityData.defineId(AbstractOstrich.class, EntityDataSerializers.FLOAT);
 	public static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(AbstractOstrich.class, EntityDataSerializers.BOOLEAN);

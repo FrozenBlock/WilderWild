@@ -85,7 +85,6 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	private static final Brain.Provider<Butterfly> BRAIN_PROVIDER = ButterflyAi.brainProvider();
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.STRING);
-
 	private float prevFlyingXRot;
 	private float flyingXRot;
 	private float prevDownProgress;
@@ -127,8 +126,8 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
-		final boolean shouldSetHome = shouldSetHome(spawnReason);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData groupData) {
+		final boolean shouldSetHome = shouldSetHome(reason);
 		if (shouldSetHome) {
 			ButterflyAi.rememberHome(this, this.blockPosition());
 		} else {
@@ -148,7 +147,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
+		return super.finalizeSpawn(level, difficulty, reason, groupData);
 	}
 
 	private static boolean shouldSetHome(EntitySpawnReason reason) {
@@ -307,7 +306,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void checkFallDamage(final double ya, final boolean onGround, final BlockState onState, final BlockPos pos) {
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
 	}
 
 	@Override
