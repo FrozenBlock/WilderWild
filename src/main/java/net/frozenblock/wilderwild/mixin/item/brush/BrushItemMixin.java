@@ -63,10 +63,10 @@ public class BrushItemMixin {
 	)
 	public BlockEntity wilderWild$brushScorchedBlocks(
 		BlockEntity blockEntity,
-		Level level, LivingEntity entity, ItemStack stack, int ticksRemaining,
+		Level level, LivingEntity livingEntity, ItemStack itemStack, int ticksRemaining,
 		@Local(name = "state") BlockState state
 	) {
-		this.wilderWild$brushScorchedBlocks(level, entity, stack, blockEntity, state);
+		this.wilderWild$brushScorchedBlocks(level, livingEntity, itemStack, blockEntity, state);
 		return blockEntity;
 	}
 

@@ -32,16 +32,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WardenRendererMixin {
 
 	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/warden/Warden;Lnet/minecraft/client/renderer/entity/state/WardenRenderState;F)V", at = @At("TAIL"))
-	private void extractWilderWarden(Warden warden, WardenRenderState renderState, float partialTick, CallbackInfo info) {
-		if (!(warden instanceof WilderWarden wilderWarden) || !(renderState instanceof WilderWarden wilderRenderState)) return;
+	private void extractWilderWarden(Warden entity, WardenRenderState state, float partialTicks, CallbackInfo info) {
+		if (!(entity instanceof WilderWarden wilderWarden) || !(state instanceof WilderWarden wilderRenderState)) return;
 		wilderRenderState.wilderWild$dyingAnimationState().copyFrom(wilderWarden.wilderWild$dyingAnimationState());
 		wilderRenderState.wilderWild$swimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$swimmingDyingAnimationState());
 		wilderRenderState.wilderWild$kirbyDeathAnimationState().copyFrom(wilderWarden.wilderWild$kirbyDeathAnimationState());
 		wilderRenderState.wilderWild$setDeathTicks(wilderWarden.wilderWild$getDeathTicks());
 		wilderRenderState.wilderWild$setStella(wilderWarden.wilderWild$isStella());
 
-		if (!(warden instanceof SwimmingWardenInterface swimmingWarden) || !(renderState instanceof SwimmingWardenState swimmingRenderState)) return;
-		swimmingRenderState.wilderWild$setSwimAmount(warden.getSwimAmount(partialTick));
-		swimmingRenderState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTick));
+		if (!(entity instanceof SwimmingWardenInterface swimmingWarden) || !(state instanceof SwimmingWardenState swimmingRenderState)) return;
+		swimmingRenderState.wilderWild$setSwimAmount(entity.getSwimAmount(partialTicks));
+		swimmingRenderState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTicks));
 	}
 }

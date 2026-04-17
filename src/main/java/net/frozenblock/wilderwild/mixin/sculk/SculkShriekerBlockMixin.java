@@ -32,7 +32,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(SculkShriekerBlock.class)
 public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
-
 	@Unique
 	private static final VoxelShape WILDERRWILD$SHAPE = Shapes.or(
 		Block.box(0D, 0D, 0D, 16D, 8D, 16D),

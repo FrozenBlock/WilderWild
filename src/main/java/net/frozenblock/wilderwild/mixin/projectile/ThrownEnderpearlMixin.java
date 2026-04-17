@@ -70,7 +70,7 @@ public class ThrownEnderpearlMixin {
 		)
 	)
 	public void wilderWild$onHitWithoutServerPlayer(
-		HitResult result, CallbackInfo info,
+		HitResult hitResult, CallbackInfo info,
 		@Local(name = "level") ServerLevel level,
 		@Local(name = "owner") Entity owner
 	) {

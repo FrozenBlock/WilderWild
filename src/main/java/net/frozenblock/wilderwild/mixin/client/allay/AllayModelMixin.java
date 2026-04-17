@@ -55,8 +55,8 @@ public class AllayModelMixin {
 		),
 		require = 0
 	)
-	private void wilderWild$runKeyframeDance(AllayRenderState renderState, CallbackInfo info) {
-		if (!WWEntityConfig.ALLAY_KEYFRAME_DANCE.get() || !(renderState instanceof WilderAllay wilderAllay) || this.wilderWild$dancingAnimation == null) return;
-		this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$dancingAnimationState(), renderState.ageInTicks);
+	private void wilderWild$runKeyframeDance(AllayRenderState state, CallbackInfo info) {
+		if (!WWEntityConfig.ALLAY_KEYFRAME_DANCE.get() || !(state instanceof WilderAllay wilderAllay) || this.wilderWild$dancingAnimation == null) return;
+		this.wilderWild$dancingAnimation.apply(wilderAllay.wilderWild$dancingAnimationState(), state.ageInTicks);
 	}
 }

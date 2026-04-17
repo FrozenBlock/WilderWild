@@ -53,7 +53,7 @@ public abstract class SnowLayerBlockMixin {
 	)
 	public void wilderWild$getStateForPlacement(
 		BlockPlaceContext context, CallbackInfoReturnable<BlockState> info,
-		@Local BlockState state
+		@Local(name = "state") BlockState state
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
 		if (!SnowloggingUtils.supportsSnowlogging(state)) return;
@@ -64,20 +64,16 @@ public abstract class SnowLayerBlockMixin {
 		}
 	}
 
-	@Inject(
-		method = "canBeReplaced",
-		at = @At(value = "HEAD"),
-		cancellable = true
-	)
-	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext useContext, CallbackInfoReturnable<Boolean> info) {
+	@Inject(method = "canBeReplaced", at = @At(value = "HEAD"), cancellable = true)
+	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext context, CallbackInfoReturnable<Boolean> info) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (!(useContext.getItemInHand().getItem() instanceof BlockItem blockItem) || !(SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState()))) return;
+		if (!(context.getItemInHand().getItem() instanceof BlockItem blockItem) || !(SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState()))) return;
 
-		final BlockState placementState = blockItem.getBlock().getStateForPlacement(useContext);
+		final BlockState placementState = blockItem.getBlock().getStateForPlacement(context);
 		if (!SnowloggingUtils.isSnowlogged(placementState)) return;
 
-		final Level level = useContext.getLevel();
-		final BlockPos pos = useContext.getClickedPos();
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
 		final VoxelShape blockShape = placementState.getShape(level, pos);
 		final VoxelShape snowLayerShape = state.getShape(level, pos);
 		if (blockShape.max(Direction.Axis.Y) >= snowLayerShape.max(Direction.Axis.Y)) info.setReturnValue(true);
@@ -95,11 +91,11 @@ public abstract class SnowLayerBlockMixin {
 	)
 	public void wilderWild$canSurvive(
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
-		@Local(ordinal = 1) BlockState supportState
+		@Local(name = "belowState") BlockState belowState
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (!SnowloggingUtils.isSnowlogged(supportState)) return;
-		final int layers = SnowloggingUtils.getSnowLayers(supportState);
+		if (!SnowloggingUtils.isSnowlogged(belowState)) return;
+		final int layers = SnowloggingUtils.getSnowLayers(belowState);
 		if (layers == SnowloggingUtils.MAX_LAYERS) info.setReturnValue(true);
 	}
 

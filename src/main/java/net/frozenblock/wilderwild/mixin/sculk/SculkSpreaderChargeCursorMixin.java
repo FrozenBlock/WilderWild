@@ -66,8 +66,8 @@ public class SculkSpreaderChargeCursorMixin {
 		),
 		cancellable = true
 	)
-	private static void wilderWild$isMovementUnobstructed(LevelAccessor level, BlockPos startPos, BlockPos spreadPos, CallbackInfoReturnable<Boolean> info) {
-		if (wilderWild$isReplaceableBuildingBlock(level.getBlockState(spreadPos), false)) info.setReturnValue(true);
+	private static void wilderWild$isMovementUnobstructed(LevelAccessor level, BlockPos from, BlockPos _to, CallbackInfoReturnable<Boolean> info) {
+		if (wilderWild$isReplaceableBuildingBlock(level.getBlockState(_to), false)) info.setReturnValue(true);
 	}
 
 	@Inject(
@@ -132,7 +132,7 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Inject(method = "update", at = @At("HEAD"))
 	private void wilderWild$newSculkBehaviour(
-		LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, boolean spread, CallbackInfo info,
+		LevelAccessor level, BlockPos originPos, RandomSource random, SculkSpreader spreader, boolean spreadVeins, CallbackInfo info,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		isWorldGen.set(spreader.isWorldGeneration());
@@ -174,7 +174,7 @@ public class SculkSpreaderChargeCursorMixin {
 	}
 
 	@Shadow
-	private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos sourcePos, BlockPos targetPos) {
+	private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos from, BlockPos _to) {
 		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
 	}
 

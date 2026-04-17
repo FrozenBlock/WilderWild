@@ -105,10 +105,10 @@ public class SculkBlockMixin {
 		boolean original,
 		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
-		BlockPos pos,
+		BlockPos originPos,
 		RandomSource random,
 		SculkSpreader spreader,
-		boolean bl,
+		boolean spreadVein,
 		@Share("wilderWild$placingBelow") LocalBooleanRef placingBelow
 	) {
 		return this.wilderWild$canPlaceGrowthBelow(level, cursor.getPos(), spreader.isWorldGeneration(), placingBelow) || original;
@@ -124,10 +124,10 @@ public class SculkBlockMixin {
 	private void wilderWild$getPlacementState(
 		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
-		BlockPos catalystPos,
+		BlockPos originPos,
 		RandomSource random,
 		SculkSpreader spreader,
-		boolean shouldConvertBlocks,
+		boolean spreadVein,
 		CallbackInfoReturnable<Integer> info,
 		@Local(name = "chargePos") BlockPos chargePos,
 		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,

@@ -46,8 +46,8 @@ public abstract class DripParticleMixin extends SingleQuadParticle implements Wi
 
 	@Unique
 	@Override
-	public void wilderWild$setUsesWind(boolean bl) {
-		this.wilderWild$usesWind = bl;
+	public void wilderWild$setUsesWind(boolean usesWind) {
+		this.wilderWild$usesWind = usesWind;
 	}
 
 	@Unique

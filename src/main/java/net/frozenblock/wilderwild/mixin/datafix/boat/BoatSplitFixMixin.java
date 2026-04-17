@@ -27,8 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BoatSplitFixMixin {
 
 	@Inject(method = "mapVariantToNormalBoat", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$mapVariantToNormalBoat(String string, CallbackInfoReturnable<String> info) {
-		switch (string) {
+	private static void wilderWild$mapVariantToNormalBoat(String id, CallbackInfoReturnable<String> info) {
+		switch (id) {
 			case "wilderwildbaobab" -> info.setReturnValue("wilderwild:baobab_boat");
 			case "wilderwildcypress" -> info.setReturnValue("wilderwild:cypress_boat");
 			case "wilderwildpalm" -> info.setReturnValue("wilderwild:palm_boat");
@@ -38,8 +38,8 @@ public class BoatSplitFixMixin {
 	}
 
 	@Inject(method = "mapVariantToChestBoat", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$mapVariantToChestBoat(String string, CallbackInfoReturnable<String> info) {
-		switch (string) {
+	private static void wilderWild$mapVariantToChestBoat(String id, CallbackInfoReturnable<String> info) {
+		switch (id) {
 			case "wilderwildbaobab" -> info.setReturnValue("wilderwild:baobab_chest_boat");
 			case "wilderwildcypress" -> info.setReturnValue("wilderwild:cypress_chest_boat");
 			case "wilderwildpalm" -> info.setReturnValue("wilderwild:palm_chest_boat");

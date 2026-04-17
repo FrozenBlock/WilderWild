@@ -45,13 +45,13 @@ public final class InstrumentItemMixin {
 		)
 	)
 	private static void wilderWild$playRestrictionSound(
-		Level level, Entity player, Entity entity, SoundEvent sound, SoundSource source, float volume, float pitch, Operation<Void> original
+		Level level, Entity except, Entity sourceEntity, SoundEvent sound, SoundSource source, float volume, float pitch, Operation<Void> original
 	) {
 		if (WWItemConfig.RESTRICT_INSTRUMENT_SOUNDS.get()) {
 			if (level.isClientSide()) return;
 			FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
 				level,
-				player,
+				except,
 				BuiltInRegistries.SOUND_EVENT.get(sound.location()).orElseThrow(),
 				source,
 				volume,
@@ -61,7 +61,7 @@ public final class InstrumentItemMixin {
 			);
 			return;
 		}
-		original.call(level, player, entity, sound, source, volume, pitch);
+		original.call(level, except, sourceEntity, sound, source, volume, pitch);
 	}
 
 	@WrapWithCondition(
@@ -71,7 +71,7 @@ public final class InstrumentItemMixin {
 			target = "Lnet/minecraft/world/item/ItemCooldowns;addCooldown(Lnet/minecraft/world/item/ItemStack;I)V"
 		)
 	)
-	private boolean wilderWild$bypassCooldown(ItemCooldowns instance, ItemStack itemStack, int i) {
+	private boolean wilderWild$bypassCooldown(ItemCooldowns instance, ItemStack item, int time) {
 		return !WWItemConfig.RESTRICT_INSTRUMENT_SOUNDS.get();
 	}
 

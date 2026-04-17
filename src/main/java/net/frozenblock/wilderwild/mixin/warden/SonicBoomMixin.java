@@ -65,8 +65,8 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		),
 		name = "i"
 	)
-	private static int wilderWild$modifyInt(int original, @Local(name = "steps") int steps) {
-		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? steps : original;
+	private static int wilderWild$modifyInt(int i, @Local(name = "steps") int steps) {
+		return ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$particlesEnded() ? steps : i;
 	}
 
 	@Inject(
@@ -78,11 +78,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		)
 	)
 	private static void wilderWild$stopParticles(
-		Warden warden, ServerLevel level, LivingEntity entity, CallbackInfo info,
-		@Local(name = "source") Vec3 vec3,
+		Warden body, ServerLevel level, LivingEntity target, CallbackInfo info,
+		@Local(name = "source") Vec3 source,
 		@Local(name = "particlePos") Vec3 particlePos
 	) {
-		final BlockPos hitPos = wilderWild$isOccluded(level, vec3, particlePos);
+		final BlockPos hitPos = wilderWild$isOccluded(level, source, particlePos);
 		if (hitPos != null) ((WilderSonicBoom) wilderWild$currentBoom).wilderWild$endParticles();
 	}
 
@@ -120,8 +120,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 			opcode = Opcodes.GETSTATIC
 		)
 	)
-	private static SoundEvent wilderWild$modifySound(SoundEvent original, Warden warden) {
-		return ((WilderWarden) warden).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP : original;
+	private static SoundEvent wilderWild$modifySound(
+		SoundEvent original,
+		Warden body
+	) {
+		return ((WilderWarden) body).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP : original;
 	}
 
 	@Unique
@@ -160,7 +163,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	}
 
 	@Inject(method = "stop(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/monster/warden/Warden;J)V", at = @At("TAIL"))
-	private void wilderWild$reset(ServerLevel level, Warden entity, long timestamp, CallbackInfo info) {
+	private void wilderWild$reset(ServerLevel level, Warden body, long timestamp, CallbackInfo info) {
 		this.wilderWild$particlesEnded = false;
 	}
 

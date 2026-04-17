@@ -46,14 +46,14 @@ public class DataFixersMixin {
 			)
 		)
 	)
-	private static Schema wilderWild$addFixers3438(Schema schema, DataFixerBuilder builder) {
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("display_lantern"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched_block"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("stone_chest"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("termite_mound"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("geyser"), References.BLOCK_ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("icicle"), References.BLOCK_ENTITY));
+	private static Schema wilderWild$addFixers3438(Schema schema, DataFixerBuilder fixerUpper) {
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("display_lantern"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("hanging_tendril"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("scorched_block"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("stone_chest"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("termite_mound"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("geyser"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("icicle"), References.BLOCK_ENTITY));
 		return schema;
 	}
 
@@ -72,18 +72,18 @@ public class DataFixersMixin {
 		),
 		remap = false
 	)
-	private static Schema wilderWild$addFixers3328(Schema schema, DataFixerBuilder builder) {
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("jellyfish"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("firefly"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("butterfly"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("tumbleweed"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("coconut"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("scorched"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("moobloom"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("penguin"), References.ENTITY));
-		builder.addFixer(new AddNewChoices(schema, WWConstants.string("falling_leaves"), References.ENTITY));
+	private static Schema wilderWild$addFixers3328(Schema schema, DataFixerBuilder fixerUpper) {
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("jellyfish"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("ostrich"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("crab"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("firefly"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("butterfly"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("tumbleweed"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("coconut"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("scorched"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("moobloom"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("penguin"), References.ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("falling_leaves"), References.ENTITY));
 		return schema;
 	}
 

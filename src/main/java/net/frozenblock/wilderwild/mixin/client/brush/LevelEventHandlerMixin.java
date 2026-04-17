@@ -46,7 +46,7 @@ public class LevelEventHandlerMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"
 		)
 	)
-	private Block scorchedBrush(Block original, int eventId, BlockPos pos, int data) {
+	private Block scorchedBrush(Block original, int eventType, BlockPos pos, int data) {
 		if (this.level != null && original instanceof ScorchedBlock scorchedBlock) {
 			this.level.playLocalSound(pos, scorchedBlock.brushCompletedSound, SoundSource.PLAYERS, 1F, 1F, false);
 		}

@@ -90,7 +90,7 @@ public class ClientLevelMixin {
 		)
 	)
 	private Particle wilderWild$replaceWithMesogleaParticles(
-		ParticleEngine instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd, Operation<Particle> original
+		ParticleEngine instance, ParticleOptions options, double x, double y, double z, double xa, double ya, double za, Operation<Particle> original
 	) {
 		final ClientLevel level = ClientLevel.class.cast(this);
 		if (options.equals(ParticleTypes.BUBBLE)) {
@@ -101,7 +101,7 @@ public class ClientLevelMixin {
 			if (state.getBlock() instanceof MesogleaBlock mesogleaBlock) options = mesogleaBlock.getSplashParticle();
 		}
 
-		return original.call(instance, options, x, y, z, xd, yd, zd);
+		return original.call(instance, options, x, y, z, xa, ya, za);
 	}
 
 }

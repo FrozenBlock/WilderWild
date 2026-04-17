@@ -69,16 +69,16 @@ public class ChestBlockMixin {
 	@ModifyReturnValue(method = "updateShape", at = @At(value = "RETURN"))
 	public BlockState wilderWild$updateShape(
 		BlockState original,
-		BlockState oldState,
+		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess ticks,
 		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
+		Direction directionToNeighbour,
+		BlockPos neighbourPos,
+		BlockState neighbourState,
 		RandomSource random
 	) {
-		ChestUtil.updateBubbles(oldState, oldState, level, pos);
+		ChestUtil.updateBubbles(state, state, level, pos);
 		return original;
 	}
 
@@ -105,7 +105,7 @@ public class ChestBlockMixin {
 			target = "Lnet/minecraft/world/Containers;updateNeighboursAfterDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
 		)
 	)
-	public void wilderWild$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving, CallbackInfo info) {
+	public void wilderWild$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston, CallbackInfo info) {
 		if (level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}

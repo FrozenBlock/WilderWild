@@ -60,8 +60,8 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 	}
 
 	@Inject(method = "setPlacedBy", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack, CallbackInfo info) {
-		if (SnowloggingUtils.isItemSnow(stack) && WWBlockConfig.canSnowlog()) info.cancel();
+	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity by, ItemStack itemStack, CallbackInfo info) {
+		if (SnowloggingUtils.isItemSnow(itemStack) && WWBlockConfig.canSnowlog()) info.cancel();
 	}
 
 	@ModifyExpressionValue(
@@ -91,22 +91,22 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		)
 	)
 	private static boolean wilderWild$preventDropFromBottomPart(
-		Level instance, BlockPos setPos, BlockState setState, int flags, Operation<Boolean> original,
+		Level instance, BlockPos pos, BlockState blockState, int updateFlags, Operation<Boolean> original,
 		Level level, BlockPos paramPos, BlockState state, Player player,
-		@Local(ordinal = 1) BlockState bottomState
+		@Local(name = "bottomState") BlockState bottomState
 	) {
-		if (SnowloggingUtils.isSnowlogged(bottomState) && setState.isAir() && setState.getFluidState().isEmpty()) {
-			setState = SnowloggingUtils.getSnowEquivalent(bottomState);
+		if (SnowloggingUtils.isSnowlogged(bottomState) && blockState.isAir() && blockState.getFluidState().isEmpty()) {
+			blockState = SnowloggingUtils.getSnowEquivalent(bottomState);
 		}
-		return original.call(instance, setPos, setState, flags);
+		return original.call(instance, pos, blockState, updateFlags);
 	}
 
 	@Inject(method = "playerDestroy", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo info) {
+	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack destroyedWith, CallbackInfo info) {
 		if (!SnowloggingUtils.isSnowlogged(state)) return;
 		info.cancel();
 		final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-		if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
+		if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))

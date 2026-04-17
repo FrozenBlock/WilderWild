@@ -32,15 +32,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.class)
 public class EquipmentClientInfoMixin {
-
 	@Unique
 	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_SADDLE_LAYERS = ImmutableList.of(WWEquipmentClientInfo.OSTRICH_SADDLE_LAYER);
 	@Unique
 	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS = ImmutableList.of(WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE_LAYER);
 
 	@Inject(method = "getLayers", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$returnOstrichSaddleIfPossible(EquipmentClientInfo.LayerType layerType, CallbackInfoReturnable<List<EquipmentClientInfo.Layer>> info) {
-		if (layerType == WWEquipmentClientInfo.OSTRICH_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_SADDLE_LAYERS);
-		if (layerType == WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS);
+	public void wilderWild$returnOstrichSaddleIfPossible(EquipmentClientInfo.LayerType type, CallbackInfoReturnable<List<EquipmentClientInfo.Layer>> info) {
+		if (type == WWEquipmentClientInfo.OSTRICH_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_SADDLE_LAYERS);
+		if (type == WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS);
 	}
 }

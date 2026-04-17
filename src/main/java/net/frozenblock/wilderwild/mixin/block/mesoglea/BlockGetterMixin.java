@@ -62,17 +62,17 @@ public interface BlockGetterMixin {
 		)
 	)
 	default BlockHitResult wilderWild$mesogleaClip(
-		BlockGetter instance, Vec3 startVec, Vec3 endVec, BlockPos pos, VoxelShape shape, BlockState state, Operation<BlockHitResult> operation,
+		BlockGetter instance, Vec3 from, Vec3 _to, BlockPos pos, VoxelShape blockShape, BlockState blockState, Operation<BlockHitResult> operation,
 		ClipContext context
 	) {
 		if (context.collisionContext instanceof EntityCollisionContext entityCollisionContext
 			&& entityCollisionContext.getEntity() instanceof InMesogleaInterface inMesogleaInterface
 			&& inMesogleaInterface.wilderWild$wasClipInMesoglea()
-			&& state.getBlock() instanceof MesogleaBlock
+			&& blockState.getBlock() instanceof MesogleaBlock
 		) {
-			shape = Shapes.empty();
+			blockShape = Shapes.empty();
 		}
-		return operation.call(instance, startVec, endVec, pos, shape, state);
+		return operation.call(instance, from, _to, pos, blockShape, blockState);
 	}
 
 }

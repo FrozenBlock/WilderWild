@@ -43,8 +43,8 @@ public class BoneMealItemMixin {
 	)
 	public void wilderWild$useOn(
 		UseOnContext context, CallbackInfoReturnable<InteractionResult> info,
-		@Local Level level,
-		@Local(ordinal = 0) BlockPos pos
+		@Local(name = "level") Level level,
+		@Local(name = "pos") BlockPos pos
 	) {
 		if (SnowloggingUtils.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
 	}

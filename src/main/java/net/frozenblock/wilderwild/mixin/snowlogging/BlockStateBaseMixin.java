@@ -49,6 +49,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -162,7 +163,7 @@ public abstract class BlockStateBaseMixin {
 	}
 
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$useItemOn(ItemStack stack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
+	public void wilderWild$useItemOn(ItemStack itemStack, Level level, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
 		if (SnowloggingUtils.isOriginalBlockCovered(this.asState(), level, hitResult.getBlockPos())) info.setReturnValue(InteractionResult.TRY_WITH_EMPTY_HAND);
 	}
 
@@ -249,7 +250,8 @@ public abstract class BlockStateBaseMixin {
 		method = "<init>",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z"
+			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;canOcclude:Z",
+			opcode = Opcodes.GETFIELD
 		)
 	)
 	public boolean wilderWild$canOcclude(boolean original) {

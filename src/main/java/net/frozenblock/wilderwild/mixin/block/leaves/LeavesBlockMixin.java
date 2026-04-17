@@ -58,7 +58,7 @@ public abstract class LeavesBlockMixin extends Block {
 		)
 	)
 	public boolean wilderWild$fallingLeafParticles(
-		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState state, BlockPos pos2,
+		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below,
 		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
 	) {
 		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);

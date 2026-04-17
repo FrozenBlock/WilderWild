@@ -48,19 +48,19 @@ public class ShearsDispenseItemBehaviorMixin {
 			target = "Lnet/minecraft/core/dispenser/ShearsDispenseItemBehavior;tryShearBeehive(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	private boolean wilderWild$execute(ServerLevel level, ItemStack stack, BlockPos pos, Operation<Boolean> operation) {
-		if (operation.call(level, stack, pos)) return true;
+	private boolean wilderWild$execute(ServerLevel level, ItemStack tool, BlockPos pos, Operation<Boolean> operation) {
+		if (operation.call(level, tool, pos)) return true;
 
-		BlockState state = level.getBlockState(pos);
-		return wilderWild$tryShearMilkweed(state, level, stack, pos) ||
-			wilderWild$tryShearPricklyPear(state, level, stack, pos) ||
-			wilderWild$tryShearShelfFungi(state, level, stack, pos) ||
-			wilderWild$tryShearSpongeBud(state, level, stack, pos) ||
-			wilderWild$tryShearTumbleweed(state, level, stack, pos) ||
-			wilderWild$tryShearTumbleweedStem(state, level, stack, pos) ||
-			wilderWild$tryShearShrub(state, level, stack, pos) ||
-			wilderWild$tryShearSeedingFlower(state, level, stack, pos) ||
-			wilderWild$tryShearFloweringLilypad(state, level, stack, pos);
+		final BlockState state = level.getBlockState(pos);
+		return wilderWild$tryShearMilkweed(state, level, tool, pos)
+			|| wilderWild$tryShearPricklyPear(state, level, tool, pos)
+			|| wilderWild$tryShearShelfFungi(state, level, tool, pos)
+			|| wilderWild$tryShearSpongeBud(state, level, tool, pos)
+			|| wilderWild$tryShearTumbleweed(state, level, tool, pos)
+			|| wilderWild$tryShearTumbleweedStem(state, level, tool, pos)
+			|| wilderWild$tryShearShrub(state, level, tool, pos)
+			|| wilderWild$tryShearSeedingFlower(state, level, tool, pos)
+			|| wilderWild$tryShearFloweringLilypad(state, level, tool, pos);
 	}
 
 	@Unique
@@ -118,7 +118,7 @@ public class ShearsDispenseItemBehaviorMixin {
 	}
 
 	@Unique
-	private static boolean wilderWild$tryShearFloweringLilypad(BlockState blockState, ServerLevel level, ItemStack itemStack, BlockPos pos) {
+	private static boolean wilderWild$tryShearFloweringLilypad(BlockState blockState, ServerLevel level, ItemStack stack, BlockPos pos) {
 		if (!(blockState.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlily)) return false;
 		if (floweringWaterlily.canShearIntoOriginalBlock(level, pos, blockState)) {
 			floweringWaterlily.onShear(level, pos, blockState, null);

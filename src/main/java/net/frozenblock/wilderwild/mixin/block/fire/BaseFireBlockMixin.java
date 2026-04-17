@@ -66,9 +66,9 @@ public class BaseFireBlockMixin {
 		if (random.nextFloat() <= 0.0075F) {
 			level.addParticle(
 				ParticleTypes.LAVA,
-				(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getX() + 0.5D + random.nextGaussian() / 3D,
 				(double) pos.getY() + random.nextDouble() + random.nextDouble(),
-				(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getZ() + 0.5D + random.nextGaussian() / 3D,
 				(random.nextDouble() - 0.5D) * 0.05D,
 				random.nextDouble() * 0.12D + 0.06D,
 				(random.nextDouble() - 0.5D) * 0.05D
@@ -78,9 +78,9 @@ public class BaseFireBlockMixin {
 		if (random.nextFloat() <= 0.0875F) {
 			level.addParticle(
 				ParticleTypes.LARGE_SMOKE,
-				(double) pos.getX() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getX() + 0.5D + random.nextGaussian() / 3D,
 				(double) pos.getY() + random.nextDouble() + random.nextDouble(),
-				(double) pos.getZ() + 0.5D + random.nextDouble() / 3D * (random.nextBoolean() ? 1D : -1D),
+				(double) pos.getZ() + 0.5D + random.nextGaussian() / 3D,
 				(random.nextDouble() - 0.5D) * 0.05D,
 				random.nextDouble() * 0.12D + 0.06D,
 				(random.nextDouble() - 0.5D) * 0.05D

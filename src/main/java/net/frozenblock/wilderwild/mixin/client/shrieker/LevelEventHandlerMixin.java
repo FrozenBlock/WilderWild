@@ -51,7 +51,7 @@ public class LevelEventHandlerMixin {
 		),
 		require = 0
 	)
-	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventId, BlockPos pos, int data) {
+	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventType, BlockPos pos, int data) {
 		if (this.level != null && WWBlockConfig.SHRIEKER_GARGLING.get() && (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER))) {
 			final double x = (double) pos.getX() + 0.5D;
 			final double y = (double) pos.getY() + SculkShriekerBlock.TOP_Y;

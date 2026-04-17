@@ -44,7 +44,7 @@ public class HugeFungusFeatureMixin {
 	/**
 	 * Marks the fungus as having a thick stem if it's originally true or if it meets the conditions for a planted thick fungus.
 	 *
-	 * @param original if the fungus is a naturally generated thick stem
+	 * @param isHuge if the fungus is a naturally generated thick stem
 	 * @param context  the context behind the huge fungus growth
 	 * @param newPos   the new center point of the huge fungus
 	 * @return if the fungus should have a thick stem
@@ -52,11 +52,11 @@ public class HugeFungusFeatureMixin {
 	 */
 	@ModifyVariable(method = "place", at = @At(value = "STORE"), name = "isHuge")
 	public boolean wilderWild$placeThickener(
-		boolean original, FeaturePlaceContext<HugeFungusConfiguration> context,
+		boolean isHuge, FeaturePlaceContext<HugeFungusConfiguration> context,
 		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
 	) {
 		newPos.set(context.origin());
-		if (original) return true;
+		if (isHuge) return true;
 		if (context.config().planted && WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) {
 			final WorldGenLevel level = context.level();
 			final BlockPos pos = context.origin();
@@ -82,7 +82,7 @@ public class HugeFungusFeatureMixin {
 	/**
 	 * Replaces the center position of the huge fungus with newPos when thickBigFungusGrowth is enabled
 	 *
-	 * @param pos original position
+	 * @param newOrigin original position
 	 * @param newPos   new position, potentially modified by @wilderWild$placeThickener
 	 * @return center position of the huge fungus
 	 * @see #wilderWild$placeThickener(boolean, FeaturePlaceContext, LocalRef)
@@ -96,10 +96,10 @@ public class HugeFungusFeatureMixin {
 		name = "newOrigin"
 	)
 	public BlockPos wilderWild$placeUpdateCenter(
-		BlockPos pos,
+		BlockPos newOrigin,
 		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
 	) {
-		return WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get() ? newPos.get() : pos;
+		return WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get() ? newPos.get() : newOrigin;
 	}
 
 	/**
@@ -135,22 +135,18 @@ public class HugeFungusFeatureMixin {
 	 * Gives access to the variable bl in HugeFungusFeature$placeStem.,
 	 * stored in {@code isCorner}.
 	 *
-	 * @param original
+	 * @param cornerOfHugeStem
 	 * @param isCorner
 	 * @return
 	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalRef, LocalRef)
 	 */
-	@ModifyVariable(
-		method = "placeStem",
-		at = @At(value = "STORE"),
-		name = "cornerOfHugeStem"
-	)
+	@ModifyVariable(method = "placeStem", at = @At(value = "STORE"), name = "cornerOfHugeStem")
 	public boolean wilderWild$placeStemIsCorner(
-		boolean original,
+		boolean cornerOfHugeStem,
 		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner
 	) {
-		isCorner.set(original);
-		return original;
+		isCorner.set(cornerOfHugeStem);
+		return cornerOfHugeStem;
 	}
 
 	/**

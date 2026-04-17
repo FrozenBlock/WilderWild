@@ -51,21 +51,21 @@ public class ClientLevelMixin {
 			target = "Lnet/minecraft/world/level/block/state/BlockState;getShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;"
 		)
 	)
-	public void wilderWild$spawnLeafParticlesOnDestroy(BlockPos pos, BlockState state, CallbackInfo info) {
+	public void wilderWild$spawnLeafParticlesOnDestroy(BlockPos pos, BlockState blockState, CallbackInfo info) {
 		boolean litter = false;
-		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+		if (blockState.is(WWBlockTags.LEAF_LITTERS)) {
 			litter = true;
 			if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_LITTER_PARTICLES.get()) return;
 		} else if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_PARTICLES.get()) {
 			return;
 		}
 
-		final Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(state.getBlock());
+		final Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(blockState.getBlock());
 		if (optionalFallingLeafData.isEmpty()) return;
 
 		final RandomSource random = ClientLevel.class.cast(this).getRandom();
 		final FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
-		final int count = !litter ? random.nextInt(2, 4) : state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
+		final int count = !litter ? random.nextInt(2, 4) : blockState.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
 		for (int i = 0; i < count; i++) {
 			this.minecraft.particleEngine.createParticle(
 				FallingLeafUtil.createLeafParticleOptions(fallingLeafData, litter),

@@ -62,7 +62,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	@Shadow
 	@Final
 	@Mutable
-	public ContainerOpenersCounter openersCounter;
+	private ContainerOpenersCounter openersCounter;
 
 	@Inject(
 		method = "<init>(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V",
@@ -157,13 +157,13 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 	}
 
 	@Inject(method = "loadAdditional", at = @At("TAIL"))
-	public void wilderWild$load(ValueInput valueInput, CallbackInfo info) {
-		this.wilderWild$canBubble = valueInput.getBooleanOr("wilderwild_can_bubble", true);
+	public void wilderWild$load(ValueInput input, CallbackInfo info) {
+		this.wilderWild$canBubble = input.getBooleanOr("wilderwild_can_bubble", true);
 	}
 
 	@Inject(method = "saveAdditional", at = @At("TAIL"))
-	public void wilderWild$saveAdditional(ValueOutput valueOutput, CallbackInfo info) {
-		valueOutput.putBoolean("wilderwild_can_bubble", this.wilderWild$canBubble);
+	public void wilderWild$saveAdditional(ValueOutput output, CallbackInfo info) {
+		output.putBoolean("wilderwild_can_bubble", this.wilderWild$canBubble);
 	}
 
 	@Unique

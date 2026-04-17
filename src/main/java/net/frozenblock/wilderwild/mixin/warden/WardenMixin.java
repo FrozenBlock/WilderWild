@@ -79,7 +79,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Shadow
-	private void clientDiggingParticles(AnimationState animationState) {
+	private void clientDiggingParticles(AnimationState state) {
 		throw new AssertionError("Mixin injection failed - Wilder Wild WardenMixin.");
 	}
 
@@ -168,9 +168,9 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	}
 
 	@Inject(method = "onSyncedDataUpdated", at = @At("HEAD"), cancellable = true)
-	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> data, CallbackInfo info) {
+	private void wilderWild$onSyncedDataUpdated(EntityDataAccessor<?> accessor, CallbackInfo info) {
 		final Warden warden = Warden.class.cast(this);
-		if (this.wilderWild$hasDeathAnimation() && DATA_POSE.equals(data) && warden.hasPose(Pose.DYING)) {
+		if (this.wilderWild$hasDeathAnimation() && DATA_POSE.equals(accessor) && warden.hasPose(Pose.DYING)) {
 			this.wilderWild$getDeathAnimationForSituation().start(warden.tickCount);
 			info.cancel();
 		}
@@ -185,10 +185,10 @@ public final class WardenMixin extends Monster implements WilderWarden {
 		)
 	)
 	private void wilderWild$stellaHeartbeat(
-		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean delayed, Operation<Void> original
+		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean distanceDelay, Operation<Void> original
 	) {
 		if (this.wilderWild$isStella()) sound = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
-		original.call(instance, x, y, z, sound, source, volume, pitch, delayed);
+		original.call(instance, x, y, z, sound, source, volume, pitch, distanceDelay);
 	}
 
 	@ModifyExpressionValue(

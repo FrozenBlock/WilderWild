@@ -42,7 +42,7 @@ public abstract class FireflyBushMixin extends VegetationBlock {
 			target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"
 		)
 	)
-	public boolean wilderWild$animateTick(Level instance, ParticleOptions options, double x, double y, double z, double xd, double yd, double zd) {
+	public boolean wilderWild$animateTick(Level instance, ParticleOptions particle, double x, double y, double z, double xd, double yd, double zd) {
 		return WWEntityConfig.SPAWN_FIREFLY_PARTICLES.get();
 	}
 

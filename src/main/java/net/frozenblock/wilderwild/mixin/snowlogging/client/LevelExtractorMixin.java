@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LevelExtractor.class)
-public class LeveLExtractorMixin {
+public class LevelExtractorMixin {
 
 	@ModifyExpressionValue(
 		method = "extractBlockDestroyAnimation",

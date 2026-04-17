@@ -40,8 +40,8 @@ public abstract class SuspendedParticleMixin extends SingleQuadParticle implemen
 
 	@Unique
 	@Override
-	public void wilderWild$setUsesWind(boolean bl) {
-		this.wilderWild$usesWind = bl;
+	public void wilderWild$setUsesWind(boolean usesWind) {
+		this.wilderWild$usesWind = usesWind;
 	}
 
 	@Unique

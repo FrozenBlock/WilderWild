@@ -22,6 +22,6 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public interface WilderDripSuspendedParticleInterface {
-	void wilderWild$setUsesWind(boolean bl);
+	void wilderWild$setUsesWind(boolean usesWind);
 	boolean wilderWild$usesWind();
 }

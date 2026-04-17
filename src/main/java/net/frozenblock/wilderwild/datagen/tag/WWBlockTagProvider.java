@@ -429,7 +429,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD);
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION);
 
 		this.builder(WWBlockTags.SAND_POOL_REPLACEABLE)
 			.add(BlockItemIds.SAND);
@@ -996,6 +996,9 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(BlockTags.ICE)
 			.add(WWBlockItemIds.FRAGILE_ICE);
+
+		this.builder(BlockTags.SPELEOTHEMS)
+			.add(WWBlockItemIds.ICICLE);
 
 		this.builder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)

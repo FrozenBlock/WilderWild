@@ -35,9 +35,9 @@ public class BlockMixin {
 			target = "Lnet/minecraft/world/level/block/Block;getId(Lnet/minecraft/world/level/block/state/BlockState;)I"
 		)
 	)
-	public int wilderWild$spawnDestroyParticles(BlockState state, Operation<Integer> original) {
-		if (SnowloggingUtils.isSnowlogged(state)) return original.call(SnowloggingUtils.getSnowEquivalent(state));
-		return original.call(state);
+	public int wilderWild$spawnDestroyParticles(BlockState blockState, Operation<Integer> original) {
+		if (SnowloggingUtils.isSnowlogged(blockState)) return original.call(SnowloggingUtils.getSnowEquivalent(blockState));
+		return original.call(blockState);
 	}
 
 }
