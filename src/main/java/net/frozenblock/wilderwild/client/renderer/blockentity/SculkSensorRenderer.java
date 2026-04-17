@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T, SculkSensorRenderState> {
-	private static final RenderType ACTIVE_SENSOR_LAYER = RenderTypes.entityCutout(WWConstants.id("textures/entity/sculk_sensor/active.png"));
+	private static final RenderType ACTIVE_SENSOR_LAYER = RenderTypes.entityCutoutCull(WWConstants.id("textures/entity/sculk_sensor/active.png"));
 	private final SculkSensorModel model;
 
 	public SculkSensorRenderer(Context context) {
