@@ -21,6 +21,7 @@
     "block.ice.FrostedIceBlockMixin",
     "block.ice.HalfTransparentBlockMixin",
     "block.ice.SpawnUtilStrategyMixin",
+    "block.ice.SpeleothemBlockMixin",
     "block.lava.LavaFluidMixin",
     "block.leaves.BlockStateBaseMixin",
     "block.leaves.LeavesBlockMixin",

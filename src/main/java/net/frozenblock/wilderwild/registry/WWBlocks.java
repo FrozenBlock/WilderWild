@@ -1573,7 +1573,7 @@ public final class WWBlocks {
 		Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.DESTROY)
 	);
 	public static final Block ICICLE = Blocks.register(WWBlockItemIds.ICICLE,
-		IcicleBlock::new,
+		properties -> new IcicleBlock(FRAGILE_ICE.defaultBlockState(), properties),
 		Properties.of().mapColor(MapColor.ICE)
 			.forceSolidOn()
 			.friction(0.98F)

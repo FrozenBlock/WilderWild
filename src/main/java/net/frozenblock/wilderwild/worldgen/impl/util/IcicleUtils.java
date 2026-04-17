@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderSet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
@@ -33,6 +32,7 @@ public class IcicleUtils {
 		final BlockPos belowPos = pos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
 		if (!belowState.isAir()) return false;
+
 		SpeleothemUtils.growSpeleothem(
 			level,
 			belowPos,
@@ -48,7 +48,7 @@ public class IcicleUtils {
 
 	public static boolean spreadIcicleOnRandomTick(ServerLevel level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
-		if (IcicleBlock.canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
+		if (((IcicleBlock) WWBlocks.ICICLE).canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
 		return false;
 	}
 }

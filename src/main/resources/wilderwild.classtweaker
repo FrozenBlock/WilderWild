@@ -16,6 +16,9 @@ accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/min
 accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
 accessible field net/minecraft/world/level/block/FireflyBushBlock FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL I
 accessible method net/minecraft/world/level/levelgen/feature/SpeleothemUtils growSpeleothem (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;IZLnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/core/HolderSet;)V
+accessible field net/minecraft/world/level/block/SpeleothemBlock DELAY_BEFORE_FALLING I
+accessible method net/minecraft/world/level/block/SpeleothemBlock isStalagmite (Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible method net/minecraft/world/level/block/SpeleothemBlock isTip (Lnet/minecraft/world/level/block/state/BlockState;Z)Z
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
