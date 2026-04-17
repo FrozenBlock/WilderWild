@@ -38,11 +38,11 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState state, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
 		if (!level.isClientSide()) return;
 		info.setReturnValue(
 			createTickerHelper(type, BlockEntityType.SCULK_SENSOR, (levelx, pos, statex, blockEntity) -> {
-				if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) sculkSensorInterface.wilderWild$tickClient(levelx, pos, statex);
+				if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) sculkSensorInterface.wilderWild$tickClient(levelx, pos, blockState);
 			})
 		);
 	}

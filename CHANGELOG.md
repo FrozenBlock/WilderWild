@@ -39,3 +39,55 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Baby Jellyfish spawned from breeding are now persistent.
 - Baby Jellyfish are now affected by Golden Dandelions.
 - Penguins will now wait between 1-2 minutes after spawning before starting to slide and find water.
+- Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
+
+### 26.2+
+- Added a config option to toggle black Fog in the Dripstone Caves biome.
+  - This option is enabled by default.
+- Added a config option to toggle black Fog in the Lush Caves biome.
+  - This option is enabled by default.
+- Added a config option to toggle ambient sounds in the Sulfur Caves biome. TODO!!!!!!!
+  - This option is enabled by default.
+- Added a config option to toggle black Fog in the Sulfur Caves biome.
+  - This option is enabled by default.
+- Removed the `wilderwild:icicle_feature` Feature.
+  - This has been superseded by the `minecraft:speleothem` Feature.
+- Removed the `wilderwild:icicle_cluster_feature` Feature.
+  - This has been superseded by the `minecraft:speleothem_cluster` Feature.
+- The Ice paths in the Frozen Caves biome now use Surface Rules to generate, offering cleaner generation and a significant performance boost.
+  - The `wilderwild:ice_paths` Configured Feature and Placed Feature have both been removed.
+- Sulfur Spike generation in the Sulfur Caves biome has been significantly decreased.
+  - Added a config option to toggle the new Sulfur Spike generation.
+- Replaced Vanilla's Sulfur Spring generation with new, wider, procedurally-generated Sulfur Springs.
+  - Vanilla's Sulfur Springs are pre-built, and did not display much variance in size or width.
+  - The new Sulfur Springs are extremely variable on all fronts, resolving these issues.
+  - Added the `wilderwild:sulfur_spring` Feature, with the following Feature Configuration:
+    - `height`: an Int Provider, determining the height of the spring.
+    - `width`: an Int Provider, determining the width of the spring. Is sampled separately for the x and y axi.
+    - `curve_distance`: a Float Provider, determining how far the spring's generation should curve in total.
+    - `bluntness`: a Float Provider, determining how much the spring should "sharpen" near both tips. The higher, the less it'll sharpen.
+      - Must provide values between 0 and 1.
+    - `crib_block_chance`: a Float, determining the chance of a block generating above the ring surrounding the center of the spring.
+      - Must be between 0 and 1.
+    - `crib_extra_block_chance`: a Float, determining the chance of an extra block generating above the spring's "crib."
+      - Must be between 0 and 1.
+    - `block_state`: a Block State Provider, determining the Block States to generate the spring with. (i.e., Sulfur.)
+    - `water_block_state`: a Block State Provider, determining the Block States to generate the spring's water with.
+    - `decoration_feature`: a Placed Feature that generates within the spring's water.
+    - `replaceable`: a list or Tag of Blocks that the spring can replace.
+    - `cannot_replace`: a list or Tag of Blocks that the spring cannot replace.
+  - Added the `wilderwild:sulfur_spring_decoration` Feature, with the following Feature Configuration:
+    - `spring_state`: a Block State Provider, determining the Block States the spring uses to generate. (i.e., Sulfur.)
+      - These blocks are placed around the `top_state` and `bottom_state` blocks that are generated, to ensure they're not exposed.
+    - `top_state` a Block State Provider, determining the Block States to generate the top piece of the feature with. (i.e., Potent Sulfur.)
+    - `bottom_state` a Block State Provider, determining the Block States to generate the bottom piece of the feature with. (i.e., Magma.)
+    - `replaceable`: a list or Tag of Blocks that the feature can replace.
+    - `cannot_replace`: a list or Tag of Blocks that the feature cannot replace.
+  - Added the `wilderwild:feature/sulfur_spring_replaceable` and `wilderwild:feature/sulfur_spring_placeable` Block Tags.
+  - Added the `wilderwild:feature/has_sulfur_spring` Biome Tag.
+  - Added a config option to toggle the new Sulfur Spring generation.
+- Calcite now generates alongside Sulfur and Cinnabar in the Sulfur Caves biome.
+  - Added a config option to toggle Calcite generation.
+- Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
+- Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
+- Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.

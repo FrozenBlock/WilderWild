@@ -23,7 +23,8 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 
 @Environment(EnvType.CLIENT)
 public class SculkSensorRenderState extends BlockEntityRenderState {
+	public float ageInTicks;
 	public boolean active;
 	public float blockYRot;
-	public float tendrilXRot;
+	public float tendrilAnimation;
 }
