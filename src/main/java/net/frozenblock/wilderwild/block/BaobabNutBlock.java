@@ -99,7 +99,9 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return state.is(this) && (isHanging(state) ? level.getBlockState(pos.above()).is(WWBlockTags.SUPPORTS_HANGING_BAOBAB_NUT) : super.canSurvive(state, level, pos));
+		return state.is(this) && (isHanging(state)
+			? level.getBlockState(pos.above()).is(WWBlockTags.SUPPORTS_HANGING_BAOBAB_NUT)
+			: super.canSurvive(state, level, pos));
 	}
 
 	@Override

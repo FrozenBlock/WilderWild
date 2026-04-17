@@ -40,6 +40,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Baby Jellyfish are now affected by Golden Dandelions.
 - Penguins will now wait between 1-2 minutes after spawning before starting to slide and find water.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
+- Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 
 ### 26.2+
 - Added a config option to toggle black Fog in the Dripstone Caves biome.
