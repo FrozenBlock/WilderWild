@@ -154,6 +154,11 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	}
 
 	@Override
+	protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return this.getShape(state, level, pos, context);
+	}
+
+	@Override
 	protected float getMaxHorizontalOffset() {
 		return MAX_HORIZONTAL_OFFSET;
 	}
