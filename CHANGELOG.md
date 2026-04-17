@@ -91,3 +91,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
 - Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
+- Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
