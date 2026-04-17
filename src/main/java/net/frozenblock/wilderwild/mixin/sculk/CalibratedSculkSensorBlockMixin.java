@@ -43,7 +43,7 @@ public abstract class CalibratedSculkSensorBlockMixin extends BaseEntityBlock {
 		if (!level.isClientSide()) return;
 		info.setReturnValue(
 			createTickerHelper(type, BlockEntityTypes.CALIBRATED_SCULK_SENSOR, (levelx, pos, statex, blockEntity) -> {
-				if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) sculkSensorInterface.wilderWild$tickClient(levelx, pos, statex);
+				if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) sculkSensorInterface.wilderWild$tickClient(levelx, pos, blockState);
 			})
 		);
 	}

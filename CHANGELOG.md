@@ -55,6 +55,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This has been superseded by the `minecraft:speleothem_cluster` Feature.
 - The Ice paths in the Frozen Caves biome now use Surface Rules to generate, offering cleaner generation and a significant performance boost.
   - The `wilderwild:ice_paths` Configured Feature and Placed Feature have both been removed.
+- Sulfur Spike generation in the Sulfur Caves biome has been significantly decreased.
+  - Added a config option to toggle the new Sulfur Spike generation.
 - Replaced Vanilla's Sulfur Spring generation with new, wider, procedurally-generated Sulfur Springs.
   - Vanilla's Sulfur Springs are pre-built, and did not display much variance in size or width.
   - The new Sulfur Springs are extremely variable on all fronts, resolving these issues.
@@ -88,3 +90,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
 - Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
 - Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
+- Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.

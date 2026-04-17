@@ -23,19 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public interface SculkSensorInterface {
-
 	void wilderWild$tickClient(Level level, BlockPos pos, BlockState state);
-
-	int wilderWild$getAge();
-
-	int wilderWild$getAnimTicks();
-
-	void wilderWild$setAnimTicks(int i);
-
-	int wilderWild$getPrevAnimTicks();
-
+	float wilderWild$getAgeInTicks(float partialTicks);
+	float wilderWild$getTendrilAnimation(float partialTicks);
 	boolean wilderWild$isActive();
-
 	Direction wilderWild$getFacing();
-
 }

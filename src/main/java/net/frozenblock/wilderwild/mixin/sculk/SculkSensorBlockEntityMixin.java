@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.mixin.sculk;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CalibratedSculkSensorBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.SculkSensorPhase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,17 +39,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements SculkSensorInterface {
 
 	@Unique
-	public int wilderWild$animTicks;
-	@Unique
-	public int wilderWild$prevAnimTicks;
-	@Unique
 	public int wilderWild$age;
 	@Unique
 	public boolean wilderWild$active;
 	@Unique
-	public boolean wilderWild$prevActive;
-	@Unique
 	public Direction wilderWild$facing = Direction.NORTH;
+	@Unique
+	public int wilderWild$tendrilAnimation0;
+	@Unique
+	public int wilderWild$tendrilAnimation;
 
 	private SculkSensorBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -67,45 +65,33 @@ public abstract class SculkSensorBlockEntityMixin extends BlockEntity implements
 	@Unique
 	@Override
 	public void wilderWild$tickClient(Level level, BlockPos pos, BlockState state) {
+		this.wilderWild$age += 1;
 		this.wilderWild$facing = state.getValueOrElse(CalibratedSculkSensorBlock.FACING, Direction.NORTH);
 
-		this.wilderWild$prevActive = this.wilderWild$active;
-		this.wilderWild$active = SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE;
-		if (this.wilderWild$active && !this.wilderWild$prevActive) this.wilderWild$animTicks = 10;
+		final boolean wasActive = this.wilderWild$active;
+		this.wilderWild$active = !SculkSensorBlock.canActivate(state);
+		if (this.wilderWild$active && !wasActive) this.wilderWild$tendrilAnimation = 10;
 
-		this.wilderWild$prevAnimTicks = this.wilderWild$animTicks;
-		this.wilderWild$animTicks = Math.max(0, this.wilderWild$animTicks - 1);
-		this.wilderWild$age = this.wilderWild$getAge() + 1;
+		this.wilderWild$tendrilAnimation0 = this.wilderWild$tendrilAnimation;
+		this.wilderWild$tendrilAnimation = Math.max(0, this.wilderWild$tendrilAnimation - 1);
 	}
 
 	@Unique
 	@Override
-	public int wilderWild$getAge() {
-		return this.wilderWild$age;
+	public float wilderWild$getAgeInTicks(float partialTicks) {
+		return this.wilderWild$age + partialTicks;
 	}
 
 	@Unique
 	@Override
-	public int wilderWild$getAnimTicks() {
-		return this.wilderWild$animTicks;
-	}
-
-	@Unique
-	@Override
-	public int wilderWild$getPrevAnimTicks() {
-		return this.wilderWild$prevAnimTicks;
+	public float wilderWild$getTendrilAnimation(float partialTicks) {
+		return Mth.lerp(partialTicks, this.wilderWild$tendrilAnimation0, this.wilderWild$tendrilAnimation) * 0.1F;
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isActive() {
 		return this.wilderWild$active;
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$setAnimTicks(int i) {
-		this.wilderWild$animTicks = i;
 	}
 
 	@Unique

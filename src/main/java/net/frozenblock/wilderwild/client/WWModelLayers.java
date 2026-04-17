@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
+import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
@@ -160,7 +161,7 @@ public final class WWModelLayers {
 
 		BlockEntityRenderers.register(BlockEntityTypes.SCULK_SENSOR, SculkSensorRenderer::new);
 		BlockEntityRenderers.register(BlockEntityTypes.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
-		ModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorRenderer::createModelLayer);
+		ModelLayerRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorModel::createModelLayer);
 
 		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL, HangingTendrilRenderer::new);
 		ModelLayerRegistry.registerModelLayer(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);
