@@ -33,6 +33,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Dripleaves will no longer generate in the Mesoglea Caves biome.
   - The `wilderwild:blue_mesoglea_pool`, `wilderwild:blue_mesoglea_dripleaves`, `wilderwild:purple_mesoglea_pool`, `wilderwild:purple_mesoglea_dripleaves` Configured Features have been removed.
   - The `wilderwild:blue_mesoglea` and `wilderwild:purple_mesoglea` Configured Features and Placed Features have been removed.
+- Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
+- Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
 - Crabs will now become persistent when fed.
 - Jellyfish will now become persistent when fed.
@@ -92,5 +94,3 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
 - Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
 - Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
-- Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
-- Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
