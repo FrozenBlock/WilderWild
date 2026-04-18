@@ -2357,7 +2357,7 @@
       "wilderwild:block/maple_wood_trapdoor/toggle2",
       "wilderwild:block/maple_wood_trapdoor/toggle3"
     ],
-    "subtitle": "subtitles.block.trapdoor.toggle"
+    "subtitle": "subtitles.block.trapdoor.close"
   },
   "block.maple_wood_trapdoor.open": {
     "sounds": [
@@ -2365,7 +2365,7 @@
       "wilderwild:block/maple_wood_trapdoor/toggle2",
       "wilderwild:block/maple_wood_trapdoor/toggle3"
     ],
-    "subtitle": "subtitles.block.trapdoor.toggle"
+    "subtitle": "subtitles.block.trapdoor.open"
   },
   "block.pale_moss.break": {
     "sounds": [

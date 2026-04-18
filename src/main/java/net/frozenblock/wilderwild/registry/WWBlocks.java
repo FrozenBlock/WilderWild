@@ -1473,11 +1473,13 @@ public final class WWBlocks {
 		.getFamily();
 
 	// MAPLE
-	public static final Block MAPLE_PLANKS = Blocks.register(WWBlockItemIds.MAPLE_PLANKS, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR));
+	public static final Block MAPLE_PLANKS = Blocks.register(WWBlockItemIds.MAPLE_PLANKS,
+		Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+	);
 	public static final Block MAPLE_STAIRS = Blocks.registerStair(WWBlockItemIds.MAPLE_STAIRS, MAPLE_PLANKS);
 	public static final Block MAPLE_FENCE_GATE = Blocks.register(WWBlockItemIds.MAPLE_FENCE_GATE,
 		properties -> new FenceGateBlock(MAPLE_WOOD_TYPE, properties),
-		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MAPLE_PLANKS_COLOR)
+		Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block MAPLE_SLAB = Blocks.registerSlab(WWBlockItemIds.MAPLE_SLAB, MAPLE_PLANKS);
 	public static final Block MAPLE_PRESSURE_PLATE = Blocks.register(WWBlockItemIds.MAPLE_PRESSURE_PLATE,
@@ -1498,32 +1500,33 @@ public final class WWBlocks {
 	);
 	public static final Block MAPLE_FENCE = Blocks.register(WWBlockItemIds.MAPLE_FENCE,
 		FenceBlock::new,
-		Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MAPLE_PLANKS_COLOR)
+		Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block MAPLE_LOG = Blocks.register(WWBlockItemIds.MAPLE_LOG,
 		RotatedPillarBlock::new,
-		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, SoundType.WOOD)
+		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block STRIPPED_MAPLE_LOG = Blocks.register(WWBlockItemIds.STRIPPED_MAPLE_LOG,
 		RotatedPillarBlock::new,
-		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_PLANKS_COLOR, SoundType.WOOD)
+		Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_PLANKS_COLOR, WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block STRIPPED_HOLLOWED_MAPLE_LOG = Blocks.register(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG,
 		HollowedLogBlock::new,
-		strippedHollowedLogProperties(MAPLE_PLANKS_COLOR)
+		strippedHollowedLogProperties(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.HOLLOWED_MAPLE_LOG)
 	);
 	public static final Block MAPLE_WOOD = Blocks.register(WWBlockItemIds.MAPLE_WOOD,
 		RotatedPillarBlock::new,
-		Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MAPLE_BARK_COLOR)
+		Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MAPLE_BARK_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block STRIPPED_MAPLE_WOOD = Blocks.register(WWBlockItemIds.STRIPPED_MAPLE_WOOD,
 		RotatedPillarBlock::new,
-		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MAPLE_PLANKS_COLOR)
+		Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block MAPLE_SIGN = Blocks.register(WWBlockItemIds.MAPLE_SIGN,
 		properties -> new StandingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
+			.sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block MAPLE_WALL_SIGN = Blocks.register(WWBlockIds.MAPLE_WALL_SIGN,
 		properties -> new WallSignBlock(MAPLE_WOOD_TYPE, properties),
@@ -1531,11 +1534,13 @@ public final class WWBlocks {
 			.mapColor(MAPLE_LOG.defaultMapColor())
 			.overrideDescription(MAPLE_SIGN.getDescriptionId())
 			.overrideLootTable(MAPLE_SIGN.getLootTable())
+			.sound(WWSoundTypes.MAPLE_WOOD)
 	);
 	public static final Block MAPLE_HANGING_SIGN = Blocks.register(WWBlockItemIds.MAPLE_HANGING_SIGN,
 		properties -> new CeilingHangingSignBlock(MAPLE_WOOD_TYPE, properties),
 		Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.defaultMapColor())
+			.sound(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 	);
 	public static final Block MAPLE_WALL_HANGING_SIGN = Blocks.register(WWBlockIds.MAPLE_WALL_HANGING_SIGN,
 		properties -> new WallHangingSignBlock(MAPLE_WOOD_TYPE, properties),
@@ -1543,6 +1548,7 @@ public final class WWBlocks {
 			.mapColor(MAPLE_LOG.defaultMapColor())
 			.overrideDescription(MAPLE_HANGING_SIGN.getDescriptionId())
 			.overrideLootTable(MAPLE_HANGING_SIGN.getLootTable())
+			.sound(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 	);
 	public static final Block MAPLE_SHELF = Blocks.register(WWBlockItemIds.MAPLE_SHELF,
 		ShelfBlock::new,
