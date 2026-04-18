@@ -6,10 +6,6 @@
     {
       "id": "#frozenlib:ghost_like",
       "required": false
-    },
-    {
-      "id": "trailiertales:apparition",
-      "required": false
     }
   ]
 }

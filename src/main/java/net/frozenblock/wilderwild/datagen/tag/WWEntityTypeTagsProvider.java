@@ -24,15 +24,12 @@ import net.frozenblock.lib.tag.api.FrozenLibEntityTypeTags;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityTypeIds;
 
-public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
+public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTypeTagsProvider {
 
-	public WWEntityTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWEntityTypeTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
@@ -124,9 +121,6 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 			.add(EntityTypeIds.WITHER, EntityTypeIds.ENDER_DRAGON)
 			.add(EntityTypeIds.EYE_OF_ENDER)
 			.addOptionalTag(FrozenLibEntityTypeTags.GHOST_LIKE);
-
-		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
-			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("trailiertales", "apparition")));
 
 		this.builder(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS)
 			.add(EntityTypeIds.PLAYER)
