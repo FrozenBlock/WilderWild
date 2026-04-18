@@ -21,11 +21,13 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.frozenblock.lib.tag.api.FrozenBlockTags;
+import net.frozenblock.lib.tag.api.FrozenLibBlockTags;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.BlockItemTagsProvider;
 import net.minecraft.references.BlockIds;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
@@ -35,23 +37,22 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
-public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
-	public WWBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
+		new WWBlockItemTagsProvider(tagId -> BlockItemTagsProvider.wrapForBlocks(this.tag(tagId.block()))).run();
 		this.generateSounds();
 		this.generateCompat();
-		this.generateLib();
 		this.generateFeatures();
 		this.generateDeepDark();
-		this.generateHollowedAndTermites();
+		this.generateWoodAndTermites();
 		this.generateTags();
 		this.generateMinecraft();
-		this.generateWoods();
 	}
 
 	private TagKey<Block> getTag(String id) {
@@ -72,11 +73,12 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.STRIPPED_CYPRESS_LOG)
 			.add(WWBlockItemIds.STRIPPED_PALM_LOG)
 			.add(WWBlockItemIds.STRIPPED_MAPLE_LOG)
-			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS);
-	}
+			.addOptionalTag(WWBlockItemTags.STRIPPED_HOLLOWED_LOGS.block());
 
-	private void generateLib() {
-		this.builder(FrozenBlockTags.DRIPSTONE_CAN_DRIP_ON)
+		this.builder(FrozenLibBlockTags.BLOWING_CAN_PASS_THROUGH)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
+
+		this.builder(FrozenLibBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(BlockItemIds.DIRT)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
 	}
@@ -116,7 +118,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 			.add(BlockItemIds.RED_SAND)
-			.addOptionalTag(BlockTags.TERRACOTTA);
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWBlockTags.MUD_TRANSITION_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
@@ -185,7 +187,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.STONE_PATH_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.PACKED_MUD_PATH_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT);
@@ -196,7 +198,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.OCEAN_MOSS_REPLACEABLE)
 			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.SANDSTONE_PATH_REPLACEABLE)
 			.add(BlockItemIds.SAND);
@@ -206,11 +208,11 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
 			.add(BlockItemIds.RED_SAND, BlockItemIds.RED_SANDSTONE)
-			.addOptionalTag(BlockTags.TERRACOTTA);
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWBlockTags.POLLEN_FEATURE_PLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK)
-			.addOptionalTag(BlockTags.LEAVES)
+			.addOptionalTag(BlockItemTags.LEAVES.block())
 			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
 		this.builder(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
@@ -221,14 +223,14 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.STONE_BRICKS)
-			.addOptionalTag(BlockTags.LOGS)
-			.addOptionalTag(BlockTags.PLANKS)
-			.addOptionalTag(BlockTags.SLABS)
-			.addOptionalTag(BlockTags.STAIRS)
-			.addOptionalTag(BlockTags.DOORS)
-			.addOptionalTag(BlockTags.TRAPDOORS)
-			.addOptionalTag(BlockTags.LEAVES)
+			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
+			.addOptionalTag(BlockItemTags.LOGS.block())
+			.addOptionalTag(BlockItemTags.PLANKS.block())
+			.addOptionalTag(BlockItemTags.SLABS.block())
+			.addOptionalTag(BlockItemTags.STAIRS.block())
+			.addOptionalTag(BlockItemTags.DOORS.block())
+			.addOptionalTag(BlockItemTags.TRAPDOORS.block())
+			.addOptionalTag(BlockItemTags.LEAVES.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
 
@@ -240,13 +242,13 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.STONE_BRICKS)
-			.addOptionalTag(BlockTags.LOGS)
-			.addOptionalTag(BlockTags.PLANKS)
-			.addOptionalTag(BlockTags.SLABS)
-			.addOptionalTag(BlockTags.STAIRS)
-			.addOptionalTag(BlockTags.DOORS)
-			.addOptionalTag(BlockTags.TRAPDOORS)
+			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
+			.addOptionalTag(BlockItemTags.LOGS.block())
+			.addOptionalTag(BlockItemTags.PLANKS.block())
+			.addOptionalTag(BlockItemTags.SLABS.block())
+			.addOptionalTag(BlockItemTags.STAIRS.block())
+			.addOptionalTag(BlockItemTags.DOORS.block())
+			.addOptionalTag(BlockItemTags.TRAPDOORS.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE)
@@ -254,20 +256,20 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.PRISMARINE_BRICKS)
 			.add(BlockItemIds.DARK_PRISMARINE)
 			.add(BlockItemIds.SEA_LANTERN)
-			.addOptionalTag(BlockTags.STONE_BRICKS)
-			.addOptionalTag(BlockTags.LOGS)
-			.addOptionalTag(BlockTags.PLANKS)
-			.addOptionalTag(BlockTags.SLABS)
-			.addOptionalTag(BlockTags.STAIRS)
-			.addOptionalTag(BlockTags.DOORS)
-			.addOptionalTag(BlockTags.TRAPDOORS);
+			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
+			.addOptionalTag(BlockItemTags.LOGS.block())
+			.addOptionalTag(BlockItemTags.PLANKS.block())
+			.addOptionalTag(BlockItemTags.SLABS.block())
+			.addOptionalTag(BlockItemTags.STAIRS.block())
+			.addOptionalTag(BlockItemTags.DOORS.block())
+			.addOptionalTag(BlockItemTags.TRAPDOORS.block());
 
 		this.builder(WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE)
 			.add(BlockItemIds.MOSS_BLOCK);
 
 		this.builder(WWBlockTags.TERMITE_DISK_REPLACEABLE)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWBlockTags.TERMITE_DISK_BLOCKS)
@@ -352,20 +354,20 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.SANDSTONE);
 
 		this.builder(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.PODZOL);
 
 		this.builder(WWBlockTags.RIVER_POOL_REPLACEABLE)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.CLAY);
 
 		this.builder(WWBlockTags.FALLEN_TREE_PLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.CLAY)
@@ -381,13 +383,13 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.SMALL_SPONGE_GROWS_ON)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.SPONGE)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.MOSS_BLOCK)
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
 
 		this.builder(WWBlockTags.BASIN_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.COARSE_DIRT)
@@ -399,7 +401,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWBlockTags.SULFUR_SPRING_REPLACEABLE)
@@ -407,24 +409,24 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.SULFUR, BlockItemIds.CINNABAR)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.LEAVES)
+			.addOptionalTag(BlockItemTags.LEAVES.block())
 			.addOptionalTag(BlockTags.REPLACEABLE)
-			.addOptionalTag(BlockTags.TERRACOTTA);
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWBlockTags.SULFUR_SPRING_PLACEABLE)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.SULFUR, BlockItemIds.CINNABAR)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.TERRACOTTA);
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.CLAY);
 
 		this.builder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
@@ -436,32 +438,6 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 	}
 
 	private void generateTags() {
-		this.builder(WWBlockTags.MESOGLEA)
-			.add(WWBlockItemIds.BLUE_MESOGLEA)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
-			.add(WWBlockItemIds.LIME_MESOGLEA)
-			.add(WWBlockItemIds.PINK_MESOGLEA)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
-			.add(WWBlockItemIds.RED_MESOGLEA)
-			.add(WWBlockItemIds.YELLOW_MESOGLEA);
-
-		this.builder(WWBlockTags.NEMATOCYSTS)
-			.add(WWBlockItemIds.BLUE_NEMATOCYST)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST)
-			.add(WWBlockItemIds.LIME_NEMATOCYST)
-			.add(WWBlockItemIds.PINK_NEMATOCYST)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST)
-			.add(WWBlockItemIds.RED_NEMATOCYST)
-			.add(WWBlockItemIds.YELLOW_NEMATOCYST);
-
-		this.builder(WWBlockTags.FROGLIGHT_GOOP)
-			.add(WWBlockItemIds.PEARLESCENT_FROGLIGHT_GOOP)
-			.add(WWBlockIds.PEARLESCENT_FROGLIGHT_GOOP_BODY)
-			.add(WWBlockItemIds.VERDANT_FROGLIGHT_GOOP)
-			.add(WWBlockIds.VERDANT_FROGLIGHT_GOOP_BODY)
-			.add(WWBlockItemIds.OCHRE_FROGLIGHT_GOOP)
-			.add(WWBlockIds.OCHRE_FROGLIGHT_GOOP_BODY);
-
 		this.builder(WWBlockTags.ICICLE_FALLS_FROM)
 			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE, WWBlockItemIds.FRAGILE_ICE);
 
@@ -469,10 +445,10 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE, WWBlockItemIds.FRAGILE_ICE);
 
 		this.builder(WWBlockTags.STOPS_TUMBLEWEED)
-			.add(BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS)
 			.add(BlockItemIds.SLIME_BLOCK)
-			.add(BlockItemIds.IRON_BARS)
-			.add(BlockItemIds.HONEY_BLOCK);
+			.add(BlockItemIds.HONEY_BLOCK)
+			.addOptionalTag(BlockItemTags.MUD.block())
+			.addOptionalTag(BlockItemTags.BARS.block());
 
 		this.builder(WWBlockTags.SPLITS_COCONUT)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -499,16 +475,16 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.builder(WWBlockTags.CRAB_HIDEABLE)
-			.addOptionalTag(BlockTags.DIRT)
-			.addOptionalTag(BlockTags.MUD)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.DIRT.block())
+			.addOptionalTag(BlockItemTags.MUD.block())
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL);
 
 		this.builder(WWBlockTags.OSTRICH_BEAK_BURYABLE)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_SHOVEL)
 			.addOptionalTag(BlockTags.MINEABLE_WITH_HOE)
-			.addOptionalTag(BlockTags.WOOL);
+			.addOptionalTag(BlockItemTags.WOOL.block());
 
 		this.builder(WWBlockTags.PENGUIN_IGNORE_FRICTION)
 			.addOptionalTag(BlockTags.ICE);
@@ -521,14 +497,11 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON);
 
-		this.builder(FrozenBlockTags.BLOWING_CAN_PASS_THROUGH)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
-
 		this.builder(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
-			.addOptionalTag(BlockTags.LIGHTNING_RODS);
+			.addOptionalTag(BlockItemTags.LIGHTNING_RODS.block());
 
 		this.builder(WWBlockTags.NO_LIGHTNING_SMOKE_PARTICLES)
-			.addOptionalTag(BlockTags.LIGHTNING_RODS);
+			.addOptionalTag(BlockItemTags.LIGHTNING_RODS.block());
 
 		this.builder(ConventionalBlockTags.GLASS_BLOCKS)
 			.add(WWBlockItemIds.ECHO_GLASS);
@@ -537,8 +510,8 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.addOptionalTag(BlockTags.SUPPORTS_DRY_VEGETATION);
 
 		this.builder(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)
-			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.TERRACOTTA);
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)
 			.add(BlockItemIds.SHORT_GRASS)
@@ -546,7 +519,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.AUBURN_MOSS_REPLACEABLE)
 			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
-			.addOptionalTag(BlockTags.SAND)
+			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL);
 
@@ -562,7 +535,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(WWBlockTags.SUPPORTS_COCONUT)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.SUPPORTS_HANGING_COCONUT)
 			.add(WWBlockItemIds.PALM_FRONDS);
@@ -592,24 +565,24 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.builder(WWBlockTags.SUPPORTS_WATERLOGGABLE_SAPLING)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
 			.add(BlockItemIds.CLAY)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE)
 			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
 			.add(BlockItemIds.CLAY)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT)
 			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
-			.addOptionalTag(BlockTags.SAND);
+			.addOptionalTag(BlockItemTags.SAND.block());
 
 		this.builder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(BlockItemIds.LADDER)
 			.add(WWBlockItemIds.ICICLE)
-			.addOptionalTag(BlockTags.LEAVES)
-			.addOptionalTag(BlockTags.WALLS)
-			.addOptionalTag(BlockTags.FENCE_GATES)
-			.addOptionalTag(BlockTags.FENCES);
+			.addOptionalTag(BlockItemTags.LEAVES.block())
+			.addOptionalTag(BlockItemTags.WALLS.block())
+			.addOptionalTag(BlockItemTags.FENCE_GATES.block())
+			.addOptionalTag(BlockItemTags.FENCES.block());
 	}
 
 	private void generateDeepDark() {
@@ -656,104 +629,106 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.ECHO_GLASS);
 	}
 
-	private void generateHollowedAndTermites() {
-		this.builder(WWBlockTags.HOLLOWED_ACACIA_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_ACACIA_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG);
+	private void generateWoodAndTermites() {
+		this.builder(BlockTags.OVERWORLD_NATURAL_LOGS)
+			.add(WWBlockItemIds.BAOBAB_LOG)
+			.add(WWBlockItemIds.WILLOW_LOG)
+			.add(WWBlockItemIds.CYPRESS_LOG)
+			.add(WWBlockItemIds.PALM_LOG)
+			.add(WWBlockItemIds.MAPLE_LOG);
 
-		this.builder(WWBlockTags.HOLLOWED_BIRCH_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_BIRCH_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG);
+		this.builder(BlockItemTags.ACACIA_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_ACACIA_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_CHERRY_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_CHERRY_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG);
+		this.builder(BlockItemTags.BIRCH_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_BIRCH_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_CRIMSON_STEMS)
-			.add(WWBlockItemIds.HOLLOWED_CRIMSON_STEM, WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM);
+		this.builder(BlockItemTags.CHERRY_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_CHERRY_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_DARK_OAK_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_DARK_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		this.builder(BlockItemTags.CRIMSON_STEMS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_CRIMSON_STEMS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_JUNGLE_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_JUNGLE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		this.builder(BlockItemTags.DARK_OAK_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_DARK_OAK_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_MANGROVE_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_MANGROVE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		this.builder(BlockTags.JUNGLE_LOGS)
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_JUNGLE_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_OAK_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG);
+		this.builder(BlockItemTags.ACACIA_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_ACACIA_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_SPRUCE_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_SPRUCE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		this.builder(BlockItemTags.MANGROVE_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_MANGROVE_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_WARPED_STEMS)
-			.add(WWBlockItemIds.HOLLOWED_WARPED_STEM, WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM);
+		this.builder(BlockItemTags.OAK_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_OAK_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_BAOBAB_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG);
+		this.builder(BlockItemTags.ACACIA_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_ACACIA_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_WILLOW_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_WILLOW_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG);
+		this.builder(BlockItemTags.SPRUCE_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_SPRUCE_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_CYPRESS_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG);
+		this.builder(BlockItemTags.PALE_OAK_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_PALE_OAK_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_PALM_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_PALM_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG);
+		this.builder(BlockItemTags.WARPED_STEMS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_WARPED_STEMS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_MAPLE_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_MAPLE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
+		this.builder(WWBlockItemTags.BAOBAB_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_BAOBAB_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		this.builder(WWBlockItemTags.WILLOW_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_WILLOW_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_BIRCH_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CHERRY_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CRIMSON_STEMS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_DARK_OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_JUNGLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_WILLOW_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
+		this.builder(WWBlockItemTags.CYPRESS_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_CYPRESS_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_LOGS_DONT_BURN)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CRIMSON_STEMS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
+		this.builder(WWBlockItemTags.PALM_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_PALM_LOGS.block());
 
-		this.builder(WWBlockTags.HOLLOWED_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_THAT_BURN)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_DONT_BURN);
+		this.builder(WWBlockItemTags.MAPLE_LOGS.block())
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_MAPLE_LOGS.block());
 
-		this.builder(WWBlockTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
+		this.builder(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH)
+			.add(BlockItemIds.MUDDY_MANGROVE_ROOTS)
+			.add(BlockItemIds.MANGROVE_ROOTS)
+			.add(BlockItemIds.MOSS_CARPET)
+			.add(BlockItemIds.VINE)
+			.add(BlockItemIds.SNOW)
+			.add(BlockItemIds.RED_MUSHROOM)
+			.add(BlockItemIds.BROWN_MUSHROOM)
+			.add(WWBlockItemIds.ALGAE)
+			.add(WWBlockItemIds.PLANKTON)
+			.add(WWBlockItemIds.AUBURN_MOSS_CARPET)
+			.add(WWBlockItemIds.AUBURN_CREEPING_MOSS)
+			.addOptionalTag(BlockItemTags.SMALL_FLOWERS.block());
 
-		this.builder(WWBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM);
+		this.builder(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON)
+			.add(BlockItemIds.MOSS_BLOCK)
+			.add(BlockItemIds.PALE_MOSS_BLOCK)
+			.add(BlockItemIds.SANDSTONE)
+			.add(BlockItemIds.RED_SANDSTONE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.SNOW_BLOCK)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD);
 
-		this.builder(WWBlockTags.STRIPPED_HOLLOWED_LOGS)
-			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS_THAT_BURN)
-			.addOptionalTag(WWBlockTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN);
+		this.builder(BlockTags.WALL_SIGNS)
+			.add(WWBlockIds.BAOBAB_WALL_SIGN)
+			.add(WWBlockIds.WILLOW_WALL_SIGN)
+			.add(WWBlockIds.CYPRESS_WALL_SIGN)
+			.add(WWBlockIds.PALM_WALL_SIGN)
+			.add(WWBlockIds.MAPLE_WALL_SIGN);
+
+		this.builder(BlockTags.WALL_HANGING_SIGNS)
+			.add(WWBlockIds.BAOBAB_WALL_HANGING_SIGN)
+			.add(WWBlockIds.WILLOW_WALL_HANGING_SIGN)
+			.add(WWBlockIds.CYPRESS_WALL_HANGING_SIGN)
+			.add(WWBlockIds.PALM_WALL_HANGING_SIGN)
+			.add(WWBlockIds.MAPLE_WALL_HANGING_SIGN);
 
 		this.builder(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES)
 			.add(BlockItemIds.CHERRY_LEAVES)
@@ -810,7 +785,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.builder(BlockTags.MINEABLE_WITH_AXE)
 			.add(BlockItemIds.CACTUS)
 			.add(BlockItemIds.SWEET_BERRY_CROP)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS)
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS.block())
 			.add(WWBlockItemIds.TUMBLEWEED, WWBlockItemIds.TUMBLEWEED_PLANT)
 			.add(WWBlockItemIds.PRICKLY_PEAR)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)
@@ -845,7 +820,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
 			.add(WWBlockItemIds.AUBURN_MOSS_CARPET)
 			.add(WWBlockItemIds.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
+			.addOptionalTag(WWBlockItemTags.FROGLIGHT_GOOP.block());
 
 		this.builder(BlockTags.MINEABLE_WITH_PICKAXE)
 			.add(WWBlockItemIds.STONE_CHEST)
@@ -876,7 +851,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.SCORCHED_RED_SAND)
 			.add(WWBlockItemIds.TERMITE_MOUND)
 			.add(WWBlockItemIds.PLANKTON)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
 
 		this.builder(BlockTags.SWORD_EFFICIENT)
 			.add(WWBlockItemIds.SHRUB)
@@ -905,17 +880,11 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.FROZEN_BUSH)
 			.add(WWBlockItemIds.AUBURN_MOSS_CARPET)
 			.add(WWBlockItemIds.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(WWBlockTags.NEMATOCYSTS)
-			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
+			.addOptionalTag(WWBlockItemTags.NEMATOCYSTS.block())
+			.addOptionalTag(WWBlockItemTags.FROGLIGHT_GOOP.block());
 
 		this.builder(BlockTags.ENDERMAN_HOLDABLE)
 			.add(WWBlockItemIds.PALE_MUSHROOM);
-
-		this.builder(BlockTags.SAND)
-			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
-
-		this.builder(BlockTags.MOSS_BLOCKS)
-			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
 
 		this.builder(BlockTags.SNIFFER_DIGGABLE_BLOCK)
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
@@ -937,39 +906,8 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 		this.builder(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
 			.add(WWBlockItemIds.GABBRO);
 
-		this.builder(BlockTags.STAIRS)
-			.add(WWBlockItemIds.SCULK_STAIRS)
-			.add(WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS)
-			.add(WWBlockItemIds.GABBRO_STAIRS)
-			.add(WWBlockItemIds.POLISHED_GABBRO_STAIRS)
-			.add(WWBlockItemIds.GABBRO_BRICK_STAIRS)
-			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS);
-
-		this.builder(BlockTags.SLABS)
-			.add(WWBlockItemIds.SCULK_SLAB)
-			.add(WWBlockItemIds.MOSSY_MUD_BRICK_SLAB)
-			.add(WWBlockItemIds.GABBRO_SLAB)
-			.add(WWBlockItemIds.POLISHED_GABBRO_SLAB)
-			.add(WWBlockItemIds.GABBRO_BRICK_SLAB)
-			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB);
-
-		this.builder(BlockTags.WALLS)
-			.add(WWBlockItemIds.SCULK_WALL)
-			.add(WWBlockItemIds.MOSSY_MUD_BRICK_WALL)
-			.add(WWBlockItemIds.GABBRO_WALL)
-			.add(WWBlockItemIds.POLISHED_GABBRO_WALL)
-			.add(WWBlockItemIds.GABBRO_BRICK_WALL)
-			.add(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL);
-
-		this.builder(BlockTags.WOODEN_SHELVES)
-			.add(WWBlockItemIds.BAOBAB_SHELF)
-			.add(WWBlockItemIds.WILLOW_SHELF)
-			.add(WWBlockItemIds.CYPRESS_SHELF)
-			.add(WWBlockItemIds.PALM_SHELF)
-			.add(WWBlockItemIds.MAPLE_SHELF);
-
 		this.builder(BlockTags.CLIMBABLE)
-			.addOptionalTag(WWBlockTags.FROGLIGHT_GOOP);
+			.addOptionalTag(WWBlockItemTags.FROGLIGHT_GOOP.block());
 
 		this.builder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
 			.add(BlockItemIds.COBWEB)
@@ -1017,7 +955,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.SEA_ANEMONE)
 			.add(WWBlockItemIds.SEA_WHIP)
 			.add(WWBlockItemIds.TUBE_WORMS)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.addOptionalTag(WWBlockItemTags.LEAF_LITTERS.block());
 
 		this.builder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)
@@ -1034,14 +972,14 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.FROZEN_FERN)
 			.add(WWBlockItemIds.FROZEN_LARGE_FERN)
 			.add(WWBlockItemIds.FROZEN_BUSH)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.addOptionalTag(WWBlockItemTags.LEAF_LITTERS.block());
 
 		this.builder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
 			.add(WWBlockItemIds.POLLEN)
 			.add(WWBlockItemIds.BARNACLES)
 			.add(WWBlockItemIds.AUBURN_MOSS_CARPET)
 			.add(WWBlockItemIds.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(WWBlockTags.LEAF_LITTERS);
+			.addOptionalTag(WWBlockItemTags.LEAF_LITTERS.block());
 
 		this.builder(BlockTags.FLOWER_POTS)
 			.add(WWBlockIds.POTTED_BAOBAB_NUT)
@@ -1081,49 +1019,14 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockIds.POTTED_FROZEN_BUSH)
 			.add(WWBlockIds.POTTED_PALE_MUSHROOM);
 
-		this.builder(BlockTags.FLOWERS)
-			.add(WWBlockItemIds.DATURA)
-			.add(WWBlockItemIds.CATTAIL)
-			.add(WWBlockItemIds.MILKWEED)
-			.add(WWBlockItemIds.POLLEN)
-			.add(WWBlockItemIds.PHLOX)
-			.add(WWBlockItemIds.LANTANAS);
-
-		this.builder(BlockTags.SMALL_FLOWERS)
-			.add(WWBlockItemIds.CARNATION)
-			.add(WWBlockItemIds.MARIGOLD)
-			.add(WWBlockItemIds.SEEDING_DANDELION)
-			.add(WWBlockItemIds.PASQUEFLOWER)
-			.add(WWBlockItemIds.RED_HIBISCUS)
-			.add(WWBlockItemIds.YELLOW_HIBISCUS)
-			.add(WWBlockItemIds.WHITE_HIBISCUS)
-			.add(WWBlockItemIds.PINK_HIBISCUS)
-			.add(WWBlockItemIds.PURPLE_HIBISCUS)
-			.add(WWBlockItemIds.FLOWERING_LILY_PAD);
-
-		this.builder(BlockTags.BEE_ATTRACTIVE)
-			.add(WWBlockItemIds.CARNATION)
-			.add(WWBlockItemIds.MARIGOLD)
-			.add(WWBlockItemIds.SEEDING_DANDELION)
-			.add(WWBlockItemIds.RED_HIBISCUS)
-			.add(WWBlockItemIds.YELLOW_HIBISCUS)
-			.add(WWBlockItemIds.WHITE_HIBISCUS)
-			.add(WWBlockItemIds.PINK_HIBISCUS)
-			.add(WWBlockItemIds.PURPLE_HIBISCUS)
-			.add(WWBlockItemIds.FLOWERING_LILY_PAD)
-			.add(WWBlockItemIds.DATURA)
-			.add(WWBlockItemIds.CATTAIL)
-			.add(WWBlockItemIds.MILKWEED)
-			.add(WWBlockItemIds.POLLEN);
-
 		this.builder(BlockTags.FROG_PREFER_JUMP_TO)
 			.add(WWBlockItemIds.FLOWERING_LILY_PAD);
 
 		this.builder(BlockTags.SUPPORTS_BIG_DRIPLEAF)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
 
 		this.builder(BlockTags.SUPPORTS_SMALL_DRIPLEAF)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
 
 		this.builder(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH)
 			.add(WWBlockItemIds.ALGAE)
@@ -1136,7 +1039,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 
 		this.builder(BlockTags.IMPERMEABLE)
 			.add(WWBlockItemIds.ECHO_GLASS)
-			.addOptionalTag(WWBlockTags.MESOGLEA);
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
 
 		this.builder(BlockTags.FEATURES_CANNOT_REPLACE)
 			.add(WWBlockItemIds.STONE_CHEST);
@@ -1157,246 +1060,6 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
 	}
 
-	private void generateWoods() {
-		this.builder(BlockTags.OVERWORLD_NATURAL_LOGS)
-			.add(WWBlockItemIds.BAOBAB_LOG)
-			.add(WWBlockItemIds.WILLOW_LOG)
-			.add(WWBlockItemIds.CYPRESS_LOG)
-			.add(WWBlockItemIds.PALM_LOG)
-			.add(WWBlockItemIds.MAPLE_LOG);
-
-		this.builder(BlockItemTags.ACACIA_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.builder(BlockItemTags.BIRCH_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_BIRCH_LOGS);
-
-		this.builder(BlockItemTags.CHERRY_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_CHERRY_LOGS);
-
-		this.builder(BlockItemTags.CRIMSON_STEMS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_CRIMSON_STEMS);
-
-		this.builder(BlockItemTags.DARK_OAK_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_DARK_OAK_LOGS);
-
-		this.builder(BlockTags.JUNGLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_JUNGLE_LOGS);
-
-		this.builder(BlockItemTags.ACACIA_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.builder(BlockItemTags.MANGROVE_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_MANGROVE_LOGS);
-
-		this.builder(BlockItemTags.OAK_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_OAK_LOGS);
-
-		this.builder(BlockItemTags.ACACIA_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_ACACIA_LOGS);
-
-		this.builder(BlockItemTags.SPRUCE_LOGS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_SPRUCE_LOGS);
-
-		this.builder(BlockTags.PALE_OAK_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
-
-		this.builder(BlockItemTags.WARPED_STEMS.block())
-			.addOptionalTag(WWBlockTags.HOLLOWED_WARPED_STEMS);
-
-		this.builder(WWBlockTags.BAOBAB_LOGS)
-			.add(WWBlockItemIds.BAOBAB_LOG, WWBlockItemIds.STRIPPED_BAOBAB_LOG)
-			.add(WWBlockItemIds.BAOBAB_WOOD, WWBlockItemIds.STRIPPED_BAOBAB_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_BAOBAB_LOGS);
-
-		this.builder(WWBlockTags.WILLOW_LOGS)
-			.add(WWBlockItemIds.WILLOW_LOG, WWBlockItemIds.STRIPPED_WILLOW_LOG)
-			.add(WWBlockItemIds.WILLOW_WOOD, WWBlockItemIds.STRIPPED_WILLOW_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_WILLOW_LOGS);
-
-		this.builder(WWBlockTags.CYPRESS_LOGS)
-			.add(WWBlockItemIds.CYPRESS_LOG, WWBlockItemIds.STRIPPED_CYPRESS_LOG)
-			.add(WWBlockItemIds.CYPRESS_WOOD, WWBlockItemIds.STRIPPED_CYPRESS_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_CYPRESS_LOGS);
-
-		this.builder(WWBlockTags.PALM_LOGS)
-			.add(WWBlockItemIds.PALM_LOG, WWBlockItemIds.STRIPPED_PALM_LOG)
-			.add(WWBlockItemIds.PALM_WOOD, WWBlockItemIds.STRIPPED_PALM_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALM_LOGS);
-
-		this.builder(WWBlockTags.MAPLE_LOGS)
-			.add(WWBlockItemIds.MAPLE_LOG, WWBlockItemIds.STRIPPED_MAPLE_LOG)
-			.add(WWBlockItemIds.MAPLE_WOOD, WWBlockItemIds.STRIPPED_MAPLE_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_MAPLE_LOGS);
-
-		this.builder(BlockTags.LOGS)
-			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
-			.addOptionalTag(WWBlockTags.WILLOW_LOGS)
-			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
-			.addOptionalTag(WWBlockTags.PALM_LOGS)
-			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS);
-
-		this.builder(BlockItemTags.LOGS_THAT_BURN.block())
-			.addOptionalTag(WWBlockTags.BAOBAB_LOGS)
-			.addOptionalTag(WWBlockTags.WILLOW_LOGS)
-			.addOptionalTag(WWBlockTags.CYPRESS_LOGS)
-			.addOptionalTag(WWBlockTags.PALM_LOGS)
-			.addOptionalTag(WWBlockTags.MAPLE_LOGS)
-			.addOptionalTag(WWBlockTags.HOLLOWED_LOGS_THAT_BURN);
-
-		this.builder(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH)
-			.add(BlockItemIds.MUDDY_MANGROVE_ROOTS)
-			.add(BlockItemIds.MANGROVE_ROOTS)
-			.add(BlockItemIds.MOSS_CARPET)
-			.add(BlockItemIds.VINE)
-			.add(BlockItemIds.SNOW)
-			.add(BlockItemIds.RED_MUSHROOM)
-			.add(BlockItemIds.BROWN_MUSHROOM)
-			.add(WWBlockItemIds.ALGAE)
-			.add(WWBlockItemIds.PLANKTON)
-			.add(WWBlockItemIds.AUBURN_MOSS_CARPET)
-			.add(WWBlockItemIds.AUBURN_CREEPING_MOSS)
-			.addOptionalTag(BlockTags.SMALL_FLOWERS);
-
-		this.builder(WWBlockTags.FALLEN_TREE_STUMP_PLACEABLE_ON)
-			.add(BlockItemIds.MOSS_BLOCK)
-			.add(BlockItemIds.PALE_MOSS_BLOCK)
-			.add(BlockItemIds.SANDSTONE)
-			.add(BlockItemIds.RED_SANDSTONE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SNOW_BLOCK)
-			.addOptionalTag(BlockTags.SAND)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD);
-
-		this.builder(BlockTags.LEAVES)
-			.add(WWBlockItemIds.BAOBAB_LEAVES)
-			.add(WWBlockItemIds.WILLOW_LEAVES)
-			.add(WWBlockItemIds.CYPRESS_LEAVES)
-			.add(WWBlockItemIds.PALM_FRONDS)
-			.add(WWBlockItemIds.YELLOW_MAPLE_LEAVES)
-			.add(WWBlockItemIds.ORANGE_MAPLE_LEAVES)
-			.add(WWBlockItemIds.RED_MAPLE_LEAVES);
-
-		this.builder(WWBlockTags.LEAF_LITTERS)
-			.add(BlockItemIds.LEAF_LITTER)
-			.add(WWBlockItemIds.ACACIA_LEAF_LITTER)
-			.add(WWBlockItemIds.AZALEA_LEAF_LITTER)
-			.add(WWBlockItemIds.BAOBAB_LEAF_LITTER)
-			.add(WWBlockItemIds.BIRCH_LEAF_LITTER)
-			.add(WWBlockItemIds.CHERRY_LEAF_LITTER)
-			.add(WWBlockItemIds.CYPRESS_LEAF_LITTER)
-			.add(WWBlockItemIds.DARK_OAK_LEAF_LITTER)
-			.add(WWBlockItemIds.JUNGLE_LEAF_LITTER)
-			.add(WWBlockItemIds.MANGROVE_LEAF_LITTER)
-			.add(WWBlockItemIds.PALE_OAK_LEAF_LITTER)
-			.add(WWBlockItemIds.PALM_FROND_LITTER)
-			.add(WWBlockItemIds.SPRUCE_LEAF_LITTER)
-			.add(WWBlockItemIds.WILLOW_LEAF_LITTER)
-			.add(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER)
-			.add(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER)
-			.add(WWBlockItemIds.RED_MAPLE_LEAF_LITTER);
-
-		this.builder(BlockTags.PLANKS)
-			.add(WWBlockItemIds.BAOBAB_PLANKS)
-			.add(WWBlockItemIds.WILLOW_PLANKS)
-			.add(WWBlockItemIds.CYPRESS_PLANKS)
-			.add(WWBlockItemIds.PALM_PLANKS)
-			.add(WWBlockItemIds.MAPLE_PLANKS);
-
-		this.builder(BlockItemTags.SAPLINGS.block())
-			.add(WWBlockItemIds.BAOBAB_NUT)
-			.add(WWBlockItemIds.WILLOW_SAPLING)
-			.add(WWBlockItemIds.CYPRESS_SAPLING)
-			.add(WWBlockItemIds.COCONUT)
-			.add(WWBlockItemIds.YELLOW_MAPLE_SAPLING, WWBlockItemIds.ORANGE_MAPLE_SAPLING, WWBlockItemIds.RED_MAPLE_SAPLING);
-
-		this.builder(BlockTags.STANDING_SIGNS)
-			.add(WWBlockItemIds.BAOBAB_SIGN)
-			.add(WWBlockItemIds.WILLOW_SIGN)
-			.add(WWBlockItemIds.CYPRESS_SIGN)
-			.add(WWBlockItemIds.PALM_SIGN)
-			.add(WWBlockItemIds.MAPLE_SIGN);
-
-		this.builder(BlockTags.WALL_SIGNS)
-			.add(WWBlockIds.BAOBAB_WALL_SIGN)
-			.add(WWBlockIds.WILLOW_WALL_SIGN)
-			.add(WWBlockIds.CYPRESS_WALL_SIGN)
-			.add(WWBlockIds.PALM_WALL_SIGN)
-			.add(WWBlockIds.MAPLE_WALL_SIGN);
-
-		this.builder(BlockTags.CEILING_HANGING_SIGNS)
-			.add(WWBlockItemIds.BAOBAB_HANGING_SIGN)
-			.add(WWBlockItemIds.WILLOW_HANGING_SIGN)
-			.add(WWBlockItemIds.CYPRESS_HANGING_SIGN)
-			.add(WWBlockItemIds.PALM_HANGING_SIGN)
-			.add(WWBlockItemIds.MAPLE_HANGING_SIGN);
-
-		this.builder(BlockTags.WALL_HANGING_SIGNS)
-			.add(WWBlockIds.BAOBAB_WALL_HANGING_SIGN)
-			.add(WWBlockIds.WILLOW_WALL_HANGING_SIGN)
-			.add(WWBlockIds.CYPRESS_WALL_HANGING_SIGN)
-			.add(WWBlockIds.PALM_WALL_HANGING_SIGN)
-			.add(WWBlockIds.MAPLE_WALL_HANGING_SIGN);
-
-		this.builder(BlockTags.WOODEN_BUTTONS)
-			.add(WWBlockItemIds.BAOBAB_BUTTON)
-			.add(WWBlockItemIds.WILLOW_BUTTON)
-			.add(WWBlockItemIds.CYPRESS_BUTTON)
-			.add(WWBlockItemIds.PALM_BUTTON)
-			.add(WWBlockItemIds.MAPLE_BUTTON);
-
-		this.builder(BlockTags.WOODEN_DOORS)
-			.add(WWBlockItemIds.BAOBAB_DOOR)
-			.add(WWBlockItemIds.WILLOW_DOOR)
-			.add(WWBlockItemIds.CYPRESS_DOOR)
-			.add(WWBlockItemIds.PALM_DOOR)
-			.add(WWBlockItemIds.MAPLE_DOOR);
-
-		this.builder(BlockTags.WOODEN_FENCES)
-			.add(WWBlockItemIds.BAOBAB_FENCE)
-			.add(WWBlockItemIds.WILLOW_FENCE)
-			.add(WWBlockItemIds.CYPRESS_FENCE)
-			.add(WWBlockItemIds.PALM_FENCE)
-			.add(WWBlockItemIds.MAPLE_FENCE);
-
-		this.builder(BlockTags.FENCE_GATES)
-			.add(WWBlockItemIds.BAOBAB_FENCE_GATE)
-			.add(WWBlockItemIds.WILLOW_FENCE_GATE)
-			.add(WWBlockItemIds.CYPRESS_FENCE_GATE)
-			.add(WWBlockItemIds.PALM_FENCE_GATE)
-			.add(WWBlockItemIds.MAPLE_FENCE_GATE);
-
-		this.builder(BlockTags.WOODEN_PRESSURE_PLATES)
-			.add(WWBlockItemIds.BAOBAB_PRESSURE_PLATE)
-			.add(WWBlockItemIds.WILLOW_PRESSURE_PLATE)
-			.add(WWBlockItemIds.CYPRESS_PRESSURE_PLATE)
-			.add(WWBlockItemIds.PALM_PRESSURE_PLATE)
-			.add(WWBlockItemIds.MAPLE_PRESSURE_PLATE);
-
-		this.builder(BlockTags.WOODEN_SLABS)
-			.add(WWBlockItemIds.BAOBAB_SLAB)
-			.add(WWBlockItemIds.WILLOW_SLAB)
-			.add(WWBlockItemIds.CYPRESS_SLAB)
-			.add(WWBlockItemIds.PALM_SLAB)
-			.add(WWBlockItemIds.MAPLE_SLAB);
-
-		this.builder(BlockTags.WOODEN_STAIRS)
-			.add(WWBlockItemIds.BAOBAB_STAIRS)
-			.add(WWBlockItemIds.WILLOW_STAIRS)
-			.add(WWBlockItemIds.CYPRESS_STAIRS)
-			.add(WWBlockItemIds.PALM_STAIRS)
-			.add(WWBlockItemIds.MAPLE_STAIRS);
-
-		this.builder(BlockTags.WOODEN_TRAPDOORS)
-			.add(WWBlockItemIds.BAOBAB_TRAPDOOR)
-			.add(WWBlockItemIds.WILLOW_TRAPDOOR)
-			.add(WWBlockItemIds.CYPRESS_TRAPDOOR)
-			.add(WWBlockItemIds.PALM_TRAPDOOR)
-			.add(WWBlockItemIds.MAPLE_TRAPDOOR);
-	}
-
 	private void generateSounds() {
 		this.builder(WWBlockTags.SOUND_PALE_OAK_LEAF_LITTER)
 			.add(WWBlockItemIds.PALE_OAK_LEAF_LITTER);
@@ -1405,7 +1068,7 @@ public final class WWBlockTagProvider extends FabricTagsProvider.BlockTagsProvid
 			.add(BlockItemIds.PALE_OAK_LEAVES);
 
 		this.builder(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD)
-			.addOptionalTag(WWBlockTags.HOLLOWED_PALE_OAK_LOGS);
+			.addOptionalTag(WWBlockItemTags.HOLLOWED_PALE_OAK_LOGS.block());
 
 		this.builder(WWBlockTags.SOUND_PALE_OAK_WOOD_HANGING_SIGN)
 			.add(BlockItemIds.PALE_OAK_HANGING_SIGN.block(), BlockIds.PALE_OAK_WALL_HANGING_SIGN);

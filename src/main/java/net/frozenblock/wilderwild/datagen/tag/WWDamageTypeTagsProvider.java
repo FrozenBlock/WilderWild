@@ -27,9 +27,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 
-public final class WWDamageTypeTagProvider extends FabricTagsProvider<DamageType> {
+public final class WWDamageTypeTagsProvider extends FabricTagsProvider<DamageType> {
 
-	public WWDamageTypeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWDamageTypeTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, Registries.DAMAGE_TYPE, registries);
 	}
 

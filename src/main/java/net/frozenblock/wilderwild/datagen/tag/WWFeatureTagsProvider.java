@@ -26,9 +26,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public final class WWFeatureTagProvider extends FabricTagsProvider<ConfiguredFeature<?, ?>> {
+public final class WWFeatureTagsProvider extends FabricTagsProvider<ConfiguredFeature<?, ?>> {
 
-	public WWFeatureTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWFeatureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, Registries.CONFIGURED_FEATURE, registries);
 	}
 

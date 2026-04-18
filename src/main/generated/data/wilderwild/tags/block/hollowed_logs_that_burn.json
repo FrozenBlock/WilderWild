@@ -1,68 +1,18 @@
 {
   "values": [
-    {
-      "id": "#wilderwild:hollowed_acacia_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_birch_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_cherry_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_crimson_stems",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_dark_oak_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_jungle_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_mangrove_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_oak_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_spruce_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_warped_stems",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_baobab_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_willow_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_cypress_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_palm_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_pale_oak_logs",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_maple_logs",
-      "required": false
-    }
+    "#wilderwild:hollowed_acacia_logs",
+    "#wilderwild:hollowed_birch_logs",
+    "#wilderwild:hollowed_cherry_logs",
+    "#wilderwild:hollowed_dark_oak_logs",
+    "#wilderwild:hollowed_jungle_logs",
+    "#wilderwild:hollowed_mangrove_logs",
+    "#wilderwild:hollowed_oak_logs",
+    "#wilderwild:hollowed_spruce_logs",
+    "#wilderwild:hollowed_baobab_logs",
+    "#wilderwild:hollowed_willow_logs",
+    "#wilderwild:hollowed_cypress_logs",
+    "#wilderwild:hollowed_palm_logs",
+    "#wilderwild:hollowed_pale_oak_logs",
+    "#wilderwild:hollowed_maple_logs"
   ]
 }

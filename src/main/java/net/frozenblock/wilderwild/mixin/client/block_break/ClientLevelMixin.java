@@ -22,7 +22,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -53,7 +53,7 @@ public class ClientLevelMixin {
 	)
 	public void wilderWild$spawnLeafParticlesOnDestroy(BlockPos pos, BlockState blockState, CallbackInfo info) {
 		boolean litter = false;
-		if (blockState.is(WWBlockTags.LEAF_LITTERS)) {
+		if (blockState.is(WWBlockItemTags.LEAF_LITTERS.block())) {
 			litter = true;
 			if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_LITTER_PARTICLES.get()) return;
 		} else if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_PARTICLES.get()) {

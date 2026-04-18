@@ -1,12 +1,6 @@
 {
   "values": [
-    {
-      "id": "#wilderwild:hollowed_logs_that_burn",
-      "required": false
-    },
-    {
-      "id": "#wilderwild:hollowed_logs_dont_burn",
-      "required": false
-    }
+    "#wilderwild:hollowed_logs_that_burn",
+    "#wilderwild:hollowed_logs_dont_burn"
   ]
 }

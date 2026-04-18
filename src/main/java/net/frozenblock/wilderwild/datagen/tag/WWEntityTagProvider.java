@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.datagen.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.lib.tag.api.FrozenEntityTags;
+import net.frozenblock.lib.tag.api.FrozenLibEntityTypeTags;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.HolderLookup;
@@ -38,10 +38,10 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.builder(FrozenEntityTags.CREEPER_IGNORES)
+		this.builder(FrozenLibEntityTypeTags.CREEPER_IGNORES)
 			.add(WWEntityTypeIds.JELLYFISH);
 
-		this.builder(FrozenEntityTags.WARDEN_CANNOT_TARGET)
+		this.builder(FrozenLibEntityTypeTags.WARDEN_CANNOT_TARGET)
 			.add(WWEntityTypeIds.TUMBLEWEED);
 
 		this.builder(WWEntityTypeTags.CAN_SWIM_IN_ALGAE)
@@ -122,8 +122,8 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 
 		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
 			.add(EntityTypeIds.WITHER, EntityTypeIds.ENDER_DRAGON)
-			.add(EntityTypeIds.VEX)
-			.add(EntityTypeIds.EYE_OF_ENDER);
+			.add(EntityTypeIds.EYE_OF_ENDER)
+			.addOptionalTag(FrozenLibEntityTypeTags.GHOST_LIKE);
 
 		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
 			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("trailiertales", "apparition")));
@@ -133,15 +133,10 @@ public final class WWEntityTagProvider extends FabricTagsProvider.EntityTypeTags
 			.add(EntityTypeIds.IRON_GOLEM)
 			.add(EntityTypeIds.RAVAGER)
 			.add(EntityTypeIds.SNIFFER)
-			.add(EntityTypeIds.HOGLIN)
-			.add(EntityTypeIds.ZOGLIN)
-			.add(EntityTypeIds.BLAZE)
 			.add(EntityTypeIds.MAGMA_CUBE)
-			.add(EntityTypeIds.GIANT);
-
-		this.builder(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS)
-			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "wildfire")))
-			.addOptional(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("netheriernether", "soul_blaze")));
+			.add(EntityTypeIds.GIANT)
+			.addOptionalTag(FrozenLibEntityTypeTags.BLAZES)
+			.addOptionalTag(FrozenLibEntityTypeTags.HOGLINS);
 
 		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
 			.add(EntityTypeIds.PHANTOM)

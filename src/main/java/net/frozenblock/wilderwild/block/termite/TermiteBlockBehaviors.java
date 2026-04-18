@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -272,8 +272,8 @@ public final class TermiteBlockBehaviors {
 		registerPlayerOnly(context, WWBlocks.SHRUB, Blocks.DEAD_BUSH);
 
 		registerBreakable(context, "leaves", BlockTags.LEAVES);
-		registerBreakable(context, "leaf_litters", WWBlockTags.LEAF_LITTERS);
-		registerBreakable(context, "stripped_hollowed_logs", WWBlockTags.STRIPPED_HOLLOWED_LOGS);
+		registerBreakable(context, "leaf_litters", WWBlockItemTags.LEAF_LITTERS.block());
+		registerBreakable(context, "stripped_hollowed_logs", WWBlockItemTags.STRIPPED_HOLLOWED_LOGS.block());
 		registerBreakable(context, Blocks.BAMBOO);
 		registerBreakable(context, Blocks.DEAD_BUSH);
 	}

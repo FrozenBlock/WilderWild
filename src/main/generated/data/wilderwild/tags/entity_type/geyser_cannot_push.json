@@ -2,8 +2,11 @@
   "values": [
     "minecraft:wither",
     "minecraft:ender_dragon",
-    "minecraft:vex",
     "minecraft:eye_of_ender",
+    {
+      "id": "#frozenlib:ghost_like",
+      "required": false
+    },
     {
       "id": "trailiertales:apparition",
       "required": false

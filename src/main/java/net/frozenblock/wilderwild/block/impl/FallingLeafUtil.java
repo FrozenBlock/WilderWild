@@ -32,7 +32,7 @@ import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePac
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -240,7 +240,7 @@ public class FallingLeafUtil {
 
 	private static void spawnWalkingParticles(Level level, BlockPos pos, BlockState state, Vec3 velocity) {
 		boolean litter = false;
-		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
 			litter = true;
 			if (!WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
 		} else if (!WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) {
@@ -282,7 +282,7 @@ public class FallingLeafUtil {
 		final List<Direction> validDirections = new ArrayList<>();
 		Supplier<Integer> count;
 
-		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
 			count = () -> Math.max((int) (leafPower) * state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2), 1);
 		} else {
 			if (!serverExplosion.getBlockInteraction().shouldAffectBlocklikeEntities()) {
@@ -313,7 +313,7 @@ public class FallingLeafUtil {
 		boolean litter = false;
 		Supplier<Vec3> posSupplier;
 
-		if (state.is(WWBlockTags.LEAF_LITTERS)) {
+		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
 			litter = true;
 			posSupplier = () -> new Vec3(
 				pos.getX() + 0.5D + random.nextGaussian() * 0.4D,

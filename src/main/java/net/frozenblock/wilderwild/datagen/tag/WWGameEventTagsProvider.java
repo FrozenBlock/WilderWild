@@ -28,9 +28,9 @@ import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public final class WWGameEventTagProvider extends GameEventTagsProvider {
+public final class WWGameEventTagsProvider extends GameEventTagsProvider {
 
-	public WWGameEventTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWGameEventTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 

@@ -4,17 +4,14 @@
     "minecraft:iron_golem",
     "minecraft:ravager",
     "minecraft:sniffer",
-    "minecraft:hoglin",
-    "minecraft:zoglin",
-    "minecraft:blaze",
     "minecraft:magma_cube",
     "minecraft:giant",
     {
-      "id": "netheriernether:wildfire",
+      "id": "#frozenlib:blazes",
       "required": false
     },
     {
-      "id": "netheriernether:soul_blaze",
+      "id": "#frozenlib:hoglins",
       "required": false
     }
   ]

@@ -19,35 +19,20 @@ package net.frozenblock.wilderwild.datagen.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.wilderwild.tag.WWFluidTags;
+import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidIds;
+import net.minecraft.data.tags.TimelineTagsProvider;
+import net.minecraft.tags.TimelineTags;
 
-public final class WWFluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
+public final class WWTimelineTagsProvider extends TimelineTagsProvider {
 
-	public WWFluidTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWTimelineTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
-	}
-
-	private TagKey<Fluid> getTag(String id) {
-		return TagKey.create(this.registryKey, Identifier.parse(id));
-	}
-
-	private ResourceKey<Fluid> getKey(String namespace, String path) {
-		return ResourceKey.create(this.registryKey, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.builder(WWFluidTags.SUPPORTS_ALGAE)
-			.add(FluidIds.WATER);
-
-		this.builder(WWFluidTags.SUPPORTS_PLANKTON)
-			.add(FluidIds.WATER);
+		this.tag(TimelineTags.IN_OVERWORLD)
+			.add(WWTimelines.WILDERWILD_DAY);
 	}
 }

@@ -62,46 +62,7 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> SNOW_GENERATION_CAN_SEARCH_THROUGH = bind("snow_generation_can_search_through");
 
-	public static final TagKey<Block> HOLLOWED_LOGS = bind("hollowed_logs");
-	public static final TagKey<Block> HOLLOWED_LOGS_DONT_BURN = bind("hollowed_logs_dont_burn");
-	public static final TagKey<Block> HOLLOWED_LOGS_THAT_BURN = bind("hollowed_logs_that_burn");
-
-	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS = bind("stripped_hollowed_logs");
-	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS_DONT_BURN = bind("stripped_hollowed_logs_dont_burn");
-	public static final TagKey<Block> STRIPPED_HOLLOWED_LOGS_THAT_BURN = bind("stripped_hollowed_logs_that_burn");
-
-	public static final TagKey<Block> HOLLOWED_ACACIA_LOGS = bind("hollowed_acacia_logs");
-	public static final TagKey<Block> HOLLOWED_BIRCH_LOGS = bind("hollowed_birch_logs");
-	public static final TagKey<Block> HOLLOWED_CHERRY_LOGS = bind("hollowed_cherry_logs");
-	public static final TagKey<Block> HOLLOWED_CRIMSON_STEMS = bind("hollowed_crimson_stems");
-	public static final TagKey<Block> HOLLOWED_DARK_OAK_LOGS = bind("hollowed_dark_oak_logs");
-	public static final TagKey<Block> HOLLOWED_JUNGLE_LOGS = bind("hollowed_jungle_logs");
-	public static final TagKey<Block> HOLLOWED_MANGROVE_LOGS = bind("hollowed_mangrove_logs");
-	public static final TagKey<Block> HOLLOWED_OAK_LOGS = bind("hollowed_oak_logs");
-	public static final TagKey<Block> HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
-	public static final TagKey<Block> HOLLOWED_PALE_OAK_LOGS = bind("hollowed_pale_oak_logs");
-	public static final TagKey<Block> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
-
-	public static final TagKey<Block> HOLLOWED_BAOBAB_LOGS = bind("hollowed_baobab_logs");
-	public static final TagKey<Block> HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
-	public static final TagKey<Block> HOLLOWED_CYPRESS_LOGS = bind("hollowed_cypress_logs");
-	public static final TagKey<Block> HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
-	public static final TagKey<Block> HOLLOWED_MAPLE_LOGS = bind("hollowed_maple_logs");
-
 	public static final TagKey<Block> NON_OVERRIDEN_FALLING_LEAVES = bind("non_overriden_falling_leaves");
-
-	public static final TagKey<Block> MESOGLEA = bind("mesoglea");
-	public static final TagKey<Block> NEMATOCYSTS = bind("nematocysts");
-
-	public static final TagKey<Block> FROGLIGHT_GOOP = bind("froglight_goop");
-
-	public static final TagKey<Block> LEAF_LITTERS = bind("leaf_litters");
-
-	public static final TagKey<Block> BAOBAB_LOGS = bind("baobab_logs");
-	public static final TagKey<Block> WILLOW_LOGS = bind("willow_logs");
-	public static final TagKey<Block> CYPRESS_LOGS = bind("cypress_logs");
-	public static final TagKey<Block> PALM_LOGS = bind("palm_logs");
-	public static final TagKey<Block> MAPLE_LOGS = bind("maple_logs");
 
 	public static final TagKey<Block> WILLOW_ROOTS_CAN_GROW_THROUGH = bind("willow_roots_can_grow_through");
 	public static final TagKey<Block> FALLEN_TREE_STUMP_PLACEABLE_ON = bind("fallen_tree_stump_placeable_on");

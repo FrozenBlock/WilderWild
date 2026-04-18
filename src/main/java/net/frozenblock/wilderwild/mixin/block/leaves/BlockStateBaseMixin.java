@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.block.leaves;
 
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -44,7 +44,7 @@ public abstract class BlockStateBaseMixin {
 	@Inject(method = "entityInside", at = @At("HEAD"))
 	public void wilderWild$entityInsideLeafLitter(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise, CallbackInfo info) {
 		final BlockState state = this.asState();
-		if (!state.is(WWBlockTags.LEAF_LITTERS)) return;
+		if (!state.is(WWBlockItemTags.LEAF_LITTERS.block())) return;
 		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, true);
 	}
 

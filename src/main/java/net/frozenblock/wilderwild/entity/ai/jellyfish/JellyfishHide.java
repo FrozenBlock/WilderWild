@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity.ai.jellyfish;
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -56,7 +57,7 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	@Override
 	public boolean isValidTarget(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
-		return state.is(WWBlockTags.MESOGLEA) || (state.getBlock() instanceof NematocystBlock && state.getFluidState().is(FluidTags.WATER));
+		return state.is(WWBlockItemTags.MESOGLEA.block()) || (state.getBlock() instanceof NematocystBlock && state.getFluidState().is(FluidTags.WATER));
 	}
 
 	@Override

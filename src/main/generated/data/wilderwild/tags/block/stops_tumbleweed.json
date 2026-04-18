@@ -1,9 +1,14 @@
 {
   "values": [
-    "minecraft:mud",
-    "minecraft:muddy_mangrove_roots",
     "minecraft:slime_block",
-    "minecraft:iron_bars",
-    "minecraft:honey_block"
+    "minecraft:honey_block",
+    {
+      "id": "#minecraft:mud",
+      "required": false
+    },
+    {
+      "id": "#minecraft:bars",
+      "required": false
+    }
   ]
 }
