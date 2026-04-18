@@ -29,11 +29,6 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWSharedWorldgen {
-
-	private WWSharedWorldgen() {
-		throw new UnsupportedOperationException("WWSharedWorldgen contains only static declarations.");
-	}
-
 	public static final int STOCK_FOG_COLOR = 12638463;
 	public static final int COLD_WATER_COLOR = 4020182;
 	public static final int COLD_WATER_FOG_COLOR = 329011;
@@ -45,19 +40,11 @@ public final class WWSharedWorldgen {
 	public static final class Swamp {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.span(-0.200F, 0.100F), Humidity.WET);
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.COOL, Temperature.WARM);
-
-		private Swamp() {
-			throw new UnsupportedOperationException("Swamp contains only static declarations.");
-		}
 	}
 
 	public static final class MangroveSwamp {
 		public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(Temperature.NEUTRAL, Temperature.HOT);
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Climate.Parameter.point(0.050F), Humidity.HUMID);
-
-		private MangroveSwamp() {
-			throw new UnsupportedOperationException("MangroveSwamp contains only static declarations.");
-		}
 	}
 
 	public static final class CherryGrove {
@@ -67,10 +54,6 @@ public final class WWSharedWorldgen {
 		public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_5);
 		public static final Climate.Parameter WEIRDNESS = Climate.Parameter.span(Weirdness.MID_SLICE_VARIANT_ASCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
 		public static final float OFFSET = 0F;
-
-		private CherryGrove() {
-			throw new UnsupportedOperationException("CherryGrove contains only static declarations.");
-		}
 	}
 
 	public static final class StonyShoreTaiga {
@@ -78,10 +61,6 @@ public final class WWSharedWorldgen {
 		public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 		public static final Climate.Parameter CONTINENTALNESS = Continentalness.COAST;
 		public static final Climate.Parameter EROSION = Erosion.EROSION_4;
-
-		private StonyShoreTaiga() {
-			throw new UnsupportedOperationException("StonyShoreTaiga contains only static declarations.");
-		}
 	}
 
 	public static void addBasicFeatures(BiomeGenerationSettings.Builder builder, boolean commonSprings) {

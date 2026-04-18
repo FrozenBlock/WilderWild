@@ -29,7 +29,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public final class WWTints {
 
-	public static void applyTints() {
+	public static void init() {
 		BlockColorRegistry.register(
 			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),
 			WWBlocks.FLOWERING_LILY_PAD

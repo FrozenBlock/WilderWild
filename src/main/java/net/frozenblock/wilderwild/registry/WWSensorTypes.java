@@ -40,13 +40,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 
 public final class WWSensorTypes {
-
-	private WWSensorTypes() {
-		throw new UnsupportedOperationException("WWSensorTypes contains only static declarations.");
-	}
-
-	public static void init() {}
-
 	public static final SensorType<FireflySpecificSensor> FIREFLY_SPECIFIC_SENSOR = register("firefly_specific_sensor", FireflySpecificSensor::new);
 	public static final SensorType<FireflyLeaderSensor> FIREFLY_LEADER_SENSOR = register("firefly_leader_sensor", FireflyLeaderSensor::new);
 	public static final SensorType<CrabSpecificSensor> CRAB_SPECIFIC_SENSOR = register("crab_specific_sensor", CrabSpecificSensor::new);
@@ -62,8 +55,9 @@ public final class WWSensorTypes {
 	public static final SensorType<PenguinLandPosSensor> LAND_POS_SENSOR = register("land_pos_sensor", PenguinLandPosSensor::new);
 	public static final SensorType<PenguinTrackedBoatSensor> TRACKED_BOAT_SENSOR = register("tracked_boat_sensor", PenguinTrackedBoatSensor::new);
 
-	private static <U extends Sensor<?>> SensorType<U> register(String path, Supplier<U> sensorSupplier) {
-		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WWConstants.id(path), new SensorType<>(sensorSupplier));
-	}
+	public static void init() {}
 
+	private static <U extends Sensor<?>> SensorType<U> register(String name, Supplier<U> sensorSupplier) {
+		return Registry.register(BuiltInRegistries.SENSOR_TYPE, WWConstants.id(name), new SensorType<>(sensorSupplier));
+	}
 }

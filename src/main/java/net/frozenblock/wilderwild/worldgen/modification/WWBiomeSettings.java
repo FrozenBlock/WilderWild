@@ -109,8 +109,8 @@ public final class WWBiomeSettings {
 				context.getEffects().setFoliageColorOverride(11445290);
 			});
 
-		WWBiomeMusicAndAmbience.playMusic();
-		WWWaterColors.stirWater();
+		WWBiomeMusicAndAmbience.init();
+		WWWaterColors.init();
 		WWSpawns.addBugs();
 		WWSpawns.addJellyfish();
 		WWSpawns.addCrabs();

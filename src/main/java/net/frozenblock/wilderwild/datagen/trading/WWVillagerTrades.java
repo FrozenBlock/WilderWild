@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.datagen.trading;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -133,7 +132,7 @@ public final class WWVillagerTrades {
 
 		context.register(
 			WANDERING_TRADER_EMERALD_BAOBAB_LOG,
-			emeraldTrade(1, WWBlocks.BAOBAB_LOG, 8, 4, 1)
+			emeraldTrade(1, WWItems.BAOBAB_LOG, 8, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_BAOBAB_NUT,
@@ -141,23 +140,23 @@ public final class WWVillagerTrades {
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_WILLOW_LOG,
-			emeraldTrade(1, WWBlocks.WILLOW_LOG, 8, 4, 1)
+			emeraldTrade(1, WWItems.WILLOW_LOG, 8, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_WILLOW_SAPLING,
-			emeraldTrade(5, WWBlocks.WILLOW_SAPLING, 1, 8, 1)
+			emeraldTrade(5, WWItems.WILLOW_SAPLING, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_CYPRESS_LOG,
-			emeraldTrade(1, WWBlocks.CYPRESS_LOG, 8, 4, 1)
+			emeraldTrade(1, WWItems.CYPRESS_LOG, 8, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_CYPRESS_SAPLING,
-			emeraldTrade(5, WWBlocks.CYPRESS_SAPLING, 1, 8, 1)
+			emeraldTrade(5, WWItems.CYPRESS_SAPLING, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PALM_LOG,
-			emeraldTrade(1, WWBlocks.PALM_LOG, 8, 4, 1)
+			emeraldTrade(1, WWItems.PALM_LOG, 8, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_COCONUT,
@@ -165,61 +164,61 @@ public final class WWVillagerTrades {
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_MAPLE_LOG,
-			emeraldTrade(1, WWBlocks.MAPLE_LOG, 8, 4, 1)
+			emeraldTrade(1, WWItems.MAPLE_LOG, 8, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_YELLOW_MAPLE_SAPLING,
-			emeraldTrade(5, WWBlocks.YELLOW_MAPLE_SAPLING, 1, 8, 1)
+			emeraldTrade(5, WWItems.YELLOW_MAPLE_SAPLING, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_ORANGE_MAPLE_SAPLING,
-			emeraldTrade(5, WWBlocks.ORANGE_MAPLE_SAPLING, 1, 8, 1)
+			emeraldTrade(5, WWItems.ORANGE_MAPLE_SAPLING, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_RED_MAPLE_SAPLING,
-			emeraldTrade(5, WWBlocks.RED_MAPLE_SAPLING, 1, 8, 1)
+			emeraldTrade(5, WWItems.RED_MAPLE_SAPLING, 1, 8, 1)
 		);
 
 		context.register(
 			WANDERING_TRADER_EMERALD_SEEDING_DANDELION,
-			emeraldTrade(1, WWBlocks.SEEDING_DANDELION, 1, 8, 1)
+			emeraldTrade(1, WWItems.SEEDING_DANDELION, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_CARNATION,
-			emeraldTrade(1, WWBlocks.CARNATION, 1, 8, 1)
+			emeraldTrade(1, WWItems.CARNATION, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PASQUEFLOWER,
-			emeraldTrade(1, WWBlocks.PASQUEFLOWER, 1, 7, 1)
+			emeraldTrade(1, WWItems.PASQUEFLOWER, 1, 7, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_MARIGOLD,
-			emeraldTrade(1, WWBlocks.MARIGOLD, 1, 8, 1)
+			emeraldTrade(1, WWItems.MARIGOLD, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PINK_HIBISCUS,
-			emeraldTrade(1, WWBlocks.PINK_HIBISCUS, 1, 8, 1)
+			emeraldTrade(1, WWItems.PINK_HIBISCUS, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_RED_HIBISCUS,
-			emeraldTrade(1, WWBlocks.RED_HIBISCUS, 1, 8, 1)
+			emeraldTrade(1, WWItems.RED_HIBISCUS, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_YELLOW_HIBISCUS,
-			emeraldTrade(1, WWBlocks.YELLOW_HIBISCUS, 1, 8, 1)
+			emeraldTrade(1, WWItems.YELLOW_HIBISCUS, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PURPLE_HIBISCUS,
-			emeraldTrade(1, WWBlocks.PURPLE_HIBISCUS, 1, 8, 1)
+			emeraldTrade(1, WWItems.PURPLE_HIBISCUS, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_WHITE_HIBISCUS,
-			emeraldTrade(1, WWBlocks.WHITE_HIBISCUS, 1, 8, 1)
+			emeraldTrade(1, WWItems.WHITE_HIBISCUS, 1, 8, 1)
 		);
 
 		context.register(
 			WANDERING_TRADER_EMERALD_TUMBLEWEED_PLANT,
-			emeraldTrade(1, WWBlocks.TUMBLEWEED_PLANT, 1, 4, 1)
+			emeraldTrade(1, WWItems.TUMBLEWEED_PLANT, 1, 4, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PRICKLY_PEAR,
@@ -228,37 +227,37 @@ public final class WWVillagerTrades {
 
 		context.register(
 			WANDERING_TRADER_EMERALD_ICICLE,
-			emeraldTrade(1, WWBlocks.ICICLE, 2, 5, 1)
+			emeraldTrade(1, WWItems.ICICLE, 2, 5, 1)
 		);
 
 		context.register(
 			WANDERING_TRADER_EMERALD_BARNACLES,
-			emeraldTrade(1, WWBlocks.BARNACLES, 2, 5, 1)
+			emeraldTrade(1, WWItems.BARNACLES, 2, 5, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_SEA_ANEMONE,
-			emeraldTrade(1, WWBlocks.SEA_ANEMONE, 2, 5, 1)
+			emeraldTrade(1, WWItems.SEA_ANEMONE, 2, 5, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_SEA_WHIP,
-			emeraldTrade(1, WWBlocks.SEA_WHIP, 2, 5, 1)
+			emeraldTrade(1, WWItems.SEA_WHIP, 2, 5, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_AUBURN_MOSS_BLOCK,
-			emeraldTrade(1, WWBlocks.AUBURN_MOSS_BLOCK, 2, 5, 1)
+			emeraldTrade(1, WWItems.AUBURN_MOSS_BLOCK, 2, 5, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_ALGAE,
-			emeraldTrade(1, WWBlocks.ALGAE, 2, 5, 1)
+			emeraldTrade(1, WWItems.ALGAE, 2, 5, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PLANKTON,
-			emeraldTrade(1, WWBlocks.PLANKTON, 2, 5, 1)
+			emeraldTrade(1, WWItems.PLANKTON, 2, 5, 1)
 		);
 
 		context.register(
 			WANDERING_TRADER_EMERALD_GEYSER,
-			emeraldTrade(6, WWBlocks.GEYSER, 1, 4, 1)
+			emeraldTrade(6, WWItems.GEYSER, 1, 4, 1)
 		);
 	}
 

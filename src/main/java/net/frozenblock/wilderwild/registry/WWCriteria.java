@@ -32,14 +32,9 @@ public final class WWCriteria {
 	public static final FragileIceFallOntoAndBreakTrigger FRAGILE_ICE_FAL_ONTO_AND_BREAK = register("fragile_ice_fall_onto_and_break", new FragileIceFallOntoAndBreakTrigger());
 	public static final GeyserPushMobTrigger GEYSER_PUSH_MOB_TRIGGER = register("geyser_push_mob", new GeyserPushMobTrigger());
 
-	private WWCriteria() {
-		throw new UnsupportedOperationException("WWCriteria contains only static declarations.");
-	}
-
 	public static void init() {}
 
 	private static <T extends CriterionTrigger<?>> T register(String name, T criterion) {
 		return Registry.register(BuiltInRegistries.TRIGGER_TYPES, WWConstants.id(name), criterion);
 	}
-
 }

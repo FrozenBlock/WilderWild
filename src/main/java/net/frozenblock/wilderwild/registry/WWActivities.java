@@ -31,13 +31,9 @@ public final class WWActivities {
 	public static final Activity CHASE = register("chase");
 	public static final Activity CALL = register("call");
 
-	private WWActivities() {
-		throw new UnsupportedOperationException("WWActivities contains only static declarations.");
-	}
-
 	public static void init() {}
 
-	private static Activity register(String string) {
-		return Registry.register(BuiltInRegistries.ACTIVITY, string, new Activity(WWConstants.safeString(string)));
+	private static Activity register(String name) {
+		return Registry.register(BuiltInRegistries.ACTIVITY, name, new Activity(WWConstants.safeString(name)));
 	}
 }

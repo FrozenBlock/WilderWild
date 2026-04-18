@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
+import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.item.api.bone_meal.BoneMealApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
@@ -1614,10 +1615,6 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY);
 	}
 
-	private WWBlocks() {
-		throw new UnsupportedOperationException("WWBlocks contains only static declarations.");
-	}
-
 	public static void init() {}
 
 	public static Block registerFlowerPot(ResourceKey<Block> id, Block potted) {
@@ -1789,7 +1786,6 @@ public final class WWBlocks {
 	}
 
 	private static void registerFlammability() {
-		WWConstants.logWithModId("Registering Flammability for", WWConstants.UNSTABLE_LOGGING);
 		final var flammableBlockRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableBlockRegistry.add(POLLEN, 60, 100);
 		flammableBlockRegistry.add(SEEDING_DANDELION, 60, 100);
@@ -1968,8 +1964,6 @@ public final class WWBlocks {
 	}
 
 	private static void registerFuels() {
-		WWConstants.logWithModId("Registering Fuels for", WWConstants.UNSTABLE_LOGGING);
-
 		FuelValueEvents.BUILD.register((builder, context) -> {
 			builder.add(WWItems.BAOBAB_BOAT, 1200);
 			builder.add(WWItems.BAOBAB_CHEST_BOAT, 1200);
@@ -2233,5 +2227,6 @@ public final class WWBlocks {
 
 	private static void registerInventories() {
 		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), STONE_CHEST);
+		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
 	}
 }

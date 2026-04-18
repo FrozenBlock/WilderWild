@@ -47,10 +47,6 @@ public final class WWEntityTypeIds {
 	public static final ResourceKey<EntityType<?>> MAPLE_BOAT = create("maple_boat");
 	public static final ResourceKey<EntityType<?>> MAPLE_CHEST_BOAT = create("maple_chest_boat");
 
-	private WWEntityTypeIds() {
-		throw new UnsupportedOperationException("WWEntityTypeIds contains only static declarations.");
-	}
-
 	private static ResourceKey<EntityType<?>> create(String name) {
 		return ResourceKey.create(Registries.ENTITY_TYPE, WWConstants.id(name));
 	}

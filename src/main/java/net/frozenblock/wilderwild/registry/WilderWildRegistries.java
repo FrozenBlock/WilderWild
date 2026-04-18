@@ -36,9 +36,6 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<MoobloomVariant>> MOOBLOOM_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("moobloom_variant"));
 	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
 
-	private WilderWildRegistries() {
-		throw new UnsupportedOperationException("WilderWildRegistries contains only static declarations.");
-	}
 
 	public static void init() {
 		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);

@@ -36,7 +36,6 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import org.jetbrains.annotations.Contract;
 
@@ -66,7 +65,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					this.suspiciousStew(item, effectHolder);
 				});
 
-				this.shaped(RecipeCategory.DECORATIONS, WWBlocks.DISPLAY_LANTERN)
+				this.shaped(RecipeCategory.DECORATIONS, WWItems.DISPLAY_LANTERN)
 					.define('X', Ingredient.of(Items.IRON_NUGGET))
 					.define('#', Ingredient.of(Items.GLASS_PANE))
 					.pattern("XXX")
@@ -76,7 +75,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), this.has(Items.IRON_NUGGET))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.MISC, WWBlocks.STONE_CHEST)
+				this.shaped(RecipeCategory.MISC, WWItems.STONE_CHEST)
 					.group("stone_chest")
 					.define('_', Ingredient.of(Items.COBBLED_DEEPSLATE_SLAB))
 					.define('#', Ingredient.of(Items.COBBLED_DEEPSLATE))
@@ -95,7 +94,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
 					.group("sandstone")
 					.define('#', Ingredient.of(Items.SAND))
-					.define('X', Ingredient.of(WWBlocks.SCORCHED_SAND))
+					.define('X', Ingredient.of(WWItems.SCORCHED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
@@ -104,13 +103,13 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
 					.define('#', Ingredient.of(Items.RED_SAND))
-					.define('X', Ingredient.of(WWBlocks.SCORCHED_RED_SAND))
+					.define('X', Ingredient.of(WWItems.SCORCHED_RED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), this.has(Items.RED_SAND))
 					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
-				this.shaped(RecipeCategory.MISC, WWBlocks.NULL_BLOCK, 2)
+				this.shaped(RecipeCategory.MISC, WWItems.NULL_BLOCK, 2)
 					.define('#', Ingredient.of(Items.CONCRETE.black()))
 					.define('X', Ingredient.of(Items.CONCRETE.magenta()))
 					.pattern("#X")
@@ -119,16 +118,16 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.CONCRETE.magenta()), this.has(Items.CONCRETE.magenta()))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.REDSTONE, WWBlocks.GEYSER, 2)
+				this.shaped(RecipeCategory.REDSTONE, WWItems.GEYSER, 2)
 					.define('#', Items.MAGMA_BLOCK)
-					.define('X', WWBlocks.GABBRO)
+					.define('X', WWItems.GABBRO)
 					.define('U', Items.LAVA_BUCKET)
 					.pattern("#X#")
 					.pattern("XUX")
 					.pattern("#X#")
-					.unlockedBy(getHasName(Items.MAGMA_BLOCK), has(Items.MAGMA_BLOCK))
-					.unlockedBy(getHasName(WWBlocks.GABBRO), has(WWBlocks.GABBRO))
-					.unlockedBy(getHasName(WWBlocks.GEYSER), has(WWBlocks.GEYSER))
+					.unlockedBy(getHasName(Items.MAGMA_BLOCK), this.has(Items.MAGMA_BLOCK))
+					.unlockedBy(getHasName(WWItems.GABBRO), this.has(WWItems.GABBRO))
+					.unlockedBy(getHasName(WWItems.GEYSER), this.has(WWItems.GEYSER))
 					.save(this.output);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.FERMENTED_SCORCHED_EYE)
@@ -146,69 +145,69 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.save(this.output);
 
 				this.shaped(RecipeCategory.MISC, Items.SPONGE)
-					.define('#', WWBlocks.SPONGE_BUD)
+					.define('#', WWItems.SPONGE_BUD)
 					.pattern("###")
 					.pattern("###")
 					.pattern("###")
 					.group("sponge")
-					.unlockedBy(getHasName(WWBlocks.SPONGE_BUD), has(WWBlocks.SPONGE_BUD))
-					.save(this.output, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWBlocks.SPONGE_BUD)));
+					.unlockedBy(getHasName(WWItems.SPONGE_BUD), this.has(WWItems.SPONGE_BUD))
+					.save(this.output, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWItems.SPONGE_BUD)));
 
 				// ICE
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.ICE), RecipeCategory.DECORATIONS, CookingBookCategory.BLOCKS, WWBlocks.FRAGILE_ICE.asItem(), 0.05F, 100)
-					.unlockedBy("has_ice", has(Blocks.ICE))
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.ICE), RecipeCategory.DECORATIONS, CookingBookCategory.BLOCKS, WWItems.FRAGILE_ICE.asItem(), 0.05F, 100)
+					.unlockedBy("has_ice", this.has(Items.ICE))
 					.save(this.output);
 
 				// MUD BRICKS
 
-				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, WWBlocks.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
-					.unlockedBy("has_mud_bricks", has(Blocks.MUD_BRICKS))
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, WWItems.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
+					.unlockedBy("has_mud_bricks", this.has(Items.MUD_BRICKS))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS)
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_MUD_BRICKS)
 					.define('#', Ingredient.of(Items.MUD_BRICK_SLAB))
 					.pattern("#")
 					.pattern("#")
 					.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICKS), this.has(Items.MUD_BRICKS))
 					.unlockedBy(RecipeProvider.getHasName(Items.MUD_BRICK_SLAB), this.has(Items.MUD_BRICK_SLAB))
-					.unlockedBy(RecipeProvider.getHasName(WWBlocks.CHISELED_MUD_BRICKS), this.has(WWBlocks.CHISELED_MUD_BRICKS))
+					.unlockedBy(RecipeProvider.getHasName(WWItems.CHISELED_MUD_BRICKS), this.has(WWItems.CHISELED_MUD_BRICKS))
 					.save(this.output);
 
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.MUD_BRICKS);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_MUD_BRICKS, Blocks.PACKED_MUD);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICKS, Blocks.PACKED_MUD);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_SLAB, Blocks.PACKED_MUD, 2);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_STAIRS, Blocks.PACKED_MUD);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Blocks.MUD_BRICK_WALL, Blocks.PACKED_MUD);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_MUD_BRICKS, Items.MUD_BRICKS);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_MUD_BRICKS, Items.PACKED_MUD);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICKS, Items.PACKED_MUD);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_SLAB, Items.PACKED_MUD, 2);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_STAIRS, Items.PACKED_MUD);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_WALL, Items.PACKED_MUD);
 
 				// MOSSY MUD BRICKS
 
-				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICKS)
-					.requires(Blocks.MUD_BRICKS)
-					.requires(Blocks.VINE)
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICKS)
+					.requires(Items.MUD_BRICKS)
+					.requires(Items.VINE)
 					.group("mossy_mud_bricks")
-					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.VINE));
+					.unlockedBy("has_vine", this.has(Items.VINE))
+					.save(this.output, getConversionRecipeName(WWItems.MOSSY_MUD_BRICKS, Items.VINE));
 
-				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICKS)
-					.requires(Blocks.MUD_BRICKS)
-					.requires(Blocks.MOSS_BLOCK)
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICKS)
+					.requires(Items.MUD_BRICKS)
+					.requires(Items.MOSS_BLOCK)
 					.group("mossy_mud_bricks")
-					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_MUD_BRICKS, Blocks.MOSS_BLOCK));
+					.unlockedBy("has_moss_block", this.has(Items.MOSS_BLOCK))
+					.save(this.output, getConversionRecipeName(WWItems.MOSSY_MUD_BRICKS, Items.MOSS_BLOCK));
 
-				stairBuilder(WWBlocks.MOSSY_MUD_BRICK_STAIRS, Ingredient.of(WWBlocks.MOSSY_MUD_BRICKS))
-					.unlockedBy(getHasName(WWBlocks.MOSSY_MUD_BRICKS), has(WWBlocks.MOSSY_MUD_BRICKS))
+				stairBuilder(WWItems.MOSSY_MUD_BRICK_STAIRS, Ingredient.of(WWItems.MOSSY_MUD_BRICKS))
+					.unlockedBy(getHasName(WWItems.MOSSY_MUD_BRICKS), this.has(WWItems.MOSSY_MUD_BRICKS))
 					.save(this.output);
 
-				slab(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICKS);
+				slab(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_SLAB, WWItems.MOSSY_MUD_BRICKS);
 
-				wall(RecipeCategory.MISC, WWBlocks.MOSSY_MUD_BRICK_WALL, WWBlocks.MOSSY_MUD_BRICKS);
+				wall(RecipeCategory.MISC, WWItems.MOSSY_MUD_BRICK_WALL, WWItems.MOSSY_MUD_BRICKS);
 
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_SLAB, WWBlocks.MOSSY_MUD_BRICKS, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_MUD_BRICK_STAIRS, WWBlocks.MOSSY_MUD_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_MUD_BRICK_WALL, WWBlocks.MOSSY_MUD_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_SLAB, WWItems.MOSSY_MUD_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_STAIRS, WWItems.MOSSY_MUD_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.MOSSY_MUD_BRICK_WALL, WWItems.MOSSY_MUD_BRICKS);
 
 				// GABBRO
 
@@ -218,65 +217,65 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.generateRecipes(WWBlocks.FAMILY_GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 				this.generateRecipes(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_SLAB, WWBlocks.GABBRO, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_STAIRS, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_WALL, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.GABBRO, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO_WALL, WWBlocks.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_SLAB, WWItems.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_STAIRS, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_WALL, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_SLAB, WWItems.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_STAIRS, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_WALL, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_SLAB, WWItems.POLISHED_GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_STAIRS, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_WALL, WWItems.POLISHED_GABBRO);
 
-				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.POLISHED_GABBRO, 4)
-					.define('#', WWBlocks.GABBRO)
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO, 4)
+					.define('#', WWItems.GABBRO)
 					.pattern("##")
 					.pattern("##")
-					.unlockedBy("has_gabbro", has(WWBlocks.GABBRO))
+					.unlockedBy("has_gabbro", this.has(WWItems.GABBRO))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, 4)
-					.define('#', WWBlocks.POLISHED_GABBRO)
+				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICKS, 4)
+					.define('#', WWItems.POLISHED_GABBRO)
 					.pattern("##")
 					.pattern("##")
-					.unlockedBy("has_polished_gabbro", has(WWBlocks.POLISHED_GABBRO))
+					.unlockedBy("has_polished_gabbro", this.has(WWItems.POLISHED_GABBRO))
 					.save(this.output);
 
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.CHISELED_GABBRO_BRICKS, WWBlocks.GABBRO_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICKS, WWBlocks.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICKS, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.POLISHED_GABBRO, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_SLAB, WWBlocks.GABBRO, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.GABBRO_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.GABBRO_BRICK_WALL, WWBlocks.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_GABBRO_BRICKS, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_GABBRO_BRICKS, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CHISELED_GABBRO_BRICKS, WWItems.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICKS, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICKS, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_SLAB, WWItems.GABBRO_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_SLAB, WWItems.POLISHED_GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_SLAB, WWItems.GABBRO, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO);
 
 				// MOSSY GABBRO
 
-				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICKS)
-					.requires(WWBlocks.GABBRO_BRICKS)
-					.requires(Blocks.VINE)
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_GABBRO_BRICKS)
+					.requires(WWItems.GABBRO_BRICKS)
+					.requires(Items.VINE)
 					.group("mossy_gabbro_bricks")
-					.unlockedBy("has_vine", has(Blocks.VINE))
-					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.VINE));
+					.unlockedBy("has_vine", this.has(Items.VINE))
+					.save(this.output, getConversionRecipeName(WWItems.MOSSY_GABBRO_BRICKS, Items.VINE));
 
-				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICKS)
-					.requires(WWBlocks.GABBRO_BRICKS)
-					.requires(Blocks.MOSS_BLOCK)
+				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_GABBRO_BRICKS)
+					.requires(WWItems.GABBRO_BRICKS)
+					.requires(Items.MOSS_BLOCK)
 					.group("mossy_gabbro_bricks")
-					.unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK))
-					.save(this.output, getConversionRecipeName(WWBlocks.MOSSY_GABBRO_BRICKS, Blocks.MOSS_BLOCK));
+					.unlockedBy("has_moss_block", this.has(Items.MOSS_BLOCK))
+					.save(this.output, getConversionRecipeName(WWItems.MOSSY_GABBRO_BRICKS, Items.MOSS_BLOCK));
 
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICKS, 2);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWBlocks.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWBlocks.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_GABBRO_BRICK_SLAB, WWItems.MOSSY_GABBRO_BRICKS, 2);
+				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_GABBRO_BRICK_STAIRS, WWItems.MOSSY_GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.MOSSY_GABBRO_BRICK_WALL, WWItems.MOSSY_GABBRO_BRICKS);
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}

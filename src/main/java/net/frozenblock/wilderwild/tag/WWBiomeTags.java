@@ -372,11 +372,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_DYING_MUSIC = bind("music_pool/has_dying_music");
 	public static final TagKey<Biome> HAS_SNOWY_DYING_MUSIC = bind("music_pool/has_snowy_dying_music");
 
-	private WWBiomeTags() {
-		throw new UnsupportedOperationException("WWBiomeTags contains only static declarations.");
-	}
-
-	private static TagKey<Biome> bind(String path) {
-		return TagKey.create(Registries.BIOME, WWConstants.id(path));
+	private static TagKey<Biome> bind(String name) {
+		return TagKey.create(Registries.BIOME, WWConstants.id(name));
 	}
 }

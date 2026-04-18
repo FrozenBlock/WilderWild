@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.references;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public final class WWBlockEntityTypeIds {
@@ -31,10 +30,6 @@ public final class WWBlockEntityTypeIds {
 	public static final ResourceKey<BlockEntityType<?>> SCORCHED_BLOCK = create("scorched_block");
 	public static final ResourceKey<BlockEntityType<?>> GEYSER = create("geyser");
 	public static final ResourceKey<BlockEntityType<?>> ICICLE = create("icicle");
-
-	private WWBlockEntityTypeIds() {
-		throw new UnsupportedOperationException("WWBlockEntityTypeIds contains only static declarations.");
-	}
 
 	private static ResourceKey<BlockEntityType<?>> create(String name) {
 		return ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, WWConstants.id(name));

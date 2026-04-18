@@ -202,34 +202,6 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 		if (pushAndPop) poseStack.popPose();
 	}
 
-	/*
-	private void submitFlowerBlock(
-		PoseStack poseStack,
-		SubmitNodeCollector collector,
-		int lightCoords,
-		boolean appearsGlowingWithInvisibility,
-		int outlineColor,
-		BlockState state,
-		int overlayCoords,
-		BlockStateModel model,
-		float scale,
-		boolean isTop
-	) {
-		final boolean pushAndPop = isTop || scale != 1F;
-		if (pushAndPop) poseStack.pushPose();
-		if (scale != 1F) poseStack.scale(scale, scale, scale);
-		if (isTop) poseStack.translate(0F, 1F, 0F);
-
-		if (appearsGlowingWithInvisibility) {
-			collector.submitBlockModel(poseStack, RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS), model, -16777216, lightCoords, overlayCoords, outlineColor);
-		} else {
-			collector.submitBlockModel(poseStack, state, lightCoords, overlayCoords, outlineColor);
-		}
-
-		if (pushAndPop) poseStack.popPose();
-	}
-	 */
-
 	private static void preparePose(PoseStack poseStack, float xOffset, float yOffset, float zOffset, float rotation) {
 		poseStack.translate(xOffset, yOffset, zOffset);
 		if (rotation != 0F) poseStack.mulPose(Axis.YP.rotationDegrees(rotation));

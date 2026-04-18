@@ -41,11 +41,19 @@ import net.minecraft.world.level.block.Blocks;
 
 public final class WWParticleTypes {
 	public static final SimpleParticleType POLLEN = register("pollen");
-	public static final ParticleType<SeedParticleOptions> SEED = register("seed", false, particleType -> SeedParticleOptions.CODEC, particleType -> SeedParticleOptions.STREAM_CODEC);
+	public static final ParticleType<SeedParticleOptions> SEED = register("seed",
+		false,
+		particleType -> SeedParticleOptions.CODEC,
+		particleType -> SeedParticleOptions.STREAM_CODEC
+	);
 	public static final SimpleParticleType PALE_FOG = register("pale_fog");
 	public static final SimpleParticleType PALE_FOG_SMALL = register("pale_fog_small");
 	public static final SimpleParticleType PALE_SPORE = register("pale_spore");
-	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble", false, particleType -> FloatingSculkBubbleParticleOptions.CODEC, particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC);
+	public static final ParticleType<FloatingSculkBubbleParticleOptions> FLOATING_SCULK_BUBBLE = register("floating_sculk_bubble",
+		false,
+		particleType -> FloatingSculkBubbleParticleOptions.CODEC,
+		particleType -> FloatingSculkBubbleParticleOptions.STREAM_CODEC
+	);
 	public static final SimpleParticleType TERMITE = register("termite");
 	public static final SimpleParticleType COCONUT_SPLASH = register("coconut_splash");
 	public static final SimpleParticleType SCORCHING_FLAME = register("scorching_flame");
@@ -119,7 +127,11 @@ public final class WWParticleTypes {
 	public static final SimpleParticleType MESOGLEA_BUBBLE_POP_BLUE = register("mesoglea_bubble_pop_blue");
 	public static final SimpleParticleType MESOGLEA_SPLASH_BLUE = register("mesoglea_splash_blue");
 
-	public static final ParticleType<WindClusterSeedParticleOptions> WIND_CLUSTER = register("wind_cluster", false, particleType -> WindClusterSeedParticleOptions.CODEC, particleType -> WindClusterSeedParticleOptions.STREAM_CODEC);
+	public static final ParticleType<WindClusterSeedParticleOptions> WIND_CLUSTER = register("wind_cluster",
+		false,
+		particleType -> WindClusterSeedParticleOptions.CODEC,
+		particleType -> WindClusterSeedParticleOptions.STREAM_CODEC
+	);
 
 	public static final ParticleType<WWFallingLeavesParticleOptions> OAK_LEAVES = createLeafParticle(
 		WWConstants.id("oak_leaves"),
@@ -389,10 +401,6 @@ public final class WWParticleTypes {
 		FallingLeafUtil.LeafMovementType.SWIRL
 	);
 
-	private WWParticleTypes() {
-		throw new UnsupportedOperationException("WWParticleTypes contains only static declarations.");
-	}
-
 	public static void init() {}
 
 	private static ParticleType<WWFallingLeavesParticleOptions> createLeafParticle(Identifier id) {
@@ -414,7 +422,7 @@ public final class WWParticleTypes {
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
+		final ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
 
 		FallingLeafUtil.registerLeaves(
 			sourceBlock,
@@ -439,7 +447,7 @@ public final class WWParticleTypes {
 		float windScale,
 		FallingLeafUtil.LeafMovementType leafMovementType
 	) {
-		ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
+		final ParticleType<WWFallingLeavesParticleOptions> leafParticle = createLeafParticle(id);
 
 		FallingLeafUtil.registerLeaves(
 			litterBlock,
@@ -456,38 +464,38 @@ public final class WWParticleTypes {
 		return leafParticle;
 	}
 
-	private static SimpleParticleType register(String path, boolean alwaysShow) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WWConstants.id(path), FabricParticleTypes.simple(alwaysShow));
+	private static SimpleParticleType register(String name, boolean alwaysShow) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, WWConstants.id(name), FabricParticleTypes.simple(alwaysShow));
 	}
 
-	private static SimpleParticleType register(String path) {
-		return register(path, false);
+	private static SimpleParticleType register(String name) {
+		return register(name, false);
 	}
 
 	private static <T extends ParticleOptions> ParticleType<T> register(
-		String path,
+		String name,
 		boolean alwaysShow,
-		Function<ParticleType<T>, MapCodec<T>> function,
-		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
+		Function<ParticleType<T>, MapCodec<T>> codec,
+		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec
 	) {
-		return register(WWConstants.id(path), alwaysShow, function, function2);
+		return register(WWConstants.id(name), alwaysShow, codec, streamCodec);
 	}
 
 	private static <T extends ParticleOptions> ParticleType<T> register(
 		Identifier id,
 		boolean alwaysShow,
-		Function<ParticleType<T>, MapCodec<T>> function,
-		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> function2
+		Function<ParticleType<T>, MapCodec<T>> codec,
+		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec
 	) {
 		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, id, new ParticleType<T>(alwaysShow) {
 			@Override
 			public MapCodec<T> codec() {
-				return function.apply(this);
+				return codec.apply(this);
 			}
 
 			@Override
 			public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec() {
-				return function2.apply(this);
+				return streamCodec.apply(this);
 			}
 		});
 	}

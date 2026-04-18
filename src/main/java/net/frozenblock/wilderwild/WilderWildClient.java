@@ -24,6 +24,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
+import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
@@ -35,6 +36,7 @@ import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.registry.WWClientResources;
+import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
@@ -52,11 +54,13 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWItemProperties.init();
 		WWModelLayers.init();
 		WWParticleEngine.init();
-		WWTints.applyTints();
+		WWTints.init();
 		WWEasterEggs.hatchEasterEggs();
 		WWClientMusicImpl.init();
 
 		WWClientNetworking.registerPacketReceivers();
+
+		ClientWindManager.addExtension(WWClientWindManager::new);
 
 		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}

@@ -41,7 +41,7 @@ public final class WWDamageTypes {
 		context.register(FALLING_ICICLE, new DamageType("fallingIcicle", 0.1F));
 	}
 
-	private static ResourceKey<DamageType> bind(String path) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(path));
+	private static ResourceKey<DamageType> bind(String name) {
+		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
 }

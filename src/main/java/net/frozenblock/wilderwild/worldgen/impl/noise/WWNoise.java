@@ -99,19 +99,19 @@ public class WWNoise {
 		);
 	}
 
-	private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
-		return ResourceKey.create(Registries.NOISE, WWConstants.id(id));
+	private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
+		return ResourceKey.create(Registries.NOISE, WWConstants.id(name));
 	}
 
 	public static Holder.Reference<NormalNoise.NoiseParameters> register(
 		BootstrapContext<NormalNoise.NoiseParameters> entries,
-		ResourceKey<NormalNoise.NoiseParameters> key,
+		ResourceKey<NormalNoise.NoiseParameters> id,
 		int firstOctave,
 		double firstAmplitude,
 		double... amplitudes
 	) {
-		WWConstants.log("Registering noise " + key.identifier(), true);
-		return entries.register(key, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
+		WWConstants.log("Registering noise " + id.identifier(), true);
+		return entries.register(id, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
 	}
 }
 

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
@@ -464,7 +463,6 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				tundraRules()
 			)
 		);
-		WWConstants.log("Wilder Wild's Overworld Surface Rules have been added!", true);
 	}
 
 	public static SurfaceRules.RuleSource snowUnderMountains() {
@@ -605,6 +603,5 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				sulfurCavesCalcite()
 			)
 		);
-		WWConstants.log("Wilder Wild's No Preliminary Surface Overworld Surface Rules have been added!", true);
 	}
 }

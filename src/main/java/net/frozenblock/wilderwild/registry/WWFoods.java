@@ -37,9 +37,4 @@ public final class WWFoods {
 	public static final Consumable SCORCHED_EYE_CONSUMABLE = Consumables.defaultFood()
 		.onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1F))
 		.build();
-
-	private WWFoods() {
-		throw new UnsupportedOperationException("WWFoods contains only static declarations.");
-	}
-
 }

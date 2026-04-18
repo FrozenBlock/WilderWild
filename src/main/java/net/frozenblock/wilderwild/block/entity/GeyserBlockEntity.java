@@ -32,9 +32,9 @@ import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
-import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWCriteria;
+import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -190,13 +190,13 @@ public class GeyserBlockEntity extends BlockEntity {
 			Optional.of(this),
 			geyserStartPos,
 			effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
+			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 		final WindDisturbance<GeyserBlockEntity> baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
 			Optional.of(this),
 			geyserStartPos,
 			eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-			WindDisturbanceLogic.getWindDisturbanceLogic(FrozenLibIntegration.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
+			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
 		);
 
 		if (!vent) {

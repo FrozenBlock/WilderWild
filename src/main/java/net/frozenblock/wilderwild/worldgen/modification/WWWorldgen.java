@@ -46,11 +46,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWWorldgen {
 
-	private WWWorldgen() {
-		throw new UnsupportedOperationException("WWWorldgen contains only static declarations.");
-	}
-
-	public static void generateWildWorldGen() {
+	public static void init() {
 		configureBuiltInBiomes();
 		replaceFeatures();
 		WWVegetationGeneration.generateFlower();

@@ -28,11 +28,7 @@ import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
 
 public final class WWWaterColors {
 
-	private WWWaterColors() {
-		throw new UnsupportedOperationException("WWWaterColors contains only static declarations.");
-	}
-
-	public static void stirWater() {
+	public static void init() {
 		BiomeModifications.create(WWConstants.id("modify_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.all(),

@@ -32,19 +32,17 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 public class WWFallingLeavesParticleOptions implements ParticleOptions {
-	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(
-			Identifier.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
-			Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),
-			Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
-			Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
-			Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
-			Codec.BOOL.fieldOf("controlVelocityUponSpawn").forGetter(WWFallingLeavesParticleOptions::controlVelUponSpawn),
-			Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
-			Codec.BOOL.fieldOf("isLitter").forGetter(WWFallingLeavesParticleOptions::isLitter),
-			FallingLeafUtil.LeafMovementType.CODEC.fieldOf("leafMovementType").forGetter(WWFallingLeavesParticleOptions::leafMovementType)
-		).apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions)
-	);
+	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Identifier.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
+		Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),
+		Codec.INT.fieldOf("textureSize").forGetter(WWFallingLeavesParticleOptions::getTextureSize),
+		Codec.FLOAT.fieldOf("gravity").forGetter(WWFallingLeavesParticleOptions::getGravityScale),
+		Codec.BOOL.fieldOf("isFastFalling").forGetter(WWFallingLeavesParticleOptions::isFastFalling),
+		Codec.BOOL.fieldOf("controlVelocityUponSpawn").forGetter(WWFallingLeavesParticleOptions::controlVelUponSpawn),
+		Codec.FLOAT.fieldOf("windScale").forGetter(WWFallingLeavesParticleOptions::getWindScale),
+		Codec.BOOL.fieldOf("isLitter").forGetter(WWFallingLeavesParticleOptions::isLitter),
+		FallingLeafUtil.LeafMovementType.CODEC.fieldOf("leafMovementType").forGetter(WWFallingLeavesParticleOptions::leafMovementType)
+	).apply(instance, WWFallingLeavesParticleOptions::createCodecParticleOptions));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWFallingLeavesParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		Identifier.STREAM_CODEC, WWFallingLeavesParticleOptions::getParticleId,
 		Vec3.STREAM_CODEC, WWFallingLeavesParticleOptions::getVelocity,

@@ -30,12 +30,6 @@ import net.minecraft.world.timeline.Timeline;
 public final class WWTimelines {
 	public static final ResourceKey<Timeline> WILDERWILD_DAY = key("wilderwild_day");
 
-	private WWTimelines() {
-		throw new UnsupportedOperationException("WWTimelines contains only static declarations.");
-	}
-
-	public static void init() {}
-
 	public static void bootstrap(BootstrapContext<Timeline> context) {
 		final HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);
 		final Holder.Reference<WorldClock> overworldClock = clocks.getOrThrow(WorldClocks.OVERWORLD);
@@ -51,8 +45,9 @@ public final class WWTimelines {
 		);
 	}
 
-	private static ResourceKey<Timeline> key(String path) {
-		return ResourceKey.create(Registries.TIMELINE, WWConstants.id(path));
-	}
+	public static void init() {}
 
+	private static ResourceKey<Timeline> key(String name) {
+		return ResourceKey.create(Registries.TIMELINE, WWConstants.id(name));
+	}
 }

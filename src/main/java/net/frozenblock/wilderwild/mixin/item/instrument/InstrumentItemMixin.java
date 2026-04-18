@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.lib.sound.impl.networking.FrozenLibSoundPackets;
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.mod_compat.FrozenLibIntegration;
+import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -56,7 +56,7 @@ public final class InstrumentItemMixin {
 				source,
 				volume,
 				pitch,
-				FrozenLibIntegration.INSTRUMENT_SOUND_PREDICATE,
+				WWSoundPredicates.INSTRUMENT_SOUND_PREDICATE,
 				true
 			);
 			return;

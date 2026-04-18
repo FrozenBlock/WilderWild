@@ -18,12 +18,17 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.frozenblock.lib.item.api.removable.RemovableItemTags;
+import net.frozenblock.lib.loot.api.FrozenLibLootTableEvents;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -42,12 +47,8 @@ public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
 	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
 
-	private WWLootTables() {
-		throw new UnsupportedOperationException("WWLootTables only supports static declarations.");
-	}
-
 	public static void init() {
-		//SHIPWRECK
+		// SHIPWRECK
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				final LootPool.Builder pool = LootPool.lootPool();
@@ -135,7 +136,7 @@ public final class WWLootTables {
 			}
 		});
 
-		//SAVANNA VILLAGE
+		// SAVANNA VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
 				tableBuilder.modifyPools(builder -> {
@@ -154,7 +155,7 @@ public final class WWLootTables {
 			}
 		});
 
-		//DESERT VILLAGE
+		// DESERT VILLAGE
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
@@ -186,7 +187,7 @@ public final class WWLootTables {
 			}
 		});
 
-		//ANCIENT CITY
+		// ANCIENT CITY
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return;
@@ -213,9 +214,16 @@ public final class WWLootTables {
 				tableBuilder.withPool(pool);
 			}
 		});
+
+		// STONE CHEST
+		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
+			if (!(container instanceof StoneChestBlockEntity)) return;
+			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
+		});
+		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
 	}
 
-	private static ResourceKey<LootTable> register(String path) {
-		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(path));
+	private static ResourceKey<LootTable> register(String name) {
+		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(name));
 	}
 }

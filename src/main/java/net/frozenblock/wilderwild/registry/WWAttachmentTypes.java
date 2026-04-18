@@ -35,9 +35,4 @@ public final class WWAttachmentTypes {
 	);
 
 	public static void init() {}
-
-	private WWAttachmentTypes() {
-		throw new UnsupportedOperationException("WWAttachmentTypes contains only static declarations.");
-	}
-
 }

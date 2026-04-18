@@ -31,10 +31,6 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 @Environment(EnvType.CLIENT)
 public final class WWClientResources {
 
-	private WWClientResources() {
-		throw new UnsupportedOperationException("WWClientResources contains only static declarations.");
-	}
-
 	public static void register(ModContainer container) {
 		if (container == null) return;
 

@@ -35,7 +35,6 @@ import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -215,10 +214,6 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	private WWEntityTypes() {
-		throw new UnsupportedOperationException("WWEntityTypes contains only static declarations.");
-	}
-
 	public static void init() {}
 
 	static {
@@ -301,10 +296,6 @@ public final class WWEntityTypes {
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Penguin::checkPenguinSpawnRules
 		);
-	}
-
-	static {
-		WWConstants.logWithModId("Registering Entities for", WWConstants.UNSTABLE_LOGGING);
 	}
 
 	private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> id, EntityType.Builder<T> builder) {

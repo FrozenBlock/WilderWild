@@ -41,7 +41,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -464,19 +463,12 @@ public final class WWItems {
 	public static final Item MOOBLOOM_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM);
 	public static final Item PENGUIN_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);
 
-	private WWItems() {
-		throw new UnsupportedOperationException("WWItems contains only static declarations.");
-	}
-
 	public static void init() {
 		CompostableRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostableRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostableRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
 		CompostableRegistry.INSTANCE.add(COCONUT, 0.3F);
-		registerDispenses();
-	}
 
-	private static void registerDispenses() {
 		DispenserBlock.registerBehavior(BAOBAB_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT));
 		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_CHEST_BOAT));
 		DispenserBlock.registerBehavior(WILLOW_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_BOAT));

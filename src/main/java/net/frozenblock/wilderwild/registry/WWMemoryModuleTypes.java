@@ -36,13 +36,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 
 public final class WWMemoryModuleTypes {
-
-	private WWMemoryModuleTypes() {
-		throw new UnsupportedOperationException("WWMemoryModuleTypes contains only static declarations.");
-	}
-
-	public static void init() {}
-
 	public static final MemoryModuleType<List<Firefly>> NEARBY_FIREFLIES = register("nearby_fireflies");
 	public static final MemoryModuleType<Unit> NATURAL = register("natural", Unit.CODEC);
 	public static final MemoryModuleType<Integer> HOME_VALIDATE_COOLDOWN = register("home_validate_cooldown", Codec.INT);
@@ -71,12 +64,13 @@ public final class WWMemoryModuleTypes {
 	public static final MemoryModuleType<UUID> CALLER = register("caller", UUIDUtil.CODEC);
 	public static final MemoryModuleType<Unit> ESCAPING = register("escaping", Unit.CODEC);
 
-	private static <U> MemoryModuleType<U> register(String path, Codec<U> codec) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(path), new MemoryModuleType<>(Optional.of(codec)));
+	public static void init() {}
+
+	private static <U> MemoryModuleType<U> register(String name, Codec<U> codec) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(name), new MemoryModuleType<>(Optional.of(codec)));
 	}
 
-	private static <U> MemoryModuleType<U> register(String path) {
-		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(path), new MemoryModuleType<>(Optional.empty()));
+	private static <U> MemoryModuleType<U> register(String name) {
+		return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, WWConstants.id(name), new MemoryModuleType<>(Optional.empty()));
 	}
-
 }

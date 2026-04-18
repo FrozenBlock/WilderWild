@@ -96,10 +96,6 @@ public final class WWBlockIds {
 	public static final ResourceKey<Block> VERDANT_FROGLIGHT_GOOP_BODY = create("verdant_froglight_goop_body");
 	public static final ResourceKey<Block> PEARLESCENT_FROGLIGHT_GOOP_BODY = create("pearlescent_froglight_goop_body");
 
-	private WWBlockIds() {
-		throw new UnsupportedOperationException("WWResourceKey<Block>s contains only static declarations.");
-	}
-
 	private static ResourceKey<Block> create(String name) {
 		return ResourceKey.create(Registries.BLOCK, WWConstants.id(name));
 	}

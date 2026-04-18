@@ -27,7 +27,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -53,7 +52,6 @@ public class WideFlowerBlock extends FlowerBlock {
 
 	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		final Vec3 offset = state.getOffset(pos);
-		return WIDE_SHAPE.move(offset.x, offset.y, offset.z);
+		return WIDE_SHAPE.move(state.getOffset(pos));
 	}
 }

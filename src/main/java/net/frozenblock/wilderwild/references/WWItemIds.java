@@ -63,10 +63,6 @@ public final class WWItemIds {
 	public static final ResourceKey<Item> MOOBLOOM_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.MOOBLOOM);
 	public static final ResourceKey<Item> PENGUIN_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.PENGUIN);
 
-	private WWItemIds() {
-		throw new UnsupportedOperationException("WWItemIds contains only static declarations.");
-	}
-
 	private static ResourceKey<Item> create(String name) {
 		return ResourceKey.create(Registries.ITEM, WWConstants.id(name));
 	}

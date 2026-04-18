@@ -66,11 +66,7 @@ public final class WWItemTags {
 	public static final TagKey<Item> HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
 	public static final TagKey<Item> HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
 
-	private WWItemTags() {
-		throw new UnsupportedOperationException("WWItemTags contains only static declarations.");
-	}
-
-	private static TagKey<Item> bind(String path) {
-		return TagKey.create(Registries.ITEM, WWConstants.id(path));
+	private static TagKey<Item> bind(String name) {
+		return TagKey.create(Registries.ITEM, WWConstants.id(name));
 	}
 }

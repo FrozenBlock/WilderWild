@@ -39,13 +39,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WWBiomeMusicAndAmbience {
 
-	private WWBiomeMusicAndAmbience() {
-		throw new UnsupportedOperationException("WWBiomeMusicAndAmbience contains only static declarations.");
-	}
-
-	public static void playMusic() {
-		WWConstants.logWithModId("Adding Music And Ambience for", true);
-
+	public static void init() {
 		// Configurable Music
 		BiomeModifications.create(WWConstants.id("modify_music_forests")).add(
 			ModificationPhase.REPLACEMENTS,

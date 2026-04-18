@@ -26,11 +26,7 @@ public final class WWFluidTags {
 	public static final TagKey<Fluid> SUPPORTS_ALGAE = bind("supports_algae");
 	public static final TagKey<Fluid> SUPPORTS_PLANKTON = bind("supports_plankton");
 
-	private WWFluidTags() {
-		throw new UnsupportedOperationException("WWFluidTags contains only static declarations.");
-	}
-
-	private static TagKey<Fluid> bind(String path) {
-		return TagKey.create(Registries.FLUID, WWConstants.id(path));
+	private static TagKey<Fluid> bind(String name) {
+		return TagKey.create(Registries.FLUID, WWConstants.id(name));
 	}
 }

@@ -60,11 +60,9 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS
-
 		pack.addProvider(WWModelProvider::new);
 
 		// DATA
-
 		// When adding a registry to generate, don't forget this!
 		pack.addProvider(WWRegistryProvider::new);
 

@@ -221,11 +221,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("feature/oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("feature/coarse_dirt_disk_replaceable");
 
-	private WWBlockTags() {
-		throw new UnsupportedOperationException("WWBlockTags contains only static declarations.");
-	}
-
-	private static TagKey<Block> bind(String path) {
-		return TagKey.create(Registries.BLOCK, WWConstants.id(path));
+	private static TagKey<Block> bind(String name) {
+		return TagKey.create(Registries.BLOCK, WWConstants.id(name));
 	}
 }

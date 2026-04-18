@@ -45,15 +45,11 @@ public final class WWEnvironmentAttributes {
 		EnvironmentAttribute.builder(AttributeTypes.FLOAT).defaultValue(1F / 30F)
 	);
 
-	private WWEnvironmentAttributes() {
-		throw new UnsupportedOperationException("WWEnvironmentAttributes contains only static declarations.");
-	}
-
 	public static void init() {}
 
-	private static <Value> EnvironmentAttribute<Value> register(String string, EnvironmentAttribute.Builder<Value> builder) {
+	private static <Value> EnvironmentAttribute<Value> register(String name, EnvironmentAttribute.Builder<Value> builder) {
 		final EnvironmentAttribute<Value> environmentAttribute = builder.build();
-		Registry.register(BuiltInRegistries.ENVIRONMENT_ATTRIBUTE, WWConstants.id(string), environmentAttribute);
+		Registry.register(BuiltInRegistries.ENVIRONMENT_ATTRIBUTE, WWConstants.id(name), environmentAttribute);
 		return environmentAttribute;
 	}
 }

@@ -38,11 +38,7 @@ public final class WWEntityTypeTags {
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_ON_FALL = bind("fragile_ice_doesnt_crack_on_fall");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_PROJECTILE = bind("fragile_ice_doesnt_crack_projectile");
 
-	private WWEntityTypeTags() {
-		throw new UnsupportedOperationException("WWEntityTypeTags contains only static declarations.");
-	}
-
-	private static TagKey<EntityType<?>> bind(String path) {
-		return TagKey.create(Registries.ENTITY_TYPE, WWConstants.id(path));
+	private static TagKey<EntityType<?>> bind(String name) {
+		return TagKey.create(Registries.ENTITY_TYPE, WWConstants.id(name));
 	}
 }

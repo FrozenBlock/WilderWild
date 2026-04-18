@@ -27,11 +27,7 @@ public final class WWGameEventTags {
 	public static final TagKey<GameEvent> CRAB_CAN_ALWAYS_DETECT = bind("crab_can_always_detect");
 	public static final TagKey<GameEvent> MAKES_ICICLE_FALL = bind("makes_icicle_fall");
 
-	private WWGameEventTags() {
-		throw new UnsupportedOperationException("WWGameEventTags contains only static declarations.");
-	}
-
-	private static TagKey<GameEvent> bind(String path) {
-		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(path));
+	private static TagKey<GameEvent> bind(String name) {
+		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(name));
 	}
 }

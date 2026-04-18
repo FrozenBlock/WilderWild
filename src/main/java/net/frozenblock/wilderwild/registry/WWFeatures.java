@@ -120,19 +120,19 @@ public final class WWFeatures {
 
 	public static void init() {}
 
-	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String id, MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WWConstants.id(id), new TrunkPlacerType<>(codec));
+	private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunk(String name, MapCodec<P> codec) {
+		return Registry.register(BuiltInRegistries.TRUNK_PLACER_TYPE, WWConstants.id(name), new TrunkPlacerType<>(codec));
 	}
 
-	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String id, MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WWConstants.id(id), new FoliagePlacerType<>(codec));
+	private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliage(String name, MapCodec<P> codec) {
+		return Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, WWConstants.id(name), new FoliagePlacerType<>(codec));
 	}
 
-	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(String id, T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, WWConstants.id(id), feature);
+	private static <FC extends FeatureConfiguration, T extends Feature<FC>> T register(String name, T feature) {
+		return Registry.register(BuiltInRegistries.FEATURE, WWConstants.id(name), feature);
 	}
 
-	private static <P extends RootPlacer> RootPlacerType<P> register(String id, MapCodec<P> mapCodec) {
-		return Registry.register(BuiltInRegistries.ROOT_PLACER_TYPE, WWConstants.id(id), new RootPlacerType<>(mapCodec));
+	private static <P extends RootPlacer> RootPlacerType<P> register(String name, MapCodec<P> codec) {
+		return Registry.register(BuiltInRegistries.ROOT_PLACER_TYPE, WWConstants.id(name), new RootPlacerType<>(codec));
 	}
 }

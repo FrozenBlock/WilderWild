@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
 
 public final class WWBlockStateProperties {
-
 	// Hanging Tendril
 	public static final BooleanProperty TWITCHING = BooleanProperty.create("twitching");
 	public static final BooleanProperty WRINGING_OUT = BooleanProperty.create("wringing_out");
@@ -67,8 +66,4 @@ public final class WWBlockStateProperties {
 	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
-
-	private WWBlockStateProperties() {
-		throw new UnsupportedOperationException("WWBlockStateProperties contains only static declarations.");
-	}
 }

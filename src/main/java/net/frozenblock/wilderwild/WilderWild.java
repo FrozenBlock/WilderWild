@@ -24,6 +24,7 @@ import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntry
 import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
+import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -38,6 +39,7 @@ import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockSoundTypeOverwrites;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
@@ -54,10 +56,13 @@ import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWTimelines;
+import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
@@ -100,12 +105,17 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 
 		WWFeatures.init();
 		WWBiomes.init();
-		WWWorldgen.generateWildWorldGen();
+		WWWorldgen.init();
 		WWBlocks.registerBlockProperties();
+		WWBlockSoundTypeOverwrites.init();
+
+		WWWindDisturbances.init();
+		WWSoundPredicates.init();
 
 		WWModIntegrations.init();
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
+		WindManager.addExtension(WWWindManager.TYPE);
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);
@@ -113,7 +123,9 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWItemConfig.CONFIG.load(true);
 		WWWorldgenConfig.CONFIG.load(true);
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> SpreadSculkCommand.register(dispatcher));
+		CommandRegistrationCallback.EVENT.register(
+			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)
+		);
 	}
 
 	@Override

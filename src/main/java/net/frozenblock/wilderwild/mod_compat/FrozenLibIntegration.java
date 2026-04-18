@@ -21,8 +21,6 @@ import com.google.common.collect.ImmutableList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
@@ -31,21 +29,12 @@ import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.friction.BlockFrictionAPI;
 import net.frozenblock.lib.block.api.tick.BlockRandomTicks;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
-import net.frozenblock.lib.block.sound.api.BlockSoundTypeOverwrites;
-import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
-import net.frozenblock.lib.item.api.removable.RemovableItemTags;
-import net.frozenblock.lib.loot.api.FrozenLibLootTableEvents;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
-import net.frozenblock.lib.sound.api.predicate.SoundPredicate;
 import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
-import net.frozenblock.lib.wind.api.WindDisturbance;
-import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
-import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
@@ -53,9 +42,7 @@ import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
-import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -65,16 +52,12 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
-import net.frozenblock.wilderwild.wind.WWWindManager;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.predicates.ItemPredicate;
@@ -89,38 +72,26 @@ import net.minecraft.advancements.triggers.EffectsChangedTrigger;
 import net.minecraft.advancements.triggers.FilledBucketTrigger;
 import net.minecraft.advancements.triggers.KilledTrigger;
 import net.minecraft.advancements.triggers.PlayerTrigger;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.wolf.WolfVariants;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireflyBushBlock;
 import net.minecraft.world.level.block.LevelEvent;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
@@ -134,10 +105,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.ChatFormatting;
 
 public class FrozenLibIntegration extends ModIntegration {
-	public static final Identifier INSTRUMENT_SOUND_PREDICATE = WWConstants.id("instrument");
-	public static final Identifier ENDERMAN_ANGER_SOUND_PREDICATE = WWConstants.id("enderman_anger");
-	public static final Identifier GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
-	public static final Identifier GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
 
 	public FrozenLibIntegration() {
 		super("frozenlib");
@@ -164,93 +131,6 @@ public class FrozenLibIntegration extends ModIntegration {
 			entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella")
 		);
 
-		SoundPredicate.register(INSTRUMENT_SOUND_PREDICATE, () -> new SoundPredicate.LoopPredicate<LivingEntity>() {
-			private boolean firstCheck = true;
-			private ItemStack lastStack;
-
-			@Override
-			public Boolean firstTickTest(LivingEntity entity) {
-				return true;
-			}
-
-			@Override
-			public boolean test(LivingEntity entity) {
-				if (this.firstCheck) {
-					this.firstCheck = false;
-					InteractionHand hand = !entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() ? InteractionHand.MAIN_HAND : !entity.getItemInHand(InteractionHand.OFF_HAND).isEmpty() ? InteractionHand.OFF_HAND : null;
-					if (hand == null) return false;
-
-					ItemStack stack = entity.getItemInHand(hand);
-					if (stack.getItem() instanceof InstrumentItem) {
-						this.lastStack = stack;
-						return true;
-					}
-					return false;
-				}
-
-				final ItemStack stack = entity.getUseItem();
-				if (stack.getItem() instanceof InstrumentItem) {
-					if (this.lastStack == null || ItemStack.matches(this.lastStack, stack)) {
-						this.lastStack = stack;
-						return true;
-					}
-					this.firstCheck = true;
-				}
-				return false;
-			}
-		});
-
-		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
-			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) return false;
-			return entity.isCreepy() || entity.hasBeenStaredAt();
-		});
-
-		WindDisturbanceLogic.register(
-			GEYSER_EFFECTIVE_WIND_DISTURBANCE,
-                (WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
-				if (source.isEmpty()) return null;
-
-				final BlockState state = level.getBlockState(source.get().getBlockPos());
-				if (!state.hasProperty(BlockStateProperties.FACING)) return null;
-
-				final Direction direction = state.getValue(BlockStateProperties.FACING);
-				final Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
-				final double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
-				final double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
-				return new WindDisturbance.DisturbanceResult(
-					Mth.clamp(intensity * 2D, 0D, 1D),
-					strength * 2D,
-					movement.scale(intensity * GeyserBlockEntity.EFFECTIVE_ADDITIONAL_WIND_INTENSITY).scale(30D)
-				);
-			}
-        );
-
-		WindDisturbanceLogic.register(
-			GEYSER_BASE_WIND_DISTURBANCE,
-			(WindDisturbanceLogic.DisturbanceLogic<GeyserBlockEntity>) (source, level, windOrigin, affectedArea, windTarget) -> {
-				if (source.isEmpty()) return null;
-
-				final BlockState state = level.getBlockState(source.get().getBlockPos());
-				if (!state.hasProperty(BlockStateProperties.FACING)) return null;
-
-				final Direction direction = state.getValue(BlockStateProperties.FACING);
-				final Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
-				final double strength = GeyserBlockEntity.ERUPTION_DISTANCE - Math.min(windTarget.distanceTo(windOrigin), GeyserBlockEntity.ERUPTION_DISTANCE);
-				final double intensity = strength / GeyserBlockEntity.ERUPTION_DISTANCE;
-				return new WindDisturbance.DisturbanceResult(
-					Mth.clamp(intensity * 2D, 0D, 1D),
-					strength * 2D,
-					movement.scale(intensity * GeyserBlockEntity.BASE_WIND_INTENSITY).scale(30D)
-				);
-			}
-		);
-
-		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
-			if (!(container instanceof StoneChestBlockEntity)) return;
-			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
-		});
-		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
-
 		ItemTooltipAdditionAPI.addTooltip(
 			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
 			stack -> !FrozenBools.HAS_TRAILIERTALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
@@ -270,8 +150,6 @@ public class FrozenLibIntegration extends ModIntegration {
 				WWConstants.id("cactus")
 			)
 		);
-
-		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
 
 		DripstoneDripApi.addWaterDrip(
 			Blocks.WET_SPONGE,
@@ -339,54 +217,6 @@ public class FrozenLibIntegration extends ModIntegration {
 				}
 			}
 		);
-
-		WindManager.addExtension(WWWindManager.TYPE);
-
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_GRASS, WWSoundTypes.SHORT_GRASS, WWBlockConfig.GRASS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FROZEN_GRASS, WWSoundTypes.FROZEN_GRASS, WWBlockConfig.GRASS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_DRY_GRASS, WWSoundTypes.DRY_GRASS, WWBlockConfig.GRASS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FLOWER, SoundType.PINK_PETALS, WWBlockConfig.FLOWER_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LEAVES, SoundType.AZALEA_LEAVES, WWBlockConfig.LEAF_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CONIFER_LEAVES, WWSoundTypes.CONIFER_LEAVES, WWBlockConfig.LEAF_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CONIFER_LEAF_LITTER, WWSoundTypes.CONIFER_LEAF_LITTER, WWBlockConfig.LEAF_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SAPLING, WWSoundTypes.SAPLING, WWBlockConfig.SAPLING_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CACTUS, WWSoundTypes.CACTUS, WWBlockConfig.CACTUS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COARSE_DIRT, WWSoundTypes.COARSE_DIRT, WWBlockConfig.COARSE_DIRT_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_ICE, WWSoundTypes.ICE, WWBlockConfig.ICE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_FROSTED_ICE, WWSoundTypes.FROSTED_ICE, WWBlockConfig.FROSTED_ICE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MUSHROOM, WWSoundTypes.MUSHROOM, WWBlockConfig.MUSHROOM_BLOCK_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MUSHROOM_BLOCK, WWSoundTypes.MUSHROOM_BLOCK, WWBlockConfig.MUSHROOM_BLOCK_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SANDSTONE, WWSoundTypes.SANDSTONE, WWBlockConfig.SANDSTONE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_LILY_PAD, WWSoundTypes.LILY_PAD, WWBlockConfig.LILY_PAD_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON, WWSoundTypes.MELON, WWBlockConfig.MELON_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MELON_STEM, SoundType.CROP, WWBlockConfig.MELON_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_GRAVEL, WWSoundTypes.GRAVEL, WWBlockConfig.GRAVEL_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_CLAY, WWSoundTypes.CLAY, WWBlockConfig.CLAY_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_DEAD_BUSH, SoundType.NETHER_SPROUTS, WWBlockConfig.DEAD_BUSH_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PODZOL, SoundType.ROOTED_DIRT, WWBlockConfig.PODZOL_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_REINFORCED_DEEPSLATE, WWSoundTypes.REINFORCED_DEEPSLATE, WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_SUGAR_CANE, WWSoundTypes.SUGARCANE, WWBlockConfig.SUGAR_CANE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_WITHER_ROSE, SoundType.SWEET_BERRY_BUSH, WWBlockConfig.WITHER_ROSE_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_MAGMA_BLOCK, WWSoundTypes.MAGMA, WWBlockConfig.MAGMA_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS, WWSoundTypes.AUBURN_MOSS, WWBlockConfig.MOSS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_AUBURN_MOSS_CARPET, WWSoundTypes.AUBURN_MOSS_CARPET, WWBlockConfig.MOSS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_MOSS, WWSoundTypes.PALE_MOSS, WWBlockConfig.MOSS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_MOSS_CARPET, WWSoundTypes.PALE_MOSS_CARPET, WWBlockConfig.MOSS_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_COCONUT, WWSoundTypes.COCONUT, () -> true);
-
-		// PALE OAK
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, WWSoundTypes.PALE_OAK_LEAVES, () -> {
-			return WWBlockConfig.PALE_OAK_SOUNDS.get() && WWBlockConfig.LEAF_SOUNDS.get();
-		});
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAVES, SoundType.AZALEA_LEAVES, () -> {
-			return !WWBlockConfig.PALE_OAK_SOUNDS.get() && WWBlockConfig.LEAF_SOUNDS.get();
-		});
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_LEAF_LITTER, WWSoundTypes.PALE_OAK_LEAF_LITTER, () -> {
-			return WWBlockConfig.PALE_OAK_SOUNDS.get() && WWBlockConfig.LEAF_SOUNDS.get();
-		});
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD, WWSoundTypes.PALE_OAK_WOOD, WWBlockConfig.PALE_OAK_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_HOLLOWED_PALE_OAK_WOOD, WWSoundTypes.HOLLOWED_PALE_OAK_LOG, WWBlockConfig.PALE_OAK_SOUNDS::get);
-		BlockSoundTypeOverwrites.addBlockTag(WWBlockTags.SOUND_PALE_OAK_WOOD_HANGING_SIGN, WWSoundTypes.PALE_OAK_WOOD_HANGING_SIGN, WWBlockConfig.PALE_OAK_SOUNDS::get);
 
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);
@@ -659,11 +489,5 @@ public class FrozenLibIntegration extends ModIntegration {
 				)
 			);
 		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void clientInit() {
-		ClientWindManager.addExtension(WWClientWindManager::new);
 	}
 }

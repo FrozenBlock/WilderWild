@@ -68,7 +68,7 @@ public final class WWDataComponents {
 
 	public static void init() {}
 
-	private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> unaryOperator) {
-		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WWConstants.id(id), unaryOperator.apply(DataComponentType.builder()).build());
+	private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
+		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, WWConstants.id(name), builder.apply(DataComponentType.builder()).build());
 	}
 }

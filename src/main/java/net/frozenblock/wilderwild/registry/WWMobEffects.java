@@ -62,15 +62,11 @@ public final class WWMobEffects {
 		)
 	);
 
-	private WWMobEffects() {
-		throw new UnsupportedOperationException("WWMobEffects contains only static declarations.");
-	}
-
 	public static void init() {
 		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
 	}
 
-	private static Reference<MobEffect> register(String path, MobEffect entry) {
-		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(path), entry);
+	private static Reference<MobEffect> register(String name, MobEffect entry) {
+		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(name), entry);
 	}
 }

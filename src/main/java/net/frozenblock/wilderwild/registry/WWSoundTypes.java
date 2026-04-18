@@ -424,9 +424,5 @@ public final class WWSoundTypes {
 		SoundEvents.CORAL_BLOCK_FALL
 	);
 
-	private WWSoundTypes() {
-		throw new UnsupportedOperationException("WWSoundTypes contains only static declarations.");
-	}
-
 	public static void init() {}
 }

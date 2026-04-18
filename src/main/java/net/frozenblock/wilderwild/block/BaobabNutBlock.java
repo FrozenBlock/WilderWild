@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -92,9 +91,8 @@ public class BaobabNutBlock extends SaplingBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		final Vec3 offset = state.getOffset(pos);
 		final VoxelShape voxelShape = !state.getValue(HANGING) ? SHAPES[4] : SHAPES[state.getValue(AGE)];
-		return voxelShape.move(offset.x, offset.y, offset.z);
+		return voxelShape.move(state.getOffset(pos));
 	}
 
 	@Override

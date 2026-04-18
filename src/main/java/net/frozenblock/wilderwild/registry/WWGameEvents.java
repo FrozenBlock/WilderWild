@@ -27,18 +27,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public final class WWGameEvents {
 	public static final Reference<GameEvent> BIG_FALL = register("big_fall");
 
-	private WWGameEvents() {
-		throw new UnsupportedOperationException("WWGameEvents contains only static declarations.");
-	}
-
 	public static void init() {}
 
-	private static Reference<GameEvent> register(String path) {
-		return register(path, 16);
+	private static Reference<GameEvent> register(String name) {
+		return register(name, 16);
 	}
 
-	private static Reference<GameEvent> register(String path, int notificationRadius) {
-		Identifier key = WWConstants.id(path);
+	private static Reference<GameEvent> register(String name, int notificationRadius) {
+		Identifier key = WWConstants.id(name);
 		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
 	}
 }

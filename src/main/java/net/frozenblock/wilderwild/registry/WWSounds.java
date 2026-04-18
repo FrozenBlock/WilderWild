@@ -514,12 +514,10 @@ public final class WWSounds {
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_DYING_FOREST = registerForHolder("music.overworld.dying_forest");
 	public static final Holder.Reference<SoundEvent> MUSIC_OVERWORLD_SNOWY_DYING_FOREST = registerForHolder("music.overworld.snowy_dying_forest");
 
-	private WWSounds() {
-		throw new UnsupportedOperationException("WWSounds contains only static declarations.");
-	}
+	public static void init() {}
 
-	private static Holder.Reference<SoundEvent> registerForHolder(String path) {
-		return registerForHolder(WWConstants.id(path));
+	private static Holder.Reference<SoundEvent> registerForHolder(String name) {
+		return registerForHolder(WWConstants.id(name));
 	}
 
 	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id) {
@@ -534,7 +532,4 @@ public final class WWSounds {
 	private static Holder.Reference<SoundEvent> registerForHolder(Identifier id, Identifier id2) {
 		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id2));
 	}
-
-	public static void init() {}
-
 }

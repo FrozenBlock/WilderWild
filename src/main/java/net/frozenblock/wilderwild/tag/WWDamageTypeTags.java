@@ -25,11 +25,7 @@ import net.minecraft.world.damagesource.DamageType;
 public final class WWDamageTypeTags {
 	public static final TagKey<DamageType> EMPTY = bind("empty");
 
-	private WWDamageTypeTags() {
-		throw new UnsupportedOperationException("WWDamageTypeTags contains only static declarations.");
-	}
-
-	private static TagKey<DamageType> bind(String path) {
-		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(path));
+	private static TagKey<DamageType> bind(String name) {
+		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
 }

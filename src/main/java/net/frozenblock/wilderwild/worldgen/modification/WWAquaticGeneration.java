@@ -29,10 +29,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public final class WWAquaticGeneration {
 
-	private WWAquaticGeneration() {
-		throw new UnsupportedOperationException("WWAquaticGeneration contains only static declarations.");
-	}
-
 	public static void generateAquaticFeatures() {
 		generateAlgae();
 		generatePlankton();

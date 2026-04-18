@@ -30,13 +30,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 
 public record SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 velocity) implements ParticleOptions {
-	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		instance.group(
-			Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
-			Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::controlled),
-			Vec3.CODEC.fieldOf("velocity").forGetter(SeedParticleOptions::velocity)
-		).apply(instance, SeedParticleOptions::new)
-	);
+	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.BOOL.fieldOf("isMilkweed").forGetter(SeedParticleOptions::isMilkweed),
+		Codec.BOOL.fieldOf("isControlled").forGetter(SeedParticleOptions::controlled),
+		Vec3.CODEC.fieldOf("velocity").forGetter(SeedParticleOptions::velocity)
+	).apply(instance, SeedParticleOptions::new));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SeedParticleOptions> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.BOOL, SeedParticleOptions::isMilkweed,
 		ByteBufCodecs.BOOL, SeedParticleOptions::controlled,

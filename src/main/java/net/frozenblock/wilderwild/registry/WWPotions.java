@@ -35,10 +35,6 @@ public final class WWPotions {
 	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 2700, 1)));
 	public static final Holder<Potion> SCORCHING = register("scorching", new Potion("scorching", new MobEffectInstance(WWMobEffects.SCORCHING, 2700)));
 
-	private WWPotions() {
-		throw new UnsupportedOperationException("WWPotions contains only static declarations.");
-	}
-
 	public static void init() {
 		FabricPotionBrewingBuilder.BUILD.register(builder -> {
 			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH);
@@ -49,7 +45,7 @@ public final class WWPotions {
 		});
 	}
 
-	private static Reference<Potion> register(String path, Potion potion) {
-		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(path), potion);
+	private static Reference<Potion> register(String name, Potion potion) {
+		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(name), potion);
 	}
 }

@@ -68,9 +68,4 @@ public final class WWBlockEntityTypes {
 	private static <T extends BlockEntity> BlockEntityType<T> register(ResourceKey<BlockEntityType<?>> id, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id, new BlockEntityType<>(builder, Set.of(blocks)));
 	}
-
-	private WWBlockEntityTypes() {
-		throw new UnsupportedOperationException("WWBlockEntityTypes contains only static declarations.");
-	}
-
 }

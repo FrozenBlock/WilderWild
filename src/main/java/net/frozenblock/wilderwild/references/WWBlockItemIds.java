@@ -325,10 +325,6 @@ public final class WWBlockItemIds {
 	public static final BlockItemId VERDANT_FROGLIGHT_GOOP = create("verdant_froglight_goop");
 	public static final BlockItemId PEARLESCENT_FROGLIGHT_GOOP = create("pearlescent_froglight_goop");
 
-	private WWBlockItemIds() {
-		throw new UnsupportedOperationException("WWBlockItemIds contains only static declarations.");
-	}
-
 	private static BlockItemId create(String name) {
 		final Identifier id = WWConstants.id(name);
 		return BlockItemId.create(id, id);
