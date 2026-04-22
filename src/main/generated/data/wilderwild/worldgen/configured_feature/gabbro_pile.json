@@ -24,7 +24,7 @@
               "fade_start_percentage": 0.675,
               "outer_placement": {
                 "outer_ring_start_percentage": 0.75,
-                "placement_chance": 0.7,
+                "placement_chance": 0.75,
                 "replacement_block_predicate": {
                   "type": "minecraft:matching_block_tag",
                   "tag": "wilderwild:feature/magma_replaceable"
@@ -39,7 +39,7 @@
                   }
                 }
               },
-              "placement_chance": 0.8,
+              "placement_chance": 0.9,
               "replacement_block_predicate": {
                 "type": "minecraft:matching_block_tag",
                 "tag": "wilderwild:feature/magma_replaceable"

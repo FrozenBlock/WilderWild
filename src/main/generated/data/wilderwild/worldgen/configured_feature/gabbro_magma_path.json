@@ -4,8 +4,8 @@
     "noise_band_placement": {
       "block_placements": [
         {
-          "maximum_noise_threshold": -0.15,
-          "minimum_noise_threshold": -0.275,
+          "maximum_noise_threshold": -0.16,
+          "minimum_noise_threshold": -0.26,
           "replacement_block_predicate": {
             "type": "minecraft:matching_block_tag",
             "tag": "wilderwild:feature/magma_replaceable"
@@ -56,8 +56,8 @@
           }
         },
         {
-          "maximum_noise_threshold": -0.115,
-          "minimum_noise_threshold": -0.31,
+          "maximum_noise_threshold": -0.005,
+          "minimum_noise_threshold": -0.46,
           "replacement_block_predicate": {
             "type": "minecraft:matching_block_tag",
             "tag": "wilderwild:feature/magma_replaceable"

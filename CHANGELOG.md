@@ -89,6 +89,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle the new Sulfur Spring generation.
 - Calcite now generates alongside Sulfur and Cinnabar in the Sulfur Caves biome.
   - Added a config option to toggle Calcite generation.
+- Cleaned up the feature generation of Magmatic Caves.
 - Shrubs can no longer generate on Sand blocks in the Oasis biome.
 - Added the Icicle to the `minecraft:speleothems` Block Tag.
 - Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.

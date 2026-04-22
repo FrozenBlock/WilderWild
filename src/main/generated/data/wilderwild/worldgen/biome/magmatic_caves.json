@@ -31,7 +31,7 @@
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:magma_path",
+      "wilderwild:gabbro_magma_path",
       "wilderwild:geyser_lava",
       "wilderwild:geyser_up",
       "wilderwild:geyser_down",
@@ -80,10 +80,7 @@
     ],
     [
       "wilderwild:upside_down_magma",
-      "wilderwild:magma_disk",
-      "wilderwild:magma_pile",
       "wilderwild:gabbro_disk",
-      "wilderwild:obsidian_disk",
       "wilderwild:gabbro_pile",
       "wilderwild:downwards_gabbro_column",
       "wilderwild:fire_patch_magma",

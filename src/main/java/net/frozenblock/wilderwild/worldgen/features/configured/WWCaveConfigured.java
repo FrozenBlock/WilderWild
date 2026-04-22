@@ -98,12 +98,9 @@ public final class WWCaveConfigured {
 
 	// MAGMATIC CAVES
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> MAGMA_LAVA_POOL = register("magma_lava_pool");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> MAGMA_AND_GABBRO_PATH = register("magma_and_gabbro_path");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfig> MAGMA_DISK = register("magma_disk");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfig> OBSIDIAN_DISK = register("obsidian_disk");
+	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> GABBRO_MAGMA_PATH = register("gabbro_magma_path");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenLibConfiguredFeature<ComboFeatureConfig> MAGMA_PILE = register("magma_pile");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FIRE = register("fire");
 	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_GABBRO = register("ore_gabbro");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> GABBRO_DISK = register("gabbro_disk");
@@ -389,7 +386,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_AND_GABBRO_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
+		GABBRO_MAGMA_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH_FEATURE,
 			new NoisePathFeatureConfig(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.0325D)
@@ -398,7 +395,7 @@ public final class WWCaveConfigured {
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.within(-0.275D, -0.15D)
+							.within(-0.26D, -0.16D)
 							.searchingPredicate(
 								BlockPredicate.allOf(
 									TouchingBlockPredicate.exposedTo(
@@ -415,53 +412,12 @@ public final class WWCaveConfigured {
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.within(-0.31D, -0.115D)
+							.within(-0.46D, -0.005D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
 							.build()
 
 					).build(),
 				8
-			)
-		);
-
-		MAGMA_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
-			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
-					.placementChance(0.8F)
-					.fadeStartPercentage(0.675F)
-					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
-							.placementChance(0.7F)
-							.chanceToChooseInInnerRing(0.7F)
-							.outerRingStartPercentage(0.75F)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.build()
-					).build(),
-				Optional.empty(),
-				UniformInt.of(2, 6)
-			)
-		);
-
-		OBSIDIAN_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
-			new BallFeatureConfig(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
-					.placementChance(0.8F)
-					.fadeStartPercentage(0.675F)
-					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
-							.placementChance(0.7F)
-							.outerRingStartPercentage(0.5F)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.build()
-					).build(),
-				Optional.empty(),
-				UniformInt.of(2, 4)
 			)
 		);
 
@@ -491,37 +447,6 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_PILE.makeAndSetHolder(FrozenLibFeatures.COMBO_FEATURE,
-			new ComboFeatureConfig(
-				ImmutableList.of(
-					PlacementUtils.inlinePlaced(
-						Feature.BLOCK_PILE,
-						new BlockPileConfiguration(
-							BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState())
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL_FEATURE,
-						new BallFeatureConfig(
-							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
-								.placementChance(0.8F)
-								.fadeStartPercentage(0.675F)
-								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-								.outerRingBlockPlacement(
-									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.OBSIDIAN))
-										.placementChance(0.7F)
-										.outerRingStartPercentage(0.5F)
-										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
-										.build()
-								).build(),
-							Optional.empty(),
-							UniformInt.of(2, 4)
-						)
-					)
-				)
-			)
-		);
-
 		FIRE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE), true)
 		);
@@ -537,20 +462,20 @@ public final class WWCaveConfigured {
 		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.BALL_FEATURE,
 			new BallFeatureConfig(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
-					.placementChance(0.8F)
+					.placementChance(0.9F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
-							.placementChance(0.7F)
+							.placementChance(0.75F)
 							.outerRingStartPercentage(0.75F)
 							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.build()
 					).build(),
 				Optional.empty(),
-				UniformInt.of(6, 12)
+				UniformInt.of(8, 10)
 			)
 		);
 
@@ -593,12 +518,12 @@ public final class WWCaveConfigured {
 						FrozenLibFeatures.BALL_FEATURE,
 						new BallFeatureConfig(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
-								.placementChance(0.8F)
+								.placementChance(0.9F)
 								.fadeStartPercentage(0.675F)
 								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 								.outerRingBlockPlacement(
 									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
-										.placementChance(0.7F)
+										.placementChance(0.75F)
 										.outerRingStartPercentage(0.75F)
 										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 										.build()

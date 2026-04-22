@@ -133,13 +133,10 @@ public final class MagmaticCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WWCavePlaced.FOSSIL_LAVA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.UPSIDE_DOWN_MAGMA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.MAGMA_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.MAGMA_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_DISK.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.OBSIDIAN_DISK.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_GABBRO_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.MAGMA_PATH.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GABBRO_MAGMA_PATH.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FIRE_PATCH_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_LAVA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_UP.getKey());
