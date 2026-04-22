@@ -10,20 +10,12 @@
     "direction": "up",
     "length": {
       "type": "minecraft:uniform",
-      "max_inclusive": 2,
+      "max_inclusive": 8,
       "min_inclusive": 1
     },
     "replacement_block_predicate": {
-      "type": "minecraft:any_of",
-      "predicates": [
-        {
-          "type": "minecraft:replaceable"
-        },
-        {
-          "type": "minecraft:matching_blocks",
-          "blocks": "minecraft:magma_block"
-        }
-      ]
+      "type": "minecraft:matching_fluids",
+      "fluids": "minecraft:lava"
     },
     "stop_when_encountering_unreplaceable_block": true
   }

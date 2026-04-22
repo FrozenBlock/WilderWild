@@ -82,6 +82,7 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.material.Fluids;
 
 public final class WWCaveConfigured {
 	// MESOGLEA CAVES
@@ -102,11 +103,10 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<LargeMesogleaConfig> LARGE_MESOGLEA_BLUE = WWFeatureUtils.register("large_mesoglea_blue");
 
 	// MAGMATIC CAVES
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> MAGMA_LAVA_POOL = register("magma_lava_pool");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> GABBRO_LAVA_POOL = register("gabbro_lava_pool");
+	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> LAVA_POOL_MAGMA_COLUMN = register("lava_pool_magma_column");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> GABBRO_MAGMA_PATH = register("gabbro_magma_path");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FIRE = register("fire");
 	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_GABBRO = register("ore_gabbro");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> GABBRO_DISK = register("gabbro_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
@@ -384,11 +384,11 @@ public final class WWCaveConfigured {
 
 		// MAGMATIC CAVES
 
-		MAGMA_LAVA_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_LAVA_VEGETATION_PATCH_LESS_BORDERS,
+		GABBRO_LAVA_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_LAVA_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
-				PlacementUtils.inlinePlaced(MAGMA_COLUMN.getHolder()),
+				BlockStateProvider.simple(WWBlocks.GABBRO),
+				PlacementUtils.inlinePlaced(LAVA_POOL_MAGMA_COLUMN.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
 				0.8F,
@@ -396,6 +396,16 @@ public final class WWCaveConfigured {
 				0.08F,
 				UniformInt.of(3, 10),
 				0.7F
+			)
+		);
+
+		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
+			new ColumnFeatureConfig(
+				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
+				BlockPredicate.matchesFluids(Fluids.LAVA),
+				UniformInt.of(1, 8),
+				Direction.UP,
+				true
 			)
 		);
 
@@ -434,19 +444,6 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
-			new ColumnFeatureConfig(
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
-				BlockPredicate.anyOf(
-					BlockPredicate.replaceable(),
-					BlockPredicate.matchesBlocks(Blocks.MAGMA_BLOCK)
-				),
-				UniformInt.of(1, 2),
-				Direction.UP,
-				true
-			)
-		);
-
 		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
 			new ColumnFeatureConfig(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
@@ -458,10 +455,6 @@ public final class WWCaveConfigured {
 				Direction.DOWN,
 				true
 			)
-		);
-
-		FIRE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE), true)
 		);
 
 		ORE_GABBRO.makeAndSetHolder(Feature.ORE,

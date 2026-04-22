@@ -89,14 +89,16 @@ public class Scorched extends Spider {
 	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
 		final BlockState belowState = level.getBlockState(pos.below());
-		final boolean prefers = level.getFluidState(pos).is(FluidTags.LAVA) || belowState.getFluidState().is(FluidTags.LAVA) || belowState.is(Blocks.MAGMA_BLOCK);
-		return prefers ? 10F : 1F;
+		if (level.getFluidState(pos).is(FluidTags.LAVA) || belowState.getFluidState().is(FluidTags.LAVA)) return 1.5F;
+		if (belowState.is(Blocks.MAGMA_BLOCK)) return 10F;
+		return super.getWalkTargetValue(pos, level);
 	}
 
 	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
 		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_SCORCHED.get()) return false;
-		return EntitySpawnReason.ignoresLightRequirements(reason) || (level.getFluidState(pos).is(FluidTags.LAVA) || isDarkEnoughToSpawn(level, pos, random));
+		return EntitySpawnReason.ignoresLightRequirements(reason)
+			|| (level.getFluidState(pos).is(FluidTags.LAVA) || level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK) || isDarkEnoughToSpawn(level, pos, random));
 	}
 
 	@Override

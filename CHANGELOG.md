@@ -31,16 +31,23 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Sunflower Plains and Flower Fields remain unchanged.
 - Removed Mesoglea "pool" features from the Mesoglea Caves biome, as they hindered navigation and didn't make sense visually.
   - Dripleaves will no longer generate in the Mesoglea Caves biome.
-  - The `wilderwild:blue_mesoglea_pool`, `wilderwild:blue_mesoglea_dripleaves`, `wilderwild:purple_mesoglea_pool`, `wilderwild:purple_mesoglea_dripleaves` Configured Features have been removed.
+  - The `wilderwild:blue_mesoglea_pool`, `wilderwild:blue_mesoglea_dripleaves`, `wilderwild:purple_mesoglea_pool`, and `wilderwild:purple_mesoglea_dripleaves` Configured Features have been removed.
   - The `wilderwild:blue_mesoglea` and `wilderwild:purple_mesoglea` Configured Features and Placed Features have been removed.
 - Cleaned up the feature generation of Magmatic Caves.
+  - The `wilderwild:fire` Configured Feature and the `wilderwild:fire_patch_magma` Placed Feature have been removed.
+  - The `wilderwild:magma_disk`, `wilderwild:magma_pile`, and `wilderwild:obsidian_disk` Configured Features and Placed Features have been removed.
+  - Increased the chance for the `wilderwild:gabbro_disk` Placed Feature to generate.
+  - Decreased the chance for the `wilderwild:upside_down_magma` Placed Feature to generate.
+  - The `wilderwild:magma_lava_pool` Configured Feature and Placed Feature have been renamed to `wilderwild:gabbro_lava_pool`, and now generates Gabbro borders.
+    - The `wilderwild:magma_column` Configured Feature has been renamed to `wilderiwld:lava_pool_magma_column`, and now only replaces Lava.
 - Updated the spawning rules for the Scorched:
   - Scorched will no longer spawn in any light level.
   - Scorched can now spawn under the surface of Lava.
-    - Scorched that spawn inside Lava will, of course, ignore the light level requirement.
+    - Spawning on Lava or Magma blocks will ignore the light level requirement.
   - The restriction for a Scorched to spawn only on Magma, Gabbro, or Lava has been removed.
+  - Normal Spiders will no longer spawn in Magmatic Caves.
 - Scorched now despawn when the Difficulty is set to Peaceful.
-- Fixed the subtitles for a Maple Trapdoor opening and closing being broken.
+- Fixed the subtitles for Maple Trapdoors and Pale Oak Trapdoors opening and closing.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.

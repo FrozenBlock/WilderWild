@@ -37,6 +37,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -119,7 +120,7 @@ public final class MagmaticCaves extends FrozenBiome {
 		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.MAGMA_LAVA_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.GABBRO_LAVA_POOL.getKey());
 		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.LAVA_LAKE_EXTRA.getKey());
 		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlaced.LAVA_SPRING_EXTRA.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
@@ -137,7 +138,6 @@ public final class MagmaticCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_GABBRO_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GABBRO_MAGMA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.FIRE_PATCH_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_LAVA.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_UP.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_DOWN.getKey());
@@ -150,8 +150,15 @@ public final class MagmaticCaves extends FrozenBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.MONSTER, 385, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED, 4, 4));
+		BiomeDefaultFeatures.caveSpawns(spawns);
+		spawns.addSpawn(MobCategory.MONSTER, 275, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1));
+		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.SKELETON, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.CREEPER, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WITCH, 1, 1));
 	}
 
 	@Override
