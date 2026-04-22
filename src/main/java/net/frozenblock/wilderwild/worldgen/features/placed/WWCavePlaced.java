@@ -73,10 +73,7 @@ public final class WWCavePlaced {
 
 	// MAGMATIC CAVES
 	public static final FrozenLibPlacedFeature MAGMA_LAVA_POOL = WWPlacementUtils.register("magma_lava_pool");
-	public static final FrozenLibPlacedFeature MAGMA_PATH = WWPlacementUtils.register("magma_path");
-	public static final FrozenLibPlacedFeature MAGMA_DISK = WWPlacementUtils.register("magma_disk");
-	public static final FrozenLibPlacedFeature MAGMA_PILE = WWPlacementUtils.register("magma_pile");
-	public static final FrozenLibPlacedFeature OBSIDIAN_DISK = WWPlacementUtils.register("obsidian_disk");
+	public static final FrozenLibPlacedFeature GABBRO_MAGMA_PATH = WWPlacementUtils.register("gabbro_magma_path");
 	public static final FrozenLibPlacedFeature LAVA_SPRING_EXTRA = WWPlacementUtils.register("lava_spring_extra");
 	public static final FrozenLibPlacedFeature FIRE_PATCH_MAGMA = WWPlacementUtils.register("fire_patch_magma");
 	public static final FrozenLibPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
@@ -228,16 +225,8 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.MAGMA_AND_GABBRO_PATH,
+		GABBRO_MAGMA_PATH.makeAndSetHolder(WWCaveConfigured.GABBRO_MAGMA_PATH,
 			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
-		MAGMA_DISK.makeAndSetHolder(WWCaveConfigured.MAGMA_DISK,
-			modifiersWithCount(48, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
-		OBSIDIAN_DISK.makeAndSetHolder(WWCaveConfigured.OBSIDIAN_DISK,
-			modifiersWithCount(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
@@ -264,28 +253,14 @@ public final class WWCavePlaced {
 		);
 
 		GABBRO_DISK.makeAndSetHolder(WWCaveConfigured.GABBRO_DISK,
-			modifiersWithCount(32, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
+			modifiersWithCount(48, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
 		GABBRO_PILE.makeAndSetHolder(WWCaveConfigured.GABBRO_PILE,
-			CountPlacement.of(UniformInt.of(24, 64)),
+			CountPlacement.of(UniformInt.of(32, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
-			BiomeFilter.biome()
-		);
-
-		MAGMA_PILE.makeAndSetHolder(WWCaveConfigured.MAGMA_PILE,
-			CountPlacement.of(UniformInt.of(32, 72)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
-			BlockPredicateFilter.forPredicate(
-				BlockPredicate.anyOf(
-					BlockPredicate.noFluid(Direction.UP.getUnitVec3i()),
-					SearchInDirectionBlockPredicate.hasLavaAbove(1)
-				)
-			),
 			BiomeFilter.biome()
 		);
 
@@ -467,7 +442,7 @@ public final class WWCavePlaced {
 		);
 
 		UPSIDE_DOWN_MAGMA.makeAndSetHolder(WWCaveConfigured.UPSIDE_DOWN_MAGMA,
-			CountPlacement.of(72),
+			CountPlacement.of(64),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
