@@ -49,12 +49,10 @@ import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -74,7 +72,6 @@ public class Scorched extends Spider {
 		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0F);
 		this.setPathfindingMalus(PathType.FIRE, 0F);
 	}
-
 	@Override
 	protected void registerGoals() {
 		//this.goalSelector.addGoal(1, new FloatGoal(this));
@@ -87,6 +84,24 @@ public class Scorched extends Spider {
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		final BlockState belowState = level.getBlockState(pos.below());
+		final boolean prefers = level.getFluidState(pos).is(FluidTags.LAVA) || belowState.getFluidState().is(FluidTags.LAVA) || belowState.is(Blocks.MAGMA_BLOCK);
+		return prefers ? 10F : 1F;
+	}
+
+	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_SCORCHED.get()) return false;
+		return EntitySpawnReason.ignoresLightRequirements(reason) || (level.getFluidState(pos).is(FluidTags.LAVA) || isDarkEnoughToSpawn(level, pos, random));
+	}
+
+	@Override
+	public boolean checkSpawnObstruction(LevelReader level) {
+		return level.isUnobstructed(this);
 	}
 
 	@Override
@@ -177,31 +192,6 @@ public class Scorched extends Spider {
 
 	public float getLavaAnimProgress(float partialTicks) {
 		return Mth.lerp(partialTicks, this.prevLavaAnimProgress, this.lavaAnimProgress);
-	}
-
-	@Override
-	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
-		BlockState state = level.getBlockState(pos);
-		boolean prefers = state.getFluidState().is(FluidTags.LAVA) || state.is(Blocks.MAGMA_BLOCK);
-		return prefers ? 1.5F : 1F;
-	}
-
-	@Override
-	public boolean checkSpawnObstruction(LevelReader level) {
-		return level.isUnobstructed(this);
-	}
-
-	public static boolean isDarkEnoughToSpawn(ServerLevelAccessor level, BlockPos pos, RandomSource random) {
-		if (level.getBrightness(LightLayer.SKY, pos) > random.nextInt(32)) return false;
-		DimensionType dimensionType = level.dimensionType();
-		int skyLight = level.getLevel().isThundering() ? level.getBrightness(LightLayer.SKY, pos) - 10 : level.getBrightness(LightLayer.SKY, pos);
-		return skyLight <= dimensionType.monsterSpawnLightTest().sample(random);
-	}
-
-	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_SCORCHED.get()) return false;
-		return EntitySpawnReason.ignoresLightRequirements(reason) || Scorched.isDarkEnoughToSpawn(level, pos, random);
 	}
 
 }

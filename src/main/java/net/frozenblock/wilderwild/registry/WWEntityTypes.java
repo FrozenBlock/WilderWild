@@ -108,6 +108,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.585F)
 			.fireImmune()
 			.clientTrackingRange(8)
+			.notInPeaceful()
 	);
 
 	public static final EntityType<FlowerCow> MOOBLOOM = register(
@@ -301,7 +302,7 @@ public final class WWEntityTypes {
 		FabricDefaultAttributeRegistry.register(SCORCHED, Scorched.createAttributes());
 		SpawnPlacements.register(
 			SCORCHED,
-			WWSpawnTypes.SCORCHED,
+			WWSpawnTypes.ON_GROUND_OR_IN_LAVA,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
 		);

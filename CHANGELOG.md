@@ -33,6 +33,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Dripleaves will no longer generate in the Mesoglea Caves biome.
   - The `wilderwild:blue_mesoglea_pool`, `wilderwild:blue_mesoglea_dripleaves`, `wilderwild:purple_mesoglea_pool`, `wilderwild:purple_mesoglea_dripleaves` Configured Features have been removed.
   - The `wilderwild:blue_mesoglea` and `wilderwild:purple_mesoglea` Configured Features and Placed Features have been removed.
+- Cleaned up the feature generation of Magmatic Caves.
+- Updated the spawning rules for the Scorched:
+  - Scorched will no longer spawn in any light level.
+  - Scorched can now spawn under the surface of Lava.
+    - Scorched that spawn inside Lava will, of course, ignore the light level requirement.
+  - The restriction for a Scorched to spawn only on Magma, Gabbro, or Lava has been removed.
+- Scorched now despawn when the Difficulty is set to Peaceful.
+- Fixed the subtitles for a Maple Trapdoor opening and closing being broken.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
