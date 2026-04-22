@@ -74,7 +74,6 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature MAGMA_LAVA_POOL = WWPlacementUtils.register("magma_lava_pool");
 	public static final FrozenLibPlacedFeature GABBRO_MAGMA_PATH = WWPlacementUtils.register("gabbro_magma_path");
 	public static final FrozenLibPlacedFeature LAVA_SPRING_EXTRA = WWPlacementUtils.register("lava_spring_extra");
-	public static final FrozenLibPlacedFeature FIRE_PATCH_MAGMA = WWPlacementUtils.register("fire_patch_magma");
 	public static final FrozenLibPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
 	public static final FrozenLibPlacedFeature GABBRO_DISK = WWPlacementUtils.register("gabbro_disk");
 	public static final FrozenLibPlacedFeature GABBRO_PILE = WWPlacementUtils.register("gabbro_pile");
@@ -229,18 +228,6 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
-		);
-
-		FIRE_PATCH_MAGMA.makeAndSetHolder(WWCaveConfigured.FIRE,
-			CountPlacement.of(UniformInt.of(80, 130)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome(),
-			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
-			BlockPredicateFilter.forPredicate(
-				BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.MAGMA_BLOCK))
-			)
 		);
 
 		ORE_GABBRO.makeAndSetHolder(WWCaveConfigured.ORE_GABBRO,

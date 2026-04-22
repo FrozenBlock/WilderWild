@@ -83,7 +83,6 @@
       "wilderwild:gabbro_disk",
       "wilderwild:gabbro_pile",
       "wilderwild:downwards_gabbro_column",
-      "wilderwild:fire_patch_magma",
       "wilderwild:geyser_north",
       "wilderwild:geyser_east",
       "wilderwild:geyser_south",
@@ -121,16 +120,16 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:spider",
+        "type": "wilderwild:scorched",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 275
       },
       {
         "type": "minecraft:zombie",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 95
+        "weight": 75
       },
       {
         "type": "minecraft:zombie_villager",
@@ -142,7 +141,7 @@
         "type": "minecraft:skeleton",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 100
+        "weight": 75
       },
       {
         "type": "minecraft:creeper",
@@ -167,12 +166,6 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
-      },
-      {
-        "type": "wilderwild:scorched",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 385
       }
     ],
     "underground_water_creature": [

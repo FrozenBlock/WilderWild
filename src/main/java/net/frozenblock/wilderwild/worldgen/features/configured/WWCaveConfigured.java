@@ -101,7 +101,6 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfig> GABBRO_MAGMA_PATH = register("gabbro_magma_path");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> MAGMA_COLUMN = register("magma_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FIRE = register("fire");
 	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_GABBRO = register("ore_gabbro");
 	public static final FrozenLibConfiguredFeature<BallFeatureConfig> GABBRO_DISK = register("gabbro_disk");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
@@ -445,10 +444,6 @@ public final class WWCaveConfigured {
 				Direction.DOWN,
 				true
 			)
-		);
-
-		FIRE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.FIRE), true)
 		);
 
 		ORE_GABBRO.makeAndSetHolder(Feature.ORE,
