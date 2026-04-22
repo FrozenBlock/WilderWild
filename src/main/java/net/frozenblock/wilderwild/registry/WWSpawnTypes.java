@@ -18,16 +18,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.NaturalSpawner;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 
 public final class WWSpawnTypes {
@@ -35,51 +30,27 @@ public final class WWSpawnTypes {
 		@Override
 		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> type) {
 			if (SpawnPlacementTypes.ON_GROUND.isSpawnPositionOk(level, pos, type)) return true;
+			if (type == null || !level.getWorldBorder().isWithinBounds(pos)) return false;
 
-			if (type != null && level.getWorldBorder().isWithinBounds(pos)) {
-				final BlockPos abovePos = pos.above();
-				return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE);
-			}
-			return false;
+			final BlockPos abovePos = pos.above();
+			return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE);
 		}
 
 		@Override
-		public BlockPos adjustSpawnPosition(LevelReader level, BlockPos pos) {
-			return SpawnPlacementTypes.ON_GROUND.adjustSpawnPosition(level, pos);
+		public BlockPos adjustSpawnPosition(LevelReader level, BlockPos candidate) {
+			return SpawnPlacementTypes.ON_GROUND.adjustSpawnPosition(level, candidate);
 		}
 	};
 
-	public static final SpawnPlacementType SCORCHED = new SpawnPlacementType() {
+	public static final SpawnPlacementType ON_GROUND_OR_IN_LAVA = new SpawnPlacementType() {
 		@Override
 		public boolean isSpawnPositionOk(LevelReader level, BlockPos pos, @Nullable EntityType<?> type) {
-			if (type != null && level.getWorldBorder().isWithinBounds(pos)) {
-				final BlockPos belowPos = pos.below();
-				final BlockState belowState = level.getBlockState(belowPos);
-				return !belowState.isValidSpawn(level, belowPos, type) && !this.isSurfaceLavaOrMagmaOrGabbro(level, pos, belowState)
-					? false
-					: this.isValidEmptySpawnBlock(level, pos, type);
-			} else {
-				return false;
-			}
-		}
-
-		private boolean isSurfaceLavaOrMagmaOrGabbro(LevelReader level, BlockPos pos, BlockState belowState) {
-			final BlockState state = level.getBlockState(pos);
-			return (belowState.getFluidState().is(FluidTags.LAVA) || belowState.is(Blocks.MAGMA_BLOCK) || belowState.is(WWBlocks.GABBRO))
-				&& !state.getFluidState().is(FluidTags.LAVA)
-				&& !(state.is(Blocks.MAGMA_BLOCK) || state.is(WWBlocks.GABBRO));
-		}
-
-		private boolean isValidEmptySpawnBlock(LevelReader level, BlockPos pos, EntityType<?> type) {
-			final BlockState state = level.getBlockState(pos);
-			boolean isSafeBurning = state.is(BlockTags.FIRE);
-			return isSafeBurning || NaturalSpawner.isValidEmptySpawnBlock(level, pos, state, state.getFluidState(), type);
+			return SpawnPlacementTypes.ON_GROUND.isSpawnPositionOk(level, pos, type) || SpawnPlacementTypes.IN_LAVA.isSpawnPositionOk(level, pos, type);
 		}
 
 		@Override
-		public BlockPos adjustSpawnPosition(LevelReader level, BlockPos pos) {
-			final BlockPos belowPos = pos.below();
-			return level.getBlockState(belowPos).isPathfindable(PathComputationType.LAND) ? belowPos : pos;
+		public BlockPos adjustSpawnPosition(LevelReader level, BlockPos candidate) {
+			return SpawnPlacementTypes.ON_GROUND.adjustSpawnPosition(level, candidate);
 		}
 	};
 }
