@@ -40,7 +40,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - Scorched that spawn inside Lava will, of course, ignore the light level requirement.
   - The restriction for a Scorched to spawn only on Magma, Gabbro, or Lava has been removed.
 - Scorched now despawn when the Difficulty is set to Peaceful.
-- Fixed the subtitles for a Maple Trapdoor opening and closing being broken.
+- Fixed the subtitles for Maple Trapdoors and Pale Oak Trapdoors opening and closing.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
@@ -100,6 +100,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Cleaned up the feature generation of Magmatic Caves.
 - Shrubs can no longer generate on Sand blocks in the Oasis biome.
 - Added the Icicle to the `minecraft:speleothems` Block Tag.
+- Added some missing entries to Item Tags.
 - Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
 - Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
 - Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
