@@ -1,5 +1,5 @@
 {
-  "type": "frozenlib:circular_lava_vegetation_patch_less_borders",
+  "type": "frozenlib:circular_lava_vegetation_patch",
   "config": {
     "depth": 4,
     "extra_bottom_block_chance": 0.8,
@@ -7,14 +7,14 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:magma_block"
+        "Name": "wilderwild:gabbro"
       }
     },
     "replaceable": "#wilderwild:feature/magma_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.08,
     "vegetation_feature": {
-      "feature": "wilderwild:magma_column",
+      "feature": "wilderwild:lava_pool_magma_column",
       "placement": []
     },
     "vertical_range": 2,

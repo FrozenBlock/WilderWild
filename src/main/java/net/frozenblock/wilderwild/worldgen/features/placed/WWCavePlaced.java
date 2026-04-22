@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -71,7 +70,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
 
 	// MAGMATIC CAVES
-	public static final FrozenLibPlacedFeature MAGMA_LAVA_POOL = WWPlacementUtils.register("magma_lava_pool");
+	public static final FrozenLibPlacedFeature GABBRO_LAVA_POOL = WWPlacementUtils.register("gabbro_lava_pool");
 	public static final FrozenLibPlacedFeature GABBRO_MAGMA_PATH = WWPlacementUtils.register("gabbro_magma_path");
 	public static final FrozenLibPlacedFeature LAVA_SPRING_EXTRA = WWPlacementUtils.register("lava_spring_extra");
 	public static final FrozenLibPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
@@ -210,7 +209,7 @@ public final class WWCavePlaced {
 		);
 
 		// MAGMATIC CAVES
-		MAGMA_LAVA_POOL.makeAndSetHolder(WWCaveConfigured.MAGMA_LAVA_POOL,
+		GABBRO_LAVA_POOL.makeAndSetHolder(WWCaveConfigured.GABBRO_LAVA_POOL,
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(60)),

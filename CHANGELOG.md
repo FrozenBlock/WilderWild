@@ -38,6 +38,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - The `wilderwild:magma_disk`, `wilderwild:magma_pile`, and `wilderwild:obsidian_disk` Configured Features and Placed Features have been removed.
   - Increased the chance for the `wilderwild:gabbro_disk` Placed Feature to generate.
   - Decreased the chance for the `wilderwild:upside_down_magma` Placed Feature to generate.
+  - The `wilderwild:magma_lava_pool` Configured Feature and Placed Feature have been renamed to `wilderwild:gabbro_lava_pool`, and now generates Gabbro borders.
+    - The `wilderwild:magma_column` Configured Feature has been renamed to `wilderiwld:lava_pool_magma_column`, and now only replaces Lava.
 - Updated the spawning rules for the Scorched:
   - Scorched will no longer spawn in any light level.
   - Scorched can now spawn under the surface of Lava.
