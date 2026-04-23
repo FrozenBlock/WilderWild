@@ -17,8 +17,10 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -26,18 +28,21 @@ import net.frozenblock.wilderwild.worldgen.impl.conditionsource.BetaBeachConditi
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SnowUnderMountainConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.conditionsource.SulfurCavesCalciteConditionSource;
 import net.frozenblock.wilderwild.worldgen.impl.noise.WWNoise;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
 
-	public static SurfaceRules.RuleSource cypressSurfaceRules() {
+	public static SurfaceRules.RuleSource cypressSurfaceRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.CYPRESS_WETLANDS),
+			SurfaceRules.isBiome(biomes, WWBiomes.CYPRESS_WETLANDS),
 			SurfaceRules.ifTrue(
 				SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
@@ -94,9 +99,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource warmRiverRules() {
+	public static SurfaceRules.RuleSource warmRiverRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.WARM_RIVER),
+			SurfaceRules.isBiome(biomes, WWBiomes.WARM_RIVER),
 			SurfaceRules.sequence(
 			desertAndBeachRules(),
 				SurfaceRules.ifTrue(
@@ -147,23 +152,23 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource warmBeachRules() {
+	public static SurfaceRules.RuleSource warmBeachRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.WARM_BEACH),
+			SurfaceRules.isBiome(biomes, WWBiomes.WARM_BEACH),
 			desertAndBeachRules()
 		);
 	}
 
-	public static SurfaceRules.RuleSource oasisRules() {
+	public static SurfaceRules.RuleSource oasisRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.OASIS),
+			SurfaceRules.isBiome(biomes, WWBiomes.OASIS),
 			desertAndBeachRules()
 		);
 	}
 
-	public static SurfaceRules.RuleSource aridGrass() {
+	public static SurfaceRules.RuleSource aridGrass(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
 					SurfaceRules.ON_FLOOR,
@@ -201,16 +206,16 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource aridRules() {
+	public static SurfaceRules.RuleSource aridRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			desertAndBeachRules()
 		);
 	}
 
-	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules() {
+	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
+			SurfaceRules.isBiome(biomes, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -237,9 +242,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource oldGrowthDarkForestRules() {
+	public static SurfaceRules.RuleSource oldGrowthDarkForestRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.OLD_GROWTH_DARK_FOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.OLD_GROWTH_DARK_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -254,9 +259,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource temperateRainforestRules() {
+	public static SurfaceRules.RuleSource temperateRainforestRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.TEMPERATE_RAINFOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.TEMPERATE_RAINFOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -279,9 +284,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource rainforestRules() {
+	public static SurfaceRules.RuleSource rainforestRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.RAINFOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.RAINFOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -296,9 +301,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource dyingForestRules() {
+	public static SurfaceRules.RuleSource dyingForestRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
+				SurfaceRules.isBiome(biomes, WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),
@@ -317,9 +322,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource mapleForestRules() {
+	public static SurfaceRules.RuleSource mapleForestRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.MAPLE_FOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.MAPLE_FOREST),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -344,9 +349,9 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource tundraRules() {
+	public static SurfaceRules.RuleSource tundraRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.TUNDRA),
+			SurfaceRules.isBiome(biomes, WWBiomes.TUNDRA),
 			SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
@@ -444,23 +449,23 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 	}
 
 	@Override
-	public void addOverworldSurfaceRules(List<SurfaceRules.RuleSource> context) {
+	public void addOverworldSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
 				betaBeaches(),
-				cypressSurfaceRules(),
-				warmRiverRules(),
-				warmBeachRules(),
-				oasisRules(),
-				aridGrass(),
-				aridRules(),
-				oldGrowthSnowyTaigaRules(),
-				oldGrowthDarkForestRules(),
-				temperateRainforestRules(),
-				rainforestRules(),
-				dyingForestRules(),
-				mapleForestRules(),
-				tundraRules()
+				cypressSurfaceRules(biomes),
+				warmRiverRules(biomes),
+				warmBeachRules(biomes),
+				oasisRules(biomes),
+				aridGrass(biomes),
+				aridRules(biomes),
+				oldGrowthSnowyTaigaRules(biomes),
+				oldGrowthDarkForestRules(biomes),
+				temperateRainforestRules(biomes),
+				rainforestRules(biomes),
+				dyingForestRules(biomes),
+				mapleForestRules(biomes),
+				tundraRules(biomes)
 			)
 		);
 	}
@@ -504,13 +509,13 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource frozenCavesSurfaceRules() {
+	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderLookup<Biome> biomes) {
 		final SurfaceRules.RuleSource iceNoiseRule = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
 		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = frozenCavesIcePath(WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE);
 		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
 
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(WWBiomes.FROZEN_CAVES),
+			SurfaceRules.isBiome(biomes, WWBiomes.FROZEN_CAVES),
 			SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
 					SurfaceRules.ON_FLOOR,
@@ -542,65 +547,35 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	public static SurfaceRules.RuleSource sulfurCavesCalcite() {
-		final SurfaceRules.RuleSource originalRule = SurfaceRules.noiseGradient(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(Blocks.CINNABAR.defaultBlockState()),
-				Optional.of(Blocks.SULFUR.defaultBlockState()),
-				Optional.of(Blocks.CINNABAR.defaultBlockState()),
-				Optional.of(Blocks.CINNABAR.defaultBlockState()),
-				Optional.of(Blocks.CINNABAR.defaultBlockState())
-			)
-		);
-
-		final SurfaceRules.RuleSource calciteRule = SurfaceRules.noiseGradient(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(Blocks.CALCITE.defaultBlockState()),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty()
-			)
-		);
+	public static SurfaceRules.RuleSource sulfurCavesCalcite(HolderLookup<Biome> biomes) {
+		// It's half and half!
+		final ArrayList<Optional<BlockState>> states = new ArrayList<>();
+		for (int i = 0; i < 40; i++) states.add(Optional.empty());
+		for (int i = 0; i < 2; i++) states.add(Optional.of(Blocks.TUFF.defaultBlockState()));
+		for (int i = 0; i < 9; i++) states.add(Optional.of(Blocks.CINNABAR.defaultBlockState()));
+		for (int i = 0; i < 3; i++) states.add(Optional.of(Blocks.GRANITE.defaultBlockState()));
+		for (int i = 0; i < 2; i++) states.add(Optional.of(Blocks.CALCITE.defaultBlockState()));
+		for (int i = 0; i < 24; i++) states.add(Optional.of(Blocks.SULFUR.defaultBlockState()));
 
 		return SurfaceRules.ifTrue(
 			SulfurCavesCalciteConditionSource.sulfurCavesCalciteConditionSource(),
 			SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(Biomes.SULFUR_CAVES),
-				calciteRule
+				SurfaceRules.isBiome(biomes, Biomes.SULFUR_CAVES),
+				SurfaceRules.noiseGradient(
+					Noises.SULFUR_CAVE_GRADIENT,
+					ImmutableList.copyOf(states)
+				)
 			)
 		);
 	}
 
 	@Override
-	public void addOverworldNoPrelimSurfaceRules(List<SurfaceRules.RuleSource> context) {
+	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
 				snowUnderMountains(),
-				frozenCavesSurfaceRules(),
-				sulfurCavesCalcite()
+				frozenCavesSurfaceRules(biomes),
+				sulfurCavesCalcite(biomes)
 			)
 		);
 	}

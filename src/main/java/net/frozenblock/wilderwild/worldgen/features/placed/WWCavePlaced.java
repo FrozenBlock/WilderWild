@@ -62,7 +62,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = WWPlacementUtils.register("purple_mesoglea_column");
 	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = WWPlacementUtils.register("mesoglea_paths");
 	public static final FrozenLibPlacedFeature DOWNWARD_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
-	public static final FrozenLibPlacedFeature DOWNWARD_PURLE_MESOGLEA = register("upside_down_purple_mesoglea");
+	public static final FrozenLibPlacedFeature DOWNWARD_PURPLE_MESOGLEA = register("upside_down_purple_mesoglea");
 	public static final FrozenLibPlacedFeature NEMATOCYST_BLUE = register("nematocyst_blue");
 	public static final FrozenLibPlacedFeature NEMATOCYST_PURPLE = register("nematocyst_purple");
 	public static final FrozenLibPlacedFeature MESOGLEA_CLUSTER_PURPLE = register("mesoglea_cluster_purple");
@@ -170,7 +170,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARD_PURLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_PURPLE_MESOGLEA,
+		DOWNWARD_PURPLE_MESOGLEA.makeAndSetHolder(WWCaveConfigured.DOWNWARD_PURPLE_MESOGLEA,
 			CountPlacement.of(12),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -560,7 +560,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome(),
-			NoiseThresholdCountPlacement.of(-0.3D, 0, 1)
+			NoiseThresholdCountPlacement.of(-0.4D, 0, 1)
 		);
 
 		SULFUR_SPIKE.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE),
@@ -573,7 +573,7 @@ public final class WWCavePlaced {
 				ClampedNormalInt.of(0F, 0.6F, -2, 2)
 			),
 			BiomeFilter.biome(),
-			NoiseThresholdCountPlacement.of(-0.3D, 0, 1)
+			NoiseThresholdCountPlacement.of(-0.4D, 0, 1)
 		);
 	}
 

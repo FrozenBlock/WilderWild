@@ -19,22 +19,20 @@ package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public final class SnowUnderMountainConditionSource implements SurfaceRules.ConditionSource {
 	public static final SnowUnderMountainConditionSource INSTANCE = new SnowUnderMountainConditionSource();
-	public static final KeyDispatchDataCodec<SnowUnderMountainConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
+	public static final MapCodec<SnowUnderMountainConditionSource> CODEC = MapCodec.unit(INSTANCE);
 
-	SnowUnderMountainConditionSource() {
-	}
+	SnowUnderMountainConditionSource() {}
 
 	public static SnowUnderMountainConditionSource snowUnderMountainConditionSource() {
 		return INSTANCE;
 	}
 
 	@Override
-	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
+	public MapCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 

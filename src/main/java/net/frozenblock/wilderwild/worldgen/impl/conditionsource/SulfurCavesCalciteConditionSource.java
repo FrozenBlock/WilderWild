@@ -19,22 +19,20 @@ package net.frozenblock.wilderwild.worldgen.impl.conditionsource;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public final class SulfurCavesCalciteConditionSource implements SurfaceRules.ConditionSource {
 	public static final SulfurCavesCalciteConditionSource INSTANCE = new SulfurCavesCalciteConditionSource();
-	public static final KeyDispatchDataCodec<SulfurCavesCalciteConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
+	public static final MapCodec<SulfurCavesCalciteConditionSource> CODEC =MapCodec.unit(INSTANCE);
 
-	SulfurCavesCalciteConditionSource() {
-	}
+	SulfurCavesCalciteConditionSource() {}
 
 	public static SulfurCavesCalciteConditionSource sulfurCavesCalciteConditionSource() {
 		return INSTANCE;
 	}
 
 	@Override
-	public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {
+	public MapCodec<? extends SurfaceRules.ConditionSource> codec() {
 		return CODEC;
 	}
 

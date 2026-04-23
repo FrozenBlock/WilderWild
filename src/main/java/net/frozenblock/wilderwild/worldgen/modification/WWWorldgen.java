@@ -85,9 +85,9 @@ public final class WWWorldgen {
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_enabled"), BetaBeachConditionSource.CODEC.codec());
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_enabled"), SnowUnderMountainConditionSource.CODEC.codec());
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("sulfur_caves_calcite_enabled"), SulfurCavesCalciteConditionSource.CODEC.codec());
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_enabled"), BetaBeachConditionSource.CODEC);
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_enabled"), SnowUnderMountainConditionSource.CODEC);
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("sulfur_caves_calcite_enabled"), SulfurCavesCalciteConditionSource.CODEC);
 	}
 
 	private static void configureBuiltInBiomes() {
