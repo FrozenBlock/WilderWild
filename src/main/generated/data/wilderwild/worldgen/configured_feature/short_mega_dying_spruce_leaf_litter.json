@@ -354,7 +354,6 @@
           ]
         },
         "height": 2,
-        "radius": 2,
         "tries": 75
       }
     ],
@@ -382,7 +381,6 @@
     "ignore_vines": false,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
       "lower_size": 1,
       "upper_size": 2
     },

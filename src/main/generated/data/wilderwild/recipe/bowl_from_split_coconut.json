@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "bowl",
   "ingredients": [
     "wilderwild:split_coconut",

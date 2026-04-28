@@ -165,7 +165,13 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 
 	@Override
 	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
+		// NOTE: Mojang uses new level events for each Speleotem as of 26.2-snapshot-5. But of course, us making one isn't a great idea!
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(fallingBlock.getBlockState()));
+	}
+
+	@Override
+	protected int getStalactiteLandingSound() {
+		return 0;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "stone_chest",
   "key": {
     "#": "minecraft:cobbled_deepslate",

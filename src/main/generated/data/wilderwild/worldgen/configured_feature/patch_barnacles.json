@@ -3,10 +3,8 @@
   "config": {
     "block": "wilderwild:barnacles",
     "can_be_placed_on": "#wilderwild:feature/barnacles_feature_placeable",
-    "can_place_on_ceiling": false,
     "can_place_on_floor": true,
     "can_place_on_wall": true,
-    "chance_of_spreading": 0.7,
-    "search_range": 10
+    "chance_of_spreading": 0.7
   }
 }

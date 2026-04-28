@@ -18,7 +18,10 @@
     "top_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:potent_sulfur"
+        "Name": "minecraft:potent_sulfur",
+        "Properties": {
+          "potent_sulfur_state": "dry"
+        }
       }
     }
   }

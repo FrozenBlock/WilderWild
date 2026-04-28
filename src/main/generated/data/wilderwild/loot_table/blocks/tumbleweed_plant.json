@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
@@ -20,7 +19,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:inverted",
@@ -70,7 +68,6 @@
           ],
           "functions": [
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "wilderwild:tumbleweed_plant",
@@ -88,7 +85,6 @@
               "function": "minecraft:set_count"
             },
             {
-              "add": false,
               "conditions": [
                 {
                   "block": "wilderwild:tumbleweed_plant",
@@ -115,7 +111,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:any_of",
@@ -158,7 +153,6 @@
           ],
           "functions": [
             {
-              "add": false,
               "count": 1.0,
               "function": "minecraft:set_count"
             }

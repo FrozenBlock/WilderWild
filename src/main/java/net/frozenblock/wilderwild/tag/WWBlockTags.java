@@ -91,7 +91,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> OSTRICH_BEAK_BURYABLE = bind("ostrich_beak_buryable");
 	public static final TagKey<Block> FIREFLY_HIDEABLE_BLOCKS = bind("firefly_hideable_blocks");
 	public static final TagKey<Block> PENGUIN_IGNORE_FRICTION = bind("penguin_ignore_friction");
-	public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = bind("penguins_spawnable_on");
+	public static final TagKey<Block> PENGUIN_SPAWNABLE_ON = bind("penguin_spawnable_on");
+	public static final TagKey<Block> PENGUIN_IMMUNE_TO = bind("penguins_immune_to");
 
 	public static final TagKey<Block> MYCELIUM_GROWTH_REPLACEABLE = bind("mycelium_growth_replaceable");
 	public static final TagKey<Block> AUBURN_MOSS_REPLACEABLE = bind("auburn_moss_replaceable");

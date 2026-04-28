@@ -33,6 +33,7 @@ import net.frozenblock.wilderwild.entity.Scorched;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -44,7 +45,6 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class WWEntityTypes {
@@ -117,7 +117,7 @@ public final class WWEntityTypes {
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
 			.clientTrackingRange(10)
-			.immuneTo(Blocks.POWDER_SNOW)
+			.immuneTo(WWBlockTags.PENGUIN_IMMUNE_TO)
 	);
 
 	public static final EntityType<CoconutProjectile> COCONUT = register(WWEntityTypeIds.COCONUT,
@@ -134,7 +134,6 @@ public final class WWEntityTypes {
 	);
 
 	// BOATS
-
 	public static final EntityType<Boat> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT,
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC)
 			.noLootTable()
@@ -142,7 +141,6 @@ public final class WWEntityTypes {
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-
 	public static final EntityType<ChestBoat> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT,
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
@@ -158,7 +156,6 @@ public final class WWEntityTypes {
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-
 	public static final EntityType<ChestBoat> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT,
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
@@ -174,7 +171,6 @@ public final class WWEntityTypes {
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-
 	public static final EntityType<ChestBoat> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT,
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
@@ -190,7 +186,6 @@ public final class WWEntityTypes {
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-
 	public static final EntityType<ChestBoat> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT,
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
@@ -206,7 +201,6 @@ public final class WWEntityTypes {
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-
 	public static final EntityType<ChestBoat> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT,
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()

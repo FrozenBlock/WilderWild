@@ -387,7 +387,6 @@
           ]
         },
         "height": 2,
-        "radius": 2,
         "tries": 150
       }
     ],
@@ -413,7 +412,6 @@
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 3,
-      "lower_size": 0,
       "upper_size": 2
     },
     "root_placer": {

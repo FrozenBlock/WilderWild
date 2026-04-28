@@ -489,13 +489,16 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWBlockTags.PENGUIN_IGNORE_FRICTION)
 			.addOptionalTag(BlockTags.ICE);
 
-		this.builder(WWBlockTags.PENGUINS_SPAWNABLE_ON)
+		this.builder(WWBlockTags.PENGUIN_SPAWNABLE_ON)
 			.add(BlockItemIds.ICE)
 			.add(BlockItemIds.SNOW_BLOCK)
 			.add(BlockItemIds.SAND)
 			.add(BlockItemIds.GRAVEL)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON);
+
+		this.builder(WWBlockTags.PENGUIN_IMMUNE_TO)
+			.add(BlockItemIds.POWDER_SNOW);
 
 		this.builder(WWBlockTags.NO_LIGHTNING_BLOCK_PARTICLES)
 			.addOptionalTag(BlockItemTags.LIGHTNING_RODS.block());

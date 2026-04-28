@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "firefly_bottle",
   "ingredients": [
     "minecraft:red_dye",

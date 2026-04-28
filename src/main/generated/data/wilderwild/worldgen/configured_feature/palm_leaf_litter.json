@@ -321,7 +321,6 @@
           ]
         },
         "height": 2,
-        "radius": 2,
         "tries": 68
       }
     ],
@@ -352,10 +351,7 @@
     },
     "ignore_vines": false,
     "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
+      "type": "minecraft:two_layers_feature_size"
     },
     "trunk_placer": {
       "type": "wilderwild:palm_trunk_placer",

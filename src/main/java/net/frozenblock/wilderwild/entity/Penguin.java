@@ -112,7 +112,7 @@ public class Penguin extends Animal {
 
 	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
 		if (!WWEntityConfig.SPAWN_PENGUINS.get()) return false;
-		return level.getBlockState(pos.below()).is(WWBlockTags.PENGUINS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+		return level.getBlockState(pos.below()).is(WWBlockTags.PENGUIN_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
 	}
 
 	@Override

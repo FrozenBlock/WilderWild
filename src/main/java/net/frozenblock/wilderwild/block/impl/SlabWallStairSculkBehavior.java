@@ -84,7 +84,7 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 		if (placeState != null) {
 			level.setBlock(pos, placeState, Block.UPDATE_ALL);
 			clearSculkVeins(level, pos);
-			if (markForPostProcessing) level.getChunk(pos).markPosForPostprocessing(pos);
+			if (markForPostProcessing) level.getChunk(pos).markPosForPostProcessing(pos);
 		}
 		return true;
 	}

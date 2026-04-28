@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.worldgen.impl.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
+import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -43,22 +44,23 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		RandomSource random,
 		List<Direction> directions
 	) {
-		BlockPos.MutableBlockPos mutable = pos.mutable();
+		final BlockPos.MutableBlockPos mutable = pos.mutable();
+		final NematocystBlock nematocyst = (NematocystBlock) config.placeBlock;
 
 		for (Direction direction : directions) {
 			BlockState offsetState = level.getBlockState(mutable.setWithOffset(pos, direction));
 			if (!offsetState.is(config.canBePlacedOn)) continue;
 
-			BlockState placementState = config.placeBlock.getStateForPlacement(state, level, pos, direction);
+			BlockState placementState = nematocyst.getStateForPlacement(state, level, pos, direction);
 			if (placementState == null) return false;
 
 			level.setBlock(pos, placementState, Block.UPDATE_ALL);
-			level.getChunk(pos).markPosForPostprocessing(pos);
-			var optional = config.placeBlock.getSpreader().spreadFromFaceTowardRandomDirection(placementState, level, pos, direction, random, true);
+			level.getChunk(pos).markPosForPostProcessing(pos);
+			var optional = nematocyst.getSpreader().spreadFromFaceTowardRandomDirection(placementState, level, pos, direction, random, true);
 			for (int i = 0; i < random.nextInt(2) + 3; ++i) {
 				if (optional.isPresent()) {
 					var spreadPos = optional.get();
-					optional = config.placeBlock.getSpreader().spreadFromFaceTowardRandomDirection(placementState, level, spreadPos.pos(), spreadPos.face(), random, true);
+					optional = nematocyst.getSpreader().spreadFromFaceTowardRandomDirection(placementState, level, spreadPos.pos(), spreadPos.face(), random, true);
 				} else {
 					break;
 				}

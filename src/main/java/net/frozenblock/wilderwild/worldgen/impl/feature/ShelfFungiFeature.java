@@ -64,7 +64,7 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
 			Block.UPDATE_ALL
 		);
-		level.getChunk(pos).markPosForPostprocessing(pos);
+		level.getChunk(pos).markPosForPostProcessing(pos);
 		return true;
 	}
 
