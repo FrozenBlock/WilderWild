@@ -50,6 +50,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed the subtitles for Maple Trapdoors and Pale Oak Trapdoors opening and closing.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
+- Fixed an issue that would cause Milkweed to instantly get its pods picked when Bone Mealed by a Player.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
 - Crabs will now become persistent when fed.
 - Jellyfish will now become persistent when fed.
@@ -72,8 +73,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This has been superseded by the `minecraft:speleothem_cluster` Feature.
 - The Ice paths in the Frozen Caves biome now use Surface Rules to generate, offering cleaner generation and a significant performance boost.
   - The `wilderwild:ice_paths` Configured Feature and Placed Feature have both been removed.
-- Sulfur Spike generation in the Sulfur Caves biome has been significantly decreased.
-  - Added a config option to toggle the new Sulfur Spike generation.
+- Sulfur Geysers will now create Wind Disturbances.
+  - Added the `block_potent_sulfur` option to Wilder Wild's Mixin Config.
+- Sulfur Pools can now rarely form Geysers.
+  - Added a config option to toggle the new Sulfur Pool generation.
+  - Added the `wilderwild:feature/has_sulfur_pool` Biome Tag.
 - Replaced Vanilla's Sulfur Spring generation with new, wider, procedurally-generated Sulfur Springs.
   - Vanilla's Sulfur Springs are pre-built, and did not display much variance in size or width.
   - The new Sulfur Springs are extremely variable on all fronts, resolving these issues.
@@ -90,6 +94,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `block_state`: a Block State Provider, determining the Block States to generate the spring with. (i.e., Sulfur.)
     - `water_block_state`: a Block State Provider, determining the Block States to generate the spring's water with.
     - `decoration_feature`: a Placed Feature that generates within the spring's water.
+    - `extra_decoration_chance`: a Float Provider, determining the chance of extra decoration features generating per-Block.
     - `replaceable`: a list or Tag of Blocks that the spring can replace.
     - `cannot_replace`: a list or Tag of Blocks that the spring cannot replace.
   - Added the `wilderwild:sulfur_spring_decoration` Feature, with the following Feature Configuration:
@@ -102,7 +107,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added the `wilderwild:feature/sulfur_spring_replaceable` and `wilderwild:feature/sulfur_spring_placeable` Block Tags.
   - Added the `wilderwild:feature/has_sulfur_spring` Biome Tag.
   - Added a config option to toggle the new Sulfur Spring generation.
-- Calcite now generates alongside Sulfur and Cinnabar in the Sulfur Caves biome.
+- Sulfur Spike generation in the Sulfur Caves biome has been significantly decreased.
+  - Added a config option to toggle the new Sulfur Spike generation.
+  - Added the `wilderwild:feature/has_sulfur_spike` Biome Tag.
+- Calcite now generates alongside Sulfur, Granite, Cinnabar, and Tuff in the Sulfur Caves biome.
   - Added a config option to toggle Calcite generation.
 - Cleaned up the feature generation of Magmatic Caves.
 - Shrubs can no longer generate on Sand blocks in the Oasis biome.
@@ -111,3 +119,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `wilderwild:sulfur_caves_calcite_enabled` Material Condition.
 - Renamed the `wilderwild:beta_beach_condition_source` Material Condition to `wilderwild:beta_beach_enabled`.
 - Renamed the `wilderwild:snow_under_mountain_condition_source` Material Condition to `wilderwild:snow_under_mountain_enabled`.
+- Added the `wilderwild:penguin_immune_to` Block Tag, controlling which blocks do not affect Penguins.
+  - Contains Powder Snow by default.
+- Renamed the `wilderwild:penguins_spawnable_on` Block Tag to `wilderwild:penguin_spawnable_on`.

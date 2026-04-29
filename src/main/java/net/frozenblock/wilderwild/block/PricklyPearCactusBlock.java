@@ -56,7 +56,6 @@ import org.jetbrains.annotations.Nullable;
 public class PricklyPearCactusBlock extends VegetationBlock implements BonemealableBlock {
 	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final int GROWTH_CHANCE = 16;
-	public static final Vec3 ENTITY_SLOWDOWN_VEC3 = new Vec3(0.8D, 0.75D, 0.8D);
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
 	public static final int MAX_AGE = 3;
@@ -74,11 +73,6 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	@Override
 	protected MapCodec<? extends PricklyPearCactusBlock> codec() {
 		return CODEC;
-	}
-
-	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return !isFullyGrown(state);
 	}
 
 	@Override
@@ -101,7 +95,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		InsideBlockEffectApplier effectApplier,
 		boolean isPrecise
 	) {
-		entity.makeStuckInBlock(state, ENTITY_SLOWDOWN_VEC3);
+		entity.makeStuckInBlock(state, new Vec3(0.8D, 0.75D, 0.8D));
 		if (!(entity instanceof ItemEntity)) entity.hurt(level.damageSources().cactus(), DAMAGE);
 	}
 
@@ -116,16 +110,6 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return true;
-	}
-
-	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
-	}
-
-	@Override
 	public InteractionResult useItemOn(
 		ItemStack stack,
 		BlockState state,
@@ -136,6 +120,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		BlockHitResult hitResult
 	) {
 		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		if (hand == InteractionHand.OFF_HAND && !stack.is(Items.SHEARS) && player.getMainHandItem().is(Items.BONE_MEAL)) return InteractionResult.PASS;
 		onPlayerPick(level, pos, state, player, hand, stack);
 		return InteractionResult.SUCCESS;
 	}
@@ -166,6 +151,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 			level.gameEvent(user, GameEvent.SHEAR, pos);
 		} else {
 			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK, SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
+			level.gameEvent(user, GameEvent.BLOCK_CHANGE, pos);
 		}
 	}
 
@@ -185,5 +171,20 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(AGE);
+	}
+
+	@Override
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+		return !isFullyGrown(state);
+	}
+
+	@Override
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+		return true;
+	}
+
+	@Override
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+		level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, state.getValue(AGE) + random.nextIntBetweenInclusive(1, 2))));
 	}
 }
