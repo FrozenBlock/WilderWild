@@ -153,13 +153,14 @@ public class MilkweedBlock extends TallFlowerBlock {
 		BlockHitResult hitResult
 	) {
 		if (stack.is(Items.BONE_MEAL)) return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (!isFullyGrown(state)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		if (!isFullyGrown(state)) return InteractionResult.PASS;
 		if (!(level instanceof ServerLevel)) return InteractionResult.SUCCESS;
 		if (stack.is(Items.SHEARS)) {
 			stack.hurtAndBreak(1, player, hand);
 			player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 			onShear(level, pos, state, stack, player);
 		} else {
+			if (hand == InteractionHand.OFF_HAND && player.getMainHandItem().is(Items.BONE_MEAL)) return InteractionResult.PASS;
 			this.pickAndSpawnSeeds(level, state, pos);
 		}
 		return InteractionResult.SUCCESS;

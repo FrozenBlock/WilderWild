@@ -50,6 +50,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed the subtitles for Maple Trapdoors and Pale Oak Trapdoors opening and closing.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
+- Fixed an issue that would cause Milkweed to instantly get its pods picked when Bone Mealed by a Player.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
 - Crabs will now become persistent when fed.
 - Jellyfish will now become persistent when fed.
