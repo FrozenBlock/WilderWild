@@ -19,14 +19,14 @@ package net.frozenblock.wilderwild.block.state.properties;
 
 import net.minecraft.util.StringRepresentable;
 
-public enum GeyserStage implements StringRepresentable {
+public enum GeyserState implements StringRepresentable {
 	DORMANT("dormant"),
 	ACTIVE("active"),
 	ERUPTING("erupting");
 
 	private final String name;
 
-	GeyserStage(String name) {
+	GeyserState(String name) {
 		this.name = name;
 	}
 

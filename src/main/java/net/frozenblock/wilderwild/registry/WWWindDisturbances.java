@@ -26,26 +26,41 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.PotentSulfurBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public final class WWWindDisturbances {
-	public static final Identifier GEYSER_EFFECTIVE_WIND_DISTURBANCE = WWConstants.id("geyser_effective");
-	public static final Identifier GEYSER_BASE_WIND_DISTURBANCE = WWConstants.id("geyser");
+	public static final Identifier GEYSER_EFFECTIVE = WWConstants.id("geyser_effective_ww");
+	public static final Identifier GEYSER_BASE = WWConstants.id("geyser_base_ww");
+	public static final Identifier GEYSER_MOJANG = WWConstants.id("geyser");
 
 	public static void init() {
 		WindDisturbanceLogic.register(
-			GEYSER_EFFECTIVE_WIND_DISTURBANCE,
+			GEYSER_EFFECTIVE,
 			(source, level, windOrigin, affectedArea, windTarget) -> {
 				return calculateDisturbanceResult(source, level, windOrigin, windTarget, GeyserBlockEntity.EFFECTIVE_ADDITIONAL_WIND_INTENSITY);
 			}
 		);
 
 		WindDisturbanceLogic.register(
-			GEYSER_BASE_WIND_DISTURBANCE,
+			GEYSER_BASE,
 			(source, level, windOrigin, affectedArea, windTarget) -> {
 				return calculateDisturbanceResult(source, level, windOrigin, windTarget, GeyserBlockEntity.BASE_WIND_INTENSITY);
+			}
+		);
+
+		final WindDisturbance.DisturbanceResult mojangGeyserResult = new WindDisturbance.DisturbanceResult(
+			1D,
+			1D,
+			new Vec3(0, 0.2D, 0).scale(40D)
+		);
+		WindDisturbanceLogic.register(
+			GEYSER_MOJANG,
+			(source, level, windOrigin, affectedArea, windTarget) -> {
+				if (source.isEmpty() || !(source.get() instanceof PotentSulfurBlockEntity geyser)) return null;
+				mojangGeyserResult
 			}
 		);
 	}

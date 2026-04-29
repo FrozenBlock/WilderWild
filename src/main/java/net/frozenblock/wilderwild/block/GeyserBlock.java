@@ -21,7 +21,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.wind.api.BlowingHelper;
 import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
-import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
+import net.frozenblock.wilderwild.block.state.properties.GeyserState;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -56,7 +56,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	public static final float BOIL_SOUND_CHANCE_NATURAL = 0.0085F;
 	public static final float BOIL_SOUND_CHANCE = 0.002F;
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = WWBlockStateProperties.GEYSER_TYPE;
-	public static final EnumProperty<GeyserStage> GEYSER_STAGE = WWBlockStateProperties.GEYSER_STAGE;
+	public static final EnumProperty<GeyserState> GEYSER_STAGE = WWBlockStateProperties.GEYSER_STAGE;
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -66,7 +66,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		super(properties);
 		this.registerDefaultState(this.getStateDefinition().any()
 			.setValue(GEYSER_TYPE, GeyserType.NONE)
-			.setValue(GEYSER_STAGE, GeyserStage.DORMANT)
+			.setValue(GEYSER_STAGE, GeyserState.DORMANT)
 			.setValue(FACING, Direction.UP)
 			.setValue(NATURAL, true)
 			.setValue(POWERED, false)
@@ -96,10 +96,10 @@ public class GeyserBlock extends BaseEntityBlock {
 
 	@Override
 	protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
-		final GeyserStage stage = state.getValue(GEYSER_STAGE);
-		if (stage == GeyserStage.DORMANT) return 0;
-		if (stage == GeyserStage.ACTIVE) return 5;
-		if (stage == GeyserStage.ERUPTING) return 15;
+		final GeyserState stage = state.getValue(GEYSER_STAGE);
+		if (stage == GeyserState.DORMANT) return 0;
+		if (stage == GeyserState.ACTIVE) return 5;
+		if (stage == GeyserState.ERUPTING) return 15;
 		return super.getAnalogOutputSignal(state, level, pos, direction);
 	}
 
@@ -112,7 +112,7 @@ public class GeyserBlock extends BaseEntityBlock {
 		final boolean canErupt = context.getLevel().hasNeighborSignal(pos) && isActive(geyserType);
 
 		return this.defaultBlockState()
-			.setValue(GEYSER_STAGE, canErupt ? GeyserStage.ERUPTING : GeyserStage.DORMANT)
+			.setValue(GEYSER_STAGE, canErupt ? GeyserState.ERUPTING : GeyserState.DORMANT)
 			.setValue(GEYSER_TYPE, geyserType)
 			.setValue(FACING, direction)
 			.setValue(NATURAL, false);
@@ -127,9 +127,9 @@ public class GeyserBlock extends BaseEntityBlock {
 
 		BlockState newState = state.setValue(POWERED, hasNeighborSignal);
 		if (hasNeighborSignal) {
-			final boolean erupting = state.getValue(GEYSER_STAGE) == GeyserStage.ERUPTING;
+			final boolean erupting = state.getValue(GEYSER_STAGE) == GeyserState.ERUPTING;
 			if (!erupting && isActive(state.getValue(GEYSER_TYPE))) {
-				newState = newState.setValue(GEYSER_STAGE, GeyserStage.ERUPTING);
+				newState = newState.setValue(GEYSER_STAGE, GeyserState.ERUPTING);
 			}
 		}
 		level.setBlockAndUpdate(pos, newState);
@@ -184,7 +184,7 @@ public class GeyserBlock extends BaseEntityBlock {
 
 		final Direction direction = state.getValue(FACING);
 		final boolean natural = state.getValue(NATURAL);
-		final GeyserStage stage = state.getValue(GEYSER_STAGE);
+		final GeyserState stage = state.getValue(GEYSER_STAGE);
 		GeyserParticleHandler.spawnBaseGeyserParticles(level, pos, direction, random, geyserType == GeyserType.HYDROTHERMAL_VENT);
 
 		if (geyserType == GeyserType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
@@ -200,9 +200,9 @@ public class GeyserBlock extends BaseEntityBlock {
 			);
 		}
 
-		if (stage == GeyserStage.DORMANT) {
+		if (stage == GeyserState.DORMANT) {
 			GeyserParticleHandler.spawnDormantParticles(level, pos, geyserType, direction, random);
-		} else if (stage == GeyserStage.ACTIVE) {
+		} else if (stage == GeyserState.ACTIVE) {
 			GeyserParticleHandler.spawnActiveParticles(level, pos, geyserType, direction, random);
 		}
 
@@ -214,7 +214,7 @@ public class GeyserBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (levelx, pos, statex, blockEntity) -> blockEntity.tickServer(levelx, pos, statex, levelx.getRandom()))
+			createTickerHelper(type, WWBlockEntityTypes.GEYSER, (levelx, pos, statex, blockEntity) -> blockEntity.tickServer((ServerLevel) levelx, pos, statex, levelx.getRandom()))
 			: createTickerHelper(type, WWBlockEntityTypes.GEYSER, (levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx, pos, statex, levelx.getRandom()));
 	}
 

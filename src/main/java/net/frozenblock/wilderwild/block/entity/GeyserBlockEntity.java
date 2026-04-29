@@ -19,18 +19,17 @@ package net.frozenblock.wilderwild.block.entity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.wind.api.BlowingHelper;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.advancements.trigger.GeyserPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeyserBlock;
 import net.frozenblock.wilderwild.block.impl.GeyserParticleHandler;
-import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
+import net.frozenblock.wilderwild.block.state.properties.GeyserState;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWCriteria;
@@ -62,7 +61,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 
 public class GeyserBlockEntity extends BlockEntity {
-	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level1, windOrigin, affectedArea, windTarget) -> WindDisturbance.DUMMY_RESULT);
+	private static final WindDisturbanceLogic<GeyserBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level, origin, area, target) -> WindDisturbance.DUMMY_RESULT);
+	private static final Predicate<Entity> EFFECT_PREDICATE = EntitySelector.ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS);
 	public static final double ERUPTION_DISTANCE = 6D;
 	public static final double VENT_DISTANCE = 3D;
 	public static final int ERUPTION_DISTANCE_IN_BLOCKS = 5;
@@ -100,9 +100,9 @@ public class GeyserBlockEntity extends BlockEntity {
 		return super.triggerEvent(eventId, data);
 	}
 
-	public void tickServer(Level level, BlockPos pos, BlockState state, RandomSource random) {
+	public void tickServer(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
 		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
-		final GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		final GeyserState geyserState = state.getValue(GeyserBlock.GEYSER_STAGE);
 		final Direction direction = state.getValue(GeyserBlock.FACING);
 		boolean natural = state.getValue(GeyserBlock.NATURAL);
 
@@ -114,17 +114,17 @@ public class GeyserBlockEntity extends BlockEntity {
 				this.eruptionProgress = 1F;
 				this.handleEruption(level, pos, geyserType, direction, natural);
 				this.setActive(level, pos, state, random);
-			} else if (geyserStage == GeyserStage.ERUPTING) {
+			} else if (geyserState == GeyserState.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
 					this.ticksUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
 					level.playSound(null, pos, geyserType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
-					this.level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
+					level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 				this.handleEruption(level, pos, geyserType, direction, natural);
 			}
 			this.ticksUntilNextEvent -= 1;
-			if (this.ticksUntilNextEvent <= 0) this.advanceStage(level, pos, state, geyserStage, natural, random);
+			if (this.ticksUntilNextEvent <= 0) this.advanceStage(level, pos, state, geyserState, natural, random);
 		} else {
 			this.setDormant(level, pos, state, random);
 		}
@@ -142,7 +142,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	private void handleEruption(Level level, BlockPos pos, GeyserType geyserType, Direction direction, boolean natural) {
+	private void handleEruption(ServerLevel level, BlockPos pos, GeyserType geyserType, Direction direction, boolean natural) {
 		final BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		final boolean vent = geyserType == GeyserType.HYDROTHERMAL_VENT;
 
@@ -170,44 +170,35 @@ public class GeyserBlockEntity extends BlockEntity {
 		final AABB eruption = aabb(pos, mutablePos.immutable());
 		mutablePos.move(direction.getOpposite());
 
-		final AABB effectiveEruption = cutoffPos.map(blockPos ->
-				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+		final AABB effectiveEruption = cutoffPos.map(blockPos -> aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
 			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
-		final AABB damagingEruption = damageCutoffPos.map(blockPos ->
-				aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
+		final AABB damagingEruption = damageCutoffPos.map(blockPos -> aabb(pos, blockPos.immutable().relative(direction.getOpposite())))
 			.orElseGet(() -> aabb(pos, mutablePos.immutable()));
 
 		final AABB maxPossibleEruptionBox = getPossibleEruptionBoundingBox(pos, maxEndPos);
-		List<Entity> entities = level.getEntities(
-			EntityTypeTest.forClass(Entity.class),
-			maxPossibleEruptionBox,
-			EntitySelector.ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS)
-		);
+		final List<Entity> entities = level.getEntities(EntityTypeTest.forClass(Entity.class), maxPossibleEruptionBox, EFFECT_PREDICATE);
 
 		final Vec3 geyserStartPos = Vec3.atCenterOf(pos);
-
-		final WindDisturbance<GeyserBlockEntity> effectiveWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
-			Optional.of(this),
-			geyserStartPos,
-			effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_EFFECTIVE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
-		);
-		final WindDisturbance<GeyserBlockEntity> baseWindDisturbance = new WindDisturbance<GeyserBlockEntity>(
-			Optional.of(this),
-			geyserStartPos,
-			eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_BASE_WIND_DISTURBANCE).orElse(DUMMY_WIND_LOGIC)
-		);
-
 		if (!vent) {
-			if (level instanceof ServerLevel serverLevel) {
-				WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
-				windManager.addWindDisturbance(effectiveWindDisturbance);
-				windManager.addWindDisturbance(baseWindDisturbance);
-			} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-				addWindDisturbanceToClient(effectiveWindDisturbance);
-				addWindDisturbanceToClient(baseWindDisturbance);
-			}
+			final WindManager windManager = WindManager.getOrCreateWindManager(level);
+			windManager.addWindDisturbanceAndSync(
+				new WindDisturbance<GeyserBlockEntity>(
+					Optional.of(this),
+					geyserStartPos,
+					effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
+					WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_EFFECTIVE).orElse(DUMMY_WIND_LOGIC)
+				),
+				level
+			);
+			windManager.addWindDisturbanceAndSync(
+				new WindDisturbance<GeyserBlockEntity>(
+					Optional.of(this),
+					geyserStartPos,
+					eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
+					WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_BASE).orElse(DUMMY_WIND_LOGIC)
+				),
+				level
+			);
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
@@ -220,18 +211,17 @@ public class GeyserBlockEntity extends BlockEntity {
 			if (entity instanceof Player player) {
 				if (player.getAbilities().flying) {
 					applyMovement = false;
-				} else {
-					if (direction == Direction.UP) {
-						final Vec3 lastImpactPos = player.currentImpulseImpactPos;
-						final Vec3 playerPos = player.position();
-						player.setIgnoreFallDamageFromCurrentImpulse(
-							true,
-							new Vec3(
-								playerPos.x(),
-								lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
-								playerPos.z()
-						));
-					}
+				} else if (direction == Direction.UP) {
+					final Vec3 lastImpactPos = player.currentImpulseImpactPos;
+					final Vec3 playerPos = player.position();
+					player.setIgnoreFallDamageFromCurrentImpulse(
+						true,
+						new Vec3(
+							playerPos.x(),
+							lastImpactPos != null ? Math.min(lastImpactPos.y(), playerPos.y()) : playerPos.y(),
+							playerPos.z()
+						)
+					);
 				}
 			} else if (entity instanceof AbstractArrow abstractArrow) {
 				if (abstractArrow.isInGround()) applyMovement = false;
@@ -242,15 +232,14 @@ public class GeyserBlockEntity extends BlockEntity {
 				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTypeTags.GEYSER_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
+				entity.hurtMarked = true;
 				entity.needsSync = true;
 			}
 
 			if (damagingEruption.intersects(boundingBox)) {
 				if (applyMovement) {
-					if (level instanceof ServerLevel serverLevel) {
-						for (ServerPlayer serverPlayer : serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(geyserStartPos) < GeyserPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
-							WWCriteria.GEYSER_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geyserType);
-						}
+					for (ServerPlayer serverPlayer : level.getPlayers(player -> player.distanceToSqr(geyserStartPos) < GeyserPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+						WWCriteria.GEYSER_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geyserType);
 					}
 				}
 
@@ -262,31 +251,30 @@ public class GeyserBlockEntity extends BlockEntity {
 			}
 		}
 
-		for (BlockPos blockPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
-			if (maxPossibleEruptionBox.contains(Vec3.atCenterOf(blockPos)) && level.hasChunkAt(blockPos)) {
-				final BlockState state = level.getBlockState(blockPos);
+		for (BlockPos searchPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
+			if (!maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
 
-				if (geyserType == GeyserType.LAVA) {
-					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
-						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, true));
-					}
+			final BlockState state = level.getBlockState(searchPos);
+			if (geyserType == GeyserType.LAVA) {
+				if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
+					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, true));
+				}
 
-					if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
-						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, true));
-					}
-				} else {
-					if (state.is(BlockTags.FIRE)) {
-						if (!level.isClientSide()) level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
-						level.removeBlock(blockPos, false);
-					}
+				if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
+					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, true));
+				}
+			} else {
+				if (state.is(BlockTags.FIRE)) {
+					level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
+					level.removeBlock(searchPos, false);
+				}
 
-					if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
-						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, false));
-					}
+				if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
+					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, false));
+				}
 
-					if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
-						level.setBlockAndUpdate(blockPos, state.setValue(BlockStateProperties.LIT, false));
-					}
+				if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
+					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, false));
 				}
 			}
 		}
@@ -310,20 +298,21 @@ public class GeyserBlockEntity extends BlockEntity {
 		);
 	}
 
-	public void advanceStage(Level level, BlockPos pos, BlockState state, GeyserStage geyserStage, boolean natural, RandomSource random) {
-		if (geyserStage == GeyserStage.ERUPTING || !natural) {
+	public void advanceStage(Level level, BlockPos pos, BlockState state, GeyserState geyserState, boolean natural, RandomSource random) {
+		if (geyserState == GeyserState.ERUPTING || !natural) {
 			this.eruptionProgress = 0F;
-			this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
-		} else if (geyserStage == GeyserStage.DORMANT) {
-			this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
-		} else if (geyserStage == GeyserStage.ACTIVE) {
+			this.setStageAndCooldown(level, pos, state, GeyserState.DORMANT, random);
+		} else if (geyserState == GeyserState.DORMANT) {
+			this.setStageAndCooldown(level, pos, state, GeyserState.ACTIVE, random);
+		} else if (geyserState == GeyserState.ACTIVE) {
 			if (!canErupt(level, pos, natural, random)) return;
-			this.setStageAndCooldown(level, pos, state, GeyserStage.ERUPTING, random);
+			this.setStageAndCooldown(level, pos, state, GeyserState.ERUPTING, random);
 		}
 	}
 
 	private boolean canErupt(Level level, BlockPos pos, boolean natural, RandomSource random) {
 		if (!natural) return true;
+
 		final Vec3 center = Vec3.atCenterOf(pos);
 		final Player player = level.getNearestPlayer(center.x(), center.y(), center.z(), -1D, entity -> !entity.isSpectator() && entity.isAlive());
 		if (player != null) {
@@ -334,18 +323,18 @@ public class GeyserBlockEntity extends BlockEntity {
 	}
 
 	public void setDormant(Level level, BlockPos pos, BlockState state, RandomSource random) {
-		this.setStageAndCooldown(level, pos, state, GeyserStage.DORMANT, random);
+		this.setStageAndCooldown(level, pos, state, GeyserState.DORMANT, random);
 	}
 
 	public void setActive(Level level, BlockPos pos, BlockState state, RandomSource random) {
-		this.setStageAndCooldown(level, pos, state, GeyserStage.ACTIVE, random);
+		this.setStageAndCooldown(level, pos, state, GeyserState.ACTIVE, random);
 	}
 
-	public void setStageAndCooldown(Level level, BlockPos pos, BlockState state, GeyserStage geyserStage, RandomSource random) {
-		level.setBlockAndUpdate(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserStage));
-		if (geyserStage == GeyserStage.ACTIVE) {
+	public void setStageAndCooldown(Level level, BlockPos pos, BlockState state, GeyserState geyserState, RandomSource random) {
+		level.setBlockAndUpdate(pos, state.setValue(GeyserBlock.GEYSER_STAGE, geyserState));
+		if (geyserState == GeyserState.ACTIVE) {
 			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
-		} else if (geyserStage != GeyserStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
+		} else if (geyserState != GeyserState.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
 			this.ticksUntilNextEvent = random.nextInt(MIN_DORMANT_TICKS, MAX_DORMANT_TICKS);
 		}
 	}
@@ -355,12 +344,9 @@ public class GeyserBlockEntity extends BlockEntity {
 		final GeyserType geyserType = state.getValue(GeyserBlock.GEYSER_TYPE);
 		if (!GeyserBlock.isActive(geyserType)) return;
 
-		final GeyserStage geyserStage = state.getValue(GeyserBlock.GEYSER_STAGE);
+		final GeyserState geyserState = state.getValue(GeyserBlock.GEYSER_STAGE);
 		final Direction direction = state.getValue(GeyserBlock.FACING);
-		final boolean natural = state.getValue(GeyserBlock.NATURAL);
-		if (geyserStage == GeyserStage.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
-			this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-			this.handleEruption(level, pos, geyserType, direction, natural);
+		if (geyserState == GeyserState.ERUPTING || geyserType == GeyserType.HYDROTHERMAL_VENT) {
 			GeyserParticleHandler.spawnEruptionParticles(level, pos, geyserType, direction, random);
 		}
 	}
@@ -380,10 +366,4 @@ public class GeyserBlockEntity extends BlockEntity {
 		this.ticksUntilNextEvent = input.getIntOr("TicksUntilNextEvent", 0);
 		this.eruptionProgress = input.getFloatOr("EruptionProgress", 0F);
 	}
-
-	@Environment(EnvType.CLIENT)
-	private static void addWindDisturbanceToClient(WindDisturbance windDisturbance) {
-		ClientWindManager.addWindDisturbance(windDisturbance);
-	}
-
 }

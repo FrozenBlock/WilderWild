@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
-import net.frozenblock.wilderwild.block.state.properties.GeyserStage;
+import net.frozenblock.wilderwild.block.state.properties.GeyserState;
 import net.frozenblock.wilderwild.block.state.properties.GeyserType;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -55,7 +55,7 @@ public final class WWBlockStateProperties {
 
 	// Geyser
 	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
-	public static final EnumProperty<GeyserStage> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserStage.class);
+	public static final EnumProperty<GeyserState> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserState.class);
 
 	// Sea Anenome & Plankton
 	public static final BooleanProperty GLOWING = BooleanProperty.create("glowing");
