@@ -60,7 +60,7 @@ public final class WWWindDisturbances {
 			GEYSER_MOJANG,
 			(source, level, windOrigin, affectedArea, windTarget) -> {
 				if (source.isEmpty() || !(source.get() instanceof PotentSulfurBlockEntity geyser)) return null;
-				mojangGeyserResult
+				return mojangGeyserResult;
 			}
 		);
 	}
