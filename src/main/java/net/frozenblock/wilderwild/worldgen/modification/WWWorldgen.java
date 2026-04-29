@@ -411,6 +411,16 @@ public final class WWWorldgen {
 				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.BIG_BUSHES_WATER.getKey());
 			});
 
+		BiomeModifications.create(WWConstants.id("replace_sulfur_pools")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_SULFUR_POOL),
+			(context) -> {
+				if (!WWWorldgenConfig.NEW_SULFUR_POOL.get()) return;
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				generationSettings.removeFeature(MiscOverworldPlacements.SULFUR_POOL);
+				generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.SULFUR_POOL.getKey());
+			});
+
 		BiomeModifications.create(WWConstants.id("replace_sulfur_springs")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SULFUR_SPRING),

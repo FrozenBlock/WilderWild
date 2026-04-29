@@ -63,6 +63,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
@@ -80,7 +81,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 
@@ -146,6 +149,7 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
 
 	// SULFUR CAVES
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> SULFUR_POOL = WWFeatureUtils.register("sulfur_pool");
 	public static final FrozenLibConfiguredFeature<RootSystemConfiguration> ROOTED_SULFUR_SPRING = WWFeatureUtils.register("rooted_sulfur_spring");
 	public static final FrozenLibConfiguredFeature<SulfurSpringFeatureConfig> SULFUR_SPRING = WWFeatureUtils.register("sulfur_spring");
 	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> SULFUR_SPRING_DOUBLE = WWFeatureUtils.register("sulfur_spring_double");
@@ -158,12 +162,11 @@ public final class WWCaveConfigured {
 
 	public static void registerCaveConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
-		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		// MESOGLEA CAVES
-
 		ORE_CALCITE.makeAndSetHolder(Feature.ORE,
 			new OreConfiguration(
 				new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD),
@@ -383,7 +386,6 @@ public final class WWCaveConfigured {
 		);
 
 		// MAGMATIC CAVES
-
 		GABBRO_LAVA_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_LAVA_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
@@ -614,7 +616,6 @@ public final class WWCaveConfigured {
 		);
 
 		// FROZEN CAVES
-
 		ICICLE_CLUSTER.makeAndSetHolder(Feature.SPELEOTHEM_CLUSTER,
 			new SpeleothemClusterConfiguration(
 				WWBlocks.FRAGILE_ICE.defaultBlockState(),
@@ -1291,6 +1292,40 @@ public final class WWCaveConfigured {
 		);
 
 		// SULFUR CAVES
+		SULFUR_POOL.makeAndSetHolder(Feature.SEQUENCE,
+			new CompositeFeatureConfiguration(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						Feature.LAKE,
+						new LakeFeature.Configuration(
+							BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
+							BlockStateProvider.simple(Blocks.SULFUR.defaultBlockState()),
+							BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SULFUR_SPIKE)),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						Feature.SEQUENCE,
+						new CompositeFeatureConfiguration(
+							HolderSet.direct(
+								PlacementUtils.inlinePlaced(
+									Feature.SIMPLE_BLOCK,
+									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.POTENT_SULFUR))
+								),
+								PlacementUtils.inlinePlaced(
+									Feature.SIMPLE_BLOCK,
+									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MAGMA_BLOCK)),
+									RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+									RarityFilter.onAverageOnceEvery(5)
+								)
+							)
+						),
+						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 4)
+					)
+				)
+			)
+		);
 
 		ROOTED_SULFUR_SPRING.makeAndSetHolder(Feature.ROOT_SYSTEM,
 			new RootSystemConfiguration(
@@ -1325,6 +1360,7 @@ public final class WWCaveConfigured {
 				BlockStateProvider.simple(Blocks.SULFUR),
 				BlockStateProvider.simple(Blocks.WATER),
 				PlacementUtils.inlinePlaced(SULFUR_SPRING_DECORATION.getHolder()),
+				UniformFloat.of(0F, 0.1F),
 				blocks.getOrThrow(WWBlockTags.SULFUR_SPRING_REPLACEABLE),
 				blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)
 			)

@@ -26,6 +26,11 @@
       "feature": "wilderwild:sulfur_spring_decoration",
       "placement": []
     },
+    "extra_decoration_chance": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.1,
+      "min_inclusive": 0.0
+    },
     "height": {
       "type": "minecraft:uniform",
       "max_inclusive": 5,

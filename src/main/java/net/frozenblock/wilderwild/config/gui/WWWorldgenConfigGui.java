@@ -179,6 +179,7 @@ public final class WWWorldgenConfigGui {
 		var taigaBoulderDecoration = booleanEntry(builder, "taiga_boulders", WWWorldgenConfig.TAIGA_BOULDER_DECORATION);
 		var lakeDecoration = booleanEntry(builder, "lake_generation", WWWorldgenConfig.LAKE_DECORATION);
 		var basinDecoration = booleanEntry(builder, "basin_generation", WWWorldgenConfig.BASIN_DECORATION);
+		var newSulfurPool = booleanEntry(builder, "new_sulfur_pool", WWWorldgenConfig.NEW_SULFUR_POOL);
 		var newSulfurSpring = booleanEntry(builder, "new_sulfur_spring", WWWorldgenConfig.NEW_SULFUR_SPRING);
 		var newSulfurSpike = booleanEntry(builder, "new_sulfur_spike", WWWorldgenConfig.NEW_SULFUR_SPIKE);
 
@@ -188,7 +189,7 @@ public final class WWWorldgenConfigGui {
 			coarseDecoration, gravelDecoration, mudDecoration, packedMudDecoration, stoneDecoration, mossDecoration, auburnMossDecoration, paleMossDecoration,
 			scorchedSandDecoration, scorchedRedSandDecoration, sandstoneDecoration, clayDecoration, clearingDecoration, taigaBoulderDecoration,
 			snowPileDecoration, fragileIceDecoration, icicleDecoration, lakeDecoration, basinDecoration,
-			newSulfurSpring, newSulfurSpike
+			newSulfurPool, newSulfurSpring, newSulfurSpike
 		);
 
 		category.addEntry(booleanEntry(builder, "termite_generation", WWWorldgenConfig.TERMITE_GENERATION));

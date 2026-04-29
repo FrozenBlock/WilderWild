@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.phys.Vec3;
 
 public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
@@ -195,7 +196,14 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 				markAboveForPostProcessing(level, posx);
 			});
 
-			config.decorationFeature().value().place(level, context.chunkGenerator(), random, Util.getRandom(waterPositions, random).below());
+			boolean generatedFirstDecoration = false;
+			final PlacedFeature decoration = config.decorationFeature().value();
+			for (BlockPos waterPos : Util.toShuffledList(waterPositions.stream(), random)) {
+				if (generatedFirstDecoration && random.nextFloat() >= config.extraDecorationChance().sample(random)) continue;
+				decoration.place(level, context.chunkGenerator(), random, waterPos.below());
+				generatedFirstDecoration = true;
+			}
+
 			return true;
 		}
 
@@ -225,7 +233,7 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 		final Vec3 centerPos = pos.getCenter().add(xCurve, 0D, zCurve);
 		for (double xOffset = -(xWidth + 0.5D); xOffset <= xWidth + 0.5D; xOffset += 0.1D) {
 			for (double zOffset = -(zWidth + 0.5D); zOffset <= zWidth + 0.5D; zOffset += 0.1D) {
-				Vec3 offsetPos = new Vec3(
+				final Vec3 offsetPos = new Vec3(
 					pos.getX() + xOffset + xCurve,
 					pos.getY() + 0.5D,
 					pos.getZ() + zOffset + zCurve
@@ -329,7 +337,7 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 
 		public List<BlockPos> positionsAtHeight(int y) {
 			return posToStateMap.keySet().stream()
-				.filter(posx -> posx.getY() == y)
+				.filter(pos -> pos.getY() == y)
 				.toList();
 		}
 	}

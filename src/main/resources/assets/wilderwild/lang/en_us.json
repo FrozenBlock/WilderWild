@@ -921,6 +921,8 @@
     "tooltip.wilderwild.lake_generation": "Whether Lakes can generate.",
     "option.wilderwild.basin_generation": "Basin Generation",
     "tooltip.wilderwild.basin_generation": "Whether Basins can generate.",
+    "option.wilderwild.new_sulfur_pool": "Sulfur Pool Generation",
+    "tooltip.wilderwild.new_sulfur_pool": "Whether to use Wilder Wild's or Vanilla's Sulfur Pool generation.\nWilder Wild's Sulfur Pools allow for Geysers to form.",
     "option.wilderwild.new_sulfur_spring": "Sulfur Spring Generation",
     "tooltip.wilderwild.new_sulfur_spring": "Whether to use Wilder Wild's or Vanilla's Sulfur Spring generation.\nWilder Wild's Sulfur Springs are procedurally generated.",
     "option.wilderwild.new_sulfur_spike": "Sulfur Spike Generation",

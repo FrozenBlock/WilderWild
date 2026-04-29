@@ -37,7 +37,6 @@ public final class WWMixinsConfig {
 	);
 
 	// CLIENT
-
 	public boolean client_allay = true;
 
 	public boolean client_brush = true;
@@ -60,7 +59,6 @@ public final class WWMixinsConfig {
 	public boolean client_wind = true;
 
 	// COMMON
-
 	public boolean trailiertales = true;
 
 	public boolean block_cactus = true;
@@ -88,6 +86,8 @@ public final class WWMixinsConfig {
 	public boolean block_mycelium = true;
 
 	public boolean block_ocean = true;
+
+	public boolean block_potent_sulfur = true;
 
 	public boolean block_sound = true;
 

@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.worldgen.features.WWPlacementUtils;
 import static net.frozenblock.wilderwild.worldgen.features.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.worldgen.features.configured.WWCaveConfigured;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
@@ -39,7 +40,9 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -49,7 +52,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
@@ -108,6 +110,7 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
 
 	// SULFUR CAVES
+	public static final FrozenLibPlacedFeature SULFUR_POOL = WWPlacementUtils.register("sulfur_pool");
 	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = WWPlacementUtils.register("rooted_sulfur_spring");
 	public static final FrozenLibPlacedFeature SULFUR_SPIKE_CLUSTER = WWPlacementUtils.register("sulfur_spike_cluster");
 	public static final FrozenLibPlacedFeature SULFUR_SPIKE = WWPlacementUtils.register("sulfur_spike");
@@ -117,8 +120,8 @@ public final class WWCavePlaced {
 	}
 
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
-		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 
@@ -546,6 +549,17 @@ public final class WWCavePlaced {
 		);
 
 		// SULFUR CAVES
+		SULFUR_POOL.makeAndSetHolder(WWCaveConfigured.SULFUR_POOL,
+			CountPlacement.of(256),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			BlockPredicateFilter.forPredicate(BlockPredicate.solid()),
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.ONLY_IN_AIR_PREDICATE, 32),
+			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.SULFUR)),
+			BiomeFilter.biome()
+		);
+
 		ROOTED_SULFUR_SPRING.makeAndSetHolder(WWCaveConfigured.ROOTED_SULFUR_SPRING,
 			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
@@ -556,7 +570,7 @@ public final class WWCavePlaced {
 		);
 
 		SULFUR_SPIKE_CLUSTER.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE_CLUSTER),
-			CountPlacement.of(UniformInt.of(24, 48)),
+			CountPlacement.of(UniformInt.of(34, 58)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome(),
@@ -564,7 +578,7 @@ public final class WWCavePlaced {
 		);
 
 		SULFUR_SPIKE.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE),
-			CountPlacement.of(UniformInt.of(86, 132)),
+			CountPlacement.of(UniformInt.of(102, 196)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			CountPlacement.of(UniformInt.of(1, 5)),
@@ -577,13 +591,13 @@ public final class WWCavePlaced {
 		);
 	}
 
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
-		return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
+	@Unmodifiable
+	private static  List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier modifier) {
+		return List.of(countModifier, InSquarePlacement.spread(), modifier, BiomeFilter.biome());
 	}
 
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
-		return modifiers(CountPlacement.of(count), heightModifier);
+	@Unmodifiable
+	private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier modifier) {
+		return modifiers(CountPlacement.of(count), modifier);
 	}
 }

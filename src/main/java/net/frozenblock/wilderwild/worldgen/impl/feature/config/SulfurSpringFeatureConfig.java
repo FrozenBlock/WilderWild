@@ -43,6 +43,7 @@ public record SulfurSpringFeatureConfig(
 	BlockStateProvider state,
 	BlockStateProvider waterState,
 	Holder<PlacedFeature> decorationFeature,
+	FloatProvider extraDecorationChance,
 	HolderSet<Block> replaceable,
 	HolderSet<Block> cannotReplace
 ) implements FeatureConfiguration {
@@ -57,6 +58,7 @@ public record SulfurSpringFeatureConfig(
 			BlockStateProvider.CODEC.fieldOf("block_state").forGetter(config -> config.state),
 			BlockStateProvider.CODEC.fieldOf("water_block_state").forGetter(config -> config.waterState),
 			PlacedFeature.CODEC.fieldOf("decoration_feature").forGetter(config -> config.decorationFeature),
+			FloatProviders.codec(0F, 1F).fieldOf("extra_decoration_chance").forGetter(config -> config.extraDecorationChance),
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable").forGetter(config -> config.replaceable),
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("cannot_replace").forGetter(config -> config.cannotReplace)
 		).apply(instance, SulfurSpringFeatureConfig::new)
