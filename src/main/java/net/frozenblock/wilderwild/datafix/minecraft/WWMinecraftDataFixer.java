@@ -140,14 +140,7 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV9 = builder.addSchema(9, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(
-			builder,
-			"Rename geyser to geothermal_vent",
-			WWConstants.id("geyser"),
-			WWConstants.id("geothermal_vent"),
-			schemaV9
-		);
-		SimpleFixes.addBlockEntityRenameFix(
+		SimpleFixes.addBlockItemEntityRenameFix(
 			builder,
 			"Rename geyser to geothermal_vent",
 			WWConstants.id("geyser"),
