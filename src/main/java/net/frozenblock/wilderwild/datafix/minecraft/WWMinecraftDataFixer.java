@@ -18,9 +18,7 @@
 package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.schemas.Schema;
-import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.datafix.api.BlockStateRenameFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.CopperHornInstrumentToTheCopperierAgeFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
@@ -28,10 +26,6 @@ import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternIte
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBucketVariantComponentizationFix;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.datafix.DataFixers;
-import net.minecraft.util.datafix.fixes.AdvancementsRenameFix;
-import net.minecraft.util.datafix.fixes.BlockEntityRenameFix;
-import net.minecraft.util.datafix.fixes.CriteriaRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
 import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
@@ -63,8 +57,7 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		final Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
-		SimpleFixes.addItemRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
+		SimpleFixes.addBlockItemRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
 		builder.addFixer(
 			new MobBottleVariantComponentizationFix(
 				schemaV4,
@@ -85,8 +78,7 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
-		SimpleFixes.addItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
+		SimpleFixes.addBlockItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
 		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
 
 		final Schema schemaV6 = builder.addSchema(5, NamespacedSchema::new);
@@ -118,57 +110,28 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename blue_pearlescent_mesoglea to pearlescent_blue_mesoglea",
 			WWConstants.id("blue_pearlescent_mesoglea"),
 			WWConstants.id("pearlescent_blue_mesoglea"),
 			schemaV8
 		);
-		SimpleFixes.addItemRenameFix(
-			builder,
-			"Rename blue_pearlescent_mesoglea to pearlescent_blue_mesoglea",
-			WWConstants.id("blue_pearlescent_mesoglea"),
-			WWConstants.id("pearlescent_blue_mesoglea"),
-			schemaV8
-		);
-		SimpleFixes.addBlockRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename blue_pearlescent_nematocyst to pearlescent_blue_nematocyst",
 			WWConstants.id("blue_pearlescent_nematocyst"),
 			WWConstants.id("pearlescent_blue_nematocyst"),
 			schemaV8
 		);
-		SimpleFixes.addItemRenameFix(
-			builder,
-			"Rename blue_pearlescent_nematocyst to pearlescent_blue_nematocyst",
-			WWConstants.id("blue_pearlescent_nematocyst"),
-			WWConstants.id("pearlescent_blue_nematocyst"),
-			schemaV8
-		);
-
-		SimpleFixes.addBlockRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename purple_pearlescent_mesoglea to pearlescent_purple_mesoglea",
 			WWConstants.id("purple_pearlescent_mesoglea"),
 			WWConstants.id("pearlescent_purple_mesoglea"),
 			schemaV8
 		);
-		SimpleFixes.addItemRenameFix(
-			builder,
-			"Rename purple_pearlescent_mesoglea to pearlescent_purple_mesoglea",
-			WWConstants.id("purple_pearlescent_mesoglea"),
-			WWConstants.id("pearlescent_purple_mesoglea"),
-			schemaV8
-		);
-		SimpleFixes.addBlockRenameFix(
-			builder,
-			"Rename purple_pearlescent_nematocyst to pearlescent_purple_nematocyst",
-			WWConstants.id("purple_pearlescent_nematocyst"),
-			WWConstants.id("pearlescent_purple_nematocyst"),
-			schemaV8
-		);
-		SimpleFixes.addItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename purple_pearlescent_nematocyst to pearlescent_purple_nematocyst",
 			WWConstants.id("purple_pearlescent_nematocyst"),
@@ -177,95 +140,75 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV9 = builder.addSchema(9, NamespacedSchema::new);
-		SimpleFixes.addBlockRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename geyser to geothermal_vent",
 			WWConstants.id("geyser"),
 			WWConstants.id("geothermal_vent"),
 			schemaV9
 		);
-		SimpleFixes.addItemRenameFix(
+		SimpleFixes.addBlockEntityRenameFix(
 			builder,
 			"Rename geyser to geothermal_vent",
 			WWConstants.id("geyser"),
 			WWConstants.id("geothermal_vent"),
 			schemaV9
 		);
-		builder.addFixer(
-			BlockEntityRenameFix.create(
-				schemaV9,
-				"Rename geyser to geothermal_vent",
-				DataFixers.createRenamer(Map.of(WWConstants.string("geyser"), WWConstants.string("geothermal_vent")))
-			)
+		SimpleFixes.addAdvancementRenameFix(
+			builder,
+			"Rename lava geothermal vent recipe advancement",
+			WWConstants.id("recipes/redstone/geyser"),
+			WWConstants.id("recipes/redstone/geothermal_vent"),
+			schemaV9
 		);
-		builder.addFixer(
-			new AdvancementsRenameFix(
-				schemaV9,
-				false,
-				"Rename lava geothermal vent recipe advancement",
-				DataFixers.createRenamer(
-					Map.of(WWConstants.string("recipes/redstone/geyser"), WWConstants.string("recipes/redstone/geothermal_vent"))
-				)
-			)
+		SimpleFixes.addAdvancementRenameFix(
+			builder,
+			"Rename geothermal vent pushed flightless bird advancement",
+			WWConstants.id("adventure/geyser_pushed_flightless_bird"),
+			WWConstants.id("adventure/geothermal_vent_pushed_flightless_bird"),
+			schemaV9
 		);
-		builder.addFixer(
-			new AdvancementsRenameFix(
-				schemaV9,
-				false,
-				"Rename geothermal vent pushed flightless bird advancement",
-				DataFixers.createRenamer(
-					Map.of(WWConstants.string("adventure/geyser_pushed_flightless_bird"), WWConstants.string("adventure/geothermal_vent_pushed_flightless_bird"))
-				)
-			)
+		SimpleFixes.addAdvancementRenameFix(
+			builder,
+			"Rename lava geothermal vent sets cow on fire advancement",
+			WWConstants.id("adventure/geyser_sets_cow_on_fire"),
+			WWConstants.id("adventure/geothermal_vent_sets_cow_on_fire"),
+			schemaV9
 		);
-		builder.addFixer(
-			new AdvancementsRenameFix(
-				schemaV9,
-				false,
-				"Rename lava geothermal vent sets cow on fire advancement",
-				DataFixers.createRenamer(
-					Map.of(WWConstants.string("adventure/geyser_sets_cow_on_fire"), WWConstants.string("adventure/geothermal_vent_sets_cow_on_fire"))
-				)
-			)
-		);
-
 		final Schema schemaV9_1 = builder.addSchema(9, 1, NamespacedSchema::new);
-		builder.addFixer(
-			new BlockStateRenameFix(
-				schemaV9_1,
-				"Rename geyser_type blockstate property to vent_type",
-				WWConstants.id("geothermal_vent").toString(),
-				"geyser_type",
-				"none",
-				"vent_type"
-			)
+		SimpleFixes.addBlockStateRenameFix(
+			builder,
+			"Rename geyser_type blockstate property to vent_type",
+			WWConstants.id("geothermal_vent"),
+			"geyser_type",
+			"none",
+			"vent_type",
+			schemaV9_1
 		);
-		builder.addFixer(
-			new BlockStateRenameFix(
-				schemaV9_1,
-				"Rename geyser_stage blockstate property to vent_state",
-				WWConstants.id("geothermal_vent").toString(),
-				"geyser_stage",
-				"dormant",
-				"vent_state"
-			)
+		SimpleFixes.addBlockStateRenameFix(
+			builder,
+			"Rename geyser_stage blockstate property to vent_state",
+			WWConstants.id("geothermal_vent"),
+			"geyser_stage",
+			"dormant",
+			"vent_state",
+			schemaV9_1
 		);
-		final Map<String, String> ventAdvancementMigrationMap = Map.of("geyser_pushed_mob", "geothermal_vent_pushed_mob");
-		builder.addFixer(
-			new CriteriaRenameFix(
-				schemaV9_1,
-				"Migrate vent pushed flightless bird advancement",
-				WWConstants.string("adventure/geothermal_vent_pushed_flightless_bird"),
-				s -> ventAdvancementMigrationMap.getOrDefault(s, s)
-			)
+		SimpleFixes.addAdvancementCriteriaRenameFix(
+			builder,
+			"Migrate vent pushed flightless bird advancement",
+			WWConstants.id("adventure/geothermal_vent_pushed_flightless_bird"),
+			"geyser_pushed_mob",
+			"geothermal_vent_pushed_mob",
+			schemaV9_1
 		);
-		builder.addFixer(
-			new CriteriaRenameFix(
-				schemaV9_1,
-				"Migrate lava geothermal vent sets cow on fire advancement",
-				WWConstants.string("adventure/geothermal_vent_sets_cow_on_fire"),
-				s -> ventAdvancementMigrationMap.getOrDefault(s, s)
-			)
+		SimpleFixes.addAdvancementCriteriaRenameFix(
+			builder,
+			"Migrate lava geothermal vent sets cow on fire advancement",
+			WWConstants.id("adventure/geothermal_vent_sets_cow_on_fire"),
+			"geyser_pushed_mob",
+			"geothermal_vent_pushed_mob",
+			schemaV9_1
 		);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
