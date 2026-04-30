@@ -346,6 +346,7 @@ public class GeyserBlockEntity extends BlockEntity {
 		if (geyserStage == GeyserStage.ACTIVE) {
 			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
 		} else if (geyserStage != GeyserStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
+			this.eruptionProgress = 0F;
 			this.ticksUntilNextEvent = random.nextInt(MIN_DORMANT_TICKS, MAX_DORMANT_TICKS);
 		}
 	}
