@@ -335,6 +335,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		if (geothermalVentStage == GeothermalVentStage.ACTIVE) {
 			this.ticksUntilNextEvent = random.nextInt(MIN_ACTIVE_TICKS, MAX_ACTIVE_TICKS);
 		} else if (geothermalVentStage != GeothermalVentStage.ERUPTING) { // Eruption duration is set in serverTick to work with Redstone properly
+			this.eruptionProgress = 0F;
 			this.ticksUntilNextEvent = random.nextInt(MIN_DORMANT_TICKS, MAX_DORMANT_TICKS);
 		}
 	}

@@ -51,6 +51,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that could cause Coconuts to remain floating in the air after their supporting block was broken.
 - Fixed Sculk Sensors not animating properly with the `MC Live 2020's Sculk Sensor tendrils"` resource pack enabled.
 - Fixed an issue that would cause Milkweed to instantly get its pods picked when Bone Mealed by a Player.
+- Fixed an issue that would let Geysers (Geothermal Vents in 26.2+) remain infinitely erupting.
 - Crabs can no longer hide inside Grass Blocks or Moss Blocks.
 - Crabs will now become persistent when fed.
 - Jellyfish will now become persistent when fed.
