@@ -118,7 +118,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.CONCRETE.magenta()), this.has(Items.CONCRETE.magenta()))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.REDSTONE, WWItems.GEYSER, 2)
+				this.shaped(RecipeCategory.REDSTONE, WWItems.GEOTHERMAL_VENT, 2)
 					.define('#', Items.MAGMA_BLOCK)
 					.define('X', WWItems.GABBRO)
 					.define('U', Items.LAVA_BUCKET)
@@ -127,7 +127,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X#")
 					.unlockedBy(getHasName(Items.MAGMA_BLOCK), this.has(Items.MAGMA_BLOCK))
 					.unlockedBy(getHasName(WWItems.GABBRO), this.has(WWItems.GABBRO))
-					.unlockedBy(getHasName(WWItems.GEYSER), this.has(WWItems.GEYSER))
+					.unlockedBy(getHasName(WWItems.GEOTHERMAL_VENT), this.has(WWItems.GEOTHERMAL_VENT))
 					.save(this.output);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.FERMENTED_SCORCHED_EYE)

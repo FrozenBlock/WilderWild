@@ -209,7 +209,7 @@ public final class WWEntityConfigGui {
 		var algaeTrade = booleanEntry(builder, "algae_trade", WWEntityConfig.WANDERING_ALGAE_TRADE);
 		var planktonTrade = booleanEntry(builder, "plankton_trade", WWEntityConfig.WANDERING_PLANKTON_TRADE);
 		var auburnMossTrade = booleanEntry(builder, "auburn_moss_trade", WWEntityConfig.WANDERING_AUBURN_MOSS_TRADE);
-		var geyserTrade = booleanEntry(builder, "geyser_trade", WWEntityConfig.WANDERING_GEYSER_TRADE);
+		var geothermalVentTrade = booleanEntry(builder, "geothermal_vent_trade", WWEntityConfig.WANDERING_GEOTHERMAL_VENT_TRADE);
 
 		var desertPalmBoat = booleanEntry(builder, "desert_palm_boat", WWEntityConfig.FISHERMAN_DESERT_PALM_BOAT);
 		var crabForEmeralds = booleanEntry(builder, "crab_for_emeralds", WWEntityConfig.FISHERMAN_CRAB_FOR_EMERALDS);
@@ -224,7 +224,7 @@ public final class WWEntityConfigGui {
 			pricklyPearTrade, tumbleweedTrade,
 			icicleTrade,
 			barnaclesTrade, seaAnemoneTrade, seaWhipTrade, algaeTrade, planktonTrade, auburnMossTrade,
-			geyserTrade,
+			geothermalVentTrade,
 			desertPalmBoat, crabForEmeralds, jellyfishForEmeralds
 		);
 		 */

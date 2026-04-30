@@ -33,19 +33,19 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WWMiscGeneration {
 
 	public static void generateMisc() {
-		BiomeModifications.create(WWConstants.id("nether_geysers")).add(
+		BiomeModifications.create(WWConstants.id("nether_geothermal_vents")).add(
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
-				if (!WWWorldgenConfig.NETHER_GEYSER_GENERATION.get()) return;
+				if (!WWWorldgenConfig.NETHER_GEOTHERMAL_VENT_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NETHER_GEYSER)) {
-					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.NETHER_GEYSER.getKey());
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NETHER_GEOTHERMAL_VENT)) {
+					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.NETHER_GEOTHERMAL_VENT.getKey());
 				}
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NETHER_LAVA_GEYSER)) {
-					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.NETHER_LAVA_GEYSER.getKey());
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NETHER_LAVA_GEOTHERMAL_VENT)) {
+					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.NETHER_LAVA_GEOTHERMAL_VENT.getKey());
 				}
 			});
 

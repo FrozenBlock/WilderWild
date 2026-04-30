@@ -235,7 +235,7 @@ public final class WWItems {
 	public static final Item GABBRO_SLAB = Items.registerBlock(WWBlockItemIds.GABBRO_SLAB, WWBlocks.GABBRO_SLAB);
 	public static final Item GABBRO_WALL = Items.registerBlock(WWBlockItemIds.GABBRO_WALL, WWBlocks.GABBRO_WALL);
 
-	public static final Item GEYSER = Items.registerBlock(WWBlockItemIds.GEYSER, WWBlocks.GEYSER);
+	public static final Item GEOTHERMAL_VENT = Items.registerBlock(WWBlockItemIds.GEOTHERMAL_VENT, WWBlocks.GEOTHERMAL_VENT);
 
 	public static final Item POLISHED_GABBRO = Items.registerBlock(WWBlockItemIds.POLISHED_GABBRO, WWBlocks.POLISHED_GABBRO);
 	public static final Item POLISHED_GABBRO_STAIRS = Items.registerBlock(WWBlockItemIds.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO_STAIRS);

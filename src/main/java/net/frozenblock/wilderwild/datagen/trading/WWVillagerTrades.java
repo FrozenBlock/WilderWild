@@ -73,7 +73,7 @@ public final class WWVillagerTrades {
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_AUBURN_MOSS_BLOCK = resourceKey("wandering_trader/emerald_auburn_moss_block");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_ALGAE = resourceKey("wandering_trader/emerald_algae");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_PLANKTON = resourceKey("wandering_trader/emerald_plankton");
-	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_GEYSER = resourceKey("wandering_trader/emerald_geyser");
+	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_GEOTHERMAL_VENT = resourceKey("wandering_trader/emerald_geothermal_vent");
 
 	public static void bootstrap(BootstrapContext<VillagerTrade> context) {
 		final HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -256,8 +256,8 @@ public final class WWVillagerTrades {
 		);
 
 		context.register(
-			WANDERING_TRADER_EMERALD_GEYSER,
-			emeraldTrade(6, WWItems.GEYSER, 1, 4, 1)
+			WANDERING_TRADER_EMERALD_GEOTHERMAL_VENT,
+			emeraldTrade(6, WWItems.GEOTHERMAL_VENT, 1, 4, 1)
 		);
 	}
 

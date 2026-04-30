@@ -115,14 +115,14 @@ public final class WWCaveConfigured {
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
 	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> GABBRO_COLUMN = register("gabbro_column");
 	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> GABBRO_PILE = register("gabbro_pile");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_UP = register("geyser_up");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_DOWN = register("geyser_down");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_NORTH = register("geyser_north");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_EAST = register("geyser_east");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_SOUTH = register("geyser_south");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEYSER_WEST = register("geyser_west");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GEYSER_COLUMN = register("downwards_geyser_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> UPWARDS_GEYSER_COLUMN = register("geyser_column");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_UP = register("geothermal_vent_up");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_DOWN = register("geothermal_vent_down");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_NORTH = register("geothermal_vent_north");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_EAST = register("geothermal_vent_east");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_SOUTH = register("geothermal_vent_south");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_WEST = register("geothermal_vent_west");
+	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> DOWNWARDS_GEOTHERMAL_VENT_COLUMN = register("downwards_geothermal_vent_column");
+	public static final FrozenLibConfiguredFeature<ColumnFeatureConfig> GEOTHERMAL_VENT_COLUMN = register("geothermal_vent_column");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> UPSIDE_DOWN_MAGMA = WWFeatureUtils.register("upside_down_magma");
 
 	// FROZEN CAVES
@@ -544,45 +544,45 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GEYSER_UP.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_UP.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER)
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT)
 			)
 		);
 
-		GEYSER_DOWN.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_DOWN.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN))
 			)
 		);
 
-		GEYSER_NORTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_NORTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.NORTH))
 			)
 		);
 
-		GEYSER_EAST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_EAST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST))
 			)
 		);
 
-		GEYSER_SOUTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_SOUTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.SOUTH))
 			)
 		);
 
-		GEYSER_WEST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
+		GEOTHERMAL_VENT_WEST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST))
 			)
 		);
 
-		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
+		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.GEYSER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
 				BlockPredicate.replaceable(),
 				UniformInt.of(2, 4),
 				Direction.DOWN,
@@ -590,9 +590,9 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		UPWARDS_GEYSER_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
+		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN_FEATURE,
 			new ColumnFeatureConfig(
-				BlockStateProvider.simple(WWBlocks.GEYSER),
+				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT),
 				BlockPredicate.replaceable(),
 				UniformInt.of(3, 5),
 				Direction.UP,

@@ -50,7 +50,7 @@ import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.FrozenBushBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
-import net.frozenblock.wilderwild.block.GeyserBlock;
+import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
@@ -1036,10 +1036,10 @@ public final class WWBlocks {
 		Properties.ofFullCopy(WWBlocks.GABBRO).requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 	);
 
-	public static final Block GEYSER = Blocks.register(WWBlockItemIds.GEYSER,
-		GeyserBlock::new,
+	public static final Block GEOTHERMAL_VENT = Blocks.register(WWBlockItemIds.GEOTHERMAL_VENT,
+		GeothermalVentBlock::new,
 		Properties.ofFullCopy(GABBRO)
-			.sound(WWSoundTypes.GEYSER)
+			.sound(WWSoundTypes.GEOTHERMAL_VENT)
 			.strength(8F)
 			.isValidSpawn((state, level, pos, entityType) -> false)
 			.postProcess(Blocks::postProcessSelf)

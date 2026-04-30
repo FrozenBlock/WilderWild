@@ -313,8 +313,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_GRAVEL_TRANSITION = bind("feature/has_gravel_transition");
 	public static final TagKey<Biome> HAS_MUD_TRANSITION = bind("feature/has_mud_transition");
 	public static final TagKey<Biome> HAS_TERMITE_MOUND = bind("feature/has_termite_mound");
-	public static final TagKey<Biome> HAS_NETHER_GEYSER = bind("feature/has_nether_geyser");
-	public static final TagKey<Biome> HAS_NETHER_LAVA_GEYSER = bind("feature/has_nether_lava_geyser");
+	public static final TagKey<Biome> HAS_NETHER_GEOTHERMAL_VENT = bind("feature/has_nether_geothermal_vent");
+	public static final TagKey<Biome> HAS_NETHER_LAVA_GEOTHERMAL_VENT = bind("feature/has_nether_lava_geothermal_vent");
 	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT = bind("feature/has_hydrothermal_vent");
 	public static final TagKey<Biome> HAS_HYDROTHERMAL_VENT_RARE = bind("feature/has_hydrothermal_vent_rare");
 	public static final TagKey<Biome> HAS_SULFUR_POOL = bind("feature/has_sulfur_pool");

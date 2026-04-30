@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
-import net.frozenblock.wilderwild.block.state.properties.GeyserState;
-import net.frozenblock.wilderwild.block.state.properties.GeyserType;
+import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
+import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -54,8 +54,8 @@ public final class WWBlockStateProperties {
 	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = EnumProperty.create("bubble_direction", BubbleDirection.class);
 
 	// Geyser
-	public static final EnumProperty<GeyserType> GEYSER_TYPE = EnumProperty.create("geyser_type", GeyserType.class);
-	public static final EnumProperty<GeyserState> GEYSER_STAGE = EnumProperty.create("geyser_stage", GeyserState.class);
+	public static final EnumProperty<GeothermalVentType> VENT_TYPE = EnumProperty.create("vent_type", GeothermalVentType.class);
+	public static final EnumProperty<GeothermalVentStage> VENT_STATE = EnumProperty.create("vent_state", GeothermalVentStage.class);
 
 	// Sea Anenome & Plankton
 	public static final BooleanProperty GLOWING = BooleanProperty.create("glowing");

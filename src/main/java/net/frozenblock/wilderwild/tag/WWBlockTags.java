@@ -179,7 +179,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> ICICLE_REPLACEABLE = bind("feature/icicle_replaceable");
 	public static final TagKey<Block> MESOGLEA_REPLACEABLE = bind("feature/mesoglea_replaceable");
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("feature/magma_replaceable");
-	public static final TagKey<Block> NETHER_GEYSER_REPLACEABLE = bind("feature/nether_geyser_replaceable");
+	public static final TagKey<Block> NETHER_GEOTHERMAL_VENT_REPLACEABLE = bind("feature/nether_geothermal_vent_replaceable");
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("feature/oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("feature/coarse_dirt_disk_replaceable");
 

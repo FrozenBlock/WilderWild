@@ -1,0 +1,45 @@
+{
+  "parent": "wilderwild:adventure/geothermal_vent_pushed_flightless_bird",
+  "criteria": {
+    "geothermal_vent_pushed_mob": {
+      "conditions": {
+        "geothermal_vent_type": "lava",
+        "pushed_mob": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": [
+                "minecraft:cow",
+                "minecraft:mooshroom",
+                "wilderwild:moobloom"
+              ],
+              "minecraft:flags": {
+                "is_on_fire": true
+              }
+            }
+          }
+        ],
+        "requires_player_placed_geothermal_vent": true
+      },
+      "trigger": "wilderwild:geothermal_vent_push_mob"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.description"
+    },
+    "icon": {
+      "id": "minecraft:cooked_beef"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.title"
+    }
+  },
+  "requirements": [
+    [
+      "geothermal_vent_pushed_mob"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

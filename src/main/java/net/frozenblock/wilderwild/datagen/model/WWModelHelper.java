@@ -259,10 +259,6 @@ public final class WWModelHelper {
 		generator.createMultiface(multifaceBlock);
 	}
 
-	public static void createGeyser(BlockModelGenerators generator) {
-		generator.createRotatableColumn(WWBlocks.GEYSER);
-	}
-
 	public static void generateMilkweedPod(ItemModelGenerators generator, Item item) {
 		final ItemModel.Unbaked model = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
 		final ItemModel.Unbaked blowing = ItemModelUtils.plainModel(WWConstants.id("item/milkweed_pod_blowing"));

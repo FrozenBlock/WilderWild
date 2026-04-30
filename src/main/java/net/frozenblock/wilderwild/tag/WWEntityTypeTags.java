@@ -32,8 +32,8 @@ public final class WWEntityTypeTags {
 	public static final TagKey<EntityType<?>> COCONUT_CANT_BONK = bind("coconut_cant_bonk");
 	public static final TagKey<EntityType<?>> COCONUT_CANT_SPLIT = bind("coconut_cant_split");
 	public static final TagKey<EntityType<?>> TUMBLEWEED_PASSES_THROUGH = bind("tumbleweed_passes_through");
-	public static final TagKey<EntityType<?>> GEYSER_PUSHES_FURTHER = bind("geyser_pushes_further");
-	public static final TagKey<EntityType<?>> GEYSER_CANNOT_PUSH = bind("geyser_cannot_push");
+	public static final TagKey<EntityType<?>> GEOTHERMAL_VENT_PUSHES_FURTHER = bind("geothermal_vent_pushes_further");
+	public static final TagKey<EntityType<?>> GEOTHERMAL_VENT_CANNOT_PUSH = bind("geothermal_vent_cannot_push");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_UNWALKABLE_MOBS = bind("fragile_ice_unwalkable_mobs");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_ON_FALL = bind("fragile_ice_doesnt_crack_on_fall");
 	public static final TagKey<EntityType<?>> FRAGILE_ICE_DOESNT_CRACK_PROJECTILE = bind("fragile_ice_doesnt_crack_projectile");

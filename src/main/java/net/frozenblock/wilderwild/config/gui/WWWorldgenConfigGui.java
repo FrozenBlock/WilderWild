@@ -193,7 +193,7 @@ public final class WWWorldgenConfigGui {
 		);
 
 		category.addEntry(booleanEntry(builder, "termite_generation", WWWorldgenConfig.TERMITE_GENERATION));
-		category.addEntry(booleanEntry(builder, "nether_geyser_generation", WWWorldgenConfig.NETHER_GEYSER_GENERATION));
+		category.addEntry(booleanEntry(builder, "nether_geothermal_vent_generation", WWWorldgenConfig.NETHER_GEOTHERMAL_VENT_GENERATION));
 		category.addEntry(booleanEntry(builder, "snow_below_trees", WWWorldgenConfig.SNOW_BELOW_TREES));
 
 		// AQUATIC GENERATION

@@ -346,7 +346,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWBlockTags.NETHER_GEYSER_REPLACEABLE)
+		this.builder(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
 
 		this.builder(WWBlockTags.OASIS_PATH_REPLACEABLE)
@@ -544,22 +544,22 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.PALM_FRONDS);
 
 		this.builder(BlockTags.CANNOT_SUPPORT_SEAGRASS)
-			.add(WWBlockItemIds.GEYSER);
+			.add(WWBlockItemIds.GEOTHERMAL_VENT);
 
 		this.builder(BlockTags.CANNOT_SUPPORT_KELP)
-			.add(WWBlockItemIds.GEYSER);
+			.add(WWBlockItemIds.GEOTHERMAL_VENT);
 
 		this.builder(WWBlockTags.CANNOT_SUPPORT_SEA_ANEMONE)
 			.add(BlockItemIds.MAGMA_BLOCK)
-			.add(WWBlockItemIds.GEYSER);
+			.add(WWBlockItemIds.GEOTHERMAL_VENT);
 
 		this.builder(WWBlockTags.CANNOT_SUPPORT_SEA_WHIP)
 			.add(BlockItemIds.MAGMA_BLOCK)
-			.add(WWBlockItemIds.GEYSER);
+			.add(WWBlockItemIds.GEOTHERMAL_VENT);
 
 		this.builder(WWBlockTags.CANNOT_SUPPORT_TUBE_WORMS)
 			.add(BlockItemIds.MAGMA_BLOCK)
-			.add(WWBlockItemIds.GEYSER);
+			.add(WWBlockItemIds.GEOTHERMAL_VENT);
 
 		this.builder(WWBlockTags.SUPPORTS_FROZEN_VEGETATION)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
@@ -835,7 +835,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.MOSSY_MUD_BRICKS, WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS, WWBlockItemIds.MOSSY_MUD_BRICK_SLAB, WWBlockItemIds.MOSSY_MUD_BRICK_WALL)
 
 			.add(WWBlockItemIds.GABBRO)
-			.add(WWBlockItemIds.GEYSER)
+			.add(WWBlockItemIds.GEOTHERMAL_VENT)
 			.add(WWBlockItemIds.GABBRO_STAIRS, WWBlockItemIds.GABBRO_SLAB, WWBlockItemIds.GABBRO_WALL)
 			.add(WWBlockItemIds.POLISHED_GABBRO, WWBlockItemIds.POLISHED_GABBRO_STAIRS, WWBlockItemIds.POLISHED_GABBRO_SLAB, WWBlockItemIds.POLISHED_GABBRO_WALL)
 			.add(WWBlockItemIds.CHISELED_GABBRO_BRICKS)
@@ -894,7 +894,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(BlockTags.NEEDS_STONE_TOOL)
 			.add(WWBlockItemIds.GABBRO)
-			.add(WWBlockItemIds.GEYSER)
+			.add(WWBlockItemIds.GEOTHERMAL_VENT)
 			.add(WWBlockItemIds.GABBRO_STAIRS, WWBlockItemIds.GABBRO_SLAB, WWBlockItemIds.GABBRO_WALL)
 			.add(WWBlockItemIds.POLISHED_GABBRO, WWBlockItemIds.POLISHED_GABBRO_STAIRS, WWBlockItemIds.POLISHED_GABBRO_SLAB, WWBlockItemIds.POLISHED_GABBRO_WALL)
 			.add(WWBlockItemIds.CHISELED_GABBRO_BRICKS)

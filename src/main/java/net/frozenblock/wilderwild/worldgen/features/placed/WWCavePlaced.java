@@ -79,16 +79,16 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
 	public static final FrozenLibPlacedFeature GABBRO_DISK = WWPlacementUtils.register("gabbro_disk");
 	public static final FrozenLibPlacedFeature GABBRO_PILE = WWPlacementUtils.register("gabbro_pile");
-	public static final FrozenLibPlacedFeature NETHER_GEYSER = WWPlacementUtils.register("nether_geyser");
-	public static final FrozenLibPlacedFeature NETHER_LAVA_GEYSER = WWPlacementUtils.register("nether_lava_geyser");
-	public static final FrozenLibPlacedFeature GEYSER_LAVA = WWPlacementUtils.register("geyser_lava");
-	public static final FrozenLibPlacedFeature GEYSER_UP = WWPlacementUtils.register("geyser_up");
-	public static final FrozenLibPlacedFeature GEYSER_DOWN = WWPlacementUtils.register("geyser_down");
-	public static final FrozenLibPlacedFeature GEYSER_NORTH = WWPlacementUtils.register("geyser_north");
-	public static final FrozenLibPlacedFeature GEYSER_EAST = WWPlacementUtils.register("geyser_east");
-	public static final FrozenLibPlacedFeature GEYSER_SOUTH = WWPlacementUtils.register("geyser_south");
-	public static final FrozenLibPlacedFeature GEYSER_WEST = WWPlacementUtils.register("geyser_west");
-	public static final FrozenLibPlacedFeature DOWNWARDS_GEYSER_COLUMN = WWPlacementUtils.register("downwards_geyser_column");
+	public static final FrozenLibPlacedFeature NETHER_GEOTHERMAL_VENT = WWPlacementUtils.register("nether_geothermal_vent");
+	public static final FrozenLibPlacedFeature NETHER_LAVA_GEOTHERMAL_VENT = WWPlacementUtils.register("nether_lava_geothermal_vent");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_LAVA = WWPlacementUtils.register("geothermal_vent_lava");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_UP = WWPlacementUtils.register("geothermal_vent_up");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_DOWN = WWPlacementUtils.register("geothermal_vent_down");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_NORTH = WWPlacementUtils.register("geothermal_vent_north");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_EAST = WWPlacementUtils.register("geothermal_vent_east");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_SOUTH = WWPlacementUtils.register("geothermal_vent_south");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_WEST = WWPlacementUtils.register("geothermal_vent_west");
+	public static final FrozenLibPlacedFeature DOWNWARDS_GEOTHERMAL_VENT_COLUMN = WWPlacementUtils.register("downwards_geothermal_vent_column");
 	public static final FrozenLibPlacedFeature DOWNWARDS_GABBRO_COLUMN = WWPlacementUtils.register("downwards_gabbro_column");
 	public static final FrozenLibPlacedFeature LAVA_LAKE_EXTRA = WWPlacementUtils.register("lava_lake_extra");
 	public static final FrozenLibPlacedFeature FOSSIL_LAVA = WWPlacementUtils.register("fossil_lava");
@@ -253,27 +253,27 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		NETHER_GEYSER.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
+		NETHER_GEOTHERMAL_VENT.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_UP,
 			CountPlacement.of(UniformInt.of(24, 48)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesTag(WWBlockTags.NETHER_GEYSER_REPLACEABLE),
+				BlockPredicate.matchesTag(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
 				BlockPredicate.replaceable(),
 				12
 			),
 			BiomeFilter.biome()
 		);
 
-		NETHER_LAVA_GEYSER.makeAndSetHolder(WWCaveConfigured.UPWARDS_GEYSER_COLUMN,
+		NETHER_LAVA_GEOTHERMAL_VENT.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_COLUMN,
 			CountPlacement.of(UniformInt.of(8, 20)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
 				BlockPredicate.allOf(
-					BlockPredicate.matchesTag(WWBlockTags.NETHER_GEYSER_REPLACEABLE),
+					BlockPredicate.matchesTag(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
 					SearchInDirectionBlockPredicate.hasLavaAbove(3)
 				),
 				BlockPredicate.replaceable(),
@@ -282,7 +282,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_LAVA.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
+		GEOTHERMAL_VENT_LAVA.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_UP,
 			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -298,7 +298,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_UP.makeAndSetHolder(WWCaveConfigured.GEYSER_UP,
+		GEOTHERMAL_VENT_UP.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_UP,
 			CountPlacement.of(UniformInt.of(64, 72)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -317,7 +317,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_DOWN.makeAndSetHolder(WWCaveConfigured.GEYSER_DOWN,
+		GEOTHERMAL_VENT_DOWN.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_DOWN,
 			CountPlacement.of(UniformInt.of(48, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -330,7 +330,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_NORTH.makeAndSetHolder(WWCaveConfigured.GEYSER_NORTH,
+		GEOTHERMAL_VENT_NORTH.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_NORTH,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -347,7 +347,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_EAST.makeAndSetHolder(WWCaveConfigured.GEYSER_EAST,
+		GEOTHERMAL_VENT_EAST.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_EAST,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -364,7 +364,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_SOUTH.makeAndSetHolder(WWCaveConfigured.GEYSER_SOUTH,
+		GEOTHERMAL_VENT_SOUTH.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_SOUTH,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -381,7 +381,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		GEYSER_WEST.makeAndSetHolder(WWCaveConfigured.GEYSER_WEST,
+		GEOTHERMAL_VENT_WEST.makeAndSetHolder(WWCaveConfigured.GEOTHERMAL_VENT_WEST,
 			CountPlacement.of(UniformInt.of(96, 128)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -398,7 +398,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		DOWNWARDS_GEYSER_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEYSER_COLUMN,
+		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(WWCaveConfigured.DOWNWARDS_GEOTHERMAL_VENT_COLUMN,
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,

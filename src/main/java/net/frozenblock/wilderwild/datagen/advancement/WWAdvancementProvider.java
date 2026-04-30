@@ -24,10 +24,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
-import net.frozenblock.wilderwild.advancements.trigger.GeyserPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeothermalventPushMobTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
-import net.frozenblock.wilderwild.block.state.properties.GeyserType;
+import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -145,19 +145,19 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 			.addCriterion("termite_ate_block", TermiteEatTrigger.TriggerInstance.termiteEat(BlockPredicate.Builder.block().of(blocks, BlockTags.OVERWORLD_NATURAL_LOGS), true))
 			.save(writer, WWConstants.string("adventure/use_termite_on_tree"));
 
-		AdvancementHolder geyserPushedFlightlessBird = Advancement.Builder.advancement()
+		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.GEYSER,
-				Component.translatable("wilderwild.advancements.adventure.geyser_pushed_flightless_bird.title"),
-				Component.translatable("wilderwild.advancements.adventure.geyser_pushed_flightless_bird.description"),
+				WWBlocks.GEOTHERMAL_VENT,
+				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.title"),
+				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.description"),
 				null,
 				AdvancementType.TASK,
 				true,
 				true,
 				false
 			)
-			.addCriterion("geyser_pushed_mob", GeyserPushMobTrigger.TriggerInstance.geyserPushMob(
+			.addCriterion("geothermal_vent_pushed_mob", GeothermalventPushMobTrigger.TriggerInstance.geothermalVentPushMob(
 				Optional.of(
 					EntityPredicate.Builder.entity()
 						.entityType(
@@ -184,24 +184,24 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 						.build()
 				),
 				true,
-				GeyserType.AIR
+				GeothermalVentType.AIR
 				)
 			)
-			.save(writer, WWConstants.string("adventure/geyser_pushed_flightless_bird"));
+			.save(writer, WWConstants.string("adventure/geothermal_vent_pushed_flightless_bird"));
 
 		Advancement.Builder.advancement()
-			.parent(geyserPushedFlightlessBird)
+			.parent(geothermalVentPushedFlightlessBird)
 			.display(
 				Items.COOKED_BEEF,
-				Component.translatable("wilderwild.advancements.adventure.geyser_sets_cow_on_fire.title"),
-				Component.translatable("wilderwild.advancements.adventure.geyser_sets_cow_on_fire.description"),
+				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.title"),
+				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.description"),
 				null,
 				AdvancementType.TASK,
 				true,
 				true,
 				false
 			)
-			.addCriterion("geyser_pushed_mob", GeyserPushMobTrigger.TriggerInstance.geyserPushMob(
+			.addCriterion("geothermal_vent_pushed_mob", GeothermalventPushMobTrigger.TriggerInstance.geothermalVentPushMob(
 				Optional.of(
 					EntityPredicate.Builder.entity()
 						.entityType(
@@ -217,10 +217,10 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 						.build()
 				),
 				true,
-				GeyserType.LAVA
+				GeothermalVentType.LAVA
 				)
 			)
-			.save(writer, WWConstants.string("adventure/geyser_sets_cow_on_fire"));
+			.save(writer, WWConstants.string("adventure/geothermal_vent_sets_cow_on_fire"));
 
 		Advancement.Builder.advancement()
 			.parent(Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/walk_on_powder_snow_with_leather_boots")))

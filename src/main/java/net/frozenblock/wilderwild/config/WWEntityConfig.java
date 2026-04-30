@@ -126,7 +126,7 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> WANDERING_ALGAE_TRADE = CONFIG.entryBuilder("villager/wanderingAlgaeTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_PLANKTON_TRADE = CONFIG.entryBuilder("villager/wanderingPlanktonTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_AUBURN_MOSS_TRADE = CONFIG.entryBuilder("villager/wanderingAuburnMossTrade", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> WANDERING_GEYSER_TRADE = CONFIG.entryBuilder("villager/wanderingGeyserTrade", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WANDERING_GEOTHERMAL_VENT_TRADE = CONFIG.entryBuilder("villager/wanderingGeothermalventTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_DESERT_PALM_BOAT = CONFIG.entryBuilder("villager/fishermanDesertPalmBoat", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_CRAB_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanCrabForEmeralds", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_JELLYFISH_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanJellyfishForEmeralds", EntryType.BOOL, true).requireRestart().build();

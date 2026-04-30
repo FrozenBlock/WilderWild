@@ -18,13 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Set;
-import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.block.entity.GeyserBlockEntity;
-import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
-import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
+
+import net.frozenblock.wilderwild.block.entity.*;
 import net.frozenblock.wilderwild.references.WWBlockEntityTypeIds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,9 +49,9 @@ public final class WWBlockEntityTypes {
 		ScorchedBlockEntity::new,
 		WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND
 	);
-	public static final BlockEntityType<GeyserBlockEntity> GEYSER = register(WWBlockEntityTypeIds.GEYSER,
-		GeyserBlockEntity::new,
-		WWBlocks.GEYSER
+	public static final BlockEntityType<GeothermalVentBlockEntity> GEOTHERMAL_VENT = register(WWBlockEntityTypeIds.GEOTHERMAL_VENT,
+		GeothermalVentBlockEntity::new,
+		WWBlocks.GEOTHERMAL_VENT
 	);
 	public static final BlockEntityType<IcicleBlockEntity> ICICLE = register(WWBlockEntityTypeIds.ICICLE,
 		IcicleBlockEntity::new,

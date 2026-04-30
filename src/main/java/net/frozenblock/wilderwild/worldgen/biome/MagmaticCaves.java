@@ -138,14 +138,14 @@ public final class MagmaticCaves extends FrozenBiome {
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GABBRO_PILE.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARDS_GABBRO_COLUMN.getKey());
 		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GABBRO_MAGMA_PATH.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_LAVA.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_UP.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEYSER_DOWN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_NORTH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_EAST.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_SOUTH.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEYSER_WEST.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.DOWNWARDS_GEYSER_COLUMN.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEOTHERMAL_VENT_LAVA.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEOTHERMAL_VENT_UP.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.GEOTHERMAL_VENT_DOWN.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEOTHERMAL_VENT_NORTH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEOTHERMAL_VENT_EAST.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEOTHERMAL_VENT_SOUTH.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.GEOTHERMAL_VENT_WEST.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.DOWNWARDS_GEOTHERMAL_VENT_COLUMN.getKey());
 	}
 
 	@Override

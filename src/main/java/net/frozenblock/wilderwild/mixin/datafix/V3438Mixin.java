@@ -71,6 +71,11 @@ public class V3438Mixin {
 		);
 		schema.register(
 			map,
+			WWConstants.string("geothermal_vent"),
+			DSL::remainder
+		);
+		schema.register(
+			map,
 			WWConstants.string("icicle"),
 			DSL::remainder
 		);

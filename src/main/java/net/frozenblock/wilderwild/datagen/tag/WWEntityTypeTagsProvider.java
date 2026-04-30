@@ -114,10 +114,10 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 		this.builder(WWEntityTypeTags.LEAF_PARTICLES_FRANTIC_SPAWN)
 			.add(EntityTypeIds.BREEZE);
 
-		this.builder(WWEntityTypeTags.GEYSER_PUSHES_FURTHER)
+		this.builder(WWEntityTypeTags.GEOTHERMAL_VENT_PUSHES_FURTHER)
 			.add(EntityTypeIds.ARROW, EntityTypeIds.SPECTRAL_ARROW);
 
-		this.builder(WWEntityTypeTags.GEYSER_CANNOT_PUSH)
+		this.builder(WWEntityTypeTags.GEOTHERMAL_VENT_CANNOT_PUSH)
 			.add(EntityTypeIds.WITHER, EntityTypeIds.ENDER_DRAGON)
 			.add(EntityTypeIds.EYE_OF_ENDER)
 			.addOptionalTag(FrozenLibEntityTypeTags.GHOST_LIKE);

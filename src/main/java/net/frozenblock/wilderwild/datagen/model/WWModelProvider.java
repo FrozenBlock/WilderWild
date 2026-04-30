@@ -226,7 +226,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
 		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
 		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK);
-		WWModelHelper.createGeyser(generator);
+		generator.createRotatableColumn(WWBlocks.GEOTHERMAL_VENT);
 
 		generator.registerSimpleItemModel(WWBlocks.OSSEOUS_SCULK, ModelLocationUtils.getModelLocation(WWBlocks.OSSEOUS_SCULK));
 		generator.registerSimpleItemModel(WWBlocks.SCULK_STAIRS, ModelLocationUtils.getModelLocation(WWBlocks.SCULK_STAIRS));

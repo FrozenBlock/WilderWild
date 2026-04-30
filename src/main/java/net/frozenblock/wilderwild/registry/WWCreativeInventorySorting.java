@@ -363,7 +363,7 @@ public final class WWCreativeInventorySorting {
 
 		// FUNCTIONAL BLOCK ENTITIES
 		insertBeforeInNaturalBlocks(Items.BEE_NEST, WWItems.TERMITE_MOUND);
-		insertBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWItems.GEYSER);
+		insertBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWItems.GEOTHERMAL_VENT);
 
 		// MISC
 		insertAfterInFunctionalBlocks(Items.TINTED_GLASS, WWItems.ECHO_GLASS);
@@ -405,8 +405,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
 		// GABBRO
-		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWItems.GEYSER);
-		insertBeforeInNaturalBlocks(WWItems.GEYSER, WWItems.GABBRO);
+		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWItems.GEOTHERMAL_VENT);
+		insertBeforeInNaturalBlocks(WWItems.GEOTHERMAL_VENT, WWItems.GABBRO);
 
 		insertBeforeInBuildingBlocks(Items.BRICKS, WWItems.GABBRO);
 		// TT

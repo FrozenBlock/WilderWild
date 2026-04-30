@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:geothermal_vent",
+        "Properties": {
+          "facing": "west",
+          "natural": "true",
+          "powered": "false",
+          "vent_state": "dormant",
+          "vent_type": "none"
+        }
+      }
+    }
+  }
+}

@@ -56,7 +56,7 @@ public class PotentSulfurBlockEntityMixin {
 				Optional.of(entity),
 				pos.getCenter(),
 				original.inflate(0.5D).move(0D, 0.5D, 0D),
-				WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER_MOJANG).orElse(WILDER_WILD$DUMMY_WIND_LOGIC)
+				WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER).orElse(WILDER_WILD$DUMMY_WIND_LOGIC)
 			),
 			serverLevel
 		);

@@ -54,7 +54,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 		mutable.move(Direction.UP, height);
 
 		if (isValidWaterToReplaceAt(level, mutable)) {
-			level.setBlock(mutable, WWBlocks.GEYSER.defaultBlockState(), Block.UPDATE_CLIENTS);
+			level.setBlock(mutable, WWBlocks.GEOTHERMAL_VENT.defaultBlockState(), Block.UPDATE_CLIENTS);
 			level.setBlock(mutable.move(Direction.DOWN), Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 			mutable.move(Direction.UP);
 		} else {

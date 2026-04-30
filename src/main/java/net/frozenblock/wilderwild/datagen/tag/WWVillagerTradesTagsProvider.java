@@ -70,6 +70,6 @@ public final class WWVillagerTradesTagsProvider extends FabricTagsProvider<Villa
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_PLANKTON);
 
 		this.builder(VillagerTradeTags.WANDERING_TRADER_UNCOMMON)
-			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_GEYSER);
+			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_GEOTHERMAL_VENT);
 	}
 }

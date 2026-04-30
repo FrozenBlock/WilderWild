@@ -5488,17 +5488,17 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.geyser.break": {
+  "block.geothermal_vent.break": {
     "sounds": [
-      "wilderwild:block/geyser/break1",
-      "wilderwild:block/geyser/break2",
-      "wilderwild:block/geyser/break3",
-      "wilderwild:block/geyser/break4",
-      "wilderwild:block/geyser/break5"
+      "wilderwild:block/geothermal_vent/break1",
+      "wilderwild:block/geothermal_vent/break2",
+      "wilderwild:block/geothermal_vent/break3",
+      "wilderwild:block/geothermal_vent/break4",
+      "wilderwild:block/geothermal_vent/break5"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.geyser.fall": {
+  "block.geothermal_vent.fall": {
     "sounds": [
       "wilderwild:block/gabbro/step1",
       "wilderwild:block/gabbro/step2",
@@ -5508,7 +5508,7 @@
       "wilderwild:block/gabbro/step6"
     ]
   },
-  "block.geyser.hit": {
+  "block.geothermal_vent.hit": {
     "sounds": [
       "wilderwild:block/gabbro/step1",
       "wilderwild:block/gabbro/step2",
@@ -5519,17 +5519,17 @@
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.geyser.place": {
+  "block.geothermal_vent.place": {
     "sounds": [
-      "wilderwild:block/geyser/break1",
-      "wilderwild:block/geyser/break2",
-      "wilderwild:block/geyser/break3",
-      "wilderwild:block/geyser/break4",
-      "wilderwild:block/geyser/break5"
+      "wilderwild:block/geothermal_vent/break1",
+      "wilderwild:block/geothermal_vent/break2",
+      "wilderwild:block/geothermal_vent/break3",
+      "wilderwild:block/geothermal_vent/break4",
+      "wilderwild:block/geothermal_vent/break5"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.geyser.step": {
+  "block.geothermal_vent.step": {
     "sounds": [
       "wilderwild:block/gabbro/step1",
       "wilderwild:block/gabbro/step2",
@@ -5540,54 +5540,54 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.geyser.boil": {
+  "block.geothermal_vent.boil": {
     "sounds": [
-      "wilderwild:block/geyser/boil1",
-      "wilderwild:block/geyser/boil2",
-      "wilderwild:block/geyser/boil3",
-      "wilderwild:block/geyser/boil4",
-      "wilderwild:block/geyser/boil5",
-      "wilderwild:block/geyser/boil6"
+      "wilderwild:block/geothermal_vent/boil1",
+      "wilderwild:block/geothermal_vent/boil2",
+      "wilderwild:block/geothermal_vent/boil3",
+      "wilderwild:block/geothermal_vent/boil4",
+      "wilderwild:block/geothermal_vent/boil5",
+      "wilderwild:block/geothermal_vent/boil6"
     ],
-    "subtitle": "subtitles.block.geyser.boil"
+    "subtitle": "subtitles.block.geothermal_vent.boil"
   },
-  "block.geyser.erupt.air": {
+  "block.geothermal_vent.erupt.air": {
     "sounds": [
-      "wilderwild:block/geyser/erupt_air1",
-      "wilderwild:block/geyser/erupt_air2",
-      "wilderwild:block/geyser/erupt_air3",
-      "wilderwild:block/geyser/erupt_air4"
+      "wilderwild:block/geothermal_vent/erupt_air1",
+      "wilderwild:block/geothermal_vent/erupt_air2",
+      "wilderwild:block/geothermal_vent/erupt_air3",
+      "wilderwild:block/geothermal_vent/erupt_air4"
     ],
-    "subtitle": "subtitles.block.geyser.erupt"
+    "subtitle": "subtitles.block.geothermal_vent.erupt"
   },
-  "block.geyser.erupt.water": {
+  "block.geothermal_vent.erupt.water": {
     "sounds": [
-      "wilderwild:block/geyser/erupt_water1",
-      "wilderwild:block/geyser/erupt_water2",
-      "wilderwild:block/geyser/erupt_water3",
-      "wilderwild:block/geyser/erupt_water4"
+      "wilderwild:block/geothermal_vent/erupt_water1",
+      "wilderwild:block/geothermal_vent/erupt_water2",
+      "wilderwild:block/geothermal_vent/erupt_water3",
+      "wilderwild:block/geothermal_vent/erupt_water4"
     ],
-    "subtitle": "subtitles.block.geyser.erupt"
+    "subtitle": "subtitles.block.geothermal_vent.erupt"
   },
-  "block.geyser.erupt.lava": {
+  "block.geothermal_vent.erupt.lava": {
     "sounds": [
-      "wilderwild:block/geyser/erupt_lava1",
-      "wilderwild:block/geyser/erupt_lava2",
-      "wilderwild:block/geyser/erupt_lava3",
-      "wilderwild:block/geyser/erupt_lava4"
+      "wilderwild:block/geothermal_vent/erupt_lava1",
+      "wilderwild:block/geothermal_vent/erupt_lava2",
+      "wilderwild:block/geothermal_vent/erupt_lava3",
+      "wilderwild:block/geothermal_vent/erupt_lava4"
     ],
-    "subtitle": "subtitles.block.geyser.erupt"
+    "subtitle": "subtitles.block.geothermal_vent.erupt"
   },
-  "block.geyser.vent.ambient": {
+  "block.geothermal_vent.vent.ambient": {
     "sounds": [
-      "wilderwild:block/geyser/vent1",
-      "wilderwild:block/geyser/vent2",
-      "wilderwild:block/geyser/vent3",
-      "wilderwild:block/geyser/vent4",
-      "wilderwild:block/geyser/vent5",
-      "wilderwild:block/geyser/vent6"
+      "wilderwild:block/geothermal_vent/vent1",
+      "wilderwild:block/geothermal_vent/vent2",
+      "wilderwild:block/geothermal_vent/vent3",
+      "wilderwild:block/geothermal_vent/vent4",
+      "wilderwild:block/geothermal_vent/vent5",
+      "wilderwild:block/geothermal_vent/vent6"
     ],
-    "subtitle": "subtitles.block.geyser.vent.ambient"
+    "subtitle": "subtitles.block.geothermal_vent.vent.ambient"
   },
   "block.magma.break": {
     "sounds": [

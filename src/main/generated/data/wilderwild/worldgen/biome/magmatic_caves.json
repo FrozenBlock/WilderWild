@@ -32,10 +32,10 @@
     [
       "minecraft:amethyst_geode",
       "wilderwild:gabbro_magma_path",
-      "wilderwild:geyser_lava",
-      "wilderwild:geyser_up",
-      "wilderwild:geyser_down",
-      "wilderwild:downwards_geyser_column"
+      "wilderwild:geothermal_vent_lava",
+      "wilderwild:geothermal_vent_up",
+      "wilderwild:geothermal_vent_down",
+      "wilderwild:downwards_geothermal_vent_column"
     ],
     [
       "minecraft:fossil_upper",
@@ -83,10 +83,10 @@
       "wilderwild:gabbro_disk",
       "wilderwild:gabbro_pile",
       "wilderwild:downwards_gabbro_column",
-      "wilderwild:geyser_north",
-      "wilderwild:geyser_east",
-      "wilderwild:geyser_south",
-      "wilderwild:geyser_west"
+      "wilderwild:geothermal_vent_north",
+      "wilderwild:geothermal_vent_east",
+      "wilderwild:geothermal_vent_south",
+      "wilderwild:geothermal_vent_west"
     ],
     [
       "wilderwild:lava_spring_extra"

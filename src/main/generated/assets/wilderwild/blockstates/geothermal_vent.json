@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "wilderwild:block/geothermal_vent",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "wilderwild:block/geothermal_vent",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "wilderwild:block/geothermal_vent",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "wilderwild:block/geothermal_vent",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "wilderwild:block/geothermal_vent"
+    },
+    "facing=west": {
+      "model": "wilderwild:block/geothermal_vent",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

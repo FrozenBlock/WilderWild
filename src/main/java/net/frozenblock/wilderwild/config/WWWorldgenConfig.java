@@ -33,7 +33,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> SNOW_BELOW_TREES = CONFIG.entryBuilder("snowBelowTrees", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SULFUR_CAVES_CALCITE = CONFIG.entry("sulfurCavesCalcite", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> TERMITE_GENERATION = CONFIG.entryBuilder("termiteGen", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> NETHER_GEYSER_GENERATION = CONFIG.entryBuilder("netherGeyserGen", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> NETHER_GEOTHERMAL_VENT_GENERATION = CONFIG.entryBuilder("netherGeothermalVentGen", EntryType.BOOL, true).requireRestart().build();
 
 	// BIOME GENERATION
 	public static final ConfigEntry<Boolean> CYPRESS_WETLANDS_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateCypressWetlands", EntryType.BOOL, true).requireRestart().build();

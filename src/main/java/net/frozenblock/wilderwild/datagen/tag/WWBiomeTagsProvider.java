@@ -1948,10 +1948,10 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.HAS_TERMITE_MOUND)
 			.addOptionalTag(BiomeTags.IS_SAVANNA);
 
-		this.builder(WWBiomeTags.HAS_NETHER_GEYSER)
+		this.builder(WWBiomeTags.HAS_NETHER_GEOTHERMAL_VENT)
 			.add(Biomes.BASALT_DELTAS);
 
-		this.builder(WWBiomeTags.HAS_NETHER_LAVA_GEYSER)
+		this.builder(WWBiomeTags.HAS_NETHER_LAVA_GEOTHERMAL_VENT)
 			.add(Biomes.NETHER_WASTES);
 
 		this.builder(WWBiomeTags.HAS_HYDROTHERMAL_VENT)

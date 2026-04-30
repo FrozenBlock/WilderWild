@@ -202,7 +202,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId GABBRO_SLAB = create("gabbro_slab");
 	public static final BlockItemId GABBRO_WALL = create("gabbro_wall");
 
-	public static final BlockItemId GEYSER = create("geyser");
+	public static final BlockItemId GEOTHERMAL_VENT = create("geothermal_vent");
 
 	public static final BlockItemId POLISHED_GABBRO = create("polished_gabbro");
 	public static final BlockItemId POLISHED_GABBRO_STAIRS = create("polished_gabbro_stairs");

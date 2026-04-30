@@ -53,6 +53,7 @@ public class DataFixersMixin {
 		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("stone_chest"), References.BLOCK_ENTITY));
 		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("termite_mound"), References.BLOCK_ENTITY));
 		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("geyser"), References.BLOCK_ENTITY));
+		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("geothermal_vent"), References.BLOCK_ENTITY));
 		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("icicle"), References.BLOCK_ENTITY));
 		return schema;
 	}

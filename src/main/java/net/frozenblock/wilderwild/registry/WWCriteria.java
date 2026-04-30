@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
-import net.frozenblock.wilderwild.advancements.trigger.GeyserPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeothermalventPushMobTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.minecraft.advancements.triggers.CriterionTrigger;
@@ -30,7 +30,7 @@ public final class WWCriteria {
 	public static final MobBottleTrigger MOB_BOTTLE = register("mob_bottle", new MobBottleTrigger());
 	public static final TermiteEatTrigger TERMITE_EAT = register("termite_eat", new TermiteEatTrigger());
 	public static final FragileIceFallOntoAndBreakTrigger FRAGILE_ICE_FAL_ONTO_AND_BREAK = register("fragile_ice_fall_onto_and_break", new FragileIceFallOntoAndBreakTrigger());
-	public static final GeyserPushMobTrigger GEYSER_PUSH_MOB_TRIGGER = register("geyser_push_mob", new GeyserPushMobTrigger());
+	public static final GeothermalventPushMobTrigger GEOTHERMAL_VENT_PUSH_MOB_TRIGGER = register("geothermal_vent_push_mob", new GeothermalventPushMobTrigger());
 
 	public static void init() {}
 

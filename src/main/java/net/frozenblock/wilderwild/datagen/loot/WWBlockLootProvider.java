@@ -476,7 +476,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.dropSelf(WWBlocks.OSTRICH_EGG);
 		this.dropSelf(WWBlocks.PENGUIN_EGG);
-		this.dropSelf(WWBlocks.GEYSER);
+		this.dropSelf(WWBlocks.GEOTHERMAL_VENT);
 		this.dropWhenSilkTouch(WWBlocks.HANGING_TENDRIL);
 		this.dropWhenSilkTouch(WWBlocks.OSSEOUS_SCULK);
 		this.dropWhenSilkTouch(WWBlocks.SCULK_WALL);
