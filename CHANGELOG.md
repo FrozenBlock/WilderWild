@@ -123,3 +123,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `wilderwild:penguin_immune_to` Block Tag, controlling which blocks do not affect Penguins.
   - Contains Powder Snow by default.
 - Renamed the `wilderwild:penguins_spawnable_on` Block Tag to `wilderwild:penguin_spawnable_on`.
+- Renamed Wilder Wild's Geyser block to Geothermal Vent.
+  - All associated Sounds, Tags, BlockState Properties, Configured Features, Placed Features, Config Entries, Advancements, and Advancement Criteria have also been renamed.
