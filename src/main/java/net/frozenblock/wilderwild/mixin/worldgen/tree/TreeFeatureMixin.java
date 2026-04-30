@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.worldgen.impl.feature.PalmTreeFeature;
+import net.frozenblock.wilderwild.levelgen.feature.PalmTreeFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;

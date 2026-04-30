@@ -25,6 +25,7 @@ import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -33,6 +34,7 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
+import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWActivities;
@@ -63,7 +65,7 @@ import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManager;
-import net.frozenblock.wilderwild.worldgen.modification.WWWorldgen;
+import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
@@ -108,6 +110,8 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWWorldgen.init();
 		WWBlocks.registerBlockProperties();
 		WWBlockSoundTypeOverwrites.init();
+		WWAdvancementModifications.init();
+		WWStructureModifications.init();
 
 		WWWindDisturbances.init();
 		WWSoundPredicates.init();

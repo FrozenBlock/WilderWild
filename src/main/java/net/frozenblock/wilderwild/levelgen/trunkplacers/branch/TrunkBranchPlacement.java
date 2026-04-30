@@ -1,0 +1,240 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.levelgen.trunkplacers.branch;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
+import java.util.function.BiConsumer;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.TrunkPlacerHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+
+public record TrunkBranchPlacement(
+	float branchChance,
+	IntProvider maxBranchCount,
+	IntProvider branchCutoffFromTop,
+	IntProvider branchLength,
+	float offsetLastLogChance,
+	int minBranchLengthForOffset,
+	float foliagePlacementChance,
+	IntProvider foliageRadiusOffset
+) {
+	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+			Codec.floatRange(0F, 1F).fieldOf("branch_placement_chance").forGetter(trunkPlacer -> trunkPlacer.branchChance),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
+			IntProviders.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
+			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
+			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_branch_length_for_offset", 1).forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
+			Codec.FLOAT.lenientOptionalFieldOf("foliage_placement_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
+			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusOffset)
+		).apply(instance, TrunkBranchPlacement::new)
+	);
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public boolean canPlaceBranch(RandomSource random) {
+		return random.nextFloat() <= this.branchChance;
+	}
+
+	public int getMaxBranchCount(RandomSource random) {
+		return this.maxBranchCount.sample(random);
+	}
+
+	public int getBranchLength(RandomSource random) {
+		return this.branchLength.sample(random);
+	}
+
+	public boolean canOffsetLastLog(RandomSource random, int length) {
+		return random.nextFloat() <= this.offsetLastLogChance && length > this.minBranchLengthForOffset;
+	}
+
+	public boolean canPlaceFoliage(RandomSource random) {
+		return random.nextFloat() <= this.foliagePlacementChance;
+	}
+
+	public IntProvider getFoliageRadiusOffset() {
+		return this.foliageRadiusOffset;
+	}
+
+	public int getFoliageRadiusOffset(RandomSource random) {
+		return this.foliageRadiusOffset.sample(random);
+	}
+
+	public void generateExtraBranchForFallenLog(
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
+		RandomSource random,
+		BlockStateProvider stateProvider,
+		BlockPos origin,
+		Direction direction,
+		Direction trunkDirection
+	) {
+		final BlockPos.MutableBlockPos branchPos = origin.mutable();
+		final int totalLength = this.getBranchLength(random);
+		boolean hasPassedConfigCheck = false;
+
+		for (int length = 1; length <= totalLength; length++) {
+			branchPos.setWithOffset(origin, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
+
+			final boolean canOffsetLog = length == totalLength && this.canOffsetLastLog(random, length);
+			if (canOffsetLog) branchPos.move(trunkDirection);
+
+			if (!TreeFeature.validTreePos(level, branchPos)) continue;
+
+			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
+			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+				hasPassedConfigCheck = true;
+				trunkSetter.accept(branchPos, logState);
+			} else {
+				return;
+			}
+		}
+	}
+
+	public void generateExtraBranch(
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
+		RandomSource random,
+		BlockStateProvider stateProvider,
+		BlockPos origin,
+		Direction direction,
+		List<FoliagePlacer.FoliageAttachment> foliageAttachments
+	) {
+		final BlockPos.MutableBlockPos branchPos = origin.mutable();
+		final int totalLength = this.getBranchLength(random);
+		boolean hasPassedConfigCheck = false;
+
+		for (int length = 1; length <= totalLength; length++) {
+			branchPos.setWithOffset(origin, direction.getStepX() * length, 0, direction.getStepZ() * length);
+
+			final boolean isLastLog = length == totalLength;
+			final boolean placeUpwards = isLastLog && this.canOffsetLastLog(random, length);
+			if (placeUpwards) branchPos.move(Direction.UP);
+
+			if (!TreeFeature.validTreePos(level, branchPos)) continue;
+
+			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
+			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
+				hasPassedConfigCheck = true;
+				trunkSetter.accept(branchPos, logState);
+				if (isLastLog && this.canPlaceFoliage(random)) {
+					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), this.getFoliageRadiusOffset(random), false));
+				}
+			} else {
+				return;
+			}
+		}
+	}
+
+	private static boolean verifyBranchMatchesConfig(BlockState logState) {
+		if (!WWWorldgenConfig.BIRCH_BRANCH_GENERATION.get() && logState.is(BlockItemTags.BIRCH_LOGS.block())) return false;
+		if (!WWWorldgenConfig.OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.OAK_LOGS.block())) return false;
+		if (!WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.DARK_OAK_LOGS.block())) return false;
+		if (!WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.PALE_OAK_LOGS.block())) return false;
+		return true;
+	}
+
+	public static class Builder {
+		private float branchChance = 0F;
+		private IntProvider maxBranchCount = ConstantInt.ZERO;
+		private IntProvider branchCutoffFromTop = ConstantInt.ZERO;
+		private IntProvider branchLength = ConstantInt.ZERO;
+		private float offsetLastLogChance = 0F;
+		private int minBranchLengthForOffset = 1;
+		private float foliagePlacementChance = 0F;
+		private IntProvider foliageRadiusOffset = ConstantInt.ZERO;
+
+		public Builder() {
+		}
+
+		public Builder branchChance(float branchChance) {
+			this.branchChance = branchChance;
+			return this;
+		}
+
+		public Builder maxBranchCount(int maxBranchCount) {
+			this.maxBranchCount = ConstantInt.of(maxBranchCount);
+			return this;
+		}
+
+		public Builder maxBranchCount(IntProvider maxBranchCount) {
+			this.maxBranchCount = maxBranchCount;
+			return this;
+		}
+
+		public Builder branchCutoffFromTop(IntProvider branchCutoffFromTop) {
+			this.branchCutoffFromTop = branchCutoffFromTop;
+			return this;
+		}
+
+		public Builder branchLength(IntProvider branchLength) {
+			this.branchLength = branchLength;
+			return this;
+		}
+
+		public Builder offsetLastLogChance(Float offsetLastLogChance) {
+			this.offsetLastLogChance = offsetLastLogChance;
+			return this;
+		}
+
+		public Builder foliagePlacementChance(Float foliagePlacementChance) {
+			this.foliagePlacementChance = foliagePlacementChance;
+			return this;
+		}
+
+		public Builder minBranchLengthForOffset(int minBranchLengthForOffset) {
+			this.minBranchLengthForOffset = minBranchLengthForOffset;
+			return this;
+		}
+
+		public Builder foliageRadiusOffset(IntProvider foliageRadiusOffset) {
+			this.foliageRadiusOffset = foliageRadiusOffset;
+			return this;
+		}
+
+		public TrunkBranchPlacement build() {
+			return new TrunkBranchPlacement(
+				this.branchChance,
+				this.maxBranchCount,
+				this.branchCutoffFromTop,
+				this.branchLength,
+				this.offsetLastLogChance,
+				this.minBranchLengthForOffset,
+				this.foliagePlacementChance,
+				this.foliageRadiusOffset
+			);
+		}
+	}
+}

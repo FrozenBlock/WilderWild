@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.Optional;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.resources.ResourceKey;

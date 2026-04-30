@@ -1,0 +1,56 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.data;
+
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWAquaticPlaced;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+public final class WWFeatureBootstrap {
+
+	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+
+		WWTreeConfigured.registerTreeConfigured(entries);
+		WWMiscConfigured.registerMiscConfigured(entries);
+		WWCaveConfigured.registerCaveConfigured(entries);
+		WWAquaticConfigured.registerAquaticConfigured(entries);
+		WWConfiguredFeatures.registerConfiguredFeatures(entries);
+	}
+
+	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
+		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+
+		WWTreePlaced.registerTreePlaced();
+		WWMiscPlaced.registerMiscPlaced(entries);
+		WWCavePlaced.registerCavePlaced(entries);
+		WWAquaticPlaced.registerAquaticPlaced(entries);
+		WWPlacedFeatures.registerPlacedFeatures(entries);
+	}
+}

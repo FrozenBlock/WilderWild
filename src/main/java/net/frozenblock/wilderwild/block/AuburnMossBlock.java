@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.worldgen.features.configured.WWAquaticConfigured;
-import net.frozenblock.wilderwild.worldgen.features.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

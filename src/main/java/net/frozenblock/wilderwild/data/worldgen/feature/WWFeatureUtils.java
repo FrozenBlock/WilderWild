@@ -1,0 +1,56 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.data.worldgen.feature;
+
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
+import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredTreeFeature;
+import net.frozenblock.wilderwild.WWConstants;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+
+public final class WWFeatureUtils {
+
+	private WWFeatureUtils() {
+		throw new UnsupportedOperationException("WWFeatureUtils contains only static declarations.");
+	}
+
+	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(String id, Feature<NoneFeatureConfiguration> feature) {
+		return register(id, feature, FeatureConfiguration.NONE);
+	}
+
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC> register(String id, F feature, FC config) {
+		FrozenLibConfiguredFeature<FC> frozen = new FrozenLibConfiguredFeature<>(WWConstants.id(id));
+		frozen.makeAndSetHolder(feature, config);
+		return frozen;
+	}
+
+	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(String id) {
+		return new FrozenLibConfiguredFeature<>(WWConstants.id(id));
+	}
+
+	public static FrozenLibConfiguredTreeFeature registerTree(
+		String id,
+		Block leafLitterBlock,
+		int triesA, int radiusA, int heightA,
+		int triesB, int radiusB, int heightB
+	) {
+		return new FrozenLibConfiguredTreeFeature(WWConstants.id(id), leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
+	}
+}

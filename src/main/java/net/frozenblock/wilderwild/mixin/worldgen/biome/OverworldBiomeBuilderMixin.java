@@ -28,8 +28,8 @@ import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.worldgen.biome.WarmRiver;
+import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
+import net.frozenblock.wilderwild.data.worldgen.biome.WarmRiver;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
