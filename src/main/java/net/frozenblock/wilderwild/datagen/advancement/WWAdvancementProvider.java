@@ -24,7 +24,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
-import net.frozenblock.wilderwild.advancements.trigger.GeothermalventPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
@@ -157,7 +157,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("geothermal_vent_pushed_mob", GeothermalventPushMobTrigger.TriggerInstance.geothermalVentPushMob(
+			.addCriterion("geothermal_vent_pushed_mob", GeothermalVentPushMobTrigger.TriggerInstance.geothermalVentPushMob(
 				Optional.of(
 					EntityPredicate.Builder.entity()
 						.entityType(
@@ -201,7 +201,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("geothermal_vent_pushed_mob", GeothermalventPushMobTrigger.TriggerInstance.geothermalVentPushMob(
+			.addCriterion("geothermal_vent_pushed_mob", GeothermalVentPushMobTrigger.TriggerInstance.geothermalVentPushMob(
 				Optional.of(
 					EntityPredicate.Builder.entity()
 						.entityType(

@@ -33,7 +33,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 import org.jetbrains.annotations.Nullable;
 
-public class GeothermalventPushMobTrigger extends SimpleCriterionTrigger<GeothermalventPushMobTrigger.TriggerInstance> {
+public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<GeothermalVentPushMobTrigger.TriggerInstance> {
 	public static final double TRIGGER_DISTANCE_FROM_PLAYER = Mth.square(16D);
 
 	@Override

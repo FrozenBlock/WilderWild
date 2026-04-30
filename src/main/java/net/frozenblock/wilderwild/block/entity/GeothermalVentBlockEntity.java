@@ -26,7 +26,7 @@ import net.frozenblock.lib.wind.api.BlowingHelper;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
-import net.frozenblock.wilderwild.advancements.trigger.GeothermalventPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
@@ -238,7 +238,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 
 			if (damagingEruption.intersects(boundingBox)) {
 				if (applyMovement) {
-					for (ServerPlayer serverPlayer : level.getPlayers(player -> player.distanceToSqr(ventStartPos) < GeothermalventPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+					for (ServerPlayer serverPlayer : level.getPlayers(player -> player.distanceToSqr(ventStartPos) < GeothermalVentPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
 						WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geothermalVentType);
 					}
 				}
