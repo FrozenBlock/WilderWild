@@ -18,14 +18,15 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import java.util.Iterator;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Iterator;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;
+import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,7 +43,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Fallable;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SpeleothemBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -164,9 +164,9 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	}
 
 	@Override
-	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
+	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity entity) {
 		// NOTE: Mojang uses new level events for each Speleotem as of 26.2-snapshot-5. But of course, us making one isn't a great idea!
-		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(fallingBlock.getBlockState()));
+		if (!entity.isSilent() && level instanceof ServerLevel serverLevel) WWIcicleLandPacket.sendToAll(serverLevel, pos);
 	}
 
 	@Override

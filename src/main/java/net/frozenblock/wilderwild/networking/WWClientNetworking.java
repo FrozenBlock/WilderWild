@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
@@ -59,6 +60,7 @@ public final class WWClientNetworking {
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
 		receiveScorchingFirePlacePacket();
+		receiveIcicleLandPacket();
 		receiveLeavesExplosionPacket();
 	}
 
@@ -142,6 +144,20 @@ public final class WWClientNetworking {
 				0.5F,
 				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F,
 				true
+			);
+		});
+	}
+
+	public static void receiveIcicleLandPacket() {
+		ClientPlayNetworking.registerGlobalReceiver(WWIcicleLandPacket.PACKET_TYPE, (packet, ctx) -> {
+			final ClientLevel level = ctx.client().level;
+			level.playLocalSound(
+				packet.pos(),
+				WWSounds.BLOCK_ICICLE_LAND,
+				SoundSource.BLOCKS,
+				2F,
+				level.getRandom().nextFloat() * 0.1F + 0.9F,
+				false
 			);
 		});
 	}

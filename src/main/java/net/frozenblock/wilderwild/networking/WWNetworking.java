@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.networking;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
@@ -35,6 +36,7 @@ public final class WWNetworking {
 		registry.register(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);
 		registry.register(WWStoneChestLidPacket.PACKET_TYPE, WWStoneChestLidPacket.CODEC);
 		registry.register(WWScorchingFirePlacePacket.PACKET_TYPE, WWScorchingFirePlacePacket.CODEC);
+		registry.register(WWIcicleLandPacket.PACKET_TYPE, WWIcicleLandPacket.CODEC);
 		registry.register(WWLeavesExplosionParticlePacket.PACKET_TYPE, WWLeavesExplosionParticlePacket.CODEC);
 	}
 }

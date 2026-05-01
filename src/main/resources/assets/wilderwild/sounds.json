@@ -1887,6 +1887,16 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.icicle.land": {
+    "sounds": [
+      "wilderwild:block/icicle/land1",
+      "wilderwild:block/icicle/land2",
+      "wilderwild:block/icicle/land3",
+      "wilderwild:block/icicle/land4",
+      "wilderwild:block/icicle/land5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
   "block.conifer_leaves.break": {
     "sounds": [
       {

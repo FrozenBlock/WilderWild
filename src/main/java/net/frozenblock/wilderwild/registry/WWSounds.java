@@ -138,6 +138,7 @@ public final class WWSounds {
 	public static final SoundEvent BLOCK_FROSTED_ICE_BREAK = register("block.frosted_ice.break");
 	public static final SoundEvent BLOCK_FROSTED_ICE_STEP = register("block.frosted_ice.step");
 	public static final SoundEvent BLOCK_FROSTED_ICE_FALL = register("block.frosted_ice.fall");
+	public static final SoundEvent BLOCK_ICICLE_LAND = register("block.icicle.land");
 	public static final SoundEvent BLOCK_AUBURN_MOSS_PLACE = register("block.auburn_moss.place");
 	public static final SoundEvent BLOCK_AUBURN_MOSS_HIT = register("block.auburn_moss.hit");
 	public static final SoundEvent BLOCK_AUBURN_MOSS_BREAK = register("block.auburn_moss.break");
