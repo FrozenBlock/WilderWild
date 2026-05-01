@@ -37,7 +37,6 @@ import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.references.WWRegistryAliases;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;

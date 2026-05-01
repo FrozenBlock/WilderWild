@@ -1311,7 +1311,7 @@ public final class WWCaveConfigured {
 							HolderSet.direct(
 								PlacementUtils.inlinePlaced(
 									Feature.SIMPLE_BLOCK,
-									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.POTENT_SULFUR))
+									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.POTENT_SULFUR), true)
 								),
 								PlacementUtils.inlinePlaced(
 									Feature.SIMPLE_BLOCK,
@@ -1381,10 +1381,7 @@ public final class WWCaveConfigured {
 		SULFUR_SPRINGS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(SULFUR_SPRING_DOUBLE.getHolder()),
-						0.25F
-					)
+					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(SULFUR_SPRING_DOUBLE.getHolder()), 0.25F)
 				),
 				PlacementUtils.inlinePlaced(SULFUR_SPRING.getHolder())
 			)

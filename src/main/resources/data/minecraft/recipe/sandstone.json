@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building_blocks",
+  "category": "building",
   "group": "sandstone",
   "key": {
     "#": "minecraft:sand"
