@@ -1311,7 +1311,7 @@ public final class WWCaveConfigured {
 							HolderSet.direct(
 								PlacementUtils.inlinePlaced(
 									Feature.SIMPLE_BLOCK,
-									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.POTENT_SULFUR), true)
+									new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.POTENT_SULFUR))
 								),
 								PlacementUtils.inlinePlaced(
 									Feature.SIMPLE_BLOCK,

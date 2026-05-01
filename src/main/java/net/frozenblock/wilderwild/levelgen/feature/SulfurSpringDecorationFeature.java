@@ -48,7 +48,6 @@ public class SulfurSpringDecorationFeature extends Feature<SulfurSpringDecoratio
 		final BlockPos.MutableBlockPos mutable = origin.mutable();
 		final BlockState topState = config.topState().getState(level, random, mutable);
 		safeSetBlock(level, mutable, topState, safeToReplace);
-		level.scheduleTick(mutable.immutable(), topState.getBlock(), 1);
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			safeSetBlock(level, mutable.setWithOffset(origin, direction), state.getState(level, random, mutable), safeToReplace);
 		}
