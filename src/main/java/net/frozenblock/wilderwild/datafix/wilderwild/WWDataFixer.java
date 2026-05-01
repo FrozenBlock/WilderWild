@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
-import java.util.Map;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.BushStateFix;
@@ -111,7 +110,7 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Replace wilderwild:music_disc_goathorn_symphony with minecraft:music_disc_otherside", WWConstants.id("music_disc_goathorn_symphony"), WWConstants.vanillaId("music_disc_otherside"), schemaV16);
 
 		Schema schemaV17 = builder.addSchema(17, NamespacedSchema::new);
-		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", Map.of(WWConstants.id("magma_caves"), WWConstants.id("magmatic_caves")), schemaV17);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", WWConstants.id("magma_caves"), WWConstants.id("magmatic_caves"), schemaV17);
 
 		Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename palm_crown to palm_log", WWConstants.id("palm_crown"), WWConstants.id("palm_log"), schemaV18);
@@ -130,10 +129,10 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename red_shelf_fungus to red_shelf_fungi", WWConstants.id("red_shelf_fungus"), WWConstants.id("red_shelf_fungi"), schemaV20);
 
 		Schema schemaV21 = builder.addSchema(21, NamespacedSchema::new);
-		SimpleFixes.addBiomeRenameFix(builder, "Rename jellyfish_caves to mesoglea_caves", Map.of(WWConstants.id("jellyfish_caves"), WWConstants.id("mesoglea_caves")), schemaV21);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename jellyfish_caves to mesoglea_caves", WWConstants.id("jellyfish_caves"), WWConstants.id("mesoglea_caves"), schemaV21);
 
 		Schema schemaV22 = builder.addSchema(22, NamespacedSchema::new);
-		SimpleFixes.addBiomeRenameFix(builder, "Rename maple_grove to maple_forest", Map.of(WWConstants.id("maple_grove"), WWConstants.id("maple_forest")), schemaV22);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename maple_grove to maple_forest", WWConstants.id("maple_grove"), WWConstants.id("maple_forest"), schemaV22);
 
 		Schema schemaV23 = builder.addSchema(23, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename alba_glory_of_the_snow to white_glory_of_the_snow_petals", WWConstants.id("alba_glory_of_the_snow"), WWConstants.id("white_glory_of_the_snow_petals"), schemaV23);
@@ -203,10 +202,10 @@ public final class WWDataFixer {
 		);
 
 		Schema schemaV27 = builder.addSchema(27, NamespacedSchema::new);
-		SimpleFixes.addBiomeRenameFix(builder, "Rename tundra to autumnal_plains", Map.of(WWConstants.id("tundra"), WWConstants.id("autumnal_plains")), schemaV27);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename tundra to autumnal_plains", WWConstants.id("tundra"), WWConstants.id("autumnal_plains"), schemaV27);
 
 		Schema schemaV28 = builder.addSchema(28, NamespacedSchema::new);
-		SimpleFixes.addBiomeRenameFix(builder, "Rename autumnal_plains to tundra", Map.of(WWConstants.id("autumnal_plains"), WWConstants.id("tundra")), schemaV28);
+		SimpleFixes.addBiomeRenameFix(builder, "Rename autumnal_plains to tundra", WWConstants.id("autumnal_plains"), WWConstants.id("tundra"), schemaV28);
 
 		Schema schemaV29 = builder.addSchema(29, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename maple_sapling to yellow_maple_sapling", WWConstants.id("maple_sapling"), WWConstants.id("yellow_maple_sapling"), schemaV29);
