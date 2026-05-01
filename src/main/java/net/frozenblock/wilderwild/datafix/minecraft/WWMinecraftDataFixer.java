@@ -149,7 +149,7 @@ public final class WWMinecraftDataFixer {
 		);
 		SimpleFixes.addAdvancementRenameFix(
 			builder,
-			"Rename lava geothermal vent recipe advancement",
+			"Rename geothermal vent recipe advancement",
 			WWConstants.id("recipes/redstone/geyser"),
 			WWConstants.id("recipes/redstone/geothermal_vent"),
 			schemaV9
@@ -168,6 +168,7 @@ public final class WWMinecraftDataFixer {
 			WWConstants.id("adventure/geothermal_vent_sets_cow_on_fire"),
 			schemaV9
 		);
+
 		final Schema schemaV9_1 = builder.addSchema(9, 1, NamespacedSchema::new);
 		SimpleFixes.addBlockStateRenameFix(
 			builder,
@@ -185,6 +186,14 @@ public final class WWMinecraftDataFixer {
 			"geyser_stage",
 			"dormant",
 			"vent_state",
+			schemaV9_1
+		);
+		SimpleFixes.addAdvancementCriteriaRenameFix(
+			builder,
+			"Migrate geothermal vent recipe advancement",
+			WWConstants.id("recipes/redstone/geothermal_vent"),
+			"has_geyser",
+			"has_geothermal_vent",
 			schemaV9_1
 		);
 		SimpleFixes.addAdvancementCriteriaRenameFix(
