@@ -83,7 +83,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWDataFixer.applyDataFixes(container);
 
 		WilderWildRegistries.init();
-		WWRegistryAliases.init();
 
 		WWDataComponents.init();
 		WWAttachmentTypes.init();
