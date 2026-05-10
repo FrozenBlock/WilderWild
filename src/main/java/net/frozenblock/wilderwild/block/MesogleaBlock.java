@@ -201,7 +201,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBloc
 
 	@Override
 	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState replacingState, boolean movedByPiston) {
-		this.tryEvaporateOnPlace(state, level, pos, replacingState, movedByPiston);
+		this.onPlaceForWaterLike(this, state, level, pos, replacingState, movedByPiston);
 	}
 
 	@Override
