@@ -295,7 +295,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 			if (this.getBeakAnimProgress(1F) >= this.getClampedTargetBeakAnimProgress() - 0.025F) this.cancelAttack(false);
 	}
 
-	public boolean doHurtOnEntity(ServerLevel level, @Nullable Entity commander, Entity entity) {
+	public boolean doHurtOnEntity(ServerLevel level, @Nullable Entity commander, Entity target) {
 		final float beakProgress = ((this.getBeakAnimProgress(1F) + this.getClampedTargetBeakAnimProgress()) * 0.5F);
 		final float beakDamage = beakProgress * (float) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
 
@@ -310,13 +310,15 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 			);
 		}
 
-		final boolean didHurt = entity.hurtServer(level, this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this), beakDamage);
-		if (!didHurt) {
+		final Vec3 oldMovement = target.getDeltaMovement();
+		final DamageSource damageSource = this.damageSources().source(WWDamageTypes.OSTRICH, commander != null ? commander : this);
+		final boolean wasHurt = target.hurtServer(level, damageSource, beakDamage);
+		if (!wasHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
-		} else if (entity instanceof LivingEntity livingEntity) {
-			livingEntity.knockback(knockback.getValue(), this.getX() - livingEntity.getX(), this.getZ() - livingEntity.getZ());
+		} else {
+			this.causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement, damageSource, beakDamage);
 		}
-		return didHurt;
+		return wasHurt;
 	}
 
 	@Override

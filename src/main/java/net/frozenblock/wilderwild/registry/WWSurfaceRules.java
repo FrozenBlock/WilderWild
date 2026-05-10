@@ -17,23 +17,17 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
 import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
-import net.frozenblock.wilderwild.levelgen.conditionsource.SulfurCavesCalciteConditionSource;
-import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -58,7 +52,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 							)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SWAMP, 0.0),
+							SurfaceRules.noiseCondition2d(Noises.SWAMP, 0D),
 							FrozenSurfaceRules.WATER
 						)
 					)
@@ -173,7 +167,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				SurfaceRules.ifTrue(
 					SurfaceRules.ON_FLOOR,
 					SurfaceRules.ifTrue(
-						SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+						SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
 						SurfaceRules.sequence(
 							SurfaceRules.ifTrue(
 								SurfaceRules.ON_CEILING,
@@ -184,7 +178,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					)
 				),
 				SurfaceRules.ifTrue(
-					SurfaceRules.noiseCondition(Noises.SURFACE, 0.155, 0.3666),
+					SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
 							SurfaceRules.UNDER_FLOOR,
@@ -221,19 +215,19 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
 							FrozenSurfaceRules.COARSE_DIRT
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, -0.95D / 8.25D, Double.MAX_VALUE),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, -0.95D / 8.25D, Double.MAX_VALUE),
 							FrozenSurfaceRules.PODZOL
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.0222, 0.055),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.0222, 0.055),
 							FrozenSurfaceRules.POWDER_SNOW
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.065, 0.12),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.065, 0.12),
 							FrozenSurfaceRules.SNOW_BLOCK
 						)
 					)
@@ -250,7 +244,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, -0.0667, 0.04),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, -0.0667, 0.04),
 							FrozenSurfaceRules.PODZOL
 						)
 					)
@@ -267,15 +261,15 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.095, 0.2),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.095, 0.2),
 							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+							SurfaceRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
 							FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.0667, 0.4),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.4),
 							FrozenSurfaceRules.COARSE_DIRT
 						)
 					)
@@ -292,7 +286,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.065, 0.15),
+							SurfaceRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
 							FrozenSurfaceRules.makeStateRule(Blocks.MOSS_BLOCK)
 						)
 					)
@@ -309,11 +303,11 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE, 0.033, 0.095),
+												SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.033, 0.095),
 												FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 										),
 										SurfaceRules.ifTrue(
-												SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
+												SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
 												FrozenSurfaceRules.COARSE_DIRT
 										)
 								)
@@ -330,17 +324,17 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.023, 0.095),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.023, 0.095),
 							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.3667, 0.4),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.3667, 0.4),
 							FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
 							//Deviation 0.0333
 							//Middle 0.18335
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.34005, 0.42665),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.34005, 0.42665),
 							FrozenSurfaceRules.COARSE_DIRT
 						)
 					)
@@ -357,21 +351,21 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE, 0.525D, 0.725D),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.525D, 0.725D),
 							FrozenSurfaceRules.makeStateRule(Blocks.PODZOL)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.3667D, 0.4D),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.3667D, 0.4D),
 							FrozenSurfaceRules.makeStateRule(Blocks.ROOTED_DIRT)
 							//Deviation 0.0333
 							//Middle 0.18335
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, 0.34005D, 0.42665D),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.34005D, 0.42665D),
 							FrozenSurfaceRules.COARSE_DIRT
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(Noises.SURFACE_SECONDARY, -0.7250D, -0.525D),
+							SurfaceRules.noiseCondition2d(Noises.SURFACE_SECONDARY, -0.7250D, -0.525D),
 							FrozenSurfaceRules.COARSE_DIRT
 						)
 					)
@@ -390,7 +384,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WWNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition2d(WWNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.GRAVEL, Blocks.STONE)
 						)
 					)
@@ -409,7 +403,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition2d(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
@@ -428,7 +422,7 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition2d(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
 							fallingBlockAndSafeBlockRules(Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
@@ -488,8 +482,10 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
+	// TODO: re-implement
+	/*
 	private static SurfaceRules.RuleSource frozenCavesIcePath(Block base, Block border, Block center) {
-		return SurfaceRules.noiseGradient(
+		return SurfaceRules.noiseCondition3d(
 			Noises.SULFUR_CAVE_GRADIENT,
 			List.of(
 				Optional.empty(),
@@ -568,15 +564,17 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 			)
 		);
 	}
+	 */
 
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				snowUnderMountains(),
-				frozenCavesSurfaceRules(biomes),
-				sulfurCavesCalcite(biomes)
+				snowUnderMountains()
+				//frozenCavesSurfaceRules(biomes),
+				//sulfurCavesCalcite(biomes)
 			)
 		);
 	}
+
 }

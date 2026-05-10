@@ -477,16 +477,16 @@ public final class WWSounds {
 	public static final SoundEvent ITEM_POTION_LINGERING = register("item.potion.lingering");
 
 	// MESOGLEA
-	public static final SoundEvent AMBIENT_MESOGLEA_LOOP = register("ambient.mesoglea.loop");
-	public static final SoundEvent AMBIENT_MESOGLEA_ENTER = register("ambient.mesoglea.enter");
-	public static final SoundEvent AMBIENT_MESOGLEA_EXIT = register("ambient.mesoglea.exit");
-	public static final SoundEvent ENTITY_GENERIC_SWIM_MESOGLEA = register("entity.generic.swim_mesoglea");
-	public static final SoundEvent ENTITY_HOSTILE_SWIM_MESOGLEA = register("entity.hostile.swim_mesoglea");
-	public static final SoundEvent ENTITY_PLAYER_SWIM_MESOGLEA = register("entity.player.swim_mesoglea");
-	public static final SoundEvent ENTITY_GENERIC_SPLASH_MESOGLEA = register("entity.generic.splash_mesoglea");
-	public static final SoundEvent ENTITY_HOSTILE_SPLASH_MESOGLEA = register("entity.hostile.splash_mesoglea");
-	public static final SoundEvent ENTITY_PLAYER_SPLASH_MESOGLEA = register("entity.player.splash_mesoglea");
-	public static final SoundEvent ENTITY_PLAYER_SPLASH_HIGH_SPEED_MESOGLEA = register("entity.player.splash.high_speed_mesoglea");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_LOOP = registerForHolder("ambient.mesoglea.loop");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_ENTER = registerForHolder("ambient.mesoglea.enter");
+	public static final Holder.Reference<SoundEvent> AMBIENT_MESOGLEA_EXIT = registerForHolder("ambient.mesoglea.exit");
+	public static final Holder.Reference<SoundEvent> ENTITY_GENERIC_SWIM_MESOGLEA = registerForHolder("entity.generic.swim_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_HOSTILE_SWIM_MESOGLEA = registerForHolder("entity.hostile.swim_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_PLAYER_SWIM_MESOGLEA = registerForHolder("entity.player.swim_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_GENERIC_SPLASH_MESOGLEA = registerForHolder("entity.generic.splash_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_HOSTILE_SPLASH_MESOGLEA = registerForHolder("entity.hostile.splash_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_PLAYER_SPLASH_MESOGLEA = registerForHolder("entity.player.splash_mesoglea");
+	public static final Holder.Reference<SoundEvent> ENTITY_PLAYER_SPLASH_HIGH_SPEED_MESOGLEA = registerForHolder("entity.player.splash.high_speed_mesoglea");
 	public static final SoundEvent PARTICLE_MESOGLEA_DRIP_LAND = register("particle.mesoglea_drip.land");
 	public static final SoundEvent PARTICLE_MESOGLEA_BUBBLE_POP = register("particle.mesoglea_bubble.pop");
 

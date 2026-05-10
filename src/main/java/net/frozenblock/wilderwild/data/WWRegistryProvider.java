@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderGetter;
@@ -50,6 +51,12 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.VILLAGER_TRADE)));
 		WWConstants.log("Adding finalized timelines to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.TIMELINE)));
+
+		// FrozenLib Dynamic Registries
+		WWConstants.log("Adding finalized clip groups to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CLIP_GROUP)));
+		WWConstants.log("Adding finalized water-like types to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.WATER_LIKE_TYPE)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);

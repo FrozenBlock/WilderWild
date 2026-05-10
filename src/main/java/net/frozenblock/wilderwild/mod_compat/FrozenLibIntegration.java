@@ -131,7 +131,7 @@ public class FrozenLibIntegration extends ModIntegration {
 				if (level.getMaxLocalRawBrightness(pos) > FireflyBushBlock.FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) return;
 				if (!level.hasNearbyAlivePlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 24D)) return;
 
-				final Vec3 bushPos = pos.getCenter();
+				final Vec3 bushPos = Vec3.atCenterOf(pos);
 				final List<Firefly> fireflies = level.getEntitiesOfClass(
 					Firefly.class,
 					AABB.ofSize(bushPos, 16D, 16D, 16D),

@@ -34,6 +34,7 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
+import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
@@ -45,7 +46,6 @@ import net.frozenblock.wilderwild.registry.WWBlockSoundTypeOverwrites;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
@@ -61,11 +61,9 @@ import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManager;
-import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
@@ -92,7 +90,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWSoundTypes.init();
 		WWBlockEntityTypes.init();
 		WWEntityTypes.init();
-		WWDamageTypes.init();
 		WWActivities.init();
 		WWMemoryModuleTypes.init();
 		WWSensorTypes.init();
@@ -103,7 +100,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWCriteria.init();
 
 		WWEnvironmentAttributes.init();
-		WWTimelines.init();
 
 		WWFeatures.init();
 		WWBiomes.init();

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.wilderwild.block.state.properties.BubbleDirection;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
@@ -49,9 +48,6 @@ public final class WWBlockStateProperties {
 
 	// Stone Chest
 	public static final BooleanProperty HAS_SCULK = BooleanProperty.create("has_sculk");
-
-	// Mesoglea
-	public static final EnumProperty<BubbleDirection> BUBBLE_DIRECTION = EnumProperty.create("bubble_direction", BubbleDirection.class);
 
 	// Geyser
 	public static final EnumProperty<GeothermalVentType> VENT_TYPE = EnumProperty.create("vent_type", GeothermalVentType.class);

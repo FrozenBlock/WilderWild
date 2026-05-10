@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.mixin.block.potent_sulfur;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import java.util.Optional;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
@@ -28,10 +29,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.PotentSulfurBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import java.util.Optional;
 
 @Mixin(PotentSulfurBlockEntity.class)
 public class PotentSulfurBlockEntityMixin {
@@ -43,7 +44,7 @@ public class PotentSulfurBlockEntityMixin {
 		method = "lambda$static$4",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/phys/AABB;move(DDD)Lnet/minecraft/world/phys/AABB;"
+			target = "Lnet/minecraft/world/phys/AABB;expandTowards(DDD)Lnet/minecraft/world/phys/AABB;"
 		)
 	)
 	private static AABB wilderWild$addWindDisturbanceToGeyser(
@@ -54,7 +55,7 @@ public class PotentSulfurBlockEntityMixin {
 		WindManager.getOrCreateWindManager(serverLevel).addWindDisturbanceAndSync(
 			new WindDisturbance<PotentSulfurBlockEntity>(
 				Optional.of(entity),
-				pos.getCenter(),
+				Vec3.atCenterOf(pos),
 				original.inflate(0.5D).move(0D, 0.5D, 0D),
 				WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEYSER).orElse(WILDER_WILD$DUMMY_WIND_LOGIC)
 			),

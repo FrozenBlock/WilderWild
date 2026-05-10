@@ -400,7 +400,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 				if (optionalVec3.isPresent()) {
 					vecs.add(optionalVec3.get());
 				} else if (!inWater && state.getFluidState().is(FluidTags.WATER)) {
-					vecs.add(pos.getCenter());
+					vecs.add(Vec3.atCenterOf(pos));
 				}
 			}
 		}

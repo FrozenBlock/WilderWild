@@ -32,7 +32,7 @@
             "state": {
               "Name": "wilderwild:pearlescent_blue_mesoglea",
               "Properties": {
-                "bubble_direction": "none"
+                "bubble_column_direction": "none"
               }
             }
           }
@@ -66,7 +66,7 @@
             "state": {
               "Name": "wilderwild:pearlescent_purple_mesoglea",
               "Properties": {
-                "bubble_direction": "none"
+                "bubble_column_direction": "none"
               }
             }
           }

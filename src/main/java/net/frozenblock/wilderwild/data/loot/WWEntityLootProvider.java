@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
-import net.frozenblock.lib.datagen.api.EntityLootHelper;
+import net.frozenblock.lib.data.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;

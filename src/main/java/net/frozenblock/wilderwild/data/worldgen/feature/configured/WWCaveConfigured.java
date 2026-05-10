@@ -1335,6 +1335,8 @@ public final class WWCaveConfigured {
 					BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SULFUR_SPRING_PLACEABLE))
 				),
 				5,
+				8,
+				2,
 				3,
 				blocks.getOrThrow(BlockTags.AZALEA_ROOT_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.SULFUR),

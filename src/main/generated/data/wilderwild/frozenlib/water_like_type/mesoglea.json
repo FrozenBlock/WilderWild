@@ -1,0 +1,13 @@
+{
+  "ambient_sound": "wilderwild:ambient.mesoglea.loop",
+  "blocks": "#wilderwild:mesoglea",
+  "enter_sound": "wilderwild:ambient.mesoglea.enter",
+  "exit_sound": "wilderwild:ambient.mesoglea.exit",
+  "generic_splash_sound": "wilderwild:entity.generic.splash_mesoglea",
+  "generic_swim_sound": "wilderwild:entity.generic.swim_mesoglea",
+  "hostile_splash_sound": "wilderwild:entity.hostile.splash_mesoglea",
+  "hostile_swim_sound": "wilderwild:entity.hostile.swim_mesoglea",
+  "player_splash_high_speed_sound": "wilderwild:entity.player.splash.high_speed_mesoglea",
+  "player_splash_sound": "wilderwild:entity.player.splash_mesoglea",
+  "player_swim_sound": "wilderwild:entity.player.swim_mesoglea"
+}

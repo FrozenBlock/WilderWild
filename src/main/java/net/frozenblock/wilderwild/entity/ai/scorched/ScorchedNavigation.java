@@ -22,17 +22,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.PathType;
 
 public class ScorchedNavigation extends WallClimberNavigation {
 
 	public ScorchedNavigation(Scorched scorched, Level level) {
 		super(scorched, level);
-	}
-
-	@Override
-	protected boolean hasValidPathType(PathType type) {
-		return type == PathType.LAVA || type == PathType.FIRE || type == PathType.FIRE_IN_NEIGHBOR || super.hasValidPathType(type);
 	}
 
 	@Override

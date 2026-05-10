@@ -90,12 +90,12 @@ import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -643,7 +643,8 @@ public final class WWBlocks {
 				bubbleColumnUpParticle,
 				currentDownParticle,
 				splashParticle,
-				properties),
+				properties
+			),
 			Properties.of()
 				.mapColor(mapColor)
 				.noOcclusion()

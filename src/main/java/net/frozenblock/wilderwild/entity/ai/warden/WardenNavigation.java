@@ -26,7 +26,6 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 
 public class WardenNavigation extends GroundPathNavigation {
@@ -67,11 +66,6 @@ public class WardenNavigation extends GroundPathNavigation {
 	@Override
 	protected boolean canMoveDirectly(Vec3 origin, Vec3 target) {
 		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid() ? isClearForMovementBetween(this.warden, origin, target, false) : super.canMoveDirectly(origin, target);
-	}
-
-	@Override
-	protected boolean hasValidPathType(PathType type) {
-		return WWEntityConfig.WARDEN_SWIMS.get() ? type != PathType.OPEN : super.hasValidPathType(type);
 	}
 
 	@Override

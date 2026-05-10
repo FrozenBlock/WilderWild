@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.datafix.minecraft;
 
+import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
@@ -41,8 +42,9 @@ public final class WWMinecraftDataFixer {
 	// 7 is still 1.21.9 (rename copper horns to tca namespace)
 	// 8 is 25w42a (i randomly got annoyed about pearlescent mesoglea/nematocyst naming)
 	// 9 is 26.2-snapshot-5 (mojang added sulfur geysers, team yelled at me to rename our geyser to geothermal vent)
+	// 10 is FrozenLib 2.5, for 26.2-snapshot-6+. Added waterlikes, which came with lots of refactoring.
 
-	public static final int DATA_VERSION = 9;
+	public static final int DATA_VERSION = 10;
 
 	public static void applyDataFixes(final ModContainer mod) {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -213,8 +215,29 @@ public final class WWMinecraftDataFixer {
 			schemaV9_1
 		);
 
+		final Schema schemaV10 = builder.addSchema(10, NamespacedSchema::new);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pearlescent_blue_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pearlescent_purple_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "yellow_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "blue_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "lime_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "red_mesoglea", schemaV10);
+		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pink_mesoglea", schemaV10);
+
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
+	}
+
+	private static void addColumnDirectionToBubbleColumnDirectionPropertyFix(DataFixerBuilder builder, String blockId, Schema schema) {
+		SimpleFixes.addBlockStateRenameFix(
+			builder,
+			"Rename column_direction blockstate property to bubble_column_direction for " + blockId,
+			WWConstants.id(blockId),
+			"column_direction",
+			"none",
+			"bubble_column_direction",
+			schema
+		);
 	}
 
 }

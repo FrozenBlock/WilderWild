@@ -230,7 +230,7 @@ public class SulfurSpringFeature extends Feature<SulfurSpringFeatureConfig> {
 		final double xWidthDistance = xWidth * inverseHeightProgress;
 		final double zWidthDistance = zWidth * inverseHeightProgress;
 
-		final Vec3 centerPos = pos.getCenter().add(xCurve, 0D, zCurve);
+		final Vec3 centerPos = Vec3.atCenterOf(pos).add(xCurve, 0D, zCurve);
 		for (double xOffset = -(xWidth + 0.5D); xOffset <= xWidth + 0.5D; xOffset += 0.1D) {
 			for (double zOffset = -(zWidth + 0.5D); zOffset <= zWidth + 0.5D; zOffset += 0.1D) {
 				final Vec3 offsetPos = new Vec3(

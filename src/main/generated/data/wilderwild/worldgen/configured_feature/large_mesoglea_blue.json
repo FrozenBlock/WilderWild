@@ -6,7 +6,7 @@
       "state": {
         "Name": "wilderwild:pearlescent_blue_mesoglea",
         "Properties": {
-          "bubble_direction": "none"
+          "bubble_column_direction": "none"
         }
       }
     },

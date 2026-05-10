@@ -21,7 +21,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
-import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -31,7 +30,6 @@ import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -55,7 +53,7 @@ public abstract class ServerPlayerGameModeMixin {
 			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
 		)
 	)
-	public boolean wilderWild$destroyBlockB(
+	public boolean wilderWild$destroyBlock(
 		ServerLevel instance, BlockPos pos, boolean movedByPiston, Operation<Boolean> original,
 		@Local(name = "adjustedState") BlockState adjustedState
 	) {
@@ -63,10 +61,7 @@ public abstract class ServerPlayerGameModeMixin {
 			instance.setBlockAndUpdate(pos, adjustedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
 			return true;
 		}
-		if (adjustedState.getBlock() instanceof MesogleaBlock) {
-			instance.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-			return true;
-		}
+
 		if (adjustedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(adjustedState) && !this.getGameModeForPlayer().isCreative()) {
 			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
@@ -74,6 +69,7 @@ public abstract class ServerPlayerGameModeMixin {
 				return true;
 			}
 		}
+
 		return original.call(instance, pos, movedByPiston);
 	}
 
