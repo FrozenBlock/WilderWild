@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.registry;
+package net.frozenblock.wilderwild.data.worldgen;
 
 import java.util.List;
 import net.frozenblock.lib.worldgen.surface.api.FrozenSurfaceRules;
@@ -23,16 +23,20 @@ import net.frozenblock.lib.worldgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
+import net.frozenblock.wilderwild.levelgen.conditionsource.SulfurCavesCalciteConditionSource;
+import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
+public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
 
 	public static SurfaceRules.RuleSource cypressSurfaceRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
@@ -482,33 +486,22 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 		);
 	}
 
-	// TODO: re-implement
-	/*
-	private static SurfaceRules.RuleSource frozenCavesIcePath(Block base, Block border, Block center) {
-		return SurfaceRules.noiseCondition3d(
-			Noises.SULFUR_CAVE_GRADIENT,
-			List.of(
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.empty(),
-				Optional.of(base.defaultBlockState()),
-				Optional.of(base.defaultBlockState()),
-				Optional.of(base.defaultBlockState()),
-				Optional.of(border.defaultBlockState()),
-				Optional.of(center.defaultBlockState()),
-				Optional.of(border.defaultBlockState()),
-				Optional.of(base.defaultBlockState()),
-				Optional.of(base.defaultBlockState()),
-				Optional.of(base.defaultBlockState())
-			)
+	private static SurfaceRules.RuleSource frozenCavesIcePath(SurfaceRules.RuleSource base, SurfaceRules.RuleSource border, SurfaceRules.RuleSource center) {
+		return SurfaceRules.sequence(
+			SurfaceRules.ifTrue(SurfaceRules.noiseCondition3d(Noises.SULFUR_CAVE_GRADIENT, -0.384615385F, 0.0769230769F), base),
+			SurfaceRules.ifTrue(SurfaceRules.noiseCondition3d(Noises.SULFUR_CAVE_GRADIENT, 0.0769230769F, 0.538461538F), border),
+			SurfaceRules.ifTrue(SurfaceRules.noiseCondition3d(Noises.SULFUR_CAVE_GRADIENT, 0.538461538F, 1F), center)
 		);
 	}
 
 	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderLookup<Biome> biomes) {
-		final SurfaceRules.RuleSource iceNoiseRule = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.BLUE_ICE, WWBlocks.FRAGILE_ICE);
-		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = frozenCavesIcePath(WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE, WWBlocks.FRAGILE_ICE);
-		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = frozenCavesIcePath(Blocks.PACKED_ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
+		final SurfaceRules.RuleSource packedIce = SurfaceRules.state(Blocks.PACKED_ICE.defaultBlockState());
+		final SurfaceRules.RuleSource blueIce = SurfaceRules.state(Blocks.BLUE_ICE.defaultBlockState());
+		final SurfaceRules.RuleSource fragileIce = SurfaceRules.state(WWBlocks.FRAGILE_ICE.defaultBlockState());
+
+		final SurfaceRules.RuleSource iceNoiseRule = frozenCavesIcePath(packedIce, blueIce, fragileIce);
+		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = frozenCavesIcePath(fragileIce, fragileIce, fragileIce);
+		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = frozenCavesIcePath(packedIce, packedIce, blueIce);
 
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(biomes, WWBiomes.FROZEN_CAVES),
@@ -516,35 +509,22 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				SurfaceRules.ifTrue(
 					SurfaceRules.ON_FLOOR,
 					SurfaceRules.sequence(
-						SurfaceRules.ifTrue(
-							SurfaceRules.ON_CEILING,
-							iceNoiseRuleOnlyFragileIce
-						),
+						SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, iceNoiseRuleOnlyFragileIce),
 						iceNoiseRule
 					)
 				),
-				SurfaceRules.ifTrue(
-					SurfaceRules.UNDER_FLOOR,
-					iceNoiseRule
-				),
-				SurfaceRules.ifTrue(
-					SurfaceRules.DEEP_UNDER_FLOOR,
-					iceNoiseRuleNoFragileIce
-				),
-				SurfaceRules.ifTrue(
-					SurfaceRules.ON_CEILING,
-					iceNoiseRule
-				),
-				SurfaceRules.ifTrue(
-					SurfaceRules.UNDER_CEILING,
-					iceNoiseRule
-				)
+				SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, iceNoiseRule),
+				SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, iceNoiseRuleNoFragileIce),
+				SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, iceNoiseRule),
+				SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, iceNoiseRule)
 			)
 		);
 	}
 
 	public static SurfaceRules.RuleSource sulfurCavesCalcite(HolderLookup<Biome> biomes) {
-		// It's half and half!
+		// NOTE: Old gen before snapshot-6 reverted granite & tuff gen
+		/*
+		// It's half and half! (80 total.)
 		final ArrayList<Optional<BlockState>> states = new ArrayList<>();
 		for (int i = 0; i < 40; i++) states.add(Optional.empty());
 		for (int i = 0; i < 2; i++) states.add(Optional.of(Blocks.TUFF.defaultBlockState()));
@@ -563,16 +543,27 @@ public final class WWSurfaceRules implements SurfaceRuleEvents.OverworldSurfaceR
 				)
 			)
 		);
+		 */
+
+		return SurfaceRules.ifTrue(
+			SulfurCavesCalciteConditionSource.sulfurCavesCalciteConditionSource(),
+			SurfaceRules.ifTrue(
+				SurfaceRules.isBiome(biomes, Biomes.SULFUR_CAVES),
+				SurfaceRules.ifTrue(
+					SurfaceRules.noiseCondition3d(Noises.SULFUR_CAVE_GRADIENT, -0.1F, 0F),
+					SurfaceRules.state(Blocks.CALCITE.defaultBlockState())
+				)
+			)
+		);
 	}
-	 */
 
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				snowUnderMountains()
-				//frozenCavesSurfaceRules(biomes),
-				//sulfurCavesCalcite(biomes)
+				snowUnderMountains(),
+				frozenCavesSurfaceRules(biomes),
+				sulfurCavesCalcite(biomes)
 			)
 		);
 	}

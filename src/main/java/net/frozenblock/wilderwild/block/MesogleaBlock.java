@@ -170,23 +170,20 @@ public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBloc
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
-		if (this.isPearlescent() && !WaterLikeBlock.hasBubbleColumn(state)) {
-			if (entity instanceof ItemEntity item) {
-				item.makeStuckInBlock(state, ITEM_SLOWDOWN_VEC3);
-				item.addDeltaMovement(new Vec3 (0D, ITEM_VERTICAL_BOOST, 0D));
-			}
+		this.tryEntityInsideAsBubbleColumn(state, level, pos, entity, effectApplier, isPrecise);
+		if (!this.isPearlescent() || WaterLikeBlock.hasBubbleColumn(state)) return;
 
-			if (entity instanceof Boat boat) {
-				final Vec3 deltaMovement = boat.getDeltaMovement();
-				if (boat.isUnderWater() && deltaMovement.y < BOAT_MAX_VERTICAL_SPEED) {
-					boat.setDeltaMovement(deltaMovement.x, Math.min(BOAT_MAX_VERTICAL_SPEED, deltaMovement.y + BOAT_VERTICAL_BOOST), deltaMovement.z);
-				} else if (deltaMovement.y < 0) {
-					boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * BOAT_VERTICAL_SLOWDOWN_SCALE_WHEN_FALLING, deltaMovement.z);
-				}
+		if (entity instanceof ItemEntity item) {
+			item.makeStuckInBlock(state, ITEM_SLOWDOWN_VEC3);
+			item.addDeltaMovement(new Vec3 (0D, ITEM_VERTICAL_BOOST, 0D));
+		} else if (entity instanceof Boat boat) {
+			final Vec3 deltaMovement = boat.getDeltaMovement();
+			if (boat.isUnderWater() && deltaMovement.y < BOAT_MAX_VERTICAL_SPEED) {
+				boat.setDeltaMovement(deltaMovement.x, Math.min(BOAT_MAX_VERTICAL_SPEED, deltaMovement.y + BOAT_VERTICAL_BOOST), deltaMovement.z);
+			} else if (deltaMovement.y < 0) {
+				boat.setDeltaMovement(deltaMovement.x, deltaMovement.y * BOAT_VERTICAL_SLOWDOWN_SCALE_WHEN_FALLING, deltaMovement.z);
 			}
 		}
-
-		this.tryEntityInsideAsBubbleColumn(state, level, pos, entity, effectApplier, isPrecise);
 	}
 
 	@Override
