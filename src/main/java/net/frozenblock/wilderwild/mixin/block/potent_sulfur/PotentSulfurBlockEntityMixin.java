@@ -41,7 +41,7 @@ public class PotentSulfurBlockEntityMixin {
 	private static final WindDisturbanceLogic<PotentSulfurBlockEntity> WILDER_WILD$DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level, origin, area, target) -> WindDisturbance.DUMMY_RESULT);
 
 	@ModifyExpressionValue(
-		method = "lambda$static$4",
+		method = "lambda$static$5",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/phys/AABB;expandTowards(DDD)Lnet/minecraft/world/phys/AABB;"

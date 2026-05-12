@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/attached_hanging_sign_rot_3",
+  "textures": {
+    "all": "wilderwild:block/maple_hanging_sign",
+    "particle": "wilderwild:block/stripped_maple_log"
+  }
+}

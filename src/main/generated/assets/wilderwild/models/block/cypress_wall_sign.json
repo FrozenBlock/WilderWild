@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/wall_sign",
+  "textures": {
+    "all": "wilderwild:block/cypress_sign",
+    "particle": "wilderwild:block/cypress_planks"
+  }
+}

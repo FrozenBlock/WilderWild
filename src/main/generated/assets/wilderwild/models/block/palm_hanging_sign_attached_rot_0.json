@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/attached_hanging_sign_rot_0",
+  "textures": {
+    "all": "wilderwild:block/palm_hanging_sign",
+    "particle": "wilderwild:block/stripped_palm_log"
+  }
+}

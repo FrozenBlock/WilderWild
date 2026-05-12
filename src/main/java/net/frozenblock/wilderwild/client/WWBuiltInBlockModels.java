@@ -39,36 +39,6 @@ public final class WWBuiltInBlockModels {
 
 	public static void init() {
 		BuiltInBlockModelRegistry.REGISTER.register(builder -> {
-			BuiltInBlockModels.createSigns(
-				builder,
-				WWBlocks.BAOBAB_WOOD_TYPE,
-				WWBlocks.BAOBAB_SIGN, WWBlocks.BAOBAB_WALL_SIGN,
-				WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN
-			);
-			BuiltInBlockModels.createSigns(
-				builder,
-				WWBlocks.WILLOW_WOOD_TYPE,
-				WWBlocks.WILLOW_SIGN, WWBlocks.WILLOW_WALL_SIGN,
-				WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN
-			);
-			BuiltInBlockModels.createSigns(
-				builder,
-				WWBlocks.CYPRESS_WOOD_TYPE,
-				WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN,
-				WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN
-			);
-			BuiltInBlockModels.createSigns(
-				builder,
-				WWBlocks.PALM_WOOD_TYPE,
-				WWBlocks.PALM_SIGN, WWBlocks.PALM_WALL_SIGN,
-				WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN
-			);
-			BuiltInBlockModels.createSigns(
-				builder,
-				WWBlocks.MAPLE_WOOD_TYPE,
-				WWBlocks.MAPLE_SIGN, WWBlocks.MAPLE_WALL_SIGN,
-				WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN
-			);
 			builder.put(createStoneChest(StoneChestSpecialRenderer.STONE, StoneChestSpecialRenderer.STONE_SCULK), WWBlocks.STONE_CHEST);
 			builder.put(BuiltInBlockModels::createBlockStateModelWrapper, WWBlocks.HANGING_TENDRIL);
 			builder.put(BuiltInBlockModels::createFlowerBedModel, WWBlocks.CLOVERS);

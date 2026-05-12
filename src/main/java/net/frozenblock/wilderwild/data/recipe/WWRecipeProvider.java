@@ -37,7 +37,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
-import org.jetbrains.annotations.Contract;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
 
@@ -45,7 +44,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 		super(output, registries);
 	}
 
-	@Contract("_, _ -> new")
 	@Override
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
 		return new RecipeProvider(registries, output) {
@@ -53,7 +51,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
-				HollowedLogRecipeProvider.buildRecipes(this, this.output);
 				WWWoodRecipeProvider.buildRecipes(this, this.output);
 				MesogleaRecipeProvider.buildRecipes(this, this.output);
 				FireflyBottleRecipeProvider.buildRecipes(this, this.output, this.registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));

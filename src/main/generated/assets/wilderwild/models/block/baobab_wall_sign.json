@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/wall_sign",
+  "textures": {
+    "all": "wilderwild:block/baobab_sign",
+    "particle": "wilderwild:block/baobab_planks"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/attached_hanging_sign_rot_0",
+  "textures": {
+    "all": "wilderwild:block/willow_hanging_sign",
+    "particle": "wilderwild:block/stripped_willow_log"
+  }
+}

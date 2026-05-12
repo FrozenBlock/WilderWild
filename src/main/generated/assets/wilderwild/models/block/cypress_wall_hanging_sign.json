@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/wall_hanging_sign",
+  "textures": {
+    "all": "wilderwild:block/cypress_hanging_sign",
+    "particle": "wilderwild:block/stripped_cypress_log"
+  }
+}

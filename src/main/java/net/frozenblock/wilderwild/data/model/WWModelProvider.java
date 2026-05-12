@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
+import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -42,45 +43,40 @@ public final class WWModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators generator) {
-		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlocks.FAMILY_BAOBAB);
+		generator.family(WWBlocks.BAOBAB_PLANKS).generateFor(WWBlockFamilies.BAOBAB_PLANKS);
 		generator.woodProvider(WWBlocks.BAOBAB_LOG).logWithHorizontal(WWBlocks.BAOBAB_LOG).wood(WWBlocks.BAOBAB_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_BAOBAB_LOG).logWithHorizontal(WWBlocks.STRIPPED_BAOBAB_LOG).wood(WWBlocks.STRIPPED_BAOBAB_WOOD);
-		generator.createHangingSign(WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
 		generator.createShelf(WWBlocks.BAOBAB_SHELF, WWBlocks.STRIPPED_BAOBAB_LOG);
 		generator.createTintedLeaves(WWBlocks.BAOBAB_LEAVES, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
 
-		generator.family(WWBlocks.WILLOW_PLANKS).generateFor(WWBlocks.FAMILY_WILLOW);
+		generator.family(WWBlocks.WILLOW_PLANKS).generateFor(WWBlockFamilies.WILLOW_PLANKS);
 		generator.woodProvider(WWBlocks.WILLOW_LOG).logWithHorizontal(WWBlocks.WILLOW_LOG).wood(WWBlocks.WILLOW_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_WILLOW_LOG).logWithHorizontal(WWBlocks.STRIPPED_WILLOW_LOG).wood(WWBlocks.STRIPPED_WILLOW_WOOD);
-		generator.createHangingSign(WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
 		generator.createShelf(WWBlocks.WILLOW_SHELF, WWBlocks.STRIPPED_WILLOW_LOG);
 		generator.createPlantWithDefaultItem(WWBlocks.WILLOW_SAPLING, WWBlocks.POTTED_WILLOW_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createTintedLeaves(WWBlocks.WILLOW_LEAVES, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
 
-		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlocks.FAMILY_CYPRESS);
+		generator.family(WWBlocks.CYPRESS_PLANKS).generateFor(WWBlockFamilies.CYPRESS_PLANKS);
 		generator.woodProvider(WWBlocks.CYPRESS_LOG).logWithHorizontal(WWBlocks.CYPRESS_LOG).wood(WWBlocks.CYPRESS_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_CYPRESS_LOG).logWithHorizontal(WWBlocks.STRIPPED_CYPRESS_LOG).wood(WWBlocks.STRIPPED_CYPRESS_WOOD);
-		generator.createHangingSign(WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
 		generator.createShelf(WWBlocks.CYPRESS_SHELF, WWBlocks.STRIPPED_CYPRESS_LOG);
 		generator.createPlantWithDefaultItem(WWBlocks.CYPRESS_SAPLING, WWBlocks.POTTED_CYPRESS_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createTintedLeaves(WWBlocks.CYPRESS_LEAVES, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
 
-		BlockModelGenerators.BlockFamilyProvider palmFamily = generator.family(WWBlocks.PALM_PLANKS);
+		final BlockModelGenerators.BlockFamilyProvider palmFamily = generator.family(WWBlocks.PALM_PLANKS);
 		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_DOOR);
 		palmFamily.skipGeneratingModelsFor.add(WWBlocks.PALM_TRAPDOOR);
-		palmFamily.generateFor(WWBlocks.FAMILY_PALM);
+		palmFamily.generateFor(WWBlockFamilies.PALM_PLANKS);
 		generator.woodProvider(WWBlocks.PALM_LOG).logWithHorizontal(WWBlocks.PALM_LOG).wood(WWBlocks.PALM_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_PALM_LOG).logWithHorizontal(WWBlocks.STRIPPED_PALM_LOG).wood(WWBlocks.STRIPPED_PALM_WOOD);
-		generator.createHangingSign(WWBlocks.STRIPPED_PALM_LOG, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
 		generator.createShelf(WWBlocks.PALM_SHELF, WWBlocks.STRIPPED_PALM_LOG);
 		generator.createTintedLeaves(WWBlocks.PALM_FRONDS, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
 
-		BlockModelGenerators.BlockFamilyProvider mapleFamily = generator.family(WWBlocks.MAPLE_PLANKS);
+		final BlockModelGenerators.BlockFamilyProvider mapleFamily = generator.family(WWBlocks.MAPLE_PLANKS);
 		mapleFamily.skipGeneratingModelsFor.add(WWBlocks.MAPLE_TRAPDOOR);
-		mapleFamily.generateFor(WWBlocks.FAMILY_MAPLE);
+		mapleFamily.generateFor(WWBlockFamilies.MAPLE_PLANKS);
 		generator.woodProvider(WWBlocks.MAPLE_LOG).logWithHorizontal(WWBlocks.MAPLE_LOG).wood(WWBlocks.MAPLE_WOOD);
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG).wood(WWBlocks.STRIPPED_MAPLE_WOOD);
-		generator.createHangingSign(WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
 		generator.createShelf(WWBlocks.MAPLE_SHELF, WWBlocks.STRIPPED_MAPLE_LOG);
 		generator.createPlantWithDefaultItem(WWBlocks.YELLOW_MAPLE_SAPLING, WWBlocks.POTTED_YELLOW_MAPLE_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.ORANGE_MAPLE_SAPLING, WWBlocks.POTTED_ORANGE_MAPLE_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);

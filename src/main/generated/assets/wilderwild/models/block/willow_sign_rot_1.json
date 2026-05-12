@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/sign_rot_1",
+  "textures": {
+    "all": "wilderwild:block/willow_sign",
+    "particle": "wilderwild:block/willow_planks"
+  }
+}

@@ -1171,20 +1171,6 @@ public final class WWBlocks {
 			.strength(2F, 3F)
 	);
 
-	public static final BlockFamily FAMILY_BAOBAB = BlockFamilies.familyBuilder(BAOBAB_PLANKS)
-		.button(BAOBAB_BUTTON)
-		.slab(BAOBAB_SLAB)
-		.stairs(BAOBAB_STAIRS)
-		.fence(BAOBAB_FENCE)
-		.fenceGate(BAOBAB_FENCE_GATE)
-		.pressurePlate(BAOBAB_PRESSURE_PLATE)
-		.sign(BAOBAB_SIGN, BAOBAB_WALL_SIGN)
-		.door(BAOBAB_DOOR)
-		.trapdoor(BAOBAB_TRAPDOOR)
-		.recipeGroupPrefix("wooden")
-		.recipeUnlockedBy("has_planks")
-		.getFamily();
-
 	// WILLOW
 	public static final Block WILLOW_PLANKS = Blocks.register(WWBlockItemIds.WILLOW_PLANKS, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(WILLOW_PLANKS_COLOR));
 	public static final Block WILLOW_STAIRS = Blocks.registerStair(WWBlockItemIds.WILLOW_STAIRS, WILLOW_PLANKS);
@@ -1266,20 +1252,6 @@ public final class WWBlocks {
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
-
-	public static final BlockFamily FAMILY_WILLOW = BlockFamilies.familyBuilder(WILLOW_PLANKS)
-		.button(WILLOW_BUTTON)
-		.slab(WILLOW_SLAB)
-		.stairs(WILLOW_STAIRS)
-		.fence(WILLOW_FENCE)
-		.fenceGate(WILLOW_FENCE_GATE)
-		.pressurePlate(WILLOW_PRESSURE_PLATE)
-		.sign(WILLOW_SIGN, WILLOW_WALL_SIGN)
-		.door(WILLOW_DOOR)
-		.trapdoor(WILLOW_TRAPDOOR)
-		.recipeGroupPrefix("wooden")
-		.recipeUnlockedBy("has_planks")
-		.getFamily();
 
 	// CYPRESS
 	public static final Block CYPRESS_PLANKS = Blocks.register(WWBlockItemIds.CYPRESS_PLANKS, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(CYPRESS_PLANKS_COLOR));
@@ -1363,20 +1335,6 @@ public final class WWBlocks {
 			.strength(2F, 3F)
 	);
 
-	public static final BlockFamily FAMILY_CYPRESS = BlockFamilies.familyBuilder(CYPRESS_PLANKS)
-		.button(CYPRESS_BUTTON)
-		.slab(CYPRESS_SLAB)
-		.stairs(CYPRESS_STAIRS)
-		.fence(CYPRESS_FENCE)
-		.fenceGate(CYPRESS_FENCE_GATE)
-		.pressurePlate(CYPRESS_PRESSURE_PLATE)
-		.sign(CYPRESS_SIGN, CYPRESS_WALL_SIGN)
-		.door(CYPRESS_DOOR)
-		.trapdoor(CYPRESS_TRAPDOOR)
-		.recipeGroupPrefix("wooden")
-		.recipeUnlockedBy("has_planks")
-		.getFamily();
-
 	// PALM
 	public static final Block PALM_PLANKS = Blocks.register(WWBlockItemIds.PALM_PLANKS, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(PALM_PLANKS_COLOR));
 	public static final Block PALM_STAIRS = Blocks.registerStair(WWBlockItemIds.PALM_STAIRS, PALM_PLANKS);
@@ -1458,20 +1416,6 @@ public final class WWBlocks {
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
-
-	public static final BlockFamily FAMILY_PALM = BlockFamilies.familyBuilder(PALM_PLANKS)
-		.button(PALM_BUTTON)
-		.slab(PALM_SLAB)
-		.stairs(PALM_STAIRS)
-		.fence(PALM_FENCE)
-		.fenceGate(PALM_FENCE_GATE)
-		.pressurePlate(PALM_PRESSURE_PLATE)
-		.sign(PALM_SIGN, PALM_WALL_SIGN)
-		.door(PALM_DOOR)
-		.trapdoor(PALM_TRAPDOOR)
-		.recipeGroupPrefix("wooden")
-		.recipeUnlockedBy("has_planks")
-		.getFamily();
 
 	// MAPLE
 	public static final Block MAPLE_PLANKS = Blocks.register(WWBlockItemIds.MAPLE_PLANKS,
@@ -1560,20 +1504,6 @@ public final class WWBlocks {
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
-
-	public static final BlockFamily FAMILY_MAPLE = BlockFamilies.familyBuilder(MAPLE_PLANKS)
-		.button(MAPLE_BUTTON)
-		.slab(MAPLE_SLAB)
-		.stairs(MAPLE_STAIRS)
-		.fence(MAPLE_FENCE)
-		.fenceGate(MAPLE_FENCE_GATE)
-		.pressurePlate(MAPLE_PRESSURE_PLATE)
-		.sign(MAPLE_SIGN, MAPLE_WALL_SIGN)
-		.door(MAPLE_DOOR)
-		.trapdoor(MAPLE_TRAPDOOR)
-		.recipeGroupPrefix("wooden")
-		.recipeUnlockedBy("has_planks")
-		.getFamily();
 
 	// ICE
 	public static final Block FRAGILE_ICE = Blocks.register(WWBlockItemIds.FRAGILE_ICE,
