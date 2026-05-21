@@ -38,12 +38,7 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfiguration> {
 		super(codec);
 	}
 
-	public static boolean generate(
-		WorldGenLevel level,
-		BlockPos pos,
-		ShelfFungiFeatureConfiguration config,
-		RandomSource random
-	) {
+	public static boolean generate(WorldGenLevel level, BlockPos pos, ShelfFungiFeatureConfiguration config, RandomSource random) {
 		final MutableBlockPos mutable = pos.mutable();
 
 		Direction placementDirection = null;
@@ -58,7 +53,7 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfiguration> {
 
 		level.setBlock(
 			pos,
-			config.fungus.defaultBlockState()
+			config.placeBlock.defaultBlockState()
 				.setValue(ShelfFungiBlock.FACING, placementDirection)
 				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
 				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
@@ -76,20 +71,20 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfiguration> {
 	public boolean place(FeaturePlaceContext<ShelfFungiFeatureConfiguration> context) {
 		final WorldGenLevel level = context.level();
 		final RandomSource random = context.random();
-		final BlockPos pos = context.origin().above(random.nextInt(0, 4));
+		final BlockPos origin = context.origin().above(random.nextInt(0, 4));
 		final ShelfFungiFeatureConfiguration config = context.config();
 
-		if (!isAirOrWater(level.getBlockState(pos))) return false;
+		if (!isAirOrWater(level.getBlockState(origin))) return false;
 
 		final List<Direction> list = config.shuffleDirections(random);
-		if (generate(level, pos, config, random)) return true;
+		if (generate(level, origin, config, random)) return true;
 
-		final MutableBlockPos mutable = pos.mutable();
+		final MutableBlockPos mutable = origin.mutable();
 		for (Direction direction : list) {
 			for (int i = 0; i < config.searchRange; ++i) {
-				mutable.setWithOffset(pos, direction);
+				mutable.setWithOffset(origin, direction);
 				final BlockState state = level.getBlockState(mutable);
-				if (!isAirOrWater(state) && !state.is(config.fungus)) break;
+				if (!isAirOrWater(state) && !state.is(config.placeBlock)) break;
 				if (generate(level, mutable, config, random)) return true;
 			}
 		}

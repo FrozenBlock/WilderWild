@@ -23,7 +23,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -35,21 +34,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
-	public static final Codec<ShelfFungiFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance ->
-		instance.group(
-			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
-				.flatXmap(ShelfFungiFeatureConfiguration::validateBlock, DataResult::success)
-				.orElse((ShelfFungiBlock) WWBlocks.BROWN_SHELF_FUNGI)
-				.forGetter(config -> config.fungus),
-			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
-			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
-			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
-			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
-		).apply(instance, ShelfFungiFeatureConfiguration::new)
-	);
-
-	public final ShelfFungiBlock fungus;
+	public static final Codec<ShelfFungiFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		BuiltInRegistries.BLOCK.byNameCodec().validate(ShelfFungiFeatureConfiguration::validateBlock).fieldOf("block").forGetter(config -> config.placeBlock),
+		Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
+		Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
+		Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
+		Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
+		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
+	).apply(instance, ShelfFungiFeatureConfiguration::new));
+	public final Block placeBlock;
 	public final int searchRange;
 	public final boolean placeOnFloor;
 	public final boolean placeOnCeiling;
@@ -57,8 +50,14 @@ public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
 	public final HolderSet<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public ShelfFungiFeatureConfiguration(ShelfFungiBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
-		this.fungus = fungus;
+	private static DataResult<Block> validateBlock(final Block block) {
+		return block instanceof ShelfFungiBlock shelfFungiBlock
+			? DataResult.success(shelfFungiBlock)
+			: DataResult.error(() -> "Growth block should be a shelf fungi block");
+	}
+
+	public ShelfFungiFeatureConfiguration(Block placeBlock, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+		this.placeBlock = placeBlock;
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
 		this.placeOnCeiling = placeOnCeiling;
@@ -70,21 +69,6 @@ public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
 		if (placeOnWalls) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) this.directions.add(direction);
 		}
-	}
-
-	private static DataResult<ShelfFungiBlock> validateBlock(Block block) {
-		DataResult<ShelfFungiBlock> var10000;
-		if (block instanceof ShelfFungiBlock shelfFungusBlock) {
-			var10000 = DataResult.success(shelfFungusBlock);
-		} else {
-			var10000 = DataResult.error(() -> "Growth block should be a shelf fungus block bruh bruh bruh bruh bruh");
-		}
-
-		return var10000;
-	}
-
-	public List<Direction> shuffleDirections(RandomSource random, Direction excluded) {
-		return Util.toShuffledList(this.directions.stream().filter((direction) -> direction != excluded), random);
 	}
 
 	public List<Direction> shuffleDirections(RandomSource random) {

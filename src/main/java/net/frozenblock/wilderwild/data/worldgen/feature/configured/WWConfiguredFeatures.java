@@ -22,7 +22,6 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.levelgen.feature.api.feature.config.ColumnWithDiskFeatureConfiguration;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
@@ -3308,7 +3307,7 @@ public final class WWConfiguredFeatures {
 
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI,
 			new ShelfFungiFeatureConfiguration(
-				(ShelfFungiBlock) WWBlocks.CRIMSON_SHELF_FUNGI,
+				WWBlocks.CRIMSON_SHELF_FUNGI,
 				12,
 				true,
 				true,
@@ -3319,7 +3318,7 @@ public final class WWConfiguredFeatures {
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI,
 			new ShelfFungiFeatureConfiguration(
-				(ShelfFungiBlock) WWBlocks.WARPED_SHELF_FUNGI,
+				WWBlocks.WARPED_SHELF_FUNGI,
 				12,
 				true,
 				true,
