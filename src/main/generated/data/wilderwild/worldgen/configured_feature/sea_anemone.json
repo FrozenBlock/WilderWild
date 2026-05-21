@@ -1,10 +1,14 @@
 {
-  "type": "wilderwild:sea_anemone",
+  "type": "minecraft:simple_block",
   "config": {
-    "state": {
-      "Name": "wilderwild:sea_anemone",
-      "Properties": {
-        "glowing": "false"
+    "schedule_tick": true,
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:sea_anemone",
+        "Properties": {
+          "glowing": "false"
+        }
       }
     }
   }

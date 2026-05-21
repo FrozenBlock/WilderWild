@@ -21,6 +21,10 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -33,6 +37,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -207,7 +212,15 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(6, 3)
+			RandomOffsetPlacement.ofTriangle(12, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
+				)
+			)
 		);
 
 		PATCH_SEA_ANEMONE_SPARSE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
@@ -216,7 +229,15 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(6, 3)
+			RandomOffsetPlacement.ofTriangle(12, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
+				)
+			)
 		);
 
 		PATCH_SEA_ANEMONE_RARE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
@@ -225,7 +246,15 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(6, 3)
+			RandomOffsetPlacement.ofTriangle(12, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
+				)
+			)
 		);
 
 		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
@@ -234,7 +263,14 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(7),
-			RandomOffsetPlacement.ofTriangle(4, 3)
+			RandomOffsetPlacement.ofTriangle(10, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+				)
+			)
 		);
 
 		PATCH_SEA_WHIP_SPARSE.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
@@ -243,7 +279,14 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(6, 3)
+			RandomOffsetPlacement.ofTriangle(12, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+				)
+			)
 		);
 
 		PATCH_SEA_WHIP_RARE.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
@@ -252,7 +295,14 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(6, 3)
+			RandomOffsetPlacement.ofTriangle(12, 3),
+			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+				)
+			)
 		);
 
 		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.TUBE_WORMS,

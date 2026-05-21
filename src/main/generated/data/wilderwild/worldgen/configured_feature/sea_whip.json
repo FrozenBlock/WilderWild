@@ -1,4 +1,11 @@
 {
-  "type": "wilderwild:sea_whip",
-  "config": {}
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wilderwild:sea_whip"
+      }
+    }
+  }
 }

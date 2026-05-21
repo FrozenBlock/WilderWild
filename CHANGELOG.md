@@ -7,3 +7,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Renamed all of Wilder Wild's `FeatureConfiguration` classes to end with `Configuration` instead of `Config`.
 - Removed all Sulfur Caves-related Configured & Placed Features, Biome Tags, and Block Tags.
   - These will now be in a mod named `Chaos Hypercubed`, which is currently in development.
+- Removed the `wilderwild:sea_anemone` and `wilderwild:sea_whip` Worldgen Features.
+  - Their functionality is replicated through `PlacementModifier`s, similar to the changes made in 26.1.

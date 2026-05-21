@@ -23,8 +23,8 @@
       "type": "minecraft:random_offset",
       "xz_spread": {
         "type": "minecraft:trapezoid",
-        "max": 4,
-        "min": -4,
+        "max": 10,
+        "min": -10,
         "plateau": 0
       },
       "y_spread": {
@@ -32,6 +32,28 @@
         "max": 3,
         "min": -3,
         "plateau": 0
+      }
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
+          },
+          {
+            "type": "minecraft:would_survive",
+            "state": {
+              "Name": "wilderwild:sea_whip"
+            }
+          }
+        ]
       }
     }
   ]

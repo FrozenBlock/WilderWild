@@ -28,7 +28,6 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
@@ -53,7 +52,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -68,22 +66,22 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 
 public final class WWAquaticConfigured {
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfiguration> CATTAIL = WWFeatureUtils.register("cattail");
-	public static final FrozenLibConfiguredFeature<CattailFeatureConfiguration> CATTAIL_SMALL = WWFeatureUtils.register("cattail_small");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWERING_WATERLILY = WWFeatureUtils.register("flowering_waterlily");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_ALGAE = WWFeatureUtils.register("patch_algae");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_ALGAE_SMALL = WWFeatureUtils.register("patch_algae_small");
-	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_PLANKTON = WWFeatureUtils.register("patch_plankton");
-	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration> SEAGRASS_MEADOW = WWFeatureUtils.register("seagrass_meadow");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES_STRUCTURE = WWFeatureUtils.register("patch_barnacles_structure");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES = WWFeatureUtils.register("patch_barnacles");
-	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfiguration> SPONGE_BUD = WWFeatureUtils.register("sponge_bud");
-	public static final FrozenLibConfiguredFeature<BlockStateConfiguration> SEA_ANEMONE = WWFeatureUtils.register("sea_anemone");
-	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> SEA_WHIP = WWFeatureUtils.register("sea_whip");
-	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> TUBE_WORMS = WWFeatureUtils.register("tube_worms");
+	public static final FrozenLibConfiguredFeature<CattailFeatureConfiguration> CATTAIL = register("cattail");
+	public static final FrozenLibConfiguredFeature<CattailFeatureConfiguration> CATTAIL_SMALL = register("cattail_small");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> FLOWERING_WATERLILY = register("flowering_waterlily");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_ALGAE = register("patch_algae");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_ALGAE_SMALL = register("patch_algae_small");
+	public static final FrozenLibConfiguredFeature<WaterCoverFeatureConfiguration> PATCH_PLANKTON = register("patch_plankton");
+	public static final FrozenLibConfiguredFeature<ProbabilityFeatureConfiguration> SEAGRASS_MEADOW = register("seagrass_meadow");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES_STRUCTURE = register("patch_barnacles_structure");
+	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> PATCH_BARNACLES = register("patch_barnacles");
+	public static final FrozenLibConfiguredFeature<SpongeBudFeatureConfiguration> SPONGE_BUD = register("sponge_bud");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> SEA_ANEMONE = register("sea_anemone");
+	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> SEA_WHIP = register("sea_whip");
+	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> TUBE_WORMS = register("tube_worms");
 
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = WWFeatureUtils.register("hydrothermal_vent");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> HYDROTHERMAL_VENT_TUBE_WORMS = WWFeatureUtils.register("hydrothermal_vent_tube_worms");
+	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = register("hydrothermal_vent");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> HYDROTHERMAL_VENT_TUBE_WORMS = register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> OCEAN_MOSS = register("ocean_moss");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
@@ -169,11 +167,9 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		SEA_ANEMONE.makeAndSetHolder(WWFeatures.SEA_ANEMONE,
-			new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
-		);
+		SEA_ANEMONE.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE), true));
 
-		SEA_WHIP.makeAndSetHolder(WWFeatures.SEA_WHIP, NoneFeatureConfiguration.INSTANCE);
+		SEA_WHIP.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_WHIP)));
 
 		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS, NoneFeatureConfiguration.INSTANCE);
 
