@@ -21,7 +21,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel;
@@ -33,6 +32,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -58,7 +58,7 @@ public class OstrichRenderer extends AbstractOstrichRenderer<Ostrich, OstrichRen
 			new SimpleEquipmentLayer<>(
 				this,
 				context.getEquipmentRenderer(),
-				WWEquipmentClientInfo.OSTRICH_SADDLE,
+				EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
 				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
 				new BabyOstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))

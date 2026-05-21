@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -33,13 +33,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EquipmentClientInfo.class)
 public class EquipmentClientInfoMixin {
 	@Unique
-	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_SADDLE_LAYERS = ImmutableList.of(WWEquipmentClientInfo.OSTRICH_SADDLE_LAYER);
+	private static final EquipmentClientInfo.Layer WILDERWILD$OSTRICH_SADDLE_LAYER = new EquipmentClientInfo.Layer(WWConstants.id("saddle"));
 	@Unique
-	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS = ImmutableList.of(WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE_LAYER);
+	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_SADDLE_LAYERS = ImmutableList.of(WILDERWILD$OSTRICH_SADDLE_LAYER);
+	@Unique
+	private static final List<EquipmentClientInfo.Layer> WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS = ImmutableList.of(WILDERWILD$OSTRICH_SADDLE_LAYER);
 
 	@Inject(method = "getLayers", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$returnOstrichSaddleIfPossible(EquipmentClientInfo.LayerType type, CallbackInfoReturnable<List<EquipmentClientInfo.Layer>> info) {
-		if (type == WWEquipmentClientInfo.OSTRICH_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_SADDLE_LAYERS);
-		if (type == WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS);
+		if (type == EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_SADDLE_LAYERS);
+		if (type == EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE) info.setReturnValue(WILDERWILD$OSTRICH_ZOMBIE_SADDLE_LAYERS);
 	}
 }

@@ -17,61 +17,19 @@
 
 package net.frozenblock.wilderwild.mixin.client.equipment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.client.WWEquipmentClientInfo;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
-import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Invoker;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.LayerType.class)
-public class LayerTypeMixin {
+public enum LayerTypeMixin {
+	WILDERWILD_OSTRICH_SADDLE(WWConstants.safeString("ostrich_saddle")),
+	WILDERWILD_OSTRICH_ZOMBIE_SADDLE(WWConstants.safeString("ostrich_zombie_saddle"));
 
-	//CREDIT TO nyuppo/fabric-boat-example ON GITHUB
-
-	@SuppressWarnings("ShadowTarget")
-	@Final
 	@Shadow
-	@Mutable
-	private static EquipmentClientInfo.LayerType[] $VALUES;
-
-	@SuppressWarnings("InvokerTarget")
-	@Invoker("<init>")
-	private static EquipmentClientInfo.LayerType wilderWild$newType(String internalName, int internalId, String name) {
-		throw new AssertionError("Mixin injection failed - Wilder Wild LayerTypeMixin.");
-	}
-
-	@Inject(
-		method = "<clinit>",
-		at = @At(
-			value = "FIELD",
-			opcode = Opcodes.PUTSTATIC,
-			target = "Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;$VALUES:[Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;",
-			shift = At.Shift.AFTER
-		)
-	)
-	private static void wilderWild$addCustomLayerType(CallbackInfo info) {
-		final var types = new ArrayList<>(Arrays.asList($VALUES));
-		var last = types.get(types.size() - 1);
-
-		final var ostrichSaddle = wilderWild$newType("WILDERWILD_OSTRICH_SADDLE", last.ordinal() + 1, "wilderwild_ostrich_saddle");
-		WWEquipmentClientInfo.OSTRICH_SADDLE = ostrichSaddle;
-		types.add(ostrichSaddle);
-
-		final var ostrichZombieSaddle = wilderWild$newType("WILDERWILD_OSTRICH_ZOMBIE_SADDLE", last.ordinal() + 1, "wilderwild_ostrich_zombie_saddle");
-		WWEquipmentClientInfo.OSTRICH_ZOMBIE_SADDLE = ostrichZombieSaddle;
-		types.add(ostrichZombieSaddle);
-
-		$VALUES = types.toArray(new EquipmentClientInfo.LayerType[0]);
-	}
+	LayerTypeMixin(String id) {}
 }

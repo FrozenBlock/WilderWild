@@ -6,6 +6,9 @@ mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
 mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
 
+transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_SADDLE
+transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_ZOMBIE_SADDLE
+
 # Blocks
 accessible method net/minecraft/world/level/block/ChestBlock isCatSittingOnChest (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/world/level/block/ChestBlock isBlockedChestByBlock (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
@@ -28,7 +31,7 @@ accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signal
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
 
 # Biomes
-transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDER_WILD_TUNDRA
+transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDERWILD_TUNDRA
 
 # Data Generation
 accessible method net/minecraft/client/data/models/BlockModelGenerators createMirroredCubeGenerator (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/client/renderer/block/dispatch/Variant;Lnet/minecraft/client/data/models/model/TextureMapping;Ljava/util/function/BiConsumer;)Lnet/minecraft/client/data/models/blockstates/BlockModelDefinitionGenerator;

@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BiomeSpecialEffects.GrassColorModifier.class)
 public enum GrassColorModifierMixin {
-	WILDER_WILD_TUNDRA(WWConstants.safeString("tundra")) {
+	WILDERWILD_TUNDRA(WWConstants.safeString("tundra")) {
 		@Override
 		public int modifyColor(double x, double z, int baseColor) {
 			final double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
