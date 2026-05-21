@@ -338,261 +338,259 @@ public final class WWTreeConfigured {
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> FALLEN_WARPED_FUNGI = register("fallen_warped_fungi");
 	public static final FrozenLibConfiguredFeature<TreeConfiguration> SNAPPED_WARPED_FUNGI = register("snapped_warped_fungi");
 
-	// DECORATOR
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_009 = new ShelfFungiTreeDecorator(
-		0.09F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 2)
-					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 1)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074 = new ShelfFungiTreeDecorator(
-		0.074F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
-					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0054 = new ShelfFungiTreeDecorator(
-		0.054F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
-					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_003 = new ShelfFungiTreeDecorator(
-		0.03F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 3)
-					.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 2)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_0074_ONLY_BROWN = new ShelfFungiTreeDecorator(
-		0.074F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			BlockStateProvider.simple(WWBlocks.BROWN_SHELF_FUNGI),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator SHELF_FUNGUS_00975_ONLY_RED = new ShelfFungiTreeDecorator(
-		0.0975F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			BlockStateProvider.simple(WWBlocks.RED_SHELF_FUNGI),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new ShelfFungiTreeDecorator(
-		0.0875F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			BlockStateProvider.simple(WWBlocks.PALE_SHELF_FUNGI),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new ShelfFungiTreeDecorator(
-		0.0875F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 9)
-					.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 1)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_WARPED = new ShelfFungiTreeDecorator(
-		0.0875F,
-		0.25F,
-		new RandomizedIntStateProvider(
-			new WeightedStateProvider(
-				new WeightedList.Builder<BlockState>()
-					.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 9)
-					.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 1)
-			),
-			ShelfFungiBlock.STAGE,
-			UniformInt.of(1, 4)
-		)
-	);
-	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
-	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
-	public static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
-	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_03 = new HeightBasedVineTreeDecorator(1F, 260, 0.3F);
-	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_05 = new HeightBasedVineTreeDecorator(1F, 260, 0.5F);
-	public static final HeightBasedVineTreeDecorator VINES_1_UNDER_260_075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
-	public static final HeightBasedVineTreeDecorator VINES_08_UNDER_260_075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
-	public static final PaleMossDecorator PALE_MOSS_DECORATOR = new PaleMossDecorator(0.15F, 0.4F, 0.8F);
-	public static final CreakingHeartDecorator CREAKING_HEARTS = new CreakingHeartDecorator(1F);
-	public static final HeightBasedCobwebTreeDecorator COBWEB_1_UNDER_260_025 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
-	public static final AboveLogsTreeDecorator MOSS_CYPRESS = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_SPRUCE_PALM = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_BIRCH = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_OAK = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_JUNGLE_DARK_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_PALE_OAK = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.PALE_MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_CHERRY = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final AboveLogsTreeDecorator MOSS_MOSSY = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-	public static final BeehiveDecorator BEES_0004 = new BeehiveDecorator(0.004F);
-	public static final BeehiveDecorator BEES_001 = new BeehiveDecorator(0.01F);
-	public static final BeehiveDecorator BEES_025 = new BeehiveDecorator(0.25F);
-	public static final BeehiveDecorator BEES = new BeehiveDecorator(1F);
-	public static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
-	public static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
-	public static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
-
 	public static void registerTreeConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 		final HolderGetter<Biome> biomes = entries.lookup(Registries.BIOME);
 		final BlockStateProvider defaultPlaceBelowTreeTrunkProvider = TreeConfiguration.defaultPlaceBelowTreeTrunkProvider(biomes);
 
+		// DECORATOR
+		final ShelfFungiTreeDecorator shelfFungus009 = new ShelfFungiTreeDecorator(
+			0.09F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 2)
+						.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 1)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator shelfFungus0074 = new ShelfFungiTreeDecorator(
+			0.074F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
+						.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator shelfFungus0054 = new ShelfFungiTreeDecorator(
+			0.054F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 17)
+						.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 3)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator shelfFungus003 = new ShelfFungiTreeDecorator(
+			0.03F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.BROWN_SHELF_FUNGI.defaultBlockState(), 3)
+						.add(WWBlocks.RED_SHELF_FUNGI.defaultBlockState(), 2)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator shelfFungus0074OnlyBrown = new ShelfFungiTreeDecorator(
+			0.074F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				BlockStateProvider.simple(WWBlocks.BROWN_SHELF_FUNGI),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator shelfFungus00975OnlyRed = new ShelfFungiTreeDecorator(
+			0.0975F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				BlockStateProvider.simple(WWBlocks.RED_SHELF_FUNGI),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator paleShelfFungi00875 = new ShelfFungiTreeDecorator(
+			0.0875F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				BlockStateProvider.simple(WWBlocks.PALE_SHELF_FUNGI),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator netherFungiLeaningCrimson = new ShelfFungiTreeDecorator(
+			0.0875F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 9)
+						.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 1)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final ShelfFungiTreeDecorator netherFungiLeaningWarped = new ShelfFungiTreeDecorator(
+			0.0875F,
+			0.25F,
+			new RandomizedIntStateProvider(
+				new WeightedStateProvider(
+					new WeightedList.Builder<BlockState>()
+						.add(WWBlocks.WARPED_SHELF_FUNGI.defaultBlockState(), 9)
+						.add(WWBlocks.CRIMSON_SHELF_FUNGI.defaultBlockState(), 1)
+				),
+				ShelfFungiBlock.STAGE,
+				UniformInt.of(1, 4)
+			)
+		);
+		final HeightBasedVineTreeDecorator vines012Under76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
+		final HeightBasedVineTreeDecorator vines012Under260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
+		final HeightBasedVineTreeDecorator vines008Under82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
+		final HeightBasedVineTreeDecorator vines1Under26003 = new HeightBasedVineTreeDecorator(1F, 260, 0.3F);
+		final HeightBasedVineTreeDecorator vines1Under26005 = new HeightBasedVineTreeDecorator(1F, 260, 0.5F);
+		final HeightBasedVineTreeDecorator vines1Under260075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
+		final HeightBasedVineTreeDecorator vines08Under260075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
+		final HeightBasedCobwebTreeDecorator cobweb1Under260017 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
+		final AboveLogsTreeDecorator mossCypress = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossSprucePalm = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossBirch = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossOak = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossJungleDarkOak = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossPaleOak = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.PALE_MOSS_CARPET));
+		final AboveLogsTreeDecorator mossCherry = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final AboveLogsTreeDecorator mossMossy = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final BeehiveDecorator bees0004 = new BeehiveDecorator(0.004F);
+		final BeehiveDecorator bees001 = new BeehiveDecorator(0.01F);
+		final BeehiveDecorator bees025 = new BeehiveDecorator(0.25F);
+		final BeehiveDecorator bees = new BeehiveDecorator(1F);
+		final PollenTreeDecorator pollen01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
+		final PollenTreeDecorator pollen025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
+		final PollenTreeDecorator pollen = new PollenTreeDecorator(1F, 0.035F, 5);
+
 		// BIRCH
 		BIRCH_TREE.makeAndSetHolders(Feature.TREE,
 			birch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_009)).build()
+				.decorators(List.of(shelfFungus009)).build()
 		);
 
 		BIRCH_BEES_0004.makeAndSetHolders(Feature.TREE,
 			birch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_009, POLLEN_01))
+				.decorators(List.of(bees0004, shelfFungus009, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		BIRCH_BEES_025.makeAndSetHolders(Feature.TREE,
 			birch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, SHELF_FUNGUS_009, POLLEN_025))
+				.decorators(List.of(bees025, shelfFungus009, pollen025))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_BIRCH.makeAndSetHolders(Feature.TREE,
 			birch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_009))
+				.decorators(List.of(bees0004, shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES_0004.makeAndSetHolders(Feature.TREE,
 			superBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_009, POLLEN_01))
+				.decorators(List.of(bees0004, shelfFungus009, pollen01))
 				.build()
 		);
 
 		DYING_SUPER_BIRCH.makeAndSetHolders(Feature.TREE,
 			superBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_009))
+				.decorators(List.of(vines1Under26005, shelfFungus009))
 				.build()
 		);
 
 		SHORT_BIRCH_BEES_0004.makeAndSetHolders(Feature.TREE,
 			shortBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_0074, POLLEN_01))
+				.decorators(List.of(bees0004, shelfFungus0074, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		SHORT_BIRCH.makeAndSetHolders(Feature.TREE,
 			shortBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_SHORT_BIRCH.makeAndSetHolders(Feature.TREE,
 			shortBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_0004.makeAndSetHolders(Feature.TREE,
 			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_0074, POLLEN_01))
+				.decorators(List.of(bees0004, shelfFungus0074, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_025.makeAndSetHolders(Feature.TREE,
 			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, SHELF_FUNGUS_0074, POLLEN_01))
+				.decorators(List.of(bees025, shelfFungus0074, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH.makeAndSetHolders(Feature.TREE,
 			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_MEDIUM_BIRCH.makeAndSetHolders(Feature.TREE,
 			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES.makeAndSetHolders(Feature.TREE,
 			superBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES, POLLEN, SHELF_FUNGUS_009))
+				.decorators(List.of(bees, pollen, shelfFungus009))
 				.build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolders(Feature.TREE,
 			superBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_009))
+				.decorators(List.of(shelfFungus009))
 				.build()
 		);
 
 		DEAD_BIRCH.makeAndSetHolders(Feature.TREE,
 			deadBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		DEAD_MEDIUM_BIRCH.makeAndSetHolders(Feature.TREE,
 			deadMediumBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_BIRCH_TREE.makeAndSetHolder(Feature.TREE,
 			fallenBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_BIRCH, SHELF_FUNGUS_009))
+				.decorators(List.of(vines08Under260075, mossBirch, shelfFungus009))
 				.build()
 		);
 
@@ -608,57 +606,57 @@ public final class WWTreeConfigured {
 				1F,
 				0.7F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(VINES_08_UNDER_260_075, MOSS_MOSSY, SHELF_FUNGUS_009))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_BIRCH.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.BIRCH_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_BIRCH, SHELF_FUNGUS_009))
+				.decorators(List.of(vines012Under260, mossBirch, shelfFungus009))
 				.build()
 		);
 
 		// CHERRY
 		CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			cherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(shelfFungus00975OnlyRed))
 				.build()
 		);
 
 		DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			cherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_00975_ONLY_RED, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus00975OnlyRed, vines1Under26003))
 				.build()
 		);
 
 		TALL_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			tallCherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(shelfFungus00975OnlyRed))
 				.build()
 		);
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			tallCherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_00975_ONLY_RED, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus00975OnlyRed, vines1Under26003))
 				.build()
 		);
 
 		CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 			cherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, POLLEN_01, SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(bees025, pollen01, shelfFungus00975OnlyRed))
 				.build()
 		);
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(Feature.TREE,
 			tallCherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, POLLEN_01, SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(bees025, pollen01, shelfFungus00975OnlyRed))
 				.build()
 		);
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			fallenCherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_CHERRY, SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(vines08Under260075, mossCherry, shelfFungus00975OnlyRed))
 				.build()
 		);
 
@@ -674,63 +672,63 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.5F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(VINES_08_UNDER_260_075, MOSS_MOSSY, SHELF_FUNGUS_00975_ONLY_RED))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus00975OnlyRed))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.CHERRY_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_CHERRY, SHELF_FUNGUS_00975_ONLY_RED))
+				.decorators(List.of(vines012Under260, mossCherry, shelfFungus00975OnlyRed))
 				.build()
 		);
 
 		// MAPLE
 		YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		DYING_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		TALL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		TALL_YELLOW_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		YELLOW_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		TALL_YELLOW_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		SHORT_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			shortYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		FULL_YELLOW_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
@@ -747,49 +745,49 @@ public final class WWTreeConfigured {
 
 		ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		DYING_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		TALL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		TALL_ORANGE_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		ORANGE_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		TALL_ORANGE_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		SHORT_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			shortOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		FULL_ORANGE_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
@@ -806,49 +804,49 @@ public final class WWTreeConfigured {
 
 		RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		DYING_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		TALL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		TALL_RED_DYING_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074, VINES_1_UNDER_260_03))
+				.decorators(List.of(shelfFungus0074, vines1Under26003))
 				.build()
 		);
 
 		RED_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		TALL_RED_MAPLE_BEES_0004.makeAndSetHolder(Feature.TREE,
 			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
 				.build()
 		);
 
 		SHORT_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			shortRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
 		FULL_RED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fullRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0074))
+				.decorators(List.of(shelfFungus0074))
 				.build()
 		);
 
@@ -865,20 +863,20 @@ public final class WWTreeConfigured {
 
 		FALLEN_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, SHELF_FUNGUS_0074))
+				.decorators(List.of(vines08Under260075, shelfFungus0074))
 				.build()
 		);
 
 		SNAPPED_MAPLE_TREE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(WWBlocks.MAPLE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, SHELF_FUNGUS_0074))
+				.decorators(List.of(vines012Under260, shelfFungus0074))
 				.build()
 		);
 
 		// OAK
 		OAK.makeAndSetHolders(Feature.TREE,
 			oak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003))
+				.decorators(List.of(shelfFungus003))
 				.build()
 		);
 
@@ -889,63 +887,63 @@ public final class WWTreeConfigured {
 
 		SHORT_OAK.makeAndSetHolders(Feature.TREE,
 			shortOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003))
+				.decorators(List.of(shelfFungus003))
 				.build()
 		);
 
 		OAK_BEES_0004.makeAndSetHolders(Feature.TREE,
 			oak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, SHELF_FUNGUS_0054, POLLEN_01))
+				.decorators(List.of(bees0004, shelfFungus0054, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_OAK.makeAndSetHolders(Feature.TREE,
 			oak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_03, SHELF_FUNGUS_0054))
+				.decorators(List.of(vines1Under26003, shelfFungus0054))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_OAK.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_0054))
+				.decorators(List.of(shelfFungus0054))
 				.build()
 		);
 
 		FANCY_DYING_OAK.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_0054))
+				.decorators(List.of(vines1Under26005, shelfFungus0054))
 				.build()
 		);
 
 		FANCY_DYING_OAK_BEES_0004.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, VINES_1_UNDER_260_05, POLLEN_01, SHELF_FUNGUS_0054))
+				.decorators(List.of(bees0004, vines1Under26005, pollen01, shelfFungus0054))
 				.build()
 		);
 
 		FANCY_OAK_BEES_0004.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_0004, POLLEN_01, SHELF_FUNGUS_0054))
+				.decorators(List.of(bees0004, pollen01, shelfFungus0054))
 				.build()
 		);
 
 		FANCY_DYING_OAK_BEES_025.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, VINES_1_UNDER_260_05, POLLEN_01, SHELF_FUNGUS_0054))
+				.decorators(List.of(bees025, vines1Under26005, pollen01, shelfFungus0054))
 				.build()
 		);
 
 		FANCY_OAK_BEES_025.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES_025, POLLEN_01, SHELF_FUNGUS_0054))
+				.decorators(List.of(bees025, pollen01, shelfFungus0054))
 				.build()
 		);
 
 		FANCY_OAK_BEES.makeAndSetHolders(Feature.TREE,
 			fancyOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(BEES, POLLEN, SHELF_FUNGUS_0074))
+				.decorators(List.of(bees, pollen, shelfFungus0074))
 				.build()
 		);
 
@@ -957,32 +955,32 @@ public final class WWTreeConfigured {
 				new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
 				new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(BEES_0004, VINES_1_UNDER_260_05, POLLEN_01))
+			).decorators(List.of(bees0004, vines1Under26005, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_DEAD_OAK.makeAndSetHolders(Feature.TREE,
 			fancyDeadOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003, VINES_012_UNDER_260))
+				.decorators(List.of(shelfFungus003, vines012Under260))
 				.build()
 		);
 
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolders(Feature.TREE,
 			fancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003, VINES_012_UNDER_260))
+				.decorators(List.of(shelfFungus003, vines012Under260))
 				.build()
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolders(Feature.TREE,
 			smallFancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003, VINES_012_UNDER_260))
+				.decorators(List.of(shelfFungus003, vines012Under260))
 				.build()
 		);
 
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolders(Feature.TREE,
 			smallFancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003, VINES_012_UNDER_260))
+				.decorators(List.of(shelfFungus003, vines012Under260))
 				.build()
 		);
 
@@ -1004,7 +1002,7 @@ public final class WWTreeConfigured {
 				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(new LeaveVineDecorator(0.1F), SHELF_FUNGUS_003, VINES_012_UNDER_260))
+			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfFungus003, vines012Under260))
 				.build()
 		);
 
@@ -1026,19 +1024,19 @@ public final class WWTreeConfigured {
 				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(new LeaveVineDecorator(0.1F), SHELF_FUNGUS_0074, VINES_012_UNDER_260))
+			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfFungus0074, vines012Under260))
 				.build()
 		);
 
 		FALLEN_OAK_TREE.makeAndSetHolder(Feature.TREE,
 			fallenOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_OAK))
+				.decorators(List.of(vines08Under260075, mossOak))
 				.build()
 		);
 
 		FALLEN_OAK_TREE_NO_MOSS.makeAndSetHolder(Feature.TREE,
 			fallenOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260))
+				.decorators(List.of(vines012Under260))
 				.build()
 		);
 
@@ -1054,14 +1052,14 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.4F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(VINES_08_UNDER_260_075, MOSS_MOSSY, SHELF_FUNGUS_0074))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_OAK.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.OAK_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines012Under260, mossOak, shelfFungus009))
 				.build()
 		);
 
@@ -1074,7 +1072,7 @@ public final class WWTreeConfigured {
 				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074))
+			).decorators(List.of(shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
@@ -1087,61 +1085,61 @@ public final class WWTreeConfigured {
 				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_0074))
+			).decorators(List.of(vines1Under26005, shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
 
 		TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003))
+				.decorators(List.of(shelfFungus003))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(SHELF_FUNGUS_003))
+				.decorators(List.of(shelfFungus003))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_009))
+				.decorators(List.of(vines1Under26005, shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_DYING_TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_05, SHELF_FUNGUS_009))
+				.decorators(List.of(vines1Under26005, shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 		COBWEB_TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(COBWEB_1_UNDER_260_025, SHELF_FUNGUS_003))
+				.decorators(List.of(cobweb1Under260017, shelfFungus003))
 				.ignoreVines()
 				.build()
 		);
 
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(Feature.TREE,
 			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(COBWEB_1_UNDER_260_025, SHELF_FUNGUS_003))
+				.decorators(List.of(cobweb1Under260017, shelfFungus003))
 				.ignoreVines()
 				.build()
 		);
 
 		LARGE_FALLEN_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.DARK_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_05, MOSS_JUNGLE_DARK_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines1Under26005, mossJungleDarkOak, shelfFungus009))
 				.build()
 		);
 
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(Blocks.DARK_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_OAK, SHELF_FUNGUS_003))
+				.decorators(List.of(vines012Under260, mossOak, shelfFungus003))
 				.build()
 		);
 
@@ -1200,13 +1198,13 @@ public final class WWTreeConfigured {
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(MOSS_PALE_OAK, PALE_SHELF_FUNGI_00875))
+				.decorators(List.of(mossPaleOak, paleShelfFungi00875))
 				.build()
 		);
 
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(MOSS_PALE_OAK, PALE_SHELF_FUNGI_00875))
+				.decorators(List.of(mossPaleOak, paleShelfFungi00875))
 				.build()
 		);
 
@@ -1222,28 +1220,28 @@ public final class WWTreeConfigured {
 		// SWAMP TREE
 		WILLOW.makeAndSetHolders(Feature.TREE,
 			willow(5, 2, 1, blocks)
-				.decorators(List.of(new LeaveVineDecorator(0.125F), SHELF_FUNGUS_009))
+				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		WILLOW_TALL.makeAndSetHolders(Feature.TREE,
 			willow(7, 2, 2, blocks)
-				.decorators(List.of(new LeaveVineDecorator(0.125F), SHELF_FUNGUS_009))
+				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		WILLOW_TALLER.makeAndSetHolders(Feature.TREE,
 			willow(9, 2, 2, blocks)
-				.decorators(List.of(new LeaveVineDecorator(0.125F), SHELF_FUNGUS_009))
+				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfFungus009))
 				.ignoreVines()
 				.build()
 		);
 
 		SWAMP_OAK.makeAndSetHolders(Feature.TREE,
 			oak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(new LeaveVineDecorator(0.125F), SHELF_FUNGUS_009))
+				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfFungus009))
 				.build()
 		);
 
@@ -1260,7 +1258,7 @@ public final class WWTreeConfigured {
 				1F,
 				0.075F,
 				0.75F
-			).decorators(List.of(VINES_08_UNDER_260_075, MOSS_MOSSY, SHELF_FUNGUS_0074))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074))
 				.ignoreVines()
 				.build()
 		);
@@ -1274,7 +1272,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(2, 3)),
 				new TwoLayersFeatureSize(2, 0, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(shelfFungus0074OnlyBrown))
 				.ignoreVines()
 				.build()
 		);
@@ -1299,7 +1297,7 @@ public final class WWTreeConfigured {
 				new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
 				new TwoLayersFeatureSize(2, 0, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(shelfFungus0074OnlyBrown))
 				.ignoreVines()
 				.build()
 		);
@@ -1312,7 +1310,7 @@ public final class WWTreeConfigured {
 				new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
 				new TwoLayersFeatureSize(2, 0, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, VINES_1_UNDER_260_05))
+			).decorators(List.of(shelfFungus0074OnlyBrown, vines1Under26005))
 				.ignoreVines()
 				.build()
 		);
@@ -1328,7 +1326,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(13, 17)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(podzolGroundDecorator, SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(podzolGroundDecorator, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1340,7 +1338,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(podzolGroundDecorator, SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(podzolGroundDecorator, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1352,7 +1350,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(podzolGroundDecorator, SHELF_FUNGUS_0074_ONLY_BROWN, VINES_1_UNDER_260_075))
+			).decorators(List.of(podzolGroundDecorator, shelfFungus0074OnlyBrown, vines1Under260075))
 				.build()
 		);
 
@@ -1364,7 +1362,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1376,7 +1374,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(shelfFungus0074OnlyBrown, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1388,7 +1386,7 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, SHELF_FUNGUS_0074_ONLY_BROWN, VINES_1_UNDER_260_075))
+			).decorators(List.of(shelfFungus0074OnlyBrown, shelfFungus0074OnlyBrown, vines1Under260075))
 				.build()
 		);
 
@@ -1399,13 +1397,13 @@ public final class WWTreeConfigured {
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, VINES_1_UNDER_260_075))
+			).decorators(List.of(shelfFungus0074OnlyBrown, vines1Under260075))
 				.build()
 		);
 
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenSpruce(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_1_UNDER_260_075, MOSS_SPRUCE_PALM, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines1Under260075, mossSprucePalm, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1421,7 +1419,7 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.6F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(VINES_08_UNDER_260_075, MOSS_MOSSY, SHELF_FUNGUS_0074_ONLY_BROWN))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074OnlyBrown))
 				.ignoreVines()
 				.build()
 		);
@@ -1437,19 +1435,19 @@ public final class WWTreeConfigured {
 
 		DECORATED_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_SPRUCE_PALM, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
 		SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_SPRUCE_PALM, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 2, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_SPRUCE_PALM, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1501,14 +1499,14 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2),
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
-			).decorators(List.of(VINES_012_UNDER_76))
+			).decorators(List.of(vines012Under76))
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_CYPRESS_TREE.makeAndSetHolder(Feature.TREE,
 			fallenCypress()
-				.decorators(List.of(VINES_008_UNDER_82, MOSS_CYPRESS, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines008Under82, mossCypress, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1520,7 +1518,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2),
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, VINES_008_UNDER_82))
+			).decorators(List.of(shelfFungus0074OnlyBrown, vines008Under82))
 				.ignoreVines()
 				.build()
 		);
@@ -1533,7 +1531,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2),
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
-			).decorators(List.of(VINES_012_UNDER_76))
+			).decorators(List.of(vines012Under76))
 				.ignoreVines()
 				.build()
 		);
@@ -1546,7 +1544,7 @@ public final class WWTreeConfigured {
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2),
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
-			).decorators(List.of(SHELF_FUNGUS_0074_ONLY_BROWN, VINES_008_UNDER_82))
+			).decorators(List.of(shelfFungus0074OnlyBrown, vines008Under82))
 				.ignoreVines()
 				.build()
 		);
@@ -1567,13 +1565,13 @@ public final class WWTreeConfigured {
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14),
 				new TwoLayersFeatureSize(1, 0, 1),
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
-			).decorators(List.of(new LeaveVineDecorator(0.1F), SHELF_FUNGUS_0074_ONLY_BROWN, VINES_008_UNDER_82))
+			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfFungus0074OnlyBrown, vines008Under82))
 				.build()
 		);
 
 		SNAPPED_CYPRESS.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(WWBlocks.CYPRESS_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_CYPRESS, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, mossCypress, shelfFungus0074OnlyBrown))
 			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
 			.build()
 		);
@@ -1641,7 +1639,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_PALM.makeAndSetHolder(Feature.TREE,
 			fallenPalm()
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_SPRUCE_PALM))
+				.decorators(List.of(vines08Under260075, mossSprucePalm))
 				.build()
 		);
 
@@ -1674,7 +1672,7 @@ public final class WWTreeConfigured {
 				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
 				new TwoLayersFeatureSize(1, 0, 1),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(new CocoaDecorator(0.2F), TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F), SHELF_FUNGUS_0054))
+			).decorators(List.of(new CocoaDecorator(0.2F), TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F), shelfFungus0054))
 				.ignoreVines()
 				.build()
 		);
@@ -1687,7 +1685,7 @@ public final class WWTreeConfigured {
 				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
 				new TwoLayersFeatureSize(1, 0, 1),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(SHELF_FUNGUS_0054))
+			).decorators(List.of(shelfFungus0054))
 				.ignoreVines()
 				.build()
 		);
@@ -1700,32 +1698,32 @@ public final class WWTreeConfigured {
 				new MegaJungleFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F), SHELF_FUNGUS_0054))
+			).decorators(List.of(TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F), shelfFungus0054))
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenJungle(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_JUNGLE_DARK_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfFungus009))
 				.build()
 		);
 
 		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(Feature.TREE,
 			largeFallenBuilder(Blocks.JUNGLE_LOG, 5, 2, 4, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_08_UNDER_260_075, MOSS_JUNGLE_DARK_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfFungus009))
 				.build()
 		);
 
 		SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.JUNGLE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_JUNGLE_DARK_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfFungus009))
 				.build()
 		);
 
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(Feature.TREE,
 			largeSnappedTrunkBuilder(Blocks.JUNGLE_LOG, 3, 1, 2, 3, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_JUNGLE_DARK_OAK, SHELF_FUNGUS_009))
+				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfFungus009))
 				.build()
 		);
 
@@ -1776,13 +1774,13 @@ public final class WWTreeConfigured {
 
 		FALLEN_ACACIA_TREE.makeAndSetHolder(Feature.TREE,
 			fallenAcacia(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260))
+				.decorators(List.of(vines012Under260))
 				.build()
 		);
 
 		SNAPPED_ACACIA.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.ACACIA_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
@@ -1801,8 +1799,8 @@ public final class WWTreeConfigured {
 				2,
 				List.of(Direction.DOWN)
 			),
-			BEES_001,
-			SHELF_FUNGUS_0074_ONLY_BROWN
+			bees001,
+			shelfFungus0074OnlyBrown
 		);
 		MANGROVE.makeAndSetHolders(Feature.TREE,
 			new TreeConfiguration.TreeConfigurationBuilder(
@@ -1878,33 +1876,33 @@ public final class WWTreeConfigured {
 
 		FALLEN_MANGROVE_TREE.makeAndSetHolder(Feature.TREE,
 			fallenMangrove(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(VINES_012_UNDER_260, MOSS_MOSSY, SHELF_FUNGUS_0074_ONLY_BROWN))
+				.decorators(List.of(vines012Under260, mossMossy, shelfFungus0074OnlyBrown))
 				.build()
 		);
 
 		//CRIMSON
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenCrimson(RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM))
-				.decorators(List.of(NETHER_FUNGI_LEANING_CRIMSON))
+				.decorators(List.of(netherFungiLeaningCrimson))
 				.build()
 		);
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM))
-				.decorators(List.of(NETHER_FUNGI_LEANING_CRIMSON))
+				.decorators(List.of(netherFungiLeaningCrimson))
 				.build()
 		);
 
 		//WARPED
 		FALLEN_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
 			fallenWarped(RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM))
-				.decorators(List.of(NETHER_FUNGI_LEANING_WARPED))
+				.decorators(List.of(netherFungiLeaningWarped))
 				.build()
 		);
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(Feature.TREE,
 			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM))
-				.decorators(List.of(NETHER_FUNGI_LEANING_WARPED))
+				.decorators(List.of(netherFungiLeaningWarped))
 				.build()
 		);
 
@@ -2552,10 +2550,20 @@ public final class WWTreeConfigured {
 
 	public static void appendPaleOakDecorators(TreeConfiguration.TreeConfigurationBuilder builder, boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter) {
 		final List<TreeDecorator> treeDecorators = new ArrayList<>();
-		treeDecorators.add(PALE_SHELF_FUNGI_00875);
-		if (paleMoss) treeDecorators.add(PALE_MOSS_DECORATOR);
-		if (creaking) treeDecorators.add(CREAKING_HEARTS);
-		if (cobweb) treeDecorators.add(COBWEB_1_UNDER_260_025);
+		treeDecorators.add(
+			new ShelfFungiTreeDecorator(
+				0.0875F,
+				0.25F,
+				new RandomizedIntStateProvider(
+					BlockStateProvider.simple(WWBlocks.PALE_SHELF_FUNGI),
+					ShelfFungiBlock.STAGE,
+					UniformInt.of(1, 4)
+				)
+			)
+		);
+		if (paleMoss) treeDecorators.add(new PaleMossDecorator(0.15F, 0.4F, 0.8F));
+		if (creaking) treeDecorators.add(new CreakingHeartDecorator(1F));
+		if (cobweb) treeDecorators.add(new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F));
 		if (leafLitter) {
 			treeDecorators.add(
 				new PlaceOnGroundDecorator(
