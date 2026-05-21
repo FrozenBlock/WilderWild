@@ -2,6 +2,14 @@
   "feature": "wilderwild:auburn_moss_underwater",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/oceanAuburnMossGeneration",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:rarity_filter",
       "chance": 52
     },

@@ -2,6 +2,14 @@
   "feature": "wilderwild:sponge_bud",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/spongeBud",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",

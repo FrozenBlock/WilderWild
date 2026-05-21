@@ -2,6 +2,14 @@
   "feature": "wilderwild:patch_barnacles",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/barnacle",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",

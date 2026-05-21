@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
@@ -28,6 +29,7 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
@@ -80,8 +82,7 @@ public final class WWAquaticConfigured {
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> SEA_WHIP = register("sea_whip");
 	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> TUBE_WORMS = register("tube_worms");
 
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HYDROTHERMAL_VENT = register("hydrothermal_vent");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> HYDROTHERMAL_VENT_TUBE_WORMS = register("hydrothermal_vent_tube_worms");
+	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> HYDROTHERMAL_VENT = register("hydrothermal_vent");
 	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> OCEAN_MOSS = register("ocean_moss");
 	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
 	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
@@ -173,31 +174,31 @@ public final class WWAquaticConfigured {
 
 		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS, NoneFeatureConfiguration.INSTANCE);
 
-		HYDROTHERMAL_VENT.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
-				blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.GABBRO),
-				PlacementUtils.inlinePlaced(
-					WWFeatures.HYDROTHERMAL_VENT,
-					NoneFeatureConfiguration.INSTANCE
-				),
-				CaveSurface.FLOOR,
-				ConstantInt.of(2),
-				0.375F,
-				6,
-				0.25F,
-				UniformInt.of(1, 2),
-				0.5F
-			)
-		);
-
-		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(Feature.SEQUENCE,
+		HYDROTHERMAL_VENT.makeAndSetHolder(Feature.SEQUENCE,
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
-					HYDROTHERMAL_VENT.asInlinePlaced(),
+					PlacementUtils.inlinePlaced(
+						FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
+						new VegetationPatchConfiguration(
+							blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
+							BlockStateProvider.simple(WWBlocks.GABBRO),
+							PlacementUtils.inlinePlaced(
+								WWFeatures.HYDROTHERMAL_VENT,
+								NoneFeatureConfiguration.INSTANCE
+							),
+							CaveSurface.FLOOR,
+							ConstantInt.of(2),
+							0.375F,
+							6,
+							0.25F,
+							UniformInt.of(1, 2),
+							0.5F
+						)
+					),
 					PlacementUtils.inlinePlaced(
 						WWFeatures.TUBE_WORMS,
 						NoneFeatureConfiguration.INSTANCE,
+						ConfigEntryPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
 						CountPlacement.of(33),
 						RandomOffsetPlacement.ofTriangle(5, 4)
 					)

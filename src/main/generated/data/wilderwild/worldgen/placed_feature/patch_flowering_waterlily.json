@@ -2,6 +2,14 @@
   "feature": "wilderwild:flowering_waterlily",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/vegetation/flowerGeneration",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:in_square"
     },
     {

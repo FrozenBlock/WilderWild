@@ -2,6 +2,14 @@
   "feature": "wilderwild:seagrass_meadow",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/seagrass",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:count",
       "count": 98
     },

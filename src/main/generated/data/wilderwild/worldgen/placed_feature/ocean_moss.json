@@ -2,6 +2,14 @@
   "feature": "wilderwild:ocean_moss",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/oceanMossGeneration",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:in_square"
     },
     {

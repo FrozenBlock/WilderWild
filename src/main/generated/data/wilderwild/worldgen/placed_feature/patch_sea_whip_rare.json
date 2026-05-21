@@ -2,6 +2,14 @@
   "feature": "wilderwild:sea_whip",
   "placement": [
     {
+      "type": "frozenlib:config_entry",
+      "config_entry_predicate": {
+        "entry": "wilderwild:worldgen/aquaticGeneration/seaWhip",
+        "operator": "equal_to",
+        "target": true
+      }
+    },
+    {
       "type": "minecraft:rarity_filter",
       "chance": 15
     },
