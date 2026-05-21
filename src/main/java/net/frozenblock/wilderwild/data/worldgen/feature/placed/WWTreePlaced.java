@@ -18,13 +18,12 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -35,6 +34,8 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -66,54 +67,54 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature DEAD_BIRCH = WWTreeConfigured.DEAD_BIRCH.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DEAD_MEDIUM_BIRCH = WWTreeConfigured.DEAD_MEDIUM_BIRCH.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature FALLEN_BIRCH_CHECKED = WWPlacementUtils.register("fallen_birch_checked");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = WWPlacementUtils.register("mossy_fallen_birch_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_BIRCH_CHECKED = WWPlacementUtils.register("snapped_birch_checked");
+	public static final FrozenLibPlacedFeature FALLEN_BIRCH_CHECKED = register("fallen_birch_checked");
+	public static final FrozenLibPlacedFeature MOSSY_FALLEN_BIRCH_CHECKED = register("mossy_fallen_birch_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_BIRCH_CHECKED = register("snapped_birch_checked");
 
 	//CHERRY
-	public static final FrozenLibPlacedFeature CHERRY_CHECKED = WWPlacementUtils.register("cherry_checked");
-	public static final FrozenLibPlacedFeature DYING_CHERRY_CHECKED = WWPlacementUtils.register("dying_cherry_checked");
-	public static final FrozenLibPlacedFeature TALL_CHERRY_CHECKED = WWPlacementUtils.register("tall_cherry_checked");
-	public static final FrozenLibPlacedFeature TALL_DYING_CHERRY_CHECKED = WWPlacementUtils.register("tall_dying_cherry_checked");
-	public static final FrozenLibPlacedFeature CHERRY_BEES_CHECKED = WWPlacementUtils.register("cherry_bees_checked");
-	public static final FrozenLibPlacedFeature TALL_CHERRY_BEES_CHECKED = WWPlacementUtils.register("tall_cherry_bees_checked");
-	public static final FrozenLibPlacedFeature FALLEN_CHERRY_CHECKED = WWPlacementUtils.register("fallen_cherry_checked");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = WWPlacementUtils.register("mossy_fallen_cherry_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_CHERRY_CHECKED = WWPlacementUtils.register("snapped_cherry_checked");
+	public static final FrozenLibPlacedFeature CHERRY_CHECKED = register("cherry_checked");
+	public static final FrozenLibPlacedFeature DYING_CHERRY_CHECKED = register("dying_cherry_checked");
+	public static final FrozenLibPlacedFeature TALL_CHERRY_CHECKED = register("tall_cherry_checked");
+	public static final FrozenLibPlacedFeature TALL_DYING_CHERRY_CHECKED = register("tall_dying_cherry_checked");
+	public static final FrozenLibPlacedFeature CHERRY_BEES_CHECKED = register("cherry_bees_checked");
+	public static final FrozenLibPlacedFeature TALL_CHERRY_BEES_CHECKED = register("tall_cherry_bees_checked");
+	public static final FrozenLibPlacedFeature FALLEN_CHERRY_CHECKED = register("fallen_cherry_checked");
+	public static final FrozenLibPlacedFeature MOSSY_FALLEN_CHERRY_CHECKED = register("mossy_fallen_cherry_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_CHERRY_CHECKED = register("snapped_cherry_checked");
 
 	//MAPLE
-	public static final FrozenLibPlacedFeature YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("yellow_maple_checked");
-	public static final FrozenLibPlacedFeature DYING_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("dying_yellow_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("tall_yellow_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_DYING_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_yellow_maple_checked");
-	public static final FrozenLibPlacedFeature YELLOW_MAPLE_BEES_CHECKED = WWPlacementUtils.register("yellow_maple_bees_checked");
-	public static final FrozenLibPlacedFeature TALL_YELLOW_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_yellow_maple_bees_checked");
-	public static final FrozenLibPlacedFeature SHORT_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("short_yellow_maple_checked");
-	public static final FrozenLibPlacedFeature FULL_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("full_yellow_maple_checked");
-	public static final FrozenLibPlacedFeature BIG_BUSH_YELLOW_MAPLE_CHECKED = WWPlacementUtils.register("big_bush_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature YELLOW_MAPLE_CHECKED = register("yellow_maple_checked");
+	public static final FrozenLibPlacedFeature DYING_YELLOW_MAPLE_CHECKED = register("dying_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_YELLOW_MAPLE_CHECKED = register("tall_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_DYING_YELLOW_MAPLE_CHECKED = register("tall_dying_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature YELLOW_MAPLE_BEES_CHECKED = register("yellow_maple_bees_checked");
+	public static final FrozenLibPlacedFeature TALL_YELLOW_MAPLE_BEES_CHECKED = register("tall_yellow_maple_bees_checked");
+	public static final FrozenLibPlacedFeature SHORT_YELLOW_MAPLE_CHECKED = register("short_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature FULL_YELLOW_MAPLE_CHECKED = register("full_yellow_maple_checked");
+	public static final FrozenLibPlacedFeature BIG_BUSH_YELLOW_MAPLE_CHECKED = register("big_bush_yellow_maple_checked");
 
-	public static final FrozenLibPlacedFeature ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("orange_maple_checked");
-	public static final FrozenLibPlacedFeature DYING_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("dying_orange_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("tall_orange_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_DYING_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_orange_maple_checked");
-	public static final FrozenLibPlacedFeature ORANGE_MAPLE_BEES_CHECKED = WWPlacementUtils.register("orange_maple_bees_checked");
-	public static final FrozenLibPlacedFeature TALL_ORANGE_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_orange_maple_bees_checked");
-	public static final FrozenLibPlacedFeature SHORT_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("short_orange_maple_checked");
-	public static final FrozenLibPlacedFeature FULL_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("full_orange_maple_checked");
-	public static final FrozenLibPlacedFeature BIG_BUSH_ORANGE_MAPLE_CHECKED = WWPlacementUtils.register("big_bush_orange_maple_checked");
+	public static final FrozenLibPlacedFeature ORANGE_MAPLE_CHECKED = register("orange_maple_checked");
+	public static final FrozenLibPlacedFeature DYING_ORANGE_MAPLE_CHECKED = register("dying_orange_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_ORANGE_MAPLE_CHECKED = register("tall_orange_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_DYING_ORANGE_MAPLE_CHECKED = register("tall_dying_orange_maple_checked");
+	public static final FrozenLibPlacedFeature ORANGE_MAPLE_BEES_CHECKED = register("orange_maple_bees_checked");
+	public static final FrozenLibPlacedFeature TALL_ORANGE_MAPLE_BEES_CHECKED = register("tall_orange_maple_bees_checked");
+	public static final FrozenLibPlacedFeature SHORT_ORANGE_MAPLE_CHECKED = register("short_orange_maple_checked");
+	public static final FrozenLibPlacedFeature FULL_ORANGE_MAPLE_CHECKED = register("full_orange_maple_checked");
+	public static final FrozenLibPlacedFeature BIG_BUSH_ORANGE_MAPLE_CHECKED = register("big_bush_orange_maple_checked");
 
-	public static final FrozenLibPlacedFeature RED_MAPLE_CHECKED = WWPlacementUtils.register("red_maple_checked");
-	public static final FrozenLibPlacedFeature DYING_RED_MAPLE_CHECKED = WWPlacementUtils.register("dying_red_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_RED_MAPLE_CHECKED = WWPlacementUtils.register("tall_red_maple_checked");
-	public static final FrozenLibPlacedFeature TALL_DYING_RED_MAPLE_CHECKED = WWPlacementUtils.register("tall_dying_red_maple_checked");
-	public static final FrozenLibPlacedFeature RED_MAPLE_BEES_CHECKED = WWPlacementUtils.register("red_maple_bees_checked");
-	public static final FrozenLibPlacedFeature TALL_RED_MAPLE_BEES_CHECKED = WWPlacementUtils.register("tall_red_maple_bees_checked");
-	public static final FrozenLibPlacedFeature SHORT_RED_MAPLE_CHECKED = WWPlacementUtils.register("short_red_maple_checked");
-	public static final FrozenLibPlacedFeature FULL_RED_MAPLE_CHECKED = WWPlacementUtils.register("full_red_maple_checked");
-	public static final FrozenLibPlacedFeature BIG_BUSH_RED_MAPLE_CHECKED = WWPlacementUtils.register("big_bush_red_maple_checked");
+	public static final FrozenLibPlacedFeature RED_MAPLE_CHECKED = register("red_maple_checked");
+	public static final FrozenLibPlacedFeature DYING_RED_MAPLE_CHECKED = register("dying_red_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_RED_MAPLE_CHECKED = register("tall_red_maple_checked");
+	public static final FrozenLibPlacedFeature TALL_DYING_RED_MAPLE_CHECKED = register("tall_dying_red_maple_checked");
+	public static final FrozenLibPlacedFeature RED_MAPLE_BEES_CHECKED = register("red_maple_bees_checked");
+	public static final FrozenLibPlacedFeature TALL_RED_MAPLE_BEES_CHECKED = register("tall_red_maple_bees_checked");
+	public static final FrozenLibPlacedFeature SHORT_RED_MAPLE_CHECKED = register("short_red_maple_checked");
+	public static final FrozenLibPlacedFeature FULL_RED_MAPLE_CHECKED = register("full_red_maple_checked");
+	public static final FrozenLibPlacedFeature BIG_BUSH_RED_MAPLE_CHECKED = register("big_bush_red_maple_checked");
 
-	public static final FrozenLibPlacedFeature FALLEN_MAPLE_CHECKED = WWPlacementUtils.register("fallen_maple_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_CHECKED = WWPlacementUtils.register("snapped_maple_checked");
+	public static final FrozenLibPlacedFeature FALLEN_MAPLE_CHECKED = register("fallen_maple_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_CHECKED = register("snapped_maple_checked");
 
 	//OAK
 	public static final FrozenLibPlacedTreeFeature OAK_CHECKED = WWTreeConfigured.OAK.toPlacedFeature();
@@ -136,10 +137,10 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature DEAD_OAK_CHECKED = WWTreeConfigured.DEAD_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DEAD_OAK_BRANCHES_CHECKED = WWTreeConfigured.DEAD_OAK_BRANCHES.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature SNAPPED_OAK_CHECKED = WWPlacementUtils.register("snapped_oak_checked");
-	public static final FrozenLibPlacedFeature FALLEN_OAK_CHECKED = WWPlacementUtils.register("fallen_oak_checked");
-	public static final FrozenLibPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = WWPlacementUtils.register("fallen_oak_no_moss_checked");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK_CHECKED = WWPlacementUtils.register("mossy_fallen_oak_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_OAK_CHECKED = register("snapped_oak_checked");
+	public static final FrozenLibPlacedFeature FALLEN_OAK_CHECKED = register("fallen_oak_checked");
+	public static final FrozenLibPlacedFeature FALLEN_OAK_NO_MOSS_CHECKED = register("fallen_oak_no_moss_checked");
+	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK_CHECKED = register("mossy_fallen_oak_checked");
 
 	//DARK OAK
 	public static final FrozenLibPlacedTreeFeature DARK_OAK_CHECKED = WWTreeConfigured.DARK_OAK.toPlacedFeature();
@@ -151,22 +152,22 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature COBWEB_TALL_DARK_OAK_CHECKED = WWTreeConfigured.COBWEB_TALL_DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature COBWEB_FANCY_TALL_DARK_OAK_CHECKED = WWTreeConfigured.COBWEB_FANCY_TALL_DARK_OAK.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = WWPlacementUtils.register("large_fallen_dark_oak_checked");
-	public static final FrozenLibPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = WWPlacementUtils.register("large_snapped_dark_oak_checked");
+	public static final FrozenLibPlacedFeature LARGE_FALLEN_DARK_OAK_CHECKED = register("large_fallen_dark_oak_checked");
+	public static final FrozenLibPlacedFeature LARGE_SNAPPED_DARK_OAK_CHECKED = register("large_snapped_dark_oak_checked");
 
 	//PALE OAK
-	public static final FrozenLibPlacedFeature PALE_OAK_CHECKED = WWPlacementUtils.register("pale_oak_checked");
-	public static final FrozenLibPlacedFeature PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("pale_oak_creaking_checked");
-	public static final FrozenLibPlacedFeature TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("tall_pale_oak_checked");
-	public static final FrozenLibPlacedFeature TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("tall_pale_oak_creaking_checked");
-	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("fancy_tall_pale_oak_checked");
-	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("fancy_tall_pale_oak_creaking_checked");
-	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK_CHECKED = WWPlacementUtils.register("cobweb_tall_pale_oak_checked");
-	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("cobweb_tall_pale_oak_creaking_checked");
-	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_pale_oak_checked");
-	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED = WWPlacementUtils.register("cobweb_fancy_tall_pale_oak_creaking_checked");
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_PALE_OAK_CHECKED = WWPlacementUtils.register("large_fallen_pale_oak_checked");
-	public static final FrozenLibPlacedFeature LARGE_SNAPPED_PALE_OAK_CHECKED = WWPlacementUtils.register("large_snapped_pale_oak_checked");
+	public static final FrozenLibPlacedFeature PALE_OAK_CHECKED = register("pale_oak_checked");
+	public static final FrozenLibPlacedFeature PALE_OAK_CREAKING_CHECKED = register("pale_oak_creaking_checked");
+	public static final FrozenLibPlacedFeature TALL_PALE_OAK_CHECKED = register("tall_pale_oak_checked");
+	public static final FrozenLibPlacedFeature TALL_PALE_OAK_CREAKING_CHECKED = register("tall_pale_oak_creaking_checked");
+	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK_CHECKED = register("fancy_tall_pale_oak_checked");
+	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK_CREAKING_CHECKED = register("fancy_tall_pale_oak_creaking_checked");
+	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK_CHECKED = register("cobweb_tall_pale_oak_checked");
+	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK_CREAKING_CHECKED = register("cobweb_tall_pale_oak_creaking_checked");
+	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK_CHECKED = register("cobweb_fancy_tall_pale_oak_checked");
+	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK_CREAKING_CHECKED = register("cobweb_fancy_tall_pale_oak_creaking_checked");
+	public static final FrozenLibPlacedFeature LARGE_FALLEN_PALE_OAK_CHECKED = register("large_fallen_pale_oak_checked");
+	public static final FrozenLibPlacedFeature LARGE_SNAPPED_PALE_OAK_CHECKED = register("large_snapped_pale_oak_checked");
 
 	//SWAMP TREE
 	public static final FrozenLibPlacedTreeFeature WILLOW_CHECKED = WWTreeConfigured.WILLOW.toPlacedFeature();
@@ -174,15 +175,15 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature WILLOW_TALLER_CHECKED = WWTreeConfigured.WILLOW_TALLER.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SWAMP_OAK_CHECKED = WWTreeConfigured.SWAMP_OAK.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_WILLOW_CHECKED = WWPlacementUtils.register("mossy_fallen_willow_checked");
+	public static final FrozenLibPlacedFeature MOSSY_FALLEN_WILLOW_CHECKED = register("mossy_fallen_willow_checked");
 
 	//SPRUCE
 	public static final FrozenLibPlacedTreeFeature SPRUCE_CHECKED = WWTreeConfigured.SPRUCE.toPlacedFeature();
-	public static final FrozenLibPlacedFeature SPRUCE_ON_SNOW = WWPlacementUtils.register("spruce_on_snow");
+	public static final FrozenLibPlacedFeature SPRUCE_ON_SNOW = register("spruce_on_snow");
 	public static final FrozenLibPlacedTreeFeature SPRUCE_SHORT_CHECKED = WWTreeConfigured.SPRUCE_SHORT.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature FUNGUS_PINE_CHECKED = WWTreeConfigured.FUNGUS_PINE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_FUNGUS_PINE_CHECKED = WWTreeConfigured.DYING_FUNGUS_PINE.toPlacedFeature();
-	public static final FrozenLibPlacedFeature FUNGUS_PINE_ON_SNOW = WWPlacementUtils.register("fungus_pine_on_snow");
+	public static final FrozenLibPlacedFeature FUNGUS_PINE_ON_SNOW = register("fungus_pine_on_snow");
 	public static final FrozenLibPlacedTreeFeature MEGA_FUNGUS_SPRUCE_CHECKED = WWTreeConfigured.MEGA_FUNGUS_SPRUCE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature MEGA_FUNGUS_PINE_CHECKED = WWTreeConfigured.MEGA_FUNGUS_PINE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_MEGA_FUNGUS_PINE_CHECKED = WWTreeConfigured.DYING_MEGA_FUNGUS_PINE.toPlacedFeature();
@@ -190,33 +191,33 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature SHORT_MEGA_FUNGUS_SPRUCE_CHECKED = WWTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED = WWTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SHORT_MEGA_DYING_SPRUCE_CHECKED = WWTreeConfigured.SHORT_MEGA_DYING_SPRUCE.toPlacedFeature();
-	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW = WWPlacementUtils.register("short_mega_spruce_on_snow");
-	public static final FrozenLibPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW = WWPlacementUtils.register("short_mega_fungus_spruce_on_snow");
-	public static final FrozenLibPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW = WWPlacementUtils.register("short_mega_dying_fungus_spruce_on_snow");
-	public static final FrozenLibPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = WWPlacementUtils.register("short_mega_dying_spruce_on_snow");
+	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW = register("short_mega_spruce_on_snow");
+	public static final FrozenLibPlacedFeature SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW = register("short_mega_fungus_spruce_on_snow");
+	public static final FrozenLibPlacedFeature SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW = register("short_mega_dying_fungus_spruce_on_snow");
+	public static final FrozenLibPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = register("short_mega_dying_spruce_on_snow");
 
-	public static final FrozenLibPlacedFeature FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("fallen_spruce_checked");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("mossy_fallen_spruce_checked");
-	public static final FrozenLibPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("clean_fallen_spruce_checked");
-	public static final FrozenLibPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("decorated_large_fallen_spruce_checked");
-	public static final FrozenLibPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_CHECKED = WWPlacementUtils.register("clean_large_fallen_spruce_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_CHECKED = WWPlacementUtils.register("snapped_spruce_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_ON_SNOW = WWPlacementUtils.register("snapped_spruces_on_snow");
-	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = WWPlacementUtils.register("large_snapped_spruce_checked");
-	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = WWPlacementUtils.register("large_snapped_spruces_on_snow");
+	public static final FrozenLibPlacedFeature FALLEN_SPRUCE_CHECKED = register("fallen_spruce_checked");
+	public static final FrozenLibPlacedFeature MOSSY_FALLEN_SPRUCE_CHECKED = register("mossy_fallen_spruce_checked");
+	public static final FrozenLibPlacedFeature CLEAN_FALLEN_SPRUCE_CHECKED = register("clean_fallen_spruce_checked");
+	public static final FrozenLibPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE_CHECKED = register("decorated_large_fallen_spruce_checked");
+	public static final FrozenLibPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_CHECKED = register("clean_large_fallen_spruce_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_CHECKED = register("snapped_spruce_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruces_on_snow");
+	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE_CHECKED = register("large_snapped_spruce_checked");
+	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED = register("large_snapped_spruces_on_snow");
 
 	//BAOBAB
 	public static final FrozenLibPlacedTreeFeature BAOBAB = WWTreeConfigured.BAOBAB.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature BAOBAB_TALL = WWTreeConfigured.BAOBAB_TALL.toPlacedFeature();
 
 	//CYPRESS
-	public static final FrozenLibPlacedFeature CYPRESS = WWPlacementUtils.register("cypress");
-	public static final FrozenLibPlacedFeature FUNGUS_CYPRESS = WWPlacementUtils.register("fungus_cypress");
-	public static final FrozenLibPlacedFeature SHORT_CYPRESS = WWPlacementUtils.register("short_cypress");
-	public static final FrozenLibPlacedFeature SHORT_FUNGUS_CYPRESS = WWPlacementUtils.register("short_fungus_cypress");
-	public static final FrozenLibPlacedFeature SWAMP_CYPRESS = WWPlacementUtils.register("swamp_cypress");
-	public static final FrozenLibPlacedFeature FALLEN_CYPRESS_CHECKED = WWPlacementUtils.register("fallen_cypress_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_CYPRESS_CHECKED = WWPlacementUtils.register("snapped_cypress_checked");
+	public static final FrozenLibPlacedFeature CYPRESS = register("cypress");
+	public static final FrozenLibPlacedFeature FUNGUS_CYPRESS = register("fungus_cypress");
+	public static final FrozenLibPlacedFeature SHORT_CYPRESS = register("short_cypress");
+	public static final FrozenLibPlacedFeature SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
+	public static final FrozenLibPlacedFeature SWAMP_CYPRESS = register("swamp_cypress");
+	public static final FrozenLibPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
 
 	//TREE ON SAND
 	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -231,17 +232,17 @@ public final class WWTreePlaced {
 	);
 
 	//SHRUB
-	public static final FrozenLibPlacedFeature LARGE_BUSH_ON_SAND = WWPlacementUtils.register("large_bush_on_sand");
-	public static final FrozenLibPlacedFeature LARGE_BUSH_CHECKED = WWPlacementUtils.register("large_bush_checked");
-	public static final FrozenLibPlacedFeature BIG_BUSH_CHECKED = WWPlacementUtils.register("big_bush_checked");
+	public static final FrozenLibPlacedFeature LARGE_BUSH_ON_SAND = register("large_bush_on_sand");
+	public static final FrozenLibPlacedFeature LARGE_BUSH_CHECKED = register("large_bush_checked");
+	public static final FrozenLibPlacedFeature BIG_BUSH_CHECKED = register("big_bush_checked");
 
 	//PALM
-	public static final FrozenLibPlacedFeature PALM_CHECKED = WWPlacementUtils.register("palm_checked");
-	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED = WWPlacementUtils.register("tall_palm_checked");
-	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_CHECKED = WWPlacementUtils.register("tall_windmill_palm_checked");
-	public static final FrozenLibPlacedFeature SMALL_WINDMILL_PALM_CHECKED = WWPlacementUtils.register("small_windmill_palm_checked");
+	public static final FrozenLibPlacedFeature PALM_CHECKED = register("palm_checked");
+	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED = register("tall_palm_checked");
+	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_CHECKED = register("tall_windmill_palm_checked");
+	public static final FrozenLibPlacedFeature SMALL_WINDMILL_PALM_CHECKED = register("small_windmill_palm_checked");
 
-	public static final FrozenLibPlacedFeature FALLEN_PALM_CHECKED = WWPlacementUtils.register("fallen_palm_checked");
+	public static final FrozenLibPlacedFeature FALLEN_PALM_CHECKED = register("fallen_palm_checked");
 
 	//JUNIPER
 	public static final FrozenLibPlacedTreeFeature JUNIPER = WWTreeConfigured.JUNIPER.toPlacedFeature();
@@ -250,40 +251,40 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedTreeFeature JUNGLE_TREE_CHECKED = WWTreeConfigured.JUNGLE_TREE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature MEGA_JUNGLE_TREE_CHECKED = WWTreeConfigured.MEGA_JUNGLE_TREE.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature FALLEN_JUNGLE_CHECKED = WWPlacementUtils.register("fallen_jungle_checked");
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = WWPlacementUtils.register("large_fallen_jungle_checked");
-	public static final FrozenLibPlacedFeature SNAPPED_JUNGLE_CHECKED = WWPlacementUtils.register("snapped_jungle_checked");
-	public static final FrozenLibPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = WWPlacementUtils.register("large_snapped_jungle_checked");
+	public static final FrozenLibPlacedFeature FALLEN_JUNGLE_CHECKED = register("fallen_jungle_checked");
+	public static final FrozenLibPlacedFeature LARGE_FALLEN_JUNGLE_CHECKED = register("large_fallen_jungle_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_JUNGLE_CHECKED = register("snapped_jungle_checked");
+	public static final FrozenLibPlacedFeature LARGE_SNAPPED_JUNGLE_CHECKED = register("large_snapped_jungle_checked");
 
 	//ACACIA
-	public static final FrozenLibPlacedFeature ACACIA_CHECKED_LEAF_LITTER = WWPlacementUtils.register("acacia_checked_leaf_litter");
-	public static final FrozenLibPlacedFeature FALLEN_ACACIA_CHECKED = WWPlacementUtils.register("fallen_acacia_checked");
+	public static final FrozenLibPlacedFeature ACACIA_CHECKED_LEAF_LITTER = register("acacia_checked_leaf_litter");
+	public static final FrozenLibPlacedFeature FALLEN_ACACIA_CHECKED = register("fallen_acacia_checked");
 
-	public static final FrozenLibPlacedFeature SNAPPED_ACACIA_CHECKED = WWPlacementUtils.register("snapped_acacia_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_ACACIA_CHECKED = register("snapped_acacia_checked");
 
 	//MANGROVE
 	public static final FrozenLibPlacedTreeFeature MANGROVE_CHECKED = WWTreeConfigured.MANGROVE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature TALL_MANGROVE_CHECKED = WWTreeConfigured.TALL_MANGROVE.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature FALLEN_MANGROVE_CHECKED = WWPlacementUtils.register("fallen_mangrove_checked");
+	public static final FrozenLibPlacedFeature FALLEN_MANGROVE_CHECKED = register("fallen_mangrove_checked");
 
 	//CRIMSON
-	public static final FrozenLibPlacedFeature FALLEN_CRIMSON_FUNGI = WWPlacementUtils.register("fallen_crimson_fungi");
-	public static final FrozenLibPlacedFeature SNAPPED_CRIMSON_FUNGI = WWPlacementUtils.register("snapped_crimson_fungi");
+	public static final FrozenLibPlacedFeature FALLEN_CRIMSON_FUNGI = register("fallen_crimson_fungi");
+	public static final FrozenLibPlacedFeature SNAPPED_CRIMSON_FUNGI = register("snapped_crimson_fungi");
 
 	//WARPED
-	public static final FrozenLibPlacedFeature FALLEN_WARPED_FUNGI = WWPlacementUtils.register("fallen_warped_fungi");
-	public static final FrozenLibPlacedFeature SNAPPED_WARPED_FUNGI = WWPlacementUtils.register("snapped_warped_fungi");
+	public static final FrozenLibPlacedFeature FALLEN_WARPED_FUNGI = register("fallen_warped_fungi");
+	public static final FrozenLibPlacedFeature SNAPPED_WARPED_FUNGI = register("snapped_warped_fungi");
 
 	//TREE ON GRASS
-	public static final FrozenLibPlacedFeature PALM_CHECKED_DIRT = WWPlacementUtils.register("palm_checked_dirt");
-	public static final FrozenLibPlacedFeature PALM_CHECKED_DIRT_LEAF_LITTER = WWPlacementUtils.register("palm_checked_dirt_leaf_litter");
-	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED_DIRT = WWPlacementUtils.register("tall_palm_checked_dirt");
-	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED_DIRT_LEAF_LITTER = WWPlacementUtils.register("tall_palm_checked_dirt_leaf_litter");
-	public static final FrozenLibPlacedFeature TALL_WINE_PALM_CHECKED_DIRT = WWPlacementUtils.register("tall_wine_palm_checked_dirt");
-	public static final FrozenLibPlacedFeature TALL_WINE_PALM_CHECKED_DIRT_LEAF_LITTER = WWPlacementUtils.register("tall_wine_palm_checked_dirt_leaf_litter");
-	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = WWPlacementUtils.register("small_wine_palm_checked_dirt");
-	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT_LEAF_LITTER = WWPlacementUtils.register("small_wine_palm_checked_dirt_leaf_litter");
+	public static final FrozenLibPlacedFeature PALM_CHECKED_DIRT = register("palm_checked_dirt");
+	public static final FrozenLibPlacedFeature PALM_CHECKED_DIRT_LEAF_LITTER = register("palm_checked_dirt_leaf_litter");
+	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED_DIRT = register("tall_palm_checked_dirt");
+	public static final FrozenLibPlacedFeature TALL_PALM_CHECKED_DIRT_LEAF_LITTER = register("tall_palm_checked_dirt_leaf_litter");
+	public static final FrozenLibPlacedFeature TALL_WINE_PALM_CHECKED_DIRT = register("tall_wine_palm_checked_dirt");
+	public static final FrozenLibPlacedFeature TALL_WINE_PALM_CHECKED_DIRT_LEAF_LITTER = register("tall_wine_palm_checked_dirt_leaf_litter");
+	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = register("small_wine_palm_checked_dirt");
+	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT_LEAF_LITTER = register("small_wine_palm_checked_dirt_leaf_litter");
 
 	private WWTreePlaced() {
 		throw new UnsupportedOperationException("WWTreePlaced contains only static declarations.");

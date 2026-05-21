@@ -21,7 +21,7 @@ import com.mojang.serialization.Codec;
 import java.util.List;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfig;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -37,9 +37,9 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
+public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
 
-	public SpongeBudFeature(Codec<SpongeBudFeatureConfig> codec) {
+	public SpongeBudFeature(Codec<SpongeBudFeatureConfiguration> codec) {
 		super(codec);
 	}
 
@@ -47,7 +47,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 		WorldGenLevel level,
 		BlockPos pos,
 		BlockState state,
-		SpongeBudFeatureConfig config,
+		SpongeBudFeatureConfiguration config,
 		List<Direction> directions
 	) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
@@ -106,11 +106,11 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfig> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<SpongeBudFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<SpongeBudFeatureConfiguration> context) {
 		final WorldGenLevel level = context.level();
 		final BlockPos origin = context.origin();
 		final RandomSource random = context.random();
-		final SpongeBudFeatureConfig config = context.config();
+		final SpongeBudFeatureConfiguration config = context.config();
 
 		if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, origin)) return false;
 		final List<Direction> directions = config.shuffleDirections(random);

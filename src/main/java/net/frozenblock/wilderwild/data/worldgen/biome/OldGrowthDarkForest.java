@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
@@ -38,7 +38,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 
-public final class OldGrowthDarkForest extends FrozenBiome {
+public final class OldGrowthDarkForest extends FrozenLibBiome {
 	public static final float TEMP = 0.7F;
 	public static final float DOWNFALL = 0.8F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;

@@ -19,14 +19,14 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -42,7 +42,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 
-public final class SparseBirchJungle extends FrozenBiome {
+public final class SparseBirchJungle extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(0.175F, 0.225F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.WET, Climate.Parameter.point(0.35F));
 	public static final float TEMP = 0.825F;

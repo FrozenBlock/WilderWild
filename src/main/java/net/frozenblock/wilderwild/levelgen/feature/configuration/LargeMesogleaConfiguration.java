@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public record LargeMesogleaConfig(
+public record LargeMesogleaConfiguration(
 	HolderSet<Block> replaceableBlocks,
 	int floorToCeilingSearchRange,
 	IntProvider columnRadius,
@@ -43,7 +43,7 @@ public record LargeMesogleaConfig(
 	int minRadiusForWind,
 	float minBluntnessForWind
 ) implements FeatureConfiguration {
-	public static final Codec<LargeMesogleaConfig> CODEC = RecordCodecBuilder.create(instance ->
+	public static final Codec<LargeMesogleaConfiguration> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(config -> config.replaceableBlocks),
 			Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter(config -> config.floorToCeilingSearchRange),
@@ -56,7 +56,7 @@ public record LargeMesogleaConfig(
 			FloatProviders.codec(0F, 2F).fieldOf("wind_speed").forGetter(config -> config.windSpeed),
 			Codec.intRange(0, 100).fieldOf("min_radius_for_wind").forGetter(config -> config.minRadiusForWind),
 			Codec.floatRange(0F, 5F).fieldOf("min_bluntness_for_wind").forGetter(config -> config.minBluntnessForWind)
-		).apply(instance, LargeMesogleaConfig::new)
+		).apply(instance, LargeMesogleaConfiguration::new)
 	);
 }
 

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.SnowAndIceDiskFeatureConfig;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.SnowAndIceDiskFeatureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -37,9 +37,9 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfig> {
+public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfiguration> {
 
-	public SnowAndFreezeDiskFeature(Codec<SnowAndIceDiskFeatureConfig> codec) {
+	public SnowAndFreezeDiskFeature(Codec<SnowAndIceDiskFeatureConfiguration> codec) {
 		super(codec);
 	}
 
@@ -59,10 +59,10 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfiguration> context) {
 		final BlockPos origin = context.origin();
 		final WorldGenLevel level = context.level();
-		final SnowAndIceDiskFeatureConfig config = context.config();
+		final SnowAndIceDiskFeatureConfiguration config = context.config();
 		final BlockPos heightmapPos = origin.atY(level.getHeight(Types.MOTION_BLOCKING, origin.getX(), origin.getZ()));
 		final Biome biome = level.getBiome(heightmapPos).value();
 		final boolean coldEnough = !biome.warmEnoughToRain(heightmapPos, level.getSeaLevel());

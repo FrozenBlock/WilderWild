@@ -32,7 +32,30 @@
     "surface": "floor",
     "vegetation_chance": 0.035,
     "vegetation_feature": {
-      "feature": "wilderwild:small_downwards_fragile_ice_column",
+      "feature": {
+        "type": "frozenlib:column",
+        "config": {
+          "block_state": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "wilderwild:fragile_ice",
+              "Properties": {
+                "age": "0"
+              }
+            }
+          },
+          "direction": "down",
+          "length": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 0
+          },
+          "replaceable": {
+            "type": "minecraft:replaceable"
+          },
+          "stop_at_unreplaceable_block": true
+        }
+      },
       "placement": []
     },
     "vertical_range": 4,

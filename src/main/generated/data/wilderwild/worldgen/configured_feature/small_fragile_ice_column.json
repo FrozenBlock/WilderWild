@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:column",
   "config": {
-    "block_state_provider": {
+    "block_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:fragile_ice",
@@ -16,7 +16,7 @@
       "max_inclusive": 4,
       "min_inclusive": 0
     },
-    "replacement_block_predicate": {
+    "replaceable": {
       "type": "minecraft:replaceable"
     }
   }

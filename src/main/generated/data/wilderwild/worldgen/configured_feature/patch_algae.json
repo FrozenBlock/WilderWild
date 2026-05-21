@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:water_cover_feature",
+  "type": "wilderwild:water_cover",
   "config": {
     "radius": {
       "type": "minecraft:uniform",

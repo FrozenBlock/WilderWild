@@ -19,20 +19,14 @@ package net.frozenblock.wilderwild.levelgen.feature.configuration;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public record CattailFeatureConfig(int width, IntProvider placementAttempts, HolderSet<Block> canBePlacedOn) implements FeatureConfiguration {
-	public static final Codec<CattailFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(
-			Codec.INT.fieldOf("width").forGetter(config -> config.width),
-			IntProviders.CODEC.fieldOf("placement_attempts").forGetter(config -> config.placementAttempts),
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canBePlacedOn)
-		).apply(instance, CattailFeatureConfig::new)
-	);
+public record WaterCoverFeatureConfiguration(BlockStateProvider blockStateProvider, IntProvider radius) implements FeatureConfiguration {
+	public static final Codec<WaterCoverFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		BlockStateProvider.CODEC.fieldOf("state").forGetter(config -> config.blockStateProvider),
+		IntProviders.CODEC.fieldOf("radius").forGetter(config -> config.radius)
+	).apply(instance, WaterCoverFeatureConfiguration::new));
 }

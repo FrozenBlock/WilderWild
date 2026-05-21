@@ -164,9 +164,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> BARNACLES_FEATURE_PLACEABLE_STRUCTURE = bind("feature/barnacles_feature_placeable_structure");
 	public static final TagKey<Block> SEA_ANEMONE_FEATURE_CANNOT_PLACE = bind("feature/sea_anemone_feature_cannot_place");
 	public static final TagKey<Block> TERMITE_DISK_REPLACEABLE = bind("feature/termite_disk_replaceable");
-	public static final TagKey<Block> TERMITE_DISK_BLOCKS = bind("feature/termite_disk_blocks");
-	public static final TagKey<Block> BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/blue_nematocyst_feature_placeable");
-	public static final TagKey<Block> PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/purple_nematocyst_feature_placeable");
+	public static final TagKey<Block> PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/pearlescent_blue_nematocyst_placeable");
+	public static final TagKey<Block> PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/pearlescent_purple_nematocyst_placeable");
 	public static final TagKey<Block> SHELF_FUNGI_FEATURE_PLACEABLE = bind("feature/shelf_fungi_feature_placeable");
 	public static final TagKey<Block> SHELF_FUNGI_FEATURE_PLACEABLE_NETHER = bind("feature/shelf_fungi_feature_placeable_nether");
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("feature/scorched_sand_feature_inner_replaceable");

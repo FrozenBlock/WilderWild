@@ -18,11 +18,12 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -50,106 +51,106 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
-	public static final FrozenLibPlacedFeature MYCELIUM_GROWTH_BONEMEAL = WWPlacementUtils.register("mycelium_growth_bonemeal");
+	public static final FrozenLibPlacedFeature MYCELIUM_GROWTH_BONEMEAL = register("mycelium_growth_bonemeal");
 
-	public static final FrozenLibPlacedFeature COARSE_PATH_RARE = WWPlacementUtils.register("coarse_dirt_path_rare");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_RARE = WWPlacementUtils.register("gravel_path_rare");
-	public static final FrozenLibPlacedFeature STONE_PATH_RARE = WWPlacementUtils.register("stone_path_rare");
-	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = WWPlacementUtils.register("coarse_dirt_path_clearing");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = WWPlacementUtils.register("gravel_path_clearing");
-	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = WWPlacementUtils.register("rooted_dirt_path_clearing");
+	public static final FrozenLibPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
+	public static final FrozenLibPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
+	public static final FrozenLibPlacedFeature STONE_PATH_RARE = register("stone_path_rare");
+	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
+	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
+	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
 
 	// SWAMP
-	public static final FrozenLibPlacedFeature DISK_MUD = WWPlacementUtils.register("disk_mud");
-	public static final FrozenLibPlacedFeature MUD_PATH = WWPlacementUtils.register("mud_path");
-	public static final FrozenLibPlacedFeature MUD_TRANSITION = WWPlacementUtils.register("mud_transition");
+	public static final FrozenLibPlacedFeature DISK_MUD = register("disk_mud");
+	public static final FrozenLibPlacedFeature MUD_PATH = register("mud_path");
+	public static final FrozenLibPlacedFeature MUD_TRANSITION = register("mud_transition");
 
 	// TAIGA
-	public static final FrozenLibPlacedFeature COARSE_PATH = WWPlacementUtils.register("coarse_dirt_path");
-	public static final FrozenLibPlacedFeature COARSE_PATH_5 = WWPlacementUtils.register("coarse_dirt_path_5");
-	public static final FrozenLibPlacedFeature FOREST_ROCK_TAIGA = WWPlacementUtils.register("forest_rock_taiga");
+	public static final FrozenLibPlacedFeature COARSE_PATH = register("coarse_dirt_path");
+	public static final FrozenLibPlacedFeature COARSE_PATH_5 = register("coarse_dirt_path_5");
+	public static final FrozenLibPlacedFeature FOREST_ROCK_TAIGA = register("forest_rock_taiga");
 
 	// CYPRESS WETLANDS
-	public static final FrozenLibPlacedFeature UNDER_WATER_SAND_PATH = WWPlacementUtils.register("under_water_sand_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH = WWPlacementUtils.register("under_water_gravel_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH = WWPlacementUtils.register("under_water_clay_path");
+	public static final FrozenLibPlacedFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
+	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
+	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
 
 	// BEACH AND RIVER
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH_BEACH = WWPlacementUtils.register("under_water_clay_path_beach");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH_RIVER = WWPlacementUtils.register("under_water_gravel_path_river");
-	public static final FrozenLibPlacedFeature STONE_TRANSITION = WWPlacementUtils.register("stone_transition");
-	public static final FrozenLibPlacedFeature SMALL_SAND_TRANSITION = WWPlacementUtils.register("small_sand_transition");
-	public static final FrozenLibPlacedFeature BETA_BEACH_SAND_TRANSITION = WWPlacementUtils.register("beta_beach_sand_transition");
-	public static final FrozenLibPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = WWPlacementUtils.register("beta_beach_gravel_transition");
-	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = WWPlacementUtils.register("small_gravel_transition");
-	public static final FrozenLibPlacedFeature RIVER_POOL = WWPlacementUtils.register("river_pool");
-	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = WWPlacementUtils.register("small_river_pool");
+	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
+	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
+	public static final FrozenLibPlacedFeature STONE_TRANSITION = register("stone_transition");
+	public static final FrozenLibPlacedFeature SMALL_SAND_TRANSITION = register("small_sand_transition");
+	public static final FrozenLibPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
+	public static final FrozenLibPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
+	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
+	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
+	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = WWPlacementUtils.register("packed_mud_path");
+	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
 
 	// JUNGLE
-	public static final FrozenLibPlacedFeature MOSS_PATH = WWPlacementUtils.register("moss_path");
+	public static final FrozenLibPlacedFeature MOSS_PATH = register("moss_path");
 
 	// DESERT
-	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = WWPlacementUtils.register("ore_packed_mud");
-	public static final FrozenLibPlacedFeature SANDSTONE_PATH = WWPlacementUtils.register("sandstone_path");
-	public static final FrozenLibPlacedFeature SCORCHED_SAND = WWPlacementUtils.register("scorched_sand");
-	public static final FrozenLibPlacedFeature SCORCHED_SAND_HUGE = WWPlacementUtils.register("scorched_sand_huge");
-	public static final FrozenLibPlacedFeature SAND_TRANSITION = WWPlacementUtils.register("sand_transition");
+	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = register("ore_packed_mud");
+	public static final FrozenLibPlacedFeature SANDSTONE_PATH = register("sandstone_path");
+	public static final FrozenLibPlacedFeature SCORCHED_SAND = register("scorched_sand");
+	public static final FrozenLibPlacedFeature SCORCHED_SAND_HUGE = register("scorched_sand_huge");
+	public static final FrozenLibPlacedFeature SAND_TRANSITION = register("sand_transition");
 
 	// BADLANDS
-	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = WWPlacementUtils.register("coarse_dirt_path_small");
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH_BADLANDS = WWPlacementUtils.register("packed_mud_path_badlands");
-	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND = WWPlacementUtils.register("scorched_red_sand");
-	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND_HUGE = WWPlacementUtils.register("scorched_red_sand_huge");
-	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = WWPlacementUtils.register("red_sand_transition");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
+	public static final FrozenLibPlacedFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
+	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND = register("scorched_red_sand");
+	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND_HUGE = register("scorched_red_sand_huge");
+	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibPlacedFeature GRASS_PATH = WWPlacementUtils.register("grass_path");
-	public static final FrozenLibPlacedFeature MOSS_PATH_OASIS = WWPlacementUtils.register("moss_path_oasis");
-	public static final FrozenLibPlacedFeature DESERT_WELL = WWPlacementUtils.register("desert_well");
+	public static final FrozenLibPlacedFeature GRASS_PATH = register("grass_path");
+	public static final FrozenLibPlacedFeature MOSS_PATH_OASIS = register("moss_path_oasis");
+	public static final FrozenLibPlacedFeature DESERT_WELL = register("desert_well");
 
 	// BIRCH TAIGA
-	public static final FrozenLibPlacedFeature COARSE_PATH_10 = WWPlacementUtils.register("coarse_dirt_path_10");
+	public static final FrozenLibPlacedFeature COARSE_PATH_10 = register("coarse_dirt_path_10");
 
 	// ARID SAVANNA
-	public static final FrozenLibPlacedFeature GRASS_PATH_RARE = WWPlacementUtils.register("grass_path_rare");
-	public static final FrozenLibPlacedFeature ARID_COARSE_PATH = WWPlacementUtils.register("arid_coarse_dirt_path");
+	public static final FrozenLibPlacedFeature GRASS_PATH_RARE = register("grass_path_rare");
+	public static final FrozenLibPlacedFeature ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenLibPlacedFeature SNOW_PILE = WWPlacementUtils.register("snow_pile");
+	public static final FrozenLibPlacedFeature SNOW_PILE = register("snow_pile");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
-	public static final FrozenLibPlacedFeature MOSS_PILE = WWPlacementUtils.register("moss_pile");
-	public static final FrozenLibPlacedFeature BASIN_PODZOL = WWPlacementUtils.register("basin_podzol");
-	public static final FrozenLibPlacedFeature BASIN_MOSS = WWPlacementUtils.register("basin_moss");
-	public static final FrozenLibPlacedFeature MOSS_LAKE = WWPlacementUtils.register("moss_lake");
-	public static final FrozenLibPlacedFeature MOSS_LAKE_RARE = WWPlacementUtils.register("moss_lake_rare");
+	public static final FrozenLibPlacedFeature MOSS_PILE = register("moss_pile");
+	public static final FrozenLibPlacedFeature BASIN_PODZOL = register("basin_podzol");
+	public static final FrozenLibPlacedFeature BASIN_MOSS = register("basin_moss");
+	public static final FrozenLibPlacedFeature MOSS_LAKE = register("moss_lake");
+	public static final FrozenLibPlacedFeature MOSS_LAKE_RARE = register("moss_lake_rare");
 
 	// PALE GARDEN
-	public static final FrozenLibPlacedFeature PALE_MOSS_PILE = WWPlacementUtils.register("pale_moss_pile");
-	public static final FrozenLibPlacedFeature GRAVEL_AND_PALE_MOSS_PATH = WWPlacementUtils.register("gravel_and_pale_moss_path");
+	public static final FrozenLibPlacedFeature PALE_MOSS_PILE = register("pale_moss_pile");
+	public static final FrozenLibPlacedFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
-	public static final FrozenLibPlacedFeature MUD_PILE = WWPlacementUtils.register("mud_pile");
-	public static final FrozenLibPlacedFeature BASIN_MUD = WWPlacementUtils.register("basin_mud");
-	public static final FrozenLibPlacedFeature MUD_LAKE = WWPlacementUtils.register("mud_lake");
+	public static final FrozenLibPlacedFeature MUD_PILE = register("mud_pile");
+	public static final FrozenLibPlacedFeature BASIN_MUD = register("basin_mud");
+	public static final FrozenLibPlacedFeature MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE = WWPlacementUtils.register("coarse_dirt_disk_and_pile");
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE_RARE = WWPlacementUtils.register("coarse_dirt_disk_and_pile_rare");
-	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = WWPlacementUtils.register("stone_disk_and_pile");
-	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = WWPlacementUtils.register("coarse_dirt_transition_disk");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE_RARE = register("coarse_dirt_disk_and_pile_rare");
+	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
+	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// AUBURN MOSS
-	public static final FrozenLibPlacedFeature AUBURN_MOSS = WWPlacementUtils.register("auburn_moss");
-	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = WWPlacementUtils.register("auburn_creeping_moss");
+	public static final FrozenLibPlacedFeature AUBURN_MOSS = register("auburn_moss");
+	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = register("auburn_creeping_moss");
 
 	// SNOW
-	public static final FrozenLibPlacedFeature SNOW_BLANKET = WWPlacementUtils.register("snow_blanket");
-	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = WWPlacementUtils.register("snow_and_freeze_transition");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = WWPlacementUtils.register("fragile_ice_disk_surface");
+	public static final FrozenLibPlacedFeature SNOW_BLANKET = register("snow_blanket");
+	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
 	private WWMiscPlaced() {
 		throw new UnsupportedOperationException("WWMiscPlaced contains only static declarations.");

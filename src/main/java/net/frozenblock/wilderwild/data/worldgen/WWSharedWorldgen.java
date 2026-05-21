@@ -17,11 +17,11 @@
 
 package net.frozenblock.wilderwild.data.worldgen;
 
-import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;

@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:column",
   "config": {
-    "block_state_provider": {
+    "block_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "minecraft:magma_block"
@@ -13,7 +13,7 @@
       "max_inclusive": 4,
       "min_inclusive": 1
     },
-    "replacement_block_predicate": {
+    "replaceable": {
       "type": "minecraft:any_of",
       "predicates": [
         {
@@ -25,6 +25,6 @@
         }
       ]
     },
-    "stop_when_encountering_unreplaceable_block": true
+    "stop_at_unreplaceable_block": true
   }
 }

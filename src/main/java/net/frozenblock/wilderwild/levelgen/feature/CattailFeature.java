@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
 import net.frozenblock.wilderwild.block.CattailBlock;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
@@ -35,18 +35,18 @@ import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class CattailFeature extends Feature<CattailFeatureConfig> {
+public class CattailFeature extends Feature<CattailFeatureConfiguration> {
 
-	public CattailFeature(Codec<CattailFeatureConfig> codec) {
+	public CattailFeature(Codec<CattailFeatureConfiguration> codec) {
 		super(codec);
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<CattailFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<CattailFeatureConfiguration> context) {
 		final RandomSource random = context.random();
 		final WorldGenLevel level = context.level();
 		final BlockPos origin = context.origin();
-		final CattailFeatureConfig config = context.config();
+		final CattailFeatureConfiguration config = context.config();
 		final int originX = origin.getX();
 		final int originZ = origin.getZ();
 		final int maxHeight = level.getMaxY() - 1;

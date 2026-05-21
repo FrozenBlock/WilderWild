@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.Optional;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.LargeMesogleaConfig;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.LargeMesogleaConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -39,9 +39,9 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
+public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 
-	public LargeMesogleaFeature(Codec<LargeMesogleaConfig> codec) {
+	public LargeMesogleaFeature(Codec<LargeMesogleaConfiguration> codec) {
 		super(codec);
 	}
 
@@ -84,10 +84,10 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<LargeMesogleaConfig> context) {
+	public boolean place(FeaturePlaceContext<LargeMesogleaConfiguration> context) {
 		final WorldGenLevel level = context.level();
 		final BlockPos origin = context.origin();
-		final LargeMesogleaConfig config = context.config();
+		final LargeMesogleaConfiguration config = context.config();
 		final RandomSource random = context.random();
 
 		if (!LargeMesogleaFeature.isEmptyOrWater(level, origin)) return false;
@@ -169,7 +169,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
 		}
 
-		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfig config) {
+		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfiguration config) {
 			for (int i = -this.radius; i <= this.radius; ++i) {
 				for (int j = -this.radius; j <= this.radius; ++j) {
 					final float f = Mth.sqrt((float) (i * i + j * j));
@@ -197,7 +197,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfig> {
 			}
 		}
 
-		boolean isSuitableForWind(LargeMesogleaConfig config) {
+		boolean isSuitableForWind(LargeMesogleaConfiguration config) {
 			return this.radius >= config.minRadiusForWind() && this.bluntness >= (double) config.minBluntnessForWind();
 		}
 	}

@@ -272,18 +272,14 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWBlockTags.TERMITE_DISK_BLOCKS)
-			.add(BlockItemIds.COARSE_DIRT)
-			.add(BlockItemIds.PACKED_MUD);
-
-		this.builder(WWBlockTags.BLUE_NEMATOCYST_FEATURE_PLACEABLE)
+		this.builder(WWBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.DRIPSTONE_BLOCK)
 			.add(BlockItemIds.CALCITE)
 			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWBlockTags.PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
+		this.builder(WWBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.DRIPSTONE_BLOCK)
 			.add(BlockItemIds.CALCITE)

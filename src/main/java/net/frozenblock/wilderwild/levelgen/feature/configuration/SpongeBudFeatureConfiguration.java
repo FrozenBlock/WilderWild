@@ -30,17 +30,14 @@ import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class SpongeBudFeatureConfig implements FeatureConfiguration {
-	public static final Codec<SpongeBudFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
-		instance.group(
-			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
-			Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
-			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
-			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
-		).apply(instance, SpongeBudFeatureConfig::new)
-	);
-
+public class SpongeBudFeatureConfiguration implements FeatureConfiguration {
+	public static final Codec<SpongeBudFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
+		Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(config -> config.placeOnFloor),
+		Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
+		Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
+		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
+	).apply(instance, SpongeBudFeatureConfiguration::new));
 	public final int searchRange;
 	public final boolean placeOnFloor;
 	public final boolean placeOnCeiling;
@@ -48,7 +45,7 @@ public class SpongeBudFeatureConfig implements FeatureConfiguration {
 	public final HolderSet<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public SpongeBudFeatureConfig(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+	public SpongeBudFeatureConfiguration(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;
 		this.placeOnCeiling = placeOnCeiling;

@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:cattail_feature",
+  "type": "wilderwild:cattail",
   "config": {
     "can_be_placed_on": "#wilderwild:feature/cattail_placeable",
     "placement_attempts": {

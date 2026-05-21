@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredFeature;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibConfiguredTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -26,10 +26,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public final class WWFeatureUtils {
-
-	private WWFeatureUtils() {
-		throw new UnsupportedOperationException("WWFeatureUtils contains only static declarations.");
-	}
 
 	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(String id, Feature<NoneFeatureConfiguration> feature) {
 		return register(id, feature, FeatureConfiguration.NONE);

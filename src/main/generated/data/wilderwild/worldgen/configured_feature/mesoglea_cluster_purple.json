@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:large_mesoglea_feature",
+  "type": "wilderwild:large_mesoglea",
   "config": {
     "block_state": {
       "type": "minecraft:simple_state_provider",

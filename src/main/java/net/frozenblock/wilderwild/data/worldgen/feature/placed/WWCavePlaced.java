@@ -18,14 +18,13 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.worldgen.feature.api.block_predicate.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -42,12 +41,10 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -58,11 +55,11 @@ public final class WWCavePlaced {
 	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
 
 	// MESOGLEA CAVES
-	public static final FrozenLibPlacedFeature ORE_CALCITE = WWPlacementUtils.register("ore_calcite");
-	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = WWPlacementUtils.register("mesoglea_caves_stone_pool");
-	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_COLUMN = WWPlacementUtils.register("blue_mesoglea_column");
-	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = WWPlacementUtils.register("purple_mesoglea_column");
-	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = WWPlacementUtils.register("mesoglea_paths");
+	public static final FrozenLibPlacedFeature ORE_CALCITE = register("ore_calcite");
+	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = register("mesoglea_caves_stone_pool");
+	public static final FrozenLibPlacedFeature BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
+	public static final FrozenLibPlacedFeature PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
+	public static final FrozenLibPlacedFeature MESOGLEA_PATHS = register("mesoglea_paths");
 	public static final FrozenLibPlacedFeature DOWNWARD_BLUE_MESOGLEA = register("upside_down_blue_mesoglea");
 	public static final FrozenLibPlacedFeature DOWNWARD_PURPLE_MESOGLEA = register("upside_down_purple_mesoglea");
 	public static final FrozenLibPlacedFeature NEMATOCYST_BLUE = register("nematocyst_blue");
@@ -73,51 +70,47 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature LARGE_MESOGLEA_BLUE = register("large_mesoglea_blue");
 
 	// MAGMATIC CAVES
-	public static final FrozenLibPlacedFeature GABBRO_LAVA_POOL = WWPlacementUtils.register("gabbro_lava_pool");
-	public static final FrozenLibPlacedFeature GABBRO_MAGMA_PATH = WWPlacementUtils.register("gabbro_magma_path");
-	public static final FrozenLibPlacedFeature LAVA_SPRING_EXTRA = WWPlacementUtils.register("lava_spring_extra");
-	public static final FrozenLibPlacedFeature ORE_GABBRO = WWPlacementUtils.register("ore_gabbro");
-	public static final FrozenLibPlacedFeature GABBRO_DISK = WWPlacementUtils.register("gabbro_disk");
-	public static final FrozenLibPlacedFeature GABBRO_PILE = WWPlacementUtils.register("gabbro_pile");
-	public static final FrozenLibPlacedFeature NETHER_GEOTHERMAL_VENT = WWPlacementUtils.register("nether_geothermal_vent");
-	public static final FrozenLibPlacedFeature NETHER_LAVA_GEOTHERMAL_VENT = WWPlacementUtils.register("nether_lava_geothermal_vent");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_LAVA = WWPlacementUtils.register("geothermal_vent_lava");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_UP = WWPlacementUtils.register("geothermal_vent_up");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_DOWN = WWPlacementUtils.register("geothermal_vent_down");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_NORTH = WWPlacementUtils.register("geothermal_vent_north");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_EAST = WWPlacementUtils.register("geothermal_vent_east");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_SOUTH = WWPlacementUtils.register("geothermal_vent_south");
-	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_WEST = WWPlacementUtils.register("geothermal_vent_west");
-	public static final FrozenLibPlacedFeature DOWNWARDS_GEOTHERMAL_VENT_COLUMN = WWPlacementUtils.register("downwards_geothermal_vent_column");
-	public static final FrozenLibPlacedFeature DOWNWARDS_GABBRO_COLUMN = WWPlacementUtils.register("downwards_gabbro_column");
-	public static final FrozenLibPlacedFeature LAVA_LAKE_EXTRA = WWPlacementUtils.register("lava_lake_extra");
-	public static final FrozenLibPlacedFeature FOSSIL_LAVA = WWPlacementUtils.register("fossil_lava");
+	public static final FrozenLibPlacedFeature GABBRO_LAVA_POOL = register("gabbro_lava_pool");
+	public static final FrozenLibPlacedFeature GABBRO_MAGMA_PATH = register("gabbro_magma_path");
+	public static final FrozenLibPlacedFeature LAVA_SPRING_EXTRA = register("lava_spring_extra");
+	public static final FrozenLibPlacedFeature ORE_GABBRO = register("ore_gabbro");
+	public static final FrozenLibPlacedFeature GABBRO_DISK = register("gabbro_disk");
+	public static final FrozenLibPlacedFeature GABBRO_PILE = register("gabbro_pile");
+	public static final FrozenLibPlacedFeature NETHER_GEOTHERMAL_VENT = register("nether_geothermal_vent");
+	public static final FrozenLibPlacedFeature NETHER_LAVA_GEOTHERMAL_VENT = register("nether_lava_geothermal_vent");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_LAVA = register("geothermal_vent_lava");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_UP = register("geothermal_vent_up");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_DOWN = register("geothermal_vent_down");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_NORTH = register("geothermal_vent_north");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_EAST = register("geothermal_vent_east");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_SOUTH = register("geothermal_vent_south");
+	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_WEST = register("geothermal_vent_west");
+	public static final FrozenLibPlacedFeature DOWNWARDS_GEOTHERMAL_VENT_COLUMN = register("downwards_geothermal_vent_column");
+	public static final FrozenLibPlacedFeature DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
+	public static final FrozenLibPlacedFeature LAVA_LAKE_EXTRA = register("lava_lake_extra");
+	public static final FrozenLibPlacedFeature FOSSIL_LAVA = register("fossil_lava");
 	public static final FrozenLibPlacedFeature UPSIDE_DOWN_MAGMA = register("upside_down_magma");
 
 	// FROZEN CAVES
-	public static final FrozenLibPlacedFeature ICICLE_CLUSTER = WWPlacementUtils.register("icicle_cluster");
-	public static final FrozenLibPlacedFeature CAVE_ICICLES = WWPlacementUtils.register("cave_icicles");
-	public static final FrozenLibPlacedFeature ICICLES_SURFACE_WG = WWPlacementUtils.register("icicles_surface_wg");
-	public static final FrozenLibPlacedFeature ICICLES_SURFACE = WWPlacementUtils.register("icicles_surface");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK = WWPlacementUtils.register("fragile_ice_disk");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_PILE = WWPlacementUtils.register("fragile_ice_pile");
-	public static final FrozenLibPlacedFeature HANGING_PACKED_ICE = WWPlacementUtils.register("hanging_packed_ice");
-	public static final FrozenLibPlacedFeature ICE_PATCH_CEILING = WWPlacementUtils.register("ice_patch_ceiling");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_COLUMN_PATCH = WWPlacementUtils.register("fragile_ice_column_patch");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH = WWPlacementUtils.register("fragile_ice_patch");
-	public static final FrozenLibPlacedFeature DIORITE_PATCH = WWPlacementUtils.register("diorite_patch");
-	public static final FrozenLibPlacedFeature DIORITE_PATCH_CEILING = WWPlacementUtils.register("diorite_patch_ceiling");
-	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = WWPlacementUtils.register("ore_diorite_extra");
+	public static final FrozenLibPlacedFeature ICICLE_CLUSTER = register("icicle_cluster");
+	public static final FrozenLibPlacedFeature CAVE_ICICLES = register("cave_icicles");
+	public static final FrozenLibPlacedFeature ICICLES_SURFACE_WG = register("icicles_surface_wg");
+	public static final FrozenLibPlacedFeature ICICLES_SURFACE = register("icicles_surface");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK = register("fragile_ice_disk");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_PILE = register("fragile_ice_pile");
+	public static final FrozenLibPlacedFeature HANGING_PACKED_ICE = register("hanging_packed_ice");
+	public static final FrozenLibPlacedFeature ICE_PATCH_CEILING = register("ice_patch_ceiling");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_COLUMN_PATCH = register("fragile_ice_column_patch");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH = register("fragile_ice_patch");
+	public static final FrozenLibPlacedFeature DIORITE_PATCH = register("diorite_patch");
+	public static final FrozenLibPlacedFeature DIORITE_PATCH_CEILING = register("diorite_patch_ceiling");
+	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = register("ore_diorite_extra");
 
 	// SULFUR CAVES
-	public static final FrozenLibPlacedFeature SULFUR_POOL = WWPlacementUtils.register("sulfur_pool");
-	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = WWPlacementUtils.register("rooted_sulfur_spring");
-	public static final FrozenLibPlacedFeature SULFUR_SPIKE_CLUSTER = WWPlacementUtils.register("sulfur_spike_cluster");
-	public static final FrozenLibPlacedFeature SULFUR_SPIKE = WWPlacementUtils.register("sulfur_spike");
-
-	private WWCavePlaced() {
-		throw new UnsupportedOperationException("WWCavePlaced contains only static declarations.");
-	}
+	public static final FrozenLibPlacedFeature SULFUR_POOL = register("sulfur_pool");
+	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = register("rooted_sulfur_spring");
+	public static final FrozenLibPlacedFeature SULFUR_SPIKE_CLUSTER = register("sulfur_spike_cluster");
+	public static final FrozenLibPlacedFeature SULFUR_SPIKE = register("sulfur_spike");
 
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
 		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
@@ -546,48 +539,6 @@ public final class WWCavePlaced {
 
 		ORE_DIORITE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(OreFeatures.ORE_DIORITE),
 			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
-		);
-
-		// SULFUR CAVES
-		SULFUR_POOL.makeAndSetHolder(WWCaveConfigured.SULFUR_POOL,
-			CountPlacement.of(256),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BlockPredicateFilter.forPredicate(BlockPredicate.solid()),
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.ONLY_IN_AIR_PREDICATE, 32),
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.SULFUR)),
-			BiomeFilter.biome()
-		);
-
-		ROOTED_SULFUR_SPRING.makeAndSetHolder(WWCaveConfigured.ROOTED_SULFUR_SPRING,
-			CountPlacement.of(UniformInt.of(1, 2)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-			BiomeFilter.biome()
-		);
-
-		SULFUR_SPIKE_CLUSTER.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE_CLUSTER),
-			CountPlacement.of(UniformInt.of(34, 58)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome(),
-			NoiseThresholdCountPlacement.of(-0.4D, 0, 1)
-		);
-
-		SULFUR_SPIKE.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.SULFUR_SPIKE),
-			CountPlacement.of(UniformInt.of(102, 196)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			CountPlacement.of(UniformInt.of(1, 5)),
-			RandomOffsetPlacement.of(
-				ClampedNormalInt.of(0F, 3F, -10, 10),
-				ClampedNormalInt.of(0F, 0.6F, -2, 2)
-			),
-			BiomeFilter.biome(),
-			NoiseThresholdCountPlacement.of(-0.4D, 0, 1)
 		);
 	}
 

@@ -17,14 +17,14 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -1157,7 +1157,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWConfiguredFeatures.HUGE_PALE_MUSHROOMS,
+		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWTreeConfigured.HUGE_PALE_MUSHROOM,
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -1938,7 +1938,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		EYEBLOSSOM.makeAndSetHolder(WWConfiguredFeatures.EYEBLOSSOM,
+		EYEBLOSSOM.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FLOWER_PALE_GARDEN),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -2165,7 +2165,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED_SWAMP,
+		MILKWEED_SWAMP.makeAndSetHolder(WWConfiguredFeatures.MILKWEED,
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -2185,7 +2185,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE,
+		HIBISCUS_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS,
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -2195,7 +2195,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		HIBISCUS_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS_JUNGLE,
+		HIBISCUS_SPARSE_JUNGLE.makeAndSetHolder(WWConfiguredFeatures.HIBISCUS,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

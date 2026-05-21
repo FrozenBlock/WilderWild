@@ -21,17 +21,17 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.FrozenGrassColorModifiers;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibGrassColorModifiers;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -51,7 +51,7 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.jetbrains.annotations.Nullable;
 
-public final class Tundra extends FrozenBiome {
+public final class Tundra extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.495F, -0.295F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter EROSION_A = Climate.Parameter.span(-2.233F, 0.450F);
@@ -111,7 +111,7 @@ public final class Tundra extends FrozenBiome {
 
 	public Tundra() {
 		super();
-		FrozenGrassColorModifiers.addGrassColorModifier(
+		FrozenLibGrassColorModifiers.addGrassColorModifier(
 			this.getKey().identifier(),
 			(x, y, grassColor) -> {
 				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
@@ -241,7 +241,7 @@ public final class Tundra extends FrozenBiome {
 		}
 
 		if (WWWorldgenConfig.TUNDRA_MODIFIED_PLACEMENT.get()) {
-			final List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenBiomeParameters.findBorderParameters(
+			final List<Climate.ParameterPoint> plainsSnowySlopesBorders = FrozenLibBiomeParameters.findBorderParameters(
 				OverworldBiomeBuilderParameters.points(Biomes.PLAINS),
 				OverworldBiomeBuilderParameters.points(Biomes.SNOWY_SLOPES),
 				0.15F

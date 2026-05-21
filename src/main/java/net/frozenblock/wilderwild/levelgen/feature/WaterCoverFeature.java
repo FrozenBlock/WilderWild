@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.WaterCoverFeatureConfig;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.WaterCoverFeatureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -30,14 +30,14 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class WaterCoverFeature extends Feature<WaterCoverFeatureConfig> {
+public class WaterCoverFeature extends Feature<WaterCoverFeatureConfiguration> {
 
-	public WaterCoverFeature(Codec<WaterCoverFeatureConfig> codec) {
+	public WaterCoverFeature(Codec<WaterCoverFeatureConfiguration> codec) {
 		super(codec);
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<WaterCoverFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<WaterCoverFeatureConfiguration> context) {
 		boolean generated = false;
 		final BlockPos origin = context.origin();
 		final WorldGenLevel level = context.level();

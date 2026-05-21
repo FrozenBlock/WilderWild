@@ -20,11 +20,11 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
+import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
@@ -51,7 +51,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 
-public final class CypressWetlands extends FrozenBiome {
+public final class CypressWetlands extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.09F, 0.5F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.200F, 0.500F);
@@ -200,7 +200,7 @@ public final class CypressWetlands extends FrozenBiome {
 			OFFSET
 		);
 
-		final List<Climate.ParameterPoint> swampJungleBorders = FrozenBiomeParameters.findBorderParameters(
+		final List<Climate.ParameterPoint> swampJungleBorders = FrozenLibBiomeParameters.findBorderParameters(
 			OverworldBiomeBuilderParameters.points(Biomes.SWAMP),
 			OverworldBiomeBuilderParameters.points(Biomes.JUNGLE),
 			0.35F

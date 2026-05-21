@@ -19,16 +19,16 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Erosion;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Erosion;
+import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -47,7 +47,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 
-public final class SnowyDyingMixedForest extends FrozenBiome {
+public final class SnowyDyingMixedForest extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.485F, -0.465F);
 	public static final Climate.Parameter TEMPERATURE_TUNDRA = Climate.Parameter.span(-0.505F, -0.495F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.050F, 0.155F);
@@ -148,7 +148,7 @@ public final class SnowyDyingMixedForest extends FrozenBiome {
 			this.addSurfaceBiome(
 				parameters,
 				temperature,
-				FrozenBiomeParameters.isWeird(point) ? HUMIDITY_WEIRD : HUMIDITY,
+				FrozenLibBiomeParameters.isWeird(point) ? HUMIDITY_WEIRD : HUMIDITY,
 				point.continentalness(),
 				point.erosion(),
 				point.weirdness(),

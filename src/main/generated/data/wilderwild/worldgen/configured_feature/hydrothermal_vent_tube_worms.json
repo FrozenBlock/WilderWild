@@ -8,7 +8,7 @@
       },
       {
         "feature": {
-          "type": "wilderwild:tube_worms_feature",
+          "type": "wilderwild:tube_worms",
           "config": {}
         },
         "placement": [

@@ -1,5 +1,5 @@
 {
-  "type": "wilderwild:snow_and_freeze_disk_feature",
+  "type": "wilderwild:snow_and_freeze_disk",
   "config": {
     "fade_start_distance_percent": 0.5,
     "ice_radius": {

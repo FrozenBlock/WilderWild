@@ -18,9 +18,9 @@
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
 import java.util.List;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.worldgen.feature.api.placementmodifier.NoisePlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -31,10 +31,6 @@ public final class WWPlacementUtils {
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.625D, 1D, 0.2D, false, false, false);
 	public static final NoisePlacementFilter SHRUB_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.675D, 1D, 0.175D, false, false, true);
-
-	private WWPlacementUtils() {
-		throw new UnsupportedOperationException("WWPlacementUtils contains only static declarations.");
-	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(

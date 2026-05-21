@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.data;
 
-import net.frozenblock.lib.worldgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;

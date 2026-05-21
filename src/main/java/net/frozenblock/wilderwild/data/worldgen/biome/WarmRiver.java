@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
@@ -38,7 +38,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 
-public final class WarmRiver extends FrozenBiome {
+public final class WarmRiver extends FrozenLibBiome {
 	public static final Climate.Parameter WARM_RANGE = Climate.Parameter.span(0.550F, 1.000F);
 	public static final Climate.Parameter UNFROZEN_NOT_WARM_RANGE = Climate.Parameter.span(-0.450F, 0.200F);
 	public static final Climate.Parameter HUMIDITY_TO_TWO = Climate.Parameter.span(-0.100F, 0.000F);

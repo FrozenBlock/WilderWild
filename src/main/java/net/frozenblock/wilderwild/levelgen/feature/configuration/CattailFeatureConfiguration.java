@@ -22,24 +22,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public record SulfurSpringDecorationFeatureConfig(
-	BlockStateProvider state,
-	BlockStateProvider topState,
-	BlockStateProvider bottomState,
-	HolderSet<Block> replaceable,
-	HolderSet<Block> cannotReplace
-) implements FeatureConfiguration {
-	public static final Codec<SulfurSpringDecorationFeatureConfig> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(
-			BlockStateProvider.CODEC.fieldOf("spring_state").forGetter(config -> config.state),
-			BlockStateProvider.CODEC.fieldOf("top_state").forGetter(config -> config.topState),
-			BlockStateProvider.CODEC.fieldOf("bottom_state").forGetter(config -> config.bottomState),
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable").forGetter(config -> config.replaceable),
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("cannot_replace").forGetter(config -> config.cannotReplace)
-		).apply(instance, SulfurSpringDecorationFeatureConfig::new)
-	);
+public record CattailFeatureConfiguration(int width, IntProvider placementAttempts, HolderSet<Block> canBePlacedOn) implements FeatureConfiguration {
+	public static final Codec<CattailFeatureConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+		Codec.INT.fieldOf("width").forGetter(config -> config.width),
+		IntProviders.CODEC.fieldOf("placement_attempts").forGetter(config -> config.placementAttempts),
+		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canBePlacedOn)
+	).apply(instance, CattailFeatureConfiguration::new));
 }

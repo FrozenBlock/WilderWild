@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:column",
   "config": {
-    "block_state_provider": {
+    "block_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "wilderwild:geothermal_vent",
@@ -20,9 +20,9 @@
       "max_inclusive": 5,
       "min_inclusive": 3
     },
-    "replacement_block_predicate": {
+    "replaceable": {
       "type": "minecraft:replaceable"
     },
-    "stop_when_encountering_unreplaceable_block": true
+    "stop_at_unreplaceable_block": true
   }
 }

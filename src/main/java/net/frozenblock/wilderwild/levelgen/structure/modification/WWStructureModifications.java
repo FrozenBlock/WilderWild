@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.worldgen.structure.api.BlockStateRespectingRuleProcessor;
-import net.frozenblock.lib.worldgen.structure.api.RandomPoolAliasApi;
-import net.frozenblock.lib.worldgen.structure.api.StructureProcessorApi;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
+import net.frozenblock.lib.levelgen.structure.api.RandomPoolAliasApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;

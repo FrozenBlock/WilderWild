@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 import com.mojang.serialization.Codec;
 import java.util.List;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.ShelfFungiFeatureConfig;
+import net.frozenblock.wilderwild.levelgen.feature.configuration.ShelfFungiFeatureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -32,16 +32,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
+public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfiguration> {
 
-	public ShelfFungiFeature(Codec<ShelfFungiFeatureConfig> codec) {
+	public ShelfFungiFeature(Codec<ShelfFungiFeatureConfiguration> codec) {
 		super(codec);
 	}
 
 	public static boolean generate(
 		WorldGenLevel level,
 		BlockPos pos,
-		ShelfFungiFeatureConfig config,
+		ShelfFungiFeatureConfiguration config,
 		RandomSource random
 	) {
 		final MutableBlockPos mutable = pos.mutable();
@@ -73,11 +73,11 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfig> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<ShelfFungiFeatureConfig> context) {
+	public boolean place(FeaturePlaceContext<ShelfFungiFeatureConfiguration> context) {
 		final WorldGenLevel level = context.level();
 		final RandomSource random = context.random();
 		final BlockPos pos = context.origin().above(random.nextInt(0, 4));
-		final ShelfFungiFeatureConfig config = context.config();
+		final ShelfFungiFeatureConfiguration config = context.config();
 
 		if (!isAirOrWater(level.getBlockState(pos))) return false;
 

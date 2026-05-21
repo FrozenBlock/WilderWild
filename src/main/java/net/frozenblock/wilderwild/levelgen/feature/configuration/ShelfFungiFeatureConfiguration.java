@@ -34,11 +34,11 @@ import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class ShelfFungiFeatureConfig implements FeatureConfiguration {
-	public static final Codec<ShelfFungiFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
+public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
+	public static final Codec<ShelfFungiFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block")
-				.flatXmap(ShelfFungiFeatureConfig::validateBlock, DataResult::success)
+				.flatXmap(ShelfFungiFeatureConfiguration::validateBlock, DataResult::success)
 				.orElse((ShelfFungiBlock) WWBlocks.BROWN_SHELF_FUNGI)
 				.forGetter(config -> config.fungus),
 			Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(config -> config.searchRange),
@@ -46,7 +46,7 @@ public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 			Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(config -> config.placeOnCeiling),
 			Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(config -> config.placeOnWalls),
 			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(config -> config.canPlaceOn)
-		).apply(instance, ShelfFungiFeatureConfig::new)
+		).apply(instance, ShelfFungiFeatureConfiguration::new)
 	);
 
 	public final ShelfFungiBlock fungus;
@@ -57,7 +57,7 @@ public class ShelfFungiFeatureConfig implements FeatureConfiguration {
 	public final HolderSet<Block> canPlaceOn;
 	private final ObjectArrayList<Direction> directions;
 
-	public ShelfFungiFeatureConfig(ShelfFungiBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+	public ShelfFungiFeatureConfiguration(ShelfFungiBlock fungus, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
 		this.fungus = fungus;
 		this.searchRange = searchRange;
 		this.placeOnFloor = placeOnFloor;

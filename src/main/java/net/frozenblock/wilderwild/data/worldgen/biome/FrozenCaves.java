@@ -20,15 +20,15 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
-import net.frozenblock.lib.worldgen.biome.api.FrozenBiome;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Continentalness;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Humidity;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Temperature;
-import net.frozenblock.lib.worldgen.biome.api.parameters.Weirdness;
+import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Temperature;
+import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -45,7 +45,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-public final class FrozenCaves extends FrozenBiome {
+public final class FrozenCaves extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.ICY;
 	public static final Climate.Parameter HUMIDITY = Humidity.FULL_RANGE;
 	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.INLAND, Continentalness.FAR_INLAND);

@@ -23,14 +23,14 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public record SnowAndIceDiskFeatureConfig(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) implements FeatureConfiguration {
-	public static final Codec<SnowAndIceDiskFeatureConfig> CODEC = RecordCodecBuilder.create(instance ->
+public record SnowAndIceDiskFeatureConfiguration(IntProvider radius, IntProvider iceRadius, float placementChance, float fadeStartDistancePercent) implements FeatureConfiguration {
+	public static final Codec<SnowAndIceDiskFeatureConfiguration> CODEC = RecordCodecBuilder.create(instance ->
 		instance.group(
 			IntProviders.CODEC.fieldOf("radius").forGetter(config -> config.radius),
 			IntProviders.CODEC.fieldOf("ice_radius").forGetter(config -> config.iceRadius),
 			Codec.FLOAT.fieldOf("placement_chance").forGetter(config -> config.placementChance),
 			Codec.FLOAT.fieldOf("fade_start_distance_percent").forGetter(config -> config.fadeStartDistancePercent)
-		).apply(instance, SnowAndIceDiskFeatureConfig::new)
+		).apply(instance, SnowAndIceDiskFeatureConfiguration::new)
 	);
 
 }

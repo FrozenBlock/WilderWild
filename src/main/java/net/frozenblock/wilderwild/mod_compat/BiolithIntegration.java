@@ -28,8 +28,8 @@ import com.terraformersmc.biolith.api.biome.sub.RatioTargets;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.lib.worldgen.biome.api.parameters.FrozenBiomeParameters;
-import net.frozenblock.lib.worldgen.biome.api.parameters.OverworldBiomeBuilderParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
+import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.data.worldgen.biome.FrozenCaves;
@@ -360,7 +360,7 @@ public class BiolithIntegration extends ModIntegration {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.SNOWY_TAIGA)) {
 				Criterion criterion = allOf(
 					temperature,
-					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, FrozenBiomeParameters.isWeird(point) ? -0.105F : 0.05F, 0.155F)
+					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, FrozenLibBiomeParameters.isWeird(point) ? -0.105F : 0.05F, 0.155F)
 				);
 				BiomePlacement.addSubOverworld(Biomes.SNOWY_TAIGA, WWBiomes.SNOWY_DYING_MIXED_FOREST, criterion);
 				BiomePlacement.addSubOverworld(Biomes.SNOWY_PLAINS, WWBiomes.SNOWY_DYING_MIXED_FOREST, criterion);
