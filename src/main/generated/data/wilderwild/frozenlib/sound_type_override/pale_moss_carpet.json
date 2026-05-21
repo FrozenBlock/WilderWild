@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/pale_moss_carpet",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/mossSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.pale_moss_carpet.break",
+    "fall_sound": "wilderwild:block.pale_moss_carpet.fall",
+    "hit_sound": "wilderwild:block.pale_moss_carpet.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.pale_moss_carpet.place",
+    "step_sound": "wilderwild:block.pale_moss_carpet.step",
+    "volume": 1.0
+  }
+}

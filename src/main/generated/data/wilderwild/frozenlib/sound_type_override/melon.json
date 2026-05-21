@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/melon",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/melonSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.melon.break",
+    "fall_sound": "wilderwild:block.melon.fall",
+    "hit_sound": "wilderwild:block.melon.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.melon.place",
+    "step_sound": "wilderwild:block.melon.step",
+    "volume": 1.0
+  }
+}

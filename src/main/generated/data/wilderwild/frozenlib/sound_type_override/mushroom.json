@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/mushroom",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/mushroomBlockSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.mushroom.break",
+    "fall_sound": "wilderwild:block.mushroom.fall",
+    "hit_sound": "wilderwild:block.mushroom.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.mushroom.place",
+    "step_sound": "wilderwild:block.mushroom.step",
+    "volume": 1.0
+  }
+}

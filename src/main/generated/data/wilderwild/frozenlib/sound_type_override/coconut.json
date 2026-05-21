@@ -1,0 +1,12 @@
+{
+  "blocks": "#wilderwild:sound/coconut",
+  "sound_type": {
+    "break_sound": "wilderwild:block.coconut.break",
+    "fall_sound": "wilderwild:block.coconut.fall",
+    "hit_sound": "wilderwild:block.coconut.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.coconut.place",
+    "step_sound": "wilderwild:block.coconut.step",
+    "volume": 1.0
+  }
+}

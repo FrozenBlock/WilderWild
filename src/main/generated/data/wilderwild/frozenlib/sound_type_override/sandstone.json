@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/sandstone",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/sandstoneSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.sandstone.break",
+    "fall_sound": "wilderwild:block.sandstone.fall",
+    "hit_sound": "wilderwild:block.sandstone.hit",
+    "pitch": 1.1,
+    "place_sound": "wilderwild:block.sandstone.place",
+    "step_sound": "wilderwild:block.sandstone.step",
+    "volume": 0.7
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/magma_block",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/magmaSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.magma.break",
+    "fall_sound": "wilderwild:block.magma.fall",
+    "hit_sound": "wilderwild:block.magma.hit",
+    "pitch": 0.9,
+    "place_sound": "wilderwild:block.magma.place",
+    "step_sound": "wilderwild:block.magma.step",
+    "volume": 1.0
+  }
+}

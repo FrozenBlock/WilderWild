@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/sapling",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/saplingSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.sapling.break",
+    "fall_sound": "wilderwild:block.sapling.fall",
+    "hit_sound": "wilderwild:block.sapling.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.sapling.place",
+    "step_sound": "wilderwild:block.sapling.step",
+    "volume": 1.0
+  }
+}

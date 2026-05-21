@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/coarse_dirt",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/coarseDirtSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.coarse_dirt.break",
+    "fall_sound": "wilderwild:block.coarse_dirt.fall",
+    "hit_sound": "wilderwild:block.coarse_dirt.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.coarse_dirt.place",
+    "step_sound": "wilderwild:block.coarse_dirt.step",
+    "volume": 0.8
+  }
+}

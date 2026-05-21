@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/melon_stem",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/melonSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "minecraft:block.crop.break",
+    "fall_sound": "minecraft:block.grass.fall",
+    "hit_sound": "minecraft:block.grass.hit",
+    "pitch": 1.0,
+    "place_sound": "minecraft:item.crop.plant",
+    "step_sound": "minecraft:block.grass.step",
+    "volume": 1.0
+  }
+}

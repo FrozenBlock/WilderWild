@@ -332,7 +332,7 @@ public final class WWSoundTypes {
 		WWSounds.BLOCK_SAPLING_HIT,
 		WWSounds.BLOCK_SAPLING_FALL
 	);
-	public static final SoundType SUGARCANE = new SoundType(1F, 1F,
+	public static final SoundType SUGAR_CANE = new SoundType(1F, 1F,
 		WWSounds.BLOCK_SUGAR_CANE_BREAK,
 		WWSounds.BLOCK_SUGAR_CANE_STEP,
 		WWSounds.BLOCK_SUGAR_CANE_PLACE,

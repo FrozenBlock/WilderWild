@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/hollowed_pale_oak_wood",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/paleOakSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.hollowed_pale_oak_log.break",
+    "fall_sound": "wilderwild:block.hollowed_pale_oak_log.fall",
+    "hit_sound": "wilderwild:block.hollowed_pale_oak_log.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.hollowed_pale_oak_log.place",
+    "step_sound": "wilderwild:block.hollowed_pale_oak_log.step",
+    "volume": 1.0
+  }
+}

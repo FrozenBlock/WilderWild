@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/ice",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/iceSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.ice.break",
+    "fall_sound": "wilderwild:block.ice.fall",
+    "hit_sound": "wilderwild:block.ice.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.ice.place",
+    "step_sound": "wilderwild:block.ice.step",
+    "volume": 1.0
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/podzol",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/podzolSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "minecraft:block.rooted_dirt.break",
+    "fall_sound": "minecraft:block.rooted_dirt.fall",
+    "hit_sound": "minecraft:block.rooted_dirt.hit",
+    "pitch": 1.0,
+    "place_sound": "minecraft:block.rooted_dirt.place",
+    "step_sound": "minecraft:block.rooted_dirt.step",
+    "volume": 1.0
+  }
+}

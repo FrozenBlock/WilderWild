@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/frosted_ice",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/frostedIceSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.frosted_ice.break",
+    "fall_sound": "wilderwild:block.frosted_ice.fall",
+    "hit_sound": "wilderwild:block.frosted_ice.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.frosted_ice.place",
+    "step_sound": "wilderwild:block.frosted_ice.step",
+    "volume": 1.0
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/pale_oak_wood_hanging_sign",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/paleOakSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.pale_oak_wood_hanging_sign.break",
+    "fall_sound": "wilderwild:block.pale_oak_wood_hanging_sign.fall",
+    "hit_sound": "wilderwild:block.pale_oak_wood_hanging_sign.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.pale_oak_wood_hanging_sign.place",
+    "step_sound": "wilderwild:block.pale_oak_wood_hanging_sign.step",
+    "volume": 1.0
+  }
+}

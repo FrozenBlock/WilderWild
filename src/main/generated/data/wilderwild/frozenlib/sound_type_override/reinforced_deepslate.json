@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/reinforced_deepslate",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/reinforcedDeepslateSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.reinforced_deepslate.break",
+    "fall_sound": "wilderwild:block.reinforced_deepslate.fall",
+    "hit_sound": "wilderwild:block.reinforced_deepslate.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.reinforced_deepslate.place",
+    "step_sound": "wilderwild:block.reinforced_deepslate.step",
+    "volume": 1.0
+  }
+}

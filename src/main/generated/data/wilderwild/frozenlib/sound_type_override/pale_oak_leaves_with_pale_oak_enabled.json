@@ -1,0 +1,25 @@
+{
+  "blocks": "#wilderwild:sound/pale_oak_leaves",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/paleOakSounds",
+    "operator": "equal_to",
+    "target": true,
+    "with": {
+      "config_entry_predicate": {
+        "entry": "wilderwild:block/blockSounds/leafSounds",
+        "operator": "equal_to",
+        "target": true
+      },
+      "operator": "and"
+    }
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.pale_oak_leaves.break",
+    "fall_sound": "wilderwild:block.pale_oak_leaves.fall",
+    "hit_sound": "wilderwild:block.pale_oak_leaves.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.pale_oak_leaves.place",
+    "step_sound": "wilderwild:block.pale_oak_leaves.step",
+    "volume": 1.0
+  }
+}

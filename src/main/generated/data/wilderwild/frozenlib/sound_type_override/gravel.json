@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/gravel",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/gravelSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.gravel.break",
+    "fall_sound": "wilderwild:block.gravel.fall",
+    "hit_sound": "wilderwild:block.gravel.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.gravel.place",
+    "step_sound": "wilderwild:block.gravel.step",
+    "volume": 0.8
+  }
+}

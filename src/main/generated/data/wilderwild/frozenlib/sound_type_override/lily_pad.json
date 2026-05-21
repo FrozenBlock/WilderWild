@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/lily_pad",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/lilyPadSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "minecraft:block.big_dripleaf.break",
+    "fall_sound": "minecraft:block.big_dripleaf.fall",
+    "hit_sound": "minecraft:block.big_dripleaf.hit",
+    "pitch": 1.0,
+    "place_sound": "minecraft:block.lily_pad.place",
+    "step_sound": "minecraft:block.big_dripleaf.step",
+    "volume": 1.0
+  }
+}

@@ -47,6 +47,7 @@ import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
 import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWSoundTypeOverrides;
 import net.frozenblock.wilderwild.registry.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
@@ -99,6 +100,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 
 		// FrozenLib Registries
+		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 

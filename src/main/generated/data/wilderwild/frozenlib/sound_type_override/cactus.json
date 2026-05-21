@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/cactus",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/cactusSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.cactus.break",
+    "fall_sound": "wilderwild:block.cactus.fall",
+    "hit_sound": "wilderwild:block.cactus.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.cactus.place",
+    "step_sound": "wilderwild:block.cactus.step",
+    "volume": 0.8
+  }
+}

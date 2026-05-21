@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/auburn_moss",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/mossSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.auburn_moss.break",
+    "fall_sound": "wilderwild:block.auburn_moss.fall",
+    "hit_sound": "wilderwild:block.auburn_moss.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.auburn_moss.place",
+    "step_sound": "wilderwild:block.auburn_moss.step",
+    "volume": 1.0
+  }
+}

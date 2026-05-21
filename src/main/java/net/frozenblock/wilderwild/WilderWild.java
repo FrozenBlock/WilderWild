@@ -42,7 +42,6 @@ import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlockSoundTypeOverwrites;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
@@ -105,7 +104,6 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWBiomes.init();
 		WWWorldgen.init();
 		WWBlocks.registerBlockProperties();
-		WWBlockSoundTypeOverwrites.init();
 		WWAdvancementModifications.init();
 		WWStructureModifications.init();
 

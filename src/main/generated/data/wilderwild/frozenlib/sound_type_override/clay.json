@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/clay",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/claySounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.clay.break",
+    "fall_sound": "wilderwild:block.clay.fall",
+    "hit_sound": "wilderwild:block.clay.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.clay.place",
+    "step_sound": "wilderwild:block.clay.step",
+    "volume": 0.9
+  }
+}

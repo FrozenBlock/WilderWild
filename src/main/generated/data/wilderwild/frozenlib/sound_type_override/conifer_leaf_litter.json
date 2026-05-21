@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/conifer_leaf_litter",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/leafSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.conifer_leaf_litter.break",
+    "fall_sound": "wilderwild:block.conifer_leaf_litter.fall",
+    "hit_sound": "wilderwild:block.conifer_leaf_litter.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.conifer_leaf_litter.place",
+    "step_sound": "wilderwild:block.conifer_leaf_litter.step",
+    "volume": 1.0
+  }
+}

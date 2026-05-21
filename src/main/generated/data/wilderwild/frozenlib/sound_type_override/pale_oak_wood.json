@@ -1,0 +1,17 @@
+{
+  "blocks": "#wilderwild:sound/pale_oak_wood",
+  "config_entry_predicate": {
+    "entry": "wilderwild:block/blockSounds/paleOakSounds",
+    "operator": "equal_to",
+    "target": true
+  },
+  "sound_type": {
+    "break_sound": "wilderwild:block.pale_oak_wood.break",
+    "fall_sound": "wilderwild:block.pale_oak_wood.fall",
+    "hit_sound": "wilderwild:block.pale_oak_wood.hit",
+    "pitch": 1.0,
+    "place_sound": "wilderwild:block.pale_oak_wood.place",
+    "step_sound": "wilderwild:block.pale_oak_wood.step",
+    "volume": 1.0
+  }
+}
