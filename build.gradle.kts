@@ -7,6 +7,7 @@ import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
 import java.io.FileNotFoundException
 import java.net.URL
+import kotlin.collections.set
 
 buildscript {
     repositories {
@@ -18,7 +19,7 @@ buildscript {
 }
 
 plugins {
-    id("net.fabricmc.fabric-loom") version("1.15-SNAPSHOT")
+    id("net.fabricmc.fabric-loom") version("1.16-SNAPSHOT")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("com.modrinth.minotaur") version("+")
@@ -35,6 +36,7 @@ val licenseChecks: Boolean = githubActions
 
 val minecraft_version: String by project
 val loader_version: String by project
+val min_loader_version: String by project
 
 val mod_id: String by project
 val mod_version: String by project
@@ -219,6 +221,7 @@ tasks {
             "protocol_version" to protocol_version,
             "minecraft_version" to "~26.2-",//minecraft_version,
 
+            "fabric_loader_version" to ">=$min_loader_version",
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
         )

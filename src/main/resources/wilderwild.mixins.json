@@ -112,6 +112,7 @@
     "warden.WardenMixin",
     "warden.WardenSwimMixin",
     "worldgen.LakeFeatureFixMixin",
+    "worldgen.biome.GrassColorModifierMixin",
     "worldgen.biome.OverworldBiomeBuilderMixin",
     "worldgen.structure.SwampHutPieceMixin",
     "worldgen.tree.HugeFungusFeatureMixin",

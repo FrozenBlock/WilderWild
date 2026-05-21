@@ -17,12 +17,10 @@
 
 package net.frozenblock.wilderwild.data.worldgen.biome;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
-import net.frozenblock.lib.levelgen.biome.api.FrozenLibGrassColorModifiers;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
@@ -42,13 +40,11 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.jetbrains.annotations.Nullable;
 
 public final class Tundra extends FrozenLibBiome {
@@ -111,18 +107,6 @@ public final class Tundra extends FrozenLibBiome {
 
 	public Tundra() {
 		super();
-		FrozenLibGrassColorModifiers.addGrassColorModifier(
-			this.getKey().identifier(),
-			(x, y, grassColor) -> {
-				double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0)).getValue(x * 0.0225D, y * 0.0225D, false);
-				if (noise < -0.5D) return GRASS_COLOR_BROWN;
-				if (noise < -0.35D) return GRASS_COLOR_ORANGE;
-				if (noise > 0.8D) return GRASS_COLOR_BLUE_GREENISH;
-				if (noise > 0.5D) return GRASS_COLOR_LIGHTER_GREEN;
-				//if (noise > 0.34222D) return GRASS_COLOR_RED;
-				return grassColor;
-			}
-		);
 	}
 
 	@Override
@@ -168,6 +152,11 @@ public final class Tundra extends FrozenLibBiome {
 	@Override
 	public Integer grassColorOverride() {
 		return GRASS_COLOR_MAPLE;
+	}
+
+	@Override
+	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
+		return BiomeSpecialEffects.GrassColorModifier.WILDER_WILD_TUNDRA;
 	}
 
 	@Override

@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 
 public final class WWConstants {
@@ -69,7 +68,6 @@ public final class WWConstants {
 		return id(path).toString();
 	}
 
-	@Contract(pure = true)
 	public static String safeString(String path) {
 		return MOD_ID + "_" + path;
 	}

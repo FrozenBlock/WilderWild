@@ -1,4 +1,4 @@
-classTweaker v1 official
+classTweaker v2 official
 
 # Entity Rendering
 accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer adultModel Lnet/minecraft/client/model/EntityModel;
@@ -26,6 +26,9 @@ accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signal
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
+
+# Biomes
+transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDER_WILD_TUNDRA
 
 # Data Generation
 accessible method net/minecraft/client/data/models/BlockModelGenerators createMirroredCubeGenerator (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/client/renderer/block/dispatch/Variant;Lnet/minecraft/client/data/models/model/TextureMapping;Ljava/util/function/BiConsumer;)Lnet/minecraft/client/data/models/blockstates/BlockModelDefinitionGenerator;

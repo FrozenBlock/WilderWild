@@ -59,13 +59,15 @@
   "accessWidener": "wilderwild.classtweaker",
   "depends": {
     "frozenlib": "${frozenlib_version}",
+    "fabricloader": "${fabric_loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=25"
   },
   "suggests": {
     "cloth-config": "*",
-    "terrablender": "*"
+    "terrablender": "*",
+    "biolith": "*"
   },
   "custom": {
     "modmenu": {
