@@ -165,7 +165,6 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-
 		final ConfigEntryPlacementFilter<?> flowerConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.FLOWER_GENERATION, true).asPlacementFilter();
 		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.FLOWERING_WATERLILY,
 			flowerConfigPredicate,
