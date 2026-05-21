@@ -196,9 +196,7 @@ public final class WWMiscConfigured {
 		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
-		EMPTY.makeAndSetHolder(Feature.NO_OP,
-			NoneFeatureConfiguration.INSTANCE
-		);
+		EMPTY.makeAndSetHolder(Feature.NO_OP, NoneFeatureConfiguration.INSTANCE);
 
 		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
@@ -1278,9 +1276,9 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SNOW_BLANKET.makeAndSetHolder(WWFeatures.SNOW_BLANKET_FEATURE, NoneFeatureConfiguration.INSTANCE);
+		SNOW_BLANKET.makeAndSetHolder(WWFeatures.SNOW_BLANKET, NoneFeatureConfiguration.INSTANCE);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WWFeatures.SNOW_AND_FREEZE_DISK_FEATURE,
+		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WWFeatures.SNOW_AND_FREEZE_DISK,
 			new SnowAndIceDiskFeatureConfiguration(
 				UniformInt.of(6, 7),
 				UniformInt.of(2, 4),

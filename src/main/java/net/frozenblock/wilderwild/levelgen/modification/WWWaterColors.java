@@ -23,8 +23,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 
 public final class WWWaterColors {
 

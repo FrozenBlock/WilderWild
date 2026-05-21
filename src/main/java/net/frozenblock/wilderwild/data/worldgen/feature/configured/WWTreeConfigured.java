@@ -409,7 +409,6 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-
 	public static final ShelfFungiTreeDecorator PALE_SHELF_FUNGI_00875 = new ShelfFungiTreeDecorator(
 		0.0875F,
 		0.25F,
@@ -419,7 +418,6 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-
 	public static final ShelfFungiTreeDecorator NETHER_FUNGI_LEANING_CRIMSON = new ShelfFungiTreeDecorator(
 		0.0875F,
 		0.25F,
@@ -446,7 +444,6 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 4)
 		)
 	);
-
 	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
 	public static final HeightBasedVineTreeDecorator VINES_012_UNDER_260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
 	public static final HeightBasedVineTreeDecorator VINES_008_UNDER_82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
@@ -472,22 +469,6 @@ public final class WWTreeConfigured {
 	public static final PollenTreeDecorator POLLEN_01 = new PollenTreeDecorator(0.1F, 0.025F, 3);
 	public static final PollenTreeDecorator POLLEN_025 = new PollenTreeDecorator(0.25F, 0.025F, 5);
 	public static final PollenTreeDecorator POLLEN = new PollenTreeDecorator(1F, 0.035F, 5);
-	public static final PlaceOnGroundDecorator PALE_OAK_LEAF_LITTERS_A = new PlaceOnGroundDecorator(
-		96, 4, 2,  new WeightedStateProvider(VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.PALE_OAK_LEAF_LITTER, 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING))
-	);
-	public static final PlaceOnGroundDecorator PALE_OAK_LEAF_LITTERS_B = new PlaceOnGroundDecorator(
-		150, 2, 2, new WeightedStateProvider(VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.PALE_OAK_LEAF_LITTER, 1, 4, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING))
-	);
-	public static final PlaceOnGroundDecorator ACACIA_LEAF_LITTERS_A = new PlaceOnGroundDecorator(
-		96, 4, 2,  new WeightedStateProvider(VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.ACACIA_LEAF_LITTER, 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING))
-	);
-	public static final PlaceOnGroundDecorator ACACIA_LEAF_LITTERS_B = new PlaceOnGroundDecorator(
-		150, 2, 2, new WeightedStateProvider(VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.ACACIA_LEAF_LITTER, 1, 4, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING))
-	);
-
-	private WWTreeConfigured() {
-		throw new UnsupportedOperationException("WWTreeConfigured contains only static declarations.");
-	}
 
 	public static void registerTreeConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
 		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
@@ -1229,7 +1210,7 @@ public final class WWTreeConfigured {
 				.build()
 		);
 
-		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWFeatures.HUGE_PALE_MUSHROOM_FEATURE,
+		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWFeatures.HUGE_PALE_MUSHROOM,
 			new HugeMushroomFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM_BLOCK.defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)),
 				BlockStateProvider.simple(Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)),
@@ -1622,7 +1603,7 @@ public final class WWTreeConfigured {
 		);
 
 		// PALM
-		PALM.makeAndSetHolders(WWFeatures.PALM_TREE_FEATURE,
+		PALM.makeAndSetHolders(WWFeatures.PALM_TREE,
 			palmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
@@ -1632,7 +1613,7 @@ public final class WWTreeConfigured {
 			).build()
 		);
 
-		TALL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE_FEATURE,
+		TALL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE,
 			palmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
@@ -1642,7 +1623,7 @@ public final class WWTreeConfigured {
 			).build()
 		);
 
-		TALL_WINDMILL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE_FEATURE,
+		TALL_WINDMILL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE,
 			windmillPalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
@@ -1650,7 +1631,7 @@ public final class WWTreeConfigured {
 			).build()
 		);
 
-		SHORT_WINDMILL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE_FEATURE,
+		SHORT_WINDMILL_PALM.makeAndSetHolders(WWFeatures.PALM_TREE,
 			windmillPalmBuilder(
 				WWBlocks.PALM_LOG,
 				WWBlocks.PALM_FRONDS,
@@ -1757,7 +1738,38 @@ public final class WWTreeConfigured {
 				new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 				new TwoLayersFeatureSize(1, 0, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(ACACIA_LEAF_LITTERS_A, ACACIA_LEAF_LITTERS_B))
+			).decorators(
+				List.of(
+					new PlaceOnGroundDecorator(
+						96,
+						4,
+						2,
+						new WeightedStateProvider(
+							VegetationFeatures.segmentedBlockPatchBuilder(
+								WWBlocks.ACACIA_LEAF_LITTER,
+								1,
+								3,
+								LeafLitterBlock.AMOUNT,
+								LeafLitterBlock.FACING
+							)
+						)
+					),
+					new PlaceOnGroundDecorator(
+						150,
+						2,
+						2,
+						new WeightedStateProvider(
+							VegetationFeatures.segmentedBlockPatchBuilder(
+								WWBlocks.ACACIA_LEAF_LITTER,
+								1,
+								4,
+								LeafLitterBlock.AMOUNT,
+								LeafLitterBlock.FACING
+							)
+						)
+					)
+				)
+				)
 				.ignoreVines()
 				.build()
 		);
@@ -2544,8 +2556,41 @@ public final class WWTreeConfigured {
 		if (paleMoss) treeDecorators.add(PALE_MOSS_DECORATOR);
 		if (creaking) treeDecorators.add(CREAKING_HEARTS);
 		if (cobweb) treeDecorators.add(COBWEB_1_UNDER_260_025);
-		if (leafLitter) treeDecorators.add(PALE_OAK_LEAF_LITTERS_A);
-		if (leafLitter) treeDecorators.add(PALE_OAK_LEAF_LITTERS_B);
+		if (leafLitter) {
+			treeDecorators.add(
+				new PlaceOnGroundDecorator(
+					96,
+					4,
+					2,
+					new WeightedStateProvider(
+						VegetationFeatures.segmentedBlockPatchBuilder(
+							WWBlocks.PALE_OAK_LEAF_LITTER,
+							1,
+							3,
+							LeafLitterBlock.AMOUNT,
+							LeafLitterBlock.FACING
+						)
+					)
+				));
+		}
+		if (leafLitter) {
+			treeDecorators.add(
+				new PlaceOnGroundDecorator(
+					150,
+					2,
+					2,
+					new WeightedStateProvider(
+						VegetationFeatures.segmentedBlockPatchBuilder(
+							WWBlocks.PALE_OAK_LEAF_LITTER,
+							1,
+							4,
+							LeafLitterBlock.AMOUNT,
+							LeafLitterBlock.FACING
+						)
+					)
+				)
+			);
+		}
 		builder.decorators(ImmutableList.copyOf(treeDecorators));
 	}
 

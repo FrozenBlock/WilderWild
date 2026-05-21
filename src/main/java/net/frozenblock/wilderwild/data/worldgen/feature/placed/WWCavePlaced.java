@@ -52,8 +52,6 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
-	public static final BlockPredicate ONLY_IN_WATER_PREDICATE = BlockPredicate.matchesBlocks(Blocks.WATER);
-
 	// MESOGLEA CAVES
 	public static final FrozenLibPlacedFeature ORE_CALCITE = register("ore_calcite");
 	public static final FrozenLibPlacedFeature MESOGLEA_CAVES_STONE_POOL = register("mesoglea_caves_stone_pool");
@@ -106,17 +104,10 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature DIORITE_PATCH_CEILING = register("diorite_patch_ceiling");
 	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = register("ore_diorite_extra");
 
-	// SULFUR CAVES
-	public static final FrozenLibPlacedFeature SULFUR_POOL = register("sulfur_pool");
-	public static final FrozenLibPlacedFeature ROOTED_SULFUR_SPRING = register("rooted_sulfur_spring");
-	public static final FrozenLibPlacedFeature SULFUR_SPIKE_CLUSTER = register("sulfur_spike_cluster");
-	public static final FrozenLibPlacedFeature SULFUR_SPIKE = register("sulfur_spike");
-
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
+		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-
-		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 
 		// MESOGLEA CAVES
 		ORE_CALCITE.makeAndSetHolder(WWCaveConfigured.ORE_CALCITE,
@@ -136,7 +127,7 @@ public final class WWCavePlaced {
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), ONLY_IN_WATER_PREDICATE, 12),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.WATER), 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
@@ -145,7 +136,7 @@ public final class WWCavePlaced {
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), ONLY_IN_WATER_PREDICATE, 12),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.WATER), 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
@@ -445,7 +436,10 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			CountPlacement.of(UniformInt.of(1, 5)),
-			RandomOffsetPlacement.of(ClampedNormalInt.of(0F, 3F, -10, 10), ClampedNormalInt.of(0F, 0.6F, -2, 2)),
+			RandomOffsetPlacement.of(
+				ClampedNormalInt.of(0F, 3F, -10, 10),
+				ClampedNormalInt.of(0F, 0.6F, -2, 2)
+			),
 			BiomeFilter.biome()
 		);
 
@@ -456,7 +450,10 @@ public final class WWCavePlaced {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.of(ClampedNormalInt.of(0F, 3F, -10, 10), ClampedNormalInt.of(0F, 0.6F, -2, 2)),
+			RandomOffsetPlacement.of(
+				ClampedNormalInt.of(0F, 3F, -10, 10),
+				ClampedNormalInt.of(0F, 0.6F, -2, 2)
+			),
 			BiomeFilter.biome()
 		);
 
@@ -467,7 +464,10 @@ public final class WWCavePlaced {
 			PlacementUtils.HEIGHTMAP,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.of(ClampedNormalInt.of(0F, 3F, -10, 10), ClampedNormalInt.of(0F, 0.6F, -2, 2)),
+			RandomOffsetPlacement.of(
+				ClampedNormalInt.of(0F, 3F, -10, 10),
+				ClampedNormalInt.of(0F, 0.6F, -2, 2)
+			),
 			BiomeFilter.biome()
 		);
 

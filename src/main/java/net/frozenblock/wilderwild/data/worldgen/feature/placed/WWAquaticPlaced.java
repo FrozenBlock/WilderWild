@@ -19,9 +19,9 @@ package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -29,6 +29,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -67,16 +68,15 @@ public final class WWAquaticPlaced {
 	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_RARE = register("hydrothermal_vent_rare");
 	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS = register("hydrothermal_vent_tube_worms");
 	public static final FrozenLibPlacedFeature HYDROTHERMAL_VENT_TUBE_WORMS_RARE = register("hydrothermal_vent_tube_worms_rare");
-	public static final FrozenLibPlacedFeature OCEAN_MOSS = WWPlacementUtils.register("ocean_moss");
-	public static final FrozenLibPlacedFeature AUBURN_MOSS_UNDERWATER = WWPlacementUtils.register("auburn_moss_underwater");
-	public static final FrozenLibPlacedFeature AUBURN_MOSS_UNDERWATER_RARE = WWPlacementUtils.register("auburn_moss_underwater_rare");
-	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS_UNDERWATER = WWPlacementUtils.register("auburn_creeping_moss_underwater");
+	public static final FrozenLibPlacedFeature OCEAN_MOSS = register("ocean_moss");
+	public static final FrozenLibPlacedFeature AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
+	public static final FrozenLibPlacedFeature AUBURN_MOSS_UNDERWATER_RARE = register("auburn_moss_underwater_rare");
+	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS_UNDERWATER = register("auburn_creeping_moss_underwater");
 
 	public static void registerAquaticPlaced(BootstrapContext<PlacedFeature> entries) {
-		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-
 		WWConstants.logWithModId("Registering WWAquaticPlaced for", true);
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		PATCH_CATTAIL.makeAndSetHolder(WWAquaticConfigured.CATTAIL,
 			RarityFilter.onAverageOnceEvery(4),

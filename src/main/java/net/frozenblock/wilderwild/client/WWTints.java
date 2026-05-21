@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
@@ -24,7 +25,6 @@ import net.frozenblock.lib.block.client.api.BlockColorHelper;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public final class WWTints {

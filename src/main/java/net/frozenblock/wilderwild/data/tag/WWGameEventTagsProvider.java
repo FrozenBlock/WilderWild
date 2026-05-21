@@ -19,19 +19,19 @@ package net.frozenblock.wilderwild.data.tag;
 
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.GameEventTagsProvider;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public final class WWGameEventTagsProvider extends GameEventTagsProvider {
+public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent> {
 
 	public WWGameEventTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries);
+		super(output, Registries.GAME_EVENT, registries);
 	}
 
 	@Override

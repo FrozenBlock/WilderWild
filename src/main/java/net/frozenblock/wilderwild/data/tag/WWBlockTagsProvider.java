@@ -400,26 +400,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWBlockTags.SULFUR_SPRING_REPLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SULFUR, BlockItemIds.CINNABAR)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.LEAVES.block())
-			.addOptionalTag(BlockTags.REPLACEABLE)
-			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
-
-		this.builder(WWBlockTags.SULFUR_SPRING_PLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SULFUR, BlockItemIds.CINNABAR)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
-
 		this.builder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockItemTags.SAND.block())

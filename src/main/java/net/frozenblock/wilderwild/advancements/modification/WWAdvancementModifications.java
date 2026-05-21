@@ -17,6 +17,9 @@
 
 package net.frozenblock.wilderwild.advancements.modification;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
 import net.frozenblock.wilderwild.WWConstants;
@@ -51,9 +54,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public final class WWAdvancementModifications {
 

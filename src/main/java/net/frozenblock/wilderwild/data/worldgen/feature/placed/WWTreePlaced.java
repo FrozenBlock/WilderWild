@@ -21,21 +21,25 @@ import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 
 public final class WWTreePlaced {
 	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
@@ -286,14 +290,13 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT = register("small_wine_palm_checked_dirt");
 	public static final FrozenLibPlacedFeature SMALL_WINE_PALM_CHECKED_DIRT_LEAF_LITTER = register("small_wine_palm_checked_dirt_leaf_litter");
 
-	private WWTreePlaced() {
-		throw new UnsupportedOperationException("WWTreePlaced contains only static declarations.");
-	}
-
-	public static void registerTreePlaced() {
+	public static void registerTreePlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWTreePlaced for", true);
-
-		BlockPredicateFilter fallenTreeFilter = BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE));
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(
+			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)
+		);
 
 		// BIRCH
 		BlockPredicateFilter birchSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING);
@@ -315,12 +318,12 @@ public final class WWTreePlaced {
 		DEAD_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 		DEAD_MEDIUM_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 
-		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_BIRCH_TREE, fallenTreeFilter);
-		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_BIRCH_TREE, fallenTreeFilter);
+		FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_BIRCH_TREE, fallenTreePlacement);
+		MOSSY_FALLEN_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_BIRCH_TREE, fallenTreePlacement);
 		SNAPPED_BIRCH_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_BIRCH, birchSaplingPlacement);
 
 		// CHERRY
-		BlockPredicateFilter cherrySaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING);
+		final BlockPredicateFilter cherrySaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.CHERRY_SAPLING);
 		CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.CHERRY_TREE, cherrySaplingPlacement);
 		DYING_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_CHERRY_TREE, cherrySaplingPlacement);
 		CHERRY_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.CHERRY_BEES_025, cherrySaplingPlacement);
@@ -328,8 +331,8 @@ public final class WWTreePlaced {
 		TALL_DYING_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_DYING_CHERRY_TREE, cherrySaplingPlacement);
 		TALL_CHERRY_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_CHERRY_BEES_025, cherrySaplingPlacement);
 
-		FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CHERRY_TREE, fallenTreeFilter);
-		MOSSY_FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_CHERRY_TREE, fallenTreeFilter);
+		FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CHERRY_TREE, fallenTreePlacement);
+		MOSSY_FALLEN_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_CHERRY_TREE, fallenTreePlacement);
 		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CHERRY_TREE, cherrySaplingPlacement);
 
 		// MAPLE
@@ -375,7 +378,7 @@ public final class WWTreePlaced {
 		);
 
 		// OAK
-		BlockPredicateFilter oakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING);
+		final BlockPredicateFilter oakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING);
 		OAK_CHECKED.makeAndSetHolders(oakSaplingPlacement);
 		OAK_NO_FUNGI_CHECKED.makeAndSetHolders(oakSaplingPlacement);
 		DYING_OAK_CHECKED.makeAndSetHolders(oakSaplingPlacement);
@@ -396,13 +399,13 @@ public final class WWTreePlaced {
 		DEAD_OAK_CHECKED.makeAndSetHolders(oakSaplingPlacement);
 		DEAD_OAK_BRANCHES_CHECKED.makeAndSetHolders(oakSaplingPlacement);
 
-		FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE, fallenTreeFilter);
-		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE_NO_MOSS, fallenTreeFilter);
-		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_OAK_TREE, fallenTreeFilter);
+		FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE, fallenTreePlacement);
+		FALLEN_OAK_NO_MOSS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_OAK_TREE_NO_MOSS, fallenTreePlacement);
+		MOSSY_FALLEN_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_OAK_TREE, fallenTreePlacement);
 		SNAPPED_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_OAK, oakSaplingPlacement);
 
 		// DARK OAK
-		BlockPredicateFilter darkOakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING);
+		final BlockPredicateFilter darkOakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING);
 		DARK_OAK_CHECKED.makeAndSetHolders(darkOakSaplingPlacement);
 		TALL_DARK_OAK_CHECKED.makeAndSetHolders(darkOakSaplingPlacement);
 		FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolders(darkOakSaplingPlacement);
@@ -412,11 +415,11 @@ public final class WWTreePlaced {
 		COBWEB_TALL_DARK_OAK_CHECKED.makeAndSetHolders(darkOakSaplingPlacement);
 		COBWEB_FANCY_TALL_DARK_OAK_CHECKED.makeAndSetHolders(darkOakSaplingPlacement);
 
-		LARGE_FALLEN_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_DARK_OAK, fallenTreeFilter);
+		LARGE_FALLEN_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_DARK_OAK, fallenTreePlacement);
 		LARGE_SNAPPED_DARK_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_DARK_OAK, darkOakSaplingPlacement);
 
 		// PALE OAK
-		BlockPredicateFilter paleOakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING);
+		final BlockPredicateFilter paleOakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING);
 		PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.PALE_OAK, paleOakSaplingPlacement);
 		PALE_OAK_CREAKING_CHECKED.makeAndSetHolder(WWTreeConfigured.PALE_OAK_CREAKING, paleOakSaplingPlacement);
 		TALL_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALE_OAK, paleOakSaplingPlacement);
@@ -431,16 +434,16 @@ public final class WWTreePlaced {
 		LARGE_SNAPPED_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_PALE_OAK, paleOakSaplingPlacement);
 
 		// SWAMP TREE
-		BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING);
+		final BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING);
 		WILLOW_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 		WILLOW_TALL_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 		WILLOW_TALLER_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 		SWAMP_OAK_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 
-		MOSSY_FALLEN_WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_WILLOW_TREE, fallenTreeFilter);
+		MOSSY_FALLEN_WILLOW_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_WILLOW_TREE, fallenTreePlacement);
 
 		// SPRUCE
-		BlockPredicateFilter spruceSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING);
+		final BlockPredicateFilter spruceSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING);
 		SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
 		SPRUCE_SHORT_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
@@ -459,11 +462,11 @@ public final class WWTreePlaced {
 		SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
 		SHORT_MEGA_DYING_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
 
-		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_SPRUCE_TREE, fallenTreeFilter);
-		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE, fallenTreeFilter);
-		CLEAN_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_FALLEN_SPRUCE_TREE, fallenTreeFilter);
-		DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.DECORATED_LARGE_FALLEN_SPRUCE_TREE, fallenTreeFilter);
-		CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_LARGE_FALLEN_SPRUCE_TREE, fallenTreeFilter);
+		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_SPRUCE_TREE, fallenTreePlacement);
+		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE, fallenTreePlacement);
+		CLEAN_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_FALLEN_SPRUCE_TREE, fallenTreePlacement);
+		DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.DECORATED_LARGE_FALLEN_SPRUCE_TREE, fallenTreePlacement);
+		CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_LARGE_FALLEN_SPRUCE_TREE, fallenTreePlacement);
 		SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_SPRUCE, spruceSaplingPlacement);
 		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SNAPPED_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
 		LARGE_SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
@@ -474,14 +477,14 @@ public final class WWTreePlaced {
 		BAOBAB_TALL.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT));
 
 		// CYPRESS
-		BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING);
+		final BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING);
 		CYPRESS.makeAndSetHolder(WWTreeConfigured.CYPRESS, cypressSaplingPlacement);
 		FUNGUS_CYPRESS.makeAndSetHolder(WWTreeConfigured.FUNGUS_CYPRESS, cypressSaplingPlacement);
 		SHORT_CYPRESS.makeAndSetHolder(WWTreeConfigured.SHORT_CYPRESS, cypressSaplingPlacement);
 		SHORT_FUNGUS_CYPRESS.makeAndSetHolder(WWTreeConfigured.SHORT_FUNGUS_CYPRESS, cypressSaplingPlacement);
 		SWAMP_CYPRESS.makeAndSetHolder(WWTreeConfigured.SWAMP_CYPRESS, cypressSaplingPlacement);
 
-		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CYPRESS_TREE, fallenTreeFilter);
+		FALLEN_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_CYPRESS_TREE, fallenTreePlacement);
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CYPRESS, cypressSaplingPlacement);
 
 		// BUSH
@@ -490,13 +493,13 @@ public final class WWTreePlaced {
 		BIG_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH, oakSaplingPlacement);
 
 		// PALM
-		BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT);
+		final BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT);
 		PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.PALM.getHolder(), coconutPlacement);
 		TALL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALM.getHolder(), coconutPlacement);
 		TALL_WINDMILL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_WINDMILL_PALM.getHolder(), coconutPlacement);
 		SMALL_WINDMILL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.SHORT_WINDMILL_PALM.getHolder(), coconutPlacement);
 
-		FALLEN_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM, fallenTreeFilter);
+		FALLEN_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM, fallenTreePlacement);
 
 		// JUNIPER
 		JUNIPER.makeAndSetHolders(oakSaplingPlacement);
@@ -506,22 +509,22 @@ public final class WWTreePlaced {
 		JUNGLE_TREE_CHECKED.makeAndSetHolders(jungleSaplingPlacement);
 		MEGA_JUNGLE_TREE_CHECKED.makeAndSetHolders(jungleSaplingPlacement);
 
-		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_JUNGLE_TREE, fallenTreeFilter);
-		LARGE_FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_JUNGLE_TREE, fallenTreeFilter);
+		FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_JUNGLE_TREE, fallenTreePlacement);
+		LARGE_FALLEN_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_FALLEN_JUNGLE_TREE, fallenTreePlacement);
 		SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_JUNGLE, jungleSaplingPlacement);
 		LARGE_SNAPPED_JUNGLE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_JUNGLE, jungleSaplingPlacement);
 
 		//ACACIA
 		ACACIA_CHECKED_LEAF_LITTER.makeAndSetHolder(WWTreeConfigured.ACACIA_LEAF_LITTER, PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING));
 
-		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_ACACIA_TREE, fallenTreeFilter);
+		FALLEN_ACACIA_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_ACACIA_TREE, fallenTreePlacement);
 		SNAPPED_ACACIA_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_ACACIA, PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING));
 
 		//MANGROVE
 		MANGROVE_CHECKED.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
 		TALL_MANGROVE_CHECKED.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
 
-		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE, fallenTreeFilter);
+		FALLEN_MANGROVE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MANGROVE_TREE, fallenTreePlacement);
 
 		//CRIMSON
 

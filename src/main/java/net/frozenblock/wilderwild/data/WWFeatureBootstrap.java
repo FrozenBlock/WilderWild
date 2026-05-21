@@ -47,7 +47,7 @@ public final class WWFeatureBootstrap {
 	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
 		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
-		WWTreePlaced.registerTreePlaced();
+		WWTreePlaced.registerTreePlaced(entries);
 		WWMiscPlaced.registerMiscPlaced(entries);
 		WWCavePlaced.registerCavePlaced(entries);
 		WWAquaticPlaced.registerAquaticPlaced(entries);

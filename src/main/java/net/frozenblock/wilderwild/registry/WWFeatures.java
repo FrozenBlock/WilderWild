@@ -97,20 +97,20 @@ public final class WWFeatures {
 
 	public static final RootPlacerType<WillowRootPlacer> WILLOW_ROOT_PLACER = register("willow_root_placer", WillowRootPlacer.CODEC);
 
-	public static final Feature<ShelfFungiFeatureConfiguration> SHELF_FUNGI_FEATURE = register("shelf_fungi", new ShelfFungiFeature(ShelfFungiFeatureConfiguration.CODEC));
-	public static final Feature<SpongeBudFeatureConfiguration> SPONGE_BUD_FEATURE = register("sponge_bud", new SpongeBudFeature(SpongeBudFeatureConfiguration.CODEC));
-	public static final CattailFeature CATTAIL_FEATURE = register("cattail", new CattailFeature(CattailFeatureConfiguration.CODEC));
-	public static final WaterCoverFeature WATER_COVER_FEATURE = register("water_cover", new WaterCoverFeature(WaterCoverFeatureConfiguration.CODEC));
-	public static final Feature<BlockStateConfiguration> SEA_ANEMONE_FEATURE = register("sea_anemone", new SeaAnemoneFeature(BlockStateConfiguration.CODEC));
-	public static final SeaWhipFeature SEA_WHIP_FEATURE = register("sea_whip", new SeaWhipFeature(NoneFeatureConfiguration.CODEC));
-	public static final Feature<NoneFeatureConfiguration> TUBE_WORMS_FEATURE = register("tube_worms", new TubeWormsFeature(NoneFeatureConfiguration.CODEC));
-	public static final HydrothermalVentFeature HYDROTHERMAL_VENT_FEATURE = register("hydrothermal_vent", new HydrothermalVentFeature(NoneFeatureConfiguration.CODEC));
-	public static final NematocystFeature NEMATOCYST_FEATURE = register("nematocyst", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));
+	public static final ShelfFungiFeature SHELF_FUNGI = register("shelf_fungi", new ShelfFungiFeature(ShelfFungiFeatureConfiguration.CODEC));
+	public static final SpongeBudFeature SPONGE_BUD = register("sponge_bud", new SpongeBudFeature(SpongeBudFeatureConfiguration.CODEC));
+	public static final CattailFeature CATTAIL = register("cattail", new CattailFeature(CattailFeatureConfiguration.CODEC));
+	public static final WaterCoverFeature WATER_COVER = register("water_cover", new WaterCoverFeature(WaterCoverFeatureConfiguration.CODEC));
+	public static final SeaAnemoneFeature SEA_ANEMONE = register("sea_anemone", new SeaAnemoneFeature(BlockStateConfiguration.CODEC));
+	public static final SeaWhipFeature SEA_WHIP = register("sea_whip", new SeaWhipFeature(NoneFeatureConfiguration.CODEC));
+	public static final TubeWormsFeature TUBE_WORMS = register("tube_worms", new TubeWormsFeature(NoneFeatureConfiguration.CODEC));
+	public static final HydrothermalVentFeature HYDROTHERMAL_VENT = register("hydrothermal_vent", new HydrothermalVentFeature(NoneFeatureConfiguration.CODEC));
+	public static final NematocystFeature NEMATOCYST = register("nematocyst", new NematocystFeature(MultifaceGrowthConfiguration.CODEC));
 	public static final LargeMesogleaFeature LARGE_MESOGLEA = register("large_mesoglea", new LargeMesogleaFeature(LargeMesogleaConfiguration.CODEC));
-	public static final SnowBlanketFeature SNOW_BLANKET_FEATURE = register("snow_blanket", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
-	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK_FEATURE = register("snow_and_freeze_disk", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfiguration.CODEC));
-	public static final PalmTreeFeature PALM_TREE_FEATURE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
-	public static final Feature<HugeMushroomFeatureConfiguration> HUGE_PALE_MUSHROOM_FEATURE = register("huge_pale_mushroom", new HugePaleMushroomFeature(HugeMushroomFeatureConfiguration.CODEC));
+	public static final SnowBlanketFeature SNOW_BLANKET = register("snow_blanket", new SnowBlanketFeature(NoneFeatureConfiguration.CODEC));
+	public static final SnowAndFreezeDiskFeature SNOW_AND_FREEZE_DISK = register("snow_and_freeze_disk", new SnowAndFreezeDiskFeature(SnowAndIceDiskFeatureConfiguration.CODEC));
+	public static final PalmTreeFeature PALM_TREE = register("palm_tree", new PalmTreeFeature(TreeConfiguration.CODEC));
+	public static final HugePaleMushroomFeature HUGE_PALE_MUSHROOM = register("huge_pale_mushroom", new HugePaleMushroomFeature(HugeMushroomFeatureConfiguration.CODEC));
 
 	public static void init() {}
 

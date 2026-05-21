@@ -20,11 +20,12 @@ package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -47,7 +49,6 @@ import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
@@ -152,15 +153,10 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
-	private WWMiscPlaced() {
-		throw new UnsupportedOperationException("WWMiscPlaced contains only static declarations.");
-	}
-
 	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
-		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		var placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-
 		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH, PlacementUtils.isEmpty());
 
@@ -659,13 +655,13 @@ public final class WWMiscPlaced {
 		);
 	}
 
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
+	@Unmodifiable
+	private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
 		return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());
 	}
 
-	@Contract("_, _ -> new")
-	private static @Unmodifiable List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
+	@Unmodifiable
+	private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {
 		return modifiers(CountPlacement.of(count), heightModifier);
 	}
 

@@ -39,7 +39,6 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -49,13 +48,11 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
@@ -102,7 +99,7 @@ public final class WWAquaticConfigured {
 		WWConstants.logWithModId("Registering WWAquaticConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
-		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
+		CATTAIL.makeAndSetHolder(WWFeatures.CATTAIL,
 			new CattailFeatureConfiguration(
 				6,
 				UniformInt.of(24, 32),
@@ -110,7 +107,7 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		CATTAIL_SMALL.makeAndSetHolder(WWFeatures.CATTAIL_FEATURE,
+		CATTAIL_SMALL.makeAndSetHolder(WWFeatures.CATTAIL,
 			new CattailFeatureConfiguration(
 				4,
 				UniformInt.of(10, 20),
@@ -122,15 +119,15 @@ public final class WWAquaticConfigured {
 			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
 		);
 
-		PATCH_ALGAE.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+		PATCH_ALGAE.makeAndSetHolder(WWFeatures.WATER_COVER,
 			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(4, 10))
 		);
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.WATER_COVER,
 			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(2, 6))
 		);
 
-		PATCH_PLANKTON.makeAndSetHolder(WWFeatures.WATER_COVER_FEATURE,
+		PATCH_PLANKTON.makeAndSetHolder(WWFeatures.WATER_COVER,
 			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.PLANKTON), UniformInt.of(2, 4))
 		);
 
@@ -140,35 +137,29 @@ public final class WWAquaticConfigured {
 
 		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				(MultifaceSpreadeableBlock) WWBlocks.BARNACLES,
+				WWBlocks.BARNACLES,
 				6,
 				true,
 				true,
 				true,
 				0.7F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK,
-					WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE
-				)
+				blocks.getOrThrow(WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE)
 			)
 		);
 
 		PATCH_BARNACLES.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				(MultifaceSpreadeableBlock) WWBlocks.BARNACLES,
+				WWBlocks.BARNACLES,
 				10,
 				true,
 				false,
 				true,
 				0.7F,
-				new HolderSet.Named<>(
-					BuiltInRegistries.BLOCK,
-					WWBlockTags.BARNACLES_FEATURE_PLACEABLE
-				)
+				blocks.getOrThrow(WWBlockTags.BARNACLES_FEATURE_PLACEABLE)
 			)
 		);
 
-		SPONGE_BUD.makeAndSetHolder(WWFeatures.SPONGE_BUD_FEATURE,
+		SPONGE_BUD.makeAndSetHolder(WWFeatures.SPONGE_BUD,
 			new SpongeBudFeatureConfiguration(
 				20,
 				true,
@@ -178,24 +169,20 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		SEA_ANEMONE.makeAndSetHolder(WWFeatures.SEA_ANEMONE_FEATURE,
+		SEA_ANEMONE.makeAndSetHolder(WWFeatures.SEA_ANEMONE,
 			new BlockStateConfiguration(WWBlocks.SEA_ANEMONE.defaultBlockState())
 		);
 
-		SEA_WHIP.makeAndSetHolder(WWFeatures.SEA_WHIP_FEATURE,
-			NoneFeatureConfiguration.INSTANCE
-		);
+		SEA_WHIP.makeAndSetHolder(WWFeatures.SEA_WHIP, NoneFeatureConfiguration.INSTANCE);
 
-		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS_FEATURE,
-			NoneFeatureConfiguration.INSTANCE
-		);
+		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS, NoneFeatureConfiguration.INSTANCE);
 
 		HYDROTHERMAL_VENT.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.GABBRO),
 				PlacementUtils.inlinePlaced(
-					WWFeatures.HYDROTHERMAL_VENT_FEATURE,
+					WWFeatures.HYDROTHERMAL_VENT,
 					NoneFeatureConfiguration.INSTANCE
 				),
 				CaveSurface.FLOOR,
@@ -211,9 +198,9 @@ public final class WWAquaticConfigured {
 		HYDROTHERMAL_VENT_TUBE_WORMS.makeAndSetHolder(Feature.SEQUENCE,
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
-					PlacementUtils.inlinePlaced(HYDROTHERMAL_VENT.getHolder()),
+					HYDROTHERMAL_VENT.asInlinePlaced(),
 					PlacementUtils.inlinePlaced(
-						WWFeatures.TUBE_WORMS_FEATURE,
+						WWFeatures.TUBE_WORMS,
 						NoneFeatureConfiguration.INSTANCE,
 						CountPlacement.of(33),
 						RandomOffsetPlacement.ofTriangle(5, 4)
@@ -267,7 +254,7 @@ public final class WWAquaticConfigured {
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,
@@ -281,38 +268,29 @@ public final class WWAquaticConfigured {
 		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfiguration(
 				List.of(
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
-							CountPlacement.of(4),
-							RandomOffsetPlacement.ofTriangle(6, 3)
-						),
-						0.5F
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.5F,
+						CountPlacement.of(4),
+						RandomOffsetPlacement.ofTriangle(6, 3)
 					),
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
-							CountPlacement.of(5),
-							RandomOffsetPlacement.ofTriangle(6, 4)
-						),
-						0.35F
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.35F,
+						CountPlacement.of(5),
+						RandomOffsetPlacement.ofTriangle(6, 4)
 					),
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH_UNDERWATER.getHolder(),
-							CountPlacement.of(3),
-							RandomOffsetPlacement.ofTriangle(3, 2)
-						),
-						0.5F
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.5F,
+						CountPlacement.of(3),
+						RandomOffsetPlacement.ofTriangle(3, 2)
 					)
 				),
-				PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH_UNDERWATER.getHolder())
+				AUBURN_MOSS_PATCH_UNDERWATER.asInlinePlaced()
 			)
 		);
 
 		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				(MultifaceSpreadeableBlock) WWBlocks.AUBURN_CREEPING_MOSS,
+				WWBlocks.AUBURN_CREEPING_MOSS,
 				10,
 				true,
 				true,
@@ -326,7 +304,7 @@ public final class WWAquaticConfigured {
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
-				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_UNDERWATER.getHolder()),
+				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,

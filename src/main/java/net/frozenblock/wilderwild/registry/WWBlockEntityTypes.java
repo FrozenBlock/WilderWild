@@ -18,8 +18,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Set;
-
-import net.frozenblock.wilderwild.block.entity.*;
+import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
+import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
+import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
+import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
+import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.references.WWBlockEntityTypeIds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

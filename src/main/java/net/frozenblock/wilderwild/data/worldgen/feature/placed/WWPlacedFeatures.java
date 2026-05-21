@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -45,6 +46,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -342,15 +344,10 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_PALE_OAK_LEAF_LITTER = register("patch_pale_oak_leaf_litter");
 	public static final FrozenLibPlacedFeature PATCH_SPRUCE_LEAF_LITTER = register("patch_spruce_leaf_litter");
 
-	private WWPlacedFeatures() {
-		throw new UnsupportedOperationException("WWPlacedFeatures contains only static declarations.");
-	}
-
 	public static void registerPlacedFeatures(BootstrapContext<PlacedFeature> entries) {
-
-		var configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-
 		WWConstants.logWithModId("Registering WWPlacedFeatures for ", true);
+		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		// FALLEN TREES
 		FALLEN_TREES_MIXED_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_TREES_MIXED,
@@ -2571,36 +2568,27 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		BlockPredicateFilter leafLitterPredicate = BlockPredicateFilter.forPredicate(
+		final BlockPredicateFilter leafLitterPlacementPredicate = BlockPredicateFilter.forPredicate(
 			BlockPredicate.not(
 				BlockPredicate.anyOf(
-					BlockPredicate.matchesTag(
-						Direction.DOWN.getUnitVec3i(),
-						BlockTags.SAND
-					),
-					BlockPredicate.matchesTag(
-						Direction.DOWN.getUnitVec3i(),
-						BlockTags.TERRACOTTA
-					),
+					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SAND),
+					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.TERRACOTTA),
 					BlockPredicate.matchesBlocks(
 						Direction.DOWN.getUnitVec3i(),
 						Blocks.GRAVEL,
 						Blocks.SUSPICIOUS_GRAVEL,
 						Blocks.CLAY
 					),
-					BlockPredicate.not(
-						BlockPredicate.noFluid(Direction.DOWN.getUnitVec3i())
-					)
+					BlockPredicate.not(BlockPredicate.noFluid(Direction.DOWN.getUnitVec3i()))
 				)
 			)
 		);
-
 		PATCH_LEAF_LITTER.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.LEAF_LITTER),
 			CountPlacement.of(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			leafLitterPredicate,
+			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
@@ -2616,7 +2604,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			leafLitterPredicate,
+			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
@@ -2632,7 +2620,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			leafLitterPredicate,
+			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
@@ -2643,7 +2631,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			leafLitterPredicate,
+			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
@@ -2654,7 +2642,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			leafLitterPredicate,
+			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
