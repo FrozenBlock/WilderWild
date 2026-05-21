@@ -31,7 +31,6 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> BETA_BEACHES = CONFIG.entry("betaBeaches", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SNOW_UNDER_MOUNTAINS = CONFIG.entry("snowUnderMountains", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> SNOW_BELOW_TREES = CONFIG.entryBuilder("snowBelowTrees", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> SULFUR_CAVES_CALCITE = CONFIG.entry("sulfurCavesCalcite", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> TERMITE_GENERATION = CONFIG.entryBuilder("termiteGen", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NETHER_GEOTHERMAL_VENT_GENERATION = CONFIG.entryBuilder("netherGeothermalVentGen", EntryType.BOOL, true).requireRestart().build();
 

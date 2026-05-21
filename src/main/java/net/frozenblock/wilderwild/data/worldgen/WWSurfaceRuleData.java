@@ -23,13 +23,11 @@ import net.frozenblock.lib.levelgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
-import net.frozenblock.wilderwild.levelgen.conditionsource.SulfurCavesCalciteConditionSource;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Noises;
@@ -521,49 +519,12 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource sulfurCavesCalcite(HolderLookup<Biome> biomes) {
-		// NOTE: Old gen before snapshot-6 reverted granite & tuff gen
-		/*
-		// It's half and half! (80 total.)
-		final ArrayList<Optional<BlockState>> states = new ArrayList<>();
-		for (int i = 0; i < 40; i++) states.add(Optional.empty());
-		for (int i = 0; i < 2; i++) states.add(Optional.of(Blocks.TUFF.defaultBlockState()));
-		for (int i = 0; i < 9; i++) states.add(Optional.of(Blocks.CINNABAR.defaultBlockState()));
-		for (int i = 0; i < 3; i++) states.add(Optional.of(Blocks.GRANITE.defaultBlockState()));
-		for (int i = 0; i < 2; i++) states.add(Optional.of(Blocks.CALCITE.defaultBlockState()));
-		for (int i = 0; i < 24; i++) states.add(Optional.of(Blocks.SULFUR.defaultBlockState()));
-
-		return SurfaceRules.ifTrue(
-			SulfurCavesCalciteConditionSource.sulfurCavesCalciteConditionSource(),
-			SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(biomes, Biomes.SULFUR_CAVES),
-				SurfaceRules.noiseGradient(
-					Noises.SULFUR_CAVE_GRADIENT,
-					ImmutableList.copyOf(states)
-				)
-			)
-		);
-		 */
-
-		return SurfaceRules.ifTrue(
-			SulfurCavesCalciteConditionSource.sulfurCavesCalciteConditionSource(),
-			SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(biomes, Biomes.SULFUR_CAVES),
-				SurfaceRules.ifTrue(
-					SurfaceRules.noiseCondition3d(Noises.SULFUR_CAVE_GRADIENT, -0.1F, 0F),
-					SurfaceRules.state(Blocks.CALCITE.defaultBlockState())
-				)
-			)
-		);
-	}
-
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
 				snowUnderMountains(),
-				frozenCavesSurfaceRules(biomes),
-				sulfurCavesCalcite(biomes)
+				frozenCavesSurfaceRules(biomes)
 			)
 		);
 	}

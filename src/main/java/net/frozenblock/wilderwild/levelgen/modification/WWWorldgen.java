@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
 import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
-import net.frozenblock.wilderwild.levelgen.conditionsource.SulfurCavesCalciteConditionSource;
 import net.frozenblock.wilderwild.levelgen.treedecorators.WWTreeDecorators;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -102,7 +101,6 @@ public final class WWWorldgen {
 
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_enabled"), BetaBeachConditionSource.CODEC);
 		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_enabled"), SnowUnderMountainConditionSource.CODEC);
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("sulfur_caves_calcite_enabled"), SulfurCavesCalciteConditionSource.CODEC);
 	}
 
 	private static void configureBuiltInBiomes() {
