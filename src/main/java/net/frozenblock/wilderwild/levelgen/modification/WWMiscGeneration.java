@@ -333,13 +333,11 @@ public final class WWMiscGeneration {
 			ModificationPhase.ADDITIONS,
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
-				if (!WWWorldgenConfig.RIVER_POOL_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
-					generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
-				}
+				if (!biomeSelectionContext.hasTag(WWBiomeTags.HAS_WATER_POOLS)) return;
+				generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.RIVER_POOL.getKey());
+				generationSettings.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.SMALL_RIVER_POOL.getKey());
 			});
 	}
 

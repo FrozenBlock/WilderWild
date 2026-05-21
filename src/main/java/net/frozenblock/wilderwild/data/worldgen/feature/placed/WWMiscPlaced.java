@@ -18,8 +18,11 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.placement.api.ConfigEntryPlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
@@ -338,7 +341,9 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		final ConfigEntryPlacementFilter<?> riverPoolConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.RIVER_POOL_GENERATION, true).asPlacementFilter();
 		RIVER_POOL.makeAndSetHolder(WWMiscConfigured.RIVER_POOL,
+			riverPoolConfigPredicate,
 			CountPlacement.of(20),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
@@ -350,6 +355,7 @@ public final class WWMiscPlaced {
 		);
 
 		SMALL_RIVER_POOL.makeAndSetHolder(WWMiscConfigured.SMALL_RIVER_POOL,
+			riverPoolConfigPredicate,
 			CountPlacement.of(8),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
