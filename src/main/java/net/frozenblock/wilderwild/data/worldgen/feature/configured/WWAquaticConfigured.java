@@ -168,7 +168,7 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		SEA_ANEMONE.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE), true));
+		SEA_ANEMONE.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE)));
 
 		SEA_WHIP.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_WHIP)));
 
