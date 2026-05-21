@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
-import net.frozenblock.lib.levelgen.feature.api.feature.config.ColumnWithDiskFeatureConfiguration;
+import net.frozenblock.lib.levelgen.feature.api.feature.configurations.ColumnWithDiskFeatureConfiguration;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;

@@ -25,7 +25,7 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.TouchingBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.feature.config.ColumnFeatureConfiguration;
+import net.frozenblock.lib.levelgen.feature.api.feature.configurations.ColumnFeatureConfiguration;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallFeatureConfiguration;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
