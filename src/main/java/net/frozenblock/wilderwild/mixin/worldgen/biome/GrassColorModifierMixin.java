@@ -17,13 +17,10 @@
 
 package net.frozenblock.wilderwild.mixin.worldgen.biome;
 
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
-import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -32,8 +29,7 @@ public enum GrassColorModifierMixin {
 	WILDER_WILD_TUNDRA(WWConstants.safeString("tundra")) {
 		@Override
 		public int modifyColor(double x, double z, int baseColor) {
-			final double noise = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2525L)), ImmutableList.of(0))
-				.getValue(x * 0.0225D, z * 0.0225D, false);
+			final double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
 			if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN;
 			if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE;
 			if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH;
