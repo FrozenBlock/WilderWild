@@ -20,3 +20,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a crash when trying to join servers that do not have Wilder Wild installed.
 - Removed the feature that made the Enderman's staring sound move along with it.
   - This was simply out of the mod's scope and detracted from the Enderman's fear factor.
+- Added `fingerspit`'s new music tracks to Wilder Wild's custom music pools, thanks to `Rebel459`!
