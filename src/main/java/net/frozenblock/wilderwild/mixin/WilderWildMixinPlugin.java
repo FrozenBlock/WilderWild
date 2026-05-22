@@ -58,7 +58,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
 		if (mixinClassName.contains("client.brush.")) return this.mixinsConfig.client_brush;
 		if (mixinClassName.contains("client.easter.")) return this.mixinsConfig.client_easter;
-		if (mixinClassName.contains("client.enderman.")) return this.mixinsConfig.client_enderman;
 		if (mixinClassName.contains("client.mesoglea.")) {
 			if ((mixinClassName.contains("LiquidBlockRenderer") || mixinClassName.contains("EntityRenderDispatcher")) && this.disableNonSodium) return false;
 			return this.mixinsConfig.client_mesoglea;
