@@ -21,19 +21,13 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.config.clothconfig.FrozenClothConfig;
+import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.booleanEntry;
-import static net.frozenblock.wilderwild.config.gui.WWConfigGuiHelper.intSliderEntry;
 
 @Environment(EnvType.CLIENT)
 public final class WWBlockConfigGui {
-
-	private WWBlockConfigGui() {
-		throw new UnsupportedOperationException("WWBlockConfigGui contains only static declarations.");
-	}
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
 		category.addEntry(booleanEntry(builder, "reach_boost_beacon", WWBlockConfig.REACH_BOOST_BEACON));
@@ -48,118 +42,80 @@ public final class WWBlockConfigGui {
 		category.addEntry(booleanEntry(builder, "thick_big_fungus_growth", WWBlockConfig.THICK_BIG_FUNGUS_GROWTH));
 
 		// SCULK
-		var shriekerGargling = booleanEntry(builder, "shrieker_gargling", WWBlockConfig.SHRIEKER_GARGLING);
-		var shriekerOutline = booleanEntry(builder, "shrieker_outline", WWBlockConfig.SHRIEKER_OUTLINE);
-		var billboardTendrils = booleanEntry(builder, "billboard_tendrils", WWBlockConfig.BILLBOARD_TENDRILS);
-		var tendrilsCarryEvents = booleanEntry(builder, "tendrils_carry_events", WWBlockConfig.TENDRILS_CARRY_EVENTS);
-		var tendrilGeneration = booleanEntry(builder, "hanging_tendril_generation", WWBlockConfig.TENDRIL_GENERATION);
-		var osseousSculkGeneration = booleanEntry(builder, "osseous_sculk_generation", WWBlockConfig.OSSEOUS_SCULK_GENERATION);
-		var sculkBuildingBlocksGeneration = booleanEntry(builder, "sculk_building_blocks_generation", WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("sculk"),
-			false,
-			tooltip("sculk"),
-			shriekerGargling, shriekerOutline,
-			tendrilsCarryEvents, billboardTendrils, tendrilGeneration,
-			osseousSculkGeneration,
-			sculkBuildingBlocksGeneration
+		createSubCategory(builder, category, text("sculk"), tooltip("sculk"),
+			booleanEntry(builder, "shrieker_gargling", WWBlockConfig.SHRIEKER_GARGLING),
+			booleanEntry(builder, "shrieker_outline", WWBlockConfig.SHRIEKER_OUTLINE),
+			booleanEntry(builder, "tendrils_carry_events", WWBlockConfig.TENDRILS_CARRY_EVENTS),
+			booleanEntry(builder, "billboard_tendrils", WWBlockConfig.BILLBOARD_TENDRILS),
+			booleanEntry(builder, "hanging_tendril_generation", WWBlockConfig.TENDRIL_GENERATION),
+			booleanEntry(builder, "osseous_sculk_generation", WWBlockConfig.OSSEOUS_SCULK_GENERATION),
+			booleanEntry(builder, "sculk_building_blocks_generation", WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION)
 		);
 
 		// MESOGLEA
-		var mesogleaFluid = booleanEntry(builder, "mesoglea_fluid", WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID);
-		var mesogleaBubbleColumns = booleanEntry(builder, "mesoglea_bubble_columns", WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("mesoglea"),
-			false,
-			tooltip("mesoglea"),
-			mesogleaBubbleColumns, mesogleaFluid
+		createSubCategory(builder, category, text("mesoglea"), tooltip("mesoglea"),
+			booleanEntry(builder, "mesoglea_bubble_columns", WWBlockConfig.MESOGLEA_BUBBLE_COLUMNS),
+			booleanEntry(builder, "mesoglea_fluid", WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID)
 		);
 
 		// TERMITE
-		var termitesOnlyEatNaturalBlocks = booleanEntry(builder, "termites_only_eat_natural_blocks", WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS);
-		var maxTermiteDistance = intSliderEntry(builder, "max_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72);
-		var maxNaturalTermiteDistance = intSliderEntry(builder, "max_natural_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("termite"),
-			false,
-			tooltip("termite"),
-			termitesOnlyEatNaturalBlocks, maxTermiteDistance, maxNaturalTermiteDistance
+		createSubCategory(builder, category, text("termite"), tooltip("termite"),
+			booleanEntry(builder, "termites_only_eat_natural_blocks", WWBlockConfig.TERMITE_ONLY_EATS_NATURAL_BLOCKS),
+			intSliderEntry(builder, "max_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72),
+			intSliderEntry(builder, "max_natural_termite_distance", WWBlockConfig.TERMITE_MAX_DISTANCE, 1, 72)
 		);
 
 		// FLOWER
-		var bonemealDandelions = booleanEntry(builder, "bone_meal_dandelions", WWBlockConfig.BONE_MEAL_DANDELIONS);
-		var shearSeedingDandelions = booleanEntry(builder, "shear_seeding_dandelions", WWBlockConfig.SHEAR_SEEDING_DANDELIONS);
-		var bonemealLilypads = booleanEntry(builder, "bone_meal_lilypads", WWBlockConfig.BONE_MEAL_LILY_PADS);
-		var shearFloweringLilypads = booleanEntry(builder, "shear_flowering_lilypads", WWBlockConfig.SHEAR_FLOWERING_LILY_PADS);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("flower"),
-			false,
-			tooltip("flower"),
-			bonemealDandelions, shearSeedingDandelions, bonemealLilypads, shearFloweringLilypads
+		createSubCategory(builder, category, text("flower"), tooltip("flower"),
+			booleanEntry(builder, "bone_meal_dandelions", WWBlockConfig.BONE_MEAL_DANDELIONS),
+			booleanEntry(builder, "shear_seeding_dandelions", WWBlockConfig.SHEAR_SEEDING_DANDELIONS),
+			booleanEntry(builder, "bone_meal_lilypads", WWBlockConfig.BONE_MEAL_LILY_PADS),
+			booleanEntry(builder, "shear_flowering_lilypads", WWBlockConfig.SHEAR_FLOWERING_LILY_PADS)
 		);
 
 		// STONE CHEST
-		var stoneChestTimer = intSliderEntry(builder, "stone_chest_timer", WWBlockConfig.STONE_CHEST_TIMER, 50, 200);
-		var addStoneChests = booleanEntry(builder, "add_stone_chests", WWBlockConfig.ADD_STONE_CHESTS);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("stone_chest"),
-			false,
-			tooltip("stone_chest"),
-			stoneChestTimer, addStoneChests
+		createSubCategory(builder, category, text("stone_chest"), tooltip("stone_chest"),
+			intSliderEntry(builder, "stone_chest_timer", WWBlockConfig.STONE_CHEST_TIMER, 50, 200),
+			booleanEntry(builder, "add_stone_chests", WWBlockConfig.ADD_STONE_CHESTS)
 		);
 
 		// SNOWLOGGING
-		var allowSnowlogging = booleanEntry(builder, "allow_snowlogging", WWBlockConfig.SNOWLOGGING);
-		var snowlogWalls = booleanEntry(builder, "snowlog_walls", WWBlockConfig.SNOWLOG_WALLS);
-		var naturalSnowlogging = booleanEntry(builder, "natural_snowlogging", WWBlockConfig.NATURAL_SNOWLOGGING);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("snowlogging"),
-			false,
-			tooltip("snowlogging"),
-			allowSnowlogging, snowlogWalls, naturalSnowlogging
+		createSubCategory(builder, category, text("snowlogging"), tooltip("snowlogging"),
+			booleanEntry(builder, "allow_snowlogging", WWBlockConfig.SNOWLOGGING),
+			booleanEntry(builder, "snowlog_walls", WWBlockConfig.SNOWLOG_WALLS),
+			booleanEntry(builder, "natural_snowlogging", WWBlockConfig.NATURAL_SNOWLOGGING)
 		);
 
 		// FIRE
-		var extraMagmaParticles = booleanEntry(builder, "extra_magma_particles", WWBlockConfig.FIRE_EXTRA_MAGMA_PARTICLES);
-		var soulFireSounds = booleanEntry(builder, "soul_fire_sounds", WWBlockConfig.FIRE_SOUL_FIRE_SOUNDS);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("fire"),
-			false,
-			tooltip("snowlogging"),
-			extraMagmaParticles, soulFireSounds
+		createSubCategory(builder, category, text("fire"), tooltip("snowlogging"),
+			booleanEntry(builder, "extra_magma_particles", WWBlockConfig.FIRE_EXTRA_MAGMA_PARTICLES),
+			booleanEntry(builder, "soul_fire_sounds", WWBlockConfig.FIRE_SOUL_FIRE_SOUNDS)
 		);
 
 		// BLOCK SOUNDS
-		var cactusSounds = booleanEntry(builder, "cactus_sounds", WWBlockConfig.CACTUS_SOUNDS);
-		var claySounds = booleanEntry(builder, "clay_sounds", WWBlockConfig.CLAY_SOUNDS);
-		var coarseDirtSounds = booleanEntry(builder, "coarse_dirt_sounds", WWBlockConfig.COARSE_DIRT_SOUNDS);
-		var deadBushSounds = booleanEntry(builder, "dead_bush_sounds", WWBlockConfig.DEAD_BUSH_SOUNDS);
-		var flowerSounds = booleanEntry(builder, "flower_sounds", WWBlockConfig.FLOWER_SOUNDS);
-		var grassSounds = booleanEntry(builder, "grass_sounds", WWBlockConfig.GRASS_SOUNDS);
-		var magmaSounds = booleanEntry(builder, "magma_sounds", WWBlockConfig.MAGMA_SOUNDS);
-		var saplingSounds = booleanEntry(builder, "sapling_sounds", WWBlockConfig.SAPLING_SOUNDS);
-		var gravelSounds = booleanEntry(builder, "gravel_sounds", WWBlockConfig.GRAVEL_SOUNDS);
-		var iceSounds = booleanEntry(builder, "ice_sounds", WWBlockConfig.ICE_SOUNDS);
-		var frostedIceSounds = booleanEntry(builder, "frosted_ice_sounds", WWBlockConfig.FROSTED_ICE_SOUNDS);
-		var leafSounds = booleanEntry(builder, "leaf_sounds", WWBlockConfig.LEAF_SOUNDS);
-		var lilyPadSounds = booleanEntry(builder, "lily_pad_sounds", WWBlockConfig.LILY_PAD_SOUNDS);
-		var melonSounds = booleanEntry(builder, "melon_sounds", WWBlockConfig.MELON_SOUNDS);
-		var mossSounds = booleanEntry(builder, "moss_sounds", WWBlockConfig.MOSS_SOUNDS);
-		var mushroomBlockSounds = booleanEntry(builder, "mushroom_block_sounds", WWBlockConfig.MUSHROOM_BLOCK_SOUNDS);
-		var podzolSounds = booleanEntry(builder, "podzol_sounds", WWBlockConfig.PODZOL_SOUNDS);
-		var paleOakSounds = booleanEntry(builder, "pale_oak_sounds", WWBlockConfig.PALE_OAK_SOUNDS);
-		var reinforcedDeepslateSounds = booleanEntry(builder, "reinforced_deepslate_sounds", WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS);
-		var sandstoneSounds = booleanEntry(builder, "sandstone_sounds", WWBlockConfig.SANDSTONE_SOUNDS);
-		var sugarCaneSounds = booleanEntry(builder, "sugar_cane_sounds", WWBlockConfig.SUGAR_CANE_SOUNDS);
-		var witherRoseSounds = booleanEntry(builder, "wither_rose_sounds", WWBlockConfig.WITHER_ROSE_SOUNDS);
-
-		FrozenClothConfig.createSubCategory(builder, category, text("block_sounds"),
-			false,
-			tooltip("block_sounds"),
-			cactusSounds, claySounds, coarseDirtSounds, deadBushSounds, flowerSounds, frostedIceSounds,
-			grassSounds, gravelSounds, iceSounds, leafSounds, lilyPadSounds, magmaSounds, melonSounds, mossSounds,
-			mushroomBlockSounds, paleOakSounds, podzolSounds, reinforcedDeepslateSounds, sandstoneSounds, saplingSounds,
-			sugarCaneSounds, witherRoseSounds
+		createSubCategory(builder, category, text("block_sounds"), tooltip("block_sounds"),
+			booleanEntry(builder, "cactus_sounds", WWBlockConfig.CACTUS_SOUNDS),
+			booleanEntry(builder, "clay_sounds", WWBlockConfig.CLAY_SOUNDS),
+			booleanEntry(builder, "coarse_dirt_sounds", WWBlockConfig.COARSE_DIRT_SOUNDS),
+			booleanEntry(builder, "dead_bush_sounds", WWBlockConfig.DEAD_BUSH_SOUNDS),
+			booleanEntry(builder, "flower_sounds", WWBlockConfig.FLOWER_SOUNDS),
+			booleanEntry(builder, "frosted_ice_sounds", WWBlockConfig.FROSTED_ICE_SOUNDS),
+			booleanEntry(builder, "grass_sounds", WWBlockConfig.GRASS_SOUNDS),
+			booleanEntry(builder, "gravel_sounds", WWBlockConfig.GRAVEL_SOUNDS),
+			booleanEntry(builder, "ice_sounds", WWBlockConfig.ICE_SOUNDS),
+			booleanEntry(builder, "leaf_sounds", WWBlockConfig.LEAF_SOUNDS),
+			booleanEntry(builder, "lily_pad_sounds", WWBlockConfig.LILY_PAD_SOUNDS),
+			booleanEntry(builder, "magma_sounds", WWBlockConfig.MAGMA_SOUNDS),
+			booleanEntry(builder, "melon_sounds", WWBlockConfig.MELON_SOUNDS),
+			booleanEntry(builder, "moss_sounds", WWBlockConfig.MOSS_SOUNDS),
+			booleanEntry(builder, "mushroom_block_sounds", WWBlockConfig.MUSHROOM_BLOCK_SOUNDS),
+			booleanEntry(builder, "pale_oak_sounds", WWBlockConfig.PALE_OAK_SOUNDS),
+			booleanEntry(builder, "podzol_sounds", WWBlockConfig.PODZOL_SOUNDS),
+			booleanEntry(builder, "reinforced_deepslate_sounds", WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS),
+			booleanEntry(builder, "sandstone_sounds", WWBlockConfig.SANDSTONE_SOUNDS),
+			booleanEntry(builder, "sapling_sounds", WWBlockConfig.SAPLING_SOUNDS),
+			booleanEntry(builder, "sugar_cane_sounds", WWBlockConfig.SUGAR_CANE_SOUNDS),
+			booleanEntry(builder, "wither_rose_sounds", WWBlockConfig.WITHER_ROSE_SOUNDS)
 		);
 	}
 

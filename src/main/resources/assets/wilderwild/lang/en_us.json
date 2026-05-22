@@ -692,8 +692,6 @@
     "tooltip.wilderwild.reach_affects_attack": "Whether the Reach Boost effect will\nimpact the Player's attack range.",
     "option.wilderwild.crab_claw_gives_reach": "Crab Claws Give Reach Effect",
     "tooltip.wilderwild.crab_claw_gives_reach": "Whether Crab Claws will grant extended reach while held.",
-    "option.wilderwild.moving_stare_sound": "Moving Stare Sound",
-    "tooltip.wilderwild.moving_stare_sound": "Whether Enderman stare sounds will move\nwith the Enderman and able to be stopped early.",
     "option.wilderwild.spawn_firefly_particles": "Spawn Firefly Particles",
     "tooltip.wilderwild.spawn_firefly_particles": "Whether Firefly Particles can spawn from Firefly Bushes.",
     "option.wilderwild.fireflies_need_bush": "Firefly Bush Spawning",

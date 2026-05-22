@@ -422,7 +422,7 @@ public final class WWItems {
 		new Item.Properties()
 			.stacksTo(16)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
-			.delayedComponent(WWDataComponents.FIREFLY_COLOR, context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).getOrThrow(FireflyColors.DEFAULT))
+			.delayedComponent(WWDataComponents.FIREFLY_COLOR, context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null))
 	);
 	public static final Item BUTTERFLY_BOTTLE = Items.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(

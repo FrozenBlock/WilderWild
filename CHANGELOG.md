@@ -17,3 +17,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - If no performance issues are found, we will slowly expand this new system to other worldgen features.
 - All of Wilder Wild's block sound type overwrites are now data-driven, per FrozenLib 2.5's changes.
 - Slightly decreased the average size of Mesoglea Caves.
+- Fixed a crash when trying to join servers that do not have Wilder Wild installed.
+- Removed the feature that made the Enderman's staring sound move along with it.
+  - This was simply out of the mod's scope and detracted from the Enderman's fear factor.

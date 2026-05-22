@@ -38,10 +38,6 @@ public final class WWEntityConfig {
 	// ALLAY
 	public static final ConfigEntry<Boolean> ALLAY_KEYFRAME_DANCE = CONFIG.entry("allay/keyframeAllayDance", EntryType.BOOL, true);
 
-	// ENDERMAN
-	public static final ConfigEntry<Boolean> ENDERMAN_ANGER_LOOP_SOUND = CONFIG.entry("enderMan/angerLoopSound", EntryType.BOOL, true);
-	public static final ConfigEntry<Boolean> ENDERMAN_MOVING_STARE_SOUND = CONFIG.unsyncableEntry("enderMan/movingStareSound", EntryType.BOOL, true);
-
 	// FIREFLY
 	public static final ConfigEntry<Boolean> SPAWN_FIREFLY_PARTICLES = CONFIG.unsyncableEntry("firefly/spawnFireflyParticles", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> SPAWN_FIREFLIES = CONFIG.entry("firefly/spawnFireflies", EntryType.BOOL, true);

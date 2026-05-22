@@ -128,7 +128,6 @@
     "client.block_break.MultiPlayerGameModeMixin",
     "client.brush.LevelEventHandlerMixin",
     "client.easter.StellaWardenRenderer",
-    "client.enderman.EnderManMixin",
     "client.equipment.EquipmentClientInfoMixin",
     "client.equipment.LayerTypeMixin",
     "client.shrieker.LevelEventHandlerMixin",
