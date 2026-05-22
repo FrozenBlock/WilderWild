@@ -22,7 +22,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.lib.music.api.client.structure.StructureMusic;
-import net.frozenblock.lib.music.api.client.structure.StructureMusicApi;
 import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -46,13 +45,7 @@ public final class WWClientMusicImpl {
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 
 		if (WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC.get()) {
-			StructureMusicApi.registerMusicForStructure(
-				BuiltinStructures.ANCIENT_CITY,
-				new StructureMusic(
-					new Music(SoundEvents.MUSIC_BIOME_DEEP_DARK, 6000, 12000, false),
-					false
-				)
-			);
+
 		}
 	}
 

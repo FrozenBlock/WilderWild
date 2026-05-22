@@ -1,0 +1,17 @@
+{
+  "background_music": {
+    "default": {
+      "max_delay": 12000,
+      "min_delay": 6000,
+      "sound": "minecraft:music.overworld.deep_dark"
+    }
+  },
+  "config_entry_predicate": {
+    "entry": "wilderwild:misc/music/ancientCityMusic",
+    "operator": "equal_to",
+    "target": true
+  },
+  "structures": [
+    "minecraft:ancient_city"
+  ]
+}

@@ -23,6 +23,8 @@ import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
+import net.frozenblock.wilderwild.client.WWClientMusicImpl;
+import net.frozenblock.wilderwild.client.WWStructureMusic;
 import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
@@ -103,6 +105,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
