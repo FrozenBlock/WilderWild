@@ -24,10 +24,7 @@ import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
 import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.minecraft.sounds.Music;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 @Environment(EnvType.CLIENT)
 public final class WWClientMusicImpl {
@@ -42,10 +39,6 @@ public final class WWClientMusicImpl {
 		MusicPitchApi.registerForBiome(WWBiomes.DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_FOREST.identifier(), dyingPitchShifting);
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
-
-		if (WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC.get()) {
-
-		}
 	}
 
 	private static FrozenLibModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
