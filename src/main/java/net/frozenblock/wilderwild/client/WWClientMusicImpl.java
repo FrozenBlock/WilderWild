@@ -21,7 +21,6 @@ import java.util.function.Function;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
-import net.frozenblock.lib.music.api.client.structure.StructureMusic;
 import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;

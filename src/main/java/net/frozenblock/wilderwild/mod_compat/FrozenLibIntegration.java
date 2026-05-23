@@ -28,7 +28,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
-import net.frozenblock.lib.spotting_icons.api.SpottingIconPredicate;
+import net.frozenblock.lib.spottingicon.api.SpottingIconPredicate;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
