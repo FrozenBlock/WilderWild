@@ -18,13 +18,14 @@
 package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
 import net.frozenblock.lib.music.api.structure.StructureMusic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.Music;
+import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -37,7 +38,7 @@ public class WWStructureMusic {
 			context,
 			ANCIENT_CITY_MUSIC,
 			List.of(BuiltinStructures.ANCIENT_CITY.identifier()),
-			new BackgroundMusic(new Music(SoundEvents.MUSIC_BIOME_DEEP_DARK, 6000, 12000, false)),
+			new BackgroundMusic(Optional.of(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK)), Optional.of(Musics.CREATIVE), Optional.empty()),
 			false,
 			ConfigEntryPredicate.equalTo(WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC, true)
 		);
