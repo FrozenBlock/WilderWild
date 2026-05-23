@@ -31,12 +31,12 @@ import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class WWStructureMusic {
-	public static final ResourceKey<StructureMusic> ANCIENT_CITY_MUSIC = createKey("ancient_city_music");
+	public static final ResourceKey<StructureMusic> ANCIENT_CITY = createKey("ancient_city");
 
 	public static void bootstrap(BootstrapContext<StructureMusic> context) {
 		StructureMusic.register(
 			context,
-			ANCIENT_CITY_MUSIC,
+			ANCIENT_CITY,
 			List.of(BuiltinStructures.ANCIENT_CITY.identifier()),
 			new BackgroundMusic(Optional.of(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK)), Optional.of(Musics.CREATIVE), Optional.empty()),
 			false,
