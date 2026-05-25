@@ -3,26 +3,14 @@ import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import java.io.FileInputStream
 import java.nio.file.Files
 import java.util.Properties
-import org.kohsuke.github.GHReleaseBuilder
-import org.kohsuke.github.GitHub
 import java.io.FileNotFoundException
 import java.net.URL
-import kotlin.collections.set
-
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath("org.kohsuke:github-api:+")
-    }
-}
 
 plugins {
     id("net.fabricmc.fabric-loom") version("1.16-SNAPSHOT")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
-    id("com.modrinth.minotaur") version("+")
+    id("me.modmuss50.mod-publish-plugin") version("+")
     `maven-publish`
     eclipse
     idea
@@ -399,6 +387,7 @@ extra {
 }
 
 val modrinth_id: String by extra
+val curseforge_id: String by extra
 val release_type: String by extra
 val changelog_file: String by extra
 
@@ -437,64 +426,53 @@ fun getBranch(): String {
     return branch.substring(branch.lastIndexOf("/") + 1)
 }
 
-modrinth {
-    token.set(System.getenv("MODRINTH_TOKEN"))
-    projectId.set(modrinth_id)
-    versionNumber.set(modrinth_version)
-    versionName.set(display_name)
-    versionType.set(release_type)
+publishMods {
+    version.set(modrinth_version)
+    file.set(jar.archiveFile)
     changelog.set(changelog_text)
-    uploadFile.set(jar)
-    gameVersions.set(listOf(minecraft_version))
-    loaders.set(listOf("fabric", "quilt"))
-    additionalFiles.set(
-        listOf(
-            //tasks.remapSourcesJar.get(),
-            //javadocJar
-        )
-    )
-    dependencies {
-        required.project("fabric-api")
-        required.project("frozenlib")
-        optional.project("cloth-config")
-        optional.project("modmenu")
-        optional.project("trailier-tales")
-        optional.project("simple-copper-pipes")
+    type.set(STABLE)
+    modLoaders.add("fabric")
+    //additionalFiles.from(sourcesJar.archiveFile, javadocJar.archiveFile)
+
+    curseforge {
+        version.set(modrinth_version)
+        projectId.set(curseforge_id)
+        projectSlug.set("wilder-wild")
+        accessToken.set(providers.environmentVariable("CURSEFORGE_TOKEN"))
+        minecraftVersions.add(minecraft_version)
+        requires("fabric-api")
+        requires("frozenlib")
+        optional("modmenu")
+        optional("cloth-config")
+        optional("simple-copper-pipes")
+        optional("trailier-tales")
+        optional("glowtone")
+        optional("the-copperier-age")
     }
-}
-
-
-val github by tasks.register("github") {
-    dependsOn(jar)
-    dependsOn(sourcesJar)
-    dependsOn(javadocJar)
-
-    val env = System.getenv()
-    val token = env["GITHUB_TOKEN"]
-    val repoVar = env["GITHUB_REPOSITORY"]
-    onlyIf {
-        token != null && token != ""
+    modrinth {
+        version.set(modrinth_version)
+        projectId.set(modrinth_id)
+        accessToken.set(providers.environmentVariable("MODRINTH_TOKEN"))
+        minecraftVersions.add(minecraft_version)
+        requires("fabric-api")
+        requires("frozenlib")
+        optional("modmenu")
+        optional("cloth-config")
+        optional("simple-copper-pipes")
+        optional("trailier-tales")
+        optional("glowtone")
+        optional("the-copperier-age")
     }
-
-    doLast {
-        val github = GitHub.connectUsingOAuth(token)
-        val repository = github.getRepository(repoVar)
-
-        val releaseBuilder = GHReleaseBuilder(repository, makeModrinthVersion(mod_version))
-        releaseBuilder.name(makeName(mod_version))
-        releaseBuilder.body(changelog_text)
-        releaseBuilder.commitish(getBranch())
-        releaseBuilder.prerelease(release_type != "release")
-
-        val ghRelease = releaseBuilder.create()
-        ghRelease.uploadAsset(jar.archiveFile.get().asFile, "application/java-archive")
-        ghRelease.uploadAsset(sourcesJar.archiveFile.get().asFile, "application/java-archive")
-        ghRelease.uploadAsset(javadocJar.outputs.files.singleFile, "application/java-archive")
+    github {
+        version.set(modrinth_version)
+        repository.set("FrozenBlock/WilderWild")
+        accessToken.set(providers.environmentVariable("GITHUB_TOKEN"))
+        commitish.set(getBranch())
+        additionalFiles.from(sourcesJar.archiveFile.get().asFile, javadocJar.archiveFile.get().asFile)
     }
 }
 
 val publishMod by tasks.register("publishMod") {
     dependsOn(tasks.publish)
-    dependsOn(github)
-    dependsOn(tasks.modrinth)
+    dependsOn(tasks.publishMods)
 }
