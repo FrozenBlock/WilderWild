@@ -18,9 +18,8 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
-import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.levelgen.placement.api.ConfigEntryPlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
@@ -47,6 +46,7 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
@@ -341,7 +341,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> riverPoolConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.RIVER_POOL_GENERATION, true).asPlacementFilter();
+		final PlacementFilter riverPoolConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.RIVER_POOL_GENERATION, true).asPlacementFilter();
 		RIVER_POOL.makeAndSetHolder(WWMiscConfigured.RIVER_POOL,
 			riverPoolConfigPredicate,
 			CountPlacement.of(20),

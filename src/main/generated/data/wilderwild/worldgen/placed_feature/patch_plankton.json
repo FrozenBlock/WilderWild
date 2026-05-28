@@ -2,10 +2,10 @@
   "feature": "wilderwild:patch_plankton",
   "placement": [
     {
-      "type": "frozenlib:config_entry",
-      "config_entry_predicate": {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": {
+        "type": "minecraft:equal_to",
         "entry": "wilderwild:worldgen/aquaticGeneration/plankton",
-        "operator": "equal_to",
         "target": true
       }
     },

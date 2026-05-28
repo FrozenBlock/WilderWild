@@ -2,10 +2,10 @@
   "feature": "wilderwild:tube_worms",
   "placement": [
     {
-      "type": "frozenlib:config_entry",
-      "config_entry_predicate": {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": {
+        "type": "minecraft:equal_to",
         "entry": "wilderwild:worldgen/aquaticGeneration/tubeWorm",
-        "operator": "equal_to",
         "target": true
       }
     },

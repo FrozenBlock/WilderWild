@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
-import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.levelgen.placement.api.ConfigEntryPlacementFilter;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
@@ -43,6 +42,7 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
@@ -84,7 +84,7 @@ public final class WWAquaticPlaced {
 		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
-		final ConfigEntryPlacementFilter<?> cattailConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.CATTAIL_GENERATION, true).asPlacementFilter();
+		final PlacementFilter cattailConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.CATTAIL_GENERATION, true).asPlacementFilter();
 		PATCH_CATTAIL.makeAndSetHolder(WWAquaticConfigured.CATTAIL,
 			cattailConfigPredicate,
 			RarityFilter.onAverageOnceEvery(4),
@@ -109,7 +109,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> barnaclesConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.BARNACLES_GENERATION, true).asPlacementFilter();
+		final PlacementFilter barnaclesConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.BARNACLES_GENERATION, true).asPlacementFilter();
 		PATCH_BARNACLES_COMMON.makeAndSetHolder(WWAquaticConfigured.PATCH_BARNACLES,
 			barnaclesConfigPredicate,
 			CountPlacement.of(UniformInt.of(1, 2)),
@@ -165,7 +165,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
-		final ConfigEntryPlacementFilter<?> flowerConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.FLOWER_GENERATION, true).asPlacementFilter();
+		final PlacementFilter flowerConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.FLOWER_GENERATION, true).asPlacementFilter();
 		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticConfigured.FLOWERING_WATERLILY,
 			flowerConfigPredicate,
 			InSquarePlacement.spread(),
@@ -176,7 +176,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		final ConfigEntryPlacementFilter<?> algaeConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.ALGAE_GENERATION, true).asPlacementFilter();
+		final PlacementFilter algaeConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.ALGAE_GENERATION, true).asPlacementFilter();
 		PATCH_ALGAE.makeAndSetHolder(WWAquaticConfigured.PATCH_ALGAE,
 			algaeConfigPredicate,
 			RarityFilter.onAverageOnceEvery(3),
@@ -193,7 +193,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> planktonConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.PLANKTON_GENERATION, true).asPlacementFilter();
+		final PlacementFilter planktonConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.PLANKTON_GENERATION, true).asPlacementFilter();
 		PATCH_PLANKTON.makeAndSetHolder(WWAquaticConfigured.PATCH_PLANKTON,
 			planktonConfigPredicate,
 			RarityFilter.onAverageOnceEvery(30),
@@ -202,7 +202,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> seagrassConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.SEAGRASS_GENERATION, true).asPlacementFilter();
+		final PlacementFilter seagrassConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.SEAGRASS_GENERATION, true).asPlacementFilter();
 		SEAGRASS_MEADOW.makeAndSetHolder(WWAquaticConfigured.SEAGRASS_MEADOW,
 			seagrassConfigPredicate,
 			CountPlacement.of(98),
@@ -211,7 +211,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> spongeBudConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.SPONGE_BUD_GENERATION, true).asPlacementFilter();
+		final PlacementFilter spongeBudConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.SPONGE_BUD_GENERATION, true).asPlacementFilter();
 		SPONGE_BUDS.makeAndSetHolder(WWAquaticConfigured.SPONGE_BUD,
 			spongeBudConfigPredicate,
 			CountPlacement.of(UniformInt.of(0, 3)),
@@ -229,7 +229,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> seaAnemoneConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.SEA_ANEMONE_GENERATION, true).asPlacementFilter();
+		final PlacementFilter seaAnemoneConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.SEA_ANEMONE_GENERATION, true).asPlacementFilter();
 		PATCH_SEA_ANEMONE.makeAndSetHolder(WWAquaticConfigured.SEA_ANEMONE,
 			seaAnemoneConfigPredicate,
 			RarityFilter.onAverageOnceEvery(2),
@@ -284,7 +284,7 @@ public final class WWAquaticPlaced {
 			)
 		);
 
-		final ConfigEntryPlacementFilter<?> seaWhipConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.SEA_WHIP_GENERATION, true).asPlacementFilter();
+		final PlacementFilter seaWhipConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.SEA_WHIP_GENERATION, true).asPlacementFilter();
 		PATCH_SEA_WHIP.makeAndSetHolder(WWAquaticConfigured.SEA_WHIP,
 			seaWhipConfigPredicate,
 			RarityFilter.onAverageOnceEvery(5),
@@ -336,7 +336,7 @@ public final class WWAquaticPlaced {
 			)
 		);
 
-		final ConfigEntryPlacementFilter<?> tubeWormsConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter();
+		final PlacementFilter tubeWormsConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter();
 		PATCH_TUBE_WORMS.makeAndSetHolder(WWAquaticConfigured.TUBE_WORMS,
 			tubeWormsConfigPredicate,
 			RarityFilter.onAverageOnceEvery(22),
@@ -357,7 +357,7 @@ public final class WWAquaticPlaced {
 			RandomOffsetPlacement.ofTriangle(3, 4)
 		);
 
-		final ConfigEntryPlacementFilter<?> hydrothermalVentConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.HYDROTHERMAL_VENT_GENERATION, true).asPlacementFilter();
+		final PlacementFilter hydrothermalVentConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.HYDROTHERMAL_VENT_GENERATION, true).asPlacementFilter();
 		HYDROTHERMAL_VENT.makeAndSetHolder(WWAquaticConfigured.HYDROTHERMAL_VENT,
 			hydrothermalVentConfigPredicate,
 			RarityFilter.onAverageOnceEvery(48),
@@ -378,7 +378,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> oceanMossConfigPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.OCEAN_MOSS_GENERATION, true).asPlacementFilter();
+		final PlacementFilter oceanMossConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.OCEAN_MOSS_GENERATION, true).asPlacementFilter();
 		OCEAN_MOSS.makeAndSetHolder(WWAquaticConfigured.OCEAN_MOSS,
 			oceanMossConfigPredicate,
 			InSquarePlacement.spread(),
@@ -386,7 +386,7 @@ public final class WWAquaticPlaced {
 			BiomeFilter.biome()
 		);
 
-		final ConfigEntryPlacementFilter<?> oceanAuburnMossPredicate = ConfigEntryPredicate.equalTo(WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION, true).asPlacementFilter();
+		final PlacementFilter oceanAuburnMossPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION, true).asPlacementFilter();
 		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticConfigured.AUBURN_MOSS_UNDERWATER,
 			oceanAuburnMossPredicate,
 			RarityFilter.onAverageOnceEvery(22),

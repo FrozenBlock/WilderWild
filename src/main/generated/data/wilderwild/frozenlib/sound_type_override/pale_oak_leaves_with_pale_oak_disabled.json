@@ -1,17 +1,19 @@
 {
   "blocks": "#wilderwild:sound/pale_oak_leaves",
-  "config_entry_predicate": {
-    "entry": "wilderwild:block/blockSounds/paleOakSounds",
-    "operator": "equal_to",
-    "target": false,
-    "with": {
-      "config_entry_predicate": {
-        "entry": "wilderwild:block/blockSounds/leafSounds",
-        "operator": "equal_to",
-        "target": true
+  "config_predicate": {
+    "type": "minecraft:all_of",
+    "predicates": [
+      {
+        "type": "minecraft:equal_to",
+        "entry": "wilderwild:block/blockSounds/paleOakSounds",
+        "target": false
       },
-      "operator": "and"
-    }
+      {
+        "type": "minecraft:equal_to",
+        "entry": "wilderwild:block/blockSounds/leafSounds",
+        "target": true
+      }
+    ]
   },
   "sound_type": {
     "break_sound": "minecraft:block.azalea_leaves.break",

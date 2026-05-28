@@ -1,8 +1,8 @@
 {
   "blocks": "#wilderwild:sound/pale_moss",
-  "config_entry_predicate": {
+  "config_predicate": {
+    "type": "minecraft:equal_to",
     "entry": "wilderwild:block/blockSounds/mossSounds",
-    "operator": "equal_to",
     "target": true
   },
   "sound_type": {

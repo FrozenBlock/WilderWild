@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
-import net.frozenblock.lib.config.v2.entry.data.ConfigEntryPredicate;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
@@ -198,7 +198,7 @@ public final class WWAquaticConfigured {
 					PlacementUtils.inlinePlaced(
 						WWFeatures.TUBE_WORMS,
 						NoneFeatureConfiguration.INSTANCE,
-						ConfigEntryPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
+						ConfigPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
 						CountPlacement.of(33),
 						RandomOffsetPlacement.ofTriangle(5, 4)
 					)

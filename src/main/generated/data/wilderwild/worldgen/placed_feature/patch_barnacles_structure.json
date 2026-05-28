@@ -2,10 +2,10 @@
   "feature": "wilderwild:patch_barnacles_structure",
   "placement": [
     {
-      "type": "frozenlib:config_entry",
-      "config_entry_predicate": {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": {
+        "type": "minecraft:equal_to",
         "entry": "wilderwild:worldgen/aquaticGeneration/barnacle",
-        "operator": "equal_to",
         "target": true
       }
     },

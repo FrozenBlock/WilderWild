@@ -11,9 +11,9 @@
       "sound": "minecraft:music.overworld.deep_dark"
     }
   },
-  "config_entry_predicate": {
+  "config_predicate": {
+    "type": "minecraft:equal_to",
     "entry": "wilderwild:misc/music/ancientCityMusic",
-    "operator": "equal_to",
     "target": true
   },
   "structures": [
