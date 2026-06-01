@@ -27,13 +27,9 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
-import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
-import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
 import net.frozenblock.wilderwild.levelgen.treedecorators.WWTreeDecorators;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -98,9 +94,6 @@ public final class WWWorldgen {
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(WWBiomes.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 		WolfVariantBiomeRegistry.register(WWBiomes.MAPLE_FOREST, WolfVariants.CHESTNUT);
-
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("beta_beach_enabled"), BetaBeachConditionSource.CODEC);
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, WWConstants.id("snow_under_mountain_enabled"), SnowUnderMountainConditionSource.CODEC);
 	}
 
 	private static void configureBuiltInBiomes() {

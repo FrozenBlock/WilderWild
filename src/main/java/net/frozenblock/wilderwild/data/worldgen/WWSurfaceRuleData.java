@@ -18,11 +18,11 @@
 package net.frozenblock.wilderwild.data.worldgen;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.surface.api.FrozenLibSurfaceRules;
 import net.frozenblock.lib.levelgen.surface.api.SurfaceRuleEvents;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
-import net.frozenblock.wilderwild.levelgen.conditionsource.BetaBeachConditionSource;
-import net.frozenblock.wilderwild.levelgen.conditionsource.SnowUnderMountainConditionSource;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -376,9 +376,9 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource gravelBetaBeaches() {
+	public static SurfaceRules.RuleSource gravelBetaBeaches(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			FrozenLibSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_GRAVEL),
+			FrozenLibSurfaceRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_GRAVEL),
 			SurfaceRules.ifTrue(
 				SurfaceRules.UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -395,9 +395,9 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource sandBetaBeaches() {
+	public static SurfaceRules.RuleSource sandBetaBeaches(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			FrozenLibSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_SAND),
+			FrozenLibSurfaceRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_SAND),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -414,9 +414,9 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches() {
+	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			FrozenLibSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
+			FrozenLibSurfaceRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
 			SurfaceRules.ifTrue(
 				SurfaceRules.DEEP_UNDER_FLOOR,
 				SurfaceRules.ifTrue(
@@ -433,13 +433,13 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource betaBeaches() {
+	public static SurfaceRules.RuleSource betaBeaches(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			BetaBeachConditionSource.betaBeachConditionSource(),
+			ConfigPredicate.equalTo(WWWorldgenConfig.BETA_BEACHES, true).asConditionSource(),
 			SurfaceRules.sequence(
-				gravelBetaBeaches(),
-				sandBetaBeaches(),
-				multiLayerSandBetaBeaches()
+				gravelBetaBeaches(biomes),
+				sandBetaBeaches(biomes),
+				multiLayerSandBetaBeaches(biomes)
 			)
 		);
 	}
@@ -448,7 +448,7 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 	public void addOverworldSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				betaBeaches(),
+				betaBeaches(biomes),
 				cypressSurfaceRules(biomes),
 				warmRiverRules(biomes),
 				warmBeachRules(biomes),
@@ -466,11 +466,11 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	public static SurfaceRules.RuleSource snowUnderMountains() {
+	public static SurfaceRules.RuleSource snowUnderMountains(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
-			SnowUnderMountainConditionSource.snowUnderMountainConditionSource(),
+			ConfigPredicate.equalTo(WWWorldgenConfig.SNOW_UNDER_MOUNTAINS, true).asConditionSource(),
 			SurfaceRules.ifTrue(
-				FrozenLibSurfaceRules.isBiomeTagOptimized(WWBiomeTags.BELOW_SURFACE_SNOW),
+				FrozenLibSurfaceRules.isBiomeTag(biomes, WWBiomeTags.BELOW_SURFACE_SNOW),
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
@@ -523,7 +523,7 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				snowUnderMountains(),
+				snowUnderMountains(biomes),
 				frozenCavesSurfaceRules(biomes)
 			)
 		);
