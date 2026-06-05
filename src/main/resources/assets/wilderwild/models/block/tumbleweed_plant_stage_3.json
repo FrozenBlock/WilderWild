@@ -1,5 +1,5 @@
 {
-	"parent": "block/block",
+  "parent": "minecraft:block/block",
 	"ambientocclusion": false,
 	"textures": {
 		"texture": "wilderwild:block/tumbleweed_fan_stage_3",
