@@ -346,12 +346,17 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	@Override
+	public boolean useRotationBasedStep() {
+		return false;
+	}
+
+	@Override
 	public BlockState defaultBlockState() {
 		return WWBlocks.TUMBLEWEED.defaultBlockState();
 	}
 
 	@Override
-	protected double blockGridSnapIntensity() {
+	public double blockGridSnapIntensity() {
 		return 0.25D;
 	}
 
