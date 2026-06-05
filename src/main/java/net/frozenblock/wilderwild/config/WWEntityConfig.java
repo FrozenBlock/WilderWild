@@ -55,7 +55,7 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> JELLYFISH_HIDING = CONFIG.entry("jellyfish/jellyfishHiding", EntryType.BOOL, true);
 	public static final ConfigEntry<Integer> JELLYFISH_TENTACLES = CONFIG.unsyncableEntryBuilder("jellyfish/jellyfishTentacles", EntryType.INT, 8).requireRestart().build();
 	public static final ConfigEntry<Boolean> JELLYFISH_PLANE_TENTACLES = CONFIG.unsyncableEntry("jellyfish/planeTentacles", EntryType.BOOL, true);
-	public static final ConfigEntry<Boolean> JELLYFISH_ORAL_ARM = CONFIG.unsyncableEntry("jellyfish/oralArm", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> JELLYFISH_ORAL_ARMS = CONFIG.unsyncableEntry("jellyfish/oralArms", EntryType.BOOL, false);
 
 	// CRAB
 	public static final ConfigEntry<Boolean> SPAWN_CRABS = CONFIG.entry("crab/spawnCrabs", EntryType.BOOL, true);

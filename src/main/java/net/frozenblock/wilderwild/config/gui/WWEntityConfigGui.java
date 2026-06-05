@@ -69,7 +69,7 @@ public final class WWEntityConfigGui {
 			booleanEntry(builder, "jellyfish_hiding", WWEntityConfig.JELLYFISH_HIDING),
 			intSliderEntry(builder, "jellyfish_tentacles", WWEntityConfig.JELLYFISH_TENTACLES, 0, 100),
 			booleanEntry(builder, "plane_tentacles", WWEntityConfig.JELLYFISH_PLANE_TENTACLES),
-			booleanEntry(builder, "oral_arm", WWEntityConfig.JELLYFISH_ORAL_ARM)
+			booleanEntry(builder, "oral_arm", WWEntityConfig.JELLYFISH_ORAL_ARMS)
 		);
 
 		// CRAB

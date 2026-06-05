@@ -30,3 +30,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tumbleweed's visual movement should now be slightly less clunky.
   - Revised the models of the Tumbleweed Stem's first two stages to be more consistent with Vanilla's style.
 - Placing Tumbleweed now spawns the Tumbleweed Entity.
+- The oral arms of Jellyfish are no longer visible by default.

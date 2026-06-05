@@ -184,6 +184,6 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 			modelPart.visible = false;
 		}
 
-		this.armBase.visible = WWEntityConfig.JELLYFISH_ORAL_ARM.get();
+		this.armBase.visible = WWEntityConfig.JELLYFISH_ORAL_ARMS.get();
 	}
 }
