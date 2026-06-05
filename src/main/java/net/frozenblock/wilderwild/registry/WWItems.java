@@ -41,6 +41,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -191,7 +192,14 @@ public final class WWItems {
 	);
 	public static final Item SHRUB = Items.registerBlock(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
 	public static final Item TUMBLEWEED_PLANT = Items.registerBlock(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT);
-	public static final Item TUMBLEWEED = Items.registerBlock(WWBlockItemIds.TUMBLEWEED, WWBlocks.TUMBLEWEED);
+	public static final Item TUMBLEWEED = Items.registerItem(
+		WWBlockItemIds.TUMBLEWEED,
+		SpawnEggItem::new,
+		new Item.Properties()
+			.useBlockDescriptionPrefix()
+			.requiredFeatures(WWBlocks.TUMBLEWEED.requiredFeatures())
+			.spawnEgg(WWEntityTypes.TUMBLEWEED)
+	);
 	public static final Item FROZEN_SHORT_GRASS = Items.registerBlock(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS);
 	public static final Item FROZEN_TALL_GRASS = Items.registerBlock(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS, DoubleHighBlockItem::new);
 	public static final Item FROZEN_FERN = Items.registerBlock(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN);
@@ -464,6 +472,8 @@ public final class WWItems {
 	public static final Item PENGUIN_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);
 
 	public static void init() {
+		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED, TUMBLEWEED);
+
 		CompostableRegistry.INSTANCE.add(BAOBAB_NUT, 0.3F);
 		CompostableRegistry.INSTANCE.add(MILKWEED_POD, 0.25F);
 		CompostableRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);

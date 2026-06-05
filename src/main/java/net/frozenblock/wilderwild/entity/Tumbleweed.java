@@ -88,7 +88,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	public static final int TUMBLEWEED_PLANT_ITEM_CHANCE = 15;
 	private static final EntityDataAccessor<ItemStack> ITEM_STACK = SynchedEntityData.defineId(Tumbleweed.class, EntityDataSerializers.ITEM_STACK);
 	private final SimpleContainer inventory = new SimpleContainer(1);
-	public boolean spawnedFromShears;
 	public int ticksSinceActive;
 	public boolean isItemNatural;
 	public boolean isTouchingStickingBlock;
@@ -117,6 +116,8 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	@Nullable
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+		if (spawnReason == EntitySpawnReason.SPAWN_ITEM_USE) this.setPersistenceRequired();
+
 		if (this.inventory.isEmpty() && spawnReason == EntitySpawnReason.NATURAL) {
 			final int difficultyId = difficulty.getDifficulty().getId();
 			if (this.random.nextInt(0, difficultyId == 0 ? 32 : (27 / difficultyId)) == 0) {
@@ -137,7 +138,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
 		level.addFreshEntity(tumbleweed);
 		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
-		tumbleweed.spawnedFromShears = true;
+		tumbleweed.setPersistenceRequired();
 	}
 
 	@Override
@@ -152,11 +153,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 			&& this.isMovingToward(entity)
 			&& !(entity instanceof Tumbleweed)
 		) {
-			final boolean hurt = entity.hurtServer(
-				serverLevel,
-				this.damageSources().source(WWDamageTypes.TUMBLEWEED, this),
-				2F
-			);
+			final boolean hurt = entity.hurtServer(serverLevel, this.damageSources().source(WWDamageTypes.TUMBLEWEED, this), 2F);
 			isSmall = isSmall || !entity.isAlive() || !hurt;
 			if (!isSmall) this.destroy(false);
 		}
@@ -374,7 +371,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	@Override
 	public void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
-		output.putBoolean("SpawnedFromShears", this.spawnedFromShears);
 		output.putInt("TicksSinceActive", this.ticksSinceActive);
 		output.putBoolean("IsTumbleweedItemNatural", this.isItemNatural);
 		output.putBoolean("isTouchingStickingBlock", this.isTouchingStickingBlock);
@@ -385,7 +381,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	@Override
 	public void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
-		this.spawnedFromShears = input.getBooleanOr("SpawnedFromShears", false);
 		this.ticksSinceActive = input.getIntOr("TicksSinceActive", 0);
 		this.isItemNatural = input.getBooleanOr("IsTumbleweedItemNatural", false);
 		this.isTouchingStickingBlock = input.getBooleanOr("isTouchingStickingBlock", false);
@@ -405,12 +400,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 		entityData.define(ITEM_STACK, ItemStack.EMPTY);
 	}
 
-	@Nullable
-	@Override
-	public ItemStack getPickResult() {
-		return new ItemStack(WWBlocks.TUMBLEWEED);
-	}
-
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
@@ -418,11 +407,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 			if (isSilkTouchOrShears(source)) level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
 		}
 		this.destroy(true);
-	}
-
-	@Override
-	public boolean requiresCustomPersistence() {
-		return super.requiresCustomPersistence() || this.spawnedFromShears || this.hasCustomName();
 	}
 
 	public ItemStack getVisibleItem() {
