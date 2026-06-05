@@ -2,11 +2,31 @@
 	"parent": "minecraft:block/block",
 	"ambientocclusion": false,
 	"textures": {
-		"texture": "wilderwild:block/tumbleweed_fan_stage_1",
+		"cross": "wilderwild:block/tumbleweed_fan_stage_1",
 		"tumbleweed": "wilderwild:block/tumbleweed_stage_1",
-		"particle": "#tumbleweed"
-	},
+    "particle": "#tumbleweed"
+  },
 	"elements": [
+		{
+			"from": [0.8, 0, 8],
+			"to": [15.2, 16, 8],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#cross"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#cross"}
+			}
+		},
+		{
+			"from": [8, 0, 0.8],
+			"to": [8, 16, 15.2],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#cross"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#cross"}
+			}
+		},
 		{
 			"from": [3.01, 0.01, 3.01],
 			"to": [12.99, 9.99, 12.99],
@@ -30,44 +50,6 @@
 				"up": {"uv": [13, 3, 3, 13], "texture": "#tumbleweed"},
 				"down": {"uv": [13, 3, 3, 13], "texture": "#tumbleweed"}
 			}
-		},
-		{
-			"from": [0, 0, 8],
-			"to": [16, 16, 8],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"}
-			}
-		},
-		{
-			"from": [0, 0, 8],
-			"to": [16, 16, 8],
-			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"}
-			}
-		}
-	],
-	"groups": [
-		{
-			"name": "outer",
-			"origin": [0, 0, 0],
-			"scope": 0,
-			"color": 0,
-			"shade": false,
-			"children": [0, 1]
-		},
-		{
-			"name": "cross",
-			"origin": [8, 8, 8],
-			"scope": 0,
-			"color": 0,
-			"shade": false,
-			"children": [2, 3]
 		}
 	]
 }
