@@ -26,4 +26,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tumbleweed no longer has a unique Entity Model, instead using the Block's Model.
   - Tumbleweed's visual rotation now always matches its movement, and fits its model.
   - Items inside Tumbleweed are no longer randomly offset visually.
-  - Thte Item pickup animation now plays when Tumbleweed picks up an Item.
+  - The Item pickup animation now plays when Tumbleweed picks up an Item.
+  - Tumbleweed's visual movement should now be slightly less clunky.

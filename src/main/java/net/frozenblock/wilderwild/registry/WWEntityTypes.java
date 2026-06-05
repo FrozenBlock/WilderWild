@@ -73,6 +73,7 @@ public final class WWEntityTypes {
 		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
+			.updateInterval(2)
 	);
 
 	public static final EntityType<Crab> CRAB = register(WWEntityTypeIds.CRAB,
