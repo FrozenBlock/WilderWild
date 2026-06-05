@@ -22,10 +22,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.wind.api.BlowingHelper;
 import net.frozenblock.lib.wind.api.WindDisturbance;
 import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
 import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.client.impl.ClientWindManager;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
@@ -58,7 +60,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public class GeothermalVentBlockEntity extends BlockEntity {
 	private static final WindDisturbanceLogic<GeothermalVentBlockEntity> DUMMY_WIND_LOGIC = new WindDisturbanceLogic<>((source, level, origin, area, target) -> WindDisturbance.DUMMY_RESULT);
@@ -130,7 +131,6 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		}
 	}
 
-	@Contract("_, _ -> new")
 	private static AABB aabb(BlockPos startPos, BlockPos endPos) {
 		return new AABB(
 			Math.min(startPos.getX(), endPos.getX()),
@@ -142,7 +142,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		);
 	}
 
-	private void handleEruption(ServerLevel level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, boolean natural) {
+	private void handleEruption(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, boolean natural) {
 		final BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
 		final boolean vent = geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT;
 
@@ -179,26 +179,27 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final List<Entity> entities = level.getEntities(EntityTypeTest.forClass(Entity.class), maxPossibleEruptionBox, EFFECT_PREDICATE);
 
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
+		final WindDisturbance<GeothermalVentBlockEntity> effectiveWindDisturbance = new WindDisturbance<GeothermalVentBlockEntity>(
+			Optional.of(this),
+			ventStartPos,
+			effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
+			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE).orElse(DUMMY_WIND_LOGIC)
+		);
+		final WindDisturbance<GeothermalVentBlockEntity> baseWindDisturbance = new WindDisturbance<GeothermalVentBlockEntity>(
+			Optional.of(this),
+			ventStartPos,
+			eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
+			WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEOTHERMAL_VENT_BASE).orElse(DUMMY_WIND_LOGIC)
+		);
 		if (!vent) {
-			final WindManager windManager = WindManager.getOrCreateWindManager(level);
-			windManager.addWindDisturbanceAndSync(
-				new WindDisturbance<GeothermalVentBlockEntity>(
-					Optional.of(this),
-					ventStartPos,
-					effectiveEruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-					WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE).orElse(DUMMY_WIND_LOGIC)
-				),
-				level
-			);
-			windManager.addWindDisturbanceAndSync(
-				new WindDisturbance<GeothermalVentBlockEntity>(
-					Optional.of(this),
-					ventStartPos,
-					eruption.inflate(0.5D).move(direction.step().mul(0.5F)),
-					WindDisturbanceLogic.getWindDisturbanceLogic(WWWindDisturbances.GEOTHERMAL_VENT_BASE).orElse(DUMMY_WIND_LOGIC)
-				),
-				level
-			);
+			if (level instanceof ServerLevel serverLevel) {
+				WindManager windManager = WindManager.getOrCreateWindManager(serverLevel);
+				windManager.addWindDisturbance(effectiveWindDisturbance);
+				windManager.addWindDisturbance(baseWindDisturbance);
+			} else if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+				addWindDisturbanceToClient(effectiveWindDisturbance);
+				addWindDisturbanceToClient(baseWindDisturbance);
+			}
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
@@ -232,13 +233,12 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTypeTags.GEOTHERMAL_VENT_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
-				entity.hurtMarked = true;
 				entity.needsSync = true;
 			}
 
 			if (damagingEruption.intersects(boundingBox)) {
-				if (applyMovement) {
-					for (ServerPlayer serverPlayer : level.getPlayers(player -> player.distanceToSqr(ventStartPos) < GeothermalVentPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
+				if (applyMovement && level instanceof ServerLevel serverLevel) {
+					for (ServerPlayer serverPlayer : serverLevel.getPlayers(player -> player.distanceToSqr(ventStartPos) < GeothermalVentPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
 						WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geothermalVentType);
 					}
 				}
@@ -252,7 +252,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		}
 
 		for (BlockPos searchPos : BlockPos.betweenClosed(pos, mutablePos.immutable())) {
-			if (!maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
+			if (level.isClientSide() || !maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
 
 			final BlockState state = level.getBlockState(searchPos);
 			if (geothermalVentType == GeothermalVentType.LAVA) {
@@ -347,9 +347,17 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 
 		final GeothermalVentStage geothermalVentStage = state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE);
 		final Direction direction = state.getValue(GeothermalVentBlock.FACING);
+		final boolean natural = state.getValue(GeothermalVentBlock.NATURAL);
 		if (geothermalVentStage == GeothermalVentStage.ERUPTING || geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT) {
+			this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
+			this.handleEruption(level, pos, geothermalVentType, direction, natural);
 			GeothermalventParticleHandler.spawnEruptionParticles(level, pos, geothermalVentType, direction, random);
 		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	private static void addWindDisturbanceToClient(WindDisturbance windDisturbance) {
+		ClientWindManager.addWindDisturbance(windDisturbance);
 	}
 
 	@Override
