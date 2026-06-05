@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.mixin.entity.tumbleweed;
 
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,15 +36,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockBehaviourMixin {
 
 	@Inject(at = @At("HEAD"), method = "getCollisionShape", cancellable = true)
-	public void wilderWild$getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
-		if (BlockBehaviour.class.cast(this) instanceof LeavesBlock
-			&& context instanceof EntityCollisionContext entityCollisionContext
-			&& entityCollisionContext.getEntity() instanceof Tumbleweed tumbleweed
-			&& !tumbleweed.isCannonball()
-		) {
+	public void wilderWild$stickTumbleweedInLeaves(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
+		if (context instanceof EntityCollisionContext entityContext && entityContext.getEntity() instanceof Tumbleweed tumbleweed && state.is(BlockTags.LEAVES)) {
 			tumbleweed.isTouchingStickingBlock = true;
 			info.setReturnValue(Shapes.empty());
 		}
 	}
-
 }

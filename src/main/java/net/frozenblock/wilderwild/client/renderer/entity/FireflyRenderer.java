@@ -22,9 +22,9 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.renderer.model.FrozenLibModelLayers;
+import net.frozenblock.lib.renderer.model.NoOpModel;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
@@ -48,7 +48,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	private static final Quaternionf QUAT_180 = Axis.YP.rotationDegrees(180F);
 
 	public FireflyRenderer(Context context) {
-		super(context, new NoOpModel<>(context.bakeLayer(WWModelLayers.FIREFLY)), 0.15F);
+		super(context, new NoOpModel<>(context.bakeLayer(FrozenLibModelLayers.NO_MODEL)), 0.15F);
 	}
 
 	public static void submitFireflyWithoutRenderState(

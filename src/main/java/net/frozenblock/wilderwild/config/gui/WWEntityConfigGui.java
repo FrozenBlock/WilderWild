@@ -108,8 +108,7 @@ public final class WWEntityConfigGui {
 			entitySpawnEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.SPAWN_TUMBLEWEED),
 			entitySpawnCapEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "leashed_tumbleweed", WWEntityConfig.LEASHED_TUMBLEWEED),
-			booleanEntry(builder, "tumbleweed_destroys_crops", WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS),
-			booleanEntry(builder, "tumbleweed_rotates_to_look_direction", WWEntityConfig.TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION)
+			booleanEntry(builder, "tumbleweed_destroys_crops", WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS)
 		);
 
 		// WARDEN

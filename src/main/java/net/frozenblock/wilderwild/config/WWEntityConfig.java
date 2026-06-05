@@ -83,7 +83,6 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Integer> TUMBLEWEED_SPAWN_CAP = CONFIG.entryBuilder("tumbleweed/tumbleweedSpawnCap", EntryType.INT, 10).requireRestart().build();
 	public static final ConfigEntry<Boolean> LEASHED_TUMBLEWEED = CONFIG.entry("tumbleweed/leashedTumbleweed", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> TUMBLEWEED_DESTROYS_CROPS = CONFIG.entry("tumbleweed/tumbleweedDestroysCrops", EntryType.BOOL, true);
-	public static final ConfigEntry<Boolean> TUMBLEWEED_ROTATES_TO_LOOK_DIRECTION = CONFIG.unsyncableEntry("tumbleweed/tumbleweedRotatesToLookDirection", EntryType.BOOL, false);
 
 	// WARDEN
 	public static final ConfigEntry<Boolean> WARDEN_ATTACKS_IMMEDIATELY = CONFIG.entry("warden/wardenAttacksImmediately", EntryType.BOOL, true);

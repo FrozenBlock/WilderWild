@@ -19,16 +19,10 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.frozenblock.lib.entity.client.api.renderer.entity.state.BlockLikeMobRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 @Environment(EnvType.CLIENT)
-public class TumbleweedRenderState extends LivingEntityRenderState {
-	public boolean isCannonball;
-	public float tumbleRot;
-	public float pitch;
-	public float roll;
+public class TumbleweedRenderState extends BlockLikeMobRenderState {
 	public ItemStackRenderState item = new ItemStackRenderState();
-	public float itemX;
-	public float itemZ;
 }

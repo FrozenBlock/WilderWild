@@ -37,7 +37,6 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Penguin;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -160,10 +159,6 @@ public class FrozenLibIntegration extends ModIntegration {
 
 		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
 			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) ctx.friction = 0.6F;
-		});
-
-		BlockFrictionAPI.MODIFICATIONS.register(ctx -> {
-			if (ctx.entity instanceof Tumbleweed tumbleweed && tumbleweed.isCannonball()) ctx.friction = 0.965F;
 		});
 	}
 }

@@ -22,9 +22,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.model.NoOpModel;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
-import net.frozenblock.wilderwild.client.model.ambient.TumbleweedModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.BabyCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
@@ -76,12 +74,8 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
 
-	public static final ModelLayerLocation FIREFLY = new ModelLayerLocation(WWConstants.id("firefly"), "main");
-
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation JELLYFISH_BABY = new ModelLayerLocation(WWConstants.id("jellyfish_baby"), "main");
-
-	public static final ModelLayerLocation TUMBLEWEED = new ModelLayerLocation(WWConstants.id("tumbleweed"), "main");
 
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
 	public static final ModelLayerLocation CRAB_MOJANG = new ModelLayerLocation(WWConstants.id("crab"), "mojang");
@@ -118,7 +112,6 @@ public final class WWModelLayers {
 
 	public static void init() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY, FireflyRenderer::new);
-		ModelLayerRegistry.registerModelLayer(FIREFLY, NoOpModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.BUTTERFLY, ButterflyRenderer::new);
 		ModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
@@ -128,7 +121,6 @@ public final class WWModelLayers {
 		ModelLayerRegistry.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.TUMBLEWEED, TumbleweedRenderer::new);
-		ModelLayerRegistry.registerModelLayer(TUMBLEWEED, TumbleweedModel::createBodyLayer);
 
 		EntityRenderers.register(WWEntityTypes.CRAB, CrabRenderer::new);
 		ModelLayerRegistry.registerModelLayer(CRAB, AdultCrabModel::createBodyLayer);
