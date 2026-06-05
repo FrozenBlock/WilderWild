@@ -31,10 +31,9 @@ public final class WWTreeDecorators {
 	public static final TreeDecoratorType<PollenTreeDecorator> POLLEN_TREE_DECORATOR = register("pollen_tree_decorator", PollenTreeDecorator.CODEC);
 	public static final TreeDecoratorType<AboveLogsTreeDecorator> ABOVE_LOGS_TREE_DECORATOR = register("above_logs_tree_decorator", AboveLogsTreeDecorator.CODEC);
 
-	public static void init() {
-	}
+	public static void init() {}
 
-	private static <P extends TreeDecorator> TreeDecoratorType<P> register(String id, MapCodec<P> codec) {
-		return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WWConstants.id(id), new TreeDecoratorType<P>(codec));
+	private static <P extends TreeDecorator> TreeDecoratorType<P> register(String name, MapCodec<P> codec) {
+		return Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, WWConstants.id(name), new TreeDecoratorType<P>(codec));
 	}
 }

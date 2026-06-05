@@ -56,52 +56,52 @@ public class WillowRootPlacer extends RootPlacer {
 	@Override
 	public boolean placeRoots(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> placer,
+		BiConsumer<BlockPos, BlockState> rootSetter,
 		RandomSource random,
-		BlockPos pos1,
-		BlockPos pos2,
-		TreeConfiguration treeConfiguration
+		BlockPos origin,
+		BlockPos trunkOrigin,
+		TreeConfiguration config
 	) {
-		final List<BlockPos> list = Lists.newArrayList();
-		final BlockPos.MutableBlockPos mutable = pos1.mutable();
+		final List<BlockPos> rootPositions = Lists.newArrayList();
+		final BlockPos.MutableBlockPos columnPos = origin.mutable();
 
-		while (mutable.getY() < pos2.getY()) {
-			if (!this.canPlaceRoot(level, mutable)) return false;
-			mutable.move(Direction.UP);
+		while (columnPos.getY() < trunkOrigin.getY()) {
+			if (!this.canPlaceRoot(level, columnPos)) return false;
+			columnPos.move(Direction.UP);
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			final BlockPos offsetPos = pos2.relative(direction);
-			final List<BlockPos> list2 = Lists.newArrayList();
-			if (!this.simulateRoots(level, random, offsetPos, direction, pos2, list2, 0)) return false;
+			final BlockPos pos = trunkOrigin.relative(direction);
+			final List<BlockPos> positionsInDirection = Lists.newArrayList();
+			if (!this.simulateRoots(level, random, pos, direction, trunkOrigin, positionsInDirection, 0)) return false;
 
-			list.addAll(list2);
-			list.add(pos2.relative(direction));
+			rootPositions.addAll(positionsInDirection);
+			rootPositions.add(trunkOrigin.relative(direction));
 		}
 
-		final List<BlockPos> columnPoses = Lists.newArrayList();
-		for (BlockPos rootPoses : list) columnPoses.addAll(this.potentialColumnRootPositions(level, rootPoses));
-		list.addAll(columnPoses);
+		final List<BlockPos> columnPositions = Lists.newArrayList();
+		for (BlockPos rootPoses : rootPositions) columnPositions.addAll(this.potentialColumnRootPositions(level, rootPoses));
+		rootPositions.addAll(columnPositions);
 
-		for (BlockPos blockPos4 : list) this.placeRoot(level, placer, random, blockPos4, treeConfiguration);
+		for (BlockPos rootPos : rootPositions) this.placeRoot(level, rootSetter, random, rootPos, config);
 		return true;
 	}
 
 	private boolean simulateRoots(
 		LevelSimulatedReader level,
 		RandomSource random,
-		BlockPos pos1,
-		Direction direction,
-		BlockPos pos2,
-		List<BlockPos> list,
-		int i
+		BlockPos rootPos,
+		Direction dir,
+		BlockPos rootOrigin,
+		List<BlockPos> rootPositions,
+		int layer
 	) {
 		final int maxLength = this.willowRootPlacement.maxRootLength();
-		if (i != maxLength && list.size() <= maxLength) {
-			for (BlockPos blockPos3 : this.potentialRootPositions(pos1, direction, random, pos2)) {
+		if (layer != maxLength && rootPositions.size() <= maxLength) {
+			for (BlockPos blockPos3 : this.potentialRootPositions(rootPos, dir, random, rootOrigin)) {
 				if (!this.canPlaceRoot(level, blockPos3)) continue;
-				list.add(blockPos3);
-				if (!this.simulateRoots(level, random, blockPos3, direction, pos2, list, i + 1)) return false;
+				rootPositions.add(blockPos3);
+				if (!this.simulateRoots(level, random, blockPos3, dir, rootOrigin, rootPositions, layer + 1)) return false;
 			}
 
 			return true;
@@ -110,29 +110,29 @@ public class WillowRootPlacer extends RootPlacer {
 	}
 
 	protected List<BlockPos> potentialColumnRootPositions(LevelSimulatedReader level, BlockPos pos) {
-		final ArrayList<BlockPos> poses = new ArrayList<>();
+		final ArrayList<BlockPos> positions = new ArrayList<>();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		mutable.set(pos);
-		while (this.canPlaceRoot(level, mutable.move(Direction.DOWN))) poses.add(mutable.immutable());
-		return poses;
+		while (this.canPlaceRoot(level, mutable.move(Direction.DOWN))) positions.add(mutable.immutable());
+		return positions;
 	}
 
 	protected List<BlockPos> potentialRootPositions(
 		BlockPos pos,
-		Direction direction,
+		Direction prevDir,
 		RandomSource random,
-		BlockPos pos2
+		BlockPos rootOrigin
 	) {
-		final BlockPos belowPos = pos.below();
-		final BlockPos offsetPos = pos.relative(direction);
-		final int distance = pos.distManhattan(pos2);
-		final int maxWidth = this.willowRootPlacement.maxRootWidth();
-		final float skewChance = this.willowRootPlacement.randomSkewChance();
+		final BlockPos below = pos.below();
+		final BlockPos nextTo = pos.relative(prevDir);
+		final int width = pos.distManhattan(rootOrigin);
+		final int maxRootWidth = this.willowRootPlacement.maxRootWidth();
+		final float randomSkewChance = this.willowRootPlacement.randomSkewChance();
 
-		if (distance > maxWidth - 3 && distance <= maxWidth) return random.nextFloat() < skewChance ? List.of(belowPos, offsetPos.below()) : List.of(belowPos);
-		if (distance > maxWidth) return List.of(belowPos);
-		if (random.nextFloat() < skewChance) return List.of(belowPos);
-		return random.nextBoolean() ? List.of(offsetPos) : List.of(belowPos);
+		if (width > maxRootWidth - 3 && width <= maxRootWidth) return random.nextFloat() < randomSkewChance ? List.of(below, nextTo.below()) : List.of(below);
+		if (width > maxRootWidth) return List.of(below);
+		if (random.nextFloat() < randomSkewChance) return List.of(below);
+		return random.nextBoolean() ? List.of(nextTo) : List.of(below);
 	}
 
 	@Override
