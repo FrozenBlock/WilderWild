@@ -4,7 +4,7 @@
 	"textures": {
 		"texture": "wilderwild:block/tumbleweed_fan_stage_1",
 		"tumbleweed": "wilderwild:block/tumbleweed_stage_1",
-		"particle": "#texture"
+		"particle": "#tumbleweed"
 	},
 	"elements": [
 		{
