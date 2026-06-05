@@ -351,6 +351,11 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	@Override
+	protected double blockGridSnapIntensity() {
+		return 0.25D;
+	}
+
+	@Override
 	public boolean causeFallDamage(double fallDistance, float damageModifier, DamageSource source) {
 		return false;
 	}
