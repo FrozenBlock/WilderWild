@@ -28,7 +28,8 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
-import net.frozenblock.lib.spottingicon.api.SpottingIconPredicate;
+import net.frozenblock.lib.spottingicon.api.SpottingIcon;
+import net.frozenblock.lib.spottingicon.api.SpottingIcons;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
@@ -65,10 +66,6 @@ public class FrozenLibIntegration extends ModIntegration {
 	@Override
 	public void initPreFreeze() {
 		WWConstants.log("FrozenLib pre-freeze mod integration ran!", WWConstants.UNSTABLE_LOGGING);
-		SpottingIconPredicate.register(
-			WWConstants.id("stella"),
-			entity -> entity.hasCustomName() && entity.getCustomName().getString().equalsIgnoreCase("stella")
-		);
 
 		ItemTooltipAdditionAPI.addTooltip(
 			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),

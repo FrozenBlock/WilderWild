@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
+import net.frozenblock.lib.spottingicon.api.SpottingIcon;
+import net.frozenblock.lib.spottingicon.api.SpottingIcons;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -31,15 +33,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public class EntityMixin {
 	@Unique
-	private static final Identifier WILDER_WILD$STELLA_TEXTURE = WWConstants.id("textures/spotting_icons/stella.png");
-	@Unique
-	private static final Identifier WILDER_WILD$STELLA = WWConstants.id("stella");
+	private static final Identifier WILDER_WILD$STELLA_TEXTURE = WWConstants.id("stella");
 
 	@Inject(method = "setCustomName", at = @At(value = "HEAD"))
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
-		if (name != null && name.getString().equalsIgnoreCase("Stella")) {
-			Entity.class.cast(this).frozenLib$getSpottingIconManager()
-				.setIcon(WILDER_WILD$STELLA_TEXTURE, 5F, 8F, WILDER_WILD$STELLA);
+		if (name != null && name.getString().equalsIgnoreCase("stella")) {
+			SpottingIcons.addIcon(
+				Entity.class.cast(this),
+				SpottingIcon.builder()
+					.texture(WILDER_WILD$STELLA_TEXTURE)
+					.fader(5F, 8F, 0F, 1F)
+					.build()
+			);
+		} else {
+			SpottingIcons.removeIconIf(
+				Entity.class.cast(this),
+				icon -> icon.texture().equals(WILDER_WILD$STELLA_TEXTURE)
+			);
 		}
 	}
 }

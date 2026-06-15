@@ -7,7 +7,7 @@ import java.io.FileNotFoundException
 import java.net.URL
 
 plugins {
-    id("net.fabricmc.fabric-loom") version("1.16-SNAPSHOT")
+    id("net.fabricmc.fabric-loom") version("1.17-SNAPSHOT")
     id("org.quiltmc.gradle.licenser") version("+")
     id("org.ajoberstar.grgit") version("+")
     id("me.modmuss50.mod-publish-plugin") version("+")

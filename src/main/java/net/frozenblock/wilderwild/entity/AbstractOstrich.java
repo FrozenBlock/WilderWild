@@ -316,7 +316,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		if (!wasHurt) {
 			knockback.removeModifier(KNOCKBACK_MODIFIER_UUID);
 		} else {
-			this.causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement, damageSource, beakDamage);
+			this.causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement, damageSource, beakDamage, false);
 		}
 		return wasHurt;
 	}
