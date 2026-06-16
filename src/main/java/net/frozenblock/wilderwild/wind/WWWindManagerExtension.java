@@ -34,11 +34,15 @@ import net.minecraft.world.level.Level;
 public final class WWWindManagerExtension implements WindManagerExtension {
 	public static final MapCodec<WWWindManagerExtension> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Codec.DOUBLE.fieldOf("cloud_x").forGetter(extension -> extension.cloudX),
-		Codec.DOUBLE.fieldOf("cloud_z").forGetter(extension -> extension.cloudZ)
+		Codec.DOUBLE.fieldOf("cloud_z").forGetter(extension -> extension.cloudZ),
+		Codec.DOUBLE.fieldOf("previous_cloud_x").forGetter(extension -> extension.prevCloudX),
+		Codec.DOUBLE.fieldOf("previous_cloud_z").forGetter(extension -> extension.prevCloudZ)
 	).apply(instance, WWWindManagerExtension::createFromCodec));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWWindManagerExtension> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudX,
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudZ,
+		ByteBufCodecs.DOUBLE, extension -> extension.prevCloudX,
+		ByteBufCodecs.DOUBLE, extension -> extension.prevCloudZ,
 		WWWindManagerExtension::createFromCodec
 	);
 	public static final WindManagerExtensionType<WWWindManagerExtension> TYPE = WindManagerExtensionType.register(
@@ -56,12 +60,12 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 
 	public WWWindManagerExtension() {}
 
-	private static WWWindManagerExtension createFromCodec(double cloudX, double cloudZ) {
+	private static WWWindManagerExtension createFromCodec(double cloudX, double cloudZ, double prevCloudX, double prevCloudZ) {
 		final WWWindManagerExtension extension = new WWWindManagerExtension();
 		extension.cloudX = cloudX;
 		extension.cloudZ = cloudZ;
-		extension.prevCloudX = cloudX;
-		extension.prevCloudZ = cloudZ;
+		extension.prevCloudX = prevCloudX;
+		extension.prevCloudZ = prevCloudZ;
 		return extension;
 	}
 
@@ -91,17 +95,16 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 	}
 
 	@Override
-	public void tick(Level level) {
+	public void tick(WindManager windManager, Level level) {
 		this.prevCloudX = this.cloudX;
 		this.prevCloudZ = this.cloudZ;
 
-		final WindManager windManager = WindManager.getOrCreate(level);
 		this.cloudX += windManager.laggedWindX * 0.007D;
 		this.cloudZ += windManager.laggedWindZ * 0.007D;
 	}
 
 	@Override
-	public void baseTick(Level level) {}
+	public void baseTick(WindManager windManager, Level level) {}
 
 	@Override
 	public boolean runResetsIfNeeded() {
