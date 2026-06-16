@@ -84,7 +84,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private static void makeTentacles(PartDefinition part, int amount) {
 		final CubeListBuilder tentacle = CubeListBuilder.create().texOffs(0, 13).addBox(-0.5F, 0F, 0F, 1F, 10F, 1F);
 		for (int i = 0; i < amount; ++i) {
-			final float rot = i * Mth.PI * 2F /  amount;
+			final float rot = i * Mth.TWO_PI / amount;
 			part.addOrReplaceChild(
 				createTentacleName(i, false),
 				tentacle,
