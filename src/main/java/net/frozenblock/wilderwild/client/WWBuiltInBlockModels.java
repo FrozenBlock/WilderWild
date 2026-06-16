@@ -44,7 +44,6 @@ public final class WWBuiltInBlockModels {
 			builder.put(BuiltInBlockModels::createFlowerBedModel, WWBlocks.CLOVERS);
 			builder.put(BuiltInBlockModels::createFlowerBedModel, WWBlocks.PHLOX, WWBlocks.LANTANAS);
 		});
-
 	}
 
 	private static BuiltInBlockModels.SpecialModelFactory createStoneChest(MultiblockChestResources<Identifier> textures, MultiblockChestResources<Identifier> sculkTextures) {

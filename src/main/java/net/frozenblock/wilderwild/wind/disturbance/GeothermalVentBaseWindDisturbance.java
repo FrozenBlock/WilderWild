@@ -49,13 +49,9 @@ public class GeothermalVentBaseWindDisturbance implements WindDisturbance<Geothe
 	}
 
 	@Override
-	public WindDisturbanceResult get(GeothermalVentBlockEntity source, Level level, Vec3 target) {
-		if (!source.isErupting()) return WindDisturbanceResult.PASS;
-		return WindDisturbance.super.get(source, level, target);
-	}
-
-	@Override
 	public WindDisturbanceResult get(GeothermalVentBlockEntity source, Level level, Vec3 origin, AABB area, Vec3 target, double scale) {
+		if (!source.isErupting()) return WindDisturbanceResult.PASS;
+
 		final BlockState state = level.getBlockState(source.getBlockPos());
 		if (!state.hasProperty(BlockStateProperties.FACING)) return WindDisturbanceResult.PASS;
 

@@ -15,10 +15,11 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.wind;
+package net.frozenblock.wilderwild.wind.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -32,7 +33,11 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
-public final class WWWindParticles {
+public final class AmbientWindParticleSpawner {
+
+	public static void init() {
+		ClientTickEvents.START_LEVEL_TICK.register(AmbientWindParticleSpawner::animateTick);
+	}
 
 	public static void animateTick(ClientLevel level) {
 		final Minecraft minecraft = Minecraft.getInstance();
@@ -123,14 +128,11 @@ public final class WWWindParticles {
 		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z, random);
 	}
 
-	private static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z, RandomSource random) {
+	public static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z, RandomSource random) {
 		level.addParticle(
 			new WindParticleOptions((int) (minLifespan + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
 			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
 			0D, 0D, 0D
 		);
-	}
-
-	private WWWindParticles() {
 	}
 }

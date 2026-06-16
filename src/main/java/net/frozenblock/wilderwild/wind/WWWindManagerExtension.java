@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.wind;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.lib.wind.WindManager;
@@ -24,7 +25,6 @@ import net.frozenblock.lib.wind.extension.WindManagerExtension;
 import net.frozenblock.lib.wind.extension.WindManagerExtensionType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -32,13 +32,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 
 public final class WWWindManagerExtension implements WindManagerExtension {
-	public static final MapCodec<WWWindManagerExtension> CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-				com.mojang.serialization.Codec.DOUBLE.fieldOf("cloudX").forGetter(extension -> extension.cloudX),
-				com.mojang.serialization.Codec.DOUBLE.fieldOf("cloudZ").forGetter(extension -> extension.cloudZ)
-			)
-			.apply(instance, WWWindManagerExtension::createFromCodec)
-	);
+	public static final MapCodec<WWWindManagerExtension> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.DOUBLE.fieldOf("cloud_x").forGetter(extension -> extension.cloudX),
+		Codec.DOUBLE.fieldOf("cloud_z").forGetter(extension -> extension.cloudZ)
+	).apply(instance, WWWindManagerExtension::createFromCodec));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWWindManagerExtension> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudX,
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudZ,
@@ -57,8 +54,7 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 	public double prevCloudX;
 	public double prevCloudZ;
 
-	public WWWindManagerExtension() {
-	}
+	public WWWindManagerExtension() {}
 
 	private static WWWindManagerExtension createFromCodec(double cloudX, double cloudZ) {
 		final WWWindManagerExtension extension = new WWWindManagerExtension();
@@ -69,14 +65,10 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		return extension;
 	}
 
-	public static void init() {
-	}
+	public static void init() {}
 
 	public static WWWindManagerExtension get(Level level) {
-		for (WindManagerExtension extension : WindManager.getOrCreate(level).extensions) {
-			if (extension instanceof WWWindManagerExtension ww) return ww;
-		}
-		throw new IllegalStateException("WWWindManagerExtension was not registered for level " + level);
+		return WindManager.getExtension(level, TYPE).orElseThrow(() -> new IllegalStateException("WWWindManagerExtension was not registered for level " + level));
 	}
 
 	public static double getCloudX(Level level, float partialTick) {
@@ -106,15 +98,10 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		final WindManager windManager = WindManager.getOrCreate(level);
 		this.cloudX += windManager.laggedWindX * 0.007D;
 		this.cloudZ += windManager.laggedWindZ * 0.007D;
-
-		if (level instanceof ClientLevel clientLevel) {
-			WWWindParticles.animateTick(clientLevel);
-		}
 	}
 
 	@Override
-	public void baseTick(Level level) {
-	}
+	public void baseTick(Level level) {}
 
 	@Override
 	public boolean runResetsIfNeeded() {

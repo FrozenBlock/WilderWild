@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.registry.WWClientResources;
+import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
@@ -55,6 +56,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWTints.init();
 		WWEasterEggs.hatchEasterEggs();
 		WWClientMusicImpl.init();
+		AmbientWindParticleSpawner.init();
 
 		WWClientNetworking.registerPacketReceivers();
 
