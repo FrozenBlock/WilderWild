@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.wind.api.BlowingHelper;
+import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;

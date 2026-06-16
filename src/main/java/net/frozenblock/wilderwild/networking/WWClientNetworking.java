@@ -31,10 +31,8 @@ import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePac
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
-import net.frozenblock.wilderwild.networking.packet.WWWindPacket;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -55,20 +53,12 @@ import net.minecraft.world.phys.Vec3;
 public final class WWClientNetworking {
 
 	public static void registerPacketReceivers() {
-		receiveWindExtensionSyncPacket();
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
 		receiveScorchingFirePlacePacket();
 		receiveIcicleLandPacket();
 		receiveLeavesExplosionPacket();
-	}
-
-	public static void receiveWindExtensionSyncPacket() {
-		ClientPlayNetworking.registerGlobalReceiver(WWWindPacket.PACKET_TYPE, (packet, ctx) -> {
-			WWClientWindManager.cloudX = packet.cloudX();
-			WWClientWindManager.cloudZ = packet.cloudZ();
-		});
 	}
 
 	public static void receiveJellyfishStingPacket() {

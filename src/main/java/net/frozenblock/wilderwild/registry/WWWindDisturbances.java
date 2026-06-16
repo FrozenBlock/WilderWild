@@ -17,68 +17,29 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import java.util.Optional;
-import net.frozenblock.lib.wind.api.WindDisturbance;
-import net.frozenblock.lib.wind.api.WindDisturbanceLogic;
+import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.PotentSulfurBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
+import net.frozenblock.wilderwild.wind.disturbance.GeyserWindDisturbance;
 
 public final class WWWindDisturbances {
-	public static final Identifier GEOTHERMAL_VENT_EFFECTIVE = WWConstants.id("geothermal_vent_effective");
-	public static final Identifier GEOTHERMAL_VENT_BASE = WWConstants.id("geothermal_vent_base");
-	public static final Identifier GEYSER = WWConstants.id("geyser");
+	public static final WindDisturbanceType<GeothermalVentEffectiveWindDisturbance> GEOTHERMAL_VENT_EFFECTIVE = WindDisturbanceType.register(
+		WWConstants.id("geothermal_vent_effective"),
+		GeothermalVentEffectiveWindDisturbance.CODEC,
+		GeothermalVentEffectiveWindDisturbance.STREAM_CODEC
+	);
+	public static final WindDisturbanceType<GeothermalVentBaseWindDisturbance> GEOTHERMAL_VENT_BASE = WindDisturbanceType.register(
+		WWConstants.id("geothermal_vent_base"),
+		GeothermalVentBaseWindDisturbance.CODEC,
+		GeothermalVentBaseWindDisturbance.STREAM_CODEC
+	);
+	public static final WindDisturbanceType<GeyserWindDisturbance> GEYSER = WindDisturbanceType.register(
+		WWConstants.id("geyser"),
+		GeyserWindDisturbance.CODEC,
+		GeyserWindDisturbance.STREAM_CODEC
+	);
 
 	public static void init() {
-		WindDisturbanceLogic.register(
-			GEOTHERMAL_VENT_EFFECTIVE,
-			(source, level, origin, area, target) -> {
-				return calculateDisturbanceResult(source, level, origin, target, GeothermalVentBlockEntity.EFFECTIVE_ADDITIONAL_WIND_INTENSITY);
-			}
-		);
-
-		WindDisturbanceLogic.register(
-			GEOTHERMAL_VENT_BASE,
-			(source, level, origin, area, target) -> {
-				return calculateDisturbanceResult(source, level, origin, target, GeothermalVentBlockEntity.BASE_WIND_INTENSITY);
-			}
-		);
-
-		final WindDisturbance.DisturbanceResult mojangGeyserResult = new WindDisturbance.DisturbanceResult(
-			1D,
-			1D,
-			new Vec3(0, 0.2D, 0).scale(40D)
-		);
-		WindDisturbanceLogic.register(
-			GEYSER,
-			(source, level, origin, area, target) -> {
-				if (source.isEmpty() || !(source.get() instanceof PotentSulfurBlockEntity geyser)) return null;
-				return mojangGeyserResult;
-			}
-		);
-	}
-
-	private static WindDisturbance.DisturbanceResult calculateDisturbanceResult(Optional<Object> source, Level level, Vec3 origin, Vec3 target, double scale) {
-		if (source.isEmpty() || !(source.get() instanceof GeothermalVentBlockEntity vent)) return null;
-
-		final BlockState state = level.getBlockState(vent.getBlockPos());
-		if (!state.hasProperty(BlockStateProperties.FACING)) return null;
-
-		final Direction direction = state.getValue(BlockStateProperties.FACING);
-		final Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
-		final double strength = GeothermalVentBlockEntity.ERUPTION_DISTANCE - Math.min(target.distanceTo(origin), GeothermalVentBlockEntity.ERUPTION_DISTANCE);
-		final double intensity = strength / GeothermalVentBlockEntity.ERUPTION_DISTANCE;
-		return new WindDisturbance.DisturbanceResult(
-			Mth.clamp(intensity * 2D, 0D, 1D),
-			strength * 2D,
-			movement.scale(intensity * scale).scale(30D)
-		);
 	}
 }

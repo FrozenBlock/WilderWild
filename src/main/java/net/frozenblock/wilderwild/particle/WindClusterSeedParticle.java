@@ -21,7 +21,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindParticles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -49,7 +49,7 @@ public class WindClusterSeedParticle extends NoRenderParticle {
 		if (this.age >= this.lifetime) this.remove();
 
 		if ((this.age & this.timeBetweenSpawns) == 0 && this.random.nextFloat() < WWAmbienceAndMiscConfig.WIND_CLUSTER_FREQUENCY.get() * 0.01F) {
-			WWClientWindManager.spawnAmbientWindParticles(
+			WWWindParticles.spawnAmbientWindParticles(
 				this.level,
 				this.pos.getX(), this.pos.getY(), this.pos.getZ(),
 				2,

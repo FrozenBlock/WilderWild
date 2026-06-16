@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.entity.firework_rocket;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -55,7 +55,7 @@ public class FireworkRocketEntityMixin {
 	private void wilderWild$moveWithWind(FireworkRocketEntity instance, Vec3 movement, Operation<Void> operation) {
 		if (FireworkRocketEntity.class.cast(this).level() instanceof ServerLevel level) {
 			double intensity = (Math.max(1, (double) (this.lifetime - this.life)) / Math.max(1, this.lifetime)) * 0.5D;
-			final Vec3 wind = WindManager.getOrCreateWindManager(level).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
+			final Vec3 wind = WindManager.getOrCreate(level).getWindMovement(BlockPos.containing(instance.getX(), instance.getY(), instance.getZ()), intensity)
 				.scale(WWAmbienceAndMiscConfig.FIREWORK_WIND_MOVEMENT.get() * 0.01D);
 			movement = movement.add(wind.x() * 0.001D, wind.y() * 0.00005D, wind.z() * 0.001D);
 		}

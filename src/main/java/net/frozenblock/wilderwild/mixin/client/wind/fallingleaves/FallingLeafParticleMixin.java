@@ -24,9 +24,9 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalDoubleRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -67,9 +67,9 @@ public abstract class FallingLeafParticleMixin extends SingleQuadParticle {
 		@Share("wilderWild$useWind") LocalBooleanRef wilderWild$useWind,
 		@Share("wilderWild$windZ") LocalDoubleRef wilderWild$windZ
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
 			wilderWild$useWind.set(true);
-			final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+			final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 				.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity());
 			wilderWild$windZ.set(wind.z);
 			return (float) wind.x * 0.6F;
@@ -105,7 +105,7 @@ public abstract class FallingLeafParticleMixin extends SingleQuadParticle {
 		require = 0
 	)
 	public void wilderWild$continueInWater(CallbackInfo info) {
-		final Vec3 wind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.getParticleWindIntensity()).scale(0.075D);
 		this.xd += (wind.x - this.xd) * (double)this.windCoefficient / 60D;
 		this.zd += (wind.z - this.zd) * (double)this.windCoefficient / 60D;

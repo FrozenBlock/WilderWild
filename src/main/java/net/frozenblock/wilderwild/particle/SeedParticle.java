@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -72,7 +72,7 @@ public class SeedParticle extends SingleQuadParticle {
 		}
 		final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 		final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-		final Vec3 wind = ClientWindManager.getWindMovement(this.level,new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
+		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
 		this.xd += wind.x() * horizontalWindScale;
 		this.yd += Math.max(((wind.y() * 0.4D) + 0.1D), 0.1D) * verticalWindScale;
@@ -97,9 +97,9 @@ public class SeedParticle extends SingleQuadParticle {
 			final SeedParticle seedParticle = new SeedParticle(
 				level,
 				x, y, z,
-				(((options.controlled() ? controlledVelocity.x : ClientWindManager.getWindX(1F)) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
+				(((options.controlled() ? controlledVelocity.x : WindManager.getOrCreate(level).windX) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
 				options.controlled() ? controlledVelocity.y / 17D : 0D,
-				(((options.controlled() ? controlledVelocity.z : ClientWindManager.getWindZ(1F)) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
+				(((options.controlled() ? controlledVelocity.z : WindManager.getOrCreate(level).windZ) * 1.1D) + random.triangle(0D, 0.8D)) / 17D,
 				this.spriteSet.get(random)
 			);
 			seedParticle.lifetime = Mth.randomBetweenInclusive(random, 200, 500);

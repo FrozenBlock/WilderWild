@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
-import net.frozenblock.lib.spottingicon.api.SpottingIcon;
-import net.frozenblock.lib.spottingicon.api.SpottingIcons;
+import net.frozenblock.lib.entity.api.spottingicon.SpottingIcon;
+import net.frozenblock.lib.entity.api.spottingicon.SpottingIcons;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -38,7 +38,7 @@ public class EntityMixin {
 	@Inject(method = "setCustomName", at = @At(value = "HEAD"))
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
 		if (name != null && name.getString().equalsIgnoreCase("stella")) {
-			SpottingIcons.addIcon(
+			SpottingIcons.add(
 				Entity.class.cast(this),
 				SpottingIcon.builder()
 					.texture(WILDER_WILD$STELLA_TEXTURE)
@@ -46,7 +46,7 @@ public class EntityMixin {
 					.build()
 			);
 		} else {
-			SpottingIcons.removeIconIf(
+			SpottingIcons.removeIf(
 				Entity.class.cast(this),
 				icon -> icon.texture().equals(WILDER_WILD$STELLA_TEXTURE)
 			);

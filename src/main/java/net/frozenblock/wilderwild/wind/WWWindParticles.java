@@ -20,64 +20,37 @@ package net.frozenblock.wilderwild.wind;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
-import net.frozenblock.lib.wind.client.api.ClientWindManagerExtension;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
-public final class WWClientWindManager implements ClientWindManagerExtension {
-	public static double prevCloudX;
-	public static double prevCloudZ;
-	public static double cloudX;
-	public static double cloudZ;
+public final class WWWindParticles {
 
-	public static double getCloudX(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudX, cloudX);
-	}
-
-	public static double getCloudZ(float partialTick) {
-		return Mth.lerp(partialTick, prevCloudZ, cloudZ);
-	}
-
-	@Override
-	public void clientTick() {
-		prevCloudX = cloudX;
-		prevCloudZ = cloudZ;
-
-		cloudX += (ClientWindManager.laggedWindX * 0.007D);
-		cloudZ += (ClientWindManager.laggedWindZ * 0.007D);
-
+	public static void animateTick(ClientLevel level) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		final ClientLevel level = minecraft.level;
-		if (level == null) return;
+		if (minecraft.level != level) return;
 
-		final BlockPos pos = minecraft.gameRenderer.mainCamera().blockPosition();
-		animateTick(level, pos.getX(), pos.getY(), pos.getZ());
-	}
-
-	public static void animateTick(ClientLevel level, int posX, int posY, int posZ) {
+		final BlockPos cameraPos = minecraft.gameRenderer.mainCamera().blockPosition();
 		final RandomSource random = level.getRandom();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		if (WWAmbienceAndMiscConfig.WIND_PARTICLES.get()) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
-				spawnAmbientWindParticles(level, posX, posY, posZ, 48, random, mutable, true);
+				spawnAmbientWindParticles(level, cameraPos.getX(), cameraPos.getY(), cameraPos.getZ(), 48, random, mutable, true);
 			}
 		}
 
 		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES.get()) {
 			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
-				spawnDisturbanceWindParticles(level, posX, posY, posZ, 48, random, mutable);
+				spawnDisturbanceWindParticles(level, cameraPos.getX(), cameraPos.getY(), cameraPos.getZ(), 48, random, mutable);
 			}
 		}
 	}
@@ -110,7 +83,7 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		}
 		mutable.set(x, y, z);
 
-		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(mutable), 1D, 2D, 2D);
+		final Vec3 wind = WindManager.getOrCreate(level).getWindMovement(Vec3.atCenterOf(mutable), 1D, 2D, 2D);
 		final double horizontalWind = wind.horizontalDistance();
 		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.WIND_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 
@@ -138,12 +111,12 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		final int y = posY + random.nextIntBetweenInclusive(-range, range);
 		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(x, y, z);
-		if (ClientWindManager.getWindDisturbances().stream().noneMatch(windDisturbance -> windDisturbance.affectedArea.contains(x, y, z))) return;
+		if (WindManager.getOrCreate(level).getTrackedDisturbances().stream().noneMatch(tracked -> tracked.area(level).contains(x, y, z))) return;
 
 		final BlockState state = level.getBlockState(blockPos);
 		if (state.isCollisionShapeFullBlock(level, blockPos)) return;
 
-		final Vec3 wind = ClientWindManager.getWindMovement(level, Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
+		final Vec3 wind = WindManager.getOrCreate(level).getWindMovement(Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
 		final double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 
@@ -158,24 +131,6 @@ public final class WWClientWindManager implements ClientWindManagerExtension {
 		);
 	}
 
-	public static boolean shouldUseWind() {
-		return WWAmbienceAndMiscConfig.CLOUD_MOVEMENT.get() && ClientWindManager.shouldUseWind();
-	}
-
-	@Override
-	public void baseTick() {
-	}
-
-	@Override
-	public void receiveSyncPacket(FriendlyByteBuf byteBuf, Minecraft minecraft) {
-		final double cloudX = byteBuf.readDouble();
-		final double cloudZ = byteBuf.readDouble();
-
-		minecraft.execute(() -> {
-			if (minecraft.level != null) {
-				WWClientWindManager.cloudX = cloudX;
-				WWClientWindManager.cloudZ = cloudZ;
-			}
-		});
+	private WWWindParticles() {
 	}
 }

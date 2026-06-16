@@ -24,7 +24,6 @@ import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntry
 import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
-import net.frozenblock.lib.wind.api.WindManager;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -62,7 +61,7 @@ import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.wind.WWWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
@@ -108,12 +107,12 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWStructureModifications.init();
 
 		WWWindDisturbances.init();
+		WWWindManagerExtension.init();
 		WWSoundPredicates.init();
 
 		WWModIntegrations.init();
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
-		WindManager.addExtension(WWWindManager.TYPE);
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);

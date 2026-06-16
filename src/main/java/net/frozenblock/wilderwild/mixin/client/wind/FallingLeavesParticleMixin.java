@@ -24,10 +24,10 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.wind.client.impl.ClientWindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FallingLeavesParticle;
 import net.minecraft.client.particle.SingleQuadParticle;
@@ -82,8 +82,8 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
 		wind.set(Vec3.ZERO);
-		if (!WWClientWindManager.shouldUseWind()) return;
-		final Vec3 currentWind = ClientWindManager.getWindMovement(this.level, new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
+		if (!WWWindManagerExtension.shouldUseWind(this.level)) return;
+		final Vec3 currentWind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
 			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
 		wind.set(currentWind);
 	}
@@ -100,7 +100,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) return original * wind.get().x;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) return original * wind.get().x;
 		return original;
 	}
 
@@ -116,7 +116,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) return original * wind.get().z;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) return original * wind.get().z;
 		return original;
 	}
 
@@ -131,7 +131,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) return original + (wind.get().x * 0.2D);
+		if (WWWindManagerExtension.shouldUseWind(this.level)) return original + (wind.get().x * 0.2D);
 		return original;
 	}
 
@@ -146,7 +146,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		double original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) return original + (wind.get().z * 0.2D);
+		if (WWWindManagerExtension.shouldUseWind(this.level)) return original + (wind.get().z * 0.2D);
 		return original;
 	}
 
@@ -161,7 +161,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		FallingLeavesParticle instance, double x, double y, double z, Operation<Void> original,
 		@Share("wilderWild$wind") LocalRef<Vec3> wind
 	) {
-		if (WWClientWindManager.shouldUseWind()) y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
 		original.call(instance, x, y, z);
 	}
 
@@ -170,7 +170,7 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		constant = @Constant(intValue = 299)
 	)
 	public int wilderWild$fixMoveD(int constant) {
-		if (WWClientWindManager.shouldUseWind()) return 10;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) return 10;
 		return constant;
 	}
 

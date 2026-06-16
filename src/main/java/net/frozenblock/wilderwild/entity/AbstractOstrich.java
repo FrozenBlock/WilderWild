@@ -20,7 +20,8 @@ package net.frozenblock.wilderwild.entity;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.screenshake.api.ScreenShakeManager;
+import net.frozenblock.lib.screenshake.api.ScreenShake;
+import net.frozenblock.lib.screenshake.api.ScreenShakes;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
@@ -285,7 +286,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 						final boolean inbred = this.isInbred();
 						final float volume = inbred ? 8F : this.getSoundVolume();
 						this.level().playSound(null, beakBlockPos, this.getBeakStuckSound(), this.getSoundSource(), volume, this.getVoicePitch());
-						if (inbred) ScreenShakeManager.addEntityScreenShake(this, 3.5F, 40, 16F);
+						if (inbred) ScreenShakes.add(this, ScreenShake.builder(this).intensity(3.5F).duration(40).maxDistance(16F).build());
 					}
 					this.spawnBlockParticles(true, false);
 					return;

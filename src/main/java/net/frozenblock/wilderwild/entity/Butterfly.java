@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.entity;
 
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;
 import net.frozenblock.wilderwild.entity.impl.WWBottleable;
@@ -325,7 +325,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 		if (!this.isAlive()) this.setNoGravity(false);
 
 		if (this.level() instanceof ServerLevel serverLevel) {
-			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
+			Vec3 wind = WindManager.getOrCreate(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}

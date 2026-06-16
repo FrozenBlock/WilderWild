@@ -23,9 +23,11 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.wind.WWClientWindManager;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.minecraft.client.CloudStatus;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -54,12 +56,13 @@ public class LevelRendererMixin {
 		Operation<Void> original,
 		@Local(name = "deltaPartialTick") float deltaPartialTick
 	) {
-		if (WWClientWindManager.shouldUseWind()) {
+		final Level level = Minecraft.getInstance().level;
+		if (level != null && WWWindManagerExtension.shouldUseWind(level)) {
 			double cameraX = cameraPosition.x;
 			double cameraY = cameraPosition.y;
 			double cameraZ = cameraPosition.z;
-			cameraX = (cameraX - WWClientWindManager.getCloudX(deltaPartialTick) * 18D) - (double)((partialTicks) * 0.03F);
-			cameraZ = cameraZ - WWClientWindManager.getCloudZ(deltaPartialTick) * 18D;
+			cameraX = cameraX - WWWindManagerExtension.getCloudX(level, deltaPartialTick) * 18D;
+			cameraZ = cameraZ - WWWindManagerExtension.getCloudZ(level, deltaPartialTick) * 18D;
 			cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
 			gameTime = 0L;
 			partialTicks = 0L;

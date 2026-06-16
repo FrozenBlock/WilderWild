@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.entity;
 
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.impl.WWBottleable;
@@ -446,7 +446,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 		if (animScale < 1.5F) this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 
 		if (this.level() instanceof ServerLevel serverLevel) {
-			Vec3 wind = WindManager.getOrCreateWindManager(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
+			Vec3 wind = WindManager.getOrCreate(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
 		}

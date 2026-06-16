@@ -34,7 +34,7 @@ public class WindParticleMixin {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/frozenblock/lib/wind/client/impl/ClientWindManager;getWindMovement(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/Vec3;DDD)Lnet/minecraft/world/phys/Vec3;"
+			target = "Lnet/frozenblock/lib/wind/WindManager;getWindMovement(Lnet/minecraft/world/phys/Vec3;DDD)Lnet/minecraft/world/phys/Vec3;"
 		)
 	)
 	public Vec3 wilderWild$fixWindSpeed(Vec3 original) {

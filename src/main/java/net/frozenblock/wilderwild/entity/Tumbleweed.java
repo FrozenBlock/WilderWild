@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity;
 import net.frozenblock.lib.entity.api.AbstractBlockLikeMob;
 import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
 import net.frozenblock.lib.tag.api.TagUtils;
-import net.frozenblock.lib.wind.api.WindManager;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -212,7 +212,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 
 	private void moveWithWind(ServerLevel level, double brightness, Vec3 deltaPos) {
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
-			final WindManager windManager = WindManager.getOrCreateWindManager(level);
+			final WindManager windManager = WindManager.getOrCreate(level);
 			final Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
 			final double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
 
