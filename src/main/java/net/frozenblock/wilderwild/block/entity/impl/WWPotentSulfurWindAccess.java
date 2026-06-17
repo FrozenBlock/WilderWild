@@ -15,21 +15,24 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.block.impl;
+package net.frozenblock.wilderwild.block.entity.impl;
 
 import net.minecraft.world.phys.AABB;
 
 /**
- * Mixed into {@code PotentSulfurBlockEntity} so {@code GeyserWindDisturbance} can tell whether
- * the geyser is actively spouting right now, without depending on vanilla's internal fields.
- *
- * <p> Vanilla's particle-area AABB lambda only runs while the geyser is actively spouting, so
- * {@code PotentSulfurBlockEntityMixin} pings this access point every time that lambda fires.
+ * Mixed into {@code PotentSulfurBlockEntity} so {@code GeyserWindDisturbance} can tell what the current wind area is, and if the eruption is active.
  */
 public interface WWPotentSulfurWindAccess {
-	void wilderWild$pingWindActive(AABB area, long gameTime);
 
-	AABB wilderWild$getWindArea();
+	default void wilderWild$pingWindActive(AABB area, long gameTime) {
+		throw new AssertionError();
+	}
 
-	boolean wilderWild$isWindActive(long currentGameTime);
+	default AABB wilderWild$getWindArea() {
+		throw new AssertionError();
+	}
+
+	default boolean wilderWild$isWindActive(long currentGameTime) {
+		throw new AssertionError();
+	}
 }

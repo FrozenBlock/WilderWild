@@ -40,6 +40,5 @@ public final class WWWindDisturbances {
 		GeyserWindDisturbance.STREAM_CODEC
 	);
 
-	public static void init() {
-	}
+	public static void init() {}
 }

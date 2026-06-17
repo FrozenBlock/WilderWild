@@ -19,11 +19,10 @@ package net.frozenblock.wilderwild.mixin.block.potent_sulfur;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
-import net.frozenblock.wilderwild.block.impl.WWPotentSulfurWindAccess;
+import net.frozenblock.wilderwild.block.entity.impl.WWPotentSulfurWindAccess;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.wind.disturbance.GeyserWindDisturbance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.PotentSulfurBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,17 +39,20 @@ public class PotentSulfurBlockEntityMixin implements WWPotentSulfurWindAccess {
 	@Unique
 	private long wilderWild$lastActiveGameTime = Long.MIN_VALUE;
 
+	@Unique
 	@Override
 	public void wilderWild$pingWindActive(AABB area, long gameTime) {
 		this.wilderWild$windArea = area;
 		this.wilderWild$lastActiveGameTime = gameTime;
 	}
 
+	@Unique
 	@Override
 	public AABB wilderWild$getWindArea() {
 		return this.wilderWild$windArea;
 	}
 
+	@Unique
 	@Override
 	public boolean wilderWild$isWindActive(long currentGameTime) {
 		return (currentGameTime - this.wilderWild$lastActiveGameTime) <= 1L;
@@ -67,13 +69,12 @@ public class PotentSulfurBlockEntityMixin implements WWPotentSulfurWindAccess {
 		AABB original,
 		Level level, BlockPos pos, BlockState state, PotentSulfurBlockEntity entity
 	) {
-		if (!(level instanceof ServerLevel serverLevel)) return original;
-
 		final AABB area = original.inflate(0.5D).move(0D, 0.5D, 0D);
-		((WWPotentSulfurWindAccess) entity).wilderWild$pingWindActive(area, level.getGameTime());
+		entity.wilderWild$pingWindActive(area, level.getGameTime());
+		if (level.isClientSide()) return original;
 
 		WindDisturbances.addIf(
-			serverLevel,
+			level,
 			entity,
 			source -> WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEYSER)),
 			() -> GeyserWindDisturbance.INSTANCE
@@ -81,5 +82,4 @@ public class PotentSulfurBlockEntityMixin implements WWPotentSulfurWindAccess {
 
 		return original;
 	}
-
 }
