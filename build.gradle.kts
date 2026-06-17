@@ -446,6 +446,8 @@ publishMods {
         projectSlug.set("wilder-wild")
         accessToken.set(providers.environmentVariable("CURSEFORGE_TOKEN"))
         minecraftVersions.add(minecraft_version)
+        client = true
+        server = true
         requires("fabric-api")
         requires("frozenlib")
         optional("modmenu")
@@ -476,6 +478,18 @@ publishMods {
         commitish.set(getBranch())
         additionalFiles.from(sourcesJar.archiveFile.get().asFile, javadocJar.archiveFile.get().asFile)
     }
+}
+
+tasks.named("publishCurseforge") {
+    dependsOn(tasks.jar)
+}
+tasks.named("publishModrinth") {
+    dependsOn(tasks.jar)
+}
+tasks.named("publishGithub") {
+    dependsOn(tasks.jar)
+    dependsOn(sourcesJar)
+    dependsOn(javadocJar)
 }
 
 val publishMod by tasks.register("publishMod") {
