@@ -61,6 +61,6 @@ public abstract class AbstractGeothermalVentWindDisturbance implements WindDistu
 
 	@Override
 	public boolean expired(GeothermalVentBlockEntity source, Level level) {
-		return source.isRemoved();
+		return source.isRemoved() || !source.isErupting();
 	}
 }
