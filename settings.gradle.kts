@@ -28,10 +28,10 @@ pluginManagement {
 rootProject.name = "Wilder Wild"
 
 localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", true, false)
-localRepository("FrozenLib", "maven.modrinth:frozenlib", true, false)
+localRepository("FrozenLib", "maven.modrinth:frozenlib", true, true, "fabric")
 localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", true, false)
 
-fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean) {
+fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enabled: Boolean, subproject: String = "") {
     if (!enabled) return
     println("Attempting to include local repo $repo")
 
@@ -59,7 +59,8 @@ fun localRepository(repo: String, dependencySub: String, kotlin: Boolean, enable
             includeBuild(path) {
                 dependencySubstitution {
                     if (dependencySub != "") {
-                        substitute(module(dependencySub)).using(project(":"))
+                        val projectPath = if (subproject.isNotEmpty()) ":$subproject" else ":"
+                        substitute(module(dependencySub)).using(project(projectPath))
                     }
                 }
             }
