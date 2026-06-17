@@ -17,11 +17,15 @@
 
 package net.frozenblock.wilderwild.wind.client;
 
+import com.mojang.datafixers.util.Pair;
+import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.lib.wind.WindManager;
+import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.client.Minecraft;
@@ -116,12 +120,14 @@ public final class AmbientWindParticleSpawner {
 		final int y = posY + random.nextIntBetweenInclusive(-range, range);
 		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(x, y, z);
-		if (WindManager.getOrCreate(level).getTrackedDisturbances().stream().noneMatch(tracked -> tracked.area(level).contains(x, y, z))) return;
+
+		final List<Pair<AttachmentTarget, WindDisturbances>> windDisturbances = WindManager.getOrCreate(level).getWindDisturbances();
+		if (windDisturbances.isEmpty()) return;
 
 		final BlockState state = level.getBlockState(blockPos);
 		if (state.isCollisionShapeFullBlock(level, blockPos)) return;
 
-		final Vec3 wind = WindManager.getOrCreate(level).getWindMovement(Vec3.atCenterOf(blockPos), 1D, 1000D, 1000D).scale(0.001D);
+		final Vec3 wind = WindManager.getOrCreate(level).getRawDisturbanceMovement(Vec3.atCenterOf(blockPos));
 		final double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 

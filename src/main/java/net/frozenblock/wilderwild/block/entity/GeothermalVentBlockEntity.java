@@ -24,7 +24,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.frozenblock.lib.wind.BlowingHelper;
-import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
@@ -231,9 +230,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
 
 		if (!vent) {
-			final WindManager windManager = WindManager.getOrCreate(level);
-			windManager.addIfMissing(this, this::doesNotHaveEffectiveWindDisturbance, GeothermalVentEffectiveWindDisturbance.INSTANCE);
-			windManager.addIfMissing(this, this::doesNotHaveBaseWindDisturbance, GeothermalVentBaseWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
