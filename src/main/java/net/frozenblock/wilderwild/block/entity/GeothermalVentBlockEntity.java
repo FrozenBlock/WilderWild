@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
+import com.google.common.base.Function;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -78,8 +79,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	public static final int TICK_DELAY_START_MAX = 100;
 	public static final double EFFECTIVE_PUSH_INTENSITY = 0.4D;
 	public static final double INEFFECTIVE_PUSH_INTENSITY = 0.2D;
-	public static final double EFFECTIVE_ADDITIONAL_WIND_INTENSITY = 0.5D;
-	public static final double BASE_WIND_INTENSITY = 0.5D;
+
 	public static final int FIRE_TICKS_MAX = 260;
 	private boolean hasRunFirstCheck = false;
 	private int ticksUntilNextEvent;
@@ -111,7 +111,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		} else if (GeothermalVentBlock.isActive(geothermalVentType)) {
 			if (geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT) {
 				this.eruptionProgress = 1F;
-				this.handleEruption(level, pos, geothermalVentType, direction, natural);
+				this.tickEruption(level, pos, geothermalVentType, direction, natural);
 				this.setActive(level, pos, state, random);
 			} else if (geothermalVentStage == GeothermalVentStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
@@ -120,7 +120,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 					level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-				this.handleEruption(level, pos, geothermalVentType, direction, natural);
+				this.tickEruption(level, pos, geothermalVentType, direction, natural);
 			}
 			this.ticksUntilNextEvent -= 1;
 			if (this.ticksUntilNextEvent <= 0) this.advanceStage(level, pos, state, geothermalVentStage, natural, random);
@@ -141,10 +141,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * Re-runs the directional blowing-blocked scan against the vent's current state. Shared by
-	 * {@link #handleEruption} (which runs every tick while erupting) and the wind disturbances'
-	 * {@code area()} methods (which may be queried independently by anything reading wind at a
-	 * given position), so both always agree on the vent's current eruption shape.
+	 * @return the base, effective, damaging, and maximum possible areas of the eruption, along with the ending position of the scan.
 	 */
 	private EruptionAreas computeEruptionAreas(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction) {
 		final BlockPos maxEndPos = pos.relative(direction, (int) ERUPTION_DISTANCE);
@@ -185,12 +182,6 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		return new EruptionAreas(eruption, effectiveEruption, damagingEruption, maxPossibleEruptionBoundingBox, scanEndPos);
 	}
 
-	private record EruptionAreas(AABB eruption, AABB effectiveEruption, AABB damagingEruption, AABB maxPossibleEruptionBoundingBox, BlockPos scanEndPos) {}
-
-	/**
-	 * @return whether this vent is currently contributing to its two wind disturbances. Mirrors the
-	 * old per-tick gate that used to decide whether to (re-)add a wind disturbance for this tick.
-	 */
 	public boolean isErupting() {
 		final BlockState state = this.getBlockState();
 		if (!state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE) || !state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE)) return false;
@@ -198,33 +189,31 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		return state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE) == GeothermalVentStage.ERUPTING;
 	}
 
-	public AABB computeEffectiveEruptionArea(Level level) {
+	private AABB computeEruptionArea(Level level, Function<EruptionAreas, AABB> areaGetter) {
 		final BlockState state = level.getBlockState(this.getBlockPos());
 		if (!state.hasProperty(GeothermalVentBlock.FACING) || !state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE)) return new AABB(this.getBlockPos());
 
 		final Direction direction = state.getValue(GeothermalVentBlock.FACING);
 		final GeothermalVentType geothermalVentType = state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE);
 		final EruptionAreas areas = this.computeEruptionAreas(level, this.getBlockPos(), geothermalVentType, direction);
-		return areas.effectiveEruption().inflate(0.5D).move(direction.step().mul(0.5F));
+		return areaGetter.apply(areas).inflate(0.5D).move(direction.step().mul(0.5F));
+	}
+
+	public AABB computeEffectiveEruptionArea(Level level) {
+		return this.computeEruptionArea(level, EruptionAreas::effectiveArea);
 	}
 
 	public AABB computeBaseEruptionArea(Level level) {
-		final BlockState state = level.getBlockState(this.getBlockPos());
-		if (!state.hasProperty(GeothermalVentBlock.FACING) || !state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE)) return new AABB(this.getBlockPos());
-
-		final Direction direction = state.getValue(GeothermalVentBlock.FACING);
-		final GeothermalVentType geothermalVentType = state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE);
-		final EruptionAreas areas = this.computeEruptionAreas(level, this.getBlockPos(), geothermalVentType, direction);
-		return areas.eruption().inflate(0.5D).move(direction.step().mul(0.5F));
+		return this.computeEruptionArea(level, EruptionAreas::baseArea);
 	}
 
-	private void handleEruption(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, boolean natural) {
+	private void tickEruption(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, boolean natural) {
 		final boolean vent = geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT;
 		final EruptionAreas areas = this.computeEruptionAreas(level, pos, geothermalVentType, direction);
-		final AABB eruption = areas.eruption();
-		final AABB effectiveEruption = areas.effectiveEruption();
-		final AABB damagingEruption = areas.damagingEruption();
-		final AABB maxPossibleEruptionBox = areas.maxPossibleEruptionBoundingBox();
+		final AABB eruption = areas.baseArea();
+		final AABB effectiveEruption = areas.effectiveArea();
+		final AABB damagingEruption = areas.damagingArea();
+		final AABB maxPossibleEruptionBox = areas.maxPossibleArea();
 
 		final List<Entity> entities = level.getEntities(EntityTypeTest.forClass(Entity.class), maxPossibleEruptionBox, EFFECT_PREDICATE);
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
@@ -283,7 +272,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 			}
 		}
 
-		for (BlockPos searchPos : BlockPos.betweenClosed(pos, areas.scanEndPos())) {
+		for (BlockPos searchPos : BlockPos.betweenClosed(pos, areas.endPos())) {
 			if (level.isClientSide() || !maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
 
 			final BlockState state = level.getBlockState(searchPos);
@@ -390,7 +379,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final boolean natural = state.getValue(GeothermalVentBlock.NATURAL);
 		if (geothermalVentStage == GeothermalVentStage.ERUPTING || geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT) {
 			this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
-			this.handleEruption(level, pos, geothermalVentType, direction, natural);
+			this.tickEruption(level, pos, geothermalVentType, direction, natural);
 			GeothermalventParticleHandler.spawnEruptionParticles(level, pos, geothermalVentType, direction, random);
 		}
 	}
@@ -410,4 +399,6 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		this.ticksUntilNextEvent = input.getIntOr("TicksUntilNextEvent", 0);
 		this.eruptionProgress = input.getFloatOr("EruptionProgress", 0F);
 	}
+
+	private record EruptionAreas(AABB baseArea, AABB effectiveArea, AABB damagingArea, AABB maxPossibleArea, BlockPos endPos) {}
 }
