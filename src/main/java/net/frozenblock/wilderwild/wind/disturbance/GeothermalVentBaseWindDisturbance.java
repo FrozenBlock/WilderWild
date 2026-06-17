@@ -35,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class GeothermalVentBaseWindDisturbance implements WindDisturbance<GeothermalVentBlockEntity> {
 	public static final GeothermalVentBaseWindDisturbance INSTANCE = new GeothermalVentBaseWindDisturbance();
-	public static final MapCodec<GeothermalVentBaseWindDisturbance> CODEC = MapCodec.unit(() -> INSTANCE);
+	public static final MapCodec<GeothermalVentBaseWindDisturbance> CODEC = MapCodec.unit(INSTANCE);
 	public static final StreamCodec<RegistryFriendlyByteBuf, GeothermalVentBaseWindDisturbance> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
