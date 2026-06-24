@@ -34,8 +34,8 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 
 public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> DANDELION = createKey("dandelion");
@@ -78,12 +78,12 @@ public final class MoobloomVariants {
 	}
 
 	public static Optional<Holder.Reference<MoobloomVariant>> selectVariantToSpawn(RandomSource random, RegistryAccess registryAccess, SpawnContext context) {
-		final List<ConfiguredFeature<?, ?>> boneMealFeatures = context.biome().value().getGenerationSettings().getBoneMealFeatures();
+		final List<Feature> boneMealFeatures = context.biome().value().getGenerationSettings().getBoneMealFeatures();
 		final List<BlockState> foundBlockStates = new ArrayList<>();
-		for (ConfiguredFeature<?, ?> feature : boneMealFeatures) {
-			if (!(feature.config() instanceof SimpleBlockConfiguration config)) continue;
+		for (Feature feature : boneMealFeatures) {
+			if (!(feature instanceof SimpleBlockFeature simpleBlockFeature)) continue;
 
-			final BlockState state = config.toPlace().getOptionalState(context.level().getLevel(), random, context.pos());
+			final BlockState state = simpleBlockFeature.toPlace().getOptionalState(context.level().getLevel(), random, context.pos());
 			foundBlockStates.add(state);
 		}
 

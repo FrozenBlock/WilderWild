@@ -27,7 +27,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -63,19 +63,19 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomFeatures(RandomSource random, boolean flowers, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
+	private void setCustomFeatures(RandomSource random, boolean hasFlowers, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
 		if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 
 		if (treeGrower == TreeGrower.OAK) {
 			if (random.nextInt(10) == 0) {
-				info.setReturnValue(flowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
 					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.BIG_BUSH.getKey() : WWTreeConfigured.LARGE_BUSH.getKey());
 					return;
 				}
-				info.setReturnValue(flowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
 			}
 		}
 
@@ -85,21 +85,21 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 		if (treeGrower == TreeGrower.BIRCH) {
 			if (random.nextFloat() < 0.15F) {
-				info.setReturnValue(flowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
 			} else if (random.nextFloat() < 0.65F) {
-				info.setReturnValue(flowers ? WWTreeConfigured.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeConfigured.MEDIUM_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeConfigured.MEDIUM_BIRCH.getKey());
 			} else if (random.nextFloat() < 0.85F) {
-				info.setReturnValue(flowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
 			} else {
-				info.setReturnValue(flowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.CHERRY) {
 			if (random.nextFloat() < 0.15F) {
-				info.setReturnValue(flowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
 			} else {
-				info.setReturnValue(flowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
 			}
 		}
 
@@ -119,7 +119,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<ConfiguredFeature<?, ?>>> info) {
+	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
 		if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 

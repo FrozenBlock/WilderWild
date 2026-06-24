@@ -34,7 +34,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -83,11 +83,11 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int height,
 		BlockPos startPos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, config);
+		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, tree);
 
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final int branchCutoffFromTop = this.trunkBranchPlacement.branchCutoffFromTop().sample(random);
@@ -97,7 +97,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		for (int currentHeight = 0; currentHeight < height; ++currentHeight) {
 			int worldHeight = startPos.getY() + currentHeight;
 
-			if (!this.placeLog(level, replacer, random, mutable.set(startPos.getX(), worldHeight, startPos.getZ()), config)
+			if (!this.placeLog(level, replacer, random, mutable.set(startPos.getX(), worldHeight, startPos.getZ()), tree)
 				|| currentHeight >= height - 1
 				|| currentHeight <= branchCutoffFromTop
 			) continue;
@@ -108,7 +108,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 				if (!branchPlacement.canPlaceBranch(random)) continue;
 				if (containsNearbyBranchWithSameDirection(branchTrunkPos, direction, 2, branches)) continue;
 
-				branchPlacement.generateExtraBranch(level, replacer, random, config.trunkProvider, branchTrunkPos, direction, foliageAttachments);
+				branchPlacement.generateExtraBranch(level, replacer, random, tree.trunkProvider(), branchTrunkPos, direction, foliageAttachments);
 
 				final List<Direction> branchDirections = branches.computeIfAbsent(branchTrunkPos, pos -> new ArrayList<>());
 				branchDirections.add(direction);

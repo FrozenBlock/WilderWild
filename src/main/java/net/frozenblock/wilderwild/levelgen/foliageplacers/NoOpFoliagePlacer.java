@@ -22,13 +22,13 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 public class NoOpFoliagePlacer extends FoliagePlacer {
 	public static final NoOpFoliagePlacer INSTANCE = new NoOpFoliagePlacer();
-	public static final MapCodec<NoOpFoliagePlacer> CODEC = MapCodec.unit(() -> INSTANCE);
+	public static final MapCodec<NoOpFoliagePlacer> CODEC = MapCodec.unit(INSTANCE);
 
 	public NoOpFoliagePlacer() {
 		super(ConstantInt.of(0), ConstantInt.of(0));
@@ -44,17 +44,16 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 		WorldGenLevel level,
 		FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliageAttachment foliageAttachment,
 		int foliageHeight,
 		int leafRadius,
 		int offset
-	) {
-	}
+	) {}
 
 	@Override
-	public int foliageHeight(RandomSource random, int treeHeight, TreeConfiguration config) {
+	public int foliageHeight(RandomSource random, int treeHeight, TreeFeature tree) {
 		return 0;
 	}
 

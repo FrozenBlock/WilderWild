@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:swamp_cypress",
+  "features": [
+    {
+      "chance": 0.85,
+      "feature": "wilderwild:swamp_cypress"
+    }
+  ]
+}

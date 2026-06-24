@@ -17,25 +17,25 @@
 
 package net.frozenblock.wilderwild.levelgen.grower;
 
-import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaobabTreeGrower extends TreeGrower {
 
 	public BaobabTreeGrower(String string) {
-		super(string, Optional.empty(), Optional.empty(), Optional.empty());
+		super(string, WeightedList.of(), WeightedList.of(), WeightedList.of(), null);
 	}
 
 	public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int xPos, int zPos) {
@@ -73,27 +73,27 @@ public abstract class BaobabTreeGrower extends TreeGrower {
 	}
 
 	@Nullable
-	protected abstract ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random);
+	protected abstract ResourceKey<Feature> getBaobabTreeFeature(RandomSource random);
 
 	@Override
-	public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean flowers) {
+	public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean flowers) {
 		return null;
 	}
 
 	@Override
-	public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
+	public ResourceKey<Feature> getConfiguredMegaFeature(RandomSource random) {
 		return null;
 	}
 
 	public boolean generateBaobabTree(ServerLevel level, ChunkGenerator generator, BlockPos pos, RandomSource random, int xOffset, int zOffset) {
 		// Get the resource key for the Baobab tree feature
-		final ResourceKey<ConfiguredFeature<?, ?>> registryEntry = this.getBaobabTreeFeature(random);
+		final ResourceKey<Feature> registryEntry = this.getBaobabTreeFeature(random);
 
 		// If the holder is null, return false
 		if (registryEntry == null) return false;
 
-		// Get the configured feature from the resource key
-		final ConfiguredFeature<?, ?> configuredFeature = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(registryEntry).value();
+		// Get the feature from the resource key
+		final Feature feature = level.registryAccess().lookupOrThrow(Registries.FEATURE).getOrThrow(registryEntry).value();
 
 		// Set the block state to air
 		final BlockState airState = Blocks.AIR.defaultBlockState();
@@ -108,7 +108,7 @@ public abstract class BaobabTreeGrower extends TreeGrower {
 		clearArea(level, xOffset, zOffset, x, y, z, airState, mutable);
 
 		// Try to place the tree in the world
-		if (configuredFeature.place(level, generator, random, pos.offset(xOffset, 0, zOffset))) return true;
+		if (feature.place(level, generator, random, pos.offset(xOffset, 0, zOffset))) return true;
 
 		// If the tree could not be placed, clear the area again
 		clearArea(level, xOffset, zOffset, x, y, z, airState, mutable);

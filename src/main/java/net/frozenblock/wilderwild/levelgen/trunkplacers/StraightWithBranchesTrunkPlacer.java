@@ -29,7 +29,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -64,9 +64,9 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int height,
 		BlockPos startPos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -76,7 +76,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 		int extraLogs = 0;
 		for (int i = 0; i < height; ++i) {
 			final int y = startPos.getY() + i;
-			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), config)
+			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), tree)
 				&& i < height - 1
 				&& this.trunkBranchPlacement.canPlaceBranch(random)
 				&& extraLogs < maxBranchCount
@@ -86,7 +86,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 					level,
 					replacer,
 					random,
-					config.trunkProvider,
+					tree.trunkProvider(),
 					mutable.immutable(),
 					Direction.Plane.HORIZONTAL.getRandomDirection(random),
 					foliageAttachments

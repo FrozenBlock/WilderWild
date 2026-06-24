@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:swamp_trees_surface_willow_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.1,
+      "feature": {
+        "feature": "wilderwild:swamp_trees_surface_willow_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

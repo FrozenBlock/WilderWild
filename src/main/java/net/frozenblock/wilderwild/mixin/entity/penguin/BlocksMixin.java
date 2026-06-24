@@ -31,14 +31,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Blocks.class)
 public class BlocksMixin {
 
-	@Inject(method = "lambda$static$133", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$allowPenguinSpawnA(BlockState state, BlockGetter level, BlockPos pos, EntityType type, CallbackInfoReturnable<Boolean> info) {
-		if (type == WWEntityTypes.PENGUIN) info.setReturnValue(true);
+	@Inject(method = "lambda$static$286", at = @At("HEAD"), cancellable = true)
+	private static void wilderWild$allowPenguinSpawnA(BlockState state, BlockGetter level, BlockPos pos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
+		if (entityType == WWEntityTypes.PENGUIN) info.setReturnValue(true);
 	}
 
-	@Inject(method = "lambda$static$270", at = @At("HEAD"), cancellable = true)
-	private static void wilderWild$allowPenguinSpawnB(BlockState state, BlockGetter level, BlockPos pos, EntityType type, CallbackInfoReturnable<Boolean> info) {
-		if (type == WWEntityTypes.PENGUIN) info.setReturnValue(true);
+	@Inject(method = "lambda$static$145", at = @At("HEAD"), cancellable = true)
+	private static void wilderWild$allowPenguinSpawnB(BlockState state, BlockGetter level, BlockPos pos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {
+		if (entityType == WWEntityTypes.PENGUIN) info.setReturnValue(true);
 	}
-
 }

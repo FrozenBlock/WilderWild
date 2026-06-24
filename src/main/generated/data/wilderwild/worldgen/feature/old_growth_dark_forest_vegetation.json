@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:old_growth_dark_forest_vegetation_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.3,
+      "feature": {
+        "feature": "wilderwild:old_growth_dark_forest_vegetation_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

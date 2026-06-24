@@ -21,6 +21,7 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -65,6 +66,6 @@ public class ValidateOrSetHome {
 		final BlockState state = level.getBlockState(pos);
 		if (!state.getFluidState().isEmpty()) return false;
 		if (state.isRedstoneConductor(level, pos)) return false;
-		return state.isAir() || (!state.blocksMotion() && !state.isSolid());
+		return state.isAir() || (!state.is(BlockTags.BLOCKS_MOTION) && !state.isSolid());
 	}
 }

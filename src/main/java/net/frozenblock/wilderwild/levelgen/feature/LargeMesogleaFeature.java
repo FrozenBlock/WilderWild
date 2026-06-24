@@ -18,31 +18,65 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.LargeMesogleaConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
+import net.minecraft.util.valueproviders.FloatProviders;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Column;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
+public record LargeMesogleaFeature(
+	HolderSet<Block> replaceableBlocks,
+	int floorToCeilingSearchRange,
+	IntProvider columnRadius,
+	BlockStateProvider block,
+	FloatProvider heightScale,
+	float maxColumnRadiusToCaveHeightRatio,
+	FloatProvider stalactiteBluntness,
+	FloatProvider stalagmiteBluntness,
+	FloatProvider windSpeed,
+	int minRadiusForWind,
+	float minBluntnessForWind
+) implements Feature {
+	public static final MapCodec<LargeMesogleaFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(LargeMesogleaFeature::replaceableBlocks),
+		Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter(LargeMesogleaFeature::floorToCeilingSearchRange),
+		IntProviders.codec(1, 60).fieldOf("column_radius").forGetter(LargeMesogleaFeature::columnRadius),
+		BlockStateProvider.CODEC.fieldOf("block_state").forGetter(LargeMesogleaFeature::block),
+		FloatProviders.codec(0F, 20F).fieldOf("height_scale").forGetter(LargeMesogleaFeature::heightScale),
+		Codec.floatRange(0.1F, 1F).fieldOf("max_column_radius_to_cave_height_ratio").forGetter(LargeMesogleaFeature::maxColumnRadiusToCaveHeightRatio),
+		FloatProviders.codec(0.1F, 10F).fieldOf("stalactite_bluntness").forGetter(LargeMesogleaFeature::stalactiteBluntness),
+		FloatProviders.codec(0.1F, 10F).fieldOf("stalagmite_bluntness").forGetter(LargeMesogleaFeature::stalagmiteBluntness),
+		FloatProviders.codec(0F, 2F).fieldOf("wind_speed").forGetter(LargeMesogleaFeature::windSpeed),
+		Codec.intRange(0, 100).fieldOf("min_radius_for_wind").forGetter(LargeMesogleaFeature::minRadiusForWind),
+		Codec.floatRange(0F, 5F).fieldOf("min_bluntness_for_wind").forGetter(LargeMesogleaFeature::minBluntnessForWind)
+	).apply(instance, LargeMesogleaFeature::new));
 
-	public LargeMesogleaFeature(Codec<LargeMesogleaConfiguration> codec) {
-		super(codec);
+	@Override
+	public MapCodec<? extends Feature> codec() {
+		return CODEC;
 	}
 
 	private static LargeMesoglea makeMesoglea(BlockPos root, boolean pointingUp, RandomSource random, int radius, FloatProvider bluntnessBase, FloatProvider scaleBase) {
@@ -84,52 +118,49 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<LargeMesogleaConfiguration> context) {
-		final WorldGenLevel level = context.level();
-		final BlockPos origin = context.origin();
-		final LargeMesogleaConfiguration config = context.config();
-		final RandomSource random = context.random();
-
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		if (!LargeMesogleaFeature.isEmptyOrWater(level, origin)) return false;
 
-		final Optional<Column> optional = Column.scan(
+		final Optional<Column> column = Column.scan(
 			level,
 			origin,
-			config.floorToCeilingSearchRange(),
+			this.floorToCeilingSearchRange,
 			SpeleothemUtils::isEmptyOrWater,
-			state -> SpeleothemUtils.isBaseOrLava(state, config.block().getState(level, random, origin).getBlock(), config.replaceableBlocks())
+			state -> SpeleothemUtils.isBaseOrLava(state, this.block.getState(level, random, origin).getBlock(), this.replaceableBlocks)
 		);
-		if (optional.isEmpty() || !(optional.get() instanceof Column.Range range)) return false;
+		if (column.isEmpty() || !(column.get() instanceof Column.Range columnRange)) return false;
 
-		if (range.height() < 4) return false;
+		if (columnRange.height() < 4) return false;
 
-		final int tempRadius = (int) ((float) range.height() * config.maxColumnRadiusToCaveHeightRatio());
-		final int clampedRadius = Mth.clamp(tempRadius, config.columnRadius().minInclusive(), config.columnRadius().maxInclusive());
-		final int radius = Mth.randomBetweenInclusive(random, config.columnRadius().minInclusive(), clampedRadius);
+		final int maxColumnRadiusBasedOnColumnHeight = (int) ((float) columnRange.height() * this.maxColumnRadiusToCaveHeightRatio);
+		final int maxColumnRadius = Mth.clamp(maxColumnRadiusBasedOnColumnHeight, this.columnRadius.minInclusive(), this.columnRadius.maxInclusive());
+		final int radius = Mth.randomBetweenInclusive(random, this.columnRadius.minInclusive(), maxColumnRadius);
 
-		final LargeMesoglea ceilingMesoglea = makeMesoglea(origin.atY(range.ceiling() - 1), false, random, radius, config.stalactiteBluntness(), config.heightScale());
-		final LargeMesoglea floorMesoglea = makeMesoglea(origin.atY(range.floor() + 1), true, random, radius, config.stalagmiteBluntness(), config.heightScale());
+		final LargeMesoglea stalactite = makeMesoglea(origin.atY(columnRange.ceiling() - 1), false, random, radius, this.stalactiteBluntness, this.heightScale);
+		final LargeMesoglea stalagmite = makeMesoglea(origin.atY(columnRange.floor() + 1), true, random, radius, this.stalagmiteBluntness, this.heightScale);
 
-		WindOffsetter windOffsetter;
-		if (ceilingMesoglea.isSuitableForWind(config) && floorMesoglea.isSuitableForWind(config)) {
-			windOffsetter = new WindOffsetter(origin.getY(), random, config.windSpeed());
+		WindOffsetter wind;
+		if (stalactite.isSuitableForWind(this.minRadiusForWind, this.minBluntnessForWind)
+			&& stalagmite.isSuitableForWind(this.minRadiusForWind, this.minBluntnessForWind)
+		) {
+			wind = new WindOffsetter(origin.getY(), random, this.windSpeed);
 		} else {
-			windOffsetter = WindOffsetter.noWind();
+			wind = WindOffsetter.noWind();
 		}
 
-		boolean canCeilingPlace = ceilingMesoglea.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(level, windOffsetter);
-		boolean canFloorPlace = floorMesoglea.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(level, windOffsetter);
-		if (canCeilingPlace) ceilingMesoglea.placeBlocks(level, random, windOffsetter, config);
-		if (canFloorPlace) floorMesoglea.placeBlocks(level, random, windOffsetter, config);
+		final boolean stalactiteBaseEmbeddedInStone = stalactite.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(level, wind);
+		final boolean stalagmiteBaseEmbeddedInStone = stalagmite.moveBackUntilBaseIsInsideStoneAndShrinkRadiusIfNecessary(level, wind);
+		if (stalactiteBaseEmbeddedInStone) stalactite.placeBlocks(level, random, wind, this);
+		if (stalagmiteBaseEmbeddedInStone) stalagmite.placeBlocks(level, random, wind, this);
 		return true;
 	}
 
 	static final class LargeMesoglea {
+		private BlockPos root;
 		private final boolean pointingUp;
+		private int radius;
 		private final double bluntness;
 		private final double scale;
-		private BlockPos root;
-		private int radius;
 
 		LargeMesoglea(BlockPos root, boolean pointingUp, int radius, double bluntness, double scale) {
 			this.root = root;
@@ -169,7 +200,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 			return (int) LargeMesogleaFeature.getMesogleaHeight(radius, this.radius, this.scale, this.bluntness);
 		}
 
-		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaConfiguration config) {
+		void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, LargeMesogleaFeature feature) {
 			for (int i = -this.radius; i <= this.radius; ++i) {
 				for (int j = -this.radius; j <= this.radius; ++j) {
 					final float f = Mth.sqrt((float) (i * i + j * j));
@@ -186,7 +217,7 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 							final BlockPos pos = windOffsetter.offset(mutable);
 							if (isEmptyOrWaterOrLava(level, pos)) {
 								bl = true;
-								level.setBlock(pos, config.block().getState(level, random, mutable), Block.UPDATE_ALL);
+								level.setBlock(pos, feature.block().getState(level, random, mutable), Block.UPDATE_ALL);
 							} else if (bl && level.getBlockState(pos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								break;
 							}
@@ -197,8 +228,8 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 			}
 		}
 
-		boolean isSuitableForWind(LargeMesogleaConfiguration config) {
-			return this.radius >= config.minRadiusForWind() && this.bluntness >= (double) config.minBluntnessForWind();
+		private boolean isSuitableForWind(int minRadiusForWind, float minBluntnessForWind) {
+			return this.radius >= minRadiusForWind && this.bluntness >= minBluntnessForWind;
 		}
 	}
 
@@ -207,11 +238,11 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 		@Nullable
 		private final Vec3 windSpeed;
 
-		WindOffsetter(int originY, RandomSource random, FloatProvider magnitude) {
+		WindOffsetter(int originY, RandomSource random, FloatProvider windSpeedRange) {
 			this.originY = originY;
-			float f = magnitude.sample(random);
-			float g = Mth.randomBetween(random, 0F, 3.1415927F);
-			this.windSpeed = new Vec3(Mth.cos(g) * f, 0.0, Mth.sin(g) * f);
+			final float speed = windSpeedRange.sample(random);
+			final float direction = Mth.randomBetween(random, 0F, Mth.PI);
+			this.windSpeed = new Vec3(Mth.cos(direction) * speed, 0D, Mth.sin(direction) * speed);
 		}
 
 		private WindOffsetter() {
@@ -225,9 +256,9 @@ public class LargeMesogleaFeature extends Feature<LargeMesogleaConfiguration> {
 
 		BlockPos offset(BlockPos pos) {
 			if (this.windSpeed == null) return pos;
-			final int heightDifference = this.originY - pos.getY();
-			final Vec3 vec3 = this.windSpeed.scale(heightDifference);
-			return pos.offset(BlockPos.containing(vec3.x, 0.0, vec3.z));
+			final int dy = this.originY - pos.getY();
+			final Vec3 vec3 = this.windSpeed.scale(dy);
+			return pos.offset(BlockPos.containing(vec3.x, 0D, vec3.z));
 		}
 	}
 }

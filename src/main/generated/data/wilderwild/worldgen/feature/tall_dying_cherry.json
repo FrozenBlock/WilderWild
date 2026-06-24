@@ -1,0 +1,118 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "type": "minecraft:rule_based_state_provider",
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:cannot_replace_below_tree_trunk"
+          }
+        },
+        "then": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:dirt"
+          }
+        }
+      }
+    ]
+  },
+  "decorators": [
+    {
+      "type": "wilderwild:shelf_fungi_tree_decorator",
+      "placement_chance": 0.25,
+      "probability": 0.0975,
+      "shelf_fungi_provider": {
+        "type": "minecraft:randomized_int_state_provider",
+        "property": "shelf_fungus_stage",
+        "source": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "wilderwild:red_shelf_fungi",
+            "Properties": {
+              "age": "0",
+              "face": "wall",
+              "facing": "north",
+              "shelf_fungus_stage": "1",
+              "waterlogged": "false"
+            }
+          }
+        },
+        "values": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 1
+        }
+      }
+    },
+    {
+      "type": "wilderwild:height_based_vine_tree_decorator",
+      "max_height": 260,
+      "placement_chance": 0.3,
+      "probability": 1.0
+    }
+  ],
+  "foliage_placer": {
+    "type": "minecraft:cherry_foliage_placer",
+    "corner_hole_chance": 0.25,
+    "hanging_leaves_chance": 0.16666667,
+    "hanging_leaves_extension_chance": 0.33333334,
+    "height": 5,
+    "offset": 0,
+    "radius": 4,
+    "wide_bottom_layer_hole_chance": 0.25
+  },
+  "foliage_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "minecraft:cherry_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "ignore_vines": true,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size",
+    "upper_size": 2
+  },
+  "trunk_placer": {
+    "type": "minecraft:cherry_trunk_placer",
+    "base_height": 9,
+    "branch_count": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 1
+    },
+    "branch_end_offset_from_top": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 0,
+      "min_inclusive": -2
+    },
+    "branch_horizontal_length": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 5,
+      "min_inclusive": 3
+    },
+    "branch_start_offset_from_top": {
+      "max_inclusive": -4,
+      "min_inclusive": -6
+    },
+    "height_rand_a": 3,
+    "height_rand_b": 2
+  },
+  "trunk_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "minecraft:cherry_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

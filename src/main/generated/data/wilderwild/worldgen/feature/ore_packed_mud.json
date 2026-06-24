@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:ore",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 40,
+  "targets": [
+    {
+      "state": {
+        "Name": "minecraft:packed_mud"
+      },
+      "target": {
+        "predicate_type": "minecraft:tag_match",
+        "tag": "wilderwild:feature/packed_mud_replaceable"
+      }
+    }
+  ]
+}

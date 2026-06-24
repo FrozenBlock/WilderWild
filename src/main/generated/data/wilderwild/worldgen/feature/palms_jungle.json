@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:palms_jungle_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.075,
+      "feature": {
+        "feature": "wilderwild:palms_jungle_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

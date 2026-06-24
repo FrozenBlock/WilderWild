@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
@@ -25,21 +25,26 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
+public class SnowBlanketFeature implements Feature {
+	public static final SnowBlanketFeature INSTANCE = new SnowBlanketFeature();
+	public static final MapCodec<SnowBlanketFeature> CODEC = MapCodec.unit(INSTANCE);
 
-	public SnowBlanketFeature(Codec<NoneFeatureConfiguration> codec) {
-		super(codec);
+	public SnowBlanketFeature() {}
+
+	@Override
+	public MapCodec<SnowBlanketFeature> codec() {
+		return CODEC;
 	}
 
 	private static boolean placeSnowAtPos(
@@ -102,9 +107,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		final BlockPos origin = context.origin();
-		final WorldGenLevel level = context.level();
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos mutableSnowPos = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos mutableSnowPos2 = new BlockPos.MutableBlockPos();
@@ -112,7 +115,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		final int posX = origin.getX();
 		final int posZ = origin.getZ();
 
-		boolean returnValue = false;
+		boolean generated = false;
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 16; j++) {
 				final int x = posX + i;
@@ -132,11 +135,11 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 					}
 
 					final Optional<Holder<Biome>> optionalBiomeHolder = biomeHolder.equals(lowerBiomeHolder) ? Optional.of(biomeHolder) : Optional.empty();
-					returnValue = placeSnowAtPos(level, mutable, mutableSnowPos, mutableSnowPos2, optionalBiomeHolder) || returnValue;
+					generated = placeSnowAtPos(level, mutable, mutableSnowPos, mutableSnowPos2, optionalBiomeHolder) || generated;
 				}
 			}
 		}
-		return returnValue;
+		return generated;
 	}
 
 	private enum SnowGenerationState {

@@ -27,14 +27,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 public class SnappedTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<SnappedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
-		(instance) -> trunkPlacerParts(instance).apply(instance, SnappedTrunkPlacer::new)
+		instance -> trunkPlacerParts(instance).apply(instance, SnappedTrunkPlacer::new)
 	);
 
 	public SnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
@@ -53,13 +53,13 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int height,
 		BlockPos startPos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < height; ++i) {
 			final int y = startPos.getY() + i;
-			this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), config);
+			this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), tree);
 		}
 		return Lists.newArrayList();
 	}

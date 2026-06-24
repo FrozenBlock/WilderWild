@@ -32,7 +32,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -75,9 +75,9 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int height,
 		BlockPos startPos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos branchMutable = new BlockPos.MutableBlockPos();
@@ -106,7 +106,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 						level,
 						replacer,
 						random,
-						config.trunkProvider,
+						tree.trunkProvider(),
 						branchMutable.immutable(),
 						branchDirection,
 						foliageAttachments
@@ -114,7 +114,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 				}
 			}
 
-			this.placeLog(level, replacer, random, mutable, config);
+			this.placeLog(level, replacer, random, mutable, tree);
 			if (i == height - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.setWithOffset(startPos, xOffset, i + 1, zOffset), 0, false));
 		}
 		return foliageAttachments;

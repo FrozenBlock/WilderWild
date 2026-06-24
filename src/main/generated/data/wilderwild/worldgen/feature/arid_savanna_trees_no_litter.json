@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "minecraft:acacia_checked",
+  "features": [
+    {
+      "chance": 0.8,
+      "feature": "minecraft:acacia_checked"
+    },
+    {
+      "chance": 0.08,
+      "feature": "wilderwild:oak_no_fungi_checked"
+    }
+  ]
+}

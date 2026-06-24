@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -63,7 +63,7 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -71,15 +71,15 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 		int offset
 	) {
 		for (int yOffset = offset; yOffset >= offset - foliageHeight; yOffset--) {
-			int n = leafRadius + foliageAttachment.radiusOffset() - 1 - yOffset;
+			final int currentRadius = leafRadius + foliageAttachment.radiusOffset() - 1 - yOffset;
 			if (yOffset <= offset - foliageHeight) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					level,
 					foliageSetter,
 					random,
-					config,
+					tree,
 					foliageAttachment.pos(),
-					n,
+					currentRadius,
 					yOffset,
 					foliageAttachment.doubleTrunk(),
 					this.hangingLeavesChance,
@@ -90,9 +90,9 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 					level,
 					foliageSetter,
 					random,
-					config,
+					tree,
 					foliageAttachment.pos(),
-					n,
+					currentRadius,
 					yOffset,
 					foliageAttachment.doubleTrunk()
 				);
@@ -101,9 +101,9 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 	}
 
 	@Override
-	protected boolean shouldSkipLocation(RandomSource random, int x, int y, int z, int radius, boolean doubleTrunk) {
-		final boolean isCorner = x == radius && z == radius;
-		if (y > 0) return isCorner && random.nextBoolean();
+	protected boolean shouldSkipLocation(RandomSource random, int dx, int i, int dz, int currentRadius, boolean doubleTrunk) {
+		final boolean isCorner = dx == currentRadius && dz == currentRadius;
+		if (i > 0) return isCorner && random.nextBoolean();
 		return isCorner;
 	}
 }

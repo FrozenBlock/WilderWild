@@ -26,7 +26,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class PaleMushroomBlock extends MushroomBlock {
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -3;
@@ -35,7 +35,7 @@ public class PaleMushroomBlock extends MushroomBlock {
 	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 3;
 	public static final int PARTICLE_SPAWN_ATTEMPTS = 3;
 
-	public PaleMushroomBlock(ResourceKey<ConfiguredFeature<?, ?>> feature, Properties properties) {
+	public PaleMushroomBlock(ResourceKey<Feature> feature, Properties properties) {
 		super(feature, properties);
 	}
 

@@ -32,7 +32,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
@@ -60,7 +60,7 @@ public class WillowRootPlacer extends RootPlacer {
 		RandomSource random,
 		BlockPos origin,
 		BlockPos trunkOrigin,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
 		final List<BlockPos> rootPositions = Lists.newArrayList();
 		final BlockPos.MutableBlockPos columnPos = origin.mutable();
@@ -83,7 +83,7 @@ public class WillowRootPlacer extends RootPlacer {
 		for (BlockPos rootPoses : rootPositions) columnPositions.addAll(this.potentialColumnRootPositions(level, rootPoses));
 		rootPositions.addAll(columnPositions);
 
-		for (BlockPos rootPos : rootPositions) this.placeRoot(level, rootSetter, random, rootPos, config);
+		for (BlockPos rootPos : rootPositions) this.placeRoot(level, rootSetter, random, rootPos, tree);
 		return true;
 	}
 

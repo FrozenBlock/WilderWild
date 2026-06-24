@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -27,29 +27,30 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.FluidState;
 
-public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
+public class HydrothermalVentFeature implements Feature {
+	public static final HydrothermalVentFeature INSTANCE = new HydrothermalVentFeature();
+	public static final MapCodec<HydrothermalVentFeature> CODEC = MapCodec.unit(INSTANCE);
 	private static final IntProvider HEIGHT_PROVIDER = BiasedToBottomInt.of(0, 3);
 	private static final int MAX_CONNECT_TO_FLOOR_DIST = 8;
 
-	public HydrothermalVentFeature(Codec<NoneFeatureConfiguration> codec) {
-		super(codec);
+	public HydrothermalVentFeature() {}
+
+	@Override
+	public MapCodec<HydrothermalVentFeature> codec() {
+		return CODEC;
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		final LevelAccessor level = featurePlaceContext.level();
-		BlockPos blockPos = featurePlaceContext.origin();
-		final RandomSource random = featurePlaceContext.random();
-
-		final BlockPos.MutableBlockPos mutable = blockPos.mutable();
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
+		final BlockPos.MutableBlockPos mutable = origin.mutable();
 		final int height = HEIGHT_PROVIDER.sample(random);
 		mutable.move(Direction.UP, height);
 
@@ -69,7 +70,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 		}
 
 		for (int i = 0; i < Math.max(height - 1, 1); i++) {
-			blockPos = mutable.move(Direction.DOWN).immutable();
+			origin = mutable.move(Direction.DOWN).immutable();
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				mutable.move(direction);
 				if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
@@ -79,16 +80,16 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 			}
 		}
 
-		mutable.setWithOffset(blockPos, Direction.DOWN);
-		blockPos = mutable.immutable();
+		mutable.setWithOffset(origin, Direction.DOWN);
+		origin = mutable.immutable();
 
 		for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
-			mutable.setWithOffset(blockPos, 0, -i, 0);
+			mutable.setWithOffset(origin, 0, -i, 0);
 			if (level.getBlockState(mutable).is(WWBlocks.GABBRO)) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
 
-		mutable.set(blockPos);
-		for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, 0 ,-1), blockPos.offset(1, 0 ,1))) {
+		mutable.set(origin);
+		for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-1, 0 ,-1), origin.offset(1, 0 ,1))) {
 			for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
 				mutable.setWithOffset(pos, 0, -i, 0);
 				if (isValidWaterToReplaceAt(level, mutable)) {
@@ -117,5 +118,4 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 	protected static boolean isReplaceableOrWater(BlockState state, FluidState fluidState) {
 		return fluidState.is(FluidTags.WATER) && fluidState.isFull() && state.canBeReplaced();
 	}
-
 }

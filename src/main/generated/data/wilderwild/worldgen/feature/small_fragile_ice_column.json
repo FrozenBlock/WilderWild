@@ -1,0 +1,21 @@
+{
+  "type": "frozenlib:column",
+  "block_state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:fragile_ice",
+      "Properties": {
+        "age": "0"
+      }
+    }
+  },
+  "direction": "up",
+  "length": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 0
+  },
+  "replaceable": {
+    "type": "minecraft:replaceable"
+  }
+}

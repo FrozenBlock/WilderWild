@@ -27,15 +27,15 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
 
 public class WindmillPalmFoliagePlacer extends FoliagePlacer {
-	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		instance.group(IntProviders.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius)).apply(instance, WindmillPalmFoliagePlacer::new)
-	);
+	public static final MapCodec<WindmillPalmFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		IntProviders.codec(0, 16).fieldOf("radius").forGetter(placer -> placer.radius)
+	).apply(instance, WindmillPalmFoliagePlacer::new));
 
 	public WindmillPalmFoliagePlacer(IntProvider radius) {
 		super(radius, ConstantInt.of(0));
@@ -51,7 +51,7 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -63,13 +63,13 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		for (int currentHeight = 0; currentHeight < totalHeight; currentHeight++) {
-			double currentRadius = (Math.abs(Math.sin((currentHeight * Math.PI) / totalHeight)) * (leafRadius - 0.5D)) + 1D;
+			final double currentRadius = (Math.abs(Math.sin((currentHeight * Math.PI) / totalHeight)) * (leafRadius - 0.5D)) + 1D;
 			final BlockPos centerPos = bottomPos.above(currentHeight);
 			final Vec3 center = Vec3.atCenterOf(centerPos);
 			if (currentRadius <= 1D) {
-				tryPlaceLeaf(level, foliageSetter, random, config, centerPos);
+				tryPlaceLeaf(level, foliageSetter, random, tree, centerPos);
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					tryPlaceLeaf(level, foliageSetter, random, config, mutable.setWithOffset(centerPos, direction));
+					tryPlaceLeaf(level, foliageSetter, random, tree, mutable.setWithOffset(centerPos, direction));
 				}
 			} else {
 				for (int xOff = -leafRadius; xOff <= leafRadius; ++xOff) {
@@ -77,7 +77,7 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 						mutable.setWithOffset(centerPos, xOff, 0, zOff);
 						final Vec3 placePosCenter = Vec3.atCenterOf(mutable);
 						if (!placePosCenter.closerThan(center, currentRadius)) continue;
-						tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+						tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 					}
 				}
 			}
@@ -85,7 +85,7 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	public int foliageHeight(RandomSource random, int treeHeight, TreeConfiguration config) {
+	public int foliageHeight(RandomSource random, int treeHeight, TreeFeature tree) {
 		return 0;
 	}
 

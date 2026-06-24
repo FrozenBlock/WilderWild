@@ -1,6 +1,0 @@
-{
-  "type": "minecraft:simple_random_selector",
-  "config": {
-    "features": "wilderwild:snapped_acacia_checked"
-  }
-}

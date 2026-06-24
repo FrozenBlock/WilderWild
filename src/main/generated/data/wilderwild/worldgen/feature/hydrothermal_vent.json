@@ -1,0 +1,69 @@
+{
+  "type": "minecraft:sequence",
+  "features": [
+    {
+      "feature": {
+        "type": "frozenlib:underwater_vegetation_patch",
+        "depth": 2,
+        "extra_bottom_block_chance": 0.375,
+        "extra_edge_column_chance": 0.5,
+        "ground_state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "wilderwild:gabbro"
+          }
+        },
+        "replaceable": "#wilderwild:feature/hydrothermal_vent_replaceable",
+        "surface": "floor",
+        "vegetation_chance": 0.25,
+        "vegetation_feature": {
+          "feature": {
+            "type": "wilderwild:hydrothermal_vent"
+          },
+          "placement": []
+        },
+        "vertical_range": 6,
+        "xz_radius": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "wilderwild:tube_worms"
+      },
+      "placement": [
+        {
+          "type": "frozenlib:config_predicate",
+          "config_predicate": {
+            "type": "minecraft:equal_to",
+            "entry": "wilderwild:worldgen/aquaticGeneration/tubeWorm",
+            "target": true
+          }
+        },
+        {
+          "type": "minecraft:count",
+          "count": 33
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:trapezoid",
+            "max": 5,
+            "min": -5,
+            "plateau": 0
+          },
+          "y_spread": {
+            "type": "minecraft:trapezoid",
+            "max": 4,
+            "min": -4,
+            "plateau": 0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -68,7 +68,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 		WorldGenLevel level,
 		FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -80,10 +80,10 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 				level,
 				foliageSetter,
 				random,
-				config,
+				tree,
 				treeHeight,
 				foliageAttachment,
-				this.altFoliagePlacer.foliageHeight(random, treeHeight, config),
+				this.altFoliagePlacer.foliageHeight(random, treeHeight, tree),
 				this.altFoliagePlacer.foliageRadius(random, treeHeight)
 			);
 			return;
@@ -96,7 +96,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 					level,
 					foliageSetter,
 					random,
-					config,
+					tree,
 					foliageAttachment.pos().above(2),
 					newRadius,
 					relativeY,
@@ -109,7 +109,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 					level,
 					foliageSetter,
 					random,
-					config,
+					tree,
 					foliageAttachment.pos().above(2),
 					newRadius,
 					relativeY,

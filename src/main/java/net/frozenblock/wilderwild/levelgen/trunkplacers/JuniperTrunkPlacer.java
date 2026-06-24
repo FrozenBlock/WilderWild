@@ -33,7 +33,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -82,9 +82,9 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int freeTreeHeight,
 		BlockPos pos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, pos.below(), config);
+		placeBelowTrunkBlock(level, replacer, random, pos.below(), tree);
 		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
 		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
 		if (j >= i) ++j;
@@ -93,7 +93,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		final boolean isThreeBranches = branchCount == 3;
 		final boolean moreThanOneBranch = branchCount >= 2;
 		final int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
-		for (int m = 0; m < l; ++m) this.placeLog(level, replacer, random, pos.above(m), config);
+		for (int m = 0; m < l; ++m) this.placeLog(level, replacer, random, pos.above(m), tree);
 
 		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = new ArrayList<>();
 		if (isThreeBranches) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
@@ -101,7 +101,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
-		foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, config, function, direction, i, i < l - 1, mutable));
+		foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, tree, function, direction, i, i < l - 1, mutable));
 
 		final ArrayList<Direction> allDirsMF = new ArrayList<>();
 		for (Direction d : Direction.Plane.HORIZONTAL) if (d != direction) allDirsMF.add(d);
@@ -109,30 +109,44 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 		final Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
 		if (moreThanOneBranch) {
 			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
-			foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, config, function, secondDir, j, j < l - 1, mutable));
+			foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, tree, function, secondDir, j, j < l - 1, mutable));
 		}
 		return foliageAttachments;
 	}
 
-	private FoliagePlacer.FoliageAttachment generateBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> biConsumer, RandomSource random, int i, BlockPos pos, TreeConfiguration treeConfiguration, Function<BlockState, BlockState> function, Direction direction, int j, boolean bl, BlockPos.MutableBlockPos mutablePos) {
-		int o;
-		mutablePos.set(pos).move(Direction.UP, j);
-		int k = i - 1 + this.branchEndOffsetFromTop.sample(random);
-		boolean bl2 = bl || k < j;
-		int l = this.branchHorizontalLength.sample(random) + (bl2 ? 1 : 0);
-		BlockPos blockPos = pos.relative(direction, l).above(k);
-		int m = bl2 ? 2 : 1;
-		for (int n = 0; n < m; ++n) {
-			this.placeLog(level, biConsumer, random, mutablePos.move(direction), treeConfiguration, function);
+	private FoliagePlacer.FoliageAttachment generateBranch(
+		WorldGenLevel level,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
+		RandomSource random,
+		int treeHeight,
+		BlockPos origin,
+		TreeFeature tree,
+		Function<BlockState, BlockState> sidewaysStateModifier,
+		Direction branchDirection,
+		int offsetFromOrigin,
+		boolean middleContinuesUpwards,
+		BlockPos.MutableBlockPos logPos
+	) {
+		int distance;
+		logPos.set(origin).move(Direction.UP, offsetFromOrigin);
+		int branchEndPosOffsetFromOrigin = treeHeight - 1 + this.branchEndOffsetFromTop.sample(random);
+		boolean extendBranchAwayFromTrunk = middleContinuesUpwards || branchEndPosOffsetFromOrigin < offsetFromOrigin;
+		int distanceToTrunk = this.branchHorizontalLength.sample(random) + (extendBranchAwayFromTrunk ? 1 : 0);
+		BlockPos branchEndPos = origin.relative(branchDirection, distanceToTrunk).above(branchEndPosOffsetFromOrigin);
+		int stepsHorizontally = extendBranchAwayFromTrunk ? 2 : 1;
+
+		for (int i = 0; i < stepsHorizontally; ++i) {
+			this.placeLog(level, trunkSetter, random, logPos.move(branchDirection), tree, sidewaysStateModifier);
 		}
-		Direction direction2 = blockPos.getY() > mutablePos.getY() ? Direction.UP : Direction.DOWN;
-		while ((o = mutablePos.distManhattan(blockPos)) != 0) {
-			float f = (float) Math.abs(blockPos.getY() - mutablePos.getY()) / (float) o;
-			boolean bl3 = random.nextFloat() < f;
-			mutablePos.move(bl3 ? direction2 : direction);
-			this.placeLog(level, biConsumer, random, mutablePos, treeConfiguration, bl3 ? Function.identity() : function);
+
+		Direction verticalDirection = branchEndPos.getY() > logPos.getY() ? Direction.UP : Direction.DOWN;
+
+		while ((distance = logPos.distManhattan(branchEndPos)) != 0) {
+			float chanceToGrowVertically = (float) Math.abs(branchEndPos.getY() - logPos.getY()) / (float) distance;
+			boolean growVertically = random.nextFloat() < chanceToGrowVertically;
+			logPos.move(growVertically ? verticalDirection : branchDirection);
+			this.placeLog(level, trunkSetter, random, logPos, tree, growVertically ? Function.identity() : sidewaysStateModifier);
 		}
-		return new FoliagePlacer.FoliageAttachment(blockPos.above(), 0, false);
+		return new FoliagePlacer.FoliageAttachment(branchEndPos.above(), 0, false);
 	}
 }
-

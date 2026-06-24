@@ -213,7 +213,7 @@ tasks {
             "mod_id" to mod_id,
             "version" to version,
             "protocol_version" to protocol_version,
-            "minecraft_version" to "~26.2-",//minecraft_version,
+            "minecraft_version" to "~26.3-",//minecraft_version,
 
             "fabric_loader_version" to ">=$min_loader_version",
             "fabric_api_version" to ">=$fabric_api_version",

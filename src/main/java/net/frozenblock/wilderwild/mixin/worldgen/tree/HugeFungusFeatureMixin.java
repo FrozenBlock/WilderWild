@@ -26,14 +26,16 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelWriter;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.HugeFungusFeature;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -41,34 +43,36 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(HugeFungusFeature.class)
 public class HugeFungusFeatureMixin {
 
+	@Shadow
+	@Final
+	private boolean planted;
+
 	/**
 	 * Marks the fungus as having a thick stem if it's originally true or if it meets the conditions for a planted thick fungus.
 	 *
 	 * @param isHuge if the fungus is a naturally generated thick stem
-	 * @param context  the context behind the huge fungus growth
 	 * @param newPos   the new center point of the huge fungus
 	 * @return if the fungus should have a thick stem
 	 * @see #wilderWild$placeUpdateCenter(BlockPos, LocalRef)
 	 */
 	@ModifyVariable(method = "place", at = @At(value = "STORE"), name = "isHuge")
 	public boolean wilderWild$placeThickener(
-		boolean isHuge, FeaturePlaceContext<HugeFungusConfiguration> context,
+		boolean isHuge,
+		WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin,
 		@Share("wilderWild$newPos") LocalRef<BlockPos> newPos
 	) {
-		newPos.set(context.origin());
+		newPos.set(origin);
 		if (isHuge) return true;
-		if (context.config().planted && WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) {
-			final WorldGenLevel level = context.level();
-			final BlockPos pos = context.origin();
-			final Block fungus = level.getBlockState(pos).getBlock();
-			if (wilderWild$canGrowThickFungus(level, pos, fungus)) {
-				newPos.set(pos);
-				wilderWild$clearFungi(level, pos);
+		if (this.planted && WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) {
+			final Block fungus = level.getBlockState(origin).getBlock();
+			if (wilderWild$canGrowThickFungus(level, origin, fungus)) {
+				newPos.set(origin);
+				wilderWild$clearFungi(level, origin);
 				return true;
 			}
 
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				final BlockPos offsetPos = pos.relative(direction);
+				final BlockPos offsetPos = origin.relative(direction);
 				if (!level.getBlockState(offsetPos).is(fungus)) continue;
 				if (!wilderWild$canGrowThickFungus(level, offsetPos, fungus)) continue;
 				newPos.set(offsetPos);
@@ -85,7 +89,7 @@ public class HugeFungusFeatureMixin {
 	 * @param newOrigin original position
 	 * @param newPos   new position, potentially modified by @wilderWild$placeThickener
 	 * @return center position of the huge fungus
-	 * @see #wilderWild$placeThickener(boolean, FeaturePlaceContext, LocalRef)
+	 * @see #wilderWild$placeThickener(boolean, WorldGenLevel, ChunkGenerator, RandomSource, BlockPos, LocalRef)
 	 */
 	@ModifyVariable(
 		method = "place",
@@ -155,7 +159,7 @@ public class HugeFungusFeatureMixin {
 	 *
 	 * @return if the block position should get preserved
 	 * @see #wilderWild$placeStemIsCorner(boolean, LocalRef)
-	 * @see #wilderWild$placeStemAttemptPlace(WorldGenLevel, BlockPos, BlockState, int, Operation, LocalRef)
+	 * @see #wilderWild$placeStemAttemptPlace(HugeFungusFeature, LevelWriter, BlockPos, BlockState, Operation, LocalRef)
 	 */
 	@ModifyExpressionValue(
 		method = "placeStem",
@@ -192,14 +196,14 @@ public class HugeFungusFeatureMixin {
 		method = "placeStem",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+			target = "Lnet/minecraft/world/level/levelgen/feature/HugeFungusFeature;setBlock(Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V"
 		)
 	)
-	public boolean wilderWild$placeStemAttemptPlace(
-		WorldGenLevel instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original,
+	public void wilderWild$placeStemAttemptPlace(
+		HugeFungusFeature instance, LevelWriter levelWriter, BlockPos pos, BlockState state, Operation<Void> original,
 		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
 	) {
-		if (!shouldPlace.get()) return false;
-		return original.call(instance, pos, state, flags);
+		if (!shouldPlace.get()) return;
+		original.call(instance, levelWriter, pos, state);
 	}
 }

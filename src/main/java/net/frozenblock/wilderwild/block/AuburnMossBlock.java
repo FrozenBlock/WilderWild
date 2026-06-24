@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class AuburnMossBlock extends Block implements BonemealableBlock {
 	public static final MapCodec<AuburnMossBlock> CODEC = simpleCodec(AuburnMossBlock::new);
@@ -59,11 +59,11 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		final BlockPos abovePos = pos.above();
-		final ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
+		final ResourceKey<Feature> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
 			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
 
 		level.registryAccess()
-			.lookup(Registries.CONFIGURED_FEATURE)
+			.lookup(Registries.FEATURE)
 			.flatMap(registry -> registry.get(featureKey))
 			.ifPresent(reference -> reference.value().place(level, level.getChunkSource().getGenerator(), random, abovePos));
 	}

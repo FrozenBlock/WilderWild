@@ -19,30 +19,30 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.TouchingBlockPredicate;
+import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.VegetationPatchWithEdgeDecorationFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.disk.BallFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallBlockPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallFeatureConfiguration;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoisePathFeatureConfiguration;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.SnowAndIceDiskFeatureConfiguration;
+import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
+import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -56,20 +56,19 @@ import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.BlockBlobFeature;
+import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
+import net.minecraft.world.level.levelgen.feature.DiskFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.NoOpFeature;
+import net.minecraft.world.level.levelgen.feature.OreFeature;
+import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockBlobConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -82,128 +81,128 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 
 public final class WWMiscConfigured {
-	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> EMPTY = register("empty");
+	public static final FrozenLibFeature EMPTY = register("empty");
 
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> SINGLE_MYCELIUM_GROWTH = register("single_mycelium_growth");
+	public static final FrozenLibFeature SINGLE_MYCELIUM_GROWTH = register("single_mycelium_growth");
 
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> STONE_PATH_RARE = register("stone_path_rare");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> STONE_DISK_AND_PILE = register("stone_disk_and_pile");
+	public static final FrozenLibFeature COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
+	public static final FrozenLibFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
+	public static final FrozenLibFeature STONE_PATH_RARE = register("stone_path_rare");
+	public static final FrozenLibFeature COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
+	public static final FrozenLibFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
+	public static final FrozenLibFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
+	public static final FrozenLibFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
-	public static final FrozenLibConfiguredFeature<DiskConfiguration> DISK_MUD = register("disk_mud");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> MUD_PATH = register("mud_path");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> MUD_TRANSITION_DISK = register("mud_transition_disk");
+	public static final FrozenLibFeature DISK_MUD = register("disk_mud");
+	public static final FrozenLibFeature MUD_PATH = register("mud_path");
+	public static final FrozenLibFeature MUD_TRANSITION_DISK = register("mud_transition_disk");
 
 	// TAIGA
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> COARSE_PATH = register("coarse_dirt_path");
+	public static final FrozenLibFeature COARSE_PATH = register("coarse_dirt_path");
 
 	// CYPRESS WETLANDS
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
+	public static final FrozenLibFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
+	public static final FrozenLibFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
+	public static final FrozenLibFeature UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
+	public static final FrozenLibFeature UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
+	public static final FrozenLibFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 
 	// BEACH AND RIVER
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> STONE_TRANSITION_DISK = register("stone_transition_disk");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> RIVER_POOL = register("river_pool");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> SMALL_RIVER_POOL = register("small_river_pool");
+	public static final FrozenLibFeature STONE_TRANSITION_DISK = register("stone_transition_disk");
+	public static final FrozenLibFeature SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
+	public static final FrozenLibFeature BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
+	public static final FrozenLibFeature SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
+	public static final FrozenLibFeature RIVER_POOL = register("river_pool");
+	public static final FrozenLibFeature SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> PACKED_MUD_PATH = register("packed_mud_path");
+	public static final FrozenLibFeature PACKED_MUD_PATH = register("packed_mud_path");
 
 	// JUNGLE
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> MOSS_PATH = register("moss_path");
+	public static final FrozenLibFeature MOSS_PATH = register("moss_path");
 
 	// DESERT
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WWBlockTags.PACKED_MUD_REPLACEABLE);
-	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> SANDSTONE_PATH = register("sandstone_path");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_SAND_DISK = register("scorched_sand");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SAND_TRANSITION_DISK = register("sand_transition");
+	public static final FrozenLibFeature ORE_PACKED_MUD = register("ore_packed_mud");
+	public static final FrozenLibFeature SANDSTONE_PATH = register("sandstone_path");
+	public static final FrozenLibFeature SCORCHED_SAND_DISK = register("scorched_sand");
+	public static final FrozenLibFeature SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
+	public static final FrozenLibFeature SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
+	public static final FrozenLibFeature SAND_TRANSITION_DISK = register("sand_transition");
 
 	// BADLANDS
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> RED_SAND_TRANSITION_DISK = register("red_sand_transition");
+	public static final FrozenLibFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
+	public static final FrozenLibFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
+	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
+	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
+	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
+	public static final FrozenLibFeature RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> GRASS_PATH = register("grass_path");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> MOSS_PATH_OASIS = register("moss_path_oasis");
+	public static final FrozenLibFeature GRASS_PATH = register("grass_path");
+	public static final FrozenLibFeature MOSS_PATH_OASIS = register("moss_path_oasis");
 
 	// ARID SAVANNA
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> ARID_COARSE_PATH = register("arid_coarse_dirt_path");
+	public static final FrozenLibFeature ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
-	public static final FrozenLibConfiguredFeature<BlockBlobConfiguration> SNOW = register("snow");
+	public static final FrozenLibFeature SNOW = register("snow");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
-	public static final FrozenLibConfiguredFeature<BlockPileConfiguration> MOSS_PILE = register("moss_pile");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> BASIN_PODZOL = register("basin_podzol");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> BASIN_MOSS = register("basin_moss");
-	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration> MOSS_LAKE = register("moss_lake");
+	public static final FrozenLibFeature MOSS_PILE = register("moss_pile");
+	public static final FrozenLibFeature BASIN_PODZOL = register("basin_podzol");
+	public static final FrozenLibFeature BASIN_MOSS = register("basin_moss");
+	public static final FrozenLibFeature MOSS_LAKE = register("moss_lake");
 
 	// PALE GARDEN
-	public static final FrozenLibConfiguredFeature<BlockPileConfiguration> PALE_MOSS_PILE = register("pale_moss_pile");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
+	public static final FrozenLibFeature PALE_MOSS_PILE = register("pale_moss_pile");
+	public static final FrozenLibFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
-	public static final FrozenLibConfiguredFeature<BlockPileConfiguration> MUD_PILE = register("mud_pile");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> BASIN_MUD = register("basin_mud");
-	public static final FrozenLibConfiguredFeature<LakeFeature.Configuration> MUD_LAKE = register("mud_lake");
+	public static final FrozenLibFeature MUD_PILE = register("mud_pile");
+	public static final FrozenLibFeature BASIN_MUD = register("basin_mud");
+	public static final FrozenLibFeature MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
+	public static final FrozenLibFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+	public static final FrozenLibFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE FOREST
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+	public static final FrozenLibFeature YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
+	public static final FrozenLibFeature ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
+	public static final FrozenLibFeature RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
 
 	// AUBURN MOSS
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH = register("auburn_moss_patch");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> AUBURN_MOSS = register("red_moss");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
+	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH = register("auburn_moss_patch");
+	public static final FrozenLibFeature AUBURN_MOSS = register("red_moss");
+	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
 
 	// SNOW
-	public static final FrozenLibConfiguredFeature<NoneFeatureConfiguration> SNOW_BLANKET = register("snow_blanket");
-	public static final FrozenLibConfiguredFeature<SnowAndIceDiskFeatureConfiguration> SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
+	public static final FrozenLibFeature SNOW_BLANKET = register("snow_blanket");
+	public static final FrozenLibFeature SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 
 	// ICE
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
+	public static final FrozenLibFeature FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
 
 	// MOSS
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
+	public static final FrozenLibFeature MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
+	public static final FrozenLibFeature MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
 
-	public static void registerMiscConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerMiscConfigured(BootstrapContext<Feature> entries) {
 		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
-		EMPTY.makeAndSetHolder(Feature.NO_OP, NoneFeatureConfiguration.INSTANCE);
+		EMPTY.makeAndSetHolder(NoOpFeature.INSTANCE);
 
-		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
+		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(
+			new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
 		);
 
-		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		COARSE_DIRT_PATH_RARE.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -219,8 +218,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRAVEL_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		GRAVEL_PATH_RARE.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -236,8 +235,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		STONE_PATH_RARE.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -253,8 +252,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -270,8 +269,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		GRAVEL_PATH_CLEARING.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -287,8 +286,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -304,16 +303,12 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_DISK_AND_PILE.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		STONE_DISK_AND_PILE.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(Blocks.STONE.defaultBlockState()))),
 					PlacementUtils.inlinePlaced(
-						Feature.BLOCK_PILE,
-						new BlockPileConfiguration(BlockStateProvider.simple(Blocks.STONE.defaultBlockState()))
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL,
-						new BallFeatureConfiguration(
+						new BallFeature(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
 								.placementChance(0.95F)
 								.fadeStartPercentage(0.8F)
@@ -333,16 +328,16 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		DISK_MUD.makeAndSetHolder(Feature.DISK,
-			new DiskConfiguration(
+		DISK_MUD.makeAndSetHolder(
+			new DiskFeature(
 				new RuleBasedStateProvider(
 					BlockStateProvider.simple(Blocks.MUD),
 					List.of(
 						new RuleBasedStateProvider.Rule(
 							BlockPredicate.not(
 								BlockPredicate.anyOf(
-									BlockPredicate.solid(Direction.UP.getUnitVec3i()),
-									BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i(), Fluids.WATER)
+									BlockPredicate.solid(Direction.UP),
+									BlockPredicate.matchesFluids(Direction.UP, Fluids.WATER)
 								)
 							),
 							BlockStateProvider.simple(Blocks.MUD)
@@ -355,8 +350,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		MUD_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.1D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -372,8 +367,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		MUD_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
@@ -390,8 +385,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		COARSE_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -407,8 +402,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		UNDER_WATER_SAND_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.05D)
 					.calculateNoiseWithY()
@@ -426,8 +421,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
 					.noiseScale(0.07D)
 					.calculateNoiseWithY()
@@ -445,8 +440,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		UNDER_WATER_CLAY_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.07D)
 					.calculateNoiseWithY()
@@ -464,8 +459,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.1D)
 					.calculateNoiseWithY()
@@ -483,8 +478,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.1D)
 					.calculateNoiseWithY()
@@ -502,8 +497,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		STONE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		STONE_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
@@ -520,8 +515,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
@@ -541,8 +536,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
@@ -559,8 +554,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
@@ -577,8 +572,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-			new VegetationPatchConfiguration(
+		RIVER_POOL.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -591,8 +586,10 @@ public final class WWMiscConfigured {
 				0.7F
 			)
 		);
-		SMALL_RIVER_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-			new VegetationPatchConfiguration(
+
+
+		SMALL_RIVER_POOL.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -606,8 +603,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		PACKED_MUD_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		PACKED_MUD_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -623,8 +620,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		MOSS_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
 					.noiseScale(0.15D)
 					.calculateNoiseWithY()
@@ -642,16 +639,16 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		ORE_PACKED_MUD.makeAndSetHolder(Feature.ORE,
-			new OreConfiguration(
+		ORE_PACKED_MUD.makeAndSetHolder(
+			new OreFeature(
 				PACKED_MUD_REPLACEABLE,
 				Blocks.PACKED_MUD.defaultBlockState(),
 				40
 			)
 		);
 
-		SANDSTONE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		SANDSTONE_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.2D)
 					.calculateNoiseWithY()
@@ -669,8 +666,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_SAND_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -687,8 +684,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -705,8 +702,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -725,8 +722,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SAND_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.5F)
@@ -738,7 +735,7 @@ public final class WWMiscConfigured {
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_REPLACEABLE))
 							.build()
 					).excludedBiomes(
-						FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SAND_TRANSITION)
+						entries.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SAND_TRANSITION)
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
@@ -746,8 +743,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -763,8 +760,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.7D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -780,8 +777,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_RED_SAND_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -798,8 +795,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -816,8 +813,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
@@ -836,8 +833,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		RED_SAND_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		RED_SAND_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.RED_SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.5F)
@@ -849,7 +846,7 @@ public final class WWMiscConfigured {
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
 							.build()
 					).excludedBiomes(
-						FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_RED_SAND_TRANSITION)
+						entries.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_RED_SAND_TRANSITION)
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
@@ -859,8 +856,8 @@ public final class WWMiscConfigured {
 
 		// OASIS
 
-		GRASS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		GRASS_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -883,8 +880,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PATH_OASIS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		MOSS_PATH_OASIS.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
 					.noiseScale(0.1D)
 					.calculateNoiseWithY()
@@ -904,8 +901,8 @@ public final class WWMiscConfigured {
 
 		// ARID SAVANNA
 
-		ARID_COARSE_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		ARID_COARSE_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -923,20 +920,18 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SNOW.makeAndSetHolder(Feature.BLOCK_BLOB,
-			new BlockBlobConfiguration(
+		SNOW.makeAndSetHolder(
+			new BlockBlobFeature(
 				Blocks.SNOW_BLOCK.defaultBlockState(),
 				// TODO 26.1 check if tag is correct
 				BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)
 			)
 		);
 
-		MOSS_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
-		);
+		MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
 
-		BASIN_PODZOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		BASIN_PODZOL.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.PODZOL),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -950,8 +945,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		BASIN_MOSS.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		BASIN_MOSS.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -965,8 +960,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_LAKE.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
+		MOSS_LAKE.makeAndSetHolder(
+			new LakeFeature(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState()),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
@@ -975,12 +970,10 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(BlockStateProvider.simple(Blocks.MUD))
-		);
+		MUD_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.MUD)));
 
-		BASIN_MUD.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		BASIN_MUD.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MUD),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -994,8 +987,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MUD_LAKE.makeAndSetHolder(Feature.LAKE,
-			new LakeFeature.Configuration(
+		MUD_LAKE.makeAndSetHolder(
+			new LakeFeature(
 				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
 				BlockStateProvider.simple(Blocks.MUD.defaultBlockState()),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
@@ -1004,12 +997,10 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		PALE_MOSS_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK))
-		);
+		PALE_MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK)));
 
-		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.1D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
@@ -1032,18 +1023,12 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()))),
 					PlacementUtils.inlinePlaced(
-						Feature.BLOCK_PILE,
-						new BlockPileConfiguration(
-							BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState())
-						)
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL,
-						new BallFeatureConfiguration(
+						new BallFeature(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 								.placementChance(0.95F)
 								.fadeStartPercentage(0.5F)
@@ -1063,8 +1048,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_TRANSITION_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		COARSE_TRANSITION_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.5F)
@@ -1092,18 +1077,18 @@ public final class WWMiscConfigured {
 				);
 			}
 		}
-		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1123,18 +1108,18 @@ public final class WWMiscConfigured {
 				);
 			}
 		}
-		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1154,18 +1139,18 @@ public final class WWMiscConfigured {
 				);
 			}
 		}
-		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1174,21 +1159,19 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_MOSS_VEGETATION.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(
+		AUBURN_MOSS_VEGETATION.makeAndSetHolder(
+			new RandomSelectorFeature(
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET)),
+							new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET)),
 							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 						),
 						0.275F
 					)
 				),
 				PlacementUtils.inlinePlaced(
-					Feature.MULTIFACE_GROWTH,
-					new MultifaceGrowthConfiguration(
+					new MultifaceGrowthFeature(
 						WWBlocks.AUBURN_CREEPING_MOSS,
 						1,
 						true,
@@ -1202,8 +1185,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
-			new VegetationPatchConfiguration(
+		AUBURN_MOSS_PATCH.makeAndSetHolder(
+			new VegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
@@ -1217,8 +1200,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_MOSS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(
+		AUBURN_MOSS.makeAndSetHolder(
+			new RandomSelectorFeature(
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
@@ -1249,8 +1232,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
-			new MultifaceGrowthConfiguration(
+		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(
+			new MultifaceGrowthFeature(
 				WWBlocks.AUBURN_CREEPING_MOSS,
 				10,
 				true,
@@ -1261,8 +1244,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
-			new VegetationPatchConfiguration(
+		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(
+			new VegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
@@ -1276,10 +1259,10 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SNOW_BLANKET.makeAndSetHolder(WWFeatures.SNOW_BLANKET, NoneFeatureConfiguration.INSTANCE);
+		SNOW_BLANKET.makeAndSetHolder(SnowBlanketFeature.INSTANCE);
 
-		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(WWFeatures.SNOW_AND_FREEZE_DISK,
-			new SnowAndIceDiskFeatureConfiguration(
+		SNOW_AND_ICE_TRANSITION_DISK.makeAndSetHolder(
+			new SnowAndFreezeDiskFeature(
 				UniformInt.of(6, 7),
 				UniformInt.of(2, 4),
 				0.65F,
@@ -1287,8 +1270,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
 					.placementChance(0.85F)
 					.fadeStartPercentage(0.75F)
@@ -1298,7 +1281,7 @@ public final class WWMiscConfigured {
 							BlockPredicate.matchesBlocks(Blocks.ICE)
 						)
 					)
-					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.WATER))
+					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER))
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
 							.placementChance(0.75F)
@@ -1309,7 +1292,7 @@ public final class WWMiscConfigured {
 									BlockPredicate.matchesBlocks(Blocks.ICE)
 								)
 							)
-							.searchingPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.WATER))
+							.searchingPredicate(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER))
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -1317,8 +1300,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_VEGETATION_NO_AZALEA.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(
+		MOSS_VEGETATION_NO_AZALEA.makeAndSetHolder(
+			new SimpleBlockFeature(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
 						.add(Blocks.MOSS_CARPET.defaultBlockState(), 25)
@@ -1328,8 +1311,8 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.MOSS_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(MOSS_VEGETATION_NO_AZALEA.getHolder()),

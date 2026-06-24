@@ -1,0 +1,8 @@
+{
+  "type": "wilderwild:sponge_bud",
+  "can_be_placed_on": "#wilderwild:feature/small_sponge_grows_on",
+  "can_place_on_ceiling": true,
+  "can_place_on_floor": true,
+  "can_place_on_wall": true,
+  "search_range": 20
+}

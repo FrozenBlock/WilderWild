@@ -31,14 +31,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
-	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
 			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
 			.apply(instance, FancyDarkOakTrunkPlacer::new)
@@ -63,17 +62,17 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int freeTreeHeight,
 		BlockPos pos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
 		int r;
 		int q;
 
 		final ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
 		final BlockPos belowPos = pos.below();
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos, config);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.east(), config);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south(), config);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south().east(), config);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos, tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.east(), tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south(), tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south().east(), tree);
 
 		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
@@ -94,10 +93,10 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 				--j;
 			}
 			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, l + q, o))) continue;
-			final boolean placedWest = this.placeLog(level, replacer, random, blockPos2, config);
-			final boolean placedEast = this.placeLog(level, replacer, random, blockPos2.east(), config);
-			final boolean placedSouth = this.placeLog(level, replacer, random, blockPos2.south(), config);
-			final boolean placedSouthEast = this.placeLog(level, replacer, random, blockPos2.east().south(), config);
+			final boolean placedWest = this.placeLog(level, replacer, random, blockPos2, tree);
+			final boolean placedEast = this.placeLog(level, replacer, random, blockPos2.east(), tree);
+			final boolean placedSouth = this.placeLog(level, replacer, random, blockPos2.south(), tree);
+			final boolean placedSouthEast = this.placeLog(level, replacer, random, blockPos2.east().south(), tree);
 			if (extraLogs < maxBranchCount && this.trunkBranchPlacement.canPlaceBranch(random) && (q * 3) > freeTreeHeight) {
 				final Direction branchDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 				final BlockPos.MutableBlockPos branchPos = blockPos2.mutable();
@@ -121,7 +120,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 						level,
 						replacer,
 						random,
-						config.trunkProvider,
+						tree.trunkProvider(),
 						branchPos,
 						branchDirection,
 						list
@@ -136,7 +135,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 				if (q >= 0 && q <= 1 && r >= 0 && r <= 1 || random.nextInt(3) > 0) continue;
 				int s = random.nextInt(3) + 2;
 				for (int t = 0; t < s; ++t) {
-					this.placeLog(level, replacer, random, new BlockPos(k + q, p - t - 1, m + r), config);
+					this.placeLog(level, replacer, random, new BlockPos(k + q, p - t - 1, m + r), tree);
 				}
 				list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(n + q, p, o + r), 0, false));
 			}

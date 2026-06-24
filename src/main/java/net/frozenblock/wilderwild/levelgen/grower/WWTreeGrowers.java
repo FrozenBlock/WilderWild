@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.levelgen.grower;
 
-import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
@@ -28,25 +27,27 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.grower.TreeGrower;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public final class WWTreeGrowers {
 	public static final TreeGrower BAOBAB = new BaobabTreeGrower(WWConstants.string("baobab")) {
 		@Override
-		protected ResourceKey<ConfiguredFeature<?, ?>> getBaobabTreeFeature(RandomSource random) {
+		protected ResourceKey<Feature> getBaobabTreeFeature(RandomSource random) {
 			return random.nextFloat() <= 0.856F ? WWTreeConfigured.BAOBAB.getKey() : WWTreeConfigured.BAOBAB_TALL.getKey();
 		}
 	};
 
 	public static final TreeGrower CYPRESS = new TreeGrower(
 		WWConstants.string("cypress"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			growAlternates: {
 				if (!((Object) this instanceof TreeGrowerInterface treeGrowerInterface)) break growAlternates;
 
@@ -64,12 +65,13 @@ public final class WWTreeGrowers {
 
 	public static final TreeGrower PALM = new TreeGrower(
 		WWConstants.string("palm"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		public ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return random.nextFloat() <= 0.6F ? WWTreeConfigured.PALM.getKey()
 				: random.nextFloat() <= 0.7F ? WWTreeConfigured.TALL_PALM.getKey() : WWTreeConfigured.TALL_WINDMILL_PALM.getKey();
 		}
@@ -77,48 +79,52 @@ public final class WWTreeGrowers {
 
 	public static final TreeGrower YELLOW_MAPLE = new TreeGrower(
 		WWConstants.string("yellow_maple"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		protected ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return hasFlowers ? WWConfiguredFeatures.YELLOW_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.YELLOW_MAPLES_NO_BEES.getKey();
 		}
 	};
 
 	public static final TreeGrower ORANGE_MAPLE = new TreeGrower(
 		WWConstants.string("orange_maple"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		protected ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return hasFlowers ? WWConfiguredFeatures.ORANGE_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.ORANGE_MAPLES_NO_BEES.getKey();
 		}
 	};
 
 	public static final TreeGrower RED_MAPLE = new TreeGrower(
 		WWConstants.string("red_maple"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		protected ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return hasFlowers ? WWConfiguredFeatures.RED_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.RED_MAPLES_NO_BEES.getKey();
 		}
 	};
 
 	public static final TreeGrower WILLOW = new TreeGrower(
 		WWConstants.string("willow"),
-		Optional.empty(),
-		Optional.empty(),
-		Optional.empty()
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
 	) {
 		@Override
-		protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+		protected ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return random.nextFloat() <= 0.25F ?
 				random.nextFloat() <= 0.35F ? WWTreeConfigured.WILLOW_TALLER.getKey() : WWTreeConfigured.WILLOW_TALL.getKey()
 				: WWTreeConfigured.WILLOW.getKey();

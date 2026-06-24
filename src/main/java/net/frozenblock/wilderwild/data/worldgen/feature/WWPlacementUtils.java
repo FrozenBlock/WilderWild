@@ -23,8 +23,7 @@ import net.frozenblock.lib.levelgen.placement.api.NoisePlacementFilter;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 public final class WWPlacementUtils {
@@ -32,21 +31,15 @@ public final class WWPlacementUtils {
 	public static final NoisePlacementFilter SHRUB_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.675D, 1D, 0.175D, false, false, true);
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
-		String id, Holder<ConfiguredFeature<FC, ?>> configured, List<PlacementModifier> modifiers
-	) {
-		return new FrozenLibPlacedFeature(WWConstants.id(id)).makeAndSetHolder((Holder) configured, modifiers);
+	public static FrozenLibPlacedFeature register(String name, Holder<Feature> feature, List<PlacementModifier> modifiers) {
+		return new FrozenLibPlacedFeature(WWConstants.id(name)).makeAndSetHolder(feature, modifiers);
 	}
 
-	public static <FC extends FeatureConfiguration> FrozenLibPlacedFeature register(
-		String id, Holder<ConfiguredFeature<FC, ?>> registryEntry, PlacementModifier... modifiers
-	) {
-		return register(id, registryEntry, List.of(modifiers));
+	public static FrozenLibPlacedFeature register(String name, Holder<Feature> feature, PlacementModifier... modifiers) {
+		return register(name, feature, List.of(modifiers));
 	}
 
 	public static FrozenLibPlacedFeature register(String id) {
 		return new FrozenLibPlacedFeature(WWConstants.id(id));
 	}
-
 }

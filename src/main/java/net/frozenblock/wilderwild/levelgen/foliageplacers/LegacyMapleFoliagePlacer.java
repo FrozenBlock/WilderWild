@@ -25,7 +25,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
@@ -54,7 +54,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -66,7 +66,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 		int currentHeight = totalHeight;
 
 		for (int l = offset; l >= -foliageHeight; l--) {
-			this.placeLeavesInCircle(level, foliageSetter, random, config, pos, leafRadius, l, foliageAttachment.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
+			this.placeLeavesInCircle(level, foliageSetter, random, tree, pos, leafRadius, l, foliageAttachment.doubleTrunk(), totalHeight, currentHeight, foliageHeight);
 			currentHeight -= 1;
 		}
 	}
@@ -75,7 +75,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		BlockPos centerPos,
 		int providedRadius,
 		int y,
@@ -92,7 +92,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 			for (double k = -radius; k <= radius; k += increment) {
 				if (this.shouldSkipMapleLocationSigned(j, k, radius, giantTrunk, totalHeight, currentHeight, trunkHeight)) continue;
 				mutable.setWithOffset(centerPos, (int) j, y, (int) k);
-				tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+				tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 			}
 		}
 	}
@@ -101,9 +101,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 		return -0.5D;
 	}
 
-	protected boolean shouldSkipMapleLocationSigned(
-		double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight
-	) {
+	protected boolean shouldSkipMapleLocationSigned(double dx, double dz, double radius, boolean giantTrunk, int totalHeight, int currentHeight, int trunkHeight) {
 		double i;
 		double j;
 		if (giantTrunk) {
@@ -123,12 +121,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 		return distance > mapleFunction && distance > 0.4D;
 	}
 
-	protected double getMapleFoliageFunction(
-		double totalHeight,
-		double height,
-		double radius,
-		boolean hot
-	) {
+	protected double getMapleFoliageFunction(double totalHeight, double height, double radius, boolean hot) {
 		final double flippedHeight = totalHeight - height;
 		final double functionHeight = totalHeight - 1D;
 
@@ -143,7 +136,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
+	public int foliageHeight(RandomSource random, int trunkHeight, TreeFeature tree) {
 		return Math.max(5, trunkHeight - this.length.sample(random));
 	}
 

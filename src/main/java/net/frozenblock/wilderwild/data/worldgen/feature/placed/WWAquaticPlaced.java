@@ -25,17 +25,17 @@ import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -81,7 +81,7 @@ public final class WWAquaticPlaced {
 
 	public static void registerAquaticPlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWAquaticPlaced for", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		final PlacementFilter cattailConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.CATTAIL_GENERATION, true).asPlacementFilter();
@@ -90,23 +90,35 @@ public final class WWAquaticPlaced {
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(UniformInt.of(24, 32)),
+			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
 
-		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL,
+		PATCH_CATTAIL_UNCOMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL,
 			cattailConfigPredicate,
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(UniformInt.of(10, 20)),
+			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
 
-		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL_SMALL,
+		PATCH_CATTAIL_COMMON.makeAndSetHolder(WWAquaticConfigured.CATTAIL,
 			cattailConfigPredicate,
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome()
+			BiomeFilter.biome(),
+			CountPlacement.of(UniformInt.of(10, 20)),
+			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
 
 		final PlacementFilter barnaclesConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.BARNACLES_GENERATION, true).asPlacementFilter();
@@ -242,7 +254,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE),
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
 			)
@@ -260,7 +272,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE),
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
 			)
@@ -278,7 +290,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE),
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
 			)
@@ -297,7 +309,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP)
 				)
 			)
 		);
@@ -314,7 +326,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP)
 				)
 			)
 		);
@@ -331,7 +343,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP)
 				)
 			)
 		);
@@ -414,5 +426,4 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 	}
-
 }

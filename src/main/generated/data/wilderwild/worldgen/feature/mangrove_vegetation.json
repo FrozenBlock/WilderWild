@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:mangrove_vegetation_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.2,
+      "feature": {
+        "feature": "wilderwild:mangrove_vegetation_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

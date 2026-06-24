@@ -24,12 +24,12 @@ import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredF
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
-public final class WWFeatureTagsProvider extends FabricTagsProvider<ConfiguredFeature<?, ?>> {
+public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 
 	public WWFeatureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, Registries.CONFIGURED_FEATURE, registries);
+		super(output, Registries.FEATURE, registries);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.phys.Vec3;
@@ -57,7 +57,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -70,9 +70,9 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		final BlockPos topLayerPos = foliageAttachment.pos().above(offset);
 		final Vec3 topLayerCenter = Vec3.atCenterOf(topLayerPos);
 		if (isSmall) {
-			tryPlaceLeaf(level, foliageSetter, random, config, topLayerPos);
+			tryPlaceLeaf(level, foliageSetter, random, tree, topLayerPos);
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				tryPlaceLeaf(level, foliageSetter, random, config, mutable.setWithOffset(topLayerPos, direction));
+				tryPlaceLeaf(level, foliageSetter, random, tree, mutable.setWithOffset(topLayerPos, direction));
 			}
 		} else {
 			for (int xOff = -leafRadius; xOff <= leafRadius; ++xOff) {
@@ -80,7 +80,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 					mutable.setWithOffset(topLayerPos, xOff, 0, zOff);
 					final Vec3 placePosCenter = Vec3.atCenterOf(mutable);
 					if (!placePosCenter.closerThan(topLayerCenter, leafRadius + 0.5D)) continue;
-					tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+					tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		for (int xOff = -leafRadius; xOff <= leafRadius; ++xOff) {
 			for (int zOff = -leafRadius; zOff <= leafRadius; ++zOff) {
 				mutable.setWithOffset(middleLayerPos, xOff, 0, zOff);
-				tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+				tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 				if (isCorner(xOff, zOff, leafRadius)) {
 					if (isSmall) continue;
 					final BlockPos frondPos = mutable.immutable();
@@ -99,7 +99,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 				} else if (isEdge(xOff, zOff, leafRadius)) {
 					final Direction offsetDir = Direction.getApproximateNearest(xOff, 0, zOff);
 					mutable.move(offsetDir.getUnitVec3i());
-					tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+					tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 					frondPoses.add(mutable.immutable());
 				}
 			}
@@ -108,7 +108,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 		for (BlockPos frondPos : frondPoses) {
 			final int frondLength = this.frondLength.sample(random);
 			for (int i = 0; i < frondLength; ++i) {
-				tryPlaceLeaf(level, foliageSetter, random, config, mutable.setWithOffset(frondPos, 0, -i, 0));
+				tryPlaceLeaf(level, foliageSetter, random, tree, mutable.setWithOffset(frondPos, 0, -i, 0));
 			}
 		}
 	}
@@ -122,7 +122,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 	}
 
 	@Override
-	public int foliageHeight(RandomSource random, int treeHeight, TreeConfiguration config) {
+	public int foliageHeight(RandomSource random, int treeHeight, TreeFeature tree) {
 		return 0;
 	}
 

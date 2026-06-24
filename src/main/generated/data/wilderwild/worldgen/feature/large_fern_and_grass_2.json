@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted_state_provider",
+    "entries": [
+      {
+        "data": {
+          "Name": "minecraft:tall_grass",
+          "Properties": {
+            "half": "lower"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "data": {
+          "Name": "minecraft:large_fern",
+          "Properties": {
+            "half": "lower"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

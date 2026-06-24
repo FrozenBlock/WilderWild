@@ -39,8 +39,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.DAMAGE_TYPE)));
 		WWConstants.log("Adding finalized instruments to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.INSTRUMENT)));
-		WWConstants.log("Adding finalized configured features to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(Registries.CONFIGURED_FEATURE)));
+		WWConstants.log("Adding finalized features to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.FEATURE)));
 		WWConstants.log("Adding finalized placed features to datagen", true);
 		entries.addAll(asLookup(entries.placedFeatures()));
 		WWConstants.log("Adding finalized biomes to datagen", true);

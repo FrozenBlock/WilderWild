@@ -39,7 +39,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -87,7 +86,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int height,
 		BlockPos startPos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
@@ -95,7 +94,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 
 		final Pair<List<BlockPos>, Optional<Direction>> posesAndOffset = this.getAllSectionPoses(level, startPos, random, trunkDirection);
 		for (BlockPos blockPos : posesAndOffset.getFirst()) {
-			this.placeLog(level, replacer, random, blockPos, config, (state) -> state.trySetValue(RotatedPillarBlock.AXIS, trunkDirection.getAxis()));
+			this.placeLog(level, replacer, random, blockPos, tree, (state) -> state.trySetValue(RotatedPillarBlock.AXIS, trunkDirection.getAxis()));
 		}
 
 		final Optional<Direction> optionalOffsetDirection = posesAndOffset.getSecond();
@@ -107,7 +106,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 			for (BlockPos blockPos : stumpPoses) {
 				final int stumpHeight = STUMP_HEIGHT.sample(random);
 				for (int i = 0; i < stumpHeight; i++) {
-					this.placeLog(level, replacer, random, stumpPos.setWithOffset(blockPos, 0, i, 0), config);
+					this.placeLog(level, replacer, random, stumpPos.setWithOffset(blockPos, 0, i, 0), tree);
 				}
 			}
 		}

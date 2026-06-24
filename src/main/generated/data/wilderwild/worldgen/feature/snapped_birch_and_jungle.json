@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:snapped_jungle_checked",
+  "features": [
+    {
+      "chance": 0.35,
+      "feature": "wilderwild:snapped_birch_checked"
+    }
+  ]
+}

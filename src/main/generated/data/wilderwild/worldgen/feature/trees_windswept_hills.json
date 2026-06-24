@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:trees_windswept_hills_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.3,
+      "feature": {
+        "feature": "wilderwild:trees_windswept_hills_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "wilderwild:water_cover",
+  "radius": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 2
+  },
+  "state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:plankton",
+      "Properties": {
+        "glowing": "false"
+      }
+    }
+  }
+}
