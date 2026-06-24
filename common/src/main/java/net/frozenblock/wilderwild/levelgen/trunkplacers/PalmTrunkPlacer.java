@@ -30,7 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -57,9 +57,9 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int freeTreeHeight,
 		BlockPos pos,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, blockSetter, random, pos.below(), config);
+		placeBelowTrunkBlock(level, blockSetter, random, pos.below(), tree);
 
 		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
@@ -77,7 +77,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 				z += offset.z();
 				--j;
 			}
-			if (!this.placeLog(level, blockSetter, random, mutable.set(x, n, z), config)) continue;
+			if (!this.placeLog(level, blockSetter, random, mutable.set(x, n, z), tree)) continue;
 			optionalInt = OptionalInt.of(n + 1);
 		}
 		if (optionalInt.isPresent()) {

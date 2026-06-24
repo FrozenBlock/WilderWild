@@ -17,36 +17,30 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public final class WWFeatureUtils {
 
-	public static FrozenLibConfiguredFeature<NoneFeatureConfiguration> register(String id, Feature<NoneFeatureConfiguration> feature) {
-		return register(id, feature, FeatureConfiguration.NONE);
+	public static <F extends Feature> FrozenLibFeature register(String id, F feature) {
+		final FrozenLibFeature frozenLibFeature = new FrozenLibFeature(WWConstants.id(id));
+		frozenLibFeature.makeAndSetHolder(feature);
+		return frozenLibFeature;
 	}
 
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> FrozenLibConfiguredFeature<FC> register(String id, F feature, FC config) {
-		FrozenLibConfiguredFeature<FC> frozen = new FrozenLibConfiguredFeature<>(WWConstants.id(id));
-		frozen.makeAndSetHolder(feature, config);
-		return frozen;
+	public static FrozenLibFeature register(String id) {
+		return new FrozenLibFeature(WWConstants.id(id));
 	}
 
-	public static <FC extends FeatureConfiguration> FrozenLibConfiguredFeature<FC> register(String id) {
-		return new FrozenLibConfiguredFeature<>(WWConstants.id(id));
-	}
-
-	public static FrozenLibConfiguredTreeFeature registerTree(
+	public static FrozenLibTreeFeature registerTree(
 		String id,
 		Block leafLitterBlock,
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB
 	) {
-		return new FrozenLibConfiguredTreeFeature(WWConstants.id(id), leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
+		return new FrozenLibTreeFeature(WWConstants.id(id), leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
 	}
 }

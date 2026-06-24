@@ -36,7 +36,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -92,13 +91,13 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		RandomSource random,
 		int treeHeight,
 		BlockPos origin,
-		TreeConfiguration config
+		TreeFeature tree
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
 			? this.hollowedTrunkProvider
-			: config.trunkProvider;
+			: tree.trunkProvider();
 		final int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
@@ -152,8 +151,8 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, origin, trunkDirection);
 			if (optionalStumpPos.isPresent()) {
 				final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
-				this.placeLog(level, trunkSetter, random, stumpPos, config);
-				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, trunkSetter, random, stumpPos.move(Direction.UP), config);
+				this.placeLog(level, trunkSetter, random, stumpPos, tree);
+				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, trunkSetter, random, stumpPos.move(Direction.UP), tree);
 			}
 		}
 

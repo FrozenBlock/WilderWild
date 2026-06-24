@@ -25,7 +25,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -49,7 +49,7 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 		WorldGenLevel level,
 		FoliagePlacer.FoliageSetter foliageSetter,
 		RandomSource random,
-		TreeConfiguration config,
+		TreeFeature tree,
 		int treeHeight,
 		FoliagePlacer.FoliageAttachment foliageAttachment,
 		int foliageHeight,
@@ -61,10 +61,10 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 		for (Direction direction : Direction.values()) {
 			if (direction == Direction.DOWN) continue;
 			mutable.setWithOffset(logPos, direction);
-			tryPlaceLeaf(level, foliageSetter, random, config, mutable);
+			tryPlaceLeaf(level, foliageSetter, random, tree, mutable);
 		}
 
-		super.createFoliage(level, foliageSetter, random, config, treeHeight, foliageAttachment, foliageHeight, leafRadius, offset);
+		super.createFoliage(level, foliageSetter, random, tree, treeHeight, foliageAttachment, foliageHeight, leafRadius, offset);
 	}
 }
 

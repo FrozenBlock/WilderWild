@@ -39,7 +39,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.blockpredicates.ReplaceablePredicate;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
@@ -106,7 +107,7 @@ public final class WWCavePlaced {
 
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		// MESOGLEA CAVES
@@ -214,7 +215,7 @@ public final class WWCavePlaced {
 			modifiersWithCount(72, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
 		);
 
-		LAVA_SPRING_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
+		LAVA_SPRING_EXTRA.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.SPRING_LAVA_OVERWORLD),
 			CountPlacement.of(UniformInt.of(144, 200)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -322,8 +323,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.NORTH.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.SOUTH.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
+					new ReplaceablePredicate(Direction.NORTH.getUnitVec3i()),
+					BlockPredicate.matchesBlocks(Direction.SOUTH, WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -339,8 +340,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.EAST.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.WEST.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
+					new ReplaceablePredicate(Direction.EAST.getUnitVec3i()),
+					BlockPredicate.matchesBlocks(Direction.WEST, WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -356,8 +357,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.SOUTH.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.NORTH.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
+					new ReplaceablePredicate(Direction.SOUTH.getUnitVec3i()),
+					BlockPredicate.matchesBlocks(Direction.NORTH, WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -373,8 +374,8 @@ public final class WWCavePlaced {
 				Direction.DOWN,
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
-					BlockPredicate.replaceable(Direction.WEST.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.EAST.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
+					new ReplaceablePredicate(Direction.WEST.getUnitVec3i()),
+					BlockPredicate.matchesBlocks(Direction.EAST, WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -400,14 +401,14 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		LAVA_LAKE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.LAKE_LAVA),
+		LAVA_LAKE_EXTRA.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.LAKE_LAVA),
 			CountPlacement.of(UniformInt.of(0, 8)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			BiomeFilter.biome()
 		);
 
-		FOSSIL_LAVA.makeAndSetHolder(configuredFeatures.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
+		FOSSIL_LAVA.makeAndSetHolder(features.getOrThrow(CaveFeatures.FOSSIL_DIAMONDS),
 			RarityFilter.onAverageOnceEvery(20),
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-24)),
@@ -537,7 +538,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		ORE_DIORITE_EXTRA.makeAndSetHolder(configuredFeatures.getOrThrow(OreFeatures.ORE_DIORITE),
+		ORE_DIORITE_EXTRA.makeAndSetHolder(features.getOrThrow(OreFeatures.ORE_DIORITE),
 			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
 		);
 	}

@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.data;
 
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
@@ -29,13 +29,13 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WWFeatureBootstrap {
 
-	public static void bootstrapConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
-		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+	public static void bootstrapConfigured(BootstrapContext<Feature> entries) {
+		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreeConfigured.registerTreeConfigured(entries);
 		WWMiscConfigured.registerMiscConfigured(entries);
@@ -45,7 +45,7 @@ public final class WWFeatureBootstrap {
 	}
 
 	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
-		FrozenLibFeatureUtils.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
 
 		WWTreePlaced.registerTreePlaced(entries);
 		WWMiscPlaced.registerMiscPlaced(entries);

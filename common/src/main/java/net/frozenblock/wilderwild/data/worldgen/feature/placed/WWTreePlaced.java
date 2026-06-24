@@ -32,7 +32,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -42,16 +42,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 public final class WWTreePlaced {
-	public static final BlockPredicate SNOW_TREE_PREDICATE = BlockPredicate.matchesBlocks(
-		Direction.DOWN.getUnitVec3i(),
-		Blocks.SNOW_BLOCK,
-		Blocks.POWDER_SNOW
-	);
-	public static final List<PlacementModifier> SNOW_TREE_FILTER_DECORATOR = List.of(
-		EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
-		BlockPredicateFilter.forPredicate(SNOW_TREE_PREDICATE)
-	);
-
 	//BIRCH
 	public static final FrozenLibPlacedTreeFeature BIRCH_CHECKED = WWTreeConfigured.BIRCH_TREE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature BIRCH_BEES_0004 = WWTreeConfigured.BIRCH_BEES_0004.toPlacedFeature();
@@ -223,18 +213,6 @@ public final class WWTreePlaced {
 	public static final FrozenLibPlacedFeature FALLEN_CYPRESS_CHECKED = register("fallen_cypress_checked");
 	public static final FrozenLibPlacedFeature SNAPPED_CYPRESS_CHECKED = register("snapped_cypress_checked");
 
-	//TREE ON SAND
-	public static final BlockPredicate SAND_GRASS_TREE_PREDICATE = BlockPredicate.matchesBlocks(
-		Direction.DOWN.getUnitVec3i(),
-		Blocks.RED_SAND,
-		Blocks.SAND,
-		Blocks.GRASS_BLOCK
-	);
-	public static final List<PlacementModifier> SAND_TREE_FILTER_DECORATOR = List.of(
-		EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8),
-		BlockPredicateFilter.forPredicate(SAND_GRASS_TREE_PREDICATE)
-	);
-
 	//SHRUB
 	public static final FrozenLibPlacedFeature LARGE_BUSH_ON_SAND = register("large_bush_on_sand");
 	public static final FrozenLibPlacedFeature LARGE_BUSH_CHECKED = register("large_bush_checked");
@@ -292,10 +270,32 @@ public final class WWTreePlaced {
 
 	public static void registerTreePlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWTreePlaced for", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(
 			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)
+		);
+		final List<PlacementModifier> snowTreePlacementFilters = List.of(
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.matchesBlocks(
+					Direction.DOWN,
+					Blocks.SNOW_BLOCK,
+					Blocks.POWDER_SNOW
+				)
+			)
+		);
+
+		final List<PlacementModifier> sandTreePlacementFilters = List.of(
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.matchesBlocks(
+					Direction.DOWN,
+					Blocks.RED_SAND,
+					Blocks.SAND,
+					Blocks.GRASS_BLOCK
+				)
+			)
 		);
 
 		// BIRCH
@@ -445,11 +445,11 @@ public final class WWTreePlaced {
 		// SPRUCE
 		final BlockPredicateFilter spruceSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING);
 		SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
-		SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
+		SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SPRUCE.getHolder(), snowTreePlacementFilters);
 		SPRUCE_SHORT_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		FUNGUS_PINE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		DYING_FUNGUS_PINE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
-		FUNGUS_PINE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.FUNGUS_PINE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
+		FUNGUS_PINE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.FUNGUS_PINE.getHolder(), snowTreePlacementFilters);
 		MEGA_FUNGUS_SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		MEGA_FUNGUS_PINE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		DYING_MEGA_FUNGUS_PINE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
@@ -457,10 +457,10 @@ public final class WWTreePlaced {
 		SHORT_MEGA_FUNGUS_SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		SHORT_MEGA_DYING_FUNGUS_SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
 		SHORT_MEGA_DYING_SPRUCE_CHECKED.makeAndSetHolders(spruceSaplingPlacement);
-		SHORT_MEGA_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
-		SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
-		SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
-		SHORT_MEGA_DYING_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_SPRUCE.getHolder(), SNOW_TREE_FILTER_DECORATOR);
+		SHORT_MEGA_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_SPRUCE.getHolder(), snowTreePlacementFilters);
+		SHORT_MEGA_FUNGUS_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_FUNGUS_SPRUCE.getHolder(), snowTreePlacementFilters);
+		SHORT_MEGA_DYING_FUNGUS_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_FUNGUS_SPRUCE.getHolder(), snowTreePlacementFilters);
+		SHORT_MEGA_DYING_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SHORT_MEGA_DYING_SPRUCE.getHolder(), snowTreePlacementFilters);
 
 		FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_SPRUCE_TREE, fallenTreePlacement);
 		MOSSY_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.MOSSY_FALLEN_SPRUCE_TREE, fallenTreePlacement);
@@ -468,7 +468,7 @@ public final class WWTreePlaced {
 		DECORATED_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.DECORATED_LARGE_FALLEN_SPRUCE_TREE, fallenTreePlacement);
 		CLEAN_LARGE_FALLEN_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.CLEAN_LARGE_FALLEN_SPRUCE_TREE, fallenTreePlacement);
 		SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_SPRUCE, spruceSaplingPlacement);
-		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SNAPPED_SPRUCE, SNOW_TREE_FILTER_DECORATOR);
+		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeConfigured.SNAPPED_SPRUCE, snowTreePlacementFilters);
 		LARGE_SNAPPED_SPRUCE_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
 		LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
 
@@ -488,7 +488,7 @@ public final class WWTreePlaced {
 		SNAPPED_CYPRESS_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CYPRESS, cypressSaplingPlacement);
 
 		// BUSH
-		LARGE_BUSH_ON_SAND.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH, SAND_TREE_FILTER_DECORATOR);
+		LARGE_BUSH_ON_SAND.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH, sandTreePlacementFilters);
 		LARGE_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_BUSH, oakSaplingPlacement);
 		BIG_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH, oakSaplingPlacement);
 
@@ -534,7 +534,7 @@ public final class WWTreePlaced {
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
 				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
 				12
 			)
@@ -546,7 +546,7 @@ public final class WWTreePlaced {
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
 				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
 				12
 			)
@@ -560,7 +560,7 @@ public final class WWTreePlaced {
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
 				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
 				12
 			)
@@ -572,7 +572,7 @@ public final class WWTreePlaced {
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
+				BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.NETHERRACK, Blocks.CRIMSON_NYLIUM, Blocks.WARPED_NYLIUM),
 				BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.LAVA),
 				12
 			)

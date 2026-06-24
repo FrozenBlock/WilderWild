@@ -20,25 +20,25 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.blockpredicates.TouchingBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.feature.configurations.ColumnFeatureConfiguration;
+import net.frozenblock.lib.levelgen.feature.api.feature.CircularLavaVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.ColumnFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.disk.BallFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallBlockPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallFeatureConfiguration;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoisePathFeatureConfiguration;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.LargeMesogleaConfiguration;
+import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -58,105 +58,102 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemClusterConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SpeleothemConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.VegetationPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.OreFeature;
+import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SpeleothemClusterFeature;
+import net.minecraft.world.level.levelgen.feature.SpeleothemFeature;
+import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 
 public final class WWCaveConfigured {
 	// MESOGLEA CAVES
-	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_CALCITE = register("ore_calcite");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> STONE_POOL = register("stone_pool");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> DOWNWARDS_BLUE_MESOGLEA_COLUMN = register("downwards_blue_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> MESOGLEA_PATHS = register("mesoglea_paths");
-	public static final FrozenLibConfiguredFeature<LargeMesogleaConfiguration> MESOGLEA_CLUSTER_PURPLE = WWFeatureUtils.register("mesoglea_cluster_purple");
-	public static final FrozenLibConfiguredFeature<LargeMesogleaConfiguration> MESOGLEA_CLUSTER_BLUE = WWFeatureUtils.register("mesoglea_cluster_blue");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DOWNWARD_BLUE_MESOGLEA = WWFeatureUtils.register("downwards_blue_mesoglea");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DOWNWARD_PURPLE_MESOGLEA = WWFeatureUtils.register("downwards_purple_mesoglea");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
-	public static final FrozenLibConfiguredFeature<MultifaceGrowthConfiguration> NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
-	public static final FrozenLibConfiguredFeature<LargeMesogleaConfiguration> LARGE_MESOGLEA_PURPLE = WWFeatureUtils.register("large_mesoglea_purple");
-	public static final FrozenLibConfiguredFeature<LargeMesogleaConfiguration> LARGE_MESOGLEA_BLUE = WWFeatureUtils.register("large_mesoglea_blue");
+	public static final FrozenLibFeature ORE_CALCITE = register("ore_calcite");
+	public static final FrozenLibFeature STONE_POOL = register("stone_pool");
+	public static final FrozenLibFeature BLUE_MESOGLEA_COLUMN = register("blue_mesoglea_column");
+	public static final FrozenLibFeature PURPLE_MESOGLEA_COLUMN = register("purple_mesoglea_column");
+	public static final FrozenLibFeature DOWNWARDS_BLUE_MESOGLEA_COLUMN = register("downwards_blue_mesoglea_column");
+	public static final FrozenLibFeature DOWNWARDS_PURPLE_MESOGLEA_COLUMN = register("downwards_purple_mesoglea_column");
+	public static final FrozenLibFeature MESOGLEA_PATHS = register("mesoglea_paths");
+	public static final FrozenLibFeature MESOGLEA_CLUSTER_PURPLE = WWFeatureUtils.register("mesoglea_cluster_purple");
+	public static final FrozenLibFeature MESOGLEA_CLUSTER_BLUE = WWFeatureUtils.register("mesoglea_cluster_blue");
+	public static final FrozenLibFeature DOWNWARD_BLUE_MESOGLEA = WWFeatureUtils.register("downwards_blue_mesoglea");
+	public static final FrozenLibFeature DOWNWARD_PURPLE_MESOGLEA = WWFeatureUtils.register("downwards_purple_mesoglea");
+	public static final FrozenLibFeature NEMATOCYST_BLUE = WWFeatureUtils.register("nematocyst_blue");
+	public static final FrozenLibFeature NEMATOCYST_PURPLE = WWFeatureUtils.register("nematocyst_purple");
+	public static final FrozenLibFeature LARGE_MESOGLEA_PURPLE = WWFeatureUtils.register("large_mesoglea_purple");
+	public static final FrozenLibFeature LARGE_MESOGLEA_BLUE = WWFeatureUtils.register("large_mesoglea_blue");
 
 	// MAGMATIC CAVES
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> GABBRO_LAVA_POOL = register("gabbro_lava_pool");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> LAVA_POOL_MAGMA_COLUMN = register("lava_pool_magma_column");
-	public static final FrozenLibConfiguredFeature<NoisePathFeatureConfiguration> GABBRO_MAGMA_PATH = register("gabbro_magma_path");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
-	public static final FrozenLibConfiguredFeature<OreConfiguration> ORE_GABBRO = register("ore_gabbro");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> GABBRO_DISK = register("gabbro_disk");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> GABBRO_COLUMN = register("gabbro_column");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> GABBRO_PILE = register("gabbro_pile");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_UP = register("geothermal_vent_up");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_DOWN = register("geothermal_vent_down");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_NORTH = register("geothermal_vent_north");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_EAST = register("geothermal_vent_east");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_SOUTH = register("geothermal_vent_south");
-	public static final FrozenLibConfiguredFeature<SimpleBlockConfiguration> GEOTHERMAL_VENT_WEST = register("geothermal_vent_west");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> DOWNWARDS_GEOTHERMAL_VENT_COLUMN = register("downwards_geothermal_vent_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> GEOTHERMAL_VENT_COLUMN = register("geothermal_vent_column");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> UPSIDE_DOWN_MAGMA = WWFeatureUtils.register("upside_down_magma");
+	public static final FrozenLibFeature GABBRO_LAVA_POOL = register("gabbro_lava_pool");
+	public static final FrozenLibFeature LAVA_POOL_MAGMA_COLUMN = register("lava_pool_magma_column");
+	public static final FrozenLibFeature GABBRO_MAGMA_PATH = register("gabbro_magma_path");
+	public static final FrozenLibFeature DOWNWARDS_MAGMA_COLUMN = register("downwards_magma_column");
+	public static final FrozenLibFeature ORE_GABBRO = register("ore_gabbro");
+	public static final FrozenLibFeature GABBRO_DISK = register("gabbro_disk");
+	public static final FrozenLibFeature DOWNWARDS_GABBRO_COLUMN = register("downwards_gabbro_column");
+	public static final FrozenLibFeature GABBRO_COLUMN = register("gabbro_column");
+	public static final FrozenLibFeature GABBRO_PILE = register("gabbro_pile");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_UP = register("geothermal_vent_up");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_DOWN = register("geothermal_vent_down");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_NORTH = register("geothermal_vent_north");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_EAST = register("geothermal_vent_east");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_SOUTH = register("geothermal_vent_south");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_WEST = register("geothermal_vent_west");
+	public static final FrozenLibFeature DOWNWARDS_GEOTHERMAL_VENT_COLUMN = register("downwards_geothermal_vent_column");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_COLUMN = register("geothermal_vent_column");
+	public static final FrozenLibFeature UPSIDE_DOWN_MAGMA = WWFeatureUtils.register("upside_down_magma");
 
 	// FROZEN CAVES
-	public static final FrozenLibConfiguredFeature<SpeleothemClusterConfiguration> ICICLE_CLUSTER = register("icicle_cluster");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> CAVE_ICICLE = register("cave_icicle");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> ICICLE = register("icicle");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> PACKED_ICE_COLUMN = register("packed_ice_column");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> FRAGILE_ICE_BIG_COLUMN = register("fragile_ice_big_column");
-	public static final FrozenLibConfiguredFeature<BallFeatureConfiguration> FRAGILE_ICE_DISK = register("fragile_ice_disk");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> FRAGILE_ICE_COLUMN = register("fragile_ice_column");
-	public static final FrozenLibConfiguredFeature<ColumnFeatureConfiguration> SMALL_FRAGILE_ICE_COLUMN = register("small_fragile_ice_column");
-	public static final FrozenLibConfiguredFeature<CompositeFeatureConfiguration> DOWNWARDS_FRAGILE_ICE_COLUMN = register("downwards_fragile_ice_column");
-	public static final FrozenLibConfiguredFeature<BlockPileConfiguration> FRAGILE_ICE_PILE = register("fragile_ice_pile");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> HANGING_ICE = WWFeatureUtils.register("hanging_ice");
-	public static final FrozenLibConfiguredFeature<RandomFeatureConfiguration> ICE_COLUMNS = WWFeatureUtils.register("ice_columns");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> HANGING_PACKED_ICE = WWFeatureUtils.register("hanging_packed_ice");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> ICE_PATCH_CEILING = WWFeatureUtils.register("ice_patch_ceiling");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> FRAGILE_ICE_COLUMN_PATCH = WWFeatureUtils.register("fragile_ice_column_patch");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> FRAGILE_ICE_PATCH = WWFeatureUtils.register("fragile_ice_patch");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DIORITE_PATCH = WWFeatureUtils.register("diorite_patch");
-	public static final FrozenLibConfiguredFeature<VegetationPatchConfiguration> DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
+	public static final FrozenLibFeature ICICLE_CLUSTER = register("icicle_cluster");
+	public static final FrozenLibFeature CAVE_ICICLE = register("cave_icicle");
+	public static final FrozenLibFeature ICICLE = register("icicle");
+	public static final FrozenLibFeature PACKED_ICE_COLUMN = register("packed_ice_column");
+	public static final FrozenLibFeature DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
+	public static final FrozenLibFeature PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
+	public static final FrozenLibFeature FRAGILE_ICE_BIG_COLUMN = register("fragile_ice_big_column");
+	public static final FrozenLibFeature FRAGILE_ICE_DISK = register("fragile_ice_disk");
+	public static final FrozenLibFeature FRAGILE_ICE_COLUMN = register("fragile_ice_column");
+	public static final FrozenLibFeature SMALL_FRAGILE_ICE_COLUMN = register("small_fragile_ice_column");
+	public static final FrozenLibFeature DOWNWARDS_FRAGILE_ICE_COLUMN = register("downwards_fragile_ice_column");
+	public static final FrozenLibFeature FRAGILE_ICE_PILE = register("fragile_ice_pile");
+	public static final FrozenLibFeature HANGING_ICE = WWFeatureUtils.register("hanging_ice");
+	public static final FrozenLibFeature ICE_COLUMNS = WWFeatureUtils.register("ice_columns");
+	public static final FrozenLibFeature HANGING_PACKED_ICE = WWFeatureUtils.register("hanging_packed_ice");
+	public static final FrozenLibFeature ICE_PATCH_CEILING = WWFeatureUtils.register("ice_patch_ceiling");
+	public static final FrozenLibFeature FRAGILE_ICE_COLUMN_PATCH = WWFeatureUtils.register("fragile_ice_column_patch");
+	public static final FrozenLibFeature FRAGILE_ICE_PATCH = WWFeatureUtils.register("fragile_ice_patch");
+	public static final FrozenLibFeature DIORITE_PATCH = WWFeatureUtils.register("diorite_patch");
+	public static final FrozenLibFeature DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
 
-	public static void registerCaveConfigured(BootstrapContext<ConfiguredFeature<?, ?>> entries) {
+	public static void registerCaveConfigured(BootstrapContext<Feature> entries) {
 		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
-		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
 		// MESOGLEA CAVES
-		ORE_CALCITE.makeAndSetHolder(Feature.ORE,
-			new OreConfiguration(
+		ORE_CALCITE.makeAndSetHolder(
+			new OreFeature(
 				new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD),
 				Blocks.CALCITE.defaultBlockState(),
 				64
 			)
 		);
 
-		STONE_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_WATERLOGGED_VEGETATION_PATCH_LESS_BORDERS,
-			new VegetationPatchConfiguration(
+		STONE_POOL.makeAndSetHolder(
+			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.STONE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
@@ -170,8 +167,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -183,8 +180,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -196,8 +193,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -209,8 +206,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -222,8 +219,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MESOGLEA_PATHS.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		MESOGLEA_PATHS.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
 					.noiseScale(0.025D)
 					.calculateNoiseWithY()
@@ -244,8 +241,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA,
-			new LargeMesogleaConfiguration(
+		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(
+			new LargeMesogleaFeature(
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
@@ -260,8 +257,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA,
-			new LargeMesogleaConfiguration(
+		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(
+			new LargeMesogleaFeature(
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
@@ -276,8 +273,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				DOWNWARDS_BLUE_MESOGLEA_COLUMN.asInlinePlaced(),
@@ -291,8 +288,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARD_PURPLE_MESOGLEA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		DOWNWARD_PURPLE_MESOGLEA.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				DOWNWARDS_PURPLE_MESOGLEA_COLUMN.asInlinePlaced(),
@@ -306,8 +303,9 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		NEMATOCYST_BLUE.makeAndSetHolder(WWFeatures.NEMATOCYST,
-			new MultifaceGrowthConfiguration(
+		// TODO: see if nematocyst feature works
+		NEMATOCYST_BLUE.makeAndSetHolder(
+			new MultifaceGrowthFeature(
 				WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get(),
 				20,
 				true,
@@ -318,8 +316,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		NEMATOCYST_PURPLE.makeAndSetHolder(WWFeatures.NEMATOCYST,
-			new MultifaceGrowthConfiguration(
+		NEMATOCYST_PURPLE.makeAndSetHolder(
+			new MultifaceGrowthFeature(
 				WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get(),
 				20,
 				true,
@@ -330,8 +328,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA,
-			new LargeMesogleaConfiguration(
+		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(
+			new LargeMesogleaFeature(
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
@@ -346,8 +344,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		LARGE_MESOGLEA_BLUE.makeAndSetHolder(WWFeatures.LARGE_MESOGLEA,
-			new LargeMesogleaConfiguration(
+		LARGE_MESOGLEA_BLUE.makeAndSetHolder(
+			new LargeMesogleaFeature(
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
@@ -363,8 +361,8 @@ public final class WWCaveConfigured {
 		);
 
 		// MAGMATIC CAVES
-		GABBRO_LAVA_POOL.makeAndSetHolder(FrozenLibFeatures.CIRCULAR_LAVA_VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		GABBRO_LAVA_POOL.makeAndSetHolder(
+			new CircularLavaVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
 				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 				LAVA_POOL_MAGMA_COLUMN.asInlinePlaced(),
@@ -378,8 +376,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
 				BlockPredicate.matchesFluids(Fluids.LAVA),
 				UniformInt.of(1, 8),
@@ -388,8 +386,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_MAGMA_PATH.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
-			new NoisePathFeatureConfiguration(
+		GABBRO_MAGMA_PATH.makeAndSetHolder(
+			new NoisePathFeature(
 				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
 					.noiseScale(0.0325D)
 					.calculateNoiseWithY()
@@ -421,8 +419,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -434,17 +432,17 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		ORE_GABBRO.makeAndSetHolder(Feature.ORE,
-			new OreConfiguration(
+		ORE_GABBRO.makeAndSetHolder(
+			new OreFeature(
 				new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD),
 				WWBlocks.GABBRO.get().defaultBlockState(),
 				64
 			)
 		);
 
-		GABBRO_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+		GABBRO_DISK.makeAndSetHolder(
+			new BallFeature(
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
 					.placementChance(0.9F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
@@ -462,8 +460,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -475,8 +473,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		GABBRO_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
@@ -488,16 +486,12 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_PILE.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		GABBRO_PILE.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(WWBlocks.GABBRO.get()))),
 					PlacementUtils.inlinePlaced(
-						Feature.BLOCK_PILE,
-						new BlockPileConfiguration(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
-					),
-					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL.get(),
-						new BallFeatureConfiguration(
+						new BallFeature(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
 								.placementChance(0.9F)
 								.fadeStartPercentage(0.675F)
@@ -517,18 +511,18 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		final Function<Direction, SimpleBlockConfiguration> geothermalVentConfig = direction -> new SimpleBlockConfiguration(
+		final Function<Direction, SimpleBlockFeature> geothermalVentFeature = direction -> new SimpleBlockFeature(
 			BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, direction))
 		);
-		GEOTHERMAL_VENT_UP.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.UP));
-		GEOTHERMAL_VENT_DOWN.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.DOWN));
-		GEOTHERMAL_VENT_NORTH.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.NORTH));
-		GEOTHERMAL_VENT_EAST.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.EAST));
-		GEOTHERMAL_VENT_SOUTH.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.SOUTH));
-		GEOTHERMAL_VENT_WEST.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.WEST));
+		GEOTHERMAL_VENT_UP.makeAndSetHolder(geothermalVentFeature.apply(Direction.UP));
+		GEOTHERMAL_VENT_DOWN.makeAndSetHolder(geothermalVentFeature.apply(Direction.DOWN));
+		GEOTHERMAL_VENT_NORTH.makeAndSetHolder(geothermalVentFeature.apply(Direction.NORTH));
+		GEOTHERMAL_VENT_EAST.makeAndSetHolder(geothermalVentFeature.apply(Direction.EAST));
+		GEOTHERMAL_VENT_SOUTH.makeAndSetHolder(geothermalVentFeature.apply(Direction.SOUTH));
+		GEOTHERMAL_VENT_WEST.makeAndSetHolder(geothermalVentFeature.apply(Direction.WEST));
 
-		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
 				BlockPredicate.replaceable(),
 				UniformInt.of(2, 4),
@@ -537,8 +531,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get()),
 				BlockPredicate.replaceable(),
 				UniformInt.of(3, 5),
@@ -547,8 +541,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		UPSIDE_DOWN_MAGMA.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		UPSIDE_DOWN_MAGMA.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
 				DOWNWARDS_MAGMA_COLUMN.asInlinePlaced(),
@@ -563,8 +557,8 @@ public final class WWCaveConfigured {
 		);
 
 		// FROZEN CAVES
-		ICICLE_CLUSTER.makeAndSetHolder(Feature.SPELEOTHEM_CLUSTER,
-			new SpeleothemClusterConfiguration(
+		ICICLE_CLUSTER.makeAndSetHolder(
+			new SpeleothemClusterFeature(
 				WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
 				WWBlocks.ICICLE.get().defaultBlockState(),
 				blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
@@ -582,12 +576,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		CAVE_ICICLE.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new CompositeFeatureConfiguration(
+		CAVE_ICICLE.makeAndSetHolder(
+			new SimpleRandomSelectorFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						Feature.SPELEOTHEM,
-						new SpeleothemConfiguration(
+						new SpeleothemFeature(
 							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
 							WWBlocks.ICICLE.get().defaultBlockState(),
 							blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
@@ -600,8 +593,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						Feature.SPELEOTHEM,
-						new SpeleothemConfiguration(
+						new SpeleothemFeature(
 							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
 							WWBlocks.ICICLE.get().defaultBlockState(),
 							blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
@@ -617,12 +609,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		ICICLE.makeAndSetHolder(Feature.SIMPLE_RANDOM_SELECTOR,
-			new CompositeFeatureConfiguration(
+		ICICLE.makeAndSetHolder(
+			new SimpleRandomSelectorFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						Feature.SPELEOTHEM,
-						new SpeleothemConfiguration(
+						new SpeleothemFeature(
 							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
 							WWBlocks.ICICLE.get().defaultBlockState(),
 							HolderSet.empty(),
@@ -635,8 +626,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						Feature.SPELEOTHEM,
-						new SpeleothemConfiguration(
+						new SpeleothemFeature(
 							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
 							WWBlocks.ICICLE.get().defaultBlockState(),
 							HolderSet.empty(),
@@ -652,8 +642,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
-			new BallFeatureConfiguration(
+		FRAGILE_ICE_DISK.makeAndSetHolder(
+			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
@@ -672,12 +662,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PACKED_ICE_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		PACKED_ICE_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
@@ -689,8 +678,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -706,12 +694,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 6),
@@ -722,8 +709,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -739,12 +725,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
@@ -755,8 +740,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -772,12 +756,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_BIG_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		FRAGILE_ICE_BIG_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
@@ -788,8 +771,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -805,12 +787,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		FRAGILE_ICE_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 7),
@@ -821,8 +802,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -838,8 +818,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
-			new ColumnFeatureConfiguration(
+		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(
+			new ColumnFeature(
 				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 				BlockPredicate.replaceable(),
 				UniformInt.of(0, 4),
@@ -848,12 +828,11 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_FRAGILE_ICE_COLUMN.makeAndSetHolder(Feature.SEQUENCE,
-			new CompositeFeatureConfiguration(
+		DOWNWARDS_FRAGILE_ICE_COLUMN.makeAndSetHolder(
+			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 6),
@@ -864,8 +843,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN.get(),
-						new ColumnFeatureConfiguration(
+						new ColumnFeature(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
@@ -880,19 +858,17 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_PILE.makeAndSetHolder(Feature.BLOCK_PILE,
-			new BlockPileConfiguration(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
-		);
+		FRAGILE_ICE_PILE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get())));
 
-		HANGING_ICE.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(
+		HANGING_ICE.makeAndSetHolder(
+			new RandomSelectorFeature(
 				List.of(DOWNWARDS_PACKED_ICE_COLUMN.asWeightedPlacedFeature(0.6F)),
 				DOWNWARDS_FRAGILE_ICE_COLUMN.asInlinePlaced()
 			)
 		);
 
-		ICE_COLUMNS.makeAndSetHolder(Feature.RANDOM_SELECTOR,
-			new RandomFeatureConfiguration(
+		ICE_COLUMNS.makeAndSetHolder(
+			new RandomSelectorFeature(
 				List.of(
 					PACKED_ICE_COLUMN.asWeightedPlacedFeature(0.3F),
 					PACKED_ICE_BIG_COLUMN.asWeightedPlacedFeature(0.3F),
@@ -902,8 +878,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		HANGING_PACKED_ICE.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		HANGING_PACKED_ICE.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
 				SimpleStateProvider.simple(Blocks.PACKED_ICE),
 				HANGING_ICE.asInlinePlaced(),
@@ -917,8 +893,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		ICE_PATCH_CEILING.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		ICE_PATCH_CEILING.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
 				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 8)
@@ -926,8 +902,7 @@ public final class WWCaveConfigured {
 					.build()
 				),
 				PlacementUtils.inlinePlaced(
-					FrozenLibFeatures.COLUMN.get(),
-					new ColumnFeatureConfiguration(
+					new ColumnFeature(
 						BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 						BlockPredicate.replaceable(),
 						UniformInt.of(0, 4),
@@ -945,8 +920,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
 				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
@@ -964,8 +939,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		FRAGILE_ICE_PATCH.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
 				new WeightedStateProvider(WeightedList.<BlockState>builder()
 					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
@@ -983,8 +958,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DIORITE_PATCH.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		DIORITE_PATCH.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.DIORITE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
@@ -998,8 +973,8 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DIORITE_PATCH_CEILING.makeAndSetHolder(Feature.VEGETATION_PATCH,
-			new VegetationPatchConfiguration(
+		DIORITE_PATCH_CEILING.makeAndSetHolder(
+			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
 				BlockStateProvider.simple(Blocks.DIORITE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),

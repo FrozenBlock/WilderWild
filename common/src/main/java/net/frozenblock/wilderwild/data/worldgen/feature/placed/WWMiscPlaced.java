@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -158,7 +158,7 @@ public final class WWMiscPlaced {
 
 	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH, PlacementUtils.isEmpty());
@@ -248,7 +248,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		FOREST_ROCK_TAIGA.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.FOREST_ROCK),
+		FOREST_ROCK_TAIGA.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.FOREST_ROCK),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -471,7 +471,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		DESERT_WELL.makeAndSetHolder(configuredFeatures.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
+		DESERT_WELL.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
 			RarityFilter.onAverageOnceEvery(1000),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

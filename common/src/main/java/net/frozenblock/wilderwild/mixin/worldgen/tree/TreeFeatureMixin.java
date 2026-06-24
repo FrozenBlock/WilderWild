@@ -24,7 +24,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
-import net.frozenblock.wilderwild.levelgen.feature.PalmTreeFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -33,14 +32,21 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(TreeFeature.class)
 public class TreeFeatureMixin {
+
+	@Unique
+	private static final float WILDERWILD$COCONUT_CHANCE = 0.25F;
+	@Unique
+	private static final int WILDERWILD$MAX_COCONUTS = 3;
 
 	@Shadow
 	@Final
@@ -59,15 +65,17 @@ public class TreeFeatureMixin {
 		@Local(name = "level") WorldGenLevel level,
 		@Local(name = "random") RandomSource random
 	) {
-		if (!(TreeFeature.class.cast(this) instanceof PalmTreeFeature)) return original;
 		if (original.isEmpty() || !original.get()) return original;
+
+		final TreeFeature treeFeature = TreeFeature.class.cast(this);
+		if (!treeFeature.foliageProvider().equals(BlockStateProvider.simple(WWBlocks.PALM_FRONDS))) return original;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final AtomicInteger coconutCount = new AtomicInteger();
 		Util.toShuffledList(foliage.stream(), random).forEach(pos -> {
 			final int currentCoconuts = coconutCount.get();
-			if (currentCoconuts >= PalmTreeFeature.MAX_COCONUTS) return;
-			if (level.getRandom().nextFloat() > PalmTreeFeature.COCONUT_CHANCE && currentCoconuts > 0) return;
+			if (currentCoconuts >= WILDERWILD$MAX_COCONUTS) return;
+			if (level.getRandom().nextFloat() > WILDERWILD$COCONUT_CHANCE && currentCoconuts > 0) return;
 
 			final BlockState state = level.getBlockState(pos);
 			if (state.getOptionalValue(BlockStateProperties.DISTANCE).orElse(0) > CoconutBlock.VALID_FROND_DISTANCE) return;
@@ -92,5 +100,4 @@ public class TreeFeatureMixin {
 	private static BlockState wilderWild$setTermiteEdible(BlockState state) {
 		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
-
 }

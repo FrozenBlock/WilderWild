@@ -18,10 +18,13 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.SnowAndIceDiskFeatureConfiguration;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.WorldGenLevel;
@@ -31,16 +34,28 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfiguration> {
+public record SnowAndFreezeDiskFeature(
+	IntProvider radius,
+	IntProvider iceRadius,
+	float placementChance,
+	float fadeStartDistancePercent
+) implements Feature {
+	public static final MapCodec<SnowAndFreezeDiskFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		IntProviders.CODEC.fieldOf("radius").forGetter(SnowAndFreezeDiskFeature::radius),
+		IntProviders.CODEC.fieldOf("ice_radius").forGetter(SnowAndFreezeDiskFeature::iceRadius),
+		Codec.FLOAT.fieldOf("placement_chance").forGetter(SnowAndFreezeDiskFeature::placementChance),
+		Codec.FLOAT.fieldOf("fade_start_distance_percent").forGetter(SnowAndFreezeDiskFeature::fadeStartDistancePercent)
+	).apply(instance, SnowAndFreezeDiskFeature::new));
 
-	public SnowAndFreezeDiskFeature(Codec<SnowAndIceDiskFeatureConfiguration> codec) {
-		super(codec);
+	@Override
+	public MapCodec<? extends Feature> codec() {
+		return CODEC;
 	}
 
 	public static boolean canPlaceSnow(LevelReader level, BlockPos pos) {
@@ -59,24 +74,20 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<SnowAndIceDiskFeatureConfiguration> context) {
-		final BlockPos origin = context.origin();
-		final WorldGenLevel level = context.level();
-		final SnowAndIceDiskFeatureConfiguration config = context.config();
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		final BlockPos heightmapPos = origin.atY(level.getHeight(Types.MOTION_BLOCKING, origin.getX(), origin.getZ()));
 		final Biome biome = level.getBiome(heightmapPos).value();
 		final boolean coldEnough = !biome.warmEnoughToRain(heightmapPos, level.getSeaLevel());
 		if (!coldEnough) return false;
 
 		boolean generated = false;
-		final RandomSource random = level.getRandom();
 		final BlockPos.MutableBlockPos mutable = heightmapPos.mutable();
 		final BlockPos.MutableBlockPos groundMutable = new BlockPos.MutableBlockPos();
 		int originX = heightmapPos.getX();
 		int originZ = heightmapPos.getZ();
 
 		// SNOW
-		final int snowRadius = config.radius().sample(random);
+		final int snowRadius = this.radius.sample(random);
 		final BlockState snowState = Blocks.SNOW.defaultBlockState();
 		for (int x = originX - snowRadius; x <= originX + snowRadius; x++) {
 			for (int z = originZ - snowRadius; z <= originZ + snowRadius; z++) {
@@ -86,8 +97,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				final BlockState state = level.getBlockState(mutable);
 				if (state.is(Blocks.SNOW)) continue;
 
-				final boolean fade = !mutable.closerThan(heightmapPos, snowRadius * config.fadeStartDistancePercent());
-				if (random.nextFloat() >= config.placementChance() || !((!fade || random.nextBoolean()) && canPlaceSnow(level, mutable))) continue;
+				final boolean fade = !mutable.closerThan(heightmapPos, snowRadius * this.fadeStartDistancePercent);
+				if (random.nextFloat() >= this.placementChance || !((!fade || random.nextBoolean()) && canPlaceSnow(level, mutable))) continue;
 
 				final BlockState belowState = level.getBlockState(groundMutable.setWithOffset(mutable, Direction.DOWN));
 				if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
@@ -99,7 +110,7 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 		}
 
 		// ICE
-		final int iceRadius = config.iceRadius().sample(random);
+		final int iceRadius = this.iceRadius.sample(random);
 		final BlockState iceState = Blocks.ICE.defaultBlockState();
 		for (int x = originX - iceRadius; x <= originX + iceRadius; x++) {
 			for (int z = originZ - iceRadius; z <= originZ + iceRadius; z++) {
@@ -109,8 +120,8 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 				final BlockState state = level.getBlockState(groundMutable.set(mutable).move(Direction.DOWN));
 				if (state.is(Blocks.ICE)) continue;
 
-				final boolean fade = !mutable.closerThan(heightmapPos, iceRadius * config.fadeStartDistancePercent());
-				if (random.nextFloat() >= config.placementChance() || !((!fade || random.nextBoolean()) && canPlaceIce(level, groundMutable))) continue;
+				final boolean fade = !mutable.closerThan(heightmapPos, iceRadius * this.fadeStartDistancePercent);
+				if (random.nextFloat() >= this.placementChance || !((!fade || random.nextBoolean()) && canPlaceIce(level, groundMutable))) continue;
 
 				level.setBlock(groundMutable, iceState, Block.UPDATE_CLIENTS);
 				generated = true;
@@ -119,5 +130,4 @@ public class SnowAndFreezeDiskFeature extends Feature<SnowAndIceDiskFeatureConfi
 
 		return generated;
 	}
-
 }

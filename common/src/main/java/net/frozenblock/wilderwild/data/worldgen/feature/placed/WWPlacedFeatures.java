@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
+import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
@@ -25,7 +26,6 @@ import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredF
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
@@ -46,7 +46,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -346,7 +346,7 @@ public final class WWPlacedFeatures {
 
 	public static void registerPlacedFeatures(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWPlacedFeatures for ", true);
-		final HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = entries.lookup(Registries.CONFIGURED_FEATURE);
+		final HolderGetter<Feature> configuredFeatures = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 
 		// FALLEN TREES
@@ -488,7 +488,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(60),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.FALLEN_TREE_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -496,7 +496,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(135),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.FALLEN_TREE_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -799,7 +799,7 @@ public final class WWPlacedFeatures {
 			SurfaceWaterDepthFilter.forMaxDepth(2),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))
+			BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING))
 		);
 
 		TREES_SWAMP_SURFACE_WILLOW.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_SURFACE_WILLOW,
@@ -827,7 +827,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
-					BlockPredicate.matchesFluids(Direction.UP.getUnitVec3i(), Fluids.WATER),
+					BlockPredicate.matchesFluids(Direction.UP, Fluids.WATER),
 					BlockPredicate.matchesFluids(Fluids.WATER)
 				)
 			),
@@ -1339,7 +1339,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1356,7 +1356,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1373,7 +1373,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1390,7 +1390,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1406,7 +1406,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1433,7 +1433,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1449,7 +1449,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1465,7 +1465,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.BADLANDS_TERRACOTTA)
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.BADLANDS_TERRACOTTA)
 				)
 			)
 		);
@@ -1481,7 +1481,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.BADLANDS_TERRACOTTA)
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.BADLANDS_TERRACOTTA)
 				)
 			)
 		);
@@ -1497,7 +1497,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.DIRT)
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.DIRT)
 				)
 			)
 		);
@@ -1523,7 +1523,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1538,7 +1538,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1553,7 +1553,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1568,7 +1568,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.CACTUS.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.CACTUS)
 				)
 			)
 		);
@@ -1633,7 +1633,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
 					BlockPredicate.not(
-						BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.PODZOL)
+						BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.PODZOL)
 					)
 				)
 			)
@@ -1733,7 +1733,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
 					BlockPredicate.not(
-						BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.PODZOL)
+						BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.PODZOL)
 					)
 				)
 			)
@@ -2375,7 +2375,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING)
 				)
 			)
 		);
@@ -2406,7 +2406,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
 				)
 			)
 		);
@@ -2457,7 +2457,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
 				)
 			)
 		);
@@ -2472,7 +2472,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
 				)
 			)
 		);
@@ -2507,17 +2507,17 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.SAND)
 				)
 			)
 		);
 
-		BlockPredicate sandNearby = BlockPredicate.allOf(
-			BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.SAND),
-			BlockPredicate.matchesBlocks(new Vec3i(-1, -1, 0), Blocks.SAND),
-			BlockPredicate.matchesBlocks(new Vec3i(0, -1, -1), Blocks.SAND),
-			BlockPredicate.matchesBlocks(new Vec3i(1, -1, 0), Blocks.SAND),
-			BlockPredicate.matchesBlocks(new Vec3i(0, -1, 1), Blocks.SAND)
+		final BlockPredicate sandNearby = BlockPredicate.allOf(
+			BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.SAND),
+			BlockPredicate.matchesBlocks(new Vec3i(-1, -1, 0), List.of(Blocks.SAND)),
+			BlockPredicate.matchesBlocks(new Vec3i(0, -1, -1), List.of(Blocks.SAND)),
+			BlockPredicate.matchesBlocks(new Vec3i(1, -1, 0), List.of(Blocks.SAND)),
+			BlockPredicate.matchesBlocks(new Vec3i(0, -1, 1), List.of(Blocks.SAND))
 		);
 
 		PATCH_DRY_GRASS_BETA_BEACH.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.DRY_GRASS),
@@ -2531,7 +2531,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.SAND)
 				)
 			)
 		);
@@ -2571,15 +2571,15 @@ public final class WWPlacedFeatures {
 		final BlockPredicateFilter leafLitterPlacementPredicate = BlockPredicateFilter.forPredicate(
 			BlockPredicate.not(
 				BlockPredicate.anyOf(
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SAND),
-					BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.TERRACOTTA),
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.SAND),
+					BlockPredicate.matchesTag(Direction.DOWN, BlockTags.TERRACOTTA),
 					BlockPredicate.matchesBlocks(
-						Direction.DOWN.getUnitVec3i(),
+						Direction.DOWN,
 						Blocks.GRAVEL,
 						Blocks.SUSPICIOUS_GRAVEL,
 						Blocks.CLAY
 					),
-					BlockPredicate.not(BlockPredicate.noFluid(Direction.DOWN.getUnitVec3i()))
+					BlockPredicate.not(BlockPredicate.matchesFluids(Direction.DOWN, Fluids.EMPTY))
 				)
 			)
 		);
@@ -2594,7 +2594,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
 				)
 			)
 		);
@@ -2610,7 +2610,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
-					BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
 				)
 			)
 		);

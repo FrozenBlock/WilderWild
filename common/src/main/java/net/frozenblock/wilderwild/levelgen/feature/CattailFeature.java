@@ -17,74 +17,50 @@
 
 package net.frozenblock.wilderwild.levelgen.feature;
 
-import com.mojang.serialization.Codec;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
+import com.mojang.serialization.MapCodec;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.wilderwild.block.CattailBlock;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.HolderSet;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class CattailFeature extends Feature<CattailFeatureConfiguration> {
+public record CattailFeature() implements Feature {
+	public static final CattailFeature INSTANCE = new CattailFeature();
+	public static final MapCodec<CattailFeature> CODEC = MapCodec.unit(INSTANCE);
 
-	public CattailFeature(Codec<CattailFeatureConfiguration> codec) {
-		super(codec);
+	@Override
+	public MapCodec<? extends Feature> codec() {
+		return CODEC;
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<CattailFeatureConfiguration> context) {
-		final RandomSource random = context.random();
-		final WorldGenLevel level = context.level();
-		final BlockPos origin = context.origin();
-		final CattailFeatureConfiguration config = context.config();
-		final int originX = origin.getX();
-		final int originZ = origin.getZ();
-		final int maxHeight = level.getMaxY() - 1;
-		final BlockPos.MutableBlockPos bottomBlockPos = origin.mutable();
-		final BlockPos.MutableBlockPos topBlockPos = origin.mutable();
-		final HolderSet<Block> placeableBlocks = config.canBePlacedOn();
-		final int width = config.width();
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
+		final BlockPos aboveOrigin = origin.above();
+		final BlockState bottomState = level.getBlockState(origin);
+		final boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
+		final BlockState topState = level.getBlockState(aboveOrigin);
+		if (!(bottomState.isAir() || bottomStateIsWater) || !topState.isAir()) return false;
 
-		boolean generated = false;
-		final int placementAttempts = config.placementAttempts().sample(random);
-		for (int l = 0; l < placementAttempts; l++) {
-			final int newX = originX + random.nextIntBetweenInclusive(-width, width);
-			final int newZ = originZ + random.nextIntBetweenInclusive(-width, width);
-			final int oceanFloorY = level.getHeight(Types.OCEAN_FLOOR, newX, newZ);
-			if (oceanFloorY >= maxHeight - 1) continue;
+		final BlockState bottomPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
+			.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
+			.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+		if (!bottomPlaceState.canSurvive(level, origin)) return false;
+		if (!(bottomStateIsWater || FrozenLibFeatureUtil.isWaterNearby(level, origin, 2))) return false;
 
-			final BlockState bottomState = level.getBlockState(bottomBlockPos.set(newX, oceanFloorY, newZ));
-			final boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
-			final BlockState topState = level.getBlockState(topBlockPos.setWithOffset(bottomBlockPos, Direction.UP));
-			if (!(bottomState.isAir() || bottomStateIsWater) || !topState.isAir()) continue;
+		final BlockState topPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
+			.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
+			.setValue(CattailBlock.SWAYING, bottomStateIsWater);
 
-			final BlockState bottomPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
-				.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
-				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
-			if (!bottomPlaceState.canSurvive(level, bottomBlockPos)) continue;
-			if (!(bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2))) continue;
-			if (!level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) continue;
+		level.setBlock(origin, bottomPlaceState, Block.UPDATE_CLIENTS);
+		if (topPlaceState.canSurvive(level, aboveOrigin)) level.setBlock(aboveOrigin, topPlaceState, Block.UPDATE_CLIENTS);
 
-			final BlockState topPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
-				.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
-				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
-
-			level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
-			if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
-
-			generated = true;
-		}
-		return generated;
+		return true;
 	}
-
 }

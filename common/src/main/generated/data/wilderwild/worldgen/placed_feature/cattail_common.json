@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:cattail_small",
+  "feature": "wilderwild:cattail",
   "placement": [
     {
       "type": "frozenlib:config_predicate",
@@ -22,6 +22,40 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 20,
+        "min_inclusive": 10
+      }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": {
+        "type": "minecraft:trapezoid",
+        "max": 4,
+        "min": -4,
+        "plateau": 0
+      },
+      "y_spread": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "offset": [
+          0,
+          -1,
+          0
+        ],
+        "tag": "wilderwild:feature/cattail_placeable"
+      }
     }
   ]
 }

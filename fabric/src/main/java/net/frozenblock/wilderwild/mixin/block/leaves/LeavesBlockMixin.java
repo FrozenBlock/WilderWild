@@ -17,16 +17,13 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,26 +39,9 @@ public abstract class LeavesBlockMixin extends Block {
 	}
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
-	public void wilderWild$fallingLeafParticles(
-		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
-		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
-	) {
-		final boolean hasCustomParticles = FallingLeafUtil.addFallingLeafParticles(state, level, pos, random);
-		usingCustomFallingLeaves.set(hasCustomParticles);
-	}
-
-	@WrapWithCondition(
-		method = "animateTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/LeavesBlock;makeFallingLeavesParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V"
-		)
-	)
-	public boolean wilderWild$fallingLeafParticles(
-		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below,
-		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
-	) {
-		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);
+	public void wilderWild$fallingLeafParticles(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		if ((LeavesBlock.class.cast(this) instanceof FallingParticlesLeavesBlock)) return;
+		FallingLeafUtil.addFallingLeafParticles(state, level, pos, random);
 	}
 
 	@Override
@@ -69,5 +49,4 @@ public abstract class LeavesBlockMixin extends Block {
 		super.stepOn(level, pos, state, entity);
 		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, false);
 	}
-
 }

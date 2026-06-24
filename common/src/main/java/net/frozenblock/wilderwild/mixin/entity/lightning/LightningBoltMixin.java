@@ -86,8 +86,8 @@ public class LightningBoltMixin {
 
 		final ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
 		final RandomSource random = level.getRandom();
-		WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getConfiguredFeature(level).place(level, chunkGenerator, random, strikePos);
-		WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getConfiguredFeature(level).place(level, chunkGenerator, random, strikePos);
+		WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
+		WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
 		ScorchedBlock.scorch(strikeState, level, strikePos);
 	}
 

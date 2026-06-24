@@ -18,45 +18,73 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
-import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
-public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
+public record SpongeBudFeature(
+	int searchRange,
+	boolean placeOnFloor,
+	boolean placeOnCeiling,
+	boolean placeOnWalls,
+	HolderSet<Block> canPlaceOn,
+	ObjectArrayList<Direction> directions
+) implements Feature {
+	public static final MapCodec<SpongeBudFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Codec.intRange(1, 64).fieldOf("search_range").orElse(10).forGetter(SpongeBudFeature::searchRange),
+		Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(SpongeBudFeature::placeOnFloor),
+		Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(SpongeBudFeature::placeOnCeiling),
+		Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(SpongeBudFeature::placeOnWalls),
+		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(SpongeBudFeature::canPlaceOn)
+	).apply(instance, SpongeBudFeature::new));
 
-	public SpongeBudFeature(Codec<SpongeBudFeatureConfiguration> codec) {
-		super(codec);
+	@Override
+	public MapCodec<? extends Feature> codec() {
+		return CODEC;
 	}
 
-	public static boolean generate(
-		WorldGenLevel level,
-		BlockPos pos,
-		BlockState state,
-		SpongeBudFeatureConfiguration config,
-		List<Direction> directions
-	) {
+	public SpongeBudFeature(int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {
+		this(searchRange, placeOnFloor, placeOnCeiling, placeOnWalls, canPlaceOn, new ObjectArrayList<>(6));
+		if (placeOnCeiling) this.directions.add(Direction.UP);
+		if (placeOnFloor) this.directions.add(Direction.DOWN);
+
+		if (placeOnWalls) {
+			for (Direction direction : Direction.Plane.HORIZONTAL) this.directions.add(direction);
+		}
+	}
+
+	public boolean generate(WorldGenLevel level, BlockPos pos, BlockState state, List<Direction> directions) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (Direction direction : directions) {
 			BlockState offsetState = level.getBlockState(mutable.setWithOffset(pos, direction));
-			if (!offsetState.is(config.canPlaceOn)) continue;
+			if (!offsetState.is(this.canPlaceOn)) continue;
+
 			final BlockState placementState = getStateForPlacement(level.getRandom(), state, level, pos, direction);
 			if (placementState == null) return false;
+
 			if (!placementState.getValue(SpongeBudBlock.WATERLOGGED)) continue;
+
 			level.setBlock(pos, placementState, Block.UPDATE_ALL);
 			level.getChunk(pos).markPosForPostProcessing(pos);
 			return true;
@@ -106,29 +134,23 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<SpongeBudFeatureConfiguration> context) {
-		final WorldGenLevel level = context.level();
-		final BlockPos origin = context.origin();
-		final RandomSource random = context.random();
-		final SpongeBudFeatureConfiguration config = context.config();
-
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, origin)) return false;
-		final List<Direction> directions = config.shuffleDirections(random);
-		if (generate(level, origin, level.getBlockState(origin), config, directions)) return true;
+
+		final List<Direction> directions = Util.shuffledCopy(this.directions, random);
+		if (this.generate(level, origin, level.getBlockState(origin), directions)) return true;
 
 		final BlockPos.MutableBlockPos mutable = origin.mutable();
 		for (Direction direction : directions) {
 			mutable.set(origin);
-			final List<Direction> directions2 = config.shuffleDirections(random, direction.getOpposite());
-			for (int i = 0; i < config.searchRange; ++i) {
+			final List<Direction> directionWithoutCurrent = Util.toShuffledList(this.directions.stream().filter(d -> d != direction.getOpposite()), random);
+			for (int i = 0; i < this.searchRange; ++i) {
 				mutable.setWithOffset(origin, direction);
 				BlockState state = level.getBlockState(mutable);
-				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, mutable) && !state.is(WWBlocks.SPONGE_BUD.get()))
-					break;
-				if (generate(level, mutable, state, config, directions2)) return true;
+				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, mutable) && !state.is(WWBlocks.SPONGE_BUD.get())) break;
+				if (this.generate(level, mutable, state, directionWithoutCurrent)) return true;
 			}
 		}
 		return false;
 	}
-
 }

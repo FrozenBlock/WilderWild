@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
@@ -36,29 +37,22 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
 
-	@ModifyExpressionValue(
-		method = "performBonemeal",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;",
-			ordinal = 0
-		)
-	)
-	public BlockPos wilderWild$checkIfSnowy(
-		BlockPos original,
-		ServerLevel level,
+	@Inject(method = "placeBonemealEffect", at = @At("HEAD"))
+	private static void wilderWild$checkIfSnowy(
+		ServerLevel level, RandomSource random, BlockPos testPos, CallbackInfo info,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		isSnowy.set(level.getBiome(original).value().coldEnoughToSnow(original, level.getSeaLevel()));
-		return original;
+		isSnowy.set(level.getBiome(testPos).value().coldEnoughToSnow(testPos, level.getSeaLevel()));
 	}
 
 	@ModifyExpressionValue(
-		method = "performBonemeal",
+		method = "placeBonemealEffect",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/world/level/block/Blocks;SHORT_GRASS:Lnet/minecraft/world/level/block/Block;",
@@ -66,7 +60,7 @@ public class GrassBlockMixin {
 			opcode = Opcodes.GETSTATIC
 		)
 	)
-	public Block wilderWild$replaceWithFrozenShortGrass(
+	private static Block wilderWild$replaceWithFrozenShortGrass(
 		Block original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
@@ -74,14 +68,14 @@ public class GrassBlockMixin {
 	}
 
 	@ModifyExpressionValue(
-		method = "performBonemeal",
+		method = "placeBonemealEffect",
 		at = @At(
 			value = "FIELD",
 			target = "Lnet/minecraft/data/worldgen/placement/VegetationPlacements;GRASS_BONEMEAL:Lnet/minecraft/resources/ResourceKey;",
 			opcode = Opcodes.GETSTATIC
 		)
 	)
-	public ResourceKey<PlacedFeature> wilderWild$replaceWithFrozenGrassFeature(
+	private static ResourceKey<PlacedFeature> wilderWild$replaceWithFrozenGrassFeature(
 		ResourceKey<PlacedFeature> original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
@@ -89,13 +83,13 @@ public class GrassBlockMixin {
 	}
 
 	@WrapOperation(
-		method = "performBonemeal",
+		method = "placeBonemealEffect",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"
 		)
 	)
-	public boolean wilderWild$allowSnowlogging(
+	private static boolean wilderWild$allowSnowlogging(
 		BlockState instance, Operation<Boolean> original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {

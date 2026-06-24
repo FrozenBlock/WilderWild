@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.feature;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.TubeWormsBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -28,22 +28,23 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
+public class TubeWormsFeature implements Feature {
+	public static final TubeWormsFeature INSTANCE = new TubeWormsFeature();
+	public static final MapCodec<TubeWormsFeature> CODEC = MapCodec.unit(INSTANCE);
 
-	public TubeWormsFeature(Codec<NoneFeatureConfiguration> codec) {
-		super(codec);
+	public TubeWormsFeature() {}
+
+	@Override
+	public MapCodec<TubeWormsFeature> codec() {
+		return CODEC;
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
-		final WorldGenLevel level = featurePlaceContext.level();
-		final BlockPos origin = featurePlaceContext.origin();
-		final RandomSource random = featurePlaceContext.random();
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		final int heightmapY = level.getHeight(Heightmap.Types.OCEAN_FLOOR, origin.getX(), origin.getZ());
 		final BlockPos heightmapPos = new BlockPos(origin.getX(), heightmapY, origin.getZ());
 		if (!level.getBlockState(heightmapPos).is(Blocks.WATER)) return false;

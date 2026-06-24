@@ -47,9 +47,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = SculkBlock.class, priority = 69420)
 public class SculkBlockMixin {
@@ -171,28 +169,29 @@ public class SculkBlockMixin {
 		canPlace.set(placementState.get() != null && placementPos.get() != null);
 	}
 
-	@ModifyArgs(
+	@WrapOperation(
 		method = "attemptUseCharge",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
+			target = "Lnet/minecraft/world/level/LevelAccessor;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 		)
 	)
-	private void wilderWild$newPlace(
-		Args args,
+	private boolean wilderWild$newPlace(
+		LevelAccessor instance, BlockPos pos, BlockState state, Operation<Boolean> original,
 		@Share("wilderWild$placementPos") LocalRef<BlockPos> placementPos,
 		@Share("wilderWild$placementState") LocalRef<BlockState> placementState,
 		@Share("wilderWild$canPlace") LocalBooleanRef canPlace,
 		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
 		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
-		if (placementPos.get() == null || placementState.get() == null) return;
+		if (placementPos.get() == null || placementState.get() == null) return original.call(instance, pos, state);
 		if (canPlace.get()) {
-			args.set(0, placementPos.get());
-			args.set(1, placementState.get());
+			pos = placementPos.get();
+			state = placementState.get();
 		}
-		placedPos.set(args.get(0));
-		placedState.set(args.get(1));
+		placedPos.set(pos);
+		placedState.set(state);
+		return original.call(instance, pos, state);
 	}
 
 	@WrapOperation(
@@ -203,8 +202,9 @@ public class SculkBlockMixin {
 		)
 	)
 	private void wilderWild$newSounds(
-		LevelAccessor instance, Entity entity, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch,
-		Operation<Void> original, @Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos, @Share("wilderWild$placedState") LocalRef<BlockState> placedState
+		LevelAccessor instance, Entity entity, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch, Operation<Void> original,
+		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
+		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
 	) {
 		if (placedPos.get() != null && placedState.get()!= null) {
 			final SoundType soundType = placedState.get().getSoundType();
