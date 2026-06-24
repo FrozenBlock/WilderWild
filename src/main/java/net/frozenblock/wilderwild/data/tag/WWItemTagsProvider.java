@@ -105,6 +105,9 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 		this.builder(WWItemTags.PENGUIN_FOOD)
 			.add(ItemIds.INK_SAC, ItemIds.GLOW_INK_SAC);
 
+		this.builder(ItemTags.MUSHROOMS)
+			.add(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlockItemIds.RED_SHELF_FUNGI);
+
 		this.builder(ItemTags.BOATS)
 			.add(WWItemIds.BAOBAB_BOAT)
 			.add(WWItemIds.WILLOW_BOAT)

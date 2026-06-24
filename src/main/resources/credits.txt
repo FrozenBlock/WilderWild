@@ -102,6 +102,7 @@ voxelotl:
  - Baby Crab Model, Textures, & Modified Baby Keyframe Animations in 26.1+.
  - Baby Bee With Nectar Textures in 26.1+.
  - Baby Jellyfish Textures in 26.1+.
+ - Hollowed Poplar Log & Stripped Hollowed Poplar Log Textures.
 
 Willow/pictochats_:
  - Composer:

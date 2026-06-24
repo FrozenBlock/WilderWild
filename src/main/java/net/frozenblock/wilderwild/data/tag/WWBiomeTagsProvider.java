@@ -2254,5 +2254,32 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_BIRCH_FOREST)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_FLOWER_FOREST)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_FOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_OLD_GROWTH_BIRCH_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_SAVANNA)
+			.addOptional(WWBiomes.PARCHED_FOREST);
+
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_SNOWY_TAIGA)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		// TODO: willow
+		this.builder(BiomeTags.HAS_ABANDONED_CAMP_SWAMP);
+
+		// TODO: cypress and maple camps
 	}
 }
