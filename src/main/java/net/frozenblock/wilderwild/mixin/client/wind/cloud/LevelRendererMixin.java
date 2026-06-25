@@ -19,24 +19,28 @@ package net.frozenblock.wilderwild.mixin.client.wind.cloud;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
+import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
+import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.minecraft.client.CloudStatus;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-	// TODO: use render state to extract wind first
+	@Shadow
+	@Final
+	private LevelRenderState levelRenderState;
+
 	@WrapOperation(
 		method = "render",
 		at = @At(
@@ -54,17 +58,15 @@ public class LevelRendererMixin {
 		int cloudColor,
 		float cloudHeight,
 		int cloudRange,
-		Operation<Void> original,
-		@Local(name = "deltaPartialTick") float deltaPartialTick
+		Operation<Void> original
 	) {
-		final Level level = Minecraft.getInstance().level;
-		if (level != null && WWWindManagerExtension.shouldUseWind(level)) {
-			double cameraX = cameraPosition.x;
-			double cameraY = cameraPosition.y;
-			double cameraZ = cameraPosition.z;
-			cameraX = cameraX - WWWindManagerExtension.getCloudX(level, deltaPartialTick) * 18D;
-			cameraZ = cameraZ - WWWindManagerExtension.getCloudZ(level, deltaPartialTick) * 18D;
-			cameraPosition = new Vec3(cameraX, cameraY, cameraZ);
+		final CloudWindPositioner positioner = this.levelRenderState.getDataOrDefault(WWRenderStateDataKeys.CLOUD_WIND_POSITIONER, CloudWindPositioner.PASS);
+		if (positioner instanceof CloudWindPositioner.Success success) {
+			cameraPosition = new Vec3(
+				success.modifyCloudX(cameraPosition.x),
+				cameraPosition.y,
+				success.modifyCloudZ(cameraPosition.z)
+			);
 			gameTime = 0L;
 			partialTicks = 0L;
 		}

@@ -48,5 +48,4 @@ public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 		final BlockStateModel snowModel = Minecraft.getInstance().getModelManager().getBlockStateModelSet().get(snowState);
 		this.renderModel(snowModel, snowState, pos, origin);
 	}
-
 }

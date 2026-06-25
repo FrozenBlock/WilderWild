@@ -38,5 +38,4 @@ public class NectarFallProviderMixin {
 		if (original instanceof SingleQuadParticle singleQuadParticle) singleQuadParticle.setColor(250F / 255F, 171F / 255F, 28F / 255F);
 		return original;
 	}
-
 }

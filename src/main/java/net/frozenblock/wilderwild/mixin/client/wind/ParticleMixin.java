@@ -68,7 +68,5 @@ public abstract class ParticleMixin {
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;
-
 	}
-
 }

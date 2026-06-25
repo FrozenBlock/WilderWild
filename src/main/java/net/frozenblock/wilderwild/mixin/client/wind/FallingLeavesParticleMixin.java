@@ -197,5 +197,4 @@ public abstract class FallingLeavesParticleMixin extends SingleQuadParticle {
 		}
 		return original;
 	}
-
 }

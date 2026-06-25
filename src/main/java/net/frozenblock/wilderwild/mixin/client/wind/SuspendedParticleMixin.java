@@ -49,5 +49,4 @@ public abstract class SuspendedParticleMixin extends SingleQuadParticle implemen
 	public boolean wilderWild$usesWind() {
 		return this.wilderWild$usesWind;
 	}
-
 }
