@@ -1,33 +1,4 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Renamed the `wilderwild:feature/blue_nematocyst_feature_placeable` Block Tag to `wilderwild:feature/pearlescent_blue_nematocyst_placeable`.
-- Renamed the `wilderwild:feature/purple_nematocyst_feature_placeable` Block Tag to `wilderwild:feature/pearlescent_purple_nematocyst_placeable`.
-- Cleaned up lots of Configured Features & Data Generation.
-- Renamed all of Wilder Wild's `FeatureConfiguration` classes to end with `Configuration` instead of `Config`.
-- Removed all Sulfur Caves-related Configured & Placed Features, Biome Tags, and Block Tags.
-  - These will now be in a mod named `Chaos Hypercubed`, which is currently in development.
-- Removed the `wilderwild:sea_anemone` and `wilderwild:sea_whip` Worldgen Features.
-  - Their functionality is replicated through `PlacementModifier`s, similar to the changes made in 26.1.
-- We are testing a new method of worldgen configuration!
-  - All aquatic worldgen features are now added to their respective biomes, regardless of their respective config entry's value.
-  - Now, all aquatic worldgen features will use a new placement modifier that listens to the current value of the config entry.
-    - Long-story-short, aquatic worldgen features can be toggled in-game without needing to rejoin the world!
-  - Please monitor worldgen performance and tell us if you notice any issues. This is an incredibly important feature to us.
-    - If no performance issues are found, we will slowly expand this new system to other worldgen features.
-- All of Wilder Wild's block sound type overwrites are now data-driven, per FrozenLib 2.5's changes.
-- Slightly decreased the average size of Mesoglea Caves.
-- Fixed a crash when trying to join servers that do not have Wilder Wild installed.
-- Removed the feature that made the Enderman's staring sound move along with it.
-  - This was simply out of the mod's scope and detracted from the Enderman's fear factor.
-- Added `fingerspit`'s new music tracks to Wilder Wild's custom music pools, thanks to `Rebel459`!
-- Removed the `wilderwild:beta_beach_enabled` and `wilderwild:snow_under_mountain_enabled` `ConditionSources`, as they have been made redundant by FrozenLib's `ConfigPredicate`s.
-- Completely reworked Tumbleweed's visuals.
-  - Tumbleweed no longer has a unique Entity Model, instead using the Block's Model.
-  - Tumbleweed's visual rotation now always matches its movement, and fits its model.
-  - Items inside Tumbleweed are no longer randomly offset visually.
-  - The Item pickup animation now plays when Tumbleweed picks up an Item.
-  - Tumbleweed's visual movement should now be slightly less clunky.
-  - Revised the models of the Tumbleweed Stem's first two stages to be more consistent with Vanilla's style.
-- Placing Tumbleweed now spawns the Tumbleweed Entity.
-- The oral arms of Jellyfish are no longer visible by default.
+- Fixed a crash related to Wardens.

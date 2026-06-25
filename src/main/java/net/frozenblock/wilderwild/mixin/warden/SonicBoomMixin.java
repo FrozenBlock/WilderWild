@@ -97,7 +97,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	)
 	private static void wilderWild$tick(Warden body, ServerLevel level, LivingEntity target, CallbackInfo info) {
 		final Vec3 source = body.position().add(body.getAttachments().get(EntityAttachment.WARDEN_CHEST, 0, body.getYRot()));
-		final Vec3 delta = body.getEyePosition().subtract(source);
+		final Vec3 delta = target.getEyePosition().subtract(source);
 		final Vec3 normalize = delta.normalize();
 
 		for (int i = 1; i < Mth.floor(delta.length()) + 7; ++i) {
