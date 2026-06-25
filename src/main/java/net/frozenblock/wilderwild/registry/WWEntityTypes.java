@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -295,6 +296,6 @@ public final class WWEntityTypes {
 	}
 
 	private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> id, EntityType.Builder<T> builder) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(id));
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.requiredFeatures(WWFeatureFlags.FEATURE_FLAG).build(id));
 	}
 }

@@ -104,8 +104,6 @@ import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.BlockFamilies;
-import net.minecraft.data.BlockFamily;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -195,11 +193,6 @@ public final class WWBlocks {
 	public static final Block MOSSY_MUD_BRICK_STAIRS = Blocks.registerStair(WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS, MOSSY_MUD_BRICKS);
 	public static final Block MOSSY_MUD_BRICK_SLAB = Blocks.registerSlab(WWBlockItemIds.MOSSY_MUD_BRICK_SLAB, MOSSY_MUD_BRICKS);
 	public static final Block MOSSY_MUD_BRICK_WALL = Blocks.registerWall(WWBlockItemIds.MOSSY_MUD_BRICK_WALL, MOSSY_MUD_BRICKS);
-	public static final BlockFamily FAMILY_MOSSY_MUD_BRICK = BlockFamilies.familyBuilder(MOSSY_MUD_BRICKS)
-		.stairs(MOSSY_MUD_BRICK_STAIRS)
-		.slab(MOSSY_MUD_BRICK_SLAB)
-		.wall(MOSSY_MUD_BRICK_WALL)
-		.getFamily();
 
 	// SAND
 	public static final Block SCORCHED_SAND = registerScorchedSand(WWBlockItemIds.SCORCHED_SAND, Blocks.SAND);
@@ -1063,18 +1056,6 @@ public final class WWBlocks {
 	public static final Block POLISHED_GABBRO_STAIRS = Blocks.registerStair(WWBlockItemIds.POLISHED_GABBRO_STAIRS, WWBlocks.POLISHED_GABBRO);
 	public static final Block POLISHED_GABBRO_SLAB = Blocks.registerSlab(WWBlockItemIds.POLISHED_GABBRO_SLAB, WWBlocks.POLISHED_GABBRO);
 	public static final Block POLISHED_GABBRO_WALL = Blocks.registerWall(WWBlockItemIds.POLISHED_GABBRO_WALL, WWBlocks.POLISHED_GABBRO);
-	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
-		.stairs(GABBRO_STAIRS)
-		.slab(GABBRO_SLAB)
-		.wall(GABBRO_WALL)
-		.polished(POLISHED_GABBRO)
-		.dontGenerateModel()
-		.getFamily();
-	public static final BlockFamily FAMILY_POLISHED_GABBRO = BlockFamilies.familyBuilder(POLISHED_GABBRO)
-		.stairs(POLISHED_GABBRO_STAIRS)
-		.slab(POLISHED_GABBRO_SLAB)
-		.wall(POLISHED_GABBRO_WALL)
-		.getFamily();
 
 	public static final Block GABBRO_BRICKS = Blocks.register(WWBlockItemIds.GABBRO_BRICKS, Properties.ofFullCopy(GABBRO).sound(WWSoundTypes.GABBRO_BRICKS));
 	public static final Block GABBRO_BRICK_STAIRS = Blocks.registerStair(WWBlockItemIds.GABBRO_BRICK_STAIRS, GABBRO_BRICKS);
@@ -1082,13 +1063,6 @@ public final class WWBlocks {
 	public static final Block GABBRO_BRICK_WALL = Blocks.registerWall(WWBlockItemIds.GABBRO_BRICK_WALL, WWBlocks.GABBRO_BRICKS);
 	public static final Block CRACKED_GABBRO_BRICKS = Blocks.register(WWBlockItemIds.CRACKED_GABBRO_BRICKS, Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS));
 	public static final Block CHISELED_GABBRO_BRICKS = Blocks.register(WWBlockItemIds.CHISELED_GABBRO_BRICKS, Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS));
-	public static final BlockFamily FAMILY_GABBRO_BRICK = BlockFamilies.familyBuilder(GABBRO_BRICKS)
-		.stairs(GABBRO_BRICK_STAIRS)
-		.slab(GABBRO_BRICK_SLAB)
-		.wall(GABBRO_BRICK_WALL)
-		.cracked(CRACKED_GABBRO_BRICKS)
-		.chiseled(CHISELED_GABBRO_BRICKS)
-		.getFamily();
 
 	public static final Block MOSSY_GABBRO_BRICKS = Blocks.register(WWBlockItemIds.MOSSY_GABBRO_BRICKS,
 		Properties.ofFullCopy(GABBRO_BRICKS).requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
@@ -1096,11 +1070,6 @@ public final class WWBlocks {
 	public static final Block MOSSY_GABBRO_BRICK_STAIRS = Blocks.registerStair(WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS);
 	public static final Block MOSSY_GABBRO_BRICK_SLAB = Blocks.registerSlab(WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICKS);
 	public static final Block MOSSY_GABBRO_BRICK_WALL = Blocks.registerWall(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICKS);
-	public static final BlockFamily FAMILY_MOSSY_GABBRO_BRICK = BlockFamilies.familyBuilder(MOSSY_GABBRO_BRICKS)
-		.stairs(MOSSY_GABBRO_BRICK_STAIRS)
-		.slab(MOSSY_GABBRO_BRICK_SLAB)
-		.wall(MOSSY_GABBRO_BRICK_WALL)
-		.getFamily();
 
 	// BAOBAB
 	public static final Block BAOBAB_PLANKS = Blocks.register(WWBlockItemIds.BAOBAB_PLANKS, Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(BAOBAB_PLANKS_COLOR));

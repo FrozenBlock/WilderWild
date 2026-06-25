@@ -1,4 +1,7 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
-- Fixed a crash related to Wardens.
+- Modified the placement of Dappled Forests, to not interfere as much with Maple Forests.
+  - Maple Forests and Dappled Forests can often be seen near each other, though Dappled Forests favor higher and bumpier terrain a tad further from snowy regions.
+- Wilder Wild's blocks are now properly included in the `minecraft:replaceable` Blocks Tag.
+- Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.

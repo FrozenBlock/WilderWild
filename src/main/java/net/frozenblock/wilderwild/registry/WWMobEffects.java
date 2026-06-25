@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
@@ -49,6 +50,7 @@ public final class WWMobEffects {
 			WWEntityConfig.CRAB_REACH_AFFECTS_ATTACK.get() ? 1.5D : 0D,
 			AttributeModifier.Operation.ADD_VALUE
 		)
+		.requiredFeatures(WWFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static final Holder<MobEffect> SCORCHING = register(
@@ -60,6 +62,7 @@ public final class WWMobEffects {
 			random -> Mth.randomBetweenInclusive(random, 1, 6),
 			random -> Mth.randomBetweenInclusive(random, 1, 4)
 		)
+		.requiredFeatures(WWFeatureFlags.FEATURE_FLAG)
 	);
 
 	public static void init() {

@@ -21,6 +21,35 @@ import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 
 public final class WWBlockFamilies {
+	public static final BlockFamily FAMILY_MOSSY_MUD_BRICK = BlockFamilies.familyBuilder(WWBlocks.MOSSY_MUD_BRICKS)
+		.stairs(WWBlocks.MOSSY_MUD_BRICK_STAIRS)
+		.slab(WWBlocks.MOSSY_MUD_BRICK_SLAB)
+		.wall(WWBlocks.MOSSY_MUD_BRICK_WALL)
+		.getFamily();
+	public static final BlockFamily FAMILY_GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO)
+		.stairs(WWBlocks.GABBRO_STAIRS)
+		.slab(WWBlocks.GABBRO_SLAB)
+		.wall(WWBlocks.GABBRO_WALL)
+		.polished(WWBlocks.POLISHED_GABBRO)
+		.dontGenerateModel()
+		.getFamily();
+	public static final BlockFamily FAMILY_POLISHED_GABBRO = BlockFamilies.familyBuilder(WWBlocks.POLISHED_GABBRO)
+		.stairs(WWBlocks.POLISHED_GABBRO_STAIRS)
+		.slab(WWBlocks.POLISHED_GABBRO_SLAB)
+		.wall(WWBlocks.POLISHED_GABBRO_WALL)
+		.getFamily();
+	public static final BlockFamily FAMILY_GABBRO_BRICK = BlockFamilies.familyBuilder(WWBlocks.GABBRO_BRICKS)
+		.stairs(WWBlocks.GABBRO_BRICK_STAIRS)
+		.slab(WWBlocks.GABBRO_BRICK_SLAB)
+		.wall(WWBlocks.GABBRO_BRICK_WALL)
+		.cracked(WWBlocks.CRACKED_GABBRO_BRICKS)
+		.chiseled(WWBlocks.CHISELED_GABBRO_BRICKS)
+		.getFamily();
+	public static final BlockFamily FAMILY_MOSSY_GABBRO_BRICK = BlockFamilies.familyBuilder(WWBlocks.MOSSY_GABBRO_BRICKS)
+		.stairs(WWBlocks.MOSSY_GABBRO_BRICK_STAIRS)
+		.slab(WWBlocks.MOSSY_GABBRO_BRICK_SLAB)
+		.wall(WWBlocks.MOSSY_GABBRO_BRICK_WALL)
+		.getFamily();
 	public static final BlockFamily BAOBAB_PLANKS = BlockFamilies.familyBuilder(WWBlocks.BAOBAB_PLANKS)
 		.log(WWBlocks.BAOBAB_LOG)
 		.strippedLog(WWBlocks.STRIPPED_BAOBAB_LOG)

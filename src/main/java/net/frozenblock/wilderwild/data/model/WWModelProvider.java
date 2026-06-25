@@ -117,7 +117,7 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.createTrivialCube(WWBlocks.CHISELED_MUD_BRICKS);
 		generator.createTrivialCube(WWBlocks.CRACKED_MUD_BRICKS);
-		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_MUD_BRICK);
+		generator.family(WWBlocks.MOSSY_MUD_BRICKS).generateFor(WWBlockFamilies.FAMILY_MOSSY_MUD_BRICK);
 
 		WWModelHelper.createAlgae(generator);
 		WWModelHelper.createPlankton(generator);
@@ -220,10 +220,10 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		WWModelHelper.createStoneChest(generator, WWBlocks.STONE_CHEST, Blocks.DEEPSLATE, StoneChestSpecialRenderer.STONE.single());
 
-		generator.family(WWBlocks.GABBRO).generateFor(WWBlocks.FAMILY_GABBRO);
-		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlocks.FAMILY_POLISHED_GABBRO);
-		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_GABBRO_BRICK);
-		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK);
+		generator.family(WWBlocks.GABBRO).generateFor(WWBlockFamilies.FAMILY_GABBRO);
+		generator.family(WWBlocks.POLISHED_GABBRO).generateFor(WWBlockFamilies.FAMILY_POLISHED_GABBRO);
+		generator.family(WWBlocks.GABBRO_BRICKS).generateFor(WWBlockFamilies.FAMILY_GABBRO_BRICK);
+		generator.family(WWBlocks.MOSSY_GABBRO_BRICKS).generateFor(WWBlockFamilies.FAMILY_MOSSY_GABBRO_BRICK);
 		generator.createRotatableColumn(WWBlocks.GEOTHERMAL_VENT);
 
 		generator.registerSimpleItemModel(WWBlocks.OSSEOUS_SCULK, ModelLocationUtils.getModelLocation(WWBlocks.OSSEOUS_SCULK));
