@@ -31,8 +31,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WardenRenderer.class)
 public class WardenRendererMixin {
 
-	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/warden/Warden;Lnet/minecraft/client/renderer/entity/state/WardenRenderState;F)V", at = @At("TAIL"))
-	private void extractWilderWarden(Warden entity, WardenRenderState state, float partialTicks, CallbackInfo info) {
+	@Inject(
+		method = "extractRenderState(Lnet/minecraft/world/entity/monster/warden/Warden;Lnet/minecraft/client/renderer/entity/state/WardenRenderState;F)V",
+		at = @At("TAIL")
+	)
+	private void wilderWild$extractWilderWarden(Warden entity, WardenRenderState state, float partialTicks, CallbackInfo info) {
 		if (!(entity instanceof WilderWarden wilderWarden) || !(state instanceof WilderWarden wilderRenderState)) return;
 		wilderRenderState.wilderWild$dyingAnimationState().copyFrom(wilderWarden.wilderWild$dyingAnimationState());
 		wilderRenderState.wilderWild$swimmingDyingAnimationState().copyFrom(wilderWarden.wilderWild$swimmingDyingAnimationState());

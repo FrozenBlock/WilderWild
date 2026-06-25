@@ -65,5 +65,4 @@ public abstract class DripParticleMixin extends SingleQuadParticle implements Wi
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;
 	}
-
 }

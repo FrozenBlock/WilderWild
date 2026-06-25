@@ -331,5 +331,4 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		this.leftLeg.xRot += (timeSin15 + 15F) * Mth.DEG_TO_RAD;
 		this.rightLeg.xRot += (-timeSin15 + 15F) * Mth.DEG_TO_RAD;
 	}
-
 }

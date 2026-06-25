@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
+import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
@@ -54,6 +55,7 @@ public final class WilderWildClient implements ClientModInitializer {
 		WWModelLayers.init();
 		WWParticleEngine.init();
 		WWTints.init();
+		WWRenderStateDataKeys.init();
 		WWEasterEggs.hatchEasterEggs();
 		WWClientMusicImpl.init();
 		AmbientWindParticleSpawner.init();

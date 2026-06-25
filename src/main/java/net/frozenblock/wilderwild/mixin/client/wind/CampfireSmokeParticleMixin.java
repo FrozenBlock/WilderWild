@@ -47,5 +47,4 @@ public abstract class CampfireSmokeParticleMixin extends SingleQuadParticle {
 		this.yd += wind.y * 0.000002D;
 		this.zd += wind.z * 0.0005D;
 	}
-
 }

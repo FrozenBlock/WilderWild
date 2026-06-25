@@ -153,6 +153,7 @@
     "client.wind.SnowflakeParticleMixin",
     "client.wind.SuspendedParticleMixin",
     "client.wind.WindParticleMixin",
+    "client.wind.cloud.LevelExtractorMixin",
     "client.wind.cloud.LevelRendererMixin",
     "datagen.client.BlockModelGeneratorsMixin",
     "snowlogging.client.LevelExtractorMixin",

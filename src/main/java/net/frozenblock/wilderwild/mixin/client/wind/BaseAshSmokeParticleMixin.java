@@ -47,5 +47,4 @@ public abstract class BaseAshSmokeParticleMixin extends SingleQuadParticle {
 		this.yd += wind.y * 0.000001D;
 		this.zd += wind.z * 0.0005D;
 	}
-
 }
