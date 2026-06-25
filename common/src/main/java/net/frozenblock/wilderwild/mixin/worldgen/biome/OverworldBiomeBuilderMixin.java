@@ -65,7 +65,7 @@ public final class OverworldBiomeBuilderMixin {
 		Climate.Parameter erosion,
 		Climate.Parameter weirdness,
 		final float offset,
-		ResourceKey<Biome> biome
+		ResourceKey<Biome> second
 	) {}
 
 	@Inject(method = "<init>*", at = @At("TAIL"))
@@ -114,9 +114,9 @@ public final class OverworldBiomeBuilderMixin {
 	}
 
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
-	private void wilderWild$injectWarmBeach(int temperature, int humidity, CallbackInfoReturnable<ResourceKey<Biome>> info) {
+	private void wilderWild$injectWarmBeach(int temperatureIndex, int humidityIndex, CallbackInfoReturnable<ResourceKey<Biome>> info) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
-		if (WWWorldgenConfig.WARM_BEACH_GENERATION.get() && temperature == 3) info.setReturnValue(WWBiomes.WARM_BEACH);
+		if (WWWorldgenConfig.WARM_BEACH_GENERATION.get() && temperatureIndex == 3) info.setReturnValue(WWBiomes.WARM_BEACH);
 	}
 
 	@ModifyReturnValue(
@@ -125,11 +125,11 @@ public final class OverworldBiomeBuilderMixin {
 	)
 	private ResourceKey<Biome> wilderWild$injectOldGrowthDarkForest(
 		ResourceKey<Biome> original,
-		@Local(argsOnly = true) Climate.Parameter parameter
+		@Local(argsOnly = true) Climate.Parameter weirdness
 	) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return original;
 		if (WWWorldgenConfig.OLD_GROWTH_DARK_FOREST_GENERATION.get() && original.equals(Biomes.DARK_FOREST)) {
-			if (parameter.max() >= 0L) return WWBiomes.OLD_GROWTH_DARK_FOREST;
+			if (weirdness.max() >= 0L) return WWBiomes.OLD_GROWTH_DARK_FOREST;
 		}
 		return original;
 	}
@@ -148,22 +148,22 @@ public final class OverworldBiomeBuilderMixin {
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
 		Climate.Parameter erosion,
-		Climate.Parameter depth,
-		float weirdness,
-		ResourceKey<Biome> biomeKey,
+		Climate.Parameter weirdness,
+		float offset,
+		ResourceKey<Biome> second,
 		Operation<Void> operation
 	) {
 		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) {
-			operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+			operation.call(instance, biomes, temperature, humidity, continentalness, erosion, weirdness, offset, second);
 			return;
 		}
-		if (biomeKey.equals(Biomes.RIVER) && WWWorldgenConfig.WARM_RIVER_GENERATION.get()) {
+		if (second.equals(Biomes.RIVER) && WWWorldgenConfig.WARM_RIVER_GENERATION.get()) {
 			temperature = WarmRiver.UNFROZEN_NOT_WARM_RANGE;
-			operation.call(instance, biomes, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
+			operation.call(instance, biomes, this.temperatures[3], WarmRiver.HUMIDITY_TO_TWO, continentalness, erosion, weirdness, offset, WWBiomes.WARM_RIVER);
 			Climate.Parameter jungleHumidity = WWWorldgenConfig.JUNGLE_MODIFIED_PLACEMENT.get() ? WarmRiver.HUMIDITY_TO_THREE : humidity;
-			operation.call(instance, biomes, this.temperatures[4], jungleHumidity, continentalness, erosion, depth, weirdness, WWBiomes.WARM_RIVER);
+			operation.call(instance, biomes, this.temperatures[4], jungleHumidity, continentalness, erosion, weirdness, offset, WWBiomes.WARM_RIVER);
 		}
-		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, weirdness, offset, second);
 	}
 
 	@WrapOperation(
@@ -180,20 +180,20 @@ public final class OverworldBiomeBuilderMixin {
 		Climate.Parameter humidity,
 		Climate.Parameter continentalness,
 		Climate.Parameter erosion,
-		Climate.Parameter depth,
-		float weirdness,
-		ResourceKey<Biome> biomeKey,
+		Climate.Parameter weirdness,
+		float offset,
+		ResourceKey<Biome> second,
 		Operation<Void> operation
 	) {
-		if (biomeKey.equals(Biomes.SWAMP) && WWWorldgenConfig.SWAMP_MODIFIED_PLACEMENT.get()) {
+		if (second.equals(Biomes.SWAMP) && WWWorldgenConfig.SWAMP_MODIFIED_PLACEMENT.get()) {
 			temperature = WWSharedWorldgen.Swamp.TEMPERATURE;
 			humidity = WWSharedWorldgen.Swamp.HUMIDITY;
-		} else if (biomeKey.equals(Biomes.MANGROVE_SWAMP) && WWWorldgenConfig.MANGROVE_SWAMP_MODIFIED_PLACEMENT.get()) {
+		} else if (second.equals(Biomes.MANGROVE_SWAMP) && WWWorldgenConfig.MANGROVE_SWAMP_MODIFIED_PLACEMENT.get()) {
 			temperature = WWSharedWorldgen.MangroveSwamp.TEMPERATURE;
 			humidity = WWSharedWorldgen.MangroveSwamp.HUMIDITY;
 		}
 
-		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, depth, weirdness, biomeKey);
+		operation.call(instance, biomes, temperature, humidity, continentalness, erosion, weirdness, offset, second);
 	}
 
 	@ModifyExpressionValue(

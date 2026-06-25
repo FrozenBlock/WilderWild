@@ -46,6 +46,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class MapleForest extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.495F, -0.255F);
+	public static final Climate.Parameter DAPPLED_TEMPERATURE = Climate.Parameter.span(-0.255F, -0.15F);
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(-1F, -0.2F);
 	public static final Climate.Parameter WEIRDNESS_A = Climate.Parameter.span(Weirdness.LOW_SLICE_VARIANT_ASCENDING, Weirdness.HIGH_SLICE_VARIANT_ASCENDING);
 	public static final Climate.Parameter WEIRDNESS_B = Climate.Parameter.span(Weirdness.HIGH_SLICE_VARIANT_DESCENDING, Weirdness.MID_SLICE_VARIANT_DESCENDING);
