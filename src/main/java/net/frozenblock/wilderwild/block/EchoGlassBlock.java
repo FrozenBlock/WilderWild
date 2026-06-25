@@ -72,9 +72,11 @@ public class EchoGlassBlock extends TransparentBlock {
 			level.destroyBlock(pos, shouldDrop);
 			return;
 		}
+
 		setDamagedState(level, pos, state);
 		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
-		if (!(level instanceof ServerLevel serverLevel)) return ;
+		if (!(level instanceof ServerLevel serverLevel)) return;
+
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, state),
 			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
