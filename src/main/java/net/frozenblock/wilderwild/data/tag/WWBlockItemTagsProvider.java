@@ -282,9 +282,6 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 		this.tag(WWBlockItemTags.HOLLOWED_PALE_OAK_LOGS)
 			.add(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
-		this.tag(WWBlockItemTags.HOLLOWED_POPLAR_LOGS)
-			.add(WWBlockItemIds.HOLLOWED_POPLAR_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG);
-
 		this.tag(WWBlockItemTags.HOLLOWED_MAPLE_LOGS)
 			.add(WWBlockItemIds.HOLLOWED_MAPLE_LOG, WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
 
@@ -302,7 +299,6 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.addTag(WWBlockItemTags.HOLLOWED_CYPRESS_LOGS)
 			.addTag(WWBlockItemTags.HOLLOWED_PALM_LOGS)
 			.addTag(WWBlockItemTags.HOLLOWED_PALE_OAK_LOGS)
-			.addTag(WWBlockItemTags.HOLLOWED_POPLAR_LOGS)
 			.addTag(WWBlockItemTags.HOLLOWED_MAPLE_LOGS);
 
 		this.tag(WWBlockItemTags.HOLLOWED_LOGS_DONT_BURN)
@@ -327,7 +323,6 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG)
 			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG)
 			.add(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG)
-			.add(WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG)
 			.add(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG);
 
 		this.tag(WWBlockItemTags.STRIPPED_HOLLOWED_LOGS_DONT_BURN)

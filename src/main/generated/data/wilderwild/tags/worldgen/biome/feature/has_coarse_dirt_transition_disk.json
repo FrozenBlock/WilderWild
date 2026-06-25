@@ -2,7 +2,6 @@
   "values": [
     "minecraft:old_growth_pine_taiga",
     "minecraft:old_growth_spruce_taiga",
-    "minecraft:dappled_forest",
     {
       "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false

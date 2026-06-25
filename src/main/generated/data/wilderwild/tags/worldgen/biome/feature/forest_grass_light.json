@@ -1,6 +1,5 @@
 {
   "values": [
-    "minecraft:dappled_forest",
     {
       "id": "wilderwild:birch_taiga",
       "required": false

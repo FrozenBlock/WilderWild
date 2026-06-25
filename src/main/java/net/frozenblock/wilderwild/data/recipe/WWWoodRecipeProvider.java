@@ -125,10 +125,6 @@ public final class WWWoodRecipeProvider {
 		woodFromHollowed(provider, WWItems.HOLLOWED_PALE_OAK_LOG, Items.PALE_OAK_WOOD, output);
 		woodFromHollowed(provider, WWItems.STRIPPED_HOLLOWED_PALE_OAK_LOG, Items.STRIPPED_PALE_OAK_WOOD, output);
 
-		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_POPLAR_LOGS.item(), Items.POPLAR_PLANKS, output);
-		woodFromHollowed(provider, WWItems.HOLLOWED_POPLAR_LOG, Items.POPLAR_WOOD, output);
-		woodFromHollowed(provider, WWItems.STRIPPED_HOLLOWED_POPLAR_LOG, Items.STRIPPED_POPLAR_WOOD, output);
-
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_CRIMSON_STEMS.item(), Items.CRIMSON_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_CRIMSON_STEM, Items.CRIMSON_HYPHAE, output);
 		woodFromHollowed(provider, WWItems.STRIPPED_HOLLOWED_CRIMSON_STEM, Items.STRIPPED_CRIMSON_HYPHAE, output);

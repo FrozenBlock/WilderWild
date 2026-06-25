@@ -62,7 +62,6 @@ public final class WWBlockItemIds {
 	public static final BlockItemId HOLLOWED_MANGROVE_LOG = create("hollowed_mangrove_log");
 	public static final BlockItemId HOLLOWED_CHERRY_LOG = create("hollowed_cherry_log");
 	public static final BlockItemId HOLLOWED_PALE_OAK_LOG = create("hollowed_pale_oak_log");
-	public static final BlockItemId HOLLOWED_POPLAR_LOG = create("hollowed_poplar_log");
 	public static final BlockItemId HOLLOWED_CRIMSON_STEM = create("hollowed_crimson_stem");
 	public static final BlockItemId HOLLOWED_WARPED_STEM = create("hollowed_warped_stem");
 	public static final BlockItemId HOLLOWED_BAOBAB_LOG = create("hollowed_baobab_log");
@@ -81,7 +80,6 @@ public final class WWBlockItemIds {
 	public static final BlockItemId STRIPPED_HOLLOWED_MANGROVE_LOG = create("stripped_hollowed_mangrove_log");
 	public static final BlockItemId STRIPPED_HOLLOWED_CHERRY_LOG = create("stripped_hollowed_cherry_log");
 	public static final BlockItemId STRIPPED_HOLLOWED_PALE_OAK_LOG = create("stripped_hollowed_pale_oak_log");
-	public static final BlockItemId STRIPPED_HOLLOWED_POPLAR_LOG = create("stripped_hollowed_poplar_log");
 	public static final BlockItemId STRIPPED_HOLLOWED_CRIMSON_STEM = create("stripped_hollowed_crimson_stem");
 	public static final BlockItemId STRIPPED_HOLLOWED_WARPED_STEM = create("stripped_hollowed_warped_stem");
 

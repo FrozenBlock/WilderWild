@@ -4,7 +4,6 @@
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
     "minecraft:swamp",
-    "minecraft:dappled_forest",
     {
       "id": "wilderwild:flower_field",
       "required": false

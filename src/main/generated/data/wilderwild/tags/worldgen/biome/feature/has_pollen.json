@@ -6,7 +6,6 @@
     "minecraft:flower_forest",
     "minecraft:sunflower_plains",
     "minecraft:cherry_grove",
-    "minecraft:dappled_forest",
     {
       "id": "wilderwild:flower_field",
       "required": false
