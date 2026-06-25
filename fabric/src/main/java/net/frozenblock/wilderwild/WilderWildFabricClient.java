@@ -50,5 +50,4 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 
 		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
-
 }
