@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityAttachment;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.warden.SonicBoom;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -94,12 +95,11 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		),
 		cancellable = true
 	)
-	private static void wilderWild$tick(
-		Warden warden, ServerLevel level, LivingEntity entity, CallbackInfo info,
-		@Local(name = "source") Vec3 source,
-		@Local(name = "delta") Vec3 delta,
-		@Local(name = "normalize") Vec3 normalize
-	) {
+	private static void wilderWild$tick(Warden body, ServerLevel level, LivingEntity target, CallbackInfo info) {
+		final Vec3 source = body.position().add(body.getAttachments().get(EntityAttachment.WARDEN_CHEST, 0, body.getYRot()));
+		final Vec3 delta = body.getEyePosition().subtract(source);
+		final Vec3 normalize = delta.normalize();
+
 		for (int i = 1; i < Mth.floor(delta.length()) + 7; ++i) {
 			final Vec3 vec34 = source.add(normalize.scale(i));
 			final BlockPos hitPos = wilderWild$isOccluded(level, source, vec34);
