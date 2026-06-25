@@ -41,9 +41,7 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWWindManagerExtension> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudX,
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudZ,
-		ByteBufCodecs.DOUBLE, extension -> extension.prevCloudX,
-		ByteBufCodecs.DOUBLE, extension -> extension.prevCloudZ,
-		WWWindManagerExtension::createFromCodec
+		WWWindManagerExtension::createFromStreamCodec
 	);
 	public static final WindManagerExtensionType<WWWindManagerExtension> TYPE = WindManagerExtensionType.register(
 		WWConstants.id("clouds"),
@@ -67,6 +65,20 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		extension.prevCloudX = prevCloudX;
 		extension.prevCloudZ = prevCloudZ;
 		return extension;
+	}
+
+	private static WWWindManagerExtension createFromStreamCodec(double cloudX, double cloudZ) {
+		final WWWindManagerExtension extension = new WWWindManagerExtension();
+		extension.cloudX = cloudX;
+		extension.cloudZ = cloudZ;
+		return extension;
+	}
+
+	@Override
+	public <T extends WindManagerExtension> void applyFromSyncedInstance(T extension) {
+		if (!(extension instanceof WWWindManagerExtension wwExtension)) return;
+		this.cloudX = wwExtension.cloudX;
+		this.cloudZ = wwExtension.cloudZ;
 	}
 
 	public static void init() {}
