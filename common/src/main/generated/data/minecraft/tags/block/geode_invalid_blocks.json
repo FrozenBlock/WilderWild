@@ -1,5 +1,9 @@
 {
   "values": [
-    "wilderwild:fragile_ice"
+    "wilderwild:fragile_ice",
+    {
+      "id": "#wilderwild:mesoglea",
+      "required": false
+    }
   ]
 }

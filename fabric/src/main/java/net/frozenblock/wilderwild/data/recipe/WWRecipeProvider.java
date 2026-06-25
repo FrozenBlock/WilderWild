@@ -32,7 +32,6 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -50,6 +49,8 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 			@Override
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
+
+				this.generateForEnabledBlockFamilies(WWFeatureFlags.WILDER_WILD_FLAG_SET);
 
 				WWWoodRecipeProvider.buildRecipes(this, this.output);
 				MesogleaRecipeProvider.buildRecipes(this, this.output);
@@ -194,22 +195,11 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy("has_moss_block", this.has(Items.MOSS_BLOCK))
 					.save(this.output, getConversionRecipeName(WWItems.MOSSY_MUD_BRICKS, Items.MOSS_BLOCK));
 
-				stairBuilder(WWItems.MOSSY_MUD_BRICK_STAIRS, Ingredient.of(WWItems.MOSSY_MUD_BRICKS))
-					.unlockedBy(getHasName(WWItems.MOSSY_MUD_BRICKS), this.has(WWItems.MOSSY_MUD_BRICKS))
-					.save(this.output);
-
-				slab(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_SLAB, WWItems.MOSSY_MUD_BRICKS);
-
-				wall(RecipeCategory.MISC, WWItems.MOSSY_MUD_BRICK_WALL, WWItems.MOSSY_MUD_BRICKS);
-
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_SLAB, WWItems.MOSSY_MUD_BRICKS, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICK_STAIRS, WWItems.MOSSY_MUD_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.MOSSY_MUD_BRICK_WALL, WWItems.MOSSY_MUD_BRICKS);
 
 				// GABBRO
-
-				this.generateRecipes(WWBlockFamilies.POLISHED_GABBRO, FeatureFlags.VANILLA_SET);
-				this.generateRecipes(WWBlockFamilies.GABBRO_BRICK, FeatureFlags.VANILLA_SET);
 
 				this.generateRecipes(WWBlockFamilies.GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 				this.generateRecipes(WWBlockFamilies.MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
@@ -224,13 +214,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_SLAB, WWItems.POLISHED_GABBRO, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_STAIRS, WWItems.POLISHED_GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_WALL, WWItems.POLISHED_GABBRO);
-
-				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO, 4)
-					.define('#', WWItems.GABBRO)
-					.pattern("##")
-					.pattern("##")
-					.unlockedBy("has_gabbro", this.has(WWItems.GABBRO))
-					.save(this.output);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICKS, 4)
 					.define('#', WWItems.POLISHED_GABBRO)
