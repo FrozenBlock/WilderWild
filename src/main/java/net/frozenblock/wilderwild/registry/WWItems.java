@@ -91,6 +91,7 @@ public final class WWItems {
 	public static final Item HOLLOWED_MANGROVE_LOG = Items.registerBlock(WWBlockItemIds.HOLLOWED_MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
 	public static final Item HOLLOWED_CHERRY_LOG = Items.registerBlock(WWBlockItemIds.HOLLOWED_CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
 	public static final Item HOLLOWED_PALE_OAK_LOG = Items.registerBlock(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
+	public static final Item HOLLOWED_POPLAR_LOG = Items.registerBlock(WWBlockItemIds.HOLLOWED_POPLAR_LOG, WWBlocks.HOLLOWED_POPLAR_LOG);
 	public static final Item HOLLOWED_CRIMSON_STEM = Items.registerBlock(WWBlockItemIds.HOLLOWED_CRIMSON_STEM, WWBlocks.HOLLOWED_CRIMSON_STEM);
 	public static final Item HOLLOWED_WARPED_STEM = Items.registerBlock(WWBlockItemIds.HOLLOWED_WARPED_STEM, WWBlocks.HOLLOWED_WARPED_STEM);
 	public static final Item HOLLOWED_BAOBAB_LOG = Items.registerBlock(WWBlockItemIds.HOLLOWED_BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
@@ -109,6 +110,7 @@ public final class WWItems {
 	public static final Item STRIPPED_HOLLOWED_MANGROVE_LOG = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
 	public static final Item STRIPPED_HOLLOWED_CHERRY_LOG = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
 	public static final Item STRIPPED_HOLLOWED_PALE_OAK_LOG = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+	public static final Item STRIPPED_HOLLOWED_POPLAR_LOG = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG, WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG);
 	public static final Item STRIPPED_HOLLOWED_CRIMSON_STEM = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 	public static final Item STRIPPED_HOLLOWED_WARPED_STEM = Items.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 

@@ -1,0 +1,41 @@
+{
+  "values": [
+    "wilderwild:hanging_tendril",
+    "wilderwild:auburn_creeping_moss",
+    "wilderwild:auburn_moss_carpet",
+    "wilderwild:seeding_dandelion",
+    "wilderwild:carnation",
+    "wilderwild:marigold",
+    "wilderwild:pasqueflower",
+    "wilderwild:red_hibiscus",
+    "wilderwild:yellow_hibiscus",
+    "wilderwild:white_hibiscus",
+    "wilderwild:pink_hibiscus",
+    "wilderwild:purple_hibiscus",
+    "wilderwild:phlox",
+    "wilderwild:lantanas",
+    "wilderwild:clovers",
+    "wilderwild:datura",
+    "wilderwild:milkweed",
+    "wilderwild:pollen",
+    "wilderwild:prickly_pear",
+    "wilderwild:shrub",
+    "wilderwild:tumbleweed_plant",
+    "wilderwild:tumbleweed",
+    "wilderwild:frozen_short_grass",
+    "wilderwild:frozen_tall_grass",
+    "wilderwild:frozen_large_fern",
+    "wilderwild:frozen_large_fern",
+    "wilderwild:frozen_bush",
+    "wilderwild:mycelium_growth",
+    "wilderwild:flowering_lily_pad",
+    {
+      "id": "#wilderwild:leaf_litters",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:froglight_goop",
+      "required": false
+    }
+  ]
+}

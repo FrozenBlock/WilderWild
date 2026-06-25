@@ -206,6 +206,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingAndNaturalBlocks(Items.PALE_OAK_LOG, WWItems.HOLLOWED_PALE_OAK_LOG);
 		insertAfterInBuildingBlocks(Items.STRIPPED_PALE_OAK_LOG, WWItems.STRIPPED_HOLLOWED_PALE_OAK_LOG);
 
+		insertAfterInBuildingAndNaturalBlocks(Items.POPLAR_LOG, WWItems.HOLLOWED_POPLAR_LOG);
+		insertAfterInBuildingBlocks(Items.STRIPPED_POPLAR_LOG, WWItems.STRIPPED_HOLLOWED_POPLAR_LOG);
+
 		insertBeforeInBuildingBlocks(WWItems.BAOBAB_WOOD, WWItems.HOLLOWED_BAOBAB_LOG);
 		insertAfterInBuildingBlocks(WWItems.STRIPPED_BAOBAB_LOG, WWItems.STRIPPED_HOLLOWED_BAOBAB_LOG);
 		insertAfterInNaturalBlocks(WWItems.BAOBAB_LOG, WWItems.HOLLOWED_BAOBAB_LOG);
