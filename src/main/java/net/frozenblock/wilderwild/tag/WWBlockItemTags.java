@@ -52,6 +52,7 @@ public final class WWBlockItemTags {
 	public static final BlockItemTagId HOLLOWED_PALM_LOGS = bind("hollowed_palm_logs");
 	public static final BlockItemTagId HOLLOWED_SPRUCE_LOGS = bind("hollowed_spruce_logs");
 	public static final BlockItemTagId HOLLOWED_PALE_OAK_LOGS = bind("hollowed_pale_oak_logs");
+	public static final BlockItemTagId HOLLOWED_POPLAR_LOGS = bind("hollowed_poplar_logs");
 	public static final BlockItemTagId HOLLOWED_WARPED_STEMS = bind("hollowed_warped_stems");
 	public static final BlockItemTagId HOLLOWED_WILLOW_LOGS = bind("hollowed_willow_logs");
 

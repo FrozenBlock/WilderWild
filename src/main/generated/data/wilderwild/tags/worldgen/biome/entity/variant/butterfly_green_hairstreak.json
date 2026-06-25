@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:dappled_forest",
     "minecraft:flower_forest",
     {
       "id": "wilderwild:flower_field",

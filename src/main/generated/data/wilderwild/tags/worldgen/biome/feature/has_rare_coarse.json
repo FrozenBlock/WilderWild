@@ -3,6 +3,7 @@
     "minecraft:forest",
     "minecraft:savanna",
     "minecraft:dark_forest",
+    "minecraft:dappled_forest",
     {
       "id": "wilderwild:arid_savanna",
       "required": false
