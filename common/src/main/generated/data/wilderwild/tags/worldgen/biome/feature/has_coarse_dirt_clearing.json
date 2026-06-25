@@ -9,6 +9,7 @@
     "minecraft:old_growth_spruce_taiga",
     "minecraft:old_growth_pine_taiga",
     "minecraft:snowy_taiga",
+    "minecraft:dappled_forest",
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false

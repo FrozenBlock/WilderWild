@@ -15,6 +15,7 @@
     "wilderwild:red_maple_sapling",
     "wilderwild:shrub",
     "minecraft:pale_oak_sapling",
+    "minecraft:poplar_sapling",
     {
       "id": "betterend:pythadendron_sapling",
       "required": false

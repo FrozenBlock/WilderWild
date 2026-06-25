@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:dappled_forest",
     {
       "id": "wilderwild:maple_forest",
       "required": false
