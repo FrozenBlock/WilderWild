@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 
 public class WWStructures {
-	private static final ResourceKey<Structure> ABANDONED_CAMP_MAPLE_FOREST = createKey("abandoned_camp_maple_forest");
+	public static final ResourceKey<Structure> ABANDONED_CAMP_MAPLE_FOREST = createKey("abandoned_camp_maple_forest");
 
 	// TODO: structure set modification api so it can generate
 	public static void bootstrap(BootstrapContext<Structure> context) {

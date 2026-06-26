@@ -18,17 +18,20 @@
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
 import com.google.common.collect.ImmutableList;
-import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.levelgen.structure.api.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureSetApi;
+import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
+import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -120,6 +123,13 @@ public class WWStructureModifications {
 				)
 			);
 		}
+
+		StructureSetApi.ADD_ADDITIONAL_STRUCTURES.register((structures, structureSet, context) -> {
+			if (!structureSet.is(BuiltinStructureSets.ABANDONED_CAMP)) return;
+			structures.get(WWStructures.ABANDONED_CAMP_MAPLE_FOREST).ifPresent(abandonedCampMapleForest ->
+				context.frozenLib$addOrModifyStructureSelectionEntry(abandonedCampMapleForest, 1)
+			);
+		});
 
 		if (WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 			RandomPoolAliasApi.addTarget(
