@@ -974,7 +974,6 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.HAS_COMMON_BROWN_MUSHROOM)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.DARK_FOREST)
-			.add(Biomes.DAPPLED_FOREST)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
@@ -1047,10 +1046,12 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.builder(WWBiomeTags.HAS_MARIGOLD_SPARSE)
-			.add(Biomes.DAPPLED_FOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
+
+		this.builder(WWBiomeTags.HAS_MARIGOLD_RARE)
+			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_EYEBLOSSOM)
 			.add(Biomes.PALE_GARDEN);
@@ -1461,11 +1462,13 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.builder(WWBiomeTags.HAS_COMMON_PUMPKIN)
-			.add(Biomes.DAPPLED_FOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
+
+		this.builder(WWBiomeTags.HAS_UNCOMMON_PUMPKIN)
+			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_FLOWER_FIELD_FLOWERS)
 			.addOptional(WWBiomes.FLOWER_FIELD);
@@ -2297,9 +2300,7 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 		this.builder(BiomeTags.HAS_ABANDONED_CAMP_SNOWY_TAIGA)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		// TODO: willow
-		this.builder(BiomeTags.HAS_ABANDONED_CAMP_SWAMP);
-
-		// TODO: cypress and maple camps
+		this.builder(WWBiomeTags.HAS_ABANDONED_CAMP_MAPLE_FOREST)
+			.add(WWBiomes.MAPLE_FOREST);
 	}
 }

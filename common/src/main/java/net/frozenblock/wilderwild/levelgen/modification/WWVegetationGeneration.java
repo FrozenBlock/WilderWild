@@ -51,6 +51,10 @@ public final class WWVegetationGeneration {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MARIGOLD_SPARSE.getKey());
 				}
 
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MARIGOLD_RARE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MARIGOLD_RARE.getKey());
+				}
+
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_EYEBLOSSOM)) {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.EYEBLOSSOM.getKey());
 				}
@@ -691,8 +695,13 @@ public final class WWVegetationGeneration {
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
 				if (!WWWorldgenConfig.PUMPKIN_GENERATION.get()) return;
+
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COMMON_PUMPKIN)) {
 					context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_COMMON.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_UNCOMMON_PUMPKIN)) {
+					context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.PATCH_PUMPKIN_UNCOMMON.getKey());
 				}
 			});
 	}

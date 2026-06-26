@@ -91,6 +91,36 @@ public class WWStructureModifications {
 			);
 		}
 
+		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
+			StructureProcessorApi.addProcessor(
+				BuiltinStructures.ABANDONDED_CAMP_SWAMP.identifier(),
+				new BlockStateRespectingRuleProcessor(
+					ImmutableList.of(
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_BUTTON), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_BUTTON),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_DOOR), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_DOOR),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_FENCE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_FENCE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_FENCE_GATE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_FENCE_GATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WALL_HANGING_SIGN),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_WILLOW_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_OAK_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_WILLOW_WOOD),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.HOLLOWED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.HOLLOWED_WILLOW_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_PLANKS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_PLANKS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_PRESSURE_PLATE),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SLAB), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SLAB),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_STAIRS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_STAIRS),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SAPLING),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LEAVES)
+					)
+				)
+			);
+		}
+
 		if (WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 			RandomPoolAliasApi.addTarget(
 				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),

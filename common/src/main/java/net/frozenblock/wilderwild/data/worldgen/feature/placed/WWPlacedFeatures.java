@@ -277,6 +277,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature CARNATION = register("carnation");
 	public static final FrozenLibPlacedFeature MARIGOLD = register("marigold");
 	public static final FrozenLibPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
+	public static final FrozenLibPlacedFeature MARIGOLD_RARE = register("marigold_rare");
 	public static final FrozenLibPlacedFeature EYEBLOSSOM = register("eyeblossom");
 	public static final FrozenLibPlacedFeature PINK_TULIP_UNCOMMON = register("pink_tulip_uncommon");
 	public static final FrozenLibPlacedFeature ALLIUM_UNCOMMON = register("allium_uncommon");
@@ -331,6 +332,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature PATCH_PRICKLY_PEAR_RARE = register("patch_prickly_pear_rare");
 	public static final FrozenLibPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
+	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_UNCOMMON = register("patch_pumpkin_uncommon");
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_DESERT = register("patch_dry_grass_desert");
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BADLANDS = register("patch_dry_grass_badlands");
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_BEACH = register("patch_dry_grass_beach");
@@ -1935,6 +1937,16 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
+		MARIGOLD_RARE.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD,
+			RarityFilter.onAverageOnceEvery(16),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			CountPlacement.of(24),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+		);
+
 		EYEBLOSSOM.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FLOWER_PALE_GARDEN),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
@@ -2464,6 +2476,21 @@ public final class WWPlacedFeatures {
 
 		PATCH_PUMPKIN_COMMON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PUMPKIN),
 			RarityFilter.onAverageOnceEvery(12),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			CountPlacement.of(96),
+			RandomOffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.ONLY_IN_AIR_PREDICATE,
+					BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)
+				)
+			)
+		);
+
+		PATCH_PUMPKIN_UNCOMMON.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.PUMPKIN),
+			RarityFilter.onAverageOnceEvery(24),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),

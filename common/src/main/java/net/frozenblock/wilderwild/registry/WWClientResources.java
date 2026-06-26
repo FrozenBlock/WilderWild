@@ -42,7 +42,8 @@ public final class WWClientResources {
 
 		FrozenResourceLoader.registerBuiltinPack(
 			WWConstants.id("original_firefly"),
-			modId, Component.literal("Original Fireflies"),
+			modId,
+			Component.literal("Original Fireflies"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
@@ -55,7 +56,8 @@ public final class WWClientResources {
 
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
 			FrozenResourceLoader.registerBuiltinPack(
-				WWConstants.id("wilder_extra_music"), modId,
+				WWConstants.id("wilder_extra_music"),
+				modId,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
 				PackActivationType.ALWAYS_ENABLED
 			);

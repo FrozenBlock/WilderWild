@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
+import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 
 public final class WilderWildFabric extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
@@ -70,6 +71,8 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWModIntegrations.init();
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
+
+		WWResources.register();
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

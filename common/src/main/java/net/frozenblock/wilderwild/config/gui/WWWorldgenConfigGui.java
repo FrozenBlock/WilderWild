@@ -189,6 +189,7 @@ public final class WWWorldgenConfigGui {
 		createSubCategory(builder, category, text("structure_generation"), tooltip("structure_generation"),
 			booleanEntry(builder, "decay_trail_ruins", WWWorldgenConfig.DECAYING_TRAIL_RUINS_GENERATION),
 			booleanEntry(builder, "new_desert_villages", WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION),
+			booleanEntry(builder, "new_abandoned_camps", WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION),
 			booleanEntry(builder, "new_witch_huts", WWWorldgenConfig.NEW_WITCH_HUT_GENERATION)
 		);
 	}
