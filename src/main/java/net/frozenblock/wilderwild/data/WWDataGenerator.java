@@ -23,6 +23,7 @@ import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
+import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructurePools;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
 import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
@@ -42,6 +43,7 @@ import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
+import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
@@ -99,6 +101,8 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
+		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
+		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);

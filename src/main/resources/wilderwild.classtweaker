@@ -38,6 +38,8 @@ transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$Grass
 
 # Data Generation
 accessible method net/minecraft/client/data/models/BlockModelGenerators createMirroredCubeGenerator (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/client/renderer/block/dispatch/Variant;Lnet/minecraft/client/data/models/model/TextureMapping;Ljava/util/function/BiConsumer;)Lnet/minecraft/client/data/models/blockstates/BlockModelDefinitionGenerator;
+accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTentPool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
+accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerCampsitePool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
 
 # Particles
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V

@@ -79,6 +79,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> SNOWY_WATER = bind("water_color/snowy");
 	public static final TagKey<Biome> FROZEN_WATER = bind("water_color/frozen");
 
+	public static final TagKey<Biome> HAS_ABANDONED_CAMP_MAPLE_FOREST = bind("has_structure/abandoned_camp_maple_forest");
+
 	public static final TagKey<Biome> HAS_FROZEN_FOREST_GRASS = bind("feature/has_frozen_forest_grass");
 	public static final TagKey<Biome> HAS_FROZEN_NORMAL_GRASS = bind("feature/has_frozen_normal_grass");
 	public static final TagKey<Biome> HAS_FROZEN_PLAIN_GRASS = bind("feature/has_frozen_plain_grass");
@@ -160,6 +162,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CARNATION = bind("feature/has_carnation");
 	public static final TagKey<Biome> HAS_MARIGOLD = bind("feature/has_marigold");
 	public static final TagKey<Biome> HAS_MARIGOLD_SPARSE = bind("feature/has_marigold_sparse");
+	public static final TagKey<Biome> HAS_MARIGOLD_RARE = bind("feature/has_marigold_rare");
 	public static final TagKey<Biome> HAS_EYEBLOSSOM = bind("feature/has_eyeblossom");
 	public static final TagKey<Biome> HAS_PINK_TULIP_UNCOMMON = bind("feature/has_pink_tulip_uncommon");
 	public static final TagKey<Biome> HAS_ALLIUM_UNCOMMON = bind("feature/has_allium_uncommon");
@@ -285,6 +288,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_FIREFLY_BUSH = bind("feature/has_firefly_bush");
 	public static final TagKey<Biome> HAS_FIREFLY_BUSH_SWAMP = bind("feature/has_firefly_bush_swamp");
 	public static final TagKey<Biome> HAS_COMMON_PUMPKIN = bind("feature/has_common_pumpkin");
+	public static final TagKey<Biome> HAS_UNCOMMON_PUMPKIN = bind("feature/has_uncommon_pumpkin");
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("feature/has_stone_pile");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PILE_WITH_DISK = bind("feature/has_coarse_dirt_pile_with_disk");

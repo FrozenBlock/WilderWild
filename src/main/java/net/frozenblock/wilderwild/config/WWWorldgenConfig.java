@@ -186,6 +186,7 @@ public final class WWWorldgenConfig {
 
 	// STRUCTURE GENERATION
 	public static final ConfigEntry<Boolean> NEW_WITCH_HUT_GENERATION = CONFIG.entryBuilder("structure/newWitchHuts", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> NEW_ABANDONED_CAMP_GENERATION = CONFIG.entryBuilder("structure/newAbandonedCamps", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DECAYING_TRAIL_RUINS_GENERATION = CONFIG.entryBuilder("structure/decayTrailRuins", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_DESERT_VILLAGE_GENERATION = CONFIG.entryBuilder("structure/newDesertVillages", EntryType.BOOL, true).requireRestart().build();
 }

@@ -42,6 +42,7 @@
     "datafix.V3438Mixin",
     "datafix.boat.BoatSplitFixMixin",
     "datafix.boat.V4067Mixin",
+    "datagen.AbandonedCampStructurePoolsMixin",
     "datagen.BlocksMixin",
     "datagen.FeatureFlagsMixin",
     "datagen.ItemsMixin",

@@ -2,7 +2,6 @@
   "values": [
     "minecraft:birch_forest",
     "minecraft:dark_forest",
-    "minecraft:dappled_forest",
     {
       "id": "wilderwild:birch_jungle",
       "required": false
