@@ -28,6 +28,12 @@ public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<CloudWindPositioner> CLOUD_WIND_POSITIONER = RenderStateDataKey.create(
 		WWConstants.id("cloud_wind_positioner")
 	);
+	public static final RenderStateDataKey<Float> WARDEN_SWIM_AMOUNT = RenderStateDataKey.create(
+		WWConstants.id("warden_swim_amount")
+	);
+	public static final RenderStateDataKey<Float> WARDEN_WADE_AMOUNT = RenderStateDataKey.create(
+		WWConstants.id("warden_wade_amount")
+	);
 
 	public static void init() {}
 }

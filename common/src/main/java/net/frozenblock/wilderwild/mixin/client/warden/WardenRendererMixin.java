@@ -19,9 +19,10 @@ package net.frozenblock.wilderwild.mixin.client.warden;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.renderer.FrozenLibRenderState;
+import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
-import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -46,8 +47,8 @@ public class WardenRendererMixin {
 		wilderRenderState.wilderWild$setDeathTicks(wilderWarden.wilderWild$getDeathTicks());
 		wilderRenderState.wilderWild$setStella(wilderWarden.wilderWild$isStella());
 
-		if (!(entity instanceof SwimmingWardenInterface swimmingWarden) || !(state instanceof SwimmingWardenState swimmingRenderState)) return;
-		swimmingRenderState.wilderWild$setSwimAmount(entity.getSwimAmount(partialTicks));
-		swimmingRenderState.wilderWild$setWadingProgress(swimmingWarden.wilderWild$getWadingProgress(partialTicks));
+		if (!(entity instanceof SwimmingWardenInterface swimmingWarden)) return;
+		((FrozenLibRenderState) state).frozenLib$setData(WWRenderStateDataKeys.WARDEN_SWIM_AMOUNT, entity.getSwimAmount(partialTicks));
+		((FrozenLibRenderState) state).frozenLib$setData(WWRenderStateDataKeys.WARDEN_WADE_AMOUNT, swimmingWarden.wilderWild$getWadeAmount(partialTicks));
 	}
 }

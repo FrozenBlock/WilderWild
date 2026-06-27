@@ -92,8 +92,8 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 
 	@Unique
 	@Override
-	public float wilderWild$getWadingProgress(float tickDelta) {
-		return Mth.lerp(tickDelta, this.wilderWild$previousWadeAmount, this.wilderWild$wadeAmount);
+	public float wilderWild$getWadeAmount(float partialTicks) {
+		return Mth.lerp(partialTicks, this.wilderWild$previousWadeAmount, this.wilderWild$wadeAmount);
 	}
 
 	@Unique
