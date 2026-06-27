@@ -17,31 +17,36 @@
 
 package net.frozenblock.wilderwild.data.worldgen;
 
-import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.material.api.FrozenLibMaterialRules;
-import net.frozenblock.lib.levelgen.material.api.MaterialRuleEvents;
+import net.frozenblock.lib.levelgen.material.api.RuleSourceAdditions;
+import net.frozenblock.lib.levelgen.material.impl.RuleSourceAddition;
+import net.frozenblock.lib.tag.api.FrozenLibDimensionTypeTags;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.material.VanillaMaterialConditions;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public final class WWMaterialRules implements MaterialRuleEvents.OverworldMaterialRuleCallback, MaterialRuleEvents.OverworldMaterialRuleNoPrelimSurfaceCallback {
+public final class WWMaterialRules {
 
-	public static SurfaceRules.RuleSource cypressSurfaceRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource cypressSurfaceRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.CYPRESS_WETLANDS),
+			SurfaceRules.isBiome(biomes, WWBiomes.CYPRESS_WETLANDS),
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.yBlockCheck(
 						VerticalAnchor.absolute(60),
@@ -64,17 +69,17 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(RegistryAccess registries, Block fallingBlock, Block safeBlock) {
+	public static SurfaceRules.RuleSource fallingBlockAndSafeBlockRules(HolderGetter<SurfaceRules.ConditionSource> materialConditions, Block fallingBlock, Block safeBlock) {
 		final SurfaceRules.RuleSource fallingBlockSource = FrozenLibMaterialRules.makeStateRule(fallingBlock);
 		final SurfaceRules.RuleSource safeBlockSource = FrozenLibMaterialRules.makeStateRule(safeBlock);
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 							safeBlockSource
 						),
 						fallingBlockSource
@@ -86,7 +91,7 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 				SurfaceRules.sequence(
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 							safeBlockSource
 						),
 						fallingBlockSource
@@ -96,16 +101,16 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource warmRiverRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource warmRiverRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.WARM_RIVER),
+			SurfaceRules.isBiome(biomes, WWBiomes.WARM_RIVER),
 			SurfaceRules.sequence(
-			desertAndBeachRules(registries),
+			desertAndBeachRules(biomes, materialConditions),
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 							FrozenLibMaterialRules.SANDSTONE
 						),
 						FrozenLibMaterialRules.SAND
@@ -115,15 +120,15 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource desertAndBeachRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource desertAndBeachRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.sequence(
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 							FrozenLibMaterialRules.SANDSTONE
 						),
 						FrozenLibMaterialRules.SAND
@@ -134,17 +139,17 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 				SurfaceRules.waterStartCheck(-6, -1),
 				SurfaceRules.sequence(
 					SurfaceRules.ifTrue(
-						SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.UNDER_FLOOR),
+						SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 						SurfaceRules.sequence(
 							SurfaceRules.ifTrue(
-								SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+								SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 								FrozenLibMaterialRules.SANDSTONE
 							),
 							FrozenLibMaterialRules.SAND
 						)
 					),
 					SurfaceRules.ifTrue(
-						SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.VERY_DEEP_UNDER_FLOOR),
+						SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.VERY_DEEP_UNDER_FLOOR),
 						FrozenLibMaterialRules.SANDSTONE
 					)
 				)
@@ -152,31 +157,31 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource warmBeachRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource warmBeachRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.WARM_BEACH),
-			desertAndBeachRules(registries)
+			SurfaceRules.isBiome(biomes, WWBiomes.WARM_BEACH),
+			desertAndBeachRules(biomes, materialConditions)
 		);
 	}
 
-	public static SurfaceRules.RuleSource oasisRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource oasisRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.OASIS),
-			desertAndBeachRules(registries)
+			SurfaceRules.isBiome(biomes, WWBiomes.OASIS),
+			desertAndBeachRules(biomes, materialConditions)
 		);
 	}
 
-	public static SurfaceRules.RuleSource aridGrass(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource aridGrass(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
+			SurfaceRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					SurfaceRules.ifTrue(
 						SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
 						SurfaceRules.sequence(
 							SurfaceRules.ifTrue(
-								SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+								SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 								FrozenLibMaterialRules.DIRT
 							),
 							FrozenLibMaterialRules.GRASS_BLOCK
@@ -187,17 +192,17 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 					SurfaceRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.UNDER_FLOOR),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 							SurfaceRules.sequence(
 								SurfaceRules.ifTrue(
-									SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+									SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 									FrozenLibMaterialRules.DIRT
 								),
 								FrozenLibMaterialRules.DIRT
 							)
 						),
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
 							FrozenLibMaterialRules.DIRT
 						)
 					)
@@ -206,17 +211,17 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource aridRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource aridRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
-			desertAndBeachRules(registries)
+			SurfaceRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
+			desertAndBeachRules(biomes, materialConditions)
 		);
 	}
 
-	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -242,10 +247,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource oldGrowthDarkForestRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource oldGrowthDarkForestRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.OLD_GROWTH_DARK_FOREST),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.OLD_GROWTH_DARK_FOREST),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -259,10 +264,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource temperateRainforestRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource temperateRainforestRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.TEMPERATE_RAINFOREST),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.TEMPERATE_RAINFOREST),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -284,10 +289,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource rainforestRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource rainforestRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.RAINFOREST),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.RAINFOREST),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -301,10 +306,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource dyingForestRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource dyingForestRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-				SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
-				SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+				SurfaceRules.isBiome(biomes, WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
+				SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 						SurfaceRules.ifTrue(
 								SurfaceRules.waterBlockCheck(-1, 0),
 								SurfaceRules.sequence(
@@ -322,10 +327,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource mapleForestRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource mapleForestRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.MAPLE_FOREST),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.MAPLE_FOREST),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -349,10 +354,10 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource tundraRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource tundraRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.TUNDRA),
-			SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+			SurfaceRules.isBiome(biomes, WWBiomes.TUNDRA),
+			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.waterBlockCheck(-1, 0),
 					SurfaceRules.sequence(
@@ -380,18 +385,18 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource gravelBetaBeaches(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource gravelBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(registries, WWBiomeTags.BETA_BEACH_GRAVEL),
+			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_GRAVEL),
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.UNDER_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition2d(WWNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							fallingBlockAndSafeBlockRules(registries, Blocks.GRAVEL, Blocks.STONE)
+							fallingBlockAndSafeBlockRules(materialConditions, Blocks.GRAVEL, Blocks.STONE)
 						)
 					)
 				)
@@ -399,18 +404,18 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource sandBetaBeaches(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource sandBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(registries, WWBiomeTags.BETA_BEACH_SAND),
+			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_SAND),
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition2d(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							fallingBlockAndSafeBlockRules(registries, Blocks.SAND, Blocks.SANDSTONE)
+							fallingBlockAndSafeBlockRules(materialConditions, Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)
@@ -418,18 +423,18 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource multiLayerSandBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(registries, WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
+			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
 			SurfaceRules.ifTrue(
-				SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+				SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
 				SurfaceRules.ifTrue(
 					SurfaceRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
 						SurfaceRules.ifTrue(
 							SurfaceRules.noiseCondition2d(WWNoise.SAND_BEACH_KEY, 0.12, 1.7976931348623157E308),
-							fallingBlockAndSafeBlockRules(registries, Blocks.SAND, Blocks.SANDSTONE)
+							fallingBlockAndSafeBlockRules(materialConditions, Blocks.SAND, Blocks.SANDSTONE)
 						)
 					)
 				)
@@ -437,45 +442,23 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource betaBeaches(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource betaBeaches(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
 			ConfigPredicate.equalTo(WWWorldgenConfig.BETA_BEACHES, true).asConditionSource(),
 			SurfaceRules.sequence(
-				gravelBetaBeaches(registries),
-				sandBetaBeaches(registries),
-				multiLayerSandBetaBeaches(registries)
+				gravelBetaBeaches(biomes, materialConditions),
+				sandBetaBeaches(biomes, materialConditions),
+				multiLayerSandBetaBeaches(biomes, materialConditions)
 			)
 		);
 	}
 
-	@Override
-	public void addOverworldMaterialRules(RegistryAccess registries, List<SurfaceRules.RuleSource> context) {
-		context.add(
-			SurfaceRules.sequence(
-				betaBeaches(registries),
-				cypressSurfaceRules(registries),
-				warmRiverRules(registries),
-				warmBeachRules(registries),
-				oasisRules(registries),
-				aridGrass(registries),
-				aridRules(registries),
-				oldGrowthSnowyTaigaRules(registries),
-				oldGrowthDarkForestRules(registries),
-				temperateRainforestRules(registries),
-				rainforestRules(registries),
-				dyingForestRules(registries),
-				mapleForestRules(registries),
-				tundraRules(registries)
-			)
-		);
-	}
-
-	public static SurfaceRules.RuleSource snowUnderMountains(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource snowUnderMountains(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
 			ConfigPredicate.equalTo(WWWorldgenConfig.SNOW_UNDER_MOUNTAINS, true).asConditionSource(),
 			SurfaceRules.ifTrue(
-				FrozenLibMaterialRules.isBiomeTag(registries, WWBiomeTags.BELOW_SURFACE_SNOW),
-				SurfaceRules.ifTrue(SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+				FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BELOW_SURFACE_SNOW),
+				SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.verticalGradient("snow_gradient", VerticalAnchor.absolute(64), VerticalAnchor.absolute(72))),
 						SurfaceRules.ifTrue(
@@ -496,7 +479,7 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		);
 	}
 
-	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(RegistryAccess registries) {
+	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		final SurfaceRules.RuleSource packedIce = SurfaceRules.state(Blocks.PACKED_ICE.defaultBlockState());
 		final SurfaceRules.RuleSource blueIce = SurfaceRules.state(Blocks.BLUE_ICE.defaultBlockState());
 		final SurfaceRules.RuleSource fragileIce = SurfaceRules.state(WWBlocks.FRAGILE_ICE.get().defaultBlockState());
@@ -506,40 +489,72 @@ public final class WWMaterialRules implements MaterialRuleEvents.OverworldMateri
 		final SurfaceRules.RuleSource iceNoiseRuleNoFragileIce = frozenCavesIcePath(packedIce, packedIce, blueIce);
 
 		return SurfaceRules.ifTrue(
-			SurfaceRules.isBiome(registries.lookupOrThrow(Registries.BIOME), WWBiomes.FROZEN_CAVES),
+			SurfaceRules.isBiome(biomes, WWBiomes.FROZEN_CAVES),
 			SurfaceRules.sequence(
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_FLOOR),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					SurfaceRules.sequence(
 						SurfaceRules.ifTrue(
-							SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
+							SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
 							iceNoiseRuleOnlyFragileIce
 						),
 						iceNoiseRule
 					)
 				),
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.UNDER_FLOOR),
-					iceNoiseRule),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+					iceNoiseRule
+				),
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.DEEP_UNDER_FLOOR),
-					iceNoiseRuleNoFragileIce),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+					iceNoiseRuleNoFragileIce
+				),
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.ON_CEILING),
-					iceNoiseRule),
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
+					iceNoiseRule
+				),
 				SurfaceRules.ifTrue(
-					SurfaceRules.getCondition(registries.lookupOrThrow(Registries.MATERIAL_CONDITION), VanillaMaterialConditions.UNDER_CEILING),
-					iceNoiseRule)
+					SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_CEILING),
+					iceNoiseRule
+				)
 			)
 		);
 	}
 
-	@Override
-	public void addOverworldNoPrelimMaterialRules(RegistryAccess registries, List<SurfaceRules.RuleSource> context) {
-		context.add(
+	public static void bootstrap(BootstrapContext<RuleSourceAddition> context) {
+		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
+		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+		final HolderGetter<SurfaceRules.ConditionSource> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("overworld_surface"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			SurfaceRules.sequence(
-				snowUnderMountains(registries),
-				frozenCavesSurfaceRules(registries)
+				betaBeaches(biomes, materialConditions),
+				cypressSurfaceRules(biomes, materialConditions),
+				warmRiverRules(biomes, materialConditions),
+				warmBeachRules(biomes, materialConditions),
+				oasisRules(biomes, materialConditions),
+				aridGrass(biomes, materialConditions),
+				aridRules(biomes, materialConditions),
+				oldGrowthSnowyTaigaRules(biomes, materialConditions),
+				oldGrowthDarkForestRules(biomes, materialConditions),
+				temperateRainforestRules(biomes, materialConditions),
+				rainforestRules(biomes, materialConditions),
+				dyingForestRules(biomes, materialConditions),
+				mapleForestRules(biomes, materialConditions),
+				tundraRules(biomes, materialConditions)
+			)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("overworld_no_surface"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			SurfaceRules.sequence(
+				snowUnderMountains(biomes, materialConditions),
+				frozenCavesSurfaceRules(biomes, materialConditions)
 			)
 		);
 	}
