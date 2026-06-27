@@ -1,10 +1,9 @@
 plugins {
-    id("multiloader-common")
+    id("ww-multiloader-common")
     id("net.neoforged.moddev")
     id("org.quiltmc.gradle.licenser")
 }
 
-val asm_version: String by project
 val neo_form_version: String by project
 val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
@@ -40,11 +39,6 @@ tasks {
 }
 
 dependencies {
-    compileOnly("org.ow2.asm:asm:${asm_version}")
-    compileOnly("org.ow2.asm:asm-tree:${asm_version}")
-    compileOnly("org.ow2.asm:asm-commons:${asm_version}")
-    compileOnly("org.ow2.asm:asm-util:${asm_version}")
-
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
 
     compileOnly("org.spongepowered:mixin:0.8.5")
