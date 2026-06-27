@@ -322,9 +322,8 @@ public final class WWModelHelper {
 	public static void generateFireflyBottles(ItemModelGenerators generator) {
 		final List<SelectItemModel.SwitchCase<String>> switchCases = new ArrayList<>();
 
-		FireflyColors.getVanillaColors().forEach(fireflyColor -> {
-			if (fireflyColor.equals(WWConstants.string("on"))) return;
-			final String color = Identifier.parse(fireflyColor).getPath();
+		FireflyColors.COLORED.forEach(key -> {
+			final String color = key.identifier().getPath();
 			final Identifier modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
 			final Material texture = new Material(WWConstants.id("item/" + color + "_firefly_bottle"));
 
