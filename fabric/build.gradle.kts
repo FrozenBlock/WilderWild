@@ -172,7 +172,7 @@ repositories {
     mavenCentral()
 }
 
- dependencies {
+dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     implementation("net.fabricmc:fabric-loader:$loader_version")
     implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")

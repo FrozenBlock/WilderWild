@@ -22,6 +22,12 @@ dependencies {
     add("commonResources", project(mapOf("path" to ":ww-common", "configuration" to "commonResources")))
 }
 
+sourceSets.named("main") {
+    java {
+        srcDir(configurations["commonJava"])
+    }
+}
+
 tasks.named<JavaCompile>("compileJava") {
     dependsOn(configurations["commonJava"])
     source(configurations["commonJava"])
