@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild;
 
-import net.frozenblock.lib.platform.FrozenEarlyPlatformUtils;
+import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public final class WWConstants {
 	 * <p>
 	 * It's smart to use this for at least registries.
 	 */
-	public static boolean UNSTABLE_LOGGING = FrozenEarlyPlatformUtils.LOADER.isDevelopmentEnvironment();
+	public static boolean UNSTABLE_LOGGING = FrozenLibEarlyPlatformUtils.LOADER.isDevelopmentEnvironment();
 	public static boolean MC_LIVE_TENDRILS = false;
 	public static boolean MOJANG_CRABS = false;
 

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
-import net.frozenblock.lib.registry.FrozenLibRegistries;
+import net.frozenblock.lib.registry.FrozenLibFabricRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
@@ -101,10 +101,10 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 
 		// FrozenLib Registries
-		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
+		registryBuilder.add(FrozenLibFabricRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
+		registryBuilder.add(FrozenLibFabricRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
+		registryBuilder.add(FrozenLibFabricRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
+		registryBuilder.add(FrozenLibFabricRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
