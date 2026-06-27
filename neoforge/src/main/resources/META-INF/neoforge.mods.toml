@@ -1,0 +1,46 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="FrozenBlock Modding Oasis License v1.0"
+issueTrackerURL="https://github.com/FrozenBlock/WilderWild/issues"
+
+[[mixins]]
+config="wilderwild.mixins.json"
+
+[[mods]]
+    modId="wilderwild"
+    version="${mod_version}"
+    displayName="Wilder Wild"
+    displayURL="https://modrinth.com/mod/wilder-wild"
+    logoFile="assets/wilderwild/icon.png"
+    authors="Lunade, Ethan Stokes, Soro"
+    description='''
+Overhauls the Wild Update, adding new features and improving existing ones.
+    '''
+
+[[ dependencies.wilderwild ]]
+    modId="neoforge"
+    type="required"
+    versionRange="[~26.2-,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[ dependencies.wilderwild ]]
+    modId="minecraft"
+    type="required"
+    versionRange="[~26.2-,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[ dependencies.wilderwild ]]
+    modId="frozenlib"
+    type="required"
+    versionRange="[2.5-mc26.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[ dependencies.wilderwild ]]
+    modId="cloth-config"
+    type="optional"
+    versionRange="*"
+    ordering="NONE"
+    side="BOTH"
