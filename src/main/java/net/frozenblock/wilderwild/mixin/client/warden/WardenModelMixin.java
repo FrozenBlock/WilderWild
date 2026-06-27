@@ -26,10 +26,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.animation.definitions.WWWardenAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -190,12 +190,12 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		@Share("wilderWild$swimAmount") LocalFloatRef wilderWild$swimAmount,
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
 	) {
-		if (WWEntityConfig.WARDEN_SWIMS.get() && WWEntityConfig.WARDEN_SWIM_ANIMATION.get() && state instanceof SwimmingWardenState swimmingState) {
-			final float swimAmount = swimmingState.wilderWild$getSwimAmount();
-			final float wadeProgress = swimmingState.wilderWild$getWadingProgress();
-			wilderWild$animateSwimming.set(wadeProgress > 0F);
+		if (WWEntityConfig.WARDEN_SWIMS.get() && WWEntityConfig.WARDEN_SWIM_ANIMATION.get()) {
+			final float swimAmount = state.getDataOrDefault(WWRenderStateDataKeys.WARDEN_SWIM_AMOUNT, 0F);
+			final float wadeAmount = state.getDataOrDefault(WWRenderStateDataKeys.WARDEN_WADE_AMOUNT, 0F);
+			wilderWild$animateSwimming.set(wadeAmount > 0F);
 			wilderWild$swimAmount.set(swimAmount);
-			wilderWild$wadeAmount.set(wadeProgress);
+			wilderWild$wadeAmount.set(wadeAmount);
 
 			final float notSwimmingAmount = 1F - swimAmount;
 			yRot *= notSwimmingAmount;

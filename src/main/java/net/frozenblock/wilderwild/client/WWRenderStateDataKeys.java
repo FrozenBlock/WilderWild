@@ -25,6 +25,8 @@ import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 @Environment(EnvType.CLIENT)
 public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<CloudWindPositioner> CLOUD_WIND_POSITIONER = RenderStateDataKey.create();
+	public static final RenderStateDataKey<Float> WARDEN_SWIM_AMOUNT = RenderStateDataKey.create();
+	public static final RenderStateDataKey<Float> WARDEN_WADE_AMOUNT = RenderStateDataKey.create();
 
 	public static void init() {}
 }

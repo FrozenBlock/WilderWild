@@ -99,5 +99,4 @@ public final class WWBlockIds {
 	private static ResourceKey<Block> create(String name) {
 		return ResourceKey.create(Registries.BLOCK, WWConstants.id(name));
 	}
-
 }
