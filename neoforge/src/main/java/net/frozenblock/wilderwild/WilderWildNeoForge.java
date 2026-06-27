@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -12,16 +13,12 @@ public final class WilderWildNeoForge {
 	public WilderWildNeoForge(IEventBus modBus) {
 		WilderWild.init();
 
-		NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event ->
-			WilderWildNeoForge.registerCommands(event)
-		);
+		NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> {
+			SpreadSculkCommand.register(event.getDispatcher());
+		});
 
 		if (FMLEnvironment.getDist().isClient()) {
 			WilderWildNeoForgeClient.init(modBus);
 		}
-	}
-
-	private static void registerCommands(RegisterCommandsEvent event) {
-		// SpreadSculkCommand.register(event.getDispatcher());
 	}
 }
