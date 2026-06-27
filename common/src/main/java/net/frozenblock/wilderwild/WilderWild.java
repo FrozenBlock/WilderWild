@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild;
 
-public final class WilderWildMain {
+public final class WilderWild {
 
 	public static void init() {
 	}

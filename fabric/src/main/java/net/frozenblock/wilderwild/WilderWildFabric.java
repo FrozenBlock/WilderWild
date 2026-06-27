@@ -63,14 +63,15 @@ import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
-public final class WilderWild extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
+public final class WilderWildFabric extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
-	public WilderWild() {
+	public WilderWildFabric() {
 		super(WWConstants.MOD_ID);
 	}
 
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
+		WilderWild.init();
 		WWFeatureFlags.init();
 		FeatureFlagApi.rebuild();
 

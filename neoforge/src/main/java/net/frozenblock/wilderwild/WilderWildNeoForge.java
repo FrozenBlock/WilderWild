@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 public final class WilderWildNeoForge {
 
 	public WilderWildNeoForge(IEventBus modBus) {
-		WilderWildMain.init();
+		WilderWild.init();
 
 		NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event ->
 			WilderWildNeoForge.registerCommands(event)

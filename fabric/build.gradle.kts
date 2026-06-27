@@ -96,7 +96,7 @@ loom {
         }
 
         named("client") {
-            name("Run Client")
+            name("Fabric Client")
             vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=true")
             vmArg("-DMC_DEBUG_ENABLED=true")
             vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")

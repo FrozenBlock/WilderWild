@@ -32,7 +32,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.frozenblock.wilderwild.WilderWild"
+      "net.frozenblock.wilderwild.WilderWildFabric"
     ],
     "client": [
       "net.frozenblock.wilderwild.WilderWildClient"
@@ -41,7 +41,7 @@
       "net.frozenblock.wilderwild.data.worldgen.WWSurfaceRuleData"
     ],
     "frozenlib:mob_categories": [
-      "net.frozenblock.wilderwild.WilderWild"
+      "net.frozenblock.wilderwild.WilderWildFabric"
     ],
     "modmenu": [
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"
