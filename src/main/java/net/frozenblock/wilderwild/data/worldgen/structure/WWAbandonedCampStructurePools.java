@@ -26,7 +26,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
-public class WWAbandonedCampStructurePools {
+public final class WWAbandonedCampStructurePools {
 	public static final AbandonedCampStructurePools.AbandonedCampStructure MAPLE_FOREST = new AbandonedCampStructurePools.AbandonedCampStructure(
 		Pools.parseKey(WWConstants.string("abandoned_camp/camp/maple_forest")),
 		Pools.parseKey(WWConstants.string("abandoned_camp/tent/maple_forest")),
