@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
@@ -29,16 +30,14 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private WWMixinsConfig mixinsConfig;
-	private boolean hasEmbeddiumMod;
 	private boolean disableNonSodium;
 	private boolean hasFallingLeavesMod;
 
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = WWMixinsConfig.get();
-		this.hasEmbeddiumMod = FabricLoader.getInstance().isModLoaded("embeddium");
-		this.disableNonSodium = this.hasEmbeddiumMod || FrozenBools.HAS_SODIUM;
-		this.hasFallingLeavesMod = FabricLoader.getInstance().isModLoaded("fallingleaves");
+		this.disableNonSodium = FrozenBools.HAS_SODIUM;
+		this.hasFallingLeavesMod = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("fallingleaves"); // TODO NEOFORGE PORT
 	}
 
 	@Override
@@ -52,7 +51,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
 
 		if (mixinClassName.contains("client.sodium.")) {
-			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM && !this.hasEmbeddiumMod;
+			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("client.block_break.")) return this.mixinsConfig.client_block_break;
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
