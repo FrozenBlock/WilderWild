@@ -74,7 +74,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.chest.")) return this.mixinsConfig.block_chest;
 		if (mixinClassName.contains("block.dripleaf.")) return this.mixinsConfig.block_dripleaf;
 		if (mixinClassName.contains("block.fire.")) return this.mixinsConfig.block_fire;
-		if (mixinClassName.contains("block.froglight.")) return this.mixinsConfig.block_froglight;
 		if (mixinClassName.contains("block.frozen_vegetation.")) return this.mixinsConfig.block_frozen_vegetation;
 		if (mixinClassName.contains("block.ice.")) return this.mixinsConfig.block_ice;
 		if (mixinClassName.contains("block.lava.")) return this.mixinsConfig.block_lava;
@@ -85,7 +84,6 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.ocean.")) return this.mixinsConfig.block_ocean;
 		if (mixinClassName.contains("block.potent_sulfur.")) return this.mixinsConfig.block_potent_sulfur;
 		if (mixinClassName.contains("block.sound.")) return this.mixinsConfig.block_sound;
-		if (mixinClassName.contains("block.reinforced_deepslate.")) return this.mixinsConfig.block_reinforced_deepslate;
 		if (mixinClassName.contains("block.spawner.")) return this.mixinsConfig.block_spawner;
 		if (mixinClassName.contains("block.termite.")) return this.mixinsConfig.block_termite;
 		if (mixinClassName.contains("block.block_break.")) return this.mixinsConfig.block_break;

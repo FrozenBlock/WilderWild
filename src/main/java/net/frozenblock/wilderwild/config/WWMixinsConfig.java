@@ -67,8 +67,6 @@ public final class WWMixinsConfig {
 
 	public boolean block_fire = true;
 
-	public boolean block_froglight = true;
-
 	public boolean block_frozen_vegetation = true;
 
 	public boolean block_ice = true;
@@ -88,8 +86,6 @@ public final class WWMixinsConfig {
 	public boolean block_potent_sulfur = true;
 
 	public boolean block_sound = true;
-
-	public boolean block_reinforced_deepslate = true;
 
 	public boolean block_spawner = true;
 
