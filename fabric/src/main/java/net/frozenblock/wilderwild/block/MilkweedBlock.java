@@ -174,7 +174,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
-		level.playSound(null, pos, WWSounds.BLOCK_MILKWEED_RUSTLE, SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+		level.playSound(null, pos, WWSounds.BLOCK_MILKWEED_RUSTLE.get(), SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
 		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 

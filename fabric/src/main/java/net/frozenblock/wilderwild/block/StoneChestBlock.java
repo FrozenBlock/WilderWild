@@ -112,7 +112,7 @@ public class StoneChestBlock extends ChestBlock {
 	};
 
 	public StoneChestBlock(Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, Properties properties) {
-		super(supplier, WWSounds.BLOCK_STONE_CHEST_OPEN, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, properties);
+		super(supplier, WWSounds.BLOCK_STONE_CHEST_OPEN.get(), WWSounds.BLOCK_STONE_CHEST_CLOSE_START.get(), properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(SCULK, false));
 	}
 
@@ -181,8 +181,8 @@ public class StoneChestBlock extends ChestBlock {
 					level,
 					pos,
 					state,
-					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN : WWSounds.BLOCK_STONE_CHEST_LIFT,
-					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER,
+					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN.get() : WWSounds.BLOCK_STONE_CHEST_LIFT.get(),
+					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER.get() : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER.get(),
 					0.35F
 				);
 				level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);

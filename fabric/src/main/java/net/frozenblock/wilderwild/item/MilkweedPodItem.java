@@ -50,7 +50,7 @@ public class MilkweedPodItem extends Item {
 		level.playSound(
 			user,
 			user.getX(), user.getY(), user.getZ(),
-			WWSounds.ITEM_MILKWEED_POD_BLOWN,
+			WWSounds.ITEM_MILKWEED_POD_BLOWN.get(),
 			SoundSource.NEUTRAL,
 			0.25F,
 			0.9F + (level.getRandom().nextFloat() * 0.2F)

@@ -39,8 +39,8 @@ public final class CreeperMixin {
 		if (!original || !WWItemConfig.POTION_LANDING_SOUNDS.get()) return original;
 		final Creeper creeper = Creeper.class.cast(this);
 		final RandomSource random = creeper.getRandom();
-		creeper.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (random.nextFloat() * 0.2F));
-		creeper.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (random.nextFloat() * 0.2F));
+		creeper.playSound(WWSounds.ITEM_POTION_MAGIC.get(), 1F, 1F + (random.nextFloat() * 0.2F));
+		creeper.playSound(WWSounds.ITEM_POTION_LINGERING.get(), 1F, 1F + (random.nextFloat() * 0.2F));
 		return original;
 	}
 

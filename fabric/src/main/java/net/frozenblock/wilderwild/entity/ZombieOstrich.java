@@ -146,47 +146,47 @@ public class ZombieOstrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getEatingSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_EAT;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_EAT.get();
 	}
 
 	@Override
 	protected Holder<SoundEvent> getEquipSound(EquipmentSlot slot, ItemStack stack, Equippable equippable) {
-		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE : super.getEquipSound(slot, stack, equippable);
+		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE.asHolder() : super.getEquipSound(slot, stack, equippable);
 	}
 
 	@Override
 	public SoundEvent getAngrySound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_ZOMBIE_OSTRICH_HISS : WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT;
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_IDLE;
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_ZOMBIE_OSTRICH_HISS.get() : WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_IDLE.get();
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_HURT;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_HURT.get();
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_DEATH;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_DEATH.get();
 	}
 
 	@Override
 	public SoundEvent getBeakSwingSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SWING;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SWING.get();
 	}
 
 	@Override
 	public SoundEvent getBeakStuckSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK.get();
 	}
 
 	@Override
 	public SoundEvent getStepSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_STEP;
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_STEP.get();
 	}
 }

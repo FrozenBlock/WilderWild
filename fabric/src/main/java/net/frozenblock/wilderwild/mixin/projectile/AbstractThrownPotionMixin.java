@@ -44,8 +44,8 @@ public class AbstractThrownPotionMixin {
 	) {
 		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
 		final AbstractThrownPotion thrownPotion = AbstractThrownPotion.class.cast(this);
-		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH, 1F, 1F);
-		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC, 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
+		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH.get(), 1F, 1F);
+		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC.get(), 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
 	}
 
 }

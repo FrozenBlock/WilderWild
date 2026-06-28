@@ -40,7 +40,7 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, E crab, long timestamp) {
 		crab.setPose(Pose.EMERGING);
-		crab.playSound(WWSounds.ENTITY_CRAB_EMERGE, 0.5F, 1F);
+		crab.playSound(WWSounds.ENTITY_CRAB_EMERGE.get(), 0.5F, 1F);
 		crab.resetDiggingTicks();
 		crab.stopInPlace();
 	}

@@ -23,6 +23,7 @@ import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationCon
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -46,7 +47,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_FOREST_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FORESTS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FORESTS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_flower_forests")).add(
@@ -54,7 +55,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_FLOWER_FOREST_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_lush_caves")).add(
@@ -62,7 +63,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_LUSH_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_LUSH_CAVES_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_dripstone_caves")).add(
@@ -70,7 +71,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_DRIPSTONE_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_DRIPSTONE_CAVES_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_cherry_groves")).add(
@@ -78,7 +79,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_CHERRY_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_CHERRY_GROVE_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_groves")).add(
@@ -86,7 +87,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_GROVE_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_GROVE_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_GROVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_GROVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_jungles")).add(
@@ -94,7 +95,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_JUNGLE_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_JUNGLES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_JUNGLES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_bamboo_jungles")).add(
@@ -102,7 +103,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_sparse_jungles")).add(
@@ -110,7 +111,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_badlands")).add(
@@ -118,7 +119,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_BADLANDS_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_BADLANDS_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_BADLANDS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_BADLANDS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_deserts")).add(
@@ -126,7 +127,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_DESERT_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_DESERT_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_DESERTS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_DESERTS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_snowy")).add(
@@ -134,7 +135,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_SNOWY_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_SNOWY);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_SNOWY.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_oceans")).add(
@@ -142,7 +143,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_OCEAN_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_OCEANS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_OCEANS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_frozen_oceans")).add(
@@ -150,7 +151,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_FROZEN_OCEAN_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FROZEN_OCEANS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FROZEN_OCEANS.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_warm_oceans")).add(
@@ -158,7 +159,7 @@ public final class WWBiomeMusicAndAmbience {
 			BiomeSelectors.tag(WWBiomeTags.HAS_WARM_OCEAN_MUSIC),
 			context -> {
 				if (!WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC.get()) return;
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_WARM_OCEANS);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_WARM_OCEANS.asHolder());
 			});
 
 		// Normal Music
@@ -166,42 +167,42 @@ public final class WWBiomeMusicAndAmbience {
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MAPLE_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_dying")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_DYING_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_DYING_FOREST);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_DYING_FOREST.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_snowy_dying")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_SNOWY_DYING_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_frozen")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_FROZEN_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_magmatic")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MAGMATIC_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES.asHolder());
 			});
 
 		BiomeModifications.create(WWConstants.id("modify_music_mesoglea")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_MESOGLEA_MUSIC),
 			context -> {
-				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES);
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES.asHolder());
 			});
 
 		// Ambience
@@ -269,18 +270,18 @@ public final class WWBiomeMusicAndAmbience {
 			});
 	}
 
-	private static void setBackgroundMusic(BiomeModificationContext context, Holder.Reference<SoundEvent> music) {
+	private static void setBackgroundMusic(BiomeModificationContext context, Holder<SoundEvent> music) {
 		context.getAttributes().set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(music));
 	}
 
-	private static void setBiomeAmbience(BiomeModificationContext context, Holder.Reference<SoundEvent> loop, Holder.Reference<SoundEvent> additions, double additionsChance) {
+	private static void setBiomeAmbience(BiomeModificationContext context, FrozenHolder<SoundEvent, SoundEvent> loop, FrozenHolder<SoundEvent, SoundEvent> additions, double additionsChance) {
 		final BiomeModificationContext.AttributesContext attributes = context.getAttributes();
 		attributes.set(
 			EnvironmentAttributes.AMBIENT_SOUNDS,
 			new AmbientSounds(
-				Optional.of(loop),
+				Optional.of(loop.asHolder()),
 				Optional.of(AmbientMoodSettings.LEGACY_CAVE_SETTINGS),
-				List.of(new AmbientAdditionsSettings(additions, additionsChance))
+				List.of(new AmbientAdditionsSettings(additions.asHolder(), additionsChance))
 			)
 		);
 	}

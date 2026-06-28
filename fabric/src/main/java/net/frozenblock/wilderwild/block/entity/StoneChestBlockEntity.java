@@ -92,7 +92,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 			if (!stoneChest.closing) {
 				stoneChest.closing = true;
-				playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START, WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER, 0.3F);
+				playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START.get(), WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER.get(), 0.3F);
 			}
 			if (stoneChest.openProgress <= 0F) stoneChest.onLidSlam(serverLevel, pos, state, coupledStoneChest);
 		}
@@ -201,7 +201,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 					);
 				}
 			}
-			playSound(level, pos, state, WWSounds.BLOCK_STONE_CHEST_SLAM, WWSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER, 0.5F + (this.highestLidPoint / 5F));
+			playSound(level, pos, state, WWSounds.BLOCK_STONE_CHEST_SLAM.get(), WWSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER.get(), 0.5F + (this.highestLidPoint / 5F));
 		}
 		this.closing = false;
 		this.cooldownTicks = 15;
@@ -279,7 +279,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 
 		final ArrayList<ItemStack> ancientItems = this.ancientItems();
 		if (!ancientItems.isEmpty()) {
-			this.level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE, SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.getRandom().nextFloat() * 0.1F));
+			this.level.playSound(null, pos, WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE.get(), SoundSource.BLOCKS, 0.4F, 0.9F + (this.level.getRandom().nextFloat() * 0.1F));
 			for (ItemStack taunt : ancientItems) {
 				for (int taunts = 0; taunts < taunt.getCount(); taunts += 1) spawnBreakParticles(this.level, taunt, pos);
 			}

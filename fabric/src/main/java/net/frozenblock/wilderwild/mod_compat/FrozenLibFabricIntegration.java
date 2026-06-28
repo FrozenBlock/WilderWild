@@ -80,7 +80,7 @@ public class FrozenLibFabricIntegration extends ModIntegration {
 		ServerLevelEvents.LOAD.register(
 			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
 				level.damageSources().damageTypes.getValueOrThrow(DamageTypes.CACTUS),
-				WWSounds.PLAYER_HURT_CACTUS,
+				WWSounds.PLAYER_HURT_CACTUS.get(),
 				WWConstants.id("cactus")
 			)
 		);

@@ -448,24 +448,24 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_CRAB_HURT;
+		return WWSounds.ENTITY_CRAB_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_CRAB_DEATH;
+		return WWSounds.ENTITY_CRAB_DEATH.get();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(WWSounds.ENTITY_CRAB_STEP, 0.3F, this.getVoicePitch());
+		this.playSound(WWSounds.ENTITY_CRAB_STEP.get(), 0.3F, this.getVoicePitch());
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isHidingUnderground() ? null : WWSounds.ENTITY_CRAB_IDLE;
+		return this.isHidingUnderground() ? null : WWSounds.ENTITY_CRAB_IDLE.get();
 	}
 
 	@Override
@@ -487,7 +487,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
 		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
-		this.playSound(WWSounds.ENTITY_CRAB_ATTACK, this.getSoundVolume(), this.getVoicePitch());
+		this.playSound(WWSounds.ENTITY_CRAB_ATTACK.get(), this.getSoundVolume(), this.getVoicePitch());
 		return super.doHurtTarget(level, target);
 	}
 
@@ -759,7 +759,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public SoundEvent getPickupSound() {
-		return WWSounds.ITEM_BUCKET_FILL_CRAB;
+		return WWSounds.ITEM_BUCKET_FILL_CRAB.get();
 	}
 
 	@Override

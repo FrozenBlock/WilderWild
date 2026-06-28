@@ -192,7 +192,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT,
+				WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get(),
 				SoundSource.BLOCKS,
 				0.325F,
 				0.85F + random.nextFloat() * 0.3F,
@@ -207,7 +207,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 		}
 
 		if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
-			level.playLocalSound(pos, WWSounds.BLOCK_GEOTHERMAL_VENT_BOIL, SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
+			level.playLocalSound(pos, WWSounds.BLOCK_GEOTHERMAL_VENT_BOIL.get(), SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 		}
 	}
 

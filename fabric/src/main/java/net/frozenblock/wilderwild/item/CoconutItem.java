@@ -56,7 +56,7 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 			player.getX(),
 			player.getY(),
 			player.getZ(),
-			WWSounds.ITEM_COCONUT_THROW,
+			WWSounds.ITEM_COCONUT_THROW.get(),
 			SoundSource.NEUTRAL,
 			0.5F,
 			0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)

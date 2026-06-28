@@ -249,22 +249,22 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER : null;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER.get() : null;
 	}
 
 	@Override
 	protected SoundEvent getSwimSound() {
-		return WWSounds.ENTITY_JELLYFISH_SWIM;
+		return WWSounds.ENTITY_JELLYFISH_SWIM.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER : WWSounds.ENTITY_JELLYFISH_HURT;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER.get() : WWSounds.ENTITY_JELLYFISH_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER : WWSounds.ENTITY_JELLYFISH_DEATH;
+		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER.get() : WWSounds.ENTITY_JELLYFISH_DEATH.get();
 	}
 
 	@Override
@@ -343,7 +343,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				this.playSound(WWSounds.ENTITY_JELLYFISH_HIDE, 0.8F, this.getVoicePitch());
+				this.playSound(WWSounds.ENTITY_JELLYFISH_HIDE.get(), 0.8F, this.getVoicePitch());
 				return;
 			} else {
 				this.scale -= 0.25F;
@@ -438,7 +438,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			serverLevel.playSound(
 				entity,
 				entity.getX(), entity.getY(), entity.getZ(),
-				WWSounds.ENTITY_JELLYFISH_STING,
+				WWSounds.ENTITY_JELLYFISH_STING.get(),
 				this.getSoundSource(),
 				1F,
 				baby ? STING_PITCH_BABY : STING_PITCH
@@ -498,7 +498,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public SoundEvent getPickupSound() {
-		return WWSounds.ITEM_BUCKET_FILL_JELLYFISH;
+		return WWSounds.ITEM_BUCKET_FILL_JELLYFISH.get();
 	}
 
 	@Override

@@ -151,7 +151,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	@Override
 	public SoundEvent getSwimSound() {
-		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSounds.ENTITY_WARDEN_SWIM : super.getSwimSound();
+		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSounds.ENTITY_WARDEN_SWIM.get() : super.getSwimSound();
 	}
 
 	@Unique

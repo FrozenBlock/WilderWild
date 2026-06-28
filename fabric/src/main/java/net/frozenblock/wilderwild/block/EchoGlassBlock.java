@@ -74,7 +74,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		}
 
 		setDamagedState(level, pos, state);
-		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK, SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK.get(), SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 		if (!(level instanceof ServerLevel serverLevel)) return;
 
 		serverLevel.sendParticles(
@@ -92,7 +92,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		if (damage <= 0) return;
 
 		level.setBlockAndUpdate(pos, state.setValue(DAMAGE, damage - 1));
-		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_REPAIR, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_REPAIR.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
 	}
 
 	public static int getLightLevel(Level level, BlockPos pos) {

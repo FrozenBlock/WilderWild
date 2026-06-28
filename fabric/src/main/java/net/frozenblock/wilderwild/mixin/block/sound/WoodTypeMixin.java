@@ -31,13 +31,13 @@ public class WoodTypeMixin {
 
 	@ModifyReturnValue(method = "fenceGateClose", at = @At("RETURN"))
 	private SoundEvent wilderWild$fenceGateClose(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_CLOSE;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_CLOSE.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "fenceGateOpen", at = @At("RETURN"))
 	private SoundEvent wilderWild$fenceGateOpen(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_OPEN;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_OPEN.get();
 		return original;
 	}
 

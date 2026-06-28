@@ -193,7 +193,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBloc
 
 	@Override
 	public Optional<SoundEvent> evaporateSound() {
-		return Optional.of(WWSounds.BLOCK_MESOGLEA_EVAPORATE);
+		return Optional.of(WWSounds.BLOCK_MESOGLEA_EVAPORATE.get());
 	}
 
 	@Override

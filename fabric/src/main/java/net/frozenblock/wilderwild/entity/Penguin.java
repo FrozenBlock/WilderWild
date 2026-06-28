@@ -272,19 +272,19 @@ public class Penguin extends Animal {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_IDLE : WWSounds.ENTITY_PENGUIN_IDLE;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_IDLE.get() : WWSounds.ENTITY_PENGUIN_IDLE.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT : WWSounds.ENTITY_PENGUIN_HURT;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT.get() : WWSounds.ENTITY_PENGUIN_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH : WWSounds.ENTITY_PENGUIN_DEATH;
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH.get() : WWSounds.ENTITY_PENGUIN_DEATH.get();
 	}
 
 	@Override
@@ -302,7 +302,7 @@ public class Penguin extends Animal {
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		if (!this.isSliding()) {
-			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP : WWSounds.ENTITY_PENGUIN_STEP, 0.1F, 1F);
+			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP.get() : WWSounds.ENTITY_PENGUIN_STEP.get(), 0.1F, 1F);
 			return;
 		}
 		super.playStepSound(pos, state);

@@ -247,7 +247,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public SoundEvent wilderWild$getBottleCatchSound() {
-		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY;
+		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY.get();
 	}
 
 	public boolean hasHome() {
@@ -311,12 +311,12 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_BUTTERFLY_HURT;
+		return WWSounds.ENTITY_BUTTERFLY_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_BUTTERFLY_DEATH;
+		return WWSounds.ENTITY_BUTTERFLY_DEATH.get();
 	}
 
 	@Override

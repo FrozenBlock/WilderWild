@@ -70,7 +70,7 @@ public final class WWClientNetworking {
 				player.getX(),
 				player.getY(),
 				player.getZ(),
-				WWSounds.ENTITY_JELLYFISH_STING,
+				WWSounds.ENTITY_JELLYFISH_STING.get(),
 				SoundSource.NEUTRAL,
 				1F,
 				packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
@@ -129,7 +129,7 @@ public final class WWClientNetworking {
 
 			level.playLocalSound(
 				pos,
-				WWSounds.BLOCK_FIRE_IGNITE,
+				WWSounds.BLOCK_FIRE_IGNITE.get(),
 				SoundSource.BLOCKS,
 				0.5F,
 				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F,
@@ -143,7 +143,7 @@ public final class WWClientNetworking {
 			final ClientLevel level = ctx.client().level;
 			level.playLocalSound(
 				packet.pos(),
-				WWSounds.BLOCK_ICICLE_LAND,
+				WWSounds.BLOCK_ICICLE_LAND.get(),
 				SoundSource.BLOCKS,
 				2F,
 				level.getRandom().nextFloat() * 0.1F + 0.9F,

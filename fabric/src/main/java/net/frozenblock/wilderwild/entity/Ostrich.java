@@ -94,14 +94,14 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getEatingSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
-		return WWSounds.ENTITY_OSTRICH_EAT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get();
+		return WWSounds.ENTITY_OSTRICH_EAT.get();
 	}
 
 	@Override
 	public SoundEvent getAngrySound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH;
-		return WWSounds.ENTITY_OSTRICH_GRUNT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get();
+		return WWSounds.ENTITY_OSTRICH_GRUNT.get();
 	}
 
 	@Override
@@ -111,38 +111,38 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK;
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS : WWSounds.ENTITY_OSTRICH_GRUNT;
-		return WWSounds.ENTITY_OSTRICH_IDLE;
+		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get() : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK.get();
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS.get() : WWSounds.ENTITY_OSTRICH_GRUNT.get();
+		return WWSounds.ENTITY_OSTRICH_IDLE.get();
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_HURT;
-		return WWSounds.ENTITY_OSTRICH_HURT;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_HURT.get();
+		return WWSounds.ENTITY_OSTRICH_HURT.get();
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_DEATH;
-		return WWSounds.ENTITY_OSTRICH_DEATH;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_DEATH.get();
+		return WWSounds.ENTITY_OSTRICH_DEATH.get();
 	}
 
 	@Override
 	public SoundEvent getBeakSwingSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_SWING;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_SWING.get();
 		return super.getBeakSwingSound();
 	}
 
 	@Override
 	public SoundEvent getBeakStuckSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK.get();
 		return super.getBeakStuckSound();
 	}
 
 	@Override
 	public SoundEvent getStepSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_STEP;
+		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_STEP.get();
 		return super.getStepSound();
 	}
 

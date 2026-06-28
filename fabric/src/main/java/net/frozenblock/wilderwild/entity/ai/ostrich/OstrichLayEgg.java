@@ -49,7 +49,7 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 		final BlockState placementState = block.defaultBlockState();
 		level.setBlockAndUpdate(placePos, placementState);
 		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(ostrich, placementState));
-		level.playSound(null, ostrich, WWSounds.ENTITY_OSTRICH_LAY_EGG, SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, ostrich, WWSounds.ENTITY_OSTRICH_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
 		return true;
 	}
 

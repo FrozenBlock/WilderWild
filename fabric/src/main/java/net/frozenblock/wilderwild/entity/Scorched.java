@@ -149,22 +149,22 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA : WWSounds.ENTITY_SCORCHED_STEP, 0.15F, 1F);
+		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA.get() : WWSounds.ENTITY_SCORCHED_STEP.get(), 0.15F, 1F);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return WWSounds.ENTITY_SCORCHED_AMBIENT;
+		return WWSounds.ENTITY_SCORCHED_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_SCORCHED_HURT;
+		return WWSounds.ENTITY_SCORCHED_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_SCORCHED_DEATH;
+		return WWSounds.ENTITY_SCORCHED_DEATH.get();
 	}
 
 	@Override

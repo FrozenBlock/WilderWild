@@ -301,7 +301,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public SoundEvent wilderWild$getBottleCatchSound() {
-		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY;
+		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get();
 	}
 
 	public boolean hasHome() {
@@ -427,12 +427,12 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_FIREFLY_HURT;
+		return WWSounds.ENTITY_FIREFLY_HURT.get();
 	}
 
 	@Override

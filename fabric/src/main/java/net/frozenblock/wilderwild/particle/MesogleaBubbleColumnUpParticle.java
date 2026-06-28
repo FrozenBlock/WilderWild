@@ -77,7 +77,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 	public void remove() {
 		this.level.playLocalSound(
 			this.x, this.y, this.z,
-			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP,
+			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP.get(),
 			SoundSource.NEUTRAL,
 			0.025F,
 			this.random.nextFloat() * 0.2F + 0.8F,

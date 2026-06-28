@@ -118,7 +118,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getDeathSound")
 	public SoundEvent wilderWild$getDeathSound(SoundEvent soundEvent) {
-		return this.wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_KIRBY_DEATH : soundEvent;
+		return this.wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_KIRBY_DEATH.get() : soundEvent;
 	}
 
 	@ModifyExpressionValue(
@@ -187,7 +187,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	private void wilderWild$stellaHeartbeat(
 		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean distanceDelay, Operation<Void> original
 	) {
-		if (this.wilderWild$isStella()) sound = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT;
+		if (this.wilderWild$isStella()) sound = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT.get();
 		original.call(instance, x, y, z, sound, source, volume, pitch, distanceDelay);
 	}
 

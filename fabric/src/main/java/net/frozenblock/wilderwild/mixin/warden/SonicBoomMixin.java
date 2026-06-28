@@ -124,7 +124,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		SoundEvent original,
 		Warden body
 	) {
-		return ((WilderWarden) body).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP : original;
+		return ((WilderWarden) body).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP.get() : original;
 	}
 
 	@Unique

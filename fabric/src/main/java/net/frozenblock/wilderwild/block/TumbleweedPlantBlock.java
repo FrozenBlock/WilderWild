@@ -101,7 +101,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		if (level.getRandom().nextInt(difficulty == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / difficulty)) == 0) {
 			tumbleweed.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
 		}
-		level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE, SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE.get(), SoundSource.BLOCKS, 1F, 1F);
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
 		level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 	}

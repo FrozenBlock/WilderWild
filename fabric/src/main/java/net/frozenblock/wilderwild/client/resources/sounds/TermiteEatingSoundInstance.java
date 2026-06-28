@@ -28,7 +28,7 @@ import net.minecraft.sounds.SoundSource;
 public class TermiteEatingSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTermiteSoundInstance<T> {
 
 	public TermiteEatingSoundInstance(T mound) {
-		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW, SoundSource.BLOCKS);
+		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW.get(), SoundSource.BLOCKS);
 	}
 
 	@Override

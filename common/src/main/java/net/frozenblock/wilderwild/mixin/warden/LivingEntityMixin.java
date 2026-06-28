@@ -83,9 +83,9 @@ public class LivingEntityMixin {
 		if (!(warden instanceof WilderWarden wilderWarden)) return;
 		if (wilderWarden.wilderWild$isStella()) return;
 		if (!(warden instanceof SwimmingWardenInterface swimmingWardenInterface) || !swimmingWardenInterface.wilderWild$isSubmergedInWaterOrLava()) {
-			warden.playSound(WWSounds.ENTITY_WARDEN_DYING, 5F, 1F);
+			warden.playSound(WWSounds.ENTITY_WARDEN_DYING.get(), 5F, 1F);
 		} else {
-			warden.playSound(WWSounds.ENTITY_WARDEN_UNDERWATER_DYING, 5F, warden.getVoicePitch());
+			warden.playSound(WWSounds.ENTITY_WARDEN_UNDERWATER_DYING.get(), 5F, warden.getVoicePitch());
 		}
 	}
 

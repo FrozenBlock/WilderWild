@@ -54,7 +54,8 @@
     ]
   },
   "mixins": [
-    "wilderwild.mixins.json"
+    "wilderwild.mixins.json",
+    "wilderwild.fabric.mixins.json"
   ],
   "accessWidener": "wilderwild.classtweaker",
   "depends": {

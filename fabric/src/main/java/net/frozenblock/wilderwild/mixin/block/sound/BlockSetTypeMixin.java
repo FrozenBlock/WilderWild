@@ -31,49 +31,49 @@ public class BlockSetTypeMixin {
 
 	@ModifyReturnValue(method = "doorClose", at = @At("RETURN"))
 	private SoundEvent wilderWild$doorClose(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_CLOSE;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_CLOSE.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "doorOpen", at = @At("RETURN"))
 	private SoundEvent wilderWild$doorOpen(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_OPEN;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_OPEN.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "trapdoorClose", at = @At("RETURN"))
 	private SoundEvent wilderWild$trapdoorClose(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "trapdoorOpen", at = @At("RETURN"))
 	private SoundEvent wilderWild$trapdoorOpen(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "pressurePlateClickOff", at = @At("RETURN"))
 	private SoundEvent wilderWild$pressurePlateClickOff(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_OFF;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_OFF.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "pressurePlateClickOn", at = @At("RETURN"))
 	private SoundEvent wilderWild$pressurePlateClickOn(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_ON;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_ON.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "buttonClickOff", at = @At("RETURN"))
 	private SoundEvent wilderWild$buttonClickOff(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_OFF;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_OFF.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "buttonClickOn", at = @At("RETURN"))
 	private SoundEvent wilderWild$buttonClickOn(SoundEvent original) {
-		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_ON;
+		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_ON.get();
 		return original;
 	}
 

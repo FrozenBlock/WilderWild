@@ -85,7 +85,7 @@ public class PenguinEggBlock extends Block {
 			this.hatchPenguinEgg(level, pos, random);
 			return;
 		}
-		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_CRACK.get(), SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		level.setBlock(pos, state.cycle(HATCH), UPDATE_CLIENTS);
 	}
 
@@ -101,7 +101,7 @@ public class PenguinEggBlock extends Block {
 	}
 
 	private void hatchPenguinEgg(ServerLevel level, BlockPos pos, RandomSource random) {
-		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
+		level.playSound(null, pos, WWSounds.BLOCK_PENGUIN_EGG_HATCH.get(), SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
 		this.destroyBlock(level, pos);
 		this.spawnPenguin(level, pos, random);
 	}

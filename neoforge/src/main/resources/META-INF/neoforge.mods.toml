@@ -6,6 +6,9 @@ issueTrackerURL="https://github.com/FrozenBlock/WilderWild/issues"
 [[mixins]]
 config="wilderwild.mixins.json"
 
+[[mixins]]
+config="wilderwild.neoforge.mixins.json"
+
 [[mods]]
     modId="wilderwild"
     version="${mod_version}"

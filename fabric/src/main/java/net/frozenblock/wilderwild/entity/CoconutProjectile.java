@@ -72,8 +72,8 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 			this.splitAndDiscard();
 			return;
 		}
-		SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND;
-		if (this.getY() > entity.getEyeY() && !entity.is(WWEntityTypeTags.COCONUT_CANT_BONK)) hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD;
+		SoundEvent hitSound = WWSounds.ITEM_COCONUT_LAND.get();
+		if (this.getY() > entity.getEyeY() && !entity.is(WWEntityTypeTags.COCONUT_CANT_BONK)) hitSound = WWSounds.ITEM_COCONUT_HIT_HEAD.get();
 
 		this.level().playSound(
 			null,
@@ -96,7 +96,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		level.playSound(
 			null,
 			this.getX(), this.getY(), this.getZ(),
-			WWSounds.ITEM_COCONUT_LAND,
+			WWSounds.ITEM_COCONUT_LAND.get(),
 			this.getSoundSource(),
 			0.4F,
 			0.9F + (this.random.nextFloat() * 0.2F)
@@ -110,7 +110,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		serverLevel.playSound(
 			null,
 			this.getX(), this.getY(), this.getZ(),
-			WWSounds.ITEM_COCONUT_LAND_BREAK,
+			WWSounds.ITEM_COCONUT_LAND_BREAK.get(),
 			SoundSource.BLOCKS,
 			1F,
 			0.9F + 0.2F * this.random.nextFloat()

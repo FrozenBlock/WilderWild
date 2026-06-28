@@ -28,7 +28,7 @@ import net.minecraft.sounds.SoundSource;
 public class TermiteIdleSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTermiteSoundInstance<T> {
 
 	public TermiteIdleSoundInstance(T mound) {
-		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE, SoundSource.BLOCKS);
+		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE.get(), SoundSource.BLOCKS);
 	}
 
 	@Override

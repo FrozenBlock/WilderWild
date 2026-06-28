@@ -93,7 +93,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static void deactivate(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		level.setBlockAndUpdate(pos, state.setValue(PHASE, SculkSensorPhase.INACTIVE).setValue(POWER, 0));
 		if (!state.getValue(WATERLOGGED)) {
-			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP, SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
+			level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_CLICKING_STOP.get(), SoundSource.BLOCKS, 1F, random.nextFloat() * 0.2F + 0.8F);
 		}
 		SculkSensorBlock.updateNeighbours(level, pos, state);
 	}
@@ -235,7 +235,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		level.playSound(
 			null,
 			pos,
-			WWSounds.BLOCK_HANGING_TENDRIL_CLICKING,
+			WWSounds.BLOCK_HANGING_TENDRIL_CLICKING.get(),
 			SoundSource.BLOCKS,
 			1F,
 			level.getRandom().nextFloat() * 0.2F + 0.8F
@@ -283,7 +283,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		if (hangingTendril.getStoredXP() <= 0) return InteractionResult.PASS;
 
 		level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
-		level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_WRING, SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+		level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_WRING.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
 		hangingTendril.ringOutTicksLeft = RING_OUT_TICKS;
 		return InteractionResult.SUCCESS;
 	}

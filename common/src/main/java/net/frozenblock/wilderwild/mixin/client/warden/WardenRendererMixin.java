@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
+import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
@@ -28,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@ClientOnly
 @Mixin(WardenRenderer.class)
 public class WardenRendererMixin {
 

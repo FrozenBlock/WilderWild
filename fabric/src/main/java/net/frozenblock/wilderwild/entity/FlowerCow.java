@@ -146,7 +146,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Override
 	public void shear(ServerLevel level, SoundSource source, ItemStack stack) {
-		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR, source, 1F, 1F);
+		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR.get(), source, 1F, 1F);
 		final BlockState flowerState = this.getVariant().flowerBlockState();
 		spawnShearParticles(level, this, flowerState);
 		this.level().addFreshEntity(

@@ -25,10 +25,10 @@ import net.minecraft.util.StringRepresentable;
 
 public enum GeothermalVentType implements StringRepresentable {
 	NONE("none", SoundEvents.EMPTY),
-	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR),
-	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER),
-	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA),
-	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT);
+	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.get()),
+	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.get()),
+	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.get()),
+	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get());
 
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 

@@ -59,7 +59,7 @@ public class LevelEventHandlerMixin {
 
 			this.level.playLocalSound(
 				x, y, z,
-				WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE,
+				WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE.get(),
 				SoundSource.BLOCKS,
 				2.0F,
 				0.6F + this.level.getRandom().nextFloat() * 0.4F,

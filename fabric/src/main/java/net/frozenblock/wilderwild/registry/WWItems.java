@@ -187,7 +187,7 @@ public final class WWItems {
 	// VEGETATION
 	public static final Item POLLEN = Items.registerBlock(WWBlockItemIds.POLLEN, WWBlocks.POLLEN);
 	public static final Item PRICKLY_PEAR = Items.registerBlock(WWBlockItemIds.PRICKLY_PEAR, WWBlocks.PRICKLY_PEAR,
-		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR),
+		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),
 		new Item.Properties().food(WWFoods.PRICKLY_PEAR)
 	);
 	public static final Item SHRUB = Items.registerBlock(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
@@ -424,7 +424,7 @@ public final class WWItems {
 	public static final Item FIREFLY_BOTTLE = Items.registerItem(WWItemIds.FIREFLY_BOTTLE,
 		properties -> new MobBottleItem(
 			WWEntityTypes.FIREFLY.get(),
-			WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY,
+			WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY.get(),
 			properties
 		),
 		new Item.Properties()
@@ -435,7 +435,7 @@ public final class WWItems {
 	public static final Item BUTTERFLY_BOTTLE = Items.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
 			WWEntityTypes.BUTTERFLY.get(),
-			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY,
+			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY.get(),
 			properties
 		),
 		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
@@ -452,12 +452,12 @@ public final class WWItems {
 	// SPAWN EGGS & BUCKETS
 	public static final Item JELLYFISH_BUCKET = Items.registerItem(
 		WWItemIds.JELLYFISH_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH, properties),
+		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH.get(), properties),
 		new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
 	);
 	public static final Item CRAB_BUCKET = Items.registerItem(
 		WWItemIds.CRAB_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB, properties),
+		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB.get(), properties),
 		new Item.Properties().stacksTo(1).component(DataComponents.FOOD, WWFoods.CRAB_CLAW)
 	);
 
