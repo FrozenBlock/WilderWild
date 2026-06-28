@@ -109,7 +109,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);
 
 		final boolean levelExists = stoneChest.getLevel() != null;
-		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.get().defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
 		renderState.type = state.hasProperty(StoneChestBlock.TYPE) ? state.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
 		renderState.facing = state.getValue(ChestBlock.FACING);
 		renderState.hasSculk = state.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);

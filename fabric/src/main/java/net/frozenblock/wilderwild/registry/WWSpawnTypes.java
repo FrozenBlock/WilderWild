@@ -33,7 +33,7 @@ public final class WWSpawnTypes {
 			if (type == null || !level.getWorldBorder().isWithinBounds(pos)) return false;
 
 			final BlockPos abovePos = pos.above();
-			return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE);
+			return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE.get());
 		}
 
 		@Override

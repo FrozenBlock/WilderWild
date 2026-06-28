@@ -97,7 +97,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	public boolean canShearIntoOriginalFlower(LevelReader level, BlockPos pos, BlockState state) {
-		if (this == WWBlocks.SEEDING_DANDELION) return WWBlockConfig.SHEAR_SEEDING_DANDELIONS.get();
+		if (this == WWBlocks.SEEDING_DANDELION.get()) return WWBlockConfig.SHEAR_SEEDING_DANDELIONS.get();
 		return true;
 	}
 

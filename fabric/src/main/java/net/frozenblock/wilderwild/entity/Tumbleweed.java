@@ -126,7 +126,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 				final ItemLike itemLike = TagUtils.getRandomEntry(this.random, itemTag);
 				if (itemLike != null) this.setItem(new ItemStack(itemLike), true);
 			} else if (this.random.nextInt(TUMBLEWEED_PLANT_ITEM_CHANCE) == 0) {
-				this.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT), true);
+				this.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT.get()), true);
 			}
 		}
 
@@ -349,7 +349,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 
 	@Override
 	public BlockState defaultBlockState() {
-		return WWBlocks.TUMBLEWEED.defaultBlockState();
+		return WWBlocks.TUMBLEWEED.get().defaultBlockState();
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	public void die(DamageSource source) {
 		super.die(source);
 		if (this.level() instanceof ServerLevel level && level.getGameRules().get(GameRules.MOB_DROPS) && !source.isCreativePlayer()) {
-			if (isSilkTouchOrShears(source)) level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED)));
+			if (isSilkTouchOrShears(source)) level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(WWBlocks.TUMBLEWEED.get())));
 		}
 		this.destroy(true);
 	}

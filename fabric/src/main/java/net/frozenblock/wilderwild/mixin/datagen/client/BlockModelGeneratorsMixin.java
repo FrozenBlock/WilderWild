@@ -44,7 +44,7 @@ public class BlockModelGeneratorsMixin {
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void wilderWild$addRotatedGabbroGeneration(CallbackInfo info) {
 		final Map<Block, BlockModelGenerators.BlockStateGeneratorSupplier> newMap = new Object2ObjectLinkedOpenHashMap<>(FULL_BLOCK_MODEL_CUSTOM_GENERATORS);
-		newMap.put(WWBlocks.GABBRO, BlockModelGenerators::createMirroredCubeGenerator);
+		newMap.put(WWBlocks.GABBRO.get(), BlockModelGenerators::createMirroredCubeGenerator);
 
 		FULL_BLOCK_MODEL_CUSTOM_GENERATORS = Map.copyOf(newMap);
 	}

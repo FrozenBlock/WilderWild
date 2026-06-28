@@ -46,6 +46,6 @@ public class PalmFrondsBlock extends TintedParticleLeavesBlock implements Boneme
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.setBlock(pos.below(), ((CoconutBlock) WWBlocks.COCONUT).getDefaultHangingState(), UPDATE_CLIENTS);
+		level.setBlock(pos.below(), WWBlocks.COCONUT.get().getDefaultHangingState(), UPDATE_CLIENTS);
 	}
 }

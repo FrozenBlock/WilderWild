@@ -37,7 +37,7 @@ public class SpeleothemBlockMixin {
 		)
 	)
 	public boolean wilderWild$preventIciclesFromGrowingBelow(boolean original) {
-		return SpeleothemBlock.class.cast(this) == WWBlocks.ICICLE || original;
+		return SpeleothemBlock.class.cast(this) == WWBlocks.ICICLE.get() || original;
 	}
 
 	@WrapOperation(
@@ -48,7 +48,7 @@ public class SpeleothemBlockMixin {
 		)
 	)
 	private static void wilderWild$fallingIciclesAreWeaker(FallingBlockEntity instance, float damagePerDistance, int damageMax, Operation<Void> original) {
-		if (instance.getBlockState().is(WWBlocks.ICICLE)) damagePerDistance *= 10F;
+		if (instance.getBlockState().is(WWBlocks.ICICLE.get())) damagePerDistance *= 10F;
 		original.call(instance, damagePerDistance, damageMax);
 	}
 

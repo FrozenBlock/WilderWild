@@ -37,8 +37,8 @@ public class HalfTransparentBlockMixin {
 		)
 	)
 	private boolean wilderWild$checkForIceAndFragileIce(BlockState instance, Object block, Operation<Boolean> original) {
-		if (instance.is(Blocks.ICE) && block == WWBlocks.FRAGILE_ICE) return true;
-		if (instance.is(WWBlocks.FRAGILE_ICE) && block == Blocks.ICE) return true;
+		if (instance.is(Blocks.ICE) && block == WWBlocks.FRAGILE_ICE.get()) return true;
+		if (instance.is(WWBlocks.FRAGILE_ICE.get()) && block == Blocks.ICE) return true;
 		return original.call(instance, block);
 	}
 

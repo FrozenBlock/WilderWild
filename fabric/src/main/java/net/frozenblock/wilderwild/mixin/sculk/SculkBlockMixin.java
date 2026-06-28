@@ -145,9 +145,9 @@ public class SculkBlockMixin {
 			final BlockPos belowCharge = chargePos.below();
 			BlockState newPlacementState = null;
 			if (this.wilderWild$canPlaceOsseousSculk) {
-				newPlacementState = WWBlocks.OSSEOUS_SCULK.defaultBlockState().setValue(OsseousSculkBlock.FACING, Direction.DOWN);
+				newPlacementState = WWBlocks.OSSEOUS_SCULK.get().defaultBlockState().setValue(OsseousSculkBlock.FACING, Direction.DOWN);
 			} else if (WWBlockConfig.TENDRIL_GENERATION.get()) {
-				newPlacementState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
+				newPlacementState = WWBlocks.HANGING_TENDRIL.get().defaultBlockState();
 			}
 
 			if (newPlacementState != null) {
@@ -160,11 +160,11 @@ public class SculkBlockMixin {
 		if (WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) {
 			final BlockState chargeState = level.getBlockState(chargePos);
 			if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_STAIRS.withPropertiesOf(chargeState));
+				placementState.set(WWBlocks.SCULK_STAIRS.get().withPropertiesOf(chargeState));
 			} else if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_SLAB.withPropertiesOf(chargeState));
+				placementState.set(WWBlocks.SCULK_SLAB.get().withPropertiesOf(chargeState));
 			} else if ((isWorldgen && chargeState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN)) || chargeState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) {
-				placementState.set(WWBlocks.SCULK_WALL.withPropertiesOf(chargeState));
+				placementState.set(WWBlocks.SCULK_WALL.get().withPropertiesOf(chargeState));
 			}
 		}
 
@@ -242,7 +242,7 @@ public class SculkBlockMixin {
 			for (int a = 0; a < growthAttempts; a++) {
 				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, spreadVein);
 			}
-		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS) || placedState.get().is(WWBlocks.SCULK_SLAB) || placedState.get().is(WWBlocks.SCULK_WALL)) {
+		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS.get()) || placedState.get().is(WWBlocks.SCULK_SLAB.get()) || placedState.get().is(WWBlocks.SCULK_WALL.get())) {
 			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
 		}
 
@@ -278,7 +278,7 @@ public class SculkBlockMixin {
 		@Local(name = "state") BlockState state
 	) {
 		if (!this.wilderWild$canPlaceOsseousSculk || state.is(Blocks.SCULK_SHRIEKER)) return;
-		state = WWBlocks.OSSEOUS_SCULK.defaultBlockState();
+		state = WWBlocks.OSSEOUS_SCULK.get().defaultBlockState();
 		info.setReturnValue(
 			state.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty()
 				? state.setValue(BlockStateProperties.WATERLOGGED, true)

@@ -120,7 +120,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			if (!WWBlockConfig.TENDRIL_GENERATION.get() || random.nextFloat() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)) break placeRib;
 			if (!isSafeToReplace(level.getBlockState(mutable.move(Direction.DOWN)))) break placeRib;
 
-			final BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
+			final BlockState tendrilState = WWBlocks.HANGING_TENDRIL.get().defaultBlockState();
 			level.setBlock(mutable, tendrilState, UPDATE_ALL);
 			playPlaceSound(level, mutable, tendrilState);
 		}

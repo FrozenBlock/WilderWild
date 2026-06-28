@@ -32,45 +32,45 @@ public final class WWTints {
 	public static void init() {
 		BlockColorRegistry.register(
 			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),
-			WWBlocks.FLOWERING_LILY_PAD
+			WWBlocks.FLOWERING_LILY_PAD.get()
 		);
 
 		BlockColorRegistry.register(
 			List.of(BlockColors.BLANK_LAYER, BlockTintSources.grass()),
-			WWBlocks.POTTED_PINK_PETALS,
-			WWBlocks.POTTED_WILDFLOWERS,
-			WWBlocks.PHLOX,
-			WWBlocks.POTTED_PHLOX,
-			WWBlocks.LANTANAS,
-			WWBlocks.POTTED_LANTANAS
+			WWBlocks.POTTED_PINK_PETALS.get(),
+			WWBlocks.POTTED_WILDFLOWERS.get(),
+			WWBlocks.PHLOX.get(),
+			WWBlocks.POTTED_PHLOX.get(),
+			WWBlocks.LANTANAS.get(),
+			WWBlocks.POTTED_LANTANAS.get()
 		);
 
 		BlockColorHelper.registerTint(
 			BlockTintSources.grass(),
-			WWBlocks.POTTED_BUSH,
-			WWBlocks.CLOVERS,
-			WWBlocks.POTTED_CLOVERS
+			WWBlocks.POTTED_BUSH.get(),
+			WWBlocks.CLOVERS.get(),
+			WWBlocks.POTTED_CLOVERS.get()
 		);
 
 		BlockColorHelper.registerAverageFoliageTint(
-			WWBlocks.BAOBAB_LEAVES,
-			WWBlocks.WILLOW_LEAVES,
-			WWBlocks.CYPRESS_LEAVES,
-			WWBlocks.PALM_FRONDS,
-			WWBlocks.POTTED_SHORT_GRASS,
-			WWBlocks.SHRUB,
-			WWBlocks.POTTED_SHRUB
+			WWBlocks.BAOBAB_LEAVES.get(),
+			WWBlocks.WILLOW_LEAVES.get(),
+			WWBlocks.CYPRESS_LEAVES.get(),
+			WWBlocks.PALM_FRONDS.get(),
+			WWBlocks.POTTED_SHORT_GRASS.get(),
+			WWBlocks.SHRUB.get(),
+			WWBlocks.POTTED_SHRUB.get()
 		);
 
 		BlockColorHelper.registerTint(
 			BlockTintSources.dryFoliage(),
-			WWBlocks.ACACIA_LEAF_LITTER,
-			WWBlocks.BAOBAB_LEAF_LITTER,
-			WWBlocks.DARK_OAK_LEAF_LITTER,
-			WWBlocks.JUNGLE_LEAF_LITTER,
-			WWBlocks.MANGROVE_LEAF_LITTER,
-			WWBlocks.PALM_FROND_LITTER,
-			WWBlocks.WILLOW_LEAF_LITTER
+			WWBlocks.ACACIA_LEAF_LITTER.get(),
+			WWBlocks.BAOBAB_LEAF_LITTER.get(),
+			WWBlocks.DARK_OAK_LEAF_LITTER.get(),
+			WWBlocks.JUNGLE_LEAF_LITTER.get(),
+			WWBlocks.MANGROVE_LEAF_LITTER.get(),
+			WWBlocks.PALM_FROND_LITTER.get(),
+			WWBlocks.WILLOW_LEAF_LITTER.get()
 		);
 	}
 }

@@ -30,11 +30,11 @@ import org.jetbrains.annotations.Contract;
 
 public class SnowyBlockUtils {
 	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
-		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS)
-		.put(Blocks.TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS)
-		.put(Blocks.FERN, WWBlocks.FROZEN_FERN)
-		.put(Blocks.LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN)
-		.put(Blocks.BUSH, WWBlocks.FROZEN_BUSH)
+		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS.get())
+		.put(Blocks.TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS.get())
+		.put(Blocks.FERN, WWBlocks.FROZEN_FERN.get())
+		.put(Blocks.LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN.get())
+		.put(Blocks.BUSH, WWBlocks.FROZEN_BUSH.get())
 		.build();
 	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 

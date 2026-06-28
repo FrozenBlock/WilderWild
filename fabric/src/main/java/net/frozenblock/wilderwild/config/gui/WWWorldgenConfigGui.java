@@ -98,20 +98,20 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "oak_branches", WWWorldgenConfig.OAK_BRANCH_GENERATION),
 			booleanEntry(builder, "dark_oak_branches", WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION),
 			booleanEntry(builder, "pale_oak_branches", WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.ACACIA_LEAF_LITTER, WWWorldgenConfig.ACACIA_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.AZALEA_LEAF_LITTER, WWWorldgenConfig.AZALEA_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.BAOBAB_LEAF_LITTER, WWWorldgenConfig.BAOBAB_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.BIRCH_LEAF_LITTER, WWWorldgenConfig.BIRCH_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.CHERRY_LEAF_LITTER, WWWorldgenConfig.CHERRY_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.CYPRESS_LEAF_LITTER, WWWorldgenConfig.CYPRESS_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.DARK_OAK_LEAF_LITTER, WWWorldgenConfig.DARK_OAK_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.JUNGLE_LEAF_LITTER, WWWorldgenConfig.JUNGLE_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.MANGROVE_LEAF_LITTER, WWWorldgenConfig.MANGROVE_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.ACACIA_LEAF_LITTER.get(), WWWorldgenConfig.ACACIA_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.AZALEA_LEAF_LITTER.get(), WWWorldgenConfig.AZALEA_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.BAOBAB_LEAF_LITTER.get(), WWWorldgenConfig.BAOBAB_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.BIRCH_LEAF_LITTER.get(), WWWorldgenConfig.BIRCH_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.CHERRY_LEAF_LITTER.get(), WWWorldgenConfig.CHERRY_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.CYPRESS_LEAF_LITTER.get(), WWWorldgenConfig.CYPRESS_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.DARK_OAK_LEAF_LITTER.get(), WWWorldgenConfig.DARK_OAK_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.JUNGLE_LEAF_LITTER.get(), WWWorldgenConfig.JUNGLE_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.MANGROVE_LEAF_LITTER.get(), WWWorldgenConfig.MANGROVE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, Blocks.LEAF_LITTER, WWWorldgenConfig.OAK_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALE_OAK_LEAF_LITTER, WWWorldgenConfig.PALE_OAK_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER, WWWorldgenConfig.PALM_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.SPRUCE_LEAF_LITTER, WWWorldgenConfig.SPRUCE_LITTER_GENERATION),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.WILLOW_LEAF_LITTER, WWWorldgenConfig.WILLOW_LITTER_GENERATION)
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALE_OAK_LEAF_LITTER.get(), WWWorldgenConfig.PALE_OAK_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.SPRUCE_LEAF_LITTER.get(), WWWorldgenConfig.SPRUCE_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.WILLOW_LEAF_LITTER.get(), WWWorldgenConfig.WILLOW_LITTER_GENERATION)
 		);
 
 		// VEGETATION GENERATION

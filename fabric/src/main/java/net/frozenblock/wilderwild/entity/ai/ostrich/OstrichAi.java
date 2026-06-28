@@ -96,7 +96,7 @@ public class OstrichAi {
 	private static ActivityData<AbstractOstrich> initCoreActivity(final boolean zombie) {
 		final ImmutableList.Builder<BehaviorControl<? super AbstractOstrich>> builder = ImmutableList.builder();
 		builder.add(new Swim<>(0.8F));
-		if (!zombie) builder.add(new OstrichLayEgg(WWBlocks.OSTRICH_EGG));
+		if (!zombie) builder.add(new OstrichLayEgg(WWBlocks.OSTRICH_EGG.get()));
 		builder.add(
 			new OstrichPanic(
 				SPEED_MULTIPLIER_WHEN_PANICKING,

@@ -18,6 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.Set;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
@@ -36,31 +38,31 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public final class WWBlockEntityTypes {
 	public static final BlockEntityType<HangingTendrilBlockEntity> HANGING_TENDRIL = register(WWBlockEntityTypeIds.HANGING_TENDRIL,
 		HangingTendrilBlockEntity::new,
-		WWBlocks.HANGING_TENDRIL
+		WWBlocks.HANGING_TENDRIL.get()
 	);
 	public static final BlockEntityType<TermiteMoundBlockEntity> TERMITE_MOUND = register(WWBlockEntityTypeIds.TERMITE_MOUND,
 		TermiteMoundBlockEntity::new,
-		WWBlocks.TERMITE_MOUND
+		WWBlocks.TERMITE_MOUND.get()
 	);
 	public static final BlockEntityType<DisplayLanternBlockEntity> DISPLAY_LANTERN = register(WWBlockEntityTypeIds.DISPLAY_LANTERN,
 		DisplayLanternBlockEntity::new,
-		WWBlocks.DISPLAY_LANTERN
+		WWBlocks.DISPLAY_LANTERN.get()
 	);
 	public static final BlockEntityType<StoneChestBlockEntity> STONE_CHEST = register(WWBlockEntityTypeIds.STONE_CHEST,
 		StoneChestBlockEntity::new,
-		WWBlocks.STONE_CHEST
+		WWBlocks.STONE_CHEST.get()
 	);
 	public static final BlockEntityType<ScorchedBlockEntity> SCORCHED_BLOCK = register(WWBlockEntityTypeIds.SCORCHED_BLOCK,
 		ScorchedBlockEntity::new,
-		WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND
+		WWBlocks.SCORCHED_SAND.get(), WWBlocks.SCORCHED_RED_SAND.get()
 	);
 	public static final BlockEntityType<GeothermalVentBlockEntity> GEOTHERMAL_VENT = register(WWBlockEntityTypeIds.GEOTHERMAL_VENT,
 		GeothermalVentBlockEntity::new,
-		WWBlocks.GEOTHERMAL_VENT
+		WWBlocks.GEOTHERMAL_VENT.get()
 	);
 	public static final BlockEntityType<IcicleBlockEntity> ICICLE = register(WWBlockEntityTypeIds.ICICLE,
 		IcicleBlockEntity::new,
-		WWBlocks.ICICLE
+		WWBlocks.ICICLE.get()
 	);
 
 	public static void init() {}

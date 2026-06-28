@@ -56,7 +56,7 @@ public final class WWLootTables {
 				boolean modified = false;
 				if (WWWorldgenConfig.ALGAE_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.ALGAE.asItem())
+						LootItem.lootTableItem(WWBlocks.ALGAE.get().asItem())
 							.setWeight(4)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
@@ -66,7 +66,7 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.PLANKTON_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.PLANKTON.asItem())
+						LootItem.lootTableItem(WWBlocks.PLANKTON.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
@@ -76,7 +76,7 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.BARNACLES_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.BARNACLES.asItem())
+						LootItem.lootTableItem(WWBlocks.BARNACLES.get().asItem())
 							.setWeight(3)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
@@ -86,7 +86,7 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.TUBE_WORMS_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.asItem())
+						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.UNCOMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
@@ -96,7 +96,7 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.SEA_ANEMONE_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.asItem())
+						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.get().asItem())
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 6F)))
@@ -106,21 +106,21 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.asItem())
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
 					);
 
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_CARPET.asItem())
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_CARPET.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
 					);
 
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.AUBURN_CREEPING_MOSS.asItem())
+						LootItem.lootTableItem(WWBlocks.AUBURN_CREEPING_MOSS.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
@@ -146,7 +146,7 @@ public final class WWLootTables {
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 					).add(
-						LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.asItem())
+						LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.get().asItem())
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
@@ -166,7 +166,7 @@ public final class WWLootTables {
 								.setQuality(Rarity.COMMON.ordinal() + 1)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
 						).add(
-							LootItem.lootTableItem(WWBlocks.PALM_LOG.asItem())
+							LootItem.lootTableItem(WWBlocks.PALM_LOG.get().asItem())
 								.setWeight(2)
 								.setQuality(Rarity.COMMON.ordinal() + 1)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
@@ -195,7 +195,7 @@ public final class WWLootTables {
 				final LootPool.Builder pool = LootPool.lootPool();
 				if (WWBlockConfig.OSSEOUS_SCULK_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.asItem())
+						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)))
@@ -203,7 +203,7 @@ public final class WWLootTables {
 				}
 				if (WWBlockConfig.TENDRIL_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.asItem())
+						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))

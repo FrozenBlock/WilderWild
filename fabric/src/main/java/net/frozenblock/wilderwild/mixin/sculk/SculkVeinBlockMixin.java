@@ -44,9 +44,9 @@ public class SculkVeinBlockMixin {
 		@Local(name = "supportState") BlockState supportState
 	) {
 		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) return original;
-		if (supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(supportState);
-		if (supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(supportState);
-		if (supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(supportState);
+		if (supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.get().withPropertiesOf(supportState);
+		if (supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.get().withPropertiesOf(supportState);
+		if (supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.get().withPropertiesOf(supportState);
 		return original;
 	}
 
@@ -59,7 +59,7 @@ public class SculkVeinBlockMixin {
 		)
 	)
 	private boolean wilderWild$onDischarged(BlockState state, Object block, Operation<Boolean> operation) {
-		return state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
+		return state.is(WWBlocks.SCULK_SLAB.get()) || state.is(WWBlocks.SCULK_STAIRS.get()) || state.is(WWBlocks.SCULK_WALL.get()) || operation.call(state, block);
 	}
 
 }

@@ -199,77 +199,77 @@ public final class TermiteBlockBehaviors {
 	public static void bootstrap(BootstrapContext<TermiteBlockBehavior> context) {
 		// PLAYER-PLACED
 		registerNaturalAndPlayer(context, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-		registerHollowed(context, Blocks.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+		registerHollowed(context, Blocks.STRIPPED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_ACACIA_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-		registerHollowed(context, Blocks.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+		registerHollowed(context, Blocks.STRIPPED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_BIRCH_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-		registerHollowed(context, Blocks.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-		registerHollowed(context, Blocks.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_DARK_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-		registerHollowed(context, Blocks.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_JUNGLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-		registerHollowed(context, Blocks.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_SPRUCE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-		registerHollowed(context, Blocks.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+		registerHollowed(context, Blocks.STRIPPED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_MANGROVE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
 
 		registerNaturalAndPlayer(context, Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
-		registerHollowed(context, Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+		registerHollowed(context, Blocks.STRIPPED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_CHERRY_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
 
-		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
-		registerHollowed(context, WWBlocks.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_LOG.get(), WWBlocks.STRIPPED_BAOBAB_LOG.get());
+		registerHollowed(context, WWBlocks.STRIPPED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get());
+		registerNaturalAndPlayer(context, WWBlocks.BAOBAB_WOOD.get(), WWBlocks.STRIPPED_BAOBAB_WOOD.get());
 
-		registerNaturalAndPlayer(context, WWBlocks.WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
-		registerHollowed(context, WWBlocks.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-		registerNaturalAndPlayer(context, WWBlocks.WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.WILLOW_LOG.get(), WWBlocks.STRIPPED_WILLOW_LOG.get());
+		registerHollowed(context, WWBlocks.STRIPPED_WILLOW_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get());
+		registerNaturalAndPlayer(context, WWBlocks.WILLOW_WOOD.get(), WWBlocks.STRIPPED_WILLOW_WOOD.get());
 
-		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
-		registerHollowed(context, WWBlocks.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_LOG.get(), WWBlocks.STRIPPED_CYPRESS_LOG.get());
+		registerHollowed(context, WWBlocks.STRIPPED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get());
+		registerNaturalAndPlayer(context, WWBlocks.CYPRESS_WOOD.get(), WWBlocks.STRIPPED_CYPRESS_WOOD.get());
 
-		registerNaturalAndPlayer(context, WWBlocks.PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
-		registerHollowed(context, WWBlocks.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-		registerNaturalAndPlayer(context, WWBlocks.PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.PALM_LOG.get(), WWBlocks.STRIPPED_PALM_LOG.get());
+		registerHollowed(context, WWBlocks.STRIPPED_PALM_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALM_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.get());
+		registerNaturalAndPlayer(context, WWBlocks.PALM_WOOD.get(), WWBlocks.STRIPPED_PALM_WOOD.get());
 
-		registerNaturalAndPlayer(context, WWBlocks.MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
-		registerHollowed(context, WWBlocks.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-		registerNaturalAndPlayer(context, WWBlocks.MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
+		registerNaturalAndPlayer(context, WWBlocks.MAPLE_LOG.get(), WWBlocks.STRIPPED_MAPLE_LOG.get());
+		registerHollowed(context, WWBlocks.STRIPPED_MAPLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_MAPLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.get());
+		registerNaturalAndPlayer(context, WWBlocks.MAPLE_WOOD.get(), WWBlocks.STRIPPED_MAPLE_WOOD.get());
 
 		registerNaturalAndPlayer(context, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
-		registerHollowed(context, Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
-		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+		registerHollowed(context, Blocks.STRIPPED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
 
 		registerPlayerOnly(context, Blocks.BUSH, Blocks.DEAD_BUSH);
-		registerPlayerOnly(context, WWBlocks.SHRUB, Blocks.DEAD_BUSH);
+		registerPlayerOnly(context, WWBlocks.SHRUB.get(), Blocks.DEAD_BUSH);
 
 		registerBreakable(context, "leaves", BlockTags.LEAVES);
 		registerBreakable(context, "leaf_litters", WWBlockItemTags.LEAF_LITTERS.block());

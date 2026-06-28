@@ -163,7 +163,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> SPRUCE_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("spruce_litter_leaves"),
-		WWBlocks.SPRUCE_LEAF_LITTER,
+		WWBlocks.SPRUCE_LEAF_LITTER.get(),
 		5,
 		2F,
 		5F,
@@ -181,7 +181,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> BIRCH_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("birch_litter_leaves"),
-		WWBlocks.BIRCH_LEAF_LITTER,
+		WWBlocks.BIRCH_LEAF_LITTER.get(),
 		4,
 		1F,
 		10F,
@@ -199,7 +199,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> JUNGLE_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("jungle_litter_leaves"),
-		WWBlocks.JUNGLE_LEAF_LITTER,
+		WWBlocks.JUNGLE_LEAF_LITTER.get(),
 		4,
 		1.4F,
 		10F,
@@ -217,7 +217,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> ACACIA_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("acacia_litter_leaves"),
-		WWBlocks.ACACIA_LEAF_LITTER,
+		WWBlocks.ACACIA_LEAF_LITTER.get(),
 		4,
 		1.4F,
 		10F,
@@ -235,7 +235,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> DARK_OAK_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("dark_oak_litter_leaves"),
-		WWBlocks.DARK_OAK_LEAF_LITTER,
+		WWBlocks.DARK_OAK_LEAF_LITTER.get(),
 		5,
 		1.4F,
 		10F,
@@ -253,7 +253,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> PALE_OAK_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("pale_oak_litter_leaves"),
-		WWBlocks.PALE_OAK_LEAF_LITTER,
+		WWBlocks.PALE_OAK_LEAF_LITTER.get(),
 		5,
 		1.4F,
 		20F,
@@ -271,7 +271,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> MANGROVE_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("mangrove_litter_leaves"),
-		WWBlocks.MANGROVE_LEAF_LITTER,
+		WWBlocks.MANGROVE_LEAF_LITTER.get(),
 		6,
 		2.5F,
 		10F,
@@ -289,7 +289,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> CHERRY_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("cherry_litter_leaves"),
-		WWBlocks.CHERRY_LEAF_LITTER,
+		WWBlocks.CHERRY_LEAF_LITTER.get(),
 		4,
 		1F,
 		2F,
@@ -317,7 +317,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> AZALEA_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("azalea_litter_leaves"),
-		WWBlocks.AZALEA_LEAF_LITTER,
+		WWBlocks.AZALEA_LEAF_LITTER.get(),
 		4,
 		2F,
 		10F,
@@ -325,7 +325,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> BAOBAB_LEAVES = createLeafParticle(
 		WWConstants.id("baobab_leaves"),
-		WWBlocks.BAOBAB_LEAVES,
+		WWBlocks.BAOBAB_LEAVES.get(),
 		0.0095F,
 		() -> WWAmbienceAndMiscConfig.BAOBAB_LEAF_FREQUENCY.get() * 0.01D,
 		4,
@@ -335,7 +335,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> BAOBAB_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("baobab_litter_leaves"),
-		WWBlocks.BAOBAB_LEAF_LITTER,
+		WWBlocks.BAOBAB_LEAF_LITTER.get(),
 		4,
 		2F,
 		15F,
@@ -343,7 +343,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> CYPRESS_LEAVES = createLeafParticle(
 		WWConstants.id("cypress_leaves"),
-		WWBlocks.CYPRESS_LEAVES,
+		WWBlocks.CYPRESS_LEAVES.get(),
 		0.0075F,
 		() -> WWAmbienceAndMiscConfig.CYPRESS_LEAF_FREQUENCY.get() * 0.01D,
 		4,
@@ -353,7 +353,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> CYPRESS_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("cypress_litter_leaves"),
-		WWBlocks.CYPRESS_LEAF_LITTER,
+		WWBlocks.CYPRESS_LEAF_LITTER.get(),
 		4,
 		2F,
 		5F,
@@ -361,7 +361,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> PALM_FRONDS = createLeafParticle(
 		WWConstants.id("palm_fronds"),
-		WWBlocks.PALM_FRONDS,
+		WWBlocks.PALM_FRONDS.get(),
 		0.00055F,
 		() -> WWAmbienceAndMiscConfig.PALM_FROND_FREQUENCY.get() * 0.01D,
 		6,
@@ -371,7 +371,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> PALM_LITTER_FRONDS = createLeafLitterParticle(
 		WWConstants.id("palm_litter_fronds"),
-		WWBlocks.PALM_FROND_LITTER,
+		WWBlocks.PALM_FROND_LITTER.get(),
 		6,
 		4.5F,
 		5F,
@@ -384,7 +384,7 @@ public final class WWParticleTypes {
 
 	public static final ParticleType<WWFallingLeavesParticleOptions> WILLOW_LEAVES = createLeafParticle(
 		WWConstants.id("willow_leaves"),
-		WWBlocks.WILLOW_LEAVES,
+		WWBlocks.WILLOW_LEAVES.get(),
 		0.0045F,
 		() -> WWAmbienceAndMiscConfig.WILLOW_LEAF_FREQUENCY.get() * 0.01D,
 		5,
@@ -394,7 +394,7 @@ public final class WWParticleTypes {
 	);
 	public static final ParticleType<WWFallingLeavesParticleOptions> WILLOW_LITTER_LEAVES = createLeafLitterParticle(
 		WWConstants.id("willow_litter_leaves"),
-		WWBlocks.WILLOW_LEAF_LITTER,
+		WWBlocks.WILLOW_LEAF_LITTER.get(),
 		4,
 		1.4F,
 		10F,

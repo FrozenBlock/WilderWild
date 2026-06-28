@@ -133,7 +133,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.TERMITE_MOUND,
+				WWBlocks.TERMITE_MOUND.get(),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.description"),
 				null,
@@ -148,7 +148,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.GEOTHERMAL_VENT,
+				WWBlocks.GEOTHERMAL_VENT.get(),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.title"),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.description"),
 				null,
@@ -225,7 +225,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/walk_on_powder_snow_with_leather_boots")))
 			.display(
-				WWBlocks.FRAGILE_ICE,
+				WWBlocks.FRAGILE_ICE.get(),
 				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title"),
 				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description"),
 				null,
@@ -240,7 +240,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.NULL_BLOCK,
+				WWBlocks.NULL_BLOCK.get(),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.title"),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.description"),
 				null,
@@ -249,7 +249,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				true
 			)
-			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK))
+			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK.get()))
 			.save(writer, WWConstants.string("adventure/obtain_null_block"));
 	}
 }

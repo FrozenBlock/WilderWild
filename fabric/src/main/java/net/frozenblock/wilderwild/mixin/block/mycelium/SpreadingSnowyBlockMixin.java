@@ -88,6 +88,6 @@ public class SpreadingSnowyBlockMixin {
 		final BlockState aboveState = aboveStateRef.get();
 		final BlockPos abovePos = abovePosRef.get();
 		if (aboveState == null || abovePos == null || !aboveState.is(WWBlockTags.MYCELIUM_GROWTH_REPLACEABLE)) return;
-		level.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.defaultBlockState());
+		level.setBlockAndUpdate(abovePos, WWBlocks.MYCELIUM_GROWTH.get().defaultBlockState());
 	}
 }

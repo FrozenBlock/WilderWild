@@ -91,9 +91,9 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
 	@Nullable
 	private BlockState switchBlockStates(BlockState state) {
-		if (state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(state);
-		if (state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(state);
-		if (state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(state);
+		if (state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.get().withPropertiesOf(state);
+		if (state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.get().withPropertiesOf(state);
+		if (state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.get().withPropertiesOf(state);
 		return null;
 	}
 

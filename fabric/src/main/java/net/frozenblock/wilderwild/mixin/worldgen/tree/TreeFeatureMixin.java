@@ -73,7 +73,7 @@ public class TreeFeatureMixin {
 			if (state.getOptionalValue(BlockStateProperties.DISTANCE).orElse(0) > CoconutBlock.VALID_FROND_DISTANCE) return;
 			if (!level.getBlockState(mutable.setWithOffset(pos, 0, -1, 0)).isAir()) return;
 
-			level.setBlock(mutable, WWBlocks.COCONUT.defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
+			level.setBlock(mutable, WWBlocks.COCONUT.get().defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
 			coconutCount.incrementAndGet();
 		});
 		return original;

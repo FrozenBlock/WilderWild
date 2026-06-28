@@ -60,7 +60,7 @@ public class BoneMealItemMixin {
 		@Local(name = "stateToGrow") LocalRef<BlockState> stateToGrow
 	) {
 		if (WWWorldgenConfig.BARNACLES_GENERATION.get() && instance.is(WWBiomeTags.PRODUCES_BARNACLES_FROM_BONEMEAL) && random.nextInt(22) == 0) {
-			BlockState barnaclesState = WWBlocks.BARNACLES.defaultBlockState();
+			BlockState barnaclesState = WWBlocks.BARNACLES.get().defaultBlockState();
 			if (clickedFace != null) {
 				barnaclesState = barnaclesState
 					.setValue(MultifaceBlock.getFaceProperty(clickedFace), true)
@@ -68,7 +68,7 @@ public class BoneMealItemMixin {
 			}
 
 			for (int k = 0; !barnaclesState.canSurvive(level, testPos) && k < 8; k++) {
-				barnaclesState = WWBlocks.BARNACLES.defaultBlockState()
+				barnaclesState = WWBlocks.BARNACLES.get().defaultBlockState()
 					.setValue(MultifaceBlock.getFaceProperty(Direction.getRandom(random)), true)
 					.setValue(BarnaclesBlock.WATERLOGGED, true);
 			}
@@ -80,7 +80,7 @@ public class BoneMealItemMixin {
 		}
 
 		if (WWWorldgenConfig.SPONGE_BUD_GENERATION.get() && instance.is(WWBiomeTags.PRODUCES_SPONGE_BUDS_FROM_BONEMEAL) && random.nextInt(22) == 0) {
-			BlockState spongeBudState = WWBlocks.SPONGE_BUD.defaultBlockState();
+			BlockState spongeBudState = WWBlocks.SPONGE_BUD.get().defaultBlockState();
 			if (clickedFace != null) {
 				if (clickedFace.getAxis() == Direction.Axis.Y) {
 					spongeBudState = spongeBudState
@@ -94,12 +94,12 @@ public class BoneMealItemMixin {
 						.setValue(SpongeBudBlock.FACING, clickedFace.getOpposite());
 				}
 			} else {
-				spongeBudState = ((SpongeBudBlock) WWBlocks.SPONGE_BUD).randomBlockState(random)
+				spongeBudState = WWBlocks.SPONGE_BUD.get().randomBlockState(random)
 					.setValue(SpongeBudBlock.WATERLOGGED, true);
 			}
 
 			for (int k = 0; !spongeBudState.canSurvive(level, testPos) && k < 8; k++) {
-				spongeBudState = ((SpongeBudBlock) WWBlocks.SPONGE_BUD).randomBlockState(random)
+				spongeBudState = WWBlocks.SPONGE_BUD.get().randomBlockState(random)
 					.setValue(SpongeBudBlock.WATERLOGGED, true);
 			}
 
@@ -110,7 +110,7 @@ public class BoneMealItemMixin {
 		}
 
 		if (WWWorldgenConfig.SEA_ANEMONE_GENERATION.get() && instance.is(WWBiomeTags.PRODUCES_SEA_ANEMONE_FROM_BONEMEAL) && random.nextInt(19) == 0) {
-			final BlockState seaAnemoneState = WWBlocks.SEA_ANEMONE.defaultBlockState();
+			final BlockState seaAnemoneState = WWBlocks.SEA_ANEMONE.get().defaultBlockState();
 			if (seaAnemoneState.canSurvive(level, testPos)) {
 				stateToGrow.set(seaAnemoneState);
 				return false;
@@ -118,7 +118,7 @@ public class BoneMealItemMixin {
 		}
 
 		if (WWWorldgenConfig.SEA_WHIP_GENERATION.get() && instance.is(WWBiomeTags.PRODUCES_SEA_WHIPS_FROM_BONEMEAL) && random.nextInt(19) == 0) {
-			final BlockState seaWhipSate = WWBlocks.SEA_WHIP.defaultBlockState();
+			final BlockState seaWhipSate = WWBlocks.SEA_WHIP.get().defaultBlockState();
 			if (seaWhipSate.canSurvive(level, testPos)) {
 				stateToGrow.set(seaWhipSate);
 				return false;
@@ -126,7 +126,7 @@ public class BoneMealItemMixin {
 		}
 
 		if (WWWorldgenConfig.TUBE_WORMS_GENERATION.get() && instance.is(WWBiomeTags.PRODUCES_TUBE_WORMS_FROM_BONEMEAL) && random.nextInt(30) == 0) {
-			final BlockState tubeWormsState = WWBlocks.TUBE_WORMS.defaultBlockState();
+			final BlockState tubeWormsState = WWBlocks.TUBE_WORMS.get().defaultBlockState();
 			if (tubeWormsState.canSurvive(level, testPos)) {
 				stateToGrow.set(tubeWormsState);
 				return false;

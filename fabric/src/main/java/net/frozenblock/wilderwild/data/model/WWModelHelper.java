@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
@@ -300,7 +302,7 @@ public final class WWModelHelper {
 	}
 
 	public static void generatePaleMushroomBlock(BlockModelGenerators generator) {
-		final Block block = WWBlocks.PALE_MUSHROOM_BLOCK;
+		final Block block = WWBlocks.PALE_MUSHROOM_BLOCK.get();
 		final MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
 		final MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
 		generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
@@ -368,21 +370,21 @@ public final class WWModelHelper {
 			dispatch.select(Direction.DOWN, thickness, createIcicleVariant(generator, Direction.DOWN, thickness));
 		}
 
-		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE).with(dispatch));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE.get()).with(dispatch));
 	}
 
 	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, SpeleothemThickness thickness) {
 		String string = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
-		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE, string));
-		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE, string, textureMapping, generator.modelOutput));
+		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE.get(), string));
+		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE.get(), string, textureMapping, generator.modelOutput));
 	}
 
 	public static void createFragileIce(BlockModelGenerators generator) {
-		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.FRAGILE_ICE)
+				MultiVariantGenerator.dispatch(WWBlocks.FRAGILE_ICE.get())
 					.with(
 						PropertyDispatch.initial(BlockStateProperties.AGE_2)
 							.select(
@@ -391,51 +393,51 @@ public final class WWModelHelper {
 							)
 							.select(
 								1,
-								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube))
+								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube))
 							)
 							.select(
 								2,
-								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE, "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube))
+								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube))
 							)
 					)
 			);
 
-		generator.itemModelOutput.accept(WWBlocks.FRAGILE_ICE.asItem(), ItemModelUtils.plainModel(leastCrackedModelId));
+		generator.itemModelOutput.accept(WWBlocks.FRAGILE_ICE.get().asItem(), ItemModelUtils.plainModel(leastCrackedModelId));
 	}
 
 	public static void createShrub(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.SHRUB.asItem());
+		generator.registerSimpleFlatItemModel(WWBlocks.SHRUB.get().asItem());
 
 		final TextureMapping stage0Mapping = new TextureMapping()
-			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage0"))
-			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage0_overlay"));
-		final Identifier stage0Model = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB, "_stage0", stage0Mapping, generator.modelOutput);
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage0"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage0_overlay"));
+		final Identifier stage0Model = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage0", stage0Mapping, generator.modelOutput);
 
 		final TextureMapping stage1Mapping = new TextureMapping()
-			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage1"))
-			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage1_overlay"));
-		final Identifier stage1Model = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB, "_stage1", stage1Mapping, generator.modelOutput);
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage1"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage1_overlay"));
+		final Identifier stage1Model = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage1", stage1Mapping, generator.modelOutput);
 
 		final TextureMapping stage2Mapping = new TextureMapping()
-			.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage2_bottom"))
-			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage2_bottom_overlay"))
-			.put(TextureSlot.TOP, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage2_top"))
-			.put(TextureSlot.LAYER1, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage2_top_overlay"));
-		final Identifier stage2Model = DOUBLE_SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB, "_stage2", stage2Mapping, generator.modelOutput);
+			.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage2_bottom"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage2_bottom_overlay"))
+			.put(TextureSlot.TOP, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage2_top"))
+			.put(TextureSlot.LAYER1, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage2_top_overlay"));
+		final Identifier stage2Model = DOUBLE_SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage2", stage2Mapping, generator.modelOutput);
 
 		final TextureMapping stage3BottomMapping = new TextureMapping()
-			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage3_bottom"))
-			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage3_bottom_overlay"));
-		final Identifier stage3BottomModel = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB, "_stage3_bottom", stage3BottomMapping, generator.modelOutput);
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage3_bottom"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage3_bottom_overlay"));
+		final Identifier stage3BottomModel = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage3_bottom", stage3BottomMapping, generator.modelOutput);
 
 		final TextureMapping stage3TopMapping = new TextureMapping()
-			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage3_top"))
-			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB, "_stage3_top_overlay"));
-		final Identifier stage3TopModel = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB, "_stage3_top", stage3TopMapping, generator.modelOutput);
+			.put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage3_top"))
+			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage3_top_overlay"));
+		final Identifier stage3TopModel = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage3_top", stage3TopMapping, generator.modelOutput);
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.SHRUB)
+				MultiVariantGenerator.dispatch(WWBlocks.SHRUB.get())
 					.with(
 						PropertyDispatch.initial(ShrubBlock.HALF, ShrubBlock.AGE)
 							.select(DoubleBlockHalf.LOWER, 0, BlockModelGenerators.plainVariant(stage0Model))
@@ -465,25 +467,25 @@ public final class WWModelHelper {
 	}
 
 	public static void createSeaWhip(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.SEA_WHIP.asItem());
-		generator.createCrossBlock(WWBlocks.SEA_WHIP, BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.registerSimpleFlatItemModel(WWBlocks.SEA_WHIP.get().asItem());
+		generator.createCrossBlock(WWBlocks.SEA_WHIP.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 	}
 
 	public static void createAlgae(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE);
-		Identifier model = generator.createSuffixedVariant(WWBlocks.ALGAE, "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		generator.registerSimpleFlatItemModel(WWBlocks.ALGAE.get());
+		Identifier model = generator.createSuffixedVariant(WWBlocks.ALGAE.get(), "", ALGAE_MODEL, TextureMapping::defaultTexture);
 		MultiVariant variant = BlockModelGenerators.plainVariant(model);
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE, variant));
+		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(WWBlocks.ALGAE.get(), variant));
 	}
 
 	public static void createPlankton(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON);
-		Identifier model = generator.createSuffixedVariant(WWBlocks.PLANKTON, "", ALGAE_MODEL, TextureMapping::defaultTexture);
-		Identifier glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON, "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
+		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON.get());
+		Identifier model = generator.createSuffixedVariant(WWBlocks.PLANKTON.get(), "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		Identifier glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON.get(), "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.PLANKTON)
+				MultiVariantGenerator.dispatch(WWBlocks.PLANKTON.get())
 					.with(
 						PropertyDispatch.initial(WWBlockStateProperties.GLOWING)
 							.select(
@@ -499,14 +501,14 @@ public final class WWModelHelper {
 	}
 
 	public static void createTubeWorms(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS);
-		Identifier singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		generator.registerSimpleFlatItemModel(WWBlocks.TUBE_WORMS.get());
+		Identifier singleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS.get(), "", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier topModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS.get(), "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier middleModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS.get(), "_middle", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.TUBE_WORMS.get(), "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.TUBE_WORMS)
+				MultiVariantGenerator.dispatch(WWBlocks.TUBE_WORMS.get())
 					.with(
 						PropertyDispatch.initial(WWBlockStateProperties.TUBE_WORMS_PART)
 							.select(TubeWormsPart.SINGLE, BlockModelGenerators.plainVariant(singleModel))
@@ -518,18 +520,18 @@ public final class WWModelHelper {
 	}
 
 	public static void createCattail(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWBlocks.CATTAIL.asItem());
+		generator.registerSimpleFlatItemModel(WWBlocks.CATTAIL.get().asItem());
 
-		Identifier topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier topModel = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier bottomModel = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 
-		Identifier swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
-		Identifier swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL, "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingTopStrong = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_swaying_top", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
+		Identifier swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.CATTAIL)
+				MultiVariantGenerator.dispatch(WWBlocks.CATTAIL.get())
 					.with(
 						PropertyDispatch.initial(BlockStateProperties.DOUBLE_BLOCK_HALF, BlockStateProperties.WATERLOGGED , WWBlockStateProperties.SWAYING)
 							.select(DoubleBlockHalf.LOWER, false, false, BlockModelGenerators.plainVariant(bottomModel))

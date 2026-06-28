@@ -70,7 +70,7 @@ public class GrassBlockMixin {
 		Block original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		return isSnowy.get() ? WWBlocks.FROZEN_SHORT_GRASS : original;
+		return isSnowy.get() ? WWBlocks.FROZEN_SHORT_GRASS.get() : original;
 	}
 
 	@ModifyExpressionValue(

@@ -79,7 +79,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.RED_SHELF_FUNGI.asItem())
+							LootItem.lootTableItem(WWBlocks.RED_SHELF_FUNGI.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -92,7 +92,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.BROWN_SHELF_FUNGI.asItem())
+							LootItem.lootTableItem(WWBlocks.BROWN_SHELF_FUNGI.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -105,7 +105,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.PALE_SHELF_FUNGI.asItem())
+							LootItem.lootTableItem(WWBlocks.PALE_SHELF_FUNGI.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -118,7 +118,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.CRIMSON_SHELF_FUNGI.asItem())
+							LootItem.lootTableItem(WWBlocks.CRIMSON_SHELF_FUNGI.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -131,7 +131,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.WARPED_SHELF_FUNGI.asItem())
+							LootItem.lootTableItem(WWBlocks.WARPED_SHELF_FUNGI.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -144,7 +144,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.SPONGE_BUD.asItem())
+							LootItem.lootTableItem(WWBlocks.SPONGE_BUD.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)
@@ -157,7 +157,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWBlocks.SHRUB.asItem())
+							LootItem.lootTableItem(WWBlocks.SHRUB.get().asItem())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 						)
 				)

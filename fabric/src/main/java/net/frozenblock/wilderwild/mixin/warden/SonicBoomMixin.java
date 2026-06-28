@@ -136,7 +136,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		boolean blocked = true;
 		for (Direction direction : Direction.values()) {
 			final Vec3 vec3d3 = centerStart.relative(direction, 9.999999747378752E-6D);
-			final BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, centerEnd, (state) -> state.is(WWBlocks.ECHO_GLASS)));
+			final BlockHitResult hit = level.isBlockInLine(new ClipBlockStateContext(vec3d3, centerEnd, (state) -> state.is(WWBlocks.ECHO_GLASS.get())));
 			if (hit.getType() != HitResult.Type.BLOCK) {
 				blocked = false;
 			} else {

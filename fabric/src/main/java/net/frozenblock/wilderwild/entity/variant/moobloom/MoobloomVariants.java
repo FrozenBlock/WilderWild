@@ -107,8 +107,8 @@ public final class MoobloomVariants {
 		register(bootstrapContext, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "lily_of_the_valley");
 		register(bootstrapContext, ALLIUM, Blocks.ALLIUM, "allium");
 		register(bootstrapContext, BLUE_ORCHID, Blocks.BLUE_ORCHID, "blue_orchid");
-		register(bootstrapContext, CARNATION, WWBlocks.CARNATION, "carnation");
-		register(bootstrapContext, MARIGOLD, WWBlocks.MARIGOLD, "marigold");
-		register(bootstrapContext, PASQUEFLOWER, WWBlocks.PASQUEFLOWER, "pasqueflower");
+		register(bootstrapContext, CARNATION, WWBlocks.CARNATION.get(), "carnation");
+		register(bootstrapContext, MARIGOLD, WWBlocks.MARIGOLD.get(), "marigold");
+		register(bootstrapContext, PASQUEFLOWER, WWBlocks.PASQUEFLOWER.get(), "pasqueflower");
 	}
 }

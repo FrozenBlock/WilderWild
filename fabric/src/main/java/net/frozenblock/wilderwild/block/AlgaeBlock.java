@@ -158,7 +158,7 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 		int count = 0;
 		while (count < threshold) {
 			if (!posesToCheck.hasNext()) return false;
-			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE)) count = count + 1;
+			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE.get())) count = count + 1;
 		}
 		return true;
 	}

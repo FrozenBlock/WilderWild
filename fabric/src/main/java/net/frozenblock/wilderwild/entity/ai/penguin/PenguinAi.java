@@ -133,7 +133,7 @@ public class PenguinAi {
 				new AnimalPanic<>(2F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
-				new PenguinLayEgg(WWBlocks.PENGUIN_EGG),
+				new PenguinLayEgg(WWBlocks.PENGUIN_EGG.get()),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.IDLE_TIME),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.DIVE_TICKS),

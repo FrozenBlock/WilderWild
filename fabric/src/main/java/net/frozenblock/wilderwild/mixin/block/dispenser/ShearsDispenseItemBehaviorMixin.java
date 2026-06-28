@@ -65,14 +65,14 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearMilkweed(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() != WWBlocks.MILKWEED || !MilkweedBlock.isFullyGrown(state)) return false;
+		if (state.getBlock() != WWBlocks.MILKWEED.get() || !MilkweedBlock.isFullyGrown(state)) return false;
 		MilkweedBlock.onShear(level, pos, state, stack, null);
 		return true;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearPricklyPear(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() != WWBlocks.PRICKLY_PEAR || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
+		if (state.getBlock() != WWBlocks.PRICKLY_PEAR.get() || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
 		PricklyPearCactusBlock.onPricklyPearPick(level, pos, state, true, stack, null);
 		return true;
 	}
@@ -85,19 +85,19 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearSpongeBud(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() == WWBlocks.SPONGE_BUD) return SpongeBudBlock.onShear(level, pos, state, stack, null);
+		if (state.getBlock() == WWBlocks.SPONGE_BUD.get()) return SpongeBudBlock.onShear(level, pos, state, stack, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweed(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() == WWBlocks.TUMBLEWEED) return TumbleweedBlock.onShear(level, pos, null);
+		if (state.getBlock() == WWBlocks.TUMBLEWEED.get()) return TumbleweedBlock.onShear(level, pos, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweedStem(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() == WWBlocks.TUMBLEWEED_PLANT) return TumbleweedPlantBlock.onShear(level, pos, state, null);
+		if (state.getBlock() == WWBlocks.TUMBLEWEED_PLANT.get()) return TumbleweedPlantBlock.onShear(level, pos, state, null);
 		return false;
 	}
 
