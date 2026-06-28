@@ -43,6 +43,8 @@ public final class WWActivities {
 		POST_ESCAPE = register(register, "post_escape");
 		CHASE = register(register, "chase");
 		CALL = register(register, "call");
+
+		register.register();
 	}
 
 	public static void init() {}

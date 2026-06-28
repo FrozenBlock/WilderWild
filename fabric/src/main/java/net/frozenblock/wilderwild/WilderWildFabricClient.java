@@ -57,7 +57,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WWParticleEngine.init();
 		WWTints.init();
 		WWRenderStateDataKeys.init();
-		WWEasterEggs.hatchEasterEggs();
 		WWClientMusicImpl.init();
 		AmbientWindParticleSpawner.init();
 
