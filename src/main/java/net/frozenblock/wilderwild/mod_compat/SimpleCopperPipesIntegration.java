@@ -29,7 +29,6 @@ import net.minecraft.core.Position;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public class SimpleCopperPipesIntegration extends ModIntegration {
 
@@ -42,25 +41,26 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		if (SimpleCopperPipes.getCompatID() == 4) {
 			WWConstants.log("Initiated Wilder Wild & Simple Copper Pipes compat!", true);
 
-			CopperPipeDispenseBehaviors.register(BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
-				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
-				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
-				tumbleweed.setPos(getOutputPosition(position, direction));
-				level.addFreshEntity(tumbleweed);
-			});
+			CopperPipeDispenseBehaviors.register(
+				BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")),
+				(level, stack, i, direction, position, state, pos, pipe) -> {
+					final Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
+					final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
+					tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
+					tumbleweed.setPos(getOutputPosition(position, direction));
+					level.addFreshEntity(tumbleweed);
+				});
 
 			PipeMovementRestrictions.register(
 				WWConstants.id("stone_chest"),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false),
-				((serverLevel, blockPos, blockState, copperPipeEntity, blockEntity) -> false)
+				((level, pos, state, pipe, blockEntity) -> false),
+				((level, pos, state, pipe, blockEntity) -> false)
 			);
 		} else {
 			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 4 (minimum SCP is 2.0.)", true);
 		}
 	}
 
-	@Contract("_, _ -> new")
 	public static Vec3 getOutputPosition(Position position, Direction direction) {
 		return new Vec3(
 			position.x(),
@@ -79,5 +79,4 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 		final double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (yRandom * 0.1D);
 		return new Vec3(velX, velY, velZ);
 	}
-
 }

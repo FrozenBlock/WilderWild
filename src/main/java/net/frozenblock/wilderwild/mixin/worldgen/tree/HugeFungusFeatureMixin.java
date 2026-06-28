@@ -84,7 +84,7 @@ public class HugeFungusFeatureMixin {
 	}
 
 	/**
-	 * Replaces the center position of the huge fungus with newPos when thickBigFungusGrowth is enabled
+	 * Replaces the center position of the huge fungus with newPos when thickBigFungusGrowth is enabledWhen
 	 *
 	 * @param newOrigin original position
 	 * @param newPos   new position, potentially modified by @wilderWild$placeThickener

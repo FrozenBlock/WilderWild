@@ -189,7 +189,7 @@ public final class WWItems {
 	// VEGETATION
 	public static final Item POLLEN = Items.registerBlock(WWBlockItemIds.POLLEN, WWBlocks.POLLEN);
 	public static final Item PRICKLY_PEAR = Items.registerBlock(WWBlockItemIds.PRICKLY_PEAR, WWBlocks.PRICKLY_PEAR,
-		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS, WWDamageTypes.PRICKLY_PEAR),
+		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.value(), WWDamageTypes.PRICKLY_PEAR),
 		new Item.Properties().food(WWFoods.PRICKLY_PEAR)
 	);
 	public static final Item SHRUB = Items.registerBlock(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
