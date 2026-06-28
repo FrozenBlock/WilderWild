@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
@@ -37,7 +36,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = WWMixinsConfig.get();
 		this.disableNonSodium = FrozenBools.HAS_SODIUM;
-		this.hasFallingLeavesMod = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("fallingleaves"); // TODO NEOFORGE PORT
+		this.hasFallingLeavesMod = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("fallingleaves");
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.client.gui.screens.Screen;
 import static net.frozenblock.wilderwild.WWConstants.text;
 
@@ -18,7 +19,7 @@ public final class WWNeoMainConfigGui {
 			WWBlockConfig.CONFIG.save();
 			WWEntityConfig.CONFIG.save();
 			WWItemConfig.CONFIG.save();
-			net.frozenblock.wilderwild.config.WWWorldgenConfig.CONFIG.save();
+			WWWorldgenConfig.CONFIG.save();
 			WWAmbienceAndMiscConfig.CONFIG.save();
 			WWMixinsConfig.INSTANCE.save();
 		});
@@ -28,7 +29,7 @@ public final class WWNeoMainConfigGui {
 		//WWEntityConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("entity")), entryBuilder);
 		WWItemConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("item")), entryBuilder);
 		//WWWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("worldgen")), entryBuilder);
-		//WWAmbienceAndMiscConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("misc")), entryBuilder);
+		WWAmbienceAndMiscConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("misc")), entryBuilder);
 
 		return configBuilder.build();
 	}

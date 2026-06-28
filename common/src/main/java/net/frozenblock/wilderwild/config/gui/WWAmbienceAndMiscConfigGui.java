@@ -19,14 +19,13 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWAmbienceAndMiscConfigGui {
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {
