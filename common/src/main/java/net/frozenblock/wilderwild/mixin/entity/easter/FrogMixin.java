@@ -35,5 +35,4 @@ public final class FrogMixin {
 		if (string.equalsIgnoreCase("Xfrtrex") || string.equalsIgnoreCase("BluePhoenixLOL"))
 			info.setReturnValue(WWSounds.ENTITY_FROG_SUS_DEATH.get());
 	}
-
 }

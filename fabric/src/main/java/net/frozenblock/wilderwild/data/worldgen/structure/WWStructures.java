@@ -35,7 +35,6 @@ import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 public final class WWStructures {
 	public static final ResourceKey<Structure> ABANDONED_CAMP_MAPLE_FOREST = createKey("abandoned_camp_maple_forest");
 
-	// TODO: structure set modification api so it can generate
 	public static void bootstrap(BootstrapContext<Structure> context) {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<StructureTemplatePool> templates = context.lookup(Registries.TEMPLATE_POOL);

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -42,11 +43,12 @@ public class SpawnPlacementsMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/entity/EntityTypes;SLIME:Lnet/minecraft/world/entity/EntityType;"
+				target = "Lnet/minecraft/world/entity/EntityTypes;SLIME:Lnet/minecraft/world/entity/EntityType;",
+				opcode = Opcodes.GETSTATIC
 			)
 		)
 	)
-	private static <T extends Mob> void wilderWild$register(
+	private static <T extends Mob> void wilderWild$slimesSpawnInAlgaeToo(
 		EntityType<T> type, SpawnPlacementType placementType, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> spawnPredicate, Operation<Void> original
 	) {
 		original.call(type, WWSpawnTypes.ON_GROUND_OR_IN_ALGAE, heightmap, spawnPredicate);

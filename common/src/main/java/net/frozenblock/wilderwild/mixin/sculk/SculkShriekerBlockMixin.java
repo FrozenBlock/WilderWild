@@ -47,5 +47,4 @@ public abstract class SculkShriekerBlockMixin extends BaseEntityBlock {
 		if (WWBlockConfig.SHRIEKER_OUTLINE.get()) return WILDERRWILD$SHAPE;
 		return super.getShape(state, level, pos, context);
 	}
-
 }

@@ -61,7 +61,7 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 		final BlockPos abovePos = pos.above();
 		final BlockState topState = copyWaterloggedFrom(level, abovePos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER))
 			.setValue(SWAYING, state.getValue(WATERLOGGED));
-		level.setBlock(abovePos, topState, UPDATE_ALL);
+		level.setBlockAndUpdate(abovePos, topState);
 	}
 
 	@Override

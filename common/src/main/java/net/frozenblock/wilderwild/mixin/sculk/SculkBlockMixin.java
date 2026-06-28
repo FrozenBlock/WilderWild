@@ -26,7 +26,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
-import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.block.impl.StairSlabWallSculkBehaviour;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -227,7 +227,7 @@ public class SculkBlockMixin {
 	private void wilderWild$handlePlacement(
 		SculkSpreader.ChargeCursor cursor,
 		LevelAccessor level,
-		BlockPos pos,
+		BlockPos originPos,
 		RandomSource random,
 		SculkSpreader spreader,
 		boolean spreadVein,
@@ -242,8 +242,12 @@ public class SculkBlockMixin {
 			for (int a = 0; a < growthAttempts; a++) {
 				osseousSculkBlock.attemptUseCharge(cursor, level, placedPos.get(), random, spreader, spreadVein);
 			}
-		} else if (placedState.get().is(WWBlocks.SCULK_STAIRS.get()) || placedState.get().is(WWBlocks.SCULK_SLAB.get()) || placedState.get().is(WWBlocks.SCULK_WALL.get())) {
-			SlabWallStairSculkBehavior.clearSculkVeins(level, placedPos.get());
+		} else if (
+			placedState.get().is(WWBlocks.SCULK_STAIRS.get())
+			|| placedState.get().is(WWBlocks.SCULK_SLAB.get())
+			|| placedState.get().is(WWBlocks.SCULK_WALL.get())
+		) {
+			StairSlabWallSculkBehaviour.clearSculkVeins(level, placedPos.get());
 		}
 
 		placedPos.set(null);

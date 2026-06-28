@@ -217,7 +217,7 @@ public record LargeMesogleaFeature(
 							final BlockPos pos = windOffsetter.offset(mutable);
 							if (isEmptyOrWaterOrLava(level, pos)) {
 								bl = true;
-								level.setBlock(pos, feature.block().getState(level, random, mutable), Block.UPDATE_ALL);
+								level.setBlockAndUpdate(pos, feature.block().getState(level, random, mutable));
 							} else if (bl && level.getBlockState(pos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								break;
 							}

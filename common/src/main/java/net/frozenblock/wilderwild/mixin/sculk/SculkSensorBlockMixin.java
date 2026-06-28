@@ -47,5 +47,4 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock {
 			})
 		);
 	}
-
 }

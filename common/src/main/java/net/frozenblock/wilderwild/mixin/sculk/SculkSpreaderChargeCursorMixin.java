@@ -24,7 +24,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import java.util.List;
 import net.frozenblock.lib.block.api.sculk.BooleanPropertySculkBehavior;
-import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.block.impl.StairSlabWallSculkBehaviour;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -150,10 +150,10 @@ public class SculkSpreaderChargeCursorMixin {
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		if (isWorldGen.get()) {
-			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new SlabWallStairSculkBehavior();
+			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new StairSlabWallSculkBehaviour();
 			if (state.is(WWBlocks.STONE_CHEST.get())) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
 		} else {
-			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new SlabWallStairSculkBehavior();
+			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new StairSlabWallSculkBehaviour();
 		}
 		return operation.call(state);
 	}

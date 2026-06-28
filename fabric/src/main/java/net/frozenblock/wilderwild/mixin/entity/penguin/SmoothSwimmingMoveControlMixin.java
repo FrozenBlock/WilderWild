@@ -40,5 +40,4 @@ public class SmoothSwimmingMoveControlMixin {
 		if (instance instanceof Penguin) return instance.isUnderWater();
 		return original.call(instance);
 	}
-
 }
