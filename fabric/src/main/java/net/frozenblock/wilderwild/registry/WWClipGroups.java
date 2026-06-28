@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.clipgroup.ClipGroups;
 import net.frozenblock.lib.block.impl.clipgroup.ClipGroup;
-import net.frozenblock.lib.registry.FrozenLibFabricRegistries;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.registries.Registries;
@@ -34,6 +34,6 @@ public final class WWClipGroups {
 	}
 
 	private static ResourceKey<ClipGroup> bind(String name) {
-		return ResourceKey.create(FrozenLibFabricRegistries.CLIP_GROUP, WWConstants.id(name));
+		return ResourceKey.create(FrozenLibRegistries.CLIP_GROUP, WWConstants.id(name));
 	}
 }

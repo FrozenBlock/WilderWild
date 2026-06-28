@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.networking.PlayerLookup;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -38,7 +38,7 @@ public record WWLightningStrikePacket(int blockStateId, double x, double y, doub
 
 	public static void sendToAll(Entity entity, BlockState state, int tickCount) {
 		for (ServerPlayer player : PlayerLookup.tracking(entity)) {
-			ServerPlayNetworking.send(
+			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(
 				player,
 				new WWLightningStrikePacket(
 					Block.getId(state),

@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -30,7 +30,7 @@ public record WWJellyfishStingPacket(boolean isBaby) implements CustomPacketPayl
 	public static final StreamCodec<FriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby).cast();
 
 	public static void sendTo(ServerPlayer player, boolean isBaby) {
-		ServerPlayNetworking.send(player, new WWJellyfishStingPacket(isBaby));
+		FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(player, new WWJellyfishStingPacket(isBaby));
 	}
 
 	@Override

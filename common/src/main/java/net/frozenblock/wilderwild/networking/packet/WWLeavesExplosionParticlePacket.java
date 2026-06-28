@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.networking.packet;
 
 import java.util.List;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.networking.PlayerLookup;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,7 +42,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 
 	public static void sendToAll(BlockState state, BlockPos pos, Vec3 vec3, List<Direction> directions, int count, ServerLevel level) {
 		for (ServerPlayer player : PlayerLookup.around(level, pos, 64D)) {
-			ServerPlayNetworking.send(
+			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(
 				player,
 				new WWLeavesExplosionParticlePacket(state, pos, vec3, directions, count)
 			);

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.lib.registry.FrozenLibFabricRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -56,9 +57,9 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		WWConstants.log("Adding finalized sound type overrides to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.SOUND_TYPE_OVERRIDE)));
 		WWConstants.log("Adding finalized clip groups to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.CLIP_GROUP)));
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CLIP_GROUP)));
 		WWConstants.log("Adding finalized water-like types to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.WATER_LIKE_TYPE)));
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.WATER_LIKE_TYPE)));
 		WWConstants.log("Adding finalized structure music to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.STRUCTURE_MUSIC)));
 

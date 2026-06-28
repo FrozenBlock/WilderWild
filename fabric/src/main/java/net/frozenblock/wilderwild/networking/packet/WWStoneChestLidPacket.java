@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.frozenblock.lib.networking.PlayerLookup;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -37,7 +37,7 @@ public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float 
 
 	public static void sendToAll(StoneChestBlockEntity stoneChest) {
 		for (ServerPlayer player : PlayerLookup.tracking(stoneChest)) {
-			ServerPlayNetworking.send(
+			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(
 				player,
 				new WWStoneChestLidPacket(
 					stoneChest.getBlockPos(),

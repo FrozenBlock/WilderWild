@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.lib.networking.PlayerLookup;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -27,17 +26,17 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
-public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPayload {
-	public static final Type<WWScorchingFirePlacePacket> PACKET_TYPE = new Type<>(WWConstants.id("scorching_fire_place"));
-	public static final StreamCodec<FriendlyByteBuf, WWScorchingFirePlacePacket> CODEC = StreamCodec.ofMember(WWScorchingFirePlacePacket::write, WWScorchingFirePlacePacket::new);
+public record WWIcicleLandPacket(BlockPos pos) implements CustomPacketPayload {
+	public static final Type<WWIcicleLandPacket> PACKET_TYPE = new Type<>(WWConstants.id("icicle_land"));
+	public static final StreamCodec<FriendlyByteBuf, WWIcicleLandPacket> CODEC = StreamCodec.ofMember(WWIcicleLandPacket::write, WWIcicleLandPacket::new);
 
-	public WWScorchingFirePlacePacket(FriendlyByteBuf buf) {
+	public WWIcicleLandPacket(FriendlyByteBuf buf) {
 		this(buf.readBlockPos());
 	}
 
 	public static void sendToAll(ServerLevel serverLevel, BlockPos pos) {
 		for (ServerPlayer player : PlayerLookup.tracking(serverLevel, pos)) {
-			ServerPlayNetworking.send(player, new WWScorchingFirePlacePacket(pos));
+			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(player, new WWIcicleLandPacket(pos));
 		}
 	}
 

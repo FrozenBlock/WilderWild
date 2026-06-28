@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.waterlike.WaterLikeTypes;
 import net.frozenblock.lib.block.impl.waterlike.WaterLikeType;
-import net.frozenblock.lib.registry.FrozenLibFabricRegistries;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.registries.Registries;
@@ -48,6 +48,6 @@ public final class WWWaterLikeTypes {
 	}
 
 	private static ResourceKey<WaterLikeType> bind(String name) {
-		return ResourceKey.create(FrozenLibFabricRegistries.WATER_LIKE_TYPE, WWConstants.id(name));
+		return ResourceKey.create(FrozenLibRegistries.WATER_LIKE_TYPE, WWConstants.id(name));
 	}
 }
