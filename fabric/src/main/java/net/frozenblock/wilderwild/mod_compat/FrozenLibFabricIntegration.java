@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import java.util.List;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.friction.BlockFrictionAPI;
@@ -27,7 +26,6 @@ import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
-import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
@@ -37,11 +35,9 @@ import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.SpawnUtil;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.block.Block;
@@ -76,14 +72,6 @@ public class FrozenLibFabricIntegration extends ModIntegration {
 	@Override
 	public void init() {
 		WWConstants.log("FrozenLib mod integration ran!", WWConstants.UNSTABLE_LOGGING);
-
-		ServerLevelEvents.LOAD.register(
-			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
-				level.damageSources().damageTypes.getValueOrThrow(DamageTypes.CACTUS),
-				WWSounds.PLAYER_HURT_CACTUS.get(),
-				WWConstants.id("cactus")
-			)
-		);
 
 		DripstoneDripApi.addWaterDrip(
 			Blocks.WET_SPONGE,

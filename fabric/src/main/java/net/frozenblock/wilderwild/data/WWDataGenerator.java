@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
 import net.frozenblock.wilderwild.data.recipe.WWRecipeProvider;
+import net.frozenblock.wilderwild.data.sound.WWPlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
 import net.frozenblock.wilderwild.data.tag.WWBiomeTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWBlockTagsProvider;
@@ -111,6 +112,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.RULE_SOURCE_ADDITION, WWMaterialRules::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
