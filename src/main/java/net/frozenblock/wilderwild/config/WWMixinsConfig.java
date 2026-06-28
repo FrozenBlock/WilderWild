@@ -83,8 +83,6 @@ public final class WWMixinsConfig {
 
 	public boolean block_ocean = true;
 
-	public boolean block_potent_sulfur = true;
-
 	public boolean block_sound = true;
 
 	public boolean block_spawner = true;

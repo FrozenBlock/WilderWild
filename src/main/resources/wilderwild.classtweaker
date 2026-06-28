@@ -28,8 +28,6 @@ accessible field net/minecraft/world/level/block/state/StateHolder propertyKeys 
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signalOpenCount (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
 
-transitive-inject-interface net/minecraft/world/level/block/entity/PotentSulfurBlockEntity net/frozenblock/wilderwild/block/entity/impl/WWPotentSulfurWindAccess
-
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
 

@@ -8,3 +8,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
 - Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
 - Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
+- Removed Wilder Wild's Potent Sulfur Geyser Wind Disturbance, as it has been moved into FrozenLib.
