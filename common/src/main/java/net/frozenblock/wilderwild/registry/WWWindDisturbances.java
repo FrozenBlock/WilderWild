@@ -21,7 +21,6 @@ import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
-import net.frozenblock.wilderwild.wind.disturbance.GeyserWindDisturbance;
 
 public final class WWWindDisturbances {
 	public static final WindDisturbanceType<GeothermalVentEffectiveWindDisturbance> GEOTHERMAL_VENT_EFFECTIVE = WindDisturbanceType.register(
@@ -33,11 +32,6 @@ public final class WWWindDisturbances {
 		WWConstants.id("geothermal_vent_base"),
 		GeothermalVentBaseWindDisturbance.CODEC,
 		GeothermalVentBaseWindDisturbance.STREAM_CODEC
-	);
-	public static final WindDisturbanceType<GeyserWindDisturbance> GEYSER = WindDisturbanceType.register(
-		WWConstants.id("geyser"),
-		GeyserWindDisturbance.CODEC,
-		GeyserWindDisturbance.STREAM_CODEC
 	);
 
 	public static void init() {}
