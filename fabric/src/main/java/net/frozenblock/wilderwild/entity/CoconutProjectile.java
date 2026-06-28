@@ -47,11 +47,11 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 	}
 
 	public CoconutProjectile(Level level, LivingEntity shooter, ItemStack stack) {
-		super(WWEntityTypes.COCONUT, shooter, level, stack);
+		super(WWEntityTypes.COCONUT.get(), shooter, level, stack);
 	}
 
 	public CoconutProjectile(Level level, double x, double y, double z, ItemStack stack) {
-		super(WWEntityTypes.COCONUT, x, y, z, level, stack);
+		super(WWEntityTypes.COCONUT.get(), x, y, z, level, stack);
 	}
 
 	@Override

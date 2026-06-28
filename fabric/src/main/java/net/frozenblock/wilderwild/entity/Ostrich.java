@@ -89,7 +89,7 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public Ostrich getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		return WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
+		return WWEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
 	}
 
 	@Override

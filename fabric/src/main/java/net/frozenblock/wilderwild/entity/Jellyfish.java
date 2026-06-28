@@ -190,7 +190,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	public static void spawnFromChest(Level level, BlockState state, BlockPos pos, boolean checkConfig) {
 		if (checkConfig && !WWEntityConfig.SPAWN_JELLYFISH.get()) return;
-		final Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH, level);
+		final Jellyfish jellyfish = new Jellyfish(WWEntityTypes.JELLYFISH.get(), level);
 		double additionalX = 0D;
 		double additionalZ = 0D;
 		if (state.hasProperty(BlockStateProperties.CHEST_TYPE) && state.getValue(BlockStateProperties.CHEST_TYPE) != ChestType.SINGLE) {
@@ -543,7 +543,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public void spawnChild(ServerLevel level) {
-		final Jellyfish jellyfish = WWEntityTypes.JELLYFISH.create(level, EntitySpawnReason.BREEDING);
+		final Jellyfish jellyfish = WWEntityTypes.JELLYFISH.get().create(level, EntitySpawnReason.BREEDING);
 		if (jellyfish == null) return;
 
 		jellyfish.setBaby(true);
@@ -687,7 +687,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public Optional<ResourceKey<LootTable>> getLootTable() {
-		final Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH);
+		final Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH.get());
 		final Identifier variantId = this.getVariantLocation();
 		return Optional.of(
 			ResourceKey.create(

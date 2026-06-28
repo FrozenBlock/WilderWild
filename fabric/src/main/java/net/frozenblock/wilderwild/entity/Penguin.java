@@ -183,7 +183,7 @@ public class Penguin extends Animal {
 	@Nullable
 	@Override
 	public Penguin getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		return WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
+		return WWEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
 	}
 
 	@Override

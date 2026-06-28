@@ -164,9 +164,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 							new EntityTypePredicate(
 								HolderSet.direct(
 									EntityTypes.CHICKEN.builtInRegistryHolder(),
-									WWEntityTypes.OSTRICH.builtInRegistryHolder(),
-									WWEntityTypes.ZOMBIE_OSTRICH.builtInRegistryHolder(),
-									WWEntityTypes.PENGUIN.builtInRegistryHolder()
+									WWEntityTypes.OSTRICH.get().builtInRegistryHolder(),
+									WWEntityTypes.ZOMBIE_OSTRICH.get().builtInRegistryHolder(),
+									WWEntityTypes.PENGUIN.get().builtInRegistryHolder()
 								)
 							)
 						)
@@ -209,7 +209,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 								HolderSet.direct(
 									EntityTypes.COW.builtInRegistryHolder(),
 									EntityTypes.MOOSHROOM.builtInRegistryHolder(),
-									WWEntityTypes.MOOBLOOM.builtInRegistryHolder()
+									WWEntityTypes.MOOBLOOM.get().builtInRegistryHolder()
 								)
 							)
 						)

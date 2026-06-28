@@ -116,7 +116,7 @@ public class OstrichAi {
 	private static ActivityData<AbstractOstrich> initIdleActivity(final boolean zombie) {
 		final ImmutableList.Builder<Pair<Integer, ? extends BehaviorControl<? super AbstractOstrich>>> builder = ImmutableList.builder();
 		builder.add(Pair.of(0, SetEntityLookTargetSometimes.create(EntityTypes.PLAYER, 6F, UniformInt.of(30, 60))));
-		if (!zombie) builder.add(Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)));
+		if (!zombie) builder.add(Pair.of(1, new AnimalMakeLove(WWEntityTypes.OSTRICH.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)));
 
 		final ImmutableList.Builder<Pair<? extends BehaviorControl<? super AbstractOstrich>, Integer>> temptAndFollowAdultBuilder = ImmutableList.builder();
 		temptAndFollowAdultBuilder.add(

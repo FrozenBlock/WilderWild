@@ -291,7 +291,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		final FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.create(level, EntitySpawnReason.BREEDING);
+		final FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.get().create(level, EntitySpawnReason.BREEDING);
 		if (flowerCow != null && partner instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(level, otherFlowerCow));
 		return flowerCow;
 	}

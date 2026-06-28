@@ -203,7 +203,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	private void doFireflySpawns(Level level) {
 		final double extraHeight = this.getBlockState().getValue(BlockStateProperties.HANGING) ? 0.155 : 0;
 		for (Occupant firefly : this.getFireflies()) {
-			final Firefly entity = WWEntityTypes.FIREFLY.create(level, EntitySpawnReason.LOAD);
+			final Firefly entity = WWEntityTypes.FIREFLY.get().create(level, EntitySpawnReason.LOAD);
 			if (entity == null) continue;
 			entity.snapTo(
 				this.worldPosition.getX() + firefly.pos.x,

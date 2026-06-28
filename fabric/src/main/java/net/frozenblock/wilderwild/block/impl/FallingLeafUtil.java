@@ -166,7 +166,7 @@ public class FallingLeafUtil {
 		);
 		sendLeafClusterParticle(level, pos);
 		fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> FallingLeafTicker.createAndSpawn(
-			WWEntityTypes.FALLING_LEAVES,
+			WWEntityTypes.FALLING_LEAVES.get(),
 			level,
 			pos,
 			leafLitterBlock

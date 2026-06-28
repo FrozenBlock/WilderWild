@@ -60,11 +60,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 				final String path = id.getPath();
 				final Identifier lootTableId = Identifier.fromNamespaceAndPath(
 					id.getNamespace(),
-					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH).getPath() + '_' + path
+					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH.get()).getPath() + '_' + path
 				);
 				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
 				this.add(
-					WWEntityTypes.JELLYFISH,
+					WWEntityTypes.JELLYFISH.get(),
 					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),
 					LootTable.lootTable()
 						.withPool(
@@ -82,7 +82,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			});
 
 		this.add(
-			WWEntityTypes.CRAB,
+			WWEntityTypes.CRAB.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -97,7 +97,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.OSTRICH,
+			WWEntityTypes.OSTRICH.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -111,7 +111,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.ZOMBIE_OSTRICH,
+			WWEntityTypes.ZOMBIE_OSTRICH.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -125,7 +125,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.SCORCHED,
+			WWEntityTypes.SCORCHED.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -149,7 +149,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.TUMBLEWEED,
+			WWEntityTypes.TUMBLEWEED.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -163,7 +163,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.MOOBLOOM,
+			WWEntityTypes.MOOBLOOM.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -187,7 +187,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		);
 
 		this.add(
-			WWEntityTypes.PENGUIN,
+			WWEntityTypes.PENGUIN.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -200,7 +200,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 				)
 		);
 
-		this.add(WWEntityTypes.FIREFLY, LootTable.lootTable());
-		this.add(WWEntityTypes.BUTTERFLY, LootTable.lootTable());
+		this.add(WWEntityTypes.FIREFLY.get(), LootTable.lootTable());
+		this.add(WWEntityTypes.BUTTERFLY.get(), LootTable.lootTable());
 	}
 }

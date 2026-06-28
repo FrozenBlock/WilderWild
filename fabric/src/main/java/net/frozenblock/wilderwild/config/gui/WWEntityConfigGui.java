@@ -48,24 +48,24 @@ public final class WWEntityConfigGui {
 		);
 
 		// FIREFLY
-		createSubCategory(builder, category, WWEntityTypes.FIREFLY.getDescription(), tooltip("entity_category", WWEntityTypes.FIREFLY.getDescription()),
+		createSubCategory(builder, category, WWEntityTypes.FIREFLY.get().getDescription(), tooltip("entity_category", WWEntityTypes.FIREFLY.get().getDescription()),
 			booleanEntry(builder, "spawn_firefly_particles", WWEntityConfig.SPAWN_FIREFLY_PARTICLES),
-			entitySpawnEntry(builder, WWEntityTypes.FIREFLY, WWEntityConfig.SPAWN_FIREFLIES),
+			entitySpawnEntry(builder, WWEntityTypes.FIREFLY.get(), WWEntityConfig.SPAWN_FIREFLIES),
 			booleanEntry(builder, "fireflies_need_bush", WWEntityConfig.FIREFLIES_NEED_BUSH),
-			entitySpawnCapEntry(builder, WWEntityTypes.FIREFLY, WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100),
+			entitySpawnCapEntry(builder, WWEntityTypes.FIREFLY.get(), WWEntityConfig.FIREFLY_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "firefly_swarm", WWEntityConfig.FIREFLY_SWARM)
 		);
 
 		// BUTTERFLY
-		createSubCategory(builder, category, WWEntityTypes.BUTTERFLY.getDescription(), tooltip("entity_category", WWEntityTypes.BUTTERFLY.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.BUTTERFLY, WWEntityConfig.SPAWN_BUTTERFLIES),
-			entitySpawnCapEntry(builder, WWEntityTypes.BUTTERFLY, WWEntityConfig.BUTTERFLY_SPAWN_CAP, 1, 100)
+		createSubCategory(builder, category, WWEntityTypes.BUTTERFLY.get().getDescription(), tooltip("entity_category", WWEntityTypes.BUTTERFLY.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.BUTTERFLY.get(), WWEntityConfig.SPAWN_BUTTERFLIES),
+			entitySpawnCapEntry(builder, WWEntityTypes.BUTTERFLY.get(), WWEntityConfig.BUTTERFLY_SPAWN_CAP, 1, 100)
 		);
 
 		// JELLYFISH
-		createSubCategory(builder, category, WWEntityTypes.JELLYFISH.getDescription(), tooltip("entity_category", WWEntityTypes.JELLYFISH.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.JELLYFISH, WWEntityConfig.SPAWN_JELLYFISH),
-			entitySpawnCapEntry(builder, WWEntityTypes.JELLYFISH, WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100),
+		createSubCategory(builder, category, WWEntityTypes.JELLYFISH.get().getDescription(), tooltip("entity_category", WWEntityTypes.JELLYFISH.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.JELLYFISH.get(), WWEntityConfig.SPAWN_JELLYFISH),
+			entitySpawnCapEntry(builder, WWEntityTypes.JELLYFISH.get(), WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "jellyfish_hiding", WWEntityConfig.JELLYFISH_HIDING),
 			intSliderEntry(builder, "jellyfish_tentacles", WWEntityConfig.JELLYFISH_TENTACLES, 0, 100),
 			booleanEntry(builder, "plane_tentacles", WWEntityConfig.JELLYFISH_PLANE_TENTACLES),
@@ -73,40 +73,40 @@ public final class WWEntityConfigGui {
 		);
 
 		// CRAB
-		createSubCategory(builder, category, WWEntityTypes.CRAB.getDescription(), tooltip("entity_category", WWEntityTypes.CRAB.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.CRAB, WWEntityConfig.SPAWN_CRABS),
-			entitySpawnCapEntry(builder, WWEntityTypes.CRAB, WWEntityConfig.CRAB_SPAWN_CAP, 1, 100),
+		createSubCategory(builder, category, WWEntityTypes.CRAB.get().getDescription(), tooltip("entity_category", WWEntityTypes.CRAB.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.CRAB.get(), WWEntityConfig.SPAWN_CRABS),
+			entitySpawnCapEntry(builder, WWEntityTypes.CRAB.get(), WWEntityConfig.CRAB_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "reach_affects_attack", WWEntityConfig.CRAB_REACH_AFFECTS_ATTACK),
 			booleanEntry(builder, "crab_claw_gives_reach", WWEntityConfig.CRAB_CLAW_GIVES_REACH)
 		);
 
 		// OSTRICH
-		createSubCategory(builder, category, WWEntityTypes.OSTRICH.getDescription(), tooltip("entity_category", WWEntityTypes.OSTRICH.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.OSTRICH, WWEntityConfig.SPAWN_OSTRICHES),
-			entitySpawnEntry(builder, WWEntityTypes.ZOMBIE_OSTRICH, WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES),
+		createSubCategory(builder, category, WWEntityTypes.OSTRICH.get().getDescription(), tooltip("entity_category", WWEntityTypes.OSTRICH.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.OSTRICH.get(), WWEntityConfig.SPAWN_OSTRICHES),
+			entitySpawnEntry(builder, WWEntityTypes.ZOMBIE_OSTRICH.get(), WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES),
 			booleanEntry(builder, "allow_ostrich_attack", WWEntityConfig.OSTRICH_ALLOW_ATTACK)
 		);
 
 		// SCORCHED
-		createSubCategory(builder, category, WWEntityTypes.SCORCHED.getDescription(), tooltip("entity_category", WWEntityTypes.SCORCHED.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.SCORCHED, WWEntityConfig.SPAWN_SCORCHED),
+		createSubCategory(builder, category, WWEntityTypes.SCORCHED.get().getDescription(), tooltip("entity_category", WWEntityTypes.SCORCHED.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.SCORCHED.get(), WWEntityConfig.SPAWN_SCORCHED),
 			booleanEntry(builder, "scorched_in_trial_chambers", WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS)
 		);
 
 		// MOOBLOOM
-		createSubCategory(builder, category, WWEntityTypes.MOOBLOOM.getDescription(), tooltip("entity_category", WWEntityTypes.MOOBLOOM.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.MOOBLOOM, WWEntityConfig.SPAWN_MOOBLOOMS)
+		createSubCategory(builder, category, WWEntityTypes.MOOBLOOM.get().getDescription(), tooltip("entity_category", WWEntityTypes.MOOBLOOM.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.MOOBLOOM.get(), WWEntityConfig.SPAWN_MOOBLOOMS)
 		);
 
 		// PENGUIN
-		createSubCategory(builder, category, WWEntityTypes.PENGUIN.getDescription(), tooltip("entity_category", WWEntityTypes.PENGUIN.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.PENGUIN, WWEntityConfig.SPAWN_PENGUINS)
+		createSubCategory(builder, category, WWEntityTypes.PENGUIN.get().getDescription(), tooltip("entity_category", WWEntityTypes.PENGUIN.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.PENGUIN.get(), WWEntityConfig.SPAWN_PENGUINS)
 		);
 
 		// TUMBLEWEED
-		createSubCategory(builder, category, WWEntityTypes.TUMBLEWEED.getDescription(), tooltip("entity_category", WWEntityTypes.TUMBLEWEED.getDescription()),
-			entitySpawnEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.SPAWN_TUMBLEWEED),
-			entitySpawnCapEntry(builder, WWEntityTypes.TUMBLEWEED, WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100),
+		createSubCategory(builder, category, WWEntityTypes.TUMBLEWEED.get().getDescription(), tooltip("entity_category", WWEntityTypes.TUMBLEWEED.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.TUMBLEWEED.get(), WWEntityConfig.SPAWN_TUMBLEWEED),
+			entitySpawnCapEntry(builder, WWEntityTypes.TUMBLEWEED.get(), WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "leashed_tumbleweed", WWEntityConfig.LEASHED_TUMBLEWEED),
 			booleanEntry(builder, "tumbleweed_destroys_crops", WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS)
 		);

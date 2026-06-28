@@ -238,7 +238,7 @@ public class PenguinAi {
 			ImmutableList.of(
 				SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60)),
 				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
-				new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
 				new FollowTemptation(entity -> 1.25F),
 				TryFindLand.create(6, 1F),
 				new RunOne<>(
@@ -288,7 +288,7 @@ public class PenguinAi {
 				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
 				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(4, TryFindWater.create(8, 0.8F)),
 				Pair.of(5, PenguinReturnToWater.create(0.8F)),
@@ -324,7 +324,7 @@ public class PenguinAi {
 			1,
 			ImmutableList.of(
 				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
-				new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
 				new FollowTemptation(entity -> 1.25F),
 				StartAttacking.create(PenguinAi::canAttack, (level, penguin) -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE)),
 				new GateBehavior<>(
@@ -354,7 +354,7 @@ public class PenguinAi {
 				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(1, PenguinFollowReturnPos.create(1.5F)),
 				Pair.of(1, PenguinFindEscapePos.create(10, 1.5F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN, SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(
 					4,

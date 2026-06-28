@@ -93,7 +93,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		if (random.nextInt(SNAP_CHANCE) != 0) return;
 		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 
-		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED, level);
+		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
 		level.addFreshEntity(tumbleweed);
 		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
 

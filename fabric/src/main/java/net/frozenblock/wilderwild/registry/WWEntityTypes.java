@@ -19,6 +19,8 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -34,8 +36,7 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -46,57 +47,61 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
+import java.util.function.Supplier;
 
 public final class WWEntityTypes {
-	public static final EntityType<Firefly> FIREFLY = register(WWEntityTypeIds.FIREFLY,
+	private static final FrozenDeferredRegister<EntityType<?>> REGISTER =
+		FrozenDeferredRegister.create(Registries.ENTITY_TYPE, WWConstants.MOD_ID);
+
+	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY, () ->
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5)
 	);
 
-	public static final EntityType<Butterfly> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
+	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY, () ->
 		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5)
 	);
 
-	public static final EntityType<Jellyfish> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
+	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH, () ->
 		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Tumbleweed> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
+	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED, () ->
 		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"))
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
 			.updateInterval(2)
 	);
 
-	public static final EntityType<Crab> CRAB = register(WWEntityTypeIds.CRAB,
+	public static final FrozenHolder<EntityType<?>, EntityType<Crab>> CRAB = register(WWEntityTypeIds.CRAB, () ->
 		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
 	);
 
-	public static final EntityType<Ostrich> OSTRICH = register(WWEntityTypeIds.OSTRICH,
+	public static final FrozenHolder<EntityType<?>, EntityType<Ostrich>> OSTRICH = register(WWEntityTypeIds.OSTRICH, () ->
 		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<ZombieOstrich> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
+	public static final FrozenHolder<EntityType<?>, EntityType<ZombieOstrich>> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH, () ->
 		EntityType.Builder.of(ZombieOstrich::new, MobCategory.MONSTER)
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Scorched> SCORCHED = register(WWEntityTypeIds.SCORCHED,
+	public static final FrozenHolder<EntityType<?>, EntityType<Scorched>> SCORCHED = register(WWEntityTypeIds.SCORCHED, () ->
 		EntityType.Builder.of(Scorched::new, MobCategory.MONSTER)
 			.sized(1.26F, 0.81F)
 			.eyeHeight(0.585F)
@@ -105,7 +110,7 @@ public final class WWEntityTypes {
 			.notInPeaceful()
 	);
 
-	public static final EntityType<FlowerCow> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
+	public static final FrozenHolder<EntityType<?>, EntityType<FlowerCow>> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM, () ->
 		EntityType.Builder.of(FlowerCow::new, MobCategory.CREATURE)
 			.sized(0.9F, 1.4F)
 			.eyeHeight(1.3F)
@@ -113,7 +118,7 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Penguin> PENGUIN = register(WWEntityTypeIds.PENGUIN,
+	public static final FrozenHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = register(WWEntityTypeIds.PENGUIN, () ->
 		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
@@ -121,28 +126,28 @@ public final class WWEntityTypes {
 			.immuneTo(WWBlockTags.PENGUIN_IMMUNE_TO)
 	);
 
-	public static final EntityType<CoconutProjectile> COCONUT = register(WWEntityTypeIds.COCONUT,
+	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT, () ->
 		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(20)
 	);
 
-	public static final EntityType<FallingLeafTicker> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
+	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES, () ->
 		EntityType.Builder.<FallingLeafTicker>of(FallingLeafTicker::new, MobCategory.MISC)
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 	);
 
 	// BOATS
-	public static final EntityType<Boat> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final EntityType<ChestBoat> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -150,14 +155,14 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Boat> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.WILLOW_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final EntityType<ChestBoat> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -165,14 +170,14 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Boat> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.CYPRESS_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final EntityType<ChestBoat> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -180,14 +185,14 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Boat> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.PALM_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final EntityType<ChestBoat> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -195,14 +200,14 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 	);
 
-	public static final EntityType<Boat> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.MAPLE_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final EntityType<ChestBoat> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT,
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT, () ->
 		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC)
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -213,88 +218,90 @@ public final class WWEntityTypes {
 	public static void init() {}
 
 	static {
-		FabricDefaultAttributeRegistry.register(FIREFLY, Firefly.createAttributes());
+		REGISTER.register();
+
+		FabricDefaultAttributeRegistry.register(FIREFLY.get(), Firefly.createAttributes());
 		SpawnPlacements.register(
-			FIREFLY,
+			FIREFLY.get(),
 			SpawnPlacementTypes.NO_RESTRICTIONS,
 			Heightmap.Types.MOTION_BLOCKING,
 			Firefly::checkFireflySpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(BUTTERFLY, Butterfly.createAttributes());
+		FabricDefaultAttributeRegistry.register(BUTTERFLY.get(), Butterfly.createAttributes());
 		SpawnPlacements.register(
-			BUTTERFLY,
+			BUTTERFLY.get(),
 			SpawnPlacementTypes.NO_RESTRICTIONS,
 			Heightmap.Types.MOTION_BLOCKING,
 			Butterfly::checkButterflySpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());
+		FabricDefaultAttributeRegistry.register(JELLYFISH.get(), Jellyfish.createAttributes());
 		SpawnPlacements.register(
-			JELLYFISH,
+			JELLYFISH.get(),
 			SpawnPlacementTypes.IN_WATER,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Jellyfish::checkJellyfishSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(TUMBLEWEED, Tumbleweed.createAttributes());
+		FabricDefaultAttributeRegistry.register(TUMBLEWEED.get(), Tumbleweed.createAttributes());
 		SpawnPlacements.register(
-			TUMBLEWEED,
+			TUMBLEWEED.get(),
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Tumbleweed::checkTumbleweedSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(CRAB, Crab.createAttributes());
+		FabricDefaultAttributeRegistry.register(CRAB.get(), Crab.createAttributes());
 		SpawnPlacements.register(
-			CRAB,
+			CRAB.get(),
 			SpawnPlacementTypes.IN_WATER,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Crab::checkCrabSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(OSTRICH, Ostrich.createAttributes());
+		FabricDefaultAttributeRegistry.register(OSTRICH.get(), Ostrich.createAttributes());
 		SpawnPlacements.register(
-			OSTRICH,
+			OSTRICH.get(),
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Ostrich::checkOstrichSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(ZOMBIE_OSTRICH, ZombieOstrich.createAttributes());
+		FabricDefaultAttributeRegistry.register(ZOMBIE_OSTRICH.get(), ZombieOstrich.createAttributes());
 		SpawnPlacements.register(
-			ZOMBIE_OSTRICH,
+			ZOMBIE_OSTRICH.get(),
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			ZombieOstrich::checkZombieOstrichSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(SCORCHED, Scorched.createAttributes());
+		FabricDefaultAttributeRegistry.register(SCORCHED.get(), Scorched.createAttributes());
 		SpawnPlacements.register(
-			SCORCHED,
+			SCORCHED.get(),
 			WWSpawnTypes.ON_GROUND_OR_IN_LAVA,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Scorched::checkScorchedSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(MOOBLOOM, FlowerCow.createAttributes());
+		FabricDefaultAttributeRegistry.register(MOOBLOOM.get(), FlowerCow.createAttributes());
 		SpawnPlacements.register(
-			MOOBLOOM,
+			MOOBLOOM.get(),
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			FlowerCow::checkFlowerCowSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(PENGUIN, Penguin.createAttributes());
+		FabricDefaultAttributeRegistry.register(PENGUIN.get(), Penguin.createAttributes());
 		SpawnPlacements.register(
-			PENGUIN,
+			PENGUIN.get(),
 			SpawnPlacementTypes.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Penguin::checkPenguinSpawnRules
 		);
 	}
 
-	private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> id, EntityType.Builder<T> builder) {
-		return Registry.register(BuiltInRegistries.ENTITY_TYPE, id, builder.build(id));
+	private static <T extends Entity> FrozenHolder<EntityType<?>, EntityType<T>> register(ResourceKey<EntityType<?>> id, Supplier<EntityType.Builder<T>> builder) {
+		return REGISTER.register(id, () -> builder.get().build(id));
 	}
 }

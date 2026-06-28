@@ -52,7 +52,7 @@ public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
 	private static DataResult<Block> validateBlock(final Block block) {
 		//TODO NEOFORGE PORT return block instanceof ShelfFungiBlock shelfFungiBlock
 		//TODO NEOFORGE PORT 	? DataResult.success(shelfFungiBlock)
-		/*	: */return DataResult.error(() -> "Growth block should be a shelf fungi block"); //TODO NEOFORGE PORT
+		/*	: */return DataResult.success(block);//return DataResult.error(() -> "Growth block should be a shelf fungi block"); //TODO NEOFORGE PORT
 	}
 
 	public ShelfFungiFeatureConfiguration(Block placeBlock, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {

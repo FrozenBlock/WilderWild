@@ -111,7 +111,7 @@ public class PenguinEggBlock extends Block {
 	}
 
 	private void spawnPenguin(ServerLevel level, BlockPos pos, RandomSource random) {
-		final Penguin penguin = WWEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
+		final Penguin penguin = WWEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
 		if (penguin == null) return;
 		penguin.setBaby(true);
 		penguin.snapTo(

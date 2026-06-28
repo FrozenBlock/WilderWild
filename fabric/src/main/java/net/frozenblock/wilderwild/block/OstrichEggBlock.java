@@ -111,7 +111,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, RandomSource random) {
-		final Ostrich ostrich = WWEntityTypes.OSTRICH.create(level, EntitySpawnReason.BREEDING);
+		final Ostrich ostrich = WWEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
 		if (ostrich == null) return;
 		ostrich.setBaby(true);
 		ostrich.snapTo(

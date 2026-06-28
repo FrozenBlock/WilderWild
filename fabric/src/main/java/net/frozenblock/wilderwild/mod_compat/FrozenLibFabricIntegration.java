@@ -138,7 +138,7 @@ public class FrozenLibFabricIntegration extends ModIntegration {
 
 				for (int i = 0; i < random.nextInt(3, 6); i++) {
 					SpawnUtil.trySpawnMob(
-						WWEntityTypes.FIREFLY,
+						WWEntityTypes.FIREFLY.get(),
 						EntitySpawnReason.TRIGGERED,
 						level,
 						pos,

@@ -181,7 +181,7 @@ public final class CrabAi {
 			Activity.IDLE,
 			1,
 			ImmutableList.of(
-				new AnimalMakeLove(WWEntityTypes.CRAB, 0.8F, 2),
+				new AnimalMakeLove(WWEntityTypes.CRAB.get(), 0.8F, 2),
 				new RunOne<>(
 					List.of(
 						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
