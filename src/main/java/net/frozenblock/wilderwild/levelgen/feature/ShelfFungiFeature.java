@@ -91,13 +91,12 @@ public record ShelfFungiFeature(
 
 		if (placementDirection == null) return false;
 
-		level.setBlock(
+		level.setBlockAndUpdate(
 			pos,
 			this.placeBlock.defaultBlockState()
 				.setValue(ShelfFungiBlock.FACING, placementDirection)
 				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
-				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
-			Block.UPDATE_ALL
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE))
 		);
 		level.getChunk(pos).markPosForPostProcessing(pos);
 		return true;

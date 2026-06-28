@@ -18,13 +18,13 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.SculkBehaviour;
@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class SlabWallStairSculkBehavior implements SculkBehaviour {
+public class StairSlabWallSculkBehaviour implements SculkBehaviour {
 
 	public static void clearSculkVeins(LevelAccessor level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
@@ -49,7 +49,7 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
 					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 				}
-				level.setBlock(mutable, stateReplace, Block.UPDATE_ALL);
+				level.setBlockAndUpdate(mutable, stateReplace);
 			}
 			mutable.move(oppositeDirection);
 		}
@@ -68,9 +68,9 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 		final int charge = cursor.getCharge();
 		if (charge != 0 && random.nextInt(spreader.chargeDecayRate()) == 0) {
 			final boolean isTooClose = pos.closerThan(catalystPos, spreader.noGrowthRadius());
-			BlockState placeState = switchBlockStates(level.getBlockState(pos));
-			if (!isTooClose && placeState != null) {
-				level.setBlock(pos, placeState, Block.UPDATE_ALL);
+			Optional<BlockState> placeState = getBlockState(level.getBlockState(pos));
+			if (!isTooClose && placeState.isPresent()) {
+				level.setBlockAndUpdate(pos, placeState.get());
 				clearSculkVeins(level, pos);
 			}
 			return random.nextInt(spreader.additionalDecayRate()) != 0 ? charge : charge - (isTooClose ? 1 : SculkBlock.getDecayPenalty(spreader, pos, catalystPos, charge));
@@ -80,21 +80,19 @@ public class SlabWallStairSculkBehavior implements SculkBehaviour {
 
 	@Override
 	public boolean attemptSpreadVein(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-		final BlockState placeState = switchBlockStates(level.getBlockState(pos));
-		if (placeState != null) {
-			level.setBlock(pos, placeState, Block.UPDATE_ALL);
+		final Optional<BlockState> placeState = getBlockState(level.getBlockState(pos));
+		if (placeState.isPresent()) {
+			level.setBlockAndUpdate(pos, placeState.get());
 			clearSculkVeins(level, pos);
 			if (markForPostProcessing) level.getChunk(pos).markPosForPostProcessing(pos);
 		}
 		return true;
 	}
 
-	@Nullable
-	private BlockState switchBlockStates(BlockState state) {
-		if (state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(state);
-		if (state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(state);
-		if (state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(state);
-		return null;
+	public static Optional<BlockState> getBlockState(BlockState state) {
+		if (state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return Optional.of(WWBlocks.SCULK_STAIRS.withPropertiesOf(state));
+		if (state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return Optional.of(WWBlocks.SCULK_SLAB.withPropertiesOf(state));
+		if (state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return Optional.of(WWBlocks.SCULK_WALL.withPropertiesOf(state));
+		return Optional.empty();
 	}
-
 }

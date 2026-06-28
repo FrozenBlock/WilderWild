@@ -589,19 +589,19 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.SOUL_LANTERN.block(), BlockIds.SOUL_FIRE)
 			.add(BlockItemIds.SOUL_SAND);
 
-		this.builder(WWBlockTags.SCULK_SLAB_REPLACEABLE)
-			.add(BlockItemIds.STONE_SLAB, BlockItemIds.GRANITE_SLAB, BlockItemIds.DIORITE_SLAB, BlockItemIds.ANDESITE_SLAB, BlockItemIds.BLACKSTONE_SLAB, WWBlockItemIds.GABBRO_SLAB);
-
-		this.builder(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
-			.add(BlockItemIds.COBBLED_DEEPSLATE_SLAB, BlockItemIds.POLISHED_DEEPSLATE_SLAB, BlockItemIds.DEEPSLATE_BRICK_SLAB, BlockItemIds.DEEPSLATE_TILE_SLAB)
-			.addOptionalTag(WWBlockTags.SCULK_SLAB_REPLACEABLE);
-
 		this.builder(WWBlockTags.SCULK_STAIR_REPLACEABLE)
 			.add(BlockItemIds.STONE_STAIRS, BlockItemIds.GRANITE_STAIRS, BlockItemIds.DIORITE_STAIRS, BlockItemIds.ANDESITE_STAIRS, BlockItemIds.BLACKSTONE_STAIRS, WWBlockItemIds.GABBRO_STAIRS);
 
 		this.builder(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN)
 			.add(BlockItemIds.COBBLED_DEEPSLATE_STAIRS, BlockItemIds.POLISHED_DEEPSLATE_STAIRS, BlockItemIds.DEEPSLATE_BRICK_STAIRS, BlockItemIds.DEEPSLATE_TILE_STAIRS)
 			.addOptionalTag(WWBlockTags.SCULK_STAIR_REPLACEABLE);
+
+		this.builder(WWBlockTags.SCULK_SLAB_REPLACEABLE)
+			.add(BlockItemIds.STONE_SLAB, BlockItemIds.GRANITE_SLAB, BlockItemIds.DIORITE_SLAB, BlockItemIds.ANDESITE_SLAB, BlockItemIds.BLACKSTONE_SLAB, WWBlockItemIds.GABBRO_SLAB);
+
+		this.builder(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
+			.add(BlockItemIds.COBBLED_DEEPSLATE_SLAB, BlockItemIds.POLISHED_DEEPSLATE_SLAB, BlockItemIds.DEEPSLATE_BRICK_SLAB, BlockItemIds.DEEPSLATE_TILE_SLAB)
+			.addOptionalTag(WWBlockTags.SCULK_SLAB_REPLACEABLE);
 
 		this.builder(WWBlockTags.SCULK_WALL_REPLACEABLE)
 			.add(BlockItemIds.COBBLESTONE_WALL, BlockItemIds.GRANITE_WALL, BlockItemIds.DIORITE_WALL, BlockItemIds.ANDESITE_WALL, BlockItemIds.BLACKSTONE_WALL, WWBlockItemIds.GABBRO_WALL);

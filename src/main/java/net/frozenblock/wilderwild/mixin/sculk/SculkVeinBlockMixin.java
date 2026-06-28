@@ -21,9 +21,9 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.frozenblock.wilderwild.block.impl.StairSlabWallSculkBehaviour;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.world.level.block.SculkVeinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,10 +44,7 @@ public class SculkVeinBlockMixin {
 		@Local(name = "supportState") BlockState supportState
 	) {
 		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) return original;
-		if (supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_STAIR_REPLACEABLE)) return WWBlocks.SCULK_STAIRS.withPropertiesOf(supportState);
-		if (supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_WALL_REPLACEABLE)) return WWBlocks.SCULK_WALL.withPropertiesOf(supportState);
-		if (supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN) || supportState.is(WWBlockTags.SCULK_SLAB_REPLACEABLE)) return WWBlocks.SCULK_SLAB.withPropertiesOf(supportState);
-		return original;
+		return StairSlabWallSculkBehaviour.getBlockState(supportState).orElse(original);
 	}
 
 	@WrapOperation(
@@ -61,5 +58,4 @@ public class SculkVeinBlockMixin {
 	private boolean wilderWild$onDischarged(BlockState state, Object block, Operation<Boolean> operation) {
 		return state.is(WWBlocks.SCULK_SLAB) || state.is(WWBlocks.SCULK_STAIRS) || state.is(WWBlocks.SCULK_WALL) || operation.call(state, block);
 	}
-
 }

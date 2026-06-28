@@ -114,18 +114,18 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			if (!isSafeToReplace(level.getBlockState(mutable.setWithOffset(topPos, nextDirection)))) break placeRib;
 
 			final BlockState ribState = this.defaultBlockState().setValue(FACING, nextDirection);
-			level.setBlock(mutable, ribState, UPDATE_ALL);
+			level.setBlockAndUpdate(mutable, ribState);
 			playPlaceSound(level, mutable, ribState);
 
 			if (!WWBlockConfig.TENDRIL_GENERATION.get() || random.nextFloat() > (isWorldGeneration ? HANGING_TENDRIL_WORLDGEN_CHANCE : HANGING_TENDRIL_CHANCE)) break placeRib;
 			if (!isSafeToReplace(level.getBlockState(mutable.move(Direction.DOWN)))) break placeRib;
 
 			final BlockState tendrilState = WWBlocks.HANGING_TENDRIL.defaultBlockState();
-			level.setBlock(mutable, tendrilState, UPDATE_ALL);
+			level.setBlockAndUpdate(mutable, tendrilState);
 			playPlaceSound(level, mutable, tendrilState);
 		}
 
-		level.setBlock(mutable.setWithOffset(topPos, direction), growthState, UPDATE_ALL);
+		level.setBlockAndUpdate(mutable.setWithOffset(topPos, direction), growthState);
 		playPlaceSound(level, mutable, growthState);
 		convertBottomToSculk(level, mutable, random);
 		if (!isWorldGeneration) return Math.max(0, cursorCharge - GROWTH_COST);
@@ -164,14 +164,14 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 			if (stateReplace.is(Blocks.SCULK_VEIN)) {
 				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
 				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) stateReplace = stateReplace.getFluidState().createLegacyBlock();
-				level.setBlock(mutable, stateReplace, UPDATE_ALL);
+				level.setBlockAndUpdate(mutable, stateReplace);
 			} else if (stateReplace.is(this) && stateReplace.hasProperty(FACING) && stateReplace.getValue(FACING) == direction) {
 				placeVeinsAround(level, mutable.mutable());
 			}
 		}
 		mutable.setWithOffset(pos, state.getValue(FACING));
 		placeVeinsAround(level, mutable.mutable());
-		level.setBlock(pos, Blocks.SCULK.defaultBlockState(), UPDATE_ALL);
+		level.setBlockAndUpdate(pos, Blocks.SCULK.defaultBlockState());
 	}
 
 	public static void placeVeinsAround(LevelAccessor level, BlockPos pos) {
@@ -190,7 +190,7 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 					.setValue(BlockStateProperties.WATERLOGGED, true);
 			}
 
-			if (stateSetTo != null) level.setBlock(mutable, stateSetTo, UPDATE_ALL);
+			if (stateSetTo != null) level.setBlockAndUpdate(mutable, stateSetTo);
 		}
 	}
 

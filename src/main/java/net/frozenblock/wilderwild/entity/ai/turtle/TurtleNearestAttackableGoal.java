@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.entity.ai.turtle;
 
 import java.util.EnumSet;
-import net.frozenblock.wilderwild.entity.impl.TurtleCooldownInterface;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -53,7 +53,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 	public boolean canUse() {
 		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) return false;
 		this.findTarget();
-		return this.target != null && ((TurtleCooldownInterface) this.mob).wilderWild$getAttackCooldown() <= 0;
+		return this.target != null && this.mob.getAttachedOrElse(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, 0) <= 0;
 	}
 
 	protected AABB getTargetSearchArea(double d) {
@@ -74,7 +74,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 
 	@Override
 	public void start() {
-		if (this.mob instanceof TurtleCooldownInterface cooldownInterface) cooldownInterface.wilderWild$setAttackCooldown(2400);
+		this.mob.setAttached(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, 2400);
 		this.mob.setTarget(this.target);
 		super.start();
 	}

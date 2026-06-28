@@ -38,5 +38,4 @@ public abstract class MobMixin {
 	private void wilderWild$addUnpassableRail(EntityType<? extends Mob> type, Level level, CallbackInfo info) {
 		if (WWEntityConfig.UNPASSABLE_RAIL.get()) this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
 	}
-
 }

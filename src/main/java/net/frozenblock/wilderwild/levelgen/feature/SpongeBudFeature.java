@@ -85,7 +85,7 @@ public record SpongeBudFeature(
 
 			if (!placementState.getValue(SpongeBudBlock.WATERLOGGED)) continue;
 
-			level.setBlock(pos, placementState, Block.UPDATE_ALL);
+			level.setBlockAndUpdate(pos, placementState);
 			level.getChunk(pos).markPosForPostProcessing(pos);
 			return true;
 		}

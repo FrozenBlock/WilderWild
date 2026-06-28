@@ -34,5 +34,4 @@ public final class FrogMixin {
 		final String string = ChatFormatting.stripFormatting(Frog.class.cast(this).getName().getString());
 		if (string.equalsIgnoreCase("Xfrtrex") || string.equalsIgnoreCase("BluePhoenixLOL")) info.setReturnValue(WWSounds.ENTITY_FROG_SUS_DEATH);
 	}
-
 }

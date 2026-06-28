@@ -33,6 +33,13 @@ public final class WWAttachmentTypes {
 			builder.persistent(Codec.INT);
 		}
 	);
+	public static final AttachmentType<Integer> TURTLE_HUNT_COOLDOWN = AttachmentRegistry.create(
+		WWConstants.id("turtle_hunt_cooldown"),
+		builder -> {
+			builder.initializer(() -> 0);
+			builder.persistent(Codec.INT);
+		}
+	);
 
 	public static void init() {}
 }

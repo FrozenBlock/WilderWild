@@ -38,6 +38,7 @@ public class EntityMixin {
 	@Inject(method = "setCustomName", at = @At(value = "HEAD"))
 	public void wilderWild$setCustomName(@Nullable Component name, CallbackInfo info) {
 		if (name != null && name.getString().equalsIgnoreCase("stella")) {
+			if (SpottingIcons.anyMatch(Entity.class.cast(this), icon -> icon.texture().equals(WILDER_WILD$STELLA_TEXTURE))) return;
 			SpottingIcons.add(
 				Entity.class.cast(this),
 				SpottingIcon.builder()

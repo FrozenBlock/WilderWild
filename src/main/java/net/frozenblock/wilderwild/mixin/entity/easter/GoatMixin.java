@@ -38,5 +38,4 @@ public class GoatMixin {
 	private void wilderWild$isScreamingGoat(CallbackInfoReturnable<Boolean> info) {
 		if (this.wilderWild$isTreetrain1()) info.setReturnValue(true);
 	}
-
 }
