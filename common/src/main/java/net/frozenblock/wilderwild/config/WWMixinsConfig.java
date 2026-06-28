@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import blue.endless.jankson.Comment;
 import net.frozenblock.lib.config.api.instance.Config;
 import net.frozenblock.lib.config.api.instance.json.JsonConfig;
 import net.frozenblock.lib.config.api.instance.json.JsonType;

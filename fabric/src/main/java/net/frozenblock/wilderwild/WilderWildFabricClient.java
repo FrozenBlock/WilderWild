@@ -40,10 +40,11 @@ import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
-public final class WilderWildClient implements ClientModInitializer {
+public final class WilderWildFabricClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		WilderWildClient.init();
 		final Optional<ModContainer> container = FabricLoader.getInstance().getModContainer("wilderwild");
 		WWClientResources.register(container.orElse(null));
 

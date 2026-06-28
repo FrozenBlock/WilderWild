@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
@@ -41,7 +41,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
-	public static final boolean HAS_ANTIQUE_ATLAS = FabricLoader.getInstance().isModLoaded("antique-atlas");
+	public static final boolean HAS_ANTIQUE_ATLAS = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog() && !FrozenBools.IS_DATAGEN;
@@ -92,7 +92,7 @@ public class SnowloggingUtils {
 	public static boolean canBeReplacedWithSnow(BlockState state, BlockPlaceContext context) {
 		int layers;
 		return (canSnowlog(state) && isItemSnow(context.getItemInHand())) &&
-			Blocks.SNOW.canSurvive(Blocks.SNOW.defaultBlockState(), context.getLevel(), context.getClickedPos()) &&
+			Blocks.SNOW.defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) &&
 			((layers = getSnowLayers(state)) <= 0 || (context.replacingClickedOnBlock() && context.getClickedFace() == Direction.UP && layers < MAX_LAYERS));
 	}
 
@@ -101,7 +101,7 @@ public class SnowloggingUtils {
 		if (!isSnowlogged(state)) return state;
 
 		final BlockState snowEquivalent = getSnowEquivalent(state);
-		if (Blocks.SNOW.canSurvive(snowEquivalent, level, pos)) return state;
+		if (snowEquivalent.canSurvive(level, pos)) return state;
 
 		if (level instanceof LevelAccessor levelAccessor) levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
 		return state.setValue(SNOW_LAYERS, 0);

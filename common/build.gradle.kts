@@ -8,6 +8,7 @@ val neo_form_version: String by project
 val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
 val frozenlib_version: String by project
+val cloth_config_version: String by project
 
 if (!neoforgeSnapshotMaven.isNullOrBlank()) {
     repositories {
@@ -44,6 +45,8 @@ dependencies {
     compileOnly("org.spongepowered:mixin:0.8.5")
     compileOnly("io.github.llamalad7:mixinextras-common:0.5.3")
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3")
+
+    compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
 }
 
 sourceSets {

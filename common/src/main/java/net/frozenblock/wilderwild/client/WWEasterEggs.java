@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.client.api.renderer.entity.EntityTextureOverride;
+import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.minecraft.client.renderer.entity.AxolotlRenderer;
@@ -29,7 +28,7 @@ import net.minecraft.client.renderer.entity.GoatRenderer;
 import net.minecraft.client.renderer.entity.PigRenderer;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWEasterEggs {
 
 	public static void hatchEasterEggs() {
