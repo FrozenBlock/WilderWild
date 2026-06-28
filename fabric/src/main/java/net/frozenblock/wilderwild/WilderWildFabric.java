@@ -39,6 +39,10 @@ import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
+import net.frozenblock.wilderwild.registry.WWResources;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
+import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 
 public final class WilderWildFabric extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {

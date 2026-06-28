@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
@@ -50,6 +51,7 @@ public final class WilderWild {
 		WWSounds.init();
 		WWBlocks.init();
 		WWItems.init();
+		WWShearsDispenseItemBehaviors.init();
 		WWBlockEntityTypes.init();
 		WWParticleTypes.init();
 		WWMobEffects.init();
