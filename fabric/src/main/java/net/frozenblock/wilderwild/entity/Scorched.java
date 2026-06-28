@@ -115,7 +115,7 @@ public class Scorched extends Spider {
 	public void tick() {
 		super.tick();
 		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
-			this.addEffect(new MobEffectInstance(WWMobEffects.SCORCHING, 200, 0));
+			this.addEffect(new MobEffectInstance(WWMobEffects.SCORCHING.asHolder(), 200, 0));
 		}
 		this.floatScorched();
 		this.applyEffectsFromBlocks();
@@ -143,7 +143,7 @@ public class Scorched extends Spider {
 	@Override
 	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
 		final boolean hurtTarget = super.doHurtTarget(level, target);
-		if (hurtTarget) target.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING) ? 4 : 3);
+		if (hurtTarget) target.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING.asHolder()) ? 4 : 3);
 		return hurtTarget;
 	}
 

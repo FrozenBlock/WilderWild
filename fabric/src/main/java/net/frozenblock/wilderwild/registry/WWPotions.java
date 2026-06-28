@@ -18,11 +18,10 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Holder.Reference;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -30,22 +29,46 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public final class WWPotions {
-	public static final Reference<Potion> REACH = register("reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 3600)));
-	public static final Reference<Potion> LONG_REACH = register("long_reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 9600)));
-	public static final Reference<Potion> STRONG_REACH = register("strong_reach", new Potion("reach", new MobEffectInstance(WWMobEffects.REACH_BOOST, 2700, 1)));
-	public static final Holder<Potion> SCORCHING = register("scorching", new Potion("scorching", new MobEffectInstance(WWMobEffects.SCORCHING, 2700)));
+	private static final FrozenDeferredRegister<Potion> REGISTER = FrozenDeferredRegister.create(
+		Registries.POTION,
+		WWConstants.MOD_ID
+	);
+
+	public static final FrozenHolder<Potion, Potion> REACH = REGISTER.register("reach",
+		() -> new Potion("reach",
+			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 3600)
+		)
+	);
+	public static final FrozenHolder<Potion, Potion> LONG_REACH = REGISTER.register("long_reach",
+		() -> new Potion(
+			"reach",
+			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 9600)
+		)
+	);
+	public static final FrozenHolder<Potion, Potion> STRONG_REACH = REGISTER.register("strong_reach",
+		() -> new Potion(
+			"reach",
+			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 2700, 1)
+		)
+	);
+	public static final FrozenHolder<Potion, Potion> SCORCHING = REGISTER.register("scorching",
+		() -> new Potion(
+			"scorching",
+			new MobEffectInstance(WWMobEffects.SCORCHING.asHolder(), 2700)
+		)
+	);
+
+	static {
+		REGISTER.register();
+	}
 
 	public static void init() {
 		FabricPotionBrewingBuilder.BUILD.register(builder -> {
-			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH);
-			builder.registerPotionRecipe(REACH, Ingredient.of(Items.REDSTONE), LONG_REACH);
-			builder.registerPotionRecipe(REACH, Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH);
+			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH.asHolder());
+			builder.registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.REDSTONE), LONG_REACH.asHolder());
+			builder.registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH.asHolder());
 
-			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING);
+			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING.asHolder());
 		});
-	}
-
-	private static Reference<Potion> register(String name, Potion potion) {
-		return Registry.registerForHolder(BuiltInRegistries.POTION, WWConstants.id(name), potion);
 	}
 }

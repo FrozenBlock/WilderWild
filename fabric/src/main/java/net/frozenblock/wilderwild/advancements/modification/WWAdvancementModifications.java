@@ -194,11 +194,11 @@ public final class WWAdvancementModifications {
 						final Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
 
 						if (WWEntityConfig.SPAWN_CRABS.get() || WWBlockConfig.REACH_BOOST_BEACON.get()) {
-							map.put(WWMobEffects.REACH_BOOST, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(WWMobEffects.REACH_BOOST.asHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
 
 						if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
-							map.put(WWMobEffects.SCORCHING, new MobEffectsPredicate.MobEffectInstancePredicate());
+							map.put(WWMobEffects.SCORCHING.asHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
 						predicate.effectMap = map;
 					}

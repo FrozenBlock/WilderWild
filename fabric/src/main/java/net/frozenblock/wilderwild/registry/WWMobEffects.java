@@ -18,14 +18,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Holder.Reference;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -33,9 +32,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public final class WWMobEffects {
-	public static final Reference<MobEffect> REACH_BOOST = register(
+	private static final FrozenDeferredRegister<MobEffect> REGISTER = FrozenDeferredRegister.create(
+		Registries.MOB_EFFECT,
+		WWConstants.MOD_ID
+	);
+
+	public static final FrozenHolder<MobEffect, MobEffect> REACH_BOOST = REGISTER.register(
 		"reach_boost",
-		new MobEffect(
+		() -> new MobEffect(
 			MobEffectCategory.BENEFICIAL,
 			47784
 		).addAttributeModifier(
@@ -51,9 +55,9 @@ public final class WWMobEffects {
 		)
 	);
 
-	public static final Holder<MobEffect> SCORCHING = register(
+	public static final FrozenHolder<MobEffect, MobEffect> SCORCHING = REGISTER.register(
 		"scorching",
-		new ScorchingMobEffect(
+		() -> new ScorchingMobEffect(
 			MobEffectCategory.HARMFUL,
 			6236672,
 			0.25F,
@@ -62,11 +66,11 @@ public final class WWMobEffects {
 		)
 	);
 
-	public static void init() {
-		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST, 3);
+	static {
+		REGISTER.register();
 	}
 
-	private static Reference<MobEffect> register(String name, MobEffect entry) {
-		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, WWConstants.id(name), entry);
+	public static void init() {
+		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST.asHolder(), 3);
 	}
 }
