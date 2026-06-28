@@ -57,6 +57,7 @@ import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -84,6 +85,7 @@ public final class WilderWild extends FrozenModInitializer implements FrozenMobC
 		WWAttachmentTypes.init();
 		WWBlocks.init();
 		WWItems.init();
+		WWShearsDispenseItemBehaviors.init();
 		WWGameEvents.init();
 		WWSounds.init();
 		WWSoundTypes.init();
