@@ -6,6 +6,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWActivities;
+import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 
@@ -16,6 +17,7 @@ public final class WilderWild {
 		WWFeatureFlags.init();
 
 		WWActivities.init();
+		WWEnvironmentAttributes.init();
 
 		WWSounds.init();
 

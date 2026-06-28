@@ -16,9 +16,5 @@ public final class WilderWildNeoForge {
 		NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> {
 			SpreadSculkCommand.register(event.getDispatcher());
 		});
-
-		if (FMLEnvironment.getDist().isClient()) {
-			WilderWildNeoForgeClient.init(modBus);
-		}
 	}
 }

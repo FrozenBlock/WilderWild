@@ -50,8 +50,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import java.util.function.Supplier;
 
 public final class WWEntityTypes {
-	private static final FrozenDeferredRegister<EntityType<?>> REGISTER =
-		FrozenDeferredRegister.create(Registries.ENTITY_TYPE, WWConstants.MOD_ID);
+	private static final FrozenDeferredRegister<EntityType<?>> REGISTER = FrozenDeferredRegister.create(
+		Registries.ENTITY_TYPE,
+		WWConstants.MOD_ID
+	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY, () ->
 		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))

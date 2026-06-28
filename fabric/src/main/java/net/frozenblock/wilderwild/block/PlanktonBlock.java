@@ -144,7 +144,7 @@ public class PlanktonBlock extends AlgaeBlock {
 	}
 
 	private void tryChangingState(BlockState state, ServerLevel level, BlockPos pos) {
-		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.PLANKTON_GLOWING, pos);
+		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.PLANKTON_GLOWING.get(), pos);
 		if (shouldGlow == isGlowing(state)) return;
 
 		level.setBlockAndUpdate(pos, state.setValue(GLOWING, shouldGlow));

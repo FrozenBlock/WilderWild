@@ -97,7 +97,7 @@ public class OstrichEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(Level level, BlockPos pos) {
 		if (!isSafeToHatch(level, pos.below())) return false;
-		return level.environmentAttributes().getValue(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE, pos) > level.getRandom().nextFloat();
+		return level.environmentAttributes().getValue(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE.get(), pos) > level.getRandom().nextFloat();
 	}
 
 	private void hatchOstrichEgg(ServerLevel level, BlockPos pos, RandomSource random) {

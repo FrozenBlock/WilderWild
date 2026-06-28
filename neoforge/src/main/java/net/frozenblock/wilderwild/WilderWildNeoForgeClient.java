@@ -10,7 +10,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 @Mod(value = WWPreLoadConstants.MOD_ID, dist = Dist.CLIENT)
 public final class WilderWildNeoForgeClient {
 
-	static void init(IEventBus modBus) {
+	public WilderWildNeoForgeClient(IEventBus modBus) {
 		WilderWildClient.init();
 
 		ModLoadingContext.get().registerExtensionPoint(

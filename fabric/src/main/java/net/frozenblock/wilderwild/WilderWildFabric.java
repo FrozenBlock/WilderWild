@@ -92,8 +92,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWPotions.init();
 		WWCriteria.init();
 
-		WWEnvironmentAttributes.init();
-
 		WWFeatures.init();
 		WWBiomes.init();
 		WWWorldgen.init();

@@ -37,10 +37,10 @@ public final class WWTimelines {
 			WILDERWILD_DAY,
 			Timeline.builder(overworldClock)
 				.setPeriodTicks(24000)
-				.addTrack(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
-				.addTrack(WWEnvironmentAttributes.PLANKTON_GLOWING, builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
-				.addTrack(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING, builder -> builder.addKeyframe(12600, false).addKeyframe(23401, true))
-				.addTrack(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE, builder -> builder.addKeyframe(12600, 1F / 300F).addKeyframe(23401, 1F / 18F))
+				.addTrack(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE.get(), builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
+				.addTrack(WWEnvironmentAttributes.PLANKTON_GLOWING.get(), builder -> builder.addKeyframe(12600, true).addKeyframe(23401, false))
+				.addTrack(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING.get(), builder -> builder.addKeyframe(12600, false).addKeyframe(23401, true))
+				.addTrack(WWEnvironmentAttributes.OSTRICH_EGG_HATCH_CHANCE.get(), builder -> builder.addKeyframe(12600, 1F / 300F).addKeyframe(23401, 1F / 18F))
 				.build()
 		);
 	}

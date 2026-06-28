@@ -136,7 +136,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	private boolean tryChangingState(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING, pos);
+		final boolean shouldGlow = level.environmentAttributes().getValue(WWEnvironmentAttributes.SEA_ANEMONE_GLOWING.get(), pos);
 		if (shouldGlow == isGlowing(state)) return false;
 
 		level.setBlockAndUpdate(pos, state.setValue(GLOWING, shouldGlow));

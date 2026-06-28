@@ -40,7 +40,7 @@ public class PaleMushroomBlock extends MushroomBlock {
 	}
 
 	public static boolean isActive(Level level, BlockPos pos) {
-		return level.environmentAttributes().getValue(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE, pos);
+		return level.environmentAttributes().getValue(WWEnvironmentAttributes.PALE_MUSHROOM_ACTIVE.get(), pos);
 	}
 
 	@Override
