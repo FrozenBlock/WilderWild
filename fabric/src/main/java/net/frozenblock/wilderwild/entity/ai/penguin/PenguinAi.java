@@ -144,7 +144,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initStandUpActivity() {
 		return ActivityData.create(
-			WWActivities.STAND_UP,
+			WWActivities.STAND_UP.get(),
 			10,
 			ImmutableList.of(new PenguinStandUp<>(STAND_UP_DURATION)),
 			WWMemoryModuleTypes.STANDING_UP
@@ -153,7 +153,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initChaseActivity() {
 		return ActivityData.create(
-			WWActivities.CHASE,
+			WWActivities.CHASE.get(),
 			ImmutableList.of(
 				Pair.of(0, SetTrackedBoatLookTarget.create()),
 				Pair.of(0, PenguinBoostBoat.create()),
@@ -172,7 +172,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initCallActivity() {
 		return ActivityData.create(
-			WWActivities.CALL,
+			WWActivities.CALL.get(),
 			ImmutableList.of(
 				Pair.of(20, new PenguinCall<>(CALL_DURATION))
 			),
@@ -261,7 +261,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initPreSearchActivity() {
 		return ActivityData.create(
-			WWActivities.PRE_SEARCH,
+			WWActivities.PRE_SEARCH.get(),
 			0,
 			ImmutableList.of(
 				new PenguinPreSearch<>()
@@ -283,7 +283,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initSearchActivity() {
 		return ActivityData.create(
-			WWActivities.SEARCH,
+			WWActivities.SEARCH.get(),
 			ImmutableList.of(
 				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
@@ -348,7 +348,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initEscapeActivity() {
 		return ActivityData.create(
-			WWActivities.ESCAPE,
+			WWActivities.ESCAPE.get(),
 			ImmutableList.of(
 				Pair.of(0, new PenguinMarkAsEscaping<>()),
 				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
@@ -382,7 +382,7 @@ public class PenguinAi {
 
 	private static ActivityData<Penguin> initPostEscapeActivity() {
 		return ActivityData.create(
-			WWActivities.POST_ESCAPE,
+			WWActivities.POST_ESCAPE.get(),
 			0,
 			ImmutableList.of(
 				new PenguinPostEscape<>()
@@ -401,15 +401,15 @@ public class PenguinAi {
 		if (!penguin.isBaby()) {
 			penguin.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
-					WWActivities.STAND_UP,
-					WWActivities.CHASE,
-					WWActivities.CALL,
+					WWActivities.STAND_UP.get(),
+					WWActivities.CHASE.get(),
+					WWActivities.CALL.get(),
 					Activity.MEET,
 					Activity.FIGHT,
-					WWActivities.PRE_SEARCH,
-					WWActivities.ESCAPE,
-					WWActivities.POST_ESCAPE,
-					WWActivities.SEARCH,
+					WWActivities.PRE_SEARCH.get(),
+					WWActivities.ESCAPE.get(),
+					WWActivities.POST_ESCAPE.get(),
+					WWActivities.SEARCH.get(),
 					Activity.SWIM,
 					Activity.IDLE
 				)
@@ -417,12 +417,12 @@ public class PenguinAi {
 		} else {
 			penguin.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
-					WWActivities.STAND_UP,
-					WWActivities.CHASE,
+					WWActivities.STAND_UP.get(),
+					WWActivities.CHASE.get(),
 					Activity.MEET,
-					WWActivities.ESCAPE,
-					WWActivities.POST_ESCAPE,
-					WWActivities.SEARCH,
+					WWActivities.ESCAPE.get(),
+					WWActivities.POST_ESCAPE.get(),
+					WWActivities.SEARCH.get(),
 					Activity.SWIM,
 					Activity.IDLE
 				)

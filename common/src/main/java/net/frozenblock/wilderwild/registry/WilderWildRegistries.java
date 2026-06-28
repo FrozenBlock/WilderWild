@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehavior;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
@@ -37,11 +37,11 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
 
 	public static void init() {
-		DynamicRegistries.registerSynced(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(CRAB_VARIANT, CrabVariant.DIRECT_CODEC, CrabVariant.NETWORK_CODEC);
-		DynamicRegistries.registerSynced(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.DIRECT_CODEC);
-		DynamicRegistries.registerSynced(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(CRAB_VARIANT, CrabVariant.DIRECT_CODEC, CrabVariant.NETWORK_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.DIRECT_CODEC);
+		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC, TermiteBlockBehavior.DIRECT_CODEC);
 	}
 }
