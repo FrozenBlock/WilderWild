@@ -1,5 +1,10 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.config.WWItemConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 
@@ -10,5 +15,11 @@ public final class WilderWild {
 		WWFeatureFlags.init();
 
 		WWActivities.init();
+
+		WWAmbienceAndMiscConfig.CONFIG.load(true);
+		WWBlockConfig.CONFIG.load(true);
+		WWEntityConfig.CONFIG.load(true);
+		WWItemConfig.CONFIG.load(true);
+		WWWorldgenConfig.CONFIG.load(true);
 	}
 }

@@ -49,6 +49,9 @@ repositories {
         name = "KotlinForForge"
         content { includeGroup("thedarkcolour") }
     }
+    maven("https://maven.terraformersmc.com/") {
+        name = "TerraformersMC"
+    }
 }
 
 tasks.named<Jar>("sourcesJar") {

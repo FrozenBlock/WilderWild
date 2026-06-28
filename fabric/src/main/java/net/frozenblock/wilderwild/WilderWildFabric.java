@@ -110,12 +110,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
 
-		WWAmbienceAndMiscConfig.CONFIG.load(true);
-		WWBlockConfig.CONFIG.load(true);
-		WWEntityConfig.CONFIG.load(true);
-		WWItemConfig.CONFIG.load(true);
-		WWWorldgenConfig.CONFIG.load(true);
-
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)
 		);

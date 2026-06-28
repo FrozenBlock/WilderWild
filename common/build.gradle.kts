@@ -9,6 +9,7 @@ val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
 val frozenlib_version: String by project
 val cloth_config_version: String by project
+val biolith_version: String by project
 
 if (!neoforgeSnapshotMaven.isNullOrBlank()) {
     repositories {
@@ -47,6 +48,8 @@ dependencies {
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3")
 
     compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
+
+    compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
 }
 
 sourceSets {

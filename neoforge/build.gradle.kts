@@ -17,6 +17,7 @@ val maven_group: String by project
 val archives_base_name: String by project
 
 val frozenlib_version: String by project
+val biolith_version: String by project
 
 val neoforge_version: String by project
 val neoforge_loader_version_range: String by project
@@ -66,6 +67,8 @@ neoForge {
 
 dependencies {
     api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
+
+    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"

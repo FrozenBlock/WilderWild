@@ -70,6 +70,16 @@ loom {
     interfaceInjection {
         enableDependencyInterfaceInjection.set(true)
     }
+
+    runs {
+        named("client") {
+            preferGradleTask = true
+        }
+
+        named("server") {
+            preferGradleTask = true
+        }
+    }
 }
 
 sourceSets {
@@ -197,9 +207,9 @@ dependencies {
 
     // Biolith
     if (shouldRunBiolith)
-        implementation("maven.modrinth:biolith:${biolith_version}")
+        implementation("com.terraformersmc:biolith-fabric:${biolith_version}")
     else
-        compileOnly("maven.modrinth:biolith:${biolith_version}")
+        compileOnly("com.terraformersmc:biolith-fabric:${biolith_version}")
 
     // Sodium
     if (shouldRunSodium)
@@ -233,6 +243,7 @@ tasks {
                 "**/.cache/*",
                 "**/*.accesswidener",
                 "**/*.classtweaker",
+                "**/*.cfg",
                 "**/*.nbt",
                 "**/*.png",
                 "**/*.ogg",
