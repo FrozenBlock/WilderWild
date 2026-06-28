@@ -7,6 +7,7 @@ public final class WilderWild {
 
 	public static void init() {
 		WilderWildRegistries.init();
+		WWFeatureFlags.init();
 
 		WWActivities.init();
 	}

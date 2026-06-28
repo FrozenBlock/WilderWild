@@ -72,8 +72,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderWild.init();
-		WWFeatureFlags.init();
-		FeatureFlagApi.rebuild();
 
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);

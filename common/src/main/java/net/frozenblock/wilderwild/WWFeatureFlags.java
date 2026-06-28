@@ -25,5 +25,7 @@ public final class WWFeatureFlags {
 	public static final FeatureFlag TRAILIER_TALES_COMPAT = FeatureFlagApi.builder.create(WWConstants.id("trailiertales"));
 	public static final FeatureFlagSet TRAILIER_TALES_COMPAT_FLAG_SET = FeatureFlagSet.of(TRAILIER_TALES_COMPAT);
 
-	public static void init() {}
+	public static void init() {
+		FeatureFlagApi.rebuild();
+	}
 }
