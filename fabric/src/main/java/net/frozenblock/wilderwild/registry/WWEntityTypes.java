@@ -47,64 +47,71 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
-import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public final class WWEntityTypes {
-	private static final FrozenDeferredRegister<EntityType<?>> REGISTER = FrozenDeferredRegister.create(
-		Registries.ENTITY_TYPE,
+	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(
 		WWConstants.MOD_ID
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY, () ->
-		EntityType.Builder.of(Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"))
+	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY,
+		Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"),
+		builder -> builder
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY, () ->
-		EntityType.Builder.of(Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"))
+	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
+		Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
+		builder -> builder
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH, () ->
-		EntityType.Builder.of(Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"))
+	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
+		Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
+		builder -> builder
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED, () ->
-		EntityType.Builder.of(Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"))
+	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
+		Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"),
+		builder -> builder
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
 			.updateInterval(2)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Crab>> CRAB = register(WWEntityTypeIds.CRAB, () ->
-		EntityType.Builder.of(Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"))
+	public static final FrozenHolder<EntityType<?>, EntityType<Crab>> CRAB = register(WWEntityTypeIds.CRAB,
+		Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"),
+		builder -> builder
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F) // eye height is the height * 0.65F
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Ostrich>> OSTRICH = register(WWEntityTypeIds.OSTRICH, () ->
-		EntityType.Builder.of(Ostrich::new, MobCategory.CREATURE)
+	public static final FrozenHolder<EntityType<?>, EntityType<Ostrich>> OSTRICH = register(WWEntityTypeIds.OSTRICH,
+		Ostrich::new, MobCategory.CREATURE,
+		builder -> builder
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<ZombieOstrich>> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH, () ->
-		EntityType.Builder.of(ZombieOstrich::new, MobCategory.MONSTER)
+	public static final FrozenHolder<EntityType<?>, EntityType<ZombieOstrich>> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
+		ZombieOstrich::new, MobCategory.MONSTER,
+		builder -> builder
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Scorched>> SCORCHED = register(WWEntityTypeIds.SCORCHED, () ->
-		EntityType.Builder.of(Scorched::new, MobCategory.MONSTER)
+	public static final FrozenHolder<EntityType<?>, EntityType<Scorched>> SCORCHED = register(WWEntityTypeIds.SCORCHED,
+		Scorched::new, MobCategory.MONSTER,
+		builder -> builder
 			.sized(1.26F, 0.81F)
 			.eyeHeight(0.585F)
 			.fireImmune()
@@ -112,105 +119,119 @@ public final class WWEntityTypes {
 			.notInPeaceful()
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<FlowerCow>> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM, () ->
-		EntityType.Builder.of(FlowerCow::new, MobCategory.CREATURE)
+	public static final FrozenHolder<EntityType<?>, EntityType<FlowerCow>> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
+		FlowerCow::new, MobCategory.CREATURE,
+		builder -> builder
 			.sized(0.9F, 1.4F)
 			.eyeHeight(1.3F)
 			.passengerAttachments(1.36875F)
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = register(WWEntityTypeIds.PENGUIN, () ->
-		EntityType.Builder.of(Penguin::new, MobCategory.CREATURE)
+	public static final FrozenHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = register(WWEntityTypeIds.PENGUIN,
+		Penguin::new, MobCategory.CREATURE,
+		builder -> builder
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
 			.clientTrackingRange(10)
 			.immuneTo(WWBlockTags.PENGUIN_IMMUNE_TO)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT, () ->
-		EntityType.Builder.<CoconutProjectile>of(CoconutProjectile::new, MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT,
+		CoconutProjectile::new, MobCategory.MISC,
+		builder -> builder
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(20)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES, () ->
-		EntityType.Builder.<FallingLeafTicker>of(FallingLeafTicker::new, MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
+		FallingLeafTicker::new, MobCategory.MISC,
+		builder -> builder
 			.sized(0F, 0F)
 			.clientTrackingRange(0)
 	);
 
 	// BOATS
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT,
+		EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC)
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.WILLOW_BOAT), MobCategory.MISC)
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT,
+		EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.CYPRESS_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT,
+		EntityTypes.boatFactory(() -> WWItems.WILLOW_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC)
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.PALM_BOAT), MobCategory.MISC)
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT,
+		EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.boatFactory(() -> WWItems.MAPLE_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT,
+		EntityTypes.boatFactory(() -> WWItems.CYPRESS_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
 			.clientTrackingRange(10)
 	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT, () ->
-		EntityType.Builder.of(EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC)
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT,
+		EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC,
+		builder -> builder
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT,
+		EntityTypes.boatFactory(() -> WWItems.PALM_BOAT), MobCategory.MISC,
+		builder -> builder
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT,
+		EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC,
+		builder -> builder
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT,
+		EntityTypes.boatFactory(() -> WWItems.MAPLE_BOAT), MobCategory.MISC,
+		builder -> builder
+			.noLootTable()
+			.sized(1.375F, 0.5625F)
+			.eyeHeight(0.5625F)
+			.clientTrackingRange(10)
+	);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT,
+		EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC,
+		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
 			.eyeHeight(0.5625F)
@@ -303,7 +324,7 @@ public final class WWEntityTypes {
 		);
 	}
 
-	private static <T extends Entity> FrozenHolder<EntityType<?>, EntityType<T>> register(ResourceKey<EntityType<?>> id, Supplier<EntityType.Builder<T>> builder) {
-		return REGISTER.register(id, () -> builder.get().build(id));
+	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory, MobCategory category, UnaryOperator<EntityType.Builder<E>> builder) {
+		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder);
 	}
 }

@@ -73,7 +73,7 @@ public class MobBottleItem extends Item {
 			);
 
 			if (mob instanceof WWBottleable bottleable) {
-				final CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY);
+				final CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY);
 				bottleable.wilderWild$loadFromBottleTag(customData.copyTag());
 				bottleable.wilderWild$setFromBottle(true);
 				bottleable.wilderWild$onBottleRelease();

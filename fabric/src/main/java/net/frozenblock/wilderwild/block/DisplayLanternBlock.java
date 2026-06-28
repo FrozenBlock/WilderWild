@@ -128,8 +128,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 
 		final List<DisplayLanternBlockEntity.Occupant> fireflies = displayLantern.getFireflies();
-		if (stack.has(WWDataComponents.FIREFLY_COLOR)) {
-			final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
+		if (stack.has(WWDataComponents.FIREFLY_COLOR.get())) {
+			final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR.get());
 			if (fireflyColor != null && fireflies.size() < MAX_FIREFLIES) {
 				String name = "";
 				if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
@@ -148,7 +148,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			player.getItemInHand(hand).consume(1, player);
 			final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			bottleStack.set(
-				WWDataComponents.FIREFLY_COLOR,
+				WWDataComponents.FIREFLY_COLOR.get(),
 				level.registryAccess()
 					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
 					.get(fireflyInLantern.getColor()).orElseThrow()

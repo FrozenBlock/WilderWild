@@ -70,7 +70,7 @@ public final class FireflyBottleRecipeProvider {
 				possibleIngredients.add(DefaultCustomIngredients.components(
 					Ingredient.of(WWItems.FIREFLY_BOTTLE),
 					DataComponentPatch.builder()
-						.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
+						.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
 						.build()
 				));
 			}
@@ -82,7 +82,7 @@ public final class FireflyBottleRecipeProvider {
 				new ItemStackTemplate(
 					WWItems.FIREFLY_BOTTLE,
 					DataComponentPatch.builder()
-						.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
+						.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
 						.build()
 				)
 			)
@@ -109,7 +109,7 @@ public final class FireflyBottleRecipeProvider {
 			new ItemStackTemplate(
 				WWItems.FIREFLY_BOTTLE,
 				DataComponentPatch.builder()
-					.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
+					.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
 					.build()
 			)
 		)
@@ -119,7 +119,7 @@ public final class FireflyBottleRecipeProvider {
 			DefaultCustomIngredients.components(
 				Ingredient.of(WWItems.FIREFLY_BOTTLE),
 				DataComponentPatch.builder()
-					.set(WWDataComponents.FIREFLY_COLOR, registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id("on"))))
+					.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id("on"))))
 					.build()
 			)
 		)

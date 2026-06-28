@@ -201,7 +201,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	@Override
 	public void wilderWild$saveToBottleTag(ItemStack stack) {
 		WWBottleable.saveDefaultDataToBottleTag(this, stack);
-		stack.copyFrom(WWDataComponents.BUTTERFLY_VARIANT, this);
+		stack.copyFrom(WWDataComponents.BUTTERFLY_VARIANT.get(), this);
 	}
 
 	@Override
@@ -212,20 +212,20 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
-		if (type == WWDataComponents.BUTTERFLY_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		if (type == WWDataComponents.BUTTERFLY_VARIANT.get()) return castComponentValue(type, this.getVariantAsHolder());
 		return super.get(type);
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentGetter getter) {
-		this.applyImplicitComponentIfPresent(getter, WWDataComponents.BUTTERFLY_VARIANT);
+		this.applyImplicitComponentIfPresent(getter, WWDataComponents.BUTTERFLY_VARIANT.get());
 		super.applyImplicitComponents(getter);
 	}
 
 	@Override
 	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
-		if (type == WWDataComponents.BUTTERFLY_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT, value).value());
+		if (type == WWDataComponents.BUTTERFLY_VARIANT.get()) {
+			this.setVariant(castComponentValue(WWDataComponents.BUTTERFLY_VARIANT.get(), value).value());
 			return true;
 		}
 		return super.applyImplicitComponent(type, value);

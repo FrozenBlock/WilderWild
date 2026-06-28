@@ -47,7 +47,7 @@ public interface WWBottleable {
 	@Deprecated
 	static void saveDefaultDataToBottleTag(Mob mob, ItemStack stack) {
 		stack.set(DataComponents.CUSTOM_NAME, mob.getCustomName());
-		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA, stack, compoundTag -> {
+		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA.get(), stack, compoundTag -> {
 			if (mob.isNoAi()) compoundTag.putBoolean("NoAI", mob.isNoAi());
 			if (mob.isSilent()) compoundTag.putBoolean("Silent", mob.isSilent());
 			if (mob.isNoGravity()) compoundTag.putBoolean("NoGravity", mob.isNoGravity());

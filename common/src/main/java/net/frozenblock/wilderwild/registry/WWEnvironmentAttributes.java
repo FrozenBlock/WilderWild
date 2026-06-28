@@ -52,6 +52,10 @@ public final class WWEnvironmentAttributes {
 		() -> EnvironmentAttribute.builder(AttributeTypes.FLOAT).defaultValue(1F / 30F)
 	);
 
+	static {
+		REGISTER.register();
+	}
+
 	public static void init() {}
 
 	private static <Value> FrozenHolder<EnvironmentAttribute<?>, EnvironmentAttribute<Value>> register(String name, Supplier<EnvironmentAttribute.Builder<Value>> builder) {

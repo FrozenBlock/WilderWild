@@ -703,20 +703,20 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
-		if (type == WWDataComponents.JELLYFISH_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		if (type == WWDataComponents.JELLYFISH_VARIANT.get()) return castComponentValue(type, this.getVariantAsHolder());
 		return super.get(type);
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentGetter getter) {
-		this.applyImplicitComponentIfPresent(getter, WWDataComponents.JELLYFISH_VARIANT);
+		this.applyImplicitComponentIfPresent(getter, WWDataComponents.JELLYFISH_VARIANT.get());
 		super.applyImplicitComponents(getter);
 	}
 
 	@Override
 	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
-		if (type == WWDataComponents.JELLYFISH_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT, value).value());
+		if (type == WWDataComponents.JELLYFISH_VARIANT.get()) {
+			this.setVariant(castComponentValue(WWDataComponents.JELLYFISH_VARIANT.get(), value).value());
 			return true;
 		}
 		return super.applyImplicitComponent(type, value);
@@ -725,7 +725,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void saveToBucketTag(ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
-		stack.copyFrom(WWDataComponents.JELLYFISH_VARIANT, this);
+		stack.copyFrom(WWDataComponents.JELLYFISH_VARIANT.get(), this);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, tag -> {
 			tag.putBoolean("canReproduce", this.canReproduce());
 			tag.putInt("fullness", this.fullness);

@@ -711,20 +711,20 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
-		if (type == WWDataComponents.CRAB_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		if (type == WWDataComponents.CRAB_VARIANT.get()) return castComponentValue(type, this.getVariantAsHolder());
 		return super.get(type);
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentGetter components) {
-		this.applyImplicitComponentIfPresent(components, WWDataComponents.CRAB_VARIANT);
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.CRAB_VARIANT.get());
 		super.applyImplicitComponents(components);
 	}
 
 	@Override
 	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
-		if (type == WWDataComponents.CRAB_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.CRAB_VARIANT, value).value());
+		if (type == WWDataComponents.CRAB_VARIANT.get()) {
+			this.setVariant(castComponentValue(WWDataComponents.CRAB_VARIANT.get(), value).value());
 			return true;
 		}
 		return super.applyImplicitComponent(type, value);
@@ -733,7 +733,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Override
 	public void saveToBucketTag(ItemStack stack) {
 		Bucketable.saveDefaultDataToBucketTag(this, stack);
-		stack.copyFrom(WWDataComponents.CRAB_VARIANT, this);
+		stack.copyFrom(WWDataComponents.CRAB_VARIANT.get(), this);
 		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
 			compoundTag.putInt("Age", this.getAge());
 			Brain<Crab> brain = this.getBrain();

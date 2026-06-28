@@ -61,8 +61,8 @@ public abstract class ItemStackMixin {
 		Consumer<Component> builder,
 		CallbackInfo info
 	) {
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR, context, display, builder, tooltipFlag);
-		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT, context, display, builder, tooltipFlag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.FIREFLY_COLOR.get(), context, display, builder, tooltipFlag);
+		this.wilderWild$addToTooltipFromHolder(WWDataComponents.BUTTERFLY_VARIANT.get(), context, display, builder, tooltipFlag);
 	}
 
 	@Unique

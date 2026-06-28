@@ -39,7 +39,7 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 	@Nullable
 	@Override
 	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
-		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR);
+		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR.get());
 		if (fireflyColor != null) return fireflyColor.value().name();
 		return null;
 	}

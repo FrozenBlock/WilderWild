@@ -254,7 +254,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	@Override
 	public void wilderWild$saveToBottleTag(ItemStack stack) {
 		WWBottleable.saveDefaultDataToBottleTag(this, stack);
-		stack.copyFrom(WWDataComponents.FIREFLY_COLOR, this);
+		stack.copyFrom(WWDataComponents.FIREFLY_COLOR.get(), this);
 	}
 
 	@Override
@@ -265,20 +265,20 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
-		if (type == WWDataComponents.FIREFLY_COLOR) return castComponentValue(type, this.getColorAsHolder());
+		if (type == WWDataComponents.FIREFLY_COLOR.get()) return castComponentValue(type, this.getColorAsHolder());
 		return super.get(type);
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentGetter components) {
-		this.applyImplicitComponentIfPresent(components, WWDataComponents.FIREFLY_COLOR);
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.FIREFLY_COLOR.get());
 		super.applyImplicitComponents(components);
 	}
 
 	@Override
 	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
-		if (type == WWDataComponents.FIREFLY_COLOR) {
-			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR, value).value());
+		if (type == WWDataComponents.FIREFLY_COLOR.get()) {
+			this.setColor(castComponentValue(WWDataComponents.FIREFLY_COLOR.get(), value).value());
 			return true;
 		}
 		return super.applyImplicitComponent(type, value);

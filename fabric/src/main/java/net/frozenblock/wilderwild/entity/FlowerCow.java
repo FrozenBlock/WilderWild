@@ -203,20 +203,20 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
-		if (type == WWDataComponents.MOOBLOOM_VARIANT) return castComponentValue(type, this.getVariantAsHolder());
+		if (type == WWDataComponents.MOOBLOOM_VARIANT.get()) return castComponentValue(type, this.getVariantAsHolder());
 		return super.get(type);
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentGetter components) {
-		this.applyImplicitComponentIfPresent(components, WWDataComponents.MOOBLOOM_VARIANT);
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.MOOBLOOM_VARIANT.get());
 		super.applyImplicitComponents(components);
 	}
 
 	@Override
 	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
-		if (type == WWDataComponents.MOOBLOOM_VARIANT) {
-			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT, value).value());
+		if (type == WWDataComponents.MOOBLOOM_VARIANT.get()) {
+			this.setVariant(castComponentValue(WWDataComponents.MOOBLOOM_VARIANT.get(), value).value());
 			return true;
 		}
 		return super.applyImplicitComponent(type, value);

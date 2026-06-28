@@ -158,14 +158,14 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	protected void applyImplicitComponents(DataComponentGetter components) {
 		super.applyImplicitComponents(components);
 		this.fireflies.clear();
-		final List<Occupant> occupants = components.getOrDefault(WWDataComponents.FIREFLIES, List.of());
+		final List<Occupant> occupants = components.getOrDefault(WWDataComponents.FIREFLIES.get(), List.of());
 		this.fireflies.addAll(occupants);
 	}
 
 	@Override
 	public void collectImplicitComponents(DataComponentMap.Builder components) {
 		super.collectImplicitComponents(components);
-		components.set(WWDataComponents.FIREFLIES, this.fireflies);
+		components.set(WWDataComponents.FIREFLIES.get(), this.fireflies);
 	}
 
 	@Override

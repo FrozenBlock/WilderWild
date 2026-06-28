@@ -30,6 +30,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
 import net.frozenblock.lib.item.api.bone_meal.BoneMealApi;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
@@ -156,6 +157,10 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 
 public final class WWBlocks {
+	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(
+		WWConstants.MOD_ID
+	);
+
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
 	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));

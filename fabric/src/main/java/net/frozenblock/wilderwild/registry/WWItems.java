@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.registry;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
@@ -48,6 +50,10 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 
 public final class WWItems {
+	private static final FrozenDeferredRegister.Items REGISTER = FrozenDeferredRegister.createItems(
+		WWConstants.MOD_ID
+	);
+
 	// BLOCK ITEMS
 	// MUD
 	public static final Item CHISELED_MUD_BRICKS = Items.registerBlock(WWBlockItemIds.CHISELED_MUD_BRICKS, WWBlocks.CHISELED_MUD_BRICKS);
@@ -161,7 +167,7 @@ public final class WWItems {
 	public static final Item STONE_CHEST = Items.registerBlock(WWBlockItemIds.STONE_CHEST, WWBlocks.STONE_CHEST);
 	public static final Item NULL_BLOCK = Items.registerBlock(WWBlockItemIds.NULL_BLOCK, WWBlocks.NULL_BLOCK);
 	public static final Item DISPLAY_LANTERN = Items.registerBlock(WWBlockItemIds.DISPLAY_LANTERN, WWBlocks.DISPLAY_LANTERN,
-		new Item.Properties().component(WWDataComponents.FIREFLIES, ImmutableList.of())
+		new Item.Properties().component(WWDataComponents.FIREFLIES.get(), ImmutableList.of())
 	);
 
 	// FLOWERS
@@ -429,8 +435,8 @@ public final class WWItems {
 		),
 		new Item.Properties()
 			.stacksTo(16)
-			.component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
-			.delayedComponent(WWDataComponents.FIREFLY_COLOR, context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null))
+			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
+			.delayedComponent(WWDataComponents.FIREFLY_COLOR.get(), context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null))
 	);
 	public static final Item BUTTERFLY_BOTTLE = Items.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
@@ -438,7 +444,7 @@ public final class WWItems {
 			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY.get(),
 			properties
 		),
-		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA, CustomData.EMPTY)
+		new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
 	);
 
 	// FOOD
