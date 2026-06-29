@@ -224,7 +224,7 @@ public final class WWMinecraftDataFixer {
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "red_mesoglea", schemaV10);
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pink_mesoglea", schemaV10);
 
-		QuiltDataFixes.buildAndRegisterMinecraftFixer(mod, builder);
+		QuiltDataFixes.buildAndRegisterMinecraftFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}
 

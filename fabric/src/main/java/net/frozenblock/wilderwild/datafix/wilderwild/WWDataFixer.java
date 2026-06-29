@@ -194,7 +194,7 @@ public final class WWDataFixer {
 		final Schema schemaV30 = builder.addSchema(30, NamespacedSchema::new);
 		builder.addFixer(new BushStateFix(schemaV30, "bush age 2 to age 3", WWConstants.id("bush")));
 
-		QuiltDataFixes.buildAndRegisterFixer(mod, builder);
+		QuiltDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
 
