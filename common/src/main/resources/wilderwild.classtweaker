@@ -24,6 +24,11 @@ accessible method net/minecraft/world/level/block/SpeleothemBlock isStalagmite (
 accessible method net/minecraft/world/level/block/SpeleothemBlock isTip (Lnet/minecraft/world/level/block/state/BlockState;Z)Z
 accessible field net/minecraft/world/level/block/state/StateHolder propertyKeys [Lnet/minecraft/world/level/block/state/properties/Property;
 
+# Entity
+accessible method net/minecraft/world/entity/schedule/Activity <init> (Ljava/lang/String;)V
+accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
+accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
+
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signalOpenCount (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
@@ -32,6 +37,17 @@ transitive-inject-interface net/minecraft/world/level/block/entity/PotentSulfurB
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
+accessible field net/minecraft/data/worldgen/placement/VegetationPlacements TREE_THRESHOLD Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;
+accessible method net/minecraft/data/worldgen/placement/VegetationPlacements treePlacementBase (Lnet/minecraft/world/level/levelgen/placement/PlacementModifier;)Lcom/google/common/collect/ImmutableList$Builder;
+extendable class net/minecraft/world/level/block/grower/TreeGrower
+accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/rootplacers/RootPlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/MapCodec;)V
+accessible method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
 
 # Biomes
 transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDERWILD_TUNDRA

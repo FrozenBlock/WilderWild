@@ -1,6 +1,6 @@
 plugins {
     id("ww-multiloader-loader")
-    id("net.neoforged.moddev")
+    id("dev.architectury.loom-no-remap")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
@@ -32,41 +32,42 @@ base {
 version = getModVersion()
 group = maven_group
 
-if (!neoforgeSnapshotMaven.isNullOrBlank()) {
-    repositories {
+repositories {
+    maven("https://maven.neoforged.net/releases") { name = "NeoForged" }
+    if (!neoforgeSnapshotMaven.isNullOrBlank()) {
         maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
     }
 }
 
-neoForge {
-    version = neoforge_version
-    val at = rootProject.file("common/src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
+loom {
+    accessWidenerPath = rootProject.file("common/src/main/resources/wilderwild.classtweaker")
+    enableTransitiveAccessWideners = true
+
+    interfaceInjection {
+        enableDependencyInterfaceInjection = true
     }
+
     runs {
-        configureEach {
-            systemProperty("neoforge.enabledGameTestNamespaces", mod_id)
-            ideName = "NeoForge ${name.replaceFirstChar { it.uppercase() }} (${project.path})"
-        }
-        create("client") {
+        named("client") {
             client()
-            gameDirectory.set(project.mkdir(project.file("runs/client")))
+            name("NeoForge Client")
+            ideConfigGenerated(true)
+            //gameDirectory.set(project.mkdir(project.file("runs/client")))
         }
-        create("server") {
+        named("server") {
             server()
+            name("NeoForge Server")
+            ideConfigGenerated(true)
             project.file("runs/server").parentFile?.mkdirs()
-            gameDirectory.set(project.mkdir(project.file("runs/server")))
-        }
-    }
-    mods {
-        create(mod_id) {
-            sourceSet(sourceSets.main.get())
+            //gameDirectory.set(project.mkdir(project.file("runs/server")))
         }
     }
 }
 
 dependencies {
+    minecraft("com.mojang:minecraft:$minecraft_version")
+    "neoForge"("net.neoforged:neoforge:$neoforge_version")
+
     api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
 
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")

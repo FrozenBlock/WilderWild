@@ -8,7 +8,7 @@ import java.util.Properties
 
 plugins {
     id("ww-multiloader-loader")
-    id("net.fabricmc.fabric-loom")
+    id("dev.architectury.loom-no-remap")
     id("org.ajoberstar.grgit")
     id("org.quiltmc.gradle.licenser")
     id("me.modmuss50.mod-publish-plugin")
@@ -66,7 +66,7 @@ val datagen by sourceSets.registering {
 loom {
     runtimeOnlyLog4j.set(true)
 
-    accessWidenerPath.set(file("src/main/resources/$mod_id.classtweaker"))
+    accessWidenerPath.set(rootProject.file("common/src/main/resources/$mod_id.classtweaker"))
     interfaceInjection {
         enableDependencyInterfaceInjection.set(true)
     }

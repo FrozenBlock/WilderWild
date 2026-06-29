@@ -12,6 +12,9 @@ pluginManagement {
 			name = "Fabric"
 			setUrl("https://maven.fabricmc.net/")
 		}
+        maven("https://maven.architectury.dev/") {
+            name = "Architectury"
+        }
 		maven {
 			name = "NeoForged"
 			setUrl("https://maven.neoforged.net/releases")

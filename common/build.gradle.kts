@@ -1,34 +1,28 @@
 plugins {
     id("ww-multiloader-common")
-    id("net.neoforged.moddev")
+    id("dev.architectury.loom-no-remap")
     id("org.quiltmc.gradle.licenser")
 }
 
-val neo_form_version: String by project
-val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
+val minecraft_version: String by project
 
 val frozenlib_version: String by project
 val cloth_config_version: String by project
 val biolith_version: String by project
 
-if (!neoforgeSnapshotMaven.isNullOrBlank()) {
-    repositories {
-        maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
-    }
-}
-
-neoForge {
-    neoFormVersion = neo_form_version
-    val at = file("src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.from(at.absolutePath)
-    }
-}
-
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
 
 val applyLicenses: Task by tasks
+
+
+loom {
+    accessWidenerPath = file("src/main/resources/wilderwild.classtweaker")
+    enableTransitiveAccessWideners = true
+    interfaceInjection {
+        enableDependencyInterfaceInjection.set(true)
+    }
+}
 
 tasks {
     license {
@@ -41,6 +35,8 @@ tasks {
 }
 
 dependencies {
+    minecraft("com.mojang:minecraft:$minecraft_version")
+
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
 
     compileOnly("org.spongepowered:mixin:0.8.5")
