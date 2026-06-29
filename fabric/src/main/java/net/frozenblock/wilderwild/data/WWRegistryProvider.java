@@ -69,6 +69,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.RULE_SOURCE_ADDITION)));
 		WWConstants.log("Adding finalized player damage type sounds to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND)));
+		WWConstants.log("Adding finalized structure processor list additions to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);
