@@ -198,18 +198,12 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> CHISELED_MUD_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.CHISELED_MUD_BRICKS.block(), () -> Properties.ofFullCopy(Blocks.MUD_BRICKS));
 	public static final FrozenDeferredBlock<Block> CRACKED_MUD_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.CRACKED_MUD_BRICKS.block(), () -> Properties.ofFullCopy(Blocks.MUD_BRICKS));
 	public static final FrozenDeferredBlock<Block> MOSSY_MUD_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.MOSSY_MUD_BRICKS.block(), () -> Properties.ofFullCopy(Blocks.MUD_BRICKS));
-	public static final FrozenDeferredBlock<StairBlock> MOSSY_MUD_BRICK_STAIRS = REGISTER.registerBlock(WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS.block(),
-		properties -> new StairBlock(MOSSY_MUD_BRICKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(Blocks.MUD_BRICKS)
-	);
-	public static final FrozenDeferredBlock<SlabBlock> MOSSY_MUD_BRICK_SLAB = REGISTER.registerBlock(WWBlockItemIds.MOSSY_MUD_BRICK_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.MUD_BRICKS)
-	);
-	public static final FrozenDeferredBlock<WallBlock> MOSSY_MUD_BRICK_WALL = REGISTER.registerBlock(WWBlockItemIds.MOSSY_MUD_BRICK_WALL.block(),
-		WallBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.MUD_BRICKS)
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> MOSSY_MUD_BRICK_STAIRS = REGISTER.registerStair(WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS, MOSSY_MUD_BRICKS.get());
+	public static final FrozenDeferredBlock<SlabBlock> MOSSY_MUD_BRICK_SLAB = REGISTER.registerSlab(WWBlockItemIds.MOSSY_MUD_BRICK_SLAB, MOSSY_MUD_BRICKS.get());
+	public static final FrozenDeferredBlock<WallBlock> MOSSY_MUD_BRICK_WALL = REGISTER.registerWall(WWBlockItemIds.MOSSY_MUD_BRICK_WALL, MOSSY_MUD_BRICKS.get());
 
 	static {
 		REGISTER.register();
@@ -1080,18 +1074,12 @@ public final class WWBlocks {
 	);
 
 	public static final FrozenDeferredBlock<Block> POLISHED_GABBRO = REGISTER.registerSimpleBlock(WWBlockItemIds.POLISHED_GABBRO.block(), () -> Properties.ofFullCopy(WWBlocks.GABBRO.get()));
-	public static final FrozenDeferredBlock<StairBlock> POLISHED_GABBRO_STAIRS = REGISTER.registerBlock(WWBlockItemIds.POLISHED_GABBRO_STAIRS.block(),
-		properties -> new StairBlock(WWBlocks.POLISHED_GABBRO.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(WWBlocks.POLISHED_GABBRO.get())
-	);
-	public static final FrozenDeferredBlock<SlabBlock> POLISHED_GABBRO_SLAB = REGISTER.registerBlock(WWBlockItemIds.POLISHED_GABBRO_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.POLISHED_GABBRO.get())
-	);
-	public static final FrozenDeferredBlock<WallBlock> POLISHED_GABBRO_WALL = REGISTER.registerBlock(WWBlockItemIds.POLISHED_GABBRO_WALL.block(),
-		WallBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.POLISHED_GABBRO.get())
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> POLISHED_GABBRO_STAIRS = REGISTER.registerStair(WWBlockItemIds.POLISHED_GABBRO_STAIRS, POLISHED_GABBRO.get());
+	public static final FrozenDeferredBlock<SlabBlock> POLISHED_GABBRO_SLAB = REGISTER.registerSlab(WWBlockItemIds.POLISHED_GABBRO_SLAB, POLISHED_GABBRO.get());
+	public static final FrozenDeferredBlock<WallBlock> POLISHED_GABBRO_WALL = REGISTER.registerWall(WWBlockItemIds.POLISHED_GABBRO_WALL, POLISHED_GABBRO.get());
 
 	static {
 		REGISTER.register();
@@ -1111,18 +1099,12 @@ public final class WWBlocks {
 		.getFamily();
 
 	public static final FrozenDeferredBlock<Block> GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.GABBRO_BRICKS.block(), () -> Properties.ofFullCopy(WWBlocks.GABBRO.get()).sound(WWSoundTypes.GABBRO_BRICKS));
-	public static final FrozenDeferredBlock<StairBlock> GABBRO_BRICK_STAIRS = REGISTER.registerBlock(WWBlockItemIds.GABBRO_BRICK_STAIRS.block(),
-		properties -> new StairBlock(WWBlocks.GABBRO_BRICKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS.get())
-	);
-	public static final FrozenDeferredBlock<SlabBlock> GABBRO_BRICK_SLAB = REGISTER.registerBlock(WWBlockItemIds.GABBRO_BRICK_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.GABBRO_BRICKS.get())
-	);
-	public static final FrozenDeferredBlock<WallBlock> GABBRO_BRICK_WALL = REGISTER.registerBlock(WWBlockItemIds.GABBRO_BRICK_WALL.block(),
-		WallBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.GABBRO_BRICKS.get())
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> GABBRO_BRICK_STAIRS = REGISTER.registerStair(WWBlockItemIds.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICKS.get());
+	public static final FrozenDeferredBlock<SlabBlock> GABBRO_BRICK_SLAB = REGISTER.registerSlab(WWBlockItemIds.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICKS.get());
+	public static final FrozenDeferredBlock<WallBlock> GABBRO_BRICK_WALL = REGISTER.registerWall(WWBlockItemIds.GABBRO_BRICK_WALL, WWBlocks.GABBRO_BRICKS.get());
 	public static final FrozenDeferredBlock<Block> CRACKED_GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.CRACKED_GABBRO_BRICKS.block(), () -> Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS.get()));
 	public static final FrozenDeferredBlock<Block> CHISELED_GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.CHISELED_GABBRO_BRICKS.block(), () -> Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS.get()));
 
@@ -1141,18 +1123,12 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> MOSSY_GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.MOSSY_GABBRO_BRICKS.block(),
 		() -> Properties.ofFullCopy(WWBlocks.GABBRO_BRICKS.get()).requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 	);
-	public static final FrozenDeferredBlock<StairBlock> MOSSY_GABBRO_BRICK_STAIRS = REGISTER.registerBlock(WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS.block(),
-		properties -> new StairBlock(WWBlocks.MOSSY_GABBRO_BRICKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(WWBlocks.MOSSY_GABBRO_BRICKS.get())
-	);
-	public static final FrozenDeferredBlock<SlabBlock> MOSSY_GABBRO_BRICK_SLAB = REGISTER.registerBlock(WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.MOSSY_GABBRO_BRICKS.get())
-	);
-	public static final FrozenDeferredBlock<WallBlock> MOSSY_GABBRO_BRICK_WALL = REGISTER.registerBlock(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL.block(),
-		WallBlock::new,
-		() -> Properties.ofLegacyCopy(WWBlocks.MOSSY_GABBRO_BRICKS.get())
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> MOSSY_GABBRO_BRICK_STAIRS = REGISTER.registerStair(WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS, WWBlocks.MOSSY_GABBRO_BRICKS.get());
+	public static final FrozenDeferredBlock<SlabBlock> MOSSY_GABBRO_BRICK_SLAB = REGISTER.registerSlab(WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB, WWBlocks.MOSSY_GABBRO_BRICKS.get());
+	public static final FrozenDeferredBlock<WallBlock> MOSSY_GABBRO_BRICK_WALL = REGISTER.registerWall(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICKS.get());
 
 	static {
 		REGISTER.register();
@@ -1166,18 +1142,17 @@ public final class WWBlocks {
 
 	// BAOBAB
 	public static final FrozenDeferredBlock<Block> BAOBAB_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.BAOBAB_PLANKS.block(), () -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(BAOBAB_PLANKS_COLOR));
-	public static final FrozenDeferredBlock<StairBlock> BAOBAB_STAIRS = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_STAIRS.block(),
-		properties -> new StairBlock(BAOBAB_PLANKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(BAOBAB_PLANKS_COLOR)
-	);
+
+	static {
+		REGISTER.register();
+	}
+
+	public static final FrozenDeferredBlock<StairBlock> BAOBAB_STAIRS = REGISTER.registerStair(WWBlockItemIds.BAOBAB_STAIRS, BAOBAB_PLANKS.get());
 	public static final FrozenDeferredBlock<FenceGateBlock> BAOBAB_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_FENCE_GATE.block(),
 		properties -> new FenceGateBlock(BAOBAB_WOOD_TYPE, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(BAOBAB_PLANKS_COLOR)
 	);
-	public static final FrozenDeferredBlock<SlabBlock> BAOBAB_SLAB = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.OAK_PLANKS).mapColor(BAOBAB_PLANKS_COLOR)
-	);
+	public static final FrozenDeferredBlock<SlabBlock> BAOBAB_SLAB = REGISTER.registerSlab(WWBlockItemIds.BAOBAB_SLAB, BAOBAB_PLANKS.get());
 	public static final FrozenDeferredBlock<PressurePlateBlock> BAOBAB_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_PRESSURE_PLATE.block(),
 		properties -> new PressurePlateBlock(BAOBAB_SET, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(BAOBAB_PLANKS_COLOR)
@@ -1254,18 +1229,15 @@ public final class WWBlocks {
 
 	// WILLOW
 	public static final FrozenDeferredBlock<Block> WILLOW_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.WILLOW_PLANKS.block(), () -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(WILLOW_PLANKS_COLOR));
-	public static final FrozenDeferredBlock<StairBlock> WILLOW_STAIRS = REGISTER.registerBlock(WWBlockItemIds.WILLOW_STAIRS.block(),
-		properties -> new StairBlock(WILLOW_PLANKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(WILLOW_PLANKS_COLOR)
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> WILLOW_STAIRS = REGISTER.registerStair(WWBlockItemIds.WILLOW_STAIRS, WILLOW_PLANKS.get());
 	public static final FrozenDeferredBlock<FenceGateBlock> WILLOW_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.WILLOW_FENCE_GATE.block(),
 		properties -> new FenceGateBlock(WILLOW_WOOD_TYPE, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(WILLOW_PLANKS_COLOR)
 	);
-	public static final FrozenDeferredBlock<SlabBlock> WILLOW_SLAB = REGISTER.registerBlock(WWBlockItemIds.WILLOW_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.OAK_PLANKS).mapColor(WILLOW_PLANKS_COLOR)
-	);
+	public static final FrozenDeferredBlock<SlabBlock> WILLOW_SLAB = REGISTER.registerSlab(WWBlockItemIds.WILLOW_SLAB, WILLOW_PLANKS.get());
 	public static final FrozenDeferredBlock<PressurePlateBlock> WILLOW_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.WILLOW_PRESSURE_PLATE.block(),
 		properties -> new PressurePlateBlock(WILLOW_SET, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(WILLOW_PLANKS_COLOR)
@@ -1342,18 +1314,15 @@ public final class WWBlocks {
 
 	// CYPRESS
 	public static final FrozenDeferredBlock<Block> CYPRESS_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.CYPRESS_PLANKS.block(), () -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(CYPRESS_PLANKS_COLOR));
-	public static final FrozenDeferredBlock<StairBlock> CYPRESS_STAIRS = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_STAIRS.block(),
-		properties -> new StairBlock(CYPRESS_PLANKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(CYPRESS_PLANKS_COLOR)
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> CYPRESS_STAIRS = REGISTER.registerStair(WWBlockItemIds.CYPRESS_STAIRS, CYPRESS_PLANKS.get());
 	public static final FrozenDeferredBlock<FenceGateBlock> CYPRESS_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_FENCE_GATE.block(),
 		properties -> new FenceGateBlock(CYPRESS_WOOD_TYPE, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(CYPRESS_PLANKS_COLOR)
 	);
-	public static final FrozenDeferredBlock<SlabBlock> CYPRESS_SLAB = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.OAK_PLANKS).mapColor(CYPRESS_PLANKS_COLOR)
-	);
+	public static final FrozenDeferredBlock<SlabBlock> CYPRESS_SLAB = REGISTER.registerSlab(WWBlockItemIds.CYPRESS_SLAB, CYPRESS_PLANKS.get());
 	public static final FrozenDeferredBlock<PressurePlateBlock> CYPRESS_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_PRESSURE_PLATE.block(),
 		properties -> new PressurePlateBlock(CYPRESS_SET, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(CYPRESS_PLANKS_COLOR)
@@ -1430,18 +1399,15 @@ public final class WWBlocks {
 
 	// PALM
 	public static final FrozenDeferredBlock<Block> PALM_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.PALM_PLANKS.block(), () -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(PALM_PLANKS_COLOR));
-	public static final FrozenDeferredBlock<StairBlock> PALM_STAIRS = REGISTER.registerBlock(WWBlockItemIds.PALM_STAIRS.block(),
-		properties -> new StairBlock(PALM_PLANKS.get().defaultBlockState(), properties),
-		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(PALM_PLANKS_COLOR)
-	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> PALM_STAIRS = REGISTER.registerStair(WWBlockItemIds.PALM_STAIRS, PALM_PLANKS.get());
 	public static final FrozenDeferredBlock<FenceGateBlock> PALM_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.PALM_FENCE_GATE.block(),
 		properties -> new FenceGateBlock(PALM_WOOD_TYPE, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(PALM_PLANKS_COLOR)
 	);
-	public static final FrozenDeferredBlock<SlabBlock> PALM_SLAB = REGISTER.registerBlock(WWBlockItemIds.PALM_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.OAK_PLANKS).mapColor(PALM_PLANKS_COLOR)
-	);
+	public static final FrozenDeferredBlock<SlabBlock> PALM_SLAB = REGISTER.registerSlab(WWBlockItemIds.PALM_SLAB, PALM_PLANKS.get());
 	public static final FrozenDeferredBlock<PressurePlateBlock> PALM_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.PALM_PRESSURE_PLATE.block(),
 		properties -> new PressurePlateBlock(PALM_SET, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(PALM_PLANKS_COLOR)
@@ -1517,20 +1483,18 @@ public final class WWBlocks {
 	);
 
 	// MAPLE
-	public static final FrozenDeferredBlock<Block> MAPLE_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.MAPLE_PLANKS.block(), () -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
-	);
-	public static final FrozenDeferredBlock<StairBlock> MAPLE_STAIRS = REGISTER.registerBlock(WWBlockItemIds.MAPLE_STAIRS.block(),
-		properties -> new StairBlock(MAPLE_PLANKS.get().defaultBlockState(), properties),
+	public static final FrozenDeferredBlock<Block> MAPLE_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.MAPLE_PLANKS.block(),
 		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
+	static {
+		REGISTER.register();
+	}
+	public static final FrozenDeferredBlock<StairBlock> MAPLE_STAIRS = REGISTER.registerStair(WWBlockItemIds.MAPLE_STAIRS, MAPLE_PLANKS.get());
 	public static final FrozenDeferredBlock<FenceGateBlock> MAPLE_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.MAPLE_FENCE_GATE.block(),
 		properties -> new FenceGateBlock(MAPLE_WOOD_TYPE, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
 	);
-	public static final FrozenDeferredBlock<SlabBlock> MAPLE_SLAB = REGISTER.registerBlock(WWBlockItemIds.MAPLE_SLAB.block(),
-		SlabBlock::new,
-		() -> Properties.ofLegacyCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
-	);
+	public static final FrozenDeferredBlock<SlabBlock> MAPLE_SLAB = REGISTER.registerSlab(WWBlockItemIds.MAPLE_SLAB, MAPLE_PLANKS.get());
 	public static final FrozenDeferredBlock<PressurePlateBlock> MAPLE_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.MAPLE_PRESSURE_PLATE.block(),
 		properties -> new PressurePlateBlock(MAPLE_SET, properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).mapColor(MAPLE_PLANKS_COLOR)
