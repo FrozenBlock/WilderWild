@@ -23,7 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
@@ -208,11 +208,11 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				// GABBRO
 
-				this.generateRecipes(WWBlocks.FAMILY_POLISHED_GABBRO, FeatureFlags.VANILLA_SET);
-				this.generateRecipes(WWBlocks.FAMILY_GABBRO_BRICK, FeatureFlags.VANILLA_SET);
+				this.generateRecipes(WWBlockFamilies.POLISHED_GABBRO, FeatureFlags.VANILLA_SET);
+				this.generateRecipes(WWBlockFamilies.GABBRO_BRICK, FeatureFlags.VANILLA_SET);
 
-				this.generateRecipes(WWBlocks.FAMILY_GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
-				this.generateRecipes(WWBlocks.FAMILY_MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
+				this.generateRecipes(WWBlockFamilies.GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
+				this.generateRecipes(WWBlockFamilies.MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_SLAB, WWItems.GABBRO, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_STAIRS, WWItems.GABBRO);
