@@ -46,6 +46,7 @@ import net.frozenblock.wilderwild.data.worldgen.WWMaterialRules;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructurePools;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
+import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureProcessorListAdditions;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
@@ -113,6 +114,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.RULE_SOURCE_ADDITION, WWMaterialRules::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);

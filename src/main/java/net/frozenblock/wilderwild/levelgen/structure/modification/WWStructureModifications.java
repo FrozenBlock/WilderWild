@@ -17,112 +17,16 @@
 
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
-import com.google.common.collect.ImmutableList;
 import net.frozenblock.lib.levelgen.structure.api.RandomPoolAliasApi;
-import net.frozenblock.lib.levelgen.structure.api.StructureProcessorApi;
 import net.frozenblock.lib.levelgen.structure.api.StructureSetApi;
-import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
-import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 
-public class WWStructureModifications {
+public final class WWStructureModifications {
 
 	public static void init() {
-		if (WWWorldgenConfig.DECAYING_TRAIL_RUINS_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.TRAIL_RUINS.identifier(),
-				new RuleProcessor(
-					ImmutableList.of(
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.2F), AlwaysTrueTest.INSTANCE, WWBlocks.CRACKED_MUD_BRICKS.defaultBlockState()),
-						new ProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICKS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICKS.defaultBlockState())
-					)
-				)
-			);
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.TRAIL_RUINS.identifier(),
-				new BlockStateRespectingRuleProcessor(
-					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_STAIRS, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_STAIRS),
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_SLAB),
-						new BlockStateRespectingProcessorRule(new RandomBlockMatchTest(Blocks.MUD_BRICK_SLAB, 0.05F), AlwaysTrueTest.INSTANCE, WWBlocks.MOSSY_MUD_BRICK_WALL)
-					)
-				)
-			);
-		}
-
-		if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.VILLAGE_DESERT.identifier(),
-				new BlockStateRespectingRuleProcessor(
-					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_BUTTON), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_BUTTON),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_DOOR), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_DOOR),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_FENCE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FENCE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_FENCE_GATE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FENCE_GATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_JUNGLE_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_PALM_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.HOLLOWED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_PLANKS), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_PLANKS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_PRESSURE_PLATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SLAB), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_SLAB),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_STAIRS), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_STAIRS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.COCONUT),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.JUNGLE_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.PALM_FRONDS)
-					)
-				)
-			);
-		}
-
-		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.ABANDONDED_CAMP_SWAMP.identifier(),
-				new BlockStateRespectingRuleProcessor(
-					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_BUTTON), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_BUTTON),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_DOOR), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_DOOR),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_FENCE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_FENCE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_FENCE_GATE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_FENCE_GATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_WALL_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_HANGING_SIGN), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WALL_HANGING_SIGN),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_WILLOW_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.STRIPPED_OAK_WOOD), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_WILLOW_WOOD),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.HOLLOWED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.HOLLOWED_WILLOW_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(WWBlocks.STRIPPED_HOLLOWED_OAK_LOG), AlwaysTrueTest.INSTANCE, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_PLANKS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_PLANKS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_PRESSURE_PLATE), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_PRESSURE_PLATE),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SLAB), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SLAB),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_STAIRS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_STAIRS),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SAPLING),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LEAVES)
-					)
-				)
-			);
-		}
-
 		StructureSetApi.ADD_ADDITIONAL_STRUCTURES.register((structures, structureSet, context) -> {
 			if (!structureSet.is(BuiltinStructureSets.ABANDONED_CAMP)) return;
 			structures.get(WWStructures.ABANDONED_CAMP_MAPLE_FOREST).ifPresent(abandonedCampMapleForest ->
@@ -135,17 +39,6 @@ public class WWStructureModifications {
 				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
 				WWConstants.id("trial_chambers/spawner/small_melee/scorched"),
 				1
-			);
-		}
-
-		if (WWBlockConfig.ADD_STONE_CHESTS.get()) {
-			StructureProcessorApi.addProcessor(
-				BuiltinStructures.ANCIENT_CITY.identifier(),
-				new BlockStateRespectingRuleProcessor(
-					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.CHEST), AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST)
-					)
-				)
 			);
 		}
 	}

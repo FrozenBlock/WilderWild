@@ -1,0 +1,81 @@
+{
+  "config_predicate": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:worldgen/structure/decayTrailRuins",
+    "target": true
+  },
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "minecraft:rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:mud_bricks",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.2
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "Name": "wilderwild:cracked_mud_bricks"
+            }
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:mud_bricks",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "Name": "wilderwild:mossy_mud_bricks"
+            }
+          }
+        ]
+      },
+      {
+        "processor_type": "frozenlib:block_state_respecting_rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:mud_brick_stairs",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:mossy_mud_brick_stairs"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:mud_brick_slab",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:mossy_mud_brick_slab"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:mud_brick_slab",
+              "predicate_type": "minecraft:random_block_match",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:mossy_mud_brick_wall"
+          }
+        ]
+      }
+    ]
+  },
+  "structures": "minecraft:trail_ruins"
+}
