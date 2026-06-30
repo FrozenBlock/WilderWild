@@ -36,5 +36,4 @@ public final class CactusBlockMixin {
 	private boolean wilderWild$canSurviveIsSolid(boolean original) {
 		return !WWBlockConfig.CACTUS_PLACEMENT.get() && original;
 	}
-
 }

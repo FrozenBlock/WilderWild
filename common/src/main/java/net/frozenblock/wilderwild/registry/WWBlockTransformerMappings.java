@@ -105,7 +105,7 @@ public final class WWBlockTransformerMappings implements BlockTransformerMapping
 	public static void addHollowableBlockData(BlockTransformerMappingsApi.Context context, Block fromBlock, Block toBlock, boolean isStem) {
 		Arrays.stream(Direction.Axis.values())
 			.map(axis -> getHollowableBlockDataForAxis(fromBlock, toBlock, isStem, axis))
-			.forEach(context::addFirst);;
+			.forEach(context::addFirst);
 	}
 
 	private static BlockTransformer.BlockTransformData getHollowableBlockDataForAxis(Block fromBlock, Block toBlock, boolean isStem, Direction.Axis axis) {
