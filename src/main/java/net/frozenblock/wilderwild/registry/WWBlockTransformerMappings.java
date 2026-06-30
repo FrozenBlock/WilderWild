@@ -12,7 +12,7 @@
  * FrozenBlock Modding Oasis License for more details.
  *
  * You should have received a copy of the FrozenBlock Modding Oasis License
- * along with this program; if not, WWBlocks.see <https://github.com/FrozenBlock/Licenses>.
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
 package net.frozenblock.wilderwild.registry;
