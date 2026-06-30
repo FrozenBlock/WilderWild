@@ -19,12 +19,12 @@ package net.frozenblock.wilderwild.mixin.client.wind.cloud;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.minecraft.client.CloudStatus;
+import net.minecraft.client.renderer.CloudRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.phys.Vec3;
@@ -42,22 +42,21 @@ public class LevelRendererMixin {
 	private LevelRenderState levelRenderState;
 
 	@WrapOperation(
-		method = "render",
+		method = "prepareTranslucents",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;addCloudsPass(Lcom/mojang/blaze3d/framegraph/FrameGraphBuilder;Lnet/minecraft/client/CloudStatus;Lnet/minecraft/world/phys/Vec3;JFIFI)V"
+			target = "Lnet/minecraft/client/renderer/CloudRenderer;prepare(ILnet/minecraft/client/CloudStatus;FILnet/minecraft/world/phys/Vec3;JF)V"
 		)
 	)
 	public void wilderWild$changeCloudPosition(
-		LevelRenderer instance,
-		FrameGraphBuilder frame,
+		CloudRenderer instance,
+		int color,
 		CloudStatus cloudStatus,
+		float bottomY,
+		int range,
 		Vec3 cameraPosition,
 		long gameTime,
 		float partialTicks,
-		int cloudColor,
-		float cloudHeight,
-		int cloudRange,
 		Operation<Void> original
 	) {
 		final CloudWindPositioner positioner = this.levelRenderState.getDataOrDefault(WWRenderStateDataKeys.CLOUD_WIND_POSITIONER, CloudWindPositioner.PASS);
@@ -71,7 +70,6 @@ public class LevelRendererMixin {
 			partialTicks = 0L;
 		}
 
-		original.call(instance, frame, cloudStatus, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight, cloudRange);
+		original.call(instance, color, cloudStatus, bottomY, range, cameraPosition, gameTime, partialTicks);
 	}
-
 }
