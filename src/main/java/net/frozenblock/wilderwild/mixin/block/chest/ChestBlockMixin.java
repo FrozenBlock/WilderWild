@@ -110,5 +110,4 @@ public class ChestBlockMixin {
 			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
 		}
 	}
-
 }

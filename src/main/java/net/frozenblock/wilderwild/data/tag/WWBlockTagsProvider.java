@@ -84,6 +84,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(FrozenLibBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(BlockItemIds.DIRT)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
+
+		this.builder(FrozenLibBlockTags.PATHFINDING_DAMAGING_BLOCKS)
+			.add(WWBlockItemIds.PRICKLY_PEAR);
 	}
 
 	private void generateFeatures(HolderLookup.Provider registries) {
