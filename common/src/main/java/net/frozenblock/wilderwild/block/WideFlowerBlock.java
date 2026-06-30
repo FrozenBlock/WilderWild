@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
@@ -32,10 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class WideFlowerBlock extends FlowerBlock {
 	protected static final VoxelShape WIDE_SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
-	public static final MapCodec<WideFlowerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		EFFECTS_FIELD.forGetter(WideFlowerBlock::getSuspiciousEffects),
-		propertiesCodec()
-	).apply(instance, WideFlowerBlock::new));
 
 	public WideFlowerBlock(Holder<MobEffect> suspiciousStewEffect, float effectSeconds, Properties properties) {
 		super(suspiciousStewEffect, effectSeconds, properties);
@@ -43,11 +37,6 @@ public class WideFlowerBlock extends FlowerBlock {
 
 	public WideFlowerBlock(SuspiciousStewEffects suspiciousStewEffects, Properties properties) {
 		super(suspiciousStewEffects, properties);
-	}
-
-	@Override
-	public MapCodec<? extends FlowerBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

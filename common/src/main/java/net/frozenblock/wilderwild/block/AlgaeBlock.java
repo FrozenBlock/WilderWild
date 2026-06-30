@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -53,15 +52,9 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	protected static final VoxelShape ENTITY_INSIDE_SHAPE = Block.box(0D, -0.5D, 0D, 16D, 0D, 16D);
-	public static final MapCodec<AlgaeBlock> CODEC = simpleCodec(AlgaeBlock::new);
 
 	public AlgaeBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	protected MapCodec<? extends AlgaeBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

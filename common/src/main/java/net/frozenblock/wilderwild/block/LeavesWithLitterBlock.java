@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -29,18 +27,9 @@ import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LeavesWithLitterBlock extends FallingParticlesLeavesBlock {
-	public static final MapCodec<LeavesWithLitterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		AmbientLeavesBlockSoundPlayer.CODEC.fieldOf("ambient_leaves_block_sound_player").forGetter(block -> block.ambientLeavesBlockSoundPlayer),
-		propertiesCodec()
-	).apply(instance, LeavesWithLitterBlock::new));
 
 	public LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer ambientLeavesBlockSoundPlayer, Properties properties) {
 		super(0F, ambientLeavesBlockSoundPlayer, properties);
-	}
-
-	@Override
-	public MapCodec<? extends LeavesWithLitterBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -38,16 +37,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<AuburnMossCarpetBlock> CODEC = simpleCodec(AuburnMossCarpetBlock::new);
 
 	public AuburnMossCarpetBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	public MapCodec<? extends AuburnMossCarpetBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

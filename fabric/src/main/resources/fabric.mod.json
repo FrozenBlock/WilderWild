@@ -41,7 +41,8 @@
       "net.frozenblock.wilderwild.WilderWildFabric"
     ],
     "frozenlib:events": [
-      "net.frozenblock.wilderwild.registry.WWBlockModifications"
+      "net.frozenblock.wilderwild.registry.WWBlockModifications",
+      "net.frozenblock.wilderwild.registry.WWBlockTransformerMappings"
     ],
     "modmenu": [
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"

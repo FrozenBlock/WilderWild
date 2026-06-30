@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.minecraft.core.BlockPos;
@@ -34,12 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class AuburnMossBlock extends Block implements BonemealableBlock {
-	public static final MapCodec<AuburnMossBlock> CODEC = simpleCodec(AuburnMossBlock::new);
-
-	@Override
-	public MapCodec<AuburnMossBlock> codec() {
-		return CODEC;
-	}
 
 	public AuburnMossBlock(Properties properties) {
 		super(properties);

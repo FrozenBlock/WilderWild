@@ -17,9 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.waterlike.WaterLikeBlock;
 import net.frozenblock.lib.block.impl.waterlike.BubbleColumnDirection;
@@ -31,7 +28,6 @@ import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -62,16 +58,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBlock {
-	public static final MapCodec<MesogleaBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.BOOL.fieldOf("pearlescent").forGetter(MesogleaBlock::isPearlescent),
-		ColorRGBA.CODEC.fieldOf("water_like_color").forGetter(MesogleaBlock::waterLikeColor),
-		ParticleTypes.CODEC.fieldOf("drip_particle").forGetter(MesogleaBlock::dripParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_particle").forGetter(MesogleaBlock::bubbleParticle),
-		ParticleTypes.CODEC.fieldOf("splash_particle").forGetter(MesogleaBlock::splashParticle),
-		ParticleTypes.CODEC.fieldOf("bubble_column_up_particle").forGetter(mesogleaBlock -> mesogleaBlock.bubbleColumnUpParticle().orElseThrow()),
-		ParticleTypes.CODEC.fieldOf("current_down_particle").forGetter(mesogleaBlock -> mesogleaBlock.currentDownParticle().orElseThrow()),
-		propertiesCodec()
-	).apply(instance, MesogleaBlock::new));
 	public static final double ITEM_SLOWDOWN = 0.999D;
 	public static final double ITEM_VERTICAL_BOOST = 0.025D;
 	public static final Vec3 ITEM_SLOWDOWN_VEC3 = new Vec3(ITEM_SLOWDOWN, ITEM_SLOWDOWN, ITEM_SLOWDOWN);
@@ -107,11 +93,6 @@ public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBloc
 		this.bubbleColumnUpParticle = bubbleColumnUpParticle;
 		this.currentDownParticle = currentDownParticle;
 		this.splashParticle = splashParticle;
-	}
-
-	@Override
-	protected MapCodec<? extends MesogleaBlock> codec() {
-		return CODEC;
 	}
 
 	public boolean isPearlescent() {

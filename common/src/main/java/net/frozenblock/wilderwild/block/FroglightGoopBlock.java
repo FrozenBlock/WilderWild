@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.FroglightTypeHolder;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
@@ -36,10 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FroglightGoopBlock extends GrowingPlantHeadBlock implements FroglightTypeHolder {
-	public static final MapCodec<FroglightGoopBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		FroglightType.CODEC.fieldOf("froglight_type").forGetter(froglightGoopBlock -> froglightGoopBlock.froglightType),
-		propertiesCodec()
-	).apply(instance, FroglightGoopBlock::new));
 	protected static final VoxelShape SHAPE = Block.box(2D, 6D, 2D, 14D, 16D, 14D);
 	private static final float GROWTH_FROM_FROGLIGHT_CHANCE = 0.035F;
 	private final FroglightType froglightType;
@@ -47,11 +41,6 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 	public FroglightGoopBlock(FroglightType froglightType, Properties properties) {
 		super(properties, Direction.DOWN, SHAPE, false, 0D);
 		this.froglightType = froglightType;
-	}
-
-	@Override
-	public MapCodec<FroglightGoopBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

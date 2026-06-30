@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -52,16 +51,10 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
-	public static final MapCodec<SeaAnemoneBlock> CODEC = simpleCodec(SeaAnemoneBlock::new);
 
 	public SeaAnemoneBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(GLOWING, false));
-	}
-
-	@Override
-	public MapCodec<SeaAnemoneBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

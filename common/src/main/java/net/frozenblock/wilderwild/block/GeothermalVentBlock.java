@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
@@ -60,7 +59,6 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-	public static final MapCodec<GeothermalVentBlock> CODEC = simpleCodec(GeothermalVentBlock::new);
 
 	public GeothermalVentBlock(Properties properties) {
 		super(properties);
@@ -71,11 +69,6 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 			.setValue(NATURAL, true)
 			.setValue(POWERED, false)
 		);
-	}
-
-	@Override
-	protected MapCodec<? extends GeothermalVentBlock> codec() {
-		return CODEC;
 	}
 
 	@Nullable

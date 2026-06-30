@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
@@ -212,7 +212,7 @@ public final class WWMiscPlaced {
 		DISK_MUD.makeAndSetHolder(WWMiscConfigured.DISK_MUD,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.GRASS_BLOCK, Blocks.DIRT)),
 			BiomeFilter.biome()
 		);
@@ -228,7 +228,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -298,7 +298,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -307,7 +307,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -316,7 +316,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
@@ -326,7 +326,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
@@ -336,7 +336,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -350,7 +350,7 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -362,7 +362,7 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -413,7 +413,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -451,7 +451,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
@@ -523,7 +523,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -532,7 +532,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -582,7 +582,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -620,7 +620,7 @@ public final class WWMiscPlaced {
 			CountPlacement.of(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			BiomeFilter.biome()
 		);
@@ -639,7 +639,7 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(38),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 

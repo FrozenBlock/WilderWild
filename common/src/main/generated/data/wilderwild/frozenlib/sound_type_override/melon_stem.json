@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/melon_stem",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/melonSounds",
     "target": true
   },

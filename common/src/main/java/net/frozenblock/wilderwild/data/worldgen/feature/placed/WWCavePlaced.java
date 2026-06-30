@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
@@ -48,7 +48,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -120,7 +120,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -129,7 +129,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.WATER), 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -138,7 +138,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.WATER), 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -154,7 +154,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -163,7 +163,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 1),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -207,7 +207,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(5), VerticalAnchor.aboveBottom(60)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -388,7 +388,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK), BlockPredicate.replaceable(), 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
@@ -397,7 +397,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.replaceable(), 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
@@ -420,7 +420,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
-			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
@@ -437,7 +437,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			CountPlacement.of(UniformInt.of(1, 5)),
-			RandomOffsetPlacement.of(
+			OffsetPlacement.of(
 				ClampedNormalInt.of(0F, 3F, -10, 10),
 				ClampedNormalInt.of(0F, 0.6F, -2, 2)
 			),
@@ -451,7 +451,7 @@ public final class WWCavePlaced {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.of(
+			OffsetPlacement.of(
 				ClampedNormalInt.of(0F, 3F, -10, 10),
 				ClampedNormalInt.of(0F, 0.6F, -2, 2)
 			),
@@ -465,7 +465,7 @@ public final class WWCavePlaced {
 			PlacementUtils.HEIGHTMAP,
 			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			RandomOffsetPlacement.of(
+			OffsetPlacement.of(
 				ClampedNormalInt.of(0F, 3F, -10, 10),
 				ClampedNormalInt.of(0F, 0.6F, -2, 2)
 			),
@@ -489,7 +489,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -498,7 +498,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -507,7 +507,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -516,7 +516,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -525,7 +525,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 
@@ -534,7 +534,7 @@ public final class WWCavePlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 

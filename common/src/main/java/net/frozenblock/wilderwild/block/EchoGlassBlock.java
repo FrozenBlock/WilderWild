@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -52,7 +51,6 @@ public class EchoGlassBlock extends TransparentBlock {
 	public static final int MIN_CRACK_PARTICLES = 18;
 	public static final int MAX_DAMAGE_PARTICLES = 25;
 	public static final IntegerProperty DAMAGE = WWBlockStateProperties.DAMAGE;
-	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
 	public EchoGlassBlock(Properties properties) {
 		super(properties);
@@ -104,11 +102,6 @@ public class EchoGlassBlock extends TransparentBlock {
 			finalLight = Math.max(finalLight, newLight);
 		}
 		return finalLight;
-	}
-
-	@Override
-	public MapCodec<? extends EchoGlassBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

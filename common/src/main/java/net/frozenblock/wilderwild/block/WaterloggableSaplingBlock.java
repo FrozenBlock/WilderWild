@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,19 +41,10 @@ import org.jetbrains.annotations.Nullable;
 public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWaterloggedBlock {
 	public static final int WATER_SEARCH_RANGE = 3;
 	private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final MapCodec<WaterloggableSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter(waterloggableSaplingBlock -> waterloggableSaplingBlock.treeGrower),
-		propertiesCodec()
-	).apply(instance, WaterloggableSaplingBlock::new));
 
 	public WaterloggableSaplingBlock(TreeGrower grower, Properties properties) {
 		super(grower, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(STAGE, 0).setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	public MapCodec<? extends WaterloggableSaplingBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

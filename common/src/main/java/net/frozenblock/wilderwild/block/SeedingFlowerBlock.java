@@ -17,14 +17,11 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -60,11 +57,6 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public static final int MAX_SEEDS = 2;
 	public static final int MIN_SEEDS_DESTROY = 3;
 	public static final int MAX_SEEDS_DESTROY = 7;
-	public static final MapCodec<SeedingFlowerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects),
-		BuiltInRegistries.BLOCK.byNameCodec().fieldOf("non_seeding_flower").forGetter(SeedingFlowerBlock::getNonSeedingFlower),
-		propertiesCodec()
-	).apply(instance, SeedingFlowerBlock::new));
 
 	private final Block nonSeedingFlower;
 
@@ -85,11 +77,6 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	) {
 		super(suspiciousStewEffects, settings);
 		this.nonSeedingFlower = nonSeedingFlower;
-	}
-
-	@Override
-	public MapCodec<? extends SeedingFlowerBlock> codec() {
-		return CODEC;
 	}
 
 	public Block getNonSeedingFlower() {

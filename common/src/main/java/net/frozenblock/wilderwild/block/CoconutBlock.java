@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -52,10 +51,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoconutBlock extends FallingBlock implements BonemealableBlock {
-	public static final MapCodec<CoconutBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter(coconutBlock -> coconutBlock.treeGrower),
-		propertiesCodec()
-	).apply(instance, CoconutBlock::new));
 	public static final double GROWTH_CHANCE_HANGING = 0.4D;
 	public static final int VALID_FROND_DISTANCE = 2;
 	public static final int MAX_AGE = 2;
@@ -92,11 +87,6 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	public BlockState getHangingState(int age) {
 		return this.defaultBlockState().setValue(HANGING, true).setValue(AGE, age);
-	}
-
-	@Override
-	protected MapCodec<? extends CoconutBlock> codec() {
-		return CODEC;
 	}
 
 	public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {

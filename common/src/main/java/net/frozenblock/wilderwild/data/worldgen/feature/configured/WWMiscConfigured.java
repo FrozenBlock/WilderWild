@@ -20,9 +20,9 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInAreaBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.TouchingBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.VegetationPatchWithEdgeDecorationFeature;
@@ -75,7 +75,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -195,7 +195,7 @@ public final class WWMiscConfigured {
 		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
-		EMPTY.makeAndSetHolder(NoOpFeature.INSTANCE);
+		EMPTY.makeAndSetHolder(new NoOpFeature());
 
 		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(
 			new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH.get()))
@@ -1207,7 +1207,7 @@ public final class WWMiscConfigured {
 						PlacementUtils.inlinePlaced(
 							AUBURN_MOSS_PATCH.getHolder(),
 							CountPlacement.of(8),
-							RandomOffsetPlacement.ofTriangle(6, 3)
+							OffsetPlacement.ofTriangle(6, 3)
 						),
 						0.25F
 					),
@@ -1215,7 +1215,7 @@ public final class WWMiscConfigured {
 						PlacementUtils.inlinePlaced(
 							AUBURN_MOSS_PATCH.getHolder(),
 							CountPlacement.of(8),
-							RandomOffsetPlacement.ofTriangle(6, 4)
+							OffsetPlacement.ofTriangle(6, 4)
 						),
 						0.15F
 					),
@@ -1223,7 +1223,7 @@ public final class WWMiscConfigured {
 						PlacementUtils.inlinePlaced(
 							AUBURN_MOSS_PATCH.getHolder(),
 							CountPlacement.of(7),
-							RandomOffsetPlacement.ofTriangle(3, 2)
+							OffsetPlacement.ofTriangle(3, 2)
 						),
 						0.25F
 					)

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
@@ -25,16 +24,10 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class BarnaclesBlock extends MultifaceSpreadeableBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<BarnaclesBlock> CODEC = simpleCodec(BarnaclesBlock::new);
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new MultifaceSpreader.DefaultSpreaderConfig(this));
 
 	public BarnaclesBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public MapCodec<? extends BarnaclesBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

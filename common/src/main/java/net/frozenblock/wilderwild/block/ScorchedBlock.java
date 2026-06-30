@@ -17,9 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
@@ -48,14 +45,6 @@ public class ScorchedBlock extends BaseEntityBlock {
 	public static final float RAIN_HYDRATION_CHANCE = 0.75F;
 	public static final Map<BlockState, BlockState> SCORCH_MAP = new Object2ObjectLinkedOpenHashMap<>();
 	public static final Map<BlockState, BlockState> HYDRATE_MAP = new Object2ObjectLinkedOpenHashMap<>();
-	public static final MapCodec<ScorchedBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		BlockState.CODEC.fieldOf("previous_state").forGetter(scorchedBlock -> scorchedBlock.wetState),
-		Codec.BOOL.fieldOf("brushable").forGetter(scorchedBlock -> scorchedBlock.canBrush),
-		SoundEvent.DIRECT_CODEC.fieldOf("brush_sound").forGetter(scorchedBlock -> scorchedBlock.brushSound),
-		SoundEvent.DIRECT_CODEC.fieldOf("brush_completed_sound").forGetter(scorchedBlock -> scorchedBlock.brushCompletedSound),
-		Codec.BOOL.fieldOf("is_sand").forGetter(scorchedBlock -> scorchedBlock.isSand),
-		propertiesCodec()
-	).apply(instance, ScorchedBlock::new));
 	private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
 	public final boolean canBrush;
 	public final BlockState wetState;
@@ -95,11 +84,7 @@ public class ScorchedBlock extends BaseEntityBlock {
 		return state.trySetValue(DUSTED, 0);
 	}
 
-	@Override
-	protected MapCodec<? extends ScorchedBlock> codec() {
-		return CODEC;
-	}
-
+	// TODO: convert to data-driven registry
 	public void fillScorchMap(BlockState wetState, BlockState defaultState) {
 		SCORCH_MAP.put(wetState, defaultState);
 		HYDRATE_MAP.put(defaultState, wetState);

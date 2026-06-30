@@ -66,9 +66,21 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 			OverlayTexture.NO_OVERLAY,
 			-1,
 			null,
-			0,
-			renderState.breakProgress
+			0
 		);
+
+		if (renderState.breakProgress != null) {
+			collector.order(1).submitCrumblingOverlay(
+				this.model,
+				renderState,
+				poseStack,
+				ACTIVE_SENSOR_LAYER,
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				renderState.breakProgress
+			);
+		}
 	}
 
 	@Override

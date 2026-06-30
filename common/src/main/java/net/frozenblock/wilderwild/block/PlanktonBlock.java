@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
@@ -45,7 +44,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PlanktonBlock extends AlgaeBlock {
-	public static final MapCodec<PlanktonBlock> CODEC = simpleCodec(PlanktonBlock::new);
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 3;
@@ -58,11 +56,6 @@ public class PlanktonBlock extends AlgaeBlock {
 	public PlanktonBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(GLOWING, Boolean.FALSE));
-	}
-
-	@Override
-	protected MapCodec<? extends PlanktonBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

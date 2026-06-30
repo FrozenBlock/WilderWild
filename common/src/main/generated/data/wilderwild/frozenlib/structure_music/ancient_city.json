@@ -12,7 +12,7 @@
     }
   },
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:misc/music/ancientCityMusic",
     "target": true
   },

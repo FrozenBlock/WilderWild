@@ -17,13 +17,11 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.Optional;
 import net.frozenblock.lib.block.api.FaceClusterSpreadableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
@@ -31,7 +29,6 @@ import net.minecraft.world.level.material.PushReaction;
 public class NematocystBlock extends FaceClusterSpreadableBlock {
 	public static final int HEIGHT = 7;
 	public static final int XZ_OFFSET = 3;
-	public static final MapCodec<NematocystBlock> CODEC = simpleCodec(NematocystBlock::new);
 	private final NematocystSpreader spreader = new NematocystSpreader(this);
 
 	public NematocystBlock(int height, int xzOffset, Properties properties) {
@@ -40,11 +37,6 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 
 	public NematocystBlock(Properties properties) {
 		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.DESTROY));
-	}
-
-	@Override
-	public MapCodec<? extends MultifaceSpreadeableBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

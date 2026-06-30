@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,15 +42,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContainer {
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
-	public static final MapCodec<SeaWhipBlock> CODEC = simpleCodec(SeaWhipBlock::new);
 
 	public SeaWhipBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public MapCodec<SeaWhipBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

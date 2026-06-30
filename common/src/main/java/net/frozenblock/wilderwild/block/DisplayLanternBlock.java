@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -83,7 +82,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final IntegerProperty DISPLAY_LIGHT = WWBlockStateProperties.DISPLAY_LIGHT;
 	protected static final VoxelShape STANDING_SHAPE = Shapes.or(Block.box(5D, 0D, 5D, 11D, 7D, 11.0D), Block.box(6D, 7D, 6D, 10D, 8D, 10D));
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5D, 2D, 5D, 11D, 9D, 11.0D), Block.box(6D, 9D, 6D, 10D, 10D, 10D));
-	public static final MapCodec<DisplayLanternBlock> CODEC = simpleCodec(DisplayLanternBlock::new);
 
 	public DisplayLanternBlock(Properties properties) {
 		super(properties.pushReaction(PushReaction.DESTROY));
@@ -92,11 +90,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	private static Direction attachedDirection(BlockState state) {
 		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
-	}
-
-	@Override
-	protected MapCodec<? extends DisplayLanternBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

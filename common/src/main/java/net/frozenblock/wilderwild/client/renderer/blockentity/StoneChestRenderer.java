@@ -87,8 +87,29 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		final SpriteId spriteId = getStoneChestTexture(renderState.hasSculk, renderState.type);
 		final StoneChestModel model = this.models.select(renderState.type);
 		collector.submitModel(
-			model, open, poseStack, renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, spriteId, this.sprites, 0, renderState.breakProgress
+			model,
+			open,
+			poseStack,
+			renderState.lightCoords,
+			OverlayTexture.NO_OVERLAY,
+			-1,
+			spriteId,
+			this.sprites,
+			0
 		);
+
+		if (renderState.breakProgress != null) {
+			collector.order(1).submitCrumblingOverlay(
+				model,
+				open,
+				poseStack,
+				spriteId.renderType(model.renderType()),
+				renderState.lightCoords,
+				OverlayTexture.NO_OVERLAY,
+				-1,
+				renderState.breakProgress
+			);
+		}
 
 		poseStack.popPose();
 	}

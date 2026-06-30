@@ -4,7 +4,7 @@
     {
       "type": "frozenlib:config_predicate",
       "config_predicate": {
-        "type": "minecraft:equal_to",
+        "type": "frozenlib:equal_to",
         "entry": "wilderwild:worldgen/aquaticGeneration/seaAnemone",
         "target": true
       }
@@ -28,17 +28,23 @@
       "count": 12
     },
     {
-      "type": "minecraft:random_offset",
-      "xz_spread": {
+      "type": "minecraft:offset",
+      "x": {
         "type": "minecraft:trapezoid",
         "max": 12,
         "min": -12,
         "plateau": 0
       },
-      "y_spread": {
+      "y": {
         "type": "minecraft:trapezoid",
         "max": 3,
         "min": -3,
+        "plateau": 0
+      },
+      "z": {
+        "type": "minecraft:trapezoid",
+        "max": 12,
+        "min": -12,
         "plateau": 0
       }
     },

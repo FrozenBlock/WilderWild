@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -65,7 +64,6 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	public static final int MIN_AGE = 0;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-	public static final MapCodec<ShrubBlock> CODEC = simpleCodec(ShrubBlock::new);
 
 	public ShrubBlock(Properties properties) {
 		super(properties);
@@ -105,11 +103,6 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 		level.setBlock(belowPos, setState, 35);
 		level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, belowPos, getId(belowState));
-	}
-
-	@Override
-	protected MapCodec<? extends ShrubBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

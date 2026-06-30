@@ -64,7 +64,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWConfiguredFeatures {
@@ -1870,7 +1870,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.inlinePlaced(
 					features.getOrThrow(VegetationFeatures.GRASS_JUNGLE),
 					CountPlacement.of(32),
-					RandomOffsetPlacement.ofTriangle(7, 3),
+					OffsetPlacement.ofTriangle(7, 3),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1893,7 +1893,7 @@ public final class WWConfiguredFeatures {
 				PlacementUtils.inlinePlaced(
 					features.getOrThrow(VegetationFeatures.GRASS_JUNGLE),
 					CountPlacement.of(32),
-					RandomOffsetPlacement.ofTriangle(7, 3),
+					OffsetPlacement.ofTriangle(7, 3),
 					BlockPredicateFilter.forPredicate(
 						BlockPredicate.allOf(
 							BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2369,13 +2369,13 @@ public final class WWConfiguredFeatures {
 					PHLOX.asWeightedPlacedFeature(
 						0.3F,
 						CountPlacement.of(30),
-						RandomOffsetPlacement.ofTriangle(6, 2),
+						OffsetPlacement.ofTriangle(6, 2),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					)
 				),
 				WILDFLOWERS.asInlinePlaced(
 					CountPlacement.of(30),
-					RandomOffsetPlacement.ofTriangle(6, 2),
+					OffsetPlacement.ofTriangle(6, 2),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 				)
 			)
@@ -2387,13 +2387,13 @@ public final class WWConfiguredFeatures {
 					LANTANAS.asWeightedPlacedFeature(
 						0.3F,
 						CountPlacement.of(30),
-						RandomOffsetPlacement.ofTriangle(6, 2),
+						OffsetPlacement.ofTriangle(6, 2),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					)
 				),
 				WILDFLOWERS.asInlinePlaced(
 					CountPlacement.of(30),
-					RandomOffsetPlacement.ofTriangle(6, 2),
+					OffsetPlacement.ofTriangle(6, 2),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 				)
 			)
@@ -2405,7 +2405,7 @@ public final class WWConfiguredFeatures {
 					LANTANAS.asWeightedPlacedFeature(
 						0.375F,
 						CountPlacement.of(30),
-						RandomOffsetPlacement.ofTriangle(6, 2),
+						OffsetPlacement.ofTriangle(6, 2),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					)
 				),
@@ -2933,25 +2933,25 @@ public final class WWConfiguredFeatures {
 					PlacementUtils.inlinePlaced(
 						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.LILAC)),
 						CountPlacement.of(9),
-						RandomOffsetPlacement.ofTriangle(7, 3),
+						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
 						new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MILKWEED.get())),
 						CountPlacement.of(9),
-						RandomOffsetPlacement.ofTriangle(7, 3),
+						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
 						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.ROSE_BUSH)),
 						CountPlacement.of(9),
-						RandomOffsetPlacement.ofTriangle(7, 3),
+						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
 						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.PEONY)),
 						CountPlacement.of(9),
-						RandomOffsetPlacement.ofTriangle(7, 3),
+						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					)
 				)

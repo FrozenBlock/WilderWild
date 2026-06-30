@@ -73,8 +73,7 @@ public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 			overlayCoords,
 			-1,
 			this.sprites.get(this.sprite),
-			outlineColor,
-			null
+			outlineColor
 		);
 	}
 

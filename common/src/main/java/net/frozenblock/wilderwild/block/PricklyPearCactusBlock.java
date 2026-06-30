@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
@@ -54,7 +53,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class PricklyPearCactusBlock extends VegetationBlock implements BonemealableBlock {
-	public static final MapCodec<PricklyPearCactusBlock> CODEC = simpleCodec(PricklyPearCactusBlock::new);
 	public static final int GROWTH_CHANCE = 16;
 	public static final float DAMAGE = 0.5F;
 	public static final float USE_ON_DAMAGE = 1F;
@@ -68,11 +66,6 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 
 	public static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
-	}
-
-	@Override
-	protected MapCodec<? extends PricklyPearCactusBlock> codec() {
-		return CODEC;
 	}
 
 	@Override
