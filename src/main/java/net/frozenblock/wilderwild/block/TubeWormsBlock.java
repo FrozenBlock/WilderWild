@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -49,16 +48,10 @@ import org.jetbrains.annotations.Nullable;
 public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContainer {
 	public static final EnumProperty<TubeWormsPart> TUBE_WORMS_PART = WWBlockStateProperties.TUBE_WORMS_PART;
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
-	public static final MapCodec<TubeWormsBlock> CODEC = simpleCodec(TubeWormsBlock::new);
 
 	public TubeWormsBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(TUBE_WORMS_PART, TubeWormsPart.SINGLE));
-	}
-
-	@Override
-	public MapCodec<TubeWormsBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

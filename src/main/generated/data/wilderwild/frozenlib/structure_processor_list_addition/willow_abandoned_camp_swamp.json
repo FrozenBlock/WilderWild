@@ -1,6 +1,6 @@
 {
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:worldgen/structure/newAbandonedCamps",
     "target": true
   },

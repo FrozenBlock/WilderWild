@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Iterator;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
@@ -68,18 +66,9 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	private static final VoxelShape SHAPE_MIDDLE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
 	private static final VoxelShape SHAPE_BASE = Block.box(3D, 0D, 3D, 13D, 16D, 13D);
 	private static final float MAX_HORIZONTAL_OFFSET = (float) SHAPE_BASE.min(Direction.Axis.X);
-	public static final MapCodec<IcicleBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		BlockState.CODEC.fieldOf("block_to_grow_on").forGetter(icicleBlock -> icicleBlock.blockToGrowOn),
-		propertiesCodec()
-	).apply(instance, IcicleBlock::new));
 
 	public IcicleBlock(BlockState blockToGrowOn, Properties properties) {
 		super(blockToGrowOn, properties);
-	}
-
-	@Override
-	public MapCodec<? extends IcicleBlock> codec() {
-		return CODEC;
 	}
 
 	@Override
@@ -92,7 +81,7 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
 		if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return;
 		final BlockPos pos = hitResult.getBlockPos();
-		if (!projectile.mayInteract(serverLevel, pos) || !projectile.mayBreak(serverLevel) || projectile.getDeltaMovement().length() <= 0.4D) return;
+		if (!projectile.mayInteract(serverLevel, pos) || !projectile.mayBreak(serverLevel, pos) || projectile.getDeltaMovement().length() <= 0.4D) return;
 		level.destroyBlock(pos, true);
 	}
 

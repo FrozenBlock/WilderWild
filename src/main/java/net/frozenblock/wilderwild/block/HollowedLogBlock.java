@@ -17,17 +17,11 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.item.api.axe.AxeApi;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Pose;
@@ -98,40 +92,14 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		Block.box(0D, 0D, 0D, 16D, 2.25D, 16)
 	);
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
-	public static final MapCodec<HollowedLogBlock> CODEC = simpleCodec(HollowedLogBlock::new);
 
 	public HollowedLogBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 
-	public static AxeApi.AxeBehavior createHollowBehavior(Block result, boolean isStem) {
-		return new AxeApi.AxeBehavior() {
-			@Override
-			public boolean meetsRequirements(LevelReader level, BlockPos pos, Direction direction, BlockState state) {
-				return WWBlockConfig.LOG_HOLLOWING.get() && state.hasProperty(AXIS) && direction.getAxis().equals(state.getValue(AXIS));
-			}
-
-			@Override
-			public BlockState getOutputBlockState(BlockState state) {
-				return result.withPropertiesOf(state);
-			}
-
-			@Override
-			public void onSuccess(Level level, BlockPos pos, Direction direction, BlockState state, BlockState oldState) {
-				hollowEffects(level, direction, oldState, pos, isStem);
-			}
-		};
-	}
-
-	public static void registerAxeHollowBehavior(Block logBlock, Block hollowedLog) {
-		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLog, false));
-	}
-
-	public static void registerAxeHollowBehaviorStem(Block logBlock, Block hollowedLog) {
-		AxeApi.register(logBlock, HollowedLogBlock.createHollowBehavior(hollowedLog, true));
-	}
-
+	// TODO: figure out how to add this to Block Transformers
+	@Deprecated(forRemoval = true, since = "26.3-snapshot-2")
 	public static void hollowEffects(Level level, Direction face, BlockState state, BlockPos pos, boolean isStem) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		final double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
@@ -148,13 +116,6 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 			0.1625D + offsetZ,
 			0.05D
 		);
-		final SoundEvent hollowedSound = isStem ? WWSounds.STEM_HOLLOWED_AXE : WWSounds.LOG_HOLLOWED_AXE;
-		level.playSound(null, pos, hollowedSound, SoundSource.BLOCKS, 0.7F, 0.95F + (level.getRandom().nextFloat() * 0.2F));
-	}
-
-	@Override
-	public MapCodec<? extends HollowedLogBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

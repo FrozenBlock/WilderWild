@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/podzol",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/podzolSounds",
     "target": true
   },

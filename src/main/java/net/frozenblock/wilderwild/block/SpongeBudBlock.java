@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.BlockPos;
@@ -67,7 +66,6 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0D, 0D, 0D, 3D, 16D, 16D);
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
-	public static final MapCodec<SpongeBudBlock> CODEC = simpleCodec(SpongeBudBlock::new);
 
 	public SpongeBudBlock(Properties properties) {
 		super(properties);
@@ -77,11 +75,6 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 			.setValue(FACE, AttachFace.WALL)
 			.setValue(AGE, 0)
 		);
-	}
-
-	@Override
-	protected MapCodec<? extends SpongeBudBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

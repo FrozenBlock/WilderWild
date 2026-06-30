@@ -1,15 +1,15 @@
 {
   "blocks": "#wilderwild:sound/pale_oak_leaves",
   "config_predicate": {
-    "type": "minecraft:all_of",
+    "type": "frozenlib:all_of",
     "predicates": [
       {
-        "type": "minecraft:equal_to",
+        "type": "frozenlib:equal_to",
         "entry": "wilderwild:block/blockSounds/paleOakSounds",
         "target": true
       },
       {
-        "type": "minecraft:equal_to",
+        "type": "frozenlib:equal_to",
         "entry": "wilderwild:block/blockSounds/leafSounds",
         "target": true
       }

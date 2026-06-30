@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/sugar_cane",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/sugarCaneSounds",
     "target": true
   },

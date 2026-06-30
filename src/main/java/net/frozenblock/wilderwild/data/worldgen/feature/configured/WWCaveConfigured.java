@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInAreaBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.TouchingBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularLavaVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnFeature;
@@ -75,7 +75,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 
@@ -590,7 +590,7 @@ public final class WWCaveConfigured {
 							0.5F
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new SpeleothemFeature(
@@ -603,7 +603,7 @@ public final class WWCaveConfigured {
 							0.5F
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					)
 				)
 			)
@@ -623,7 +623,7 @@ public final class WWCaveConfigured {
 							0.3F
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new SpeleothemFeature(
@@ -636,7 +636,7 @@ public final class WWCaveConfigured {
 							0.3F
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					)
 				)
 			)
@@ -673,9 +673,9 @@ public final class WWCaveConfigured {
 							Direction.UP,
 							true
 						),
-						RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(1)),
+						OffsetPlacement.horizontal(TrapezoidInt.triangle(1)),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -686,9 +686,9 @@ public final class WWCaveConfigured {
 							true
 						),
 						CountPlacement.of(3),
-						RandomOffsetPlacement.ofTriangle(1, 1),
+						OffsetPlacement.ofTriangle(1, 1),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					)
 				)
 			)
@@ -706,7 +706,7 @@ public final class WWCaveConfigured {
 							true
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -717,9 +717,9 @@ public final class WWCaveConfigured {
 							true
 						),
 						CountPlacement.of(3),
-						RandomOffsetPlacement.ofTriangle(1, 1),
+						OffsetPlacement.ofTriangle(1, 1),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					)
 				)
 			)
@@ -737,7 +737,7 @@ public final class WWCaveConfigured {
 							true
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -748,9 +748,9 @@ public final class WWCaveConfigured {
 							true
 						),
 						CountPlacement.of(5),
-						RandomOffsetPlacement.ofTriangle(1, 1),
+						OffsetPlacement.ofTriangle(1, 1),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					)
 				)
 			)
@@ -768,7 +768,7 @@ public final class WWCaveConfigured {
 							true
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -779,9 +779,9 @@ public final class WWCaveConfigured {
 							true
 						),
 						CountPlacement.of(5),
-						RandomOffsetPlacement.ofTriangle(1, 1),
+						OffsetPlacement.ofTriangle(1, 1),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					)
 				)
 			)
@@ -799,7 +799,7 @@ public final class WWCaveConfigured {
 							true
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -810,9 +810,9 @@ public final class WWCaveConfigured {
 							true
 						),
 						CountPlacement.of(3),
-						RandomOffsetPlacement.ofTriangle(1, 1),
+						OffsetPlacement.ofTriangle(1, 1),
 						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(1))
+						OffsetPlacement.vertical(ConstantInt.of(1))
 					)
 				)
 			)
@@ -840,7 +840,7 @@ public final class WWCaveConfigured {
 							true
 						),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
@@ -852,7 +852,7 @@ public final class WWCaveConfigured {
 						),
 						CountPlacement.of(3),
 						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+						OffsetPlacement.vertical(ConstantInt.of(-1))
 					)
 				)
 			)

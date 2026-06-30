@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -44,10 +42,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class BaobabNutBlock extends SaplingBlock {
-	public static final MapCodec<BaobabNutBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		TreeGrower.CODEC.fieldOf("tree").forGetter(baobabNutBlock -> baobabNutBlock.treeGrower),
-		propertiesCodec()
-	).apply(instance, BaobabNutBlock::new));
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
 	public static final int MAX_AGE = 2;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -71,11 +65,6 @@ public class BaobabNutBlock extends SaplingBlock {
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
-	}
-
-	@Override
-	public MapCodec<? extends BaobabNutBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

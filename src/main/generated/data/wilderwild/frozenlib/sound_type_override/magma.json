@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/magma_block",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/magmaSounds",
     "target": true
   },

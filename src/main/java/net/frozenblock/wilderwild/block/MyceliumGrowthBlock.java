@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -28,15 +27,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MyceliumGrowthBlock extends VegetationBlock {
 	protected static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 7D, 14D);
-	public static final MapCodec<MyceliumGrowthBlock> CODEC = simpleCodec(MyceliumGrowthBlock::new);
 
 	public MyceliumGrowthBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public MapCodec<MyceliumGrowthBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

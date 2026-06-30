@@ -43,7 +43,7 @@ import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 
@@ -92,7 +92,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome(),
 			CountPlacement.of(UniformInt.of(24, 32)),
-			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
+			OffsetPlacement.horizontal(TrapezoidInt.triangle(6)),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
@@ -104,7 +104,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome(),
 			CountPlacement.of(UniformInt.of(10, 20)),
-			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
+			OffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
@@ -116,7 +116,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_TOP_SOLID,
 			BiomeFilter.biome(),
 			CountPlacement.of(UniformInt.of(10, 20)),
-			RandomOffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
+			OffsetPlacement.horizontal(TrapezoidInt.triangle(4)),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CATTAIL_FEATURE_PLACEABLE))
 		);
@@ -130,7 +130,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
@@ -140,7 +140,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(42),
-			RandomOffsetPlacement.ofTriangle(8, 8),
+			OffsetPlacement.ofTriangle(8, 8),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
@@ -151,7 +151,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
@@ -162,7 +162,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
@@ -173,7 +173,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 		);
 
@@ -184,7 +184,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(19),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -249,7 +249,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(12, 3),
+			OffsetPlacement.ofTriangle(12, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -267,7 +267,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(12, 3),
+			OffsetPlacement.ofTriangle(12, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -285,7 +285,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(12, 3),
+			OffsetPlacement.ofTriangle(12, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -304,7 +304,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(7),
-			RandomOffsetPlacement.ofTriangle(10, 3),
+			OffsetPlacement.ofTriangle(10, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -321,7 +321,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(12, 3),
+			OffsetPlacement.ofTriangle(12, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -338,7 +338,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(12, 3),
+			OffsetPlacement.ofTriangle(12, 3),
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
@@ -356,7 +356,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(3, 4)
+			OffsetPlacement.ofTriangle(3, 4)
 		);
 
 		PATCH_TUBE_WORMS_RARE.makeAndSetHolder(WWAquaticConfigured.TUBE_WORMS,
@@ -366,7 +366,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(3, 4)
+			OffsetPlacement.ofTriangle(3, 4)
 		);
 
 		final PlacementFilter hydrothermalVentConfigPredicate = ConfigPredicate.equalTo(WWWorldgenConfig.HYDROTHERMAL_VENT_GENERATION, true).asPlacementFilter();
@@ -422,7 +422,7 @@ public final class WWAquaticPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
 			CountPlacement.of(38),
-			RandomOffsetPlacement.ofTriangle(6, 4),
+			OffsetPlacement.ofTriangle(6, 4),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 	}

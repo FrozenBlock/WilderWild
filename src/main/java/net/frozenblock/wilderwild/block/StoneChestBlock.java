@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -68,7 +67,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
-	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties));
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
 	public static final float LIFT_AMOUNT = 0.025F;
@@ -138,11 +136,6 @@ public class StoneChestBlock extends ChestBlock {
 
 	public static boolean isStoneChestBlockedNoLid(LevelAccessor level, BlockPos pos) {
 		return ChestBlock.isChestBlockedAt(level, pos) || !canInteract(level, pos);
-	}
-
-	@Override
-	public MapCodec<? extends StoneChestBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

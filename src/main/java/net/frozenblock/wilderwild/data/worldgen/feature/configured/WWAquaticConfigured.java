@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchWithEdgeDecorationFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
@@ -64,7 +64,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 
 public final class WWAquaticConfigured {
 	public static final FrozenLibFeature CATTAIL = register("cattail");
@@ -165,7 +165,7 @@ public final class WWAquaticConfigured {
 						TubeWormsFeature.INSTANCE,
 						ConfigPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
 						CountPlacement.of(33),
-						RandomOffsetPlacement.ofTriangle(5, 4)
+						OffsetPlacement.ofTriangle(5, 4)
 					)
 				)
 			)
@@ -233,17 +233,17 @@ public final class WWAquaticConfigured {
 					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
 						0.5F,
 						CountPlacement.of(4),
-						RandomOffsetPlacement.ofTriangle(6, 3)
+						OffsetPlacement.ofTriangle(6, 3)
 					),
 					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
 						0.35F,
 						CountPlacement.of(5),
-						RandomOffsetPlacement.ofTriangle(6, 4)
+						OffsetPlacement.ofTriangle(6, 4)
 					),
 					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
 						0.5F,
 						CountPlacement.of(3),
-						RandomOffsetPlacement.ofTriangle(3, 2)
+						OffsetPlacement.ofTriangle(3, 2)
 					)
 				),
 				AUBURN_MOSS_PATCH_UNDERWATER.asInlinePlaced()

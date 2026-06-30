@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -65,7 +64,6 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		Block.box(1D, 0D, 1D, 15D, 14D, 15D),
 		Block.box(1D, 0D, 1D, 15D, 14D, 15D)
 	};
-	public static final MapCodec<TumbleweedPlantBlock> CODEC = simpleCodec(TumbleweedPlantBlock::new);
 
 	public TumbleweedPlantBlock(Properties properties) {
 		super(properties);
@@ -74,11 +72,6 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean isFullyGrown(BlockState state) {
 		return state.getValue(AGE) == MAX_AGE;
-	}
-
-	@Override
-	public MapCodec<? extends TumbleweedPlantBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

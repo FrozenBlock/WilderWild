@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -56,16 +55,10 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	public static final float RIB_CAGE_CHANCE = 0.2F;
 	private static final ConstantInt EXPERIENCE = ConstantInt.of(3);
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
-	public static final MapCodec<OsseousSculkBlock> CODEC = simpleCodec(OsseousSculkBlock::new);
 
 	public OsseousSculkBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
-	}
-
-	@Override
-	protected MapCodec<? extends OsseousSculkBlock> codec() {
-		return CODEC;
 	}
 
 	@Nullable

@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.FroglightTypeHolder;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.minecraft.core.BlockPos;
@@ -31,21 +29,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FroglightGoopBodyBlock extends GrowingPlantBodyBlock implements FroglightTypeHolder {
-	public static final MapCodec<FroglightGoopBodyBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		FroglightType.CODEC.fieldOf("froglight_type").forGetter(froglightGoopBodyBlock -> froglightGoopBodyBlock.froglightType),
-		propertiesCodec()
-	).apply(instance, FroglightGoopBodyBlock::new));
 	protected static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
 	private final FroglightType froglightType;
 
 	public FroglightGoopBodyBlock(FroglightType froglightType, Properties properties) {
 		super(properties, Direction.DOWN, SHAPE, false);
 		this.froglightType = froglightType;
-	}
-
-	@Override
-	public MapCodec<FroglightGoopBodyBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

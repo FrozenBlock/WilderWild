@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
@@ -43,7 +42,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class PenguinEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-	public static final MapCodec<PenguinEggBlock> CODEC = simpleCodec(PenguinEggBlock::new);
 	private static final VoxelShape SHAPE = Block.box(6D, 0D, 6D, 10D, 6D, 10D);
 
 	public PenguinEggBlock(Properties properties) {
@@ -53,11 +51,6 @@ public class PenguinEggBlock extends Block {
 
 	public static boolean isSafeToHatch(Level level, BlockPos belowPos) {
 		return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
-	}
-
-	@Override
-	protected MapCodec<? extends PenguinEggBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

@@ -4,7 +4,7 @@
     {
       "type": "frozenlib:config_predicate",
       "config_predicate": {
-        "type": "minecraft:equal_to",
+        "type": "frozenlib:equal_to",
         "entry": "wilderwild:worldgen/aquaticGeneration/cattail",
         "target": true
       }
@@ -32,14 +32,20 @@
       }
     },
     {
-      "type": "minecraft:random_offset",
-      "xz_spread": {
+      "type": "minecraft:offset",
+      "x": {
         "type": "minecraft:trapezoid",
         "max": 4,
         "min": -4,
         "plateau": 0
       },
-      "y_spread": 0
+      "y": 0,
+      "z": {
+        "type": "minecraft:trapezoid",
+        "max": 4,
+        "min": -4,
+        "plateau": 0
+      }
     },
     {
       "type": "minecraft:heightmap",

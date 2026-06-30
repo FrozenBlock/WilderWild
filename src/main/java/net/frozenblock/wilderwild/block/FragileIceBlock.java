@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
@@ -48,16 +47,10 @@ public class FragileIceBlock extends HalfTransparentBlock {
 	public static final IntProvider SHEET_SHATTER_DELAY = UniformInt.of(1, 5);
 	public static final float NEIGHBOR_CHANGE_CHANCE = 0.55F;
 	public static final int DELAY_BETWEEN_CRACKS = 20;
-	public static final MapCodec<FragileIceBlock> CODEC = simpleCodec(FragileIceBlock::new);
 
 	public FragileIceBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0));
-	}
-
-	@Override
-	public MapCodec<FragileIceBlock> codec() {
-		return CODEC;
 	}
 
 	private void crackOrDestroy(BlockState state, Level level, BlockPos pos) {

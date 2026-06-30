@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/mushroom",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/mushroomBlockSounds",
     "target": true
   },

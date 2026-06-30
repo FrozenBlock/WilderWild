@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
@@ -44,7 +43,6 @@ public class OstrichEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
 	private static final VoxelShape SHAPE = Block.box(5D, 0D, 5D, 11D, 8D, 11D);
-	public static final MapCodec<OstrichEggBlock> CODEC = simpleCodec(OstrichEggBlock::new);
 
 	public OstrichEggBlock(Properties properties) {
 		super(properties);
@@ -53,11 +51,6 @@ public class OstrichEggBlock extends Block {
 
 	public static boolean isSafeToHatch(Level level, BlockPos belowPos) {
 		return level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
-	}
-
-	@Override
-	protected MapCodec<? extends OstrichEggBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

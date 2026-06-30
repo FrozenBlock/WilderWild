@@ -1,7 +1,7 @@
 {
   "blocks": "#wilderwild:sound/pale_oak_wood_hanging_sign",
   "config_predicate": {
-    "type": "minecraft:equal_to",
+    "type": "frozenlib:equal_to",
     "entry": "wilderwild:block/blockSounds/paleOakSounds",
     "target": true
   },

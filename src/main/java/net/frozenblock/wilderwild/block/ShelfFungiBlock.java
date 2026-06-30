@@ -17,13 +17,10 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -74,10 +71,6 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	protected static final VoxelShape EAST_WALL_SHAPE = Block.box(0D, 0D, 0D, 3D, 16D, 16D);
 	protected static final VoxelShape FLOOR_SHAPE = Block.box(0D, 0D, 0D, 16D, 3D, 16D);
 	protected static final VoxelShape CEILING_SHAPE = Block.box(0D, 13D, 0D, 16D, 16D, 16D);
-	public static final MapCodec<ShelfFungiBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("shearing_loot_table").forGetter(shelfFungiBlock -> shelfFungiBlock.shearingLootTable),
-		propertiesCodec()
-	).apply(instance, ShelfFungiBlock::new));
 	private final ResourceKey<LootTable> shearingLootTable;
 
 	public ShelfFungiBlock(ResourceKey<LootTable> shearingLootTable, Properties properties) {
@@ -105,11 +98,6 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private static boolean isFullyGrown(BlockState state) {
 		return state.getValue(STAGE) == MAX_STAGE;
-	}
-
-	@Override
-	protected MapCodec<? extends ShelfFungiBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

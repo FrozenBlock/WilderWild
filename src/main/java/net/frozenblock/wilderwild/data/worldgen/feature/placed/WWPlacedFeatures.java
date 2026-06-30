@@ -53,8 +53,8 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
@@ -1105,7 +1105,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1142,7 +1142,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1152,7 +1152,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1170,7 +1170,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(50),
-			RandomOffsetPlacement.ofTriangle(4, 2),
+			OffsetPlacement.ofTriangle(4, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1231,7 +1231,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1241,7 +1241,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1251,7 +1251,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1261,7 +1261,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1271,7 +1271,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1286,7 +1286,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1296,7 +1296,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1306,7 +1306,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1316,7 +1316,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(5, 3),
+			OffsetPlacement.ofTriangle(5, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1326,7 +1326,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(35),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1336,7 +1336,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(23),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -1353,7 +1353,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(23),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -1370,7 +1370,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -1387,7 +1387,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -1403,7 +1403,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -1420,7 +1420,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1431,7 +1431,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1447,7 +1447,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1463,7 +1463,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(6),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1479,7 +1479,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1495,7 +1495,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(15),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1511,7 +1511,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1521,7 +1521,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1536,7 +1536,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1551,7 +1551,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1566,7 +1566,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1580,7 +1580,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1590,7 +1590,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1600,7 +1600,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1610,7 +1610,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1620,7 +1620,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1630,7 +1630,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1647,7 +1647,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1657,7 +1657,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1667,7 +1667,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1676,7 +1676,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1685,7 +1685,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1699,7 +1699,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(36),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1709,7 +1709,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(36),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1720,7 +1720,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(16),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1730,7 +1730,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -1748,7 +1748,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(36),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1758,7 +1758,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1768,7 +1768,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1778,7 +1778,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1788,7 +1788,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1798,7 +1798,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1808,7 +1808,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1818,7 +1818,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1828,7 +1828,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(30),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1873,7 +1873,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1883,7 +1883,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1893,7 +1893,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1903,7 +1903,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1913,7 +1913,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1923,7 +1923,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(40),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1933,7 +1933,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1943,7 +1943,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1953,7 +1953,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1963,7 +1963,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1973,7 +1973,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1983,7 +1983,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -1993,7 +1993,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2003,7 +2003,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(40),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2013,7 +2013,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2023,7 +2023,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2033,7 +2033,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2043,7 +2043,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(40),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2053,7 +2053,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2063,7 +2063,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2073,7 +2073,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2083,7 +2083,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2093,7 +2093,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(42),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2103,7 +2103,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(48),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2113,7 +2113,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(8, 2),
+			OffsetPlacement.ofTriangle(8, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2123,7 +2123,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2141,7 +2141,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2150,7 +2150,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2160,7 +2160,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2170,7 +2170,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2180,7 +2180,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2190,7 +2190,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2200,7 +2200,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(52),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2210,7 +2210,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(52),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2220,7 +2220,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2231,7 +2231,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(6, 2),
+			OffsetPlacement.ofTriangle(6, 2),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2242,7 +2242,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2252,7 +2252,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2263,7 +2263,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2273,7 +2273,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2283,7 +2283,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2293,7 +2293,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2302,7 +2302,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(36),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2312,7 +2312,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2323,7 +2323,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2333,7 +2333,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
-			RandomOffsetPlacement.ofTriangle(6, 3),
+			OffsetPlacement.ofTriangle(6, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2343,7 +2343,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(24),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2352,7 +2352,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(38),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2363,7 +2363,7 @@ public final class WWPlacedFeatures {
 			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2373,7 +2373,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
-			RandomOffsetPlacement.ofTriangle(8, 3),
+			OffsetPlacement.ofTriangle(8, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2383,7 +2383,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(25),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2414,7 +2414,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2436,7 +2436,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(12),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2445,7 +2445,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(15),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2454,7 +2454,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(15),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2464,7 +2464,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
@@ -2480,7 +2480,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2495,7 +2495,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
 			CountPlacement.of(96),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2510,7 +2510,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2520,7 +2520,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(64),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2530,7 +2530,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2554,7 +2554,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(sandNearby),
 			BiomeFilter.biome(),
 			CountPlacement.of(28),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2570,7 +2570,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			VegetationFeatures.nearWaterPredicate(Blocks.FIREFLY_BUSH),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(4, 3),
+			OffsetPlacement.ofTriangle(4, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2581,7 +2581,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			VegetationFeatures.nearWaterPredicate(Blocks.FIREFLY_BUSH),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(4, 3),
+			OffsetPlacement.ofTriangle(4, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2591,7 +2591,7 @@ public final class WWPlacedFeatures {
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome(),
 			CountPlacement.of(20),
-			RandomOffsetPlacement.ofTriangle(4, 3),
+			OffsetPlacement.ofTriangle(4, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2617,7 +2617,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2633,7 +2633,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -2649,7 +2649,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2660,7 +2660,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
@@ -2671,7 +2671,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome(),
 			leafLitterPlacementPredicate,
 			CountPlacement.of(32),
-			RandomOffsetPlacement.ofTriangle(7, 3),
+			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 	}

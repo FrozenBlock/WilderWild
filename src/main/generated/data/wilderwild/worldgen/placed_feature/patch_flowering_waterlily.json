@@ -4,7 +4,7 @@
     {
       "type": "frozenlib:config_predicate",
       "config_predicate": {
-        "type": "minecraft:equal_to",
+        "type": "frozenlib:equal_to",
         "entry": "wilderwild:worldgen/vegetation/flowerGeneration",
         "target": true
       }
@@ -24,17 +24,23 @@
       "count": 19
     },
     {
-      "type": "minecraft:random_offset",
-      "xz_spread": {
+      "type": "minecraft:offset",
+      "x": {
         "type": "minecraft:trapezoid",
         "max": 7,
         "min": -7,
         "plateau": 0
       },
-      "y_spread": {
+      "y": {
         "type": "minecraft:trapezoid",
         "max": 3,
         "min": -3,
+        "plateau": 0
+      },
+      "z": {
+        "type": "minecraft:trapezoid",
+        "max": 7,
+        "min": -7,
         "plateau": 0
       }
     },

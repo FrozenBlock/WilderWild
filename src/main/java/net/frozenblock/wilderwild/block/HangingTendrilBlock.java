@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -77,7 +76,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final BooleanProperty TWITCHING = WWBlockStateProperties.TWITCHING;
 	public static final BooleanProperty WRINGING_OUT = WWBlockStateProperties.WRINGING_OUT;
 	protected static final VoxelShape OUTLINE_SHAPE = Block.box(5D, 0D, 5D, 11D, 16D, 11D);
-	public static final MapCodec<HangingTendrilBlock> CODEC = simpleCodec(HangingTendrilBlock::new);
 
 	public HangingTendrilBlock(Properties properties) {
 		super(properties);
@@ -104,11 +102,6 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	public static boolean canActivate(BlockState state) {
 		return SculkSensorBlock.getPhase(state) == SculkSensorPhase.INACTIVE;
-	}
-
-	@Override
-	protected MapCodec<? extends HangingTendrilBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

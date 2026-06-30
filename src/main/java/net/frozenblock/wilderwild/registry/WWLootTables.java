@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.frozenblock.lib.item.api.component.removable.RemovableItemTags;
 import net.frozenblock.lib.item.api.loot.FrozenLibLootTableEvents;
-import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -48,18 +47,12 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public static final int MIN_AWAKE_LIGHT_LEVEL = 7;
 	public static final BooleanProperty NATURAL = WWBlockStateProperties.NATURAL;
 	public static final BooleanProperty TERMITES_AWAKE = WWBlockStateProperties.TERMITES_AWAKE;
-	public static final MapCodec<TermiteMoundBlock> CODEC = simpleCodec(TermiteMoundBlock::new);
 
 	public TermiteMoundBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(
 			this.defaultBlockState().setValue(NATURAL, false).setValue(TERMITES_AWAKE, false)
 		);
-	}
-
-	@Override
-	protected MapCodec<? extends TermiteMoundBlock> codec() {
-		return CODEC;
 	}
 
 	@Nullable

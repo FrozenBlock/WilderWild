@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
@@ -34,7 +33,6 @@ import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class PollenBlock extends MultifaceSpreadeableBlock {
-	public static final MapCodec<PollenBlock> CODEC = simpleCodec(PollenBlock::new);
 	public static final int MIN_PARTICLE_SPAWN_WIDTH = -10;
 	public static final int MAX_PARTICLE_SPAWN_WIDTH = 10;
 	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -10;
@@ -48,11 +46,6 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 
 	public static boolean canAttachToNoWater(BlockGetter level, Direction direction, BlockPos pos, BlockState state) {
 		return canAttachTo(level, direction, pos, state) && !level.getBlockState(pos).is(Blocks.WATER);
-	}
-
-	@Override
-	public MapCodec<? extends PollenBlock> codec() {
-		return CODEC;
 	}
 
 	@Override
