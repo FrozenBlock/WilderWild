@@ -36,7 +36,7 @@ public final class WWEasterEggs {
 			(entity -> entity instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella())
 		);
 		EntityTextureOverride.register(WWConstants.id("treetrain1_goat"), GoatRenderer.class, WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
-			"Treetrain1", "Treetrain"
+			"Treetrain1", "Treetrain", "EthanStokes", "Ethan Stokes", "Ethan Strokes"
 		);
 		EntityTextureOverride.register(WWConstants.id("xfrtrex_frog"), FrogRenderer.class, WWConstants.id("textures/entity/frog/sus_frog.png"),
 			"Xfrtrex", "BluePhoenixLOL"
