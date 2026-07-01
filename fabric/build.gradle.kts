@@ -68,7 +68,7 @@ loom {
 
     accessWidenerPath.set(rootProject.file("common/src/main/resources/$mod_id.classtweaker"))
     interfaceInjection {
-        enableDependencyInterfaceInjection.set(true)
+        enableDependencyInterfaceInjection = true
     }
 
     runs {

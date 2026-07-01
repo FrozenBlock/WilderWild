@@ -20,7 +20,7 @@ loom {
     accessWidenerPath = file("src/main/resources/wilderwild.classtweaker")
     enableTransitiveAccessWideners = true
     interfaceInjection {
-        enableDependencyInterfaceInjection.set(true)
+        enableDependencyInterfaceInjection = true
     }
 }
 
