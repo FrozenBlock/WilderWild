@@ -109,25 +109,25 @@ public class SculkSpreaderChargeCursorMixin {
 
 	@Unique
 	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, BlockPos pos, RandomSource random) {
-		final BlockPos.MutableBlockPos mutable1 = pos.mutable();
-		final BlockPos.MutableBlockPos mutable2 = pos.mutable();
+		final BlockPos.MutableBlockPos position = pos.mutable();
+		final BlockPos.MutableBlockPos searchingPosition = pos.mutable();
 		for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
-			final BlockState state = level.getBlockState(mutable2.setWithOffset(pos, vec3i));
+			final BlockState state = level.getBlockState(searchingPosition.setWithOffset(pos, vec3i));
 			boolean canReturn = false;
-			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutable2)) {
-				mutable1.set(mutable2);
+			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, searchingPosition)) {
+				position.set(searchingPosition);
 				canReturn = true;
-				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) return mutable1.equals(pos) ? null : mutable1;
+				if (SculkVeinBlock.hasSubstrateAccess(level, state, searchingPosition)) return position.equals(pos) ? null : position.immutable();
 			}
 
-			if (canReturn) return mutable1.equals(pos) ? null : mutable1;
+			if (canReturn) return position.equals(pos) ? null : position.immutable();
 
-			if (!(state.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutable2)) continue;
-			mutable1.set(mutable2);
-			if (!SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) continue;
+			if (!(state.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, searchingPosition)) continue;
+			position.set(searchingPosition);
+			if (!SculkVeinBlock.hasSubstrateAccess(level, state, searchingPosition)) continue;
 			break;
 		}
-		return mutable1.equals(pos) ? null : mutable1;
+		return position.equals(pos) ? null : position.immutable();
 	}
 
 	@Inject(method = "update", at = @At("HEAD"))
@@ -187,5 +187,4 @@ public class SculkSpreaderChargeCursorMixin {
 	private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
 		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
 	}
-
 }

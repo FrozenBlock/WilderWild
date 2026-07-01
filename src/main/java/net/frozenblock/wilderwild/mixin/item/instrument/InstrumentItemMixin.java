@@ -74,5 +74,4 @@ public final class InstrumentItemMixin {
 	private boolean wilderWild$bypassCooldown(ItemCooldowns instance, ItemStack item, int time) {
 		return !WWItemConfig.RESTRICT_INSTRUMENT_SOUNDS.get();
 	}
-
 }

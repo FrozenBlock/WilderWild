@@ -113,5 +113,4 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
-
 }

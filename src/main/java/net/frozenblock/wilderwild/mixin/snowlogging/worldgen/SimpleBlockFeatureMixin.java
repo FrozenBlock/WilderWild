@@ -37,9 +37,8 @@ public class SimpleBlockFeatureMixin {
 			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"
 		)
 	)
-	public boolean wilderWild$snowlogShortBlocks(WorldGenLevel instance, BlockPos pos, BlockState state, int i, Operation<Boolean> original) {
+	public boolean wilderWild$snowlogShortBlocks(WorldGenLevel instance, BlockPos pos, BlockState state, int flags, Operation<Boolean> original) {
 		state = SnowloggingUtils.getSnowloggedState(state, instance.getBlockState(pos));
-		return original.call(instance, pos, state, i);
+		return original.call(instance, pos, state, flags);
 	}
-
 }

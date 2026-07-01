@@ -269,5 +269,4 @@ public abstract class BlockStateBaseMixin {
 		if (SnowloggingUtils.isSnowlogged(state)) return SnowloggingUtils.getSnowEquivalent(state).getSoundType();
 		return original.call(instance, state);
 	}
-
 }

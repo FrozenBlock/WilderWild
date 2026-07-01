@@ -55,5 +55,4 @@ public class PlaceOnGroundDecoratorMixin {
 		if (state.is(WWBlocks.WILLOW_LEAF_LITTER)) return WWWorldgenConfig.WILLOW_LITTER_GENERATION.get();
 		return true;
 	}
-
 }

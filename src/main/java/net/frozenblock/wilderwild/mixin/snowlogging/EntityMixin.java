@@ -41,5 +41,4 @@ public class EntityMixin {
 		if (SnowloggingUtils.isSnowlogged(state)) state = SnowloggingUtils.getSnowEquivalent(state);
 		return original.call(type, state);
 	}
-
 }

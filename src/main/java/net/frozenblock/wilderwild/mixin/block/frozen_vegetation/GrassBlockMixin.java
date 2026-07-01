@@ -96,5 +96,4 @@ public class GrassBlockMixin {
 		final boolean originalValue = original.call(instance);
 		return isSnowy.get() ? originalValue || (WWBlockConfig.canSnowlog() && instance.is(Blocks.SNOW)) : originalValue;
 	}
-
 }

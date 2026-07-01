@@ -48,23 +48,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(FallingParticle.class)
 public abstract class FallingParticleMixin extends SingleQuadParticle {
-
-	@Shadow
-	private float rotSpeed;
-
 	@Shadow
 	@Final
 	private float spinAcceleration;
-
 	@Final
 	@Shadow
 	@Mutable
 	private boolean flowAway;
-
 	@Final
 	@Shadow
 	@Mutable
 	private boolean swirl;
+	@Shadow
+	private float rotSpeed;
 
 	protected FallingParticleMixin(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
 		super(level, x, y, z, sprite);

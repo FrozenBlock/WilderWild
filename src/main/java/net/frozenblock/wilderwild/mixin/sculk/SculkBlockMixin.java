@@ -51,7 +51,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = SculkBlock.class, priority = 69420)
 public class SculkBlockMixin {
-
 	@Unique
 	private static final int WILDERWILD$OSSEOUS_GROWTH_ATTEMPTS_MIN = 2;
 	@Unique
@@ -310,5 +309,4 @@ public class SculkBlockMixin {
 		placingBelow.set(false);
 		return false;
 	}
-
 }

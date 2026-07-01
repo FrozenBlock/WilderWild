@@ -48,5 +48,4 @@ public class LivingEntityMixin {
 		}
 		if (Entity.class.cast(this) instanceof Tumbleweed && entity.is(WWEntityTypeTags.TUMBLEWEED_PASSES_THROUGH)) info.cancel();
 	}
-
 }

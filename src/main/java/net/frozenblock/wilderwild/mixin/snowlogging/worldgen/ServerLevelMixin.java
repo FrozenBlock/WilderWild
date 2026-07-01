@@ -40,9 +40,10 @@ public class ServerLevelMixin {
 			ordinal = 0
 		)
 	)
-	public boolean wilderWild$tickPrecipitationA(
+	public boolean wilderWild$isSnowlogged(
 		BlockState instance, Object block, Operation<Boolean> original,
-		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
+		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging,
+		@Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		int layers = 0;
 		runSnowlogging.set(SnowloggingUtils.canSnowlog(instance) && (layers = SnowloggingUtils.getSnowLayers(instance)) < 8);
@@ -58,9 +59,10 @@ public class ServerLevelMixin {
 			ordinal = 0
 		)
 	)
-	public Comparable<?> wilderWild$tickPrecipitationB(
+	public Comparable<?> wilderWild$getSnowloggedLayers(
 		BlockState instance, Property<?> property, Operation<Comparable<?>> original,
-		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
+		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging,
+		@Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		return runSnowlogging.get() ? snowloggedLayers.get() : original.call(instance, property);
 	}
@@ -73,11 +75,10 @@ public class ServerLevelMixin {
 			ordinal = 0
 		)
 	)
-	public Object wilderWild$tickPrecipitationC(
+	public Object wilderWild$setSnowloggedLayers(
 		BlockState instance, Property<?> property, Comparable<?> comparable, Operation<Object> original,
-		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
+		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging
 	) {
 		return original.call(instance, runSnowlogging.get() ? SnowloggingUtils.SNOW_LAYERS : property, comparable);
 	}
-
 }

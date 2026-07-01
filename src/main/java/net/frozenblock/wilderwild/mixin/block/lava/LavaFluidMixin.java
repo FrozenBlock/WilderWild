@@ -44,5 +44,4 @@ public class LavaFluidMixin {
 		final BlockPos belowPos = pos.below();
 		ScorchedBlock.scorch(level.getBlockState(belowPos), level, belowPos);
 	}
-
 }

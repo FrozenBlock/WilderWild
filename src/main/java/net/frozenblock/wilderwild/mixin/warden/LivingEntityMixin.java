@@ -93,5 +93,4 @@ public class LivingEntityMixin {
 	public boolean wilderWild$isWardenWithDeathAnimation() {
 		return LivingEntity.class.cast(this) instanceof WilderWarden wilderWarden && (WWEntityConfig.WARDEN_DEATH_ANIMATION.get() || wilderWarden.wilderWild$isStella());
 	}
-
 }

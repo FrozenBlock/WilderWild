@@ -43,5 +43,4 @@ public final class CreeperMixin {
 		creeper.playSound(WWSounds.ITEM_POTION_LINGERING, 1F, 1F + (random.nextFloat() * 0.2F));
 		return original;
 	}
-
 }

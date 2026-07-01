@@ -74,5 +74,4 @@ public class LevelEventHandlerMixin {
 		}
 		return original;
 	}
-
 }

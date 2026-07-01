@@ -44,5 +44,4 @@ public abstract class WallClimberNavigationMixin extends PathNavigation {
 		if (this.mob instanceof Crab crab) return original * (crab.isBaby() ? 4F : 2F);
 		return original;
 	}
-
 }

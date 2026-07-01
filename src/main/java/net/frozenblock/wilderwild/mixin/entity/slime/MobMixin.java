@@ -38,5 +38,4 @@ public class MobMixin {
 		if (!(Mob.class.cast(this) instanceof Mob mob) || mob.getType() != EntityTypes.SLIME) return original;
 		return original && !AlgaeBlock.hasNearbyAlgae(mob.level(), mob.blockPosition(), 1, 3);
 	}
-
 }

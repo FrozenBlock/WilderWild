@@ -88,5 +88,4 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);
 	}
-
 }

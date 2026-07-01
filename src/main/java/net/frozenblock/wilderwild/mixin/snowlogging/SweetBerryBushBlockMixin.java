@@ -40,5 +40,4 @@ public abstract class SweetBerryBushBlockMixin {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
-
 }

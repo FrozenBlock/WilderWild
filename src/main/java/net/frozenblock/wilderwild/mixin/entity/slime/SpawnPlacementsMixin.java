@@ -53,5 +53,4 @@ public class SpawnPlacementsMixin {
 	) {
 		original.call(type, WWSpawnTypes.ON_GROUND_OR_IN_ALGAE, heightmap, spawnPredicate);
 	}
-
 }

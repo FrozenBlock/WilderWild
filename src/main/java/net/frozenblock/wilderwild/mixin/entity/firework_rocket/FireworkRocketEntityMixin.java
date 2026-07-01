@@ -61,5 +61,4 @@ public class FireworkRocketEntityMixin {
 		}
 		operation.call(instance, movement);
 	}
-
 }

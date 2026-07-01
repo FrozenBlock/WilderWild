@@ -48,5 +48,4 @@ public class BoneMealItemMixin {
 	) {
 		if (SnowloggingUtils.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
 	}
-
 }

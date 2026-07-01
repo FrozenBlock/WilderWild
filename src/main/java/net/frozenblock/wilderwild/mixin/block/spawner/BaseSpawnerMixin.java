@@ -58,5 +58,4 @@ public class BaseSpawnerMixin {
 		firefly.setAnimScale(2F);
 		firefly.setPrevAnimScale(2F);
 	}
-
 }
