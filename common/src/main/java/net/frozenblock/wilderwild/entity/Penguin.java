@@ -70,7 +70,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.ChatFormatting;
 
@@ -197,7 +196,6 @@ public class Penguin extends Animal {
 		this.slideProgress += ((this.hasPose(Pose.SLIDING) ? 1F : 0F) - this.slideProgress) * 0.175F;
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()

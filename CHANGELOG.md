@@ -9,3 +9,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
 - Removed Wilder Wild's Potent Sulfur Geyser Wind Disturbance, as it has been moved into FrozenLib.
 - Wilder Wild's Structure Processor modifications are now data-driven per FrozenLib's changes.
+- Revamped the implementation of Chest bubbling.

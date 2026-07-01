@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
-import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.datafix.minecraft.datafixers.ChestBubbleToAttachmentFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.CopperHornInstrumentToTheCopperierAgeFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternItemComponentizationFix;
@@ -43,10 +43,11 @@ public final class WWMinecraftDataFixer {
 	// 8 is 25w42a (i randomly got annoyed about pearlescent mesoglea/nematocyst naming)
 	// 9 is 26.2-snapshot-5 (mojang added sulfur geysers, team yelled at me to rename our geyser to geothermal vent)
 	// 10 is FrozenLib 2.5, for 26.2-snapshot-6+. Added waterlikes, which came with lots of refactoring.
+	// 11 is 26.2-snapshot-2 (i finally decided to start datafixing migrations to data attachments)
 
-	public static final int DATA_VERSION = 10;
+	public static final int DATA_VERSION = 11;
 
-	public static void applyDataFixes(final ModContainer mod) {
+	public static void applyDataFixes() {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
 		final QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
@@ -223,6 +224,11 @@ public final class WWMinecraftDataFixer {
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "lime_mesoglea", schemaV10);
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "red_mesoglea", schemaV10);
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pink_mesoglea", schemaV10);
+
+		final Schema schemaV11 = builder.addSchema(11, NamespacedSchema::new);
+		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11,"minecraft:chest"));
+		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11, "minecraft:trapped_chest"));
+		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11, WWConstants.string("stone_chest")));
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);

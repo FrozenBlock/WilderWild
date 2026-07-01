@@ -19,25 +19,21 @@ package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;
-import com.mojang.datafixers.DataFix;
-import com.mojang.datafixers.OpticFinder;
-import com.mojang.datafixers.TypeRewriteRule;
 import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
-import com.mojang.datafixers.types.Type;
 import com.mojang.serialization.Dynamic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.util.datafix.fixes.NamedEntityFix;
 import net.minecraft.util.datafix.fixes.References;
-import org.jetbrains.annotations.Contract;
 
-public final class DisplayLanternComponentizationFix extends DataFix {
+public final class DisplayLanternComponentizationFix extends NamedEntityFix {
 
 	public DisplayLanternComponentizationFix(Schema outputSchema) {
-		super(outputSchema, true);
+		super(outputSchema, false, "DisplayLanternComponentizationFix", References.BLOCK_ENTITY, WWConstants.string("display_lantern"));
 	}
 
 	private static Dynamic<?> fixOccupants(Dynamic<?> dynamic) {
@@ -64,20 +60,7 @@ public final class DisplayLanternComponentizationFix extends DataFix {
 	}
 
 	@Override
-	protected TypeRewriteRule makeRule() {
-		final Type<?> type = this.getInputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern"));
-		final OpticFinder<?> opticFinder = DSL.namedChoice(WWConstants.string("display_lantern"), type);
-
-		return this.fixTypeEverywhereTyped(
-			"Display Lantern componentization fix",
-			this.getInputSchema().getType(References.BLOCK_ENTITY),
-			this.getOutputSchema().getType(References.BLOCK_ENTITY),
-			typed -> typed.updateTyped(opticFinder, this.getOutputSchema().getChoiceType(References.BLOCK_ENTITY, WWConstants.string("display_lantern")), this::fix)
-		);
-	}
-
-	@Contract("_ -> new")
-	private Typed<?> fix(Typed<?> typed) {
+	public Typed<?> fix(Typed<?> typed) {
 		return typed.update(
 			DSL.remainderFinder(),
 			DisplayLanternComponentizationFix::fixOccupants

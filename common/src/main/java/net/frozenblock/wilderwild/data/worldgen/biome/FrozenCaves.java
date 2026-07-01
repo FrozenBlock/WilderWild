@@ -42,7 +42,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 public final class FrozenCaves extends FrozenLibBiome {
@@ -157,7 +156,6 @@ public final class FrozenCaves extends FrozenLibBiome {
 		parameters.accept(Pair.of(biomeParameters.getSecond(), this.getKey()));
 	}
 
-	@Contract("_ -> new")
 	public Pair<Climate.ParameterPoint, Climate.ParameterPoint> makeParametersAt(float depth) {
 		return Pair.of(
 			Climate.parameters(
