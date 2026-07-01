@@ -61,6 +61,8 @@
     "entity.tumbleweed.BlockBehaviourMixin",
     "entity.tumbleweed.LivingEntityMixin",
     "entity.turtle.TurtleMixin",
+    "fabric.ClientRegistrySyncHandlerMixin",
+    "fabric.StateIdTrackerMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "item.tooltip.ItemStackMixin",

@@ -34,6 +34,8 @@ public final class WWConstants {
 	public static boolean UNSTABLE_LOGGING = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static boolean MC_LIVE_TENDRILS = false;
 	public static boolean MOJANG_CRABS = false;
+	// TODO: actual api
+	public static boolean SERVER_HAS_WIILDER_WILD_BLOCKS = true;
 
 	// LOGGING
 	public static void log(String message, boolean shouldLog) {
