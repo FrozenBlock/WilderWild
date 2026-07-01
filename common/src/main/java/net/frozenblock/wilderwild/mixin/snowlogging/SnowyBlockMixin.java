@@ -39,5 +39,4 @@ public class SnowyBlockMixin {
 	private static boolean wilderWild$isSnowySetting(BlockState instance, TagKey tagKey, Operation<Boolean> original) {
 		return original.call(instance, tagKey) || SnowloggingUtils.isSnowlogged(instance);
 	}
-
 }

@@ -41,5 +41,4 @@ public class HalfTransparentBlockMixin {
 		if (instance.is(WWBlocks.FRAGILE_ICE.get()) && block == Blocks.ICE) return true;
 		return original.call(instance, block);
 	}
-
 }

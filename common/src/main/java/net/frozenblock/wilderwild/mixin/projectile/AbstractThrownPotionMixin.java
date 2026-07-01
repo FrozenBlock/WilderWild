@@ -47,5 +47,4 @@ public class AbstractThrownPotionMixin {
 		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH.get(), 1F, 1F);
 		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC.get(), 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
 	}
-
 }

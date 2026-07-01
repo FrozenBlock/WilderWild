@@ -47,5 +47,4 @@ public abstract class CalibratedSculkSensorBlockMixin extends BaseEntityBlock {
 			})
 		);
 	}
-
 }

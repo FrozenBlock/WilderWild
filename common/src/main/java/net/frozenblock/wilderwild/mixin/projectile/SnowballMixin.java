@@ -42,5 +42,4 @@ public class SnowballMixin {
 		final Snowball snowball = Snowball.class.cast(this);
 		snowball.playSound(WWSounds.ITEM_SNOWBALL_LAND.get(), 0.3F, 0.85F + (snowball.getRandom().nextFloat() * 0.2F));
 	}
-
 }

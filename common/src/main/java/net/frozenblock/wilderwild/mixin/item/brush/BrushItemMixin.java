@@ -80,5 +80,4 @@ public class BrushItemMixin {
 		final EquipmentSlot slot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
 		stack.hurtAndBreak(1, entity, slot);
 	}
-
 }

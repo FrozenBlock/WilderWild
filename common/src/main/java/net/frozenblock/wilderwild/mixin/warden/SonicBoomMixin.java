@@ -178,5 +178,4 @@ public class SonicBoomMixin implements WilderSonicBoom {
 	public void wilderWild$endParticles() {
 		this.wilderWild$particlesEnded = true;
 	}
-
 }

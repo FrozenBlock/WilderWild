@@ -49,5 +49,4 @@ public class SlimeMixin {
 		if (!(EntitySpawnReason.ignoresLightRequirements(spawnReason) || random.nextInt(5) == 0) || !AlgaeBlock.hasNearbyAlgae(level, pos, 1, 3)) return;
 		info.setReturnValue(true);
 	}
-
 }

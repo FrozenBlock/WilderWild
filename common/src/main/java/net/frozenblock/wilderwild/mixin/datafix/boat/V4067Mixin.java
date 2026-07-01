@@ -52,5 +52,4 @@ public abstract class V4067Mixin {
 		this.registerChestBoat(map, "wilderwild:maple_chest_boat");
 		this.registerChestBoat(map, "wilderwild:willow_chest_boat");
 	}
-
 }

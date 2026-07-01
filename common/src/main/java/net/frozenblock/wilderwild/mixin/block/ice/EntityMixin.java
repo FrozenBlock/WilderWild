@@ -46,5 +46,4 @@ public class EntityMixin {
 		original.call(instance, holder, vec3, context);
 		if (this.fallDistance >= 4F) original.call(instance, WWGameEvents.BIG_FALL.asHolder(), vec3, context);
 	}
-
 }

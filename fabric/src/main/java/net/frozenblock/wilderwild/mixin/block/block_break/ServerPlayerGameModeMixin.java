@@ -72,5 +72,4 @@ public abstract class ServerPlayerGameModeMixin {
 
 		return original.call(instance, pos, movedByPiston);
 	}
-
 }

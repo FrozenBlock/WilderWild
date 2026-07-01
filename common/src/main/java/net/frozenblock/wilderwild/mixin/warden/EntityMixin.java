@@ -49,5 +49,4 @@ public class EntityMixin {
 	public boolean wilderWild$stopWaterFromPushingWardens(EntityFluidInteraction instance, TagKey<Fluid> fluid, Entity entity, double scale) {
 		return !WWEntityConfig.WARDEN_SWIMS.get() || (!(entity instanceof Warden));
 	}
-
 }

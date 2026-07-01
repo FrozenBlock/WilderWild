@@ -88,5 +88,4 @@ public class ThrownEnderpearlMixin {
 			0.85F + (level.getRandom().nextFloat() * 0.2F)
 		);
 	}
-
 }

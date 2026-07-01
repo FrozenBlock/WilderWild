@@ -65,5 +65,4 @@ public class AbstractArrowMixin {
 			0.05D
 		);
 	}
-
 }

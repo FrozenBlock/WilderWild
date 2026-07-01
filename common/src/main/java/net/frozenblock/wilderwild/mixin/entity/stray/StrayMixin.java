@@ -39,5 +39,4 @@ public class StrayMixin {
 	private static boolean wilderWild$spawnInFrozenCaves(ServerLevelAccessor instance, BlockPos pos, Operation<Boolean> original) {
 		return original.call(instance, pos) || instance.getBiome(pos).is(WWBiomeTags.STRAYS_CAN_SPAWN_UNDERGROUND);
 	}
-
 }

@@ -47,5 +47,4 @@ public class BoatSplitFixMixin {
 			case "wilderwildwillow" -> info.setReturnValue("wilderwild:willow_chest_boat");
 		}
 	}
-
 }

@@ -36,6 +36,7 @@ public final class WWBlockModifications implements BlockRegistryModificationEven
 		if (id == BlockItemIds.OCHRE_FROGLIGHT.block() || id == BlockItemIds.VERDANT_FROGLIGHT.block() || id == BlockItemIds.PEARLESCENT_FROGLIGHT.block()) {
 			return properties.randomTicks();
 		}
+		if (id == BlockItemIds.FIREFLY_BUSH.block()) return properties.randomTicks();
 		return null;
 	}
 
