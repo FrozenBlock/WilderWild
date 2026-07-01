@@ -18,13 +18,10 @@
 package net.frozenblock.wilderwild.mixin.block.chest;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
-import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -35,12 +32,10 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
@@ -55,15 +50,11 @@ public class ChestBlockMixin {
 		)
 	)
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
-		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) || !(sourceChest instanceof ChestBlockEntityInterface chestInterface)) return;
-		if (sourceChest.lootTable != null
-			&& state.getFluidState().is(Fluids.WATER)
-			&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
-			&& level.getRandom().nextInt(0, 3) == 1
-		) {
-			if (WWEntityConfig.SPAWN_JELLYFISH.get()) Jellyfish.spawnFromChest(level, state, pos, true);
-		}
-		chestInterface.wilderWild$bubble(level, pos, state);
+		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity chest)) return;
+		if (chest instanceof StoneChestBlockEntity) return;
+
+		ChestUtil.trySpawnJellyfish(level, pos, state, chest);
+		ChestUtil.tryTriggerBubble(level, pos, state, chest);
 	}
 
 	@ModifyReturnValue(method = "updateShape", at = @At(value = "RETURN"))
@@ -86,28 +77,7 @@ public class ChestBlockMixin {
 	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
-		ChestUtil.getCoupledChestBlockEntity(level, pos, original).ifPresent(coupledChest -> {
-			if (coupledChest instanceof ChestBlockEntityInterface coupledStoneChestInterface
-				&& level.getBlockEntity(pos) instanceof ChestBlockEntity chest
-				&& chest instanceof ChestBlockEntityInterface chestInterface
-			) {
-				chestInterface.wilderWild$setCanBubble(coupledStoneChestInterface.wilderWild$getCanBubble());
-				chestInterface.wilderWild$syncBubble(chest, coupledChest);
-			}
-		});
+		ChestUtil.onPlaced(level, pos, original);
 		return original;
-	}
-
-	@Inject(
-		method = "affectNeighborsAfterRemoval",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/Containers;updateNeighboursAfterDestroy(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
-		)
-	)
-	public void wilderWild$onRemove(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston, CallbackInfo info) {
-		if (level.getBlockEntity(pos) instanceof ChestBlockEntityInterface chestBlockEntityInterface) {
-			chestBlockEntityInterface.wilderWild$bubbleBurst(state);
-		}
 	}
 }

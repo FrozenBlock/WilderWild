@@ -41,7 +41,6 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
-import org.jetbrains.annotations.Contract;
 
 public class BiolithIntegration extends ModIntegration {
 
@@ -518,7 +517,6 @@ public class BiolithIntegration extends ModIntegration {
 		}
 	}
 
-	@Contract("_, _ -> new")
 	private static Criterion atEdgeOf(ResourceKey<Biome> biome, float max) {
 		return allOf(
 			CriterionBuilder.ratioMax(RatioTargets.EDGE, max),

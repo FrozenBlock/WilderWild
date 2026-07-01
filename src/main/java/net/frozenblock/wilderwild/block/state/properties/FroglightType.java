@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Contract;
 
 public enum FroglightType implements StringRepresentable {
 	PEARLESCENT("pearlescent", () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP),
@@ -57,7 +56,6 @@ public enum FroglightType implements StringRepresentable {
 		return Optional.empty();
 	}
 
-	@Contract(pure = true)
 	@Override
 	public String getSerializedName() {
 		return this.name;

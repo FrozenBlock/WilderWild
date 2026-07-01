@@ -7,6 +7,7 @@
   "mixins": [
     "block.block_break.ServerPlayerGameModeMixin",
     "block.cactus.CactusBlockMixin",
+    "block.chest.BlockEntityMixin",
     "block.chest.ChestBlockEntityMixin",
     "block.chest.ChestBlockMixin",
     "block.chest.TransportItemTargetMixin",

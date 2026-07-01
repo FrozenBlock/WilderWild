@@ -274,6 +274,9 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	@Override
 	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
 		if (this.level == null) return;
+
+		ChestUtil.bubbleBurst(this.level, pos, state, this);
+
 		this.unpackLootTable(null);
 		this.nonAncientItems().forEach(itemStack -> Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), itemStack));
 

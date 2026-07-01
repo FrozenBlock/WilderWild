@@ -89,7 +89,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 public class AbstractOstrich extends AbstractHorse implements PlayerRideableJumping {
@@ -536,7 +535,6 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		return true;
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()

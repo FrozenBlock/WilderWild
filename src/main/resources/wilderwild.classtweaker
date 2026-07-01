@@ -23,6 +23,7 @@ accessible field net/minecraft/world/level/block/SpeleothemBlock DELAY_BEFORE_FA
 accessible method net/minecraft/world/level/block/SpeleothemBlock isStalagmite (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible method net/minecraft/world/level/block/SpeleothemBlock isTip (Lnet/minecraft/world/level/block/state/BlockState;Z)Z
 accessible field net/minecraft/world/level/block/state/StateHolder propertyKeys [Lnet/minecraft/world/level/block/state/properties/Property;
+accessible method net/minecraft/world/level/block/ChestBlock candidatePartnerFacing (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Direction;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
