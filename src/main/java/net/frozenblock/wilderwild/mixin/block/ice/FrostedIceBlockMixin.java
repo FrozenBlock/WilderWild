@@ -71,5 +71,4 @@ public class FrostedIceBlockMixin {
 		final SoundType soundType = FrostedIceBlock.class.cast(this).getSoundType(state);
 		level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.15F, soundType.getPitch());
 	}
-
 }

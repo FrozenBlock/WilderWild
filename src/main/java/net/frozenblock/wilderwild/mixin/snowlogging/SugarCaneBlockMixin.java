@@ -81,5 +81,4 @@ public class SugarCaneBlockMixin extends Block {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
-
 }

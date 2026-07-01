@@ -87,5 +87,4 @@ public class DataFixersMixin {
 		fixerUpper.addFixer(new AddNewChoices(schema, WWConstants.string("falling_leaves"), References.ENTITY));
 		return schema;
 	}
-
 }

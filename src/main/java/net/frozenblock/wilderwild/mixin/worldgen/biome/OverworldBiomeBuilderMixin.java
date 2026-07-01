@@ -45,7 +45,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = OverworldBiomeBuilder.class, priority = 69420)
 public final class OverworldBiomeBuilderMixin {
-
 	@Shadow
 	@Final
 	private ResourceKey<Biome>[][] MIDDLE_BIOMES;
@@ -219,5 +218,4 @@ public final class OverworldBiomeBuilderMixin {
 	private int wilderWild$fixWindsweptSavannaHumidity(int original) {
 		return WWWorldgenConfig.WINDSWEPT_SAVANNA_MODIFIED_PLACEMENT.get() ? 2 : original;
 	}
-
 }

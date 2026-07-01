@@ -64,5 +64,4 @@ public class DoublePlantBlockMixin {
 		if (original.getBlock() instanceof CattailBlock) original = original.setValue(CattailBlock.SWAYING, isBottomWaterlogged.get());
 		return original;
 	}
-
 }

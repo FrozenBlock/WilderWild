@@ -91,5 +91,4 @@ public abstract class MultiPlayerGameModeMixin {
 
 		return original.call(instance, pos, blockState, updateFlags);
 	}
-
 }

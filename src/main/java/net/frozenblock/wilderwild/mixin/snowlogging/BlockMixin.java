@@ -39,5 +39,4 @@ public class BlockMixin {
 		if (SnowloggingUtils.isSnowlogged(blockState)) return original.call(SnowloggingUtils.getSnowEquivalent(blockState));
 		return original.call(blockState);
 	}
-
 }

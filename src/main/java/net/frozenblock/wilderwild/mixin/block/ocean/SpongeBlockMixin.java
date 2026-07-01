@@ -44,5 +44,4 @@ public class SpongeBlockMixin {
 			|| instance.getBlock() instanceof TubeWormsBlock
 			|| instance.getBlock() instanceof SeaWhipBlock;
 	}
-
 }

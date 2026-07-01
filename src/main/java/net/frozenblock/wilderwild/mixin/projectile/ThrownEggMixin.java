@@ -42,5 +42,4 @@ public class ThrownEggMixin {
 		final ThrownEgg egg = ThrownEgg.class.cast(this);
 		egg.playSound(WWSounds.ITEM_EGG_LAND, 0.5F, 0.85F + (egg.getRandom().nextFloat() * 0.2F));
 	}
-
 }

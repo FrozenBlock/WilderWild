@@ -98,5 +98,4 @@ public abstract class SnowLayerBlockMixin {
 		final int layers = SnowloggingUtils.getSnowLayers(belowState);
 		if (layers == SnowloggingUtils.MAX_LAYERS) info.setReturnValue(true);
 	}
-
 }

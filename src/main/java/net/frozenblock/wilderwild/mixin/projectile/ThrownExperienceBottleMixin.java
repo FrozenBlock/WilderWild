@@ -42,5 +42,4 @@ public class ThrownExperienceBottleMixin {
 		final ThrownExperienceBottle thrownBottle = ThrownExperienceBottle.class.cast(this);
 		thrownBottle.playSound(WWSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH, 1F, 0.85F + (thrownBottle.getRandom().nextFloat() * 0.2F));
 	}
-
 }

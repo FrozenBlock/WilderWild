@@ -43,5 +43,4 @@ public class BonemealableFeaturePlacerBlockMixin {
 		if (!WWBlockConfig.AZALEA_FROM_MOSS.get() && resourceKey == CaveFeatures.MOSS_PATCH_BONEMEAL) resourceKey = WWMiscConfigured.MOSS_PATCH_BONEMEAL_NO_AZALEA.getKey();
 		return original.call(instance, resourceKey);
 	}
-
 }

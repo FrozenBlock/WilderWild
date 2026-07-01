@@ -77,5 +77,4 @@ public abstract class ItemStackMixin {
 		if (possibleVariantHolder == null || !(possibleVariantHolder.value() instanceof TooltipProvider tooltipProvider) || !(display.shows(type))) return;
 		tooltipProvider.addToTooltip(context, builder, flag, this.components);
 	}
-
 }

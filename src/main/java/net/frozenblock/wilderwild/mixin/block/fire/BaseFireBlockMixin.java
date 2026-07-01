@@ -38,6 +38,7 @@ public class BaseFireBlockMixin {
 
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
+		// TODO: remove once NN releases
 		if (!WWBlockConfig.FIRE_SOUL_FIRE_SOUNDS.get() || !state.is(Blocks.SOUL_FIRE) || random.nextInt(48) != 0) return;
 		level.playLocalSound(
 			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
@@ -87,5 +88,4 @@ public class BaseFireBlockMixin {
 			);
 		}
 	}
-
 }
