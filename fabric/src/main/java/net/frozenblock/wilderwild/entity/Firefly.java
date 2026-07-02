@@ -379,11 +379,11 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	public boolean isSwarmLeader() {
-		return this.isNatural() && this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER).orElse(false);
+		return this.isNatural() && this.getBrain().getMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get()).orElse(false);
 	}
 
 	public boolean isNatural() {
-		return this.getBrain().hasMemoryValue(WWMemoryModuleTypes.NATURAL);
+		return this.getBrain().hasMemoryValue(WWMemoryModuleTypes.NATURAL.get());
 	}
 
 	@Override

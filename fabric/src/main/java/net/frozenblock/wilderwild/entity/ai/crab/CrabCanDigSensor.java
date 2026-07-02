@@ -29,16 +29,16 @@ public class CrabCanDigSensor extends Sensor<Crab> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return Set.of(WWMemoryModuleTypes.CAN_DIG);
+		return Set.of(WWMemoryModuleTypes.CAN_DIG.get());
 	}
 
 	@Override
 	protected void doTick(ServerLevel level, Crab crab) {
 		final Brain<?> brain = crab.getBrain();
 		if (crab.canHideOnGround()) {
-			brain.setMemory(WWMemoryModuleTypes.CAN_DIG, true);
+			brain.setMemory(WWMemoryModuleTypes.CAN_DIG.get(), true);
 		} else {
-			brain.eraseMemory(WWMemoryModuleTypes.CAN_DIG);
+			brain.eraseMemory(WWMemoryModuleTypes.CAN_DIG.get());
 		}
 	}
 

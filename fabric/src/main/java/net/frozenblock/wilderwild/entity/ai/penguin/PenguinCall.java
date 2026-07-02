@@ -33,10 +33,10 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	public PenguinCall(int duration) {
 		super(
 			ImmutableMap.of(
-				WWMemoryModuleTypes.NEARBY_PENGUINS, MemoryStatus.VALUE_PRESENT,
-				WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.WANTS_TO_CALL, MemoryStatus.VALUE_PRESENT,
-				WWMemoryModuleTypes.CALLING, MemoryStatus.VALUE_ABSENT,
+				WWMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT,
+				WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), MemoryStatus.VALUE_ABSENT,
+				WWMemoryModuleTypes.WANTS_TO_CALL.get(), MemoryStatus.VALUE_PRESENT,
+				WWMemoryModuleTypes.CALLING.get(), MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT
 			),
@@ -55,14 +55,14 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 		penguin.setPose(Pose.ROARING);
 		penguin.playSound(penguin.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get(), 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
 
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALLING, Unit.INSTANCE);
+		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALLING.get(), Unit.INSTANCE);
 		PenguinAi.addCallerMemoryToNearbyPenguins(penguin);
 	}
 
 	@Override
 	protected void stop(ServerLevel level, E penguin, long timestamp) {
 		if (penguin.hasPose(Pose.ROARING)) penguin.setPose(Pose.STANDING);
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS, 2400);
-		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING);
+		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 2400);
+		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING.get());
 	}
 }

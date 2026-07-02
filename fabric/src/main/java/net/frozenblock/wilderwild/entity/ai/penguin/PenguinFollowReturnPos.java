@@ -33,8 +33,8 @@ public class PenguinFollowReturnPos {
 	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
 		final MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
-			instance.present(WWMemoryModuleTypes.LAND_POS),
-			instance.absent(WWMemoryModuleTypes.DIVE_TICKS),
+			instance.present(WWMemoryModuleTypes.LAND_POS.get()),
+			instance.absent(WWMemoryModuleTypes.DIVE_TICKS.get()),
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)
 		).apply(instance, (landPos, diveTicks, walkTarget, lookTarget) -> (level, penguin, l) -> {

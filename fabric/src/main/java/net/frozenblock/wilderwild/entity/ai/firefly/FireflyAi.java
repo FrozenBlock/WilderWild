@@ -54,25 +54,25 @@ import net.minecraft.world.level.Level;
 public class FireflyAi {
 	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
-		WWSensorTypes.FIREFLY_SPECIFIC_SENSOR,
-		WWSensorTypes.FIREFLY_LEADER_SENSOR
+		WWSensorTypes.FIREFLY_SPECIFIC_SENSOR.get(),
+		WWSensorTypes.FIREFLY_LEADER_SENSOR.get()
 	);
 	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
 		MemoryModuleType.HOME,
-		WWMemoryModuleTypes.NEARBY_FIREFLIES,
-		WWMemoryModuleTypes.NATURAL,
-		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN
+		WWMemoryModuleTypes.NEARBY_FIREFLIES.get(),
+		WWMemoryModuleTypes.NATURAL.get(),
+		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get()
 	);
 
 	private FireflyAi() {
 	}
 
 	public static void setNatural(Firefly firefly) {
-		firefly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, Unit.INSTANCE);
+		firefly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL.get(), Unit.INSTANCE);
 	}
 
 	public static void setSwarmLeader(Firefly firefly) {
-		firefly.getBrain().setMemory(WWMemoryModuleTypes.IS_SWARM_LEADER, true);
+		firefly.getBrain().setMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get(), true);
 	}
 
 	public static Brain.Provider<Firefly> brainProvider() {
@@ -92,7 +92,7 @@ public class FireflyAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				ValidateOrSetHome.create(),
-				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
+				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get())
 			)
 		);
 	}
@@ -130,7 +130,7 @@ public class FireflyAi {
 	}
 
 	private static Optional<PositionTracker> getSwarmLeaderTarget(LivingEntity firefly) {
-		return !((Firefly)firefly).hasHome() ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER) : Optional.empty();
+		return !((Firefly)firefly).hasHome() ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get()) : Optional.empty();
 	}
 
 	private static Optional<PositionTracker> getHomeTarget(LivingEntity firefly) {
@@ -148,7 +148,7 @@ public class FireflyAi {
 	}
 
 	public static List<Firefly> getNearbyFirefliesInRank(Firefly firefly, boolean searchingForLeader) {
-		return new ArrayList<>(firefly.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES).orElse(ImmutableList.of()))
+		return new ArrayList<>(firefly.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES.get()).orElse(ImmutableList.of()))
 			.stream()
 			.filter(otherFirefly -> otherFirefly.isSwarmLeader() == searchingForLeader)
 			.sorted(Comparator.comparingDouble(firefly::distanceToSqr))
@@ -164,11 +164,11 @@ public class FireflyAi {
 			return;
 		}
 
-		brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
+		brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 	}
 
 	private static void transferLeadershipTo(Firefly firefly, Firefly newLeader) {
 		FireflyAi.setSwarmLeader(newLeader);
-		firefly.getBrain().eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
+		firefly.getBrain().eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 	}
 }

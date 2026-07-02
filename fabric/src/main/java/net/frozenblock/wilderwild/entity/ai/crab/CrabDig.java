@@ -56,10 +56,10 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void stop(ServerLevel level, E crab, long timestamp) {
 		if (crab.hasPose(Pose.DIGGING)) {
-			crab.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND, true);
+			crab.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get(), true);
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));
 		} else {
-			crab.getBrain().eraseMemory(WWMemoryModuleTypes.IS_UNDERGROUND);
+			crab.getBrain().eraseMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get());
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 40L);
 		}
 	}

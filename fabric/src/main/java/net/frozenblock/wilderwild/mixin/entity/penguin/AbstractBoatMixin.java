@@ -43,11 +43,11 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.level().isClientSide()) return;
-		if (!this.hasAttached(WWAttachmentTypes.BOAT_BOOST_TICKS)) return;
+		if (!WWAttachmentTypes.BOAT_BOOST_TICKS.has(this)) return;
 
-		final int newBoostTicks = Math.max(this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0) - 1, 0);
-		this.setAttached(WWAttachmentTypes.BOAT_BOOST_TICKS, newBoostTicks);
-		if (newBoostTicks <= 0) this.removeAttached(WWAttachmentTypes.BOAT_BOOST_TICKS);
+		final int newBoostTicks = Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) - 1, 0);
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, newBoostTicks);
+		if (newBoostTicks <= 0) WWAttachmentTypes.BOAT_BOOST_TICKS.remove(this);
 	}
 
 	@WrapOperation(
@@ -65,12 +65,12 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	@Override
 	public void wilderWild$boostBoatForTicks(int ticks) {
-		this.setAttached(WWAttachmentTypes.BOAT_BOOST_TICKS, Math.max(this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0), ticks));
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0), ticks));
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isBoatBoosted() {
-		return this.getAttachedOrElse(WWAttachmentTypes.BOAT_BOOST_TICKS, 0) > 0;
+		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) > 0;
 	}
 }

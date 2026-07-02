@@ -18,18 +18,17 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.frozenblock.lib.platform.api.data.DataAttachmentSyncPredicate;
+import net.frozenblock.lib.platform.api.data.DataAttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.codec.ByteBufCodecs;
 
 public final class WWAttachmentTypes {
-	public static final AttachmentType<Integer> BOAT_BOOST_TICKS = AttachmentRegistry.create(
+	public static final DataAttachmentType<Integer> BOAT_BOOST_TICKS = DataAttachmentType.create(
 		WWConstants.id("boat_boosted"),
 		builder -> {
 			builder.initializer(() -> 0);
-			builder.syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all());
+			builder.syncWith(ByteBufCodecs.VAR_INT, DataAttachmentSyncPredicate.all());
 			builder.persistent(Codec.INT);
 		}
 	);

@@ -30,16 +30,16 @@ public class CrabNearbyPlayerSensor extends Sensor<Crab> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(MemoryModuleType.NEAREST_PLAYERS, WWMemoryModuleTypes.IS_PLAYER_NEARBY);
+		return ImmutableSet.of(MemoryModuleType.NEAREST_PLAYERS, WWMemoryModuleTypes.IS_PLAYER_NEARBY.get());
 	}
 
 	@Override
 	protected void doTick(ServerLevel level, Crab crab) {
 		final Brain<?> brain = crab.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_PLAYERS) && !brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty()) {
-			brain.setMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY, true);
+			brain.setMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY.get(), true);
 		} else {
-			brain.eraseMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY);
+			brain.eraseMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY.get());
 		}
 	}
 

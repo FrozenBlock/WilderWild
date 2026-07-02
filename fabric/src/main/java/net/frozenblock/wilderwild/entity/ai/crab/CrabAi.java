@@ -76,14 +76,14 @@ public final class CrabAi {
 		SensorType.NEAREST_PLAYERS,
 		SensorType.NEAREST_ADULT,
 		SensorType.HURT_BY,
-		WWSensorTypes.CRAB_ATTACKABLES,
-		WWSensorTypes.CRAB_TEMPTATIONS,
-		WWSensorTypes.CRAB_SPECIFIC_SENSOR,
-		WWSensorTypes.CRAB_NEARBY_PLAYER_SENSOR,
-		WWSensorTypes.CRAB_CAN_DIG_SENSOR
+		WWSensorTypes.CRAB_ATTACKABLES.get(),
+		WWSensorTypes.CRAB_TEMPTATIONS.get(),
+		WWSensorTypes.CRAB_SPECIFIC_SENSOR.get(),
+		WWSensorTypes.CRAB_NEARBY_PLAYER_SENSOR.get(),
+		WWSensorTypes.CRAB_CAN_DIG_SENSOR.get()
 	);
 	public static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
-		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS
+		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()
 	);
 	private static final float SPEED_MODIFIER = 1F;
 	private static final float FOLLOWING_ADULT_SPEED_MODIFIER = 1.2F;
@@ -151,13 +151,13 @@ public final class CrabAi {
 				Pair.of(1, new CrabDig<>(DIGGING_DURATION))
 			),
 			Set.of(
-				Pair.of(WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.FIRST_BRAIN_TICK.get(), MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND.get(), MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.IS_PLAYER_NEARBY, MemoryStatus.VALUE_ABSENT),
-				Pair.of(WWMemoryModuleTypes.CAN_DIG, MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWMemoryModuleTypes.IS_PLAYER_NEARBY.get(), MemoryStatus.VALUE_ABSENT),
+				Pair.of(WWMemoryModuleTypes.CAN_DIG.get(), MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT)
 			)
 		);
@@ -171,7 +171,7 @@ public final class CrabAi {
 				Pair.of(1, CrabHeal.create())
 			),
 			Set.of(
-				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)
+				Pair.of(WWMemoryModuleTypes.IS_UNDERGROUND.get(), MemoryStatus.VALUE_PRESENT)
 			)
 		);
 	}
@@ -190,7 +190,7 @@ public final class CrabAi {
 				),
 				StartAttacking.create(CrabAi::findNearestValidAttackTarget),
 				new RunOne<>(
-					Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, WWMemoryModuleTypes.FIRST_BRAIN_TICK, MemoryStatus.VALUE_PRESENT),
+					Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, WWMemoryModuleTypes.FIRST_BRAIN_TICK.get(), MemoryStatus.VALUE_PRESENT),
 					List.of(
 						Pair.of(RandomStroll.swim(1F), 2),
 						Pair.of(RandomStroll.stroll(1F), 2),
@@ -273,7 +273,7 @@ public final class CrabAi {
 	public static void setAngerTarget(ServerLevel level, Crab crab, LivingEntity target) {
 		if (crab.isBaby()) return;
 		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, crab, target)) return;
-		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND, MemoryStatus.VALUE_PRESENT)) clearDigCooldown(crab);
+		if (crab.getBrain().checkMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get(), MemoryStatus.VALUE_PRESENT)) clearDigCooldown(crab);
 
 		crab.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
 		crab.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
@@ -320,7 +320,7 @@ public final class CrabAi {
 	}
 
 	private static Optional<List<Crab>> getNearbyCrabs(Crab crab) {
-		return crab.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_CRABS);
+		return crab.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_CRABS.get());
 	}
 
 	public static Optional<Player> getNearestVisibleTargetablePlayer(Crab crab) {
@@ -342,7 +342,7 @@ public final class CrabAi {
 	}
 
 	public static boolean isUnderground(Crab crab) {
-		return crab.getBrain().hasMemoryValue(WWMemoryModuleTypes.IS_UNDERGROUND);
+		return crab.getBrain().hasMemoryValue(WWMemoryModuleTypes.IS_UNDERGROUND.get());
 	}
 
 	public static boolean isIdle(Crab crab) {

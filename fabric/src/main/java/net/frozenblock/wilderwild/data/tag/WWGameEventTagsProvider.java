@@ -52,6 +52,6 @@ public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent>
 		this.tag(WWGameEventTags.MAKES_ICICLE_FALL)
 			.add(GameEvent.EXPLODE.key())
 			.add(GameEvent.PROJECTILE_LAND.key())
-			.add(WWGameEvents.BIG_FALL.key());
+			.add(WWGameEvents.BIG_FALL.asHolder().unwrapKey().orElseThrow());
 	}
 }

@@ -34,7 +34,7 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 		super(
 			Map.of(
 				MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.REGISTERED,
+				WWMemoryModuleTypes.SEARCHING_FOR_WATER.get(), MemoryStatus.REGISTERED,
 				MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT,
 				MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT
@@ -59,9 +59,9 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, E penguin, long timestamp) {
 		final Brain<Penguin> brain = penguin.getBrain();
-		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH);
-		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER, Unit.INSTANCE, 400L);
-		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN, Unit.INSTANCE);
+		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH.get());
+		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER.get(), Unit.INSTANCE, 400L);
+		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN.get(), Unit.INSTANCE);
 		penguin.setPose(Pose.SLIDING);
 		penguin.stopInPlace();
 	}
@@ -69,14 +69,14 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	@Override
 	protected void stop(ServerLevel level, E penguin, long timestamp) {
 		final Brain<Penguin> brain = penguin.getBrain();
-		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER);
-		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN);
+		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER.get());
+		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN.get());
 
 		if (!penguin.isTouchingWaterOrSwimming()) {
-			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
-			brain.setMemoryWithExpiry(WWMemoryModuleTypes.STANDING_UP, Unit.INSTANCE, PenguinAi.STAND_UP_DURATION);
+			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
+			brain.setMemoryWithExpiry(WWMemoryModuleTypes.STANDING_UP.get(), Unit.INSTANCE, PenguinAi.STAND_UP_DURATION);
 		} else {
-			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS, PenguinAi.DIVE_TIME.sample(penguin.getRandom()));
+			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS.get(), PenguinAi.DIVE_TIME.sample(penguin.getRandom()));
 		}
 	}
 }

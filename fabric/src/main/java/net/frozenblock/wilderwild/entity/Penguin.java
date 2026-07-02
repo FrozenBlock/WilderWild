@@ -117,7 +117,7 @@ public class Penguin extends Animal {
 
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData groupData) {
-		this.getBrain().setMemory(WWMemoryModuleTypes.IDLE_TIME, PenguinAi.IDLE_TIME.sample(level.getRandom()));
+		this.getBrain().setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(level.getRandom()));
 		return super.finalizeSpawn(level, difficulty, reason, groupData);
 	}
 

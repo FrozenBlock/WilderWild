@@ -17,52 +17,50 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
-import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
-import net.fabricmc.loader.api.ModContainer;
+import net.frozenblock.lib.platform.api.ClientOnly;
+import net.frozenblock.lib.platform.api.resource.FrozenResourceLoader;
+import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWClientResources {
 
-	public static void register(ModContainer container) {
-		if (container == null) return;
+	public static void register() {
+		String modId = WWConstants.MOD_ID;
 
-		ResourceLoader.registerBuiltinPack(
+		FrozenResourceLoader.registerBuiltinPack(
 			WWConstants.id("mc_live_tendrils"),
-			container,
+			modId,
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
 			PackActivationType.NORMAL
 		);
 
-		ResourceLoader.registerBuiltinPack(
+		FrozenResourceLoader.registerBuiltinPack(
 			WWConstants.id("original_firefly"),
-			container, Component.literal("Original Fireflies"),
+			modId, Component.literal("Original Fireflies"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
-		ResourceLoader.registerBuiltinPack(
+		FrozenResourceLoader.registerBuiltinPack(
 			WWConstants.id("mojang_crabs"),
-			container,
+			modId,
 			Component.translatable("pack.wilderwild.mojang_crabs"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
-			ResourceLoader.registerBuiltinPack(
-				WWConstants.id("wilder_extra_music"), container,
+			FrozenResourceLoader.registerBuiltinPack(
+				WWConstants.id("wilder_extra_music"), modId,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
 				PackActivationType.ALWAYS_ENABLED
 			);
 		}
 
-		ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
+		FrozenResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
 			WWConstants.id("resource_pack_value_setters"),
 			(ResourceManagerReloadListener) resourceManager -> {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {

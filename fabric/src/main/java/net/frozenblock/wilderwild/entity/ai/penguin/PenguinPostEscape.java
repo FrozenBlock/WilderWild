@@ -36,8 +36,8 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 		penguin.stopInPlace();
 
 		final Brain<Penguin> brain = penguin.getBrain();
-		brain.setMemory(WWMemoryModuleTypes.IDLE_TIME, PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
-		brain.eraseMemory(WWMemoryModuleTypes.ESCAPING);
+		brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
+		brain.eraseMemory(WWMemoryModuleTypes.ESCAPING.get());
 	}
 
 }

@@ -32,17 +32,17 @@ public class PenguinLandPosSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.LAND_POS, MemoryModuleType.IS_IN_WATER, WWMemoryModuleTypes.DIVE_TICKS);
+		return ImmutableSet.of(WWMemoryModuleTypes.LAND_POS.get(), MemoryModuleType.IS_IN_WATER, WWMemoryModuleTypes.DIVE_TICKS.get());
 	}
 
 	@Override
 	protected void doTick(ServerLevel level, LivingEntity entity) {
 		final Brain<?> brain = entity.getBrain();
 		if (brain.checkMemory(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
-			&& brain.checkMemory(WWMemoryModuleTypes.DIVE_TICKS, MemoryStatus.VALUE_ABSENT)
-			&& brain.checkMemory(WWMemoryModuleTypes.LAND_POS, MemoryStatus.VALUE_ABSENT)
+			&& brain.checkMemory(WWMemoryModuleTypes.DIVE_TICKS.get(), MemoryStatus.VALUE_ABSENT)
+			&& brain.checkMemory(WWMemoryModuleTypes.LAND_POS.get(), MemoryStatus.VALUE_ABSENT)
 		) {
-			if (entity.onGround()) brain.setMemory(WWMemoryModuleTypes.LAND_POS, GlobalPos.of(level.dimension(), entity.blockPosition()));
+			if (entity.onGround()) brain.setMemory(WWMemoryModuleTypes.LAND_POS.get(), GlobalPos.of(level.dimension(), entity.blockPosition()));
 		}
 	}
 }

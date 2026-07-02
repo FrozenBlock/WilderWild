@@ -34,7 +34,7 @@ public class ValidateOrSetHome {
 	public static BehaviorControl<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(MemoryModuleType.HOME),
-			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
+			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get())
 		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, entity, l) -> {
 			homeValidateCooldown.set(200);
 			final BlockPos homePos = getHome(entity);

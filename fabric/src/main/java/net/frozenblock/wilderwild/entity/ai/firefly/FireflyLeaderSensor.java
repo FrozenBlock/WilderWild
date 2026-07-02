@@ -33,7 +33,7 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_FIREFLIES, WWMemoryModuleTypes.IS_SWARM_LEADER, WWMemoryModuleTypes.SWARM_LEADER_TRACKER);
+		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_FIREFLIES.get(), WWMemoryModuleTypes.IS_SWARM_LEADER.get(), WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get());
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
 
 				if (!leaderFireflies.isEmpty()) {
-					brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER, new EntityTracker(leaderFireflies.getFirst(), true));
+					brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get(), new EntityTracker(leaderFireflies.getFirst(), true));
 					return;
 				}
 				FireflyAi.setSwarmLeader(firefly);
@@ -54,9 +54,9 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 					.toList();
 				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
 
-				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER);
+				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 			}
 		}
-		brain.eraseMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER);
+		brain.eraseMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get());
 	}
 }

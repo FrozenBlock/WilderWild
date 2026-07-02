@@ -30,7 +30,7 @@ public class PenguinBoostBoat {
 
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
-			instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
+			instance.present(WWMemoryModuleTypes.TRACKED_BOAT.get())
 		).apply(instance, (trackedBoat) -> (level, penguin, l) -> {
 			final Boat boat = instance.get(trackedBoat);
 			if (boat instanceof BoatBoostInterface boatBoostInterface && penguin.distanceTo(boat) < MAX_DISTANCE) {

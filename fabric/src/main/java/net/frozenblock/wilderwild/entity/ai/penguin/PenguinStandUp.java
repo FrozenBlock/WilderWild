@@ -30,8 +30,8 @@ public class PenguinStandUp<E extends Penguin> extends Behavior<E> {
 	public PenguinStandUp(int duration) {
 		super(
 			ImmutableMap.of(
-				WWMemoryModuleTypes.LAYING_DOWN, MemoryStatus.VALUE_ABSENT,
-				WWMemoryModuleTypes.SEARCHING_FOR_WATER, MemoryStatus.VALUE_ABSENT
+				WWMemoryModuleTypes.LAYING_DOWN.get(), MemoryStatus.VALUE_ABSENT,
+				WWMemoryModuleTypes.SEARCHING_FOR_WATER.get(), MemoryStatus.VALUE_ABSENT
 			),
 			duration
 		);

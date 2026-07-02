@@ -28,7 +28,7 @@ public class SetTrackedBoatLookTarget {
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),
-			instance.present(WWMemoryModuleTypes.TRACKED_BOAT)
+			instance.present(WWMemoryModuleTypes.TRACKED_BOAT.get())
 		).apply(instance, (lookTarget, trackedBoat) -> (level, penguin, l) -> {
 			lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
 			return true;

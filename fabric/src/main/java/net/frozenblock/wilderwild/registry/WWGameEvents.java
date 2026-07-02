@@ -17,24 +17,35 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class WWGameEvents {
-	public static final Reference<GameEvent> BIG_FALL = register("big_fall");
+	private static final FrozenDeferredRegister<GameEvent> REGISTER = FrozenDeferredRegister.create(
+		Registries.GAME_EVENT,
+		WWConstants.MOD_ID
+	);
+
+	public static final FrozenHolder<GameEvent, GameEvent> BIG_FALL = register("big_fall");
+
+	static {
+		REGISTER.register();
+	}
 
 	public static void init() {}
 
-	private static Reference<GameEvent> register(String name) {
+	private static FrozenHolder<GameEvent, GameEvent> register(String name) {
 		return register(name, 16);
 	}
 
-	private static Reference<GameEvent> register(String name, int notificationRadius) {
-		Identifier key = WWConstants.id(name);
-		return Registry.registerForHolder(BuiltInRegistries.GAME_EVENT, key, new GameEvent(notificationRadius));
+	private static FrozenHolder<GameEvent, GameEvent> register(String name, int notificationRadius) {
+		return REGISTER.register(name, () -> new GameEvent(notificationRadius));
 	}
 }

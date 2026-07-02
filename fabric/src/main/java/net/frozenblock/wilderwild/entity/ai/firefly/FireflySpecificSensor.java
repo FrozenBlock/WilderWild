@@ -34,7 +34,7 @@ public class FireflySpecificSensor extends Sensor<Firefly> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, WWMemoryModuleTypes.NEARBY_FIREFLIES);
+		return ImmutableSet.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, WWMemoryModuleTypes.NEARBY_FIREFLIES.get());
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class FireflySpecificSensor extends Sensor<Firefly> {
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof Firefly otherFirefly) fireflies.add(otherFirefly);
 		}
-		brain.setMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES, fireflies);
+		brain.setMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES.get(), fireflies);
 	}
 }

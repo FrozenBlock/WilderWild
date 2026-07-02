@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 
 	public PenguinPreSearch() {
-		super(ImmutableMap.of(WWMemoryModuleTypes.STARTING_SEARCH, MemoryStatus.REGISTERED), 1);
+		super(ImmutableMap.of(WWMemoryModuleTypes.STARTING_SEARCH.get(), MemoryStatus.REGISTERED), 1);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 	protected void start(ServerLevel level, E penguin, long gameTime) {
 		PenguinAi.addCallMemoryIfPenguinsClose(penguin);
 		penguin.stopInPlace();
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH, Unit.INSTANCE);
+		penguin.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH.get(), Unit.INSTANCE);
 	}
 
 }

@@ -33,7 +33,7 @@ public class CrabTryToEmerge {
 	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.IS_EMERGING),
-			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND),
+			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND.get()),
 			instance.registered(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(MemoryModuleType.NEAREST_PLAYERS)
 		).apply(instance, (isEmerging, underground, digCooldown, players) -> (level, crab, l) -> {

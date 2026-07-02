@@ -54,8 +54,8 @@ public class ButterflyAi {
 	);
 	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
 		MemoryModuleType.HOME,
-		WWMemoryModuleTypes.NATURAL,
-		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN
+		WWMemoryModuleTypes.NATURAL.get(),
+		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get()
 	);
 
 	private ButterflyAi() {
@@ -70,7 +70,7 @@ public class ButterflyAi {
 	}
 
 	public static void setNatural(Butterfly butterfly) {
-		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL, Unit.INSTANCE);
+		butterfly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL.get(), Unit.INSTANCE);
 	}
 
 	private static ActivityData<Butterfly> initCoreActivity() {
@@ -82,7 +82,7 @@ public class ButterflyAi {
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
 				ValidateOrSetHome.create(),
-				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN)
+				new CountDownCooldownTicks(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get())
 			)
 		);
 	}

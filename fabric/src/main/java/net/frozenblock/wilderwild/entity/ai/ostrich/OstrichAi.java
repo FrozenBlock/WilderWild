@@ -79,10 +79,10 @@ public class OstrichAi {
 	private static final ImmutableList<SensorType<? extends Sensor<? super AbstractOstrich>>> SENSOR_TYPES = ImmutableList.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.HURT_BY,
-		WWSensorTypes.OSTRICH_TEMPTATIONS,
+		WWSensorTypes.OSTRICH_TEMPTATIONS.get(),
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
-		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR
+		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR.get()
 	);
 
 	public static Brain.Provider<AbstractOstrich> brainProvider(boolean zombie) {
@@ -265,7 +265,7 @@ public class OstrichAi {
 	}
 
 	private static Optional<List<AbstractOstrich>> getNearbyAbstractOstriches(AbstractOstrich ostrich) {
-		return ostrich.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES);
+		return ostrich.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES.get());
 	}
 
 	public static Optional<Player> getNearestVisibleTargetablePlayer(AbstractOstrich ostrich) {

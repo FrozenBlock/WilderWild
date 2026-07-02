@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 
 	public PenguinMarkAsEscaping() {
-		super(ImmutableMap.of(WWMemoryModuleTypes.ESCAPING, MemoryStatus.VALUE_ABSENT), 1);
+		super(ImmutableMap.of(WWMemoryModuleTypes.ESCAPING.get(), MemoryStatus.VALUE_ABSENT), 1);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class PenguinMarkAsEscaping<E extends Penguin> extends Behavior<E> {
 
 	@Override
 	protected void start(ServerLevel level, E penguin, long timestamp) {
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.ESCAPING, Unit.INSTANCE);
+		penguin.getBrain().setMemory(WWMemoryModuleTypes.ESCAPING.get(), Unit.INSTANCE);
 	}
 
 }

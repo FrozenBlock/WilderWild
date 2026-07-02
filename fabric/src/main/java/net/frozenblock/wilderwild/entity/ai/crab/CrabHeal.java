@@ -30,13 +30,13 @@ public class CrabHeal {
 	@Contract(" -> new")
 	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
-			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND),
+			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND.get()),
 			instance.present(MemoryModuleType.DIG_COOLDOWN),
-			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS)
+			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get())
 		).apply(instance, (underground, digCooldown, healCooldown) -> (level, crab, l) -> {
 			final Brain<Crab> brain = crab.getBrain();
-			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).isPresent()) {
-				final int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS).get();
+			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()).isPresent()) {
+				final int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()).get();
 				if (cooldownTicks > 0) {
 					healCooldown.setWithExpiry(cooldownTicks - 1, 5L);
 					return true;

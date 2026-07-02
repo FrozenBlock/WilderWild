@@ -34,7 +34,7 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_CRABS, MemoryModuleType.NEAREST_LIVING_ENTITIES);
+		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_CRABS.get(), MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class CrabSpecificSensor extends Sensor<LivingEntity> {
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof Crab crab) crabs.add(crab);
 		}
-		brain.setMemory(WWMemoryModuleTypes.NEARBY_CRABS, crabs);
+		brain.setMemory(WWMemoryModuleTypes.NEARBY_CRABS.get(), crabs);
 	}
 }

@@ -36,7 +36,7 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.TRACKED_BOAT);
+		return ImmutableSet.of(WWMemoryModuleTypes.TRACKED_BOAT.get());
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 		final Brain<?> brain = entity.getBrain();
 
 		if (entity.isPassenger()) {
-			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT);
+			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT.get());
 			return;
 		}
 
@@ -68,11 +68,11 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 		temptingBoats.sort(Comparator.comparingDouble(entity::distanceToSqr));
 
 		if (!temptingBoats.isEmpty()) {
-			brain.setMemory(WWMemoryModuleTypes.TRACKED_BOAT, temptingBoats.getFirst());
+			brain.setMemory(WWMemoryModuleTypes.TRACKED_BOAT.get(), temptingBoats.getFirst());
 		} else if (!boats.isEmpty()) {
-			brain.setMemory(WWMemoryModuleTypes.TRACKED_BOAT, boats.getFirst());
+			brain.setMemory(WWMemoryModuleTypes.TRACKED_BOAT.get(), boats.getFirst());
 		} else {
-			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT);
+			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT.get());
 		}
 	}
 }

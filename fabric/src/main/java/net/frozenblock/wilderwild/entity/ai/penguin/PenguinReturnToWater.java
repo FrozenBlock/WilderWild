@@ -33,7 +33,7 @@ public class PenguinReturnToWater {
 	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
 		final MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
-			instance.present(WWMemoryModuleTypes.WATER_POS),
+			instance.present(WWMemoryModuleTypes.WATER_POS.get()),
 			instance.absent(MemoryModuleType.ATTACK_TARGET),
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)

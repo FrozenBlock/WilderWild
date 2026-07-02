@@ -29,7 +29,7 @@ public class PenguinMeetCaller {
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),
-			instance.present(WWMemoryModuleTypes.CALLER)
+			instance.present(WWMemoryModuleTypes.CALLER.get())
 		).apply(instance, (lookTarget, callerUUID) -> (level, penguin, timestamp) -> {
 			final UUID uuid = instance.get(callerUUID);
 			final Optional<LivingEntity> caller = PenguinAi.getCaller(penguin, uuid);

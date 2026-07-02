@@ -378,7 +378,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		CrabAi.updateActivity(this);
 		profiler.pop();
 		super.customServerAiStep(level);
-		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK, Unit.INSTANCE);
+		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK.get(), Unit.INSTANCE);
 	}
 
 	public double getEmptyAreaSearchDistance() {
