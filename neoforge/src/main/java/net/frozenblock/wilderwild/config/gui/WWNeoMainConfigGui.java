@@ -25,7 +25,7 @@ public final class WWNeoMainConfigGui {
 		});
 
 		final ConfigEntryBuilder entryBuilder = configBuilder.entryBuilder();
-		//WWBlockConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("block")), entryBuilder);
+		WWBlockConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("block")), entryBuilder);
 		//WWEntityConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("entity")), entryBuilder);
 		WWItemConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("item")), entryBuilder);
 		//WWWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("worldgen")), entryBuilder);
