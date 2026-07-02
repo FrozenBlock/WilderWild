@@ -39,7 +39,7 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
 
     // only for @Environment
-    implementation("net.fabricmc:fabric-loader:${loader_version}")
+    api("net.fabricmc:fabric-loader:${loader_version}")
 
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
 
