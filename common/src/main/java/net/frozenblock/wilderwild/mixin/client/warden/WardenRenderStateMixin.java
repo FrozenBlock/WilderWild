@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenState;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
@@ -25,7 +26,7 @@ import net.minecraft.world.entity.AnimationState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 @Mixin(WardenRenderState.class)
 public class WardenRenderStateMixin implements WilderWarden, SwimmingWardenState {
 

@@ -19,8 +19,9 @@ package net.frozenblock.wilderwild.particle;
 
 import java.util.Optional;
 import java.util.function.Supplier;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -37,7 +38,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public class PollenParticle extends SingleQuadParticle {
 	public static final double WIND_INTENSITY = 0.2D;
 	private float prevScale = 0F;

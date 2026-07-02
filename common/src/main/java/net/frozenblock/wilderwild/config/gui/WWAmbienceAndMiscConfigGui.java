@@ -22,10 +22,12 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import net.frozenblock.lib.platform.api.ClientOnly;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public final class WWAmbienceAndMiscConfigGui {
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {

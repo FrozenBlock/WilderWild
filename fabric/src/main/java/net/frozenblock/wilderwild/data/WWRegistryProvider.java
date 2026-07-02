@@ -55,7 +55,7 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized sound type overrides to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.SOUND_TYPE_OVERRIDE)));
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.SOUND_TYPE_OVERRIDE)));
 		WWConstants.log("Adding finalized clip groups to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CLIP_GROUP)));
 		WWConstants.log("Adding finalized water-like types to datagen", true);

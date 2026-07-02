@@ -17,13 +17,14 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public final class WWAllayAnimation {
 	public static final AnimationDefinition ALLAY_DANCING = AnimationDefinition.Builder.withLength(2.75F).looping()
 		.addAnimation(

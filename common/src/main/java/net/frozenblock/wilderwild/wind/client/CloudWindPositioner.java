@@ -17,9 +17,10 @@
 
 package net.frozenblock.wilderwild.wind.client;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public sealed interface CloudWindPositioner permits CloudWindPositioner.Pass, CloudWindPositioner.Success {
 	CloudWindPositioner PASS = new Pass();
 

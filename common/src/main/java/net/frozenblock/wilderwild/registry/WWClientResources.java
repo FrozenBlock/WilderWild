@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.lib.platform.api.resource.FrozenResourceLoader;
 import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
@@ -26,7 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public final class WWClientResources {
 
 	public static void register() {

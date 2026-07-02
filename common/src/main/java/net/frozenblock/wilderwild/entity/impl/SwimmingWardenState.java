@@ -17,9 +17,10 @@
 
 package net.frozenblock.wilderwild.entity.impl;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public interface SwimmingWardenState {
 	float wilderWild$getSwimAmount();
 	float wilderWild$getWadingProgress();

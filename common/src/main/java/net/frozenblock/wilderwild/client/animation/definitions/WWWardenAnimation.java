@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.AnimationDefinition.Builder;
@@ -27,7 +28,7 @@ import net.minecraft.client.animation.KeyframeAnimations;
 /**
  * Put custom Warden animations in here. for example, death, flying, swimming. Not for overrides.
  */
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public final class WWWardenAnimation {
 	public static final AnimationDefinition WARDEN_DIG = AnimationDefinition.Builder.withLength(5.167667F)
 		.addAnimation("body",

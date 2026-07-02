@@ -23,10 +23,12 @@ import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelp
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.createSubCategory;
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
-import net.frozenblock.lib.platform.api.ClientOnly;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public final class WWItemConfigGui {
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {

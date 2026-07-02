@@ -17,14 +17,15 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 // Animations by DaDolphin! Edited by AViewFromTheTop.
-@ClientOnly
+@Environment(EnvType.CLIENT)
 public class PenguinAnimation {
 	public static final AnimationDefinition PENGUIN_LAY_DOWN = AnimationDefinition.Builder.withLength(0.6635F)
 		.addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,

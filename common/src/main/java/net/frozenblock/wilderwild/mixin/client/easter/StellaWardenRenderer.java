@@ -18,7 +18,8 @@
 package net.frozenblock.wilderwild.mixin.client.easter;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.lib.platform.api.ClientOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.StellaWardenLayer;
 import net.minecraft.client.model.monster.warden.WardenModel;
@@ -36,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 @Mixin(WardenRenderer.class)
 public abstract class StellaWardenRenderer extends MobRenderer<Warden, WardenRenderState, WardenModel> {
 	@Unique

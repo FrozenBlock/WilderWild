@@ -102,7 +102,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 
 		// FrozenLib Registries
-		registryBuilder.add(FrozenLibFabricRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 		registryBuilder.add(FrozenLibFabricRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
