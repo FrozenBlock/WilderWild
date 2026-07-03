@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.frozenblock.lib.item.api.loot.FrozenLibLootTableEvents;
 import net.frozenblock.lib.item.api.removable.RemovableItemTags;
 import net.frozenblock.wilderwild.WWConstants;
@@ -49,7 +48,7 @@ public final class WWLootTables {
 
 	public static void init() {
 		// SHIPWRECK
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				final LootPool.Builder pool = LootPool.lootPool();
 
@@ -137,7 +136,7 @@ public final class WWLootTables {
 		});
 
 		// SAVANNA VILLAGE
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
 				tableBuilder.modifyPools(builder -> {
 					builder.add(
@@ -156,7 +155,7 @@ public final class WWLootTables {
 		});
 
 		// DESERT VILLAGE
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
 					tableBuilder.modifyPools(builder -> {
@@ -188,7 +187,7 @@ public final class WWLootTables {
 		});
 
 		// ANCIENT CITY
-		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return;
 
