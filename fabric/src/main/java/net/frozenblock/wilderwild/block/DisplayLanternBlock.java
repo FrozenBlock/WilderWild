@@ -256,8 +256,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN, (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
 	}
 
 	@Override

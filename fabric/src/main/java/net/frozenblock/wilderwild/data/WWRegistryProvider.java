@@ -61,7 +61,7 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		WWConstants.log("Adding finalized water-like types to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.WATER_LIKE_TYPE)));
 		WWConstants.log("Adding finalized structure music to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibFabricRegistries.STRUCTURE_MUSIC)));
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_MUSIC)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);

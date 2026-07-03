@@ -79,7 +79,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWDataComponents.init();
 		WWBlocks.init();
 		WWItems.init();
-		WWGameEvents.init();
 		WWSoundTypes.init();
 		WWBlockEntityTypes.init();
 		WWEntityTypes.init();

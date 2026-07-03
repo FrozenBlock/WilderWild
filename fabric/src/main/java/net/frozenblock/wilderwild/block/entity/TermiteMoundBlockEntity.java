@@ -44,7 +44,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	private boolean hadTermite = false;
 
 	public TermiteMoundBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.TERMITE_MOUND, pos, state);
+		super(WWBlockEntityTypes.TERMITE_MOUND.get(), pos, state);
 		this.termiteManager = new TermiteManager();
 	}
 

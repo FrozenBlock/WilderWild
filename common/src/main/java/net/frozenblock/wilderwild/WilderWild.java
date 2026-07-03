@@ -8,6 +8,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -22,6 +23,7 @@ public final class WilderWild {
 		WWActivities.init();
 		WWEnvironmentAttributes.init();
 
+		WWGameEvents.init();
 		WWSounds.init();
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);

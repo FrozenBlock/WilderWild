@@ -697,7 +697,7 @@ public final class WWBlocks {
 			.randomTicks()
 	);
 	public static final FrozenDeferredBlock<StoneChestBlock> STONE_CHEST = REGISTER.registerBlock(WWBlockItemIds.STONE_CHEST.block(),
-		properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties),
+		properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST.get(), properties),
 		() -> Properties.ofFullCopy(Blocks.CHEST)
 			.mapColor(MapColor.DEEPSLATE)
 			.instrument(NoteBlockInstrument.BASEDRUM)
@@ -2152,6 +2152,6 @@ public final class WWBlocks {
 
 	private static void registerInventories() {
 		ItemStorage.SIDED.registerForBlocks((level, pos, state, blockEntity, direction) -> new NoInteractionStorage<>(), STONE_CHEST.get());
-		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST);
+		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST.get());
 	}
 }

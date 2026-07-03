@@ -72,7 +72,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 	protected long updateTime;
 
 	public StoneChestBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.STONE_CHEST, pos, state);
+		super(WWBlockEntityTypes.STONE_CHEST.get(), pos, state);
 	}
 
 	public static void serverStoneTick(Level level, BlockPos pos, BlockState state, StoneChestBlockEntity stoneChest) {

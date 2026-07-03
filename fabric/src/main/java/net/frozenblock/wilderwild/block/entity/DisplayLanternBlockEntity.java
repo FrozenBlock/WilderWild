@@ -72,7 +72,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.DISPLAY_LANTERN, pos, state);
+		super(WWBlockEntityTypes.DISPLAY_LANTERN.get(), pos, state);
 		this.hanging = state.getValue(BlockStateProperties.HANGING);
 		this.inventory = NonNullList.withSize(1, ItemStack.EMPTY);
 	}

@@ -194,7 +194,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 		return !level.isClientSide()
 			? createTickerHelper(
 				type,
-				WWBlockEntityTypes.HANGING_TENDRIL,
+				WWBlockEntityTypes.HANGING_TENDRIL.get(),
 				(levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos, statex)
 			)
 			: null;

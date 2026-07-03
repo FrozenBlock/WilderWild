@@ -48,7 +48,7 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener.
 	private Data vibrationData;
 
 	public IcicleBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.ICICLE, pos, state);
+		super(WWBlockEntityTypes.ICICLE.get(), pos, state);
 		this.vibrationData = new Data();
 		this.vibrationListener = new Listener(this);
 	}

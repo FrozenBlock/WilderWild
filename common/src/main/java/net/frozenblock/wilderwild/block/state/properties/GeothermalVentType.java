@@ -22,25 +22,26 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.StringRepresentable;
+import java.util.function.Supplier;
 
 public enum GeothermalVentType implements StringRepresentable {
-	NONE("none", SoundEvents.EMPTY),
-	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.get()),
-	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.get()),
-	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.get()),
-	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get());
+	NONE("none", () -> SoundEvents.EMPTY),
+	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR),
+	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER),
+	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA),
+	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT);
 
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 
 	private final String name;
-	private final SoundEvent eruptionSound;
+	private final Supplier<SoundEvent> eruptionSound;
 
-	GeothermalVentType(String name, SoundEvent eruptionSound) {
+	GeothermalVentType(String name, Supplier<SoundEvent> eruptionSound) {
 		this.name = name;
 		this.eruptionSound = eruptionSound;
 	}
 
-	public SoundEvent getEruptionSound() {
+	public Supplier<SoundEvent> getEruptionSound() {
 		return this.eruptionSound;
 	}
 

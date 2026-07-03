@@ -68,7 +68,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneChestBlock extends ChestBlock {
-	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST, properties));
+	public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(properties -> new StoneChestBlock(WWBlockEntityTypes.STONE_CHEST::get, properties));
 	public static final float MIN_OPENABLE_PROGRESS = 0.3F;
 	public static final float MAX_OPENABLE_PROGRESS = 0.5F;
 	public static final float LIFT_AMOUNT = 0.025F;
@@ -207,8 +207,8 @@ public class StoneChestBlock extends ChestBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return level.isClientSide()
-			? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::clientStoneTick)
-			: BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST, StoneChestBlockEntity::serverStoneTick);
+			? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::clientStoneTick)
+			: BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::serverStoneTick);
 	}
 
 	@Override

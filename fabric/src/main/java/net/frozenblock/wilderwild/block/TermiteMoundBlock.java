@@ -134,12 +134,12 @@ public class TermiteMoundBlock extends BaseEntityBlock {
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide()) return createTickerHelper(
 			type,
-			WWBlockEntityTypes.TERMITE_MOUND,
+			WWBlockEntityTypes.TERMITE_MOUND.get(),
 			(levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx)
 		);
 		return createTickerHelper(
 			type,
-			WWBlockEntityTypes.TERMITE_MOUND,
+			WWBlockEntityTypes.TERMITE_MOUND.get(),
 			(levelx, pos, statex, blockEntity) ->
 				blockEntity.tickServer(
 					levelx,

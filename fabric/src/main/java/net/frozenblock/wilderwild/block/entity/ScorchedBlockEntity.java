@@ -34,7 +34,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 	private long coolDownEndsAtTick;
 
 	public ScorchedBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.SCORCHED_BLOCK, pos, state);
+		super(WWBlockEntityTypes.SCORCHED_BLOCK.get(), pos, state);
 	}
 
 	public boolean brush(long gameTime) {

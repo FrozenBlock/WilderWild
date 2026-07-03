@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.mixin.block.sound;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
@@ -31,12 +32,14 @@ public class WoodTypeMixin {
 
 	@ModifyReturnValue(method = "fenceGateClose", at = @At("RETURN"))
 	private SoundEvent wilderWild$fenceGateClose(SoundEvent original) {
+		if (FrozenLibEarlyPlatformUtils.LOADER.isNeoForge()) return original; // TODO FIX NEOFORGE
 		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_CLOSE.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "fenceGateOpen", at = @At("RETURN"))
 	private SoundEvent wilderWild$fenceGateOpen(SoundEvent original) {
+		if (FrozenLibEarlyPlatformUtils.LOADER.isNeoForge()) return original; // TODO FIX NEOFORGE
 		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_OPEN.get();
 		return original;
 	}

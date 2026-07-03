@@ -57,7 +57,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int activeTicks;
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.HANGING_TENDRIL, pos, state);
+		super(WWBlockEntityTypes.HANGING_TENDRIL.get(), pos, state);
 		this.vibrationData = new VibrationSystem.Data();
 		this.vibrationListener = new VibrationSystem.Listener(this);
 	}

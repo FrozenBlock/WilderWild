@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.mixin.block.chest;
 
 import java.util.Optional;
 
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.impl.ChestBlockEntityInterface;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;

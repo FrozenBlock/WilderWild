@@ -86,7 +86,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	private float eruptionProgress;
 
 	public GeothermalVentBlockEntity(BlockPos pos, BlockState state) {
-		super(WWBlockEntityTypes.GEOTHERMAL_VENT, pos, state);
+		super(WWBlockEntityTypes.GEOTHERMAL_VENT.get(), pos, state);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 			} else if (geothermalVentStage == GeothermalVentStage.ERUPTING) {
 				if (this.eruptionProgress == 0F) {
 					this.ticksUntilNextEvent = natural ? random.nextInt(MIN_ERUPTION_TICKS, MAX_ERUPTION_TICKS) : ERUPTION_TICKS_UNNATURAL;
-					level.playSound(null, pos, geothermalVentType.getEruptionSound(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
+					level.playSound(null, pos, geothermalVentType.getEruptionSound().get(), SoundSource.BLOCKS, 0.7F, 0.9F + (random.nextFloat() * 0.2F));
 					level.blockEvent(pos, state.getBlock(), 1, this.ticksUntilNextEvent);
 				}
 				this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);

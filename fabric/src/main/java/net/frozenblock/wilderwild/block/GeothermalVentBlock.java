@@ -214,8 +214,8 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.GEOTHERMAL_VENT, (levelx, pos, statex, blockEntity) -> blockEntity.tickServer((ServerLevel) levelx, pos, statex, levelx.getRandom()))
-			: createTickerHelper(type, WWBlockEntityTypes.GEOTHERMAL_VENT, (levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx, pos, statex, levelx.getRandom()));
+			createTickerHelper(type, WWBlockEntityTypes.GEOTHERMAL_VENT.get(), (levelx, pos, statex, blockEntity) -> blockEntity.tickServer((ServerLevel) levelx, pos, statex, levelx.getRandom()))
+			: createTickerHelper(type, WWBlockEntityTypes.GEOTHERMAL_VENT.get(), (levelx, pos, statex, blockEntity) -> blockEntity.tickClient(levelx, pos, statex, levelx.getRandom()));
 	}
 
 	public static boolean isActive(GeothermalVentType geothermalVentType) {
