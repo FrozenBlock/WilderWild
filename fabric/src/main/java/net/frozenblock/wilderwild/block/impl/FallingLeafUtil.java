@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
@@ -166,7 +167,7 @@ public class FallingLeafUtil {
 		);
 		sendLeafClusterParticle(level, pos);
 		fallingLeafData.leafLitterBlock.ifPresent(leafLitterBlock -> FallingLeafTicker.createAndSpawn(
-			WWEntityTypes.FALLING_LEAVES.get(),
+			WWFabricEntityTypes.FALLING_LEAVES.get(),
 			level,
 			pos,
 			leafLitterBlock

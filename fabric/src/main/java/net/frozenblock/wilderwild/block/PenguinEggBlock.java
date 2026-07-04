@@ -21,6 +21,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -111,7 +112,7 @@ public class PenguinEggBlock extends Block {
 	}
 
 	private void spawnPenguin(ServerLevel level, BlockPos pos, RandomSource random) {
-		final Penguin penguin = WWEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
+		final Penguin penguin = WWFabricEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
 		if (penguin == null) return;
 		penguin.setBaby(true);
 		penguin.snapTo(

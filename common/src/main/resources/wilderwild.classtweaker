@@ -28,10 +28,18 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
 
+# Items
+accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+
 # Entity
+accessible method net/minecraft/world/entity/EntityTypes chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
 accessible method net/minecraft/world/entity/schedule/Activity <init> (Ljava/lang/String;)V
+accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
+accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
+accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;

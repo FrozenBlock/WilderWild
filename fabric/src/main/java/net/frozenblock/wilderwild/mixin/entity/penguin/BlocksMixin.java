@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.mixin.entity.penguin;
 
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
@@ -33,12 +34,12 @@ public class BlocksMixin {
 
 	@Inject(method = "lambda$static$133", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$allowPenguinSpawnA(BlockState state, BlockGetter level, BlockPos pos, EntityType type, CallbackInfoReturnable<Boolean> info) {
-		if (type == WWEntityTypes.PENGUIN.get()) info.setReturnValue(true);
+		if (type == WWFabricEntityTypes.PENGUIN.get()) info.setReturnValue(true);
 	}
 
 	@Inject(method = "lambda$static$270", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$allowPenguinSpawnB(BlockState state, BlockGetter level, BlockPos pos, EntityType type, CallbackInfoReturnable<Boolean> info) {
-		if (type == WWEntityTypes.PENGUIN.get()) info.setReturnValue(true);
+		if (type == WWFabricEntityTypes.PENGUIN.get()) info.setReturnValue(true);
 	}
 
 }

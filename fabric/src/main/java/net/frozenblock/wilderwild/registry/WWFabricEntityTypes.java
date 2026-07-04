@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.UnaryOperator;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
@@ -36,7 +37,6 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,19 +47,10 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
-import java.util.function.UnaryOperator;
 
-public final class WWEntityTypes {
+public final class WWFabricEntityTypes {
 	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(
 		WWConstants.MOD_ID
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY,
-		Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"),
-		builder -> builder
-			.sized(0.3F, 0.3F)
-			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
-			.clientTrackingRange(5)
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
@@ -242,14 +233,6 @@ public final class WWEntityTypes {
 
 	static {
 		REGISTER.register();
-
-		FabricDefaultAttributeRegistry.register(FIREFLY.get(), Firefly.createAttributes());
-		SpawnPlacements.register(
-			FIREFLY.get(),
-			SpawnPlacementTypes.NO_RESTRICTIONS,
-			Heightmap.Types.MOTION_BLOCKING,
-			Firefly::checkFireflySpawnRules
-		);
 
 		FabricDefaultAttributeRegistry.register(BUTTERFLY.get(), Butterfly.createAttributes());
 		SpawnPlacements.register(

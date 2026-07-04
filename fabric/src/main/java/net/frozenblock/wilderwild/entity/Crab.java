@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -534,7 +535,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
-			&& livingEntity.getType() != WWEntityTypes.CRAB
+			&& livingEntity.getType() != WWFabricEntityTypes.CRAB
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
@@ -693,7 +694,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		final Crab crab = WWEntityTypes.CRAB.get().create(level, EntitySpawnReason.BREEDING);
+		final Crab crab = WWFabricEntityTypes.CRAB.get().create(level, EntitySpawnReason.BREEDING);
 		if (crab != null) {
 			crab.setPersistenceRequired();
 			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));

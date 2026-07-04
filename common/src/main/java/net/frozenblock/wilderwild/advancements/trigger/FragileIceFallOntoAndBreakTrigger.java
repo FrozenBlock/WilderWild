@@ -46,7 +46,7 @@ public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<Fr
 		);
 
 		public static Criterion<TriggerInstance> fragileIceBreak() {
-			return WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.createCriterion(new TriggerInstance(Optional.empty()));
+			return WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.get().createCriterion(new TriggerInstance(Optional.empty()));
 		}
 
 		public boolean matches() {

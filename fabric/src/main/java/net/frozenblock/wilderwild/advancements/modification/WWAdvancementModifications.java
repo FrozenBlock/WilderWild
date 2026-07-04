@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.minecraft.advancements.Advancement;
@@ -146,28 +147,28 @@ public final class WWAdvancementModifications {
 				case "minecraft:husbandry/bred_all_animals" -> {
 					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("crab"), CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.CRAB.get())).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.CRAB.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("crab")))));
 					}
 
 					if (WWEntityConfig.SPAWN_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("ostrich"), CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.OSTRICH.get())).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.OSTRICH.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("ostrich")))));
 					}
 
 					if (WWEntityConfig.SPAWN_MOOBLOOMS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("moobloom"), CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.MOOBLOOM.get())).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.MOOBLOOM.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("moobloom")))));
 					}
 
 					if (WWEntityConfig.SPAWN_PENGUINS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("penguin"), CriteriaTriggers.BRED_ANIMALS.createCriterion(
-							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.PENGUIN.get())).triggerInstance())
+							BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.PENGUIN.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("penguin")))));
 					}
@@ -206,14 +207,14 @@ public final class WWAdvancementModifications {
 				case "minecraft:adventure/kill_a_mob" -> {
 					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("scorched"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.SCORCHED.get())).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.SCORCHED.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("scorched")));
 					}
 
 					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("zombie_ostrich"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("zombie_ostrich")));
 					}
@@ -221,13 +222,13 @@ public final class WWAdvancementModifications {
 				case "minecraft:adventure/kill_all_mobs" -> {
 					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("scorched"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.SCORCHED.get())).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.SCORCHED.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("scorched")))));
 					}
 					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("zombie_ostrich"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
-							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWFabricEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("zombie_ostrich")))));
 					}

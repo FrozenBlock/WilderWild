@@ -62,7 +62,7 @@ public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.
 		}
 
 		public static Criterion<TriggerInstance> termiteEat(@Nullable BlockPredicate block, boolean playerPlaced) {
-			return WWCriteria.TERMITE_EAT.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(block), playerPlaced));
+			return WWCriteria.TERMITE_EAT.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(block), playerPlaced));
 		}
 
 		public boolean matches(ServerLevel level, BlockPos pos, boolean playerPlaced) {

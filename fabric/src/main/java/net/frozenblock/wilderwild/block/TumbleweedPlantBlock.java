@@ -21,6 +21,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -93,7 +94,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 		if (random.nextInt(SNAP_CHANCE) != 0) return;
 		level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 
-		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
+		final Tumbleweed tumbleweed = new Tumbleweed(WWFabricEntityTypes.TUMBLEWEED.get(), level);
 		level.addFreshEntity(tumbleweed);
 		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
 

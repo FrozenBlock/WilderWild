@@ -1,6 +1,6 @@
 {
    "pack": {
-     "min_format": [65],
+     "min_format": [82],
      "max_format": [32767],
      "description": "Additions to menu and under_water music."
    }

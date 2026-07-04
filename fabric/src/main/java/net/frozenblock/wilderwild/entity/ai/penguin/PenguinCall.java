@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.ai.penguin;
 
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
@@ -33,7 +34,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	public PenguinCall(int duration) {
 		super(
 			ImmutableMap.of(
-				WWMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT,
+				WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT,
 				WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), MemoryStatus.VALUE_ABSENT,
 				WWMemoryModuleTypes.WANTS_TO_CALL.get(), MemoryStatus.VALUE_PRESENT,
 				WWMemoryModuleTypes.CALLING.get(), MemoryStatus.VALUE_ABSENT,

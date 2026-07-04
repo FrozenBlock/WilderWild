@@ -17,16 +17,16 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import com.google.common.base.Suppliers;
 import java.util.Objects;
 import java.util.Optional;
-import net.frozenblock.lib.wind.WindManager;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -75,6 +75,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -90,7 +91,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements WWBottleable {
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
-	private static final Brain.Provider<Firefly> BRAIN_PROVIDER = FireflyAi.brainProvider();
+	private static final Supplier<Brain.Provider<Firefly>> BRAIN_PROVIDER = Suppliers.memoize(FireflyAi::brainProvider);
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> ANIM_SCALE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.FLOAT);
@@ -238,7 +239,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
-		return BRAIN_PROVIDER.makeBrain(this, packedBrain);
+		return BRAIN_PROVIDER.get().makeBrain(this, packedBrain);
 	}
 
 	@Override
@@ -296,7 +297,8 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public ItemStack wilderWild$getBottleItemStack() {
-		return new ItemStack(WWItems.FIREFLY_BOTTLE);
+		return new ItemStack(Items.HONEY_BOTTLE); //todo remove
+		//TODO NEOFORGE return new ItemStack(WWItems.FIREFLY_BOTTLE);
 	}
 
 	@Override
@@ -445,11 +447,12 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 		this.setPrevAnimScale(animScale);
 		if (animScale < 1.5F) this.setAnimScale(Math.min(this.getAnimScale() + 0.025F, 1.5F));
 
-		if (this.level() instanceof ServerLevel serverLevel) {
+		// TODO NEOFORGE WIND
+		/*if (this.level() instanceof ServerLevel serverLevel) {
 			Vec3 wind = WindManager.getOrCreate(serverLevel).getWindMovement(this.position(), 1D, 100D, 100D).scale(0.01D);
 			wind = wind.subtract(0D, wind.y * 0.7D, 0D);
 			this.setDeltaMovement(this.getDeltaMovement().add(wind.scale(0.02D)));
-		}
+		}*/
 	}
 
 	@Override

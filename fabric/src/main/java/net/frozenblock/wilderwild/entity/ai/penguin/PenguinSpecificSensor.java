@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,7 +35,7 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
+		return ImmutableSet.of(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get());
 	}
 
 	@Override
@@ -43,6 +44,6 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 		final List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, searchArea, penguin -> penguin != entity && penguin.isAlive());
 		penguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
 		final Brain<?> brain = entity.getBrain();
-		brain.setMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get(), penguins);
+		brain.setMemory(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get(), penguins);
 	}
 }

@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -164,9 +165,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 							new EntityTypePredicate(
 								HolderSet.direct(
 									EntityTypes.CHICKEN.builtInRegistryHolder(),
-									WWEntityTypes.OSTRICH.get().builtInRegistryHolder(),
-									WWEntityTypes.ZOMBIE_OSTRICH.get().builtInRegistryHolder(),
-									WWEntityTypes.PENGUIN.get().builtInRegistryHolder()
+									WWFabricEntityTypes.OSTRICH.get().builtInRegistryHolder(),
+									WWFabricEntityTypes.ZOMBIE_OSTRICH.get().builtInRegistryHolder(),
+									WWFabricEntityTypes.PENGUIN.get().builtInRegistryHolder()
 								)
 							)
 						)
@@ -209,7 +210,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 								HolderSet.direct(
 									EntityTypes.COW.builtInRegistryHolder(),
 									EntityTypes.MOOSHROOM.builtInRegistryHolder(),
-									WWEntityTypes.MOOBLOOM.get().builtInRegistryHolder()
+									WWFabricEntityTypes.MOOBLOOM.get().builtInRegistryHolder()
 								)
 							)
 						)

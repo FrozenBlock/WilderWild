@@ -62,7 +62,7 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 		);
 
 		public static Criterion<TriggerInstance> geothermalVentPushMob(Optional<EntityPredicate> pushedMob, boolean playerPlaced, @Nullable GeothermalVentType geothermalVentType) {
-			return WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.createCriterion(
+			return WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.get().createCriterion(
 				new TriggerInstance(Optional.empty(), EntityPredicate.wrap(pushedMob), playerPlaced, Optional.ofNullable(geothermalVentType))
 			);
 		}

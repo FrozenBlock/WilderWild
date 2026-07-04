@@ -21,6 +21,7 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -111,7 +112,7 @@ public class OstrichEggBlock extends Block {
 	}
 
 	private void spawnOstrich(ServerLevel level, BlockPos pos, RandomSource random) {
-		final Ostrich ostrich = WWEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
+		final Ostrich ostrich = WWFabricEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
 		if (ostrich == null) return;
 		ostrich.setBaby(true);
 		ostrich.snapTo(

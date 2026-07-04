@@ -260,7 +260,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 			if (damagingEruption.intersects(boundingBox)) {
 				if (applyMovement && level instanceof ServerLevel serverLevel) {
 					for (ServerPlayer serverPlayer : serverLevel.getPlayers(player -> player.distanceToSqr(ventStartPos) < GeothermalVentPushMobTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
-						WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.trigger(serverPlayer, entity, !natural, geothermalVentType);
+						WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.get().trigger(serverPlayer, entity, !natural, geothermalVentType);
 					}
 				}
 

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
+    "TempTagLoaderMixin",
     "block.cactus.CactusBlockMixin",
     "block.fire.BaseFireBlockMixin",
     "block.froglight.BlocksMixin",
@@ -20,6 +21,10 @@
     "datafix.V3438Mixin",
     "datafix.boat.BoatSplitFixMixin",
     "datafix.boat.V4067Mixin",
+    "sculk.CalibratedSculkSensorBlockMixin",
+    "sculk.SculkSensorBlockEntityMixin",
+    "sculk.SculkSensorBlockMixin",
+    "sculk.SculkShriekerBlockMixin",
     "warden.EntityMixin",
     "warden.LivingEntityMixin",
     "warden.WardenMixin",

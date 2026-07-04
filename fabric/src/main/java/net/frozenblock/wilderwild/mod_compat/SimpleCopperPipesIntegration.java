@@ -21,6 +21,7 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.lunade.copper.SimpleCopperPipes;
 import net.lunade.copper.registry.CopperPipeDispenseBehaviors;
 import net.lunade.copper.registry.PipeMovementRestrictions;
@@ -44,7 +45,7 @@ public class SimpleCopperPipesIntegration extends ModIntegration {
 
 			CopperPipeDispenseBehaviors.register(BuiltInRegistries.ITEM.getValue(WWConstants.id("tumbleweed")), (level, stack, i, direction, position, state, pos, pipe) -> {
 				Vec3 velocity = getVelocity(level.getRandom(), direction, 5D, i);
-				Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
+				Tumbleweed tumbleweed = new Tumbleweed(WWFabricEntityTypes.TUMBLEWEED.get(), level);
 				tumbleweed.setDeltaMovement(velocity.x() * 0.2, velocity.y() * 0.2, velocity.z() * 0.2);
 				tumbleweed.setPos(getOutputPosition(position, direction));
 				level.addFreshEntity(tumbleweed);

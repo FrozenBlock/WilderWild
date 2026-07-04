@@ -23,6 +23,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Set;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,7 +35,7 @@ public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 
 	@Override
 	public Set<MemoryModuleType<?>> requires() {
-		return ImmutableSet.of(WWMemoryModuleTypes.NEARBY_OSTRICHES.get(), MemoryModuleType.NEAREST_LIVING_ENTITIES);
+		return ImmutableSet.of(WWFabricMemoryModuleTypes.NEARBY_OSTRICHES.get(), MemoryModuleType.NEAREST_LIVING_ENTITIES);
 	}
 
 	@Override
@@ -44,6 +45,6 @@ public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof AbstractOstrich ostrich) ostriches.add(ostrich);
 		}
-		brain.setMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES.get(), ostriches);
+		brain.setMemory(WWFabricMemoryModuleTypes.NEARBY_OSTRICHES.get(), ostriches);
 	}
 }

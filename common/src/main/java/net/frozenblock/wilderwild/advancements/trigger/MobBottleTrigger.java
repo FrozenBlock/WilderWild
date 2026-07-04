@@ -58,7 +58,7 @@ public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.Tr
 		}
 
 		public static Criterion<TriggerInstance> mobBottle(@Nullable ItemPredicate item) {
-			return WWCriteria.MOB_BOTTLE.createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
+			return WWCriteria.MOB_BOTTLE.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.ofNullable(item)));
 		}
 
 		public boolean matches(ItemStack item) {

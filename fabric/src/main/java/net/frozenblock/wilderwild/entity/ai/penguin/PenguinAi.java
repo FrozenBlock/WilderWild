@@ -29,6 +29,9 @@ import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWFabricSensorTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -83,12 +86,12 @@ public class PenguinAi {
 		SensorType.NEAREST_LIVING_ENTITIES,
 		SensorType.NEAREST_ADULT,
 		SensorType.NEAREST_PLAYERS,
-		WWSensorTypes.PENGUIN_SPECIFIC_SENSOR.get(),
-		WWSensorTypes.PENGUIN_TEMPTATIONS.get(),
-		WWSensorTypes.PENGUIN_ATTACKABLES.get(),
+		WWFabricSensorTypes.PENGUIN_SPECIFIC_SENSOR.get(),
+		WWFabricSensorTypes.PENGUIN_TEMPTATIONS.get(),
+		WWFabricSensorTypes.PENGUIN_ATTACKABLES.get(),
 		SensorType.IS_IN_WATER,
-		WWSensorTypes.LAND_POS_SENSOR.get(),
-		WWSensorTypes.TRACKED_BOAT_SENSOR.get()
+		WWFabricSensorTypes.LAND_POS_SENSOR.get(),
+		WWFabricSensorTypes.TRACKED_BOAT_SENSOR.get()
 	);
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
 		MemoryModuleType.ATTACK_COOLING_DOWN,
@@ -178,7 +181,7 @@ public class PenguinAi {
 			),
 			ImmutableSet.of(
 				Pair.of(WWMemoryModuleTypes.WANTS_TO_CALL.get(), MemoryStatus.VALUE_PRESENT),
-				Pair.of(WWMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT),
 				Pair.of(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
@@ -238,7 +241,7 @@ public class PenguinAi {
 			ImmutableList.of(
 				SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60)),
 				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
-				new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new AnimalMakeLove(WWFabricEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
 				new FollowTemptation(entity -> 1.25F),
 				TryFindLand.create(6, 1F),
 				new RunOne<>(
@@ -267,7 +270,7 @@ public class PenguinAi {
 				new PenguinPreSearch<>()
 			),
 			ImmutableSet.of(
-				Pair.of(WWMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT),
+				Pair.of(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get(), MemoryStatus.VALUE_PRESENT),
 				Pair.of(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT),
 				Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT),
@@ -288,7 +291,7 @@ public class PenguinAi {
 				Pair.of(0, new PenguinLayDown<>()),
 				Pair.of(0, SetEntityLookTargetSometimes.create(8F, UniformInt.of(30, 60))),
 				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new AnimalMakeLove(WWFabricEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(4, TryFindWater.create(8, 0.8F)),
 				Pair.of(5, PenguinReturnToWater.create(0.8F)),
@@ -324,7 +327,7 @@ public class PenguinAi {
 			1,
 			ImmutableList.of(
 				BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F),
-				new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
+				new AnimalMakeLove(WWFabricEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2),
 				new FollowTemptation(entity -> 1.25F),
 				StartAttacking.create(PenguinAi::canAttack, (level, penguin) -> penguin.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE)),
 				new GateBehavior<>(
@@ -354,7 +357,7 @@ public class PenguinAi {
 				Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(1, PenguinFollowReturnPos.create(1.5F)),
 				Pair.of(1, PenguinFindEscapePos.create(10, 1.5F)),
-				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
+				Pair.of(2, new AnimalMakeLove(WWFabricEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
 				Pair.of(
 					4,
@@ -431,7 +434,7 @@ public class PenguinAi {
 	}
 
 	public static Optional<List<Penguin>> getNearbyPenguins(Penguin penguin) {
-		return penguin.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
+		return penguin.getBrain().getMemory(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get());
 	}
 
 	private static boolean isTarget(Penguin penguin, LivingEntity entity) {
@@ -483,7 +486,7 @@ public class PenguinAi {
 	}
 
 	public static Optional<LivingEntity> getCaller(LivingEntity entity, UUID callerID) {
-		final Optional<List<Penguin>> penguins = entity.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
+		final Optional<List<Penguin>> penguins = entity.getBrain().getMemory(WWFabricMemoryModuleTypes.NEARBY_PENGUINS.get());
 		if (penguins.isPresent()) {
 			final List<Penguin> penguinList = penguins.get();
 			for (Penguin penguin : penguinList) {

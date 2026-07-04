@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -89,7 +90,7 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public Ostrich getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		return WWEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
+		return WWFabricEntityTypes.OSTRICH.get().create(level, EntitySpawnReason.BREEDING);
 	}
 
 	@Override

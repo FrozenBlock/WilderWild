@@ -220,7 +220,7 @@ public class TermiteManager {
 					// Must trigger criteria before destroying block in order to validate criteria properly.
 					if (level instanceof ServerLevel serverLevel) {
 						for (ServerPlayer serverPlayer : serverLevel.getPlayers(serverPlayerx -> serverPlayerx.distanceToSqr(this.getCenterOfPos()) < TermiteEatTrigger.TRIGGER_DISTANCE_FROM_PLAYER)) {
-							WWCriteria.TERMITE_EAT.trigger(serverPlayer, serverLevel, this.pos, !natural);
+							WWCriteria.TERMITE_EAT.get().trigger(serverPlayer, serverLevel, this.pos, !natural);
 						}
 					}
 

@@ -27,6 +27,7 @@ import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
+import net.frozenblock.wilderwild.client.WWFabricModelLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
@@ -45,18 +46,16 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		WilderWildClient.init();
-		WWClientResources.register(); //todo neoforge fix resourcepack stuff
 
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
 		WWBuiltInBlockModels.init();
 		WWFluidRendering.init();
-		WWItemProperties.init();
-		WWModelLayers.init();
+		WWModelLayers.setupInit();
+		WWFabricModelLayers.init();
 		WWParticleEngine.init();
 		WWTints.init();
 		WWRenderStateDataKeys.init();
-		WWClientMusicImpl.init();
 		AmbientWindParticleSpawner.init();
 
 		WWClientNetworking.registerPacketReceivers();

@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricDataComponents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -158,14 +159,14 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	protected void applyImplicitComponents(DataComponentGetter components) {
 		super.applyImplicitComponents(components);
 		this.fireflies.clear();
-		final List<Occupant> occupants = components.getOrDefault(WWDataComponents.FIREFLIES.get(), List.of());
+		final List<Occupant> occupants = components.getOrDefault(WWFabricDataComponents.FIREFLIES.get(), List.of());
 		this.fireflies.addAll(occupants);
 	}
 
 	@Override
 	public void collectImplicitComponents(DataComponentMap.Builder components) {
 		super.collectImplicitComponents(components);
-		components.set(WWDataComponents.FIREFLIES.get(), this.fireflies);
+		components.set(WWFabricDataComponents.FIREFLIES.get(), this.fireflies);
 	}
 
 	@Override

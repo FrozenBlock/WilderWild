@@ -26,6 +26,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWFabricSensorTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.tag.WWDamageTypeTags;
@@ -76,11 +79,11 @@ public final class CrabAi {
 		SensorType.NEAREST_PLAYERS,
 		SensorType.NEAREST_ADULT,
 		SensorType.HURT_BY,
-		WWSensorTypes.CRAB_ATTACKABLES.get(),
-		WWSensorTypes.CRAB_TEMPTATIONS.get(),
-		WWSensorTypes.CRAB_SPECIFIC_SENSOR.get(),
-		WWSensorTypes.CRAB_NEARBY_PLAYER_SENSOR.get(),
-		WWSensorTypes.CRAB_CAN_DIG_SENSOR.get()
+		WWFabricSensorTypes.CRAB_ATTACKABLES.get(),
+		WWFabricSensorTypes.CRAB_TEMPTATIONS.get(),
+		WWFabricSensorTypes.CRAB_SPECIFIC_SENSOR.get(),
+		WWFabricSensorTypes.CRAB_NEARBY_PLAYER_SENSOR.get(),
+		WWFabricSensorTypes.CRAB_CAN_DIG_SENSOR.get()
 	);
 	public static final List<? extends MemoryModuleType<?>> MEMORY_MODULES = List.of(
 		WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()
@@ -181,7 +184,7 @@ public final class CrabAi {
 			Activity.IDLE,
 			1,
 			ImmutableList.of(
-				new AnimalMakeLove(WWEntityTypes.CRAB.get(), 0.8F, 2),
+				new AnimalMakeLove(WWFabricEntityTypes.CRAB.get(), 0.8F, 2),
 				new RunOne<>(
 					List.of(
 						Pair.of(new FollowTemptation(CrabAi::getSpeedModifier), 1),
@@ -320,7 +323,7 @@ public final class CrabAi {
 	}
 
 	private static Optional<List<Crab>> getNearbyCrabs(Crab crab) {
-		return crab.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_CRABS.get());
+		return crab.getBrain().getMemory(WWFabricMemoryModuleTypes.NEARBY_CRABS.get());
 	}
 
 	public static Optional<Player> getNearestVisibleTargetablePlayer(Crab crab) {

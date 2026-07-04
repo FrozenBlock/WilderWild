@@ -16,6 +16,13 @@ val licenseChecks: Boolean = githubActions
 
 val applyLicenses: Task by tasks
 
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/generated")
+        }
+    }
+}
 
 loom {
     accessWidenerPath = file("src/main/resources/wilderwild.classtweaker")

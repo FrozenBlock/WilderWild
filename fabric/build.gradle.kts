@@ -85,6 +85,7 @@ loom {
 sourceSets {
     main {
         resources {
+            // todo complete datagen port and remove this
             srcDirs("src/main/generated")
         }
     }
@@ -97,7 +98,7 @@ loom {
             name("Data Generation")
             source(datagen.get())
             vmArg("-Dfabric-api.datagen")
-            vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
+            vmArg("-Dfabric-api.datagen.output-dir=${rootProject.file("common/src/main/generated")}")
             //vmArg("-Dfabric-api.datagen.strict-validation")
             vmArg("-Dfabric-api.datagen.modid=$mod_id")
 

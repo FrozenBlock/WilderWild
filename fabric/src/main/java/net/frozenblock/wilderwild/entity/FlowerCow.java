@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
@@ -291,7 +292,7 @@ public class FlowerCow extends AbstractCow implements Shearable {
 
 	@Nullable
 	public FlowerCow getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		final FlowerCow flowerCow = WWEntityTypes.MOOBLOOM.get().create(level, EntitySpawnReason.BREEDING);
+		final FlowerCow flowerCow = WWFabricEntityTypes.MOOBLOOM.get().create(level, EntitySpawnReason.BREEDING);
 		if (flowerCow != null && partner instanceof FlowerCow otherFlowerCow) flowerCow.setVariant(this.getOffspringType(level, otherFlowerCow));
 		return flowerCow;
 	}

@@ -167,7 +167,7 @@ public final class WWItems {
 	public static final Item STONE_CHEST = Items.registerBlock(WWBlockItemIds.STONE_CHEST, WWBlocks.STONE_CHEST.get());
 	public static final Item NULL_BLOCK = Items.registerBlock(WWBlockItemIds.NULL_BLOCK, WWBlocks.NULL_BLOCK.get());
 	public static final Item DISPLAY_LANTERN = Items.registerBlock(WWBlockItemIds.DISPLAY_LANTERN, WWBlocks.DISPLAY_LANTERN.get(),
-		new Item.Properties().component(WWDataComponents.FIREFLIES.get(), ImmutableList.of())
+		new Item.Properties().component(WWFabricDataComponents.FIREFLIES.get(), ImmutableList.of())
 	);
 
 	// FLOWERS
@@ -204,7 +204,7 @@ public final class WWItems {
 		new Item.Properties()
 			.useBlockDescriptionPrefix()
 			.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
-			.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
+			.spawnEgg(WWFabricEntityTypes.TUMBLEWEED.get())
 	);
 	public static final Item FROZEN_SHORT_GRASS = Items.registerBlock(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS.get());
 	public static final Item FROZEN_TALL_GRASS = Items.registerBlock(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS.get(), DoubleHighBlockItem::new);
@@ -414,16 +414,16 @@ public final class WWItems {
 
 	// ITEMS
 	// BOATS
-	public static final Item BAOBAB_BOAT = registerBoatItem(WWItemIds.BAOBAB_BOAT, WWEntityTypes.BAOBAB_BOAT.get());
-	public static final Item BAOBAB_CHEST_BOAT = registerBoatItem(WWItemIds.BAOBAB_CHEST_BOAT, WWEntityTypes.BAOBAB_CHEST_BOAT.get());
-	public static final Item WILLOW_BOAT = registerBoatItem(WWItemIds.WILLOW_BOAT, WWEntityTypes.WILLOW_BOAT.get());
-	public static final Item WILLOW_CHEST_BOAT = registerBoatItem(WWItemIds.WILLOW_CHEST_BOAT, WWEntityTypes.WILLOW_CHEST_BOAT.get());
-	public static final Item CYPRESS_BOAT = registerBoatItem(WWItemIds.CYPRESS_BOAT, WWEntityTypes.CYPRESS_BOAT.get());
-	public static final Item CYPRESS_CHEST_BOAT = registerBoatItem(WWItemIds.CYPRESS_CHEST_BOAT, WWEntityTypes.CYPRESS_CHEST_BOAT.get());
-	public static final Item PALM_BOAT = registerBoatItem(WWItemIds.PALM_BOAT, WWEntityTypes.PALM_BOAT.get());
-	public static final Item PALM_CHEST_BOAT = registerBoatItem(WWItemIds.PALM_CHEST_BOAT, WWEntityTypes.PALM_CHEST_BOAT.get());
-	public static final Item MAPLE_BOAT = registerBoatItem(WWItemIds.MAPLE_BOAT, WWEntityTypes.MAPLE_BOAT.get());
-	public static final Item MAPLE_CHEST_BOAT = registerBoatItem(WWItemIds.MAPLE_CHEST_BOAT, WWEntityTypes.MAPLE_CHEST_BOAT.get());
+	public static final Item BAOBAB_BOAT = registerBoatItem(WWItemIds.BAOBAB_BOAT, WWFabricEntityTypes.BAOBAB_BOAT.get());
+	public static final Item BAOBAB_CHEST_BOAT = registerBoatItem(WWItemIds.BAOBAB_CHEST_BOAT, WWFabricEntityTypes.BAOBAB_CHEST_BOAT.get());
+	public static final Item WILLOW_BOAT = registerBoatItem(WWItemIds.WILLOW_BOAT, WWFabricEntityTypes.WILLOW_BOAT.get());
+	public static final Item WILLOW_CHEST_BOAT = registerBoatItem(WWItemIds.WILLOW_CHEST_BOAT, WWFabricEntityTypes.WILLOW_CHEST_BOAT.get());
+	public static final Item CYPRESS_BOAT = registerBoatItem(WWItemIds.CYPRESS_BOAT, WWFabricEntityTypes.CYPRESS_BOAT.get());
+	public static final Item CYPRESS_CHEST_BOAT = registerBoatItem(WWItemIds.CYPRESS_CHEST_BOAT, WWFabricEntityTypes.CYPRESS_CHEST_BOAT.get());
+	public static final Item PALM_BOAT = registerBoatItem(WWItemIds.PALM_BOAT, WWFabricEntityTypes.PALM_BOAT.get());
+	public static final Item PALM_CHEST_BOAT = registerBoatItem(WWItemIds.PALM_CHEST_BOAT, WWFabricEntityTypes.PALM_CHEST_BOAT.get());
+	public static final Item MAPLE_BOAT = registerBoatItem(WWItemIds.MAPLE_BOAT, WWFabricEntityTypes.MAPLE_BOAT.get());
+	public static final Item MAPLE_CHEST_BOAT = registerBoatItem(WWItemIds.MAPLE_CHEST_BOAT, WWFabricEntityTypes.MAPLE_CHEST_BOAT.get());
 
 	// ITEMS
 	public static final Item MILKWEED_POD = Items.registerItem(WWItemIds.MILKWEED_POD, MilkweedPodItem::new);
@@ -440,7 +440,7 @@ public final class WWItems {
 	);
 	public static final Item BUTTERFLY_BOTTLE = Items.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
-			WWEntityTypes.BUTTERFLY.get(),
+			WWFabricEntityTypes.BUTTERFLY.get(),
 			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY.get(),
 			properties
 		),
@@ -458,24 +458,24 @@ public final class WWItems {
 	// SPAWN EGGS & BUCKETS
 	public static final Item JELLYFISH_BUCKET = Items.registerItem(
 		WWItemIds.JELLYFISH_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH.get(), properties),
+		properties -> new MobBucketItem(WWFabricEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH.get(), properties),
 		new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
 	);
 	public static final Item CRAB_BUCKET = Items.registerItem(
 		WWItemIds.CRAB_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB.get(), properties),
+		properties -> new MobBucketItem(WWFabricEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB.get(), properties),
 		new Item.Properties().stacksTo(1).component(DataComponents.FOOD, WWFoods.CRAB_CLAW)
 	);
 
 	public static final Item FIREFLY_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.FIREFLY_SPAWN_EGG, WWEntityTypes.FIREFLY.get());
-	public static final Item JELLYFISH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.JELLYFISH_SPAWN_EGG, WWEntityTypes.JELLYFISH.get());
-	public static final Item CRAB_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.CRAB_SPAWN_EGG, WWEntityTypes.CRAB.get());
-	public static final Item OSTRICH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWEntityTypes.OSTRICH.get());
-	public static final Item ZOMBIE_OSTRICH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWEntityTypes.ZOMBIE_OSTRICH.get());
-	public static final Item SCORCHED_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWEntityTypes.SCORCHED.get());
-	public static final Item BUTTERFLY_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.BUTTERFLY_SPAWN_EGG, WWEntityTypes.BUTTERFLY.get());
-	public static final Item MOOBLOOM_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM.get());
-	public static final Item PENGUIN_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN.get());
+	public static final Item JELLYFISH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.JELLYFISH_SPAWN_EGG, WWFabricEntityTypes.JELLYFISH.get());
+	public static final Item CRAB_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.CRAB_SPAWN_EGG, WWFabricEntityTypes.CRAB.get());
+	public static final Item OSTRICH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWFabricEntityTypes.OSTRICH.get());
+	public static final Item ZOMBIE_OSTRICH_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWFabricEntityTypes.ZOMBIE_OSTRICH.get());
+	public static final Item SCORCHED_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWFabricEntityTypes.SCORCHED.get());
+	public static final Item BUTTERFLY_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.BUTTERFLY_SPAWN_EGG, WWFabricEntityTypes.BUTTERFLY.get());
+	public static final Item MOOBLOOM_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWFabricEntityTypes.MOOBLOOM.get());
+	public static final Item PENGUIN_SPAWN_EGG = Items.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWFabricEntityTypes.PENGUIN.get());
 
 	public static void init() {
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED);
@@ -485,16 +485,16 @@ public final class WWItems {
 		CompostableRegistry.INSTANCE.add(SPLIT_COCONUT, 0.15F);
 		CompostableRegistry.INSTANCE.add(COCONUT, 0.3F);
 
-		DispenserBlock.registerBehavior(BAOBAB_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT.get()));
-		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(WILLOW_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_BOAT.get()));
-		DispenserBlock.registerBehavior(WILLOW_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(CYPRESS_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_BOAT.get()));
-		DispenserBlock.registerBehavior(CYPRESS_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(PALM_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.PALM_BOAT.get()));
-		DispenserBlock.registerBehavior(PALM_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.PALM_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(MAPLE_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_BOAT.get()));
-		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT, new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT.get()));
+		DispenserBlock.registerBehavior(BAOBAB_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.BAOBAB_BOAT.get()));
+		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.BAOBAB_CHEST_BOAT.get()));
+		DispenserBlock.registerBehavior(WILLOW_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.WILLOW_BOAT.get()));
+		DispenserBlock.registerBehavior(WILLOW_CHEST_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.WILLOW_CHEST_BOAT.get()));
+		DispenserBlock.registerBehavior(CYPRESS_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.CYPRESS_BOAT.get()));
+		DispenserBlock.registerBehavior(CYPRESS_CHEST_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.CYPRESS_CHEST_BOAT.get()));
+		DispenserBlock.registerBehavior(PALM_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.PALM_BOAT.get()));
+		DispenserBlock.registerBehavior(PALM_CHEST_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.PALM_CHEST_BOAT.get()));
+		DispenserBlock.registerBehavior(MAPLE_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.MAPLE_BOAT.get()));
+		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT, new BoatDispenseItemBehavior(WWFabricEntityTypes.MAPLE_CHEST_BOAT.get()));
 	}
 
 	private static Item registerBoatItem(ResourceKey<Item> id, EntityType<? extends AbstractBoat> boat) {

@@ -23,6 +23,7 @@ import java.util.List;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -183,7 +184,7 @@ public class Penguin extends Animal {
 	@Nullable
 	@Override
 	public Penguin getBreedOffspring(ServerLevel level, AgeableMob partner) {
-		return WWEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
+		return WWFabricEntityTypes.PENGUIN.get().create(level, EntitySpawnReason.BREEDING);
 	}
 
 	@Override
@@ -203,7 +204,7 @@ public class Penguin extends Animal {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
-			&& livingEntity.getType() != WWEntityTypes.PENGUIN
+			&& livingEntity.getType() != WWFabricEntityTypes.PENGUIN
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()

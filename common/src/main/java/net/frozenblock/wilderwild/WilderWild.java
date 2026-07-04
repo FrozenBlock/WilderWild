@@ -7,8 +7,12 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -19,6 +23,10 @@ public final class WilderWild {
 		WilderWildRegistries.init();
 		WWFeatureFlags.init();
 
+		WWEntityTypes.init();
+		WWDataComponents.init();
+		WWMemoryModuleTypes.init();
+		WWSensorTypes.init();
 		WWAttachmentTypes.init();
 		WWActivities.init();
 		WWEnvironmentAttributes.init();

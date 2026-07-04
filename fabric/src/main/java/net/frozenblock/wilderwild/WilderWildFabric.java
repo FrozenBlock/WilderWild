@@ -45,8 +45,9 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWFabricDataComponents;
+import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -76,14 +77,12 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWDataComponents.init();
+		WWFabricDataComponents.init();
 		WWBlocks.init();
 		WWItems.init();
 		WWSoundTypes.init();
 		WWBlockEntityTypes.init();
-		WWEntityTypes.init();
-		WWMemoryModuleTypes.init();
-		WWSensorTypes.init();
+		WWFabricMemoryModuleTypes.init();
 		WWLootTables.init();
 		WWParticleTypes.init();
 		WWMobEffects.init();
