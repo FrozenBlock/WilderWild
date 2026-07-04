@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -579,7 +580,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(WWItems.JELLYFISH_BUCKET);
+		return new ItemStack(WWFabricItems.JELLYFISH_BUCKET);
 	}
 
 	public Identifier getVariantLocation() {

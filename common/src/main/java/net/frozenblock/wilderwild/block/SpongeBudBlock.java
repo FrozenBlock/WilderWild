@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -112,7 +111,8 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	public static void dropSpongeBud(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
-		dropFromBlockInteractLootTable(
+		// TODO NEOFORGE LOOT TABLES
+		/*dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SPONGE_BUD,
 			state,
@@ -120,7 +120,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 			stack,
 			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
-		);
+		);*/
 	}
 
 	@Override

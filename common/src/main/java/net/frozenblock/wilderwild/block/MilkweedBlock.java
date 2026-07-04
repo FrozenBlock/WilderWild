@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -73,7 +71,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public static void dropMilkweed(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
-		dropFromBlockInteractLootTable(
+		// TODO NEOFORGE LOOT TABLES
+		/*dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_MILKWEED,
 			state,
@@ -81,7 +80,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 			stack,
 			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
-		);
+		);*/
 	}
 
 	public static void setAgeOnBothHalves(Block block, BlockState state, Level level, BlockPos pos, int age, boolean spawnParticles) {
@@ -102,7 +101,8 @@ public class MilkweedBlock extends TallFlowerBlock {
 		final double firstYHeight = isUpper ? 0.3D : 0.5D;
 		final double firstYOffset = isUpper ? 0.3D : 0.5D;
 		Vec3 offset = state.getOffset(pos);
-		serverLevel.sendParticles(
+		// TODO NEOFORGE PARTICLES
+		/*serverLevel.sendParticles(
 			SeedParticleOptions.unControlled(true),
 			pos.getX() + 0.5D + offset.x,
 			pos.getY() + firstYHeight,
@@ -112,12 +112,13 @@ public class MilkweedBlock extends TallFlowerBlock {
 			firstYOffset,
 			0.1D,
 			0D
-		);
+		);*/
 
 		if (!hasSecondState) return;
 		final double secondYHeight = isUpper ? -0.5D : 1.3D;
 		final double secondYOffset = isUpper ? 0.3D : 0.5D;
-		serverLevel.sendParticles(
+		// TODO NEOFORGE PARTICLES
+		/*serverLevel.sendParticles(
 			SeedParticleOptions.unControlled(true),
 			pos.getX() + 0.5D,
 			pos.getY() + secondYHeight,
@@ -127,7 +128,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 			secondYOffset,
 			0.2D,
 			0D
-		);
+		);*/
 	}
 
 	@Override

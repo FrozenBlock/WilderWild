@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -147,7 +148,7 @@ public class SculkBlockMixin {
 			if (this.wilderWild$canPlaceOsseousSculk) {
 				newPlacementState = WWBlocks.OSSEOUS_SCULK.get().defaultBlockState().setValue(OsseousSculkBlock.FACING, Direction.DOWN);
 			} else if (WWBlockConfig.TENDRIL_GENERATION.get()) {
-				newPlacementState = WWBlocks.HANGING_TENDRIL.get().defaultBlockState();
+				newPlacementState = WWFabricBlocks.HANGING_TENDRIL.get().defaultBlockState();
 			}
 
 			if (newPlacementState != null) {

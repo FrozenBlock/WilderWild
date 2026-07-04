@@ -45,31 +45,31 @@ public final class WWBlockEntityTypes {
 
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<HangingTendrilBlockEntity>> HANGING_TENDRIL = register(WWBlockEntityTypeIds.HANGING_TENDRIL,
 		HangingTendrilBlockEntity::new,
-		WWBlocks.HANGING_TENDRIL::get
+		WWFabricBlocks.HANGING_TENDRIL::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<TermiteMoundBlockEntity>> TERMITE_MOUND = register(WWBlockEntityTypeIds.TERMITE_MOUND,
 		TermiteMoundBlockEntity::new,
-		WWBlocks.TERMITE_MOUND::get
+		WWFabricBlocks.TERMITE_MOUND::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<DisplayLanternBlockEntity>> DISPLAY_LANTERN = register(WWBlockEntityTypeIds.DISPLAY_LANTERN,
 		DisplayLanternBlockEntity::new,
-		WWBlocks.DISPLAY_LANTERN::get
+		WWFabricBlocks.DISPLAY_LANTERN::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<StoneChestBlockEntity>> STONE_CHEST = register(WWBlockEntityTypeIds.STONE_CHEST,
 		StoneChestBlockEntity::new,
-		WWBlocks.STONE_CHEST::get
+		WWFabricBlocks.STONE_CHEST::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<ScorchedBlockEntity>> SCORCHED_BLOCK = register(WWBlockEntityTypeIds.SCORCHED_BLOCK,
 		ScorchedBlockEntity::new,
-		WWBlocks.SCORCHED_SAND::get, WWBlocks.SCORCHED_RED_SAND::get
+		WWFabricBlocks.SCORCHED_SAND::get, WWFabricBlocks.SCORCHED_RED_SAND::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<GeothermalVentBlockEntity>> GEOTHERMAL_VENT = register(WWBlockEntityTypeIds.GEOTHERMAL_VENT,
 		GeothermalVentBlockEntity::new,
-		WWBlocks.GEOTHERMAL_VENT::get
+		WWFabricBlocks.GEOTHERMAL_VENT::get
 	);
 	public static final FrozenHolder<BlockEntityType<?>, BlockEntityType<IcicleBlockEntity>> ICICLE = register(WWBlockEntityTypeIds.ICICLE,
 		IcicleBlockEntity::new,
-		WWBlocks.ICICLE::get
+		WWFabricBlocks.ICICLE::get
 	);
 
 	static {

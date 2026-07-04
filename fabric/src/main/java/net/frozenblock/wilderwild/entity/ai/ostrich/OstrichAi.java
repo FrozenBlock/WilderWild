@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
@@ -99,7 +99,7 @@ public class OstrichAi {
 	private static ActivityData<AbstractOstrich> initCoreActivity(final boolean zombie) {
 		final ImmutableList.Builder<BehaviorControl<? super AbstractOstrich>> builder = ImmutableList.builder();
 		builder.add(new Swim<>(0.8F));
-		if (!zombie) builder.add(new OstrichLayEgg(WWBlocks.OSTRICH_EGG.get()));
+		if (!zombie) builder.add(new OstrichLayEgg(WWFabricBlocks.OSTRICH_EGG.get()));
 		builder.add(
 			new OstrichPanic(
 				SPEED_MULTIPLIER_WHEN_PANICKING,

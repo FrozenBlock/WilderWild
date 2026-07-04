@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -223,7 +222,7 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 
 	@Override
 	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
-		level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, new ItemStack(WWItems.COCONUT, 3)));
+		level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, new ItemStack(this.asItem(), 3)));
 		level.playSound(null, pos, WWSounds.BLOCK_COCONUT_BREAK.get(), SoundSource.BLOCKS, 1F, 1F);
 	}
 

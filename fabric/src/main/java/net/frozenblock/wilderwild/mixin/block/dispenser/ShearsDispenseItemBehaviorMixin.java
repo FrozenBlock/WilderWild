@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
@@ -91,13 +92,13 @@ public class ShearsDispenseItemBehaviorMixin {
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweed(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() == WWBlocks.TUMBLEWEED.get()) return TumbleweedBlock.onShear(level, pos, null);
+		if (state.getBlock() == WWFabricBlocks.TUMBLEWEED.get()) return TumbleweedBlock.onShear(level, pos, null);
 		return false;
 	}
 
 	@Unique
 	private static boolean wilderWild$tryShearTumbleweedStem(BlockState state, ServerLevel level, ItemStack stack, BlockPos pos) {
-		if (state.getBlock() == WWBlocks.TUMBLEWEED_PLANT.get()) return TumbleweedPlantBlock.onShear(level, pos, state, null);
+		if (state.getBlock() == WWFabricBlocks.TUMBLEWEED_PLANT.get()) return TumbleweedPlantBlock.onShear(level, pos, state, null);
 		return false;
 	}
 

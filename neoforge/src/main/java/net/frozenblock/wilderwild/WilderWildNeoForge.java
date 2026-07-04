@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
+import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -21,6 +22,7 @@ public final class WilderWildNeoForge {
 		// AFTER register event
 		modBus.addListener(FMLCommonSetupEvent.class, event -> {
 			WWSoundTypes.init();
+			WWCreativeInventorySorting.init();
 		});
 	}
 }

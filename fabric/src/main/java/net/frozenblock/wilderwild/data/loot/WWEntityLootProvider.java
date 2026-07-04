@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
 import net.frozenblock.lib.data.api.EntityLootHelper;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
@@ -89,7 +90,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWItems.CRAB_CLAW)
+							LootItem.lootTableItem(WWFabricItems.CRAB_CLAW)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
 								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))

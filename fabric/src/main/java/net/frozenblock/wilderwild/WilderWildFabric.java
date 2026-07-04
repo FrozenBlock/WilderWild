@@ -46,7 +46,10 @@ import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWFabricDataComponents;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
@@ -78,8 +81,8 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWDataFixer.applyDataFixes(container);
 
 		WWFabricDataComponents.init();
-		WWBlocks.init();
-		WWItems.init();
+		WWFabricBlocks.init();
+		WWFabricItems.init();
 		WWSoundTypes.init();
 		WWBlockEntityTypes.init();
 		WWFabricMemoryModuleTypes.init();
@@ -92,7 +95,7 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWFeatures.init();
 		WWBiomes.init();
 		WWWorldgen.init();
-		WWBlocks.registerBlockProperties();
+		WWFabricBlocks.registerBlockProperties();
 		WWAdvancementModifications.init();
 		WWStructureModifications.init();
 
@@ -103,6 +106,7 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWModIntegrations.init();
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
+		WWFabricCreativeInventorySorting.init();
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

@@ -65,7 +65,7 @@ public final class WWLootTables {
 
 				if (WWWorldgenConfig.PLANKTON_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.PLANKTON.get().asItem())
+						LootItem.lootTableItem(WWFabricBlocks.PLANKTON.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
@@ -160,7 +160,7 @@ public final class WWLootTables {
 				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
 					tableBuilder.modifyPools(builder -> {
 						builder.add(
-							LootItem.lootTableItem(WWItems.COCONUT)
+							LootItem.lootTableItem(WWFabricItems.COCONUT)
 								.setWeight(2)
 								.setQuality(Rarity.COMMON.ordinal() + 1)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
@@ -202,7 +202,7 @@ public final class WWLootTables {
 				}
 				if (WWBlockConfig.TENDRIL_GENERATION.get()) {
 					pool.add(
-						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.get().asItem())
+						LootItem.lootTableItem(WWFabricBlocks.HANGING_TENDRIL.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))

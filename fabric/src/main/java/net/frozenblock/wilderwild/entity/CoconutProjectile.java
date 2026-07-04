@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.entity;
 
-import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -57,7 +57,7 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 
 	@Override
 	protected Item getDefaultItem() {
-		return WWItems.COCONUT;
+		return WWFabricItems.COCONUT.get();
 	}
 
 	@Override

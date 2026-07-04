@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.entity.impl.WWBottleable;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -242,7 +243,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public ItemStack wilderWild$getBottleItemStack() {
-		return new ItemStack(WWItems.BUTTERFLY_BOTTLE);
+		return new ItemStack(WWFabricItems.BUTTERFLY_BOTTLE);
 	}
 
 	@Override

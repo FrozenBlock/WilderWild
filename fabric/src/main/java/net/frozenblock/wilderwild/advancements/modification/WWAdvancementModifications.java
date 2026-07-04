@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.minecraft.advancements.Advancement;
@@ -127,7 +128,7 @@ public final class WWAdvancementModifications {
 
 					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("crab_claw"), CriteriaTriggers.CONSUME_ITEM.createCriterion(
-							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWItems.CRAB_CLAW)).triggerInstance())
+							ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(items, WWFabricItems.CRAB_CLAW)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("crab_claw")))));
 
@@ -177,13 +178,13 @@ public final class WWAdvancementModifications {
 				case "minecraft:husbandry/tactical_fishing" -> {
 					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("crab_bucket"), CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.CRAB_BUCKET)).triggerInstance())
 						);
 					}
 
 					if (WWEntityConfig.SPAWN_JELLYFISH.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("jellyfish_bucket"), CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("crab_bucket"), WWConstants.string("jellyfish_bucket")));
 					}

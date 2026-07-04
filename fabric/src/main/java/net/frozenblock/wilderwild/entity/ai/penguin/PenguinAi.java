@@ -27,7 +27,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.registry.WWActivities;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
@@ -136,7 +136,7 @@ public class PenguinAi {
 				new AnimalPanic<>(2F),
 				new LookAtTargetSink(45, 90),
 				new MoveToTargetSink(),
-				new PenguinLayEgg(WWBlocks.PENGUIN_EGG.get()),
+				new PenguinLayEgg(WWFabricBlocks.PENGUIN_EGG.get()),
 				new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.IDLE_TIME.get()),
 				new CountDownCooldownTicks(WWMemoryModuleTypes.DIVE_TICKS.get()),

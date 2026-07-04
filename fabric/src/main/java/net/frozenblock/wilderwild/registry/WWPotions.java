@@ -64,7 +64,7 @@ public final class WWPotions {
 
 	public static void init() {
 		FabricPotionBrewingBuilder.BUILD.register(builder -> {
-			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH.asHolder());
+			builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWFabricItems.CRAB_CLAW), REACH.asHolder());
 			builder.registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.REDSTONE), LONG_REACH.asHolder());
 			builder.registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH.asHolder());
 

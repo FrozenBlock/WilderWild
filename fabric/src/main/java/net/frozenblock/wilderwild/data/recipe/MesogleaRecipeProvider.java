@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.recipe;
 
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -27,13 +28,13 @@ import net.minecraft.world.level.ItemLike;
 public final class MesogleaRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput output) {
-		mesoglea(provider, WWItems.BLUE_NEMATOCYST, WWItems.BLUE_MESOGLEA, output);
-		mesoglea(provider, WWItems.LIME_NEMATOCYST, WWItems.LIME_MESOGLEA, output);
-		mesoglea(provider, WWItems.PINK_NEMATOCYST, WWItems.PINK_MESOGLEA, output);
-		mesoglea(provider, WWItems.YELLOW_NEMATOCYST, WWItems.YELLOW_MESOGLEA, output);
-		mesoglea(provider, WWItems.RED_NEMATOCYST, WWItems.RED_MESOGLEA, output);
-		mesoglea(provider, WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWItems.PEARLESCENT_BLUE_MESOGLEA, output);
-		mesoglea(provider, WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWItems.PEARLESCENT_PURPLE_MESOGLEA, output);
+		mesoglea(provider, WWItems.BLUE_NEMATOCYST, WWFabricItems.BLUE_MESOGLEA, output);
+		mesoglea(provider, WWItems.LIME_NEMATOCYST, WWFabricItems.LIME_MESOGLEA, output);
+		mesoglea(provider, WWItems.PINK_NEMATOCYST, WWFabricItems.PINK_MESOGLEA, output);
+		mesoglea(provider, WWItems.YELLOW_NEMATOCYST, WWFabricItems.YELLOW_MESOGLEA, output);
+		mesoglea(provider, WWItems.RED_NEMATOCYST, WWFabricItems.RED_MESOGLEA, output);
+		mesoglea(provider, WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWFabricItems.PEARLESCENT_BLUE_MESOGLEA, output);
+		mesoglea(provider, WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWFabricItems.PEARLESCENT_PURPLE_MESOGLEA, output);
 	}
 
 	public static void mesoglea(RecipeProvider provider, ItemLike nematocyst, ItemLike mesoglea, RecipeOutput exporter) {

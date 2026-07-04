@@ -29,7 +29,9 @@ import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
@@ -74,7 +76,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.CRAB_BUCKET,
+				WWFabricItems.CRAB_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.description"),
 				null,
@@ -83,7 +85,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)))
+			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.CRAB_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
@@ -104,7 +106,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.BUTTERFLY_BOTTLE,
+				WWFabricItems.BUTTERFLY_BOTTLE,
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.description"),
 				null,
@@ -113,13 +115,13 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.BUTTERFLY_BOTTLE)))
+			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWFabricItems.BUTTERFLY_BOTTLE)))
 			.save(writer, WWConstants.string("husbandry/butterfly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.JELLYFISH_BUCKET,
+				WWFabricItems.JELLYFISH_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"),
 				null,
@@ -128,13 +130,13 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)))
+			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.JELLYFISH_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.TERMITE_MOUND.get(),
+				WWFabricBlocks.TERMITE_MOUND.get(),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.description"),
 				null,
@@ -149,7 +151,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.GEOTHERMAL_VENT.get(),
+				WWFabricBlocks.GEOTHERMAL_VENT.get(),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.title"),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.description"),
 				null,

@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -100,7 +100,7 @@ public class TumbleweedPlantBlock extends DryVegetationBlock implements Bonemeal
 
 		final int difficulty = level.getDifficulty().getId();
 		if (level.getRandom().nextInt(difficulty == 0 ? REPRODUCTION_CHANCE_PEACEFUL : (REPRODUCTION_CHANCE_DIVIDER_BY_DIFFICULTY / difficulty)) == 0) {
-			tumbleweed.setItem(new ItemStack(WWBlocks.TUMBLEWEED_PLANT.get()), true);
+			tumbleweed.setItem(new ItemStack(WWFabricBlocks.TUMBLEWEED_PLANT.get()), true);
 		}
 		level.playSound(null, pos, WWSounds.ENTITY_TUMBLEWEED_DAMAGE.get(), SoundSource.BLOCKS, 1F, 1F);
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));

@@ -80,7 +80,7 @@ public final class FireflyBottleRecipeProvider {
 			provider.shapeless(
 				RecipeCategory.MISC,
 				new ItemStackTemplate(
-					WWItems.FIREFLY_BOTTLE,
+					WWItems.FIREFLY_BOTTLE.get(),
 					DataComponentPatch.builder()
 						.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
 						.build()
@@ -107,7 +107,7 @@ public final class FireflyBottleRecipeProvider {
 		provider.shapeless(
 			RecipeCategory.MISC,
 			new ItemStackTemplate(
-				WWItems.FIREFLY_BOTTLE,
+				WWItems.FIREFLY_BOTTLE.get(),
 				DataComponentPatch.builder()
 					.set(WWDataComponents.FIREFLY_COLOR.get(), registryLookup.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
 					.build()

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.recipe;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -34,8 +35,8 @@ import net.minecraft.world.level.ItemLike;
 public final class WWCookRecipeProvider {
 
 	static void buildRecipes(RecipeProvider provider, RecipeOutput output) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, CookingBookCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
-			.unlockedBy("has_crab_claw", provider.has(WWItems.CRAB_CLAW))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.CRAB_CLAW), RecipeCategory.FOOD, CookingBookCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
+			.unlockedBy("has_crab_claw", provider.has(WWFabricItems.CRAB_CLAW))
 			.save(output);
 		cookRecipes(provider, output, "smoking", SmokingRecipe::new, 100);
 		cookRecipes(provider, output, "campfire_cooking", CampfireCookingRecipe::new, 600);
@@ -80,21 +81,21 @@ public final class WWCookRecipeProvider {
 			.unlockedBy("has_willow_leaves", provider.has(WWItems.WILLOW_LEAVES))
 			.save(output);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_yellow_maple_leaves", provider.has(WWItems.YELLOW_MAPLE_LEAVES))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_yellow_maple_leaves", provider.has(WWFabricItems.YELLOW_MAPLE_LEAVES))
 			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_orange_maple_leaves", provider.has(WWItems.ORANGE_MAPLE_LEAF_LITTER))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_orange_maple_leaves", provider.has(WWFabricItems.ORANGE_MAPLE_LEAF_LITTER))
 			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.RED_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_red_maple_leaves", provider.has(WWItems.RED_MAPLE_LEAVES))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.RED_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_red_maple_leaves", provider.has(WWFabricItems.RED_MAPLE_LEAVES))
 			.save(output);
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
 		RecipeProvider provider, RecipeOutput exporter, String source, AbstractCookingRecipe.Factory<T> factory, int cookingTime
 	) {
-		simpleCookingRecipe(provider, exporter, source, factory, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(provider, exporter, source, factory, cookingTime, WWFabricItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
 	}
 
 	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(

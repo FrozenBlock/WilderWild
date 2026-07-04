@@ -145,7 +145,7 @@ public final class WWFabricEntityTypes {
 
 	// BOATS
 	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT), MobCategory.MISC,
+		EntityTypes.boatFactory(() -> WWFabricItems.BAOBAB_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -153,7 +153,7 @@ public final class WWFabricEntityTypes {
 			.clientTrackingRange(10)
 	);
 	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT), MobCategory.MISC,
+		EntityTypes.chestBoatFactory(() -> WWFabricItems.BAOBAB_CHEST_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -162,7 +162,7 @@ public final class WWFabricEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.WILLOW_BOAT), MobCategory.MISC,
+		EntityTypes.boatFactory(() -> WWFabricItems.WILLOW_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -170,7 +170,7 @@ public final class WWFabricEntityTypes {
 			.clientTrackingRange(10)
 	);
 	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT), MobCategory.MISC,
+		EntityTypes.chestBoatFactory(() -> WWFabricItems.WILLOW_CHEST_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -179,7 +179,7 @@ public final class WWFabricEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.CYPRESS_BOAT), MobCategory.MISC,
+		EntityTypes.boatFactory(() -> WWFabricItems.CYPRESS_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -187,7 +187,7 @@ public final class WWFabricEntityTypes {
 			.clientTrackingRange(10)
 	);
 	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT), MobCategory.MISC,
+		EntityTypes.chestBoatFactory(() -> WWFabricItems.CYPRESS_CHEST_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -196,7 +196,7 @@ public final class WWFabricEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.PALM_BOAT), MobCategory.MISC,
+		EntityTypes.boatFactory(() -> WWFabricItems.PALM_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -204,7 +204,7 @@ public final class WWFabricEntityTypes {
 			.clientTrackingRange(10)
 	);
 	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT), MobCategory.MISC,
+		EntityTypes.chestBoatFactory(() -> WWFabricItems.PALM_CHEST_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -213,7 +213,7 @@ public final class WWFabricEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.MAPLE_BOAT), MobCategory.MISC,
+		EntityTypes.boatFactory(() -> WWFabricItems.MAPLE_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)
@@ -221,7 +221,7 @@ public final class WWFabricEntityTypes {
 			.clientTrackingRange(10)
 	);
 	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT), MobCategory.MISC,
+		EntityTypes.chestBoatFactory(() -> WWFabricItems.MAPLE_CHEST_BOAT.get()), MobCategory.MISC,
 		builder -> builder
 			.noLootTable()
 			.sized(1.375F, 0.5625F)

@@ -35,6 +35,7 @@ import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
@@ -755,7 +756,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(WWItems.CRAB_BUCKET);
+		return new ItemStack(WWFabricItems.CRAB_BUCKET);
 	}
 
 	@Override

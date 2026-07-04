@@ -21,7 +21,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -97,7 +97,7 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	}
 
 	public boolean canShearIntoOriginalFlower(LevelReader level, BlockPos pos, BlockState state) {
-		if (this == WWBlocks.SEEDING_DANDELION.get()) return WWBlockConfig.SHEAR_SEEDING_DANDELIONS.get();
+		if (this == WWFabricBlocks.SEEDING_DANDELION.get()) return WWBlockConfig.SHEAR_SEEDING_DANDELIONS.get();
 		return true;
 	}
 

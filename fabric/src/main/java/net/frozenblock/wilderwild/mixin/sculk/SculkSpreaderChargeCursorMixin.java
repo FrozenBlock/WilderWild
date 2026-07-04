@@ -27,7 +27,7 @@ import net.frozenblock.lib.block.api.sculk.BooleanPropertySculkBehavior;
 import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -95,7 +95,7 @@ public class SculkSpreaderChargeCursorMixin {
 		if (fromPos.distManhattan(toPos) == 1) return true;
 		final BlockState cheatState = level.getBlockState(toPos);
 
-		final boolean isSpreadableStoneChest = cheatState.is(WWBlocks.STONE_CHEST.get()) && !cheatState.getValue(WWBlockStateProperties.HAS_SCULK);
+		final boolean isSpreadableStoneChest = cheatState.is(WWFabricBlocks.STONE_CHEST.get()) && !cheatState.getValue(WWBlockStateProperties.HAS_SCULK);
 		if (wilderWild$isReplaceableBuildingBlock(cheatState, true) || isSpreadableStoneChest) return true;
 
 		final BlockPos pos = toPos.subtract(fromPos);
@@ -151,7 +151,7 @@ public class SculkSpreaderChargeCursorMixin {
 	) {
 		if (isWorldGen.get()) {
 			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new SlabWallStairSculkBehavior();
-			if (state.is(WWBlocks.STONE_CHEST.get())) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
+			if (state.is(WWFabricBlocks.STONE_CHEST.get())) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
 		} else {
 			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new SlabWallStairSculkBehavior();
 		}

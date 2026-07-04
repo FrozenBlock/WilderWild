@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -156,7 +155,8 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	}
 
 	public static void dropPricklyPear(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
-		dropFromBlockInteractLootTable(
+		// TODO NEOFORGE LOOT TABLES
+		/*dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_PRICKLY_PEAR,
 			state,
@@ -164,7 +164,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 			stack,
 			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
-		);
+		);*/
 	}
 
 	@Override
