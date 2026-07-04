@@ -19,7 +19,9 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtils;
+import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
@@ -66,22 +68,20 @@ public class CattailFeature extends Feature<CattailFeatureConfiguration> {
 			final BlockState topState = level.getBlockState(topBlockPos.setWithOffset(bottomBlockPos, Direction.UP));
 			if (!(bottomState.isAir() || bottomStateIsWater) || !topState.isAir()) continue;
 
-			//TODO NEOFORGE PORT
-			/*
-			final BlockState bottomPlaceState = WWBlocks.CATTAIL.defaultBlockState()
+			final BlockState bottomPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 				.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
 				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
 			if (!bottomPlaceState.canSurvive(level, bottomBlockPos)) continue;
 			if (!(bottomStateIsWater || FrozenLibFeatureUtils.isWaterNearby(level, bottomBlockPos, 2))) continue;
 			if (!level.getBlockState(bottomBlockPos.move(Direction.DOWN)).is(placeableBlocks)) continue;
 
-			final BlockState topPlaceState = WWBlocks.CATTAIL.defaultBlockState()
+			final BlockState topPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 				.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
 				.setValue(CattailBlock.SWAYING, bottomStateIsWater);
 
 			level.setBlock(bottomBlockPos.move(Direction.UP), bottomPlaceState, Block.UPDATE_CLIENTS);
 			if (topPlaceState.canSurvive(level, topBlockPos)) level.setBlock(topBlockPos, topPlaceState, Block.UPDATE_CLIENTS);
-			*/
+
 			generated = true;
 		}
 		return generated;

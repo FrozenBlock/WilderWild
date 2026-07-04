@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
@@ -50,10 +51,6 @@ public final class WWFabricModelLayers {
 
 		EntityRenderers.register(WWFabricEntityTypes.BUTTERFLY.get(), ButterflyRenderer::new);
 		modelRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
-
-		EntityRenderers.register(WWFabricEntityTypes.JELLYFISH.get(), JellyfishRenderer::new);
-		modelRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
-		modelRegistry.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
 
 		EntityRenderers.register(WWFabricEntityTypes.TUMBLEWEED.get(), TumbleweedRenderer::new);
 
@@ -81,10 +78,6 @@ public final class WWFabricModelLayers {
 		EntityRenderers.register(WWFabricEntityTypes.PENGUIN.get(), PenguinRenderer::new);
 		modelRegistry.registerModelLayer(PENGUIN, AdultPenguinModel::createBodyLayer);
 		modelRegistry.registerModelLayer(PENGUIN_BABY, BabyPenguinModel::createBodyLayer);
-
-		EntityRenderers.register(WWFabricEntityTypes.COCONUT.get(), ThrownItemRenderer::new);
-
-		EntityRenderers.register(WWFabricEntityTypes.FALLING_LEAVES.get(), NoopRenderer::new);
 
 		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL.get(), HangingTendrilRenderer::new);
 		modelRegistry.registerModelLayer(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);

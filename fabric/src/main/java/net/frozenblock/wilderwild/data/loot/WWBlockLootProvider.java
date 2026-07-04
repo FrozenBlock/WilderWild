@@ -158,9 +158,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.YELLOW_MAPLE_SAPLING.get());
 		this.dropSelf(WWBlocks.ORANGE_MAPLE_SAPLING.get());
 		this.dropSelf(WWBlocks.RED_MAPLE_SAPLING.get());
-		this.add(WWFabricBlocks.YELLOW_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.YELLOW_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWFabricBlocks.ORANGE_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.ORANGE_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWFabricBlocks.RED_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.RED_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.YELLOW_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.YELLOW_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.ORANGE_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		this.add(WWBlocks.RED_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.RED_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
 		this.dropSelf(WWBlocks.HOLLOWED_ACACIA_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get());
@@ -198,9 +198,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.PALM_FROND_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.PALM_FROND_LITTER.get()));
 		this.add(WWBlocks.SPRUCE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.SPRUCE_LEAF_LITTER.get()));
 		this.add(WWBlocks.WILLOW_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.WILLOW_LEAF_LITTER.get()));
-		this.add(WWFabricBlocks.YELLOW_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWFabricBlocks.YELLOW_MAPLE_LEAF_LITTER.get()));
-		this.add(WWFabricBlocks.ORANGE_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWFabricBlocks.ORANGE_MAPLE_LEAF_LITTER.get()));
-		this.add(WWFabricBlocks.RED_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWFabricBlocks.RED_MAPLE_LEAF_LITTER.get()));
+		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()));
+		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()));
+		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER.get()));
 
 		this.dropSelf(WWBlocks.GABBRO.get());
 		this.dropSelf(WWBlocks.GABBRO_STAIRS.get());
@@ -221,7 +221,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_WALL.get());
 
-		this.add(WWFabricBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
 		this.dropSelf(WWFabricBlocks.SEEDING_DANDELION.get());
 		this.dropSelf(WWBlocks.CARNATION.get());
 		this.dropSelf(WWBlocks.MARIGOLD.get());
@@ -325,7 +325,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 				)
 		);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE.get());
-		this.dropSelf(WWFabricBlocks.PLANKTON.get());
+		this.dropSelf(WWBlocks.PLANKTON.get());
 		this.add(WWBlocks.BARNACLES.get(), block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
 		this.dropSelf(WWBlocks.SEA_ANEMONE.get());
 		this.dropSelf(WWBlocks.SEA_WHIP.get());
@@ -455,20 +455,20 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.dropSelf(WWBlocks.NULL_BLOCK.get());
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS.get());
-		this.dropSelf(WWFabricBlocks.TERMITE_MOUND.get());
-		this.dropSelf(WWFabricBlocks.BLUE_MESOGLEA.get());
+		this.dropSelf(WWBlocks.TERMITE_MOUND.get());
+		this.dropSelf(WWBlocks.BLUE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.BLUE_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.LIME_MESOGLEA.get());
+		this.dropSelf(WWBlocks.LIME_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.LIME_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.PINK_MESOGLEA.get());
+		this.dropSelf(WWBlocks.PINK_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.PINK_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.YELLOW_MESOGLEA.get());
+		this.dropSelf(WWBlocks.YELLOW_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.YELLOW_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.RED_MESOGLEA.get());
+		this.dropSelf(WWBlocks.RED_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.RED_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.PEARLESCENT_BLUE_MESOGLEA.get());
+		this.dropSelf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get());
-		this.dropSelf(WWFabricBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
+		this.dropSelf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
 
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
@@ -477,8 +477,8 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.dropSelf(WWFabricBlocks.OSTRICH_EGG.get());
 		this.dropSelf(WWFabricBlocks.PENGUIN_EGG.get());
-		this.dropSelf(WWFabricBlocks.GEOTHERMAL_VENT.get());
-		this.dropWhenSilkTouch(WWFabricBlocks.HANGING_TENDRIL.get());
+		this.dropSelf(WWBlocks.GEOTHERMAL_VENT.get());
+		this.dropWhenSilkTouch(WWBlocks.HANGING_TENDRIL.get());
 		this.dropWhenSilkTouch(WWBlocks.OSSEOUS_SCULK.get());
 		this.dropWhenSilkTouch(WWBlocks.SCULK_WALL.get());
 		this.dropWhenSilkTouch(WWBlocks.SCULK_STAIRS.get());
@@ -503,15 +503,15 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						)
 				)
 		);
-		this.dropSelf(WWFabricBlocks.STONE_CHEST.get());
+		this.dropSelf(WWBlocks.STONE_CHEST.get());
 
 		this.add(
-			WWFabricBlocks.DISPLAY_LANTERN.get(),
+			WWBlocks.DISPLAY_LANTERN.get(),
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
 						.setRolls(ConstantValue.exactly(1F))
-						.add(LootItem.lootTableItem(WWFabricBlocks.DISPLAY_LANTERN.get()).when(ExplosionCondition.survivesExplosion()))
+						.add(LootItem.lootTableItem(WWBlocks.DISPLAY_LANTERN.get()).when(ExplosionCondition.survivesExplosion()))
 				)
 		);
 
@@ -534,18 +534,18 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 				)
 		);
 
-		this.dropSelf(WWFabricBlocks.SCORCHED_SAND.get());
-		this.dropSelf(WWFabricBlocks.SCORCHED_RED_SAND.get());
+		this.dropSelf(WWBlocks.SCORCHED_SAND.get());
+		this.dropSelf(WWBlocks.SCORCHED_RED_SAND.get());
 
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWFabricBlocks.BROWN_SHELF_FUNGI.get(), Items.BROWN_MUSHROOM);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWFabricBlocks.RED_SHELF_FUNGI.get(), Items.RED_MUSHROOM);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWFabricBlocks.PALE_SHELF_FUNGI.get(), WWFabricBlocks.PALE_MUSHROOM.get());
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWFabricBlocks.CRIMSON_SHELF_FUNGI.get(), Items.CRIMSON_FUNGUS);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWFabricBlocks.WARPED_SHELF_FUNGI.get(), Items.WARPED_FUNGUS);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.BROWN_SHELF_FUNGI.get(), Items.BROWN_MUSHROOM);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.RED_SHELF_FUNGI.get(), Items.RED_MUSHROOM);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.PALE_SHELF_FUNGI.get(), WWBlocks.PALE_MUSHROOM.get());
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.CRIMSON_SHELF_FUNGI.get(), Items.CRIMSON_FUNGUS);
+		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.WARPED_SHELF_FUNGI.get(), Items.WARPED_FUNGUS);
 
-		this.dropSelf(WWFabricBlocks.PALE_MUSHROOM.get());
-		this.dropPottedContents(WWFabricBlocks.POTTED_PALE_MUSHROOM.get());
-		this.add(WWFabricBlocks.PALE_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, WWFabricBlocks.PALE_MUSHROOM.get()));
+		this.dropSelf(WWBlocks.PALE_MUSHROOM.get());
+		this.dropPottedContents(WWBlocks.POTTED_PALE_MUSHROOM.get());
+		this.add(WWFabricBlocks.PALE_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, WWBlocks.PALE_MUSHROOM.get()));
 
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS.get());
 		this.dropSelf(WWBlocks.CRACKED_MUD_BRICKS.get());
@@ -557,7 +557,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH.get());
 
 		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE.get());
-		this.dropWhenSilkTouch(WWFabricBlocks.ICICLE.get());
+		this.dropWhenSilkTouch(WWBlocks.ICICLE.get());
 	}
 
 }

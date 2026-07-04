@@ -371,13 +371,13 @@ public final class WWModelHelper {
 			dispatch.select(Direction.DOWN, thickness, createIcicleVariant(generator, Direction.DOWN, thickness));
 		}
 
-		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWFabricBlocks.ICICLE.get()).with(dispatch));
+		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE.get()).with(dispatch));
 	}
 
 	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, SpeleothemThickness thickness) {
 		String string = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
-		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWFabricBlocks.ICICLE.get(), string));
-		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWFabricBlocks.ICICLE.get(), string, textureMapping, generator.modelOutput));
+		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE.get(), string));
+		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE.get(), string, textureMapping, generator.modelOutput));
 	}
 
 	public static void createFragileIce(BlockModelGenerators generator) {
@@ -480,13 +480,13 @@ public final class WWModelHelper {
 	}
 
 	public static void createPlankton(BlockModelGenerators generator) {
-		generator.registerSimpleFlatItemModel(WWFabricBlocks.PLANKTON.get());
-		Identifier model = generator.createSuffixedVariant(WWFabricBlocks.PLANKTON.get(), "", ALGAE_MODEL, TextureMapping::defaultTexture);
-		Identifier glowingModel = generator.createSuffixedVariant(WWFabricBlocks.PLANKTON.get(), "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
+		generator.registerSimpleFlatItemModel(WWBlocks.PLANKTON.get());
+		Identifier model = generator.createSuffixedVariant(WWBlocks.PLANKTON.get(), "", ALGAE_MODEL, TextureMapping::defaultTexture);
+		Identifier glowingModel = generator.createSuffixedVariant(WWBlocks.PLANKTON.get(), "_glowing", PLANKTON_MODEL, TextureMapping::defaultTexture);
 
 		generator.blockStateOutput
 			.accept(
-				MultiVariantGenerator.dispatch(WWFabricBlocks.PLANKTON.get())
+				MultiVariantGenerator.dispatch(WWBlocks.PLANKTON.get())
 					.with(
 						PropertyDispatch.initial(WWBlockStateProperties.GLOWING)
 							.select(

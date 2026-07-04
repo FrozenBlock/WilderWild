@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -801,15 +802,13 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(Blocks.OAK_SAPLING.defaultBlockState(), BlockPos.ZERO))
 		);
 
-		//TODO NEOFORGE PORT
-		/*
 		TREES_SWAMP_SURFACE_WILLOW.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_SURFACE_WILLOW,
 			PlacementUtils.countExtra(2, 0.1F, 1),
 			InSquarePlacement.spread(),
 			SurfaceWaterDepthFilter.forMaxDepth(1),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING.get())
 		);
 
 		TREES_SWAMP_WATER_SHALLOW.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER_SHALLOW,
@@ -818,8 +817,7 @@ public final class WWPlacedFeatures {
 			SurfaceWaterDepthFilter.forMaxDepth(2),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome(),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			//TODO NEOFORGE PORT PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
-			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING) // todo remove
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING.get())
 		);
 
 		TREES_SWAMP_WATER.makeAndSetHolder(WWConfiguredFeatures.SWAMP_TREES_WATER,
@@ -833,8 +831,7 @@ public final class WWPlacedFeatures {
 					BlockPredicate.matchesFluids(Fluids.WATER)
 				)
 			),
-			//TODO NEOFORGE PORT PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING)
-			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING) // todo remove
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING.get())
 		);
 
 		MIXED_TREES.makeAndSetHolder(WWConfiguredFeatures.MIXED_TREES,
@@ -885,7 +882,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING)
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING.get())
 		);
 
 		CYPRESS_WETLANDS_TREES_WATER.makeAndSetHolder(WWConfiguredFeatures.CYPRESS_WETLANDS_TREES_WATER,
@@ -951,7 +948,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING.get()),
 			WWPlacementUtils.TREE_CLEARING_FILTER,
 			BiomeFilter.biome()
 		);
@@ -1334,7 +1331,7 @@ public final class WWPlacedFeatures {
 		PATCH_SHRUB_OASIS.makeAndSetHolder(WWConfiguredFeatures.SHRUB_OASIS,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(23),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1351,7 +1348,7 @@ public final class WWPlacedFeatures {
 			CountPlacement.of(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(23),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1368,7 +1365,7 @@ public final class WWPlacedFeatures {
 			CountPlacement.of(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1385,7 +1382,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(18),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1418,7 +1415,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(11),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1429,7 +1426,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1445,7 +1442,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(8),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1461,7 +1458,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(6),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1477,7 +1474,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(10),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1493,7 +1490,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(15),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -1509,7 +1506,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.SHRUB.get()),
 			BiomeFilter.biome(),
 			CountPlacement.of(4),
 			RandomOffsetPlacement.ofTriangle(7, 3),
@@ -2649,7 +2646,7 @@ public final class WWPlacedFeatures {
 			CountPlacement.of(32),
 			RandomOffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
-		);*/
+		);
 	}
 
 }

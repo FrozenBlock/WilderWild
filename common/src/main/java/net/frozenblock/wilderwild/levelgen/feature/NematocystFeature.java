@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
+import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -43,8 +44,6 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		RandomSource random,
 		List<Direction> directions
 	) {
-		//TODO NEOFORGE PORT
-		/*
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		final NematocystBlock nematocyst = (NematocystBlock) config.placeBlock;
 
@@ -67,7 +66,7 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 				}
 			}
 			return true;
-		}*/
+		}
 		return false;
 	}
 
@@ -78,8 +77,6 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 		final RandomSource random = context.random();
 		final MultifaceGrowthConfiguration config = context.config();
 
-		//TODO NEOFORGE PORT
-		/*
 		if (!isAirOrWater(level.getBlockState(origin))) return false;
 
 		final List<Direction> list = config.getShuffledDirections(random);
@@ -95,7 +92,7 @@ public class NematocystFeature extends MultifaceGrowthFeature {
 				if (!isAirOrWater(state) && !state.is(config.placeBlock)) break;
 				if (placeGrowthIfPossible(level, mutable, state, config, random, list2)) return true;
 			}
-		}*/
+		}
 		return false;
 	}
 

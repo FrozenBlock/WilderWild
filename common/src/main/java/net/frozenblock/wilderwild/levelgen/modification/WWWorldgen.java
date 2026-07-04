@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.modification;
 
 import java.util.Map;
+import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
@@ -79,8 +80,6 @@ public final class WWWorldgen {
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
 
-		//TODO NEOFORGE PORT
-		/*
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_DYING_MIXED_FOREST, WolfVariants.ASHEN);
 		WolfVariantBiomeRegistry.register(WWBiomes.RAINFOREST, WolfVariants.WOODS);
 		WolfVariantBiomeRegistry.register(WWBiomes.SEMI_BIRCH_FOREST, WolfVariants.WOODS);
@@ -95,7 +94,6 @@ public final class WWWorldgen {
 		WolfVariantBiomeRegistry.register(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, WolfVariants.BLACK);
 		WolfVariantBiomeRegistry.register(WWBiomes.TEMPERATE_RAINFOREST, WolfVariants.CHESTNUT);
 		WolfVariantBiomeRegistry.register(WWBiomes.MAPLE_FOREST, WolfVariants.CHESTNUT);
-		*/
 	}
 
 	private static void configureBuiltInBiomes() {

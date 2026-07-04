@@ -62,11 +62,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 				final String path = id.getPath();
 				final Identifier lootTableId = Identifier.fromNamespaceAndPath(
 					id.getNamespace(),
-					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWFabricEntityTypes.JELLYFISH.get()).getPath() + '_' + path
+					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH.get()).getPath() + '_' + path
 				);
 				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
 				this.add(
-					WWFabricEntityTypes.JELLYFISH.get(),
+					WWEntityTypes.JELLYFISH.get(),
 					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),
 					LootTable.lootTable()
 						.withPool(

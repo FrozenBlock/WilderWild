@@ -137,8 +137,8 @@ public final class WWCreativeInventorySorting {
 		// TODO PALM_BOAT
 		// TODO PALM_CHEST_BOAT
 		// COCONUT
-		// TODO COCONUT
-		// TODO COCONUT
+		insertAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
+		insertAfterInNaturalBlocks(WWItems.CYPRESS_SAPLING, WWItems.COCONUT);
 		insertAfterInFoodAndDrinks(WWItems.BAOBAB_NUT, WWItems.SPLIT_COCONUT);
 
 		// MAPLE (BUILDING BLOCKS)
@@ -160,9 +160,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWItems.YELLOW_MAPLE_SAPLING);
 		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_SAPLING, WWItems.ORANGE_MAPLE_SAPLING);
 		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_SAPLING, WWItems.RED_MAPLE_SAPLING);
-		// TODO YELLOW_MAPLE_LEAVES
-		// TODO ORANGE_MAPLE_LEAVES
-		// TODO RED_MAPLE_LEAVES
+		insertAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWItems.YELLOW_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_LEAVES, WWItems.ORANGE_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_LEAVES, WWItems.RED_MAPLE_LEAVES);
 		// MAPLE (FUNCTIONAL BLOCKS)
 		insertAfterInFunctionalBlocks(Items.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
 		insertAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
@@ -237,10 +237,10 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.WILLOW_LEAF_LITTER, WWItems.CYPRESS_LEAF_LITTER);
 		insertAfterInNaturalBlocks(WWItems.CYPRESS_LEAF_LITTER, WWItems.PALM_FROND_LITTER);
 		insertAfterInNaturalBlocks(WWItems.PALM_FROND_LITTER, WWItems.CHERRY_LEAF_LITTER);
-		// TODO YELLOW_MAPLE_LEAF_LITTER
-		// TODO ORANGE_MAPLE_LEAF_LITTER
-		// TODO RED_MAPLE_LEAF_LITTER
-		// TODO PALE_OAK_LEAF_LITTER
+		insertAfterInNaturalBlocks(WWItems.CHERRY_LEAF_LITTER, WWItems.YELLOW_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_LEAF_LITTER, WWItems.ORANGE_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_LEAF_LITTER, WWItems.RED_MAPLE_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.RED_MAPLE_LEAF_LITTER, WWItems.PALE_OAK_LEAF_LITTER);
 		// TODO insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS
@@ -258,11 +258,11 @@ public final class WWCreativeInventorySorting {
 		// TALL FLOWERS
 		insertAfterInNaturalBlocks(Items.PEONY, WWItems.DATURA);
 		insertAfterInNaturalBlocks(WWItems.DATURA, WWItems.MILKWEED);
-		// TODO MILKWEED_POD
+		insertBeforeInIngredients(Items.INK_SAC, WWItems.MILKWEED_POD);
 		insertAfterInNaturalBlocks(WWItems.MILKWEED, WWItems.CATTAIL);
 
 		// PLANTS
-		// TODO POLLEN
+		insertBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWItems.POLLEN);
 		insertAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
 		insertAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
 		insertAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
@@ -271,7 +271,7 @@ public final class WWCreativeInventorySorting {
 		// TODO SHRUB
 		insertBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.BARNACLES);
 		insertAfterInNaturalBlocks(WWItems.BARNACLES, WWItems.ALGAE);
-		// TODO PLANKTON
+		insertAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
 		insertAfterInNaturalBlocks(Items.SEAGRASS, WWItems.SEA_WHIP);
 		insertAfterInNaturalBlocks(WWItems.SEA_WHIP, WWItems.TUBE_WORMS);
 		insertBeforeInNaturalBlocks(Items.SEA_PICKLE, WWItems.SEA_ANEMONE);
@@ -291,15 +291,15 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.AUBURN_MOSS_CARPET, WWItems.AUBURN_CREEPING_MOSS);
 
 		// SHELF FUNGI
-		// TODO BROWN_SHELF_FUNGI
-		// TODO RED_SHELF_FUNGI
-		// TODO CRIMSON_SHELF_FUNGI
-		// TODO WARPED_SHELF_FUNGI
+		insertAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWItems.BROWN_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWItems.BROWN_SHELF_FUNGI, WWItems.RED_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWItems.RED_SHELF_FUNGI, WWItems.CRIMSON_SHELF_FUNGI);
+		insertAfterInNaturalBlocks(WWItems.CRIMSON_SHELF_FUNGI, WWItems.WARPED_SHELF_FUNGI);
 
 		// PALE MUSHROOMS
 		// TODO PALE_MUSHROOM_BLOCK
-		// TODO PALE_MUSHROOM
-		// TODO PALE_SHELF_FUNGI
+		insertAfterInNaturalBlocks(Items.RED_MUSHROOM, WWItems.PALE_MUSHROOM);
+		insertAfterInNaturalBlocks(WWItems.RED_SHELF_FUNGI, WWItems.PALE_SHELF_FUNGI);
 
 		// SPONGE
 		insertAfterInNaturalBlocks(Items.WET_SPONGE, WWItems.SPONGE_BUD);
@@ -309,13 +309,13 @@ public final class WWCreativeInventorySorting {
 		// TODO PENGUIN_EGG
 
 		// MESOGLEA
-		// TODO PEARLESCENT_BLUE_MESOGLEA
-		// TODO PEARLESCENT_PURPLE_MESOGLEA
-		// TODO BLUE_MESOGLEA
-		// TODO PINK_MESOGLEA
-		// TODO RED_MESOGLEA
-		// TODO YELLOW_MESOGLEA
-		// TODO LIME_MESOGLEA
+		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.PEARLESCENT_BLUE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_BLUE_MESOGLEA, WWItems.PEARLESCENT_PURPLE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_PURPLE_MESOGLEA, WWItems.BLUE_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.BLUE_MESOGLEA, WWItems.PINK_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.PINK_MESOGLEA, WWItems.RED_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.RED_MESOGLEA, WWItems.YELLOW_MESOGLEA);
+		insertAfterInNaturalBlocks(WWItems.YELLOW_MESOGLEA, WWItems.LIME_MESOGLEA);
 
 		// NEMATOCYST
 		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.PEARLESCENT_BLUE_NEMATOCYST);
@@ -333,7 +333,7 @@ public final class WWCreativeInventorySorting {
 
 		// ICE
 		insertAfterInNaturalBlocks(Items.ICE, WWItems.FRAGILE_ICE);
-		// TODO ICICLE
+		insertAfterInNaturalBlocks(Items.BLUE_ICE, WWItems.ICICLE);
 
 		// MUD BRICKS
 		insertAfterInBuildingBlocks(Items.MUD_BRICKS, WWItems.CRACKED_MUD_BRICKS);
@@ -350,19 +350,19 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingBlocks(WWItems.SCULK_SLAB, WWItems.SCULK_WALL);
 		insertAfterInBuildingBlocks(WWItems.SCULK_WALL, WWItems.OSSEOUS_SCULK);
 		insertAfterInNaturalBlocks(Items.SCULK, WWItems.OSSEOUS_SCULK);
-		// TODO HANGING_TENDRIL
+		insertAfterInNaturalBlocks(Items.SCULK_SENSOR, WWItems.HANGING_TENDRIL);
 
 		// SCORCHED SAND
-		// TODO SCORCHED_SAND
-		// TODO SCORCHED_RED_SAND
+		insertAfterInNaturalBlocks(Items.SAND, WWItems.SCORCHED_SAND);
+		insertAfterInNaturalBlocks(Items.RED_SAND, WWItems.SCORCHED_RED_SAND);
 
 		// STORAGE
-		// TODO STONE_CHEST
-		// TODO DISPLAY_LANTERN
+		insertAfterInFunctionalBlocks(Items.CHEST, WWItems.STONE_CHEST);
+		insertAfterInFunctionalBlocks(Items.SOUL_LANTERN, WWItems.DISPLAY_LANTERN);
 
 		// FUNCTIONAL BLOCK ENTITIES
-		// TODO TERMITE_MOUND
-		// TODO GEOTHERMAL_VENT
+		insertBeforeInNaturalBlocks(Items.BEE_NEST, WWItems.TERMITE_MOUND);
+		insertBeforeInRedstoneBlocks(Items.SCULK_SENSOR, WWItems.GEOTHERMAL_VENT);
 
 		// MISC
 		insertAfterInFunctionalBlocks(Items.TINTED_GLASS, WWItems.ECHO_GLASS);
@@ -377,8 +377,8 @@ public final class WWCreativeInventorySorting {
 		// TODO BUTTERFLY_BOTTLE
 
 		// JELLYFISH
-		// TODO JELLYFISH_SPAWN_EGG
-		// TODO JELLYFISH_BUCKET
+		insertAfterInSpawnEggs(Items.GLOW_SQUID_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
 
 		// CRAB
 		// TODO CRAB_SPAWN_EGG
@@ -404,8 +404,8 @@ public final class WWCreativeInventorySorting {
 		// TODO PENGUIN_SPAWN_EGG
 
 		// GABBRO
-		// TODO GEOTHERMAL_VENT
-		// TODO GABBRO
+		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWItems.GEOTHERMAL_VENT);
+		insertBeforeInNaturalBlocks(WWItems.GEOTHERMAL_VENT, WWItems.GABBRO);
 
 		insertBeforeInBuildingBlocks(Items.BRICKS, WWItems.GABBRO);
 		// TT

@@ -1,0 +1,191 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.mixin.sculk;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import java.util.List;
+import net.frozenblock.lib.block.api.sculk.BooleanPropertySculkBehavior;
+import net.frozenblock.wilderwild.block.impl.SlabWallStairSculkBehavior;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.SculkBehaviour;
+import net.minecraft.world.level.block.SculkSpreader;
+import net.minecraft.world.level.block.SculkVeinBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(SculkSpreader.ChargeCursor.class)
+public class SculkSpreaderChargeCursorMixin {
+
+	@Unique
+	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean isWorldGen) {
+		if (!WWBlockConfig.SCULK_BUILDING_BLOCKS_GENERATION.get()) return false;
+		return isWorldGen
+			? state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE_WORLDGEN) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE_WORLDGEN)
+			: state.is(WWBlockTags.SCULK_STAIR_REPLACEABLE) || state.is(WWBlockTags.SCULK_WALL_REPLACEABLE) || state.is(WWBlockTags.SCULK_SLAB_REPLACEABLE);
+	}
+
+	@Inject(
+		method = "isMovementUnobstructed",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/core/BlockPos;subtract(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/core/BlockPos;",
+			shift = At.Shift.BEFORE
+		),
+		cancellable = true
+	)
+	private static void wilderWild$isMovementUnobstructed(LevelAccessor level, BlockPos from, BlockPos _to, CallbackInfoReturnable<Boolean> info) {
+		if (wilderWild$isReplaceableBuildingBlock(level.getBlockState(_to), false)) info.setReturnValue(true);
+	}
+
+	@Inject(
+		method = "getValidMovementPos",
+		at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/world/level/LevelAccessor;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
+			shift = At.Shift.AFTER
+		),
+		cancellable = true
+	)
+	private static void wilderWild$getValidMovementPos(
+		LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> info,
+		@Local(name = "sculkPosition") BlockPos.MutableBlockPos sculkPosition,
+		@Local(name = "neighbour") BlockPos.MutableBlockPos neighbour
+	) {
+		final BlockState state = level.getBlockState(neighbour);
+		if (!wilderWild$isReplaceableBuildingBlock(state, false) || !isMovementUnobstructed(level, pos, neighbour)) return;
+		sculkPosition.set(neighbour);
+		if (SculkVeinBlock.hasSubstrateAccess(level, state, neighbour)) info.cancel();
+		info.setReturnValue(sculkPosition.equals(pos) ? null : sculkPosition);
+	}
+
+	@Unique
+	private static boolean wilderWild$isMovementUnobstructedWorldgen(LevelAccessor level, BlockPos fromPos, BlockPos toPos) {
+		if (fromPos.distManhattan(toPos) == 1) return true;
+		final BlockState cheatState = level.getBlockState(toPos);
+
+		final boolean isSpreadableStoneChest = cheatState.is(WWBlocks.STONE_CHEST.get()) && !cheatState.getValue(WWBlockStateProperties.HAS_SCULK);
+		if (wilderWild$isReplaceableBuildingBlock(cheatState, true) || isSpreadableStoneChest) return true;
+
+		final BlockPos pos = toPos.subtract(fromPos);
+		final Direction direction = Direction.fromAxisAndDirection(Direction.Axis.X, pos.getX() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		final Direction direction2 = Direction.fromAxisAndDirection(Direction.Axis.Y, pos.getY() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		final Direction direction3 = Direction.fromAxisAndDirection(Direction.Axis.Z, pos.getZ() < 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE);
+		if (pos.getX() == 0) return isUnobstructed(level, fromPos, direction2) || isUnobstructed(level, fromPos, direction3);
+		if (pos.getY() == 0) return isUnobstructed(level, fromPos, direction) || isUnobstructed(level, fromPos, direction3);
+		return isUnobstructed(level, fromPos, direction) || isUnobstructed(level, fromPos, direction2);
+	}
+
+	@Unique
+	private static BlockPos wilderWild$getValidMovementPosWorldgen(LevelAccessor level, BlockPos pos, RandomSource random) {
+		final BlockPos.MutableBlockPos mutable1 = pos.mutable();
+		final BlockPos.MutableBlockPos mutable2 = pos.mutable();
+		for (Vec3i vec3i : getRandomizedNonCornerNeighbourOffsets(random)) {
+			final BlockState state = level.getBlockState(mutable2.setWithOffset(pos, vec3i));
+			boolean canReturn = false;
+			if (wilderWild$isReplaceableBuildingBlock(state, true) && wilderWild$isMovementUnobstructedWorldgen(level, pos, mutable2)) {
+				mutable1.set(mutable2);
+				canReturn = true;
+				if (SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) return mutable1.equals(pos) ? null : mutable1;
+			}
+
+			if (canReturn) return mutable1.equals(pos) ? null : mutable1;
+
+			if (!(state.getBlock() instanceof SculkBehaviour) || !isMovementUnobstructed(level, pos, mutable2)) continue;
+			mutable1.set(mutable2);
+			if (!SculkVeinBlock.hasSubstrateAccess(level, state, mutable2)) continue;
+			break;
+		}
+		return mutable1.equals(pos) ? null : mutable1;
+	}
+
+	@Inject(method = "update", at = @At("HEAD"))
+	private void wilderWild$newSculkBehaviour(
+		LevelAccessor level, BlockPos originPos, RandomSource random, SculkSpreader spreader, boolean spreadVeins, CallbackInfo info,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		isWorldGen.set(spreader.isWorldGeneration());
+	}
+
+	@WrapOperation(
+		method = "update",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getBlockBehaviour(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SculkBehaviour;"
+		)
+	)
+	private SculkBehaviour wilderWild$newSculkBehaviour(
+		BlockState state, Operation<SculkBehaviour> operation,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		if (isWorldGen.get()) {
+			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new SlabWallStairSculkBehavior();
+			if (state.is(WWBlocks.STONE_CHEST.get())) return new BooleanPropertySculkBehavior(WWBlockStateProperties.HAS_SCULK, true);
+		} else {
+			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new SlabWallStairSculkBehavior();
+		}
+		return operation.call(state);
+	}
+
+	@WrapOperation(
+		method = "update",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"
+		)
+	)
+	private BlockPos wilderWild$newValidMovementPos(
+		LevelAccessor level, BlockPos pos, RandomSource random, Operation<BlockPos> operation,
+		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
+	) {
+		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(level, pos, random);
+		return operation.call(level, pos, random);
+	}
+
+	@Shadow
+	private static boolean isMovementUnobstructed(LevelAccessor level, BlockPos from, BlockPos _to) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	@Shadow
+	private static List<Vec3i> getRandomizedNonCornerNeighbourOffsets(RandomSource random) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+	@Shadow
+	private static boolean isUnobstructed(LevelAccessor level, BlockPos pos, Direction direction) {
+		throw new AssertionError("Mixin injection failed - WilderWild SculkSpreaderChargeCursorMixin.");
+	}
+
+}

@@ -23,48 +23,31 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.entity.api.category.entrypoint.FrozenMobCategoryEntrypoint;
 import net.frozenblock.lib.entity.impl.category.FrozenMobCategory;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.registry.WWActivities;
-import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWDataComponents;
-import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWFabricCreativeInventorySorting;
-import net.frozenblock.wilderwild.registry.WWFabricDataComponents;
 import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWFeatures;
-import net.frozenblock.wilderwild.registry.WWGameEvents;
-import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
-import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
-import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
-import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWildFabric extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
@@ -80,14 +63,12 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWFabricDataComponents.init();
 		WWFabricBlocks.init();
 		WWFabricItems.init();
 		WWSoundTypes.init();
-		WWBlockEntityTypes.init();
+		WWParticleTypes.linkLeafParticles();
 		WWFabricMemoryModuleTypes.init();
 		WWLootTables.init();
-		WWParticleTypes.init();
 		WWMobEffects.init();
 		WWPotions.init();
 		WWCriteria.init();
@@ -98,10 +79,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWFabricBlocks.registerBlockProperties();
 		WWAdvancementModifications.init();
 		WWStructureModifications.init();
-
-		WWWindDisturbances.init();
-		WWWindManagerExtension.init();
-		WWSoundPredicates.init();
 
 		WWModIntegrations.init();
 		WWNetworking.init();

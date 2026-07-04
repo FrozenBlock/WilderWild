@@ -81,14 +81,14 @@ public final class WWCookRecipeProvider {
 			.unlockedBy("has_willow_leaves", provider.has(WWItems.WILLOW_LEAVES))
 			.save(output);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_yellow_maple_leaves", provider.has(WWFabricItems.YELLOW_MAPLE_LEAVES))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_yellow_maple_leaves", provider.has(WWItems.YELLOW_MAPLE_LEAVES))
 			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_orange_maple_leaves", provider.has(WWFabricItems.ORANGE_MAPLE_LEAF_LITTER))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_orange_maple_leaves", provider.has(WWItems.ORANGE_MAPLE_LEAF_LITTER))
 			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWFabricItems.RED_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWFabricItems.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_red_maple_leaves", provider.has(WWFabricItems.RED_MAPLE_LEAVES))
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.RED_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
+			.unlockedBy("has_red_maple_leaves", provider.has(WWItems.RED_MAPLE_LEAVES))
 			.save(output);
 	}
 

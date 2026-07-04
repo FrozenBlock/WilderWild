@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -193,8 +194,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
-		// TODO NEOFORGE LOOT TABLES
-		/*dropFromBlockInteractLootTable(
+		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SHRUB,
 			state,
@@ -202,7 +202,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 			stack,
 			user,
 			(serverLevelx, itemStackx) -> popResource(serverLevelx, pos, itemStackx)
-		);*/
+		);
 	}
 
 	@Override

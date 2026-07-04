@@ -132,7 +132,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		final Vec3 centerPos = Vec3.atCenterOf(pos);
 		serverLevel.sendParticles(
-			WWParticleTypes.CHEST_BUBBLE_SPAWNER,
+			WWParticleTypes.CHEST_BUBBLE_SPAWNER.get(),
 			centerPos.x(), centerPos.y(), centerPos.z(),
 			1,
 			0D, 0D, 0D,

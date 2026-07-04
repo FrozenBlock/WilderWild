@@ -105,7 +105,7 @@ public final class WWVillagerTrades {
 			context,
 			FISHERMAN_5_JELLYFISH_EMERALD,
 			new VillagerTrade(
-				new TradeCost(WWFabricItems.JELLYFISH_BUCKET, 4),
+				new TradeCost(WWItems.JELLYFISH_BUCKET, 4),
 				new ItemStackTemplate(Items.EMERALD),
 				12,
 				30,
@@ -161,7 +161,7 @@ public final class WWVillagerTrades {
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_COCONUT,
-			emeraldTrade(5, WWFabricItems.COCONUT, 1, 8, 1)
+			emeraldTrade(5, WWItems.COCONUT, 1, 8, 1)
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_MAPLE_LOG,
@@ -228,7 +228,7 @@ public final class WWVillagerTrades {
 
 		context.register(
 			WANDERING_TRADER_EMERALD_ICICLE,
-			emeraldTrade(1, WWFabricItems.ICICLE, 2, 5, 1)
+			emeraldTrade(1, WWItems.ICICLE, 2, 5, 1)
 		);
 
 		context.register(
@@ -253,12 +253,12 @@ public final class WWVillagerTrades {
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_PLANKTON,
-			emeraldTrade(1, WWFabricItems.PLANKTON, 2, 5, 1)
+			emeraldTrade(1, WWItems.PLANKTON, 2, 5, 1)
 		);
 
 		context.register(
 			WANDERING_TRADER_EMERALD_GEOTHERMAL_VENT,
-			emeraldTrade(6, WWFabricItems.GEOTHERMAL_VENT, 1, 4, 1)
+			emeraldTrade(6, WWItems.GEOTHERMAL_VENT, 1, 4, 1)
 		);
 	}
 

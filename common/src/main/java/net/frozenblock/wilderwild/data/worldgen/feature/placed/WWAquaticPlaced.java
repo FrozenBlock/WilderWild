@@ -23,6 +23,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -242,8 +243,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
-					BlockPredicate.wouldSurvive(Blocks.FROGSPAWN.defaultBlockState(), BlockPos.ZERO), // todo remove
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.get().defaultBlockState(), BlockPos.ZERO),
 
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
@@ -262,9 +262,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
-					BlockPredicate.wouldSurvive(Blocks.FROGSPAWN.defaultBlockState(), BlockPos.ZERO), // todo remove
-
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.get().defaultBlockState(), BlockPos.ZERO),
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
 			)
@@ -282,8 +280,7 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(Blocks.WATER),
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.defaultBlockState(), BlockPos.ZERO),
-					BlockPredicate.wouldSurvive(Blocks.FROGSPAWN.defaultBlockState(), BlockPos.ZERO), // todo remove
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.get().defaultBlockState(), BlockPos.ZERO),
 
 					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE))
 				)
@@ -302,8 +299,8 @@ public final class WWAquaticPlaced {
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.WATER)
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.get().defaultBlockState(), BlockPos.ZERO)
 				)
 			)
 		);
@@ -319,8 +316,8 @@ public final class WWAquaticPlaced {
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.WATER)
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.get().defaultBlockState(), BlockPos.ZERO)
 				)
 			)
 		);
@@ -336,8 +333,8 @@ public final class WWAquaticPlaced {
 			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.WATER)
-					//TODO NEOFORGE PORT BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.defaultBlockState(), BlockPos.ZERO)
+					BlockPredicate.matchesBlocks(Blocks.WATER),
+					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.get().defaultBlockState(), BlockPos.ZERO)
 				)
 			)
 		);

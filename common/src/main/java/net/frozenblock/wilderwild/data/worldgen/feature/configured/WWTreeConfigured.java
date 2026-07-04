@@ -53,6 +53,7 @@ import net.frozenblock.wilderwild.levelgen.trunkplacers.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.StraightWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.WillowTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
@@ -2928,8 +2929,7 @@ public final class WWTreeConfigured {
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerBirch(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.BIRCH_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 43, 4, 2, 75, 2, 2);
+		return registerTree(name, WWBlocks.BIRCH_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerOak(String name) {
@@ -2937,42 +2937,34 @@ public final class WWTreeConfigured {
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerDarkOak(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.DARK_OAK_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
+		return registerTree(name, WWBlocks.DARK_OAK_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerWillow(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.WILLOW_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
+		return registerTree(name, WWBlocks.WILLOW_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerSpruce(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.SPRUCE_LEAF_LITTER, 48, 4, 2, 75, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 48, 4, 2, 75, 2, 2);
+		return registerTree(name, WWBlocks.SPRUCE_LEAF_LITTER.get(), 48, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerBaobab(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.BAOBAB_LEAF_LITTER, 175, 8, 3, 280, 6, 3);
-		return registerTree(name, Blocks.LEAF_LITTER, 175, 8, 3, 280, 6, 3);
+		return registerTree(name, WWBlocks.BAOBAB_LEAF_LITTER.get(), 175, 8, 3, 280, 6, 3);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerPalm(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.PALM_FROND_LITTER, 32, 4, 2, 68, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 32, 4, 2, 68, 2, 2);
+		return registerTree(name, WWBlocks.PALM_FROND_LITTER.get(), 32, 4, 2, 68, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerCypress(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.CYPRESS_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 43, 4, 2, 75, 2, 2);
+		return registerTree(name, WWBlocks.CYPRESS_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerJungle(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.JUNGLE_LEAF_LITTER, 43, 4, 2, 75, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 43, 4, 2, 75, 2, 2);
+		return registerTree(name, WWBlocks.JUNGLE_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibConfiguredTreeFeature registerMangrove(String name) {
-		//TODO NEOFORGE PORT return registerTree(name, WWBlocks.MANGROVE_LEAF_LITTER, 96, 4, 2, 150, 2, 2);
-		return registerTree(name, Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
+		return registerTree(name, WWBlocks.MANGROVE_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 }

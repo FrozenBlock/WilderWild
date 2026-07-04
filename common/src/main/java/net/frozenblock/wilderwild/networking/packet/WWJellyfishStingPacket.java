@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.networking.packet;
 
 import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -27,7 +27,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public record WWJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
 	public static final Type<WWJellyfishStingPacket> PACKET_TYPE = new Type<>(WWConstants.id("jellyfish_sting"));
-	public static final StreamCodec<FriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby).cast();
+	public static final StreamCodec<RegistryFriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby).cast();
 
 	public static void sendTo(ServerPlayer player, boolean isBaby) {
 		FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(player, new WWJellyfishStingPacket(isBaby));

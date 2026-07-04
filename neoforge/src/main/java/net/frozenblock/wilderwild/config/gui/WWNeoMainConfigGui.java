@@ -28,7 +28,7 @@ public final class WWNeoMainConfigGui {
 		WWBlockConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("block")), entryBuilder);
 		//WWEntityConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("entity")), entryBuilder);
 		WWItemConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("item")), entryBuilder);
-		//WWWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("worldgen")), entryBuilder);
+		WWWorldgenConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("worldgen")), entryBuilder);
 		WWAmbienceAndMiscConfigGui.setupEntries(configBuilder.getOrCreateCategory(text("misc")), entryBuilder);
 
 		return configBuilder.build();

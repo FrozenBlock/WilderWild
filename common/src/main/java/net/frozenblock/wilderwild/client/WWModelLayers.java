@@ -4,12 +4,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
+import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.NoopRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 
 @Environment(EnvType.CLIENT)
@@ -64,9 +69,36 @@ public final class WWModelLayers {
 		blockEntityRenderers.register(BlockEntityTypes.SCULK_SENSOR, SculkSensorRenderer::new);
 		blockEntityRenderers.register(BlockEntityTypes.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
 		modelRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorModel::createModelLayer);
+
+		// TODO BUTTERFLY
+
+		modelRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
+		modelRegistry.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
+
+		// TODO TUMBLEWEED
+		// TODO CRAB
+		// TODO OSTRICH
+		// TODO SCORCHED
+		// TODO MOOBLOOM
+		// TODO PENGUIN
+		// TODO COCONUT
+		// TODO HANGING TENDRIL
+		// TODO DISPLAY LANTERN
+		// TODO STONE CHEST
+
+		// TODO BOATS
 	}
 
 	public static void setupInit() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY.get(), FireflyRenderer::new);
+		EntityRenderers.register(WWEntityTypes.JELLYFISH.get(), JellyfishRenderer::new);
+		// TODO TUMBLEWEED
+		// TODO CRAB
+		// TODO OSTRICH
+		// TODO SCORCHED
+		// TODO MOOBLOOM
+		// TODO PENGUIN
+		EntityRenderers.register(WWEntityTypes.COCONUT.get(), ThrownItemRenderer::new);
+		EntityRenderers.register(WWEntityTypes.FALLING_LEAVES.get(), NoopRenderer::new);
 	}
 }

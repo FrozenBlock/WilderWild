@@ -5,7 +5,10 @@ import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.FallingLeafTicker;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
@@ -38,6 +41,59 @@ public final class WWEntityTypes {
 			);
 		}
 	);
+
+	// TODO BUTTERFLY
+	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
+		Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
+		builder -> builder
+			.sized(0.4F, 0.4F)
+			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
+			.clientTrackingRange(10),
+		entityType -> {
+			FrozenDefaultAttributeRegistry.register(entityType, Jellyfish.createAttributes());
+			SpawnPlacements.register(
+				entityType,
+				SpawnPlacementTypes.IN_WATER,
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				Jellyfish::checkJellyfishSpawnRules
+			);
+		}
+	);
+	// TODO TUMBLEWEED
+	// TODO CRAB
+	// TODO OSTRICH
+	// TODO ZOMBIE_OSTRICH
+	// TODO SCORCHED
+	// TODO MOOBLOOM
+	// TODO PENGUIN
+	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT,
+		CoconutProjectile::new, MobCategory.MISC,
+		builder -> builder
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(4)
+			.updateInterval(20),
+		entityType -> {}
+	);
+
+	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
+		FallingLeafTicker::new, MobCategory.MISC,
+		builder -> builder
+			.sized(0F, 0F)
+			.clientTrackingRange(0),
+		entityType -> {}
+	);
+
+	// BOATS
+	// TODO BAOBAB_BOAT
+	// TODO BAOBAB_CHEST_BOAT
+	// TODO WILLOW_BOAT
+	// TODO WILLOW_CHEST_BOAT
+	// TODO CYPRESS_BOAT
+	// TODO CYPRESS_CHEST_BOAT
+	// TODO PALM_BOAT
+	// TODO PALM_CHEST_BOAT
+	// TODO MAPLE_BOAT
+	// TODO MAPLE_CHEST_BOAT
 
 	public static void init() {}
 

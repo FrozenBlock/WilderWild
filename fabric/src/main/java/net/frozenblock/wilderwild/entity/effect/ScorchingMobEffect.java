@@ -51,7 +51,7 @@ public class ScorchingMobEffect extends MobEffect {
 		ToIntFunction<RandomSource> fireDurationInSeconds,
 		ToIntFunction<RandomSource> maxFires
 	) {
-		super(type, color, WWParticleTypes.SCORCHING_FLAME);
+		super(type, color, WWParticleTypes.SCORCHING_FLAME.get());
 		this.chanceToScorch = chanceToScorch;
 		this.fireDurationInSeconds = fireDurationInSeconds;
 		this.maxFires = maxFires;

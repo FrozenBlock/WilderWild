@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.levelgen.modification;
 
+import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
@@ -31,8 +33,9 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 public final class WWSpawns {
 
 	public static void addBugs() {
-		//TODO NEOFORGE PORT BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
-		//TODO NEOFORGE PORT 	FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY, 1, 4, 8);
+		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY.get(), 1, 4, 8
+		);
 
 		BiomeModifications.create(WWConstants.id("butterfly_spawns")).add(
 			ModificationPhase.ADDITIONS,
@@ -74,17 +77,15 @@ public final class WWSpawns {
 			(selectionContext, modificationContext) -> {
 				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
-				//TODO NEOFORGE PORT
-				/*
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH, 1, 1),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH.get(), 1, 1),
 					2
 				);
 
 				double jellyfishCharge = 0.3D;
 				if (!selectionContext.hasTag(WWBiomeTags.JELLYFISH_COMMON_SPAWN)) jellyfishCharge = 1.3D;
-				spawnSettings.addMobCharge(WWEntityTypes.JELLYFISH, jellyfishCharge, 0.15D);*/
+				spawnSettings.addMobCharge(WWEntityTypes.JELLYFISH.get(), jellyfishCharge, 0.15D);
 			}
 		);
 	}

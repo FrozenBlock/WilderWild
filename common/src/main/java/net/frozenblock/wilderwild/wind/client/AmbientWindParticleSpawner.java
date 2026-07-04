@@ -1,0 +1,144 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.wind.client;
+
+import com.mojang.datafixers.util.Pair;
+import java.util.List;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.frozenblock.lib.event.api.events.ClientTickEvents;
+import net.frozenblock.lib.particle.options.WindParticleOptions;
+import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
+import net.frozenblock.lib.wind.WindManager;
+import net.frozenblock.lib.wind.disturbance.WindDisturbances;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
+
+@Environment(EnvType.CLIENT)
+public final class AmbientWindParticleSpawner {
+
+	public static void init() {
+		ClientTickEvents.START_LEVEL_TICK.register(AmbientWindParticleSpawner::animateTick);
+	}
+
+	public static void animateTick(ClientLevel level) {
+		final Minecraft minecraft = Minecraft.getInstance();
+		if (minecraft.level != level) return;
+
+		final BlockPos cameraPos = minecraft.gameRenderer.mainCamera().blockPosition();
+		final RandomSource random = level.getRandom();
+		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+
+		if (WWAmbienceAndMiscConfig.WIND_PARTICLES.get()) {
+			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
+				spawnAmbientWindParticles(level, cameraPos.getX(), cameraPos.getY(), cameraPos.getZ(), 48, random, mutable, true);
+			}
+		}
+
+		if (WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLES.get()) {
+			for (int i = 0; i < WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_SPAWN_ATTEMPTS.get(); ++i) {
+				spawnDisturbanceWindParticles(level, cameraPos.getX(), cameraPos.getY(), cameraPos.getZ(), 48, random, mutable);
+			}
+		}
+	}
+
+	public static void spawnAmbientWindParticles(
+		ClientLevel level,
+		int posX, int posY, int posZ,
+		int range,
+		RandomSource random,
+		BlockPos.MutableBlockPos mutable,
+		boolean allowAdditional
+	) {
+		final int highestPossibleY = posY + range;
+		final int x = posX + random.nextIntBetweenInclusive(-range, range);
+		int y = posY;
+		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
+		mutable.set(x, y, z);
+
+		mutable.set(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, mutable));
+		final int heightmapY = mutable.getY();
+
+		if (heightmapY > highestPossibleY) return;
+
+		if (heightmapY < posY - range) {
+			y += random.nextInt(range) - random.nextInt(range);
+		} else {
+			final double differenceInPoses = highestPossibleY - heightmapY;
+			if (random.nextDouble() >= (differenceInPoses / (range * 2D))) return;
+			y = random.nextIntBetweenInclusive(heightmapY, highestPossibleY);
+		}
+		mutable.set(x, y, z);
+
+		final Vec3 wind = WindManager.getOrCreate(level).getWindMovement(Vec3.atCenterOf(mutable), 1D, 2D, 2D);
+		final double horizontalWind = wind.horizontalDistance();
+		if (random.nextDouble() >= (horizontalWind * WWAmbienceAndMiscConfig.WIND_PARTICLE_FREQUENCY.get() * 0.01D)) return;
+
+		spawnWindParticle(level, random.nextIntBetweenInclusive(10, 20), horizontalWind, wind, 0.0015D, x, y, z, random);
+
+		if (!allowAdditional || !WWAmbienceAndMiscConfig.WIND_CLUSTERS.get()) return;
+		final int additionalSpawnAttempts = Math.min((int) (horizontalWind * 6D), WWAmbienceAndMiscConfig.WIND_CLUSTER_MAX_SPAWN_ATTEMPTS.get());
+		if (additionalSpawnAttempts <= 0) return;
+
+		level.addParticle(
+			new WindClusterSeedParticleOptions(random.nextIntBetweenInclusive(10, 17), additionalSpawnAttempts),
+			x + 0.5D, y + 0.5D, z + 0.5D,
+			0D, 0D, 0D
+		);
+	}
+
+	public static void spawnDisturbanceWindParticles(
+		ClientLevel level,
+		int posX, int posY, int posZ,
+		int range,
+		RandomSource random,
+		BlockPos.MutableBlockPos blockPos
+	) {
+		final int x = posX + random.nextIntBetweenInclusive(-range, range);
+		final int y = posY + random.nextIntBetweenInclusive(-range, range);
+		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
+		blockPos.set(x, y, z);
+
+		final List<Pair<DataAttachmentTarget, WindDisturbances>> windDisturbances = WindManager.getOrCreate(level).getWindDisturbances();
+		if (windDisturbances.isEmpty()) return;
+
+		final BlockState state = level.getBlockState(blockPos);
+		if (state.isCollisionShapeFullBlock(level, blockPos)) return;
+
+		final Vec3 wind = WindManager.getOrCreate(level).getRawDisturbanceMovement(Vec3.atCenterOf(blockPos));
+		final double windLength = wind.length();
+		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_FREQUENCY.get() * 0.01D)) return;
+
+		spawnWindParticle(level, 10, windLength, wind, 0.003D, x, y, z, random);
+	}
+
+	public static void spawnWindParticle(ClientLevel level, int minLifespan, double windStrength, Vec3 wind, double windYScale, int x, int y, int z, RandomSource random) {
+		level.addParticle(
+			new WindParticleOptions((int) (minLifespan + (windStrength * 30D)), wind.x * 0.01D, wind.y * windYScale, wind.z * 0.01D),
+			x + random.triangle(0.5D, 0.3D), y + random.triangle(0.5D, 0.3D), z + random.triangle(0.5D, 0.3D),
+			0D, 0D, 0D
+		);
+	}
+}

@@ -1,0 +1,229 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.registry;
+
+import net.frozenblock.lib.item.api.loot.FrozenLibLootTableBuilder;
+import net.frozenblock.lib.item.api.loot.FrozenLibLootTableEvents;
+import net.frozenblock.lib.item.api.removable.RemovableItemTags;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
+public final class WWLootTables {
+	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
+	public static final ResourceKey<LootTable> SHEAR_PRICKLY_PEAR = register("shearing/prickly_pear");
+	public static final ResourceKey<LootTable> SHEAR_RED_SHELF_FUNGI = register("shearing/red_shelf_fungi");
+	public static final ResourceKey<LootTable> SHEAR_BROWN_SHELF_FUNGI = register("shearing/brown_shelf_fungi");
+	public static final ResourceKey<LootTable> SHEAR_PALE_SHELF_FUNGI = register("shearing/pale_shelf_fungi");
+	public static final ResourceKey<LootTable> SHEAR_CRIMSON_SHELF_FUNGI = register("shearing/crimson_shelf_fungi");
+	public static final ResourceKey<LootTable> SHEAR_WARPED_SHELF_FUNGI = register("shearing/warped_shelf_fungi");
+	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
+	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
+
+	public static void init() {
+		// SHIPWRECK
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
+				final LootPool.Builder pool = LootPool.lootPool();
+
+				boolean modified = false;
+				if (WWWorldgenConfig.ALGAE_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.ALGAE.get().asItem())
+							.setWeight(4)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
+					);
+					modified = true;
+				}
+
+				if (WWWorldgenConfig.PLANKTON_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.PLANKTON.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+					);
+					modified = true;
+				}
+
+				if (WWWorldgenConfig.BARNACLES_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.BARNACLES.get().asItem())
+							.setWeight(3)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+					);
+					modified = true;
+				}
+
+				if (WWWorldgenConfig.TUBE_WORMS_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.UNCOMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+					);
+					modified = true;
+				}
+
+				if (WWWorldgenConfig.SEA_ANEMONE_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.get().asItem())
+							.setWeight(2)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 6F)))
+					);
+					modified = true;
+				}
+
+				if (WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+					);
+
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_CARPET.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+					);
+
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.AUBURN_CREEPING_MOSS.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+					);
+
+					modified = true;
+				}
+
+				if (modified) {
+					pool.setRolls(UniformGenerator.between(2, 5));
+					tableBuilder.withPool(pool);
+				}
+			}
+		});
+
+		// SAVANNA VILLAGE
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
+				((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+					builder.add(
+						LootItem.lootTableItem(WWItems.BAOBAB_NUT)
+							.setWeight(2)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+					).add(
+						LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.get().asItem())
+							.setWeight(2)
+							.setQuality(Rarity.COMMON.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+					);
+				});
+			}
+		});
+
+		// DESERT VILLAGE
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
+				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
+					((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+						builder.add(
+							LootItem.lootTableItem(WWItems.COCONUT)
+								.setWeight(2)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						).add(
+							LootItem.lootTableItem(WWBlocks.PALM_LOG.get().asItem())
+								.setWeight(2)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+						);
+					});
+				}
+
+				if (WWWorldgenConfig.CACTUS_GENERATION.get()) {
+					((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+						builder.add(
+							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)
+								.setWeight(1)
+								.setQuality(Rarity.COMMON.ordinal() + 1)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
+						);
+					});
+				}
+			}
+		});
+
+		// ANCIENT CITY
+		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
+				if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return;
+
+				final LootPool.Builder pool = LootPool.lootPool();
+				if (WWBlockConfig.OSSEOUS_SCULK_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)))
+					);
+				}
+				if (WWBlockConfig.TENDRIL_GENERATION.get()) {
+					pool.add(
+						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.get().asItem())
+							.setWeight(1)
+							.setQuality(Rarity.RARE.ordinal() + 1)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+					);
+				}
+
+				pool.setRolls(UniformGenerator.between(1, 5));
+				tableBuilder.withPool(pool);
+			}
+		});
+
+		// STONE CHEST
+		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
+			if (!(container instanceof StoneChestBlockEntity)) return;
+			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
+		});
+		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
+	}
+
+	private static ResourceKey<LootTable> register(String name) {
+		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(name));
+	}
+}

@@ -184,7 +184,7 @@ public final class WWAdvancementModifications {
 
 					if (WWEntityConfig.SPAWN_JELLYFISH.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("jellyfish_bucket"), CriteriaTriggers.FILLED_BUCKET.createCriterion(
-							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.JELLYFISH_BUCKET)).triggerInstance())
+							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("crab_bucket"), WWConstants.string("jellyfish_bucket")));
 					}

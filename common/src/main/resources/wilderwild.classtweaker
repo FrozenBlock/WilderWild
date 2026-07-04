@@ -39,6 +39,9 @@ accessible method net/minecraft/world/level/block/DoorBlock <init> (Lnet/minecra
 accessible method net/minecraft/world/level/block/TrapDoorBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/TreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible field net/minecraft/world/level/block/MultifaceSpreader config Lnet/minecraft/world/level/block/MultifaceSpreader$SpreadConfig;
+accessible method net/minecraft/world/level/block/SculkSensorBlock updateNeighbours (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible field net/minecraft/world/level/block/state/BlockBehaviour UPDATE_SHAPE_ORDER [Lnet/minecraft/core/Direction;
+accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 
 # Items
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
@@ -62,6 +65,9 @@ accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/mine
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
+extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
+accessible method net/minecraft/world/entity/projectile/arrow/AbstractArrow isInGround ()Z
+accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
@@ -82,6 +88,7 @@ accessible method net/minecraft/world/level/block/grower/TreeGrower getConfigure
 accessible method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
 extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
 extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredMegaFeature (Lnet/minecraft/util/RandomSource;)Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/world/level/levelgen/feature/MultifaceGrowthFeature isAirOrWater (Lnet/minecraft/world/level/block/state/BlockState;)Z
 
 # Biomes
 transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDERWILD_TUNDRA
@@ -93,6 +100,17 @@ accessible method net/minecraft/client/data/models/BlockModelGenerators createMi
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
 accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+accessible field net/minecraft/client/particle/Particle yd D
+accessible field net/minecraft/client/particle/Particle xd D
+accessible field net/minecraft/client/particle/Particle zd D
+accessible field net/minecraft/client/particle/Particle friction F
+accessible field net/minecraft/client/particle/Particle stoppedByCollision Z
 
 transitive-accessible method net/minecraft/SharedConstants debugFlag (Ljava/lang/String;)Z
 transitive-mutable field net/minecraft/world/flag/FeatureFlags REGISTRY Lnet/minecraft/world/flag/FeatureFlagRegistry;
+
+# Data Attachment
+inject-interface net/minecraft/world/level/block/entity/BlockEntity net/frozenblock/lib/platform/api/data/DataAttachmentTarget
+inject-interface net/minecraft/world/level/chunk/ChunkAccess net/frozenblock/lib/platform/api/data/DataAttachmentTarget
+inject-interface net/minecraft/world/entity/Entity net/frozenblock/lib/platform/api/data/DataAttachmentTarget
+inject-interface net/minecraft/world/level/Level net/frozenblock/lib/platform/api/data/DataAttachmentTarget

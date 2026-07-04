@@ -62,16 +62,16 @@ public final class WWNaturalRecipeProvider {
 			.unlockedBy(RecipeProvider.getHasName(WWItems.PRICKLY_PEAR), provider.has(WWItems.PRICKLY_PEAR))
 			.save(output);
 
-		provider.stonecutterResultFromBase(RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWFabricItems.COCONUT, 2);
+		provider.stonecutterResultFromBase(RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWItems.COCONUT, 2);
 
 		provider.shaped(RecipeCategory.MISC, Items.STRING)
-			.define('#', WWFabricItems.MILKWEED_POD)
+			.define('#', WWItems.MILKWEED_POD)
 			.group("string")
 			.pattern("###")
 			.pattern("###")
 			.pattern("###")
-			.unlockedBy(RecipeProvider.getHasName(WWFabricItems.MILKWEED_POD), provider.has(WWFabricItems.MILKWEED_POD))
-			.save(output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.STRING, WWFabricItems.MILKWEED_POD)));
+			.unlockedBy(RecipeProvider.getHasName(WWItems.MILKWEED_POD), provider.has(WWItems.MILKWEED_POD))
+			.save(output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.STRING, WWItems.MILKWEED_POD)));
 
 		provider.shaped(RecipeCategory.MISC, Items.STRING)
 			.define('#', Ingredient.of(WWItems.CATTAIL))
@@ -83,7 +83,7 @@ public final class WWNaturalRecipeProvider {
 
 		provider.carpet(WWItems.AUBURN_MOSS_CARPET, WWItems.AUBURN_MOSS_BLOCK);
 
-		provider.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWFabricItems.ICICLE);
+		provider.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWItems.ICICLE);
 	}
 
 }

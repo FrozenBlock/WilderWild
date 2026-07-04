@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.ShelfFungiFeatureConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -52,10 +53,10 @@ public class ShelfFungiFeature extends Feature<ShelfFungiFeatureConfiguration> {
 
 		level.setBlock(
 			pos,
-			config.placeBlock.defaultBlockState(),
-				//TODO NEOFORGE PORT .setValue(ShelfFungiBlock.FACING, placementDirection)
-				//TODO NEOFORGE PORT .setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
-				//TODO NEOFORGE PORT .setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
+			config.placeBlock.defaultBlockState()
+				.setValue(ShelfFungiBlock.FACING, placementDirection)
+				.setValue(ShelfFungiBlock.FACE, ShelfFungiBlock.getFace(placementDirection.getOpposite()))
+				.setValue(ShelfFungiBlock.STAGE, random.nextInt(1, ShelfFungiBlock.MAX_STAGE)),
 			Block.UPDATE_ALL
 		);
 		level.getChunk(pos).markPosForPostProcessing(pos);

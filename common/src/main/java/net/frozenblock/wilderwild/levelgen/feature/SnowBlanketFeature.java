@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 import com.mojang.serialization.Codec;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.impl.SnowyBlockUtils;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -70,8 +71,6 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
 		if (!biome.shouldSnow(level, mutable1)) return SnowGenerationState.CONTINUE;
 
-		//TODO NEOFORGE PORT
-		/*
 		final BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(mutable1), mutable1);
 		if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
 			level.setBlock(mutable1, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
@@ -82,7 +81,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 		final BlockState belowState = level.getBlockState(mutable2.setWithOffset(mutable1, Direction.DOWN));
 		if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
 			level.setBlock(mutable2, belowState.setValue(BlockStateProperties.SNOWY, true), Block.UPDATE_CLIENTS);
-		}*/
+		}
 
 		return SnowGenerationState.CONTINUE;
 	}

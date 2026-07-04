@@ -38,6 +38,7 @@ import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.BarnaclesBlock;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.block.CoconutBlock;
+import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.FragileIceBlock;
@@ -46,28 +47,43 @@ import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.FrozenBushBlock;
 import net.frozenblock.wilderwild.block.FrozenDoublePlantBlock;
 import net.frozenblock.wilderwild.block.FrozenTallGrassBlock;
+import net.frozenblock.wilderwild.block.GeothermalVentBlock;
+import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
+import net.frozenblock.wilderwild.block.IcicleBlock;
+import net.frozenblock.wilderwild.block.LeavesWithLitterBlock;
+import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
+import net.frozenblock.wilderwild.block.PaleMushroomBlock;
+import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
+import net.frozenblock.wilderwild.block.PlanktonBlock;
+import net.frozenblock.wilderwild.block.PollenBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
+import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.block.SculkSlabBlock;
 import net.frozenblock.wilderwild.block.SculkStairBlock;
 import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
 import net.frozenblock.wilderwild.block.SeaWhipBlock;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
+import net.frozenblock.wilderwild.block.StoneChestBlock;
+import net.frozenblock.wilderwild.block.TermiteMoundBlock;
 import net.frozenblock.wilderwild.block.TubeWormsBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
+import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
+import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.minecraft.core.BlockPos;
@@ -75,11 +91,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -171,8 +190,27 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<WallBlock> MOSSY_MUD_BRICK_WALL = REGISTER.registerWall(WWBlockItemIds.MOSSY_MUD_BRICK_WALL, MOSSY_MUD_BRICKS);
 
 	// SAND
-	// TODO SCORCHED_SAND
-	// TODO SCORCHED_RED_SAND
+	public static final FrozenDeferredBlock<ScorchedBlock> SCORCHED_SAND = registerScorchedSand(WWBlockItemIds.SCORCHED_SAND, Blocks.SAND);
+	public static final FrozenDeferredBlock<ScorchedBlock> SCORCHED_RED_SAND = registerScorchedSand(WWBlockItemIds.SCORCHED_RED_SAND, Blocks.RED_SAND);
+
+	public static FrozenDeferredBlock<ScorchedBlock> registerScorchedSand(BlockItemId id, Block base) {
+		return REGISTER.registerBlock(
+			id.block(),
+			properties -> new ScorchedBlock(
+				base.defaultBlockState(),
+				true,
+				SoundEvents.BRUSH_SAND,
+				SoundEvents.BRUSH_SAND_COMPLETED,
+				true,
+				properties
+			),
+			() -> Properties.of()
+				.strength(1.5F)
+				.sound(WWSoundTypes.SCORCHED_SAND)
+				.mapColor(base.defaultMapColor())
+				.randomTicks()
+		);
+	}
 
 	// SAPLINGS
 	public static final FrozenDeferredBlock<BaobabNutBlock> BAOBAB_NUT = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_NUT.block(),
@@ -234,9 +272,18 @@ public final class WWBlocks {
 		properties -> new PalmFrondsBlock(0.005F, properties),
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
-	// TODO YELLOW_MAPLE_LEAVES
-	// TODO ORANGE_MAPLE_LEAVES
-	// TODO RED_MAPLE_LEAVES
+	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
+		LeavesWithLitterBlock::new,
+		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
+	);
+	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
+		LeavesWithLitterBlock::new,
+		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
+	);
+	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
+		LeavesWithLitterBlock::new,
+		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
+	);
 
 	// HOLLOWED LOGS
 	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_OAK_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_OAK_LOG,
@@ -370,34 +417,93 @@ public final class WWBlocks {
 	}
 
 	// LEAF LITTER
-	public static final FrozenDeferredBlock<Block> ACACIA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ACACIA_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> AZALEA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.AZALEA_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> BAOBAB_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BAOBAB_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> BIRCH_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BIRCH_LEAF_LITTER, SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> ACACIA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ACACIA_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> AZALEA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.AZALEA_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> BAOBAB_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BAOBAB_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> BIRCH_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BIRCH_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> CHERRY_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CHERRY_LEAF_LITTER, () -> WWSoundTypes.CHERRY_LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> CYPRESS_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CYPRESS_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> DARK_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.DARK_OAK_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> JUNGLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> MANGROVE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> PALE_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, SoundType.LEAF_LITTER);
-	// TODO YELLOW_MAPLE_LEAF_LITTER
-	// TODO ORANGE_MAPLE_LEAF_LITTER
-	// TODO RED_MAPLE_LEAF_LITTER
+	public static final FrozenDeferredBlock<Block> CYPRESS_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CYPRESS_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> DARK_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.DARK_OAK_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> JUNGLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> MANGROVE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> PALE_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> YELLOW_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER,
+		YELLOW_MAPLE_LEAVES,
+		() -> WWParticleTypes.YELLOW_MAPLE_LEAVES.get()
+	);
+	public static final FrozenDeferredBlock<Block> ORANGE_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER,
+		ORANGE_MAPLE_LEAVES,
+		() -> WWParticleTypes.ORANGE_MAPLE_LEAVES.get()
+	);
+	public static final FrozenDeferredBlock<Block> RED_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.RED_MAPLE_LEAF_LITTER,
+		RED_MAPLE_LEAVES,
+		() -> WWParticleTypes.RED_MAPLE_LEAVES.get()
+	);
 
-	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, SoundType soundType) {
+	public static FrozenDeferredBlock<Block> registerMapleLeafLitter(BlockItemId id, Supplier<? extends Block> sourceBlock, Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType) {
+		return registerLeafLitter(
+			id,
+			sourceBlock,
+			particleType,
+			0.04F,
+			() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
+			5,
+			FallingLeafUtil.LeafMovementType.SWIRL,
+			() -> WWSoundTypes.MAPLE_LEAF_LITTER
+		);
+	}
+
+	public static FrozenDeferredBlock<Block> registerLeafLitter(
+		BlockItemId id,
+		Supplier<? extends Block> sourceBlock,
+		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
+		float litterChance,
+		Supplier<Double> frequencyModifier,
+		int textureSize,
+		FallingLeafUtil.LeafMovementType leafMovementType,
+		Supplier<SoundType> soundType
+	) {
+		return registerLeafLitter(
+			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
+		);
+	}
+
+	public static FrozenDeferredBlock<Block> registerLeafLitter(
+		BlockItemId id,
+		Supplier<? extends Block> sourceBlock,
+		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
+		float litterChance,
+		float particleChance,
+		Supplier<Double> frequencyModifier,
+		int textureSize,
+		float particleGravityScale,
+		float windScale,
+		FallingLeafUtil.LeafMovementType leafMovementType,
+		Supplier<SoundType> soundType
+	) {
+		return registerLeafLitter(id, soundType, block1 -> FallingLeafUtil.registerLeavesWithLitter(
+			sourceBlock.get(),
+			block1,
+			litterChance,
+			particleType.get(),
+			particleChance,
+			frequencyModifier,
+			textureSize,
+			particleGravityScale,
+			windScale,
+			leafMovementType
+		));
+	}
+
+	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
 		return registerLeafLitter(id, soundType, null);
 	}
 
-	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, SoundType soundType, Consumer<Block> also) {
-		return REGISTER.registerBlock(id.block(), LeafLitterBlock::new, () -> Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundType), also);
-	}
-
-	// Some leaf litter blocks use a modded SoundType, which must not resolve before sound events are bound.
-	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
-		return REGISTER.registerBlock(id.block(), LeafLitterBlock::new, () -> Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundType.get()));
+	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType, Consumer<Block> also) {
+		return REGISTER.registerBlock(id.block(), LeafLitterBlock::new, () -> Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundType.get()), also);
 	}
 
 	// SCULK
@@ -414,7 +520,17 @@ public final class WWBlocks {
 			.strength(2F)
 			.sound(WWSoundTypes.OSSEOUS_SCULK)
 	);
-	// TODO HANGING_TENDRIL
+	public static final FrozenDeferredBlock<HangingTendrilBlock> HANGING_TENDRIL = REGISTER.registerBlock(WWBlockItemIds.HANGING_TENDRIL.block(),
+		HangingTendrilBlock::new,
+		() -> Properties.ofFullCopy(Blocks.SCULK_SENSOR)
+			.strength(0.7F)
+			.noCollision()
+			.noOcclusion()
+			.randomTicks()
+			.lightLevel(state -> 1)
+			.sound(WWSoundTypes.HANGING_TENDRIL)
+			.emissiveRendering(HangingTendrilBlock::shouldHavePogLighting)
+	);
 	public static final FrozenDeferredBlock<EchoGlassBlock> ECHO_GLASS = REGISTER.registerBlock(WWBlockItemIds.ECHO_GLASS.block(),
 		EchoGlassBlock::new,
 		() -> Properties.ofFullCopy(Blocks.TINTED_GLASS)
@@ -426,13 +542,113 @@ public final class WWBlocks {
 	);
 
 	// MESOGLEA
-	// TODO PEARLESCENT_BLUE_MESOGLEA
-	// TODO PEARLESCENT_PURPLE_MESOGLEA
-	// TODO YELLOW_MESOGLEA
-	// TODO BLUE_MESOGLEA
-	// TODO LIME_MESOGLEA
-	// TODO RED_MESOGLEA
-	// TODO PINK_MESOGLEA
+	public static final FrozenDeferredBlock<MesogleaBlock> PEARLESCENT_BLUE_MESOGLEA = registerMesoglea(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA,
+		MapColor.QUARTZ,
+		() -> WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_BLUE.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_BLUE.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_BLUE.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_BLUE.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_BLUE.get(),
+		true,
+		Integer.parseInt("B9DAED", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> PEARLESCENT_PURPLE_MESOGLEA = registerMesoglea(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA,
+		MapColor.COLOR_PURPLE,
+		() -> WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_PURPLE.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_PURPLE.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_PURPLE.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_PURPLE.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_PURPLE.get(),
+		true,
+		Integer.parseInt("C6B2F4", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> YELLOW_MESOGLEA = registerMesoglea(WWBlockItemIds.YELLOW_MESOGLEA,
+		MapColor.COLOR_YELLOW,
+		() -> WWParticleTypes.HANGING_MESOGLEA_YELLOW.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_YELLOW.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_YELLOW.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_YELLOW.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_YELLOW.get(),
+		false,
+		Integer.parseInt("FFC958", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> BLUE_MESOGLEA = registerMesoglea(WWBlockItemIds.BLUE_MESOGLEA,
+		MapColor.COLOR_LIGHT_BLUE,
+		() -> WWParticleTypes.HANGING_MESOGLEA_BLUE.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_BLUE.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_BLUE.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_BLUE.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_BLUE.get(),
+		false,
+		Integer.parseInt("596BFF", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> LIME_MESOGLEA = registerMesoglea(WWBlockItemIds.LIME_MESOGLEA,
+		MapColor.COLOR_LIGHT_GREEN,
+		() -> WWParticleTypes.HANGING_MESOGLEA_LIME.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_LIME.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_LIME.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_LIME.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_LIME.get(),
+		false,
+		Integer.parseInt("55EF1B", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> RED_MESOGLEA = registerMesoglea(WWBlockItemIds.RED_MESOGLEA,
+		MapColor.COLOR_RED,
+		() -> WWParticleTypes.HANGING_MESOGLEA_RED.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_RED.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_RED.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_RED.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_RED.get(),
+		false,
+		Integer.parseInt("FD3420", 16)
+	);
+	public static final FrozenDeferredBlock<MesogleaBlock> PINK_MESOGLEA = registerMesoglea(WWBlockItemIds.PINK_MESOGLEA,
+		MapColor.COLOR_PINK,
+		() -> WWParticleTypes.HANGING_MESOGLEA_PINK.get(),
+		() -> WWParticleTypes.MESOGLEA_BUBBLE_PINK.get(),
+		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PINK.get(),
+		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PINK.get(),
+		() -> WWParticleTypes.MESOGLEA_SPLASH_PINK.get(),
+		false,
+		Integer.parseInt("ED87D1", 16)
+	);
+
+	public static FrozenDeferredBlock<MesogleaBlock> registerMesoglea(
+		BlockItemId id,
+		MapColor mapColor,
+		Supplier<ParticleOptions> dripParticle,
+		Supplier<ParticleOptions> bubbleParticle,
+		Supplier<ParticleOptions> bubbleColumnUpParticle,
+		Supplier<ParticleOptions> currentDownParticle,
+		Supplier<ParticleOptions> splashParticle,
+		boolean pearlescent,
+		int waterFogColor
+	) {
+		return REGISTER.registerBlock(
+			id.block(),
+			properties -> new MesogleaBlock(
+				pearlescent,
+				new ColorRGBA(waterFogColor),
+				dripParticle.get(),
+				bubbleParticle.get(),
+				bubbleColumnUpParticle.get(),
+				currentDownParticle.get(),
+				splashParticle.get(),
+				properties
+			),
+			() -> Properties.of()
+				.mapColor(mapColor)
+				.noOcclusion()
+				.strength(0.2F)
+				.friction(0.8F)
+				.lightLevel(state -> 7)
+				.sound(WWSoundTypes.MESOGLEA)
+				.isSuffocating(Blocks::never)
+				.isViewBlocking(Blocks::never)
+				.dynamicShape()
+				.pushReaction(PushReaction.DESTROY)
+		);
+	}
 
 	// NEMATOCYST
 	public static final FrozenDeferredBlock<NematocystBlock> PEARLESCENT_BLUE_NEMATOCYST = registerNematocyst(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST, MapColor.QUARTZ);
@@ -457,10 +673,36 @@ public final class WWBlocks {
 	}
 
 	// MISC
-	// TODO TERMITE_MOUND
-	// TODO STONE_CHEST
+	public static final FrozenDeferredBlock<TermiteMoundBlock> TERMITE_MOUND = REGISTER.registerBlock(WWBlockItemIds.TERMITE_MOUND.block(),
+		TermiteMoundBlock::new,
+		() -> Properties.of()
+			.mapColor(MapColor.COLOR_BROWN)
+			.strength(0.3F)
+			.sound(WWSoundTypes.TERMITE_MOUND)
+			.postProcess(Blocks::postProcessSelf)
+			.randomTicks()
+	);
+	public static final FrozenDeferredBlock<StoneChestBlock> STONE_CHEST = REGISTER.registerBlock(WWBlockItemIds.STONE_CHEST.block(),
+		properties -> new StoneChestBlock(() -> WWBlockEntityTypes.STONE_CHEST.get(), properties),
+		() -> Properties.ofFullCopy(Blocks.CHEST)
+			.mapColor(MapColor.DEEPSLATE)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.strength(2.5F)
+			.requiresCorrectToolForDrops()
+			.sound(SoundType.DEEPSLATE)
+			.strength(35F, 12F)
+	);
 	public static final FrozenDeferredBlock<Block> NULL_BLOCK = REGISTER.registerSimpleBlock(WWBlockItemIds.NULL_BLOCK.block(), () -> Properties.ofFullCopy(Blocks.STONE).sound(WWSoundTypes.NULL_BLOCK));
-	// TODO DISPLAY_LANTERN
+	public static final FrozenDeferredBlock<DisplayLanternBlock> DISPLAY_LANTERN = REGISTER.registerBlock(WWBlockItemIds.DISPLAY_LANTERN.block(),
+		DisplayLanternBlock::new,
+		() -> Properties.of()
+			.mapColor(MapColor.METAL)
+			.forceSolidOn()
+			.strength(3.5F)
+			.pushReaction(PushReaction.DESTROY)
+			.sound(SoundType.LANTERN)
+			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
+	);
 
 	// FLOWERS
 	public static final FrozenDeferredBlock<Block> POTTED_CACTUS_FLOWER = registerFlowerPot(WWBlockIds.POTTED_CACTUS_FLOWER, () -> Blocks.CACTUS_FLOWER);
@@ -529,7 +771,13 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> POTTED_BIG_DRIPLEAF = registerFlowerPot(WWBlockIds.POTTED_BIG_DRIPLEAF, () -> Blocks.BIG_DRIPLEAF);
 	public static final FrozenDeferredBlock<Block> POTTED_SMALL_DRIPLEAF = registerFlowerPot(WWBlockIds.POTTED_SMALL_DRIPLEAF, () -> Blocks.SMALL_DRIPLEAF);
 
-	// TODO POLLEN
+	public static final FrozenDeferredBlock<PollenBlock> POLLEN = REGISTER.registerBlock(WWBlockItemIds.POLLEN.block(),
+		PollenBlock::new,
+		() -> Properties.ofFullCopy(Blocks.SHORT_GRASS)
+			.mapColor(MapColor.SAND)
+			.sound(WWSoundTypes.POLLEN)
+			.offsetType(BlockBehaviour.OffsetType.NONE)
+	);
 
 	public static final FrozenDeferredBlock<PricklyPearCactusBlock> PRICKLY_PEAR = REGISTER.registerBlock(WWBlockItemIds.PRICKLY_PEAR.block(),
 		PricklyPearCactusBlock::new,
@@ -572,14 +820,39 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> POTTED_FROZEN_BUSH = registerFlowerPot(WWBlockIds.POTTED_FROZEN_BUSH, FROZEN_BUSH);
 
 	// MUSHROOMS
-	// TODO BROWN_SHELF_FUNGI
-	// TODO RED_SHELF_FUNGI
-	// TODO CRIMSON_SHELF_FUNGI
-	// TODO WARPED_SHELF_FUNGI
+	public static final FrozenDeferredBlock<ShelfFungiBlock> BROWN_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.BROWN_SHELF_FUNGI.block(),
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_BROWN_SHELF_FUNGI, properties),
+		() -> shelfFungiProperties(MapColor.COLOR_BROWN, WWSoundTypes.MUSHROOM).lightLevel(state -> 1)
+	);
+	public static final FrozenDeferredBlock<ShelfFungiBlock> RED_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.RED_SHELF_FUNGI.block(),
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_RED_SHELF_FUNGI, properties),
+		() -> shelfFungiProperties(MapColor.COLOR_RED, WWSoundTypes.MUSHROOM)
+	);
+	public static final FrozenDeferredBlock<ShelfFungiBlock> CRIMSON_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.CRIMSON_SHELF_FUNGI.block(),
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_CRIMSON_SHELF_FUNGI, properties),
+		() -> shelfFungiProperties(MapColor.NETHER, SoundType.FUNGUS)
+	);
+	public static final FrozenDeferredBlock<ShelfFungiBlock> WARPED_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.WARPED_SHELF_FUNGI.block(),
+		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_WARPED_SHELF_FUNGI, properties),
+		() -> shelfFungiProperties(MapColor.NETHER, SoundType.FUNGUS)
+	);
 	// TODO PALE_MUSHROOM_BLOCK
-	// TODO PALE_MUSHROOM
-	// TODO POTTED_PALE_MUSHROOM
-	// TODO PALE_SHELF_FUNGI
+	public static final FrozenDeferredBlock<PaleMushroomBlock> PALE_MUSHROOM = REGISTER.registerBlock(WWBlockItemIds.PALE_MUSHROOM.block(),
+		properties -> new PaleMushroomBlock(ResourceKey.create(Registries.CONFIGURED_FEATURE, WWConstants.id("huge_pale_mushroom")), properties),
+		() -> Properties.of()
+			.mapColor(MapColor.COLOR_GRAY)
+			.noCollision()
+			.randomTicks()
+			.instabreak()
+			.sound(SoundType.GRASS)
+			.postProcess(Blocks::postProcessSelf)
+			.pushReaction(PushReaction.DESTROY)
+	);
+	public static final FrozenDeferredBlock<Block> POTTED_PALE_MUSHROOM = registerFlowerPot(WWBlockIds.POTTED_PALE_MUSHROOM, PALE_MUSHROOM);
+	public static final FrozenDeferredBlock<PaleShelfFungiBlock> PALE_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.PALE_SHELF_FUNGI.block(),
+		properties -> new PaleShelfFungiBlock(WWLootTables.SHEAR_PALE_SHELF_FUNGI, properties),
+		() -> shelfFungiProperties(MapColor.COLOR_GRAY, WWSoundTypes.MUSHROOM)
+	);
 
 	public static Properties shelfFungiProperties(MapColor mapColor, SoundType soundType) {
 		return Properties.of()
@@ -631,7 +904,15 @@ public final class WWBlocks {
 		AlgaeBlock::new,
 		() -> Properties.ofFullCopy(Blocks.FROGSPAWN).mapColor(MapColor.PLANT).sound(WWSoundTypes.ALGAE)
 	);
-	// TODO PLANKTON
+	public static final FrozenDeferredBlock<PlanktonBlock> PLANKTON = REGISTER.registerBlock(WWBlockItemIds.PLANKTON.block(),
+		PlanktonBlock::new,
+		() -> Properties.ofFullCopy(Blocks.FROGSPAWN)
+			.mapColor(MapColor.COLOR_LIGHT_BLUE)
+			.randomTicks()
+			.requiresCorrectToolForDrops()
+			.lightLevel(state -> PlanktonBlock.isGlowing(state) ? PlanktonBlock.LIGHT_LEVEL : 0)
+			.sound(WWSoundTypes.ALGAE)
+	);
 	public static final FrozenDeferredBlock<SpongeBudBlock> SPONGE_BUD = REGISTER.registerBlock(WWBlockItemIds.SPONGE_BUD.block(),
 		SpongeBudBlock::new,
 		() -> Properties.ofFullCopy(Blocks.SPONGE)
@@ -706,7 +987,14 @@ public final class WWBlocks {
 		() -> Properties.ofFullCopy(WWBlocks.GABBRO.get()).requiredFeatures(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 	);
 
-	// TODO GEOTHERMAL_VENT
+	public static final FrozenDeferredBlock<GeothermalVentBlock> GEOTHERMAL_VENT = REGISTER.registerBlock(WWBlockItemIds.GEOTHERMAL_VENT.block(),
+		GeothermalVentBlock::new,
+		() -> Properties.ofFullCopy(WWBlocks.GABBRO.get())
+			.sound(WWSoundTypes.GEOTHERMAL_VENT)
+			.strength(8F)
+			.isValidSpawn((state, level, pos, entityType) -> false)
+			.postProcess(Blocks::postProcessSelf)
+	);
 
 	public static final FrozenDeferredBlock<Block> POLISHED_GABBRO = REGISTER.registerSimpleBlock(WWBlockItemIds.POLISHED_GABBRO.block(), () -> Properties.ofFullCopy(WWBlocks.GABBRO.get()));
 	public static final FrozenDeferredBlock<StairBlock> POLISHED_GABBRO_STAIRS = REGISTER.registerStair(WWBlockItemIds.POLISHED_GABBRO_STAIRS, POLISHED_GABBRO);
@@ -1149,7 +1437,20 @@ public final class WWBlocks {
 		FragileIceBlock::new,
 		() -> Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.DESTROY)
 	);
-	// TODO ICICLE
+	public static final FrozenDeferredBlock<IcicleBlock> ICICLE = REGISTER.registerBlock(WWBlockItemIds.ICICLE.block(),
+		properties -> new IcicleBlock(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), properties),
+		() -> Properties.of().mapColor(MapColor.ICE)
+			.forceSolidOn()
+			.friction(0.98F)
+			.randomTicks()
+			.strength(0.2F)
+			.sound(SoundType.GLASS)
+			.noOcclusion()
+			.dynamicShape()
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.pushReaction(PushReaction.DESTROY)
+			.isRedstoneConductor(Blocks::never)
+	);
 
 	// FROGLIGHT GOOP
 	public static final FrozenDeferredBlock<FroglightGoopBodyBlock> OCHRE_FROGLIGHT_GOOP_BODY = registerFroglightGoopBody(WWBlockIds.OCHRE_FROGLIGHT_GOOP_BODY, FroglightType.OCHRE, Blocks.OCHRE_FROGLIGHT);

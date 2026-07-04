@@ -22,6 +22,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.List;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -50,9 +51,9 @@ public class ShelfFungiFeatureConfiguration implements FeatureConfiguration {
 	private final ObjectArrayList<Direction> directions;
 
 	private static DataResult<Block> validateBlock(final Block block) {
-		//TODO NEOFORGE PORT return block instanceof ShelfFungiBlock shelfFungiBlock
-		//TODO NEOFORGE PORT 	? DataResult.success(shelfFungiBlock)
-		/*	: */return DataResult.success(block);//return DataResult.error(() -> "Growth block should be a shelf fungi block"); //TODO NEOFORGE PORT
+		return block instanceof ShelfFungiBlock shelfFungiBlock
+		 	? DataResult.success(shelfFungiBlock)
+			: DataResult.error(() -> "Growth block should be a shelf fungi block");
 	}
 
 	public ShelfFungiFeatureConfiguration(Block placeBlock, int searchRange, boolean placeOnFloor, boolean placeOnCeiling, boolean placeOnWalls, HolderSet<Block> canPlaceOn) {

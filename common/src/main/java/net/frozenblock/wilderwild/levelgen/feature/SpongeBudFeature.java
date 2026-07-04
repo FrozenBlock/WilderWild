@@ -19,7 +19,9 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
 import java.util.List;
+import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -54,7 +56,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
 			if (!offsetState.is(config.canPlaceOn)) continue;
 			final BlockState placementState = getStateForPlacement(level.getRandom(), state, level, pos, direction);
 			if (placementState == null) return false;
-			//TODO NEOFORGE PORT if (!placementState.getValue(SpongeBudBlock.WATERLOGGED)) continue;
+			if (!placementState.getValue(SpongeBudBlock.WATERLOGGED)) continue;
 			level.setBlock(pos, placementState, Block.UPDATE_ALL);
 			level.getChunk(pos).markPosForPostProcessing(pos);
 			return true;
@@ -73,27 +75,24 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
 		if (!isValidStateForPlacement(level, pos, lookingDirection)) return null;
 
 		BlockState state;
-		state = null; //todo remove
-		//TODO NEOFORGE PORT
-		/*
-		if (currentState.is(WWBlocks.SPONGE_BUD)) {
+		if (currentState.is(WWBlocks.SPONGE_BUD.get())) {
 			state = currentState;
 		} else if (currentState.getFluidState().isSourceOfType(Fluids.WATER)) {
-			state = WWBlocks.SPONGE_BUD.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+			state = WWBlocks.SPONGE_BUD.get().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
 		} else {
-			state = WWBlocks.SPONGE_BUD.defaultBlockState();
-		}*/
-
-		if (lookingDirection.getAxis() == Direction.Axis.Y) {
-			state = state;
-				//TODO NEOFORGE PORT .setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
-			//TODO NEOFORGE PORT .setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
-		} else {
-			//TODO NEOFORGE PORT state = state.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
-				//TODO NEOFORGE PORT .setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
+			state = WWBlocks.SPONGE_BUD.get().defaultBlockState();
 		}
 
-		return state;//TODO NEOFORGE PORT state.setValue(SpongeBudBlock.AGE, random.nextInt(SpongeBudBlock.MAX_AGE));
+		if (lookingDirection.getAxis() == Direction.Axis.Y) {
+			state = state
+				.setValue(SpongeBudBlock.FACE, lookingDirection == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR)
+				.setValue(SpongeBudBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
+		} else {
+			state = state.setValue(SpongeBudBlock.FACE, AttachFace.WALL)
+				.setValue(SpongeBudBlock.FACING, lookingDirection.getOpposite());
+		}
+
+		return state.setValue(SpongeBudBlock.AGE, random.nextInt(SpongeBudBlock.MAX_AGE));
 	}
 
 	private static boolean isValidStateForPlacement(BlockGetter level, BlockPos pos, Direction direction) {
@@ -124,7 +123,7 @@ public class SpongeBudFeature extends Feature<SpongeBudFeatureConfiguration> {
 			for (int i = 0; i < config.searchRange; ++i) {
 				mutable.setWithOffset(origin, direction);
 				BlockState state = level.getBlockState(mutable);
-				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, mutable))//TODO NEOFORGE PORT  && !state.is(WWBlocks.SPONGE_BUD))
+				if (!BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE.test(level, mutable) && !state.is(WWBlocks.SPONGE_BUD.get()))
 					break;
 				if (generate(level, mutable, state, config, directions2)) return true;
 			}

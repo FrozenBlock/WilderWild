@@ -24,7 +24,6 @@ import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
-import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.HolderLookup;
@@ -63,7 +62,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					this.suspiciousStew(item, effectHolder);
 				});
 
-				this.shaped(RecipeCategory.DECORATIONS, WWFabricItems.DISPLAY_LANTERN)
+				this.shaped(RecipeCategory.DECORATIONS, WWItems.DISPLAY_LANTERN)
 					.define('X', Ingredient.of(Items.IRON_NUGGET))
 					.define('#', Ingredient.of(Items.GLASS_PANE))
 					.pattern("XXX")
@@ -73,7 +72,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.IRON_NUGGET), this.has(Items.IRON_NUGGET))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.MISC, WWFabricItems.STONE_CHEST)
+				this.shaped(RecipeCategory.MISC, WWItems.STONE_CHEST)
 					.group("stone_chest")
 					.define('_', Ingredient.of(Items.COBBLED_DEEPSLATE_SLAB))
 					.define('#', Ingredient.of(Items.COBBLED_DEEPSLATE))
@@ -92,20 +91,20 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.SANDSTONE, 2)
 					.group("sandstone")
 					.define('#', Ingredient.of(Items.SAND))
-					.define('X', Ingredient.of(WWFabricItems.SCORCHED_SAND))
+					.define('X', Ingredient.of(WWItems.SCORCHED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.SAND), this.has(Items.SAND))
-					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWFabricItems.SCORCHED_SAND)));
+					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.SANDSTONE, WWItems.SCORCHED_SAND)));
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, Items.RED_SANDSTONE, 2)
 					.group("red_sandstone")
 					.define('#', Ingredient.of(Items.RED_SAND))
-					.define('X', Ingredient.of(WWFabricItems.SCORCHED_RED_SAND))
+					.define('X', Ingredient.of(WWItems.SCORCHED_RED_SAND))
 					.pattern("#X")
 					.pattern("X#")
 					.unlockedBy(RecipeProvider.getHasName(Items.RED_SAND), this.has(Items.RED_SAND))
-					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWFabricItems.SCORCHED_RED_SAND)));
+					.save(this.output, WWConstants.string(RecipeProvider.getConversionRecipeName(Items.RED_SANDSTONE, WWItems.SCORCHED_RED_SAND)));
 
 				this.shaped(RecipeCategory.MISC, WWItems.NULL_BLOCK, 2)
 					.define('#', Ingredient.of(Items.CONCRETE.black()))
@@ -116,7 +115,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(RecipeProvider.getHasName(Items.CONCRETE.magenta()), this.has(Items.CONCRETE.magenta()))
 					.save(this.output);
 
-				this.shaped(RecipeCategory.REDSTONE, WWFabricItems.GEOTHERMAL_VENT, 2)
+				this.shaped(RecipeCategory.REDSTONE, WWItems.GEOTHERMAL_VENT, 2)
 					.define('#', Items.MAGMA_BLOCK)
 					.define('X', WWItems.GABBRO)
 					.define('U', Items.LAVA_BUCKET)
@@ -125,7 +124,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.pattern("#X#")
 					.unlockedBy(getHasName(Items.MAGMA_BLOCK), this.has(Items.MAGMA_BLOCK))
 					.unlockedBy(getHasName(WWItems.GABBRO), this.has(WWItems.GABBRO))
-					.unlockedBy(getHasName(WWFabricItems.GEOTHERMAL_VENT), this.has(WWFabricItems.GEOTHERMAL_VENT))
+					.unlockedBy(getHasName(WWItems.GEOTHERMAL_VENT), this.has(WWItems.GEOTHERMAL_VENT))
 					.save(this.output);
 
 				this.shapeless(RecipeCategory.MISC, WWItems.FERMENTED_SCORCHED_EYE)

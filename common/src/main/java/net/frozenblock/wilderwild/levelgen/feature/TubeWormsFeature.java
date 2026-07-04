@@ -18,7 +18,9 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
+import net.frozenblock.wilderwild.block.TubeWormsBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -46,9 +48,7 @@ public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
 		final BlockPos heightmapPos = new BlockPos(origin.getX(), heightmapY, origin.getZ());
 		if (!level.getBlockState(heightmapPos).is(Blocks.WATER)) return false;
 
-		//TODO NEOFORGE PORT
-		/*
-		final BlockState state = WWBlocks.TUBE_WORMS.defaultBlockState();
+		final BlockState state = WWBlocks.TUBE_WORMS.get().defaultBlockState();
 		final BlockPos.MutableBlockPos mutableBlockPos = heightmapPos.mutable();
 		final BlockPos.MutableBlockPos mutablePlacePos = heightmapPos.mutable();
 		if (!state.canSurvive(level, mutableBlockPos)) return false;
@@ -65,7 +65,6 @@ public class TubeWormsFeature extends Feature<NoneFeatureConfiguration> {
 			return true;
 		}
 		level.setBlock(mutablePlacePos, state, Block.UPDATE_CLIENTS);
-		*/
 		return true;
 	}
 }

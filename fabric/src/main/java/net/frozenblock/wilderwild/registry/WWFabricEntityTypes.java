@@ -18,16 +18,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.UnaryOperator;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.frozenblock.lib.entity.api.attribute.FrozenDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
-import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.entity.FallingLeafTicker;
-import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.Ostrich;
@@ -59,14 +56,6 @@ public final class WWFabricEntityTypes {
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5)
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
-		Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
-		builder -> builder
-			.sized(0.4F, 0.4F)
-			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
-			.clientTrackingRange(10)
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
@@ -126,21 +115,6 @@ public final class WWFabricEntityTypes {
 			.eyeHeight(0.8F)
 			.clientTrackingRange(10)
 			.immuneTo(WWBlockTags.PENGUIN_IMMUNE_TO)
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT,
-		CoconutProjectile::new, MobCategory.MISC,
-		builder -> builder
-			.sized(0.25F, 0.25F)
-			.clientTrackingRange(4)
-			.updateInterval(20)
-	);
-
-	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
-		FallingLeafTicker::new, MobCategory.MISC,
-		builder -> builder
-			.sized(0F, 0F)
-			.clientTrackingRange(0)
 	);
 
 	// BOATS
@@ -234,7 +208,7 @@ public final class WWFabricEntityTypes {
 	static {
 		REGISTER.register();
 
-		FabricDefaultAttributeRegistry.register(BUTTERFLY.get(), Butterfly.createAttributes());
+		FrozenDefaultAttributeRegistry.register(BUTTERFLY.get(), Butterfly.createAttributes());
 		SpawnPlacements.register(
 			BUTTERFLY.get(),
 			SpawnPlacementTypes.NO_RESTRICTIONS,
@@ -242,15 +216,7 @@ public final class WWFabricEntityTypes {
 			Butterfly::checkButterflySpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(JELLYFISH.get(), Jellyfish.createAttributes());
-		SpawnPlacements.register(
-			JELLYFISH.get(),
-			SpawnPlacementTypes.IN_WATER,
-			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-			Jellyfish::checkJellyfishSpawnRules
-		);
-
-		FabricDefaultAttributeRegistry.register(TUMBLEWEED.get(), Tumbleweed.createAttributes());
+		FrozenDefaultAttributeRegistry.register(TUMBLEWEED.get(), Tumbleweed.createAttributes());
 		SpawnPlacements.register(
 			TUMBLEWEED.get(),
 			SpawnPlacementTypes.ON_GROUND,
@@ -258,7 +224,7 @@ public final class WWFabricEntityTypes {
 			Tumbleweed::checkTumbleweedSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(CRAB.get(), Crab.createAttributes());
+		FrozenDefaultAttributeRegistry.register(CRAB.get(), Crab.createAttributes());
 		SpawnPlacements.register(
 			CRAB.get(),
 			SpawnPlacementTypes.IN_WATER,
@@ -266,7 +232,7 @@ public final class WWFabricEntityTypes {
 			Crab::checkCrabSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(OSTRICH.get(), Ostrich.createAttributes());
+		FrozenDefaultAttributeRegistry.register(OSTRICH.get(), Ostrich.createAttributes());
 		SpawnPlacements.register(
 			OSTRICH.get(),
 			SpawnPlacementTypes.ON_GROUND,
@@ -274,7 +240,7 @@ public final class WWFabricEntityTypes {
 			Ostrich::checkOstrichSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(ZOMBIE_OSTRICH.get(), ZombieOstrich.createAttributes());
+		FrozenDefaultAttributeRegistry.register(ZOMBIE_OSTRICH.get(), ZombieOstrich.createAttributes());
 		SpawnPlacements.register(
 			ZOMBIE_OSTRICH.get(),
 			SpawnPlacementTypes.ON_GROUND,
@@ -282,7 +248,7 @@ public final class WWFabricEntityTypes {
 			ZombieOstrich::checkZombieOstrichSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(SCORCHED.get(), Scorched.createAttributes());
+		FrozenDefaultAttributeRegistry.register(SCORCHED.get(), Scorched.createAttributes());
 		SpawnPlacements.register(
 			SCORCHED.get(),
 			WWSpawnTypes.ON_GROUND_OR_IN_LAVA,
@@ -290,7 +256,7 @@ public final class WWFabricEntityTypes {
 			Scorched::checkScorchedSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(MOOBLOOM.get(), FlowerCow.createAttributes());
+		FrozenDefaultAttributeRegistry.register(MOOBLOOM.get(), FlowerCow.createAttributes());
 		SpawnPlacements.register(
 			MOOBLOOM.get(),
 			SpawnPlacementTypes.ON_GROUND,
@@ -298,7 +264,7 @@ public final class WWFabricEntityTypes {
 			FlowerCow::checkFlowerCowSpawnRules
 		);
 
-		FabricDefaultAttributeRegistry.register(PENGUIN.get(), Penguin.createAttributes());
+		FrozenDefaultAttributeRegistry.register(PENGUIN.get(), Penguin.createAttributes());
 		SpawnPlacements.register(
 			PENGUIN.get(),
 			SpawnPlacementTypes.ON_GROUND,

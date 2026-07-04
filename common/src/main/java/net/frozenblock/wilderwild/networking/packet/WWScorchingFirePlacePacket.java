@@ -22,6 +22,7 @@ import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public record WWScorchingFirePlacePacket(BlockPos pos) implements CustomPacketPayload {
 	public static final Type<WWScorchingFirePlacePacket> PACKET_TYPE = new Type<>(WWConstants.id("scorching_fire_place"));
-	public static final StreamCodec<FriendlyByteBuf, WWScorchingFirePlacePacket> CODEC = StreamCodec.ofMember(WWScorchingFirePlacePacket::write, WWScorchingFirePlacePacket::new);
+	public static final StreamCodec<RegistryFriendlyByteBuf, WWScorchingFirePlacePacket> CODEC = StreamCodec.ofMember(WWScorchingFirePlacePacket::write, WWScorchingFirePlacePacket::new);
 
 	public WWScorchingFirePlacePacket(FriendlyByteBuf buf) {
 		this(buf.readBlockPos());

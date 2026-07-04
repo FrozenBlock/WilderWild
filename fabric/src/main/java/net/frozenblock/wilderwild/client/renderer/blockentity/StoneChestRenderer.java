@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRenderState;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.Sheets;
@@ -109,7 +109,7 @@ public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity
 		BlockEntityRenderer.super.extractRenderState(stoneChest, renderState, partialTicks, cameraPos, crumblingOverlay);
 
 		final boolean levelExists = stoneChest.getLevel() != null;
-		final BlockState state = levelExists ? stoneChest.getBlockState() : WWFabricBlocks.STONE_CHEST.get().defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
+		final BlockState state = levelExists ? stoneChest.getBlockState() : WWBlocks.STONE_CHEST.get().defaultBlockState().setValue(StoneChestBlock.FACING, Direction.SOUTH);
 		renderState.type = state.hasProperty(StoneChestBlock.TYPE) ? state.getValue(StoneChestBlock.TYPE) : ChestType.SINGLE;
 		renderState.facing = state.getValue(ChestBlock.FACING);
 		renderState.hasSculk = state.getOptionalValue(WWBlockStateProperties.HAS_SCULK).orElse(false);

@@ -22,6 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.renderer.FrozenLibRenderState;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.minecraft.client.CloudStatus;
@@ -35,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LevelRenderer.class)
-public class LevelRendererMixin {
+public class LevelRendererMixin { // in common mixins.json
 
 	@Shadow
 	@Final
@@ -60,7 +61,7 @@ public class LevelRendererMixin {
 		int cloudRange,
 		Operation<Void> original
 	) {
-		final CloudWindPositioner positioner = this.levelRenderState.getDataOrDefault(WWRenderStateDataKeys.CLOUD_WIND_POSITIONER, CloudWindPositioner.PASS);
+		final CloudWindPositioner positioner = ((FrozenLibRenderState) this.levelRenderState).frozenLib$getDataOrDefault(WWRenderStateDataKeys.CLOUD_WIND_POSITIONER, CloudWindPositioner.PASS);
 		if (positioner instanceof CloudWindPositioner.Success success) {
 			cameraPosition = new Vec3(
 				success.modifyCloudX(cameraPosition.x),

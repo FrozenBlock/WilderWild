@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Entity.class)
-public class EntityMixin {
+public class EntityMixin { // in common mixins.json
 
 	@WrapOperation(
 		method = "spawnSprintParticle",

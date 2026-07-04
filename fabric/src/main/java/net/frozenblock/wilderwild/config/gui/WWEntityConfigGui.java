@@ -64,9 +64,9 @@ public final class WWEntityConfigGui {
 		);
 
 		// JELLYFISH
-		createSubCategory(builder, category, WWFabricEntityTypes.JELLYFISH.get().getDescription(), tooltip("entity_category", WWFabricEntityTypes.JELLYFISH.get().getDescription()),
-			entitySpawnEntry(builder, WWFabricEntityTypes.JELLYFISH.get(), WWEntityConfig.SPAWN_JELLYFISH),
-			entitySpawnCapEntry(builder, WWFabricEntityTypes.JELLYFISH.get(), WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100),
+		createSubCategory(builder, category, WWEntityTypes.JELLYFISH.get().getDescription(), tooltip("entity_category", WWEntityTypes.JELLYFISH.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.JELLYFISH.get(), WWEntityConfig.SPAWN_JELLYFISH),
+			entitySpawnCapEntry(builder, WWEntityTypes.JELLYFISH.get(), WWEntityConfig.JELLYFISH_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "jellyfish_hiding", WWEntityConfig.JELLYFISH_HIDING),
 			intSliderEntry(builder, "jellyfish_tentacles", WWEntityConfig.JELLYFISH_TENTACLES, 0, 100),
 			booleanEntry(builder, "plane_tentacles", WWEntityConfig.JELLYFISH_PLANE_TENTACLES),

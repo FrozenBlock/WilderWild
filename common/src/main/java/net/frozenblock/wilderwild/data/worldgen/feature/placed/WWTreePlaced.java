@@ -23,6 +23,7 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -335,8 +336,7 @@ public final class WWTreePlaced {
 		SNAPPED_CHERRY_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_CHERRY_TREE, cherrySaplingPlacement);
 
 		// MAPLE
-		//TODO NEOFORGE PORT final BlockPredicateFilter yellowMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING);
-		final BlockPredicateFilter yellowMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING);
+		final BlockPredicateFilter yellowMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING.get());
 		YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.YELLOW_MAPLE_TREE.getHolder(), yellowMapleSaplingPlacement);
 		DYING_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_YELLOW_MAPLE_TREE.getHolder(), yellowMapleSaplingPlacement);
 		YELLOW_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.YELLOW_MAPLE_BEES_0004.getHolder(), yellowMapleSaplingPlacement);
@@ -347,8 +347,7 @@ public final class WWTreePlaced {
 		FULL_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FULL_YELLOW_MAPLE_TREE.getHolder(), yellowMapleSaplingPlacement);
 		BIG_BUSH_YELLOW_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_YELLOW_MAPLE.getHolder(), yellowMapleSaplingPlacement);
 
-		//TODO NEOFORGE PORT final BlockPredicateFilter orangeMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING);
-		final BlockPredicateFilter orangeMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING);
+		final BlockPredicateFilter orangeMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.ORANGE_MAPLE_SAPLING.get());
 		ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.ORANGE_MAPLE_TREE.getHolder(), orangeMapleSaplingPlacement);
 		DYING_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_ORANGE_MAPLE_TREE.getHolder(), orangeMapleSaplingPlacement);
 		ORANGE_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.ORANGE_MAPLE_BEES_0004.getHolder(), orangeMapleSaplingPlacement);
@@ -359,8 +358,7 @@ public final class WWTreePlaced {
 		FULL_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FULL_ORANGE_MAPLE_TREE.getHolder(), orangeMapleSaplingPlacement);
 		BIG_BUSH_ORANGE_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_ORANGE_MAPLE.getHolder(), orangeMapleSaplingPlacement);
 
-		//TODO NEOFORGE PORT final BlockPredicateFilter redMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING);
-		final BlockPredicateFilter redMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING);
+		final BlockPredicateFilter redMapleSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.RED_MAPLE_SAPLING.get());
 		RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.RED_MAPLE_TREE.getHolder(), redMapleSaplingPlacement);
 		DYING_RED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.DYING_RED_MAPLE_TREE.getHolder(), redMapleSaplingPlacement);
 		RED_MAPLE_BEES_CHECKED.makeAndSetHolder(WWTreeConfigured.RED_MAPLE_BEES_0004.getHolder(), redMapleSaplingPlacement);
@@ -436,8 +434,7 @@ public final class WWTreePlaced {
 		LARGE_SNAPPED_PALE_OAK_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_PALE_OAK, paleOakSaplingPlacement);
 
 		// SWAMP TREE
-		//TODO NEOFORGE PORT final BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING);
-		final BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING);
+		final BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING.get());
 		WILLOW_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 		WILLOW_TALL_CHECKED.makeAndSetHolders(willowSaplingPlacement);
 		WILLOW_TALLER_CHECKED.makeAndSetHolders(willowSaplingPlacement);
@@ -476,15 +473,11 @@ public final class WWTreePlaced {
 		LARGE_SNAPPED_SPRUCE_ON_SNOW_CHECKED.makeAndSetHolder(WWTreeConfigured.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
 
 		// BAOBAB
-		//TODO NEOFORGE PORT
-		//BAOBAB.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT));
-		//BAOBAB_TALL.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT));
-		BAOBAB.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING));
-		BAOBAB_TALL.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING));
+		BAOBAB.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT.get()));
+		BAOBAB_TALL.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(WWBlocks.BAOBAB_NUT.get()));
 
 		// CYPRESS
-		//TODO NEOFORGE PORT final BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING);
-		final BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING);
+		final BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING.get());
 		CYPRESS.makeAndSetHolder(WWTreeConfigured.CYPRESS, cypressSaplingPlacement);
 		FUNGUS_CYPRESS.makeAndSetHolder(WWTreeConfigured.FUNGUS_CYPRESS, cypressSaplingPlacement);
 		SHORT_CYPRESS.makeAndSetHolder(WWTreeConfigured.SHORT_CYPRESS, cypressSaplingPlacement);
@@ -500,8 +493,7 @@ public final class WWTreePlaced {
 		BIG_BUSH_CHECKED.makeAndSetHolder(WWTreeConfigured.BIG_BUSH, oakSaplingPlacement);
 
 		// PALM
-		//TODO NEOFORGE PORT final BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT);
-		final BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.JUNGLE_SAPLING);
+		final BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT.get());
 		PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.PALM.getHolder(), coconutPlacement);
 		TALL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_PALM.getHolder(), coconutPlacement);
 		TALL_WINDMILL_PALM_CHECKED.makeAndSetHolder(WWTreeConfigured.TALL_WINDMILL_PALM.getHolder(), coconutPlacement);

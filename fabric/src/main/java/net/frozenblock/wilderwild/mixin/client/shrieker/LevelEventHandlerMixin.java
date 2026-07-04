@@ -67,7 +67,7 @@ public class LevelEventHandlerMixin {
 			);
 
 			this.level.addParticle(
-				WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER,
+				WWParticleTypes.SHRIEKER_BUBBLE_SPAWNER.get(),
 				x, y, z,
 				0D, 0D, 0D
 			);

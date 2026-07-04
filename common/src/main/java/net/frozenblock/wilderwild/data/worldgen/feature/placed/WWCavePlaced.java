@@ -23,6 +23,7 @@ import net.frozenblock.lib.levelgen.feature.api.blockpredicates.SearchInDirectio
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -288,7 +289,7 @@ public final class WWCavePlaced {
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
 				BlockPredicate.anyOf(
-					BlockPredicate.matchesBlocks(/*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK), //TODO NEOFORGE PORT
+					BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK),
 					BlockPredicate.allOf(
 						BlockPredicate.solid(),
 						SearchInDirectionBlockPredicate.hasLavaAbove(1)
@@ -306,7 +307,7 @@ public final class WWCavePlaced {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
 				Direction.UP,
-				BlockPredicate.matchesBlocks(/*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK), // TODO NEOFORGE PORT
+				BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK),
 				BlockPredicate.replaceable(),
 				12
 			),
@@ -322,7 +323,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.NORTH.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.SOUTH.getUnitVec3i(), /*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK) // TODO NEOFORGE PORT
+					BlockPredicate.matchesBlocks(Direction.SOUTH.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -339,7 +340,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.EAST.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.WEST.getUnitVec3i(), /*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK) // TODO NEOFORGE PORT
+					BlockPredicate.matchesBlocks(Direction.WEST.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -356,7 +357,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.SOUTH.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.NORTH.getUnitVec3i(), /*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK) // TODO NEOFORGE PORT
+					BlockPredicate.matchesBlocks(Direction.NORTH.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -373,7 +374,7 @@ public final class WWCavePlaced {
 				BlockPredicate.allOf(
 					BlockPredicate.solid(),
 					BlockPredicate.replaceable(Direction.WEST.getUnitVec3i()),
-					BlockPredicate.matchesBlocks(Direction.EAST.getUnitVec3i(), /*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK) // TODO NEOFORGE PORT
+					BlockPredicate.matchesBlocks(Direction.EAST.getUnitVec3i(), WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK)
 				),
 				BlockPredicate.alwaysTrue(),
 				12
@@ -385,7 +386,7 @@ public final class WWCavePlaced {
 			CountPlacement.of(UniformInt.of(8, 24)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesBlocks(/*WWBlocks.GABBRO, */Blocks.MAGMA_BLOCK), BlockPredicate.replaceable(), 12), // TODO NEOFORGE PORT
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get(), Blocks.MAGMA_BLOCK), BlockPredicate.replaceable(), 12),
 			RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);

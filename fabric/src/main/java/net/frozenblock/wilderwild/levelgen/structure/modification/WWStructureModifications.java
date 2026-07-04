@@ -104,7 +104,7 @@ public class WWStructureModifications {
 				BuiltinStructures.ANCIENT_CITY.identifier(),
 				new BlockStateRespectingRuleProcessor(
 					ImmutableList.of(
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.CHEST), AlwaysTrueTest.INSTANCE, WWFabricBlocks.STONE_CHEST.get())
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.CHEST), AlwaysTrueTest.INSTANCE, WWBlocks.STONE_CHEST.get())
 					)
 				)
 			);

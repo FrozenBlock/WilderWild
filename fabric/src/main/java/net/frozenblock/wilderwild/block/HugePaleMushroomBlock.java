@@ -54,7 +54,7 @@ public class HugePaleMushroomBlock extends HugeMushroomBlock {
 			final BlockState insideState = level.getBlockState(mutable);
 			if (insideState.isCollisionShapeFullBlock(level, mutable) || random.nextFloat() > 0.285F) continue;
 			level.addParticle(
-				random.nextFloat() <= 0.65F ? WWParticleTypes.PALE_FOG_SMALL : WWParticleTypes.PALE_FOG,
+				random.nextFloat() <= 0.65F ? WWParticleTypes.PALE_FOG_SMALL.get() : WWParticleTypes.PALE_FOG.get(),
 				mutable.getX() + random.nextDouble(),
 				mutable.getY() + random.nextDouble(),
 				mutable.getZ() + random.nextDouble(),

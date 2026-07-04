@@ -27,11 +27,14 @@ import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoisePathFeatureConfiguration;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
+import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.CattailFeatureConfiguration;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.SpongeBudFeatureConfiguration;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.WaterCoverFeatureConfiguration;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
@@ -111,22 +114,20 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		//TODO NEOFORGE PORT
-		/*
 		FLOWERING_WATERLILY.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD))
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD.get()))
 		);
 
 		PATCH_ALGAE.makeAndSetHolder(WWFeatures.WATER_COVER,
-			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(4, 10))
+			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE.get()), UniformInt.of(4, 10))
 		);
 
 		PATCH_ALGAE_SMALL.makeAndSetHolder(WWFeatures.WATER_COVER,
-			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE), UniformInt.of(2, 6))
+			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.ALGAE.get()), UniformInt.of(2, 6))
 		);
 
 		PATCH_PLANKTON.makeAndSetHolder(WWFeatures.WATER_COVER,
-			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.PLANKTON), UniformInt.of(2, 4))
+			new WaterCoverFeatureConfiguration(BlockStateProvider.simple(WWBlocks.PLANKTON.get()), UniformInt.of(2, 4))
 		);
 
 		SEAGRASS_MEADOW.makeAndSetHolder(Feature.SEAGRASS,
@@ -135,7 +136,7 @@ public final class WWAquaticConfigured {
 
 		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.BARNACLES,
+				WWBlocks.BARNACLES.get(),
 				6,
 				true,
 				true,
@@ -147,7 +148,7 @@ public final class WWAquaticConfigured {
 
 		PATCH_BARNACLES.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.BARNACLES,
+				WWBlocks.BARNACLES.get(),
 				10,
 				true,
 				false,
@@ -167,9 +168,9 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		SEA_ANEMONE.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE)));
+		SEA_ANEMONE.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE.get())));
 
-		SEA_WHIP.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_WHIP)));
+		SEA_WHIP.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEA_WHIP.get())));
 
 		TUBE_WORMS.makeAndSetHolder(WWFeatures.TUBE_WORMS, NoneFeatureConfiguration.INSTANCE);
 
@@ -180,7 +181,7 @@ public final class WWAquaticConfigured {
 						FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
 						new VegetationPatchConfiguration(
 							blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
-							BlockStateProvider.simple(WWBlocks.GABBRO),
+							BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 							PlacementUtils.inlinePlaced(
 								WWFeatures.HYDROTHERMAL_VENT,
 								NoneFeatureConfiguration.INSTANCE
@@ -235,13 +236,13 @@ public final class WWAquaticConfigured {
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
 						.add(
-							WWBlocks.AUBURN_CREEPING_MOSS.defaultBlockState()
+							WWBlocks.AUBURN_CREEPING_MOSS.get().defaultBlockState()
 								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
 								.setValue(AuburnCreepingMossBlock.WATERLOGGED, true),
 							3
 						)
-						.add(WWBlocks.AUBURN_MOSS_CARPET.defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
-						.add(WWBlocks.SEA_WHIP.defaultBlockState(), 1)
+						.add(WWBlocks.AUBURN_MOSS_CARPET.get().defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
+						.add(WWBlocks.SEA_WHIP.get().defaultBlockState(), 1)
 				)
 			)
 		);
@@ -249,7 +250,7 @@ public final class WWAquaticConfigured {
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -286,7 +287,7 @@ public final class WWAquaticConfigured {
 
 		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.AUBURN_CREEPING_MOSS,
+				WWBlocks.AUBURN_CREEPING_MOSS.get(),
 				10,
 				true,
 				true,
@@ -299,7 +300,7 @@ public final class WWAquaticConfigured {
 		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -309,6 +310,6 @@ public final class WWAquaticConfigured {
 				UniformInt.of(1, 2),
 				0.75F
 			)
-		);*/
+		);
 	}
 }

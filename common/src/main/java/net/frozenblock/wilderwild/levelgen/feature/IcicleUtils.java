@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.feature;
 
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,25 +32,22 @@ public class IcicleUtils {
 		final BlockState belowState = level.getBlockState(belowPos);
 		if (!belowState.isAir()) return false;
 
-		//TODO NEOFORGE PORT
-		return false; // todo remove
-		/*
 		SpeleothemUtils.growSpeleothem(
 			level,
 			belowPos,
 			Direction.DOWN,
 			1,
 			false,
-			WWBlocks.FRAGILE_ICE,
-			WWBlocks.ICICLE,
+			WWBlocks.FRAGILE_ICE.get(),
+			WWBlocks.ICICLE.get(),
 			level.registryAccess().getOrThrow(WWBlockTags.ICICLE_REPLACEABLE)
 		);
-		return level.getBlockState(belowPos).is(WWBlocks.ICICLE);*/
+		return level.getBlockState(belowPos).is(WWBlocks.ICICLE.get());
 	}
 
 	public static boolean spreadIcicleOnRandomTick(ServerLevel level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
-		//TODO NEOFORGE PORT if (((IcicleBlock) WWBlocks.ICICLE).canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
+		if (WWBlocks.ICICLE.get().canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
 		return false;
 	}
 }

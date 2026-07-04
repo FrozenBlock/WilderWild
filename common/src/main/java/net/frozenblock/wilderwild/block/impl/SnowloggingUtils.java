@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import com.google.common.base.Suppliers;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -39,6 +40,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import java.util.function.Supplier;
 
 public class SnowloggingUtils {
 	public static final boolean HAS_ANTIQUE_ATLAS = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("antique-atlas");

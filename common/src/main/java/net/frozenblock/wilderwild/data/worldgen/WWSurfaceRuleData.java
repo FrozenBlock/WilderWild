@@ -24,6 +24,7 @@ import net.frozenblock.lib.levelgen.surface.api.SurfaceRuleEvents;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.biome.Biome;
@@ -491,11 +492,10 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	// TODO NEOFORGE
-	/*public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderLookup<Biome> biomes) {
+	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderLookup<Biome> biomes) {
 		final SurfaceRules.RuleSource packedIce = SurfaceRules.state(Blocks.PACKED_ICE.defaultBlockState());
 		final SurfaceRules.RuleSource blueIce = SurfaceRules.state(Blocks.BLUE_ICE.defaultBlockState());
-		final SurfaceRules.RuleSource fragileIce = SurfaceRules.state(WWBlocks.FRAGILE_ICE.defaultBlockState());
+		final SurfaceRules.RuleSource fragileIce = SurfaceRules.state(WWBlocks.FRAGILE_ICE.get().defaultBlockState());
 
 		final SurfaceRules.RuleSource iceNoiseRule = frozenCavesIcePath(packedIce, blueIce, fragileIce);
 		final SurfaceRules.RuleSource iceNoiseRuleOnlyFragileIce = frozenCavesIcePath(fragileIce, fragileIce, fragileIce);
@@ -517,14 +517,14 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 				SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, iceNoiseRule)
 			)
 		);
-	}*/
+	}
 
 	@Override
 	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
 		context.add(
 			SurfaceRules.sequence(
-				snowUnderMountains(biomes)//,
-//TODO NEOFORGE PORT				frozenCavesSurfaceRules(biomes)
+				snowUnderMountains(biomes),
+				frozenCavesSurfaceRules(biomes)
 			)
 		);
 	}

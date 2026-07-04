@@ -7,6 +7,7 @@ import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -15,10 +16,14 @@ import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWGameEvents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild {
 
@@ -38,6 +43,12 @@ public final class WilderWild {
 		WWSounds.init();
 		WWBlocks.init();
 		WWItems.init();
+		WWBlockEntityTypes.init();
+		WWParticleTypes.init();
+
+		WWWindDisturbances.init();
+		WWWindManagerExtension.init();
+		WWSoundPredicates.init();
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);

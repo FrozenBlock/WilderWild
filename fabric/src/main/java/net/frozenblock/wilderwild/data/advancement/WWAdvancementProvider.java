@@ -121,7 +121,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWFabricItems.JELLYFISH_BUCKET,
+				WWItems.JELLYFISH_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"),
 				null,
@@ -130,13 +130,13 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.JELLYFISH_BUCKET)))
+			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWFabricBlocks.TERMITE_MOUND.get(),
+				WWBlocks.TERMITE_MOUND.get(),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.description"),
 				null,
@@ -151,7 +151,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWFabricBlocks.GEOTHERMAL_VENT.get(),
+				WWBlocks.GEOTHERMAL_VENT.get(),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.title"),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.description"),
 				null,

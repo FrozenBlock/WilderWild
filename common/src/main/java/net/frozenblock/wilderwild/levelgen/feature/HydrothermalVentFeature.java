@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.Codec;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -53,7 +54,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 		mutable.move(Direction.UP, height);
 
 		if (isValidWaterToReplaceAt(level, mutable)) {
-			//TODO NEOFORGE PORTlevel.setBlock(mutable, WWBlocks.GEOTHERMAL_VENT.defaultBlockState(), Block.UPDATE_CLIENTS);
+			level.setBlock(mutable, WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 			level.setBlock(mutable.move(Direction.DOWN), Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 			mutable.move(Direction.UP);
 		} else {
@@ -63,7 +64,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			if (random.nextFloat() > 0.25F) continue;
 			mutable.move(direction);
-			//TODO NEOFORGE PORT if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+			if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 			mutable.move(direction.getOpposite());
 		}
 
@@ -71,7 +72,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 			blockPos = mutable.move(Direction.DOWN).immutable();
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				mutable.move(direction);
-				//TODO NEOFORGE PORT if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+				if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, WWBlocks.GABBRO.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 
 				mutable.move(direction.getOpposite());
 				if (isValidBlockToReplaceAt(level, mutable)) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
@@ -83,7 +84,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 
 		for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
 			mutable.setWithOffset(blockPos, 0, -i, 0);
-			//TODO NEOFORGE PORT if (level.getBlockState(mutable).is(WWBlocks.GABBRO)) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
+			if (level.getBlockState(mutable).is(WWBlocks.GABBRO.get())) level.setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
 
 		mutable.set(blockPos);
@@ -91,7 +92,7 @@ public class HydrothermalVentFeature extends Feature<NoneFeatureConfiguration> {
 			for (int i = 0; i < MAX_CONNECT_TO_FLOOR_DIST; i++) {
 				mutable.setWithOffset(pos, 0, -i, 0);
 				if (isValidWaterToReplaceAt(level, mutable)) {
-					//TODO NEOFORGE PORT level.setBlock(mutable, WWBlocks.GABBRO.defaultBlockState(), Block.UPDATE_CLIENTS);
+					level.setBlock(mutable, WWBlocks.GABBRO.get().defaultBlockState(), Block.UPDATE_CLIENTS);
 				} else {
 					break;
 				}

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.ice;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.block.SpeleothemBlock;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +37,7 @@ public class SpeleothemBlockMixin {
 		)
 	)
 	public boolean wilderWild$preventIciclesFromGrowingBelow(boolean original) {
-		return SpeleothemBlock.class.cast(this) == WWFabricBlocks.ICICLE.get() || original;
+		return SpeleothemBlock.class.cast(this) == WWBlocks.ICICLE.get() || original;
 	}
 
 	@WrapOperation(
@@ -48,7 +48,7 @@ public class SpeleothemBlockMixin {
 		)
 	)
 	private static void wilderWild$fallingIciclesAreWeaker(FallingBlockEntity instance, float damagePerDistance, int damageMax, Operation<Void> original) {
-		if (instance.getBlockState().is(WWFabricBlocks.ICICLE.get())) damagePerDistance *= 10F;
+		if (instance.getBlockState().is(WWBlocks.ICICLE.get())) damagePerDistance *= 10F;
 		original.call(instance, damagePerDistance, damageMax);
 	}
 
