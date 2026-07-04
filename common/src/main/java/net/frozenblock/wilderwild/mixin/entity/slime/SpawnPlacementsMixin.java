@@ -42,7 +42,7 @@ public class SpawnPlacementsMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/entity/EntityType;SLIME:Lnet/minecraft/world/entity/EntityType;"
+				target = "Lnet/minecraft/world/entity/EntityTypes;SLIME:Lnet/minecraft/world/entity/EntityType;"
 			)
 		)
 	)
