@@ -46,7 +46,7 @@ public class LegacyMapleFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.LEGACY_MAPLE_FOLIAGE_PLACER;
+		return WWFeatures.LEGACY_MAPLE_FOLIAGE_PLACER.get();
 	}
 
 	@Override

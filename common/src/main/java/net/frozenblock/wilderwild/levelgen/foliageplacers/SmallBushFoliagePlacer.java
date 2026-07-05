@@ -41,7 +41,7 @@ public class SmallBushFoliagePlacer extends BushFoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.SMALL_BUSH_FOLIAGE_PLACER;
+		return WWFeatures.SMALL_BUSH_FOLIAGE_PLACER.get();
 	}
 
 	@Override

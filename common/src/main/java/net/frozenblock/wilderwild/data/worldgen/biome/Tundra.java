@@ -156,8 +156,7 @@ public final class Tundra extends FrozenLibBiome {
 
 	@Override
 	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
-		//TODO NEOFOGRE PORT return BiomeSpecialEffects.GrassColorModifier.WILDERWILD_TUNDRA;
-		return BiomeSpecialEffects.GrassColorModifier.NONE;
+		return BiomeSpecialEffects.GrassColorModifier.WILDERWILD_TUNDRA;
 	}
 
 	@Override

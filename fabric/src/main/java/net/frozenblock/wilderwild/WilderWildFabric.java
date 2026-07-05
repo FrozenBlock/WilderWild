@@ -32,23 +32,14 @@ import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
-import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricCreativeInventorySorting;
-import net.frozenblock.wilderwild.registry.WWFabricItems;
-import net.frozenblock.wilderwild.registry.WWFabricMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWFeatures;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
-import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWPotions;
-import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
-import net.frozenblock.wilderwild.registry.WWWindDisturbances;
-import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWildFabric extends FrozenModInitializer implements FrozenMobCategoryEntrypoint {
 
@@ -63,27 +54,22 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWFabricBlocks.init();
-		WWFabricItems.init();
+		WWItems.init();
+		WWItems.setup();
 		WWSoundTypes.init();
 		WWParticleTypes.linkLeafParticles();
-		WWFabricMemoryModuleTypes.init();
 		WWLootTables.init();
-		WWMobEffects.init();
 		WWPotions.init();
-		WWCriteria.init();
 
-		WWFeatures.init();
-		WWBiomes.init();
-		WWWorldgen.init();
+		WWBlocks.registerBlockProperties();
 		WWFabricBlocks.registerBlockProperties();
 		WWAdvancementModifications.init();
 		WWStructureModifications.init();
+		WWWorldgen.setup();
 
 		WWModIntegrations.init();
 		WWNetworking.init();
 		WWCreativeInventorySorting.init();
-		WWFabricCreativeInventorySorting.init();
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

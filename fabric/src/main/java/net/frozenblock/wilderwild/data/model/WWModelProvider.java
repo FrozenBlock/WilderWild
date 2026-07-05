@@ -25,8 +25,7 @@ import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricItems;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -89,7 +88,7 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		generator.createDoublePlantWithDefaultItem(WWBlocks.DATURA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
-		generator.createPlantWithDefaultItem(WWFabricBlocks.SEEDING_DANDELION.get(), WWFabricBlocks.POTTED_SEEDING_DANDELION.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		generator.createPlantWithDefaultItem(WWBlocks.SEEDING_DANDELION.get(), WWBlocks.POTTED_SEEDING_DANDELION.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.CARNATION.get(), WWBlocks.POTTED_CARNATION.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.MARIGOLD.get(), WWBlocks.POTTED_MARIGOLD.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createPlantWithDefaultItem(WWBlocks.PASQUEFLOWER.get(), WWBlocks.POTTED_PASQUEFLOWER.get(), BlockModelGenerators.PlantType.NOT_TINTED);
@@ -231,7 +230,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.registerSimpleItemModel(WWBlocks.SCULK_SLAB.get(), ModelLocationUtils.getModelLocation(WWBlocks.SCULK_SLAB.get()));
 		generator.registerSimpleItemModel(WWBlocks.SCULK_WALL.get(), ModelLocationUtils.getModelLocation(WWBlocks.SCULK_WALL.get()));
 		generator.registerSimpleItemModel(WWBlocks.TERMITE_MOUND.get(), ModelLocationUtils.getModelLocation(WWBlocks.TERMITE_MOUND.get()));
-		generator.registerSimpleItemModel(WWFabricBlocks.TUMBLEWEED.get(), ModelLocationUtils.getModelLocation(WWFabricBlocks.TUMBLEWEED.get()));
+		generator.registerSimpleItemModel(WWBlocks.TUMBLEWEED.get(), ModelLocationUtils.getModelLocation(WWBlocks.TUMBLEWEED.get()));
 	}
 
 	@Override
@@ -248,27 +247,27 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.PEELED_PRICKLY_PEAR.get(), ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(WWItems.JELLYFISH_BUCKET.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.CRAB_BUCKET.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.CRAB_CLAW.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_BUCKET.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_CLAW.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.COOKED_CRAB_CLAW.get(), ModelTemplates.FLAT_ITEM);
 
-		generator.generateFlatItem(WWFabricItems.BAOBAB_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.BAOBAB_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.WILLOW_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.WILLOW_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.CYPRESS_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.CYPRESS_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.PALM_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.PALM_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.MAPLE_BOAT.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.MAPLE_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BAOBAB_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BAOBAB_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.WILLOW_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.WILLOW_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CYPRESS_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CYPRESS_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PALM_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PALM_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MAPLE_BOAT.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MAPLE_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
 
 		generator.generateFlatItem(WWBlocks.FLOWERING_LILY_PAD.get().asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricBlocks.OSTRICH_EGG.get().asItem(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricBlocks.PENGUIN_EGG.get().asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.OSTRICH_EGG.get().asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.PENGUIN_EGG.get().asItem(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SCORCHED_EYE.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.FERMENTED_SCORCHED_EYE.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricBlocks.TUMBLEWEED_PLANT.get().asItem(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWBlocks.TUMBLEWEED_PLANT.get().asItem(), ModelTemplates.FLAT_ITEM);
 
 		generator.declareCustomModelItem(WWBlocks.MAPLE_TRAPDOOR.get().asItem());
 		generator.declareCustomModelItem(WWBlocks.PALM_DOOR.get().asItem());
@@ -282,16 +281,16 @@ public final class WWModelProvider extends FabricModelProvider {
 		// Spawn Eggs
 		generator.generateFlatItem(WWItems.FIREFLY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.JELLYFISH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.CRAB_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.ZOMBIE_OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.BUTTERFLY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.MOOBLOOM_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-		generator.generateFlatItem(WWFabricItems.PENGUIN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.CRAB_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.ZOMBIE_OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BUTTERFLY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.MOOBLOOM_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.PENGUIN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 
 		// Firefly Bottles
 		WWModelHelper.generateFireflyBottles(generator);
-		generator.generateFlatItem(WWFabricItems.BUTTERFLY_BOTTLE.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE.get(), ModelTemplates.FLAT_ITEM);
 	}
 }

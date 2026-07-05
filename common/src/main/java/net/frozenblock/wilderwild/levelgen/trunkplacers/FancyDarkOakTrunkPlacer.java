@@ -53,7 +53,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.FANCY_DARK_OAK_TRUNK_PLACER;
+		return WWFeatures.FANCY_DARK_OAK_TRUNK_PLACER.get();
 	}
 
 	@Override

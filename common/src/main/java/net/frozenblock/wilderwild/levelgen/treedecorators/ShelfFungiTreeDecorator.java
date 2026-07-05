@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.levelgen.treedecorators;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -50,7 +51,7 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.SHELF_FUNGI_TREE_DECORATOR;
+		return WWTreeDecorators.SHELF_FUNGI_TREE_DECORATOR.get();
 	}
 
 	@Override
@@ -65,12 +66,11 @@ public class ShelfFungiTreeDecorator extends TreeDecorator {
 		for (BlockPos pos : context.logs()) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				if (random.nextFloat() > this.placementChance || !context.isAir(mutable.setWithOffset(pos, direction))) continue;
-				//TODO NEOFORGE PORT
-				/*
+
 				final BlockState state = this.blockStateProvider.getState(level, random, mutable)
 					.setValue(ShelfFungiBlock.FACE, AttachFace.WALL)
 					.setValue(ShelfFungiBlock.FACING, direction);
-				context.setBlock(mutable, state);*/
+				context.setBlock(mutable, state);
 			}
 		}
 	}

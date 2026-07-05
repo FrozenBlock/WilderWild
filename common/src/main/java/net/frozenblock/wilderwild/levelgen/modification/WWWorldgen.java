@@ -42,6 +42,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WWWorldgen {
 
 	public static void init() {
+		WWTreeDecorators.init();
+	}
+
+	public static void setup() {
 		configureBuiltInBiomes();
 		replaceFeatures();
 		WWVegetationGeneration.generateFlower();
@@ -51,7 +55,6 @@ public final class WWWorldgen {
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 
-		WWTreeDecorators.init();
 		WWTreeGeneration.generateTrees();
 		WWVegetationGeneration.generateMushroom();
 		WWVegetationGeneration.generatePumpkin();

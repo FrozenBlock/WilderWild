@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.config.gui.WWNeoMainConfigGui;
+import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
@@ -23,7 +23,7 @@ public final class WilderWildNeoForgeClient {
 		ModLoadingContext.get().registerExtensionPoint(
 			IConfigScreenFactory.class,
 			() -> (container, parent) ->
-				WWNeoMainConfigGui.buildScreen(parent)
+				WWMainConfigGui.buildScreen(parent)
 		);
 	}
 }

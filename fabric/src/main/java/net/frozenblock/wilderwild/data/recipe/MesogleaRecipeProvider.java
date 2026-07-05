@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.recipe;
 
-import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;

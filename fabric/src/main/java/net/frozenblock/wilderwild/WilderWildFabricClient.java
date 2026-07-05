@@ -17,26 +17,18 @@
 
 package net.frozenblock.wilderwild;
 
-import java.util.Optional;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
-import net.frozenblock.wilderwild.client.WWClientMusicImpl;
-import net.frozenblock.wilderwild.client.WWEasterEggs;
-import net.frozenblock.wilderwild.client.WWFabricModelLayers;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
-import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
-import net.frozenblock.wilderwild.registry.WWClientResources;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
@@ -52,7 +44,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WWBuiltInBlockModels.init();
 		WWFluidRendering.init();
 		WWModelLayers.setupInit();
-		WWFabricModelLayers.init();
 		WWParticleEngine.init();
 		WWTints.init();
 		WWRenderStateDataKeys.init();

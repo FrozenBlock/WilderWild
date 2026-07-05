@@ -72,7 +72,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.JUNIPER_TRUNK_PLACER;
+		return WWFeatures.JUNIPER_TRUNK_PLACER.get();
 	}
 
 	@Override

@@ -35,6 +35,7 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.SnowAndIceDiskFeatureConfiguration;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -197,10 +198,8 @@ public final class WWMiscConfigured {
 
 		EMPTY.makeAndSetHolder(Feature.NO_OP, NoneFeatureConfiguration.INSTANCE);
 
-		//TODO NEOFORGE PORT
-		/*
 		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH.get()))
 		);
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(FrozenLibFeatures.NOISE_PATH,
@@ -672,12 +671,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -690,12 +689,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -708,13 +707,13 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -783,12 +782,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -801,12 +800,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -819,13 +818,13 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -1086,8 +1085,8 @@ public final class WWMiscConfigured {
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				yellowLitterStates.add(
-					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.YELLOW_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
+					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get().defaultBlockState()
+						.setValue(((LeafLitterBlock) WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1098,13 +1097,13 @@ public final class WWMiscConfigured {
 				new BallBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1117,8 +1116,8 @@ public final class WWMiscConfigured {
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				orangeLitterStates.add(
-					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.ORANGE_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
+					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get().defaultBlockState()
+						.setValue(((LeafLitterBlock) WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1129,13 +1128,13 @@ public final class WWMiscConfigured {
 				new BallBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1148,8 +1147,8 @@ public final class WWMiscConfigured {
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
 				redLitterStates.add(
-					WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.RED_MAPLE_LEAF_LITTER).getSegmentAmountProperty(), i)
+					WWBlocks.RED_MAPLE_LEAF_LITTER.get().defaultBlockState()
+						.setValue(((LeafLitterBlock) WWBlocks.RED_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
 						.setValue(LeafLitterBlock.FACING, direction),
 					1
 				);
@@ -1160,13 +1159,13 @@ public final class WWMiscConfigured {
 				new BallBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 					.placementChance(0.75F)
 					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 					.verticalPlacementOffset(1)
 					.outerRingBlockPlacement(
 						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
 							.placementChance(0.65F)
 							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.defaultBlockState(), Vec3i.ZERO))
+							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.get().defaultBlockState(), Vec3i.ZERO))
 							.verticalPlacementOffset(1)
 							.build()
 					).build(),
@@ -1181,7 +1180,7 @@ public final class WWMiscConfigured {
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
 							Feature.SIMPLE_BLOCK,
-							new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET)),
+							new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET.get())),
 							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 						),
 						0.275F
@@ -1190,7 +1189,7 @@ public final class WWMiscConfigured {
 				PlacementUtils.inlinePlaced(
 					Feature.MULTIFACE_GROWTH,
 					new MultifaceGrowthConfiguration(
-						WWBlocks.AUBURN_CREEPING_MOSS,
+						WWBlocks.AUBURN_CREEPING_MOSS.get(),
 						1,
 						true,
 						false,
@@ -1206,7 +1205,7 @@ public final class WWMiscConfigured {
 		AUBURN_MOSS_PATCH.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -1252,7 +1251,7 @@ public final class WWMiscConfigured {
 
 		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.AUBURN_CREEPING_MOSS,
+				WWBlocks.AUBURN_CREEPING_MOSS.get(),
 				10,
 				true,
 				true,
@@ -1265,7 +1264,7 @@ public final class WWMiscConfigured {
 		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(FrozenLibFeatures.VEGETATION_PATCH_WITH_EDGE_DECORATION,
 			new VegetationPatchConfiguration(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK),
+				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -1290,7 +1289,7 @@ public final class WWMiscConfigured {
 
 		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(FrozenLibFeatures.BALL,
 			new BallFeatureConfiguration(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
 					.placementChance(0.85F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(
@@ -1301,7 +1300,7 @@ public final class WWMiscConfigured {
 					)
 					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.WATER))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
 							.placementChance(0.75F)
 							.outerRingStartPercentage(0.675F)
 							.replacementPredicate(
@@ -1343,6 +1342,5 @@ public final class WWMiscConfigured {
 				0.75F
 			)
 		);
-		*/
 	}
 }

@@ -49,7 +49,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.PALM_FOLIAGE_PLACER;
+		return WWFeatures.PALM_FOLIAGE_PLACER.get();
 	}
 
 	@Override

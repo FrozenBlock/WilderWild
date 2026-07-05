@@ -77,7 +77,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.FALLEN_LARGE_TRUNK_PLACER;
+		return WWFeatures.FALLEN_LARGE_TRUNK_PLACER.get();
 	}
 
 	@Override

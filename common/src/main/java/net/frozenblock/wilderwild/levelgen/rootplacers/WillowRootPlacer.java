@@ -142,6 +142,6 @@ public class WillowRootPlacer extends RootPlacer {
 
 	@Override
 	protected RootPlacerType<?> type() {
-		return WWFeatures.WILLOW_ROOT_PLACER;
+		return WWFeatures.WILLOW_ROOT_PLACER.get();
 	}
 }

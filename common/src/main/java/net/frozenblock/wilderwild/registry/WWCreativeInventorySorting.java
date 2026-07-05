@@ -54,8 +54,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFunctionalBlocks(WWItems.BAOBAB_SIGN, WWItems.BAOBAB_HANGING_SIGN);
 		insertAfterInFunctionalBlocks(Items.MANGROVE_SHELF, WWItems.BAOBAB_SHELF);
 		// BAOBAB (TOOLS AND UTILITIES)
-		// TODO BAOBAB_BOAT
-		// TODO BAOBAB_CHEST_BOAT
+		insertAfterInToolsAndUtilities(Items.MANGROVE_CHEST_BOAT, WWItems.BAOBAB_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_CHEST_BOAT);
 		// BAOBAB NUT
 		insertAfterInFoodAndDrinks(Items.ENCHANTED_GOLDEN_APPLE, WWItems.BAOBAB_NUT);
 		insertAfterInNaturalBlocks(Items.MANGROVE_PROPAGULE, WWItems.BAOBAB_NUT);
@@ -83,8 +83,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFunctionalBlocks(WWItems.WILLOW_SIGN, WWItems.WILLOW_HANGING_SIGN);
 		insertAfterInFunctionalBlocks(WWItems.BAOBAB_SHELF, WWItems.WILLOW_SHELF);
 		// WILLOW (TOOLS AND UTILITIES)
-		// TODO WILLOW_BOAT
-		// TODO WILLOW_CHEST_BOAT
+		insertAfterInToolsAndUtilities(WWItems.BAOBAB_CHEST_BOAT, WWItems.WILLOW_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.WILLOW_BOAT, WWItems.WILLOW_CHEST_BOAT);
 
 		// CYPRESS (BUILDING BLOCKS)
 		insertAfterInBuildingBlocks(WWItems.WILLOW_BUTTON, WWItems.CYPRESS_LOG);
@@ -109,8 +109,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFunctionalBlocks(WWItems.CYPRESS_SIGN, WWItems.CYPRESS_HANGING_SIGN);
 		insertAfterInFunctionalBlocks(WWItems.WILLOW_SHELF, WWItems.CYPRESS_SHELF);
 		// CYPRESS (TOOLS AND UTILITIES)
-		// TODO CYPRESS_BOAT
-		// TODO CYPRESS_CHEST_BOAT
+		insertAfterInToolsAndUtilities(WWItems.WILLOW_CHEST_BOAT, WWItems.CYPRESS_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_CHEST_BOAT);
 
 		// PALM (BUILDING BLOCKS)
 		insertAfterInBuildingBlocks(WWItems.CYPRESS_BUTTON, WWItems.PALM_LOG);
@@ -134,8 +134,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFunctionalBlocks(WWItems.PALM_SIGN, WWItems.PALM_HANGING_SIGN);
 		insertAfterInFunctionalBlocks(WWItems.CYPRESS_SHELF, WWItems.PALM_SHELF);
 		// PALM (TOOLS AND UTILITIES)
-		// TODO PALM_BOAT
-		// TODO PALM_CHEST_BOAT
+		insertAfterInToolsAndUtilities(WWItems.CYPRESS_CHEST_BOAT, WWItems.PALM_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.PALM_BOAT, WWItems.PALM_CHEST_BOAT);
 		// COCONUT
 		insertAfterInCombat(Items.BLUE_EGG, WWItems.COCONUT);
 		insertAfterInNaturalBlocks(WWItems.CYPRESS_SAPLING, WWItems.COCONUT);
@@ -168,8 +168,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
 		insertAfterInFunctionalBlocks(Items.CHERRY_SHELF, WWItems.MAPLE_SHELF);
 		// MAPLE (TOOLS AND UTILITIES)
-		// TODO MAPLE_BOAT
-		// TODO MAPLE_CHEST_BOAT
+		insertAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
+		insertAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
 
 		// HOLLOWED LOGS
 		insertAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWItems.HOLLOWED_OAK_LOG);
@@ -241,10 +241,10 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_LEAF_LITTER, WWItems.ORANGE_MAPLE_LEAF_LITTER);
 		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_LEAF_LITTER, WWItems.RED_MAPLE_LEAF_LITTER);
 		insertAfterInNaturalBlocks(WWItems.RED_MAPLE_LEAF_LITTER, WWItems.PALE_OAK_LEAF_LITTER);
-		// TODO insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.AZALEA_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS
-		// TODO SEEDING_DANDELION
+		insertAfterInNaturalBlocks(Items.DANDELION, WWItems.SEEDING_DANDELION);
 		insertAfterInNaturalBlocks(Items.CORNFLOWER, WWItems.CARNATION);
 		insertAfterInNaturalBlocks(WWItems.CARNATION, WWItems.MARIGOLD);
 		insertAfterInNaturalBlocks(WWItems.MARIGOLD, WWItems.PASQUEFLOWER);
@@ -266,9 +266,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(Items.CACTUS, WWItems.PRICKLY_PEAR);
 		insertAfterInFoodAndDrinks(Items.SWEET_BERRIES, WWItems.PRICKLY_PEAR);
 		insertAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
-		// TODO TUMBLEWEED_PLANT
-		// TODO TUMBLEWEED
-		// TODO SHRUB
+		insertAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWItems.TUMBLEWEED_PLANT);
+		insertAfterInNaturalBlocks(WWItems.TUMBLEWEED_PLANT, WWItems.TUMBLEWEED);
+		insertAfterInNaturalBlocks(WWItems.TUMBLEWEED, WWItems.SHRUB);
 		insertBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.BARNACLES);
 		insertAfterInNaturalBlocks(WWItems.BARNACLES, WWItems.ALGAE);
 		insertAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
@@ -297,7 +297,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.CRIMSON_SHELF_FUNGI, WWItems.WARPED_SHELF_FUNGI);
 
 		// PALE MUSHROOMS
-		// TODO PALE_MUSHROOM_BLOCK
+		insertAfterInNaturalBlocks(Items.RED_MUSHROOM_BLOCK, WWItems.PALE_MUSHROOM_BLOCK);
 		insertAfterInNaturalBlocks(Items.RED_MUSHROOM, WWItems.PALE_MUSHROOM);
 		insertAfterInNaturalBlocks(WWItems.RED_SHELF_FUNGI, WWItems.PALE_SHELF_FUNGI);
 
@@ -305,8 +305,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(Items.WET_SPONGE, WWItems.SPONGE_BUD);
 
 		// EGGS
-		// TODO OSTRICH_EGG
-		// TODO PENGUIN_EGG
+		insertBeforeInNaturalBlocks(Items.SNIFFER_EGG, WWItems.OSTRICH_EGG);
+		insertAfterInNaturalBlocks(WWItems.OSTRICH_EGG, WWItems.PENGUIN_EGG);
 
 		// MESOGLEA
 		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.PEARLESCENT_BLUE_MESOGLEA);
@@ -373,35 +373,35 @@ public final class WWCreativeInventorySorting {
 		insertAfterInToolsAndUtilities(Items.MILK_BUCKET, WWItems.FIREFLY_BOTTLE);
 
 		// BUTTERFLY
-		// TODO BUTTERFLY_SPAWN_EGG
-		// TODO BUTTERFLY_BOTTLE
+		insertAfterInSpawnEggs(Items.BEE_SPAWN_EGG, WWItems.BUTTERFLY_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(WWItems.FIREFLY_BOTTLE, WWItems.BUTTERFLY_BOTTLE);
 
 		// JELLYFISH
 		insertAfterInSpawnEggs(Items.GLOW_SQUID_SPAWN_EGG, WWItems.JELLYFISH_SPAWN_EGG);
 		insertAfterInToolsAndUtilities(Items.AXOLOTL_BUCKET, WWItems.JELLYFISH_BUCKET);
 
 		// CRAB
-		// TODO CRAB_SPAWN_EGG
-		// TODO CRAB_BUCKET
-		// TODO CRAB_CLAW
-		// TODO COOKED_CRAB_CLAW
+		insertAfterInSpawnEggs(Items.COD_SPAWN_EGG, WWItems.CRAB_SPAWN_EGG);
+		insertAfterInToolsAndUtilities(WWItems.JELLYFISH_BUCKET, WWItems.CRAB_BUCKET);
+		insertBeforeInFoodAndDrinks(Items.COD, WWItems.CRAB_CLAW);
+		insertAfterInFoodAndDrinks(WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW);
 
 		// OSTRICH
-		// TODO OSTRICH_SPAWN_EGG
+		insertAfterInSpawnEggs(Items.MULE_SPAWN_EGG, WWItems.OSTRICH_SPAWN_EGG);
 
 		// ZOMBIE OSTRICH
-		// TODO ZOMBIE_OSTRICH_SPAWN_EGG
+		insertAfterInSpawnEggs(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, WWItems.ZOMBIE_OSTRICH_SPAWN_EGG);
 
 		// SCORCHED
-		// TODO SCORCHED_SPAWN_EGG
+		insertBeforeInSpawnEggs(Items.SPIDER_SPAWN_EGG, WWItems.SCORCHED_SPAWN_EGG);
 		insertAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
 		insertAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
 
 		// MOOBLOOM
-		// TODO MOOBLOOM_SPAWN_EGG
+		insertBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
 
 		// PENGUIN
-		// TODO PENGUIN_SPAWN_EGG
+		insertAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
 		// GABBRO
 		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWItems.GEOTHERMAL_VENT);

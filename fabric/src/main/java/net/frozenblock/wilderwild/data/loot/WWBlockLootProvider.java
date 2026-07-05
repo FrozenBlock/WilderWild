@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -222,7 +222,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_WALL.get());
 
 		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
-		this.dropSelf(WWFabricBlocks.SEEDING_DANDELION.get());
+		this.dropSelf(WWBlocks.SEEDING_DANDELION.get());
 		this.dropSelf(WWBlocks.CARNATION.get());
 		this.dropSelf(WWBlocks.MARIGOLD.get());
 		this.dropSelf(WWBlocks.PASQUEFLOWER.get());
@@ -247,15 +247,15 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.FROZEN_SHORT_GRASS.get(), this::createGrassDrops);
 		this.add(WWBlocks.FROZEN_BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
 
-		this.add(WWFabricBlocks.TUMBLEWEED_PLANT.get(),
+		this.add(WWBlocks.TUMBLEWEED_PLANT.get(),
 			LootTable.lootTable()
 				.withPool(
 					this.applyExplosionCondition(
-						WWFabricBlocks.TUMBLEWEED_PLANT.get(),
+						WWBlocks.TUMBLEWEED_PLANT.get(),
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
 							.when(ExplosionCondition.survivesExplosion())
-							.add(LootItem.lootTableItem(WWFabricBlocks.TUMBLEWEED_PLANT.get()))
+							.add(LootItem.lootTableItem(WWBlocks.TUMBLEWEED_PLANT.get()))
 					)
 				).withPool(
 						LootPool.lootPool()
@@ -263,17 +263,17 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 							.setRolls(ConstantValue.exactly(1F))
 							.add(
 								this.applyExplosionDecay(
-									WWFabricBlocks.TUMBLEWEED_PLANT.get(),
+									WWBlocks.TUMBLEWEED_PLANT.get(),
 									LootItem.lootTableItem(Items.STICK).apply(
 										SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWFabricBlocks.TUMBLEWEED_PLANT.get())
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
 													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
 											)
 									).apply(
 										SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWFabricBlocks.TUMBLEWEED_PLANT.get())
+												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
 													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 											)
 									).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
@@ -284,9 +284,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						.when(this.hasShearsOrSilkTouch())
 						.setRolls(ConstantValue.exactly(1F))
 						.add(
-							LootItem.lootTableItem(WWFabricBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+							LootItem.lootTableItem(WWBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 								.when(
-									LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWFabricBlocks.TUMBLEWEED_PLANT.get())
+									LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
 										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 								)
 						)
@@ -433,9 +433,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropPottedContents(WWBlocks.POTTED_WHITE_HIBISCUS.get());
 		this.dropPottedContents(WWBlocks.POTTED_PINK_HIBISCUS.get());
 		this.dropPottedContents(WWBlocks.POTTED_PURPLE_HIBISCUS.get());
-		this.dropPottedContents(WWFabricBlocks.POTTED_SEEDING_DANDELION.get());
-		this.dropPottedContents(WWFabricBlocks.POTTED_TUMBLEWEED_PLANT.get());
-		this.dropPottedContents(WWFabricBlocks.POTTED_TUMBLEWEED.get());
+		this.dropPottedContents(WWBlocks.POTTED_SEEDING_DANDELION.get());
+		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED_PLANT.get());
+		this.dropPottedContents(WWBlocks.POTTED_TUMBLEWEED.get());
 		this.dropPottedContents(WWBlocks.POTTED_PRICKLY_PEAR.get());
 		this.dropPottedContents(WWBlocks.POTTED_BIG_DRIPLEAF.get());
 		this.dropPottedContents(WWBlocks.POTTED_SMALL_DRIPLEAF.get());
@@ -475,8 +475,8 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());
 		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
 
-		this.dropSelf(WWFabricBlocks.OSTRICH_EGG.get());
-		this.dropSelf(WWFabricBlocks.PENGUIN_EGG.get());
+		this.dropSelf(WWBlocks.OSTRICH_EGG.get());
+		this.dropSelf(WWBlocks.PENGUIN_EGG.get());
 		this.dropSelf(WWBlocks.GEOTHERMAL_VENT.get());
 		this.dropWhenSilkTouch(WWBlocks.HANGING_TENDRIL.get());
 		this.dropWhenSilkTouch(WWBlocks.OSSEOUS_SCULK.get());
@@ -545,7 +545,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.dropSelf(WWBlocks.PALE_MUSHROOM.get());
 		this.dropPottedContents(WWBlocks.POTTED_PALE_MUSHROOM.get());
-		this.add(WWFabricBlocks.PALE_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, WWBlocks.PALE_MUSHROOM.get()));
+		this.add(WWBlocks.PALE_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, WWBlocks.PALE_MUSHROOM.get()));
 
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS.get());
 		this.dropSelf(WWBlocks.CRACKED_MUD_BRICKS.get());

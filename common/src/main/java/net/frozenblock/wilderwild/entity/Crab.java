@@ -1,0 +1,960 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.entity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import com.google.common.base.Suppliers;
+import net.frozenblock.lib.block.api.shape.FrozenShapes;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabJumpControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabMoveControl;
+import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
+import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWItems;
+import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWGameEventTags;
+import net.frozenblock.wilderwild.tag.WWItemTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Bucketable;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.VariantUtils;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.DynamicGameEventListener;
+import net.minecraft.world.level.gameevent.EntityPositionSource;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Math;
+
+public class Crab extends Animal implements VibrationSystem, Bucketable {
+	public static final Identifier BLOCK_REACH_BOOST_MODIFIER_ID = WWConstants.id("block_reach_boost");
+	public static final Identifier ENTITY_REACH_BOOST_MODIFIER_ID = WWConstants.id("entity_reach_boost");
+	public static final float MAX_TARGET_DISTANCE = 16F;
+	public static final double MOVEMENT_SPEED = 0.16;
+	public static final float STEP_HEIGHT = 0.2F;
+	public static final double WATER_MOVEMENT_SPEED = 0.576;
+	public static final int DIG_LENGTH_IN_TICKS = 95;
+	public static final int EMERGE_LENGTH_IN_TICKS = 29;
+	public static final double UNDERGROUND_PLAYER_RANGE = 4;
+	private static final int DIG_TICKS_UNTIL_PARTICLES = 17;
+	private static final int DIG_TICKS_UNTIL_STOP_PARTICLES = 82;
+	private static final int EMERGE_TICKS_UNTIL_PARTICLES = 1;
+	private static final int EMERGE_TICKS_UNTIL_STOP_PARTICLES = 16;
+	public static final float DIGGING_PARTICLE_OFFSET = 0.25F;
+	public static final float IDLE_SOUND_VOLUME_PERCENTAGE = 0.2F;
+	private static final double LATCH_TO_WALL_FORCE = 0.0195D;
+	private static final Supplier<Brain.Provider<Crab>> BRAIN_PROVIDER = Suppliers.memoize(() -> CrabAi.brainProvider());
+	private static final EntityDataAccessor<String> MOVE_STATE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_X = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_Y = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<String> CLIMBING_FACE = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
+	private static final EntityDataAccessor<Float> TARGET_CLIMBING_ANIM_AMOUNT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> DIGGING_TICKS = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.STRING);
+	public final AnimationState diggingAnimationState = new AnimationState();
+	public final AnimationState emergingAnimationState = new AnimationState();
+	public final AnimationState hidingAnimationState = new AnimationState();
+	private final DynamicGameEventListener<VibrationSystem.Listener> dynamicGameEventListener;
+	private final VibrationSystem.User vibrationUser;
+	private VibrationSystem.Data vibrationData;
+	public Vec3 prevMovement;
+	public boolean cancelMovementToDescend;
+
+	// CLIENT VARIABLES
+	public float climbAnimX;
+	public float prevClimbAnimX;
+	private Optional<CrabVariant> crabVariant = Optional.empty();
+
+	public Crab(EntityType<? extends Crab> type, Level level) {
+		super(type, level);
+		this.vibrationUser = new Crab.VibrationUser();
+		this.vibrationData = new VibrationSystem.Data();
+		this.dynamicGameEventListener = new DynamicGameEventListener<>(new VibrationSystem.Listener(this));
+		this.jumpControl = new CrabJumpControl(this);
+		this.prevMovement = Vec3.ZERO;
+		this.setPathfindingMalus(PathType.LAVA, -1F);
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, -1F);
+		this.setPathfindingMalus(PathType.WATER, 0F);
+		this.setPathfindingMalus(PathType.WATER_BORDER, 0F);
+		if (WWEntityConfig.UNPASSABLE_RAIL.get()) this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
+		this.moveControl = new CrabMoveControl(this);
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Animal.createAnimalAttributes()
+			.add(Attributes.MAX_HEALTH, 8D)
+			.add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+			.add(Attributes.STEP_HEIGHT, STEP_HEIGHT)
+			.add(Attributes.JUMP_STRENGTH, 0D)
+			.add(Attributes.ATTACK_DAMAGE, 2D)
+			.add(Attributes.FOLLOW_RANGE, MAX_TARGET_DISTANCE);
+	}
+
+	public static boolean checkCrabSpawnRules(EntityType<Crab> type, ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
+		if (EntitySpawnReason.isSpawner(spawnType)) return true;
+		if (!WWEntityConfig.SPAWN_CRABS.get()) return false;
+		int seaLevel = level.getSeaLevel();
+		return pos.getY() >= seaLevel - 33 && level.getBlockState(pos.below()).is(WWBlockTags.CRAB_HIDEABLE);
+	}
+
+	private static float getAngleFromVec3(Vec3 vec3) {
+		float angle = (float) Math.atan2(vec3.z(), vec3.x());
+		angle = 180F * angle / Mth.PI;
+		angle = (360F + angle) % 360F;
+		return angle;
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		return new CrabNavigation(this, level);
+	}
+
+	@Override
+	protected Brain<Crab> makeBrain(Brain.Packed packedBrain) {
+		return BRAIN_PROVIDER.get().makeBrain(this, packedBrain);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Brain<Crab> getBrain() {
+		return (Brain<Crab>) super.getBrain();
+	}
+
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+		this.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(this));
+		switch (spawnReason) {
+			case BUCKET -> {
+				return groupData;
+			}
+			case NATURAL, TRIGGERED, REINFORCEMENT ->
+				this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, EMERGE_LENGTH_IN_TICKS);
+			default -> {
+			}
+		}
+
+		if (groupData instanceof CrabSpawnGroupData crabGroupData) {
+			if (crabGroupData.getGroupSize() >= 2) this.setAge(this.getBabyStartAge());
+			this.setVariant(crabGroupData.type.value());
+		} else {
+			final Optional<Holder.Reference<CrabVariant>> optionalCrabVariant = VariantUtils.selectVariantToSpawn(
+				SpawnContext.create(level, this.blockPosition()),
+				WilderWildRegistries.CRAB_VARIANT
+			);
+			if (optionalCrabVariant.isPresent()) {
+				groupData = new CrabSpawnGroupData(optionalCrabVariant.get());
+				this.setVariant(optionalCrabVariant.get().value());
+			}
+		}
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		return 0F;
+	}
+
+	@Override
+	@Nullable
+	public LivingEntity getTarget() {
+		return this.getTargetFromBrain();
+	}
+
+	@Override
+	public boolean isInvisible() {
+		return super.isInvisible() || this.isHidingUnderground();
+	}
+
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(MOVE_STATE, MoveState.WALKING.name());
+		entityData.define(TARGET_CLIMBING_ANIM_X, 0F);
+		entityData.define(TARGET_CLIMBING_ANIM_Y, 0F);
+		entityData.define(TARGET_CLIMBING_ANIM_AMOUNT, 0F);
+		entityData.define(DIGGING_TICKS, 0);
+		entityData.define(FROM_BUCKET, false);
+		entityData.define(CLIMBING_FACE, ClimbingFace.NORTH.name());
+		entityData.define(VARIANT, CrabVariants.DEFAULT.identifier().toString());
+	}
+
+	@Override
+	public boolean checkSpawnObstruction(LevelReader level) {
+		return level.isUnobstructed(this);
+	}
+
+	@Override
+	public void aiStep() {
+		this.updateSwingTime();
+		final AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+		if (movementSpeed != null) movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
+		super.aiStep();
+	}
+
+	@Override
+	public void tick() {
+		final boolean isClient = this.level().isClientSide();
+		if (this.level() instanceof ServerLevel serverLevel) VibrationSystem.Ticker.tick(serverLevel, this.vibrationData, this.vibrationUser);
+
+		super.tick();
+
+		if (!isClient) {
+			this.cancelMovementToDescend = false;
+
+			final boolean inWater = this.isInWater();
+			final boolean isMovingUp = this.getDeltaPos().y() >= 0;
+			if (this.horizontalCollision && !(inWater && !isMovingUp)) {
+				this.setMoveState(isMovingUp ? MoveState.CLIMBING : MoveState.DESCENDING);
+				if (this.isCrabDescending() && this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
+					this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
+				}
+				Vec3 usedMovement = this.getDeltaMovement();
+				final Direction climbedDirection = Direction.getApproximateNearest(usedMovement.x(), 0D, usedMovement.z());
+				this.setClimbingFace(climbedDirection);
+				if (usedMovement.x == 0D && usedMovement.z == 0D) usedMovement = this.prevMovement;
+				this.setTargetClimbAnimX(
+					Math.abs(getAngleFromVec3(usedMovement) - getAngleFromVec3(this.getViewVector(1F))) / 180F
+				);
+				this.setTargetClimbAnimAmount(1F);
+				this.prevMovement = usedMovement;
+
+				if (this.onClimbable()) {
+					final Optional<Vec3> potentialNearestWallDifference = this.differenceToWallPos();
+					if (potentialNearestWallDifference.isPresent()) {
+						final Vec3 nearestWallDifference = potentialNearestWallDifference.get();
+						final Direction wallDirection = Direction.getApproximateNearest(nearestWallDifference.x(), 0D, nearestWallDifference.z());
+
+						final Vec3 climbOffset = new Vec3(wallDirection.getStepX(), 0D, wallDirection.getStepZ());
+						this.lookControl.setLookAt(this.getEyePosition().add(climbOffset));
+						this.setYRot(wallDirection.toYRot());
+						this.setYHeadRot(wallDirection.toYRot());
+						this.setYBodyRot(wallDirection.toYRot());
+					}
+				}
+			} else {
+				this.setMoveState(MoveState.WALKING);
+				this.setTargetClimbAnimX(0F);
+				if (!this.onGround() && !inWater) {
+					if (this.level().noBlockCollision(this, this.makeBoundingBox().expandTowards(0D, -this.getEmptyAreaSearchDistance(), 0D))) {
+						this.cancelMovementToDescend = this.latchOntoWall(LATCH_TO_WALL_FORCE, false);
+					}
+				}
+			}
+
+			if (this.isDiggingOrEmerging()) this.setDiggingTicks(this.getDiggingTicks() + 1);
+		} else {
+			switch (this.getPose()) {
+				case DIGGING -> {
+					if (this.getDiggingTicks() > DIG_TICKS_UNTIL_PARTICLES && this.getDiggingTicks() < DIG_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
+				}
+				case EMERGING -> {
+					if (this.getDiggingTicks() >= EMERGE_TICKS_UNTIL_PARTICLES && this.getDiggingTicks() <= EMERGE_TICKS_UNTIL_STOP_PARTICLES) {
+						this.clientDiggingParticles();
+					}
+				}
+				default -> {
+				}
+			}
+
+			final boolean onClimbable = !this.isCrabWalking();
+			this.prevClimbAnimX = this.climbAnimX;
+			Supplier<Float> climbingVal = () -> (Math.cos(this.targetClimbAnimX() * Mth.PI) >= -0.275F ? -1F : 1F);
+			this.climbAnimX += ((onClimbable ? climbingVal.get() : 0F) - this.climbAnimX) * 0.2F;
+		}
+	}
+
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		boolean actuallyHurt = super.hurtServer(level, source, damage);
+		if (actuallyHurt) {
+			if (source.getEntity() instanceof LivingEntity livingEntity) CrabAi.wasHurtBy(level, this, livingEntity);
+			if (!this.isDiggingOrEmerging()) CrabAi.setDigCooldown(this);
+		}
+		return actuallyHurt;
+	}
+
+	@Override
+	protected void customServerAiStep(ServerLevel level) {
+		final ProfilerFiller profiler = Profiler.get();
+		profiler.push("crabBrain");
+		this.getBrain().tick(level, this);
+		profiler.pop();
+		profiler.push("crabActivityUpdate");
+		CrabAi.updateActivity(this);
+		profiler.pop();
+		super.customServerAiStep(level);
+		this.getBrain().setMemory(WWMemoryModuleTypes.FIRST_BRAIN_TICK.get(), Unit.INSTANCE);
+	}
+
+	public double getEmptyAreaSearchDistance() {
+		return this.isBaby() ? 0.8D : 2D;
+	}
+
+	@Nullable
+	public Vec3 findNearestWall() {
+		BlockPos crabPos = this.blockPosition();
+		if (this.mainSupportingBlockPos.isPresent() && this.getOnPos().equals(crabPos)) crabPos = crabPos.above();
+
+		final boolean inWater = this.isInWater();
+		final ArrayList<Vec3> vecs = new ArrayList<>();
+		for (BlockPos pos : BlockPos.betweenClosed(crabPos.offset(-1, 0, -1), crabPos.offset(1, 0, 1))) {
+			final BlockState state = this.level().getBlockState(pos);
+			final VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
+			if (this.isWallPosSlowable(pos, state, collisionShape)) {
+				final Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
+				if (optionalVec3.isPresent()) {
+					vecs.add(optionalVec3.get());
+				} else if (!inWater && state.getFluidState().is(FluidTags.WATER)) {
+					vecs.add(Vec3.atCenterOf(pos));
+				}
+			}
+		}
+		return getClosestPos(vecs);
+	}
+
+	@Nullable
+	public Vec3 getClosestPos(List<Vec3> vec3s) {
+		double lowestDistance = Double.MAX_VALUE;
+		Vec3 selectedVec3 = null;
+		final Vec3 thisPos = this.getEyePosition();
+		for (Vec3 vec3 : vec3s) {
+			final double distance = vec3.distanceTo(thisPos);
+			if (distance >= lowestDistance) continue;
+			lowestDistance = distance;
+			selectedVec3 = vec3;
+		}
+		return selectedVec3;
+	}
+
+	public boolean isWallPosSlowable(BlockPos pos, BlockState state, VoxelShape collisionShape) {
+		if (state.isAir() || state.getFluidState().is(FluidTags.LAVA)) return false;
+		return (!collisionShape.isEmpty() && pos.getY() + collisionShape.min(Direction.Axis.Y) <= this.getEyeY()) || (state.getFluidState().is(FluidTags.WATER));
+	}
+
+	private Optional<Vec3> differenceToWallPos() {
+		final Vec3 wallPos = this.findNearestWall();
+		if (wallPos != null) return Optional.of(wallPos.subtract(this.position()));
+		return Optional.empty();
+	}
+
+	public boolean latchOntoWall(double latchForce, boolean stopDownwardsMovement) {
+		final Vec3 wallPos = this.findNearestWall();
+		if (wallPos == null) return false;
+		final Vec3 differenceBetween = wallPos.subtract(this.position());
+		final Vec3 deltaMovement = this.getDeltaMovement();
+		this.setDeltaMovement(
+			deltaMovement.x() + (differenceBetween.x() < 0D ? -latchForce : differenceBetween.x() > 0D ? latchForce : 0D),
+			(stopDownwardsMovement ? Math.max(0, deltaMovement.y()) : deltaMovement.y()),
+			deltaMovement.z() + (differenceBetween.z() < 0D ? -latchForce : differenceBetween.z() > 0D ? latchForce : 0D)
+		);
+		return true;
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return WWSounds.ENTITY_CRAB_HURT.get();
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getDeathSound() {
+		return WWSounds.ENTITY_CRAB_DEATH.get();
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(WWSounds.ENTITY_CRAB_STEP.get(), 0.3F, this.getVoicePitch());
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return this.isHidingUnderground() ? null : WWSounds.ENTITY_CRAB_IDLE.get();
+	}
+
+	@Override
+	public int getAmbientSoundInterval() {
+		return 400;
+	}
+
+	@Override
+	public void playAmbientSound() {
+		SoundEvent soundEvent = this.getAmbientSound();
+		if (soundEvent != null) this.playSound(soundEvent, this.getSoundVolume() * IDLE_SOUND_VOLUME_PERCENTAGE, this.getVoicePitch());
+	}
+
+	@Override
+	protected float nextStep() {
+		return this.moveDist + 0.55F;
+	}
+
+	@Override
+	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
+		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
+		this.playSound(WWSounds.ENTITY_CRAB_ATTACK.get(), this.getSoundVolume(), this.getVoicePitch());
+		return super.doHurtTarget(level, target);
+	}
+
+	@Override
+	public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
+		if (this.isDiggingOrEmerging() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return true;
+		return super.isInvulnerableTo(level, source);
+	}
+
+	@Override
+	public boolean isPushable() {
+		return !this.isDiggingOrEmerging() && super.isPushable();
+	}
+
+	@Override
+	protected void doPush(Entity entity) {
+		if (this.isHidingUnderground()) return;
+		super.doPush(entity);
+	}
+
+	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
+
+	@Override
+	public boolean ignoreExplosion(Explosion explosion) {
+		return this.isDiggingOrEmerging();
+	}
+
+	public boolean isDiggingOrEmerging() {
+		return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
+	}
+
+	public boolean isHidingUnderground() {
+		return this.hasPose(Pose.DIGGING) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS;
+	}
+
+	@Contract("null->false")
+	public boolean canTargetEntity(@Nullable Entity entity) {
+		return entity instanceof LivingEntity livingEntity
+			&& this.level() == livingEntity.level()
+			&& !this.level().getDifficulty().equals(Difficulty.PEACEFUL)
+			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
+			&& !this.isAlliedTo(livingEntity)
+			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
+			&& livingEntity.getType() != WWEntityTypes.CRAB
+			&& !livingEntity.isInvulnerable()
+			&& !livingEntity.isDeadOrDying()
+			&& !livingEntity.isRemoved()
+			&& this.level().getWorldBorder().isWithinBounds(livingEntity.getBoundingBox());
+	}
+
+	public boolean canHideOnGround() {
+		final BlockPos onPos = this.getOnPos();
+		BlockPos topPos = this.blockPosition();
+		if (onPos.equals(topPos)) topPos = topPos.above();
+		return this.onGround()
+			&& !this.isColliding(topPos, this.level().getBlockState(topPos))
+			&& this.level().getBlockState(onPos).is(WWBlockTags.CRAB_HIDEABLE);
+	}
+
+	public boolean canEmerge() {
+		BlockPos pos = this.blockPosition();
+		if (pos.equals(this.getOnPos())) pos = pos.above();
+		BlockState state = this.level().getBlockState(pos);
+		return !state.is(BlockTags.FIRE) && !state.getFluidState().is(FluidTags.LAVA);
+	}
+
+	public void endNavigation() {
+		this.getNavigation().stop();
+		if (this.getNavigation() instanceof WallClimberNavigation wallClimberNavigation) wallClimberNavigation.pathToPosition = null;
+	}
+
+	public Vec3 getDeltaPos() {
+		return this.getPosition(1F).subtract(this.getPosition(0F));
+	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+		if (DATA_POSE.equals(key)) {
+			switch (this.getPose()) {
+				case DIGGING -> {
+					this.diggingAnimationState.start(this.tickCount);
+					this.emergingAnimationState.stop();
+					this.hidingAnimationState.stop();
+				}
+				case EMERGING -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.start(this.tickCount);
+					this.hidingAnimationState.stop();
+				}
+				default -> {
+					this.diggingAnimationState.stop();
+					this.emergingAnimationState.stop();
+					this.hidingAnimationState.stop();
+				}
+			}
+		} else if (DIGGING_TICKS.equals(key) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS && this.getPose() == Pose.DIGGING) {
+			this.diggingAnimationState.stop();
+			this.emergingAnimationState.stop();
+			this.hidingAnimationState.start(this.tickCount);
+		} else if (VARIANT.equals(key)) {
+			this.crabVariant = Optional.of(this.getVariant());
+		}
+		super.onSyncedDataUpdated(key);
+	}
+
+	@Override
+	public boolean onClimbable() {
+		return !this.isCrabWalking();
+	}
+
+	@Override
+	public boolean isDescending() {
+		return this.isCrabDescending();
+	}
+
+	public MoveState moveState() {
+		return MoveState.valueOf(this.entityData.get(MOVE_STATE));
+	}
+
+	public boolean isCrabClimbing() {
+		return this.moveState() == MoveState.CLIMBING;
+	}
+
+	public boolean isCrabDescending() {
+		return this.moveState() == MoveState.DESCENDING;
+	}
+
+	public boolean isCrabWalking() {
+		return this.moveState() == MoveState.WALKING;
+	}
+
+	public void setMoveState(MoveState state) {
+		this.entityData.set(MOVE_STATE, state.name());
+	}
+
+	public ClimbingFace getClimbingFace() {
+		return ClimbingFace.valueOf(this.entityData.get(CLIMBING_FACE));
+	}
+
+	public void setClimbingFace(Direction direction) {
+		this.entityData.set(
+			CLIMBING_FACE,
+			switch (direction) {
+				case EAST -> ClimbingFace.EAST.name();
+				case WEST -> ClimbingFace.WEST.name();
+				case SOUTH -> ClimbingFace.SOUTH.name();
+				default -> ClimbingFace.NORTH.name();
+			}
+		);
+	}
+
+	public float targetClimbAnimX() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM_X);
+	}
+
+	public void setTargetClimbAnimX(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM_X, f);
+	}
+
+	public float targetClimbAnimAmount() {
+		return this.entityData.get(TARGET_CLIMBING_ANIM_AMOUNT);
+	}
+
+	public void setTargetClimbAnimAmount(float f) {
+		this.entityData.set(TARGET_CLIMBING_ANIM_AMOUNT, f);
+	}
+
+	public int getDiggingTicks() {
+		return this.entityData.get(DIGGING_TICKS);
+	}
+
+	public void setDiggingTicks(int i) {
+		this.entityData.set(DIGGING_TICKS, i);
+	}
+
+	public void resetDiggingTicks() {
+		this.setDiggingTicks(0);
+	}
+
+	@Override
+	public boolean isFood(ItemStack stack) {
+		return stack.is(WWItemTags.CRAB_FOOD);
+	}
+
+	@Override
+	public boolean fromBucket() {
+		return this.entityData.get(FROM_BUCKET);
+	}
+
+	@Override
+	public void setFromBucket(boolean fromBucket) {
+		this.entityData.set(FROM_BUCKET, fromBucket);
+	}
+
+	@Override
+	public void calculateEntityAnimation(boolean includeHeight) {
+		super.calculateEntityAnimation(this.onClimbable() || includeHeight);
+	}
+
+	@Nullable
+	@Override
+	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
+		final Crab crab = WWEntityTypes.CRAB.get().create(level, EntitySpawnReason.BREEDING);
+		if (crab != null) {
+			crab.setPersistenceRequired();
+			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomDigCooldown(crab));
+			crab.setVariant(partner instanceof Crab otherCrab && level.getRandom().nextBoolean() ? otherCrab.getVariant() : this.getVariant());
+		}
+		return crab;
+	}
+
+	@Override
+	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+		if (this.isFood(player.getItemInHand(hand))) this.setPersistenceRequired();
+		return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+	}
+
+	@Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> type) {
+		if (type == WWDataComponents.CRAB_VARIANT.get()) return castComponentValue(type, this.getVariantAsHolder());
+		return super.get(type);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.CRAB_VARIANT.get());
+		super.applyImplicitComponents(components);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
+		if (type == WWDataComponents.CRAB_VARIANT.get()) {
+			this.setVariant(castComponentValue(WWDataComponents.CRAB_VARIANT.get(), value).value());
+			return true;
+		}
+		return super.applyImplicitComponent(type, value);
+	}
+
+	@Override
+	public void saveToBucketTag(ItemStack stack) {
+		Bucketable.saveDefaultDataToBucketTag(this, stack);
+		stack.copyFrom(WWDataComponents.CRAB_VARIANT.get(), this);
+		CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, compoundTag -> {
+			compoundTag.putInt("Age", this.getAge());
+			Brain<Crab> brain = this.getBrain();
+			if (brain.hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN)) {
+				compoundTag.putLong("HuntingCooldown", brain.getTimeUntilExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN));
+			}
+		});
+	}
+
+	@Override
+	public void loadFromBucketTag(CompoundTag tag) {
+		Bucketable.loadDefaultDataFromBucketTag(this, tag);
+		tag.getInt("Age").ifPresent(this::setAge);
+		tag.getLong("HuntingCooldown").ifPresent(huntingCooldown -> {
+			this.getBrain().setMemoryWithExpiry(MemoryModuleType.HAS_HUNTING_COOLDOWN, true, huntingCooldown);
+		});
+	}
+
+	@Override
+	public ItemStack getBucketItemStack() {
+		return new ItemStack(WWItems.CRAB_BUCKET);
+	}
+
+	@Override
+	public SoundEvent getPickupSound() {
+		return WWSounds.ITEM_BUCKET_FILL_CRAB.get();
+	}
+
+	@Override
+	public boolean requiresCustomPersistence() {
+		return super.requiresCustomPersistence() || this.fromBucket() || this.hasCustomName();
+	}
+
+	@Override
+	public boolean removeWhenFarAway(double distSqr) {
+		return true;
+	}
+
+	private void clientDiggingParticles() {
+		final BlockState state = this.getBlockStateOn();
+		if (state.getRenderShape() == RenderShape.INVISIBLE) return;
+
+		final double y = this.getY();
+		final double x = this.getX();
+		final double z = this.getZ();
+		final RandomSource random = this.getRandom();
+		final ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, state);
+		for (int i = 0; i < 8; ++i) {
+			this.level().addParticle(particle, random.triangle(x, DIGGING_PARTICLE_OFFSET), y, random.triangle(z, DIGGING_PARTICLE_OFFSET), 0D, 0D, 0D);
+		}
+	}
+
+	public boolean isDitto() {
+		return this.hasCustomName() && this.getCustomName().getString().equalsIgnoreCase("ditto");
+	}
+
+	public Identifier getVariantLocation() {
+		return Identifier.parse(this.entityData.get(VARIANT));
+	}
+
+	public CrabVariant getVariantByLocation() {
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getValue(this.getVariantLocation());
+	}
+
+	public Holder<CrabVariant> getVariantAsHolder() {
+		return this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(this.getVariantLocation()).orElseThrow();
+	}
+
+	public CrabVariant getVariantForRendering() {
+		return this.crabVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getValue(CrabVariants.DEFAULT));
+	}
+
+	public void setVariant(CrabVariant variant) {
+		this.entityData.set(VARIANT, Objects.requireNonNull(this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).getKey(variant)).toString());
+	}
+
+	public void setVariant(Identifier variant) {
+		this.entityData.set(VARIANT, variant.toString());
+	}
+
+	public CrabVariant getVariant() {
+		return this.getVariantByLocation();
+	}
+
+	@Override
+	public void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putString("variant", this.getVariantLocation().toString());
+		output.putBoolean("FromBucket", this.fromBucket());
+		output.putInt("DigTicks", this.getDiggingTicks());
+		output.putString("EntityPose", this.getPose().name());
+		output.store("PrevMovement", Vec3.CODEC, this.prevMovement);
+		output.putDouble("PrevX", this.prevMovement.x);
+		output.putDouble("PrevY", this.prevMovement.y);
+		output.putDouble("PrevZ", this.prevMovement.z);
+		output.putBoolean("CancelMovementToDescend", this.cancelMovementToDescend);
+		output.putString("ClimbingFace", this.getClimbingFace().name());
+		output.putFloat("TargetClimbAnimX", this.targetClimbAnimX());
+		output.putFloat("TargetClimbAnimAmount", this.targetClimbAnimAmount());
+		output.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
+	}
+
+	@Override
+	public void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		VariantUtils.readVariant(input, WilderWildRegistries.CRAB_VARIANT)
+			.ifPresent(variant -> this.setVariant(variant.value()));
+		this.setFromBucket(input.getBooleanOr("FromBucket", false));
+		this.setDiggingTicks(input.getIntOr("DigTicks", 0));
+
+		input.getString("EntityPose").ifPresent(entityPose -> {
+			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) this.setPose(Pose.valueOf(entityPose));
+		});
+		this.prevMovement = input.read("PrevMovement", Vec3.CODEC).orElse(Vec3.ZERO);
+		this.cancelMovementToDescend = input.getBooleanOr("CancelMovementToDescend", false);
+		input.getString("ClimbingFace").ifPresent(climingFace -> {
+			if (Arrays.stream(ClimbingFace.values()).anyMatch(climbingFace -> climbingFace.name().equals(climingFace))) {
+				this.setClimbingFace(ClimbingFace.valueOf(climingFace).direction);
+			}
+		});
+		this.setTargetClimbAnimX(input.getFloatOr("TargetClimbAnimX", 0));
+		this.setTargetClimbAnimAmount(input.getFloatOr("TargetClimbAnimAmount", 0));
+
+		this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
+	}
+
+	@Override
+	public VibrationSystem.Data getVibrationData() {
+		return this.vibrationData;
+	}
+
+	@Override
+	public VibrationSystem.User getVibrationUser() {
+		return this.vibrationUser;
+	}
+
+	@Override
+	public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> action) {
+		if (this.level() instanceof ServerLevel serverLevel) action.accept(this.dynamicGameEventListener, serverLevel);
+	}
+
+	public enum MoveState {
+		WALKING("walking"),
+		CLIMBING("climbing"),
+		DESCENDING("descending");
+
+		public final String name;
+
+		MoveState(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
+		}
+	}
+
+	public enum ClimbingFace {
+		NORTH("north", Direction.NORTH, -90F),
+		EAST("east", Direction.EAST, 90F),
+		SOUTH("south", Direction.SOUTH, 0F),
+		WEST("west", Direction.WEST, 180F);
+
+		public final Direction direction;
+		public final String name;
+		public final float rotation;
+
+		ClimbingFace(String name, Direction direction, float rotation) {
+			this.name = name;
+			this.direction = direction;
+			this.rotation = rotation;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
+		}
+	}
+
+	public static class CrabSpawnGroupData extends AgeableMob.AgeableMobGroupData {
+		public final Holder<CrabVariant> type;
+
+		public CrabSpawnGroupData(Holder<CrabVariant> holder) {
+			super(false);
+			this.type = holder;
+		}
+	}
+
+	public class VibrationUser implements VibrationSystem.User {
+		private static final int GAME_EVENT_LISTENER_RANGE = 8;
+		private final PositionSource positionSource;
+
+		private VibrationUser() {
+			this.positionSource = new EntityPositionSource(Crab.this, Crab.this.getEyeHeight());
+		}
+
+		@Override
+		public int getListenerRadius() {
+			return GAME_EVENT_LISTENER_RANGE;
+		}
+
+		@Override
+		public PositionSource getPositionSource() {
+			return this.positionSource;
+		}
+
+		@Override
+		public TagKey<GameEvent> getListenableEvents() {
+			return WWGameEventTags.CRAB_CAN_DETECT;
+		}
+
+        @Override
+		public boolean canReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, GameEvent.Context context) {
+			return Crab.this.isAlive() && Crab.this.isHidingUnderground() && (context.sourceEntity() instanceof Player || event.is(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT));
+		}
+
+		@Override
+		public void onReceiveVibration(ServerLevel level, BlockPos pos, Holder<GameEvent> event, @Nullable Entity sourceEntity, @Nullable Entity projectileOwner, float receivingDistance) {
+			if (Crab.this.isAlive() && Crab.this.isHidingUnderground()) CrabAi.clearDigCooldown(Crab.this);
+		}
+	}
+}

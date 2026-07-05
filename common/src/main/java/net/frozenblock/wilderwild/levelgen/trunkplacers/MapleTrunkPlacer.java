@@ -68,7 +68,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.MAPLE_TRUNK_PLACER;
+		return WWFeatures.MAPLE_TRUNK_PLACER.get();
 	}
 
 	private static boolean containsNearbyBranchWithSameDirection(BlockPos pos, Direction direction, int distanceBelow, Map<BlockPos, List<Direction>> branches) {

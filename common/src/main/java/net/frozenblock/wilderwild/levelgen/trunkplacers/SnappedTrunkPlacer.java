@@ -43,7 +43,7 @@ public class SnappedTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.SNAPPED_TRUNK_PLACER;
+		return WWFeatures.SNAPPED_TRUNK_PLACER.get();
 	}
 
 	@Override

@@ -24,7 +24,10 @@ import java.util.UUID;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.AbstractOstrich;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
@@ -45,13 +48,13 @@ public final class WWMemoryModuleTypes {
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boolean>> IS_SWARM_LEADER = register("is_swarm_leader", Codec.BOOL);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<PositionTracker>> SWARM_LEADER_TRACKER = register("swarm_leader_tracker");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boolean>> IS_UNDERGROUND = register("is_underground", Codec.BOOL);
-	// TODO NEOFORGE CRAB NEARBY CRABS HERE
+	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<List<Crab>>> NEARBY_CRABS = register("nearby_crabs");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Integer>> HEAL_COOLDOWN_TICKS = register("heal_cooldown_ticks", Codec.INT);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boolean>> IS_PLAYER_NEARBY = register("is_player_nearby", Codec.BOOL);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boolean>> CAN_DIG = register("can_dig", Codec.BOOL);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Unit>> FIRST_BRAIN_TICK = register("first_brain_tick");
-	//TODO NEOFORGE OSTRICH NEARBY OSTRICHES HERE
-	//TODO NEOFORGE PENGUIN NEARBY PENGUINS HERE
+	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<List<AbstractOstrich>>> NEARBY_OSTRICHES = register("nearby_ostriches");
+	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<List<Penguin>>> NEARBY_PENGUINS = register("nearby_penguins");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boat>> TRACKED_BOAT = register("tracked_boat");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Integer>> IDLE_TIME = register("idle_time", Codec.INT);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Integer>> DIVE_TICKS = register("dive_ticks", Codec.INT);

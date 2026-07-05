@@ -57,15 +57,13 @@ public final class WWSpawns {
 					butterflyWeight = 1;
 				}
 
-				//TODO NEOFORGE PORT
-				/*
 				spawnSettings.addSpawn(
 					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY, 1, 1),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY.get(), 1, 1),
 					butterflyWeight
 				);
 
-				spawnSettings.addMobCharge(WWEntityTypes.BUTTERFLY, butterflyCharge, butterflyLimit);*/
+				spawnSettings.addMobCharge(WWEntityTypes.BUTTERFLY.get(), butterflyCharge, butterflyLimit);
 			}
 		);
 	}
@@ -91,36 +89,26 @@ public final class WWSpawns {
 	}
 
 	public static void addCrabs() {
-		//TODO NEOFORGE PORT
-		/*
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_CRAB),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB, 1, 1, 3);*/
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB.get(), 1, 1, 3);
 	}
 
 	public static void addOstriches() {
-		//TODO NEOFORGE PORT
-		/*
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_OSTRICH),
-			MobCategory.CREATURE, WWEntityTypes.OSTRICH, 4, 2, 4);
+			MobCategory.CREATURE, WWEntityTypes.OSTRICH.get(), 4, 2, 4);
 
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_ZOMBIE_OSTRICH),
-			MobCategory.MONSTER, WWEntityTypes.ZOMBIE_OSTRICH, 1, 1, 2);*/
+			MobCategory.MONSTER, WWEntityTypes.ZOMBIE_OSTRICH.get(), 1, 1, 2);
 	}
 
 	public static void addPenguins() {
-		//TODO NEOFORGE PORT
-		/*
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_PENGUIN),
-			MobCategory.CREATURE, WWEntityTypes.PENGUIN, 3, 3, 5);
-		 */
+			MobCategory.CREATURE, WWEntityTypes.PENGUIN.get(), 3, 3, 5);
 	}
 
 	public static void addTumbleweed() {
-		//TODO NEOFORGE PORT
-		/*
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_TUMBLEWEED_ENTITY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"), WWEntityTypes.TUMBLEWEED, 60, 1, 1);
-		 */
+			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"), WWEntityTypes.TUMBLEWEED.get(), 60, 1, 1);
 	}
 
 	public static void addRabbits() {
@@ -134,7 +122,7 @@ public final class WWSpawns {
 			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
 			context -> {
 				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.COW);
-				//TODO NEOFORGE PORT context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM, 2, 4), 34);
+				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM.get(), 2, 4), 34);
 			}
 		);
 	}

@@ -183,7 +183,7 @@ public final class WWAquaticConfigured {
 							blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 							BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 							PlacementUtils.inlinePlaced(
-								WWFeatures.HYDROTHERMAL_VENT,
+								WWFeatures.HYDROTHERMAL_VENT.get(),
 								NoneFeatureConfiguration.INSTANCE
 							),
 							CaveSurface.FLOOR,
@@ -196,7 +196,7 @@ public final class WWAquaticConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						WWFeatures.TUBE_WORMS,
+						WWFeatures.TUBE_WORMS.get(),
 						NoneFeatureConfiguration.INSTANCE,
 						ConfigPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
 						CountPlacement.of(33),

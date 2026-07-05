@@ -36,7 +36,7 @@ public class NoOpFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.NO_OP_FOLIAGE_PLACER;
+		return WWFeatures.NO_OP_FOLIAGE_PLACER.get();
 	}
 
 	@Override

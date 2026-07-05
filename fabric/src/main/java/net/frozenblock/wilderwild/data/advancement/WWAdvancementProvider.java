@@ -29,10 +29,7 @@ import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWFabricItems;
-import net.frozenblock.wilderwild.registry.WWFabricEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -76,7 +73,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWFabricItems.CRAB_BUCKET,
+				WWItems.CRAB_BUCKET,
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.description"),
 				null,
@@ -85,7 +82,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWFabricItems.CRAB_BUCKET)))
+			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)))
 			.save(writer, WWConstants.string("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
@@ -106,7 +103,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWFabricItems.BUTTERFLY_BOTTLE,
+				WWItems.BUTTERFLY_BOTTLE,
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.description"),
 				null,
@@ -115,7 +112,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWFabricItems.BUTTERFLY_BOTTLE)))
+			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.BUTTERFLY_BOTTLE)))
 			.save(writer, WWConstants.string("husbandry/butterfly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
@@ -167,9 +164,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 							new EntityTypePredicate(
 								HolderSet.direct(
 									EntityTypes.CHICKEN.builtInRegistryHolder(),
-									WWFabricEntityTypes.OSTRICH.get().builtInRegistryHolder(),
-									WWFabricEntityTypes.ZOMBIE_OSTRICH.get().builtInRegistryHolder(),
-									WWFabricEntityTypes.PENGUIN.get().builtInRegistryHolder()
+									net.frozenblock.wilderwild.registry.WWEntityTypes.OSTRICH.get().builtInRegistryHolder(),
+									WWEntityTypes.ZOMBIE_OSTRICH.get().builtInRegistryHolder(),
+									WWEntityTypes.PENGUIN.get().builtInRegistryHolder()
 								)
 							)
 						)
@@ -212,7 +209,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 								HolderSet.direct(
 									EntityTypes.COW.builtInRegistryHolder(),
 									EntityTypes.MOOSHROOM.builtInRegistryHolder(),
-									WWFabricEntityTypes.MOOBLOOM.get().builtInRegistryHolder()
+									WWEntityTypes.MOOBLOOM.get().builtInRegistryHolder()
 								)
 							)
 						)

@@ -60,7 +60,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.MAPLE_FOLIAGE_PLACER;
+		return WWFeatures.MAPLE_FOLIAGE_PLACER.get();
 	}
 
 	@Override

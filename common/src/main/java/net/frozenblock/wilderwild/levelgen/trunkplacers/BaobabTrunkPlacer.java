@@ -98,7 +98,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.BAOBAB_TRUNK_PLACER;
+		return WWFeatures.BAOBAB_TRUNK_PLACER.get();
 	}
 
 	@Override

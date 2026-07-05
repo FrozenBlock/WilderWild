@@ -22,6 +22,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -50,7 +51,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.POLLEN_TREE_DECORATOR;
+		return WWTreeDecorators.POLLEN_TREE_DECORATOR.get();
 	}
 
 	@Override
@@ -63,9 +64,8 @@ public class PollenTreeDecorator extends TreeDecorator {
 		final ObjectArrayList<BlockPos> poses = new ObjectArrayList<>(context.logs());
 		poses.addAll(context.leaves());
 		Util.shuffle(poses, random);
-		//TODO NEOFORGE PORT
-		/*
-		final BlockState pollenState = WWBlocks.POLLEN.defaultBlockState();
+
+		final BlockState pollenState = WWBlocks.POLLEN.get().defaultBlockState();
 
 		int placedPollen = 0;
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -76,6 +76,6 @@ public class PollenTreeDecorator extends TreeDecorator {
 				context.setBlock(mutable, pollenState.setValue(MultifaceBlock.getFaceProperty(direction.getOpposite()), true));
 				placedPollen += 1;
 			}
-		}*/
+		}
 	}
 }

@@ -82,7 +82,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.FALLEN_WITH_BRANCHES_TRUNK_PLACER;
+		return WWFeatures.FALLEN_WITH_BRANCHES_TRUNK_PLACER.get();
 	}
 
 	@Override

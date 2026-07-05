@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -150,7 +151,7 @@ public final class MagmaticCaves extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.caveSpawns(spawns);
-		//TODO PORT spawns.addSpawn(MobCategory.MONSTER, 275, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED, 4, 4));
+		spawns.addSpawn(MobCategory.MONSTER, 275, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED.get(), 4, 4));
 		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE, 4, 4));
 		spawns.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1));
 		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.SKELETON, 4, 4));

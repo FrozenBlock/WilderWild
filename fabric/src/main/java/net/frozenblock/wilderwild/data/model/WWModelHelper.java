@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRende
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -303,7 +302,7 @@ public final class WWModelHelper {
 	}
 
 	public static void generatePaleMushroomBlock(BlockModelGenerators generator) {
-		final Block block = WWFabricBlocks.PALE_MUSHROOM_BLOCK.get();
+		final Block block = WWBlocks.PALE_MUSHROOM_BLOCK.get();
 		final MultiVariant outside = BlockModelGenerators.plainVariant(ModelTemplates.SINGLE_FACE.create(block, TextureMapping.defaultTexture(block), generator.modelOutput));
 		final MultiVariant inside = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(block, "_inside"));
 		generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)

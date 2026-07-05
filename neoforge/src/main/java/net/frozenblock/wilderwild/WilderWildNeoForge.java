@@ -4,9 +4,12 @@ import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.lib.platform.networking.NeoNetworkingHelper;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
+import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.networking.WWNetworking;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.neoforged.bus.api.IEventBus;
@@ -41,8 +44,12 @@ public final class WilderWildNeoForge {
 		// AFTER register event
 		modBus.addListener(FMLCommonSetupEvent.class, event -> {
 			WWSoundTypes.init();
+			WWItems.init();
+			WWItems.setup();
+			WWBlocks.registerBlockProperties();
 			WWCreativeInventorySorting.init();
 			WWParticleTypes.linkLeafParticles();
+			WWWorldgen.setup();
 		});
 	}
 }

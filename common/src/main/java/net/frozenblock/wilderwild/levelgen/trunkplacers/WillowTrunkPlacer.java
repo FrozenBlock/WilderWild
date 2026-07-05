@@ -65,7 +65,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.WILLOW_TRUNK_PLACER;
+		return WWFeatures.WILLOW_TRUNK_PLACER.get();
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 
 	@Override
 	protected TrunkPlacerType<?> type() {
-		return WWFeatures.PALM_TRUNK_PLACER;
+		return WWFeatures.PALM_TRUNK_PLACER.get();
 	}
 
 	@Override

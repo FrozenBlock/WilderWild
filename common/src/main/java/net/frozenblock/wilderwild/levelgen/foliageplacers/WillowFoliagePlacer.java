@@ -55,7 +55,7 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.WILLOW_FOLIAGE_PLACER;
+		return WWFeatures.WILLOW_FOLIAGE_PLACER.get();
 	}
 
 	@Override

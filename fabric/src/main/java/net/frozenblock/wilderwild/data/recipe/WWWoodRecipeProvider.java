@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.data.recipe;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
-import net.frozenblock.wilderwild.registry.WWFabricItems;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -39,8 +38,8 @@ public final class WWWoodRecipeProvider {
 		provider.planksFromLogs(WWItems.BAOBAB_PLANKS, WWBlockItemTags.BAOBAB_LOGS.item(), 4);
 		provider.woodFromLogs(WWItems.BAOBAB_WOOD, WWItems.BAOBAB_LOG);
 		provider.woodFromLogs(WWItems.STRIPPED_BAOBAB_WOOD, WWItems.STRIPPED_BAOBAB_LOG);
-		provider.woodenBoat(WWFabricItems.BAOBAB_BOAT, WWItems.BAOBAB_PLANKS);
-		provider.chestBoat(WWFabricItems.BAOBAB_CHEST_BOAT, WWFabricItems.BAOBAB_BOAT);
+		provider.woodenBoat(WWItems.BAOBAB_BOAT, WWItems.BAOBAB_PLANKS);
+		provider.chestBoat(WWItems.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_BOAT);
 		provider.shelf(WWItems.BAOBAB_SHELF, WWItems.STRIPPED_BAOBAB_LOG);
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_BAOBAB_LOGS.item(), WWItems.BAOBAB_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_BAOBAB_LOG, WWItems.BAOBAB_WOOD, output);
@@ -50,8 +49,8 @@ public final class WWWoodRecipeProvider {
 		provider.planksFromLogs(WWItems.WILLOW_PLANKS, WWBlockItemTags.WILLOW_LOGS.item(), 4);
 		provider.woodFromLogs(WWItems.WILLOW_WOOD, WWItems.WILLOW_LOG);
 		provider.woodFromLogs(WWItems.STRIPPED_WILLOW_WOOD, WWItems.STRIPPED_WILLOW_LOG);
-		provider.woodenBoat(WWFabricItems.WILLOW_BOAT, WWItems.WILLOW_PLANKS);
-		provider.chestBoat(WWFabricItems.WILLOW_CHEST_BOAT, WWFabricItems.WILLOW_BOAT);
+		provider.woodenBoat(WWItems.WILLOW_BOAT, WWItems.WILLOW_PLANKS);
+		provider.chestBoat(WWItems.WILLOW_CHEST_BOAT, WWItems.WILLOW_BOAT);
 		provider.shelf(WWItems.WILLOW_SHELF, WWItems.STRIPPED_WILLOW_LOG);
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_WILLOW_LOGS.item(), WWItems.WILLOW_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_WILLOW_LOG, WWItems.WILLOW_WOOD, output);
@@ -61,8 +60,8 @@ public final class WWWoodRecipeProvider {
 		provider.planksFromLogs(WWItems.CYPRESS_PLANKS, WWBlockItemTags.CYPRESS_LOGS.item(), 4);
 		provider.woodFromLogs(WWItems.CYPRESS_WOOD, WWItems.CYPRESS_LOG);
 		provider.woodFromLogs(WWItems.STRIPPED_CYPRESS_WOOD, WWItems.STRIPPED_CYPRESS_LOG);
-		provider.woodenBoat(WWFabricItems.CYPRESS_BOAT, WWItems.CYPRESS_PLANKS);
-		provider.chestBoat(WWFabricItems.CYPRESS_CHEST_BOAT, WWFabricItems.CYPRESS_BOAT);
+		provider.woodenBoat(WWItems.CYPRESS_BOAT, WWItems.CYPRESS_PLANKS);
+		provider.chestBoat(WWItems.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_BOAT);
 		provider.shelf(WWItems.CYPRESS_SHELF, WWItems.STRIPPED_CYPRESS_LOG);
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_CYPRESS_LOGS.item(), WWItems.CYPRESS_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_CYPRESS_LOG, WWItems.CYPRESS_WOOD, output);
@@ -72,8 +71,8 @@ public final class WWWoodRecipeProvider {
 		provider.planksFromLogs(WWItems.PALM_PLANKS, WWBlockItemTags.PALM_LOGS.item(), 4);
 		provider.woodFromLogs(WWItems.PALM_WOOD, WWItems.PALM_LOG);
 		provider.woodFromLogs(WWItems.STRIPPED_PALM_WOOD, WWItems.STRIPPED_PALM_LOG);
-		provider.woodenBoat(WWFabricItems.PALM_BOAT, WWItems.PALM_PLANKS);
-		provider.chestBoat(WWFabricItems.PALM_CHEST_BOAT, WWFabricItems.PALM_BOAT);
+		provider.woodenBoat(WWItems.PALM_BOAT, WWItems.PALM_PLANKS);
+		provider.chestBoat(WWItems.PALM_CHEST_BOAT, WWItems.PALM_BOAT);
 		provider.shelf(WWItems.PALM_SHELF, WWItems.STRIPPED_PALM_LOG);
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_PALM_LOGS.item(), WWItems.PALM_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_PALM_LOG, WWItems.PALM_WOOD, output);
@@ -83,8 +82,8 @@ public final class WWWoodRecipeProvider {
 		provider.planksFromLogs(WWItems.MAPLE_PLANKS, WWBlockItemTags.MAPLE_LOGS.item(), 4);
 		provider.woodFromLogs(WWItems.MAPLE_WOOD, WWItems.MAPLE_LOG);
 		provider.woodFromLogs(WWItems.STRIPPED_MAPLE_WOOD, WWItems.STRIPPED_MAPLE_LOG);
-		provider.woodenBoat(WWFabricItems.MAPLE_BOAT, WWItems.MAPLE_PLANKS);
-		provider.chestBoat(WWFabricItems.MAPLE_CHEST_BOAT, WWFabricItems.MAPLE_BOAT);
+		provider.woodenBoat(WWItems.MAPLE_BOAT, WWItems.MAPLE_PLANKS);
+		provider.chestBoat(WWItems.MAPLE_CHEST_BOAT, WWItems.MAPLE_BOAT);
 		provider.shelf(WWItems.MAPLE_SHELF, WWItems.STRIPPED_MAPLE_LOG);
 		planksFromHollowed(provider, WWBlockItemTags.HOLLOWED_MAPLE_LOGS.item(), WWItems.MAPLE_PLANKS, output);
 		woodFromHollowed(provider, WWItems.HOLLOWED_MAPLE_LOG, WWItems.MAPLE_WOOD, output);

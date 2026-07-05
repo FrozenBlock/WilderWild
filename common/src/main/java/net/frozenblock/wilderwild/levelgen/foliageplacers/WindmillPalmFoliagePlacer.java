@@ -43,7 +43,7 @@ public class WindmillPalmFoliagePlacer extends FoliagePlacer {
 
 	@Override
 	protected FoliagePlacerType<?> type() {
-		return WWFeatures.WINDMILL_PALM_FOLIAGE_PLACER;
+		return WWFeatures.WINDMILL_PALM_FOLIAGE_PLACER.get();
 	}
 
 	@Override
