@@ -144,6 +144,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
@@ -285,15 +286,15 @@ public final class WWBlocks {
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
@@ -761,14 +762,20 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> POTTED_PINK_PETALS = registerFlowerPot(WWBlockIds.POTTED_PINK_PETALS, () -> Blocks.PINK_PETALS);
 	public static final FrozenDeferredBlock<Block> POTTED_WILDFLOWERS = registerFlowerPot(WWBlockIds.POTTED_WILDFLOWERS, () -> Blocks.WILDFLOWERS);
 
-	public static final FrozenDeferredBlock<FlowerBedBlock> PHLOX = REGISTER.registerBlock(WWBlockItemIds.PHLOX.block(), FlowerBedBlock::new, () -> Properties.ofFullCopy(Blocks.PINK_PETALS));
+	public static final FrozenDeferredBlock<FlowerBedBlock> PHLOX = REGISTER.registerBlock(WWBlockItemIds.PHLOX.block(),
+		properties -> new FlowerBedBlock(properties, 3),
+		() -> Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
 	public static final FrozenDeferredBlock<Block> POTTED_PHLOX = registerFlowerPot(WWBlockIds.POTTED_PHLOX, PHLOX);
 
-	public static final FrozenDeferredBlock<FlowerBedBlock> LANTANAS = REGISTER.registerBlock(WWBlockItemIds.LANTANAS.block(), FlowerBedBlock::new, () -> Properties.ofFullCopy(Blocks.PINK_PETALS));
+	public static final FrozenDeferredBlock<FlowerBedBlock> LANTANAS = REGISTER.registerBlock(WWBlockItemIds.LANTANAS,
+		properties -> new FlowerBedBlock(properties, 3),
+		() -> Properties.ofFullCopy(Blocks.PINK_PETALS)
+	);
 	public static final FrozenDeferredBlock<Block> POTTED_LANTANAS = registerFlowerPot(WWBlockIds.POTTED_LANTANAS, LANTANAS);
 
 	public static final FrozenDeferredBlock<FlowerBedBlock> CLOVERS = REGISTER.registerBlock(WWBlockItemIds.CLOVERS.block(),
-		FlowerBedBlock::new,
+		properties -> new FlowerBedBlock(properties, 3),
 		() -> Properties.ofFullCopy(Blocks.PINK_PETALS).sound(SoundType.GRASS).instabreak()
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_CLOVERS = registerFlowerPot(WWBlockIds.POTTED_CLOVERS, CLOVERS);
@@ -874,7 +881,7 @@ public final class WWBlocks {
 			.ignitedByLava()
 	);
 	public static final FrozenDeferredBlock<PaleMushroomBlock> PALE_MUSHROOM = REGISTER.registerBlock(WWBlockItemIds.PALE_MUSHROOM.block(),
-		properties -> new PaleMushroomBlock(ResourceKey.create(Registries.CONFIGURED_FEATURE, WWConstants.id("huge_pale_mushroom")), properties),
+		properties -> new PaleMushroomBlock(ResourceKey.create(Registries.FEATURE, WWConstants.id("huge_pale_mushroom")), properties),
 		() -> Properties.of()
 			.mapColor(MapColor.COLOR_GRAY)
 			.noCollision()

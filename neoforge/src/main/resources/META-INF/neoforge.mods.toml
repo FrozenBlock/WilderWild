@@ -23,21 +23,21 @@ Overhauls the Wild Update, adding new features and improving existing ones.
 [[ dependencies.wilderwild ]]
     modId="neoforge"
     type="required"
-    versionRange="[~26.2-,)"
+    versionRange="[~26.3-,)"
     ordering="NONE"
     side="BOTH"
 
 [[ dependencies.wilderwild ]]
     modId="minecraft"
     type="required"
-    versionRange="[~26.2-,)"
+    versionRange="[~26.3-,)"
     ordering="NONE"
     side="BOTH"
 
 [[ dependencies.wilderwild ]]
     modId="frozenlib"
     type="required"
-    versionRange="[2.5-mc26.2,)"
+    versionRange="[2.5-mc26.3,)"
     ordering="NONE"
     side="BOTH"
 

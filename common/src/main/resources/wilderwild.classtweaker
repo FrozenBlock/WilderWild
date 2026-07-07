@@ -32,7 +32,7 @@ accessible method net/minecraft/world/level/block/Blocks logProperties (Lnet/min
 accessible method net/minecraft/world/level/block/Blocks leavesProperties (Lnet/minecraft/world/level/block/SoundType;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible method net/minecraft/world/level/block/Blocks flowerPotProperties ()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 accessible method net/minecraft/world/level/block/Blocks buttonProperties ()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
-accessible method net/minecraft/world/level/block/FlowerBedBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/FlowerBedBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;I)V
 accessible method net/minecraft/world/level/block/StairBlock <init> (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/ButtonBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;ILnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
