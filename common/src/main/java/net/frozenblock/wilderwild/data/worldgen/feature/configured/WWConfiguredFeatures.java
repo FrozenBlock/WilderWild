@@ -23,9 +23,11 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatures;
 import net.frozenblock.lib.levelgen.feature.api.feature.configurations.ColumnWithDiskFeatureConfiguration;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.levelgen.feature.configuration.ShelfFungiFeatureConfiguration;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
@@ -2364,11 +2366,10 @@ public final class WWConfiguredFeatures {
 		);
 
 		// LEAF LITTERS
-		/*
 		DARK_OAK_LEAF_LITTER_SINGLE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.DARK_OAK_LEAF_LITTER, 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
+					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.DARK_OAK_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
 				)
 			)
 		);
@@ -2376,7 +2377,7 @@ public final class WWConfiguredFeatures {
 		PALE_OAK_LEAF_LITTER_SINGLE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.PALE_OAK_LEAF_LITTER, 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
+					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
 				)
 			)
 		);
@@ -2384,7 +2385,7 @@ public final class WWConfiguredFeatures {
 		SPRUCE_LEAF_LITTER_SINGLE.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.SPRUCE_LEAF_LITTER, 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
+					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.SPRUCE_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
 				)
 			)
 		);
@@ -2393,7 +2394,7 @@ public final class WWConfiguredFeatures {
 		final WeightedList.Builder<BlockState> cloverStates = WeightedList.builder();
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				cloverStates.add(WWBlocks.CLOVERS.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
+				cloverStates.add(WWBlocks.CLOVERS.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
 			}
 		}
 		CLOVER.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(cloverStates)));
@@ -2401,7 +2402,7 @@ public final class WWConfiguredFeatures {
 		final WeightedList.Builder<BlockState> phloxStates = WeightedList.builder();
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				phloxStates.add(WWBlocks.PHLOX.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
+				phloxStates.add(WWBlocks.PHLOX.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
 			}
 		}
 		PHLOX.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(phloxStates)));
@@ -2409,7 +2410,7 @@ public final class WWConfiguredFeatures {
 		final WeightedList.Builder<BlockState> lantanasStates = WeightedList.builder();
 		for (int i = 1; i <= 4; i++) {
 			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				lantanasStates.add(WWBlocks.LANTANAS.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
+				lantanasStates.add(WWBlocks.LANTANAS.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
 			}
 		}
 		LANTANAS.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(lantanasStates)));
@@ -2472,17 +2473,17 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		SEEDING_DANDELION.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEEDING_DANDELION)));
+		SEEDING_DANDELION.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.SEEDING_DANDELION.get())));
 
-		CARNATION.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.CARNATION)));
+		CARNATION.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.CARNATION.get())));
 
-		MARIGOLD.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MARIGOLD)));
+		MARIGOLD.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MARIGOLD.get())));
 
 		PINK_TULIP.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.PINK_TULIP)));
 
 		ALLIUM.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ALLIUM)));
 
-		DATURA.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.DATURA)));
+		DATURA.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.DATURA.get())));
 
 		ROSE_BUSH.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.ROSE_BUSH)));
 
@@ -2501,7 +2502,7 @@ public final class WWConfiguredFeatures {
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
 						Blocks.OXEYE_DAISY.defaultBlockState()
 					)
@@ -2544,8 +2545,8 @@ public final class WWConfiguredFeatures {
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState(),
 						Blocks.PINK_TULIP.defaultBlockState(),
 						Blocks.WHITE_TULIP.defaultBlockState(),
@@ -2563,14 +2564,14 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.048833334F,
 					List.of(
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState()
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState()
 					)
 				)
 			)
@@ -2590,23 +2591,23 @@ public final class WWConfiguredFeatures {
 						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.AZURE_BLUET.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState()
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState()
 					)
 				)
 			)
@@ -2623,10 +2624,10 @@ public final class WWConfiguredFeatures {
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState()
@@ -2643,14 +2644,14 @@ public final class WWConfiguredFeatures {
 					0.007833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.OXEYE_DAISY.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState()
 					)
@@ -2658,7 +2659,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		MILKWEED.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED)));
+		MILKWEED.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED.get())));
 
 		HIBISCUS.makeAndSetHolder(
 			Feature.SIMPLE_BLOCK,
@@ -2668,13 +2669,13 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.088833334F,
 					List.of(
-						WWBlocks.RED_HIBISCUS.defaultBlockState(),
-						WWBlocks.RED_HIBISCUS.defaultBlockState(),
-						WWBlocks.YELLOW_HIBISCUS.defaultBlockState(),
-						WWBlocks.WHITE_HIBISCUS.defaultBlockState(),
-						WWBlocks.PINK_HIBISCUS.defaultBlockState(),
-						WWBlocks.PURPLE_HIBISCUS.defaultBlockState(),
-						WWBlocks.PURPLE_HIBISCUS.defaultBlockState()
+						WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.YELLOW_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.WHITE_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.PINK_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState(),
+						WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState()
 					)
 				)
 			)
@@ -2686,21 +2687,21 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1F), 0.016F,
 					List.of(
 						Blocks.DANDELION.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
 						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.RED_TULIP.defaultBlockState(),
 						Blocks.ORANGE_TULIP.defaultBlockState(),
 						Blocks.WHITE_TULIP.defaultBlockState(),
 						Blocks.PINK_TULIP.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.OXEYE_DAISY.defaultBlockState(),
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState(),
-						WWBlocks.PASQUEFLOWER.defaultBlockState()
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState()
 					)
 				)
 			)
@@ -2715,7 +2716,7 @@ public final class WWConfiguredFeatures {
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
 						Blocks.WHITE_TULIP.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.AZURE_BLUET.defaultBlockState(),
 						Blocks.OXEYE_DAISY.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
@@ -2723,8 +2724,8 @@ public final class WWConfiguredFeatures {
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.PINK_TULIP.defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState()
+						WWBlocks.CARNATION.get().defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState()
 					)
 				)
 			)
@@ -2737,10 +2738,10 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.043833334F,
 					List.of(
-						WWBlocks.DATURA.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.DATURA.get().defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.ROSE_BUSH.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.LILAC.defaultBlockState()
 					)
 				)
@@ -2755,7 +2756,7 @@ public final class WWConfiguredFeatures {
 					0.023833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
@@ -2772,9 +2773,9 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.023833334F,
 					List.of(
-						WWBlocks.DATURA.defaultBlockState(),
+						WWBlocks.DATURA.get().defaultBlockState(),
 						Blocks.ROSE_BUSH.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.LILAC.defaultBlockState()
 					)
 				)
@@ -2813,7 +2814,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		PALE_MUSHROOM.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM)));
+		PALE_MUSHROOM.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM.get())));
 
 		MUSHROOMS_DARK_FOREST.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
@@ -2837,7 +2838,7 @@ public final class WWConfiguredFeatures {
 					0.034833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.OXEYE_DAISY.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
@@ -2845,8 +2846,8 @@ public final class WWConfiguredFeatures {
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState(),
 						Blocks.BLUE_ORCHID.defaultBlockState(),
@@ -2863,9 +2864,9 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.034833334F,
 					List.of(
-						WWBlocks.DATURA.defaultBlockState(),
+						WWBlocks.DATURA.get().defaultBlockState(),
 						Blocks.ROSE_BUSH.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.LILAC.defaultBlockState()
 					)
 				)
@@ -2914,10 +2915,10 @@ public final class WWConfiguredFeatures {
 					0.054833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.BLUE_ORCHID.defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState()
 					)
@@ -2932,8 +2933,8 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.054833334F,
 					List.of(
-						WWBlocks.DATURA.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.DATURA.get().defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.ROSE_BUSH.defaultBlockState()
 					)
 				)
@@ -2947,13 +2948,13 @@ public final class WWConfiguredFeatures {
 					new NormalNoise.NoiseParameters(0, 1D),
 					0.054833334F,
 					List.of(
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
-						WWBlocks.MARIGOLD.defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState()
 					)
@@ -2969,17 +2970,17 @@ public final class WWConfiguredFeatures {
 					0.054833334F,
 					List.of(
 						Blocks.WHITE_TULIP.defaultBlockState(),
-						WWBlocks.SEEDING_DANDELION.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						Blocks.SUNFLOWER.defaultBlockState(),
 						Blocks.DANDELION.defaultBlockState(),
 						Blocks.ORANGE_TULIP.defaultBlockState(),
 						Blocks.RED_TULIP.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.PINK_TULIP.defaultBlockState(),
-						WWBlocks.MILKWEED.defaultBlockState(),
+						WWBlocks.MILKWEED.get().defaultBlockState(),
 						Blocks.ALLIUM.defaultBlockState(),
 						Blocks.LILAC.defaultBlockState(),
-						WWBlocks.CARNATION.defaultBlockState(),
+						WWBlocks.CARNATION.get().defaultBlockState(),
 						Blocks.PEONY.defaultBlockState(),
 						Blocks.CORNFLOWER.defaultBlockState()
 					)
@@ -2999,7 +3000,7 @@ public final class WWConfiguredFeatures {
 					),
 					PlacementUtils.inlinePlaced(
 						Feature.SIMPLE_BLOCK,
-						new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED)),
+						new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MILKWEED.get())),
 						CountPlacement.of(9),
 						RandomOffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
@@ -3036,27 +3037,27 @@ public final class WWConfiguredFeatures {
 		// VEGETATION
 		MOSS_CARPET.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MOSS_CARPET)));
 
-		FROZEN_BUSH.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_BUSH)));
+		FROZEN_BUSH.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_BUSH.get())));
 
 		TAIGA_FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 1)
-						.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 4)
+						.add(WWBlocks.FROZEN_SHORT_GRASS.get().defaultBlockState(), 1)
+						.add(WWBlocks.FROZEN_FERN.get().defaultBlockState(), 4)
 						.build()
 				)
 			)
 		);
 
-		FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS)));
+		FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS.get())));
 
 		FROZEN_LARGE_FERN.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.FROZEN_LARGE_FERN.defaultBlockState(), 1)
-						.add(WWBlocks.FROZEN_FERN.defaultBlockState(), 2)
+						.add(WWBlocks.FROZEN_LARGE_FERN.get().defaultBlockState(), 1)
+						.add(WWBlocks.FROZEN_FERN.get().defaultBlockState(), 2)
 						.build()
 				)
 			)
@@ -3066,14 +3067,14 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.FROZEN_TALL_GRASS.defaultBlockState(), 1)
-						.add(WWBlocks.FROZEN_SHORT_GRASS.defaultBlockState(), 2)
+						.add(WWBlocks.FROZEN_TALL_GRASS.get().defaultBlockState(), 1)
+						.add(WWBlocks.FROZEN_SHORT_GRASS.get().defaultBlockState(), 2)
 						.build()
 				)
 			)
 		);
 
-		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS)));
+		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS.get())));
 
 		GRASS_OASIS.makeAndSetHolder(Feature.SIMPLE_BLOCK,
 			new SimpleBlockConfiguration(
@@ -3091,9 +3092,9 @@ public final class WWConfiguredFeatures {
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
 						.add(Blocks.DEAD_BUSH.defaultBlockState(), 8)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
 						.build()
 				)
 			)
@@ -3103,9 +3104,9 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 5)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 5)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 5)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 5)
 						.build()
 				)
 			)
@@ -3115,9 +3116,9 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
 						.build()
 				)
 			)
@@ -3127,9 +3128,9 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 4)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 4)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 4)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 4)
 						.build()
 				)
 			)
@@ -3139,9 +3140,9 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 2)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 2)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
 						.build()
 				)
 			)
@@ -3151,9 +3152,9 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
-						.add(WWBlocks.SHRUB.defaultBlockState().setValue(ShrubBlock.AGE, 2), 3)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+						.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 3)
 						.build()
 				)
 			)
@@ -3208,10 +3209,10 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-					.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
-					.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
-					.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
-					.add(WWBlocks.PRICKLY_PEAR.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
 					.add(Blocks.CACTUS.defaultBlockState(), 3)
 					.build()
 				)
@@ -3289,12 +3290,12 @@ public final class WWConfiguredFeatures {
 		);
 
 		MYCELIUM_GROWTH.makeAndSetHolder(Feature.SIMPLE_BLOCK,
-			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH))
+			new SimpleBlockConfiguration(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH.get()))
 		);
 
 		POLLEN.makeAndSetHolder(Feature.MULTIFACE_GROWTH,
 			new MultifaceGrowthConfiguration(
-				WWBlocks.POLLEN,
+				WWBlocks.POLLEN.get(),
 				10,
 				true,
 				true,
@@ -3306,7 +3307,7 @@ public final class WWConfiguredFeatures {
 
 		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI,
 			new ShelfFungiFeatureConfiguration(
-				WWBlocks.CRIMSON_SHELF_FUNGI,
+				WWBlocks.CRIMSON_SHELF_FUNGI.get(),
 				12,
 				true,
 				true,
@@ -3317,7 +3318,7 @@ public final class WWConfiguredFeatures {
 
 		WARPED_SHELF_FUNGI.makeAndSetHolder(WWFeatures.SHELF_FUNGI,
 			new ShelfFungiFeatureConfiguration(
-				WWBlocks.WARPED_SHELF_FUNGI,
+				WWBlocks.WARPED_SHELF_FUNGI.get(),
 				12,
 				true,
 				true,
@@ -3328,7 +3329,7 @@ public final class WWConfiguredFeatures {
 
 		TERMITE_MOUND.makeAndSetHolder(FrozenLibFeatures.COLUMN_WITH_DISK,
 			new ColumnWithDiskFeatureConfiguration(
-				BlockStateProvider.simple(WWBlocks.TERMITE_MOUND.defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true)),
+				BlockStateProvider.simple(WWBlocks.TERMITE_MOUND.get().defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true)),
 				UniformInt.of(4, 9),
 				UniformInt.of(3, 7),
 				0.75F,
@@ -3346,13 +3347,13 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockConfiguration(
 				new WeightedStateProvider(
 					WeightedList.<BlockState>builder()
-						.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
-						.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
-						.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
-						.add(WWBlocks.TUMBLEWEED_PLANT.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
+						.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
+						.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
+						.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
+						.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
 						.build()
 				)
 			)
-		);*/
+		);
 	}
 }

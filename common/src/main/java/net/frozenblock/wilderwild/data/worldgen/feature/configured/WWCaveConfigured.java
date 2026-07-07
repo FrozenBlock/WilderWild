@@ -170,7 +170,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
@@ -183,7 +183,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
@@ -196,7 +196,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
@@ -209,7 +209,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
@@ -378,7 +378,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
 				BlockPredicate.matchesFluids(Fluids.LAVA),
@@ -421,7 +421,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
 				BlockPredicate.anyOf(
@@ -462,7 +462,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
@@ -475,7 +475,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		GABBRO_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
@@ -496,7 +496,7 @@ public final class WWCaveConfigured {
 						new BlockPileConfiguration(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL,
+						FrozenLibFeatures.BALL.get(),
 						new BallFeatureConfiguration(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
 								.placementChance(0.9F)
@@ -527,7 +527,7 @@ public final class WWCaveConfigured {
 		GEOTHERMAL_VENT_SOUTH.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.SOUTH));
 		GEOTHERMAL_VENT_WEST.makeAndSetHolder(Feature.SIMPLE_BLOCK, geothermalVentConfig.apply(Direction.WEST));
 
-		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
 				BlockPredicate.replaceable(),
@@ -537,7 +537,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get()),
 				BlockPredicate.replaceable(),
@@ -676,7 +676,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -689,7 +689,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -710,7 +710,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -722,7 +722,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -743,7 +743,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -755,7 +755,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
@@ -776,7 +776,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -788,7 +788,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -809,7 +809,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -821,7 +821,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -838,7 +838,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN,
+		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(FrozenLibFeatures.COLUMN.get(),
 			new ColumnFeatureConfiguration(
 				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 				BlockPredicate.replaceable(),
@@ -852,7 +852,7 @@ public final class WWCaveConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -864,7 +864,7 @@ public final class WWCaveConfigured {
 						RandomOffsetPlacement.vertical(ConstantInt.of(-1))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.COLUMN,
+						FrozenLibFeatures.COLUMN.get(),
 						new ColumnFeatureConfiguration(
 							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
@@ -926,7 +926,7 @@ public final class WWCaveConfigured {
 					.build()
 				),
 				PlacementUtils.inlinePlaced(
-					FrozenLibFeatures.COLUMN,
+					FrozenLibFeatures.COLUMN.get(),
 					new ColumnFeatureConfiguration(
 						BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
 						BlockPredicate.replaceable(),

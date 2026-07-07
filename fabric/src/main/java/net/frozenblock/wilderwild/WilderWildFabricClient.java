@@ -44,10 +44,7 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WWBuiltInBlockModels.init();
 		WWFluidRendering.init();
 		WWModelLayers.setupInit();
-		WWParticleEngine.init();
 		WWTints.init();
-		WWRenderStateDataKeys.init();
-		AmbientWindParticleSpawner.init();
 
 		WWClientNetworking.registerPacketReceivers();
 

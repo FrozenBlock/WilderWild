@@ -178,7 +178,7 @@ public final class WWAquaticConfigured {
 			new CompositeFeatureConfiguration(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH,
+						FrozenLibFeatures.UNDERWATER_VEGETATION_PATCH.get(),
 						new VegetationPatchConfiguration(
 							blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 							BlockStateProvider.simple(WWBlocks.GABBRO.get()),

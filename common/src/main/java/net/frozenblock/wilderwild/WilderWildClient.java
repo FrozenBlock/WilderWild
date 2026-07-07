@@ -6,7 +6,10 @@ import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
 import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWParticleEngine;
+import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.registry.WWClientResources;
+import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient {
@@ -19,5 +22,8 @@ public final class WilderWildClient {
 		WWModelLayers.init();
 		WWItemProperties.init();
 		WWClientMusicImpl.init();
+		WWRenderStateDataKeys.init();
+		WWParticleEngine.init();
+		AmbientWindParticleSpawner.init();
 	}
 }

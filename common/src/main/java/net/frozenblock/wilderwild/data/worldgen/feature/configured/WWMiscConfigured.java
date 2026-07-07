@@ -312,7 +312,7 @@ public final class WWMiscConfigured {
 						new BlockPileConfiguration(BlockStateProvider.simple(Blocks.STONE.defaultBlockState()))
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL,
+						FrozenLibFeatures.BALL.get(),
 						new BallFeatureConfiguration(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
 								.placementChance(0.95F)
@@ -1042,7 +1042,7 @@ public final class WWMiscConfigured {
 						)
 					),
 					PlacementUtils.inlinePlaced(
-						FrozenLibFeatures.BALL,
+						FrozenLibFeatures.BALL.get(),
 						new BallFeatureConfiguration(
 							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
 								.placementChance(0.95F)
