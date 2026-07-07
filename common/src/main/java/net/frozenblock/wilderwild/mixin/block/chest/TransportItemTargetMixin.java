@@ -37,5 +37,4 @@ public class TransportItemTargetMixin {
 	private static void wilderWild$markStoneChestAsInvalidTarget(BlockEntity blockEntity, Level level, CallbackInfoReturnable<TransportItemsBetweenContainers.TransportItemTarget> info) {
 		if (blockEntity instanceof StoneChestBlockEntity) info.setReturnValue(null);
 	}
-
 }

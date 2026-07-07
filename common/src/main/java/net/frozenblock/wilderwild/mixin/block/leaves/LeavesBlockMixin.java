@@ -69,5 +69,4 @@ public abstract class LeavesBlockMixin extends Block {
 		super.stepOn(level, pos, state, entity);
 		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, false);
 	}
-
 }

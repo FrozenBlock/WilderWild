@@ -23,6 +23,10 @@ val biolith_version: String by project
 val neoforge_version: String by project
 val neoforge_loader_version_range: String by project
 
+val sodium_version: String by project
+val run_sodium: String by project
+val shouldRunSodium = run_sodium == "true"
+
 val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
 base {
@@ -36,6 +40,16 @@ repositories {
     maven("https://maven.neoforged.net/releases") { name = "NeoForged" }
     if (!neoforgeSnapshotMaven.isNullOrBlank()) {
         maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
+    }
+    exclusiveContent {
+        forRepository {
+            maven("https://api.modrinth.com/maven") {
+                name = "Modrinth"
+            }
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
     }
 }
 
@@ -72,6 +86,12 @@ dependencies {
 
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
     compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
+
+    // Sodium
+    if (shouldRunSodium)
+        implementation("maven.modrinth:sodium:${sodium_version}" + "-neoforge")
+    else
+        compileOnly("maven.modrinth:sodium:${sodium_version}" + "-neoforge")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"

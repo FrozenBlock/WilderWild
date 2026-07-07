@@ -56,9 +56,9 @@ public class ChestBlockMixin {
 	)
 	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
 		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity sourceChest) || !(sourceChest instanceof ChestBlockEntityInterface chestInterface)) return;
-		if (sourceChest.lootTable != null
+		if (sourceChest.getLootTable() != null
 			&& state.getFluidState().is(Fluids.WATER)
-			&& sourceChest.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")
+			&& sourceChest.getLootTable().identifier().getPath().toLowerCase().contains("shipwreck")
 			&& level.getRandom().nextInt(0, 3) == 1
 		) {
 			if (WWEntityConfig.SPAWN_JELLYFISH.get()) Jellyfish.spawnFromChest(level, state, pos, true);

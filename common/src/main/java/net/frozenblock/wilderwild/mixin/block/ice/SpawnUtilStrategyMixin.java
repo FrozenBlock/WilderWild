@@ -20,26 +20,32 @@ package net.frozenblock.wilderwild.mixin.block.ice;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.level.block.state.BlockState;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(HalfTransparentBlock.class)
-public class HalfTransparentBlockMixin {
+@Mixin(SpawnUtil.Strategy.class)
+public interface SpawnUtilStrategyMixin {
 
 	@WrapOperation(
-		method = "skipRendering",
+		method = "lambda$static$0",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
+			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/level/block/Blocks;ICE:Lnet/minecraft/world/level/block/Block;",
+				opcode = Opcodes.GETSTATIC
+			)
 		)
 	)
-	private boolean wilderWild$checkForIceAndFragileIce(BlockState instance, Object block, Operation<Boolean> original) {
-		if (instance.is(Blocks.ICE) && block == WWBlocks.FRAGILE_ICE.get()) return true;
-		if (instance.is(WWBlocks.FRAGILE_ICE.get()) && block == Blocks.ICE) return true;
-		return original.call(instance, block);
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
+		return operation.call(state, block) || operation.call(state, WWBlocks.FRAGILE_ICE.get());
 	}
-
 }

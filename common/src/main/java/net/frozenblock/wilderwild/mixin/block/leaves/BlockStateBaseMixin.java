@@ -52,5 +52,4 @@ public abstract class BlockStateBaseMixin {
 	public void wilderWild$createLeafParticlesOnExplosionHit(ServerLevel level, BlockPos pos, Explosion explosion, BiConsumer<ItemStack, BlockPos> onHit, CallbackInfo info) {
 		FallingLeafUtil.trySendExplosionParticles(this.asState(), level, pos, explosion);
 	}
-
 }

@@ -15,34 +15,37 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.ocean;
+package net.frozenblock.wilderwild.mixin.block.cactus;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
-import net.frozenblock.wilderwild.block.SeaWhipBlock;
-import net.frozenblock.wilderwild.block.TubeWormsBlock;
-import net.minecraft.world.level.block.SpongeBlock;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(SpongeBlock.class)
-public class SpongeBlockMixin {
+@Mixin(WalkNodeEvaluator.class)
+public class WalkNodeEvaluatorMixin {
 
 	@WrapOperation(
-		method = "lambda$removeWaterBreadthFirstSearch$1",
+		method = "getPathTypeFromState",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
-			ordinal = 2
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/world/level/block/Blocks;CACTUS:Lnet/minecraft/world/level/block/Block;",
+				opcode = Opcodes.GETSTATIC
+			)
 		)
 	)
-	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Object block, Operation<Boolean> original) {
-		return original.call(instance, block)
-			|| instance.getBlock() instanceof SeaAnemoneBlock
-			|| instance.getBlock() instanceof TubeWormsBlock
-			|| instance.getBlock() instanceof SeaWhipBlock;
+	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
+		return operation.call(state, block) || operation.call(state, WWBlocks.PRICKLY_PEAR.get());
 	}
-
 }

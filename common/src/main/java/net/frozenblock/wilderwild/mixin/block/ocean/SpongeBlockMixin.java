@@ -15,38 +15,33 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.block.ice;
+package net.frozenblock.wilderwild.mixin.block.ocean;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.util.SpawnUtil;
+import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
+import net.frozenblock.wilderwild.block.SeaWhipBlock;
+import net.frozenblock.wilderwild.block.TubeWormsBlock;
+import net.minecraft.world.level.block.SpongeBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(SpawnUtil.Strategy.class)
-public interface SpawnUtilStrategyMixin {
+@Mixin(SpongeBlock.class)
+public class SpongeBlockMixin {
 
 	@WrapOperation(
-		method = "lambda$static$0",
+		method = "lambda$removeWaterBreadthFirstSearch$1",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z",
-			ordinal = 0
-		),
-		slice = @Slice(
-			from = @At(
-				value = "FIELD",
-				target = "Lnet/minecraft/world/level/block/Blocks;ICE:Lnet/minecraft/world/level/block/Block;",
-				opcode = Opcodes.GETSTATIC
-			)
+			ordinal = 2
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
-		return operation.call(state, block) || operation.call(state, WWBlocks.FRAGILE_ICE.get());
+	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Object block, Operation<Boolean> original) {
+		return original.call(instance, block)
+			|| instance.getBlock() instanceof SeaAnemoneBlock
+			|| instance.getBlock() instanceof TubeWormsBlock
+			|| instance.getBlock() instanceof SeaWhipBlock;
 	}
-
 }

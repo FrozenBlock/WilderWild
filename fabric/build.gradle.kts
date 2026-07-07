@@ -214,9 +214,9 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        implementation("maven.modrinth:sodium:${sodium_version}")
+        implementation("maven.modrinth:sodium:${sodium_version}" + "-fabric")
     else
-        compileOnly("maven.modrinth:sodium:${sodium_version}")
+        compileOnly("maven.modrinth:sodium:${sodium_version}" + "-fabric")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }

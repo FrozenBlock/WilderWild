@@ -51,5 +51,4 @@ public class SpeleothemBlockMixin {
 		if (instance.getBlockState().is(WWBlocks.ICICLE.get())) damagePerDistance *= 10F;
 		original.call(instance, damagePerDistance, damageMax);
 	}
-
 }

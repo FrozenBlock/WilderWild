@@ -24,6 +24,7 @@ import net.minecraft.client.resources.model.EquipmentClientInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
+// TODO: multiloader
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.LayerType.class)
 public enum LayerTypeMixin {

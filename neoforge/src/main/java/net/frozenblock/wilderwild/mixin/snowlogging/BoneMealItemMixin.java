@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BoneMealItem.class)
-public class BoneMealItemMixin {
+public class BoneMealItemMixin { // in common mixins.json
 
 	@Inject(method = "useOn",
 		at = @At(
@@ -48,5 +48,4 @@ public class BoneMealItemMixin {
 	) {
 		if (SnowloggingUtils.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
 	}
-
 }

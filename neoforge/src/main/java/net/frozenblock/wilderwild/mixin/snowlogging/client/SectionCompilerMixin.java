@@ -42,7 +42,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SectionCompiler.class)
-public abstract class SectionCompilerMixin {
+public abstract class SectionCompilerMixin { // in common mixins.json
 
 	@Shadow
 	@Final
@@ -74,5 +74,4 @@ public abstract class SectionCompilerMixin {
 	) {
 		SnowloggedSectionCompiler.tesselateSnowloggedLayer(region, blockRenderer, quadOutput, opaqueQuadOutput, pos, blockState, this.cutoutLeaves, this.blockModelSet);
 	}
-
 }
