@@ -5,6 +5,7 @@ import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -320,10 +321,10 @@ public final class WWEntityTypes {
 	}
 
 	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory, MobCategory category, UnaryOperator<EntityType.Builder<E>> builder) {
-		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, null);
+		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder1 -> builder.apply(builder1).requiredFeatures(WWFeatureFlags.FEATURE_FLAG), null);
 	}
 
 	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory, MobCategory category, UnaryOperator<EntityType.Builder<E>> builder, Consumer<EntityType<E>> also) {
-		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, also);
+		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder1 -> builder.apply(builder1).requiredFeatures(WWFeatureFlags.FEATURE_FLAG), also);
 	}
 }
