@@ -1543,7 +1543,7 @@ public final class WWBlocks {
 		return REGISTER.registerBlock(id, properties -> new FlowerPotBlock(potted.get(), properties), Blocks::flowerPotProperties);
 	}
 
-	public static void registerBlockProperties() {
+	public static void setupBlockProperties() {
 		registerDispenses();
 
 		var sign = (BlockEntityTypeExtension) BlockEntityTypes.SIGN;

@@ -425,5 +425,5 @@ public final class WWSoundTypes {
 	);
 
 	// must be called after register on neoforge
-	public static void init() {}
+	public static void setup() {}
 }

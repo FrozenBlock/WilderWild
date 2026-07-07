@@ -54,14 +54,13 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWMinecraftDataFixer.applyDataFixes(container);
 		WWDataFixer.applyDataFixes(container);
 
-		WWItems.init();
 		WWItems.setup();
-		WWSoundTypes.init();
+		WWSoundTypes.setup();
 		WWParticleTypes.linkLeafParticles();
 		WWLootTables.init();
 		WWPotions.init();
 
-		WWBlocks.registerBlockProperties();
+		WWBlocks.setupBlockProperties();
 		WWFabricBlocks.registerBlockProperties();
 		WWAdvancementModifications.init();
 		WWStructureModifications.init();

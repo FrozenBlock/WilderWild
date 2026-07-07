@@ -17,7 +17,7 @@ public final class WilderWildNeoForgeClient {
 
 		// AFTER register event
 		modBus.addListener(FMLClientSetupEvent.class, event -> {
-			WWModelLayers.setupInit();
+			WWModelLayers.setup();
 		});
 
 		ModLoadingContext.get().registerExtensionPoint(
