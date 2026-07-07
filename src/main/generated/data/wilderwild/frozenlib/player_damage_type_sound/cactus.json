@@ -1,9 +1,0 @@
-{
-  "config_predicate": {
-    "type": "minecraft:equal_to",
-    "entry": "wilderwild:block/blockSounds/cactusSounds",
-    "target": true
-  },
-  "damage_types": "minecraft:cactus",
-  "sound_event": "wilderwild:entity.player.hurt.cactus"
-}
