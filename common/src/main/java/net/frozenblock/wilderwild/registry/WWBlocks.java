@@ -30,7 +30,6 @@ import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.registry.api.BlockSetTypeBuilder;
 import net.frozenblock.lib.registry.api.CompostableRegistry;
 import net.frozenblock.lib.registry.api.FlammableBlockRegistry;
-import net.frozenblock.lib.registry.api.StrippableBlockRegistry;
 import net.frozenblock.lib.registry.api.WoodTypeBuilder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
@@ -1590,7 +1589,6 @@ public final class WWBlocks {
 		shelf.frozenLib$addValidBlock(PALM_SHELF.get());
 		shelf.frozenLib$addValidBlock(MAPLE_SHELF.get());
 
-		registerStrippable();
 		registerComposting();
 		registerFlammability();
 		registerFuels();
@@ -1621,37 +1619,6 @@ public final class WWBlocks {
 				return stack;
 			}
 		});
-	}
-
-	private static void registerStrippable() {
-		StrippableBlockRegistry.register(BAOBAB_LOG.get(), STRIPPED_BAOBAB_LOG.get());
-		StrippableBlockRegistry.register(BAOBAB_WOOD.get(), STRIPPED_BAOBAB_WOOD.get());
-		StrippableBlockRegistry.register(WILLOW_LOG.get(), STRIPPED_WILLOW_LOG.get());
-		StrippableBlockRegistry.register(WILLOW_WOOD.get(), STRIPPED_WILLOW_WOOD.get());
-		StrippableBlockRegistry.register(CYPRESS_LOG.get(), STRIPPED_CYPRESS_LOG.get());
-		StrippableBlockRegistry.register(CYPRESS_WOOD.get(), STRIPPED_CYPRESS_WOOD.get());
-		StrippableBlockRegistry.register(PALM_LOG.get(), STRIPPED_PALM_LOG.get());
-		StrippableBlockRegistry.register(PALM_WOOD.get(), STRIPPED_PALM_WOOD.get());
-		StrippableBlockRegistry.register(MAPLE_LOG.get(), STRIPPED_MAPLE_LOG.get());
-		StrippableBlockRegistry.register(MAPLE_WOOD.get(), STRIPPED_MAPLE_WOOD.get());
-
-		StrippableBlockRegistry.register(HOLLOWED_ACACIA_LOG.get(), STRIPPED_HOLLOWED_ACACIA_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_BIRCH_LOG.get(), STRIPPED_HOLLOWED_BIRCH_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_CHERRY_LOG.get(), STRIPPED_HOLLOWED_CHERRY_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_DARK_OAK_LOG.get(), STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_OAK_LOG.get(), STRIPPED_HOLLOWED_OAK_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_SPRUCE_LOG.get(), STRIPPED_HOLLOWED_SPRUCE_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_JUNGLE_LOG.get(), STRIPPED_HOLLOWED_JUNGLE_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_MANGROVE_LOG.get(), STRIPPED_HOLLOWED_MANGROVE_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_PALE_OAK_LOG.get(), STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_POPLAR_LOG.get(), STRIPPED_HOLLOWED_POPLAR_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_CRIMSON_STEM.get(), STRIPPED_HOLLOWED_CRIMSON_STEM.get());
-		StrippableBlockRegistry.register(HOLLOWED_WARPED_STEM.get(), STRIPPED_HOLLOWED_WARPED_STEM.get());
-		StrippableBlockRegistry.register(HOLLOWED_WILLOW_LOG.get(), STRIPPED_HOLLOWED_WILLOW_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_CYPRESS_LOG.get(), STRIPPED_HOLLOWED_CYPRESS_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_BAOBAB_LOG.get(), STRIPPED_HOLLOWED_BAOBAB_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_PALM_LOG.get(), STRIPPED_HOLLOWED_PALM_LOG.get());
-		StrippableBlockRegistry.register(HOLLOWED_MAPLE_LOG.get(), STRIPPED_HOLLOWED_MAPLE_LOG.get());
 	}
 
 	private static void registerComposting() {
@@ -2128,41 +2095,6 @@ public final class WWBlocks {
 	}
 
 	private static void registerAxe() {
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.OAK_LOG, HOLLOWED_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.BIRCH_LOG, HOLLOWED_BIRCH_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.CHERRY_LOG, HOLLOWED_CHERRY_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.SPRUCE_LOG, HOLLOWED_SPRUCE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.DARK_OAK_LOG, HOLLOWED_DARK_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.JUNGLE_LOG, HOLLOWED_JUNGLE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.ACACIA_LOG, HOLLOWED_ACACIA_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.MANGROVE_LOG, HOLLOWED_MANGROVE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.PALE_OAK_LOG, HOLLOWED_PALE_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.POPLAR_LOG, HOLLOWED_POPLAR_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.CRIMSON_STEM, HOLLOWED_CRIMSON_STEM.get());
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.WARPED_STEM, HOLLOWED_WARPED_STEM.get());
-		HollowedLogBlock.registerAxeHollowBehavior(BAOBAB_LOG.get(), HOLLOWED_BAOBAB_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(WILLOW_LOG.get(), HOLLOWED_WILLOW_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(CYPRESS_LOG.get(), HOLLOWED_CYPRESS_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(PALM_LOG.get(), HOLLOWED_PALM_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(MAPLE_LOG.get(), HOLLOWED_MAPLE_LOG.get());
-		//STRIPPED
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_OAK_LOG, STRIPPED_HOLLOWED_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_BIRCH_LOG, STRIPPED_HOLLOWED_BIRCH_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_CHERRY_LOG, STRIPPED_HOLLOWED_CHERRY_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_SPRUCE_LOG, STRIPPED_HOLLOWED_SPRUCE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_DARK_OAK_LOG, STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_JUNGLE_LOG, STRIPPED_HOLLOWED_JUNGLE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_PALE_OAK_LOG, STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_POPLAR_LOG, STRIPPED_HOLLOWED_POPLAR_LOG);
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM.get());
-		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM.get());
-		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_BAOBAB_LOG.get(), STRIPPED_HOLLOWED_BAOBAB_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_WILLOW_LOG.get(), STRIPPED_HOLLOWED_WILLOW_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_CYPRESS_LOG.get(), STRIPPED_HOLLOWED_CYPRESS_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_PALM_LOG.get(), STRIPPED_HOLLOWED_PALM_LOG.get());
-		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_MAPLE_LOG.get(), STRIPPED_HOLLOWED_MAPLE_LOG.get());
 	}
 
 	private static void registerInventories() {
