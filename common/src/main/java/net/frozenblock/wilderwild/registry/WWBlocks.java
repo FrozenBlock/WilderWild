@@ -326,7 +326,7 @@ public final class WWBlocks {
 		() -> hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE)
 	);
 	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_POPLAR_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_POPLAR_LOG,
-		hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL)
+		() -> hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL)
 	);
 	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_CRIMSON_STEM = registerHollowedLog(WWBlockItemIds.HOLLOWED_CRIMSON_STEM,
 		() -> hollowedStemProperties(MapColor.CRIMSON_STEM)

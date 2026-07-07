@@ -72,27 +72,6 @@ loom {
     }
 
     runs {
-        named("client") {
-            preferGradleTask = true
-        }
-
-        named("server") {
-            preferGradleTask = true
-        }
-    }
-}
-
-sourceSets {
-    main {
-        resources {
-            // todo complete datagen port and remove this
-            srcDirs("src/main/generated")
-        }
-    }
-}
-
-loom {
-    runs {
         register("datagen") {
             client()
             name("Data Generation")
@@ -113,10 +92,12 @@ loom {
             vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")
 
             ideConfigGenerated(true)
+            preferGradleTask = true
         }
 
         named("server") {
             ideConfigGenerated(true)
+            preferGradleTask = true
         }
     }
 }

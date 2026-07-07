@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "category": "blocks",
-  "experience": 0.1,
-  "ingredient": "wilderwild:gabbro_bricks",
-  "result": {
-    "id": "wilderwild:cracked_gabbro_bricks"
-  }
-}

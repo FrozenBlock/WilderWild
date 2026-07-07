@@ -116,6 +116,8 @@ public final class WWFeatures {
 		register.register("snow_blanket", () -> SnowBlanketFeature.CODEC);
 		register.register("snow_and_freeze_disk", () -> SnowAndFreezeDiskFeature.CODEC);
 		register.register("huge_pale_mushroom", () -> HugePaleMushroomFeature.CODEC);
+
+		register.register();
 	}
 
 	private static <P extends TrunkPlacer> FrozenHolder<TrunkPlacerType<?>, TrunkPlacerType<P>> registerTrunk(String name, MapCodec<P> codec) {

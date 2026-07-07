@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import java.util.Optional;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -69,8 +69,8 @@ public class ChestUtil {
 	public static void trySpawnJellyfish(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
 		if (!(blockEntity instanceof RandomizableContainerBlockEntity containerBlockEntity)) return;
 		if (!WWEntityConfig.SPAWN_JELLYFISH.get()) return;
-		if (containerBlockEntity.lootTable == null) return;
-		if (!containerBlockEntity.lootTable.identifier().getPath().toLowerCase().contains("shipwreck")) return;
+		if (containerBlockEntity.getLootTable() == null) return;
+		if (!containerBlockEntity.getLootTable().identifier().getPath().toLowerCase().contains("shipwreck")) return;
 		if (!state.getFluidState().is(Fluids.WATER) || level.getRandom().nextInt(0, 3) != 1) return;
 
 		Jellyfish.spawnFromChest(level, state, pos, true);
@@ -106,7 +106,7 @@ public class ChestUtil {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		final Vec3 centerPos = Vec3.atCenterOf(pos);
 		serverLevel.sendParticles(
-			WWParticleTypes.CHEST_BUBBLE_SPAWNER,
+			WWParticleTypes.CHEST_BUBBLE_SPAWNER.get(),
 			centerPos.x(), centerPos.y(), centerPos.z(),
 			1,
 			0D, 0D, 0D,
@@ -153,18 +153,18 @@ public class ChestUtil {
 		}
 	}
 
-	public static void syncBubbles(AttachmentTarget a, AttachmentTarget b) {
+	public static void syncBubbles(DataAttachmentTarget a, DataAttachmentTarget b) {
 		if (!canBubble(a) || !canBubble(b)) {
 			setCanBubble(a, false);
 			setCanBubble(b, false);
 		}
 	}
 
-	public static boolean canBubble(AttachmentTarget target) {
-		return target.getAttachedOrElse(WWAttachmentTypes.CHEST_CAN_BUBBLE, true);
+	public static boolean canBubble(DataAttachmentTarget target) {
+		return target.frozenLib$getAttachedOrElse(WWAttachmentTypes.CHEST_CAN_BUBBLE, () -> true);
 	}
 
-	public static void setCanBubble(AttachmentTarget target, boolean canBubble) {
-		target.setAttached(WWAttachmentTypes.CHEST_CAN_BUBBLE, canBubble);
+	public static void setCanBubble(DataAttachmentTarget target, boolean canBubble) {
+		target.frozenLib$setAttached(WWAttachmentTypes.CHEST_CAN_BUBBLE, canBubble);
 	}
 }

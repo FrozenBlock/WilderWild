@@ -39,7 +39,7 @@ public final class WWPlayerDamageTypeSounds {
 			context,
 			WWConstants.id("cactus"),
 			HolderSet.direct(damageTypes.getOrThrow(DamageTypes.CACTUS)),
-			WWSounds.PLAYER_HURT_CACTUS,
+			WWSounds.PLAYER_HURT_CACTUS.asHolder(),
 			ConfigPredicate.equalTo(WWBlockConfig.CACTUS_SOUNDS, true)
 		);
 	}

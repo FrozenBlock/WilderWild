@@ -32,14 +32,14 @@ public final class WWAttachmentTypes {
 			builder.persistent(Codec.INT);
 		}
 	);
-	public static final AttachmentType<Boolean> CHEST_CAN_BUBBLE = AttachmentRegistry.create(
+	public static final DataAttachmentType<Boolean> CHEST_CAN_BUBBLE = DataAttachmentType.create(
 		WWConstants.id("chest_can_bubble"),
 		builder -> {
 			builder.initializer(() -> false);
 			builder.persistent(Codec.BOOL);
 		}
 	);
-	public static final AttachmentType<Integer> TURTLE_HUNT_COOLDOWN = AttachmentRegistry.create(
+	public static final DataAttachmentType<Integer> TURTLE_HUNT_COOLDOWN = DataAttachmentType.create(
 		WWConstants.id("turtle_hunt_cooldown"),
 		builder -> {
 			builder.initializer(() -> 0);

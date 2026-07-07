@@ -68,7 +68,7 @@ public class TreeFeatureMixin {
 		if (original.isEmpty() || !original.get()) return original;
 
 		final TreeFeature treeFeature = TreeFeature.class.cast(this);
-		if (!treeFeature.foliageProvider().equals(BlockStateProvider.simple(WWBlocks.PALM_FRONDS))) return original;
+		if (!treeFeature.foliageProvider().equals(BlockStateProvider.simple(WWBlocks.PALM_FRONDS.get()))) return original;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final AtomicInteger coconutCount = new AtomicInteger();

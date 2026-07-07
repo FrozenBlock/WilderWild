@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:fallen_cherry_checked",
+  "features": [
+    {
+      "chance": 0.6,
+      "feature": "wilderwild:fallen_cherry_checked"
+    },
+    {
+      "chance": 0.4,
+      "feature": "wilderwild:mossy_fallen_cherry_checked"
+    }
+  ]
+}

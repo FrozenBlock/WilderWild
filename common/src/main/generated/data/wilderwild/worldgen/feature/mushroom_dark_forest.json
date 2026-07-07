@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:noise_provider",
+    "noise": {
+      "amplitudes": [
+        1.0
+      ],
+      "firstOctave": 0
+    },
+    "scale": 0.020833334,
+    "seed": 5234,
+    "states": [
+      {
+        "Name": "minecraft:red_mushroom"
+      },
+      {
+        "Name": "minecraft:brown_mushroom"
+      }
+    ]
+  }
+}

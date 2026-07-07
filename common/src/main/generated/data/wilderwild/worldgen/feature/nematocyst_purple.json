@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:multiface_growth",
+  "block": "wilderwild:pearlescent_purple_nematocyst",
+  "can_be_placed_on": "#wilderwild:feature/pearlescent_purple_nematocyst_placeable",
+  "can_place_on_ceiling": true,
+  "can_place_on_floor": true,
+  "can_place_on_wall": true,
+  "chance_of_spreading": 0.98,
+  "search_range": 20
+}

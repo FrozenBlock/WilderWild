@@ -26,6 +26,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.lib.renderer.FrozenLibRenderState;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.animation.definitions.WWWardenAnimation;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
@@ -191,8 +192,8 @@ public abstract class WardenModelMixin extends EntityModel<WardenRenderState> {
 		@Share("wilderWild$wadeAmount") LocalFloatRef wilderWild$wadeAmount
 	) {
 		if (WWEntityConfig.WARDEN_SWIMS.get() && WWEntityConfig.WARDEN_SWIM_ANIMATION.get()) {
-			final float swimAmount = state.getDataOrDefault(WWRenderStateDataKeys.WARDEN_SWIM_AMOUNT, 0F);
-			final float wadeAmount = state.getDataOrDefault(WWRenderStateDataKeys.WARDEN_WADE_AMOUNT, 0F);
+			final float swimAmount = ((FrozenLibRenderState) state).frozenLib$getDataOrDefault(WWRenderStateDataKeys.WARDEN_SWIM_AMOUNT, 0F);
+			final float wadeAmount = ((FrozenLibRenderState) state).frozenLib$getDataOrDefault(WWRenderStateDataKeys.WARDEN_WADE_AMOUNT, 0F);
 			wilderWild$animateSwimming.set(wadeAmount > 0F);
 			wilderWild$swimAmount.set(swimAmount);
 			wilderWild$wadeAmount.set(wadeAmount);

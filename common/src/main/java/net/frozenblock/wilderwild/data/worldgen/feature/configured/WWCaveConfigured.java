@@ -442,7 +442,7 @@ public final class WWCaveConfigured {
 
 		GABBRO_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO))
+				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
 					.placementChance(0.9F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))

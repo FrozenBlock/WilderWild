@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:large_bush_checked",
+  "features": [
+    {
+      "chance": 0.3,
+      "feature": "wilderwild:big_bush_checked"
+    },
+    {
+      "chance": 0.6,
+      "feature": "wilderwild:large_bush_checked"
+    }
+  ]
+}

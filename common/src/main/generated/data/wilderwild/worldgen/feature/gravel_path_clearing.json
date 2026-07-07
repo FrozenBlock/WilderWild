@@ -1,0 +1,34 @@
+{
+  "type": "frozenlib:noise_path",
+  "noise_band_placement": {
+    "block_placements": [
+      {
+        "maximum_noise_threshold": 0.175,
+        "minimum_noise_threshold": -0.075,
+        "placement_chance": 0.7,
+        "replacement_block_predicate": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "wilderwild:feature/gravel_clearing_replaceable"
+        },
+        "searching_block_predicate": {
+          "type": "frozenlib:search_in_area",
+          "block_predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:air"
+          },
+          "search_area": 2
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:gravel"
+          }
+        }
+      }
+    ],
+    "heightmap": "OCEAN_FLOOR",
+    "noise_scale": 0.07,
+    "noise_type": "LEGACY_THREAD_SAFE"
+  },
+  "placement_radius": 3
+}

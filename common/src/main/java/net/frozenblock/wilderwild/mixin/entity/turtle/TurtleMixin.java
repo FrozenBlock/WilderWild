@@ -48,6 +48,6 @@ public class TurtleMixin {
 
 	@Inject(method = "aiStep", at = @At("TAIL"))
 	public void wilderWild$aiStep(CallbackInfo info) {
-		Turtle.class.cast(this).modifyAttached(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, cooldown -> cooldown == null ? 0 : Math.max(cooldown - 1, 0));
+		Turtle.class.cast(this).frozenLib$modifyAttached(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, cooldown -> cooldown == null ? 0 : Math.max(cooldown - 1, 0));
 	}
 }

@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:dead_oak_branches_leaf_litter_checked",
+  "features": [
+    {
+      "chance": 0.045,
+      "feature": "wilderwild:short_birch_leaf_litter_checked"
+    },
+    {
+      "chance": 0.07,
+      "feature": "wilderwild:dead_medium_birch_leaf_litter_checked"
+    },
+    {
+      "chance": 0.07,
+      "feature": "wilderwild:dead_birch_leaf_litter_checked"
+    },
+    {
+      "chance": 0.015,
+      "feature": "wilderwild:fancy_dying_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.075,
+      "feature": "wilderwild:fancy_semi_dead_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.06,
+      "feature": "wilderwild:fancy_dead_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.0433,
+      "feature": "wilderwild:small_fancy_semi_dead_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.025,
+      "feature": "wilderwild:small_fancy_dead_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.085,
+      "feature": "wilderwild:dying_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:short_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.35,
+      "feature": "wilderwild:dead_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.033,
+      "feature": "wilderwild:oak_leaf_litter_checked"
+    }
+  ]
+}
