@@ -89,9 +89,8 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        implementation("maven.modrinth:sodium:${sodium_version}" + "-neoforge")
-    else
-        compileOnly("maven.modrinth:sodium:${sodium_version}" + "-neoforge")
+        //runtimeOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"

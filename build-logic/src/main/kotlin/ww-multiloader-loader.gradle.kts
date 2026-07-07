@@ -11,6 +11,12 @@ configurations {
     }
 }
 
+repositories {
+    maven("https://maven.caffeinemc.net/releases") {
+        name = "CaffeineMC"
+    }
+}
+
 dependencies {
     compileOnly(project(":ww-common")) {
         val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
