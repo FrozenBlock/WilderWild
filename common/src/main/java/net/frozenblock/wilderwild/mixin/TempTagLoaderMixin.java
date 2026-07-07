@@ -15,9 +15,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(TagLoader.class)
 public class TempTagLoaderMixin<T> {
 
-	@Inject(method = "tryBuildTag", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))
-	private void ignoreInvalidTags(TagEntry.Lookup<T> lookup, List<TagLoader.EntryWithSource> list, CallbackInfoReturnable<Either<Collection<TagLoader.EntryWithSource>, Collection<T>>> cir, @Local(ordinal = 1) List<TagLoader.EntryWithSource> list2) {
-		list2.clear();
+	@Inject(
+		method = "tryBuildTag",
+		at = @At(
+			value = "INVOKE",
+			target = "Ljava/util/List;isEmpty()Z"
+		)
+	)
+	private void wilderWild$TEMPORARY$ignoreInvalidTags(
+		TagEntry.Lookup<T> lookup,
+		List<TagLoader.EntryWithSource> entries,
+		CallbackInfoReturnable<Either<Collection<TagLoader.EntryWithSource>, Collection<T>>> info,
+		@Local(name = "missingElements") List<TagLoader.EntryWithSource> missingElements
+	) {
+		missingElements.clear();
 	}
-
 }

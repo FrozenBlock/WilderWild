@@ -48,5 +48,4 @@ public class PathNavigationMixin {
 	public void wilderWild$onStuckNavigationTimeout(CallbackInfo info) {
 		if (PathNavigation.class.cast(this) instanceof CrabNavigation crabNavigation) crabNavigation.pathToPosition = null;
 	}
-
 }

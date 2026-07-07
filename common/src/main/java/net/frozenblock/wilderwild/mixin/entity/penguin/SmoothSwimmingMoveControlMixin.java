@@ -15,34 +15,29 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.entity.crab;
+package net.frozenblock.wilderwild.mixin.entity.penguin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.entity.Crab;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.entity.Penguin;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(WallClimberNavigation.class)
-public abstract class WallClimberNavigationMixin extends PathNavigation {
+@Mixin(SmoothSwimmingMoveControl.class)
+public class SmoothSwimmingMoveControlMixin {
 
-	public WallClimberNavigationMixin(Mob mob, Level level) {
-		super(mob, level);
-	}
-
-	@ModifyExpressionValue(
+	@WrapOperation(
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/Mob;getBbWidth()F"
+			target = "Lnet/minecraft/world/entity/Mob;isInWater()Z",
+			ordinal = 1
 		)
 	)
-	public float wilderWild$tick(float original) {
-		if (this.mob instanceof Crab crab) return original * (crab.isBaby() ? 4F : 2F);
-		return original;
+	public boolean wilderWild$modifyPenguinWadeSpeed(Mob instance, Operation<Boolean> original) {
+		if (instance instanceof Penguin) return instance.isUnderWater();
+		return original.call(instance);
 	}
-
 }
