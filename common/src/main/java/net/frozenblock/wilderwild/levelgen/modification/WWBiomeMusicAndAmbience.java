@@ -19,9 +19,9 @@ package net.frozenblock.wilderwild.levelgen.modification;
 
 import java.util.List;
 import java.util.Optional;
+import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
-import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;

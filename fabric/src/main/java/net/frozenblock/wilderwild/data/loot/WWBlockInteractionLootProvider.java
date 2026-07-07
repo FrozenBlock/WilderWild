@@ -22,7 +22,6 @@ import java.util.function.BiConsumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.HolderLookup;

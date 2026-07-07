@@ -485,7 +485,7 @@ public final class WWParticleTypes {
 	}
 
 	/**
-	 * @reason Called separately on Fabric and NeoForge
+	 * Called separately on Fabric and NeoForge
 	 */
 	public static void linkLeafParticles() {
 		LEAF_LINKS.forEach(Runnable::run);

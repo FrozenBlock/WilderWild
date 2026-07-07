@@ -27,7 +27,6 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;

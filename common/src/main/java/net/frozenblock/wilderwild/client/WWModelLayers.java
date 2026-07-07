@@ -146,7 +146,7 @@ public final class WWModelLayers {
 	}
 
 	/**
-	 * @reason Registries MUST be populated before this. Runs during NeoForge's setup event.
+	 * Registries MUST be populated before this. Runs during NeoForge's setup event.
 	 */
 	public static void setup() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY.get(), FireflyRenderer::new);

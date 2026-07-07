@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;

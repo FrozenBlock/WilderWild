@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.Blocks;
 public final class WWCreativeInventorySorting {
 
 	/**
-	 * @reason Called separately on Fabric and NeoForge
+	 * Called separately on Fabric and NeoForge
 	 */
 	public static void setup() {
 		// BAOBAB (BUILDING BLOCKS)

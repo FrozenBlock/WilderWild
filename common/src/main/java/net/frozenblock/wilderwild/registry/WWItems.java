@@ -486,7 +486,7 @@ public final class WWItems {
 	public static void init() {}
 
 	/**
-	 * @reason Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
+	 * Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
 	 */
 	public static void setup() {
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
@@ -26,7 +27,6 @@ import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.minecraft.advancements.triggers.CriterionTrigger;
 import net.minecraft.core.registries.Registries;
-import java.util.function.Supplier;
 
 public final class WWCriteria {
 	private static final FrozenDeferredRegister<CriterionTrigger<?>> REGISTER = FrozenDeferredRegister.create(

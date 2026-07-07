@@ -17,14 +17,12 @@
 
 package net.frozenblock.wilderwild.entity.ai.ostrich;
 
-import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;

@@ -425,7 +425,7 @@ public final class WWSoundTypes {
 	);
 
 	/**
-	 * @reason Must be called after register on NeoForge.
+	 * Must be called after register on NeoForge.
 	 */
 	public static void setup() {}
 }

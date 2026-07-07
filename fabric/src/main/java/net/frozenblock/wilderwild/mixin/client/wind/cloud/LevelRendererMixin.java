@@ -43,7 +43,7 @@ public class LevelRendererMixin { // in common mixins.json
 	private LevelRenderState levelRenderState;
 
 	/**
-	 * @reason NeoForge uses a modified method
+	 * NeoForge uses a modified method
 	 */
 	@WrapOperation(
 		method = "render",
