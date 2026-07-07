@@ -43,7 +43,7 @@ includeBuild("build-logic")
 
 object Constants {
     const val FABRIC: Boolean = true
-    const val NEOFORGE: Boolean = true
+    const val NEOFORGE: Boolean = false
 }
 
 include("ww-common")
