@@ -39,6 +39,7 @@ import net.minecraft.world.level.material.Fluids;
 @Environment(EnvType.CLIENT)
 public final class WWFluidRendering {
 
+	// TODO: port to common
 	public static void init() { // Credit to embeddedt: https://github.com/embeddedt/embeddium/issues/284#issuecomment-2098864705
 		final FluidRenderHandler waterHandler = FluidRenderingRegistry.get(Fluids.WATER);
 		// Assert that the original handler exists now, otherwise the crash will happen later inside our handler

@@ -49,7 +49,7 @@ accessible method net/minecraft/world/item/component/BlockTransformerMappings ge
 
 # Items
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+accessible field net/minecraft/client/renderer/special/SpecialModelRenderers ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
 accessible field net/minecraft/world/item/CreativeModeTabs BUILDING_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs NATURAL_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs FUNCTIONAL_BLOCKS Lnet/minecraft/resources/ResourceKey;

@@ -29,6 +29,7 @@ import net.minecraft.client.color.block.BlockTintSources;
 @Environment(EnvType.CLIENT)
 public final class WWTints {
 
+	// TODO: port to common
 	public static void init() {
 		BlockColorRegistry.register(
 			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),

@@ -21,16 +21,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.WWParticleEngine;
-import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.WWTints;
-import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
-import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
-import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildFabricClient implements ClientModInitializer {
@@ -41,13 +35,10 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
-		WWBuiltInBlockModels.init();
 		WWFluidRendering.init();
-		WWModelLayers.setupInit();
+		WWModelLayers.setupRenderers();
 		WWTints.init();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 }

@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.platform.service.ModelLayerHelper;
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
@@ -92,60 +93,53 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation MAPLE_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/maple"), "main");
 
 	public static void init() {
-		var modelRegistry = FrozenLibInitPlatformUtils.MODEL_LAYER;
-		var blockEntityRenderers = FrozenLibInitPlatformUtils.BLOCK_ENTITY_RENDERER;
+		final ModelLayerHelper modelLayers = FrozenLibInitPlatformUtils.MODEL_LAYER;
 
-		blockEntityRenderers.register(BlockEntityTypes.SCULK_SENSOR, SculkSensorRenderer::new);
-		blockEntityRenderers.register(BlockEntityTypes.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
-		modelRegistry.registerModelLayer(SCULK_SENSOR, SculkSensorModel::createModelLayer);
+		modelLayers.registerModelLayer(SCULK_SENSOR, SculkSensorModel::createModelLayer);
 
-		modelRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
+		modelLayers.registerModelLayer(BUTTERFLY, ButterflyModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
-		modelRegistry.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
+		modelLayers.registerModelLayer(JELLYFISH, JellyfishModel::createBodyLayer);
+		modelLayers.registerModelLayer(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(CRAB, AdultCrabModel::createBodyLayer);
-		modelRegistry.registerModelLayer(CRAB_MOJANG, AdultCrabModel::createMojangBodyLayer);
-		modelRegistry.registerModelLayer(CRAB_BABY, BabyCrabModel::createBodyLayer);
+		modelLayers.registerModelLayer(CRAB, AdultCrabModel::createBodyLayer);
+		modelLayers.registerModelLayer(CRAB_MOJANG, AdultCrabModel::createMojangBodyLayer);
+		modelLayers.registerModelLayer(CRAB_BABY, BabyCrabModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
-		modelRegistry.registerModelLayer(OSTRICH_BABY, BabyOstrichModel::createBodyLayer);
-		modelRegistry.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
-		modelRegistry.registerModelLayer(OSTRICH_BABY_INBRED, OstrichInbredModel::createLegacyBabyBodyLayer);
-		modelRegistry.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
-		modelRegistry.registerModelLayer(OSTRICH_BABY_SADDLE, BabyOstrichModel::createBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH, OstrichModel::createBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH_BABY, BabyOstrichModel::createBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH_INBRED, OstrichInbredModel::createBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH_BABY_INBRED, OstrichInbredModel::createLegacyBabyBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH_SADDLE, OstrichModel::createBodyLayer);
+		modelLayers.registerModelLayer(OSTRICH_BABY_SADDLE, BabyOstrichModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);
+		modelLayers.registerModelLayer(SCORCHED, SpiderModel::createSpiderBodyLayer);
 
-		modelRegistry.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
-		modelRegistry.registerModelLayer(MOOBLOOM_BABY, BabyCowModel::createBodyLayer);
+		modelLayers.registerModelLayer(MOOBLOOM, CowModel::createBodyLayer);
+		modelLayers.registerModelLayer(MOOBLOOM_BABY, BabyCowModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(PENGUIN, AdultPenguinModel::createBodyLayer);
-		modelRegistry.registerModelLayer(PENGUIN_BABY, BabyPenguinModel::createBodyLayer);
+		modelLayers.registerModelLayer(PENGUIN, AdultPenguinModel::createBodyLayer);
+		modelLayers.registerModelLayer(PENGUIN_BABY, BabyPenguinModel::createBodyLayer);
 
-		modelRegistry.registerModelLayer(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);
+		modelLayers.registerModelLayer(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);
 
-		modelRegistry.registerModelLayer(DISPLAY_LANTERN, DisplayLanternRenderer::getTexturedModelData);
+		modelLayers.registerModelLayer(DISPLAY_LANTERN, DisplayLanternRenderer::getTexturedModelData);
 
-		modelRegistry.registerModelLayer(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
-		modelRegistry.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
-		modelRegistry.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
+		modelLayers.registerModelLayer(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
+		modelLayers.registerModelLayer(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
+		modelLayers.registerModelLayer(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
 
 		final LayerDefinition boat = BoatModel.createBoatModel();
 		final LayerDefinition chestBoat = BoatModel.createChestBoatModel();
-		modelRegistry.registerModelLayer(BAOBAB_BOAT, () -> boat);
-		modelRegistry.registerModelLayer(BAOBAB_CHEST_BOAT, () -> chestBoat);
-		modelRegistry.registerModelLayer(WILLOW_BOAT, () -> boat);
-		modelRegistry.registerModelLayer(WILLOW_CHEST_BOAT, () -> chestBoat);
-		modelRegistry.registerModelLayer(CYPRESS_BOAT, () -> boat);
-		modelRegistry.registerModelLayer(CYPRESS_CHEST_BOAT, () -> chestBoat);
-		modelRegistry.registerModelLayer(PALM_BOAT, () -> boat);
-		modelRegistry.registerModelLayer(PALM_CHEST_BOAT, () -> chestBoat);
-		modelRegistry.registerModelLayer(MAPLE_BOAT, () -> boat);
-		modelRegistry.registerModelLayer(MAPLE_CHEST_BOAT, () -> chestBoat);
+		modelLayers.registerBoatModelLayers(BAOBAB_BOAT, BAOBAB_CHEST_BOAT, boat, chestBoat);
+		modelLayers.registerBoatModelLayers(WILLOW_BOAT, WILLOW_CHEST_BOAT, boat, chestBoat);
+		modelLayers.registerBoatModelLayers(CYPRESS_BOAT, CYPRESS_CHEST_BOAT, boat, chestBoat);
+		modelLayers.registerBoatModelLayers(PALM_BOAT, PALM_CHEST_BOAT, boat, chestBoat);
+		modelLayers.registerBoatModelLayers(MAPLE_BOAT, MAPLE_CHEST_BOAT, boat, chestBoat);
 	}
 
-	public static void setupInit() {
+	// This is called at a different point on Fabric vs. Neo
+	public static void setupRenderers() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY.get(), FireflyRenderer::new);
 		EntityRenderers.register(WWEntityTypes.BUTTERFLY.get(), ButterflyRenderer::new);
 		EntityRenderers.register(WWEntityTypes.JELLYFISH.get(), JellyfishRenderer::new);
@@ -159,10 +153,11 @@ public final class WWModelLayers {
 		EntityRenderers.register(WWEntityTypes.COCONUT.get(), ThrownItemRenderer::new);
 		EntityRenderers.register(WWEntityTypes.FALLING_LEAVES.get(), NoopRenderer::new);
 
+		// TODO: check if these need something different on neo
+		BlockEntityRenderers.register(BlockEntityTypes.SCULK_SENSOR, SculkSensorRenderer::new);
+		BlockEntityRenderers.register(BlockEntityTypes.CALIBRATED_SCULK_SENSOR, SculkSensorRenderer::new);
 		BlockEntityRenderers.register(WWBlockEntityTypes.HANGING_TENDRIL.get(), HangingTendrilRenderer::new);
-
 		BlockEntityRenderers.register(WWBlockEntityTypes.DISPLAY_LANTERN.get(), DisplayLanternRenderer::new);
-
 		BlockEntityRenderers.register(WWBlockEntityTypes.STONE_CHEST.get(), StoneChestRenderer::new);
 
 		// BOATS

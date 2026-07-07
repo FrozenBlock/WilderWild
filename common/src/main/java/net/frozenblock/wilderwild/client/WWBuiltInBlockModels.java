@@ -24,7 +24,6 @@ import net.frozenblock.lib.renderer.block.BuiltInBlockModelRegistry;
 import net.frozenblock.wilderwild.client.renderer.block.model.properties.conditional.HasSculk;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.block.BuiltInBlockModels;
 import net.minecraft.client.renderer.block.model.BlockModel;
