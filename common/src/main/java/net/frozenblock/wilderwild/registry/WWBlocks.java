@@ -326,6 +326,9 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_PALE_OAK_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG,
 		() -> hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE)
 	);
+	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_POPLAR_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_POPLAR_LOG,
+		hollowedLogProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL)
+	);
 	public static final FrozenDeferredBlock<HollowedLogBlock> HOLLOWED_CRIMSON_STEM = registerHollowedLog(WWBlockItemIds.HOLLOWED_CRIMSON_STEM,
 		() -> hollowedStemProperties(MapColor.CRIMSON_STEM)
 	);
@@ -375,6 +378,9 @@ public final class WWBlocks {
 	);
 	public static final FrozenDeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_PALE_OAK_LOG = registerHollowedLog(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG,
 		() -> strippedHollowedLogProperties(Blocks.STRIPPED_PALE_OAK_LOG.defaultMapColor())
+	);
+	public static final FrozenDeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_POPLAR_LOG = registerHollowedLog(WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG,
+		() -> strippedHollowedLogProperties(Blocks.STRIPPED_POPLAR_LOG.defaultMapColor())
 	);
 	public static final FrozenDeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_CRIMSON_STEM = registerHollowedLog(WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM,
 		() -> strippedHollowedStemProperties(Blocks.STRIPPED_CRIMSON_STEM.defaultMapColor())
@@ -1638,6 +1644,7 @@ public final class WWBlocks {
 		StrippableBlockRegistry.register(HOLLOWED_JUNGLE_LOG.get(), STRIPPED_HOLLOWED_JUNGLE_LOG.get());
 		StrippableBlockRegistry.register(HOLLOWED_MANGROVE_LOG.get(), STRIPPED_HOLLOWED_MANGROVE_LOG.get());
 		StrippableBlockRegistry.register(HOLLOWED_PALE_OAK_LOG.get(), STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
+		StrippableBlockRegistry.register(HOLLOWED_POPLAR_LOG.get(), STRIPPED_HOLLOWED_POPLAR_LOG.get());
 		StrippableBlockRegistry.register(HOLLOWED_CRIMSON_STEM.get(), STRIPPED_HOLLOWED_CRIMSON_STEM.get());
 		StrippableBlockRegistry.register(HOLLOWED_WARPED_STEM.get(), STRIPPED_HOLLOWED_WARPED_STEM.get());
 		StrippableBlockRegistry.register(HOLLOWED_WILLOW_LOG.get(), STRIPPED_HOLLOWED_WILLOW_LOG.get());
@@ -1752,6 +1759,7 @@ public final class WWBlocks {
 		FlammableBlockRegistry.add(HOLLOWED_CHERRY_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(HOLLOWED_SPRUCE_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.add(HOLLOWED_POPLAR_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_BIRCH_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_CHERRY_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_OAK_LOG.get(), 5, 5);
@@ -1761,6 +1769,7 @@ public final class WWBlocks {
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_MANGROVE_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_SPRUCE_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_POPLAR_LOG.get(), 5, 5);
 
 		FlammableBlockRegistry.add(HOLLOWED_BAOBAB_LOG.get(), 5, 5);
 		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.get(), 5, 5);
@@ -1996,6 +2005,7 @@ public final class WWBlocks {
 		FuelRegistry.add(HOLLOWED_CHERRY_LOG.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_BIRCH_LOG.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_PALE_OAK_LOG.asItem(), 300);
+		FuelRegistry.add(HOLLOWED_POPLAR_LOG.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_BAOBAB_LOG.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_WILLOW_LOG.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_CYPRESS_LOG.asItem(), 300);
@@ -2012,6 +2022,7 @@ public final class WWBlocks {
 		FuelRegistry.add(STRIPPED_HOLLOWED_CHERRY_LOG.asItem(), 300);
 		FuelRegistry.add(STRIPPED_HOLLOWED_BIRCH_LOG.asItem(), 300);
 		FuelRegistry.add(STRIPPED_HOLLOWED_PALE_OAK_LOG.asItem(), 300);
+		FuelRegistry.add(STRIPPED_HOLLOWED_POPLAR_LOG.asItem(), 300);
 		FuelRegistry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.asItem(), 300);
 		FuelRegistry.add(STRIPPED_HOLLOWED_WILLOW_LOG.asItem(), 300);
 		FuelRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG.asItem(), 300);
@@ -2126,6 +2137,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.ACACIA_LOG, HOLLOWED_ACACIA_LOG.get());
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.MANGROVE_LOG, HOLLOWED_MANGROVE_LOG.get());
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.PALE_OAK_LOG, HOLLOWED_PALE_OAK_LOG.get());
+		HollowedLogBlock.registerAxeHollowBehavior(Blocks.POPLAR_LOG, HOLLOWED_POPLAR_LOG.get());
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.CRIMSON_STEM, HOLLOWED_CRIMSON_STEM.get());
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.WARPED_STEM, HOLLOWED_WARPED_STEM.get());
 		HollowedLogBlock.registerAxeHollowBehavior(BAOBAB_LOG.get(), HOLLOWED_BAOBAB_LOG.get());
@@ -2143,6 +2155,7 @@ public final class WWBlocks {
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_ACACIA_LOG, STRIPPED_HOLLOWED_ACACIA_LOG.get());
 		HollowedLogBlock.registerAxeHollowBehavior(Blocks.STRIPPED_MANGROVE_LOG, STRIPPED_HOLLOWED_MANGROVE_LOG.get());
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_PALE_OAK_LOG, STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
+		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_POPLAR_LOG, STRIPPED_HOLLOWED_POPLAR_LOG);
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_CRIMSON_STEM, STRIPPED_HOLLOWED_CRIMSON_STEM.get());
 		HollowedLogBlock.registerAxeHollowBehaviorStem(Blocks.STRIPPED_WARPED_STEM, STRIPPED_HOLLOWED_WARPED_STEM.get());
 		HollowedLogBlock.registerAxeHollowBehavior(STRIPPED_BAOBAB_LOG.get(), STRIPPED_HOLLOWED_BAOBAB_LOG.get());

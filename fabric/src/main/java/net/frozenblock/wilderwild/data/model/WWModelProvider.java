@@ -190,6 +190,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_MANGROVE_LOG.get(), WWBlocks.HOLLOWED_MANGROVE_LOG.get(), Blocks.STRIPPED_MANGROVE_LOG, Blocks.MANGROVE_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_CHERRY_LOG.get(), WWBlocks.HOLLOWED_CHERRY_LOG.get(), Blocks.STRIPPED_CHERRY_LOG, Blocks.CHERRY_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), Blocks.STRIPPED_PALE_OAK_LOG, Blocks.PALE_OAK_LOG);
+		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_POPLAR_LOG.get(), WWBlocks.HOLLOWED_POPLAR_LOG.get(), Blocks.STRIPPED_POPLAR_LOG, Blocks.POPLAR_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_BAOBAB_LOG.get(), WWBlocks.HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_BAOBAB_LOG.get(), WWBlocks.BAOBAB_LOG.get());
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_WILLOW_LOG.get(), WWBlocks.HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_WILLOW_LOG.get(), WWBlocks.WILLOW_LOG.get());
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_CYPRESS_LOG.get(), WWBlocks.HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_CYPRESS_LOG.get(), WWBlocks.CYPRESS_LOG.get());
@@ -205,6 +206,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get(), Blocks.STRIPPED_MANGROVE_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get(), Blocks.STRIPPED_CHERRY_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get(), Blocks.STRIPPED_PALE_OAK_LOG);
+		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get(), Blocks.STRIPPED_POPLAR_LOG);
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_BAOBAB_LOG.get());
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_WILLOW_LOG.get());
 		WWModelHelper.createStrippedHollowedLog(generator, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_CYPRESS_LOG.get());

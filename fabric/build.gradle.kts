@@ -109,7 +109,7 @@ loom {
         named("client") {
             name("Fabric Client")
             vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=true")
-            vmArg("-DMC_DEBUG_ENABLED=true")
+            vmArg("-DMC_DEBUG_ENABLED=false")
             vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")
 
             ideConfigGenerated(true)

@@ -174,6 +174,8 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
 		this.dropSelf(WWBlocks.HOLLOWED_PALE_OAK_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
+		this.dropSelf(WWBlocks.HOLLOWED_POPLAR_LOG.get());
+		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get());
 		this.dropSelf(WWBlocks.HOLLOWED_JUNGLE_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.get());
 		this.dropSelf(WWBlocks.HOLLOWED_MANGROVE_LOG.get());
