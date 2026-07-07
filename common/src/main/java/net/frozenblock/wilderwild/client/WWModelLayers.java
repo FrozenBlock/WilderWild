@@ -145,7 +145,9 @@ public final class WWModelLayers {
 		modelRegistry.registerModelLayer(MAPLE_CHEST_BOAT, () -> chestBoat);
 	}
 
-	// Registries MUST be populated before this. Runs during NeoForge's setup event.
+	/**
+	 * @reason Registries MUST be populated before this. Runs during NeoForge's setup event.
+	 */
 	public static void setup() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY.get(), FireflyRenderer::new);
 		EntityRenderers.register(WWEntityTypes.BUTTERFLY.get(), ButterflyRenderer::new);

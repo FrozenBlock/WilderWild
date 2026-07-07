@@ -484,6 +484,9 @@ public final class WWParticleTypes {
 		return holder;
 	}
 
+	/**
+	 * @reason Called separately on Fabric and NeoForge
+	 */
 	public static void linkLeafParticles() {
 		LEAF_LINKS.forEach(Runnable::run);
 		LEAF_LINKS.clear();

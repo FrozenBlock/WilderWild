@@ -31,7 +31,10 @@ import net.minecraft.world.level.block.Blocks;
 
 public final class WWCreativeInventorySorting {
 
-	public static void init() {
+	/**
+	 * @reason Called separately on Fabric and NeoForge
+	 */
+	public static void setup() {
 		// BAOBAB (BUILDING BLOCKS)
 		insertAfterInBuildingBlocks(Items.MANGROVE_BUTTON, WWItems.BAOBAB_LOG);
 		insertAfterInBuildingBlocks(WWItems.BAOBAB_LOG, WWItems.BAOBAB_WOOD);

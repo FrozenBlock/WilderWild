@@ -42,9 +42,6 @@
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [
-    "client.allay.AllayModelMixin",
-    "client.allay.AllayRendererMixin",
-    "client.allay.AllayRenderStateMixin",
     "client.block_break.ClientLevelMixin",
     "client.block_break.MultiPlayerGameModeMixin",
     "client.brush.LevelEventHandlerMixin",

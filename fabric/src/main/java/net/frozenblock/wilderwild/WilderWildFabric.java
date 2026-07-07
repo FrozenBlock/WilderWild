@@ -26,8 +26,6 @@ import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
-import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
@@ -51,9 +49,6 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 	public void onInitialize(String modId, ModContainer container) {
 		WilderWild.init();
 
-		WWMinecraftDataFixer.applyDataFixes(container);
-		WWDataFixer.applyDataFixes(container);
-
 		WWItems.setup();
 		WWSoundTypes.setup();
 		WWParticleTypes.linkLeafParticles();
@@ -68,7 +63,7 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 
 		WWModIntegrations.init();
 		WWNetworking.init();
-		WWCreativeInventorySorting.init();
+		WWCreativeInventorySorting.setup();
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

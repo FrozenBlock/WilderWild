@@ -47,7 +47,7 @@ public final class WilderWildNeoForge {
 			WWItems.init();
 			WWItems.setup();
 			WWBlocks.setupBlockProperties();
-			WWCreativeInventorySorting.init();
+			WWCreativeInventorySorting.setup();
 			WWParticleTypes.linkLeafParticles();
 			WWWorldgen.setup();
 		});

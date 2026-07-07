@@ -62,6 +62,7 @@ public final class WWPotions {
 		REGISTER.register();
 	}
 
+	// TODO: fabric & neo or 26.3's datadriven stuff
 	public static void init() {
 		PotionBrewingRegistry.BUILD.register(builder -> {
 			((FrozenPotionBrewingBuilder) builder).frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH.asHolder());

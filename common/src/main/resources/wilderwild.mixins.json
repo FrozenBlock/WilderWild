@@ -87,6 +87,9 @@
     "worldgen.tree.TreeGrowerMixin"
   ],
   "client": [
+    "client.allay.AllayModelMixin",
+    "client.allay.AllayRendererMixin",
+    "client.allay.AllayRenderStateMixin",
     "client.easter.StellaWardenRenderer",
     "client.warden.WardenModelMixin",
     "client.warden.WardenRendererMixin",

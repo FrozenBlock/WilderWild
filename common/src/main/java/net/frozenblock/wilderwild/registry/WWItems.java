@@ -483,10 +483,11 @@ public final class WWItems {
 	public static final FrozenDeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM::get);
 	public static final FrozenDeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN::get);
 
-	public static void init() {
-	}
+	public static void init() {}
 
-	// call separately on fabric and neoforge, because registries MUST be populated before running this.
+	/**
+	 * @reason Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
+	 */
 	public static void setup() {
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());
 

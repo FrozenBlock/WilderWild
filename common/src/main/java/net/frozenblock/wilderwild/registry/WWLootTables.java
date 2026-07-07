@@ -47,6 +47,7 @@ public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
 	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
 
+	// TODO: fabric & neo
 	public static void init() {
 		// SHIPWRECK
 		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {

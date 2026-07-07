@@ -27,12 +27,8 @@ public final class WWModIntegrations {
 	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
 	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 
-	private WWModIntegrations() {
-		throw new UnsupportedOperationException("WWModIntegrations contains only static declarations.");
-	}
-
-	public static void init() {
-	}
+	// TODO: port to common
+	public static void init() {}
 
 	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
 		return ModIntegrations.register(integration, WWConstants.MOD_ID, modID);
