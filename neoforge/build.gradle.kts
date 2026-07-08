@@ -90,8 +90,8 @@ dependencies {
     // Sodium
     if (shouldRunSodium)
         //runtimeOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
