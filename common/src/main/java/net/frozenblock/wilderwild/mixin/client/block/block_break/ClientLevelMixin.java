@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.block_break;
+package net.frozenblock.wilderwild.mixin.client.block.block_break;
 
 import java.util.Optional;
 import net.fabricmc.api.EnvType;

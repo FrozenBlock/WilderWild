@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_25",
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
-    "block.block_break.ServerPlayerGameModeMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "item.tooltip.ItemStackMixin",
@@ -13,7 +12,6 @@
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [
-    "client.block_break.ClientLevelMixin",
     "client.block_break.MultiPlayerGameModeMixin",
     "client.equipment.EquipmentClientInfoMixin",
     "client.equipment.LayerTypeMixin",

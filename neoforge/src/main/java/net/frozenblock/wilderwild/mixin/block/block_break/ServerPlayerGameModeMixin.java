@@ -27,6 +27,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
@@ -46,30 +47,33 @@ public abstract class ServerPlayerGameModeMixin { // in common mixins.json
 	@Final
 	protected ServerPlayer player;
 
+	@Shadow
+	protected ServerLevel level;
+
 	@WrapOperation(
 		method = "destroyBlock",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"
+			target = "Lnet/minecraft/server/level/ServerPlayerGameMode;removeBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ZLnet/minecraft/world/item/ItemStack;)Z"
 		)
 	)
 	public boolean wilderWild$destroyBlock(
-		ServerLevel instance, BlockPos pos, boolean movedByPiston, Operation<Boolean> original,
+		ServerPlayerGameMode instance, BlockPos pos, BlockState state, boolean b, ItemStack itemStack, Operation<Boolean> original,
 		@Local(name = "adjustedState") BlockState adjustedState
 	) {
 		if (SnowloggingUtils.isSnowlogged(adjustedState)) {
-			instance.setBlockAndUpdate(pos, adjustedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
+			this.level.setBlockAndUpdate(pos, adjustedState.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
 			return true;
 		}
 
 		if (adjustedState.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(adjustedState) && !this.getGameModeForPlayer().isCreative()) {
-			var silkTouch = instance.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			var silkTouch = this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 			if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, this.player.getMainHandItem()) < 1) {
-				EchoGlassBlock.setDamagedState(instance, pos, adjustedState);
+				EchoGlassBlock.setDamagedState(this.level, pos, adjustedState);
 				return true;
 			}
 		}
 
-		return original.call(instance, pos, movedByPiston);
+		return original.call(instance, pos, state, b, itemStack);
 	}
 }
